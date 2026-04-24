@@ -1,0 +1,1277 @@
+<header>
+    <h1>Álgebra A</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · Parcial 22/04 (1°) y 10/06 (2°)</div>
+  </header>
+<nav class="toc" id="toc-algebra">
+  <h2>Índice</h2>
+  <ol>
+    <li class="partial-sep">Primer parcial (22/04)</li>
+    <li><a href="#alg-s1">Vectores</a></li>
+    <li><a href="#alg-s2">Rectas y planos</a></li>
+    <li><a href="#alg-s3">Subespacios vectoriales</a></li>
+    <li><a href="#alg-s4">Cónicas</a></li>
+    <li class="partial-sep">Segundo parcial (10/06)</li>
+    <li><a href="#alg-s5">Sistemas, matrices, determinantes</a></li>
+    <li><a href="#alg-s6">Transformaciones lineales</a></li>
+    <li><a href="#alg-s7">Números complejos</a></li>
+    <li><a href="#alg-s8">Polinomios</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra">Puntaje global: 0 / 0</div>
+</nav>
+
+<div class="partial-header">Primer parcial <span class="date">Unidades 1–4</span></div>
+
+<!-- ============ SECCIÓN 1 · VECTORES ============ -->
+<details id="alg-s1">
+<summary><span class="num">1</span> Vectores <span class="sec-score" id="ss-algebra-1"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un vector?</h3>
+<p>Un <b>vector</b> es una lista ordenada de números. En la práctica, lo usamos para dos cosas:</p>
+<ul>
+  <li><b>Representar puntos:</b> el vector <span class="m">(3, 2)</span> puede ser el punto del plano con coordenadas x = 3, y = 2.</li>
+  <li><b>Representar desplazamientos:</b> el vector <span class="m">(3, 2)</span> también puede significar "moverse 3 a la derecha y 2 arriba". En este caso se suele dibujar como una flecha con cola en el origen y punta en (3, 2).</li>
+</ul>
+<p>Los vectores viven en espacios llamados <span class="m">ℝ<sup>n</sup></span>:</p>
+<ul>
+  <li><span class="m">ℝ²</span>: pares ordenados (x, y), como los puntos del plano.</li>
+  <li><span class="m">ℝ³</span>: ternas (x, y, z), como los puntos del espacio 3D.</li>
+  <li><span class="m">ℝ⁴, ℝ⁵, ...</span>: no los podemos "dibujar" pero las reglas son las mismas.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Notación</div>
+Vectores se escriben con flecha arriba o en negrita: <span class="m">v⃗</span>, <b>v</b>. En esta guía usamos letra simple <span class="vec">v</span>. Las <b>componentes</b> del vector se escriben como subíndices: <span class="m">v = (v<sub>1</sub>, v<sub>2</sub>, v<sub>3</sub>)</span>.
+</div>
+
+<h3>Operaciones básicas: suma y producto por escalar</h3>
+<p>Son las dos operaciones más importantes. Ambas funcionan <b>componente a componente</b>:</p>
+<div class="formula">
+<b>Suma:</b> <span class="vec">v</span> + <span class="vec">w</span> = (v<sub>1</sub>+w<sub>1</sub>, v<sub>2</sub>+w<sub>2</sub>, ..., v<sub>n</sub>+w<sub>n</sub>)<br><br>
+<b>Producto por escalar:</b> k·<span class="vec">v</span> = (k·v<sub>1</sub>, k·v<sub>2</sub>, ..., k·v<sub>n</sub>)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo concreto</div>
+  Con <span class="m">v = (2, −1, 3)</span> y <span class="m">w = (1, 4, 0)</span>:<br>
+  • <span class="m">v + w = (2+1, −1+4, 3+0) = (3, 3, 3)</span><br>
+  • <span class="m">3·v = (6, −3, 9)</span><br>
+  • <span class="m">v − w = v + (−1)·w = (2−1, −1−4, 3−0) = (1, −5, 3)</span>
+</div>
+
+<p><b>Intuición geométrica:</b> sumar vectores es "encadenar flechas" (ponés la cola de una donde termina la otra). Multiplicar por un escalar es estirar o encoger el vector: si k &gt; 0 apunta en el mismo sentido, si k &lt; 0 apunta al revés.</p>
+
+<h3>Vector nulo y vector opuesto</h3>
+<ul>
+  <li>El <b>vector nulo</b> es <span class="m">0 = (0, 0, ..., 0)</span>. Es el "origen" de <span class="m">ℝ<sup>n</sup></span>.</li>
+  <li>El <b>opuesto</b> de <span class="m">v</span> es <span class="m">−v = (−v<sub>1</sub>, ..., −v<sub>n</sub>)</span>. Cumple <span class="m">v + (−v) = 0</span>.</li>
+</ul>
+
+<h3>Norma (módulo o longitud) de un vector</h3>
+<p>La <b>norma</b> <span class="m">‖v‖</span> mide qué tan "largo" es el vector (la longitud de la flecha). Se calcula usando el teorema de Pitágoras generalizado:</p>
+<div class="formula">
+‖<span class="vec">v</span>‖ = √(v<sub>1</sub>² + v<sub>2</sub>² + ... + v<sub>n</sub>²)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Para <span class="m">v = (3, 4)</span>: ‖v‖ = √(9 + 16) = √25 = <b>5</b>.<br>
+  Para <span class="m">w = (1, 2, −2)</span>: ‖w‖ = √(1 + 4 + 4) = √9 = <b>3</b>.
+</div>
+
+<div class="key"><div class="ky-t">Propiedades clave de la norma</div>
+• <span class="m">‖v‖ ≥ 0</span> siempre, y <span class="m">‖v‖ = 0 ⟺ v = 0</span>.<br>
+• <span class="m">‖k·v‖ = |k|·‖v‖</span> (el valor absoluto del escalar, no olvides).<br>
+• <span class="m">‖v‖² = v · v</span> (relación con el producto escalar — ver abajo).
+</div>
+
+<h3>Vectores unitarios y versor asociado</h3>
+<p>Un vector es <b>unitario</b> si <span class="m">‖v‖ = 1</span>. Dado cualquier <span class="m">v ≠ 0</span>, el <b>versor asociado</b> (vector unitario en la misma dirección) es:</p>
+<div class="formula">
+v̂ = <span class="frac"><span>v</span><span>‖v‖</span></span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Versor de <span class="m">v = (3, 4)</span>: como ‖v‖ = 5, v̂ = (3/5, 4/5). Chequeás: √(9/25 + 16/25) = √(25/25) = 1. ✓
+</div>
+
+<h3>Producto escalar (o producto punto)</h3>
+<p>El <b>producto escalar</b> entre dos vectores da un <b>número</b> (no un vector). Tiene dos formas equivalentes:</p>
+<div class="formula">
+<b>Por componentes:</b> <span class="vec">v</span> · <span class="vec">w</span> = v<sub>1</sub>w<sub>1</sub> + v<sub>2</sub>w<sub>2</sub> + ... + v<sub>n</sub>w<sub>n</sub><br><br>
+<b>Geométrica:</b> <span class="vec">v</span> · <span class="vec">w</span> = ‖<span class="vec">v</span>‖ · ‖<span class="vec">w</span>‖ · cos(θ)
+</div>
+<p>donde <span class="m">θ</span> es el ángulo entre los dos vectores. La primera fórmula es para calcular, la segunda para entender qué significa.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">v = (2, −3, 4)</span>, <span class="m">w = (1, 2, 1)</span>.<br>
+  <span class="m">v · w = 2·1 + (−3)·2 + 4·1 = 2 − 6 + 4 = 0</span>.<br>
+  ¡El producto dio cero! Eso significa que el coseno del ángulo es 0, o sea que el ángulo es 90°: son ortogonales.
+</div>
+
+<h3>Ortogonalidad (perpendicularidad) · <b>muy frecuente en parciales</b></h3>
+<div class="formula">
+<span class="vec">v</span> y <span class="vec">w</span> son <b>ortogonales</b> &nbsp;⟺&nbsp; <span class="vec">v</span> · <span class="vec">w</span> = 0
+</div>
+<p>La idea: si el coseno del ángulo es cero, el ángulo es de 90°. Es la traducción algebraica de "perpendicular".</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial resuelto</div>
+  Hallar <span class="m">p</span> y <span class="m">q</span> tales que <span class="m">(2, −3, 4)</span> sea ortogonal a <span class="m">(p, 6, q)</span> <b>y también</b> a <span class="m">(−2, 5, −p)</span>.<br><br>
+  <b>Planteamos dos condiciones</b> (una por cada ortogonalidad):<br>
+  • <span class="m">(2, −3, 4) · (p, 6, q) = 0</span> → <span class="m">2p − 18 + 4q = 0</span><br>
+  • <span class="m">(2, −3, 4) · (−2, 5, −p) = 0</span> → <span class="m">−4 − 15 − 4p = 0</span><br><br>
+  De la segunda: <span class="m">−19 − 4p = 0 → p = −19/4</span>.<br>
+  Reemplazo en la primera: <span class="m">2·(−19/4) + 4q = 18 → −19/2 + 4q = 18 → 4q = 55/2 → q = 55/8</span>.
+</div>
+
+<h3>Paralelismo</h3>
+<div class="formula">
+<span class="vec">v</span> y <span class="vec">w</span> son <b>paralelos</b> &nbsp;⟺&nbsp; existe k ∈ ℝ, k ≠ 0, tal que <span class="vec">w</span> = k·<span class="vec">v</span>
+</div>
+<p>Es decir, uno es múltiplo escalar del otro. Apuntan en la misma dirección (si k &gt; 0) o en dirección opuesta (si k &lt; 0).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  ¿<span class="m">(2, 4, 6)</span> es paralelo a <span class="m">(1, 2, 3)</span>? Sí: <span class="m">(2, 4, 6) = 2·(1, 2, 3)</span>, con k = 2.<br><br>
+  ¿<span class="m">(1, 2)</span> es paralelo a <span class="m">(2, 3)</span>? Si hubiera k con <span class="m">(2, 3) = k·(1, 2)</span>, de la primera componente k = 2, pero entonces la segunda daría 4, no 3. <b>No son paralelos</b>.
+</div>
+
+<h3>Problema: vector paralelo con norma dada</h3>
+<p>Problema muy típico de parcial: dado un vector <span class="m">v</span>, hallar otro vector <span class="m">w</span> que sea paralelo a <span class="m">v</span> y con norma específica <span class="m">n</span>.</p>
+
+<div class="key"><div class="ky-t">Método paso a paso</div>
+1. Escribís <span class="m">w = k·v</span> (por ser paralelo).<br>
+2. Calculás <span class="m">‖w‖ = |k|·‖v‖</span>.<br>
+3. Imponés <span class="m">|k|·‖v‖ = n</span>.<br>
+4. Despejás <span class="m">|k| = n/‖v‖</span>, entonces <span class="m">k = ±n/‖v‖</span>.<br>
+5. <b>Hay dos soluciones</b>, una por cada sentido.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  Hallar <span class="m">w</span> paralelo a <span class="m">v = (2/7, −2/7, 1/7)</span> con norma 15.<br><br>
+  ‖v‖ = √(4/49 + 4/49 + 1/49) = √(9/49) = 3/7.<br>
+  |k| = 15 / (3/7) = 15 · 7/3 = 35. Entonces k = ±35.<br>
+  • Con k = 35: w = (10, −10, 5).<br>
+  • Con k = −35: w = (−10, 10, −5).
+</div>
+
+<h3>Producto vectorial (solo en ℝ³)</h3>
+<p>El <b>producto vectorial</b> <span class="m">v × w</span> es una operación que solo existe en ℝ³ y devuelve un <b>vector</b>, no un número.</p>
+<div class="formula">
+<span class="vec">v</span> × <span class="vec">w</span> = (v<sub>2</sub>w<sub>3</sub> − v<sub>3</sub>w<sub>2</sub>, &nbsp; v<sub>3</sub>w<sub>1</sub> − v<sub>1</sub>w<sub>3</sub>, &nbsp; v<sub>1</sub>w<sub>2</sub> − v<sub>2</sub>w<sub>1</sub>)
+</div>
+
+<div class="key"><div class="ky-t">Propiedades importantes</div>
+• <span class="m">v × w</span> es <b>ortogonal</b> tanto a <span class="m">v</span> como a <span class="m">w</span>. Muy útil para encontrar normales a un plano.<br>
+• <span class="m">‖v × w‖</span> es el <b>área del paralelogramo</b> que forman.<br>
+• Si <span class="m">v</span> y <span class="m">w</span> son paralelos: <span class="m">v × w = 0</span>.<br>
+• No es conmutativo: <span class="m">v × w = −(w × v)</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Con <span class="m">u = (1, 0, 1)</span> y <span class="m">v = (0, 2, 0)</span>:<br>
+  u × v = (0·0 − 1·2, &nbsp; 1·0 − 1·0, &nbsp; 1·2 − 0·0) = <b>(−2, 0, 2)</b>.<br>
+  Podés chequear: u · (u×v) = 1·(−2) + 0 + 1·2 = 0. ✓ (ortogonal a u)
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos en este tema</div>
+• Confundir producto escalar (da número) con producto vectorial (da vector).<br>
+• Intentar hacer producto vectorial en ℝ² o ℝ⁴: <b>no existe</b>, solo en ℝ³.<br>
+• Olvidar el valor absoluto en ‖kv‖ = |k|·‖v‖. Si k = −3, ‖kv‖ = 3·‖v‖, no −3·‖v‖ (la norma nunca es negativa).
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 2 · RECTAS Y PLANOS ============ -->
+<details id="alg-s2">
+<summary><span class="num">2</span> Rectas y planos <span class="sec-score" id="ss-algebra-2"></span></summary>
+<div class="content">
+
+<h3>¿Qué describe una recta?</h3>
+<p>Una recta es el conjunto de todos los puntos que están en una línea. Para describirla con precisión necesitás dos cosas:</p>
+<ul>
+  <li>Un <b>punto</b> <span class="vec">P</span> por el que pasa.</li>
+  <li>Una <b>dirección</b> <span class="vec">d</span> (un vector que indica hacia dónde va).</li>
+</ul>
+
+<h3>Ecuación paramétrica de la recta</h3>
+<div class="formula">
+L: (x, y, z) = λ·<span class="vec">d</span> + <span class="vec">P</span>, &nbsp;&nbsp; λ ∈ ℝ
+</div>
+<p>Interpretación: "parto del punto <span class="vec">P</span> y me muevo una cantidad <span class="m">λ</span> en la dirección <span class="vec">d</span>". Cuando <span class="m">λ</span> recorre todos los reales, obtengo todos los puntos de la recta.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Recta que pasa por <span class="m">(1, 2, 3)</span> con dirección <span class="m">(1, 0, −1)</span>:<br>
+  <span class="m">L: (x, y, z) = λ·(1, 0, −1) + (1, 2, 3)</span>.<br><br>
+  Algunos puntos de L:<br>
+  • λ = 0 → (1, 2, 3) (el punto base).<br>
+  • λ = 1 → (2, 2, 2).<br>
+  • λ = −1 → (0, 2, 4).
+</div>
+
+<div class="key"><div class="ky-t">Idea clave</div>
+Un mismo punto puede dar lugar a <b>infinitas ecuaciones paramétricas</b> equivalentes: cualquier múltiplo no nulo de la dirección sirve, y cualquier punto de la recta sirve como base.
+</div>
+
+<h3>Recta que pasa por dos puntos</h3>
+<p>Si te dan <b>dos puntos</b> <span class="vec">A</span> y <span class="vec">B</span>:</p>
+<ol>
+  <li>La dirección es <span class="m">d = B − A</span> (el vector que va de A a B).</li>
+  <li>Usás cualquiera de los dos como base: <span class="m">L: (x,y,z) = λ·(B − A) + A</span>.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Recta por <span class="m">A = (1, 0, 2)</span> y <span class="m">B = (3, 1, 0)</span>.<br>
+  Dirección: B − A = (2, 1, −2).<br>
+  Ecuación: <span class="m">L: (x, y, z) = λ·(2, 1, −2) + (1, 0, 2)</span>.
+</div>
+
+<h3>¿Qué describe un plano?</h3>
+<p>Un plano es una "lámina infinita y plana" en el espacio. Para describirlo necesitás:</p>
+<ul>
+  <li>Un <b>punto</b> <span class="vec">P</span> que pertenece al plano.</li>
+  <li><b>Dos direcciones</b> <span class="vec">u</span>, <span class="vec">v</span> paralelas al plano (y que no sean paralelas entre sí).</li>
+</ul>
+<p>Alternativamente, podés describir el plano con un punto y un <b>vector normal</b> (perpendicular al plano).</p>
+
+<h3>Ecuación paramétrica del plano</h3>
+<div class="formula">
+π: (x, y, z) = α·<span class="vec">u</span> + β·<span class="vec">v</span> + <span class="vec">P</span>, &nbsp;&nbsp; α, β ∈ ℝ
+</div>
+<p>Con dos parámetros en lugar de uno, porque un plano es bidimensional.</p>
+
+<h3>Ecuación implícita (o normal) del plano · <b>muy usada</b></h3>
+<div class="formula">
+π: a·x + b·y + c·z = d
+</div>
+<p>Los coeficientes <span class="m">(a, b, c)</span> son el <b>vector normal</b> al plano (perpendicular). El valor <span class="m">d</span> lo obtenés reemplazando un punto conocido.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: armar la ecuación implícita</div>
+  Plano que pasa por <span class="m">P = (1, 0, 2)</span> con vector normal <span class="m">n = (2, −1, 3)</span>.<br>
+  Forma: <span class="m">2x − y + 3z = d</span>.<br>
+  Reemplazo P: <span class="m">2·1 − 0 + 3·2 = 8</span>, entonces d = 8.<br>
+  Ecuación: <span class="m">2x − y + 3z = 8</span>.
+</div>
+
+<h3>Obtener la normal a un plano</h3>
+<p>Si conocés <b>dos vectores</b> <span class="vec">u</span>, <span class="vec">v</span> del plano, el <b>producto vectorial</b> te da la normal:</p>
+<div class="formula">
+<span class="vec">n</span> = <span class="vec">u</span> × <span class="vec">v</span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: plano por 3 puntos</div>
+  Plano por <span class="m">A = (1, 0, 0)</span>, <span class="m">B = (0, 1, 0)</span>, <span class="m">C = (0, 0, 1)</span>.<br>
+  Dos vectores del plano: <span class="m">u = B − A = (−1, 1, 0)</span>, <span class="m">v = C − A = (−1, 0, 1)</span>.<br>
+  Normal: <span class="m">n = u × v = (1·1 − 0·0, 0·(−1) − (−1)·1, (−1)·0 − 1·(−1)) = (1, 1, 1)</span>.<br>
+  Ecuación: <span class="m">x + y + z = d</span>. Con A: 1 + 0 + 0 = 1 → d = 1.<br>
+  Resultado: <span class="m">x + y + z = 1</span>.
+</div>
+
+<h3>¿Un punto está en la recta o el plano?</h3>
+<p><b>Recta:</b> intentás encontrar un valor de <span class="m">λ</span> que dé el punto. Si existe, sí está. Si no, no.</p>
+<p><b>Plano:</b> reemplazás las coordenadas del punto en la ecuación implícita. Si se cumple, pertenece.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  ¿<span class="m">(3, 1, 0)</span> está en <span class="m">L: (x,y,z) = λ(2, 1, −2) + (1, 0, 2)</span>?<br>
+  De la primera coordenada: <span class="m">3 = 2λ + 1 → λ = 1</span>.<br>
+  Chequeo con λ = 1 en las otras: y = 1·1 + 0 = 1 ✓, z = 1·(−2) + 2 = 0 ✓.<br>
+  Sí, está.<br><br>
+  ¿<span class="m">(1, 0, 3)</span> está en el plano <span class="m">x − 2y + z = 4</span>?<br>
+  Reemplazo: 1 − 0 + 3 = 4 ✓. Sí pertenece.
+</div>
+
+<h3>Posición relativa entre dos rectas · <b>muy frecuente</b></h3>
+<p>Dadas dos rectas en ℝ³, puede pasar que:</p>
+<table class="tbl">
+  <tr><th>Caso</th><th>Cómo detectarlo</th></tr>
+  <tr><td><b>Coincidentes</b> (iguales)</td><td>Direcciones paralelas y además un punto de L<sub>1</sub> está en L<sub>2</sub></td></tr>
+  <tr><td><b>Paralelas distintas</b></td><td>Direcciones paralelas pero un punto de L<sub>1</sub> NO está en L<sub>2</sub></td></tr>
+  <tr><td><b>Se cortan</b> (incidentes)</td><td>Direcciones NO paralelas y tienen un punto en común</td></tr>
+  <tr><td><b>Alabeadas</b></td><td>Direcciones NO paralelas y NO tienen punto en común (solo en ℝ³)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Algoritmo paso a paso</div>
+1. Mirá las direcciones: ¿son paralelas (una múltiplo de la otra)?<br>
+&nbsp;&nbsp;&nbsp;• <b>Sí</b> → chequeá si un punto de L<sub>1</sub> está en L<sub>2</sub>. Si sí, coincidentes; si no, paralelas distintas.<br>
+&nbsp;&nbsp;&nbsp;• <b>No</b> → resolvé el sistema para ver si tienen intersección. Si sí, se cortan; si no, alabeadas.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  <span class="m">L<sub>1</sub>: (x,y,z) = α(1, 0, −1) + (−1, 2, 3)</span><br>
+  <span class="m">L<sub>2</sub>: (x,y,z) = β(0, 2, 2) + (1, 0, 1)</span><br><br>
+  Direcciones (1,0,−1) y (0,2,2). No son múltiplos (la primera tiene primera componente no nula y la segunda tiene la primera nula). <b>No paralelas.</b><br><br>
+  Chequeo intersección: igualo componente a componente.<br>
+  • <span class="m">α + (−1) = 1</span> → α = 2<br>
+  • <span class="m">0 + 2 = 2β + 0</span> → β = 1<br>
+  • <span class="m">−α + 3 = 2β + 1</span> → −2 + 3 = 2 + 1 → 1 = 3. <b>Contradicción.</b><br><br>
+  Como el sistema no tiene solución y las direcciones no son paralelas: <b>alabeadas</b>.
+</div>
+
+<h3>Distancia punto-recta (en ℝ²)</h3>
+<p>Si la recta está en forma implícita <span class="m">ax + by + c = 0</span> y el punto es <span class="m">P = (x<sub>0</sub>, y<sub>0</sub>)</span>:</p>
+<div class="formula">
+d(P, L) = <span class="frac"><span>|a·x<sub>0</sub> + b·y<sub>0</sub> + c|</span><span>√(a² + b²)</span></span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Distancia de <span class="m">(1, 2)</span> a la recta <span class="m">3x + 4y − 5 = 0</span>:<br>
+  d = |3·1 + 4·2 − 5| / √(9 + 16) = |3 + 8 − 5| / 5 = <b>6/5</b>.
+</div>
+
+<h3>Distancia punto-plano (en ℝ³)</h3>
+<p>Mismo formato pero con tres variables. Para plano <span class="m">ax + by + cz + d = 0</span> y punto <span class="m">(x<sub>0</sub>, y<sub>0</sub>, z<sub>0</sub>)</span>:</p>
+<div class="formula">
+d(P, π) = <span class="frac"><span>|a·x<sub>0</sub> + b·y<sub>0</sub> + c·z<sub>0</sub> + d|</span><span>√(a² + b² + c²)</span></span>
+</div>
+
+<h3>Proyección ortogonal · <b>muy frecuente en parciales</b></h3>
+<p>"Proyectar" un vector sobre otro es la sombra perpendicular que uno arroja sobre el otro.</p>
+<div class="formula">
+proy<sub>u</sub>(v) = <span class="frac"><span>v · u</span><span>u · u</span></span> · <span class="vec">u</span> &nbsp;&nbsp;=&nbsp;&nbsp; <span class="frac"><span>v · u</span><span>‖u‖²</span></span> · <span class="vec">u</span>
+</div>
+
+<div class="key"><div class="ky-t">Caracterización geométrica</div>
+Si <span class="m">A</span> es la <b>proyección ortogonal del punto B sobre una recta L</b> (con dirección <span class="vec">d</span>), entonces el vector <span class="m">B − A</span> es <b>ortogonal</b> a <span class="vec">d</span>. Es decir: <span class="m">(B − A) · d = 0</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial</div>
+  Si <span class="m">A = (−1, 8)</span> es la proyección ortogonal de <span class="m">B = (−9, 7)</span> sobre la recta <span class="m">L: (x,y) = λ(k², −9) + (−5, 40)</span>, hallar k.<br><br>
+  Por la caracterización: <span class="m">(B − A) · d = 0</span>.<br>
+  B − A = (−9 − (−1), 7 − 8) = (−8, −1).<br>
+  d = (k², −9).<br>
+  Planteo: (−8)·k² + (−1)·(−9) = 0 → −8k² + 9 = 0 → k² = 9/8 → k = ±√(9/8).<br>
+  (En el parcial real el valor numérico depende del enunciado exacto; el método siempre es este.)
+</div>
+
+<div class="trap"><div class="tr-t">Error frecuente</div>
+Hacer la proyección "al revés". La proyección es de B <b>sobre</b> L (o sobre un vector), no al revés. Si te pide "proyección de B sobre L", el resultado es un punto <b>de L</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 3 · SUBESPACIOS ============ -->
+<details id="alg-s3">
+<summary><span class="num">3</span> Subespacios vectoriales <span class="sec-score" id="ss-algebra-3"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un subespacio?</h3>
+<p>Un <b>subespacio vectorial</b> de <span class="m">ℝ<sup>n</sup></span> es un subconjunto <span class="m">S</span> que se comporta "bien" con la suma y el producto por escalar: si hacés operaciones entre vectores de <span class="m">S</span>, el resultado sigue en <span class="m">S</span>.</p>
+
+<p><b>Intuitivamente, en ℝ³ los subespacios son:</b></p>
+<ul>
+  <li>Solo el origen <span class="m">{(0, 0, 0)}</span> (dimensión 0).</li>
+  <li>Cualquier <b>recta que pase por el origen</b> (dimensión 1).</li>
+  <li>Cualquier <b>plano que pase por el origen</b> (dimensión 2).</li>
+  <li>Todo <span class="m">ℝ³</span> (dimensión 3).</li>
+</ul>
+<p>Una recta que NO pasa por el origen, por ejemplo, <b>no es</b> subespacio.</p>
+
+<h3>Definición formal</h3>
+<p><span class="m">S ⊆ ℝ<sup>n</sup></span> es subespacio si cumple 3 condiciones:</p>
+<ol>
+  <li><b>El cero está:</b> <span class="m">0 ∈ S</span>.</li>
+  <li><b>Cerrado por suma:</b> si <span class="m">u, v ∈ S</span>, entonces <span class="m">u + v ∈ S</span>.</li>
+  <li><b>Cerrado por producto por escalar:</b> si <span class="m">u ∈ S</span> y <span class="m">k ∈ ℝ</span>, entonces <span class="m">k·u ∈ S</span>.</li>
+</ol>
+
+<div class="key"><div class="ky-t">Test ultra rápido</div>
+Si el vector nulo no está en S, <b>ya no es subespacio</b>. Ahorrás chequeos.<br>
+Por ejemplo: <span class="m">S = {(x, y) : x + y = 1}</span> no es subespacio porque (0, 0) no cumple 0 + 0 = 1.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: chequear si es subespacio</div>
+  <span class="m">S = {(x, y, z) ∈ ℝ³ : x + y − z = 0}</span>.<br><br>
+  <b>1) ¿Está el cero?</b> 0 + 0 − 0 = 0 ✓<br>
+  <b>2) ¿Cerrado por suma?</b> Sean u = (u<sub>1</sub>, u<sub>2</sub>, u<sub>3</sub>) y v = (v<sub>1</sub>, v<sub>2</sub>, v<sub>3</sub>) con u<sub>1</sub>+u<sub>2</sub>−u<sub>3</sub> = 0 y v<sub>1</sub>+v<sub>2</sub>−v<sub>3</sub> = 0.<br>
+  u + v = (u<sub>1</sub>+v<sub>1</sub>, u<sub>2</sub>+v<sub>2</sub>, u<sub>3</sub>+v<sub>3</sub>). Chequeo: (u<sub>1</sub>+v<sub>1</sub>) + (u<sub>2</sub>+v<sub>2</sub>) − (u<sub>3</sub>+v<sub>3</sub>) = (u<sub>1</sub>+u<sub>2</sub>−u<sub>3</sub>) + (v<sub>1</sub>+v<sub>2</sub>−v<sub>3</sub>) = 0 + 0 = 0. ✓<br>
+  <b>3) ¿Cerrado por escalar?</b> k·u = (ku<sub>1</sub>, ku<sub>2</sub>, ku<sub>3</sub>). Chequeo: ku<sub>1</sub>+ku<sub>2</sub>−ku<sub>3</sub> = k(u<sub>1</sub>+u<sub>2</sub>−u<sub>3</sub>) = k·0 = 0. ✓<br><br>
+  <b>Sí es subespacio.</b> (Geométricamente, es el plano que pasa por el origen con normal (1, 1, −1).)
+</div>
+
+<h3>Combinación lineal</h3>
+<p>Una <b>combinación lineal</b> de los vectores <span class="m">v<sub>1</sub>, v<sub>2</sub>, ..., v<sub>k</sub></span> es cualquier expresión de la forma:</p>
+<div class="formula">
+α<sub>1</sub>·<span class="vec">v</span><sub>1</sub> + α<sub>2</sub>·<span class="vec">v</span><sub>2</sub> + ... + α<sub>k</sub>·<span class="vec">v</span><sub>k</sub>
+</div>
+<p>donde los <span class="m">α<sub>i</sub></span> son números reales cualesquiera.</p>
+
+<h3>Problema: ¿un vector es combinación lineal de otros?</h3>
+<div class="key"><div class="ky-t">Método</div>
+1. Planteás una combinación general: <span class="m">α·v<sub>1</sub> + β·v<sub>2</sub> + ... = v</span>.<br>
+2. Eso se convierte en un sistema de ecuaciones (una por componente).<br>
+3. Si el sistema tiene solución, <b>sí</b> es combinación lineal.<br>
+4. Si no tiene solución, <b>no</b> lo es.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  ¿Es <span class="m">(2, 0, 4)</span> combinación lineal de <span class="m">v<sub>1</sub> = (1, −1, 2)</span> y <span class="m">v<sub>2</sub> = (1, 1, 2)</span>?<br><br>
+  Planteo: <span class="m">α·(1,−1,2) + β·(1,1,2) = (2,0,4)</span>.<br>
+  Componente a componente:<br>
+  • <span class="m">α + β = 2</span><br>
+  • <span class="m">−α + β = 0</span> → β = α<br>
+  • <span class="m">2α + 2β = 4</span> → α + β = 2 (redundante con la primera)<br><br>
+  Sustituyendo β = α en α + β = 2: <b>α = β = 1</b>.<br>
+  Entonces <span class="m">(2, 0, 4) = 1·(1,−1,2) + 1·(1,1,2)</span>. Sí es CL.
+</div>
+
+<h3>Subespacio generado</h3>
+<p>Dado un conjunto de vectores <span class="m">{v<sub>1</sub>, ..., v<sub>k</sub>}</span>, el <b>subespacio generado</b> por ellos —notado <span class="m">&lt;v<sub>1</sub>, ..., v<sub>k</sub>&gt;</span>— es el conjunto de <b>todas</b> sus combinaciones lineales. Siempre es subespacio.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">&lt;(1, 0, 0), (0, 1, 0)&gt;</span> = todas las combinaciones <span class="m">α(1,0,0) + β(0,1,0) = (α, β, 0)</span>. Geométricamente, es el plano xy (los vectores con tercera componente 0).
+</div>
+
+<h3>Independencia y dependencia lineal</h3>
+<p>Los vectores <span class="m">{v<sub>1</sub>, ..., v<sub>k</sub>}</span> son:</p>
+<ul>
+  <li><b>Linealmente independientes (L.I.)</b> si la <b>única</b> combinación que da el vector nulo es la trivial (todos los coeficientes cero):<br>
+  <span class="m">α<sub>1</sub>v<sub>1</sub> + ... + α<sub>k</sub>v<sub>k</sub> = 0 ⟹ α<sub>1</sub> = ... = α<sub>k</sub> = 0</span>.</li>
+  <li><b>Linealmente dependientes (L.D.)</b> si existe alguna combinación no trivial que da cero. Equivalentemente: alguno de los vectores es combinación lineal de los otros.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Criterios rápidos</div>
+• Dos vectores son L.I. ⟺ ninguno es múltiplo del otro.<br>
+• Si hay un vector nulo en el conjunto, es L.D.<br>
+• Si hay dos vectores iguales, es L.D.<br>
+• Si tenés más vectores que la dimensión del espacio, son L.D. obligatoriamente (ej.: 4 vectores en ℝ³ son L.D. siempre).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: ¿son L.I.?</div>
+  <span class="m">{(1, 1, 0), (1, 0, 1), (0, 1, 1)}</span>.<br><br>
+  Planteo: <span class="m">α(1,1,0) + β(1,0,1) + γ(0,1,1) = (0,0,0)</span>.<br>
+  • α + β = 0<br>
+  • α + γ = 0<br>
+  • β + γ = 0<br><br>
+  De las dos primeras: β = −α y γ = −α. De la tercera: β + γ = −2α = 0 → α = 0. Entonces β = γ = 0.<br>
+  <b>Única solución: la trivial.</b> Son L.I.
+</div>
+
+<h3>Base y dimensión · <b>muy frecuente en parciales</b></h3>
+<p>Una <b>base</b> de un subespacio S es un conjunto de vectores que:</p>
+<ol>
+  <li>Son <b>linealmente independientes</b>.</li>
+  <li><b>Generan</b> S (cualquier vector de S es combinación lineal de ellos).</li>
+</ol>
+<p>La <b>dimensión</b> de S es la cantidad de vectores de cualquier base de S (todas las bases tienen la misma cantidad).</p>
+
+<div class="key"><div class="ky-t">Datos que hay que saber</div>
+• <span class="m">dim(ℝ<sup>n</sup>) = n</span>.<br>
+• Recta por el origen: dimensión 1.<br>
+• Plano por el origen: dimensión 2.<br>
+• Si <span class="m">S ⊆ ℝ<sup>n</sup></span> está definido por <span class="m">m</span> ecuaciones lineales <b>independientes</b>, entonces <span class="m">dim(S) = n − m</span>.<br>
+• Una base de <span class="m">ℝ<sup>n</sup></span> muy usada: la <b>base canónica</b> <span class="m">{e<sub>1</sub>, e<sub>2</sub>, ..., e<sub>n</sub>}</span> donde <span class="m">e<sub>i</sub></span> tiene un 1 en la posición i y ceros en el resto.
+</div>
+
+<h3>Subespacios dados por ecuaciones</h3>
+<p>Formato muy típico: <span class="m">S = {(x<sub>1</sub>, ..., x<sub>n</sub>) ∈ ℝ<sup>n</sup> : condición(es)}</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de parcial</div>
+  <span class="m">S = {(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub>) ∈ ℝ⁴ : x<sub>1</sub> − x<sub>4</sub> = 0}</span>.<br><br>
+  <b>Dimensión:</b> una ecuación en ℝ⁴ → <span class="m">dim(S) = 4 − 1 = 3</span>.<br><br>
+  <b>Base:</b> despejo x<sub>1</sub> = x<sub>4</sub>. Entonces los vectores son de la forma (x<sub>4</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub>) con x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub> libres. Una base:<br>
+  • Con x<sub>4</sub> = 1, x<sub>2</sub> = 0, x<sub>3</sub> = 0: (1, 0, 0, 1)<br>
+  • Con x<sub>4</sub> = 0, x<sub>2</sub> = 1, x<sub>3</sub> = 0: (0, 1, 0, 0)<br>
+  • Con x<sub>4</sub> = 0, x<sub>2</sub> = 0, x<sub>3</sub> = 1: (0, 0, 1, 0)<br><br>
+  <b>Chequeo de pertenencia:</b> ¿(3, 2, 1, 4) ∈ S? → 3 − 4 = −1 ≠ 0. <b>No pertenece.</b>
+</div>
+
+<h3>¿Cómo extender un conjunto L.I. a una base?</h3>
+<p>Si tenés vectores L.I. en <span class="m">ℝ<sup>n</sup></span> pero te faltan para formar una base, podés agregar vectores canónicos hasta llenar.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Extender <span class="m">{(1, 2, 0)}</span> a una base de ℝ³.<br>
+  Como tengo 1 vector y necesito 3, agrego dos. Pruebo con (0, 1, 0) y (0, 0, 1): el conjunto es L.I. (los vectores canónicos son obviamente L.I. y el primero no está generado por ellos). Base: <span class="m">{(1, 2, 0), (0, 1, 0), (0, 0, 1)}</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Pensar que "vector nulo está en el subespacio" alcanza para ser subespacio. Las tres condiciones son necesarias.<br>
+• Confundir "generar" con "ser base". Los vectores pueden generar y ser L.D. (entonces no son base).<br>
+• En ecuaciones con parámetros, olvidar analizar cuándo las ecuaciones son independientes vs redundantes.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 4 · CÓNICAS ============ -->
+<details id="alg-s4">
+<summary><span class="num">4</span> Cónicas <span class="sec-score" id="ss-algebra-4"></span></summary>
+<div class="content">
+
+<h3>¿Qué son las cónicas?</h3>
+<p>Las <b>cónicas</b> son curvas que se obtienen al cortar un cono con un plano. Según el ángulo del corte se obtienen:</p>
+<ul>
+  <li><b>Circunferencia</b>: corte horizontal.</li>
+  <li><b>Elipse</b>: corte inclinado.</li>
+  <li><b>Parábola</b>: corte paralelo a un lado del cono.</li>
+  <li><b>Hipérbola</b>: corte que atraviesa ambas partes del cono.</li>
+</ul>
+<p>También se pueden definir de forma puramente geométrica como <b>lugares geométricos</b> (conjunto de puntos que cumplen una condición).</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Circunferencia</h3>
+<p><b>Definición geométrica:</b> conjunto de puntos del plano que están a distancia constante (llamada <b>radio</b>, r) de un punto fijo (llamado <b>centro</b>, (h, k)).</p>
+
+<h4>Ecuación canónica</h4>
+<div class="formula">
+(x − h)² + (y − k)² = r²
+</div>
+<p>Sale directo de imponer que la distancia entre (x, y) y (h, k) sea r.</p>
+
+<h4>Ecuación general</h4>
+<div class="formula">
+x² + y² + Dx + Ey + F = 0
+</div>
+<p>Para pasar de general a canónica (y así identificar centro y radio), se <b>completan cuadrados</b>.</p>
+
+<div class="key"><div class="ky-t">Método: completar cuadrados</div>
+Para <span class="m">x² + Dx</span>, sumamos y restamos <span class="m">(D/2)²</span>:<br>
+<span class="m">x² + Dx = (x + D/2)² − (D/2)²</span><br>
+Se hace lo mismo con las y.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo completo</div>
+  <span class="m">x² + y² − 6x + 2y = 0</span>.<br><br>
+  Agrupo: <span class="m">(x² − 6x) + (y² + 2y) = 0</span>.<br>
+  Completo en x: <span class="m">x² − 6x = (x − 3)² − 9</span>.<br>
+  Completo en y: <span class="m">y² + 2y = (y + 1)² − 1</span>.<br>
+  Sustituyo: <span class="m">(x − 3)² − 9 + (y + 1)² − 1 = 0</span>.<br>
+  Paso los números al otro lado: <span class="m">(x − 3)² + (y + 1)² = 10</span>.<br><br>
+  <b>Centro: (3, −1). Radio: √10.</b>
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Elipse</h3>
+<p><b>Definición geométrica:</b> conjunto de puntos cuya <b>suma</b> de distancias a dos puntos fijos (los <b>focos</b>, F<sub>1</sub> y F<sub>2</sub>) es constante.</p>
+
+<h4>Ecuación canónica (centrada en (h, k))</h4>
+<div class="formula">
+<b>Elipse horizontal (eje mayor en x):</b> &nbsp; <span class="frac"><span>(x − h)²</span><span>a²</span></span> + <span class="frac"><span>(y − k)²</span><span>b²</span></span> = 1, &nbsp; con a &gt; b<br><br>
+<b>Elipse vertical (eje mayor en y):</b> &nbsp; <span class="frac"><span>(x − h)²</span><span>b²</span></span> + <span class="frac"><span>(y − k)²</span><span>a²</span></span> = 1, &nbsp; con a &gt; b
+</div>
+
+<h4>Elementos importantes</h4>
+<ul>
+  <li><b>Centro:</b> (h, k).</li>
+  <li><b>Semieje mayor:</b> a (el más grande, va en la dirección del eje mayor).</li>
+  <li><b>Semieje menor:</b> b.</li>
+  <li><b>Distancia del centro al foco:</b> c, con <span class="m">c² = a² − b²</span> (la a es la grande).</li>
+  <li><b>Focos:</b> ubicados a distancia c del centro sobre el eje mayor.</li>
+  <li><b>Vértices:</b> extremos del eje mayor, a distancia a del centro.</li>
+  <li><b>Excentricidad:</b> <span class="m">e = c/a</span>, siempre entre 0 y 1. Si e = 0, es circunferencia (a = b).</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">x²/25 + y²/9 = 1</span>.<br>
+  <b>a² = 25</b> (mayor, va con la x), <b>b² = 9</b>. Entonces a = 5, b = 3.<br>
+  Es <b>horizontal</b> (el denominador grande está con la x).<br>
+  <span class="m">c² = 25 − 9 = 16 → c = 4</span>.<br>
+  Centro: (0, 0). Focos: (±4, 0). Vértices: (±5, 0).
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Hipérbola · <b>muy frecuente en parciales</b></h3>
+<p><b>Definición geométrica:</b> conjunto de puntos cuya <b>diferencia</b> (en valor absoluto) de distancias a dos focos es constante.</p>
+
+<h4>Ecuación canónica</h4>
+<div class="formula">
+<b>Horizontal (abre izq/der):</b> &nbsp; <span class="frac"><span>(x − h)²</span><span>a²</span></span> − <span class="frac"><span>(y − k)²</span><span>b²</span></span> = 1<br><br>
+<b>Vertical (abre arriba/abajo):</b> &nbsp; <span class="frac"><span>(y − k)²</span><span>a²</span></span> − <span class="frac"><span>(x − h)²</span><span>b²</span></span> = 1
+</div>
+<p>La diferencia con la elipse es el signo <b>menos</b>. Y ahora el "primero" (el término positivo) es el que dice la orientación.</p>
+
+<h4>Elementos importantes</h4>
+<ul>
+  <li><b>Centro:</b> (h, k).</li>
+  <li><b>Distancia al foco:</b> <span class="m">c² = a² + b²</span> (ojo, es suma en la hipérbola, resta en la elipse).</li>
+  <li><b>Vértices:</b> a distancia a del centro en el eje de apertura.</li>
+  <li><b>Asíntotas:</b> rectas a las que se acerca la hipérbola pero no toca. Para la hipérbola horizontal:</li>
+</ul>
+<div class="formula">
+<b>Asíntotas (horizontal):</b> y − k = ±<span class="frac"><span>b</span><span>a</span></span>·(x − h)
+</div>
+
+<div class="key"><div class="ky-t">Truco clave</div>
+El <b>centro</b> de la hipérbola es el punto donde se cruzan las asíntotas. Muy útil para hallar el centro sin tener la ecuación canónica explícita.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: hallar centro por asíntotas</div>
+  Asíntotas: <span class="m">y = 2x + 1</span> y <span class="m">y = −2x + 5</span>.<br>
+  Igualo: 2x + 1 = −2x + 5 → 4x = 4 → x = 1. Entonces y = 2(1) + 1 = 3.<br>
+  <b>Centro de la hipérbola: (1, 3).</b>
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Parábola · <b>muy frecuente en parciales</b></h3>
+<p><b>Definición geométrica:</b> conjunto de puntos que están a igual distancia de un punto fijo (<b>foco</b>) y una recta fija (<b>directriz</b>).</p>
+
+<h4>Elementos</h4>
+<ul>
+  <li><b>Vértice:</b> V = (h, k). Punto medio entre foco y directriz.</li>
+  <li><b>Foco:</b> F.</li>
+  <li><b>Directriz:</b> recta perpendicular al eje de simetría.</li>
+  <li><b>Parámetro p:</b> distancia del vértice al foco (= distancia del vértice a la directriz).</li>
+  <li><b>Distancia foco–directriz:</b> siempre es <span class="m">2·|p|</span>.</li>
+</ul>
+
+<h4>Ecuación canónica</h4>
+<div class="formula">
+<b>Vertical</b> (abre arriba o abajo): &nbsp; (x − h)² = 4p·(y − k)<br><br>
+<b>Horizontal</b> (abre izquierda o derecha): &nbsp; (y − k)² = 4p·(x − h)
+</div>
+
+<div class="key"><div class="ky-t">Signo de p</div>
+• <b>Vertical con p &gt; 0:</b> abre hacia arriba (foco arriba del vértice).<br>
+• <b>Vertical con p &lt; 0:</b> abre hacia abajo (foco abajo del vértice).<br>
+• <b>Horizontal con p &gt; 0:</b> abre hacia la derecha.<br>
+• <b>Horizontal con p &lt; 0:</b> abre hacia la izquierda.<br><br>
+Regla rápida: el foco está adentro de la parábola. Si el foco está a la derecha del vértice, p &gt; 0 horizontal. Etc.
+</div>
+
+<h3>Armar parábola conociendo foco y directriz · <b>ejercicio clásico</b></h3>
+<div class="key"><div class="ky-t">Método paso a paso</div>
+1. Mirá si la directriz es horizontal (y = cte) → parábola <b>vertical</b>; o vertical (x = cte) → parábola <b>horizontal</b>.<br>
+2. El <b>vértice</b> está en el punto medio entre el foco y la directriz, sobre la línea perpendicular a la directriz que pasa por el foco.<br>
+3. Calculá p: su magnitud es la distancia vértice↔foco. Su signo lo decide la posición del foco respecto del vértice.<br>
+4. Armá la ecuación con la fórmula correspondiente.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  Foco <span class="m">(2, −1,5)</span>, directriz <span class="m">y = −0,5</span>. Armar la ecuación.<br><br>
+  Directriz horizontal → parábola <b>vertical</b>.<br>
+  Vértice: misma x que el foco (2), y = promedio entre −1,5 y −0,5 → y = −1. <b>Vértice: (2, −1).</b><br>
+  Distancia vértice↔foco = |−1 − (−1,5)| = 0,5. Como el foco (−1,5) está <b>abajo</b> del vértice (−1), p es negativo. <b>p = −1/2.</b><br>
+  Ecuación: <span class="m">(x − 2)² = 4·(−1/2)·(y + 1) = −2(y + 1)</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Confundir <span class="m">4p</span> con <span class="m">p</span>. La fórmula usa <span class="m">4p</span>, no <span class="m">p</span>. Si la distancia foco-directriz es 2, entonces p = ±1 y 4p = ±4.<br>
+• No fijarse en el signo de p: determina el sentido en que "abre" la parábola.<br>
+• En elipse usar <span class="m">c² = a² + b²</span> (eso es para la hipérbola). En elipse es <span class="m">c² = a² − b²</span>.<br>
+• Confundir semieje mayor con menor: <b>siempre a &gt; b</b> por convención, y el denominador más grande marca la orientación.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<div class="partial-header">Segundo parcial <span class="date">Unidades 5–8</span></div>
+
+<!-- ============ SECCIÓN 5 · SISTEMAS Y MATRICES ============ -->
+<details id="alg-s5">
+<summary><span class="num">5</span> Sistemas, matrices, determinantes <span class="sec-score" id="ss-algebra-5"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un sistema lineal?</h3>
+<p>Un <b>sistema lineal</b> es un conjunto de ecuaciones donde las incógnitas aparecen solo con exponente 1 (sin potencias, ni raíces, ni multiplicadas entre sí).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de sistema</div>
+  <span class="m">2x + y − z = 3</span><br>
+  <span class="m">x − y + 2z = 1</span><br>
+  <span class="m">3x + 0y + z = 5</span><br><br>
+  Las incógnitas son x, y, z. Resolver significa encontrar los valores que hacen cumplir todas las ecuaciones a la vez.
+</div>
+
+<h3>Matrices: la forma compacta</h3>
+<p>Un sistema lineal se puede escribir de forma matricial como <span class="m">A·x = b</span>:</p>
+<div class="formula">
+A = matriz de coeficientes<br>
+x = vector de incógnitas<br>
+b = vector de términos independientes
+</div>
+
+<p>Para el ejemplo anterior:</p>
+<div class="formula">
+A = <span class="mat"><span class="br"><table><tr><td>2</td><td>1</td><td>−1</td></tr><tr><td>1</td><td>−1</td><td>2</td></tr><tr><td>3</td><td>0</td><td>1</td></tr></table></span></span>, &nbsp;&nbsp; x = <span class="mat"><span class="br"><table><tr><td>x</td></tr><tr><td>y</td></tr><tr><td>z</td></tr></table></span></span>, &nbsp;&nbsp; b = <span class="mat"><span class="br"><table><tr><td>3</td></tr><tr><td>1</td></tr><tr><td>5</td></tr></table></span></span>
+</div>
+
+<h3>Sistemas homogéneos vs no homogéneos</h3>
+<ul>
+  <li><b>Homogéneo:</b> <span class="m">A·x = 0</span> (términos independientes todos cero). <b>Siempre</b> tiene al menos la solución trivial <span class="m">x = 0</span>.</li>
+  <li><b>No homogéneo:</b> <span class="m">A·x = b</span> con b ≠ 0. Puede tener solución, no tener, o tener infinitas.</li>
+</ul>
+
+<h3>Clasificación de sistemas · <b>muy frecuente</b></h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Cantidad de soluciones</th><th>Condición</th></tr>
+  <tr><td><b>S.C.D.</b> (compatible determinado)</td><td>Única</td><td>rg(A) = rg(A|b) = n</td></tr>
+  <tr><td><b>S.C.I.</b> (compatible indeterminado)</td><td>Infinitas</td><td>rg(A) = rg(A|b) &lt; n</td></tr>
+  <tr><td><b>S.I.</b> (incompatible)</td><td>Ninguna</td><td>rg(A) &lt; rg(A|b)</td></tr>
+</table>
+<p>donde <span class="m">n</span> es el número de incógnitas y "rango" es la cantidad de filas no nulas en la matriz escalonada.</p>
+
+<h3>Método de eliminación de Gauss · <b>principal método del curso</b></h3>
+<p>El método para resolver sistemas consiste en "limpiar" la matriz ampliada <span class="m">(A|b)</span> usando <b>operaciones por filas</b>, sin cambiar las soluciones.</p>
+
+<div class="key"><div class="ky-t">Operaciones permitidas por filas</div>
+1. <b>Intercambiar</b> dos filas.<br>
+2. <b>Multiplicar</b> una fila por un escalar no nulo.<br>
+3. <b>Sumar</b> a una fila un múltiplo de otra.
+</div>
+
+<p>El objetivo es llegar a la forma <b>escalonada</b>, donde cada fila empieza con más ceros que la anterior, y después se resuelve "de abajo hacia arriba" (sustitución hacia atrás).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto completo</div>
+  Resolver: <span class="m">x + y = 3; 2x − y = 0</span>.<br><br>
+  Matriz ampliada: <span class="mat"><span class="br"><table><tr><td>1</td><td>1</td><td>|</td><td>3</td></tr><tr><td>2</td><td>−1</td><td>|</td><td>0</td></tr></table></span></span><br><br>
+  F<sub>2</sub> ← F<sub>2</sub> − 2·F<sub>1</sub>: <span class="mat"><span class="br"><table><tr><td>1</td><td>1</td><td>|</td><td>3</td></tr><tr><td>0</td><td>−3</td><td>|</td><td>−6</td></tr></table></span></span><br><br>
+  De la segunda fila: <span class="m">−3y = −6 → y = 2</span>.<br>
+  Sustitución hacia atrás en la primera: <span class="m">x + 2 = 3 → x = 1</span>.<br>
+  <b>Solución: (1, 2).</b>
+</div>
+
+<h3>Sistemas con parámetros · <b>clásico de parcial</b></h3>
+<p>A veces el sistema depende de un parámetro (k, a, m...) y hay que discutir para qué valores es SCD, SCI o SI. La idea es escalonar como siempre y ver qué pasa según el valor del parámetro.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Operaciones con matrices</h3>
+
+<h4>Suma y producto por escalar</h4>
+<p>Igual que con vectores, componente a componente. Solo se pueden sumar matrices del <b>mismo tamaño</b>.</p>
+
+<h4>Producto de matrices</h4>
+<p>Para calcular <span class="m">A·B</span>, la cantidad de columnas de A debe coincidir con la cantidad de filas de B.</p>
+<div class="formula">
+(A·B)<sub>ij</sub> = Σ<sub>k</sub> A<sub>ik</sub> · B<sub>kj</sub><br><br>
+"Fila i de A por columna j de B" (producto escalar)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table></span></span> · <span class="mat"><span class="br"><table><tr><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td></tr></table></span></span> = <span class="mat"><span class="br"><table><tr><td>1·5+2·7</td><td>1·6+2·8</td></tr><tr><td>3·5+4·7</td><td>3·6+4·8</td></tr></table></span></span> = <span class="mat"><span class="br"><table><tr><td>19</td><td>22</td></tr><tr><td>43</td><td>50</td></tr></table></span></span>
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado: NO conmutativo</div>
+En general <span class="m">A·B ≠ B·A</span>. Incluso puede pasar que <span class="m">A·B</span> exista pero <span class="m">B·A</span> no (si las dimensiones no lo permiten).
+</div>
+
+<h4>Matriz identidad y traspuesta</h4>
+<ul>
+  <li><b>Identidad</b> <span class="m">I<sub>n</sub></span>: matriz n×n con 1 en la diagonal y 0 en el resto. Cumple <span class="m">I·A = A·I = A</span> (cuando las dimensiones permiten).</li>
+  <li><b>Traspuesta</b> <span class="m">A<sup>T</sup></span>: se obtiene intercambiando filas por columnas. Si A es m×n, A<sup>T</sup> es n×m.</li>
+</ul>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Determinante · <b>muy frecuente en parciales</b></h3>
+<p>El <b>determinante</b> es un número que se asigna a cada matriz cuadrada. Da información sobre si la matriz es inversible, sobre el volumen del "paralelepípedo" que generan sus columnas, y sobre la clasificación del sistema asociado.</p>
+
+<h4>Fórmula para 2×2</h4>
+<div class="formula">
+det <span class="mat"><span class="br"><table><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table></span></span> = a·d − b·c
+</div>
+
+<h4>Fórmula para 3×3 (regla de Sarrus)</h4>
+<p>Para matriz <span class="m">[[a<sub>11</sub>, a<sub>12</sub>, a<sub>13</sub>], [a<sub>21</sub>, a<sub>22</sub>, a<sub>23</sub>], [a<sub>31</sub>, a<sub>32</sub>, a<sub>33</sub>]]</span>:</p>
+<div class="formula">
+det = a<sub>11</sub>a<sub>22</sub>a<sub>33</sub> + a<sub>12</sub>a<sub>23</sub>a<sub>31</sub> + a<sub>13</sub>a<sub>21</sub>a<sub>32</sub><br>
+&nbsp;&nbsp;&nbsp;&nbsp; − a<sub>13</sub>a<sub>22</sub>a<sub>31</sub> − a<sub>11</sub>a<sub>23</sub>a<sub>32</sub> − a<sub>12</sub>a<sub>21</sub>a<sub>33</sub>
+</div>
+<p>Truco visual de Sarrus: copiás las dos primeras columnas a la derecha, y hacés tres diagonales descendentes (suman) y tres ascendentes (restan).</p>
+
+<h4>Desarrollo por cofactores (general)</h4>
+<p>Se puede calcular "desarrollando" por una fila o columna. Para una 3×3 por la primera fila:</p>
+<div class="formula">
+det = a<sub>11</sub>·M<sub>11</sub> − a<sub>12</sub>·M<sub>12</sub> + a<sub>13</sub>·M<sub>13</sub>
+</div>
+<p>donde <span class="m">M<sub>ij</sub></span> es el determinante de la submatriz 2×2 que queda al tachar la fila i y la columna j.</p>
+
+<h3>Propiedades del determinante · <b>se preguntan mucho</b></h3>
+<div class="key"><div class="ky-t">Propiedades clave</div>
+• <span class="m">det(A·B) = det(A)·det(B)</span><br>
+• <span class="m">det(A<sup>T</sup>) = det(A)</span><br>
+• <span class="m">det(k·A) = k<sup>n</sup>·det(A)</span> (A es n×n)<br>
+• <span class="m">det(A<sup>−1</sup>) = 1/det(A)</span><br>
+• Fila o columna nula → det = 0<br>
+• Dos filas (o columnas) proporcionales → det = 0<br>
+• Intercambiar dos filas → det cambia de signo<br>
+• Sumar a una fila un múltiplo de otra → det no cambia (útil para simplificar cálculo)
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Matriz inversa</h3>
+<p>Una matriz cuadrada <span class="m">A</span> es <b>inversible</b> si existe <span class="m">A<sup>−1</sup></span> tal que <span class="m">A·A<sup>−1</sup> = A<sup>−1</sup>·A = I</span>.</p>
+
+<div class="key"><div class="ky-t">Criterio fundamental</div>
+A es inversible &nbsp;⟺&nbsp; det(A) ≠ 0<br>
+Equivalente: el sistema A·x = 0 tiene solo la solución trivial.
+</div>
+
+<h4>Fórmula para 2×2</h4>
+<div class="formula">
+Si A = <span class="mat"><span class="br"><table><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table></span></span> y det(A) = ad − bc ≠ 0, entonces<br><br>
+A<sup>−1</sup> = <span class="frac"><span>1</span><span>det(A)</span></span> · <span class="mat"><span class="br"><table><tr><td>d</td><td>−b</td></tr><tr><td>−c</td><td>a</td></tr></table></span></span>
+</div>
+
+<h4>Aplicación: resolver sistemas</h4>
+<p>Si <span class="m">A</span> es inversible, el sistema <span class="m">A·x = b</span> tiene <b>única solución</b>:</p>
+<div class="formula">
+x = A<sup>−1</sup>·b
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 6 · TL ============ -->
+<details id="alg-s6">
+<summary><span class="num">6</span> Transformaciones lineales <span class="sec-score" id="ss-algebra-6"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una transformación lineal?</h3>
+<p>Una <b>transformación lineal</b> es una función <span class="m">T: ℝ<sup>n</sup> → ℝ<sup>m</sup></span> (del espacio de salida al de llegada) que <b>respeta las dos operaciones</b>: suma y producto por escalar.</p>
+
+<div class="formula">
+T es lineal ⟺ para todos los u, v y todo k:<br>
+1) T(u + v) = T(u) + T(v)<br>
+2) T(k·u) = k·T(u)
+</div>
+
+<p>La idea: "lo que T hace conmuta con las operaciones lineales".</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo que SÍ es TL</div>
+  <span class="m">T(x, y) = (x + y, 2x)</span> de ℝ² en ℝ².<br>
+  Chequeo: T(u+v) = T(u<sub>1</sub>+v<sub>1</sub>, u<sub>2</sub>+v<sub>2</sub>) = (u<sub>1</sub>+v<sub>1</sub>+u<sub>2</sub>+v<sub>2</sub>, 2u<sub>1</sub>+2v<sub>1</sub>) = T(u)+T(v). ✓<br>
+  Similar para el escalar.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo que NO es TL</div>
+  <span class="m">T(x, y) = (x + 1, y)</span>.<br>
+  Chequeo fallo rápido: T(0, 0) = (1, 0) ≠ (0, 0). <b>Toda TL cumple T(0) = 0</b>. Falla.
+</div>
+
+<h3>Representación matricial</h3>
+<p>Todo TL <span class="m">T: ℝ<sup>n</sup> → ℝ<sup>m</sup></span> se puede escribir como <span class="m">T(x) = A·x</span>, donde A es una matriz m×n llamada <b>matriz canónica</b> de T.</p>
+
+<div class="key"><div class="ky-t">¿Cómo obtener la matriz canónica?</div>
+Las <b>columnas</b> de A son las imágenes de los vectores canónicos: <span class="m">A = [T(e<sub>1</sub>) | T(e<sub>2</sub>) | ... | T(e<sub>n</sub>)]</span>.<br><br>
+donde <span class="m">e<sub>i</sub></span> es el vector con 1 en posición i y 0 en el resto.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: construir matriz canónica</div>
+  <span class="m">T(x, y, z) = (x + 2y, y − z)</span>.<br><br>
+  T(e<sub>1</sub>) = T(1, 0, 0) = (1, 0)<br>
+  T(e<sub>2</sub>) = T(0, 1, 0) = (2, 1)<br>
+  T(e<sub>3</sub>) = T(0, 0, 1) = (0, −1)<br><br>
+  Matriz canónica: <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>−1</td></tr></table></span></span>
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Núcleo e imagen · <b>MUY frecuente en parciales</b></h3>
+
+<h4>Núcleo (kernel)</h4>
+<div class="formula">
+Nu(T) = {x ∈ ℝ<sup>n</sup> : T(x) = 0}
+</div>
+<p>Son los vectores que <b>se aplastan al cero</b>. Siempre es un subespacio del dominio.</p>
+
+<h4>Imagen</h4>
+<div class="formula">
+Im(T) = {T(x) : x ∈ ℝ<sup>n</sup>} = todos los valores alcanzables
+</div>
+<p>Es un subespacio del codominio.</p>
+
+<h3>Teorema de las dimensiones · <b>fundamental</b></h3>
+<div class="formula">
+dim(Nu(T)) + dim(Im(T)) = dim(dominio) = n
+</div>
+<p>Es el teorema más usado para resolver ejercicios sobre TL. Si conocés una de las dimensiones, sabés la otra.</p>
+
+<h3>Cómo calcular el núcleo</h3>
+<ol>
+  <li>Planteás <span class="m">T(x) = 0</span>, o sea <span class="m">A·x = 0</span>.</li>
+  <li>Resolvés el sistema homogéneo (por Gauss).</li>
+  <li>Las soluciones forman un subespacio: el núcleo.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  <span class="m">T(x, y, z) = (x + y, y − z)</span>. Hallar Nu(T).<br><br>
+  Resuelvo T(x, y, z) = (0, 0):<br>
+  • x + y = 0 → y = −x<br>
+  • y − z = 0 → z = y = −x<br><br>
+  Soluciones: (x, −x, −x) = x·(1, −1, −1). Entonces <b>Nu(T) = &lt;(1, −1, −1)&gt;</b>, dim = 1.<br>
+  Por el teorema: dim(Im) = 3 − 1 = 2. Como Im ⊆ ℝ², y tiene dim 2, Im(T) = ℝ².
+</div>
+
+<h3>Cómo calcular la imagen</h3>
+<p>La imagen es el subespacio generado por las <b>columnas</b> de la matriz canónica. Para hallar una base, eliminás las columnas que son combinación lineal de las anteriores.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Matriz canónica: <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>−1</td></tr></table></span></span><br>
+  Columnas: (1,0), (2,1), (0,−1). Las dos primeras son L.I. La tercera es −1·(2,1) + 2·(1,0) = (0,−1), así que es combinación. Base de Im: {(1,0), (2,1)}.<br>
+  dim(Im) = 2. Como Im ⊆ ℝ² y dim = 2: Im(T) = ℝ².
+</div>
+
+<h3>Inyectividad, sobreyectividad, biyectividad</h3>
+<div class="key"><div class="ky-t">Caracterizaciones</div>
+• T <b>inyectiva</b> (cada salida tiene a lo sumo una entrada) ⟺ Nu(T) = {0} ⟺ dim(Nu) = 0.<br>
+• T <b>sobreyectiva</b> (alcanza todo el codominio) ⟺ Im(T) = ℝ<sup>m</sup> ⟺ dim(Im) = m.<br>
+• T <b>biyectiva</b> (inyectiva y sobreyectiva) ⟺ es inversible.
+</div>
+
+<div class="key"><div class="ky-t">Detalle importante (cuando dim dominio = dim codominio)</div>
+Si n = m, entonces inyectividad ⟺ sobreyectividad ⟺ biyectividad. Son equivalentes. O sea que chequeás una y ya tenés las otras.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Composición de TL</h3>
+<p>Si <span class="m">T: ℝ<sup>n</sup> → ℝ<sup>m</sup></span> y <span class="m">S: ℝ<sup>m</sup> → ℝ<sup>p</sup></span> son TL, entonces <span class="m">S ∘ T</span> también es TL. Su matriz canónica es <b>el producto de las matrices</b>:</p>
+<div class="formula">
+Matriz de (S ∘ T) = (Matriz de S) · (Matriz de T)
+</div>
+<p>Atención al orden: primero se aplica T, después S, pero la matriz que aplica primero va <b>a la derecha</b> en el producto.</p>
+
+<h3>TL inversa</h3>
+<p>Si T es biyectiva, tiene inversa <span class="m">T<sup>−1</sup></span>, cuya matriz canónica es la inversa de la matriz canónica de T.</p>
+
+<h3>TL con parámetros · <b>clásico de parcial</b></h3>
+<p>Tipo de ejercicio: te dan una TL con un parámetro (a, k, etc.) y te piden analizar para qué valores tiene cierta propiedad (núcleo de dimensión X, imagen = ℝⁿ, etc.). El método: armar la matriz canónica y estudiarla según el parámetro.</p>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 7 · COMPLEJOS ============ -->
+<details id="alg-s7">
+<summary><span class="num">7</span> Números complejos <span class="sec-score" id="ss-algebra-7"></span></summary>
+<div class="content">
+
+<h3>¿Qué son los números complejos?</h3>
+<p>Los números reales no alcanzan para resolver ciertas ecuaciones: por ejemplo, <span class="m">x² = −1</span> no tiene solución real (ningún cuadrado real es negativo). Se inventa el número <span class="m">i</span> (unidad imaginaria) con la propiedad:</p>
+<div class="formula">
+i² = −1
+</div>
+<p>Un <b>número complejo</b> es cualquier expresión de la forma <span class="m">z = a + bi</span>, con <span class="m">a, b ∈ ℝ</span>.</p>
+<ul>
+  <li><span class="m">a</span> es la <b>parte real</b> (Re(z)).</li>
+  <li><span class="m">b</span> es la <b>parte imaginaria</b> (Im(z)).</li>
+</ul>
+
+<h3>El plano complejo</h3>
+<p>Cada número complejo <span class="m">z = a + bi</span> se puede representar como un punto <span class="m">(a, b)</span> del plano. El eje x se llama <b>eje real</b> y el eje y <b>eje imaginario</b>.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Tres formas de escribir un complejo</h3>
+
+<h4>1. Forma binómica: <span class="m">z = a + bi</span></h4>
+<p>La más directa. Útil para sumas y restas.</p>
+
+<h4>2. Forma polar: <span class="m">z = r·(cos θ + i·sen θ)</span></h4>
+<p>Describe z por:</p>
+<ul>
+  <li><b>Módulo</b> r = |z| = √(a² + b²) (distancia al origen).</li>
+  <li><b>Argumento</b> θ = arg(z) (ángulo desde el eje real positivo, medido en sentido antihorario).</li>
+</ul>
+
+<h4>3. Forma exponencial: <span class="m">z = r·e<sup>iθ</sup></span></h4>
+<p>Es una notación compacta de la polar. Por la <b>fórmula de Euler</b>: <span class="m">e<sup>iθ</sup> = cos θ + i sen θ</span>.</p>
+
+<h3>Conversión entre formas</h3>
+<div class="formula">
+<b>De binómica a polar:</b><br>
+r = √(a² + b²) &nbsp;&nbsp; θ = arctan(b/a) (corrigiendo según el cuadrante)<br><br>
+<b>De polar a binómica:</b><br>
+a = r·cos θ &nbsp;&nbsp; b = r·sen θ
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">z = 1 + i</span>. Módulo: r = √(1 + 1) = √2. Argumento: arctan(1/1) = π/4 (primer cuadrante).<br>
+  Forma polar: <span class="m">z = √2·(cos π/4 + i sen π/4)</span>. Exponencial: <span class="m">z = √2·e<sup>iπ/4</sup></span>.
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado con el cuadrante</div>
+La función arctan devuelve valores en (−π/2, π/2). Si el complejo está en el 2do o 3er cuadrante, hay que sumar π. Lo más seguro es ubicar el complejo en el plano y pensar geométricamente qué ángulo le corresponde.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Operaciones básicas</h3>
+
+<h4>Suma y resta (en binómica)</h4>
+<div class="formula">
+(a + bi) + (c + di) = (a + c) + (b + d)·i<br>
+(a + bi) − (c + di) = (a − c) + (b − d)·i
+</div>
+
+<h4>Producto (en binómica)</h4>
+<div class="formula">
+(a + bi)·(c + di) = (ac − bd) + (ad + bc)·i
+</div>
+<p>(Se expande como un binomio y se usa <span class="m">i² = −1</span>.)</p>
+
+<h4>Producto y cociente (en polar/exponencial) · <b>más fácil</b></h4>
+<div class="formula">
+z<sub>1</sub>·z<sub>2</sub> = r<sub>1</sub>r<sub>2</sub>·e<sup>i(θ<sub>1</sub>+θ<sub>2</sub>)</sup><br><br>
+z<sub>1</sub>/z<sub>2</sub> = (r<sub>1</sub>/r<sub>2</sub>)·e<sup>i(θ<sub>1</sub>−θ<sub>2</sub>)</sup>
+</div>
+<p>Regla: <b>módulos se multiplican/dividen, argumentos se suman/restan</b>.</p>
+
+<h4>Conjugado</h4>
+<p>El <b>conjugado</b> de <span class="m">z = a + bi</span> es <span class="m">z̄ = a − bi</span> (cambia el signo de la parte imaginaria).</p>
+<div class="key"><div class="ky-t">Propiedades del conjugado</div>
+• <span class="m">z·z̄ = a² + b² = |z|²</span> (útil para hacer divisiones: multiplicás arriba y abajo por el conjugado del denominador)<br>
+• <span class="m">z + z̄ = 2·Re(z)</span><br>
+• <span class="m">z − z̄ = 2i·Im(z)</span><br>
+• arg(z̄) = −arg(z)
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Fórmula de De Moivre (potencias) · <b>muy frecuente</b></h3>
+<p>Para elevar un complejo a una potencia <span class="m">n</span>, lo más cómodo es pasar a forma polar:</p>
+<div class="formula">
+z<sup>n</sup> = r<sup>n</sup>·(cos(nθ) + i·sen(nθ)) = r<sup>n</sup>·e<sup>inθ</sup>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Calcular <span class="m">(1 + i)⁸</span>.<br>
+  r = √2, θ = π/4. Entonces (1+i)⁸ = (√2)⁸·e<sup>i·8π/4</sup> = 16·e<sup>i·2π</sup> = 16·1 = <b>16</b>.
+</div>
+
+<h3>Raíces enésimas de un complejo</h3>
+<p>La ecuación <span class="m">z<sup>n</sup> = w</span> (con w ≠ 0) tiene <b>exactamente n soluciones complejas</b> distintas. Se obtienen por la fórmula:</p>
+<div class="formula">
+z<sub>k</sub> = r<sup>1/n</sup>·e<sup>i(θ + 2kπ)/n</sup>, &nbsp; k = 0, 1, 2, ..., n−1
+</div>
+<p>donde <span class="m">r = |w|</span> y <span class="m">θ = arg(w)</span>.</p>
+
+<div class="key"><div class="ky-t">Geometría de las raíces enésimas</div>
+Las n soluciones están en una <b>circunferencia</b> de radio <span class="m">r<sup>1/n</sup></span>, formando un <b>polígono regular</b> de n lados (equiespaciadas por ángulo 2π/n).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto de parcial</div>
+  Resolver <span class="m">z³ = (1 − i)(1 − 2i)³</span>.<br><br>
+  <b>Paso 1:</b> pasar el lado derecho a polar. Lo calculás factor por factor:<br>
+  • <span class="m">(1 − i)</span>: módulo √2, argumento −π/4 (cuarto cuadrante).<br>
+  • <span class="m">(1 − 2i)³</span>: primero módulo/argumento de (1−2i), después lo elevás al cubo.<br><br>
+  <b>Paso 2:</b> multiplicar los factores (módulos × módulos, argumentos suman).<br><br>
+  <b>Paso 3:</b> aplicar la fórmula de raíces: sacás raíz cúbica al módulo y dividís el argumento entre 3 (y le sumás 2kπ/3 para obtener las otras).<br><br>
+  Obtenés 3 soluciones distintas, ubicadas en un triángulo equilátero en el plano complejo.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Ecuaciones con |z| y z̄ · <b>clásico de Escayola</b></h3>
+<p>Tipo: "Si <span class="m">|z| ≠ 0</span> y <span class="m">z² + z̄·|z| = 0</span>, hallar z".</p>
+
+<div class="key"><div class="ky-t">Método</div>
+1. Escribí <span class="m">z = a + bi</span> y <span class="m">z̄ = a − bi</span>.<br>
+2. Reemplazá <span class="m">|z|² = a² + b²</span> donde aparezca.<br>
+3. Separá parte real e imaginaria: te queda un sistema de dos ecuaciones reales.<br>
+4. Resolvé.
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado con la convención del argumento</div>
+"Menor argumento" puede significar distintas cosas según el problema: el mínimo en [0, 2π) o en (−π, π]. Leé el enunciado con cuidado.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 8 · POLINOMIOS ============ -->
+<details id="alg-s8">
+<summary><span class="num">8</span> Polinomios <span class="sec-score" id="ss-algebra-8"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un polinomio?</h3>
+<p>Un <b>polinomio</b> en la variable x es una expresión de la forma:</p>
+<div class="formula">
+P(x) = a<sub>n</sub>x<sup>n</sup> + a<sub>n−1</sub>x<sup>n−1</sup> + ... + a<sub>1</sub>x + a<sub>0</sub>
+</div>
+<p>donde los <span class="m">a<sub>i</sub></span> son números (llamados <b>coeficientes</b>) y <span class="m">n</span> es un entero no negativo. Si <span class="m">a<sub>n</sub> ≠ 0</span>, decimos que el <b>grado</b> de P es n y <span class="m">a<sub>n</sub></span> es el <b>coeficiente principal</b>.</p>
+
+<h3>Conjuntos de polinomios</h3>
+<ul>
+  <li><span class="m">ℝ[x]</span>: polinomios con coeficientes reales.</li>
+  <li><span class="m">ℚ[x]</span>: polinomios con coeficientes racionales.</li>
+  <li><span class="m">ℂ[x]</span>: polinomios con coeficientes complejos.</li>
+</ul>
+<p>En los parciales de Álgebra A se trabaja mucho con <span class="m">ℚ[x]</span> y <span class="m">ℝ[x]</span>. La elección afecta qué raíces se "permiten" como raíces del polinomio en el sentido de sus factores con coeficientes de ese tipo.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>División de polinomios · <b>muy frecuente</b></h3>
+<p>Análoga a la división entera: dividir <span class="m">P(x)</span> entre <span class="m">Q(x)</span> da un <b>cociente</b> C(x) y un <b>resto</b> R(x) con:</p>
+<div class="formula">
+P(x) = Q(x)·C(x) + R(x), &nbsp; con gr(R) &lt; gr(Q)
+</div>
+<p>El resto debe tener grado menor que el divisor.</p>
+
+<h4>Método clásico (a lo "Ruffini" generalizado)</h4>
+<ol>
+  <li>Ordenás ambos polinomios por grado decreciente.</li>
+  <li>Completás con coeficientes 0 los términos faltantes.</li>
+  <li>Dividís el término de mayor grado del dividendo por el de mayor grado del divisor: eso da el primer término del cociente.</li>
+  <li>Multiplicás ese término por todo el divisor y lo restás al dividendo.</li>
+  <li>Repetís con el nuevo polinomio hasta que el grado sea menor que el del divisor.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Dividir <span class="m">P(x) = x³ + 2x² − x + 3</span> entre <span class="m">Q(x) = x + 1</span>.<br><br>
+  Paso 1: x³ / x = x². Multiplico: x²·(x+1) = x³ + x². Resto: (x³+2x²−x+3) − (x³+x²) = x² − x + 3.<br>
+  Paso 2: x² / x = x. Multiplico: x·(x+1) = x² + x. Resto: (x²−x+3) − (x²+x) = −2x + 3.<br>
+  Paso 3: −2x / x = −2. Multiplico: −2·(x+1) = −2x − 2. Resto: (−2x+3) − (−2x−2) = 5.<br><br>
+  <b>Cociente: x² + x − 2. Resto: 5.</b>
+</div>
+
+<h3>Teorema del resto · <b>clave</b></h3>
+<div class="formula">
+El resto de dividir P(x) entre (x − a) es P(a)
+</div>
+<p>Es una consecuencia directa: si evaluás <span class="m">P(a) = Q(a)·C(a) + R</span>, como <span class="m">Q(a) = 0</span>, queda <span class="m">P(a) = R</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  El resto de dividir <span class="m">P(x) = x³ − 2x + 5</span> entre <span class="m">x − 1</span> es <span class="m">P(1) = 1 − 2 + 5 = 4</span>. Sin hacer la división.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Raíces de un polinomio</h3>
+<p>Una <b>raíz</b> de <span class="m">P(x)</span> es un valor <span class="m">a</span> tal que <span class="m">P(a) = 0</span>. Equivalentemente:</p>
+<div class="formula">
+a es raíz de P ⟺ (x − a) divide a P(x) ⟺ P(a) = 0
+</div>
+
+<h3>Multiplicidad de una raíz</h3>
+<p>Una raíz <span class="m">a</span> tiene <b>multiplicidad k</b> si <span class="m">(x − a)<sup>k</sup></span> divide a P(x) pero <span class="m">(x − a)<sup>k+1</sup></span> no. Por ejemplo, en <span class="m">P(x) = (x − 2)²·(x + 1)</span>, la raíz 2 tiene multiplicidad 2 (doble) y −1 multiplicidad 1 (simple).</p>
+
+<h3>Teorema fundamental del álgebra</h3>
+<div class="key"><div class="ky-t">Enunciado</div>
+Todo polinomio de grado n con coeficientes complejos (no constante) tiene <b>exactamente n raíces</b> en ℂ (contadas con multiplicidad).
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Propiedades de las raíces según el "cuerpo"</h3>
+
+<h4>En ℝ[x]: raíces complejas vienen en pares conjugados</h4>
+<div class="formula">
+Si P ∈ ℝ[x] y z = a + bi es raíz, entonces z̄ = a − bi también lo es
+</div>
+<p>Además, si z tiene multiplicidad k, z̄ también.</p>
+
+<h4>En ℚ[x]: raíces con radicales vienen de a pares también</h4>
+<div class="formula">
+Si P ∈ ℚ[x] y a + b√n es raíz (con √n irracional),<br>
+entonces a − b√n también es raíz
+</div>
+
+<p>Por ejemplo: si <span class="m">√5</span> es raíz de un polinomio de ℚ[x], también lo es <span class="m">−√5</span>.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Factorización</h3>
+<p>Si conocés todas las raíces de P con sus multiplicidades, podés factorizarlo:</p>
+<div class="formula">
+P(x) = a<sub>n</sub>·(x − r<sub>1</sub>)<sup>m<sub>1</sub></sup>·(x − r<sub>2</sub>)<sup>m<sub>2</sub></sup>·...·(x − r<sub>k</sub>)<sup>m<sub>k</sub></sup>
+</div>
+<p>donde <span class="m">a<sub>n</sub></span> es el coeficiente principal y <span class="m">m<sub>i</sub></span> es la multiplicidad de la raíz <span class="m">r<sub>i</sub></span>.</p>
+
+<h3>Factorización en ℝ[x]</h3>
+<p>En ℝ[x], un polinomio siempre se factoriza como producto de:</p>
+<ul>
+  <li><b>Factores lineales</b> <span class="m">(x − a)</span> para raíces reales.</li>
+  <li><b>Factores cuadráticos irreducibles</b> <span class="m">(x² + px + q)</span> con <span class="m">p² − 4q &lt; 0</span> para pares de raíces complejas conjugadas.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">P(x) = x⁴ − 1</span> en ℝ[x].<br>
+  Diferencia de cuadrados: (x² − 1)(x² + 1). Factorizás más: (x−1)(x+1)(x² + 1).<br>
+  El factor x² + 1 es <b>irreducible en ℝ[x]</b> (no tiene raíces reales), pero se factoriza en ℂ[x] como (x − i)(x + i).
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Construir polinomio con raíces dadas · <b>ejercicio clásico de parcial</b></h3>
+<p>Tipo típico: "Construí un polinomio de ℚ[x] (o ℝ[x]) de <b>grado mínimo</b> con ciertas raíces y un valor numérico dado".</p>
+
+<div class="key"><div class="ky-t">Método</div>
+1. Para cada raíz dada, determiná todas las <b>raíces obligatorias</b> (conjugadas en ℝ[x], radicales en ℚ[x], y tené en cuenta multiplicidades).<br>
+2. Armá el polinomio como producto de los factores correspondientes. El grado mínimo es la suma de multiplicidades.<br>
+3. Ese polinomio tiene un coeficiente principal libre <span class="m">k</span>.<br>
+4. Usá el valor numérico dado para despejar <span class="m">k</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo completo</div>
+  Hallar <span class="m">P ∈ ℚ[x]</span> de grado mínimo tal que:<br>
+  • <span class="m">P(√5) = 0</span> (√5 es raíz).<br>
+  • <span class="m">i</span> es raíz doble.<br>
+  • <span class="m">P(−2) = −75</span>.<br><br>
+  <b>Raíces obligatorias:</b><br>
+  • En ℚ[x], √5 raíz ⟹ −√5 también. Factor: <span class="m">(x − √5)(x + √5) = x² − 5</span>.<br>
+  • ℚ[x] ⊆ ℝ[x], así que i raíz doble ⟹ −i raíz doble. Factor: <span class="m">(x − i)²(x + i)² = (x² + 1)²</span>.<br><br>
+  Grado mínimo: 2 + 4 = <b>6</b>.<br>
+  Forma: <span class="m">P(x) = k·(x² − 5)·(x² + 1)²</span>.<br><br>
+  <b>Imponer P(−2) = −75:</b><br>
+  P(−2) = k·((−2)² − 5)·((−2)² + 1)² = k·(−1)·(25) = −25k.<br>
+  −25k = −75 ⟹ k = 3.<br><br>
+  <b>P(x) = 3(x² − 5)(x² + 1)².</b>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Olvidar que las raíces vienen de a pares (conjugada en ℝ[x], o ±√n en ℚ[x]): esto aumenta el grado mínimo.<br>
+• Ignorar la multiplicidad: si i es raíz <b>doble</b>, el factor es <span class="m">(x² + 1)<b>²</b></span>, no (x² + 1).<br>
+• No chequear que el polinomio final tenga coeficientes en el cuerpo correcto. En ℚ[x] no pueden aparecer √2, π, etc. Los factores deben "esconder" los irracionales multiplicándolos entre sí.
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>

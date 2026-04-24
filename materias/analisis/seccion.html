@@ -1,0 +1,535 @@
+<header>
+    <h1>Análisis Matemático A</h1>
+    <div class="sub">UBA XXI · Cátedra Cabana · Parcial 27/04</div>
+  </header>
+<nav class="toc" id="toc-analisis">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#an-s1">Intervalos, módulo e inecuaciones</a></li>
+    <li><a href="#an-s2">Funciones: dominio, composición e inversa</a></li>
+    <li><a href="#an-s3">Exponenciales, logaritmos y trigonometría</a></li>
+    <li><a href="#an-s4">Funciones partidas y regiones</a></li>
+    <li><a href="#an-s5">Límites</a></li>
+    <li><a href="#an-s6">Continuidad y Bolzano</a></li>
+    <li><a href="#an-s7">Derivadas</a></li>
+    <li><a href="#an-s8">Recta tangente</a></li>
+    <li><a href="#an-s9">Derivación implícita e inversa</a></li>
+    <li><a href="#an-s10">Diferencial y aproximación lineal</a></li>
+    <li><a href="#an-s11">Regla de L'Hôpital</a></li>
+    <li><a href="#an-s12">Asíntotas</a></li>
+    <li><a href="#an-s13">Estudio de función</a></li>
+    <li><a href="#an-s14">Máx/mín absolutos</a></li>
+  </ol>
+  <div class="score" id="global-score-analisis">Puntaje global: 0 / 86</div>
+</nav>
+
+<!-- ============ SECCIÓN 1 ============ -->
+<details id="an-s1">
+<summary><span class="num">1</span> Intervalos, módulo e inecuaciones <span class="sec-score" id="ss-analisis-1"></span></summary>
+<div class="content">
+
+<h3>Intervalos</h3>
+<p>Un intervalo es un conjunto de reales entre dos extremos. Lo clave es si los extremos <b>se incluyen o no</b>:</p>
+<ul>
+  <li><b>Abierto</b> <span class="m">(a, b)</span>: extremos excluidos.</li>
+  <li><b>Cerrado</b> <span class="m">[a, b]</span>: extremos incluidos.</li>
+  <li><b>Semiabierto</b>: <span class="m">[a, b)</span> o <span class="m">(a, b]</span>.</li>
+  <li><b>Semirrecta</b>: con infinito, que <i>siempre</i> va con paréntesis.</li>
+</ul>
+
+<h3>Valor absoluto</h3>
+<p>El módulo <span class="m">|x|</span> mide distancia al cero. <span class="m">|x − a|</span> mide distancia entre <span class="m">x</span> y <span class="m">a</span>.</p>
+<div class="formula">|x| = x si x ≥ 0 &nbsp;&nbsp; |x| = −x si x &lt; 0</div>
+
+<h3>Inecuaciones con módulo</h3>
+<div class="formula">
+|x − a| &lt; r &nbsp;⟺&nbsp; a − r &lt; x &lt; a + r<br>
+|x − a| &gt; r &nbsp;⟺&nbsp; x &lt; a − r &nbsp;o&nbsp; x &gt; a + r
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">|2x − 1| &lt; 3</span> → <span class="m">−3 &lt; 2x − 1 &lt; 3</span> → <span class="m">−2 &lt; 2x &lt; 4</span> → <span class="m">−1 &lt; x &lt; 2</span>. Resultado: <span class="m">(−1, 2)</span>.
+</div>
+
+<h3>Inecuaciones polinómicas</h3>
+<ol>
+  <li>Factorizás.</li>
+  <li>Identificás las raíces.</li>
+  <li>Analizás signos por intervalos.</li>
+  <li>Elegís los intervalos según el signo pedido.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">Error típico</div>Al multiplicar o dividir por un número negativo, hay que <b>invertir</b> el sentido de la desigualdad.</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 2 ============ -->
+<details id="an-s2">
+<summary><span class="num">2</span> Funciones: dominio, composición e inversa <span class="sec-score" id="ss-analisis-2"></span></summary>
+<div class="content">
+
+<h3>Cómo calcular el dominio</h3>
+<table class="tbl">
+  <tr><th>Si aparece...</th><th>Exigir</th></tr>
+  <tr><td class="c">1 / g(x)</td><td class="c">g(x) ≠ 0</td></tr>
+  <tr><td class="c">√g(x) (índice par)</td><td class="c">g(x) ≥ 0</td></tr>
+  <tr><td class="c">ln(g(x))</td><td class="c">g(x) &gt; 0</td></tr>
+  <tr><td class="c">√g(x) en denominador</td><td class="c">g(x) &gt; 0 (estricto)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Intersección de condiciones</div>Si la fórmula tiene varias cosas que restringen, el dominio es la <b>intersección</b> de todas las condiciones.</div>
+
+<h3>Composición</h3>
+<p><span class="m">(f ∘ g)(x) = f(g(x))</span>. Primero aplicás <span class="m">g</span>, al resultado le aplicás <span class="m">f</span>. Para el dominio hace falta: <span class="m">x</span> en dom(g) y <span class="m">g(x)</span> en dom(f).</p>
+
+<h3>Función inversa</h3>
+<ol>
+  <li><span class="m">y = f(x)</span>.</li>
+  <li>Despejás <span class="m">x</span> en función de <span class="m">y</span>.</li>
+  <li>Intercambiás variables.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Inversa de <span class="m">f(x) = 2x + 8</span>: <span class="m">y = 2x + 8 → x = (y − 8)/2 → f<sup>−1</sup>(x) = (x − 8)/2</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 3 ============ -->
+<details id="an-s3">
+<summary><span class="num">3</span> Exponenciales, logaritmos y trigonometría <span class="sec-score" id="ss-analisis-3"></span></summary>
+<div class="content">
+
+<h3>Exponencial y logaritmo</h3>
+<p><span class="m">e<sup>x</sup></span> tiene dominio ℝ, imagen <span class="m">(0, +∞)</span>. <span class="m">ln(x)</span> es su inversa: dominio <span class="m">(0, +∞)</span>, imagen ℝ.</p>
+
+<div class="formula">
+e<sup>ln(x)</sup> = x (si x &gt; 0) &nbsp;&nbsp; ln(e<sup>x</sup>) = x<br>
+ln(a·b) = ln(a) + ln(b)<br>
+ln(a/b) = ln(a) − ln(b)<br>
+ln(a<sup>n</sup>) = n · ln(a)
+</div>
+
+<h3>Trigonometría básica</h3>
+<table class="tbl">
+  <tr><th>Función</th><th>Dominio</th><th>Imagen</th><th>Período</th></tr>
+  <tr><td class="c">sen x</td><td class="c">ℝ</td><td class="c">[−1, 1]</td><td class="c">2π</td></tr>
+  <tr><td class="c">cos x</td><td class="c">ℝ</td><td class="c">[−1, 1]</td><td class="c">2π</td></tr>
+  <tr><td class="c">tg x</td><td class="c">ℝ − {π/2 + kπ}</td><td class="c">ℝ</td><td class="c">π</td></tr>
+</table>
+
+<div class="formula">sen²x + cos²x = 1 &nbsp;&nbsp; tg(x) = sen(x)/cos(x)</div>
+
+<h3>Valores especiales</h3>
+<table class="tbl">
+  <tr><th>x</th><th>sen</th><th>cos</th><th>tg</th></tr>
+  <tr><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">0</td></tr>
+  <tr><td class="c">π/6</td><td class="c">1/2</td><td class="c">√3/2</td><td class="c">1/√3</td></tr>
+  <tr><td class="c">π/4</td><td class="c">√2/2</td><td class="c">√2/2</td><td class="c">1</td></tr>
+  <tr><td class="c">π/3</td><td class="c">√3/2</td><td class="c">1/2</td><td class="c">√3</td></tr>
+  <tr><td class="c">π/2</td><td class="c">1</td><td class="c">0</td><td class="c">no def.</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="3" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 4 ============ -->
+<details id="an-s4">
+<summary><span class="num">4</span> Funciones partidas y regiones <span class="sec-score" id="ss-analisis-4"></span></summary>
+<div class="content">
+
+<h3>Funciones partidas</h3>
+<p>Distintas fórmulas según el tramo. Regla de oro: <b>nunca mezcles ramas</b>. Primero mirás en qué tramo cae <span class="m">x</span>, después usás la fórmula.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = (x+1)/(x+2)</span> si <span class="m">x &gt; −2</span>, <span class="m">f(x) = 2x + 6</span> si <span class="m">x ≤ −2</span>.<br>
+  <b>f(−2):</b> −2 cumple <span class="m">x ≤ −2</span>, rama 2: <span class="m">f(−2) = 2</span>.<br>
+  <b>f(0):</b> 0 &gt; −2, rama 1: <span class="m">f(0) = 1/2</span>.
+</div>
+
+<h3>Regiones en el plano</h3>
+<p>Una desigualdad en dos variables define una zona del plano. Las desigualdades estrictas excluyen el borde; las no estrictas lo incluyen.</p>
+<ul>
+  <li><span class="m">x ≥ 0</span>: semiplano derecho (con eje y).</li>
+  <li><span class="m">y &gt; x²</span>: zona <b>arriba</b> de la parábola (sin incluirla).</li>
+  <li><span class="m">x + y ≤ 2</span>: zona <b>debajo o sobre</b> la recta.</li>
+</ul>
+
+<div class="quiz-wrap" data-qz="4" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 5 ============ -->
+<details id="an-s5">
+<summary><span class="num">5</span> Límites <span class="sec-score" id="ss-analisis-5"></span></summary>
+<div class="content">
+
+<h3>Idea</h3>
+<p><span class="m">lim<sub>x→a</sub> f(x) = L</span>: cuando <span class="m">x</span> se acerca a <span class="m">a</span>, <span class="m">f(x)</span> se acerca a <span class="m">L</span>. Lo que pasa <b>en</b> el punto no importa, solo lo que pasa <b>cerca</b>.</p>
+
+<h3>Laterales</h3>
+<div class="formula">El límite existe ⟺ existen ambos laterales Y coinciden</div>
+
+<h3>Qué hacer al reemplazar</h3>
+<table class="tbl">
+  <tr><th>Da</th><th>Hacer</th></tr>
+  <tr><td class="c">nº / nº</td><td>Listo</td></tr>
+  <tr><td class="c">nº / 0</td><td>±∞; chequeá laterales</td></tr>
+  <tr><td class="c">0 / 0</td><td>Factorizar, conjugado, notable o L'Hôpital</td></tr>
+  <tr><td class="c">∞ / ∞</td><td>Término dominante</td></tr>
+  <tr><td class="c">∞ − ∞</td><td>Conjugado o factor común</td></tr>
+  <tr><td class="c">1<sup>∞</sup></td><td>Forma del número e</td></tr>
+</table>
+
+<h3>Factorización (0/0 con polinomios)</h3>
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">lim<sub>x→−1</sub> (x²−1)/(x²−x−2) = lim<sub>x→−1</sub> (x+1)(x−1)/[(x+1)(x−2)] = lim (x−1)/(x−2) = 2/3</span>.
+</div>
+
+<h3>Conjugado (0/0 con raíces)</h3>
+<p>Multiplicás arriba y abajo por el conjugado (misma expresión, signo central cambiado). Usa <span class="m">(a−b)(a+b) = a²−b²</span> para matar la raíz.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">lim<sub>x→4</sub> (x−4)/(√(x+5)−3)</span>. Multiplicás por <span class="m">(√(x+5)+3)</span>:<br>
+  <span class="m">(x−4)(√(x+5)+3) / ((x+5)−9) = (x−4)(√(x+5)+3)/(x−4) = √(x+5)+3 → 6</span>.
+</div>
+
+<h3>Término dominante (∞/∞ con polinomios)</h3>
+<ul>
+  <li>Grado arriba &gt; abajo → ±∞.</li>
+  <li>Grado arriba &lt; abajo → 0.</li>
+  <li>Grados iguales → cociente de coeficientes principales.</li>
+</ul>
+
+<h3>Notables</h3>
+<div class="formula">
+lim<sub>x→0</sub> sen(x)/x = 1<br>
+lim<sub>x→0</sub> (e<sup>x</sup>−1)/x = 1<br>
+lim<sub>x→0</sub> ln(1+x)/x = 1<br>
+lim<sub>x→0</sub> (1−cos x)/x² = 1/2
+</div>
+<p>Se generalizan: si <span class="m">g(x) → 0</span>, entonces <span class="m">sen(g(x))/g(x) → 1</span>.</p>
+
+<h3>Número e (1<sup>∞</sup>) · <b>muy importante</b></h3>
+<div class="formula">
+lim (1 + α(x))<sup>β(x)</sup> = e<sup>lim α(x) · β(x)</sup><br>
+(cuando α → 0 y β → ∞)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">lim<sub>x→+∞</sub> ((x²−1)/(x²−5))<sup>2x²+1</sup></span>. Base = <span class="m">1 + 4/(x²−5)</span>.<br>
+  α·β = <span class="m">4(2x²+1)/(x²−5) → 8</span>. Resultado: <span class="m">e<sup>8</sup></span>.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 6 ============ -->
+<details id="an-s6">
+<summary><span class="num">6</span> Continuidad y Bolzano <span class="sec-score" id="ss-analisis-6"></span></summary>
+<div class="content">
+
+<h3>Definición</h3>
+<p><span class="m">f</span> es continua en <span class="m">a</span> si:</p>
+<ol>
+  <li><span class="m">f(a)</span> existe.</li>
+  <li><span class="m">lim<sub>x→a</sub> f(x)</span> existe.</li>
+  <li>Ambos coinciden.</li>
+</ol>
+
+<h3>Continuidad con parámetro · <b>casi seguro en el parcial</b></h3>
+<div class="key"><div class="ky-t">Método</div>
+1. Calculás el límite en el punto crítico usando la rama principal.<br>
+2. Lo igualás al valor de la rama con parámetro.<br>
+3. Despejás.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo clásico</div>
+  <span class="m">f(x) = ln(1+x²)/(e<sup>x²</sup>−1)</span> si <span class="m">x ≠ 0</span>, <span class="m">f(0) = 4a − 15</span>.<br>
+  Límite = 1 (por L'Hôpital o notables). Entonces <span class="m">4a − 15 = 1 → a = 4</span>.
+</div>
+
+<h3>Bolzano</h3>
+<div class="formula">
+Si f continua en [a, b] y f(a)·f(b) &lt; 0,<br>
+entonces existe c ∈ (a, b) con f(c) = 0
+</div>
+<p>Garantiza existencia de raíz, pero no dice dónde.</p>
+
+<div class="quiz-wrap" data-qz="6" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 7 ============ -->
+<details id="an-s7">
+<summary><span class="num">7</span> Derivadas <span class="sec-score" id="ss-analisis-7"></span></summary>
+<div class="content">
+
+<h3>Definición</h3>
+<div class="formula">f'(x<sub>0</sub>) = lim<sub>h→0</sub> [f(x<sub>0</sub>+h) − f(x<sub>0</sub>)] / h</div>
+<p>Es la pendiente de la tangente en <span class="m">x<sub>0</sub></span>.</p>
+
+<h3>Tabla básica</h3>
+<table class="tbl">
+  <tr><th>f(x)</th><th>f'(x)</th></tr>
+  <tr><td class="c">k</td><td class="c">0</td></tr>
+  <tr><td class="c">x<sup>n</sup></td><td class="c">n·x<sup>n−1</sup></td></tr>
+  <tr><td class="c">e<sup>x</sup></td><td class="c">e<sup>x</sup></td></tr>
+  <tr><td class="c">ln(x)</td><td class="c">1/x</td></tr>
+  <tr><td class="c">sen x</td><td class="c">cos x</td></tr>
+  <tr><td class="c">cos x</td><td class="c">−sen x</td></tr>
+</table>
+
+<h3>Reglas</h3>
+<div class="formula">
+(f·g)' = f'·g + f·g'<br>
+(f/g)' = (f'·g − f·g')/g²<br>
+[f(g(x))]' = f'(g(x)) · g'(x) &nbsp;(cadena)
+</div>
+
+<h3>Cadena</h3>
+<p>Derivás <b>de afuera hacia adentro</b>, dejás intacta la función interna, y al final multiplicás por su derivada.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = ln(x³−1) → f'(x) = (1/(x³−1)) · 3x² = 3x²/(x³−1)</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 8 ============ -->
+<details id="an-s8">
+<summary><span class="num">8</span> Recta tangente <span class="sec-score" id="ss-analisis-8"></span></summary>
+<div class="content">
+
+<h3>Fórmula</h3>
+<div class="formula">y − f(x<sub>0</sub>) = f'(x<sub>0</sub>)·(x − x<sub>0</sub>)</div>
+
+<h3>Lectura de una tangente dada (tipo Cabana)</h3>
+<div class="key"><div class="ky-t">De y = mx + b</div>
+• <span class="m">f'(x<sub>0</sub>) = m</span> (pendiente)<br>
+• <span class="m">f(x<sub>0</sub>) = m·x<sub>0</sub> + b</span> (porque la tangente toca el punto)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Tangente a <span class="m">f</span> en <span class="m">x<sub>0</sub>=1</span> es <span class="m">y = 3x+1</span>. Sea <span class="m">h(x) = 3 + f(7x+e<sup>x</sup>)</span>, hallar <span class="m">h'(0)</span>.<br>
+  De la recta: <span class="m">f'(1)=3</span>, <span class="m">f(1)=4</span>.<br>
+  Cadena: <span class="m">h'(x) = f'(7x+e<sup>x</sup>)·(7+e<sup>x</sup>)</span>.<br>
+  En x=0: arg = 1, así que <span class="m">h'(0) = f'(1)·8 = 24</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 9 ============ -->
+<details id="an-s9">
+<summary><span class="num">9</span> Derivación implícita e inversa <span class="sec-score" id="ss-analisis-9"></span></summary>
+<div class="content">
+
+<h3>Implícita</h3>
+<p>Cuando <span class="m">y</span> está mezclada con <span class="m">x</span>, derivás ambos lados respecto de <span class="m">x</span>. Cada vez que aparece <span class="m">y</span>, recordá que <b>depende de x</b>, así que aplicás cadena y queda <span class="m">y'</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">y² + sen(x) − 3 = x → 2y·y' + cos(x) = 1 → y' = (1 − cos x)/(2y)</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Error frecuente</div>Olvidarse de multiplicar por <span class="m">y'</span> al derivar una función de <span class="m">y</span>.</div>
+
+<h3>Derivada de la inversa</h3>
+<div class="formula">(f<sup>−1</sup>)'(b) = 1/f'(a), &nbsp;con b = f(a)</div>
+<p>Buscás <span class="m">a</span> tal que <span class="m">f(a) = b</span>, y después hacés <span class="m">1/f'(a)</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = x³+2x+1</span>, calcular <span class="m">(f<sup>−1</sup>)'(1)</span>.<br>
+  <span class="m">f(0)=1</span>, <span class="m">f'(0)=2</span>. Resultado: <span class="m">1/2</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 10 ============ -->
+<details id="an-s10">
+<summary><span class="num">10</span> Diferencial y aproximación lineal <span class="sec-score" id="ss-analisis-10"></span></summary>
+<div class="content">
+
+<h3>Idea</h3>
+<p>Cerca de un punto, la función se parece a su tangente:</p>
+<div class="formula">
+f(x + h) ≈ f(x) + h·f'(x) &nbsp;(h chico)<br>
+dy = f'(x)·dx (diferencial)
+</div>
+
+<h3>Incremento vs diferencial</h3>
+<ul>
+  <li><b>Incremento:</b> <span class="m">Δy = f(x+Δx) − f(x)</span> (variación exacta).</li>
+  <li><b>Diferencial:</b> <span class="m">dy = f'(x)·Δx</span> (aproximación lineal).</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = x³</span>, <span class="m">x=1</span>, <span class="m">Δx=0,1</span>. Δy = 0,331, dy = 0,3.
+</div>
+
+<div class="quiz-wrap" data-qz="10" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 11 ============ -->
+<details id="an-s11">
+<summary><span class="num">11</span> Regla de L'Hôpital <span class="sec-score" id="ss-analisis-11"></span></summary>
+<div class="content">
+
+<h3>Enunciado</h3>
+<div class="formula">
+Si al reemplazar da 0/0 o ∞/∞:<br>
+lim [f(x)/g(x)] = lim [f'(x)/g'(x)]
+</div>
+
+<h3>Condiciones</h3>
+<ul>
+  <li>La forma debe ser <b>exactamente</b> 0/0 o ∞/∞.</li>
+  <li>Derivás numerador y denominador <b>por separado</b>, no como cociente.</li>
+  <li>Si sigue dando 0/0 o ∞/∞, se puede aplicar de nuevo.</li>
+</ul>
+
+<div class="trap"><div class="tr-t">Cuidado</div>L'Hôpital no es un atajo universal. En muchos casos conjugado, factorización o notables son más rápidos. Y si la forma no es 0/0 ni ∞/∞, <b>no se aplica</b>.</div>
+
+<div class="example">
+  <div class="ex-t">Caso donde NO conviene</div>
+  <span class="m">lim<sub>x→+∞</sub> (x + sen x)/x</span>. L'Hôpital da <span class="m">(1 + cos x)/1</span>, que oscila. Pero el límite original vale 1 — se ve separando en <span class="m">1 + sen(x)/x</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="11" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 12 ============ -->
+<details id="an-s12">
+<summary><span class="num">12</span> Asíntotas <span class="sec-score" id="ss-analisis-12"></span></summary>
+<div class="content">
+
+<h3>Vertical (AV)</h3>
+<div class="formula">x = a es AV ⟺ algún lateral en a es ±∞</div>
+<p>Los candidatos son los puntos <b>fuera del dominio</b>.</p>
+
+<h3>Horizontal (AH)</h3>
+<div class="formula">y = L es AH ⟺ lim<sub>x→±∞</sub> f(x) = L</div>
+<p>Puede haber distintas AH por derecha e izquierda.</p>
+
+<h3>Oblicua (AO)</h3>
+<div class="formula">
+m = lim<sub>x→∞</sub> f(x)/x<br>
+b = lim<sub>x→∞</sub> [f(x) − m·x]<br>
+AO: y = mx + b
+</div>
+
+<div class="key"><div class="ky-t">AH y AO son excluyentes</div>En cada lado (+∞ o −∞), o hay AH o hay AO, no las dos.</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo completo</div>
+  <span class="m">f(x) = (x²+1)/x = x + 1/x</span>.<br>
+  AV: <span class="m">x=0</span> (fuera del dominio).<br>
+  AH: no hay (f no tiende a un número).<br>
+  AO: <span class="m">m=1</span>, <span class="m">b=0 → y=x</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="12" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 13 ============ -->
+<details id="an-s13">
+<summary><span class="num">13</span> Estudio de función <span class="sec-score" id="ss-analisis-13"></span></summary>
+<div class="content">
+
+<h3>Orden sistemático</h3>
+<ol>
+  <li><b>Dominio</b>.</li>
+  <li><b>Asíntotas</b>.</li>
+  <li><b>Derivada</b> <span class="m">f'</span>.</li>
+  <li><b>Puntos críticos</b>: <span class="m">f'=0</span> o no existe. <b>Descartar los que no estén en el dominio</b>.</li>
+  <li><b>Signo de f'</b>: crecimiento / decrecimiento.</li>
+  <li><b>Extremos</b> por cambio de signo.</li>
+  <li><b>Imagen</b> usando extremos y límites.</li>
+</ol>
+
+<h3>Criterio del signo de f'</h3>
+<table class="tbl">
+  <tr><th>Antes</th><th>Después</th><th>En el punto</th></tr>
+  <tr><td class="c">−</td><td class="c">+</td><td class="c">Mínimo</td></tr>
+  <tr><td class="c">+</td><td class="c">−</td><td class="c">Máximo</td></tr>
+  <tr><td class="c">+</td><td class="c">+</td><td class="c">No es extremo</td></tr>
+  <tr><td class="c">−</td><td class="c">−</td><td class="c">No es extremo</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = 2 + ln(3x) + 18/x²</span>. Dominio: <span class="m">x&gt;0</span>. <span class="m">f'(x) = (x²−36)/x³</span>. Crítico: <span class="m">x=6</span> (x=−6 no está en dom). Mínimo en <span class="m">x=6</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Error clásico</div>Tomar como crítico un valor fuera del dominio. Los distractores de Cabana suelen incluirlo. <b>Chequeá siempre.</b></div>
+
+<div class="quiz-wrap" data-qz="13" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 14 ============ -->
+<details id="an-s14">
+<summary><span class="num">14</span> Máx/mín absolutos en intervalo cerrado <span class="sec-score" id="ss-analisis-14"></span></summary>
+<div class="content">
+
+<h3>Weierstrass</h3>
+<p>Si <span class="m">f</span> es continua en <span class="m">[a, b]</span>, entonces alcanza máximo y mínimo absolutos.</p>
+
+<h3>Método</h3>
+<div class="key"><div class="ky-t">Candidatos</div>
+1. Los <b>extremos</b> del intervalo: <span class="m">a</span> y <span class="m">b</span>.<br>
+2. Los <b>puntos críticos interiores</b>: <span class="m">f'(x)=0</span>, con <span class="m">a &lt; x &lt; b</span>.
+</div>
+<p>Evaluás <span class="m">f</span> en todos, comparás. El mayor es el máx, el menor es el mín.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  En <span class="m">[1, e]</span>, <span class="m">f(x) = 2x² − 9ln(x)</span>. <span class="m">f'(x)=(4x²−9)/x=0 → x=3/2</span>.<br>
+  <span class="m">f(1)=2</span>, <span class="m">f(3/2)≈0,85</span>, <span class="m">f(e)≈5,78</span>. Min en <span class="m">x=3/2</span>, max en <span class="m">x=e</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Error más común</div>Olvidarse de evaluar en los extremos del intervalo. Muchas veces el verdadero extremo absoluto está ahí.</div>
+
+<div class="quiz-wrap" data-qz="14" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>

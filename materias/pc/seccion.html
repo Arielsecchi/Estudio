@@ -1,0 +1,851 @@
+<header>
+    <h1>Pensamiento Computacional</h1>
+    <div class="sub">UBA XXI · Cátedra Balbiano · Parcial 20/04 (1°) y 08/06 (2°)</div>
+  </header>
+<nav class="toc" id="toc-pc">
+  <h2>Índice</h2>
+  <ol>
+    <li class="partial-sep">Primer parcial (20/04)</li>
+    <li><a href="#pc-s1">Introducción a la programación y Python</a></li>
+    <li><a href="#pc-s2">Tipos de datos, expresiones y funciones</a></li>
+    <li><a href="#pc-s3">Estructuras de control (if, while, for)</a></li>
+    <li><a href="#pc-s4a">Listas y tuplas</a></li>
+    <li class="partial-sep">Segundo parcial (08/06)</li>
+    <li><a href="#pc-s4b">Diccionarios</a></li>
+    <li><a href="#pc-s5">Archivos y manejo de errores</a></li>
+    <li><a href="#pc-s6a">Pandas (análisis de datos)</a></li>
+    <li><a href="#pc-s6b">Matplotlib (gráficos)</a></li>
+  </ol>
+  <div class="score" id="global-score-pc">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<div class="partial-header">Primer parcial <span class="date">Unidades 1–4 (parte 1)</span></div>
+
+<!-- ============ UNIDAD 1 · INTRODUCCIÓN ============ -->
+<details id="pc-s1">
+<summary><span class="num">1</span> Introducción a la programación y Python <span class="sec-score" id="ss-pc-1"></span></summary>
+<div class="content">
+
+<h3>¿Qué es la programación?</h3>
+<p>La <b>programación</b> es la actividad de escribir instrucciones precisas que una computadora puede ejecutar para resolver un problema. Esas instrucciones se escriben en un <b>lenguaje de programación</b>. En esta materia vas a usar <b>Python</b>.</p>
+
+<h3>¿Qué es un algoritmo?</h3>
+<p>Un <b>algoritmo</b> es una secuencia finita y ordenada de pasos para resolver un problema. Un algoritmo puede existir sin computadoras: una receta de cocina es un algoritmo.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo cotidiano</div>
+  Algoritmo "hacer un café":<br>
+  1. Poner agua en la pava.<br>
+  2. Encender el fuego.<br>
+  3. Esperar a que hierva.<br>
+  4. Poner café en la taza.<br>
+  5. Echar el agua caliente.<br><br>
+  Si seguís los pasos en orden, obtenés café. Eso es un algoritmo.
+</div>
+
+<h3>¿Qué es un programa?</h3>
+<p>Un <b>programa</b> es un algoritmo escrito en un lenguaje que la computadora entiende. La programación consiste en traducir la idea (el algoritmo) al código del lenguaje.</p>
+
+<h3>Python: un primer vistazo</h3>
+<p>Python es un lenguaje de programación diseñado para ser legible y claro. Se usa para análisis de datos, inteligencia artificial, desarrollo web, ingeniería y mucho más.</p>
+
+<pre class="code-block">print("Hola, mundo")</pre>
+
+<p>Este es el programa más chico: le dice a la computadora que <b>muestre en pantalla</b> el texto <code>Hola, mundo</code>. La función <code>print()</code> muestra cosas.</p>
+
+<h3>Google Colab</h3>
+<p>Para esta materia vas a usar <b>Google Colab</b>: un entorno web donde escribís y ejecutás Python sin instalar nada. Lo abrís desde el navegador con tu cuenta de Google.</p>
+
+<h3>Variables</h3>
+<p>Una <b>variable</b> es un nombre que guarda un valor. Pensá en una caja etiquetada: la etiqueta es el nombre, el contenido es el valor.</p>
+
+<pre class="code-block">edad = 25
+nombre = "Ariel"
+pi = 3.14159
+
+print(edad)
+print(nombre)
+print(pi)</pre>
+
+<p>Se usa el signo <code>=</code> (llamado <b>asignación</b>) para guardar un valor en una variable. Después podés usar el nombre donde antes iba el valor.</p>
+
+<div class="key"><div class="ky-t">Reglas para nombres de variables</div>
+• Pueden tener letras, números y <code>_</code>.<br>
+• NO pueden empezar con número: <code>2edad</code> ❌<br>
+• NO pueden tener espacios ni acentos: <code>edad_actual</code> ✓, <code>edad actual</code> ❌<br>
+• Distinguen mayúsculas: <code>Edad</code> y <code>edad</code> son distintas.<br>
+• Elegí nombres <b>descriptivos</b>: <code>total_pagado</code> es mucho mejor que <code>x</code>.
+</div>
+
+<h3>El intérprete de Python</h3>
+<p>Python es un <b>lenguaje interpretado</b>: la computadora va leyendo el código línea por línea y ejecutándolo al momento. En Colab, cada celda es un bloque de código que podés ejecutar con Shift+Enter.</p>
+
+<div class="trap"><div class="tr-t">Errores típicos al empezar</div>
+• Olvidar las comillas en los textos: <code>nombre = Ariel</code> ❌ (sin comillas Python busca una variable llamada Ariel), <code>nombre = "Ariel"</code> ✓<br>
+• Confundir <code>=</code> con <code>==</code>: el primero asigna, el segundo compara.<br>
+• Olvidar los paréntesis de <code>print()</code>.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · TIPOS, EXPRESIONES, FUNCIONES ============ -->
+<details id="pc-s2">
+<summary><span class="num">2</span> Tipos de datos, expresiones y funciones <span class="sec-score" id="ss-pc-2"></span></summary>
+<div class="content">
+
+<h3>Tipos de datos simples</h3>
+<p>En Python, cada valor tiene un <b>tipo</b> que determina qué operaciones se pueden hacer con él.</p>
+
+<table class="tbl">
+  <tr><th>Tipo</th><th>Nombre en Python</th><th>Ejemplos</th></tr>
+  <tr><td>Entero</td><td><code>int</code></td><td><code>7</code>, <code>-3</code>, <code>0</code>, <code>1000</code></td></tr>
+  <tr><td>Real (decimal)</td><td><code>float</code></td><td><code>3.14</code>, <code>-0.5</code>, <code>2.0</code></td></tr>
+  <tr><td>Cadena (texto)</td><td><code>str</code></td><td><code>"hola"</code>, <code>'Python'</code>, <code>"123"</code></td></tr>
+  <tr><td>Booleano</td><td><code>bool</code></td><td><code>True</code>, <code>False</code></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Ojo con las comillas</div>
+<code>"123"</code> es un <b>string</b> (texto), no un número. Pese a verse como número, Python lo trata como palabra. Si querés hacer cuentas con él, tenés que <b>convertirlo</b>: <code>int("123")</code> → <code>123</code>.
+</div>
+
+<h3>La función <code>type()</code></h3>
+<p>Te dice el tipo de un valor:</p>
+<pre class="code-block">type(5)        # &lt;class 'int'&gt;
+type(3.14)     # &lt;class 'float'&gt;
+type("hola")   # &lt;class 'str'&gt;
+type(True)     # &lt;class 'bool'&gt;</pre>
+
+<h3>Operadores aritméticos</h3>
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr>
+  <tr><td><code>+</code></td><td>Suma</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
+  <tr><td><code>-</code></td><td>Resta</td><td><code>5 - 3</code></td><td><code>2</code></td></tr>
+  <tr><td><code>*</code></td><td>Multiplicación</td><td><code>5 * 3</code></td><td><code>15</code></td></tr>
+  <tr><td><code>/</code></td><td>División (da float)</td><td><code>10 / 3</code></td><td><code>3.333...</code></td></tr>
+  <tr><td><code>//</code></td><td>División entera</td><td><code>10 // 3</code></td><td><code>3</code></td></tr>
+  <tr><td><code>%</code></td><td>Módulo (resto)</td><td><code>10 % 3</code></td><td><code>1</code></td></tr>
+  <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 3</code></td><td><code>8</code></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El operador módulo <code>%</code></div>
+Devuelve el <b>resto</b> de la división. Es súper útil: <code>n % 2 == 0</code> te dice si n es par.
+</div>
+
+<h3>Operadores relacionales (comparación)</h3>
+<p>Devuelven siempre un booleano (<code>True</code> o <code>False</code>).</p>
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><code>==</code></td><td>Igual a</td><td><code>5 == 5</code> → <code>True</code></td></tr>
+  <tr><td><code>!=</code></td><td>Distinto de</td><td><code>5 != 3</code> → <code>True</code></td></tr>
+  <tr><td><code>&lt;</code></td><td>Menor que</td><td><code>3 &lt; 5</code> → <code>True</code></td></tr>
+  <tr><td><code>&gt;</code></td><td>Mayor que</td><td><code>3 &gt; 5</code> → <code>False</code></td></tr>
+  <tr><td><code>&lt;=</code></td><td>Menor o igual</td><td><code>5 &lt;= 5</code> → <code>True</code></td></tr>
+  <tr><td><code>&gt;=</code></td><td>Mayor o igual</td><td><code>5 &gt;= 6</code> → <code>False</code></td></tr>
+</table>
+
+<h3>Operadores lógicos</h3>
+<p>Combinan booleanos:</p>
+<ul>
+  <li><code>and</code>: verdadero si <b>ambos</b> lados son verdaderos.</li>
+  <li><code>or</code>: verdadero si <b>al menos uno</b> es verdadero.</li>
+  <li><code>not</code>: invierte el valor (<code>not True</code> es <code>False</code>).</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+<pre class="code-block">edad = 20
+tiene_dni = True
+
+puede_votar = edad &gt;= 16 and tiene_dni
+print(puede_votar)   # True</pre>
+</div>
+
+<h3>Entrada del usuario: <code>input()</code></h3>
+<p>Para pedir datos al usuario:</p>
+<pre class="code-block">nombre = input("¿Cómo te llamás? ")
+print("Hola,", nombre)</pre>
+
+<div class="trap"><div class="tr-t">¡Clave!</div>
+<code>input()</code> <b>siempre devuelve un string</b>, incluso si el usuario escribe un número. Si necesitás un número:<br>
+<code>edad = int(input("Edad: "))</code>
+</div>
+
+<h3>Funciones</h3>
+<p>Una <b>función</b> es un bloque de código con nombre que hace una tarea específica. Podés reutilizarlo las veces que quieras.</p>
+<p>La estructura básica:</p>
+<pre class="code-block">def nombre_funcion(parametros):
+    # código de la función
+    return resultado</pre>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+<pre class="code-block">def doble(x):
+    return x * 2
+
+print(doble(5))    # 10
+print(doble(7))    # 14
+print(doble(-3))   # -6</pre>
+</div>
+
+<h3>Partes de una función</h3>
+<ul>
+  <li><b>def</b>: palabra clave que indica que vas a definir una función.</li>
+  <li><b>Nombre:</b> cómo llamás a tu función.</li>
+  <li><b>Parámetros:</b> los datos que recibe (entre paréntesis). Pueden ser varios separados por comas o ninguno.</li>
+  <li><b>Cuerpo:</b> las líneas <b>indentadas</b> debajo (con 4 espacios o un tab). La indentación es obligatoria en Python.</li>
+  <li><b>return:</b> devuelve el resultado. Una función puede no tener return (devuelve <code>None</code>).</li>
+</ul>
+
+<div class="trap"><div class="tr-t">Indentación: lo más importante de Python</div>
+A diferencia de otros lenguajes, Python usa <b>indentación</b> (espacios al principio de la línea) para marcar qué código está "dentro" de una función, un <code>if</code>, un ciclo, etc. Siempre usá la misma cantidad de espacios (4 es estándar). Mezclar tabs y espacios causa errores.
+</div>
+
+<h3>Comentarios</h3>
+<p>Texto que Python ignora. Sirve para explicar qué hace el código.</p>
+<pre class="code-block"># Esto es un comentario
+x = 5   # también se pueden poner al final de una línea</pre>
+
+<div class="quiz-wrap" data-qz="2" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · ESTRUCTURAS DE CONTROL ============ -->
+<details id="pc-s3">
+<summary><span class="num">3</span> Estructuras de control <span class="sec-score" id="ss-pc-3"></span></summary>
+<div class="content">
+
+<h3>¿Qué son las estructuras de control?</h3>
+<p>Por defecto, Python ejecuta el código <b>de arriba hacia abajo, línea por línea</b>. Las <b>estructuras de control</b> cambian ese flujo: permiten tomar decisiones o repetir acciones.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Condicional: <code>if</code> · <b>muy frecuente en parciales</b></h3>
+<p>Ejecuta un bloque de código <b>solo si</b> se cumple una condición.</p>
+
+<pre class="code-block">if edad &gt;= 18:
+    print("Sos mayor de edad")</pre>
+
+<p>Si <code>edad &gt;= 18</code> es verdadero, ejecuta el <code>print</code>. Si no, no hace nada y sigue.</p>
+
+<h3><code>if</code> / <code>else</code></h3>
+<p>"Si se cumple X, hacé una cosa; si no, hacé otra".</p>
+
+<pre class="code-block">if edad &gt;= 18:
+    print("Mayor de edad")
+else:
+    print("Menor de edad")</pre>
+
+<h3><code>if</code> / <code>elif</code> / <code>else</code></h3>
+<p>Para varias opciones encadenadas. <code>elif</code> significa "else if":</p>
+
+<pre class="code-block">nota = 7
+
+if nota &gt;= 8:
+    print("Muy bien")
+elif nota &gt;= 6:
+    print("Bien")
+elif nota &gt;= 4:
+    print("Aprobado")
+else:
+    print("Desaprobado")</pre>
+
+<p>Python evalúa las condiciones <b>en orden</b>. Cuando encuentra una verdadera, ejecuta <b>solo</b> ese bloque y salta todo el resto.</p>
+
+<div class="trap"><div class="tr-t">Error clásico</div>
+Olvidar los <code>:</code> al final de la condición, o la indentación del bloque interno. Ambos dan errores de sintaxis.
+</div>
+
+<h3>Condicionales anidados</h3>
+<p>Un <code>if</code> adentro de otro <code>if</code>:</p>
+<pre class="code-block">if tiene_dni:
+    if edad &gt;= 16:
+        print("Puede votar")
+    else:
+        print("Muy joven para votar")
+else:
+    print("Necesita DNI")</pre>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Ciclo <code>while</code> · <b>muy frecuente</b></h3>
+<p>Repite un bloque de código <b>mientras se cumpla una condición</b>.</p>
+
+<pre class="code-block">i = 0
+while i &lt; 5:
+    print(i)
+    i = i + 1</pre>
+
+<p>Imprime 0, 1, 2, 3, 4. El ciclo sigue <b>mientras</b> <code>i &lt; 5</code>. En cada vuelta se suma 1, hasta que i llega a 5 y la condición se vuelve falsa.</p>
+
+<div class="key"><div class="ky-t">Casos de uso típicos de <code>while</code></div>
+• Validar datos: "pedir un número hasta que sea positivo".<br>
+• Repetir hasta una señal: "jugar hasta que el usuario diga que basta".<br>
+• Cuando no sabés de antemano cuántas veces vas a iterar.
+</div>
+
+<div class="trap"><div class="tr-t">¡Cuidado con los ciclos infinitos!</div>
+Si la condición nunca se hace falsa, el ciclo <b>nunca termina</b>. Asegurate de que algo dentro del ciclo modifica la variable de la condición.
+</div>
+
+<h3>Validar entrada con <code>while</code></h3>
+<pre class="code-block">n = int(input("Ingresá un positivo: "))
+while n &lt;= 0:
+    print("Tiene que ser positivo")
+    n = int(input("Ingresá un positivo: "))</pre>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Ciclo <code>for</code> · <b>muy frecuente</b></h3>
+<p>Recorre los elementos de una secuencia (lista, string, <code>range</code>...) uno por uno.</p>
+
+<pre class="code-block">for letra in "Python":
+    print(letra)</pre>
+<p>Imprime P, y, t, h, o, n.</p>
+
+<pre class="code-block">nombres = ["Ana", "Bruno", "Carla"]
+for nombre in nombres:
+    print("Hola", nombre)</pre>
+
+<h3>La función <code>range()</code></h3>
+<p>Genera una secuencia de enteros. Muy usada con <code>for</code>.</p>
+
+<table class="tbl">
+  <tr><th>Forma</th><th>Genera</th></tr>
+  <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4</td></tr>
+  <tr><td><code>range(2, 7)</code></td><td>2, 3, 4, 5, 6</td></tr>
+  <tr><td><code>range(0, 10, 2)</code></td><td>0, 2, 4, 6, 8 (paso 2)</td></tr>
+  <tr><td><code>range(10, 0, -1)</code></td><td>10, 9, 8, ..., 1 (cuenta regresiva)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Ojo: <code>range</code> NO incluye el extremo final</div>
+<code>range(5)</code> va de 0 a 4 (no incluye el 5). <code>range(2, 7)</code> va de 2 a 6 (no incluye el 7).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: sumar los primeros 10 números</div>
+<pre class="code-block">suma = 0
+for i in range(1, 11):
+    suma = suma + i
+print(suma)   # 55</pre>
+</div>
+
+<h3>¿When <code>for</code> vs <code>while</code>?</h3>
+<table class="tbl">
+  <tr><th>Usá <code>for</code> cuando...</th><th>Usá <code>while</code> cuando...</th></tr>
+  <tr><td>Sabés cuántas veces iterar</td><td>No sabés cuántas veces</td></tr>
+  <tr><td>Recorrer una secuencia conocida</td><td>Esperás a que algo pase</td></tr>
+  <tr><td>Contar de n a m</td><td>Validar entrada del usuario</td></tr>
+</table>
+
+<h3><code>break</code> y <code>continue</code></h3>
+<ul>
+  <li><code>break</code>: corta el ciclo inmediatamente.</li>
+  <li><code>continue</code>: salta a la próxima iteración sin ejecutar el resto del cuerpo.</li>
+</ul>
+
+<pre class="code-block">for i in range(10):
+    if i == 5:
+        break       # corta al llegar a 5
+    print(i)
+# Imprime 0, 1, 2, 3, 4</pre>
+
+<div class="quiz-wrap" data-qz="3" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4a · LISTAS Y TUPLAS ============ -->
+<details id="pc-s4a">
+<summary><span class="num">4</span> Listas y tuplas <span class="sec-score" id="ss-pc-4a"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una lista?</h3>
+<p>Una <b>lista</b> es una colección <b>ordenada y mutable</b> de elementos. Se escribe entre corchetes y los elementos se separan con comas.</p>
+
+<pre class="code-block">numeros = [10, 20, 30, 40, 50]
+palabras = ["casa", "árbol", "auto"]
+mezcla = [1, "hola", 3.14, True]   # puede tener distintos tipos</pre>
+
+<h3>Acceso por índice</h3>
+<p>Se accede a los elementos con <b>índice</b>, que <b>empieza desde 0</b>.</p>
+
+<pre class="code-block">numeros = [10, 20, 30, 40, 50]
+print(numeros[0])   # 10 (primero)
+print(numeros[2])   # 30 (tercero)
+print(numeros[-1])  # 50 (último, índice negativo)
+print(numeros[-2])  # 40 (anteúltimo)</pre>
+
+<div class="key"><div class="ky-t">Índices negativos</div>
+En Python, los índices negativos cuentan <b>desde el final</b>: <code>-1</code> es el último, <code>-2</code> el anteúltimo, etc. Súper útil y elegante.
+</div>
+
+<h3>Longitud: <code>len()</code></h3>
+<pre class="code-block">numeros = [10, 20, 30, 40, 50]
+print(len(numeros))   # 5</pre>
+
+<h3>Slicing (rebanadas)</h3>
+<p>Para obtener una sublista, usás <code>lista[inicio:fin]</code>. El <code>fin</code> <b>no se incluye</b>.</p>
+
+<pre class="code-block">numeros = [10, 20, 30, 40, 50]
+print(numeros[1:4])    # [20, 30, 40]
+print(numeros[:3])     # [10, 20, 30] (desde el principio)
+print(numeros[2:])     # [30, 40, 50] (hasta el final)
+print(numeros[:])      # [10, 20, 30, 40, 50] (copia completa)</pre>
+
+<h3>Mutabilidad: podés modificar una lista</h3>
+<pre class="code-block">nums = [10, 20, 30]
+nums[1] = 99
+print(nums)   # [10, 99, 30]</pre>
+
+<h3>Métodos más usados</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
+  <tr><td><code>append(x)</code></td><td>Agrega al final</td><td><code>lista.append(5)</code></td></tr>
+  <tr><td><code>insert(i, x)</code></td><td>Inserta en posición i</td><td><code>lista.insert(0, 5)</code></td></tr>
+  <tr><td><code>remove(x)</code></td><td>Borra la primera ocurrencia de x</td><td><code>lista.remove(30)</code></td></tr>
+  <tr><td><code>pop(i)</code></td><td>Saca y devuelve elemento en i</td><td><code>x = lista.pop(0)</code></td></tr>
+  <tr><td><code>sort()</code></td><td>Ordena la lista (en el lugar)</td><td><code>lista.sort()</code></td></tr>
+  <tr><td><code>reverse()</code></td><td>Invierte el orden</td><td><code>lista.reverse()</code></td></tr>
+  <tr><td><code>index(x)</code></td><td>Devuelve la posición de x</td><td><code>lista.index(30)</code></td></tr>
+  <tr><td><code>count(x)</code></td><td>Cuenta cuántas veces aparece x</td><td><code>lista.count(5)</code></td></tr>
+</table>
+
+<h3>Recorrer una lista</h3>
+<p>Dos formas típicas:</p>
+<pre class="code-block"># Por elemento
+for n in numeros:
+    print(n)
+
+# Por índice
+for i in range(len(numeros)):
+    print(i, numeros[i])</pre>
+
+<h3>Operadores útiles: <code>in</code>, <code>+</code>, <code>*</code></h3>
+<pre class="code-block">5 in [1, 2, 3, 5]       # True (¿está 5?)
+"casa" in ["auto","casa"]  # True
+
+[1, 2] + [3, 4]     # [1, 2, 3, 4] (concatena)
+[0] * 5             # [0, 0, 0, 0, 0] (repite)</pre>
+
+<h3>Tuplas: como listas pero inmutables</h3>
+<p>Una <b>tupla</b> es como una lista, pero <b>no se puede modificar</b> después de crearla. Se escriben con paréntesis:</p>
+
+<pre class="code-block">coord = (3, 4)
+colores = ("rojo", "verde", "azul")
+
+print(coord[0])    # 3
+# coord[0] = 99    # ERROR: las tuplas son inmutables</pre>
+
+<div class="key"><div class="ky-t">¿Cuándo usar tupla en vez de lista?</div>
+Cuando los datos <b>no tienen que cambiar</b>: coordenadas, fechas, datos constantes. Es más seguro y más rápido.
+</div>
+
+<h3>Desempaquetado</h3>
+<p>Podés asignar varios valores a la vez:</p>
+<pre class="code-block">x, y = (3, 4)
+print(x)   # 3
+print(y)   # 4
+
+# También funciona con listas
+nombre, edad = ["Ariel", 30]</pre>
+
+<div class="quiz-wrap" data-qz="4a" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<div class="partial-header">Segundo parcial <span class="date">Unidades 4 (diccionarios) – 6</span></div>
+
+<!-- ============ UNIDAD 4b · DICCIONARIOS ============ -->
+<details id="pc-s4b">
+<summary><span class="num">5</span> Diccionarios <span class="sec-score" id="ss-pc-4b"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un diccionario?</h3>
+<p>Un <b>diccionario</b> es una colección de pares <b>clave:valor</b>. A diferencia de una lista (donde accedés por posición), en un diccionario accedés por una clave que vos elegís.</p>
+
+<pre class="code-block">persona = {"nombre": "Ariel", "edad": 30, "ciudad": "Buenos Aires"}
+
+print(persona["nombre"])   # "Ariel"
+print(persona["edad"])     # 30</pre>
+
+<h3>Sintaxis</h3>
+<ul>
+  <li>Llaves <code>{ }</code> (no corchetes).</li>
+  <li>Cada par tiene la forma <code>clave: valor</code>.</li>
+  <li>Los pares se separan con comas.</li>
+  <li>Las claves suelen ser strings o números. Los valores pueden ser cualquier cosa.</li>
+</ul>
+
+<h3>Crear, agregar, modificar</h3>
+<pre class="code-block"># Vacío
+persona = {}
+
+# Agregar o modificar
+persona["nombre"] = "Ariel"
+persona["edad"] = 30
+persona["edad"] = 31    # modifica (misma clave)
+
+print(persona)   # {'nombre': 'Ariel', 'edad': 31}</pre>
+
+<h3>Borrar entradas</h3>
+<pre class="code-block">del persona["edad"]
+# o
+persona.pop("edad")</pre>
+
+<h3>¿Existe una clave?</h3>
+<pre class="code-block">if "nombre" in persona:
+    print("Tiene nombre:", persona["nombre"])</pre>
+
+<div class="trap"><div class="tr-t">Ojo</div>
+Si accedés con <code>persona["clave_que_no_existe"]</code>, Python tira error. Para evitarlo:<br>
+• Usá <code>in</code> antes de acceder.<br>
+• O usá <code>persona.get("clave")</code>: devuelve <code>None</code> si no existe en lugar de tirar error.
+</div>
+
+<h3>Métodos útiles</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Devuelve</th></tr>
+  <tr><td><code>d.keys()</code></td><td>Todas las claves</td></tr>
+  <tr><td><code>d.values()</code></td><td>Todos los valores</td></tr>
+  <tr><td><code>d.items()</code></td><td>Pares (clave, valor)</td></tr>
+  <tr><td><code>d.get(k, default)</code></td><td>Valor o default si no existe</td></tr>
+</table>
+
+<h3>Recorrer un diccionario</h3>
+<pre class="code-block">persona = {"nombre": "Ariel", "edad": 30}
+
+# Por clave
+for clave in persona:
+    print(clave, "→", persona[clave])
+
+# Por pares
+for clave, valor in persona.items():
+    print(clave, "→", valor)</pre>
+
+<h3>Listas de diccionarios · <b>muy frecuente</b></h3>
+<p>Estructura común para datos estructurados. Cada elemento de la lista es un diccionario.</p>
+
+<pre class="code-block">personas = [
+    {"nombre": "Ana", "edad": 25},
+    {"nombre": "Bruno", "edad": 30},
+    {"nombre": "Carla", "edad": 28}
+]
+
+# Recorrer
+for p in personas:
+    print(p["nombre"], "tiene", p["edad"], "años")
+
+# Filtrar mayores de 27
+mayores = []
+for p in personas:
+    if p["edad"] &gt; 27:
+        mayores.append(p)</pre>
+
+<h3>Validar usuarios (clásico de parcial)</h3>
+<pre class="code-block">users = {"ariel": "clave123", "juan": "pwd456"}
+
+def ingreso(usr):
+    u = input("Usuario: ")
+    cl = input("Clave: ")
+    if u in usr:
+        if usr[u] == cl:
+            return True
+    return False
+
+while not ingreso(users):
+    print("Datos erróneos")</pre>
+
+<div class="quiz-wrap" data-qz="4b" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · ARCHIVOS Y ERRORES ============ -->
+<details id="pc-s5">
+<summary><span class="num">6</span> Archivos y manejo de errores <span class="sec-score" id="ss-pc-5"></span></summary>
+<div class="content">
+
+<h3>¿Por qué trabajar con archivos?</h3>
+<p>Cuando un programa termina, se pierden todas las variables. Para <b>persistir</b> datos (guardarlos), hay que escribirlos en un archivo. Después los podés leer en otra ejecución.</p>
+
+<h3>Abrir un archivo: <code>open()</code></h3>
+<pre class="code-block">archivo = open("datos.txt", "r")</pre>
+
+<p>El segundo parámetro es el <b>modo</b>:</p>
+<table class="tbl">
+  <tr><th>Modo</th><th>Qué hace</th></tr>
+  <tr><td><code>"r"</code></td><td>Lectura (read). Falla si no existe.</td></tr>
+  <tr><td><code>"w"</code></td><td>Escritura (write). <b>Sobrescribe</b> si existe.</td></tr>
+  <tr><td><code>"a"</code></td><td>Agregar al final (append).</td></tr>
+  <tr><td><code>"r+"</code></td><td>Lectura y escritura.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Cuidado con <code>"w"</code></div>
+Abre el archivo y <b>borra todo su contenido</b>. Si querés agregar sin perder lo anterior, usá <code>"a"</code>.
+</div>
+
+<h3>Leer un archivo</h3>
+<pre class="code-block"># Leer todo como un solo string
+archivo = open("datos.txt", "r")
+contenido = archivo.read()
+archivo.close()
+
+# Leer línea por línea
+archivo = open("datos.txt", "r")
+for linea in archivo:
+    print(linea)
+archivo.close()</pre>
+
+<h3>Escribir en un archivo</h3>
+<pre class="code-block">archivo = open("salida.txt", "w")
+archivo.write("Hola\n")
+archivo.write("Segunda línea\n")
+archivo.close()</pre>
+
+<div class="key"><div class="ky-t">Salto de línea: <code>\n</code></div>
+Si querés escribir en varias líneas, tenés que agregar <code>\n</code> al final. <code>write()</code> NO lo hace solo.
+</div>
+
+<h3>La forma recomendada: <code>with</code></h3>
+<p>Abre el archivo y lo cierra automáticamente al terminar el bloque.</p>
+
+<pre class="code-block">with open("datos.txt", "r") as archivo:
+    for linea in archivo:
+        print(linea.strip())</pre>
+
+<p><code>strip()</code> quita espacios y saltos de línea al principio y al final.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Manejo de errores</h3>
+<p>Un <b>error</b> (o <b>excepción</b>) ocurre cuando algo no sale bien: un archivo no existe, el usuario ingresa texto donde esperabas número, dividís por cero, etc.</p>
+
+<p>Por defecto, cuando ocurre un error, el programa <b>se corta</b>. Para manejarlo:</p>
+
+<h3>try / except</h3>
+<pre class="code-block">try:
+    n = int(input("Ingresá un número: "))
+    print(n * 2)
+except ValueError:
+    print("Eso no fue un número")</pre>
+
+<p><b>try:</b> "intentá esto".<br>
+<b>except:</b> "si falla, hacé esto otro".</p>
+
+<h3>Excepciones más comunes</h3>
+<table class="tbl">
+  <tr><th>Excepción</th><th>Cuándo ocurre</th></tr>
+  <tr><td><code>ValueError</code></td><td>Tipo incorrecto: <code>int("hola")</code></td></tr>
+  <tr><td><code>ZeroDivisionError</code></td><td>División por cero</td></tr>
+  <tr><td><code>FileNotFoundError</code></td><td>Archivo inexistente al abrir</td></tr>
+  <tr><td><code>KeyError</code></td><td>Clave no existe en diccionario</td></tr>
+  <tr><td><code>IndexError</code></td><td>Índice fuera de rango en lista</td></tr>
+  <tr><td><code>TypeError</code></td><td>Tipo incompatible: <code>"a" + 5</code></td></tr>
+</table>
+
+<h3>Múltiples except</h3>
+<pre class="code-block">try:
+    archivo = open("datos.txt", "r")
+    n = int(archivo.readline())
+    resultado = 10 / n
+except FileNotFoundError:
+    print("No existe el archivo")
+except ValueError:
+    print("El archivo no tiene un número")
+except ZeroDivisionError:
+    print("No se puede dividir por cero")</pre>
+
+<h3>Validar entrada de usuario (clásico de parcial)</h3>
+<pre class="code-block">def entPositivo(cartel):
+    pedir = True
+    while pedir:
+        try:
+            n = int(input(cartel))
+            if n &gt; 0:
+                pedir = False
+            else:
+                print("Tiene que ser mayor que 0")
+        except ValueError:
+            print("Tiene que ser entero")
+    return n
+
+num = entPositivo("Ingresá un natural: ")</pre>
+
+<div class="quiz-wrap" data-qz="5" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6a · PANDAS ============ -->
+<details id="pc-s6a">
+<summary><span class="num">7</span> Pandas (análisis de datos) <span class="sec-score" id="ss-pc-6a"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una biblioteca?</h3>
+<p>Una <b>biblioteca</b> (library) es código que otros escribieron y podés usar en tus programas importándolo. Evita "reinventar la rueda". Python viene con muchas bibliotecas incluidas, y podés instalar miles más.</p>
+
+<pre class="code-block">import pandas as pd
+import matplotlib.pyplot as plt</pre>
+
+<p><code>import</code> carga la biblioteca. <code>as</code> le da un nombre más corto (alias) para usarla.</p>
+
+<h3>¿Qué es Pandas?</h3>
+<p><b>Pandas</b> es la biblioteca estándar para trabajar con datos en forma tabular (como planillas Excel) en Python. Se usa muchísimo en ingeniería, ciencia de datos y análisis.</p>
+
+<h3>Estructura principal: DataFrame</h3>
+<p>Un <b>DataFrame</b> es una tabla con filas y columnas. Cada columna es una <b>Series</b>.</p>
+
+<pre class="code-block">import pandas as pd
+
+# Desde un diccionario
+datos = {
+    "nombre": ["Ana", "Bruno", "Carla"],
+    "edad":   [25, 30, 28],
+    "ciudad": ["CABA", "Rosario", "CABA"]
+}
+df = pd.DataFrame(datos)
+print(df)</pre>
+
+<p>Genera una tabla con columnas nombre, edad, ciudad.</p>
+
+<h3>Cargar datos desde un CSV</h3>
+<pre class="code-block">df = pd.read_csv("datos.csv")</pre>
+
+<p>CSV (Comma-Separated Values) es el formato más común: archivo de texto donde cada fila es una línea y las columnas están separadas por comas.</p>
+
+<h3>Explorar un DataFrame</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Qué muestra</th></tr>
+  <tr><td><code>df.head()</code></td><td>Primeras 5 filas</td></tr>
+  <tr><td><code>df.tail()</code></td><td>Últimas 5 filas</td></tr>
+  <tr><td><code>df.shape</code></td><td>(filas, columnas)</td></tr>
+  <tr><td><code>df.columns</code></td><td>Nombres de columnas</td></tr>
+  <tr><td><code>df.info()</code></td><td>Resumen: tipos, no nulos</td></tr>
+  <tr><td><code>df.describe()</code></td><td>Estadísticas básicas de columnas numéricas</td></tr>
+</table>
+
+<h3>Acceder a columnas</h3>
+<pre class="code-block">df["edad"]          # la columna edad como Series
+df[["nombre","edad"]]   # varias columnas (doble corchetes)</pre>
+
+<h3>Filtrar filas</h3>
+<pre class="code-block"># Personas mayores de 27
+df[df["edad"] &gt; 27]
+
+# Personas de CABA
+df[df["ciudad"] == "CABA"]
+
+# Combinado (con paréntesis)
+df[(df["edad"] &gt; 25) &amp; (df["ciudad"] == "CABA")]</pre>
+
+<div class="trap"><div class="tr-t">En pandas se usa <code>&amp;</code>, <code>|</code>, <code>~</code></div>
+Con DataFrames NO usás <code>and</code>, <code>or</code>, <code>not</code>, sino <code>&amp;</code>, <code>|</code>, <code>~</code>. Y siempre envolvé cada condición con paréntesis.
+</div>
+
+<h3>Operaciones útiles</h3>
+<pre class="code-block">df["edad"].mean()       # promedio
+df["edad"].max()        # máximo
+df["edad"].min()        # mínimo
+df["edad"].sum()        # suma total
+df["ciudad"].value_counts()   # cuántos de cada valor
+
+# Ordenar
+df.sort_values("edad")            # ascendente
+df.sort_values("edad", ascending=False)  # descendente
+
+# Agrupar
+df.groupby("ciudad")["edad"].mean()   # promedio de edad por ciudad</pre>
+
+<h3>Agregar / modificar columnas</h3>
+<pre class="code-block">df["mayor_de_edad"] = df["edad"] &gt;= 18
+df["edad_doble"] = df["edad"] * 2</pre>
+
+<div class="quiz-wrap" data-qz="6a" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6b · MATPLOTLIB ============ -->
+<details id="pc-s6b">
+<summary><span class="num">8</span> Matplotlib (gráficos) <span class="sec-score" id="ss-pc-6b"></span></summary>
+<div class="content">
+
+<h3>¿Qué es Matplotlib?</h3>
+<p><b>Matplotlib</b> es la biblioteca estándar para crear gráficos en Python. Permite hacer gráficos de línea, barras, dispersión, histogramas, etc.</p>
+
+<pre class="code-block">import matplotlib.pyplot as plt</pre>
+
+<p><code>plt</code> es el alias convencional.</p>
+
+<h3>Gráfico de línea básico</h3>
+<pre class="code-block">x = [1, 2, 3, 4, 5]
+y = [2, 4, 1, 5, 3]
+
+plt.plot(x, y)
+plt.show()</pre>
+
+<p><code>plt.plot(x, y)</code> arma el gráfico. <code>plt.show()</code> lo muestra.</p>
+
+<h3>Agregar títulos y etiquetas</h3>
+<pre class="code-block">plt.plot(x, y)
+plt.title("Mi primer gráfico")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Velocidad (m/s)")
+plt.show()</pre>
+
+<h3>Tipos de gráficos principales</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Función</th><th>Cuándo usar</th></tr>
+  <tr><td>Línea</td><td><code>plt.plot(x, y)</code></td><td>Evolución en el tiempo, funciones</td></tr>
+  <tr><td>Barras</td><td><code>plt.bar(x, y)</code></td><td>Comparar categorías</td></tr>
+  <tr><td>Barras horizontales</td><td><code>plt.barh(x, y)</code></td><td>Igual que barras pero horizontal</td></tr>
+  <tr><td>Dispersión</td><td><code>plt.scatter(x, y)</code></td><td>Correlación entre variables</td></tr>
+  <tr><td>Histograma</td><td><code>plt.hist(datos)</code></td><td>Distribución de una variable</td></tr>
+  <tr><td>Torta</td><td><code>plt.pie(valores)</code></td><td>Proporciones de un total</td></tr>
+</table>
+
+<h3>Ejemplo: gráfico de barras</h3>
+<pre class="code-block">meses = ["Ene", "Feb", "Mar", "Abr"]
+ventas = [120, 90, 150, 180]
+
+plt.bar(meses, ventas)
+plt.title("Ventas por mes")
+plt.xlabel("Mes")
+plt.ylabel("Ventas")
+plt.show()</pre>
+
+<h3>Personalización</h3>
+<pre class="code-block">plt.plot(x, y, color="red", linestyle="--", marker="o")
+plt.plot(x, y, label="Serie 1")  # para poder usar legend después
+plt.legend()
+plt.grid()   # muestra la cuadrícula</pre>
+
+<h3>Varios gráficos superpuestos</h3>
+<pre class="code-block">plt.plot(x, y1, label="Producto A")
+plt.plot(x, y2, label="Producto B")
+plt.legend()
+plt.show()</pre>
+
+<h3>Conectar Pandas con Matplotlib</h3>
+<p>Podés graficar directamente desde un DataFrame:</p>
+<pre class="code-block">import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("ventas.csv")
+plt.plot(df["mes"], df["total"])
+plt.title("Ventas mensuales")
+plt.show()
+
+# O incluso más directo
+df.plot(x="mes", y="total", kind="bar")
+plt.show()</pre>
+
+<div class="quiz-wrap" data-qz="6b" data-subject="pc"></div>
+<a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
