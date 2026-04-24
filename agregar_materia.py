@@ -61,12 +61,16 @@ SYSTEM_PROMPT = """Sos un asistente que genera los 4 archivos fuente de una mate
 # Los 4 archivos
 
 ## meta.json
-JSON con metadatos. Campos:
+JSON con metadatos. Campos OBLIGATORIOS (usados por build.py):
 - slug: string. Debe coincidir EXACTO con el slug que te paso.
-- nombre: string. Nombre oficial de la materia.
-- catedra: string. Apellido del docente titular.
-- color: string "#RRGGBB". Color principal (distinto al del ejemplo).
-- icono: string corto (emoji opcional).
+- nombre: string. Nombre oficial de la materia (con tildes).
+- catedra: string. Formato "Cátedra Apellido" (apellido del docente titular).
+- subtitulo_drawer: string. "Cátedra Apellido · <fecha de parcial u otro dato breve>".
+- subtitulo_header: string. "UBA XXI · Cátedra Apellido · <fecha de parcial u otro dato breve>".
+- icono_letras: string de 2 chars. Iniciales legibles (ej: "An" para Análisis, "Fs" para Física).
+- icono_bg: string "#RRGGBB". Color de fondo del ícono. Distinto al del ejemplo.
+- icono_fg: string "#RRGGBB". Color del texto del ícono (suele ser claro tipo "#fff" o "#fdfbf6").
+- nombre_corto: string en MAYÚSCULAS, versión corta del nombre (ej: "ANÁLISIS", "FÍSICA").
 
 ## theme.css
 Dos bloques CSS, indentados con 2 espacios. Light + dark. Usa las MISMAS variables que el ejemplo pero con paleta diferente:
@@ -86,34 +90,36 @@ Dos bloques CSS, indentados con 2 espacios. Light + dark. Usa las MISMAS variabl
 ```
 
 ## seccion.html
-Indentado con 2 espacios, SIN envolver en <section> (eso lo agrega build.py). Estructura:
+Indentado con 2 espacios, SIN envolver en <section> (eso lo agrega build.py). Estructura (mira el ejemplo para detalles exactos):
 
 ```
   <header>
-    <h2 class="subject-title">Nombre de la Materia</h2>
-    <p class="subject-meta">Catedra X . Año 2026</p>
+    <h1>Nombre de la Materia</h1>
+    <div class="sub">UBA XXI · Cátedra X · <fecha de parcial>...</div>
   </header>
-  <nav class="toc">
-    <h3>Contenidos</h3>
-    <ul>
-      <li><a href="#<prefijo>-s1">Unidad 1: ...</a></li>
-    </ul>
-  </nav>
-  <details id="<prefijo>-s1">
-    <summary>Unidad 1: Titulo</summary>
-    <div class="details-content">
-      <h4>Conceptos clave</h4>
-      <p>Explicacion...</p>
-      <div class="quiz-wrap" data-qz="1" data-subject="<slug>"></div>
-    </div>
-  </details>
+<nav class="toc" id="toc-<slug>">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#<prefijo>-s1">Tema 1</a></li>
+  </ol>
+</nav>
+
+<details id="<prefijo>-s1">
+<summary><span class="num">1</span> Tema 1 <span class="sec-score" id="ss-<slug>-1"></span></summary>
+<div class="content">
+  <h3>Subtema</h3>
+  <p>Explicación...</p>
+  <div class="quiz-wrap" data-qz="1" data-subject="<slug>"></div>
+</div>
+</details>
 ```
 
 Reglas:
-- <prefijo> es un prefijo corto consistente para toda la materia (ej: fi- fisica, quim- quimica, bio- biologia). Elegi uno razonable.
-- Cada <details> tiene EXACTAMENTE UN <div class="quiz-wrap" data-qz="N" data-subject="<slug>"></div> al final del details-content.
+- <prefijo> es un prefijo corto consistente para toda la materia (ej: fi- fisica, crim- criminologia). Elegi uno razonable.
+- Cada <details> tiene EXACTAMENTE UN <div class="quiz-wrap" data-qz="N" data-subject="<slug>"></div> al final del content.
 - N matchea con el identificador de unidad que uses en registerExercises (puede ser '1', '2', '4a', '4b', etc.).
-- Si la materia tiene dos parciales, separar con <div class="partial-header">PRIMER PARCIAL</div> y <div class="partial-header">SEGUNDO PARCIAL</div> entre los details correspondientes.
+- El <span class="sec-score" id="ss-<slug>-N"></span> en el summary muestra el puntaje parcial — no le pongas contenido.
+- Si la materia tiene dos parciales, separar con <li class="partial-sep">Primer parcial (fecha)</li> dentro del <ol> del nav.
 
 ## ejercicios.js
 ```
@@ -417,6 +423,13 @@ def main():
         print(f"! meta.json tenia slug='{meta.get('slug')}', lo reemplazo por '{slug}'.")
         meta['slug'] = slug
         data['meta_json'] = json.dumps(meta, indent=2, ensure_ascii=False)
+
+    REQUIRED_META = ['slug', 'nombre', 'catedra', 'subtitulo_drawer',
+                     'subtitulo_header', 'icono_letras', 'icono_bg', 'icono_fg',
+                     'nombre_corto']
+    faltantes = [k for k in REQUIRED_META if k not in meta or meta[k] in (None, '')]
+    if faltantes:
+        sys.exit(f'X meta.json le faltan campos: {faltantes}\nGenerado:\n{data["meta_json"]}')
 
     escribir_materia(slug, data)
     agregar_a_orden(slug)
