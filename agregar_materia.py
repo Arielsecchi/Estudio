@@ -220,7 +220,8 @@ def _sanitize_filename(nombre):
     return base or 'archivo'
 
 
-PDF_MAX_CHARS = 80_000
+PDF_MAX_CHARS = 10_000
+TOTAL_MAX_CHARS = 60_000  # ~15K tokens, deja margen sobre 30K/min de tier 1 con ~13K fijos del ejemplo
 
 
 def procesar_archivo(nombre, data, client):
@@ -310,6 +311,30 @@ def leer_entrada(slug, client):
     print(f'-> {len(procesados)} archivos procesados ({total_mb:.1f} MB): {", ".join(procesados)}')
     if saltados:
         print(f'! Saltados (formato no soportado): {", ".join(saltados)}')
+
+    # Cap global por rate limit de tier 1 (30K input tokens/min).
+    total_chars = sum(len(b.get('text', '')) for b in bloques if b.get('type') == 'text')
+    print(f'-> Contenido total: {total_chars} chars (limite {TOTAL_MAX_CHARS})')
+    if total_chars > TOTAL_MAX_CHARS:
+        recortado = []
+        acumulado = 0
+        for b in bloques:
+            if b.get('type') != 'text':
+                recortado.append(b)
+                continue
+            t = b['text']
+            espacio = TOTAL_MAX_CHARS - acumulado
+            if espacio <= 0:
+                break
+            if len(t) > espacio:
+                b = {'type': 'text', 'text': t[:espacio] + '\n\n[... truncado por rate limit ...]'}
+                recortado.append(b)
+                acumulado = TOTAL_MAX_CHARS
+                break
+            recortado.append(b)
+            acumulado += len(t)
+        bloques = recortado
+        print(f'-> Truncado a {acumulado} chars para no exceder rate limit')
     return bloques
 
 
