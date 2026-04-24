@@ -80,7 +80,10 @@ jobs:
           destino.mkdir(parents=True, exist_ok=True)
 
           def req(url):
-              r = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}'})
+              r = urllib.request.Request(url, headers={
+                  'Authorization': f'Bearer {token}',
+                  'User-Agent': 'uba-guias-action/1.0',
+              })
               return urllib.request.urlopen(r, timeout=60)
 
           list_url = f'{base}/list?prefix={urllib.parse.quote(prefix)}'
@@ -150,7 +153,10 @@ jobs:
           token = os.environ['INTERNAL_TOKEN']
           prefix = os.environ['R2_PREFIX']
           url = f'{base}/cleanup?prefix={urllib.parse.quote(prefix)}'
-          r = urllib.request.Request(url, method='DELETE', headers={'Authorization': f'Bearer {token}'})
+          r = urllib.request.Request(url, method='DELETE', headers={
+              'Authorization': f'Bearer {token}',
+              'User-Agent': 'uba-guias-action/1.0',
+          })
           resp = urllib.request.urlopen(r, timeout=30)
           print(resp.read().decode())
           PY
