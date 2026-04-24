@@ -1,22 +1,34 @@
 #!/usr/bin/env python3
-"""agregar_materia.py - genera los 4 archivos de una materia nueva desde PDFs.
+"""agregar_materia.py - genera los 4 archivos de una materia nueva desde archivos fuente.
 
 Uso:
     python3 agregar_materia.py <slug>
 
-Lee los PDFs de _entrada/<slug>/*.pdf, consulta a Claude Sonnet 4.6 con los PDFs
-como contexto y una materia existente como referencia, y escribe los 4 archivos
-en materias/<slug>/. Agrega el slug a _orden.txt automaticamente.
+Lee los archivos de _entrada/<slug>/ (PDFs, PPTX, DOCX, imagenes, texto plano o
+ZIPs con cualquiera de esos), consulta a Claude Sonnet 4.6 con esos archivos como
+contexto y una materia existente como referencia, y escribe los 4 archivos en
+materias/<slug>/. Agrega el slug a _orden.txt automaticamente.
+
+Formatos soportados:
+  - .pdf               -> mandado como documento nativo a la API
+  - .pptx              -> extrae texto de cada slide
+  - .docx              -> extrae texto del documento
+  - .png .jpg .webp .gif -> imagen
+  - .txt .md .csv .json .html .js .py .xml -> texto plano
+  - .zip               -> descomprime y procesa cada archivo adentro
 
 Requiere la variable de entorno ANTHROPIC_API_KEY (o un archivo .env con la clave).
 Despues de correrlo, ejecutar `python3 build.py` para regenerar index.html.
 """
 
 import base64
+import io
 import json
 import os
 import sys
+import zipfile
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 try:
     import anthropic
@@ -158,23 +170,115 @@ def cargar_env():
         os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
 
-def leer_pdfs(slug):
+NS_PPTX = '{http://schemas.openxmlformats.org/drawingml/2006/main}t'
+NS_DOCX = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t'
+EXT_IMG = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+           '.webp': 'image/webp', '.gif': 'image/gif'}
+EXT_TEXTO = {'.txt', '.md', '.csv', '.json', '.html', '.js', '.py', '.xml'}
+
+
+def extraer_pptx(data):
+    partes = []
+    with zipfile.ZipFile(io.BytesIO(data)) as z:
+        slides = sorted(n for n in z.namelist()
+                        if n.startswith('ppt/slides/slide') and n.endswith('.xml'))
+        for i, s in enumerate(slides, 1):
+            root = ET.fromstring(z.read(s))
+            textos = [t.text for t in root.iter(NS_PPTX) if t.text]
+            partes.append(f'--- Slide {i} ---\n' + '\n'.join(textos))
+    return '\n\n'.join(partes)
+
+
+def extraer_docx(data):
+    with zipfile.ZipFile(io.BytesIO(data)) as z:
+        root = ET.fromstring(z.read('word/document.xml'))
+    return '\n'.join(t.text for t in root.iter(NS_DOCX) if t.text)
+
+
+def procesar_archivo(nombre, data):
+    """Convierte un archivo en una lista de content blocks para la API."""
+    ext = Path(nombre).suffix.lower()
+
+    if ext == '.pdf':
+        return [{
+            'type': 'document',
+            'source': {
+                'type': 'base64',
+                'media_type': 'application/pdf',
+                'data': base64.standard_b64encode(data).decode('ascii'),
+            },
+            'title': nombre,
+        }]
+
+    if ext == '.pptx':
+        return [{'type': 'text', 'text': f'=== {nombre} (PowerPoint) ===\n{extraer_pptx(data)}'}]
+
+    if ext == '.docx':
+        return [{'type': 'text', 'text': f'=== {nombre} (Word) ===\n{extraer_docx(data)}'}]
+
+    if ext in EXT_IMG:
+        return [{
+            'type': 'image',
+            'source': {
+                'type': 'base64',
+                'media_type': EXT_IMG[ext],
+                'data': base64.standard_b64encode(data).decode('ascii'),
+            },
+        }]
+
+    if ext in EXT_TEXTO:
+        return [{'type': 'text',
+                 'text': f'=== {nombre} ===\n{data.decode("utf-8", errors="replace")}'}]
+
+    if ext == '.zip':
+        bloques = []
+        with zipfile.ZipFile(io.BytesIO(data)) as z:
+            for info in z.infolist():
+                if info.is_dir() or info.filename.startswith('__MACOSX/'):
+                    continue
+                nombre_interno = f'{nombre}/{info.filename}'
+                sub = procesar_archivo(nombre_interno, z.read(info.filename))
+                if sub:
+                    bloques.extend(sub)
+                else:
+                    print(f'! Salto {nombre_interno} (formato no soportado)')
+        return bloques
+
+    return None
+
+
+def leer_entrada(slug):
     carpeta = ENTRADA / slug
     if not carpeta.is_dir():
-        sys.exit(f'X No existe {carpeta}. Crea la carpeta y pone los PDFs adentro.')
-    pdfs = sorted(carpeta.glob('*.pdf'))
-    if not pdfs:
-        sys.exit(f'X No hay PDFs en {carpeta}.')
-    resultado = []
+        sys.exit(f'X No existe {carpeta}. Crea la carpeta y pone los archivos adentro.')
+    archivos = sorted(p for p in carpeta.iterdir() if p.is_file())
+    if not archivos:
+        sys.exit(f'X No hay archivos en {carpeta}.')
+
+    bloques = []
     total_mb = 0
-    for p in pdfs:
+    procesados = []
+    saltados = []
+    for p in archivos:
         data = p.read_bytes()
         total_mb += len(data) / 1_048_576
-        resultado.append((p.name, data))
-    print(f'-> {len(pdfs)} PDFs ({total_mb:.1f} MB): {", ".join(p.name for p in pdfs)}')
+        sub = procesar_archivo(p.name, data)
+        if sub is None:
+            saltados.append(p.name)
+            continue
+        bloques.extend(sub)
+        procesados.append(p.name)
+
+    if not bloques:
+        sys.exit(f'X Ningun archivo en {carpeta} pudo procesarse (formatos soportados: '
+                 'pdf, pptx, docx, zip, imagenes, txt/md).')
+
+    print(f'-> {len(procesados)} archivos procesados ({total_mb:.1f} MB): {", ".join(procesados)}')
+    if saltados:
+        print(f'! Saltados (formato no soportado): {", ".join(saltados)}')
     if total_mb > 30:
-        print(f'! Aviso: {total_mb:.1f} MB es mucho. La API limita 32 MB por PDF.')
-    return resultado
+        print(f'! Aviso: {total_mb:.1f} MB es mucho. La API limita ~32 MB por request.')
+    return bloques
 
 
 def leer_ejemplo():
@@ -199,21 +303,12 @@ def bloque_ejemplo(ejemplo):
     )
 
 
-def construir_user_content(slug, pdfs):
+def construir_user_content(slug, bloques):
     parts = [{
         'type': 'text',
-        'text': f"Te paso los PDFs de la materia nueva (slug: '{slug}'). Leelos y despues genera los 4 archivos.",
+        'text': f"Te paso los archivos de la materia nueva (slug: '{slug}'). Leelos y despues genera los 4 archivos.",
     }]
-    for nombre, data in pdfs:
-        parts.append({
-            'type': 'document',
-            'source': {
-                'type': 'base64',
-                'media_type': 'application/pdf',
-                'data': base64.standard_b64encode(data).decode('ascii'),
-            },
-            'title': nombre,
-        })
+    parts.extend(bloques)
     parts.append({
         'type': 'text',
         'text': (
@@ -259,9 +354,9 @@ def main():
         sys.exit('X Falta ANTHROPIC_API_KEY. Pone la clave en un archivo .env (mira .env.example) '
                  'o exportala como variable de entorno.')
 
-    pdfs = leer_pdfs(slug)
+    bloques = leer_entrada(slug)
     ejemplo = leer_ejemplo()
-    user_content = construir_user_content(slug, pdfs)
+    user_content = construir_user_content(slug, bloques)
 
     print(f'-> Consultando {MODEL}...')
     client = anthropic.Anthropic()

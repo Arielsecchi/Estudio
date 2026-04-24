@@ -40,7 +40,9 @@ El formato de cada archivo se puede consultar mirando cualquier materia existent
 
 ## Cómo agregar una materia nueva (automático, con PDFs)
 
-`agregar_materia.py` usa la API de Claude para generar los 4 archivos a partir de los PDFs de la materia (programa, cronograma, bibliografía, práctica).
+`agregar_materia.py` usa la API de Claude para generar los 4 archivos a partir de los archivos fuente de la materia (programa, cronograma, bibliografía, práctica).
+
+**Formatos soportados**: `.pdf`, `.pptx`, `.docx`, imágenes (`.png`, `.jpg`, `.webp`, `.gif`), texto plano (`.txt`, `.md`, etc.) y `.zip` (se descomprime y procesa su contenido recursivamente).
 
 ### Setup (una sola vez)
 
@@ -57,7 +59,7 @@ El formato de cada archivo se puede consultar mirando cualquier materia existent
 
 ### Uso
 
-1. Crear `_entrada/<slug>/` y poner ahí los PDFs de la materia (programa, cronograma, etc.).
+1. Crear `_entrada/<slug>/` y poner ahí los archivos de la materia (programa, cronograma, apuntes, prácticas — en cualquiera de los formatos soportados). También podés dejar un `.zip` con todo adentro.
 2. Correr:
    ```bash
    python3 agregar_materia.py <slug>
