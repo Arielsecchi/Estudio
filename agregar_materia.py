@@ -38,6 +38,11 @@ except ImportError:
     sys.exit('X Falta instalar la libreria: pip install -r requirements.txt')
 
 try:
+    import pypdf
+except ImportError:
+    sys.exit('X Falta pypdf: pip install -r requirements.txt')
+
+try:
     sys.stdout.reconfigure(encoding='utf-8')
 except Exception:
     pass
@@ -209,21 +214,30 @@ def _sanitize_filename(nombre):
     return base or 'archivo'
 
 
+PDF_MAX_CHARS = 80_000
+
+
 def procesar_archivo(nombre, data, client):
     """Convierte un archivo en una lista de content blocks para la API.
-    PDFs e imagenes se suben via Files API (file_id) para no inflar el body."""
+    PDFs: texto local con pypdf (mucho mas compacto que mandar el PDF nativo).
+    Imagenes: Files API (file_id) para no inflar el body."""
     ext = Path(nombre).suffix.lower()
     nombre_safe = _sanitize_filename(nombre)
 
     if ext == '.pdf':
-        f = client.beta.files.upload(
-            file=(nombre_safe, io.BytesIO(data), 'application/pdf'),
-        )
-        return [{
-            'type': 'document',
-            'source': {'type': 'file', 'file_id': f.id},
-            'title': nombre,
-        }]
+        try:
+            reader = pypdf.PdfReader(io.BytesIO(data))
+            paginas = [(p.extract_text() or '') for p in reader.pages]
+            text = '\n\n'.join(t for t in paginas if t).strip()
+        except Exception as e:
+            print(f'! No pude extraer texto de {nombre}: {e}, salto')
+            return None
+        if not text:
+            print(f'! {nombre} sin texto extraible (PDF escaneado?), salto')
+            return None
+        if len(text) > PDF_MAX_CHARS:
+            text = text[:PDF_MAX_CHARS] + f'\n\n[... PDF truncado en {PDF_MAX_CHARS} chars ...]'
+        return [{'type': 'text', 'text': f'=== {nombre} (PDF) ===\n{text}'}]
 
     if ext == '.pptx':
         return [{'type': 'text', 'text': f'=== {nombre} (PowerPoint) ===\n{extraer_pptx(data)}'}]
