@@ -8,7 +8,8 @@ binding = "BUCKET"
 bucket_name = "uba-guias-entrada"
 
 # Secrets (NO van aca, ponerlos con `wrangler secret put <nombre>`):
-#   ACCESS_CODE
-#   GITHUB_TOKEN
-#   GITHUB_OWNER
-#   GITHUB_REPO
+#   ACCESS_CODE              codigo que gatekeepea el form publico
+#   GITHUB_TOKEN             PAT con permiso 'repo' (dispara repository_dispatch)
+#   GITHUB_OWNER             owner del repo (ej: Arielsecchi)
+#   GITHUB_REPO              nombre del repo (ej: Estudio)
+#   INTERNAL_TOKEN           shared token Worker <-> GitHub Action (para /list, /file, /cleanup)

@@ -191,18 +191,20 @@ Hay un formulario en `agregar.html` que permite subir archivos desde cualquier d
 
 ```
 [form agregar.html]  →  [Cloudflare Worker]  →  [GitHub Action]  →  [commit a main]
-      navegador              valida código         corre Python          sitio actualizado
-                             sube a R2            baja de R2
+      navegador              valida código           corre Python          sitio actualizado
+                             sube a R2               baja del Worker
+                             dispara Action          (no necesita tokens R2)
 ```
+
+El Action **no** habla directo con R2: le pide archivos al Worker via endpoints internos autenticados con `INTERNAL_TOKEN`. Así el único que necesita acceso a R2 es el propio Worker (via su binding), y no hace falta manejar credenciales S3/R2 en GitHub.
 
 ### Setup completo (una sola vez)
 
 **1. Crear bucket R2 en Cloudflare**
 
 - Crear cuenta gratis en https://cloudflare.com
-- En el dashboard, ir a **R2** → **Create bucket** → nombre: `uba-guias-entrada`
-- En **R2 → Manage R2 API Tokens** → **Create API Token** con permiso `Object Read & Write` para ese bucket. Guardá `Access Key ID` y `Secret Access Key`.
-- El `Account ID` está arriba a la derecha del dashboard de R2.
+- Activar R2 (una vez — la capa gratuita alcanza de sobra: 10 GB, 1M ops/mes).
+- Crear bucket con nombre `uba-guias-entrada` (`npx wrangler r2 bucket create uba-guias-entrada` o desde el dashboard).
 
 **2. Desplegar el Worker**
 
@@ -214,34 +216,33 @@ npx wrangler login
 npx wrangler deploy
 ```
 
-`wrangler deploy` te da la URL final del Worker (algo tipo `https://uba-guias-agregar.arielsecchi.workers.dev`). Anotala.
+`wrangler deploy` te da la URL final del Worker (algo tipo `https://estudio.arielsecchi.workers.dev`). Anotala.
 
-Configurar secrets del Worker (uno por vez, el comando pide que pegues el valor):
+Configurar los 5 secrets del Worker (el comando pide que pegues el valor):
 ```bash
-npx wrangler secret put ACCESS_CODE       # ej: "mi-codigo-2026" — el que vas a dar a la gente
-npx wrangler secret put GITHUB_TOKEN      # PAT con permiso 'workflow' (ver punto 3)
+npx wrangler secret put ACCESS_CODE       # codigo que vas a dar a la gente
+npx wrangler secret put GITHUB_TOKEN      # PAT con permiso 'repo' (ver punto 3)
 npx wrangler secret put GITHUB_OWNER      # Arielsecchi
 npx wrangler secret put GITHUB_REPO       # Estudio
+npx wrangler secret put INTERNAL_TOKEN    # string random largo, el mismo valor que el GitHub secret INTERNAL_TOKEN
 ```
 
 **3. Crear GitHub Personal Access Token (PAT)**
 
 - https://github.com/settings/tokens → **Generate new token (classic)**
-- Scope: `repo` (o fine-grained: `Contents: read/write` + `Actions: write` sobre el repo `Arielsecchi/Estudio`)
+- Scope: `repo` (o fine-grained: `Contents: read/write` + `Actions: write` sobre el repo `Arielsecchi/Estudio`).
 - Copialo y pegalo cuando `wrangler secret put GITHUB_TOKEN` te lo pida.
 
 **4. Agregar GitHub Secrets al repo**
 
-En https://github.com/Arielsecchi/Estudio/settings/secrets/actions:
-- `ANTHROPIC_API_KEY` → tu key de Anthropic
-- `CF_R2_ACCOUNT_ID` → Cloudflare Account ID
-- `CF_R2_ACCESS_KEY_ID` → del token R2
-- `CF_R2_SECRET_ACCESS_KEY` → del token R2
-- `CF_R2_BUCKET` → `uba-guias-entrada`
+En https://github.com/Arielsecchi/Estudio/settings/secrets/actions (o con `gh secret set <nombre> -R Arielsecchi/Estudio`):
+- `ANTHROPIC_API_KEY` → tu key de Anthropic (misma de `.env`).
+- `WORKER_URL` → URL del Worker (ej: `https://estudio.arielsecchi.workers.dev`).
+- `INTERNAL_TOKEN` → **el mismo valor** que el secret del Worker llamado `INTERNAL_TOKEN`.
 
 **5. Actualizar la URL del Worker en `agregar.html`**
 
-Editá la constante `WORKER_URL` en `agregar.html` con la URL real que te dio `wrangler deploy`. Commiteá y pusheá.
+Si la URL difiere de la default, editá la constante `WORKER_URL` al inicio del `<script>` en `agregar.html`.
 
 ### Cómo se usa
 

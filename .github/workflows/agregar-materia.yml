@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       r2_prefix:
-        description: 'Prefijo de R2 donde estan los archivos (dejar vacio si corres manual con _entrada/ ya cargado)'
+        description: 'Prefijo de R2 donde estan los archivos (vacio si corres manual con _entrada/ ya cargado)'
         required: false
         type: string
         default: ''
@@ -57,49 +57,52 @@ jobs:
             echo "Ya existe materias/$SLUG/"; exit 1
           fi
 
-      - name: Descargar archivos de R2
+      - name: Descargar archivos del Worker
         if: steps.params.outputs.r2_prefix != ''
         env:
-          R2_ACCOUNT_ID: ${{ secrets.CF_R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.CF_R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
-          R2_BUCKET: ${{ secrets.CF_R2_BUCKET }}
+          WORKER_URL: ${{ secrets.WORKER_URL }}
+          INTERNAL_TOKEN: ${{ secrets.INTERNAL_TOKEN }}
           SLUG: ${{ steps.params.outputs.slug }}
           R2_PREFIX: ${{ steps.params.outputs.r2_prefix }}
         run: |
-          pip install boto3
           python <<'PY'
           import os
-          import boto3
+          import urllib.parse
+          import urllib.request
+          import json
           from pathlib import Path
 
-          s3 = boto3.client(
-              's3',
-              endpoint_url=f"https://{os.environ['R2_ACCOUNT_ID']}.r2.cloudflarestorage.com",
-              aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
-              aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
-              region_name='auto',
-          )
-          bucket = os.environ['R2_BUCKET']
-          prefix = os.environ['R2_PREFIX'].rstrip('/') + '/'
+          base = os.environ['WORKER_URL'].rstrip('/')
+          token = os.environ['INTERNAL_TOKEN']
+          prefix = os.environ['R2_PREFIX']
           slug = os.environ['SLUG']
           destino = Path('_entrada') / slug
           destino.mkdir(parents=True, exist_ok=True)
 
-          paginator = s3.get_paginator('list_objects_v2')
-          total = 0
-          for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
-              for obj in page.get('Contents', []):
-                  key = obj['Key']
-                  nombre = key[len(prefix):]
-                  if not nombre:
-                      continue
-                  fpath = destino / nombre
-                  fpath.parent.mkdir(parents=True, exist_ok=True)
-                  s3.download_file(bucket, key, str(fpath))
-                  print(f'  <- {nombre} ({obj["Size"]} bytes)')
-                  total += 1
-          print(f'Descargados {total} archivos a {destino}')
+          def req(url):
+              r = urllib.request.Request(url, headers={'Authorization': f'Bearer {token}'})
+              return urllib.request.urlopen(r, timeout=60)
+
+          list_url = f'{base}/list?prefix={urllib.parse.quote(prefix)}'
+          data = json.loads(req(list_url).read())
+          files = data.get('files', [])
+          if not files:
+              raise SystemExit(f'No hay archivos en el prefijo {prefix}')
+
+          for f in files:
+              key = f['key']
+              nombre = f['name']
+              fpath = destino / nombre
+              fpath.parent.mkdir(parents=True, exist_ok=True)
+              file_url = f'{base}/file?key={urllib.parse.quote(key)}'
+              with req(file_url) as resp, open(fpath, 'wb') as out:
+                  while True:
+                      chunk = resp.read(65536)
+                      if not chunk:
+                          break
+                      out.write(chunk)
+              print(f'  <- {nombre} ({f["size"]} bytes)')
+          print(f'Descargados {len(files)} archivos a {destino}')
           PY
 
       - name: Verificar que hay archivos en _entrada
@@ -131,32 +134,23 @@ jobs:
           git commit -m "Agregar materia: $SLUG (via ${{ github.event_name }})"
           git push
 
-      - name: Limpiar R2 (si aplica)
+      - name: Limpiar R2 via Worker
         if: steps.params.outputs.r2_prefix != '' && always()
         env:
-          R2_ACCOUNT_ID: ${{ secrets.CF_R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.CF_R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
-          R2_BUCKET: ${{ secrets.CF_R2_BUCKET }}
+          WORKER_URL: ${{ secrets.WORKER_URL }}
+          INTERNAL_TOKEN: ${{ secrets.INTERNAL_TOKEN }}
           R2_PREFIX: ${{ steps.params.outputs.r2_prefix }}
         run: |
           python <<'PY'
           import os
-          import boto3
-          s3 = boto3.client(
-              's3',
-              endpoint_url=f"https://{os.environ['R2_ACCOUNT_ID']}.r2.cloudflarestorage.com",
-              aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
-              aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
-              region_name='auto',
-          )
-          bucket = os.environ['R2_BUCKET']
-          prefix = os.environ['R2_PREFIX'].rstrip('/') + '/'
-          paginator = s3.get_paginator('list_objects_v2')
-          objs = []
-          for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
-              objs.extend({'Key': o['Key']} for o in page.get('Contents', []))
-          if objs:
-              s3.delete_objects(Bucket=bucket, Delete={'Objects': objs})
-              print(f'Limpiado {len(objs)} objetos de R2 bajo {prefix}')
+          import urllib.parse
+          import urllib.request
+
+          base = os.environ['WORKER_URL'].rstrip('/')
+          token = os.environ['INTERNAL_TOKEN']
+          prefix = os.environ['R2_PREFIX']
+          url = f'{base}/cleanup?prefix={urllib.parse.quote(prefix)}'
+          r = urllib.request.Request(url, method='DELETE', headers={'Authorization': f'Bearer {token}'})
+          resp = urllib.request.urlopen(r, timeout=30)
+          print(resp.read().decode())
           PY
