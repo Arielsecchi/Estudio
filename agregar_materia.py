@@ -195,18 +195,18 @@ def extraer_docx(data):
     return '\n'.join(t.text for t in root.iter(NS_DOCX) if t.text)
 
 
-def procesar_archivo(nombre, data):
-    """Convierte un archivo en una lista de content blocks para la API."""
+def procesar_archivo(nombre, data, client):
+    """Convierte un archivo en una lista de content blocks para la API.
+    PDFs e imagenes se suben via Files API (file_id) para no inflar el body."""
     ext = Path(nombre).suffix.lower()
 
     if ext == '.pdf':
+        f = client.beta.files.upload(
+            file=(nombre, io.BytesIO(data), 'application/pdf'),
+        )
         return [{
             'type': 'document',
-            'source': {
-                'type': 'base64',
-                'media_type': 'application/pdf',
-                'data': base64.standard_b64encode(data).decode('ascii'),
-            },
+            'source': {'type': 'file', 'file_id': f.id},
             'title': nombre,
         }]
 
@@ -217,13 +217,12 @@ def procesar_archivo(nombre, data):
         return [{'type': 'text', 'text': f'=== {nombre} (Word) ===\n{extraer_docx(data)}'}]
 
     if ext in EXT_IMG:
+        f = client.beta.files.upload(
+            file=(nombre, io.BytesIO(data), EXT_IMG[ext]),
+        )
         return [{
             'type': 'image',
-            'source': {
-                'type': 'base64',
-                'media_type': EXT_IMG[ext],
-                'data': base64.standard_b64encode(data).decode('ascii'),
-            },
+            'source': {'type': 'file', 'file_id': f.id},
         }]
 
     if ext in EXT_TEXTO:
@@ -237,7 +236,7 @@ def procesar_archivo(nombre, data):
                 if info.is_dir() or info.filename.startswith('__MACOSX/'):
                     continue
                 nombre_interno = f'{nombre}/{info.filename}'
-                sub = procesar_archivo(nombre_interno, z.read(info.filename))
+                sub = procesar_archivo(nombre_interno, z.read(info.filename), client)
                 if sub:
                     bloques.extend(sub)
                 else:
@@ -247,7 +246,7 @@ def procesar_archivo(nombre, data):
     return None
 
 
-def leer_entrada(slug):
+def leer_entrada(slug, client):
     carpeta = ENTRADA / slug
     if not carpeta.is_dir():
         sys.exit(f'X No existe {carpeta}. Crea la carpeta y pone los archivos adentro.')
@@ -262,7 +261,7 @@ def leer_entrada(slug):
     for p in archivos:
         data = p.read_bytes()
         total_mb += len(data) / 1_048_576
-        sub = procesar_archivo(p.name, data)
+        sub = procesar_archivo(p.name, data, client)
         if sub is None:
             saltados.append(p.name)
             continue
@@ -276,8 +275,6 @@ def leer_entrada(slug):
     print(f'-> {len(procesados)} archivos procesados ({total_mb:.1f} MB): {", ".join(procesados)}')
     if saltados:
         print(f'! Saltados (formato no soportado): {", ".join(saltados)}')
-    if total_mb > 30:
-        print(f'! Aviso: {total_mb:.1f} MB es mucho. La API limita ~32 MB por request.')
     return bloques
 
 
@@ -354,12 +351,14 @@ def main():
         sys.exit('X Falta ANTHROPIC_API_KEY. Pone la clave en un archivo .env (mira .env.example) '
                  'o exportala como variable de entorno.')
 
-    bloques = leer_entrada(slug)
+    client = anthropic.Anthropic()
+
+    print(f'-> Subiendo archivos via Files API...')
+    bloques = leer_entrada(slug, client)
     ejemplo = leer_ejemplo()
     user_content = construir_user_content(slug, bloques)
 
     print(f'-> Consultando {MODEL}...')
-    client = anthropic.Anthropic()
     with client.messages.stream(
         model=MODEL,
         max_tokens=MAX_TOKENS,
@@ -369,6 +368,7 @@ def main():
         ],
         messages=[{'role': 'user', 'content': user_content}],
         output_config={'format': {'type': 'json_schema', 'schema': OUTPUT_SCHEMA}},
+        extra_headers={'anthropic-beta': 'files-api-2025-04-14'},
     ) as stream:
         response = stream.get_final_message()
 
