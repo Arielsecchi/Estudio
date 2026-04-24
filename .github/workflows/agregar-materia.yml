@@ -138,7 +138,7 @@ jobs:
           git push
 
       - name: Limpiar R2 via Worker
-        if: steps.params.outputs.r2_prefix != '' && always()
+        if: steps.params.outputs.r2_prefix != '' && success()
         env:
           WORKER_URL: ${{ secrets.WORKER_URL }}
           INTERNAL_TOKEN: ${{ secrets.INTERNAL_TOKEN }}

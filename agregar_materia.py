@@ -360,7 +360,7 @@ def main():
 
     print(f'-> Consultando {MODEL}...')
     client = anthropic.Anthropic()
-    response = client.messages.create(
+    with client.messages.stream(
         model=MODEL,
         max_tokens=MAX_TOKENS,
         system=[
@@ -369,7 +369,8 @@ def main():
         ],
         messages=[{'role': 'user', 'content': user_content}],
         output_config={'format': {'type': 'json_schema', 'schema': OUTPUT_SCHEMA}},
-    )
+    ) as stream:
+        response = stream.get_final_message()
 
     if response.stop_reason == 'max_tokens':
         sys.exit(f'X La respuesta se corto en max_tokens ({MAX_TOKENS}). Subi MAX_TOKENS o dividi la materia.')
