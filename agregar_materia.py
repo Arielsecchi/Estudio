@@ -25,7 +25,9 @@ import base64
 import io
 import json
 import os
+import re
 import sys
+import unicodedata
 import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -195,14 +197,27 @@ def extraer_docx(data):
     return '\n'.join(t.text for t in root.iter(NS_DOCX) if t.text)
 
 
+_FILENAME_SAFE_RE = re.compile(r'[^a-zA-Z0-9._-]+')
+
+
+def _sanitize_filename(nombre):
+    """Files API rechaza nombres con espacios/acentos/caracteres especiales."""
+    base = Path(nombre).name
+    # NFD + ascii ignore quita acentos
+    base = unicodedata.normalize('NFD', base).encode('ascii', 'ignore').decode('ascii')
+    base = _FILENAME_SAFE_RE.sub('_', base).strip('_')
+    return base or 'archivo'
+
+
 def procesar_archivo(nombre, data, client):
     """Convierte un archivo en una lista de content blocks para la API.
     PDFs e imagenes se suben via Files API (file_id) para no inflar el body."""
     ext = Path(nombre).suffix.lower()
+    nombre_safe = _sanitize_filename(nombre)
 
     if ext == '.pdf':
         f = client.beta.files.upload(
-            file=(nombre, io.BytesIO(data), 'application/pdf'),
+            file=(nombre_safe, io.BytesIO(data), 'application/pdf'),
         )
         return [{
             'type': 'document',
@@ -218,7 +233,7 @@ def procesar_archivo(nombre, data, client):
 
     if ext in EXT_IMG:
         f = client.beta.files.upload(
-            file=(nombre, io.BytesIO(data), EXT_IMG[ext]),
+            file=(nombre_safe, io.BytesIO(data), EXT_IMG[ext]),
         )
         return [{
             'type': 'image',
