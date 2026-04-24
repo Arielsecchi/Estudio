@@ -38,8 +38,40 @@ python3 build.py -o out.html  # escribe en otra ruta
 
 El formato de cada archivo se puede consultar mirando cualquier materia existente como modelo.
 
+## Cómo agregar una materia nueva (automático, con PDFs)
+
+`agregar_materia.py` usa la API de Claude para generar los 4 archivos a partir de los PDFs de la materia (programa, cronograma, bibliografía, práctica).
+
+### Setup (una sola vez)
+
+1. Instalar la dependencia:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Conseguir una API key en https://console.anthropic.com/ (requiere comprar créditos, ~USD 5 alcanza para varias materias).
+3. Copiar `.env.example` a `.env` y poner la clave real:
+   ```
+   ANTHROPIC_API_KEY=sk-ant-...
+   ```
+   `.env` está en `.gitignore`, no se sube al repo.
+
+### Uso
+
+1. Crear `_entrada/<slug>/` y poner ahí los PDFs de la materia (programa, cronograma, etc.).
+2. Correr:
+   ```bash
+   python3 agregar_materia.py <slug>
+   ```
+   (En Windows: `PYTHONIOENCODING=utf-8 python3 agregar_materia.py <slug>`)
+3. El script crea `materias/<slug>/` con los 4 archivos y actualiza `_orden.txt`.
+4. Correr `python3 build.py` para regenerar `index.html`.
+5. Revisar el resultado en el browser — los ejercicios generados por la IA conviene revisarlos a mano antes de pushear.
+
+`_entrada/` está en `.gitignore`; los PDFs de las materias no se suben al repo.
+
 ## Próximos pasos
 
-- [ ] Fase 2: script que procesa PDFs de una materia y genera los 4 archivos automáticamente usando la API de Claude.
+- [x] Fase 1: repo en GitHub + Pages + CI con `build.py --check`.
+- [x] Fase 2: `agregar_materia.py` genera las 4 piezas desde PDFs con la API de Claude.
 - [ ] Fase 3: GitHub Action que corre ese script y hace commit.
 - [ ] Fase 4: formulario web para disparar la Action.
