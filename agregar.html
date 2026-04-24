@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agregar materia · Guías UBA XXI</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --border: #e3e7ef;
+    --text: #1c2230;
+    --muted: #5a6474;
+    --accent: #2159ff;
+    --accent-soft: #e4ecff;
+    --ok: #1a7a3c;
+    --ok-soft: #d9f2e2;
+    --err: #b3261e;
+    --err-soft: #fde2e0;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1218;
+      --surface: #171b24;
+      --border: #272d3a;
+      --text: #e6e8ee;
+      --muted: #9aa3b2;
+      --accent: #6ea0ff;
+      --accent-soft: #1d2a45;
+      --ok-soft: #14361f;
+      --err-soft: #3a1616;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 16px;
+    line-height: 1.5;
+  }
+  header {
+    max-width: 560px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+  header h1 {
+    margin: 0 0 4px;
+    font-size: 24px;
+  }
+  header .muted { color: var(--muted); font-size: 14px; }
+  header a { color: var(--accent); text-decoration: none; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .field { margin-bottom: 18px; }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    font-family: inherit;
+  }
+  input[type=text]:focus, input[type=password]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  input[type=file] {
+    width: 100%;
+    padding: 10px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .hint {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .file-list {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .file-list li { margin: 2px 0; }
+  button {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button:hover:not(:disabled) { filter: brightness(1.08); }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .status {
+    margin-top: 18px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: none;
+  }
+  .status.ok { display: block; background: var(--ok-soft); color: var(--ok); }
+  .status.err { display: block; background: var(--err-soft); color: var(--err); }
+  .status.info { display: block; background: var(--accent-soft); color: var(--accent); }
+  .status a { color: inherit; font-weight: 600; }
+  .supported {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 20px;
+    text-align: center;
+  }
+  code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Agregar una materia</h1>
+  <p class="muted">
+    Subí los archivos de la materia (programa, cronograma, apuntes, prácticas) y en unos minutos aparece en
+    <a href="index.html">el sitio</a>.
+  </p>
+</header>
+
+<form id="form" class="card">
+  <div class="field">
+    <label for="nombre">Nombre de la materia</label>
+    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Criminología II" maxlength="60">
+    <div class="hint">El slug (URL) se genera automáticamente.</div>
+  </div>
+
+  <div class="field">
+    <label for="codigo">Código de acceso</label>
+    <input type="password" id="codigo" name="codigo" required placeholder="El código que te pasaron">
+  </div>
+
+  <div class="field">
+    <label for="archivos">Archivos</label>
+    <input type="file" id="archivos" name="archivos" multiple required
+           accept=".pdf,.pptx,.docx,.zip,.png,.jpg,.jpeg,.webp,.gif,.txt,.md,.csv,.json,.html,.js,.py,.xml">
+    <ul class="file-list" id="file-list"></ul>
+  </div>
+
+  <button type="submit" id="submit">Agregar materia</button>
+
+  <div class="status" id="status"></div>
+</form>
+
+<p class="supported">
+  Formatos: <code>.pdf</code> <code>.pptx</code> <code>.docx</code> <code>.zip</code> imágenes · texto plano · máx 50 MB total
+</p>
+
+<script>
+// Cambiar por la URL de tu Worker desplegado.
+const WORKER_URL = window.WORKER_URL_OVERRIDE || 'https://uba-guias-agregar.arielsecchi.workers.dev';
+
+const form = document.getElementById('form');
+const btn = document.getElementById('submit');
+const status = document.getElementById('status');
+const archivos = document.getElementById('archivos');
+const fileList = document.getElementById('file-list');
+
+function renderFiles() {
+  fileList.innerHTML = '';
+  let total = 0;
+  for (const f of archivos.files) {
+    const li = document.createElement('li');
+    li.textContent = `${f.name} (${(f.size / 1024).toFixed(0)} KB)`;
+    fileList.appendChild(li);
+    total += f.size;
+  }
+  if (archivos.files.length > 0) {
+    const resumen = document.createElement('li');
+    resumen.style.marginTop = '6px';
+    resumen.style.fontWeight = '600';
+    resumen.textContent = `Total: ${archivos.files.length} archivos · ${(total / 1048576).toFixed(1)} MB`;
+    fileList.appendChild(resumen);
+  }
+}
+archivos.addEventListener('change', renderFiles);
+
+function setStatus(tipo, html) {
+  status.className = 'status ' + tipo;
+  status.innerHTML = html;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  btn.disabled = true;
+  setStatus('info', 'Subiendo archivos y disparando el procesamiento...');
+
+  const fd = new FormData();
+  fd.append('nombre', document.getElementById('nombre').value);
+  fd.append('codigo', document.getElementById('codigo').value);
+  for (const f of archivos.files) fd.append('archivos', f);
+
+  try {
+    const res = await fetch(WORKER_URL, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok) {
+      setStatus('err', `Error: ${data.error || res.statusText}`);
+      btn.disabled = false;
+      return;
+    }
+    setStatus('ok',
+      `Listo. La materia <strong>${data.slug}</strong> está procesándose (${data.archivos} archivos, ${data.total_mb} MB).<br>` +
+      `En 2–5 minutos aparece en <a href="${data.sitio}" target="_blank">el sitio</a>.<br>` +
+      `<a href="${data.seguir_progreso}" target="_blank">Ver progreso en GitHub Actions</a>`
+    );
+    form.reset();
+    fileList.innerHTML = '';
+  } catch (err) {
+    setStatus('err', `Error de red: ${err.message}`);
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>

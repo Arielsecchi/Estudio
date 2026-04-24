@@ -183,9 +183,84 @@ En 1–2 minutos GitHub Pages la publica en https://arielsecchi.github.io/Estudi
 
 `_entrada/` está en `.gitignore`; los archivos fuente de las materias nunca se suben al repo.
 
+## Formulario web para agregar materia (Fase 4)
+
+Hay un formulario en `agregar.html` que permite subir archivos desde cualquier dispositivo (incluido el celular) sin tener que correr nada local. Requiere setup una vez en Cloudflare + GitHub Secrets.
+
+### Arquitectura
+
+```
+[form agregar.html]  →  [Cloudflare Worker]  →  [GitHub Action]  →  [commit a main]
+      navegador              valida código         corre Python          sitio actualizado
+                             sube a R2            baja de R2
+```
+
+### Setup completo (una sola vez)
+
+**1. Crear bucket R2 en Cloudflare**
+
+- Crear cuenta gratis en https://cloudflare.com
+- En el dashboard, ir a **R2** → **Create bucket** → nombre: `uba-guias-entrada`
+- En **R2 → Manage R2 API Tokens** → **Create API Token** con permiso `Object Read & Write` para ese bucket. Guardá `Access Key ID` y `Secret Access Key`.
+- El `Account ID` está arriba a la derecha del dashboard de R2.
+
+**2. Desplegar el Worker**
+
+Desde `worker/`:
+```bash
+cd worker
+npm install
+npx wrangler login
+npx wrangler deploy
+```
+
+`wrangler deploy` te da la URL final del Worker (algo tipo `https://uba-guias-agregar.arielsecchi.workers.dev`). Anotala.
+
+Configurar secrets del Worker (uno por vez, el comando pide que pegues el valor):
+```bash
+npx wrangler secret put ACCESS_CODE       # ej: "mi-codigo-2026" — el que vas a dar a la gente
+npx wrangler secret put GITHUB_TOKEN      # PAT con permiso 'workflow' (ver punto 3)
+npx wrangler secret put GITHUB_OWNER      # Arielsecchi
+npx wrangler secret put GITHUB_REPO       # Estudio
+```
+
+**3. Crear GitHub Personal Access Token (PAT)**
+
+- https://github.com/settings/tokens → **Generate new token (classic)**
+- Scope: `repo` (o fine-grained: `Contents: read/write` + `Actions: write` sobre el repo `Arielsecchi/Estudio`)
+- Copialo y pegalo cuando `wrangler secret put GITHUB_TOKEN` te lo pida.
+
+**4. Agregar GitHub Secrets al repo**
+
+En https://github.com/Arielsecchi/Estudio/settings/secrets/actions:
+- `ANTHROPIC_API_KEY` → tu key de Anthropic
+- `CF_R2_ACCOUNT_ID` → Cloudflare Account ID
+- `CF_R2_ACCESS_KEY_ID` → del token R2
+- `CF_R2_SECRET_ACCESS_KEY` → del token R2
+- `CF_R2_BUCKET` → `uba-guias-entrada`
+
+**5. Actualizar la URL del Worker en `agregar.html`**
+
+Editá la constante `WORKER_URL` en `agregar.html` con la URL real que te dio `wrangler deploy`. Commiteá y pusheá.
+
+### Cómo se usa
+
+Abrís `https://arielsecchi.github.io/Estudio/agregar.html` desde cualquier dispositivo, llenás:
+- Nombre de la materia
+- Código de acceso (el que pusiste en Cloudflare como `ACCESS_CODE`)
+- Archivos (soporta los mismos formatos que `agregar_materia.py`)
+
+Click "Agregar materia". La Action tarda 2–5 minutos. Cuando termina, la materia aparece en el sitio.
+
+### También podés disparar la Action manualmente
+
+Si no querés usar el form, podés correr la Action desde GitHub:
+- https://github.com/Arielsecchi/Estudio/actions/workflows/agregar-materia.yml → **Run workflow**
+- Poné el slug, dejá `r2_prefix` vacío si ya commiteaste los archivos en `_entrada/<slug>/` temporalmente.
+
 ## Próximos pasos
 
 - [x] Fase 1: repo en GitHub + Pages + CI con `build.py --check`.
 - [x] Fase 2: `agregar_materia.py` genera las 4 piezas desde PDFs con la API de Claude.
-- [ ] Fase 3: GitHub Action que corre ese script y hace commit.
-- [ ] Fase 4: formulario web para disparar la Action.
+- [x] Fase 3: GitHub Action `.github/workflows/agregar-materia.yml` corre el script y commitea.
+- [x] Fase 4: formulario `agregar.html` + Cloudflare Worker para subir desde cualquier dispositivo.

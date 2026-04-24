@@ -1,0 +1,162 @@
+name: agregar-materia
+
+on:
+  repository_dispatch:
+    types: [agregar-materia]
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Slug de la materia (ej: criminologia-2)'
+        required: true
+        type: string
+      r2_prefix:
+        description: 'Prefijo de R2 donde estan los archivos (dejar vacio si corres manual con _entrada/ ya cargado)'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Resolver parametros
+        id: params
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "slug=${{ github.event.client_payload.slug }}" >> $GITHUB_OUTPUT
+            echo "r2_prefix=${{ github.event.client_payload.r2_prefix }}" >> $GITHUB_OUTPUT
+          else
+            echo "slug=${{ inputs.slug }}" >> $GITHUB_OUTPUT
+            echo "r2_prefix=${{ inputs.r2_prefix }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validar slug
+        run: |
+          SLUG="${{ steps.params.outputs.slug }}"
+          if [ -z "$SLUG" ]; then echo "Slug vacio"; exit 1; fi
+          if ! echo "$SLUG" | grep -qE '^[a-z0-9-]+$'; then
+            echo "Slug invalido: $SLUG (solo minusculas, numeros y guiones)"; exit 1
+          fi
+          if [ -d "materias/$SLUG" ]; then
+            echo "Ya existe materias/$SLUG/"; exit 1
+          fi
+
+      - name: Descargar archivos de R2
+        if: steps.params.outputs.r2_prefix != ''
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.CF_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.CF_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.CF_R2_BUCKET }}
+          SLUG: ${{ steps.params.outputs.slug }}
+          R2_PREFIX: ${{ steps.params.outputs.r2_prefix }}
+        run: |
+          pip install boto3
+          python <<'PY'
+          import os
+          import boto3
+          from pathlib import Path
+
+          s3 = boto3.client(
+              's3',
+              endpoint_url=f"https://{os.environ['R2_ACCOUNT_ID']}.r2.cloudflarestorage.com",
+              aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
+              aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
+              region_name='auto',
+          )
+          bucket = os.environ['R2_BUCKET']
+          prefix = os.environ['R2_PREFIX'].rstrip('/') + '/'
+          slug = os.environ['SLUG']
+          destino = Path('_entrada') / slug
+          destino.mkdir(parents=True, exist_ok=True)
+
+          paginator = s3.get_paginator('list_objects_v2')
+          total = 0
+          for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
+              for obj in page.get('Contents', []):
+                  key = obj['Key']
+                  nombre = key[len(prefix):]
+                  if not nombre:
+                      continue
+                  fpath = destino / nombre
+                  fpath.parent.mkdir(parents=True, exist_ok=True)
+                  s3.download_file(bucket, key, str(fpath))
+                  print(f'  <- {nombre} ({obj["Size"]} bytes)')
+                  total += 1
+          print(f'Descargados {total} archivos a {destino}')
+          PY
+
+      - name: Verificar que hay archivos en _entrada
+        env:
+          SLUG: ${{ steps.params.outputs.slug }}
+        run: |
+          if [ ! -d "_entrada/$SLUG" ] || [ -z "$(ls -A _entrada/$SLUG 2>/dev/null)" ]; then
+            echo "No hay archivos en _entrada/$SLUG. Si corres manualmente, primero commitea archivos ahi o usa repository_dispatch con r2_prefix."
+            exit 1
+          fi
+          ls -la "_entrada/$SLUG"
+
+      - name: Correr agregar_materia.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLUG: ${{ steps.params.outputs.slug }}
+        run: python agregar_materia.py "$SLUG"
+
+      - name: Regenerar index.html
+        run: python build.py
+
+      - name: Commit y push
+        env:
+          SLUG: ${{ steps.params.outputs.slug }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "materias/$SLUG" materias/_orden.txt index.html
+          git commit -m "Agregar materia: $SLUG (via ${{ github.event_name }})"
+          git push
+
+      - name: Limpiar R2 (si aplica)
+        if: steps.params.outputs.r2_prefix != '' && always()
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.CF_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.CF_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.CF_R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.CF_R2_BUCKET }}
+          R2_PREFIX: ${{ steps.params.outputs.r2_prefix }}
+        run: |
+          python <<'PY'
+          import os
+          import boto3
+          s3 = boto3.client(
+              's3',
+              endpoint_url=f"https://{os.environ['R2_ACCOUNT_ID']}.r2.cloudflarestorage.com",
+              aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
+              aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
+              region_name='auto',
+          )
+          bucket = os.environ['R2_BUCKET']
+          prefix = os.environ['R2_PREFIX'].rstrip('/') + '/'
+          paginator = s3.get_paginator('list_objects_v2')
+          objs = []
+          for page in paginator.paginate(Bucket=bucket, Prefix=prefix):
+              objs.extend({'Key': o['Key']} for o in page.get('Contents', []))
+          if objs:
+              s3.delete_objects(Bucket=bucket, Delete={'Objects': objs})
+              print(f'Limpiado {len(objs)} objetos de R2 bajo {prefix}')
+          PY
