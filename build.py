@@ -85,11 +85,13 @@ def construir_css(materias: list[dict]) -> str:
 
 
 def construir_drawer(materias: list[dict]) -> str:
-    """Genera los <li> del drawer, agrupados por categoria.
+    """Genera los grupos colapsables del drawer, agrupados por categoria.
 
-    Las materias sin `categoria` caen en un grupo final "Otras". El orden de
-    aparicion de cada categoria es el orden en que aparece la primera materia
-    de esa categoria en _orden.txt.
+    Cada grupo es un <li class="drawer-group"> con un <button> header y un <ul>
+    anidado de items. JS (toggleCat) maneja el colapso. Las materias sin
+    `categoria` caen en un grupo final "Otras". El orden de aparicion de cada
+    categoria es el orden en que aparece la primera materia de esa categoria
+    en _orden.txt.
     """
     grupos: dict[str, list[dict]] = {}
     orden_cats: list[str] = []
@@ -102,20 +104,32 @@ def construir_drawer(materias: list[dict]) -> str:
 
     bloques = []
     for cat in orden_cats:
-        bloques.append(f'    <li class="drawer-cat-header">{cat}</li>')
+        items = []
         for m in grupos[cat]:
-            item = (
-                f'    <li class="drawer-item" data-target="{m["slug"]}" '
+            items.append(
+                f'        <li class="drawer-item" data-target="{m["slug"]}" '
                 f'onclick="switchSubject(\'{m["slug"]}\')">\n'
-                f'      <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
+                f'          <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
                 f'{m["icono_letras"]}</div>\n'
-                f'      <div class="info">\n'
-                f'        <div class="t" style="color:{m["icono_bg"]}">{m["nombre"]}</div>\n'
-                f'        <div class="d">{m["subtitulo_drawer"]}</div>\n'
-                f'      </div>\n'
-                f'    </li>'
+                f'          <div class="info">\n'
+                f'            <div class="t" style="color:{m["icono_bg"]}">{m["nombre"]}</div>\n'
+                f'            <div class="d">{m["subtitulo_drawer"]}</div>\n'
+                f'          </div>\n'
+                f'        </li>'
             )
-            bloques.append(item)
+        items_html = '\n'.join(items)
+        bloque = (
+            f'    <li class="drawer-group" data-cat="{cat}">\n'
+            f'      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">\n'
+            f'        <span class="cat-arrow">▾</span>\n'
+            f'        <span class="cat-name">{cat}</span>\n'
+            f'      </button>\n'
+            f'      <ul class="drawer-cat-items">\n'
+            f'{items_html}\n'
+            f'      </ul>\n'
+            f'    </li>'
+        )
+        bloques.append(bloque)
     return '\n'.join(bloques)
 
 

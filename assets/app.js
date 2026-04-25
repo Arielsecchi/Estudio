@@ -15,9 +15,46 @@ function switchSubject(subject){
   document.querySelectorAll('.drawer-item').forEach(it => {
     it.classList.toggle('active', it.getAttribute('data-target') === subject);
   });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+  }
   try { localStorage.setItem('uba-subject', subject); } catch(e) {}
   closeDrawer();
   window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
 }
 
 // ============ TEMA ============
@@ -135,6 +172,9 @@ const M = s => '<span class="m">'+s+'</span>';
   try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
   if (saved) applyTheme(saved);
   else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
 
   // Materia guardada (default: la primera)
   let savedSubject = null;

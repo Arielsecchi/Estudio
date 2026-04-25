@@ -359,8 +359,18 @@
     list-style: none;
     padding: 12px 0;
   }
-  .drawer-cat-header {
-    padding: 14px 18px 6px;
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -368,11 +378,33 @@
     color: var(--text-muted);
     border-top: 1px solid var(--border);
     margin-top: 4px;
-    pointer-events: none;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
   }
-  .drawer-cat-header:first-child {
+  .drawer-group:first-child .drawer-cat-toggle {
     border-top: none;
     margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
   }
   .drawer-item {
     padding: 14px 18px;
@@ -799,72 +831,100 @@
     <div class="hint">Elegí la materia que querés estudiar</div>
   </div>
   <ul class="drawer-list">
-    <li class="drawer-cat-header">UBA XXI</li>
-    <li class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
-      <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
-      <div class="info">
-        <div class="t" style="color:#5a1818">Análisis Matemático A</div>
-        <div class="d">Cátedra Cabana · Parcial 27/04</div>
-      </div>
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+          <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+          <div class="info">
+            <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+            <div class="d">Cátedra Cabana · Parcial 27/04</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+          <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a8a">Álgebra A</div>
+            <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+          <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+          <div class="info">
+            <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+            <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+          <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+          <div class="info">
+            <div class="t" style="color:#4c1d95">Física</div>
+            <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+          </div>
+        </li>
+      </ul>
     </li>
-    <li class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
-      <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
-      <div class="info">
-        <div class="t" style="color:#1e3a8a">Álgebra A</div>
-        <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
-      </div>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fisiologia-digestiva" onclick="switchSubject('fisiologia-digestiva')">
+          <div class="ic" style="background:#7a3b1a;color:#fdf1e3">Fd</div>
+          <div class="info">
+            <div class="t" style="color:#7a3b1a">Fisiología Digestiva</div>
+            <div class="d">UBA Medicina · Fisio y Biofísica C1 · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
     </li>
-    <li class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
-      <div class="ic" style="background:#0f766e;color:#fff">PC</div>
-      <div class="info">
-        <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
-        <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
-      </div>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
     </li>
-    <li class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
-      <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
-      <div class="info">
-        <div class="t" style="color:#4c1d95">Física</div>
-        <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
-      </div>
-    </li>
-    <li class="drawer-cat-header">UBA Medicina</li>
-    <li class="drawer-item" data-target="fisiologia-digestiva" onclick="switchSubject('fisiologia-digestiva')">
-      <div class="ic" style="background:#7a3b1a;color:#fdf1e3">Fd</div>
-      <div class="info">
-        <div class="t" style="color:#7a3b1a">Fisiología Digestiva</div>
-        <div class="d">UBA Medicina · Fisio y Biofísica C1 · 8 unidades</div>
-      </div>
-    </li>
-    <li class="drawer-cat-header">UNSO</li>
-    <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
-      <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
-      <div class="info">
-        <div class="t" style="color:#1e3a5f">Criminología II</div>
-        <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
-      </div>
-    </li>
-    <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
-      <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
-      <div class="info">
-        <div class="t" style="color:#4a2a5e">Psicología</div>
-        <div class="d">UNSO 2026 · 8 unidades</div>
-      </div>
-    </li>
-    <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
-      <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
-      <div class="info">
-        <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
-        <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
-      </div>
-    </li>
-    <li class="drawer-cat-header">UTN FRBA</li>
-    <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
-      <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
-      <div class="info">
-        <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
-        <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
-      </div>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+      </ul>
     </li>
   </ul>
   <div class="drawer-foot">Armado para Ariel · abril 2026</div>
@@ -7629,9 +7689,46 @@ function switchSubject(subject){
   document.querySelectorAll('.drawer-item').forEach(it => {
     it.classList.toggle('active', it.getAttribute('data-target') === subject);
   });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+  }
   try { localStorage.setItem('uba-subject', subject); } catch(e) {}
   closeDrawer();
   window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
 }
 
 // ============ TEMA ============
@@ -8569,6 +8666,9 @@ registerExercises('ingles-tecnico-ii', '8', [
   try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
   if (saved) applyTheme(saved);
   else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
 
   // Materia guardada (default: la primera)
   let savedSubject = null;
