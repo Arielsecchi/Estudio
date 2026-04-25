@@ -85,22 +85,38 @@ def construir_css(materias: list[dict]) -> str:
 
 
 def construir_drawer(materias: list[dict]) -> str:
-    """Genera los <li> del drawer."""
-    items = []
+    """Genera los <li> del drawer, agrupados por categoria.
+
+    Las materias sin `categoria` caen en un grupo final "Otras". El orden de
+    aparicion de cada categoria es el orden en que aparece la primera materia
+    de esa categoria en _orden.txt.
+    """
+    grupos: dict[str, list[dict]] = {}
+    orden_cats: list[str] = []
     for m in materias:
-        item = (
-            f'    <li class="drawer-item" data-target="{m["slug"]}" '
-            f'onclick="switchSubject(\'{m["slug"]}\')">\n'
-            f'      <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
-            f'{m["icono_letras"]}</div>\n'
-            f'      <div class="info">\n'
-            f'        <div class="t" style="color:{m["icono_bg"]}">{m["nombre"]}</div>\n'
-            f'        <div class="d">{m["subtitulo_drawer"]}</div>\n'
-            f'      </div>\n'
-            f'    </li>'
-        )
-        items.append(item)
-    return '\n'.join(items)
+        cat = m.get('categoria') or 'Otras'
+        if cat not in grupos:
+            grupos[cat] = []
+            orden_cats.append(cat)
+        grupos[cat].append(m)
+
+    bloques = []
+    for cat in orden_cats:
+        bloques.append(f'    <li class="drawer-cat-header">{cat}</li>')
+        for m in grupos[cat]:
+            item = (
+                f'    <li class="drawer-item" data-target="{m["slug"]}" '
+                f'onclick="switchSubject(\'{m["slug"]}\')">\n'
+                f'      <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
+                f'{m["icono_letras"]}</div>\n'
+                f'      <div class="info">\n'
+                f'        <div class="t" style="color:{m["icono_bg"]}">{m["nombre"]}</div>\n'
+                f'        <div class="d">{m["subtitulo_drawer"]}</div>\n'
+                f'      </div>\n'
+                f'    </li>'
+            )
+            bloques.append(item)
+    return '\n'.join(bloques)
 
 
 def construir_secciones(materias: list[dict]) -> str:
