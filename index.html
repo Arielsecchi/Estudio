@@ -83,6 +83,28 @@
     --summary-bg: #332d25; --summary-hover: #3d362c; --num-text: #1a1815;
   }
 
+  [data-subject="analisis-parcial"] {
+    --bg: #f8f1ea; --text: #2a1d18; --text-muted: #7a625a;
+    --surface: #fdf3e8; --surface-2: #f0dec8; --surface-3: #e6cdb0;
+    --border: #e0cdb6; --border-2: #d2b698;
+    --accent: #a04018; --accent-hover: #c25324; --gold: #b8913a;
+    --ex-bg: #fbe7d4; --ex-border: #e5b88c; --ex-title: #a04018;
+    --ok-bg: #dee8c8; --ok-text: #2a4a1c; --ok-border: #5a8030;
+    --ko-bg: #f3d6cb; --ko-text: #5a1810; --ko-border: #9a3028;
+    --summary-bg: #f0dec8; --summary-hover: #e6cdb0; --num-text: #fdf3e8;
+    --shadow: rgba(160, 64, 24, 0.08);
+  }
+  [data-theme="dark"][data-subject="analisis-parcial"] {
+    --bg: #1a1410; --text: #ecd9c4; --text-muted: #9a8572;
+    --surface: #241c15; --surface-2: #302419; --surface-3: #3b2c20;
+    --border: #36281e; --border-2: #463524;
+    --accent: #f0a070; --accent-hover: #f8b88c; --gold: #d4a854;
+    --ex-bg: #2a1f15; --ex-border: #4a3520; --ex-title: #f0b078;
+    --ok-bg: #1f2a18; --ok-text: #a8d088; --ok-border: #4a7a3a;
+    --ko-bg: #2a1612; --ko-text: #f0a088; --ko-border: #9a4030;
+    --summary-bg: #302419; --summary-hover: #3b2c20; --num-text: #1a1410;
+  }
+
   [data-subject="algebra"] {
     --bg: #eef2f7; --text: #1f2937; --text-muted: #64748b;
     --surface: #ffffff; --surface-2: #dbe5f0; --surface-3: #c5d3e3;
@@ -1083,6 +1105,13 @@
           <div class="info">
             <div class="t" style="color:#5a1818">Análisis Matemático A</div>
             <div class="d">Cátedra Cabana · Parcial 27/04</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+          <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+          <div class="info">
+            <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+            <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
           </div>
         </li>
         <li class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
@@ -2440,6 +2469,845 @@ Si la función es discontinua, tampoco se garantiza: una función con un salto p
 
 <div class="quiz-wrap" data-qz="14" data-subject="analisis"></div>
 <a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- =============== ANÁLISIS · PRIMER PARCIAL ================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-analisis-parcial">
+  <header>
+    <h1>Análisis · Primer Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Cabana · Guía intensiva basada en 9 parciales (2023–2025)</div>
+  </header>
+<nav class="toc" id="toc-analisis-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#ap-s1">Estrategia universal y fórmulas clave</a></li>
+    <li><a href="#ap-s2">TIPO 1 · Estudio de función completo</a></li>
+    <li><a href="#ap-s3">TIPO 2 · Continuidad con parámetro</a></li>
+    <li><a href="#ap-s4">TIPO 3 · Recta tangente y cadena</a></li>
+    <li><a href="#ap-s5">TIPO 4 · Límites con indeterminación</a></li>
+    <li><a href="#ap-s6">TIPO 5 · Máx/mín absolutos en intervalo cerrado</a></li>
+    <li><a href="#ap-s7">TIPO 6 + 7 · Forma del e y cociente incremental</a></li>
+    <li><a href="#ap-s8">TIPO 8 + 9 · Asíntotas y derivada implícita</a></li>
+    <li><a href="#ap-s9">Práctica integradora · 6 ejercicios</a></li>
+  </ol>
+  <div class="score" id="global-score-analisis-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA UNIVERSAL ============ -->
+<details id="ap-s1">
+<summary><span class="num">1</span> Estrategia universal y fórmulas clave <span class="sec-score" id="ss-analisis-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Cabana</h3>
+<p>El parcial siempre tiene <b>5–6 ejercicios</b> y suma <b>10 puntos</b>. El último ejercicio es <b>SIEMPRE</b> un estudio de función completo y vale 4 puntos (40% del parcial).</p>
+<p>El menú es fijo: hay 9 tipos de problemas y el parcial elige 5–6 de esa lista. <b>Aprendete a reconocer los 9 tipos en 10 segundos</b>: ese es el secreto de la cátedra.</p>
+
+<h3>Las 3 preguntas que te tenés que hacer ANTES de empezar</h3>
+
+<h4>Pregunta 1 — ¿De qué tipo es?</h4>
+<p>Mirá el verbo y los objetos clave del enunciado. Cada palabra dispara una receta:</p>
+
+<table class="tbl">
+  <tr><th>Si dice...</th><th>Es...</th></tr>
+  <tr><td>"Calcular el límite"</td><td><b>TIPO 4</b> — límite con indeterminación</td></tr>
+  <tr><td>"Hallar k para que sea continua"</td><td><b>TIPO 2</b> — continuidad con parámetro</td></tr>
+  <tr><td>"Máx/mín absolutos" + intervalo "[a, b]"</td><td><b>TIPO 5</b> — Weierstrass</td></tr>
+  <tr><td>"Recta tangente" + "y = mx + b" en el dato</td><td><b>TIPO 3</b> — tangente con cadena</td></tr>
+  <tr><td>"Hallar h'(...)" + función compuesta</td><td><b>TIPO 3</b></td></tr>
+  <tr><td>"Asíntotas / crecimiento / imagen" en incisos</td><td><b>TIPO 1</b> — estudio de función</td></tr>
+  <tr><td><span class="m">lim ... = e<sup>k</sup></span> o exponente al infinito</td><td><b>TIPO 6</b> — forma del e</td></tr>
+  <tr><td>"Hallar f'(0)" con función partida en 0</td><td><b>TIPO 7</b> — cociente incremental</td></tr>
+  <tr><td>"Para qué a es derivable"</td><td><b>TIPO 7</b> — laterales del cociente incremental</td></tr>
+  <tr><td>Igualdad mezcla x e y, "hallar y'"</td><td><b>TIPO 9</b> — derivada implícita</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Qué información tengo gratis?</h4>
+<p>Hacé un inventario antes de calcular. Por ejemplo:</p>
+<ul>
+  <li>"Me dieron la tangente <span class="m">y = 3x + 1</span>" → tengo gratis <span class="m">f'(1) = 3</span> y <span class="m">f(1) = 4</span>.</li>
+  <li>"Me dieron dominio <span class="m">[1, e]</span>" → en este intervalo Weierstrass aplica.</li>
+  <li>"Me dieron <span class="m">f(0) = 4a − 15</span>" → tengo que calcular el límite e igualar.</li>
+</ul>
+<p><b>Anotá esos datos al margen.</b> La mitad del ejercicio sale solo de "ordenar" la información.</p>
+
+<h4>Pregunta 3 — ¿Dónde está la indeterminación o el ruido?</h4>
+<ul>
+  <li>¿El reemplazo directo da <span class="m">0/0</span>, <span class="m">∞/∞</span>, <span class="m">1<sup>∞</sup></span>?</li>
+  <li>¿Hay un parámetro que controla algo?</li>
+  <li>¿Hay un punto fuera del dominio?</li>
+  <li>¿Hay un quiebre en la función partida?</li>
+</ul>
+<p>Reconocer el "ruido" te dice qué técnica aplicar.</p>
+
+<h3>Los 4 notables imprescindibles</h3>
+<p>Si no los tenés en la cabeza, <b>escribilos en una hoja al empezar el parcial</b>:</p>
+
+<div class="formula">
+  lim<sub>x→0</sub> sen(x)/x = 1<br>
+  lim<sub>x→0</sub> (1 − cos x)/x² = 1/2<br>
+  lim<sub>x→0</sub> (e<sup>x</sup> − 1)/x = 1<br>
+  lim<sub>x→0</sub> ln(1+x)/x = 1
+</div>
+
+<div class="key"><div class="ky-t">Generalización clave</div>
+Si <span class="m">g(x) → 0</span>, toda la familia funciona con <span class="m">g(x)</span> en lugar de <span class="m">x</span>.<br>
+Por ejemplo: <span class="m">sen(5x)/(5x) → 1</span>, <span class="m">(1 − cos(3x))/(3x)² → 1/2</span>.
+</div>
+
+<h3>La forma del e (1<sup>∞</sup>)</h3>
+<div class="formula">
+  lim (1 + α(x))<sup>β(x)</sup> = e<sup>lim α(x)·β(x)</sup><br>
+  &nbsp;&nbsp; cuando α → 0 y β → ∞
+</div>
+
+<h3>Tabla de derivadas mínima</h3>
+<table class="tbl">
+  <tr><th>f</th><th>f'</th></tr>
+  <tr><td class="c"><span class="m">x<sup>n</sup></span></td><td class="c"><span class="m">n·x<sup>n−1</sup></span></td></tr>
+  <tr><td class="c"><span class="m">e<sup>x</sup></span></td><td class="c"><span class="m">e<sup>x</sup></span></td></tr>
+  <tr><td class="c"><span class="m">ln(x)</span></td><td class="c"><span class="m">1/x</span></td></tr>
+  <tr><td class="c"><span class="m">sen(x)</span></td><td class="c"><span class="m">cos(x)</span></td></tr>
+  <tr><td class="c"><span class="m">cos(x)</span></td><td class="c"><span class="m">−sen(x)</span></td></tr>
+  <tr><td class="c"><span class="m">√x</span></td><td class="c"><span class="m">1/(2√x)</span></td></tr>
+</table>
+
+<h3>Reglas de derivación</h3>
+<div class="formula">
+  (f·g)' = f'·g + f·g'<br>
+  (f/g)' = (f'·g − f·g')/g²<br>
+  [f(g(x))]' = f'(g(x)) · g'(x) (cadena)
+</div>
+
+<h3>Fórmula de la tangente</h3>
+<div class="formula">y − f(x<sub>0</sub>) = f'(x<sub>0</sub>)·(x − x<sub>0</sub>)</div>
+<p>Si te dan <b>la tangente</b> ya calculada, leéla al revés: la pendiente <b>es</b> <span class="m">f'(x<sub>0</sub>)</span>, y al pasar el <span class="m">x<sub>0</sub></span> obtenés <span class="m">f(x<sub>0</sub>)</span>.</p>
+
+<div class="quiz-wrap" data-qz="1" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · TIPO 1 ESTUDIO DE FUNCION ============ -->
+<details id="ap-s2">
+<summary><span class="num">2</span> TIPO 1 · Estudio de función completo <span class="sec-score" id="ss-analisis-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>Es el último ejercicio, vale 4 puntos. Te dan una sola función con incisos: asíntotas / crecimiento / extremos / imagen.</p>
+
+<h3>La receta de 7 pasos (en este orden)</h3>
+<ol>
+  <li><b>Dominio</b>.</li>
+  <li><b>Asíntotas</b> (vertical, horizontal, oblicua).</li>
+  <li>Calcular <span class="m">f'(x)</span>.</li>
+  <li><b>Puntos críticos</b>: <span class="m">f'(x) = 0</span>, filtrar por dominio.</li>
+  <li><b>Signo de f'</b> por intervalos.</li>
+  <li><b>Extremos</b> por cambio de signo.</li>
+  <li><b>Imagen</b>: valores en críticos + límites en bordes del dominio.</li>
+</ol>
+
+<div class="key"><div class="ky-t">No te saltees pasos</div>
+Cada uno alimenta al siguiente. Si calculás críticos antes que el dominio, no podés filtrar. Si calculás imagen antes que extremos, te pierdes el techo o el piso.
+</div>
+
+<h3>El truco para analizar el signo de f'</h3>
+<p><b>Siempre factorizá f'</b> como producto/cociente de factores. Después separá:</p>
+<ul>
+  <li>Factores con signo <b>constante</b> (cuadrados, exponenciales): NO aportan signo.</li>
+  <li>Factores que <b>cambian</b> de signo: SÍ analizás.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de factorización inteligente</div>
+  Si <span class="m">f'(x) = (x − 7)/(x − 4)²</span>: el denominador <span class="m">(x−4)²</span> siempre es positivo. <b>El signo lo da SOLO el numerador (x−7)</b>.
+</div>
+
+<h3>Cómo encontrar la imagen</h3>
+<p>La imagen es el conjunto de valores que la función toma. Para mapearla necesitás:</p>
+<ul>
+  <li>Los <b>valores en los puntos críticos</b> (techos y pisos locales).</li>
+  <li>Los <b>límites en los bordes del dominio</b> (a dónde se va al infinito o al borde).</li>
+</ul>
+
+<div class="key"><div class="ky-t">Corchete vs paréntesis</div>
+Si un valor <b>se alcanza</b> (es f de algún x del dominio) → <b>corchete</b> [ ]<br>
+Si es un <b>límite no alcanzado</b> (incluyendo ±∞) → <b>paréntesis</b> ( )
+</div>
+
+<h3>Ejemplo trabajado · Parcial 23/09/2024 Tema 4 ej 5</h3>
+<p>Función: <span class="m">f(x) = 6x/(16x² + 1)</span>. Estudio completo.</p>
+
+<p><b>Paso 1 (Dominio):</b> denominador <span class="m">16x² + 1</span> siempre positivo → <b>Dom = ℝ</b>.</p>
+
+<p><b>Paso 2 (Asíntotas):</b></p>
+<ul>
+  <li>AV: ninguna.</li>
+  <li>AH: <span class="m">lim<sub>±∞</sub> 6x/(16x²+1) = 0</span> (grado abajo &gt; arriba) → <span class="m">y = 0</span>.</li>
+</ul>
+
+<p><b>Paso 3 (Derivada):</b></p>
+<div class="formula">
+  f'(x) = [6·(16x² + 1) − 6x·32x] / (16x² + 1)²<br>
+  = (−96x² + 6) / (16x² + 1)²<br>
+  = 6(1 − 4x)(1 + 4x) / (16x² + 1)²
+</div>
+
+<p><b>Paso 4 (Críticos):</b> <span class="m">x = ±1/4</span>. Ambos en el dominio ✓.</p>
+
+<p><b>Paso 5 (Signo):</b> denominador siempre positivo. El signo lo dan <span class="m">(1 − 4x)</span> y <span class="m">(1 + 4x)</span>:</p>
+<table class="tbl">
+  <tr><th>Intervalo</th><th>(1−4x)</th><th>(1+4x)</th><th>f'</th><th>Comportamiento</th></tr>
+  <tr><td class="c">(−∞, −1/4)</td><td class="c">+</td><td class="c">−</td><td class="c">−</td><td>decrece</td></tr>
+  <tr><td class="c">(−1/4, 1/4)</td><td class="c">+</td><td class="c">+</td><td class="c">+</td><td>crece</td></tr>
+  <tr><td class="c">(1/4, +∞)</td><td class="c">−</td><td class="c">+</td><td class="c">−</td><td>decrece</td></tr>
+</table>
+
+<p><b>Paso 6 (Extremos):</b> en <span class="m">x = −1/4</span> mínimo (−→+); en <span class="m">x = 1/4</span> máximo (+→−).</p>
+
+<p><b>Paso 7 (Imagen):</b> <span class="m">f(−1/4) = −3/4</span>, <span class="m">f(1/4) = 3/4</span>. Imagen = <b>[−3/4, 3/4]</b>.</p>
+
+<h3>Ejemplo trabajado · Parcial 23/09/2024 Tema 5 ej 5</h3>
+<p>Función: <span class="m">f(x) = √x · e<sup>−36x²+2</sup></span>.</p>
+
+<p><b>Dominio:</b> <span class="m">x ≥ 0</span> → <b>[0, +∞)</b>.</p>
+
+<p><b>AH:</b> <span class="m">lim<sub>x→+∞</sub> √x/e<sup>36x²−2</sup> = 0</span> (la exponencial le gana a la raíz). <b>y = 0</b>.</p>
+
+<p><b>Derivada</b> (producto + cadena): <span class="m">f'(x) = e<sup>−36x²+2</sup> · (1 − 144x²)/(2√x)</span>.</p>
+
+<p><b>Críticos:</b> <span class="m">1 − 144x² = 0 → x = ±1/12</span>. Solo <span class="m">x = 1/12</span> está en el dominio.</p>
+
+<p><b>Signo:</b> <span class="m">e<sup>...</sup></span> y <span class="m">2√x</span> siempre positivos. Signo dado por <span class="m">1 − 144x²</span>:</p>
+<ul>
+  <li>En <span class="m">(0, 1/12)</span>: positivo → crece.</li>
+  <li>En <span class="m">(1/12, +∞)</span>: negativo → decrece.</li>
+</ul>
+
+<p><b>Extremo:</b> en <span class="m">x = 1/12</span> hay máximo absoluto.</p>
+
+<p><b>Imagen:</b> <span class="m">f(0) = 0</span> (alcanzado), máximo en <span class="m">f(1/12)</span> alcanzado, <span class="m">lim<sub>+∞</sub> = 0</span> no alcanzado. <b>Imagen = [0, f(1/12)]</b>.</p>
+
+<h3>Funciones típicas que se repiten en parciales</h3>
+<table class="tbl">
+  <tr><th>Familia</th><th>Ejemplos vistos</th></tr>
+  <tr><td>Cociente con polinomios</td><td><span class="m">6x/(16x²+1)</span>, <span class="m">e<sup>2x</sup>/(9x²+2)</span></td></tr>
+  <tr><td>Raíz × exponencial</td><td><span class="m">√x · e<sup>−36x²+2</sup></span></td></tr>
+  <tr><td>Polinomio × exponencial</td><td><span class="m">(x²−24)e<sup>x+7</sup></span></td></tr>
+  <tr><td>Logaritmo + racional</td><td><span class="m">2 + ln(3x) + 18/x²</span>, <span class="m">ln(x−4) + 3/(x−4) + 2</span></td></tr>
+  <tr><td>Polinomio + racional</td><td><span class="m">x² + 2/x</span></td></tr>
+  <tr><td>Gaussiana invertida</td><td><span class="m">−e<sup>−2(x−3)²</sup> + 2</span></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Crítico fuera del dominio tomado como válido.<br>
+• Confundir dominio con imagen.<br>
+• Olvidar los límites en los bordes al calcular imagen.<br>
+• Mal análisis del signo: si no factorizás bien <span class="m">f'</span>, perdés el signo.<br>
+• Borde cerrado/abierto incorrecto en imagen: ¿se alcanza o es límite?
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · TIPO 2 CONTINUIDAD CON PARAMETRO ============ -->
+<details id="ap-s3">
+<summary><span class="num">3</span> TIPO 2 · Continuidad con parámetro <span class="sec-score" id="ss-analisis-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el ~89% de los parciales</h3>
+<p>Te dan una función partida con parámetro y piden el valor que la hace continua en el punto de empalme.</p>
+
+<h3>Las señales</h3>
+<p>Estructura del enunciado:</p>
+<div class="formula">
+  f(x) = { fórmula que da 0/0 en x<sub>0</sub> &nbsp; si x ≠ x<sub>0</sub><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; algo con parámetro &nbsp; si x = x<sub>0</sub> }
+</div>
+
+<h3>La receta de 3 pasos</h3>
+<ol>
+  <li>Calcular <span class="m">lim<sub>x→x<sub>0</sub></sub></span> de la primera rama.</li>
+  <li>Igualar ese límite a la rama con parámetro evaluada en <span class="m">x<sub>0</sub></span>.</li>
+  <li>Despejar el parámetro.</li>
+</ol>
+
+<div class="key"><div class="ky-t">La lógica</div>
+Una función es continua si "no tiene saltos". El valor <span class="m">f(x<sub>0</sub>)</span> que vos definís a mano debe coincidir con el valor al que la fórmula <b>tiende</b> cerca de <span class="m">x<sub>0</sub></span>. Si no coinciden, hay un escalón visible.
+</div>
+
+<h3>Cómo identificar la técnica para el límite</h3>
+<table class="tbl">
+  <tr><th>Síntoma</th><th>Técnica</th></tr>
+  <tr><td><span class="m">sen(kx)/x</span>, <span class="m">(e<sup>kx</sup>−1)/x</span>, <span class="m">ln(1+kx)/x</span></td><td>Notable</td></tr>
+  <tr><td><span class="m">(1−cos(kx))/x²</span></td><td>Notable de 1/2</td></tr>
+  <tr><td>Polinomios con factor común</td><td>Factorización</td></tr>
+  <tr><td>Mezcla de funciones distintas con 0/0</td><td>L'Hôpital</td></tr>
+  <tr><td>Resta dentro de cociente con 0/0</td><td>L'Hôpital o denominador común</td></tr>
+</table>
+
+<h3>Ejemplo trabajado · Parcial 28/04/2025 ej 4</h3>
+<p>Función: <span class="m">f(x) = (cos(5x) − 1)/x²</span> si <span class="m">x ≠ 0</span>; <span class="m">f(0) = k − 1/2</span>. Hallar <span class="m">k</span>.</p>
+
+<p><b>Paso 1 (Límite):</b> reemplazando da 0/0.</p>
+
+<p><b>Camino A · L'Hôpital dos veces:</b></p>
+<div class="formula">
+  lim (cos(5x) − 1)/x² = lim (−5 sen(5x))/(2x) = lim (−25 cos(5x))/2 = −25/2
+</div>
+
+<p><b>Camino B · notable:</b> Recordá que <span class="m">(1 − cos u)/u² → 1/2</span>. Reescribís:</p>
+<div class="formula">
+  (cos(5x) − 1)/x² = −(1 − cos(5x))/(5x)² · 25 → −1/2 · 25 = −25/2
+</div>
+
+<p><b>Paso 2 (Igualar):</b> <span class="m">k − 1/2 = −25/2</span>.</p>
+
+<p><b>Paso 3 (Despejar):</b> <b><span class="m">k = −12</span></b>.</p>
+
+<h3>Ejemplo trabajado · Parcial 07/05/2024 Tema 1 ej 1</h3>
+<p>Función: <span class="m">f(x) = ln(1+x²)/(e<sup>x²</sup> − 1)</span> si <span class="m">x ≠ 0</span>; <span class="m">f(0) = 2a − 3</span>. Hallar <span class="m">a</span>.</p>
+
+<p><b>Atajo con notables:</b> sustituyo <span class="m">u = x²</span> que tiende a 0:</p>
+<div class="formula">
+  ln(1+u)/(e<sup>u</sup> − 1) = [ln(1+u)/u] · [u/(e<sup>u</sup> − 1)] → 1 · 1 = 1
+</div>
+
+<p>Igualar: <span class="m">2a − 3 = 1 → a = 2</span>.</p>
+
+<h3>Ejemplo trabajado · Parcial 23/09/2024 Tema 1 ej 2</h3>
+<p>Función: <span class="m">f(x) = a·sen²(ax)/x²</span> con <span class="m">f(0) = 64</span>. Hallar <span class="m">a</span>.</p>
+
+<p>Reescribís: <span class="m">a · sen²(ax)/x² = a · (sen(ax))²/x² = a · (sen(ax)/x)² = a · (a · sen(ax)/(ax))² → a · a² = a³</span>.</p>
+
+<p>Igualar: <span class="m">a³ = 64 → a = 4</span>.</p>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Meter L'Hôpital de oficio. Si reemplazando da algo finito, <b>NO es indeterminación</b> — el límite es ese valor.<br>
+• L'Hôpital se aplica a derivadas <b>separadas</b>, no como regla del cociente.<br>
+• Si la fórmula tiene productos, descomponéla en notables: cada factor por separado.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · TIPO 3 TANGENTE Y CADENA ============ -->
+<details id="ap-s4">
+<summary><span class="num">4</span> TIPO 3 · Recta tangente y cadena <span class="sec-score" id="ss-analisis-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el ~89% de los parciales</h3>
+
+<h3>Las dos variantes principales</h3>
+<ul>
+  <li><b>Variante 1:</b> "Sé algo sobre <span class="m">f</span> (su tangente). Construyo <span class="m">h</span> con <span class="m">f</span> adentro. ¿Cuánto vale <span class="m">h'</span> y/o la tangente de <span class="m">h</span>?"</li>
+  <li><b>Variante 2:</b> "Calcular la tangente a <span class="m">f</span> en <span class="m">x<sub>0</sub></span>" (más directa).</li>
+</ul>
+
+<h3>El primer paso CRUCIAL: leer la tangente</h3>
+<p>Si te dicen "la tangente a <span class="m">f</span> en <span class="m">x<sub>0</sub></span> es <span class="m">y = mx + b</span>", anotá inmediatamente:</p>
+<ul>
+  <li><b><span class="m">f'(x<sub>0</sub>) = m</span></b> — la pendiente <b>es</b> la derivada.</li>
+  <li><b><span class="m">f(x<sub>0</sub>) = m·x<sub>0</sub> + b</span></b> — la tangente toca al gráfico en ese punto.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Esos dos datos están escondidos. Es media respuesta gratis.</div></div>
+
+<h3>La cadena: la lógica</h3>
+<p>Para <span class="m">h(x) = c + f(g(x))</span>:</p>
+<div class="formula">h'(x) = f'(g(x)) · g'(x)</div>
+
+<p><b>¿Por qué?</b> Si "movés <span class="m">x</span> un poquito", primero <span class="m">g</span> se mueve a velocidad <span class="m">g'(x)</span>, y después <span class="m">f</span> amplifica con su propia velocidad <span class="m">f'(g(x))</span>. La velocidad total es el <b>producto</b>.</p>
+
+<h3>El truco del "argumento que cierra"</h3>
+<div class="key"><div class="ky-t">Patrón universal del parcial</div>
+En TODOS los parciales, el <span class="m">x</span> donde te piden evaluar <span class="m">h'</span> está elegido para que el <b>argumento interno</b> de <span class="m">f</span> caiga <b>exactamente</b> donde te dieron la tangente.<br><br>
+Si la tangente está en <span class="m">x<sub>0</sub> = 1</span>, y te piden <span class="m">h'(0)</span>, es seguro que al evaluar <span class="m">g(0)</span> te va a dar 1.<br><br>
+<b>Acción concreta:</b> lo PRIMERO que hacés es evaluar el argumento. Si da el <span class="m">x<sub>0</sub></span> del enunciado, sabés que el ejercicio cierra.
+</div>
+
+<h3>Ejemplo trabajado · Parcial 28/04/2025 ej 3</h3>
+<p>Tangente a <span class="m">f</span> en <span class="m">x<sub>0</sub> = 1</span> es <span class="m">y = 3x + 1</span>. <span class="m">h(x) = 3 + f(7x + e<sup>x</sup>)</span>. Hallar <span class="m">h'(0)</span> y la tangente a <span class="m">h</span> en <span class="m">x = 0</span>.</p>
+
+<p><b>Leer tangente:</b> <span class="m">f'(1) = 3</span>, <span class="m">f(1) = 3·1 + 1 = 4</span>.</p>
+
+<p><b>Derivar h con cadena:</b> <span class="m">h'(x) = f'(7x + e<sup>x</sup>) · (7 + e<sup>x</sup>)</span>.</p>
+
+<p><b>Evaluar argumento en x = 0:</b> <span class="m">7·0 + e<sup>0</sup> = 1</span> ✓ cierra con el <span class="m">x<sub>0</sub> = 1</span>.</p>
+
+<p><b>Calcular h'(0):</b> <span class="m">h'(0) = f'(1) · 8 = 3 · 8 = 24</span>.</p>
+
+<p><b>Tangente a h:</b></p>
+<ul>
+  <li><span class="m">h(0) = 3 + f(1) = 3 + 4 = 7</span>.</li>
+  <li>Pendiente: <span class="m">24</span>.</li>
+  <li>Ecuación: <span class="m">y − 7 = 24x → y = 24x + 7</span>.</li>
+</ul>
+
+<h3>Ejemplo trabajado · Parcial 23/09/2024 Tema 1 ej 3</h3>
+<p>Tangente a <span class="m">f</span> en <span class="m">x = 1</span> es <span class="m">y = 4x − 2</span>. <span class="m">h(x) = ln(f(x)) + e<sup>sen(x−1)</sup></span>. Hallar <span class="m">h'(1)</span>.</p>
+
+<p><b>Leer tangente:</b> <span class="m">f'(1) = 4</span>, <span class="m">f(1) = 2</span>.</p>
+
+<p><b>Derivar h término a término:</b></p>
+<div class="formula">
+  h'(x) = f'(x)/f(x) + e<sup>sen(x−1)</sup> · cos(x−1) · 1
+</div>
+
+<p><b>Evaluar en x = 1:</b></p>
+<ul>
+  <li>Primer término: <span class="m">f'(1)/f(1) = 4/2 = 2</span>.</li>
+  <li>Segundo: <span class="m">e<sup>sen 0</sup> · cos 0 = 1 · 1 = 1</span>.</li>
+  <li><b>h'(1) = 3</b>.</li>
+</ul>
+
+<h3>Ejemplo trabajado · Parcial 07/05/2024 Tema 2 ej 3 (variante directa)</h3>
+<p><span class="m">f(x) = 2e<sup>x−1</sup> + sen(1−x) − 3x·ln(2x−1)</span>. Tangente en <span class="m">x = 1</span>.</p>
+
+<p><b>f(1):</b> <span class="m">2e<sup>0</sup> + sen 0 − 3·ln 1 = 2 + 0 − 0 = 2</span>.</p>
+
+<p><b>f'(x)</b> término a término:</p>
+<ul>
+  <li><span class="m">2e<sup>x−1</sup></span> → derivada <span class="m">2e<sup>x−1</sup></span>.</li>
+  <li><span class="m">sen(1−x)</span> → cadena: <span class="m">cos(1−x)·(−1) = −cos(1−x)</span>.</li>
+  <li><span class="m">−3x·ln(2x−1)</span> → producto: <span class="m">−3[ln(2x−1) + x·2/(2x−1)]</span>.</li>
+</ul>
+
+<p><b>En x = 1:</b> <span class="m">2 − 1 − 3[0 + 2] = 2 − 1 − 6 = −5</span>.</p>
+
+<p><b>Tangente:</b> <span class="m">y − 2 = −5(x − 1) → y = −5x + 7</span>.</p>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Olvidar evaluar el argumento interno antes de empezar a calcular.<br>
+• Aplicar regla del producto en lugar de cadena (o viceversa). Cadena: hay una función adentro de otra. Producto: dos funciones multiplicadas.<br>
+• Para la tangente final, no olvides calcular <span class="m">h(0)</span>. Mucha gente entrega <span class="m">y = 24x</span> y se olvida del <span class="m">+ 7</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · TIPO 4 LIMITES ============ -->
+<details id="ap-s5">
+<summary><span class="num">5</span> TIPO 4 · Límites con indeterminación <span class="sec-score" id="ss-analisis-parcial-5"></span></summary>
+<div class="content">
+
+<h3>El árbol de decisión completo</h3>
+<table class="tbl">
+  <tr><th>Reemplazo da</th><th>Estrategia</th></tr>
+  <tr><td>Número finito</td><td>Listo, ese es el límite</td></tr>
+  <tr><td>nº/0</td><td>±∞, chequear laterales</td></tr>
+  <tr><td>0/0 con polinomios</td><td>Factorizar (raíz común)</td></tr>
+  <tr><td>0/0 con raíces</td><td>Conjugado</td></tr>
+  <tr><td>0/0 con trig/log/exp</td><td>Notable o L'Hôpital</td></tr>
+  <tr><td>0/0 mixto</td><td>L'Hôpital (a veces dos veces)</td></tr>
+  <tr><td>∞/∞ con polinomios</td><td>Término dominante (cociente de líderes)</td></tr>
+  <tr><td>∞ − ∞ con raíces</td><td>Conjugado</td></tr>
+  <tr><td>∞ − ∞ sin raíces</td><td>Factor común o denominador común</td></tr>
+  <tr><td>0 · ∞</td><td>Reescribir como cociente</td></tr>
+  <tr><td>1<sup>∞</sup></td><td>Forma del e (ver Unidad 7)</td></tr>
+</table>
+
+<h3>Por qué cada técnica funciona</h3>
+
+<h4>Factorización</h4>
+<p>Si numerador y denominador se anulan en <span class="m">x = a</span>, ambos tienen <span class="m">(x − a)</span> como factor. Lo cancelás y la indeterminación desaparece.</p>
+
+<h4>Conjugado</h4>
+<p><span class="m">(√a − √b)(√a + √b) = a − b</span>. Sirve para "matar" raíces, convirtiendo restas en cosas limpias.</p>
+
+<h4>Término dominante</h4>
+<p>Cuando <span class="m">x → ∞</span>, lo único que importa es el término que crece más rápido. Los demás se vuelven despreciables.</p>
+
+<h4>Notables</h4>
+<p>Salen del polinomio de Taylor cerca de 0:</p>
+<ul>
+  <li><span class="m">sen x ≈ x</span> → <span class="m">sen x / x → 1</span></li>
+  <li><span class="m">1 − cos x ≈ x²/2</span> → <span class="m">(1 − cos x)/x² → 1/2</span></li>
+  <li><span class="m">e<sup>x</sup> ≈ 1 + x</span> → <span class="m">(e<sup>x</sup> − 1)/x → 1</span></li>
+  <li><span class="m">ln(1+x) ≈ x</span> → <span class="m">ln(1+x)/x → 1</span></li>
+</ul>
+
+<h4>L'Hôpital</h4>
+<p><span class="m">f/g → f'/g'</span> cuando da 0/0 o ∞/∞. Es un teorema, no un atajo. <b>Solo aplica con esas formas.</b></p>
+
+<h3>Ejemplo trabajado · Parcial 28/04/2025 ej 2 (∞ − ∞)</h3>
+<p>Calcular <span class="m">lim<sub>x→+∞</sub> √(x² + 12x) − √(x² + 13)</span>.</p>
+
+<p><b>Reconocer:</b> ∞ − ∞ con raíces → conjugado.</p>
+
+<div class="formula">
+  = lim [(x² + 12x) − (x² + 13)] / [√(x² + 12x) + √(x² + 13)]<br>
+  = lim (12x − 13) / [√(x² + 12x) + √(x² + 13)]
+</div>
+
+<p>Ahora ∞/∞. Sacar <span class="m">x</span> factor común:</p>
+<div class="formula">
+  = lim x(12 − 13/x) / [x(√(1 + 12/x) + √(1 + 13/x²))]<br>
+  = lim (12 − 13/x) / [√(1 + 12/x) + √(1 + 13/x²)]<br>
+  = 12 / (1 + 1) = <b>6</b>
+</div>
+
+<h3>Ejemplo trabajado · Parcial 12/11/2024 ej 5 (con tangente!)</h3>
+<p>Tangente a <span class="m">f</span> en <span class="m">x = 1</span> es <span class="m">y = 3x + 2</span>. Calcular <span class="m">lim<sub>x→1</sub> [f(4x − 3) − 5]/(x² − 1)</span>.</p>
+
+<p><b>Datos gratis:</b> <span class="m">f'(1) = 3</span>, <span class="m">f(1) = 5</span>.</p>
+
+<p><b>Reemplazar:</b> <span class="m">[f(1) − 5]/(1 − 1) = 0/0</span> ✓.</p>
+
+<p><b>L'Hôpital</b> (cadena en numerador):</p>
+<div class="formula">
+  = lim 4·f'(4x − 3) / (2x)
+</div>
+
+<p><b>Reemplazar en x = 1:</b> argumento <span class="m">4·1 − 3 = 1</span> → cierra con <span class="m">f'(1) = 3</span>.</p>
+
+<div class="formula">= 4·3 / 2 = <b>6</b></div>
+
+<h3>Ejemplo trabajado · Parcial 02/05/2023 ej 2 (0/0 con raíces)</h3>
+<p><span class="m">lim<sub>x→3</sub> (2x − 6)/(4√(x+1) − 8)</span>.</p>
+
+<p>Da 0/0. Conjugado <span class="m">(4√(x+1) + 8)</span>:</p>
+<div class="formula">
+  = lim (2x − 6)(4√(x+1) + 8) / [16(x+1) − 64]<br>
+  = lim (2x − 6)(4√(x+1) + 8) / [16x − 48]<br>
+  = lim 2(x − 3)(4√(x+1) + 8) / [16(x − 3)]<br>
+  = lim (4√(x+1) + 8) / 8 = (4·2 + 8)/8 = <b>2</b>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa típica de L'Hôpital</div>
+<span class="m">lim<sub>x→+∞</sub> (x + sen x)/x</span>. Si aplicás L'Hôpital sale <span class="m">(1 + cos x)/1</span>, que oscila → no existe.<br>
+Pero el límite original SÍ existe. Reescribís: <span class="m">1 + sen(x)/x → 1 + 0 = 1</span>.<br>
+<b>Moraleja:</b> a veces L'Hôpital no es la mejor herramienta. Probá factorizar, separar o notables.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · TIPO 5 MAX/MIN ABSOLUTOS ============ -->
+<details id="ap-s6">
+<summary><span class="num">6</span> TIPO 5 · Máx/mín absolutos en intervalo cerrado <span class="sec-score" id="ss-analisis-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en ~44% de los parciales</h3>
+
+<h3>Las señales</h3>
+<ul>
+  <li>Intervalo <b>cerrado y acotado</b> <span class="m">[a, b]</span>.</li>
+  <li>"Máximo absoluto" / "mínimo absoluto" en el enunciado.</li>
+  <li>Función continua (casi siempre lo es).</li>
+</ul>
+
+<h3>La lógica de Weierstrass</h3>
+<p>Si la función es continua en un intervalo cerrado, los extremos absolutos <b>EXISTEN</b>. Tu trabajo es solo encontrarlos. Y solo hay 3 lugares posibles:</p>
+<ol>
+  <li>El borde izquierdo <span class="m">x = a</span>.</li>
+  <li>El borde derecho <span class="m">x = b</span>.</li>
+  <li>Un crítico interior (donde <span class="m">f'(x) = 0</span> o <span class="m">f'</span> no existe), <b>y que esté en (a, b)</b>.</li>
+</ol>
+
+<h3>La receta</h3>
+<ol>
+  <li>Calcular <span class="m">f'(x)</span>.</li>
+  <li>Resolver <span class="m">f'(x) = 0</span>.</li>
+  <li>Filtrar: solo los críticos en <span class="m">(a, b)</span> cuentan.</li>
+  <li>Evaluar <span class="m">f</span> en TODOS los candidatos: <span class="m">a</span>, <span class="m">b</span>, y los críticos válidos.</li>
+  <li>El mayor valor es el máximo absoluto, el menor el mínimo.</li>
+</ol>
+
+<h3>Ejemplo trabajado · Parcial 28/04/2025 ej 1</h3>
+<p><span class="m">f(x) = 2x² − 9·ln(x)</span> en <span class="m">[1, e]</span>.</p>
+
+<p><b>Derivada:</b> <span class="m">f'(x) = 4x − 9/x</span>.</p>
+
+<p><b>Críticos:</b> <span class="m">4x = 9/x → 4x² = 9 → x = ±3/2</span>. Descarto <span class="m">−3/2</span> (no en dominio de ln). <span class="m">x = 3/2</span> está en <span class="m">(1, e)</span> ✓ (<span class="m">e ≈ 2,72</span>).</p>
+
+<p><b>Evaluar:</b></p>
+<table class="tbl">
+  <tr><th>x</th><th>f(x)</th></tr>
+  <tr><td class="c">1</td><td class="c">2</td></tr>
+  <tr><td class="c">3/2</td><td class="c">≈ 0,85</td></tr>
+  <tr><td class="c">e</td><td class="c">≈ 5,78</td></tr>
+</table>
+
+<p><b>Conclusión:</b> mínimo en <span class="m">x = 3/2</span>, <b>máximo en x = e</b> (en el borde, no en el crítico).</p>
+
+<h3>Ejemplo trabajado · Parcial 23/09/2024 Tema 5 ej 4</h3>
+<p><span class="m">f(x) = 15x + 80/x³</span> en <span class="m">[1, 3]</span>.</p>
+
+<p><b>Derivada:</b> <span class="m">f'(x) = 15 − 240/x⁴</span>.</p>
+
+<p><b>Críticos:</b> <span class="m">15 = 240/x⁴ → x⁴ = 16 → x = ±2</span>. Solo <span class="m">x = 2</span> en <span class="m">(1, 3)</span>.</p>
+
+<p><b>Evaluar:</b></p>
+<ul>
+  <li><span class="m">f(1) = 15 + 80 = 95</span></li>
+  <li><span class="m">f(2) = 30 + 10 = 40</span></li>
+  <li><span class="m">f(3) = 45 + 80/27 ≈ 47,96</span></li>
+</ul>
+
+<p><b>Conclusión:</b> máximo en <span class="m">x = 1</span>, mínimo en <span class="m">x = 2</span>.</p>
+
+<div class="trap"><div class="tr-t">Trampa principal</div>
+Olvidarse de evaluar en los <b>bordes</b>. En 28/04/2025 el máximo NO está en el crítico, está en el borde <span class="m">x = e</span>. <b>Siempre evaluá en los 3 puntos.</b>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · TIPO 6 + 7 ============ -->
+<details id="ap-s7">
+<summary><span class="num">7</span> TIPO 6 + 7 · Forma del e y cociente incremental <span class="sec-score" id="ss-analisis-parcial-7"></span></summary>
+<div class="content">
+
+<h3>TIPO 6 · Forma del número e</h3>
+
+<h4>Las señales</h4>
+<ul>
+  <li>Límite con <b>base que tiende a 1</b> y <b>exponente que tiende a infinito</b>.</li>
+  <li>Resultado típico es <span class="m">e<sup>k</sup></span> (a veces te dan el resultado y piden hallar un parámetro).</li>
+</ul>
+
+<h4>La fórmula maestra</h4>
+<div class="formula">
+  lim (1 + α(x))<sup>β(x)</sup> = e<sup>lim α(x)·β(x)</sup><br>
+  &nbsp; cuando α → 0, β → ∞
+</div>
+
+<h4>La receta</h4>
+<ol>
+  <li>Reescribir la base como <span class="m">1 + α(x)</span>, donde <span class="m">α → 0</span>.</li>
+  <li>Identificar <span class="m">α(x)</span> y <span class="m">β(x)</span>.</li>
+  <li>Calcular <span class="m">lim α·β</span> (suele ser cociente de polinomios).</li>
+  <li>Resultado: <span class="m">e</span> elevado a ese límite.</li>
+</ol>
+
+<h4>Truco para reescribir la base</h4>
+<p>Si tenés <span class="m">(x²+a)/(x²−b)</span>, restás y sumás <span class="m">b</span> en el numerador:</p>
+<div class="formula">
+  (x²+a)/(x²−b) = (x²−b + b+a)/(x²−b) = 1 + (a+b)/(x²−b)
+</div>
+
+<h4>Ejemplo trabajado · Parcial 23/09/2024 Tema 5 ej 1</h4>
+<p>Hallar <span class="m">a</span> tal que <span class="m">lim<sub>x→+∞</sub> [(x²+a)/(x²−6)]<sup>2x²+1</sup> = e<sup>6</sup></span>.</p>
+
+<p><b>Reescribir:</b> <span class="m">(x²+a)/(x²−6) = 1 + (a+6)/(x²−6)</span>.</p>
+
+<p><b>Identificar:</b> <span class="m">α = (a+6)/(x²−6) → 0</span>, <span class="m">β = 2x²+1 → ∞</span>.</p>
+
+<p><b>Calcular α·β:</b> <span class="m">(a+6)(2x²+1)/(x²−6)</span>. Grados iguales (cuadráticos): tiende a <span class="m">2(a+6)</span>.</p>
+
+<p><b>Igualar:</b> <span class="m">e<sup>2(a+6)</sup> = e<sup>6</sup> → 2(a+6) = 6 → <b>a = −3</b></span>.</p>
+
+<h4>Ejemplo trabajado · Parcial 07/05/2024 Tema 2 ej 2</h4>
+<p>Calcular <span class="m">lim<sub>x→+∞</sub> [(x²−1)/(x²−5)]<sup>2x²+1</sup></span>.</p>
+
+<p><b>Reescribir:</b> <span class="m">(x²−1)/(x²−5) = 1 + 4/(x²−5)</span>.</p>
+
+<p><b>α·β:</b> <span class="m">4(2x²+1)/(x²−5) → 8</span>.</p>
+
+<p><b>Resultado:</b> <span class="m">e<sup>8</sup></span>.</p>
+
+<hr>
+
+<h3>TIPO 7 · Cociente incremental</h3>
+
+<h4>Variante 1: calcular f'(x<sub>0</sub>) por definición</h4>
+<p>Cuando la función está partida en <span class="m">x<sub>0</sub></span> y no se puede usar la regla normal:</p>
+<div class="formula">
+  f'(x<sub>0</sub>) = lim<sub>h→0</sub> [f(x<sub>0</sub> + h) − f(x<sub>0</sub>)]/h
+</div>
+
+<h4>Variante 2: hallar parámetro para que sea derivable</h4>
+<ol>
+  <li>Calcular cociente incremental por izquierda: <span class="m">lim<sub>h→0<sup>−</sup></sub></span>.</li>
+  <li>Calcular cociente incremental por derecha: <span class="m">lim<sub>h→0<sup>+</sup></sub></span>.</li>
+  <li>Igualar (los laterales deben coincidir).</li>
+  <li>Despejar el parámetro.</li>
+</ol>
+
+<h4>Ejemplo trabajado · Parcial 23/09/2024 Tema 1 ej 4</h4>
+<p><span class="m">f(x) = sen²(x)/(2x)</span> si <span class="m">x ≠ 0</span>; <span class="m">f(0) = 0</span>. Hallar <span class="m">f'(0)</span>.</p>
+
+<div class="formula">
+  f'(0) = lim<sub>h→0</sub> [sen²(h)/(2h) − 0]/h = lim sen²(h)/(2h²)<br>
+  = (1/2) · lim (sen h / h)² = 1/2 · 1² = <b>1/2</b>
+</div>
+
+<h4>Ejemplo trabajado · Parcial 12/11/2024 ej 1</h4>
+<p><span class="m">f(x) = (cos(6x) − 1)/x</span> si <span class="m">x &gt; 0</span>; <span class="m">f(x) = kx</span> si <span class="m">x ≤ 0</span>. Hallar <span class="m">k</span> para que sea derivable en todo ℝ.</p>
+
+<p><b>Por derecha:</b></p>
+<div class="formula">
+  lim<sub>h→0<sup>+</sup></sub> [(cos(6h) − 1)/h] / h = lim (cos(6h) − 1)/h² = −18
+</div>
+<p>(Notable: <span class="m">−(1 − cos(6h))/(6h)² · 36 → −1/2 · 36 = −18</span>.)</p>
+
+<p><b>Por izquierda:</b> <span class="m">lim<sub>h→0<sup>−</sup></sub> kh/h = k</span>.</p>
+
+<p><b>Igualar:</b> <span class="m">k = −18</span>.</p>
+
+<div class="quiz-wrap" data-qz="7" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 · TIPO 8 + 9 ============ -->
+<details id="ap-s8">
+<summary><span class="num">8</span> TIPO 8 + 9 · Asíntotas y derivada implícita <span class="sec-score" id="ss-analisis-parcial-8"></span></summary>
+<div class="content">
+
+<h3>TIPO 8 · Asíntotas como ejercicio aparte</h3>
+
+<h4>Receta rápida</h4>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Cómo encontrarla</th></tr>
+  <tr><td><b>AV</b></td><td>Puntos fuera del dominio. Si el límite es ±∞ → AV.</td></tr>
+  <tr><td><b>AH</b></td><td><span class="m">lim<sub>x→±∞</sub> f(x) = L</span> finito → <span class="m">y = L</span> es AH.</td></tr>
+  <tr><td><b>AO</b> (cuando NO hay AH)</td><td><span class="m">m = lim f/x</span>, <span class="m">b = lim [f − mx]</span>.</td></tr>
+</table>
+
+<h4>Ejemplo trabajado · Parcial 23/09/2024 Tema 1 ej 1</h4>
+<p><span class="m">f(x) = (5x³ + 15x²)/(x² − 9)</span>. Asíntotas.</p>
+
+<p><b>Factorizar:</b> <span class="m">5x³ + 15x² = 5x²(x+3)</span>, <span class="m">x² − 9 = (x−3)(x+3)</span>.</p>
+<div class="formula">f(x) = 5x²(x+3)/[(x−3)(x+3)] = 5x²/(x−3) (cuando x ≠ −3)</div>
+
+<p><b>AV candidatos:</b> <span class="m">x = ±3</span>.</p>
+<ul>
+  <li><span class="m">x = 3</span>: <span class="m">lim = 5·9/0 = ±∞</span> → <b>AV en x = 3</b>.</li>
+  <li><span class="m">x = −3</span>: usando la simplificada, <span class="m">5·9/(−6) = −15/2</span> finito → <b>NO es AV</b> (es agujero).</li>
+</ul>
+
+<p><b>AH:</b> <span class="m">lim<sub>x→∞</sub> 5x²/(x−3) = +∞</span>. <b>No hay AH.</b></p>
+
+<p><b>AO:</b></p>
+<div class="formula">
+  m = lim (5x³ + 15x²)/[(x²−9)x] = 5<br>
+  b = lim [(5x³+15x²)/(x²−9) − 5x] = lim (15x² + 45x)/(x²−9) = 15
+</div>
+<p><b>AO: y = 5x + 15.</b></p>
+
+<hr>
+
+<h3>TIPO 9 · Derivada implícita</h3>
+
+<h4>La regla mágica</h4>
+<p>Cuando derivás algo con <span class="m">y</span>, recordás que <span class="m">y</span> depende de <span class="m">x</span> y aplicás cadena. <b>Aparece multiplicado por y'</b>.</p>
+
+<table class="tbl">
+  <tr><th>Original</th><th>Derivada</th></tr>
+  <tr><td class="c"><span class="m">y²</span></td><td class="c"><span class="m">2y · y'</span></td></tr>
+  <tr><td class="c"><span class="m">sen(y)</span></td><td class="c"><span class="m">cos(y) · y'</span></td></tr>
+  <tr><td class="c"><span class="m">e<sup>y</sup></span></td><td class="c"><span class="m">e<sup>y</sup> · y'</span></td></tr>
+  <tr><td class="c"><span class="m">ln(y)</span></td><td class="c"><span class="m">y'/y</span></td></tr>
+  <tr><td class="c"><span class="m">x · y</span></td><td class="c"><span class="m">y + x · y'</span> (regla del producto)</td></tr>
+</table>
+
+<h4>Ejemplo trabajado · Parcial 23/09/2024 Tema 5 ej 3</h4>
+<p><span class="m">g(0) = π/3</span>, <span class="m">cos(g(x)) = 2x − √(x² + 5x + 4)</span>. Hallar <span class="m">g'(0)</span>.</p>
+
+<p><b>Derivar ambos lados:</b></p>
+<ul>
+  <li>Lado izq (cadena): <span class="m">−sen(g(x)) · g'(x)</span>.</li>
+  <li>Lado der: <span class="m">2 − (2x + 5)/[2√(x² + 5x + 4)]</span>.</li>
+</ul>
+
+<p><b>Evaluar en x = 0:</b></p>
+<ul>
+  <li>Izq: <span class="m">−sen(π/3) · g'(0) = −(√3/2)·g'(0)</span>.</li>
+  <li>Der: <span class="m">2 − 5/(2·2) = 2 − 5/4 = 3/4</span>.</li>
+</ul>
+
+<p><b>Despejar:</b> <span class="m">g'(0) = (3/4) · (−2/√3) = −√3/2</span>.</p>
+
+<div class="quiz-wrap" data-qz="8" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 9 · PRACTICA INTEGRADORA ============ -->
+<details id="ap-s9">
+<summary><span class="num">9</span> Práctica integradora · 6 ejercicios <span class="sec-score" id="ss-analisis-parcial-9"></span></summary>
+<div class="content">
+
+<h3>El día del parcial — checklist mental</h3>
+<ol>
+  <li><b>Antes de empezar</b>: escribí en una hoja los 4 notables, la fórmula del e y la fórmula de la tangente.</li>
+  <li><b>Para cada ejercicio:</b>
+    <ul>
+      <li><b>5 segundos</b>: identificá el TIPO con las palabras clave.</li>
+      <li><b>30 segundos</b>: anotá la información gratis (datos de la tangente, dominio del enunciado, etc.).</li>
+      <li><b>30 segundos</b>: identificá el "ruido" — la indeterminación, el parámetro, el punto crítico.</li>
+      <li><b>Después</b>: ejecutá la receta del tipo.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3>Errores que NO podés cometer</h3>
+<ul>
+  <li>Calcular un crítico fuera del dominio y tratarlo como válido.</li>
+  <li>Olvidar evaluar en los bordes en máx/mín absolutos.</li>
+  <li>Aplicar L'Hôpital a algo que NO es indeterminación.</li>
+  <li>En la tangente, olvidar el término independiente <span class="m">h(0)</span>.</li>
+  <li>Confundir imagen con dominio.</li>
+</ul>
+
+<h3>Práctica · 6 ejercicios cada uno mapeado a un tipo</h3>
+<p>Resolvelos a mano en orden. Después marcá la respuesta en el quiz para verificar.</p>
+
+<div class="key"><div class="ky-t">Mapping de los 6 ejercicios</div>
+1. Forma del e con parámetro (TIPO 6)<br>
+2. Continuidad con parámetro (TIPO 2)<br>
+3. Máx/mín absolutos (TIPO 5)<br>
+4. Tangente con cadena (TIPO 3)<br>
+5. Estudio de función (TIPO 1) — el hueso<br>
+6. Estudio con asíntotas no triviales (TIPO 1 + 8)
+</div>
+
+<h3>Ejercicio 1 (TIPO 6)</h3>
+<p>Hallar <span class="m">a</span> tal que <span class="m">lim<sub>x→+∞</sub> [(x²+a)/(x²−6)]<sup>2x²+1</sup> = e<sup>4</sup></span>.</p>
+
+<h3>Ejercicio 2 (TIPO 2)</h3>
+<p><span class="m">f(x) = (1 − cos(2x))/x²</span> si <span class="m">x ≠ 0</span>; <span class="m">f(0) = k</span>. Hallar <span class="m">k</span>.</p>
+
+<h3>Ejercicio 3 (TIPO 5)</h3>
+<p><span class="m">f(x) = 15x + 80/x³</span> en <span class="m">[1, 3]</span>. ¿Dónde están el máximo y mínimo absolutos?</p>
+
+<h3>Ejercicio 4 (TIPO 3)</h3>
+<p>Tangente a <span class="m">f</span> en <span class="m">x<sub>0</sub> = 1</span> es <span class="m">y = 8x − 6</span>. <span class="m">h(x) = ln(f(x)) + e<sup>sen(x−1)</sup></span>. Hallar <span class="m">h'(1)</span>.</p>
+
+<h3>Ejercicio 5 (TIPO 1)</h3>
+<p><span class="m">f(x) = x² + 2/x</span>. Calcular: dominio, asíntotas, intervalos de crecimiento/decrecimiento, extremos, imagen.</p>
+
+<h3>Ejercicio 6 (TIPO 1 + 8)</h3>
+<p><span class="m">f(x) = e<sup>2x</sup>/(9x² + 2)</span>. Estudio completo.</p>
+
+<div class="example">
+  <div class="ex-t">Solución resumida ejercicio 5</div>
+  Dom = ℝ − {0}. AV en <span class="m">x = 0</span>. <span class="m">f'(x) = 2x − 2/x² = (2x³ − 2)/x²</span>. Crítico: <span class="m">x = 1</span>. Decrece en <span class="m">(−∞, 0)</span> y <span class="m">(0, 1)</span>; crece en <span class="m">(1, +∞)</span>. <span class="m">x = 1</span> es mínimo relativo (no absoluto). <b>Imagen = ℝ</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Solución resumida ejercicio 6</div>
+  Dom = ℝ. AH <span class="m">y = 0</span> en <span class="m">−∞</span>. <span class="m">f'(x) = 2e<sup>2x</sup>(9x² − 9x + 2)/(9x²+2)²</span>. Críticos: <span class="m">x = 1/3</span> (máx) y <span class="m">x = 2/3</span> (mín). Crece en <span class="m">(−∞, 1/3)</span> y <span class="m">(2/3, +∞)</span>; decrece en <span class="m">(1/3, 2/3)</span>. <b>Imagen = (0, +∞)</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="analisis-parcial"></div>
+<a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
 </div>
 </details>
 
@@ -9858,6 +10726,86 @@ registerExercises('analisis', '14', [
   {st: 'En '+M('[0, π]')+', sea '+M('f(x) = sen(x)')+'. ¿Dónde el máximo absoluto?', opts: [M('x = 0'), M('x = π/2'), M('x = π'), 'Ambos extremos'], c: 1, ex: 'f\'(x) = cos(x) = 0 → x = π/2 en el intervalo. f(0) = 0, f(π/2) = 1, f(π) = 0. Máximo en x = π/2.'},
   {st: 'En '+M('[−1, 2]')+', sea '+M('f(x) = e<sup>x</sup> − x')+'. ¿Dónde el mínimo absoluto?', opts: [M('x = −1'), M('x = 0'), M('x = 1'), M('x = 2')], c: 1, ex: 'f\'(x) = e<sup>x</sup> − 1 = 0 → x = 0. f(−1) = 1/e + 1 ≈ 1,37. f(0) = 1. f(2) = e²−2 ≈ 5,39. El menor es f(0) = 1.'},
   {st: 'En '+M('[1, e]')+', sea '+M('f(x) = 2x² − 9·ln(x)')+'. ¿Dónde el mínimo absoluto?', opts: [M('x = 1'), M('x = 3/2'), M('x = e'), 'No tiene'], c: 1, ex: 'f\'(x) = 4x − 9/x = (4x²−9)/x = 0 → x = 3/2 (−3/2 se descarta). f(1)=2, f(3/2)≈0,85, f(e)≈5,78. Mínimo en x = 3/2.'}
+]);
+
+
+// ============ EJERCICIOS 1° PARCIAL ============
+registerExercises('analisis-parcial', '1', [
+  {st: 'Si en el enunciado aparece "intervalo cerrado [a, b]" + "máximo y mínimo absolutos", la receta es:', opts: ['Calcular f\'(x) y verlo en cualquier punto', 'Aplicar Weierstrass: evaluar f en los bordes a, b y en los críticos interiores', 'Aplicar L\'Hôpital', 'Buscar la asíntota'], c: 1, ex: 'Cuando es intervalo cerrado y la función es continua, Weierstrass garantiza que existen extremos. Solo hay 3 lugares posibles: bordes (a, b) y críticos interiores. Evaluás f en todos y comparás.'},
+  {st: 'Si te dan "la tangente a f en x₀ = 1 es y = 3x + 1", lo PRIMERO que anotás al margen es:', opts: ['f(1) = 1 y f\'(1) = 3', 'f\'(1) = 3 y f(1) = 4', 'f(3) = 1', 'No se puede saber sin más datos'], c: 1, ex: 'La pendiente ES la derivada: f\'(x₀) = m = 3. La tangente toca al gráfico en el punto: f(x₀) = m·x₀ + b = 3·1 + 1 = 4. Esos dos datos están escondidos en la tangente y son medio ejercicio gratis.'},
+  {st: 'Reemplazás en el límite y obtenés "0/0". ¿Qué hacés?', opts: ['Eso es 0, listo', 'Eso es indeterminación: aplicá factorización, conjugado, notable o L\'Hôpital según el tipo', 'Aplicás siempre L\'Hôpital sin pensar', 'El límite no existe'], c: 1, ex: '0/0 es una indeterminación, no un valor. Hay que "levantarla" con la técnica que corresponde según los componentes: polinomios → factorizar; raíces → conjugado; trig/log/exp → notable o L\'Hôpital.'},
+  {st: 'En la fórmula del e: lim (1 + α(x))^β(x), las condiciones son:', opts: ['α → 1 y β → 0', 'α → 0 y β → ∞', 'α y β → ∞', 'No hay condiciones'], c: 1, ex: 'La forma 1^∞ se aplica cuando la "parte chica" α tiende a 0 y el exponente β tiende a infinito. El resultado es e elevado al límite del producto α·β.'},
+  {st: 'En "continuidad con parámetro", la receta es:', opts: ['Calcular f\'(x) y evaluarla', 'Calcular el límite, igualarlo a f(x₀), despejar el parámetro', 'Hacer Bolzano', 'Buscar las asíntotas'], c: 1, ex: 'Continuidad en x₀ pide que el límite cuando x → x₀ coincida con f(x₀). Como f(x₀) tiene el parámetro, calculás el límite (con la técnica que corresponda) y despejás.'}
+]);
+
+registerExercises('analisis-parcial', '2', [
+  {st: '¿Por qué el primer paso del estudio de función es el dominio (y no la derivada)?', opts: ['Por costumbre', 'Porque cualquier crítico que encuentres después tiene que estar en el dominio para ser válido', 'No es importante el orden', 'Para ahorrar tinta'], c: 1, ex: 'Si calculás los críticos antes que el dominio, no podés filtrar los que caen fuera. Y eso es la trampa #1 en parciales: que aparezca un valor que anula f\' pero no está en el dominio (típico con ln o √).'},
+  {st: 'Si f\'(x) = (x − 7)/(x − 4)², ¿cuál es el signo de f\' en (4, 7)?', opts: ['Positivo', 'Negativo', 'Cero', 'No se puede saber'], c: 1, ex: 'Denominador (x−4)² siempre positivo. Numerador (x−7) en (4, 7) es negativo. Producto: negativo. Por eso f decrece en (4, 7).'},
+  {st: 'En el estudio de f(x) = 6x/(16x²+1), los puntos críticos son x = ±1/4. La imagen es:', opts: ['ℝ', '[f(−1/4), f(1/4)]', '(0, +∞)', '[0, +∞)'], c: 1, ex: 'Por la forma de f, decrece en (−∞, −1/4), crece en (−1/4, 1/4), decrece en (1/4, +∞). Min absoluto en x=−1/4, máx absoluto en x=1/4. Imagen entre esos dos valores: [−3/4, 3/4].'},
+  {st: 'Para f(x) = √x · e^(−36x²+2), el dominio es:', opts: ['ℝ', '[0, +∞)', '(0, +∞)', 'ℝ − {0}'], c: 1, ex: 'La raíz pide x ≥ 0 (incluyendo el 0, donde √0 = 0 está bien definido). El exponencial está bien para todo x. Dominio: [0, +∞).'},
+  {st: 'En f(x) = √x · e^(−36x²+2), la imagen es:', opts: ['(0, f(1/12)]', '[0, f(1/12)]', '(0, +∞)', 'ℝ'], c: 1, ex: 'f(0) = 0 (alcanzado). Crece hasta el máximo en x = 1/12 (alcanzado). Después decrece y tiende a 0 (no se alcanza otra vez). Imagen: [0, f(1/12)].'},
+  {st: 'Para encontrar la imagen necesitás:', opts: ['Solo el dominio', 'Solo los críticos', 'Los valores en los críticos + los límites en los bordes del dominio', 'La derivada segunda'], c: 2, ex: 'La imagen es el conjunto de valores que f toma. Para mapearla: valores en críticos (techos y pisos locales) + límites en bordes (a dónde se va). Sin esos dos no podés cerrar el conjunto.'}
+]);
+
+registerExercises('analisis-parcial', '3', [
+  {st: 'Para f(x) = (cos(5x) − 1)/x² con f(0) = k − 1/2 continua, k =', opts: ['12', '−12', '−25/2', '0'], c: 1, ex: 'Notable: (cos(5x)−1)/x² = −(1−cos(5x))/(5x)² · 25 → −1/2 · 25 = −25/2. Igualar: k − 1/2 = −25/2, despejar: k = −12.'},
+  {st: 'Para f(x) = ln(1+x²)/(e^(x²)−1) con f(0) = 2a − 3 continua, a =', opts: ['1', '2', '3', '−2'], c: 1, ex: 'Sustitución u = x² → 0. Producto de notables: ln(1+u)/u → 1 y u/(e^u − 1) → 1, total → 1. Igualar: 2a − 3 = 1 → a = 2.'},
+  {st: 'Si reemplazando en el límite obtenés algo finito (no indeterminación), ¿qué hacés?', opts: ['Aplicás L\'Hôpital igual', 'Ese es directamente el valor del límite', 'Conjugado', 'Reemplazar por otro valor'], c: 1, ex: 'L\'Hôpital se aplica SOLO con 0/0 o ∞/∞. Si el reemplazo da un número finito, no hay nada que "levantar". El límite simplemente vale ese número.'},
+  {st: 'Para f(x) = a·sen²(ax)/x² con f(0) = 64 continua, a =', opts: ['4', '8', '64', '−4'], c: 0, ex: 'a·sen²(ax)/x² = a·(sen(ax))²/x² = a·a²·(sen(ax)/(ax))² → a³·1 = a³. Igualar: a³ = 64 → a = 4.'},
+  {st: 'En continuidad con parámetro, ¿cuál es el último paso?', opts: ['Calcular el límite', 'Igualar a f(x₀)', 'Despejar el parámetro', 'Verificar que f sea continua en otros puntos'], c: 2, ex: 'La receta tiene 3 pasos: (1) calcular el límite, (2) igualar a f(x₀) que tiene el parámetro, (3) despejar. La verificación en otros puntos no es parte de este tipo (las funciones partidas son continuas en cada rama).'}
+]);
+
+registerExercises('analisis-parcial', '4', [
+  {st: 'Tangente a f en x₀=1 es y = 3x+1. h(x) = 3 + f(7x + e^x). h\'(0) =', opts: ['3', '8', '24', '7'], c: 2, ex: 'f\'(1)=3, f(1)=4. Cadena: h\'(x) = f\'(7x+e^x)·(7+e^x). En x=0: argumento = 7·0+e^0 = 1 (¡cierra!), factor = 7+1 = 8. h\'(0) = f\'(1)·8 = 3·8 = 24.'},
+  {st: 'Misma h del ejercicio anterior. La recta tangente a h en x₀=0 es:', opts: ['y = 24x', 'y = 24x + 7', 'y = 7x + 24', 'y = 3x + 7'], c: 1, ex: 'h(0) = 3 + f(1) = 3+4 = 7. Pendiente h\'(0) = 24. Tangente: y − 7 = 24(x − 0) → y = 24x + 7. NO te olvides del +7.'},
+  {st: 'Tangente a f en x=1 es y = 8x − 6. h(x) = ln(f(x)) + e^sen(x−1). h\'(1) =', opts: ['8', '5', '2', '0'], c: 1, ex: 'f\'(1)=8, f(1)=2. h\'(x) = f\'(x)/f(x) + e^sen(x−1)·cos(x−1). En x=1: 8/2 + e^0·cos(0) = 4 + 1 = 5.'},
+  {st: 'Tangente a f en x=1 es y = 4x − 2. h(x) = ln(f(x)) + e^sen(x−1). h\'(1) =', opts: ['1', '2', '3', '4'], c: 2, ex: 'f\'(1)=4, f(1)=2. h\'(x) = f\'(x)/f(x) + e^sen(x−1)·cos(x−1). En x=1: 4/2 + 1·1 = 2+1 = 3.'},
+  {st: '¿Por qué x=0 "cierra" perfectamente cuando la tangente está en x₀=1, en h(x) = 3 + f(7x + e^x)?', opts: ['Casualidad', 'Porque 7·0 + e^0 = 1, justo el x₀ donde tenemos f\'', 'Porque h(0) = 0', 'Porque la cadena así lo exige'], c: 1, ex: 'EN TODOS LOS PARCIALES, el x donde piden h\' está elegido para que el argumento interno caiga exactamente en el x₀ donde te dieron la tangente. Eso "cierra" el ejercicio. Si el argumento no cierra, el ejercicio sería irresoluble.'},
+  {st: 'En f(x) = 2e^(x−1) + sen(1−x) − 3x·ln(2x−1), f\'(1) =', opts: ['−5', '5', '0', '−2'], c: 0, ex: 'Derivar término a término. 2e^(x−1) → 2e^(x−1) (en x=1: 2). sen(1−x) → −cos(1−x) (en 1: −1). −3x·ln(2x−1) producto: −3[ln(2x−1) + 2x/(2x−1)] (en 1: −3[0+2] = −6). Total: 2−1−6 = −5.'}
+]);
+
+registerExercises('analisis-parcial', '5', [
+  {st: 'lim x→+∞ √(x²+12x) − √(x²+13) =', opts: ['0', '6', '12', '+∞'], c: 1, ex: '∞−∞ con raíces → conjugado. Numerador queda 12x−13, denominador √(x²+12x)+√(x²+13) ≈ 2x. Cociente → 12/2 = 6.'},
+  {st: 'Si la tangente a f en x=1 es y = 3x + 2, lim x→1 [f(4x−3) − 5]/(x²−1) =', opts: ['3', '6', '12', '0'], c: 1, ex: 'f(1)=5, f\'(1)=3. Reemplazando: 0/0. L\'Hôpital con cadena: 4·f\'(4x−3)/(2x). En x=1: argumento=1, f\'(1)=3 → 4·3/2 = 6.'},
+  {st: 'lim x→3 (2x − 6)/(4√(x+1) − 8) =', opts: ['0', '1', '2', '4'], c: 2, ex: '0/0 con raíz → conjugado. Multiplicar por (4√(x+1)+8). Después de simplificar (x−3) queda (4√(x+1)+8)/8 → (4·2+8)/8 = 16/8 = 2.'},
+  {st: 'Para resolver lim x→0 (e^(2x) − 1)/x usás:', opts: ['Conjugado', 'Notable: vale 2', 'Factorización', 'No se puede'], c: 1, ex: 'Es 0/0 con exponencial. Notable: (e^u−1)/u → 1 con u=2x → (e^(2x)−1)/(2x) · 2 → 1·2 = 2. También sale por L\'Hôpital.'},
+  {st: 'lim x→+∞ ln(x)/x =', opts: ['0', '1', '+∞', 'No existe'], c: 0, ex: '∞/∞. L\'Hôpital: (1/x)/1 = 1/x → 0. Por término dominante: el ln crece mucho más lento que x, así que el cociente tiende a 0.'},
+  {st: 'lim x→+∞ ((x²−1)/(x²−5))^(2x²+1) =', opts: ['1', 'e', 'e^4', 'e^8'], c: 3, ex: 'Forma 1^∞. Reescribís: 1 + 4/(x²−5). α·β = 4(2x²+1)/(x²−5) → 8 (grados iguales, cociente de líderes). Resultado: e^8.'},
+  {st: 'Trampa típica: lim x→+∞ (x + sen x)/x. Si aplicás L\'Hôpital sale (1 + cos x)/1 que oscila. ¿Cuánto vale el límite real?', opts: ['No existe', '1', '0', '+∞'], c: 1, ex: 'Reescribís sin L\'Hôpital: 1 + sen(x)/x. Como |sen x| ≤ 1 y x → ∞, sen(x)/x → 0. Total: 1+0 = 1. Moraleja: a veces L\'Hôpital no es la mejor herramienta.'}
+]);
+
+registerExercises('analisis-parcial', '6', [
+  {st: 'f(x) = 2x² − 9·ln(x) en [1, e]. ¿Dónde está el mínimo absoluto?', opts: ['x = 1', 'x = 3/2', 'x = e', 'No existe'], c: 1, ex: 'f\'(x) = 4x − 9/x. Crítico: 4x²=9 → x=3/2 (descarto −3/2 porque ln solo acepta positivos). f(1)=2, f(3/2)≈0.85, f(e)≈5.78. Mínimo en x=3/2.'},
+  {st: 'Misma función en [1, e]. ¿Dónde está el máximo absoluto?', opts: ['x = 1', 'x = 3/2', 'x = e', 'No existe'], c: 2, ex: 'Mismos valores: f(1)=2, f(3/2)≈0.85, f(e)≈5.78. Máximo: f(e) ≈ 5.78. NO está en el crítico, está en el borde.'},
+  {st: 'f(x) = 15x + 80/x³ en [1, 3]. ¿Dónde está el mínimo absoluto?', opts: ['x = 1', 'x = 2', 'x = 3', 'En un borde'], c: 1, ex: 'f\'(x) = 15 − 240/x⁴. Crítico: x⁴=16 → x=±2. Solo x=2 en (1,3). f(1)=95, f(2)=40, f(3)≈47.96. Mínimo en x=2.'},
+  {st: 'f(x) = 15x + 80/x³ en [1, 3]. ¿Dónde está el máximo absoluto?', opts: ['x = 1', 'x = 2', 'x = 3', 'No existe'], c: 0, ex: 'Mismos valores: f(1)=95, f(2)=40, f(3)≈47.96. Máximo: f(1)=95. Está en el borde izquierdo, no en el crítico.'},
+  {st: '¿Por qué Weierstrass garantiza que los extremos absolutos existen?', opts: ['Por casualidad', 'Por ser intervalo cerrado y función continua', 'Por la derivada', 'Solo si hay críticos'], c: 1, ex: 'Weierstrass: si f es continua en [a, b] (cerrado y acotado), entonces alcanza máximo y mínimo absolutos. Si el intervalo es abierto o f es discontinua, NO se garantiza.'},
+  {st: '¿Cuál es el error #1 en máx/mín absolutos?', opts: ['Calcular mal la derivada', 'Olvidarse de evaluar en los bordes del intervalo', 'No saber Weierstrass', 'Aplicar L\'Hôpital'], c: 1, ex: 'En muchos parciales el verdadero extremo está en un borde, no en el crítico. SIEMPRE evaluá en los 3 candidatos: a, b y críticos válidos.'}
+]);
+
+registerExercises('analisis-parcial', '7', [
+  {st: 'lim x→+∞ ((x²+a)/(x²−6))^(2x²+1) = e^4. Hallar a.', opts: ['−2', '−4', '4', '6'], c: 1, ex: 'Reescribís 1 + (a+6)/(x²−6). α·β = (a+6)(2x²+1)/(x²−6) → 2(a+6). Igualar: 2(a+6) = 4 → a = −4.'},
+  {st: 'lim x→+∞ ((x²+a)/(x²−6))^(2x²+1) = e^6. Hallar a.', opts: ['−3', '0', '3', '6'], c: 0, ex: 'Reescribís 1 + (a+6)/(x²−6). α·β = (a+6)(2x²+1)/(x²−6) → 2(a+6). Igualar: 2(a+6) = 6 → a = −3.'},
+  {st: 'f(x) = sen²(x)/(2x) si x≠0, f(0)=0. f\'(0) =', opts: ['0', '1/2', '1', '2'], c: 1, ex: 'Cociente incremental: lim h→0 [sen²(h)/(2h)]/h = lim sen²(h)/(2h²) = (1/2) · (sen h/h)² → 1/2 · 1 = 1/2.'},
+  {st: 'f(x) = (cos(6x)−1)/x si x>0, kx si x≤0. ¿Para qué k es derivable en 0?', opts: ['−18', '0', '18', '−6'], c: 0, ex: 'Por derecha: lim (cos(6h)−1)/h² = −18 (notable de 1/2 con factor 36). Por izquierda: lim kh/h = k. Igualar: k = −18.'},
+  {st: 'En "forma del e", ¿cómo reescribís (x²+1)/(x²−5)?', opts: ['(x²+1)/(x²−5) = 1 + 6/(x²−5)', '(x²+1)/(x²−5) = 6/(x²−5)', '(x²+1)/(x²−5) = 1 + (x²+1)/(x²−5)', 'No se puede reescribir'], c: 0, ex: 'Sumás y restás 5: (x²−5+5+1)/(x²−5) = (x²−5)/(x²−5) + 6/(x²−5) = 1 + 6/(x²−5). Ahí α = 6/(x²−5) → 0.'}
+]);
+
+registerExercises('analisis-parcial', '8', [
+  {st: 'En f(x) = (5x³+15x²)/(x²−9), ¿cuál es la asíntota oblicua?', opts: ['No tiene', 'y = 5x', 'y = 5x + 15', 'y = x'], c: 2, ex: 'Como no hay AH, busco AO. m = lim f(x)/x = 5. b = lim [f(x)−5x] = lim (15x²+45x)/(x²−9) = 15. AO: y = 5x + 15.'},
+  {st: 'En f(x) = (5x³+15x²)/(x²−9), x = −3 es:', opts: ['Asíntota vertical', 'Un agujero (no es AV)', 'Un punto crítico', 'La imagen'], c: 1, ex: 'En x=−3 se cancela el factor (x+3) en numerador y denominador. Queda 5x²/(x−3), evaluado en −3: 45/(−6) = −15/2 finito. NO es AV (es un agujero).'},
+  {st: 'Si cos(g(x)) = 2x − √(x²+5x+4) y g(0) = π/3, entonces g\'(0) =', opts: ['√3/2', '−√3/2', '3/4', '−3/4'], c: 1, ex: 'Derivar implícito: −sen(g(x))·g\'(x) = 2 − (2x+5)/[2√(x²+5x+4)]. En x=0: −(√3/2)·g\'(0) = 2 − 5/4 = 3/4. Despejar: g\'(0) = (3/4)·(−2/√3) = −√3/2.'},
+  {st: 'En implícita, derivada de y² respecto de x (con y dependiente de x) es:', opts: ['2y', '2x·y', '2y·y\'', '2'], c: 2, ex: 'Aplicás cadena: el "afuera" es u² → 2u, el "adentro" es y → y\'. Producto: 2y · y\'.'},
+  {st: 'En implícita, derivada de xy respecto de x es:', opts: ['y\'', 'y + xy\'', 'x·y\'', 'xy\''], c: 1, ex: 'Producto: (xy)\' = (x)\'·y + x·(y)\' = 1·y + x·y\' = y + xy\'.'}
+]);
+
+registerExercises('analisis-parcial', '9', [
+  {st: 'Para f(x) = x² + 2/x, el dominio es:', opts: ['ℝ', 'ℝ − {0}', '(0, +∞)', '[0, +∞)'], c: 1, ex: 'El término 2/x exige x ≠ 0. El polinomio x² está bien para todo x. Dominio: ℝ − {0}.'},
+  {st: 'Para f(x) = x² + 2/x, el único punto crítico (en el dominio) es:', opts: ['x = 0', 'x = 1', 'x = 2', 'x = −1'], c: 1, ex: 'f\'(x) = 2x − 2/x² = (2x³−2)/x². Cero cuando 2x³=2 → x=1. (x=0 está fuera del dominio.)'},
+  {st: 'Para f(x) = x² + 2/x, la imagen es:', opts: ['(0, +∞)', '[3, +∞)', '(−∞, 3]', 'ℝ'], c: 3, ex: 'En (−∞, 0): x² → +∞ por izquierda, 2/x → −∞ cerca de 0 por izquierda. La función toma todos los valores. En (0, +∞): tiene mínimo en x=1 (f(1)=3) y va a +∞ en ambos extremos. Combinando ambas ramas, la imagen es TODA ℝ.'},
+  {st: 'Para f(x) = e^(2x)/(9x²+2), las asíntotas son:', opts: ['Solo y=0 en −∞', 'y=0 en ambos infinitos', 'AV en x=0', 'No tiene asíntotas'], c: 0, ex: 'Dominio ℝ. lim −∞: e^(2x) → 0, denominador → +∞. AH y=0 en −∞. lim +∞: e^(2x) gana → +∞. No AH ni AO en +∞.'},
+  {st: 'Para f(x) = e^(2x)/(9x²+2), los puntos críticos son:', opts: ['x = 0', 'x = 1/3', 'x = 1/3 y x = 2/3', 'x = 2/3'], c: 2, ex: 'f\'(x) = 2e^(2x)(9x²−9x+2)/(9x²+2)². Resolver 9x²−9x+2=0: discriminante 81−72=9, raíces x=(9±3)/18 → 2/3 y 1/3.'},
+  {st: 'Para f(x) = e^(2x)/(9x²+2), la imagen es:', opts: ['ℝ', '[0, +∞)', '(0, +∞)', '(0, f(2/3))'], c: 2, ex: 'f es siempre positiva (numerador e^(2x)>0, denominador positivo). lim −∞: 0 (no alcanzado). lim +∞: +∞. Toma todos los valores positivos. Imagen: (0, +∞).'}
 ]);
 
 
