@@ -4630,37 +4630,65 @@ P(x) = a<sub>n</sub>·(x − r<sub>1</sub>)<sup>m<sub>1</sub></sup>·(x − r<su
 <div class="content">
 
 <h3>¿Qué es la programación?</h3>
-<p>La <b>programación</b> es la actividad de escribir instrucciones precisas que una computadora puede ejecutar para resolver un problema. Esas instrucciones se escriben en un <b>lenguaje de programación</b>. En esta materia vas a usar <b>Python</b>.</p>
+<p>La <b>programación</b> es la actividad de escribir instrucciones precisas que una computadora puede ejecutar para resolver un problema. La computadora es muy rápida pero <b>completamente literal</b>: hace exactamente lo que vos le decís, ni más ni menos. Si le decís algo ambiguo o mal, va a hacer cualquier cosa o tirar error.</p>
+
+<p>Programar consiste en <b>traducir</b> una idea o procedimiento humano a un lenguaje que la computadora entienda. El "lenguaje" en este caso es un <b>lenguaje de programación</b>. En esta materia vas a usar <b>Python</b>.</p>
 
 <h3>¿Qué es un algoritmo?</h3>
-<p>Un <b>algoritmo</b> es una secuencia finita y ordenada de pasos para resolver un problema. Un algoritmo puede existir sin computadoras: una receta de cocina es un algoritmo.</p>
+<p>Un <b>algoritmo</b> es una secuencia <b>finita y ordenada</b> de pasos para resolver un problema. La palabra clave es "preciso": cada paso debe ser entendible y ejecutable sin ambigüedad.</p>
+<p>Un algoritmo puede existir <b>sin computadoras</b>: una receta de cocina, las instrucciones para armar un mueble, los pasos para resolver una cuenta a mano — todos son algoritmos.</p>
 
 <div class="example">
-  <div class="ex-t">Ejemplo cotidiano</div>
-  Algoritmo "hacer un café":<br>
+  <div class="ex-t">Algoritmo cotidiano</div>
+  Hacer un café:<br>
   1. Poner agua en la pava.<br>
   2. Encender el fuego.<br>
   3. Esperar a que hierva.<br>
   4. Poner café en la taza.<br>
   5. Echar el agua caliente.<br><br>
-  Si seguís los pasos en orden, obtenés café. Eso es un algoritmo.
+  Si seguís los pasos en orden, obtenés café.
+</div>
+
+<div class="example">
+  <div class="ex-t">Algoritmo numérico</div>
+  Saber si un número es par:<br>
+  1. Tomar el número.<br>
+  2. Dividirlo por 2.<br>
+  3. Si el resto es 0, decir "es par". Si no, decir "es impar".
 </div>
 
 <h3>¿Qué es un programa?</h3>
-<p>Un <b>programa</b> es un algoritmo escrito en un lenguaje que la computadora entiende. La programación consiste en traducir la idea (el algoritmo) al código del lenguaje.</p>
+<p>Un <b>programa</b> es un algoritmo escrito en un lenguaje de programación. Cuando programás, lo que hacés es:</p>
+<ol>
+  <li>Pensar el algoritmo (en español, en pseudocódigo, o con un esquema).</li>
+  <li>Traducirlo al código del lenguaje (Python, en este caso).</li>
+  <li>Ejecutarlo en la computadora para verificar que funcione.</li>
+</ol>
 
-<h3>Python: un primer vistazo</h3>
-<p>Python es un lenguaje de programación diseñado para ser legible y claro. Se usa para análisis de datos, inteligencia artificial, desarrollo web, ingeniería y mucho más.</p>
+<h3>Python: características clave</h3>
+<p>Python es uno de los lenguajes más populares del mundo. Tiene tres ventajas que lo hacen ideal para empezar:</p>
+<ul>
+  <li><b>Sintaxis legible:</b> el código se parece bastante al inglés y es fácil de leer.</li>
+  <li><b>Interpretado:</b> no hace falta "compilar" — la máquina ejecuta el código línea por línea al instante.</li>
+  <li><b>Universal:</b> se usa para ciencia de datos, IA, web, ingeniería, finanzas y mucho más.</li>
+</ul>
 
 <pre class="code-block">print("Hola, mundo")</pre>
 
-<p>Este es el programa más chico: le dice a la computadora que <b>muestre en pantalla</b> el texto <code>Hola, mundo</code>. La función <code>print()</code> muestra cosas.</p>
+<p>Este es el programa más chico que vas a escribir. La función <code>print()</code> <b>muestra en pantalla</b> el contenido entre paréntesis. En este caso, muestra el texto <code>Hola, mundo</code>.</p>
 
-<h3>Google Colab</h3>
-<p>Para esta materia vas a usar <b>Google Colab</b>: un entorno web donde escribís y ejecutás Python sin instalar nada. Lo abrís desde el navegador con tu cuenta de Google.</p>
+<h3>Google Colab: dónde escribir y ejecutar Python</h3>
+<p>Para esta materia vas a usar <b>Google Colab</b>: un entorno web (no necesitás instalar nada) donde escribís y ejecutás Python. Lo abrís desde el navegador con tu cuenta de Google.</p>
+
+<div class="key"><div class="ky-t">Colab en 30 segundos</div>
+• Cada notebook se compone de <b>celdas</b>.<br>
+• Las celdas pueden ser de <b>código</b> (Python) o de <b>texto</b> (Markdown, para anotaciones).<br>
+• Para ejecutar una celda: <b>Shift + Enter</b>. La computadora corre el código y muestra el resultado abajo.<br>
+• Las variables y funciones que definís en una celda <b>quedan disponibles</b> en las siguientes (siempre que no reinicies el entorno).
+</div>
 
 <h3>Variables</h3>
-<p>Una <b>variable</b> es un nombre que guarda un valor. Pensá en una caja etiquetada: la etiqueta es el nombre, el contenido es el valor.</p>
+<p>Una <b>variable</b> es un nombre que guarda un valor. La analogía clásica es la de una <b>caja etiquetada</b>: la etiqueta es el nombre, el contenido es el valor. Lo que metés en la caja es lo que la variable "vale".</p>
 
 <pre class="code-block">edad = 25
 nombre = "Ariel"
@@ -4670,23 +4698,85 @@ print(edad)
 print(nombre)
 print(pi)</pre>
 
-<p>Se usa el signo <code>=</code> (llamado <b>asignación</b>) para guardar un valor en una variable. Después podés usar el nombre donde antes iba el valor.</p>
+<p>Después de esas líneas, "edad" vale 25, "nombre" vale el texto "Ariel", y "pi" vale 3.14159.</p>
+
+<h3>El signo <code>=</code> es asignación, NO igualdad</h3>
+<p>En matemática, "x = 5" significa "x es igual a 5". En programación, <code>x = 5</code> significa <b>"asigna el valor 5 a la variable x"</b> — es una <b>orden</b>, no una afirmación.</p>
+
+<p>Por eso esto, que en matemática sería raro, es perfectamente válido en Python:</p>
+<pre class="code-block">x = 10
+x = x + 5     # toma el valor actual de x (10), le suma 5, y lo guarda de nuevo en x
+print(x)      # 15</pre>
 
 <div class="key"><div class="ky-t">Reglas para nombres de variables</div>
-• Pueden tener letras, números y <code>_</code>.<br>
-• NO pueden empezar con número: <code>2edad</code> ❌<br>
-• NO pueden tener espacios ni acentos: <code>edad_actual</code> ✓, <code>edad actual</code> ❌<br>
-• Distinguen mayúsculas: <code>Edad</code> y <code>edad</code> son distintas.<br>
-• Elegí nombres <b>descriptivos</b>: <code>total_pagado</code> es mucho mejor que <code>x</code>.
+• Pueden tener letras, números y guion bajo <code>_</code>.<br>
+• <b>NO pueden empezar con número:</b> <code>2edad</code> ❌<br>
+• <b>NO pueden tener espacios ni acentos:</b> <code>edad_actual</code> ✓, <code>edad actual</code> ❌, <code>año</code> ❌<br>
+• <b>Distinguen mayúsculas:</b> <code>Edad</code> y <code>edad</code> son variables distintas.<br>
+• <b>No pueden ser palabras reservadas</b> de Python: <code>if</code>, <code>while</code>, <code>def</code>, <code>True</code>, <code>print</code>, etc.<br>
+• <b>Convención:</b> elegí nombres descriptivos en minúsculas con guion_bajo. <code>total_pagado</code> es mucho mejor que <code>x</code>.
 </div>
 
+<h3>Tipos primitivos (vista previa)</h3>
+<p>Cada valor en Python tiene un <b>tipo</b>. Los más comunes son:</p>
+<ul>
+  <li><b>Entero (<code>int</code>):</b> números sin coma. <code>5</code>, <code>-3</code>, <code>0</code>, <code>1000</code>.</li>
+  <li><b>Real (<code>float</code>):</b> números con coma. <code>3.14</code>, <code>-0.5</code>, <code>2.0</code>.</li>
+  <li><b>Cadena (<code>str</code>):</b> texto, siempre entre comillas. <code>"hola"</code>, <code>'Python'</code>.</li>
+  <li><b>Booleano (<code>bool</code>):</b> verdadero o falso. <code>True</code>, <code>False</code>.</li>
+</ul>
+<p>En la unidad 2 los vemos con detalle. Por ahora, lo importante: <b>"123" no es lo mismo que 123</b>. El primero es texto, el segundo es número.</p>
+
+<h3>print() en detalle</h3>
+<p><code>print()</code> muestra cosas en pantalla. Se le puede pasar:</p>
+<ul>
+  <li>Un solo valor: <code>print(42)</code> o <code>print("hola")</code>.</li>
+  <li>Varios separados por comas: <code>print("Edad:", 25)</code> imprime <code>Edad: 25</code>.</li>
+  <li>Variables o expresiones: <code>print(x + 1)</code>.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplos</div>
+<pre class="code-block">a = 5
+b = 3
+print("Suma:", a + b)        # Suma: 8
+print("Mitad:", a / 2)       # Mitad: 2.5
+print("Hola", "Mundo")       # Hola Mundo (los separa con espacio)</pre>
+</div>
+
+<h3>f-strings (formato de texto)</h3>
+<p>Para insertar variables dentro de un texto de manera elegante:</p>
+<pre class="code-block">nombre = "Ariel"
+edad = 30
+print(f"Hola {nombre}, tenés {edad} años")
+# Hola Ariel, tenés 30 años</pre>
+<p>Empezás con <code>f"</code> (o <code>f'</code>) y dentro del texto, lo que va entre <code>{ }</code> se reemplaza por el valor de la variable.</p>
+
 <h3>El intérprete de Python</h3>
-<p>Python es un <b>lenguaje interpretado</b>: la computadora va leyendo el código línea por línea y ejecutándolo al momento. En Colab, cada celda es un bloque de código que podés ejecutar con Shift+Enter.</p>
+<p>Python es un <b>lenguaje interpretado</b>: la computadora lee el código <b>línea por línea</b> y lo ejecuta al momento. Eso es distinto de los lenguajes <i>compilados</i> (como C o C++) donde primero se traduce todo a un ejecutable y después se corre.</p>
+<p>Ventaja de interpretado: probás cosas rápido. En Colab, cada celda es un bloque que ejecutás con Shift+Enter y ves el resultado al instante.</p>
+
+<h3>Comentarios</h3>
+<p>Los <b>comentarios</b> son texto que Python ignora. Sirven para explicar qué hace el código, dejar notas para vos o para quien lo lea.</p>
+<pre class="code-block"># Esto es un comentario de una línea
+x = 5   # también puede ir al final de una línea de código
+
+# Para comentarios largos podés
+# usar varias líneas con # cada una</pre>
+
+<div class="key"><div class="ky-t">¿Cuándo comentar?</div>
+• Para explicar el "por qué" de algo no obvio.<br>
+• Para marcar secciones de código largo.<br>
+• Para "desactivar" temporalmente una línea sin borrarla.<br>
+NO comentes lo obvio: <code>x = 5  # asignamos 5 a x</code> es ruido.
+</div>
 
 <div class="trap"><div class="tr-t">Errores típicos al empezar</div>
-• Olvidar las comillas en los textos: <code>nombre = Ariel</code> ❌ (sin comillas Python busca una variable llamada Ariel), <code>nombre = "Ariel"</code> ✓<br>
-• Confundir <code>=</code> con <code>==</code>: el primero asigna, el segundo compara.<br>
-• Olvidar los paréntesis de <code>print()</code>.
+• <b>Olvidar las comillas en los textos:</b> <code>nombre = Ariel</code> ❌ (sin comillas Python busca una variable llamada Ariel y tira <code>NameError</code>). Lo correcto: <code>nombre = "Ariel"</code>.<br>
+• <b>Confundir <code>=</code> con <code>==</code>:</b> el primero <i>asigna</i>, el segundo <i>compara</i>.<br>
+• <b>Olvidar los paréntesis de print:</b> <code>print "hola"</code> ❌ (esa era sintaxis de Python 2). Siempre con paréntesis.<br>
+• <b>Mezclar tipos sin convertir:</b> <code>print("Edad: " + 25)</code> ❌. Tenés que hacer <code>print("Edad: " + str(25))</code> o usar <code>print("Edad:", 25)</code>.<br>
+• <b>Usar acentos o ñ en nombres de variables:</b> <code>año = 2026</code> ❌. Usá <code>anio</code> o <code>year</code>.
 </div>
 
 <div class="quiz-wrap" data-qz="1" data-subject="pc"></div>
@@ -4699,27 +4789,48 @@ print(pi)</pre>
 <summary><span class="num">2</span> Tipos de datos, expresiones y funciones <span class="sec-score" id="ss-pc-2"></span></summary>
 <div class="content">
 
-<h3>Tipos de datos simples</h3>
-<p>En Python, cada valor tiene un <b>tipo</b> que determina qué operaciones se pueden hacer con él.</p>
+<h3>Tipos de datos primitivos</h3>
+<p>Cada valor en Python tiene un <b>tipo</b> que determina qué operaciones podés hacer con él. Los cuatro tipos primitivos son:</p>
 
 <table class="tbl">
-  <tr><th>Tipo</th><th>Nombre en Python</th><th>Ejemplos</th></tr>
-  <tr><td>Entero</td><td><code>int</code></td><td><code>7</code>, <code>-3</code>, <code>0</code>, <code>1000</code></td></tr>
-  <tr><td>Real (decimal)</td><td><code>float</code></td><td><code>3.14</code>, <code>-0.5</code>, <code>2.0</code></td></tr>
-  <tr><td>Cadena (texto)</td><td><code>str</code></td><td><code>"hola"</code>, <code>'Python'</code>, <code>"123"</code></td></tr>
-  <tr><td>Booleano</td><td><code>bool</code></td><td><code>True</code>, <code>False</code></td></tr>
+  <tr><th>Tipo</th><th>Nombre</th><th>Ejemplos</th><th>Sirve para</th></tr>
+  <tr><td>Entero</td><td><code>int</code></td><td><code>7</code>, <code>-3</code>, <code>0</code>, <code>1000</code></td><td>Conteos, índices, valores discretos</td></tr>
+  <tr><td>Real (decimal)</td><td><code>float</code></td><td><code>3.14</code>, <code>-0.5</code>, <code>2.0</code></td><td>Medidas, promedios, valores con coma</td></tr>
+  <tr><td>Cadena</td><td><code>str</code></td><td><code>"hola"</code>, <code>'Python'</code></td><td>Textos, etiquetas, mensajes</td></tr>
+  <tr><td>Booleano</td><td><code>bool</code></td><td><code>True</code>, <code>False</code></td><td>Verdadero/falso, decisiones</td></tr>
 </table>
 
-<div class="key"><div class="ky-t">Ojo con las comillas</div>
-<code>"123"</code> es un <b>string</b> (texto), no un número. Pese a verse como número, Python lo trata como palabra. Si querés hacer cuentas con él, tenés que <b>convertirlo</b>: <code>int("123")</code> → <code>123</code>.
+<div class="key"><div class="ky-t">Detalles importantes</div>
+• <b>Decimales con punto, no coma:</b> en Python se escribe <code>3.14</code>, no <code>3,14</code>.<br>
+• <b>Strings con comillas:</b> simples (<code>'hola'</code>) o dobles (<code>"hola"</code>) — son equivalentes. Tenés que abrir y cerrar con el mismo tipo.<br>
+• <b>Booleanos en mayúscula:</b> <code>True</code> y <code>False</code> con T y F mayúsculas. <code>true</code> ❌ no funciona.
 </div>
 
 <h3>La función <code>type()</code></h3>
-<p>Te dice el tipo de un valor:</p>
+<p>Te dice el tipo de un valor o variable:</p>
 <pre class="code-block">type(5)        # &lt;class 'int'&gt;
 type(3.14)     # &lt;class 'float'&gt;
 type("hola")   # &lt;class 'str'&gt;
-type(True)     # &lt;class 'bool'&gt;</pre>
+type(True)     # &lt;class 'bool'&gt;
+
+x = 7.5
+print(type(x))  # &lt;class 'float'&gt;</pre>
+
+<h3>Conversiones de tipo (casting)</h3>
+<p>A veces necesitás convertir un valor de un tipo a otro. Las funciones de conversión se llaman como el tipo destino:</p>
+
+<table class="tbl">
+  <tr><th>Función</th><th>Convierte a</th><th>Ejemplos</th></tr>
+  <tr><td><code>int(x)</code></td><td>Entero</td><td><code>int("123")</code> → <code>123</code>, <code>int(3.7)</code> → <code>3</code> (trunca)</td></tr>
+  <tr><td><code>float(x)</code></td><td>Real</td><td><code>float("3.14")</code> → <code>3.14</code>, <code>float(5)</code> → <code>5.0</code></td></tr>
+  <tr><td><code>str(x)</code></td><td>Cadena</td><td><code>str(42)</code> → <code>"42"</code>, <code>str(3.14)</code> → <code>"3.14"</code></td></tr>
+  <tr><td><code>bool(x)</code></td><td>Booleano</td><td><code>bool(0)</code> → <code>False</code>, <code>bool(1)</code> → <code>True</code></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Ojo con <code>int()</code></div>
+<code>int(3.7)</code> da <code>3</code>, NO <code>4</code> — <b>trunca</b> (corta los decimales), no redondea. Si querés redondear usá <code>round(3.7)</code> que da <code>4</code>.<br>
+También cuidado: <code>int("3.14")</code> ❌ tira error. Para texto con decimales primero hay que pasar a float: <code>int(float("3.14"))</code> → <code>3</code>.
+</div>
 
 <h3>Operadores aritméticos</h3>
 <table class="tbl">
@@ -4727,89 +4838,260 @@ type(True)     # &lt;class 'bool'&gt;</pre>
   <tr><td><code>+</code></td><td>Suma</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
   <tr><td><code>-</code></td><td>Resta</td><td><code>5 - 3</code></td><td><code>2</code></td></tr>
   <tr><td><code>*</code></td><td>Multiplicación</td><td><code>5 * 3</code></td><td><code>15</code></td></tr>
-  <tr><td><code>/</code></td><td>División (da float)</td><td><code>10 / 3</code></td><td><code>3.333...</code></td></tr>
-  <tr><td><code>//</code></td><td>División entera</td><td><code>10 // 3</code></td><td><code>3</code></td></tr>
+  <tr><td><code>/</code></td><td>División (siempre da float)</td><td><code>10 / 3</code></td><td><code>3.333...</code></td></tr>
+  <tr><td><code>//</code></td><td>División entera (cociente)</td><td><code>10 // 3</code></td><td><code>3</code></td></tr>
   <tr><td><code>%</code></td><td>Módulo (resto)</td><td><code>10 % 3</code></td><td><code>1</code></td></tr>
   <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 3</code></td><td><code>8</code></td></tr>
 </table>
 
-<div class="key"><div class="ky-t">El operador módulo <code>%</code></div>
-Devuelve el <b>resto</b> de la división. Es súper útil: <code>n % 2 == 0</code> te dice si n es par.
+<div class="key"><div class="ky-t">El operador módulo <code>%</code> · súper útil</div>
+Devuelve el <b>resto</b> de la división entera. Casos típicos:<br>
+• <code>n % 2 == 0</code> ⇒ n es <b>par</b>.<br>
+• <code>n % 2 == 1</code> ⇒ n es <b>impar</b>.<br>
+• <code>n % 5 == 0</code> ⇒ n es múltiplo de 5.<br>
+• En general: <code>n % k == 0</code> ⇒ n es múltiplo de k.
+</div>
+
+<div class="example">
+  <div class="ex-t">Diferencia entre <code>/</code> y <code>//</code></div>
+<pre class="code-block">10 / 3     # 3.333333333... (float)
+10 // 3    # 3              (entero, descarta decimales)
+10 % 3     # 1              (resto)
+
+# Verificación: cociente * divisor + resto = dividendo
+3 * 3 + 1  # 10 ✓</pre>
+</div>
+
+<h3>Precedencia de operadores</h3>
+<p>Como en matemática, hay un orden de prioridad:</p>
+<ol>
+  <li><b>Paréntesis</b>: lo de adentro primero.</li>
+  <li><b>Potencia</b> <code>**</code>.</li>
+  <li><b>Multiplicación, división</b> (<code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>) — todas al mismo nivel.</li>
+  <li><b>Suma, resta</b> (<code>+</code>, <code>-</code>) — al mismo nivel.</li>
+</ol>
+<p>En cada nivel, se evalúa <b>de izquierda a derecha</b>. Si dudás del orden, <b>usá paréntesis</b>: hace el código más legible y evita errores.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos</div>
+<pre class="code-block">2 + 3 * 4         # 14 (no 20: primero la multiplicación)
+(2 + 3) * 4       # 20
+2 ** 3 + 1        # 9 (primero potencia)
+10 - 3 - 2        # 5 (10-3=7, 7-2=5: izquierda a derecha)</pre>
+</div>
+
+<h3>Operadores con strings</h3>
+<p>Algunos operadores funcionan también con texto:</p>
+<pre class="code-block">"hola" + " " + "mundo"   # "hola mundo" (concatenación)
+"abc" * 3                # "abcabcabc" (repetición)
+"hola"[0]                # "h" (primer carácter)
+len("hola")              # 4 (longitud)</pre>
+
+<div class="trap"><div class="tr-t">No podés mezclar tipos sin convertir</div>
+<code>"Edad: " + 25</code> ❌ tira <code>TypeError</code> porque mezcla <code>str</code> e <code>int</code>. Soluciones:<br>
+• Convertir: <code>"Edad: " + str(25)</code><br>
+• Usar print con coma: <code>print("Edad:", 25)</code><br>
+• Usar f-string: <code>f"Edad: {25}"</code>
 </div>
 
 <h3>Operadores relacionales (comparación)</h3>
-<p>Devuelven siempre un booleano (<code>True</code> o <code>False</code>).</p>
+<p>Comparan valores y siempre devuelven un booleano (<code>True</code> o <code>False</code>).</p>
 <table class="tbl">
-  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
-  <tr><td><code>==</code></td><td>Igual a</td><td><code>5 == 5</code> → <code>True</code></td></tr>
-  <tr><td><code>!=</code></td><td>Distinto de</td><td><code>5 != 3</code> → <code>True</code></td></tr>
-  <tr><td><code>&lt;</code></td><td>Menor que</td><td><code>3 &lt; 5</code> → <code>True</code></td></tr>
-  <tr><td><code>&gt;</code></td><td>Mayor que</td><td><code>3 &gt; 5</code> → <code>False</code></td></tr>
-  <tr><td><code>&lt;=</code></td><td>Menor o igual</td><td><code>5 &lt;= 5</code> → <code>True</code></td></tr>
-  <tr><td><code>&gt;=</code></td><td>Mayor o igual</td><td><code>5 &gt;= 6</code> → <code>False</code></td></tr>
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr>
+  <tr><td><code>==</code></td><td>Igual a</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+  <tr><td><code>!=</code></td><td>Distinto de</td><td><code>5 != 3</code></td><td><code>True</code></td></tr>
+  <tr><td><code>&lt;</code></td><td>Menor que</td><td><code>3 &lt; 5</code></td><td><code>True</code></td></tr>
+  <tr><td><code>&gt;</code></td><td>Mayor que</td><td><code>3 &gt; 5</code></td><td><code>False</code></td></tr>
+  <tr><td><code>&lt;=</code></td><td>Menor o igual</td><td><code>5 &lt;= 5</code></td><td><code>True</code></td></tr>
+  <tr><td><code>&gt;=</code></td><td>Mayor o igual</td><td><code>5 &gt;= 6</code></td><td><code>False</code></td></tr>
 </table>
 
+<div class="key"><div class="ky-t">El error más frecuente del mundo</div>
+Confundir <code>=</code> con <code>==</code>:<br>
+• <code>=</code> es asignación: <b>"poner el valor de la derecha en la variable de la izquierda"</b>.<br>
+• <code>==</code> es comparación: <b>"¿son iguales?"</b><br>
+Si en una condición usás <code>=</code> en lugar de <code>==</code>, tirás error de sintaxis.
+</div>
+
 <h3>Operadores lógicos</h3>
-<p>Combinan booleanos:</p>
+<p>Combinan booleanos para hacer condiciones más complejas. Son <code>and</code>, <code>or</code> y <code>not</code> (en inglés).</p>
+
+<h4>Tablas de verdad</h4>
+<table class="tbl">
+  <tr><th>A</th><th>B</th><th>A and B</th><th>A or B</th><th>not A</th></tr>
+  <tr><td>True</td><td>True</td><td>True</td><td>True</td><td>False</td></tr>
+  <tr><td>True</td><td>False</td><td>False</td><td>True</td><td>False</td></tr>
+  <tr><td>False</td><td>True</td><td>False</td><td>True</td><td>True</td></tr>
+  <tr><td>False</td><td>False</td><td>False</td><td>False</td><td>True</td></tr>
+</table>
+
 <ul>
-  <li><code>and</code>: verdadero si <b>ambos</b> lados son verdaderos.</li>
-  <li><code>or</code>: verdadero si <b>al menos uno</b> es verdadero.</li>
-  <li><code>not</code>: invierte el valor (<code>not True</code> es <code>False</code>).</li>
+  <li><b><code>and</code></b>: verdadero si <b>ambos</b> son verdaderos. Si uno solo es falso, el resultado es falso.</li>
+  <li><b><code>or</code></b>: verdadero si <b>al menos uno</b> es verdadero. Solo es falso si los dos son falsos.</li>
+  <li><b><code>not</code></b>: invierte. <code>not True</code> es <code>False</code>, <code>not False</code> es <code>True</code>.</li>
 </ul>
 
 <div class="example">
-  <div class="ex-t">Ejemplo</div>
+  <div class="ex-t">Ejemplos</div>
 <pre class="code-block">edad = 20
 tiene_dni = True
 
+# ¿Puede votar? Tiene que tener edad >= 16 Y tener DNI.
 puede_votar = edad &gt;= 16 and tiene_dni
-print(puede_votar)   # True</pre>
+print(puede_votar)   # True
+
+# ¿Es menor o jubilado?
+es_menor_o_jubilado = edad &lt; 18 or edad &gt;= 65
+print(es_menor_o_jubilado)   # False
+
+# ¿NO tiene edad?
+print(not (edad &gt;= 18))      # False (sí tiene)</pre>
+</div>
+
+<div class="key"><div class="ky-t">Combinaciones útiles</div>
+• "x está entre 1 y 10": <code>1 &lt;= x and x &lt;= 10</code>. Python también permite la forma elegante <code>1 &lt;= x &lt;= 10</code>.<br>
+• "x es vocal": <code>x == "a" or x == "e" or x == "i" or x == "o" or x == "u"</code>. Más corto: <code>x in "aeiou"</code>.<br>
+• "x es par y positivo": <code>x % 2 == 0 and x &gt; 0</code>.
 </div>
 
 <h3>Entrada del usuario: <code>input()</code></h3>
-<p>Para pedir datos al usuario:</p>
+<p>La función <code>input()</code> pide datos al usuario y los devuelve como texto.</p>
 <pre class="code-block">nombre = input("¿Cómo te llamás? ")
 print("Hola,", nombre)</pre>
+<p>El argumento de <code>input()</code> es el "cartel" o prompt que se muestra. Lo que el usuario escribe se guarda en la variable.</p>
 
-<div class="trap"><div class="tr-t">¡Clave!</div>
-<code>input()</code> <b>siempre devuelve un string</b>, incluso si el usuario escribe un número. Si necesitás un número:<br>
-<code>edad = int(input("Edad: "))</code>
+<div class="trap"><div class="tr-t">¡La trampa más típica del parcial!</div>
+<code>input()</code> <b>siempre devuelve un string</b>, incluso si el usuario escribe un número.<br><br>
+Si pedís <code>edad = input("Edad: ")</code> y el usuario escribe <code>25</code>, la variable vale el <b>string <code>"25"</code></b>, no el número 25. Si querés operar con él (sumarle, compararlo numéricamente), tenés que <b>convertir</b>:<br>
+<code>edad = int(input("Edad: "))</code> — para enteros<br>
+<code>peso = float(input("Peso: "))</code> — para decimales
 </div>
 
 <h3>Funciones</h3>
-<p>Una <b>función</b> es un bloque de código con nombre que hace una tarea específica. Podés reutilizarlo las veces que quieras.</p>
-<p>La estructura básica:</p>
+<p>Una <b>función</b> es un bloque de código con nombre que hace una tarea específica. Es como una "mini-máquina" reutilizable: la definís una vez, la podés usar cuántas veces quieras.</p>
+
+<h4>¿Por qué usar funciones?</h4>
+<ul>
+  <li><b>Reutilización:</b> escribís la lógica una vez y la llamás muchas.</li>
+  <li><b>Claridad:</b> el código se vuelve más legible si está organizado en funciones con nombres descriptivos.</li>
+  <li><b>Testeo:</b> podés probar cada función por separado.</li>
+</ul>
+
+<h4>Sintaxis</h4>
 <pre class="code-block">def nombre_funcion(parametros):
-    # código de la función
+    # código de la función (indentado)
     return resultado</pre>
 
 <div class="example">
-  <div class="ex-t">Ejemplo</div>
+  <div class="ex-t">Ejemplo simple</div>
 <pre class="code-block">def doble(x):
     return x * 2
 
 print(doble(5))    # 10
 print(doble(7))    # 14
-print(doble(-3))   # -6</pre>
+print(doble(-3))   # -6
+
+# La función se evalúa cada vez que la llamás
+total = doble(10) + doble(20)
+print(total)       # 60</pre>
 </div>
 
-<h3>Partes de una función</h3>
+<h4>Partes de una función</h4>
+<table class="tbl">
+  <tr><th>Parte</th><th>Para qué sirve</th></tr>
+  <tr><td><b>def</b></td><td>Palabra clave que indica que vas a definir una función.</td></tr>
+  <tr><td><b>nombre</b></td><td>El identificador con el que la vas a llamar después. Mismas reglas que las variables.</td></tr>
+  <tr><td><b>parámetros</b></td><td>Los datos que la función recibe (entre paréntesis). Pueden ser varios separados por comas, o ninguno.</td></tr>
+  <tr><td><b>cuerpo</b></td><td>Las líneas indentadas debajo (con 4 espacios o un tab). La <b>indentación es obligatoria</b>.</td></tr>
+  <tr><td><b>return</b></td><td>Devuelve el resultado al lugar donde se llamó la función. Si no hay return, devuelve <code>None</code>.</td></tr>
+</table>
+
+<h4>Parámetros vs argumentos</h4>
 <ul>
-  <li><b>def</b>: palabra clave que indica que vas a definir una función.</li>
-  <li><b>Nombre:</b> cómo llamás a tu función.</li>
-  <li><b>Parámetros:</b> los datos que recibe (entre paréntesis). Pueden ser varios separados por comas o ninguno.</li>
-  <li><b>Cuerpo:</b> las líneas <b>indentadas</b> debajo (con 4 espacios o un tab). La indentación es obligatoria en Python.</li>
-  <li><b>return:</b> devuelve el resultado. Una función puede no tener return (devuelve <code>None</code>).</li>
+  <li><b>Parámetro:</b> el nombre que aparece en la definición. <code>def doble(x)</code> tiene parámetro <code>x</code>.</li>
+  <li><b>Argumento:</b> el valor concreto que pasás cuando la llamás. <code>doble(5)</code> tiene argumento <code>5</code>.</li>
 </ul>
 
-<div class="trap"><div class="tr-t">Indentación: lo más importante de Python</div>
-A diferencia de otros lenguajes, Python usa <b>indentación</b> (espacios al principio de la línea) para marcar qué código está "dentro" de una función, un <code>if</code>, un ciclo, etc. Siempre usá la misma cantidad de espacios (4 es estándar). Mezclar tabs y espacios causa errores.
+<h4>Funciones con múltiples parámetros</h4>
+<pre class="code-block">def sumar(a, b):
+    return a + b
+
+def area_rectangulo(base, altura):
+    return base * altura
+
+print(sumar(3, 7))               # 10
+print(area_rectangulo(5, 4))     # 20</pre>
+
+<h4>Funciones sin <code>return</code></h4>
+<p>Si una función no tiene <code>return</code>, simplemente ejecuta sus instrucciones y devuelve <code>None</code> (que es la "nada" de Python). Se usa cuando la función no necesita devolver un valor pero hace algo útil (imprimir, modificar algo, etc.).</p>
+
+<pre class="code-block">def saludar(nombre):
+    print(f"Hola {nombre}!")
+
+saludar("Ariel")    # imprime "Hola Ariel!"
+x = saludar("Ana")  # imprime "Hola Ana!" y x queda con None</pre>
+
+<div class="key"><div class="ky-t">Diferencia: <code>print</code> vs <code>return</code></div>
+• <code>print</code> <b>muestra</b> en pantalla (visible para el usuario), pero la función no devuelve nada útil.<br>
+• <code>return</code> <b>devuelve</b> un valor a quien llamó la función, para que pueda usarlo (asignarlo a una variable, sumarlo, etc.).<br>
+Si solo imprimís y no devolvés, no podés "usar" el resultado en cálculos posteriores.
 </div>
 
-<h3>Comentarios</h3>
-<p>Texto que Python ignora. Sirve para explicar qué hace el código.</p>
-<pre class="code-block"># Esto es un comentario
-x = 5   # también se pueden poner al final de una línea</pre>
+<h3>Variables locales y globales</h3>
+<p>Las variables definidas <b>dentro</b> de una función son <b>locales</b>: solo existen ahí adentro. Cuando la función termina, desaparecen.</p>
+<pre class="code-block">def calcular():
+    x = 10        # x es local
+    return x * 2
+
+resultado = calcular()
+print(resultado)    # 20
+# print(x)          # ❌ NameError: x no existe acá afuera</pre>
+
+<h3>Indentación: lo más importante de Python</h3>
+<div class="trap"><div class="tr-t">CRÍTICO</div>
+A diferencia de otros lenguajes (C, JavaScript, etc.) que usan <code>{ }</code>, <b>Python usa la indentación</b> (los espacios al principio de la línea) para marcar qué código está "dentro" de una función, un <code>if</code>, un ciclo, etc.<br><br>
+<b>Reglas:</b><br>
+• Siempre usá la misma cantidad de espacios para el mismo nivel (4 es el estándar).<br>
+• <b>NO mezcles tabs y espacios</b> — Python tira error.<br>
+• En Colab, podés usar Tab y se convierten automáticamente a 4 espacios.<br>
+• Una función o bloque indentado debe tener al menos una línea adentro.
+</div>
+
+<h3>Templates de funciones típicas</h3>
+<div class="example">
+  <div class="ex-t">Función que devuelve un booleano</div>
+<pre class="code-block">def es_par(n):
+    return n % 2 == 0
+
+print(es_par(4))   # True
+print(es_par(7))   # False</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Función que valida algo</div>
+<pre class="code-block">def es_vocal(letra):
+    return letra in "aeiouAEIOU"
+
+print(es_vocal("a"))    # True
+print(es_vocal("z"))    # False</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Función que devuelve varios valores (con tupla)</div>
+<pre class="code-block">def division_y_resto(a, b):
+    return a // b, a % b
+
+c, r = division_y_resto(13, 4)
+print(c, r)    # 3 1</pre>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos en funciones</div>
+• Olvidar los dos puntos <code>:</code> al final del <code>def</code>.<br>
+• No indentar el cuerpo.<br>
+• Usar <code>print</code> en vez de <code>return</code> cuando se necesita el valor.<br>
+• Llamar la función con menos argumentos que los parámetros declarados.<br>
+• Olvidar el <code>return</code> y después intentar usar el resultado.
+</div>
 
 <div class="quiz-wrap" data-qz="2" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -4822,17 +5104,21 @@ x = 5   # también se pueden poner al final de una línea</pre>
 <div class="content">
 
 <h3>¿Qué son las estructuras de control?</h3>
-<p>Por defecto, Python ejecuta el código <b>de arriba hacia abajo, línea por línea</b>. Las <b>estructuras de control</b> cambian ese flujo: permiten tomar decisiones o repetir acciones.</p>
+<p>Por defecto, Python ejecuta el código <b>de arriba hacia abajo, línea por línea</b>. Las <b>estructuras de control</b> cambian ese flujo:</p>
+<ul>
+  <li><b>Condicionales</b> (<code>if</code>, <code>elif</code>, <code>else</code>): ejecutan código según una condición.</li>
+  <li><b>Ciclos</b> (<code>while</code>, <code>for</code>): repiten código múltiples veces.</li>
+</ul>
 
 <hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
 
-<h3>Condicional: <code>if</code> · <b>muy frecuente en parciales</b></h3>
-<p>Ejecuta un bloque de código <b>solo si</b> se cumple una condición.</p>
+<h3>Condicional: <code>if</code></h3>
+<p>Ejecuta un bloque <b>solo si</b> se cumple una condición.</p>
 
 <pre class="code-block">if edad &gt;= 18:
     print("Sos mayor de edad")</pre>
 
-<p>Si <code>edad &gt;= 18</code> es verdadero, ejecuta el <code>print</code>. Si no, no hace nada y sigue.</p>
+<p>Si la condición <code>edad &gt;= 18</code> es verdadera, ejecuta el bloque indentado. Si es falsa, no hace nada y sigue con lo que viene después.</p>
 
 <h3><code>if</code> / <code>else</code></h3>
 <p>"Si se cumple X, hacé una cosa; si no, hacé otra".</p>
@@ -4842,8 +5128,10 @@ x = 5   # también se pueden poner al final de una línea</pre>
 else:
     print("Menor de edad")</pre>
 
+<p>Una de las dos ramas se ejecuta, nunca las dos.</p>
+
 <h3><code>if</code> / <code>elif</code> / <code>else</code></h3>
-<p>Para varias opciones encadenadas. <code>elif</code> significa "else if":</p>
+<p>Para varias opciones encadenadas. <code>elif</code> es contracción de "else if":</p>
 
 <pre class="code-block">nota = 7
 
@@ -4856,14 +5144,42 @@ elif nota &gt;= 4:
 else:
     print("Desaprobado")</pre>
 
-<p>Python evalúa las condiciones <b>en orden</b>. Cuando encuentra una verdadera, ejecuta <b>solo</b> ese bloque y salta todo el resto.</p>
-
-<div class="trap"><div class="tr-t">Error clásico</div>
-Olvidar los <code>:</code> al final de la condición, o la indentación del bloque interno. Ambos dan errores de sintaxis.
+<div class="key"><div class="ky-t">Cómo funciona la cadena</div>
+Python evalúa las condiciones <b>en orden de arriba hacia abajo</b>. Cuando encuentra una verdadera, ejecuta <b>solo</b> ese bloque y <b>salta todo el resto</b>. El <code>else</code> se ejecuta solo si ninguna anterior fue cierta.<br><br>
+En el ejemplo de arriba, con <code>nota = 7</code>:<br>
+1. ¿7 &gt;= 8? No.<br>
+2. ¿7 &gt;= 6? Sí ⇒ imprime "Bien" y termina.<br>
+3. Las demás condiciones ni se evalúan.
 </div>
 
+<h3>El orden importa</h3>
+<p>Si invertís las condiciones, el resultado cambia:</p>
+<pre class="code-block">nota = 7
+
+if nota &gt;= 4:        # ❌ MAL: este sería el primer match
+    print("Aprobado")
+elif nota &gt;= 6:
+    print("Bien")
+elif nota &gt;= 8:
+    print("Muy bien")</pre>
+<p>Acá nunca llegaría a "Bien" o "Muy bien" porque el primer <code>if</code> ya capturó toda nota ≥ 4. <b>Empezá siempre por las condiciones más estrictas.</b></p>
+
+<h3>Condiciones compuestas</h3>
+<pre class="code-block">edad = 25
+tiene_dni = True
+
+if edad &gt;= 18 and tiene_dni:
+    print("Puede votar")
+
+# Múltiples opciones
+dia = "lunes"
+if dia == "sábado" or dia == "domingo":
+    print("Es fin de semana")
+else:
+    print("Es día de semana")</pre>
+
 <h3>Condicionales anidados</h3>
-<p>Un <code>if</code> adentro de otro <code>if</code>:</p>
+<p>Un <code>if</code> adentro de otro:</p>
 <pre class="code-block">if tiene_dni:
     if edad &gt;= 16:
         print("Puede votar")
@@ -4872,38 +5188,77 @@ Olvidar los <code>:</code> al final de la condición, o la indentación del bloq
 else:
     print("Necesita DNI")</pre>
 
+<p>Esto es equivalente a usar <code>and</code> en muchos casos, pero te permite tomar decisiones distintas en cada nivel.</p>
+
+<div class="trap"><div class="tr-t">Errores típicos en condicionales</div>
+• Olvidar los <b>dos puntos</b> <code>:</code> al final de la condición.<br>
+• Olvidar la <b>indentación</b> del bloque interno.<br>
+• Usar <code>=</code> en vez de <code>==</code>: <code>if x = 5:</code> ❌ tira error.<br>
+• Comparar mal strings: <code>if dia = "lunes":</code> ❌, <code>if dia == "lunes":</code> ✓.
+</div>
+
 <hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
 
-<h3>Ciclo <code>while</code> · <b>muy frecuente</b></h3>
-<p>Repite un bloque de código <b>mientras se cumpla una condición</b>.</p>
+<h3>Ciclo <code>while</code></h3>
+<p>Repite un bloque de código <b>mientras se cumpla una condición</b>. Cada repetición se llama <b>iteración</b>.</p>
 
 <pre class="code-block">i = 0
 while i &lt; 5:
     print(i)
     i = i + 1</pre>
 
-<p>Imprime 0, 1, 2, 3, 4. El ciclo sigue <b>mientras</b> <code>i &lt; 5</code>. En cada vuelta se suma 1, hasta que i llega a 5 y la condición se vuelve falsa.</p>
+<p>Imprime 0, 1, 2, 3, 4. El ciclo sigue mientras <code>i &lt; 5</code>. En cada vuelta se suma 1, hasta que <code>i</code> llega a 5 y la condición se vuelve falsa.</p>
 
-<div class="key"><div class="ky-t">Casos de uso típicos de <code>while</code></div>
-• Validar datos: "pedir un número hasta que sea positivo".<br>
-• Repetir hasta una señal: "jugar hasta que el usuario diga que basta".<br>
-• Cuando no sabés de antemano cuántas veces vas a iterar.
-</div>
+<h4>Patrón "contador"</h4>
+<pre class="code-block">i = 0
+while i &lt; n:    # n veces
+    # hacer algo
+    i = i + 1</pre>
 
-<div class="trap"><div class="tr-t">¡Cuidado con los ciclos infinitos!</div>
-Si la condición nunca se hace falsa, el ciclo <b>nunca termina</b>. Asegurate de que algo dentro del ciclo modifica la variable de la condición.
-</div>
-
-<h3>Validar entrada con <code>while</code></h3>
+<h4>Patrón "validación de entrada"</h4>
 <pre class="code-block">n = int(input("Ingresá un positivo: "))
 while n &lt;= 0:
     print("Tiene que ser positivo")
     n = int(input("Ingresá un positivo: "))</pre>
+<p>Sigue pidiendo hasta que el usuario ingrese algo válido.</p>
+
+<h4>Patrón "bandera"</h4>
+<pre class="code-block">seguir = True
+while seguir:
+    respuesta = input("¿Continuar? (s/n): ")
+    if respuesta == "n":
+        seguir = False
+    else:
+        print("Hacemos otra cosa...")</pre>
+
+<h4>Patrón "acumulador"</h4>
+<pre class="code-block">suma = 0
+i = 1
+while i &lt;= 100:
+    suma = suma + i
+    i = i + 1
+print(suma)    # 5050 (suma de 1 a 100)</pre>
+
+<div class="key"><div class="ky-t">Casos de uso típicos de <code>while</code></div>
+• <b>Validar datos:</b> "pedir un número hasta que sea positivo".<br>
+• <b>Repetir hasta una señal:</b> "jugar hasta que el usuario diga que basta".<br>
+• <b>No sabés cuántas veces:</b> "leer un archivo hasta el final", "esperar hasta que pase algo".
+</div>
+
+<div class="trap"><div class="tr-t">¡Cuidado con los ciclos infinitos!</div>
+Si la condición <b>nunca se hace falsa</b>, el ciclo no termina nunca. Asegurate de que <b>algo dentro del ciclo modifica la variable</b> de la condición.<br><br>
+<b>Ciclo infinito clásico:</b>
+<pre class="code-block">i = 0
+while i &lt; 5:
+    print(i)
+    # ❌ falta i = i + 1, i nunca llega a 5</pre>
+En Colab, si te queda un ciclo infinito: pulsá el ▢ (cuadrado) o "Interrumpir ejecución".
+</div>
 
 <hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
 
-<h3>Ciclo <code>for</code> · <b>muy frecuente</b></h3>
-<p>Recorre los elementos de una secuencia (lista, string, <code>range</code>...) uno por uno.</p>
+<h3>Ciclo <code>for</code></h3>
+<p>Recorre los elementos de una <b>secuencia</b> (lista, string, range, tupla, diccionario...) <b>uno por uno</b>.</p>
 
 <pre class="code-block">for letra in "Python":
     print(letra)</pre>
@@ -4914,47 +5269,91 @@ for nombre in nombres:
     print("Hola", nombre)</pre>
 
 <h3>La función <code>range()</code></h3>
-<p>Genera una secuencia de enteros. Muy usada con <code>for</code>.</p>
+<p>Genera una secuencia de enteros. Muy usada con <code>for</code>:</p>
 
 <table class="tbl">
   <tr><th>Forma</th><th>Genera</th></tr>
-  <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4</td></tr>
-  <tr><td><code>range(2, 7)</code></td><td>2, 3, 4, 5, 6</td></tr>
-  <tr><td><code>range(0, 10, 2)</code></td><td>0, 2, 4, 6, 8 (paso 2)</td></tr>
+  <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4 (cinco valores empezando desde 0)</td></tr>
+  <tr><td><code>range(2, 7)</code></td><td>2, 3, 4, 5, 6 (de 2 a 6)</td></tr>
+  <tr><td><code>range(0, 10, 2)</code></td><td>0, 2, 4, 6, 8 (paso de 2)</td></tr>
   <tr><td><code>range(10, 0, -1)</code></td><td>10, 9, 8, ..., 1 (cuenta regresiva)</td></tr>
+  <tr><td><code>range(1, 11)</code></td><td>1, 2, 3, ..., 10</td></tr>
 </table>
 
-<div class="key"><div class="ky-t">Ojo: <code>range</code> NO incluye el extremo final</div>
-<code>range(5)</code> va de 0 a 4 (no incluye el 5). <code>range(2, 7)</code> va de 2 a 6 (no incluye el 7).
+<div class="key"><div class="ky-t">REGLA DE ORO: <code>range</code> NO incluye el extremo final</div>
+<code>range(5)</code> va de 0 a <b>4</b>, no incluye el 5.<br>
+<code>range(2, 7)</code> va de 2 a <b>6</b>, no incluye el 7.<br>
+Si querés que llegue hasta n inclusive, escribí <code>range(n+1)</code> o <code>range(1, n+1)</code>.
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejemplo: sumar los primeros 10 números</div>
+  <div class="ex-t">Sumar los primeros 10 números</div>
 <pre class="code-block">suma = 0
-for i in range(1, 11):
+for i in range(1, 11):    # 1, 2, ..., 10
     suma = suma + i
 print(suma)   # 55</pre>
 </div>
 
-<h3>¿When <code>for</code> vs <code>while</code>?</h3>
+<div class="example">
+  <div class="ex-t">Imprimir tabla del 5</div>
+<pre class="code-block">for i in range(1, 11):
+    print(f"5 x {i} = {5 * i}")</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Recorrer una lista por elemento e índice (enumerate)</div>
+<pre class="code-block">colores = ["rojo", "verde", "azul"]
+for i, color in enumerate(colores):
+    print(f"{i}: {color}")
+# 0: rojo
+# 1: verde
+# 2: azul</pre>
+</div>
+
+<h3>¿Cuándo <code>for</code> y cuándo <code>while</code>?</h3>
 <table class="tbl">
   <tr><th>Usá <code>for</code> cuando...</th><th>Usá <code>while</code> cuando...</th></tr>
-  <tr><td>Sabés cuántas veces iterar</td><td>No sabés cuántas veces</td></tr>
-  <tr><td>Recorrer una secuencia conocida</td><td>Esperás a que algo pase</td></tr>
-  <tr><td>Contar de n a m</td><td>Validar entrada del usuario</td></tr>
+  <tr><td>Sabés cuántas veces vas a iterar</td><td>No sabés a priori cuántas veces</td></tr>
+  <tr><td>Recorrés una secuencia conocida (lista, string, range)</td><td>Esperás a que algo pase (input válido, fin de archivo)</td></tr>
+  <tr><td>Contás de n a m</td><td>Validás entrada del usuario</td></tr>
+  <tr><td>Ejemplo: imprimir una tabla</td><td>Ejemplo: pedir clave hasta que sea correcta</td></tr>
 </table>
 
 <h3><code>break</code> y <code>continue</code></h3>
 <ul>
-  <li><code>break</code>: corta el ciclo inmediatamente.</li>
-  <li><code>continue</code>: salta a la próxima iteración sin ejecutar el resto del cuerpo.</li>
+  <li><b><code>break</code></b>: corta el ciclo inmediatamente, sale de él.</li>
+  <li><b><code>continue</code></b>: salta a la siguiente iteración sin ejecutar el resto del cuerpo.</li>
 </ul>
 
 <pre class="code-block">for i in range(10):
     if i == 5:
         break       # corta al llegar a 5
     print(i)
-# Imprime 0, 1, 2, 3, 4</pre>
+# Imprime 0, 1, 2, 3, 4 (no llega a 5)</pre>
+
+<pre class="code-block">for i in range(10):
+    if i % 2 == 0:
+        continue    # salta los pares
+    print(i)
+# Imprime 1, 3, 5, 7, 9</pre>
+
+<h3>Ciclos anidados</h3>
+<p>Un ciclo dentro de otro. Útil para recorrer estructuras de dos dimensiones:</p>
+<pre class="code-block">for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i},{j}", end=" ")
+    print()
+# 1,1 1,2 1,3
+# 2,1 2,2 2,3
+# 3,1 3,2 3,3</pre>
+
+<div class="example">
+  <div class="ex-t">Tabla de multiplicar completa</div>
+<pre class="code-block">for i in range(1, 11):
+    for j in range(1, 11):
+        print(f"{i*j:4}", end="")
+    print()</pre>
+</div>
 
 <div class="quiz-wrap" data-qz="3" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -4967,39 +5366,56 @@ print(suma)   # 55</pre>
 <div class="content">
 
 <h3>¿Qué es una lista?</h3>
-<p>Una <b>lista</b> es una colección <b>ordenada y mutable</b> de elementos. Se escribe entre corchetes y los elementos se separan con comas.</p>
+<p>Una <b>lista</b> es una colección <b>ordenada y mutable</b> de elementos. "Ordenada" porque cada elemento ocupa una posición específica. "Mutable" porque podés modificarla después de crearla.</p>
 
 <pre class="code-block">numeros = [10, 20, 30, 40, 50]
 palabras = ["casa", "árbol", "auto"]
-mezcla = [1, "hola", 3.14, True]   # puede tener distintos tipos</pre>
+mezcla = [1, "hola", 3.14, True]   # puede tener distintos tipos
+vacia = []                          # lista vacía</pre>
 
 <h3>Acceso por índice</h3>
-<p>Se accede a los elementos con <b>índice</b>, que <b>empieza desde 0</b>.</p>
+<p>Los elementos se acceden por su <b>índice</b>, que en Python <b>empieza desde 0</b> (NO desde 1).</p>
 
 <pre class="code-block">numeros = [10, 20, 30, 40, 50]
 print(numeros[0])   # 10 (primero)
 print(numeros[2])   # 30 (tercero)
-print(numeros[-1])  # 50 (último, índice negativo)
-print(numeros[-2])  # 40 (anteúltimo)</pre>
+print(numeros[4])   # 50 (último)
+print(numeros[5])   # ❌ IndexError: out of range</pre>
 
-<div class="key"><div class="ky-t">Índices negativos</div>
-En Python, los índices negativos cuentan <b>desde el final</b>: <code>-1</code> es el último, <code>-2</code> el anteúltimo, etc. Súper útil y elegante.
+<h3>Índices negativos</h3>
+<p>En Python, los índices negativos cuentan <b>desde el final</b>:</p>
+<pre class="code-block">numeros = [10, 20, 30, 40, 50]
+print(numeros[-1])  # 50 (último)
+print(numeros[-2])  # 40 (anteúltimo)
+print(numeros[-5])  # 10 (primero)</pre>
+
+<div class="key"><div class="ky-t">Esquema visual</div>
+<pre>
+Lista:        [10,  20,  30,  40,  50]
+Índice +:       0,   1,   2,   3,   4
+Índice -:      -5,  -4,  -3,  -2,  -1
+</pre>
 </div>
 
 <h3>Longitud: <code>len()</code></h3>
 <pre class="code-block">numeros = [10, 20, 30, 40, 50]
-print(len(numeros))   # 5</pre>
+print(len(numeros))   # 5
+print(len([]))        # 0</pre>
+
+<p>Para obtener el último elemento de una lista de longitud variable, lo más seguro es <code>lista[-1]</code> o <code>lista[len(lista)-1]</code>.</p>
 
 <h3>Slicing (rebanadas)</h3>
-<p>Para obtener una sublista, usás <code>lista[inicio:fin]</code>. El <code>fin</code> <b>no se incluye</b>.</p>
+<p>Para obtener una sublista, usás <code>lista[inicio:fin]</code>. El <code>fin</code> <b>no se incluye</b> (igual que en <code>range</code>).</p>
 
 <pre class="code-block">numeros = [10, 20, 30, 40, 50]
 print(numeros[1:4])    # [20, 30, 40]
 print(numeros[:3])     # [10, 20, 30] (desde el principio)
 print(numeros[2:])     # [30, 40, 50] (hasta el final)
-print(numeros[:])      # [10, 20, 30, 40, 50] (copia completa)</pre>
+print(numeros[:])      # [10, 20, 30, 40, 50] (copia completa)
+print(numeros[::2])    # [10, 30, 50] (cada 2)
+print(numeros[::-1])   # [50, 40, 30, 20, 10] (al revés)</pre>
 
-<h3>Mutabilidad: podés modificar una lista</h3>
+<h3>Mutabilidad: modificar una lista</h3>
 <pre class="code-block">nums = [10, 20, 30]
 nums[1] = 99
 print(nums)   # [10, 99, 30]</pre>
@@ -5007,45 +5423,135 @@ print(nums)   # [10, 99, 30]</pre>
 <h3>Métodos más usados</h3>
 <table class="tbl">
   <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
-  <tr><td><code>append(x)</code></td><td>Agrega al final</td><td><code>lista.append(5)</code></td></tr>
-  <tr><td><code>insert(i, x)</code></td><td>Inserta en posición i</td><td><code>lista.insert(0, 5)</code></td></tr>
-  <tr><td><code>remove(x)</code></td><td>Borra la primera ocurrencia de x</td><td><code>lista.remove(30)</code></td></tr>
-  <tr><td><code>pop(i)</code></td><td>Saca y devuelve elemento en i</td><td><code>x = lista.pop(0)</code></td></tr>
+  <tr><td><code>append(x)</code></td><td>Agrega <code>x</code> al final</td><td><code>lista.append(5)</code></td></tr>
+  <tr><td><code>insert(i, x)</code></td><td>Inserta <code>x</code> en posición <code>i</code></td><td><code>lista.insert(0, 5)</code></td></tr>
+  <tr><td><code>remove(x)</code></td><td>Borra la primera ocurrencia de <code>x</code></td><td><code>lista.remove(30)</code></td></tr>
+  <tr><td><code>pop(i)</code></td><td>Saca y devuelve elemento en <code>i</code> (último por defecto)</td><td><code>x = lista.pop()</code></td></tr>
   <tr><td><code>sort()</code></td><td>Ordena la lista (en el lugar)</td><td><code>lista.sort()</code></td></tr>
+  <tr><td><code>sort(reverse=True)</code></td><td>Ordena descendente</td><td><code>lista.sort(reverse=True)</code></td></tr>
   <tr><td><code>reverse()</code></td><td>Invierte el orden</td><td><code>lista.reverse()</code></td></tr>
-  <tr><td><code>index(x)</code></td><td>Devuelve la posición de x</td><td><code>lista.index(30)</code></td></tr>
-  <tr><td><code>count(x)</code></td><td>Cuenta cuántas veces aparece x</td><td><code>lista.count(5)</code></td></tr>
+  <tr><td><code>index(x)</code></td><td>Devuelve la posición de <code>x</code></td><td><code>lista.index(30)</code></td></tr>
+  <tr><td><code>count(x)</code></td><td>Cuenta cuántas veces aparece <code>x</code></td><td><code>lista.count(5)</code></td></tr>
+  <tr><td><code>copy()</code></td><td>Devuelve una copia independiente</td><td><code>otra = lista.copy()</code></td></tr>
 </table>
+
+<div class="key"><div class="ky-t">Métodos vs funciones</div>
+• <b>Métodos:</b> se llaman con punto. <code>lista.append(5)</code>. Modifican o consultan la lista.<br>
+• <b>Funciones globales:</b> reciben la lista como argumento. <code>len(lista)</code>, <code>sum(lista)</code>, <code>max(lista)</code>.
+</div>
+
+<h3>Funciones útiles para listas</h3>
+<pre class="code-block">numeros = [3, 1, 4, 1, 5, 9, 2, 6]
+
+len(numeros)   # 8
+sum(numeros)   # 31 (suma)
+max(numeros)   # 9
+min(numeros)   # 1
+sorted(numeros)  # [1, 1, 2, 3, 4, 5, 6, 9] devuelve nueva lista ordenada</pre>
 
 <h3>Recorrer una lista</h3>
 <p>Dos formas típicas:</p>
-<pre class="code-block"># Por elemento
+<pre class="code-block">numeros = [10, 20, 30, 40]
+
+# Por elemento (más común)
 for n in numeros:
     print(n)
 
-# Por índice
+# Por índice (cuando necesitás la posición)
 for i in range(len(numeros)):
-    print(i, numeros[i])</pre>
+    print(i, numeros[i])
+
+# Por elemento e índice (con enumerate, lo mejor)
+for i, n in enumerate(numeros):
+    print(i, n)</pre>
 
 <h3>Operadores útiles: <code>in</code>, <code>+</code>, <code>*</code></h3>
-<pre class="code-block">5 in [1, 2, 3, 5]       # True (¿está 5?)
-"casa" in ["auto","casa"]  # True
+<pre class="code-block">5 in [1, 2, 3, 5]            # True (¿está 5?)
+"casa" in ["auto", "casa"]   # True
+3 not in [1, 2, 5]           # True
 
 [1, 2] + [3, 4]     # [1, 2, 3, 4] (concatena)
-[0] * 5             # [0, 0, 0, 0, 0] (repite)</pre>
+[0] * 5             # [0, 0, 0, 0, 0] (repite)
+[1, 2] * 3          # [1, 2, 1, 2, 1, 2]</pre>
+
+<h3>Listas de listas (matrices)</h3>
+<p>Una lista puede contener otras listas. Sirve para representar matrices, tablas, etc.</p>
+<pre class="code-block">matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print(matriz[0])      # [1, 2, 3] (primera fila)
+print(matriz[0][2])   # 3 (fila 0, columna 2)
+
+# Recorrer una matriz
+for fila in matriz:
+    for valor in fila:
+        print(valor, end=" ")
+    print()</pre>
+
+<h3>Patrones típicos con listas</h3>
+
+<div class="example">
+  <div class="ex-t">Sumar todos</div>
+<pre class="code-block">numeros = [3, 1, 4, 1, 5, 9, 2, 6]
+suma = 0
+for n in numeros:
+    suma = suma + n
+print(suma)    # 31
+
+# Más corto:
+print(sum(numeros))</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Contar cuántos cumplen una condición</div>
+<pre class="code-block">numeros = [3, 1, 4, 1, 5, 9, 2, 6]
+pares = 0
+for n in numeros:
+    if n % 2 == 0:
+        pares = pares + 1
+print(pares)   # 3 (4, 2, 6)</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Filtrar (crear lista nueva con los que cumplen)</div>
+<pre class="code-block">numeros = [3, 1, 4, 1, 5, 9, 2, 6]
+mayores_a_3 = []
+for n in numeros:
+    if n &gt; 3:
+        mayores_a_3.append(n)
+print(mayores_a_3)   # [4, 5, 9, 6]</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Buscar máximo manualmente</div>
+<pre class="code-block">numeros = [3, 1, 4, 1, 5, 9, 2, 6]
+mayor = numeros[0]
+for n in numeros:
+    if n &gt; mayor:
+        mayor = n
+print(mayor)    # 9</pre>
+</div>
 
 <h3>Tuplas: como listas pero inmutables</h3>
-<p>Una <b>tupla</b> es como una lista, pero <b>no se puede modificar</b> después de crearla. Se escriben con paréntesis:</p>
+<p>Una <b>tupla</b> es una colección ordenada como la lista, pero <b>no se puede modificar</b> una vez creada. Se escribe con paréntesis (o sin nada):</p>
 
 <pre class="code-block">coord = (3, 4)
 colores = ("rojo", "verde", "azul")
+sin_parentesis = 1, 2, 3   # también es tupla
 
-print(coord[0])    # 3
-# coord[0] = 99    # ERROR: las tuplas son inmutables</pre>
+print(coord[0])      # 3
+print(coord[1])      # 4
+# coord[0] = 99      # ❌ TypeError: tuplas inmutables</pre>
 
-<div class="key"><div class="ky-t">¿Cuándo usar tupla en vez de lista?</div>
-Cuando los datos <b>no tienen que cambiar</b>: coordenadas, fechas, datos constantes. Es más seguro y más rápido.
-</div>
+<h4>¿Cuándo usar tupla en vez de lista?</h4>
+<ul>
+  <li>Cuando los datos no deben cambiar (coordenadas, fechas, valores constantes).</li>
+  <li>Cuando devolvés varios valores desde una función.</li>
+  <li>Cuando querés "marcar" que algo es inmutable por seguridad.</li>
+</ul>
 
 <h3>Desempaquetado</h3>
 <p>Podés asignar varios valores a la vez:</p>
@@ -5054,7 +5560,19 @@ print(x)   # 3
 print(y)   # 4
 
 # También funciona con listas
-nombre, edad = ["Ariel", 30]</pre>
+nombre, edad = ["Ariel", 30]
+
+# Truco para intercambiar variables
+a = 1
+b = 2
+a, b = b, a    # ahora a=2, b=1</pre>
+
+<div class="trap"><div class="tr-t">Errores típicos en listas</div>
+• <b>Acceder a índice fuera de rango:</b> <code>lista[10]</code> en lista de 5 elementos.<br>
+• <b>Modificar lista mientras la recorrés:</b> resultados imprevisibles. Si necesitás filtrar, creá lista nueva.<br>
+• <b>Confundir <code>append</code> con <code>+</code>:</b> <code>lista.append([1,2])</code> agrega la lista entera como un solo elemento. <code>lista + [1,2]</code> concatena.<br>
+• <b>No darse cuenta que <code>sort()</code> modifica la lista</b> y devuelve <code>None</code>: <code>x = lista.sort()</code> ❌. Lo correcto: <code>lista.sort()</code> y después usar <code>lista</code>.
+</div>
 
 <div class="quiz-wrap" data-qz="4a" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -5069,74 +5587,100 @@ nombre, edad = ["Ariel", 30]</pre>
 <div class="content">
 
 <h3>¿Qué es un diccionario?</h3>
-<p>Un <b>diccionario</b> es una colección de pares <b>clave:valor</b>. A diferencia de una lista (donde accedés por posición), en un diccionario accedés por una clave que vos elegís.</p>
+<p>Un <b>diccionario</b> es una colección de pares <b>clave:valor</b>. A diferencia de una lista (donde accedés por posición numérica), en un diccionario accedés por una <b>clave</b> que vos elegís — puede ser un texto, un número o cualquier valor inmutable.</p>
 
 <pre class="code-block">persona = {"nombre": "Ariel", "edad": 30, "ciudad": "Buenos Aires"}
 
 print(persona["nombre"])   # "Ariel"
 print(persona["edad"])     # 30</pre>
 
+<h3>Cuando vendría bien un diccionario</h3>
+<p>Cuando los datos tienen "etiquetas naturales": en vez de recordar que la posición 0 es el nombre y la 1 la edad, escribís <code>persona["nombre"]</code> y se entiende solo.</p>
+
+<table class="tbl">
+  <tr><th>Lista</th><th>Diccionario</th></tr>
+  <tr><td><code>persona = ["Ariel", 30, "BA"]</code></td><td><code>persona = {"nombre":"Ariel", "edad":30, "ciudad":"BA"}</code></td></tr>
+  <tr><td>Accedés por posición: <code>persona[0]</code></td><td>Accedés por clave: <code>persona["nombre"]</code></td></tr>
+  <tr><td>Hay que recordar el orden</td><td>Las claves explican qué es cada cosa</td></tr>
+</table>
+
 <h3>Sintaxis</h3>
 <ul>
   <li>Llaves <code>{ }</code> (no corchetes).</li>
   <li>Cada par tiene la forma <code>clave: valor</code>.</li>
   <li>Los pares se separan con comas.</li>
-  <li>Las claves suelen ser strings o números. Los valores pueden ser cualquier cosa.</li>
+  <li>Las claves suelen ser strings o números enteros. Los valores pueden ser cualquier cosa (incluso otra lista o diccionario).</li>
 </ul>
 
-<h3>Crear, agregar, modificar</h3>
+<h3>Crear, agregar, modificar, borrar</h3>
 <pre class="code-block"># Vacío
 persona = {}
 
-# Agregar o modificar
+# Agregar (clave nueva)
 persona["nombre"] = "Ariel"
 persona["edad"] = 30
-persona["edad"] = 31    # modifica (misma clave)
 
-print(persona)   # {'nombre': 'Ariel', 'edad': 31}</pre>
+# Modificar (clave existente — misma sintaxis que agregar)
+persona["edad"] = 31
 
-<h3>Borrar entradas</h3>
-<pre class="code-block">del persona["edad"]
-# o
-persona.pop("edad")</pre>
+# Borrar
+del persona["edad"]
+# o también
+edad = persona.pop("edad")    # saca y devuelve el valor
+
+print(persona)   # {'nombre': 'Ariel'}</pre>
 
 <h3>¿Existe una clave?</h3>
+<p>Antes de acceder a una clave que podría no existir, conviene verificar:</p>
 <pre class="code-block">if "nombre" in persona:
-    print("Tiene nombre:", persona["nombre"])</pre>
+    print("Tiene nombre:", persona["nombre"])
 
-<div class="trap"><div class="tr-t">Ojo</div>
-Si accedés con <code>persona["clave_que_no_existe"]</code>, Python tira error. Para evitarlo:<br>
+# Para verificar que NO esté
+if "telefono" not in persona:
+    print("No tiene teléfono")</pre>
+
+<div class="trap"><div class="tr-t">KeyError: la clave no existe</div>
+Si accedés con <code>persona["clave_que_no_existe"]</code>, Python tira <code>KeyError</code>.<br><br>
+Soluciones:<br>
 • Usá <code>in</code> antes de acceder.<br>
-• O usá <code>persona.get("clave")</code>: devuelve <code>None</code> si no existe en lugar de tirar error.
+• O usá <code>persona.get("clave")</code>: devuelve <code>None</code> si no existe en lugar de tirar error.<br>
+• <code>persona.get("clave", "default")</code>: devuelve <code>"default"</code> si no existe.
 </div>
 
 <h3>Métodos útiles</h3>
 <table class="tbl">
-  <tr><th>Método</th><th>Devuelve</th></tr>
-  <tr><td><code>d.keys()</code></td><td>Todas las claves</td></tr>
-  <tr><td><code>d.values()</code></td><td>Todos los valores</td></tr>
-  <tr><td><code>d.items()</code></td><td>Pares (clave, valor)</td></tr>
-  <tr><td><code>d.get(k, default)</code></td><td>Valor o default si no existe</td></tr>
+  <tr><th>Método</th><th>Devuelve</th><th>Ejemplo</th></tr>
+  <tr><td><code>d.keys()</code></td><td>Todas las claves</td><td><code>persona.keys()</code> → <code>['nombre', 'edad']</code></td></tr>
+  <tr><td><code>d.values()</code></td><td>Todos los valores</td><td><code>persona.values()</code> → <code>['Ariel', 30]</code></td></tr>
+  <tr><td><code>d.items()</code></td><td>Pares (clave, valor)</td><td><code>persona.items()</code></td></tr>
+  <tr><td><code>d.get(k)</code></td><td>Valor o <code>None</code> si no existe</td><td><code>persona.get("foo")</code> → <code>None</code></td></tr>
+  <tr><td><code>d.get(k, default)</code></td><td>Valor o default si no existe</td><td><code>persona.get("foo", 0)</code> → <code>0</code></td></tr>
+  <tr><td><code>d.update(otro)</code></td><td>Agrega los pares de otro dict</td><td><code>persona.update({"tel": "1234"})</code></td></tr>
+  <tr><td><code>len(d)</code></td><td>Cantidad de pares</td><td><code>len(persona)</code> → <code>2</code></td></tr>
 </table>
 
 <h3>Recorrer un diccionario</h3>
-<pre class="code-block">persona = {"nombre": "Ariel", "edad": 30}
+<pre class="code-block">persona = {"nombre": "Ariel", "edad": 30, "ciudad": "BA"}
 
-# Por clave
+# Por clave (lo más común)
 for clave in persona:
     print(clave, "→", persona[clave])
 
-# Por pares
-for clave, valor in persona.items():
-    print(clave, "→", valor)</pre>
+# Por valores
+for valor in persona.values():
+    print(valor)
 
-<h3>Listas de diccionarios · <b>muy frecuente</b></h3>
-<p>Estructura común para datos estructurados. Cada elemento de la lista es un diccionario.</p>
+# Por pares clave-valor (lo más útil)
+for clave, valor in persona.items():
+    print(f"{clave}: {valor}")</pre>
+
+<h3>Listas de diccionarios</h3>
+<p>Estructura muy común: cada elemento de una lista es un diccionario. Es la forma natural de representar "una tabla con filas".</p>
 
 <pre class="code-block">personas = [
-    {"nombre": "Ana", "edad": 25},
-    {"nombre": "Bruno", "edad": 30},
-    {"nombre": "Carla", "edad": 28}
+    {"nombre": "Ana",   "edad": 25, "ciudad": "BA"},
+    {"nombre": "Bruno", "edad": 30, "ciudad": "Rosario"},
+    {"nombre": "Carla", "edad": 28, "ciudad": "BA"}
 ]
 
 # Recorrer
@@ -5147,21 +5691,79 @@ for p in personas:
 mayores = []
 for p in personas:
     if p["edad"] &gt; 27:
-        mayores.append(p)</pre>
+        mayores.append(p)
+print(mayores)
 
-<h3>Validar usuarios (clásico de parcial)</h3>
+# Promedio de edad
+suma = 0
+for p in personas:
+    suma = suma + p["edad"]
+promedio = suma / len(personas)
+print("Promedio:", promedio)</pre>
+
+<h3>Patrones típicos con diccionarios</h3>
+
+<div class="example">
+  <div class="ex-t">Patrón "contar frecuencias"</div>
+<pre class="code-block">letras = "missisipi"
+conteo = {}
+for letra in letras:
+    if letra in conteo:
+        conteo[letra] = conteo[letra] + 1
+    else:
+        conteo[letra] = 1
+print(conteo)   # {'m': 1, 'i': 4, 's': 3, 'p': 1}</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Patrón "agrupar"</div>
+<pre class="code-block">personas = [
+    {"nombre": "Ana", "ciudad": "BA"},
+    {"nombre": "Bruno", "ciudad": "Rosario"},
+    {"nombre": "Carla", "ciudad": "BA"}
+]
+
+por_ciudad = {}
+for p in personas:
+    c = p["ciudad"]
+    if c not in por_ciudad:
+        por_ciudad[c] = []
+    por_ciudad[c].append(p["nombre"])
+print(por_ciudad)
+# {'BA': ['Ana', 'Carla'], 'Rosario': ['Bruno']}</pre>
+</div>
+
+<h3>Validación de usuarios (clásico de parcial)</h3>
 <pre class="code-block">users = {"ariel": "clave123", "juan": "pwd456"}
 
-def ingreso(usr):
+def ingreso(usr_dict):
     u = input("Usuario: ")
     cl = input("Clave: ")
-    if u in usr:
-        if usr[u] == cl:
+    if u in usr_dict:
+        if usr_dict[u] == cl:
             return True
     return False
 
 while not ingreso(users):
-    print("Datos erróneos")</pre>
+    print("Datos erróneos, volvé a intentar")
+print("¡Bienvenido!")</pre>
+
+<h3>Diccionarios anidados</h3>
+<p>Un diccionario puede tener como valor otro diccionario:</p>
+<pre class="code-block">datos = {
+    "ariel": {"edad": 30, "ciudad": "BA"},
+    "juan":  {"edad": 25, "ciudad": "Rosario"}
+}
+
+print(datos["ariel"]["edad"])     # 30
+print(datos["juan"]["ciudad"])    # Rosario</pre>
+
+<div class="trap"><div class="tr-t">Errores típicos con diccionarios</div>
+• <b>KeyError</b> por acceder a clave que no existe (usá <code>get</code> o <code>in</code>).<br>
+• Confundir corchetes con llaves: lista <code>[ ]</code>, diccionario <code>{ }</code>.<br>
+• Usar listas como claves (no se puede, son mutables).<br>
+• Olvidar inicializar un diccionario antes de empezar a llenarlo.
+</div>
 
 <div class="quiz-wrap" data-qz="4b" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -5174,35 +5776,53 @@ while not ingreso(users):
 <div class="content">
 
 <h3>¿Por qué trabajar con archivos?</h3>
-<p>Cuando un programa termina, se pierden todas las variables. Para <b>persistir</b> datos (guardarlos), hay que escribirlos en un archivo. Después los podés leer en otra ejecución.</p>
+<p>Cuando un programa termina, se pierden todas las variables. Para <b>persistir</b> datos (que sobrevivan más allá de la ejecución), tenés que escribirlos en un archivo en disco. Después podés leer esos datos en otra ejecución.</p>
+
+<p>Casos típicos:</p>
+<ul>
+  <li>Guardar el resultado de un cálculo.</li>
+  <li>Cargar una lista de usuarios o productos.</li>
+  <li>Procesar datasets (CSV).</li>
+  <li>Generar reportes en texto.</li>
+</ul>
 
 <h3>Abrir un archivo: <code>open()</code></h3>
-<pre class="code-block">archivo = open("datos.txt", "r")</pre>
+<pre class="code-block">archivo = open("datos.txt", "r")
+# ... operaciones ...
+archivo.close()</pre>
 
-<p>El segundo parámetro es el <b>modo</b>:</p>
+<p>Toma dos parámetros: el <b>nombre</b> (con ruta si está en otra carpeta) y el <b>modo</b>.</p>
+
 <table class="tbl">
-  <tr><th>Modo</th><th>Qué hace</th></tr>
-  <tr><td><code>"r"</code></td><td>Lectura (read). Falla si no existe.</td></tr>
-  <tr><td><code>"w"</code></td><td>Escritura (write). <b>Sobrescribe</b> si existe.</td></tr>
-  <tr><td><code>"a"</code></td><td>Agregar al final (append).</td></tr>
-  <tr><td><code>"r+"</code></td><td>Lectura y escritura.</td></tr>
+  <tr><th>Modo</th><th>Significa</th><th>Detalles</th></tr>
+  <tr><td><code>"r"</code></td><td><b>Read</b> (lectura)</td><td>Falla si no existe.</td></tr>
+  <tr><td><code>"w"</code></td><td><b>Write</b> (escritura)</td><td>Crea el archivo si no existe. <b>Sobrescribe</b> si existe (cuidado).</td></tr>
+  <tr><td><code>"a"</code></td><td><b>Append</b> (agregar al final)</td><td>Crea si no existe. Conserva el contenido previo.</td></tr>
+  <tr><td><code>"r+"</code></td><td>Lectura + escritura</td><td>Falla si no existe.</td></tr>
 </table>
 
-<div class="trap"><div class="tr-t">Cuidado con <code>"w"</code></div>
-Abre el archivo y <b>borra todo su contenido</b>. Si querés agregar sin perder lo anterior, usá <code>"a"</code>.
+<div class="trap"><div class="tr-t">¡Cuidado con <code>"w"</code>!</div>
+Abre el archivo y <b>borra todo su contenido</b> antes de escribir. Si querés agregar sin perder lo anterior, usá <code>"a"</code>.
 </div>
 
 <h3>Leer un archivo</h3>
-<pre class="code-block"># Leer todo como un solo string
+<pre class="code-block"># Opción 1: leer todo como un solo string
 archivo = open("datos.txt", "r")
 contenido = archivo.read()
+print(contenido)
 archivo.close()
 
-# Leer línea por línea
+# Opción 2: leer línea por línea (recomendado para archivos grandes)
 archivo = open("datos.txt", "r")
 for linea in archivo:
-    print(linea)
-archivo.close()</pre>
+    print(linea.strip())   # strip() quita el salto de línea final
+archivo.close()
+
+# Opción 3: leer todas las líneas a una lista
+archivo = open("datos.txt", "r")
+lineas = archivo.readlines()
+archivo.close()
+print(lineas)   # ['linea 1\n', 'linea 2\n', ...]</pre>
 
 <h3>Escribir en un archivo</h3>
 <pre class="code-block">archivo = open("salida.txt", "w")
@@ -5211,24 +5831,54 @@ archivo.write("Segunda línea\n")
 archivo.close()</pre>
 
 <div class="key"><div class="ky-t">Salto de línea: <code>\n</code></div>
-Si querés escribir en varias líneas, tenés que agregar <code>\n</code> al final. <code>write()</code> NO lo hace solo.
+Si querés escribir en varias líneas, tenés que agregar <code>\n</code> al final de cada texto. <b><code>write()</code> NO lo hace solo</b>, a diferencia de <code>print()</code>.
 </div>
 
 <h3>La forma recomendada: <code>with</code></h3>
-<p>Abre el archivo y lo cierra automáticamente al terminar el bloque.</p>
+<p>Abre el archivo y lo cierra <b>automáticamente</b> al terminar el bloque, incluso si hay error. Es lo que se usa en código profesional.</p>
 
 <pre class="code-block">with open("datos.txt", "r") as archivo:
     for linea in archivo:
-        print(linea.strip())</pre>
+        print(linea.strip())
+# Acá ya está cerrado automáticamente</pre>
 
-<p><code>strip()</code> quita espacios y saltos de línea al principio y al final.</p>
+<p>Lo podés usar también para escritura:</p>
+<pre class="code-block">with open("salida.txt", "w") as f:
+    f.write("Línea 1\n")
+    f.write("Línea 2\n")</pre>
+
+<h3>Procesar líneas: <code>strip()</code> y <code>split()</code></h3>
+<ul>
+  <li><code>linea.strip()</code>: quita espacios y saltos de línea al principio y final.</li>
+  <li><code>linea.split(",")</code>: divide la línea por comas y devuelve una lista.</li>
+  <li><code>linea.split()</code> sin argumento: divide por espacios.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Leer un CSV simple manualmente</div>
+<pre class="code-block">with open("notas.csv", "r") as f:
+    for linea in f:
+        partes = linea.strip().split(",")
+        nombre = partes[0]
+        nota = int(partes[1])
+        print(f"{nombre}: {nota}")</pre>
+</div>
+
+<h3>Acumular datos en una estructura</h3>
+<pre class="code-block">notas = []
+with open("notas.txt", "r") as f:
+    for linea in f:
+        notas.append(int(linea.strip()))
+
+print("Promedio:", sum(notas) / len(notas))
+print("Máximo:", max(notas))</pre>
 
 <hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
 
 <h3>Manejo de errores</h3>
-<p>Un <b>error</b> (o <b>excepción</b>) ocurre cuando algo no sale bien: un archivo no existe, el usuario ingresa texto donde esperabas número, dividís por cero, etc.</p>
+<p>Un <b>error</b> (o <b>excepción</b>) ocurre cuando algo sale mal: un archivo no existe, el usuario ingresa texto donde esperabas número, dividís por cero. Por defecto, cuando ocurre un error, el programa <b>se corta</b>.</p>
 
-<p>Por defecto, cuando ocurre un error, el programa <b>se corta</b>. Para manejarlo:</p>
+<p>Para que el programa pueda <b>recuperarse</b>, usás <code>try/except</code>.</p>
 
 <h3>try / except</h3>
 <pre class="code-block">try:
@@ -5237,47 +5887,80 @@ Si querés escribir en varias líneas, tenés que agregar <code>\n</code> al fin
 except ValueError:
     print("Eso no fue un número")</pre>
 
-<p><b>try:</b> "intentá esto".<br>
-<b>except:</b> "si falla, hacé esto otro".</p>
+<ul>
+  <li><b><code>try</code>:</b> "intentá ejecutar este código".</li>
+  <li><b><code>except</code>:</b> "si surge un error de tipo X, hacé esto otro".</li>
+</ul>
+
+<p>Si el código del <code>try</code> se ejecuta sin errores, el <code>except</code> se saltea. Si hay error, se ejecuta el <code>except</code> correspondiente.</p>
 
 <h3>Excepciones más comunes</h3>
 <table class="tbl">
   <tr><th>Excepción</th><th>Cuándo ocurre</th></tr>
-  <tr><td><code>ValueError</code></td><td>Tipo incorrecto: <code>int("hola")</code></td></tr>
-  <tr><td><code>ZeroDivisionError</code></td><td>División por cero</td></tr>
-  <tr><td><code>FileNotFoundError</code></td><td>Archivo inexistente al abrir</td></tr>
-  <tr><td><code>KeyError</code></td><td>Clave no existe en diccionario</td></tr>
-  <tr><td><code>IndexError</code></td><td>Índice fuera de rango en lista</td></tr>
-  <tr><td><code>TypeError</code></td><td>Tipo incompatible: <code>"a" + 5</code></td></tr>
+  <tr><td><code>ValueError</code></td><td>Tipo incorrecto: <code>int("hola")</code>, <code>float("abc")</code></td></tr>
+  <tr><td><code>ZeroDivisionError</code></td><td>División por cero: <code>5 / 0</code></td></tr>
+  <tr><td><code>FileNotFoundError</code></td><td>Abrir archivo inexistente con <code>"r"</code></td></tr>
+  <tr><td><code>KeyError</code></td><td>Acceder a clave no existente en diccionario</td></tr>
+  <tr><td><code>IndexError</code></td><td>Acceder a índice fuera de rango en lista</td></tr>
+  <tr><td><code>TypeError</code></td><td>Tipos incompatibles: <code>"a" + 5</code></td></tr>
+  <tr><td><code>NameError</code></td><td>Usar variable no definida</td></tr>
 </table>
 
 <h3>Múltiples except</h3>
+<p>Podés manejar errores distintos por separado:</p>
 <pre class="code-block">try:
     archivo = open("datos.txt", "r")
     n = int(archivo.readline())
     resultado = 10 / n
+    print(resultado)
 except FileNotFoundError:
     print("No existe el archivo")
 except ValueError:
-    print("El archivo no tiene un número")
+    print("El archivo no tiene un número válido")
 except ZeroDivisionError:
     print("No se puede dividir por cero")</pre>
 
-<h3>Validar entrada de usuario (clásico de parcial)</h3>
-<pre class="code-block">def entPositivo(cartel):
-    pedir = True
-    while pedir:
+<h3>Capturar cualquier excepción</h3>
+<pre class="code-block">try:
+    # algo que puede fallar
+    pass
+except Exception as e:
+    print("Falló algo:", e)</pre>
+<p>Con <code>as e</code> guardás el objeto excepción en <code>e</code> y podés imprimirlo o usarlo.</p>
+
+<h3>else y finally</h3>
+<ul>
+  <li><b><code>else</code>:</b> se ejecuta solo si NO hubo excepción.</li>
+  <li><b><code>finally</code>:</b> se ejecuta siempre (haya error o no). Útil para "limpiar" recursos.</li>
+</ul>
+
+<pre class="code-block">try:
+    archivo = open("datos.txt", "r")
+    contenido = archivo.read()
+except FileNotFoundError:
+    print("No existe el archivo")
+else:
+    print("Lectura exitosa")
+    print(contenido)
+finally:
+    print("Termina la operación")</pre>
+
+<h3>Validación robusta de input (clásico de parcial)</h3>
+<pre class="code-block">def pedir_entero_positivo(cartel):
+    while True:
         try:
             n = int(input(cartel))
             if n &gt; 0:
-                pedir = False
+                return n
             else:
                 print("Tiene que ser mayor que 0")
         except ValueError:
-            print("Tiene que ser entero")
-    return n
+            print("Tiene que ser un entero")
 
-num = entPositivo("Ingresá un natural: ")</pre>
+num = pedir_entero_positivo("Ingresá un natural: ")
+print("Recibido:", num)</pre>
+
+<p>Este patrón cubre dos situaciones a la vez: que el usuario escriba algo no numérico y que escriba un número inválido (≤ 0).</p>
 
 <div class="quiz-wrap" data-qz="5" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -5290,83 +5973,177 @@ num = entPositivo("Ingresá un natural: ")</pre>
 <div class="content">
 
 <h3>¿Qué es una biblioteca?</h3>
-<p>Una <b>biblioteca</b> (library) es código que otros escribieron y podés usar en tus programas importándolo. Evita "reinventar la rueda". Python viene con muchas bibliotecas incluidas, y podés instalar miles más.</p>
+<p>Una <b>biblioteca</b> (library) es código que otros escribieron y podés usar en tus programas importándolo. Evita "reinventar la rueda". Python viene con muchas bibliotecas incluidas (estándar) y miles más se pueden instalar.</p>
 
 <pre class="code-block">import pandas as pd
 import matplotlib.pyplot as plt</pre>
 
-<p><code>import</code> carga la biblioteca. <code>as</code> le da un nombre más corto (alias) para usarla.</p>
+<ul>
+  <li><b><code>import</code></b>: carga la biblioteca.</li>
+  <li><b><code>as</code></b>: le da un nombre más corto (alias) para usarla.</li>
+</ul>
+
+<p><code>pd</code> es el alias estándar de Pandas. <code>plt</code> es el de Matplotlib. Esos alias son convención universal — usalos así.</p>
 
 <h3>¿Qué es Pandas?</h3>
-<p><b>Pandas</b> es la biblioteca estándar para trabajar con datos en forma tabular (como planillas Excel) en Python. Se usa muchísimo en ingeniería, ciencia de datos y análisis.</p>
+<p><b>Pandas</b> es la biblioteca estándar para trabajar con datos en forma <b>tabular</b> (filas y columnas, como una planilla Excel) en Python. Se usa muchísimo en ingeniería, ciencia de datos, finanzas y análisis en general.</p>
 
-<h3>Estructura principal: DataFrame</h3>
-<p>Un <b>DataFrame</b> es una tabla con filas y columnas. Cada columna es una <b>Series</b>.</p>
+<h3>Estructuras principales</h3>
+<ul>
+  <li><b>DataFrame</b>: una tabla con filas y columnas (con etiquetas).</li>
+  <li><b>Series</b>: una sola columna (o fila) con etiquetas.</li>
+</ul>
 
+<h3>Crear un DataFrame</h3>
+
+<h4>Desde un diccionario</h4>
 <pre class="code-block">import pandas as pd
 
-# Desde un diccionario
 datos = {
-    "nombre": ["Ana", "Bruno", "Carla"],
-    "edad":   [25, 30, 28],
-    "ciudad": ["CABA", "Rosario", "CABA"]
+    "nombre": ["Ana", "Bruno", "Carla", "Diego"],
+    "edad":   [25, 30, 28, 35],
+    "ciudad": ["CABA", "Rosario", "CABA", "Mendoza"]
 }
 df = pd.DataFrame(datos)
 print(df)</pre>
 
-<p>Genera una tabla con columnas nombre, edad, ciudad.</p>
+<p>Genera una tabla:</p>
+<pre>
+   nombre  edad   ciudad
+0     Ana    25     CABA
+1   Bruno    30  Rosario
+2   Carla    28     CABA
+3   Diego    35  Mendoza
+</pre>
 
-<h3>Cargar datos desde un CSV</h3>
+<h4>Desde un archivo CSV</h4>
+<p>CSV (Comma-Separated Values) es el formato más común para datos tabulares: un archivo de texto donde cada fila es una línea y las columnas se separan por comas.</p>
+
 <pre class="code-block">df = pd.read_csv("datos.csv")</pre>
 
-<p>CSV (Comma-Separated Values) es el formato más común: archivo de texto donde cada fila es una línea y las columnas están separadas por comas.</p>
+<p>Si el separador es punto y coma (común en archivos europeos):</p>
+<pre class="code-block">df = pd.read_csv("datos.csv", sep=";")</pre>
 
 <h3>Explorar un DataFrame</h3>
 <table class="tbl">
-  <tr><th>Método</th><th>Qué muestra</th></tr>
-  <tr><td><code>df.head()</code></td><td>Primeras 5 filas</td></tr>
+  <tr><th>Comando</th><th>Qué muestra</th></tr>
+  <tr><td><code>df.head()</code></td><td>Primeras 5 filas (o las que pidas: <code>df.head(10)</code>)</td></tr>
   <tr><td><code>df.tail()</code></td><td>Últimas 5 filas</td></tr>
-  <tr><td><code>df.shape</code></td><td>(filas, columnas)</td></tr>
+  <tr><td><code>df.shape</code></td><td>Tupla <code>(filas, columnas)</code></td></tr>
   <tr><td><code>df.columns</code></td><td>Nombres de columnas</td></tr>
-  <tr><td><code>df.info()</code></td><td>Resumen: tipos, no nulos</td></tr>
-  <tr><td><code>df.describe()</code></td><td>Estadísticas básicas de columnas numéricas</td></tr>
+  <tr><td><code>df.dtypes</code></td><td>Tipo de dato de cada columna</td></tr>
+  <tr><td><code>df.info()</code></td><td>Resumen: tipos, nulos, memoria</td></tr>
+  <tr><td><code>df.describe()</code></td><td>Estadísticas básicas (promedio, min, max, etc.) de columnas numéricas</td></tr>
 </table>
 
 <h3>Acceder a columnas</h3>
-<pre class="code-block">df["edad"]          # la columna edad como Series
-df[["nombre","edad"]]   # varias columnas (doble corchetes)</pre>
+<pre class="code-block">df["edad"]              # la columna edad como Series
+df[["nombre", "edad"]]  # varias columnas (corchete doble) → DataFrame nuevo</pre>
 
-<h3>Filtrar filas</h3>
+<div class="trap"><div class="tr-t">Corchete simple vs doble</div>
+• <code>df["edad"]</code> con corchetes simples: devuelve <b>una Series</b> (la columna).<br>
+• <code>df[["edad"]]</code> con corchetes dobles: devuelve <b>un DataFrame</b> con esa única columna.<br>
+• Para varias columnas, sí o sí dobles: <code>df[["a", "b"]]</code>.
+</div>
+
+<h3>Acceder a filas: <code>.iloc</code> y <code>.loc</code></h3>
+<ul>
+  <li><b><code>df.iloc[i]</code></b>: por <b>posición</b> (índice numérico).</li>
+  <li><b><code>df.loc[i]</code></b>: por <b>etiqueta</b> del índice (suele coincidir cuando el índice es 0,1,2,...).</li>
+</ul>
+
+<pre class="code-block">df.iloc[0]      # primera fila
+df.iloc[-1]     # última fila
+df.iloc[0:3]    # primeras 3 filas (slicing)
+
+df.loc[0, "nombre"]   # valor de fila 0, columna nombre</pre>
+
+<h3>Filtrar filas (lo más usado)</h3>
+<p>Le pasás al DataFrame una condición y te devuelve solo las filas que la cumplen:</p>
+
 <pre class="code-block"># Personas mayores de 27
 df[df["edad"] &gt; 27]
 
 # Personas de CABA
 df[df["ciudad"] == "CABA"]
 
-# Combinado (con paréntesis)
-df[(df["edad"] &gt; 25) &amp; (df["ciudad"] == "CABA")]</pre>
+# Combinado: mayor de 25 Y de CABA
+df[(df["edad"] &gt; 25) &amp; (df["ciudad"] == "CABA")]
 
-<div class="trap"><div class="tr-t">En pandas se usa <code>&amp;</code>, <code>|</code>, <code>~</code></div>
-Con DataFrames NO usás <code>and</code>, <code>or</code>, <code>not</code>, sino <code>&amp;</code>, <code>|</code>, <code>~</code>. Y siempre envolvé cada condición con paréntesis.
+# O: de CABA o de Mendoza
+df[(df["ciudad"] == "CABA") | (df["ciudad"] == "Mendoza")]
+
+# Más elegante con isin:
+df[df["ciudad"].isin(["CABA", "Mendoza"])]</pre>
+
+<div class="trap"><div class="tr-t">En pandas se usa <code>&amp;</code>, <code>|</code>, <code>~</code> (NO <code>and</code>, <code>or</code>, <code>not</code>)</div>
+Con DataFrames las condiciones se combinan con:<br>
+• <code>&amp;</code> en lugar de <code>and</code><br>
+• <code>|</code> en lugar de <code>or</code><br>
+• <code>~</code> en lugar de <code>not</code><br><br>
+Y siempre envolvé cada condición con paréntesis: <code>(df["a"] &gt; 5) &amp; (df["b"] == "x")</code>.
 </div>
 
-<h3>Operaciones útiles</h3>
+<h3>Operaciones agregadas (estadísticas)</h3>
 <pre class="code-block">df["edad"].mean()       # promedio
 df["edad"].max()        # máximo
 df["edad"].min()        # mínimo
 df["edad"].sum()        # suma total
-df["ciudad"].value_counts()   # cuántos de cada valor
+df["edad"].count()      # cantidad de no-nulos
+df["edad"].std()        # desvío estándar
+df["edad"].median()     # mediana</pre>
 
-# Ordenar
-df.sort_values("edad")            # ascendente
-df.sort_values("edad", ascending=False)  # descendente
+<h3>Conteos y agrupamientos</h3>
+<pre class="code-block"># Cuántos hay de cada valor
+df["ciudad"].value_counts()
+# CABA       2
+# Rosario    1
+# Mendoza    1
 
-# Agrupar
-df.groupby("ciudad")["edad"].mean()   # promedio de edad por ciudad</pre>
+# Agrupar y agregar
+df.groupby("ciudad")["edad"].mean()
+# Promedio de edad por ciudad
+
+df.groupby("ciudad").size()
+# Cantidad de filas por ciudad</pre>
+
+<h3>Ordenamiento</h3>
+<pre class="code-block">df.sort_values("edad")                  # ascendente
+df.sort_values("edad", ascending=False) # descendente
+df.sort_values(["ciudad", "edad"])      # primero por ciudad, después por edad</pre>
 
 <h3>Agregar / modificar columnas</h3>
 <pre class="code-block">df["mayor_de_edad"] = df["edad"] &gt;= 18
-df["edad_doble"] = df["edad"] * 2</pre>
+df["edad_doble"] = df["edad"] * 2
+df["categoria"] = "joven"   # mismo valor en toda la columna</pre>
+
+<h3>apply: aplicar una función a cada fila o columna</h3>
+<pre class="code-block">def categoria(edad):
+    if edad &lt; 18:
+        return "menor"
+    elif edad &lt; 65:
+        return "adulto"
+    else:
+        return "jubilado"
+
+df["cat"] = df["edad"].apply(categoria)</pre>
+
+<h3>Borrar columnas o filas</h3>
+<pre class="code-block">df = df.drop("ciudad", axis=1)        # borra columna
+df = df.drop(0, axis=0)               # borra fila con índice 0</pre>
+
+<h3>Valores nulos</h3>
+<pre class="code-block">df.isnull()           # DataFrame de True/False
+df.isnull().sum()     # cuántos nulos por columna
+df.dropna()           # borra filas con cualquier nulo
+df.fillna(0)          # rellena nulos con 0</pre>
+
+<div class="trap"><div class="tr-t">Errores típicos en Pandas</div>
+• <b>Confundir corchete simple y doble</b> al pedir columnas.<br>
+• <b>Usar <code>and</code>/<code>or</code></b> en lugar de <code>&amp;</code>/<code>|</code> para filtros.<br>
+• <b>Olvidar paréntesis</b> en condiciones combinadas.<br>
+• <b>Modificar un slice</b> creyendo que afecta al original (puede no funcionar; usá <code>.copy()</code> si querés trabajar aparte).
+</div>
 
 <div class="quiz-wrap" data-qz="6a" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -5379,7 +6156,7 @@ df["edad_doble"] = df["edad"] * 2</pre>
 <div class="content">
 
 <h3>¿Qué es Matplotlib?</h3>
-<p><b>Matplotlib</b> es la biblioteca estándar para crear gráficos en Python. Permite hacer gráficos de línea, barras, dispersión, histogramas, etc.</p>
+<p><b>Matplotlib</b> es la biblioteca estándar para crear gráficos en Python. Permite hacer gráficos de línea, barras, dispersión, histogramas, tortas, y mucho más. La parte que más se usa es <code>pyplot</code>:</p>
 
 <pre class="code-block">import matplotlib.pyplot as plt</pre>
 
@@ -5392,7 +6169,10 @@ y = [2, 4, 1, 5, 3]
 plt.plot(x, y)
 plt.show()</pre>
 
-<p><code>plt.plot(x, y)</code> arma el gráfico. <code>plt.show()</code> lo muestra.</p>
+<ul>
+  <li><code>plt.plot(x, y)</code>: arma el gráfico (puntos x,y unidos con línea).</li>
+  <li><code>plt.show()</code>: lo muestra. En Colab no siempre hace falta — suele aparecer solo.</li>
+</ul>
 
 <h3>Agregar títulos y etiquetas</h3>
 <pre class="code-block">plt.plot(x, y)
@@ -5404,12 +6184,13 @@ plt.show()</pre>
 <h3>Tipos de gráficos principales</h3>
 <table class="tbl">
   <tr><th>Tipo</th><th>Función</th><th>Cuándo usar</th></tr>
-  <tr><td>Línea</td><td><code>plt.plot(x, y)</code></td><td>Evolución en el tiempo, funciones</td></tr>
-  <tr><td>Barras</td><td><code>plt.bar(x, y)</code></td><td>Comparar categorías</td></tr>
-  <tr><td>Barras horizontales</td><td><code>plt.barh(x, y)</code></td><td>Igual que barras pero horizontal</td></tr>
-  <tr><td>Dispersión</td><td><code>plt.scatter(x, y)</code></td><td>Correlación entre variables</td></tr>
-  <tr><td>Histograma</td><td><code>plt.hist(datos)</code></td><td>Distribución de una variable</td></tr>
-  <tr><td>Torta</td><td><code>plt.pie(valores)</code></td><td>Proporciones de un total</td></tr>
+  <tr><td>Línea</td><td><code>plt.plot(x, y)</code></td><td>Evolución en el tiempo, funciones continuas</td></tr>
+  <tr><td>Barras verticales</td><td><code>plt.bar(x, y)</code></td><td>Comparar categorías</td></tr>
+  <tr><td>Barras horizontales</td><td><code>plt.barh(x, y)</code></td><td>Igual pero con etiquetas largas</td></tr>
+  <tr><td>Dispersión</td><td><code>plt.scatter(x, y)</code></td><td>Correlación entre dos variables</td></tr>
+  <tr><td>Histograma</td><td><code>plt.hist(datos, bins=10)</code></td><td>Distribución de una variable numérica</td></tr>
+  <tr><td>Torta</td><td><code>plt.pie(valores, labels=etiq)</code></td><td>Proporciones de un total (pocas categorías)</td></tr>
+  <tr><td>Caja</td><td><code>plt.boxplot(datos)</code></td><td>Mostrar dispersión y outliers</td></tr>
 </table>
 
 <h3>Ejemplo: gráfico de barras</h3>
@@ -5422,16 +6203,44 @@ plt.xlabel("Mes")
 plt.ylabel("Ventas")
 plt.show()</pre>
 
-<h3>Personalización</h3>
-<pre class="code-block">plt.plot(x, y, color="red", linestyle="--", marker="o")
-plt.plot(x, y, label="Serie 1")  # para poder usar legend después
-plt.legend()
-plt.grid()   # muestra la cuadrícula</pre>
+<h3>Ejemplo: dispersión</h3>
+<pre class="code-block">edades = [25, 30, 35, 28, 45, 50]
+salarios = [40000, 50000, 65000, 45000, 80000, 90000]
 
-<h3>Varios gráficos superpuestos</h3>
-<pre class="code-block">plt.plot(x, y1, label="Producto A")
+plt.scatter(edades, salarios)
+plt.xlabel("Edad")
+plt.ylabel("Salario")
+plt.title("Relación edad-salario")
+plt.show()</pre>
+
+<h3>Ejemplo: histograma</h3>
+<pre class="code-block">edades = [22, 25, 24, 30, 28, 35, 40, 26, 33, 29, 31, 27, 32]
+
+plt.hist(edades, bins=5)
+plt.xlabel("Edad")
+plt.ylabel("Frecuencia")
+plt.title("Distribución de edades")
+plt.show()</pre>
+
+<p>El parámetro <code>bins</code> indica en cuántos rangos dividir.</p>
+
+<h3>Personalización de líneas</h3>
+<pre class="code-block">plt.plot(x, y,
+         color="red",      # color de la línea
+         linestyle="--",   # estilo: '-', '--', ':', '-.'
+         linewidth=2,      # grosor
+         marker="o",       # marca cada punto: 'o', 's', '^', 'x'
+         markersize=8)     # tamaño del marker</pre>
+
+<h3>Múltiples series en un mismo gráfico</h3>
+<pre class="code-block">x = [1, 2, 3, 4, 5]
+y1 = [2, 4, 6, 8, 10]
+y2 = [1, 4, 9, 16, 25]
+
+plt.plot(x, y1, label="Producto A")
 plt.plot(x, y2, label="Producto B")
-plt.legend()
+plt.legend()       # muestra las etiquetas
+plt.grid(True)     # cuadrícula
 plt.show()</pre>
 
 <h3>Conectar Pandas con Matplotlib</h3>
@@ -5440,13 +6249,40 @@ plt.show()</pre>
 import matplotlib.pyplot as plt
 
 df = pd.read_csv("ventas.csv")
+
+# Forma 1: pasar columnas a plt
 plt.plot(df["mes"], df["total"])
 plt.title("Ventas mensuales")
 plt.show()
 
-# O incluso más directo
+# Forma 2: usar .plot() del DataFrame (más compacto)
 df.plot(x="mes", y="total", kind="bar")
 plt.show()</pre>
+
+<p>El parámetro <code>kind</code> de <code>df.plot()</code> puede ser: <code>'line'</code>, <code>'bar'</code>, <code>'barh'</code>, <code>'hist'</code>, <code>'scatter'</code>, <code>'pie'</code>, <code>'box'</code>.</p>
+
+<h3>Subplots: varios gráficos en una figura</h3>
+<pre class="code-block">fig, ax = plt.subplots(1, 2, figsize=(10, 4))   # 1 fila, 2 columnas
+
+ax[0].plot(x, y1)
+ax[0].set_title("Serie 1")
+
+ax[1].bar(meses, ventas)
+ax[1].set_title("Ventas")
+
+plt.show()</pre>
+
+<h3>Guardar el gráfico</h3>
+<pre class="code-block">plt.plot(x, y)
+plt.savefig("grafico.png")    # antes de show()
+plt.show()</pre>
+
+<div class="trap"><div class="tr-t">Errores típicos en Matplotlib</div>
+• Olvidar <code>plt.show()</code> al final (a veces no aparece nada).<br>
+• Mezclar gráficos sin <code>plt.figure()</code> nuevo: te superponen.<br>
+• Pasar lista de strings a <code>plt.plot</code> (espera números). Para etiquetas usá <code>plt.bar</code>.<br>
+• Olvidar etiquetas y título — el gráfico queda incompleto.
+</div>
 
 <div class="quiz-wrap" data-qz="6b" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
@@ -5487,110 +6323,168 @@ plt.show()</pre>
 <summary><span class="num">0</span> Unidad Inicial: La Medición <span class="sec-score" id="ss-fisica-0"></span></summary>
 <div class="content">
 
+<h3>¿Qué es la Física?</h3>
+<p>La <b>Física</b> es la ciencia que estudia la naturaleza desde un punto de vista cuantitativo. Su método es: observar, modelar, predecir, medir y verificar. Cada concepto físico (velocidad, fuerza, energía, presión) corresponde a una <b>magnitud</b> que se puede <b>medir</b>.</p>
+
 <h3>¿Qué es medir?</h3>
 <p>Medir una magnitud física es <b>compararla con un patrón</b> que se toma como unidad. Si digo "esta mesa mide 1,80 m", estoy diciendo que su longitud es <b>1,80 veces</b> la unidad "metro".</p>
 
-<p>Toda medición tiene dos partes inseparables: el <b>número</b> y la <b>unidad</b>. Escribir solo "1,80" sin unidad es no decir nada: ¿metros, centímetros, pies?</p>
+<p>Toda medición tiene <b>dos partes inseparables</b>: el <b>número</b> y la <b>unidad</b>. Escribir solo "1,80" sin unidad es no decir nada: ¿metros, centímetros, pies, leguas?</p>
+
+<div class="key"><div class="ky-t">Pequeñas decisiones que importan</div>
+• En matemática se usa coma decimal: <b>1,80</b>. En programación y en muchos textos, punto: <b>1.80</b>. Lo mismo significa.<br>
+• Las unidades nunca van entre paréntesis cuando acompañan a un número: "5 m" ✓, "5 (m)" ✗.<br>
+• Hay un espacio entre el número y la unidad: "5 m" ✓, "5m" ✗ (excepción: símbolos de grado, °C).
+</div>
 
 <h3>El Sistema Internacional (SI)</h3>
-<p>El SI define siete <b>unidades fundamentales</b>. Todas las demás magnitudes se construyen a partir de estas:</p>
+<p>Para que todos midan en lo mismo, en 1960 se acordó el <b>Sistema Internacional de Unidades (SI)</b>. Define <b>siete unidades fundamentales</b>:</p>
 
 <table class="tbl">
-  <tr><th>Magnitud</th><th>Unidad</th><th>Símbolo</th></tr>
-  <tr><td>Longitud</td><td>metro</td><td>m</td></tr>
-  <tr><td>Masa</td><td>kilogramo</td><td>kg</td></tr>
-  <tr><td>Tiempo</td><td>segundo</td><td>s</td></tr>
-  <tr><td>Corriente eléctrica</td><td>ampere</td><td>A</td></tr>
-  <tr><td>Temperatura</td><td>kelvin</td><td>K</td></tr>
-  <tr><td>Cantidad de sustancia</td><td>mol</td><td>mol</td></tr>
-  <tr><td>Intensidad luminosa</td><td>candela</td><td>cd</td></tr>
+  <tr><th>Magnitud</th><th>Unidad</th><th>Símbolo</th><th>Para qué se usa</th></tr>
+  <tr><td>Longitud</td><td>metro</td><td>m</td><td>Distancias, tamaños</td></tr>
+  <tr><td>Masa</td><td>kilogramo</td><td>kg</td><td>Cantidad de materia</td></tr>
+  <tr><td>Tiempo</td><td>segundo</td><td>s</td><td>Duraciones</td></tr>
+  <tr><td>Corriente eléctrica</td><td>ampere</td><td>A</td><td>Electricidad</td></tr>
+  <tr><td>Temperatura</td><td>kelvin</td><td>K</td><td>Calor</td></tr>
+  <tr><td>Cantidad de sustancia</td><td>mol</td><td>mol</td><td>Química</td></tr>
+  <tr><td>Intensidad luminosa</td><td>candela</td><td>cd</td><td>Luz</td></tr>
 </table>
 
-<div class="key"><div class="ky-t">Unidades derivadas</div>
-La <b>velocidad</b> es m/s. La <b>fuerza</b> es kg·m/s² (llamada <b>Newton</b>, N). La <b>presión</b> es N/m² (llamada <b>Pascal</b>, Pa). Siempre se pueden expresar en términos de las siete fundamentales.
-</div>
+<p>Todas las demás magnitudes (velocidad, fuerza, presión, energía...) se construyen como <b>combinaciones</b> de las siete fundamentales. Esas combinaciones se llaman <b>unidades derivadas</b>:</p>
+
+<table class="tbl">
+  <tr><th>Magnitud</th><th>Unidad SI</th><th>Equivalente fundamental</th></tr>
+  <tr><td>Velocidad</td><td>m/s</td><td>m · s⁻¹</td></tr>
+  <tr><td>Aceleración</td><td>m/s²</td><td>m · s⁻²</td></tr>
+  <tr><td>Fuerza</td><td>Newton (N)</td><td>kg · m / s²</td></tr>
+  <tr><td>Presión</td><td>Pascal (Pa)</td><td>N/m² = kg / (m·s²)</td></tr>
+  <tr><td>Energía / trabajo</td><td>Joule (J)</td><td>N · m = kg · m²/s²</td></tr>
+  <tr><td>Potencia</td><td>Watt (W)</td><td>J/s</td></tr>
+</table>
 
 <h3>Prefijos: múltiplos y submúltiplos</h3>
-<p>En lugar de escribir números muy grandes o muy chicos, el SI usa prefijos que multiplican la unidad por potencias de 10.</p>
+<p>En lugar de escribir números muy grandes (10.000.000 m) o muy chicos (0,000003 m), el SI usa <b>prefijos</b> que multiplican la unidad por potencias de 10. Te ahorran ceros y son universales.</p>
 
 <table class="tbl">
-  <tr><th>Prefijo</th><th>Símbolo</th><th>Factor</th></tr>
-  <tr><td>tera</td><td>T</td><td class="c">10¹²</td></tr>
-  <tr><td>giga</td><td>G</td><td class="c">10⁹</td></tr>
-  <tr><td>mega</td><td>M</td><td class="c">10⁶</td></tr>
-  <tr><td>kilo</td><td>k</td><td class="c">10³</td></tr>
-  <tr><td>hecto</td><td>h</td><td class="c">10²</td></tr>
-  <tr><td>deca</td><td>da</td><td class="c">10¹</td></tr>
-  <tr><td>(unidad)</td><td>—</td><td class="c">10⁰</td></tr>
-  <tr><td>deci</td><td>d</td><td class="c">10⁻¹</td></tr>
-  <tr><td>centi</td><td>c</td><td class="c">10⁻²</td></tr>
-  <tr><td>mili</td><td>m</td><td class="c">10⁻³</td></tr>
-  <tr><td>micro</td><td>μ</td><td class="c">10⁻⁶</td></tr>
-  <tr><td>nano</td><td>n</td><td class="c">10⁻⁹</td></tr>
-  <tr><td>pico</td><td>p</td><td class="c">10⁻¹²</td></tr>
+  <tr><th>Prefijo</th><th>Símbolo</th><th>Factor</th><th>Ejemplo</th></tr>
+  <tr><td>tera</td><td>T</td><td class="c">10¹²</td><td>1 TB = 10¹² bytes</td></tr>
+  <tr><td>giga</td><td>G</td><td class="c">10⁹</td><td>2,5 GHz = 2,5·10⁹ Hz</td></tr>
+  <tr><td>mega</td><td>M</td><td class="c">10⁶</td><td>1 MW = 10⁶ W</td></tr>
+  <tr><td>kilo</td><td>k</td><td class="c">10³</td><td>5 km = 5000 m</td></tr>
+  <tr><td>hecto</td><td>h</td><td class="c">10²</td><td>1 hL = 100 L</td></tr>
+  <tr><td>deca</td><td>da</td><td class="c">10¹</td><td>1 dam = 10 m</td></tr>
+  <tr><td>(unidad)</td><td>—</td><td class="c">10⁰</td><td>1 m</td></tr>
+  <tr><td>deci</td><td>d</td><td class="c">10⁻¹</td><td>1 dm = 0,1 m</td></tr>
+  <tr><td>centi</td><td>c</td><td class="c">10⁻²</td><td>2 cm = 0,02 m</td></tr>
+  <tr><td>mili</td><td>m</td><td class="c">10⁻³</td><td>250 mg = 0,25 g</td></tr>
+  <tr><td>micro</td><td>μ</td><td class="c">10⁻⁶</td><td>3 μm = 3·10⁻⁶ m</td></tr>
+  <tr><td>nano</td><td>n</td><td class="c">10⁻⁹</td><td>1 ns = 10⁻⁹ s</td></tr>
+  <tr><td>pico</td><td>p</td><td class="c">10⁻¹²</td><td>1 pF = 10⁻¹² F</td></tr>
 </table>
 
+<div class="key"><div class="ky-t">¡Mayúscula importa!</div>
+• <b>"M"</b> mayúscula = mega (10⁶). <b>"m"</b> minúscula = mili (10⁻³). Confundirlos cambia el resultado por 9 órdenes de magnitud.<br>
+• <b>"k"</b> es kilo y siempre va minúscula (en SI). "K" mayúscula es Kelvin.
+</div>
+
+<h3>Conversión de unidades · paso a paso</h3>
+<p>El método más confiable es el <b>factor de conversión</b>: multiplicás por una <b>fracción que vale 1</b> (numerador y denominador equivalentes), eligiéndola para que las unidades que no querés se cancelen.</p>
+
 <div class="example">
-  <div class="ex-t">Ejemplo</div>
-  5 km = 5 · 10³ m = 5000 m<br>
-  3 μm = 3 · 10⁻⁶ m = 0,000003 m<br>
-  250 mg = 250 · 10⁻³ g = 0,25 g<br>
-  2,5 GHz = 2,5 · 10⁹ Hz = 2.500.000.000 Hz
+  <div class="ex-t">Pasar 72 km/h a m/s</div>
+  Necesitamos convertir km → m y h → s. Usamos dos factores:<br>
+  <span class="m">72 km/h × (1000 m / 1 km) × (1 h / 3600 s) = 72 × 1000 / 3600 m/s = 20 m/s</span>
 </div>
 
-<h3>Conversión de unidades</h3>
-<p>Para convertir, se multiplica por una <b>fracción equivalente a 1</b> (el truco del factor de conversión), eligiéndola de forma que las unidades que no queremos se cancelen.</p>
-
-<div class="formula">
-Ejemplo: pasar 72 km/h a m/s<br>
-72 <span class="frac"><span>km</span><span>h</span></span> · <span class="frac"><span>1000 m</span><span>1 km</span></span> · <span class="frac"><span>1 h</span><span>3600 s</span></span> = 20 <span class="frac"><span>m</span><span>s</span></span>
+<div class="example">
+  <div class="ex-t">Pasar 250 g/cm³ a kg/m³</div>
+  <span class="m">250 (g/cm³) × (1 kg / 1000 g) × (10⁶ cm³ / 1 m³) = 250 × 10³ kg/m³ = 2,5 × 10⁵ kg/m³</span><br>
+  Recordá: 1 m³ = (100 cm)³ = 10⁶ cm³.
 </div>
 
-<div class="key"><div class="ky-t">Regla mnemotécnica</div>
-Para pasar de <b>km/h</b> a <b>m/s</b>: dividís por 3,6.<br>
-Para pasar de <b>m/s</b> a <b>km/h</b>: multiplicás por 3,6.
+<div class="key"><div class="ky-t">Atajos para conversiones frecuentes</div>
+• km/h → m/s: <b>dividís por 3,6</b>. (72 / 3,6 = 20)<br>
+• m/s → km/h: <b>multiplicás por 3,6</b>.<br>
+• g/cm³ → kg/m³: <b>multiplicás por 1000</b>. (1 g/cm³ = 1000 kg/m³)<br>
+• kg/m³ → g/cm³: <b>dividís por 1000</b>.
 </div>
 
 <h3>Notación científica</h3>
-<p>Cualquier número se puede escribir como <span class="m">a · 10<sup>n</sup></span>, con <span class="m">1 ≤ |a| &lt; 10</span> y <span class="m">n</span> entero.</p>
+<p>Cualquier número se puede escribir como <span class="m">a × 10<sup>n</sup></span>, con <b>1 ≤ |a| &lt; 10</b> y <b>n entero</b>. Sirve para escribir números muy grandes o muy chicos sin contar ceros.</p>
 
 <div class="example">
   <div class="ex-t">Ejemplos</div>
-  384.000.000 m = 3,84 · 10⁸ m (distancia Tierra–Luna)<br>
-  0,000 000 091 = 9,1 · 10⁻⁸<br>
-  6,02 · 10²³ (número de Avogadro)
+  • 384.000.000 m = 3,84 × 10⁸ m (distancia Tierra–Luna)<br>
+  • 0,00000091 = 9,1 × 10⁻⁷<br>
+  • 6,02 × 10²³ (número de Avogadro: cantidad de moléculas en 1 mol)<br>
+  • 9,11 × 10⁻³¹ kg (masa del electrón)
 </div>
 
-<h3>Cifras significativas</h3>
-<p>Las <b>cifras significativas</b> de una medición son todos los dígitos que tienen significado, incluido el último que es incierto (el que se "estima").</p>
-
+<h4>Operar con notación científica</h4>
 <ul>
-  <li>Todos los dígitos distintos de cero son significativos.</li>
-  <li>Los ceros <b>entre</b> dígitos distintos de cero son significativos: 1,008 tiene 4 cifras.</li>
-  <li>Los ceros <b>a la izquierda</b> no lo son: 0,0052 tiene 2 cifras.</li>
-  <li>Los ceros <b>a la derecha después del punto decimal</b> sí lo son: 2,50 tiene 3 cifras.</li>
+  <li><b>Multiplicación:</b> <span class="m">(2 × 10³) × (4 × 10⁵) = 8 × 10⁸</span> (multiplicás los <i>a</i>, sumás los exponentes).</li>
+  <li><b>División:</b> <span class="m">(6 × 10⁵) / (3 × 10²) = 2 × 10³</span> (dividís los <i>a</i>, restás los exponentes).</li>
+  <li><b>Suma/resta:</b> tenés que llevar ambos números al <b>mismo exponente</b> primero. <span class="m">2,5 × 10³ + 4 × 10² = 2,5 × 10³ + 0,4 × 10³ = 2,9 × 10³</span>.</li>
+  <li><b>Potencia:</b> <span class="m">(2 × 10³)² = 4 × 10⁶</span>.</li>
 </ul>
 
-<div class="trap"><div class="tr-t">Ojo al operar</div>
-• En <b>sumas y restas</b>: el resultado se conserva con tantos decimales como el dato con menos decimales.<br>
-• En <b>productos y cocientes</b>: el resultado se conserva con tantas cifras significativas como el dato con menos cifras.
+<h3>Cifras significativas</h3>
+<p>Las <b>cifras significativas</b> de una medición son los dígitos que tienen significado, incluido el último que es <b>incierto</b> (el que se "estima" o redondea).</p>
+
+<h4>Reglas para contarlas</h4>
+<ul>
+  <li>Todos los dígitos distintos de cero <b>son</b> significativos.</li>
+  <li>Los ceros <b>entre</b> dígitos no nulos son significativos: 1,008 tiene 4 cifras.</li>
+  <li>Los ceros <b>a la izquierda</b> NO son significativos: 0,0052 tiene 2 cifras.</li>
+  <li>Los ceros <b>a la derecha del punto decimal</b> SÍ son significativos: 2,50 tiene 3 cifras (el 0 indica precisión).</li>
+  <li>Los ceros <b>finales en enteros</b> son ambiguos: 100 puede tener 1, 2 o 3 cifras. Por eso, en física se usa notación científica para evitar la duda: 1,00 × 10² claramente tiene 3 cifras.</li>
+</ul>
+
+<h4>Operar con cifras significativas</h4>
+<div class="trap"><div class="tr-t">Reglas al combinar mediciones</div>
+• En <b>sumas y restas</b>: el resultado se conserva con tantos <b>decimales</b> como el dato con menos decimales.<br>
+&nbsp;&nbsp;Ejemplo: 12,1 + 3,45 = 15,55 → se redondea a <b>15,6</b> (un decimal, como el 12,1).<br>
+• En <b>productos y cocientes</b>: se conserva con tantas <b>cifras significativas</b> como el dato con menos cifras.<br>
+&nbsp;&nbsp;Ejemplo: 4,52 × 3,1 = 14,012 → se redondea a <b>14</b> (2 cifras, como el 3,1).
 </div>
 
 <h3>Orden de magnitud</h3>
-<p>El <b>orden de magnitud</b> de un número es la potencia de 10 más cercana. Sirve para estimar y comparar rápidamente. El diámetro de un átomo es ~10⁻¹⁰ m (orden −10); el de la galaxia, ~10²¹ m (orden 21).</p>
+<p>El <b>orden de magnitud</b> de un número es la potencia de 10 más cercana. Sirve para tener una idea rápida del tamaño y para comparar:</p>
 
-<h3>Análisis dimensional</h3>
+<table class="tbl">
+  <tr><th>Cosa</th><th>Tamaño aproximado</th><th>Orden</th></tr>
+  <tr><td>Diámetro de un átomo</td><td>10⁻¹⁰ m</td><td>−10</td></tr>
+  <tr><td>Una bacteria</td><td>10⁻⁶ m</td><td>−6</td></tr>
+  <tr><td>Una persona</td><td>10⁰ m (1,7 m)</td><td>0</td></tr>
+  <tr><td>Una ciudad</td><td>10⁴ m (10 km)</td><td>4</td></tr>
+  <tr><td>La Tierra (radio)</td><td>10⁷ m</td><td>7</td></tr>
+  <tr><td>Distancia Tierra–Sol</td><td>10¹¹ m</td><td>11</td></tr>
+  <tr><td>Una galaxia</td><td>10²¹ m</td><td>21</td></tr>
+</table>
+
+<h3>Análisis dimensional · validación de fórmulas</h3>
 <p>Una fórmula física tiene que ser <b>dimensionalmente consistente</b>: ambos lados de la igualdad deben tener las mismas unidades. Si no, está mal. Es la primera verificación que tenés que hacer siempre.</p>
 
+<p>La notación: usamos corchetes [X] para "las dimensiones de X". Por ejemplo, [v] = m/s, [a] = m/s², [F] = kg·m/s² = N.</p>
+
 <div class="example">
-  <div class="ex-t">Ejemplo</div>
-  ¿Puede ser correcta <span class="m">v = a · t</span>?<br>
-  [v] = m/s ; [a] = m/s² ; [t] = s.<br>
-  [a · t] = (m/s²)·s = m/s ✓ → dimensionalmente correcta.
+  <div class="ex-t">¿Es correcta v = a · t?</div>
+  [v] = m/s. <br>
+  [a · t] = (m/s²) · s = m/s. ✓ <br>
+  Las dimensiones cuadran. La fórmula es dimensionalmente correcta.
 </div>
 
-<div class="key"><div class="ky-t">Tip Torti</div>
-Si en un examen te queda un resultado "raro" (un peso en segundos, una velocidad en metros), seguro la metiste en algún paso. Volvé a chequear dimensiones.
+<div class="example">
+  <div class="ex-t">¿Es correcta x = ½ · a · t² ?</div>
+  [x] = m. <br>
+  [a · t²] = (m/s²) · s² = m. ✓ <br>
+  El ½ no tiene unidades (es un número puro). Cuadra.
+</div>
+
+<div class="key"><div class="ky-t">Tip Torti: "el resultado raro"</div>
+Si en un examen te queda un resultado con unidades raras (un peso en segundos, una velocidad en metros, una presión en metros), seguro la metiste en algún paso. Volvé a chequear dimensiones.<br><br>
+También funciona al revés: si no recordás una fórmula pero sabés las unidades de cada cosa, podés <b>reconstruirla</b>. Si necesitás una velocidad y tenés distancia y tiempo, sabés que va dividido (m/s).
 </div>
 
 <div class="quiz-wrap" data-qz="0" data-subject="fisica"></div>
@@ -5606,33 +6500,49 @@ Si en un examen te queda un resultado "raro" (un peso en segundos, una velocidad
 <h3>Escalares vs. vectores</h3>
 <p>Hay dos tipos de magnitudes físicas:</p>
 <ul>
-  <li><b>Escalares:</b> quedan completamente descritas por un <b>número y una unidad</b>. Ej: masa (5 kg), temperatura (20 °C), tiempo (3 s), volumen.</li>
-  <li><b>Vectoriales:</b> además del módulo, necesitan <b>dirección y sentido</b>. Ej: velocidad, fuerza, desplazamiento, aceleración.</li>
+  <li><b>Escalares:</b> quedan completamente descritas por un <b>número y una unidad</b>. Ejemplos: masa (5 kg), temperatura (20 °C), tiempo (3 s), volumen (10 L), energía.</li>
+  <li><b>Vectoriales:</b> además del módulo, necesitan <b>dirección y sentido</b>. Ejemplos: velocidad, fuerza, desplazamiento, aceleración, momento.</li>
 </ul>
 
-<p>Un vector tiene <b>cuatro elementos</b>: módulo (longitud), dirección (la recta que lo contiene), sentido (hacia dónde apunta) y punto de aplicación. Se escribe <span class="vec">A⃗</span> o con negrita.</p>
+<p>Ejemplo: si te digo "el viento sopla a 30 km/h", todavía falta info: ¿desde dónde? La velocidad del viento es vectorial. En cambio, la temperatura no necesita "dirección".</p>
+
+<h3>Anatomía de un vector</h3>
+<p>Un vector tiene <b>cuatro elementos</b>:</p>
+<ol>
+  <li><b>Módulo</b> (longitud, magnitud): un número con unidades. Siempre &gt; 0.</li>
+  <li><b>Dirección</b>: la recta que lo contiene.</li>
+  <li><b>Sentido</b>: hacia dónde apunta (sobre la dirección hay dos posibles).</li>
+  <li><b>Punto de aplicación</b>: dónde "empieza".</li>
+</ol>
+
+<p>Se escribe <span class="vec">A⃗</span> con flechita arriba, o con negrita <b>A</b>. El módulo se escribe |<span class="vec">A⃗</span>| o simplemente A (sin flecha).</p>
 
 <h3>Representación gráfica</h3>
-<p>Se dibuja como una flecha. La longitud representa el módulo (a escala) y la flecha indica el sentido. Se suele ubicar desde el origen de coordenadas, y se indica el ángulo respecto del eje x.</p>
+<p>Se dibuja como una <b>flecha</b>: la longitud (a escala) representa el módulo, la flecha indica el sentido. Por convención, los vectores se dibujan partiendo del origen del sistema de coordenadas, y se mide el ángulo respecto del eje x positivo en sentido <b>antihorario</b>.</p>
 
 <h3>Suma de vectores</h3>
-<p>Dos formas equivalentes:</p>
-<ul>
-  <li><b>Regla del paralelogramo:</b> con los dos vectores partiendo del mismo origen, la suma es la diagonal del paralelogramo que forman.</li>
-  <li><b>Método de la poligonal (cabeza-cola):</b> se pone el origen de <span class="vec">B⃗</span> donde termina <span class="vec">A⃗</span>. La suma va desde el origen de <span class="vec">A⃗</span> hasta el final de <span class="vec">B⃗</span>.</li>
-</ul>
+<p>Hay tres formas equivalentes de sumar vectores. Aprendelas todas y elegí la que más te convenga en cada problema.</p>
+
+<h4>Método del paralelogramo</h4>
+<p>Con los dos vectores partiendo del mismo origen, se trazan paralelas y se forma un paralelogramo. La <b>diagonal</b> que sale del origen es la suma <span class="vec">A⃗</span> + <span class="vec">B⃗</span>.</p>
+
+<h4>Método de la poligonal (cabeza-cola)</h4>
+<p>Pegás el origen del segundo vector en el final del primero. La suma va desde el origen del primero hasta el final del segundo. Útil para sumar varios vectores en cadena.</p>
+
+<h4>Método algebraico (componentes)</h4>
+<p>Es el más usado en problemas. Lo vemos abajo.</p>
 
 <h3>Componentes cartesianas</h3>
-<p>Todo vector en el plano se puede descomponer en sus <b>componentes</b> x e y:</p>
+<p>Todo vector en el plano se puede <b>descomponer</b> en sus componentes x e y, que son las "sombras" del vector sobre cada eje:</p>
 
 <div class="formula">
 A<sub>x</sub> = |A⃗| · cos(θ)<br>
 A<sub>y</sub> = |A⃗| · sen(θ)
 </div>
 
-<p>donde θ es el ángulo que forma el vector con el eje <b>x positivo</b>, medido en sentido <b>antihorario</b>.</p>
+<p>donde θ es el ángulo que forma el vector con el <b>eje x positivo</b>, medido en sentido <b>antihorario</b>.</p>
 
-<p>Y al revés, si conocés las componentes:</p>
+<p>Y al revés, si conocés las componentes, podés calcular módulo y ángulo:</p>
 
 <div class="formula">
 |A⃗| = √(A<sub>x</sub>² + A<sub>y</sub>²)<br>
@@ -5640,70 +6550,99 @@ tan(θ) = A<sub>y</sub> / A<sub>x</sub>
 </div>
 
 <div class="trap"><div class="tr-t">Ojo con el cuadrante</div>
-La calculadora devuelve ángulos entre −90° y 90° al calcular arctan. Si el vector está en el 2° o 3° cuadrante, tenés que sumarle 180°. <b>Siempre dibujá el vector para saber en qué cuadrante está.</b>
+La calculadora con arctan devuelve ángulos entre −90° y +90°. Si el vector está en el <b>2° o 3° cuadrante</b>, hay que <b>sumar 180°</b> al ángulo que da la calculadora. Por eso siempre conviene <b>dibujar el vector</b> antes de operar para saber en qué cuadrante está.
+</div>
+
+<div class="example">
+  <div class="ex-t">Componentes de un vector</div>
+  Una fuerza de 50 N forma 30° con la horizontal. Sus componentes son:<br>
+  F<sub>x</sub> = 50 · cos(30°) = 50 · 0,866 ≈ 43,3 N<br>
+  F<sub>y</sub> = 50 · sen(30°) = 50 · 0,5 = 25 N
+</div>
+
+<div class="example">
+  <div class="ex-t">De componentes a módulo y ángulo</div>
+  Un vector tiene F<sub>x</sub> = 4 N, F<sub>y</sub> = 3 N. <br>
+  Módulo: |F⃗| = √(16+9) = √25 = 5 N. <br>
+  Ángulo: tan(θ) = 3/4 → θ = arctan(0,75) ≈ 36,87°.
 </div>
 
 <h3>Versores (vectores unitarios)</h3>
-<p>Los versores son vectores de módulo 1. Los más importantes son:</p>
+<p>Un <b>versor</b> es un vector de módulo 1, indica solo dirección y sentido. Los más importantes son los del sistema cartesiano:</p>
 <ul>
   <li><b>î</b> = (1, 0): apunta en el eje x positivo.</li>
   <li><b>ĵ</b> = (0, 1): apunta en el eje y positivo.</li>
   <li><b>k̂</b> = (0, 0, 1): apunta en el eje z positivo (sólo en 3D).</li>
 </ul>
 
-<p>Un vector se escribe como: <span class="vec">A⃗</span> = A<sub>x</sub> î + A<sub>y</sub> ĵ.</p>
+<p>Un vector se puede expresar como combinación lineal: <span class="vec">A⃗</span> = A<sub>x</sub> î + A<sub>y</sub> ĵ.</p>
 
 <h3>Suma por componentes</h3>
-<p>Si <span class="vec">A⃗</span> = (A<sub>x</sub>, A<sub>y</sub>) y <span class="vec">B⃗</span> = (B<sub>x</sub>, B<sub>y</sub>):</p>
+<p>Es la forma más rápida de sumar. Si <span class="vec">A⃗</span> = (A<sub>x</sub>, A<sub>y</sub>) y <span class="vec">B⃗</span> = (B<sub>x</sub>, B<sub>y</sub>):</p>
 
 <div class="formula">
 <span class="vec">A⃗</span> + <span class="vec">B⃗</span> = (A<sub>x</sub> + B<sub>x</sub>, A<sub>y</sub> + B<sub>y</sub>)<br>
-<span class="vec">A⃗</span> − <span class="vec">B⃗</span> = (A<sub>x</sub> − B<sub>x</sub>, A<sub>y</sub> − B<sub>y</sub>)
+<span class="vec">A⃗</span> − <span class="vec">B⃗</span> = (A<sub>x</sub> − B<sub>x</sub>, A<sub>y</sub> − B<sub>y</sub>)<br>
+k · <span class="vec">A⃗</span> = (k · A<sub>x</sub>, k · A<sub>y</sub>)
+</div>
+
+<div class="example">
+  <div class="ex-t">Suma con descomposición previa</div>
+  <span class="vec">F<sub>1</sub></span> = 10 N a 60° del eje x. <span class="vec">F<sub>2</sub></span> = 8 N a 150°.<br>
+  Componentes:<br>
+  • F<sub>1x</sub> = 10·cos(60°) = 5 ; F<sub>1y</sub> = 10·sen(60°) ≈ 8,66<br>
+  • F<sub>2x</sub> = 8·cos(150°) ≈ −6,93 ; F<sub>2y</sub> = 8·sen(150°) = 4<br>
+  Suma:<br>
+  • R<sub>x</sub> = 5 − 6,93 = −1,93 ; R<sub>y</sub> = 8,66 + 4 = 12,66<br>
+  Módulo: |R⃗| = √(1,93² + 12,66²) ≈ 12,8 N
 </div>
 
 <h3>Producto escalar (o "punto")</h3>
-<p>Da un <b>número</b> (escalar), no un vector. Dos formas:</p>
+<p>Da un <b>número</b> (escalar), no un vector. Tiene dos definiciones equivalentes:</p>
 
 <div class="formula">
-<span class="vec">A⃗</span> · <span class="vec">B⃗</span> = |A⃗| · |B⃗| · cos(θ)<br>
-<span class="vec">A⃗</span> · <span class="vec">B⃗</span> = A<sub>x</sub>·B<sub>x</sub> + A<sub>y</sub>·B<sub>y</sub>
+<span class="vec">A⃗</span> · <span class="vec">B⃗</span> = |A⃗| · |B⃗| · cos(θ) &nbsp;&nbsp; (geométrica)<br>
+<span class="vec">A⃗</span> · <span class="vec">B⃗</span> = A<sub>x</sub>·B<sub>x</sub> + A<sub>y</sub>·B<sub>y</sub> &nbsp;&nbsp; (por componentes)
 </div>
 
-<p>donde θ es el ángulo entre los dos vectores.</p>
+<p>donde θ es el ángulo entre los dos vectores. La primera fórmula es para entender qué significa; la segunda, para calcular.</p>
 
 <div class="key"><div class="ky-t">Usos del producto escalar</div>
-• Cuando es <b>cero</b>: los vectores son <b>perpendiculares</b>.<br>
-• Sirve para calcular el ángulo entre dos vectores: cos(θ) = (<span class="vec">A⃗</span>·<span class="vec">B⃗</span>) / (|<span class="vec">A⃗</span>|·|<span class="vec">B⃗</span>|).<br>
-• En física, el trabajo es un producto escalar: W = <span class="vec">F⃗</span>·<span class="vec">d⃗</span>.
+• Cuando es <b>cero</b>: los vectores son <b>perpendiculares</b> (ortogonales). cos(90°) = 0.<br>
+• Sirve para calcular el <b>ángulo</b> entre dos vectores: cos(θ) = (<span class="vec">A⃗</span>·<span class="vec">B⃗</span>) / (|A⃗|·|B⃗|).<br>
+• En física, el <b>trabajo</b> es un producto escalar: W = <span class="vec">F⃗</span>·<span class="vec">d⃗</span>. Eso explica por qué una fuerza perpendicular al movimiento no hace trabajo.
 </div>
 
 <h3>Producto vectorial (o "cruz")</h3>
-<p>Da un <b>vector perpendicular</b> a los dos originales. Su dirección se obtiene con la <b>regla de la mano derecha</b>.</p>
+<p>Da un <b>vector perpendicular</b> a los dos originales. Su dirección se obtiene con la <b>regla de la mano derecha</b> (apuntás los dedos en la dirección de A, los doblás hacia B; el pulgar te indica el sentido de A × B).</p>
 
 <div class="formula">
 |<span class="vec">A⃗</span> × <span class="vec">B⃗</span>| = |A⃗| · |B⃗| · sen(θ)
 </div>
 
-<p>En componentes (para vectores en el plano xy):</p>
+<p>En componentes (para vectores en el plano xy, el resultado va en el eje z):</p>
 
 <div class="formula">
 <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = (A<sub>x</sub>·B<sub>y</sub> − A<sub>y</sub>·B<sub>x</sub>) k̂
 </div>
 
 <div class="key"><div class="ky-t">Propiedades clave</div>
-• No es conmutativo: <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = −(<span class="vec">B⃗</span> × <span class="vec">A⃗</span>).<br>
-• Si los vectores son <b>paralelos</b>, el producto vectorial es el <b>vector nulo</b>.<br>
+• <b>NO es conmutativo:</b> <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = −(<span class="vec">B⃗</span> × <span class="vec">A⃗</span>). El orden importa.<br>
+• Si los vectores son <b>paralelos</b>, el producto vectorial es el <b>vector nulo</b>. sen(0°) = 0.<br>
 • En física aparece en el <b>momento de una fuerza</b>: <span class="vec">τ⃗</span> = <span class="vec">r⃗</span> × <span class="vec">F⃗</span>.
 </div>
 
+<h3>Ejemplo integrador</h3>
 <div class="example">
-  <div class="ex-t">Ejemplo completo</div>
+  <div class="ex-t">Cuentas completas</div>
   Dados <span class="vec">A⃗</span> = 3î + 4ĵ y <span class="vec">B⃗</span> = −2î + 5ĵ:<br><br>
   • |<span class="vec">A⃗</span>| = √(9+16) = 5<br>
   • |<span class="vec">B⃗</span>| = √(4+25) = √29 ≈ 5,39<br>
-  • <span class="vec">A⃗</span> + <span class="vec">B⃗</span> = 1î + 9ĵ<br>
+  • <span class="vec">A⃗</span> + <span class="vec">B⃗</span> = 1î + 9ĵ ; |suma| = √(1+81) ≈ 9,06<br>
+  • <span class="vec">A⃗</span> − <span class="vec">B⃗</span> = 5î − ĵ<br>
   • <span class="vec">A⃗</span> · <span class="vec">B⃗</span> = 3·(−2) + 4·5 = −6 + 20 = 14<br>
-  • <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = (3·5 − 4·(−2)) k̂ = (15 + 8) k̂ = 23 k̂
+  • <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = (3·5 − 4·(−2)) k̂ = (15 + 8) k̂ = 23 k̂<br>
+  • Ángulo entre ellos: cos(θ) = 14/(5·5,39) ≈ 0,52 → θ ≈ 58,5°
 </div>
 
 <div class="quiz-wrap" data-qz="1" data-subject="fisica"></div>
@@ -5717,90 +6656,142 @@ La calculadora devuelve ángulos entre −90° y 90° al calcular arctan. Si el 
 <div class="content">
 
 <h3>¿De qué trata la estática?</h3>
-<p>La estática estudia los cuerpos que están <b>en equilibrio</b>: en reposo o moviéndose con velocidad constante. No hay aceleración, no hay rotación.</p>
+<p>La <b>estática</b> estudia los cuerpos que están en <b>equilibrio</b>: en reposo o moviéndose con velocidad constante en línea recta. La aceleración es cero, no hay rotación.</p>
+
+<p>En la práctica, casi todos los problemas de estática son situaciones de "cosas que están quietas": una caja apoyada, un cuerpo colgado de cuerdas, una viga sostenida por dos apoyos, un cartel en una pared, un puente.</p>
 
 <h3>Fuerza</h3>
-<p>La <b>fuerza</b> es una magnitud vectorial que describe la interacción entre dos cuerpos. Su unidad en el SI es el <b>Newton</b>:</p>
+<p>La <b>fuerza</b> es una magnitud vectorial que describe la <b>interacción</b> entre dos cuerpos. Una fuerza puede empujar, tirar, sostener o frenar a un cuerpo. Su unidad en el SI es el <b>Newton</b>:</p>
 
 <div class="formula">
 1 N = 1 kg · m/s²
 </div>
 
-<p>El <b>peso</b> de un cuerpo es la fuerza con la que la Tierra lo atrae: P = m · g, donde g ≈ 9,80 m/s² en la Tierra.</p>
+<p>Como referencia: 1 N es aproximadamente lo que pesa una manzana de 100 g.</p>
 
-<h3>Primera condición de equilibrio</h3>
-<p>Para que un <b>punto material</b> (o el centro de masa de un cuerpo extenso) esté en equilibrio, la suma vectorial de todas las fuerzas que actúan sobre él debe ser cero:</p>
+<h3>Peso</h3>
+<p>El <b>peso</b> de un cuerpo es la fuerza con la que la Tierra lo atrae hacia su centro. Es siempre vertical y hacia abajo:</p>
+
+<div class="formula">
+P = m · g
+</div>
+
+<p>donde <b>g</b> es la aceleración de la gravedad. En la superficie terrestre <b>g ≈ 9,80 m/s²</b> (a veces se aproxima a 10 m/s²).</p>
+
+<div class="trap"><div class="tr-t">Masa ≠ peso</div>
+• <b>Masa</b>: cuánta materia tiene un cuerpo. No cambia (siempre 70 kg).<br>
+• <b>Peso</b>: con cuánta fuerza la Tierra (o el planeta) lo atrae. Depende de g. En la Luna pesarías ~6 veces menos pero tu masa es la misma.<br><br>
+En la vida cotidiana usamos "peso" como sinónimo de masa, pero en física <b>no son lo mismo</b>: peso = m · g.
+</div>
+
+<h3>Equilibrio · primera condición</h3>
+<p>Para que un <b>punto material</b> (o el centro de masa de un cuerpo extenso) esté en equilibrio, la suma vectorial de todas las fuerzas que actúan sobre él debe ser <b>cero</b>:</p>
 
 <div class="formula">
 Σ <span class="vec">F⃗</span> = 0<br>
 ⟺ Σ F<sub>x</sub> = 0 &nbsp;y&nbsp; Σ F<sub>y</sub> = 0
 </div>
 
+<p>En palabras: las fuerzas se "compensan" y la resultante es nula.</p>
+
+<h3>Diagrama de cuerpo libre (DCL)</h3>
+<p>El <b>DCL</b> es el primer paso de todo problema. Sin él, no sabés qué fuerzas tenés. Es un dibujo que muestra <b>solo el cuerpo aislado y todas las fuerzas que actúan sobre él</b>.</p>
+
+<div class="key"><div class="ky-t">Pasos para hacer un DCL</div>
+1. <b>Aislar el cuerpo</b>: dibujarlo solo, sin lo que lo rodea.<br>
+2. <b>Identificar interacciones</b>: ¿qué le hacen los otros cuerpos? Cada interacción es una fuerza:
+<ul>
+  <li>La Tierra → peso (siempre).</li>
+  <li>La superficie de apoyo → normal.</li>
+  <li>Una cuerda → tensión.</li>
+  <li>Un resorte → fuerza elástica.</li>
+  <li>Otro cuerpo en contacto → empuje, rozamiento.</li>
+</ul>
+3. <b>Dibujar cada fuerza</b> como flecha desde el cuerpo, en su dirección y sentido.<br>
+4. <b>Elegir un sistema de ejes</b> (x, y) y descomponer cada fuerza.<br>
+5. <b>Plantear las ecuaciones</b>: ΣF<sub>x</sub> = 0, ΣF<sub>y</sub> = 0 para equilibrio.
+</div>
+
+<div class="trap"><div class="tr-t">Lo que NO va en el DCL</div>
+• Las fuerzas que el cuerpo hace <b>sobre otros</b>: por la 3° ley, hay un par acción-reacción, pero esa "otra" fuerza actúa sobre OTRO cuerpo. Solo van las que actúan sobre el cuerpo que aislaste.<br>
+• La velocidad o la aceleración. Esas no son fuerzas.
+</div>
+
+<h3>Vínculos y reacciones</h3>
+<p>Los <b>vínculos</b> son los elementos que sostienen al cuerpo: apoyos, cuerdas, bisagras. Cada vínculo ejerce una <b>reacción de vínculo</b> sobre el cuerpo. Tipos comunes:</p>
+
+<table class="tbl">
+  <tr><th>Vínculo</th><th>Tipo de reacción</th><th>Características</th></tr>
+  <tr><td>Apoyo simple</td><td>Normal (N)</td><td>Perpendicular a la superficie</td></tr>
+  <tr><td>Cuerda / tensor</td><td>Tensión (T)</td><td>Tira a lo largo de la cuerda, hacia afuera del cuerpo</td></tr>
+  <tr><td>Articulación / perno</td><td>Reacción con dos componentes</td><td>R<sub>x</sub> y R<sub>y</sub> (la articulación restringe traslación pero no rotación)</td></tr>
+  <tr><td>Resorte</td><td>Fuerza elástica</td><td>F = k·x, hacia la posición de equilibrio</td></tr>
+  <tr><td>Empotramiento</td><td>Reacción + momento</td><td>Restringe todo movimiento; aparece un momento de reacción</td></tr>
+</table>
+
 <h3>Momento (torque) de una fuerza</h3>
-<p>El <b>momento</b> mide la capacidad de una fuerza para producir un giro alrededor de un eje. Depende de la fuerza, la distancia al eje (brazo) y el ángulo:</p>
+<p>El <b>momento</b> mide la capacidad de una fuerza para producir un <b>giro</b> alrededor de un eje (o un punto). Depende de la fuerza, la distancia al eje y el ángulo:</p>
 
 <div class="formula">
 M = F · d · sen(α)
 </div>
 
-<p>donde <b>d</b> es la distancia del punto de aplicación al eje, y <b>α</b> es el ángulo entre la fuerza y el vector posición. Si la fuerza es perpendicular al brazo, M = F · d.</p>
+<p>donde <b>d</b> es la distancia del punto de aplicación al eje (también llamado <b>brazo</b>), y <b>α</b> es el ángulo entre la fuerza y el vector posición (<span class="vec">r⃗</span>). Si la fuerza es <b>perpendicular</b> al brazo (lo más común): <b>M = F · d</b>.</p>
 
-<p>Unidad: N·m. <b>Signo</b>: por convención, positivo si tiende a girar antihorario y negativo si gira horario (o al revés: lo importante es elegir una convención y ser consistente).</p>
+<p>Unidad: <b>N·m</b>. Y el <b>signo</b>: por convención, positivo si tiende a girar antihorario, negativo si horario (o al revés — lo importante es elegir una y ser consistente).</p>
 
-<h3>Segunda condición de equilibrio</h3>
-<p>Para un <b>cuerpo extenso</b> (no es un punto), además de que la resultante sea cero, la <b>suma de momentos</b> respecto de cualquier punto debe ser cero:</p>
+<h3>Equilibrio extenso · segunda condición</h3>
+<p>Para un <b>cuerpo extenso</b> (no es un punto), la primera condición no alcanza: el cuerpo podría estar acelerando angularmente aunque la suma de fuerzas sea cero (un par puro). Hay que pedir además que la <b>suma de momentos</b> respecto de cualquier punto sea cero:</p>
 
 <div class="formula">
-Σ <span class="vec">F⃗</span> = 0 &nbsp;y&nbsp; Σ M = 0
+Σ <span class="vec">F⃗</span> = 0 &nbsp;Y&nbsp; Σ M = 0
 </div>
 
-<div class="key"><div class="ky-t">Elegir el punto para calcular momentos</div>
-Aunque "cualquier punto" funciona, elegirlo inteligentemente simplifica muchísimo. Poné el punto donde actúa una fuerza desconocida: así su momento es 0 (brazo nulo) y sale de la ecuación. Típicamente se elige <b>el punto de apoyo</b>, donde actúan las reacciones de vínculo.
+<div class="key"><div class="ky-t">Cómo elegir el punto inteligentemente</div>
+Aunque "cualquier punto" funciona, elegirlo bien simplifica muchísimo:<br>
+• Poné el punto donde actúa una fuerza desconocida: así su momento es 0 (brazo nulo) y sale de la ecuación.<br>
+• Típicamente se elige <b>el punto de apoyo</b> donde actúan las reacciones de vínculo.
 </div>
 
 <h3>Centro de gravedad</h3>
-<p>En un cuerpo extenso, el peso se aplica en el <b>centro de gravedad</b> (CG). Para cuerpos <b>homogéneos y simétricos</b>, el CG coincide con el centro geométrico.</p>
+<p>En un cuerpo extenso, el peso se "aplica" en el <b>centro de gravedad (CG)</b>. Para cuerpos <b>homogéneos y simétricos</b>, el CG coincide con el centro geométrico.</p>
 
-<p>Si un cuerpo es una varilla uniforme, su CG está en el <b>centro de la varilla</b>. Una tabla homogénea: centro. Un rectángulo: intersección de las diagonales.</p>
-
-<h3>Vínculos y reacciones</h3>
-<p>Los <b>vínculos</b> son los elementos que sostienen al cuerpo: apoyos, cuerdas, bisagras. Cada uno ejerce una <b>reacción de vínculo</b>:</p>
-
-<ul>
-  <li><b>Apoyo simple:</b> reacción perpendicular a la superficie de apoyo.</li>
-  <li><b>Cuerda o tensor:</b> tensión <b>a lo largo</b> de la cuerda, tirando <b>hacia afuera</b> del cuerpo.</li>
-  <li><b>Articulación o perno:</b> reacción con dos componentes (horizontal y vertical).</li>
-</ul>
-
-<h3>Diagrama de cuerpo libre (DCL)</h3>
-<p>Es el <b>primer paso</b> de todo problema de estática (y de dinámica). Consiste en:</p>
-<ol>
-  <li>Aislar el cuerpo.</li>
-  <li>Dibujar todas las fuerzas que actúan sobre él (peso, normales, tensiones, rozamientos, fuerzas aplicadas).</li>
-  <li>Elegir un sistema de coordenadas.</li>
-  <li>Descomponer cada fuerza en componentes.</li>
-</ol>
-
-<div class="trap"><div class="tr-t">Error típico</div>
-Meter en el DCL fuerzas que NO actúan sobre el cuerpo aislado. Por ejemplo, la fuerza que el cuerpo hace sobre el piso NO va en el DCL del cuerpo (es el par de reacción, pero se aplica al piso).
-</div>
+<table class="tbl">
+  <tr><th>Cuerpo</th><th>Centro de gravedad</th></tr>
+  <tr><td>Varilla uniforme</td><td>El centro de la varilla (mitad)</td></tr>
+  <tr><td>Tabla rectangular</td><td>El centro geométrico (intersección de diagonales)</td></tr>
+  <tr><td>Disco / esfera</td><td>El centro geométrico</td></tr>
+  <tr><td>Triángulo</td><td>El baricentro (a 1/3 desde cada base)</td></tr>
+</table>
 
 <h3>Máquinas simples: la palanca</h3>
-<p>Una palanca está en equilibrio cuando los momentos que producen las fuerzas a ambos lados del punto de apoyo son iguales:</p>
+<p>Una <b>palanca</b> es una barra rígida que gira alrededor de un punto de apoyo (fulcro). Está en equilibrio cuando los momentos a ambos lados son iguales:</p>
 
 <div class="formula">
 F<sub>1</sub> · d<sub>1</sub> = F<sub>2</sub> · d<sub>2</sub>
 </div>
 
-<p>Esta es la base del <b>subibaja</b>: si un chico pesa la mitad, tiene que sentarse al doble de distancia del centro que el otro.</p>
+<p>Esto explica el <b>subibaja</b>: si un chico pesa la mitad, tiene que sentarse al doble de distancia del centro que el otro. La palanca <b>amplifica fuerza a costa de distancia</b>: con poca fuerza pero recorriendo mucho, levantás algo pesado a poca distancia.</p>
 
 <div class="example">
-  <div class="ex-t">Estrategia general para problemas de estática</div>
-  1. Hacer el DCL.<br>
-  2. Identificar el tipo de cuerpo (puntual o extenso).<br>
-  3. Plantear Σ F<sub>x</sub> = 0 y Σ F<sub>y</sub> = 0.<br>
-  4. Si es extenso, plantear Σ M = 0 eligiendo un buen pivote.<br>
-  5. Resolver el sistema de ecuaciones.
+  <div class="ex-t">Estrategia general · problemas de estática</div>
+  1. Hacer el DCL del cuerpo aislado.<br>
+  2. Identificar tipo de cuerpo: ¿puntual o extenso?<br>
+  3. Elegir sistema de ejes; descomponer todas las fuerzas.<br>
+  4. Plantear Σ F<sub>x</sub> = 0 y Σ F<sub>y</sub> = 0.<br>
+  5. Si es extenso, plantear Σ M = 0 eligiendo un buen pivote.<br>
+  6. Resolver el sistema de ecuaciones.<br>
+  7. Verificar dimensiones y razonabilidad del resultado.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: viga apoyada en dos puntos</div>
+  Una viga homogénea de 100 kg y 4 m de largo está apoyada en sus dos extremos A (izquierda) y B (derecha). En el centro hay una carga adicional de 50 kg. ¿Cuánto vale cada reacción?<br><br>
+  El peso de la viga (100·g = 980 N) se aplica en el centro. El peso de la carga (50·g = 490 N) también está en el centro.<br>
+  Total hacia abajo en el centro: 1470 N.<br><br>
+  Por simetría: R<sub>A</sub> = R<sub>B</sub> = 735 N cada una.<br><br>
+  Verificación con momentos respecto de A:<br>
+  Σ M = 0: −1470 · 2 + R<sub>B</sub> · 4 = 0 → R<sub>B</sub> = 735 N ✓
 </div>
 
 <div class="quiz-wrap" data-qz="2" data-subject="fisica"></div>
@@ -5814,112 +6805,148 @@ F<sub>1</sub> · d<sub>1</sub> = F<sub>2</sub> · d<sub>2</sub>
 <div class="content">
 
 <h3>Fluidos</h3>
-<p>Un <b>fluido</b> es una sustancia que puede fluir: líquidos y gases. Se caracteriza porque no tiene forma propia: adopta la del recipiente. La hidrostática estudia los fluidos <b>en reposo</b>.</p>
+<p>Un <b>fluido</b> es una sustancia que puede fluir: <b>líquidos y gases</b>. Lo distingue de un sólido: el fluido <b>no tiene forma propia</b>, adopta la del recipiente. La <b>hidrostática</b> estudia los fluidos <b>en reposo</b>.</p>
 
-<p>Un <b>fluido ideal</b> (modelo que usaremos) es: incompresible (densidad constante), sin viscosidad, y en equilibrio.</p>
+<p>Para simplificar, en esta materia usamos el modelo de <b>fluido ideal</b>:</p>
+<ul>
+  <li><b>Incompresible</b>: la densidad no cambia con la presión (los líquidos son cuasi-incompresibles; los gases NO, pero los aproximamos).</li>
+  <li><b>Sin viscosidad</b>: no hay rozamiento interno.</li>
+  <li><b>En equilibrio</b>: en reposo, sin movimiento.</li>
+</ul>
 
-<h3>Densidad y peso específico</h3>
-<p>La <b>densidad</b> (δ o ρ) mide cuánta masa hay en cada volumen:</p>
+<h3>Densidad</h3>
+<p>La <b>densidad</b> (<b>δ</b> o ρ) mide cuánta masa hay en cada volumen:</p>
 
 <div class="formula">
-δ = <span class="frac"><span>m</span><span>V</span></span>
+δ = m / V
 </div>
 
-<p>Unidad SI: kg/m³. También muy usada: g/cm³ (1 g/cm³ = 1000 kg/m³).</p>
+<p>Unidad SI: kg/m³. También muy usada: g/cm³.</p>
+<p><b>Conversión:</b> 1 g/cm³ = 1000 kg/m³.</p>
 
-<div class="key"><div class="ky-t">Valores de referencia</div>
-• Agua: δ = 1,00 · 10³ kg/m³ = 1,00 g/cm³<br>
-• Agua de mar: 1,03 · 10³ kg/m³<br>
-• Mercurio: 13,6 · 10³ kg/m³<br>
-• Aluminio: 2,70 · 10³ kg/m³<br>
-• Acero: 7,80 · 10³ kg/m³<br>
-• Plomo: 11,3 · 10³ kg/m³
+<div class="key"><div class="ky-t">Densidades de referencia (¡memorizá las primeras!)</div>
+• Agua: 1,00 × 10³ kg/m³ = 1,00 g/cm³ (la referencia)<br>
+• Hielo: 0,92 × 10³ kg/m³ (¡menor que el agua!)<br>
+• Aire (al nivel del mar): 1,29 kg/m³<br>
+• Agua de mar: 1,03 × 10³ kg/m³<br>
+• Aceite: ~0,9 × 10³ kg/m³<br>
+• Aluminio: 2,70 × 10³ kg/m³<br>
+• Hierro/acero: 7,80 × 10³ kg/m³<br>
+• Plomo: 11,3 × 10³ kg/m³<br>
+• Mercurio: 13,6 × 10³ kg/m³ (líquido pero muy denso)<br>
+• Oro: 19,3 × 10³ kg/m³
 </div>
 
-<p>El <b>peso específico</b> (ρ<sub>e</sub>) es peso por unidad de volumen: ρ<sub>e</sub> = δ · g. Unidad: N/m³.</p>
+<h3>Peso específico</h3>
+<p>El <b>peso específico</b> (ρ<sub>e</sub>) es peso por unidad de volumen:</p>
+<div class="formula">
+ρ<sub>e</sub> = δ · g &nbsp;&nbsp; [N/m³]
+</div>
 
 <h3>Presión</h3>
-<p>La <b>presión</b> es la fuerza que un fluido ejerce por unidad de área:</p>
+<p>La <b>presión</b> es la fuerza que un fluido (o cualquier cosa) ejerce <b>por unidad de área</b>:</p>
 
 <div class="formula">
-p = <span class="frac"><span>F</span><span>A</span></span>
+p = F / A
 </div>
 
-<p>Unidad SI: <b>Pascal</b> (Pa) = N/m². Una presión importante es la <b>presión atmosférica</b>:</p>
+<p>Unidad SI: <b>Pascal (Pa)</b> = N/m².</p>
+
+<p>Una presión muy importante en física es la <b>presión atmosférica</b>:</p>
 
 <div class="formula">
-1 atm = 1,013 · 10⁵ Pa ≈ 760 mmHg
+1 atm = 1,013 × 10⁵ Pa ≈ 760 mmHg ≈ 1013 hPa
 </div>
 
 <h3>Teorema fundamental de la hidrostática</h3>
-<p>Dentro de un fluido en reposo, la presión <b>aumenta con la profundidad</b>:</p>
+<p>Dentro de un fluido en reposo, la presión <b>aumenta con la profundidad</b>. Si <b>p<sub>0</sub></b> es la presión en la superficie (típicamente la atmosférica si el fluido está abierto), entonces a una profundidad h:</p>
 
 <div class="formula">
 p = p<sub>0</sub> + δ · g · h
 </div>
 
-<p>donde <b>p<sub>0</sub></b> es la presión en la superficie (si es el aire libre: p<sub>0</sub> = p<sub>atm</sub>) y <b>h</b> es la profundidad.</p>
-
-<div class="key"><div class="ky-t">Consecuencias importantes</div>
-• Todos los puntos a <b>igual profundidad</b> en el mismo fluido tienen la misma presión.<br>
-• La presión <b>no depende</b> de la forma del recipiente, sólo de la profundidad.<br>
-• Una columna de agua de 10 m genera aproximadamente 1 atm de presión extra.
+<div class="key"><div class="ky-t">Tres consecuencias importantes</div>
+1. Todos los puntos a <b>igual profundidad</b> en el mismo fluido tienen la <b>misma presión</b> (vasos comunicantes).<br>
+2. La presión <b>NO depende de la forma</b> del recipiente, sólo de la profundidad.<br>
+3. Una columna de <b>10 m de agua</b> genera aproximadamente <b>1 atm</b> de presión adicional.
 </div>
 
-<h3>Presión manométrica vs. absoluta</h3>
+<h3>Presión absoluta vs. manométrica</h3>
 <ul>
-  <li><b>Presión absoluta</b>: la total (incluye la atmosférica).</li>
+  <li><b>Presión absoluta</b>: la total, incluyendo la atmosférica.</li>
   <li><b>Presión manométrica</b>: la que se lee en un manómetro, es decir, la diferencia respecto de la atmósfera. p<sub>man</sub> = p<sub>abs</sub> − p<sub>atm</sub>.</li>
 </ul>
 
-<h3>Principio de Pascal</h3>
-<p>La presión aplicada a un fluido encerrado se <b>transmite por igual</b> a todos los puntos del fluido y a las paredes del recipiente.</p>
+<p>Cuando inflás una rueda a "32 psi", esa es presión manométrica. La absoluta serían 32 + 14,7 = 46,7 psi.</p>
 
-<p>Aplicación: <b>prensa hidráulica</b>. Si aplicás una fuerza pequeña F<sub>1</sub> en un pistón chico de área A<sub>1</sub>, del otro lado (área grande A<sub>2</sub>) se obtiene una fuerza mucho mayor:</p>
+<h3>Principio de Pascal</h3>
+<p>La presión aplicada a un fluido <b>encerrado</b> se <b>transmite por igual</b> a todos los puntos del fluido y a las paredes del recipiente.</p>
+
+<p><b>Aplicación clásica: prensa hidráulica</b>. Si en un cilindro chico de área A<sub>1</sub> aplicás una fuerza F<sub>1</sub>, en otro grande de área A<sub>2</sub> obtenés F<sub>2</sub>:</p>
 
 <div class="formula">
-<span class="frac"><span>F<sub>1</sub></span><span>A<sub>1</sub></span></span> = <span class="frac"><span>F<sub>2</sub></span><span>A<sub>2</sub></span></span>
+F<sub>1</sub> / A<sub>1</sub> = F<sub>2</sub> / A<sub>2</sub>
 </div>
 
-<p>Así, con poco esfuerzo se levantan autos en un taller. Es la versión hidráulica de la palanca.</p>
+<p>Si A<sub>2</sub> es 100 veces mayor que A<sub>1</sub>, F<sub>2</sub> es 100 veces mayor que F<sub>1</sub>. Así, con poco esfuerzo se levantan autos en un taller.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de prensa</div>
+  En un gato hidráulico, el pistón pequeño tiene área A<sub>1</sub> = 5 cm² y aplicamos F<sub>1</sub> = 100 N. El pistón grande tiene A<sub>2</sub> = 200 cm². ¿Cuánto peso puede levantar?<br><br>
+  F<sub>2</sub> = F<sub>1</sub> · A<sub>2</sub>/A<sub>1</sub> = 100 · 200/5 = <b>4000 N</b><br>
+  Es decir, con un esfuerzo de 100 N (10 kg) levantás 400 kg.
+</div>
 
 <h3>Experiencia de Torricelli y barómetro</h3>
-<p>Torricelli midió la presión atmosférica invirtiendo un tubo lleno de mercurio en una cubeta. El mercurio bajó hasta que la columna equilibró la atmósfera:</p>
+<p>Torricelli midió por primera vez la presión atmosférica invirtiendo un tubo lleno de mercurio en una cubeta. El mercurio bajó hasta que la columna restante equilibró la presión atmosférica:</p>
 
 <div class="formula">
-p<sub>atm</sub> = δ<sub>Hg</sub> · g · h &nbsp;→&nbsp; h ≈ 760 mm
+p<sub>atm</sub> = δ<sub>Hg</sub> · g · h &nbsp;→&nbsp; h ≈ 760 mm de Hg
 </div>
 
-<p>Si hubiera usado agua, la columna sería de unos ~10 m de altura (porque la densidad del agua es mucho menor). Por eso los barómetros usan mercurio.</p>
+<p>Si hubiera usado agua, la columna sería de unos <b>10 m</b> de altura (porque la densidad del agua es ~13,6 veces menor). Por eso los barómetros usan mercurio: se construyen más chicos.</p>
 
 <h3>Principio de Arquímedes</h3>
-<p>Todo cuerpo sumergido (total o parcialmente) en un fluido recibe un <b>empuje vertical hacia arriba</b> igual al peso del fluido desalojado:</p>
+<p>Es un teorema <b>fundamental</b> en hidrostática.</p>
 
 <div class="formula">
+Todo cuerpo sumergido (total o parcialmente) en un fluido recibe un EMPUJE vertical hacia ARRIBA igual al peso del fluido desalojado.<br><br>
 E = δ<sub>fluido</sub> · V<sub>desalojado</sub> · g
 </div>
 
-<div class="key"><div class="ky-t">Las tres situaciones de flotación</div>
-Comparando δ<sub>cuerpo</sub> con δ<sub>fluido</sub>:<br>
-• <b>δ<sub>cuerpo</sub> &lt; δ<sub>fluido</sub></b> → flota (sólo una parte sumergida).<br>
-• <b>δ<sub>cuerpo</sub> = δ<sub>fluido</sub></b> → queda en equilibrio sumergido a cualquier profundidad.<br>
-• <b>δ<sub>cuerpo</sub> &gt; δ<sub>fluido</sub></b> → se hunde.
-</div>
+<p>Notar que el empuje depende del fluido y del volumen desalojado, NO del cuerpo en sí (ni de su masa, ni de su material). Lo único que importa es cuánto fluido "desplaza" al meterse adentro.</p>
+
+<h3>Las tres situaciones de flotación</h3>
+<p>Comparando densidad del cuerpo con densidad del fluido:</p>
+
+<table class="tbl">
+  <tr><th>Caso</th><th>Comportamiento</th></tr>
+  <tr><td>δ<sub>cuerpo</sub> &lt; δ<sub>fluido</sub></td><td><b>Flota</b>: solo una parte queda sumergida (la justa para que E iguale al peso)</td></tr>
+  <tr><td>δ<sub>cuerpo</sub> = δ<sub>fluido</sub></td><td><b>Equilibrio</b>: queda flotando sumergido a cualquier profundidad</td></tr>
+  <tr><td>δ<sub>cuerpo</sub> &gt; δ<sub>fluido</sub></td><td><b>Se hunde</b>: el peso supera al empuje y va al fondo</td></tr>
+</table>
+
+<p>El hielo flota en el agua porque su densidad (0,92 g/cm³) es menor. Un trozo de plomo (11,3 g/cm³) se hunde en el agua, pero <b>flotaría en mercurio</b> (13,6 g/cm³).</p>
 
 <h3>Peso aparente</h3>
-<p>Cuando pesás un objeto sumergido, la balanza lee menos: el empuje "lo ayuda". El <b>peso aparente</b> es:</p>
+<p>Cuando pesás un objeto sumergido (con una balanza tipo dinamómetro), la balanza lee menos: el empuje "lo ayuda" a sostenerse. El <b>peso aparente</b> es:</p>
 
 <div class="formula">
 P<sub>aparente</sub> = P<sub>real</sub> − E
 </div>
 
-<p>De esto se deduce la <b>densidad del objeto</b> midiendo el peso en el aire y el peso sumergido en agua.</p>
+<p>Esta diferencia se usa para <b>medir densidades</b> de objetos: pesás en aire, pesás sumergido en agua, calculás el empuje y de ahí el volumen y la densidad.</p>
 
 <div class="example">
-  <div class="ex-t">Ejemplo (práctica 3, ej 7)</div>
-  Una pieza de metal pesa 90,0 g en el aire y 75,0 g sumergida en agua.<br>
-  La diferencia (15,0 g) es el empuje, que en masa equivalente corresponde al volumen de agua desalojada: V = 15 cm³ (porque δ<sub>agua</sub> = 1 g/cm³).<br>
-  Densidad del metal: δ = m/V = 90/15 = 6,00 g/cm³.
+  <div class="ex-t">Calcular densidad por peso aparente</div>
+  Una pieza de metal pesa 90,0 g en aire y 75,0 g sumergida en agua.<br><br>
+  La diferencia (15,0 g equivalentes en empuje) corresponde al volumen de agua desalojada. Como δ<sub>agua</sub> = 1 g/cm³, ese empuje implica V = 15 cm³.<br><br>
+  Densidad del metal: δ = m/V = 90,0/15,0 = <b>6,00 g/cm³</b><br>
+  (Probablemente un acero al carbono o una aleación parecida.)
+</div>
+
+<div class="key"><div class="ky-t">¿Por qué un barco de acero flota?</div>
+La densidad del acero (7,8 g/cm³) es mucho mayor que la del agua. Si fuera un bloque macizo, se hundiría. Pero un <b>barco</b> tiene mucho aire adentro: la densidad <b>media</b> (acero + aire) es menor que la del agua. Por eso flota. Por eso también cuando un barco tiene una vía de agua y se llena, su densidad media supera a la del agua y se hunde.
 </div>
 
 <div class="quiz-wrap" data-qz="3" data-subject="fisica"></div>
@@ -5932,103 +6959,166 @@ P<sub>aparente</sub> = P<sub>real</sub> − E
 <summary><span class="num">4</span> Cinemática en una dimensión <span class="sec-score" id="ss-fisica-4"></span></summary>
 <div class="content">
 
+<h3>¿Qué es la cinemática?</h3>
+<p>La <b>cinemática</b> estudia el <b>movimiento</b> (cómo se mueven los cuerpos) sin preocuparse de las causas. En cinemática no aparecen las fuerzas — eso es la dinámica. Acá solo describimos: posición, velocidad, aceleración.</p>
+
+<p>En 1 dimensión (1D), el movimiento ocurre a lo largo de una recta. Modelamos al cuerpo como un <b>punto material</b> o <b>partícula</b>: despreciamos su tamaño y forma.</p>
+
 <h3>Conceptos básicos</h3>
-<p>La <b>cinemática</b> estudia el movimiento sin preocuparse por las causas (eso es la dinámica). En 1D el movimiento ocurre a lo largo de una recta (eje x).</p>
 
-<p>Modelo: <b>punto material</b> o <b>partícula</b>. Despreciamos tamaño y forma.</p>
+<h4>Posición</h4>
+<p>La <b>posición</b> <span class="m">x(t)</span> indica dónde está la partícula en cada instante. Depende del <b>sistema de referencia</b> que elijas (el origen y el sentido del eje x positivo).</p>
 
-<ul>
-  <li><b>Posición</b> <span class="m">x(t)</span>: dónde está la partícula en cada instante. Depende del sistema de referencia elegido.</li>
-  <li><b>Desplazamiento</b> <span class="m">Δx = x<sub>f</sub> − x<sub>i</sub></span>: cambio de posición (vectorial).</li>
-  <li><b>Trayectoria</b>: el camino real seguido.</li>
-  <li><b>Distancia recorrida</b>: la longitud de la trayectoria (siempre positiva).</li>
-</ul>
+<h4>Desplazamiento</h4>
+<p>El <b>desplazamiento</b> es el cambio de posición:</p>
+<div class="formula">
+Δx = x<sub>f</sub> − x<sub>i</sub>
+</div>
+<p>Es vectorial (tiene signo). Puede ser positivo o negativo.</p>
+
+<h4>Trayectoria</h4>
+<p>La <b>trayectoria</b> es el camino real seguido. En 1D, una recta o un segmento.</p>
+
+<h4>Distancia recorrida</h4>
+<p>La <b>distancia recorrida</b> es la longitud de la trayectoria. Siempre <b>positiva</b>.</p>
 
 <div class="trap"><div class="tr-t">Desplazamiento ≠ distancia</div>
-Si salís de tu casa, caminás 100 m y volvés, la <b>distancia recorrida</b> es 200 m pero el <b>desplazamiento</b> es 0. No son lo mismo.
+Si salís de tu casa, caminás 100 m hacia el este y volvés:<br>
+• <b>Distancia recorrida</b>: 200 m (positivo siempre).<br>
+• <b>Desplazamiento</b>: 0 m (estás en el mismo lugar).<br><br>
+Confundirlos es uno de los errores más típicos.
 </div>
 
 <h3>Velocidad</h3>
-<p><b>Velocidad media</b>: desplazamiento sobre tiempo.</p>
 
+<h4>Velocidad media</h4>
+<p>Cambio de posición sobre tiempo transcurrido:</p>
 <div class="formula">
-v<sub>m</sub> = <span class="frac"><span>Δx</span><span>Δt</span></span> = <span class="frac"><span>x<sub>f</sub> − x<sub>i</sub></span><span>t<sub>f</sub> − t<sub>i</sub></span></span>
+v<sub>m</sub> = Δx / Δt = (x<sub>f</sub> − x<sub>i</sub>) / (t<sub>f</sub> − t<sub>i</sub>)
 </div>
+<p>Es vectorial (tiene signo según el sentido del movimiento).</p>
 
-<p><b>Rapidez media</b>: distancia recorrida sobre tiempo (es escalar, siempre positiva). No es lo mismo que velocidad media.</p>
+<h4>Rapidez media</h4>
+<p>Distancia recorrida sobre tiempo. Es <b>escalar, siempre positiva</b>. NO es lo mismo que velocidad media. Si volvés al punto de partida, tu velocidad media es 0 pero tu rapidez media no.</p>
 
-<p><b>Velocidad instantánea</b>: límite de la velocidad media cuando Δt → 0. Es la derivada de la posición.</p>
+<h4>Velocidad instantánea</h4>
+<p>Es la velocidad en un momento puntual: el límite de la velocidad media cuando Δt → 0. Matemáticamente, es la derivada de la posición.</p>
 
 <h3>Aceleración</h3>
-<p><b>Aceleración media</b>: cambio de velocidad por unidad de tiempo.</p>
 
+<h4>Aceleración media</h4>
 <div class="formula">
-a<sub>m</sub> = <span class="frac"><span>Δv</span><span>Δt</span></span>
+a<sub>m</sub> = Δv / Δt
+</div>
+<p>Cambio de velocidad por unidad de tiempo. Unidad: m/s².</p>
+
+<h4>Aceleración instantánea</h4>
+<p>La aceleración en un momento puntual. Derivada de la velocidad.</p>
+
+<div class="key"><div class="ky-t">Signos de la aceleración</div>
+• <b>a y v del mismo signo</b>: el cuerpo <b>acelera</b> (aumenta su rapidez).<br>
+• <b>a y v de signos opuestos</b>: el cuerpo <b>frena</b> (disminuye su rapidez).<br><br>
+Por ejemplo, un auto con velocidad +10 m/s y aceleración −2 m/s² está frenando. Si la velocidad fuera −10 m/s y a = −2 m/s², estaría acelerando hacia atrás (la magnitud de la rapidez crece).
 </div>
 
-<p>Unidad: m/s². <b>Aceleración instantánea</b>: derivada de la velocidad.</p>
-
 <h3>Movimiento Rectilíneo Uniforme (MRU)</h3>
-<p>La velocidad es <b>constante</b>. La aceleración es cero. Ecuación horaria:</p>
+<p>El más simple: la <b>velocidad es constante</b>. La aceleración es cero.</p>
 
 <div class="formula">
 x(t) = x<sub>0</sub> + v · t
 </div>
 
-<p>Gráficos: x(t) es una recta; v(t) es una horizontal.</p>
+<p>donde <b>x<sub>0</sub></b> es la posición en t = 0 y <b>v</b> es la velocidad constante.</p>
+
+<p><b>Gráficos:</b></p>
+<ul>
+  <li>x(t) es una <b>recta</b> (con pendiente igual a v).</li>
+  <li>v(t) es una <b>horizontal</b> a la altura v.</li>
+</ul>
 
 <h3>Movimiento Rectilíneo Uniformemente Variado (MRUV)</h3>
-<p>La <b>aceleración es constante</b>. La velocidad cambia linealmente con el tiempo. Ecuaciones horarias:</p>
+<p>La <b>aceleración es constante</b>. La velocidad cambia linealmente con el tiempo.</p>
 
+<p><b>Ecuaciones horarias:</b></p>
 <div class="formula">
 v(t) = v<sub>0</sub> + a · t<br>
-x(t) = x<sub>0</sub> + v<sub>0</sub> · t + <span class="frac"><span>1</span><span>2</span></span> · a · t²
+x(t) = x<sub>0</sub> + v<sub>0</sub> · t + ½ · a · t²
 </div>
 
-<p>Una ecuación <b>sin tiempo</b> muy útil (Torricelli):</p>
+<p>Una ecuación <b>"sin tiempo"</b> muy útil para cuando no te interesa el t (Torricelli):</p>
 
 <div class="formula">
 v² = v<sub>0</sub>² + 2 · a · Δx
 </div>
 
-<p>Gráficos: x(t) es parábola; v(t) es recta; a(t) es horizontal.</p>
-
-<h3>Caída libre y tiro vertical</h3>
-<p>Casos particulares de MRUV con a = −g = −9,80 m/s² (si tomamos y positivo hacia arriba):</p>
-
+<p><b>Gráficos:</b></p>
 <ul>
-  <li><b>Caída libre:</b> se suelta desde el reposo. v<sub>0</sub> = 0.</li>
-  <li><b>Tiro vertical hacia arriba:</b> v<sub>0</sub> &gt; 0. En el punto más alto, v = 0. Luego vuelve a caer.</li>
+  <li>x(t) es una <b>parábola</b>.</li>
+  <li>v(t) es una <b>recta</b> (pendiente igual a a).</li>
+  <li>a(t) es una <b>horizontal</b>.</li>
 </ul>
 
+<h3>Caída libre y tiro vertical</h3>
+<p>Casos particulares de MRUV donde la única aceleración es la gravedad (despreciando rozamiento del aire). Tomamos el eje <b>y</b> hacia arriba positivo, entonces:</p>
+
 <div class="formula">
-y(t) = y<sub>0</sub> + v<sub>0</sub> · t − <span class="frac"><span>1</span><span>2</span></span> · g · t²<br>
+a = −g = −9,80 m/s² (hacia abajo)
+</div>
+
+<p>Las ecuaciones se vuelven:</p>
+<div class="formula">
+y(t) = y<sub>0</sub> + v<sub>0</sub> · t − ½ · g · t²<br>
 v(t) = v<sub>0</sub> − g · t
 </div>
 
+<h4>Caída libre</h4>
+<p>Se suelta el cuerpo desde reposo: <b>v<sub>0</sub> = 0</b>. Cae con aceleración g.</p>
+
+<h4>Tiro vertical hacia arriba</h4>
+<p>Se lanza con v<sub>0</sub> &gt; 0. Sube, llega a una altura máxima, y vuelve a caer.</p>
+
 <div class="key"><div class="ky-t">Simetría del tiro vertical</div>
-El tiempo para subir hasta la altura máxima es <b>igual</b> al tiempo para volver al punto de partida. En ese punto, la rapidez al regresar es la misma con la que salió (con sentido opuesto).
+• En el <b>punto más alto</b>, la velocidad es <b>cero</b> (no es que se "queda quieto", está cambiando de sentido).<br>
+• La aceleración sigue siendo <b>−g</b> en todo el recorrido (incluso en el punto más alto).<br>
+• El tiempo de subida es <b>igual</b> al tiempo de bajada (al mismo nivel).<br>
+• La rapidez al volver al nivel inicial es la <b>misma</b> que la del lanzamiento, con sentido opuesto.
 </div>
 
-<h3>Interpretación gráfica</h3>
-<p>Los gráficos son la otra mitad de la cinemática. Claves:</p>
+<div class="example">
+  <div class="ex-t">Cuánto tarda en caer una piedra desde 20 m</div>
+  Datos: y<sub>0</sub> = 20 m, v<sub>0</sub> = 0, g = 10 m/s² (aproximación).<br>
+  La piedra toca el suelo cuando y = 0:<br>
+  0 = 20 − ½ · 10 · t² → t² = 4 → t = 2 s.<br>
+  Velocidad al chocar: v = 0 − 10 · 2 = −20 m/s (negativo = hacia abajo).
+</div>
 
-<ul>
-  <li><b>En x(t):</b> la pendiente es la velocidad.</li>
-  <li><b>En v(t):</b> la pendiente es la aceleración; el <b>área bajo la curva</b> es el desplazamiento.</li>
-  <li><b>En a(t):</b> el área bajo la curva es el cambio de velocidad.</li>
-</ul>
+<h3>Interpretación gráfica · clave para el parcial</h3>
+<table class="tbl">
+  <tr><th>Gráfico</th><th>Pendiente</th><th>Área bajo la curva</th></tr>
+  <tr><td>x(t)</td><td>velocidad</td><td>—</td></tr>
+  <tr><td>v(t)</td><td>aceleración</td><td>desplazamiento Δx</td></tr>
+  <tr><td>a(t)</td><td>—</td><td>cambio de velocidad Δv</td></tr>
+</table>
+
+<p>Saber leer estos gráficos vale tanto como saber calcular: en el parcial te dan un v(t) y te preguntan cuánto se desplazó (= área bajo el gráfico). Si v(t) es una recta, el área es un trapecio o triángulo (no hace falta integral).</p>
 
 <h3>Problemas de encuentro</h3>
-<p>Dos móviles se encuentran cuando están en la misma posición al mismo tiempo. Se plantean sus ecuaciones x<sub>A</sub>(t) y x<sub>B</sub>(t), se igualan y se despeja t.</p>
+<p>Dos móviles se encuentran cuando están en la <b>misma posición al mismo tiempo</b>. Estrategia:</p>
+<ol>
+  <li>Plantear las ecuaciones x<sub>A</sub>(t) y x<sub>B</sub>(t) con el mismo origen.</li>
+  <li>Igualar: x<sub>A</sub>(t) = x<sub>B</sub>(t).</li>
+  <li>Despejar t.</li>
+  <li>Reemplazar t en alguna ecuación para hallar la posición de encuentro.</li>
+</ol>
 
 <div class="example">
-  <div class="ex-t">Estrategia para problemas de cinemática</div>
-  1. Dibujá la situación y elegí un sistema de referencia (eje + origen).<br>
-  2. Anotá los datos con sus signos según el sistema.<br>
-  3. Identificá el tipo de movimiento (MRU, MRUV).<br>
+  <div class="ex-t">Estrategia general · cinemática 1D</div>
+  1. Dibujá la situación. Elegí sistema de referencia (eje + origen + sentido positivo).<br>
+  2. Anotá los datos con sus signos según ese sistema.<br>
+  3. Identificá el tipo de movimiento (MRU, MRUV, caída libre).<br>
   4. Escribí las ecuaciones horarias.<br>
-  5. Usá las condiciones del problema (por ej: "en el punto más alto v = 0", "cuando cae al suelo y = 0") para despejar lo que te piden.
+  5. Usá las condiciones del problema (en el punto más alto v=0, cuando llega al suelo y=0, etc.) para despejar lo que te piden.<br>
+  6. Verificá: ¿el resultado tiene sentido? ¿unidades correctas?
 </div>
 
 <div class="quiz-wrap" data-qz="4" data-subject="fisica"></div>
@@ -6044,25 +7134,29 @@ El tiempo para subir hasta la altura máxima es <b>igual</b> al tiempo para volv
 <div class="content">
 
 <h3>Movimiento en el plano</h3>
-<p>Ahora el movimiento ocurre en un plano. La posición se describe con un vector: <span class="vec">r⃗</span>(t) = x(t) î + y(t) ĵ. El desplazamiento, la velocidad y la aceleración también son vectores.</p>
+<p>Ahora el movimiento ocurre en un plano. La posición se describe con un <b>vector posición</b>: <span class="vec">r⃗</span>(t) = x(t) î + y(t) ĵ. Desplazamiento, velocidad y aceleración también son vectores.</p>
 
 <div class="formula">
 <span class="vec">v⃗</span>(t) = v<sub>x</sub>(t) î + v<sub>y</sub>(t) ĵ<br>
 <span class="vec">a⃗</span>(t) = a<sub>x</sub>(t) î + a<sub>y</sub>(t) ĵ
 </div>
 
-<p>Una propiedad clave: el movimiento en cada eje es <b>independiente</b>. Lo que pasa en x no afecta a lo que pasa en y. Esto permite resolver movimientos 2D como dos problemas 1D separados.</p>
+<h3>El principio de independencia de los movimientos</h3>
+<div class="key"><div class="ky-t">La idea clave</div>
+El movimiento en cada eje es <b>independiente</b>. Lo que pasa en x no afecta a lo que pasa en y. Esto permite resolver cualquier movimiento 2D como <b>dos problemas 1D separados</b>: uno en x y otro en y, conectados solo por el tiempo.
+</div>
 
 <h3>Tiro oblicuo</h3>
 <p>Un proyectil se lanza con velocidad inicial <span class="vec">v<sub>0</sub>⃗</span> formando un ángulo α con la horizontal. Las componentes son:</p>
 
 <div class="formula">
-v<sub>0x</sub> = v<sub>0</sub> · cos(α) &nbsp;(constante durante el vuelo)<br>
+v<sub>0x</sub> = v<sub>0</sub> · cos(α) &nbsp;(constante durante el vuelo, no hay fuerza horizontal)<br>
 v<sub>0y</sub> = v<sub>0</sub> · sen(α)
 </div>
 
 <p>La única fuerza es la gravedad: a<sub>x</sub> = 0, a<sub>y</sub> = −g.</p>
 
+<p><b>Ecuaciones horarias:</b></p>
 <div class="formula">
 x(t) = x<sub>0</sub> + v<sub>0x</sub> · t<br>
 y(t) = y<sub>0</sub> + v<sub>0y</sub> · t − ½ · g · t²<br>
@@ -6070,57 +7164,83 @@ v<sub>x</sub>(t) = v<sub>0x</sub><br>
 v<sub>y</sub>(t) = v<sub>0y</sub> − g · t
 </div>
 
-<p>La trayectoria es una <b>parábola</b>.</p>
+<p>El movimiento en x es <b>MRU</b>; el movimiento en y es <b>caída libre con velocidad inicial</b>. La trayectoria resultante es una <b>parábola</b>.</p>
 
-<div class="key"><div class="ky-t">Datos útiles del tiro oblicuo (lanzado y recibido a la misma altura)</div>
-• Altura máxima: h<sub>max</sub> = v<sub>0</sub>² · sen²(α) / (2g).<br>
-• Tiempo de vuelo: t<sub>vuelo</sub> = 2 · v<sub>0</sub> · sen(α) / g.<br>
-• Alcance horizontal: R = v<sub>0</sub>² · sen(2α) / g.<br>
-• El <b>alcance máximo</b> (a igual altura) se da con α = 45°.<br>
-• En la altura máxima, v<sub>y</sub> = 0, pero v<sub>x</sub> sigue siendo la inicial.
+<div class="key"><div class="ky-t">Datos útiles del tiro oblicuo (lanzado y recibido a igual altura)</div>
+• <b>Altura máxima</b>: h<sub>max</sub> = v<sub>0</sub>² · sen²(α) / (2g)<br>
+• <b>Tiempo de vuelo</b>: t<sub>vuelo</sub> = 2 · v<sub>0</sub> · sen(α) / g<br>
+• <b>Alcance horizontal</b>: R = v<sub>0</sub>² · sen(2α) / g<br>
+• <b>Alcance máximo</b> (a igual altura): se da con <b>α = 45°</b>.<br>
+• <b>En la altura máxima</b>: v<sub>y</sub> = 0, pero v<sub>x</sub> sigue siendo la inicial (no se detiene la velocidad horizontal).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Un proyectil se lanza con v<sub>0</sub> = 30 m/s a 60° con la horizontal. ¿Altura máxima y alcance?<br><br>
+  Componentes: v<sub>0x</sub> = 30·cos(60°) = 15 m/s ; v<sub>0y</sub> = 30·sen(60°) ≈ 26 m/s.<br>
+  En la altura máxima v<sub>y</sub> = 0:<br>
+  0 = 26 − 10·t → t = 2,6 s (subida).<br>
+  Altura máxima: h = 26·2,6 − ½·10·2,6² = 67,6 − 33,8 = 33,8 m.<br>
+  Tiempo total de vuelo: 5,2 s. Alcance: x = 15·5,2 = 78 m.
 </div>
 
 <h3>Coordenadas intrínsecas</h3>
-<p>En una trayectoria curva, conviene descomponer la aceleración en dos direcciones naturales:</p>
+<p>En una trayectoria curva, conviene descomponer la aceleración en dos direcciones <b>naturales</b> al movimiento:</p>
 <ul>
-  <li><b>Aceleración tangencial</b> <span class="m">a<sub>t</sub></span>: tangente a la trayectoria, cambia la <b>rapidez</b>. a<sub>t</sub> = dv/dt.</li>
-  <li><b>Aceleración normal (centrípeta)</b> <span class="m">a<sub>n</sub></span>: perpendicular a la trayectoria, cambia la <b>dirección</b>. a<sub>n</sub> = v²/R, donde R es el radio de curvatura.</li>
+  <li><b>Aceleración tangencial</b> a<sub>t</sub>: tangente a la trayectoria. <b>Cambia la rapidez</b>. a<sub>t</sub> = dv/dt.</li>
+  <li><b>Aceleración normal</b> (centrípeta) a<sub>n</sub>: perpendicular a la trayectoria, hacia el centro de curvatura. <b>Cambia la dirección</b>. a<sub>n</sub> = v²/R, donde R es el radio de curvatura.</li>
 </ul>
 
 <div class="formula">
 |<span class="vec">a⃗</span>| = √(a<sub>t</sub>² + a<sub>n</sub>²)
 </div>
 
-<h3>Movimiento circular uniforme (MCU)</h3>
-<p>La partícula recorre una circunferencia de radio R con <b>rapidez constante</b>. Aunque la rapidez no cambia, <b>la velocidad sí</b> (cambia de dirección), por lo tanto hay aceleración: la centrípeta.</p>
-
-<div class="formula">
-a<sub>c</sub> = <span class="frac"><span>v²</span><span>R</span></span> = ω² · R
+<div class="key"><div class="ky-t">Los dos efectos de una aceleración</div>
+Una aceleración cambia la velocidad (que es vectorial). Hay dos formas de cambiarla:<br>
+• Cambiar el <b>módulo</b> (rapidez) → es la componente tangencial.<br>
+• Cambiar la <b>dirección</b> → es la componente normal.<br>
+Por eso una partícula puede tener aceleración aunque su rapidez sea constante, si la dirección cambia (movimiento circular uniforme).
 </div>
 
-<p>apuntando hacia el centro de la circunferencia.</p>
-
-<h3>Variables angulares</h3>
-<ul>
-  <li><b>Posición angular</b> θ: medida en radianes.</li>
-  <li><b>Velocidad angular</b> ω = dθ/dt: en rad/s.</li>
-  <li><b>Período</b> T: tiempo en dar una vuelta.</li>
-  <li><b>Frecuencia</b> f = 1/T: vueltas por segundo (Hz).</li>
-</ul>
+<h3>Movimiento circular uniforme (MCU)</h3>
+<p>La partícula recorre una circunferencia de radio R con <b>rapidez constante</b>. La rapidez no cambia, pero <b>la velocidad sí</b> (cambia de dirección continuamente). Por eso hay aceleración: la <b>centrípeta</b>.</p>
 
 <div class="formula">
-ω = <span class="frac"><span>2π</span><span>T</span></span> = 2π · f<br>
+a<sub>c</sub> = v² / R = ω² · R
+</div>
+
+<p>siempre apuntando <b>hacia el centro</b> de la circunferencia.</p>
+
+<h3>Variables angulares</h3>
+<table class="tbl">
+  <tr><th>Variable</th><th>Definición</th><th>Unidad</th></tr>
+  <tr><td>Posición angular θ</td><td>Ángulo barrido desde la posición inicial</td><td>rad</td></tr>
+  <tr><td>Velocidad angular ω</td><td>ω = dθ/dt</td><td>rad/s</td></tr>
+  <tr><td>Período T</td><td>Tiempo de una vuelta completa</td><td>s</td></tr>
+  <tr><td>Frecuencia f</td><td>Vueltas por segundo: f = 1/T</td><td>Hz</td></tr>
+</table>
+
+<div class="formula">
+ω = 2π / T = 2π · f<br>
 v = ω · R
 </div>
 
 <h3>Movimiento relativo</h3>
-<p>La velocidad depende del sistema de referencia. Si un bote navega con velocidad <span class="vec">v⃗</span><sub>bote/agua</sub> respecto del agua, y el agua se mueve con velocidad <span class="vec">v⃗</span><sub>agua/tierra</sub> respecto de la tierra, entonces:</p>
+<p>La velocidad <b>depende del sistema de referencia</b>. Lo que es 0 m/s en un sistema puede ser 60 km/h en otro. Si quiero la velocidad de un cuerpo respecto de un sistema, la calculo como suma de velocidades intermedias:</p>
 
 <div class="formula">
-<span class="vec">v⃗</span><sub>bote/tierra</sub> = <span class="vec">v⃗</span><sub>bote/agua</sub> + <span class="vec">v⃗</span><sub>agua/tierra</sub>
+<span class="vec">v⃗</span><sub>A/C</sub> = <span class="vec">v⃗</span><sub>A/B</sub> + <span class="vec">v⃗</span><sub>B/C</sub>
 </div>
 
-<p>Es simplemente <b>suma vectorial</b> de velocidades relativas.</p>
+<p>Léase: "velocidad de A respecto de C = velocidad de A respecto de B + velocidad de B respecto de C". Es <b>suma vectorial</b>.</p>
+
+<div class="example">
+  <div class="ex-t">Bote cruzando un río</div>
+  Un bote navega a 4 m/s respecto del agua, perpendicular a la corriente. La corriente del río tiene 3 m/s. ¿Cuál es la velocidad del bote respecto de la orilla?<br><br>
+  v⃗<sub>bote/orilla</sub> = v⃗<sub>bote/agua</sub> + v⃗<sub>agua/orilla</sub><br>
+  Como son perpendiculares: |v⃗<sub>bote/orilla</sub>| = √(16 + 9) = 5 m/s.<br>
+  El bote cruza pero también es arrastrado río abajo.
+</div>
 
 <div class="quiz-wrap" data-qz="5" data-subject="fisica"></div>
 <a class="back" href="#subject-fisica">↑ Volver al índice</a>
@@ -6132,17 +7252,19 @@ v = ω · R
 <summary><span class="num">6</span> Dinámica <span class="sec-score" id="ss-fisica-6"></span></summary>
 <div class="content">
 
-<h3>La dinámica</h3>
-<p>La dinámica explica <b>por qué</b> se mueven los cuerpos. El personaje central: la <b>fuerza</b>, y quien los ordenó: <b>Newton</b>.</p>
+<h3>¿Qué es la dinámica?</h3>
+<p>La dinámica explica <b>por qué</b> se mueven los cuerpos. Conecta las <b>fuerzas</b> con el <b>movimiento</b>. Quien la formuló: <b>Isaac Newton</b>, con sus tres leyes.</p>
 
 <h3>Primera Ley de Newton (principio de inercia)</h3>
-<p>Todo cuerpo permanece en reposo o en MRU (v constante) si no actúa sobre él ninguna fuerza neta:</p>
+<p>Todo cuerpo permanece en reposo o en MRU (velocidad constante en línea recta) <b>si no actúa sobre él ninguna fuerza neta</b>:</p>
 
 <div class="formula">
 Si Σ <span class="vec">F⃗</span> = 0 → <span class="vec">v⃗</span> = constante
 </div>
 
-<p>Los sistemas de referencia donde esta ley vale son <b>inerciales</b>.</p>
+<p>Lectura inversa: si un cuerpo tiene velocidad constante, <b>la suma de fuerzas sobre él es cero</b>. Esto incluye el caso particular del reposo (v = 0).</p>
+
+<p>Los sistemas de referencia donde esta ley vale se llaman <b>inerciales</b>. La Tierra es <b>aproximadamente</b> inercial para problemas comunes.</p>
 
 <h3>Segunda Ley de Newton</h3>
 <p>La fuerza neta sobre un cuerpo es igual al producto de su masa por su aceleración:</p>
@@ -6151,91 +7273,130 @@ Si Σ <span class="vec">F⃗</span> = 0 → <span class="vec">v⃗</span> = cons
 Σ <span class="vec">F⃗</span> = m · <span class="vec">a⃗</span>
 </div>
 
-<p>La dirección de la aceleración coincide con la dirección de la fuerza neta.</p>
+<p>Tres consecuencias importantes:</p>
+<ul>
+  <li>La <b>dirección</b> de la aceleración coincide con la dirección de la fuerza neta.</li>
+  <li>A igual fuerza, mayor masa → menor aceleración (más "inercia").</li>
+  <li>Si la fuerza neta es cero, no hay aceleración (1° ley).</li>
+</ul>
 
-<div class="key"><div class="ky-t">La más importante</div>
-Casi todos los problemas de dinámica se resuelven con esta ley. La fórmula se aplica <b>en cada eje por separado</b>:<br>
-Σ F<sub>x</sub> = m · a<sub>x</sub> &nbsp;y&nbsp; Σ F<sub>y</sub> = m · a<sub>y</sub>
+<div class="key"><div class="ky-t">La fórmula más importante</div>
+Casi todos los problemas de dinámica se resuelven con esta ley. Se aplica <b>en cada eje por separado</b>:<br>
+Σ F<sub>x</sub> = m · a<sub>x</sub><br>
+Σ F<sub>y</sub> = m · a<sub>y</sub><br><br>
+Si el cuerpo no se mueve en uno de los ejes (típico: y), la aceleración en ese eje es 0 y queda Σ F<sub>y</sub> = 0 (que es la condición de equilibrio).
 </div>
 
 <h3>Tercera Ley de Newton (acción y reacción)</h3>
-<p>Si el cuerpo A ejerce una fuerza sobre el cuerpo B, entonces B ejerce sobre A una fuerza de <b>igual módulo y dirección pero sentido opuesto</b>.</p>
+<p>Si el cuerpo A ejerce una fuerza sobre B, entonces B ejerce sobre A una fuerza de <b>igual módulo y dirección, sentido opuesto</b>.</p>
 
-<div class="trap"><div class="tr-t">Par acción-reacción ≠ equilibrio</div>
-Las fuerzas del par acción-reacción actúan sobre <b>cuerpos distintos</b>. No se cancelan entre sí. La fuerza que la Tierra hace sobre vos (tu peso) y la que vos hacés sobre la Tierra son un par; pero en tu DCL sólo ponés el peso.
+<div class="trap"><div class="tr-t">El par acción-reacción NO se cancela</div>
+Las fuerzas del par actúan sobre <b>cuerpos distintos</b>. La fuerza que la Tierra hace sobre vos (tu peso) y la que vos hacés sobre la Tierra son un par; pero en el DCL <b>tuyo</b> sólo va el peso. La otra fuerza actúa sobre la Tierra, no sobre vos.<br><br>
+Confusión clásica: pensar que peso y normal son par acción-reacción. <b>NO lo son</b>: ambas fuerzas actúan sobre el mismo cuerpo (vos), por eso se compensan numéricamente cuando estás en equilibrio. Pero no son un par: el peso lo hace la Tierra; la normal la hace el piso.
 </div>
 
 <h3>Tipos de fuerzas comunes</h3>
+
 <h4>Peso</h4>
-<p>P = m · g. Siempre vertical, hacia abajo. Se aplica en el CG.</p>
+<p>P = m · g. Vertical, hacia abajo. Aplicado en el CG. Lo que la Tierra te tira.</p>
 
 <h4>Fuerza normal (N)</h4>
-<p>La ejerce una superficie sobre un cuerpo apoyado en ella. Es <b>perpendicular a la superficie</b>. Su módulo se calcula a partir de las ecuaciones, <b>no es siempre igual al peso</b>.</p>
+<p>La que ejerce una superficie sobre un cuerpo apoyado. Es <b>perpendicular a la superficie</b>. Su módulo NO siempre vale el peso: se calcula a partir de las ecuaciones según el caso.</p>
 
 <h4>Tensión (T)</h4>
-<p>Fuerza que transmite una cuerda ideal. Va a lo largo de la cuerda, alejándose del cuerpo. En cuerdas ideales (sin masa), la tensión es la misma a lo largo de toda la cuerda.</p>
+<p>Fuerza que transmite una cuerda <b>ideal</b> (sin masa, inextensible). Va a lo largo de la cuerda, <b>tirando hacia afuera del cuerpo</b>. En cuerdas ideales, la tensión es la misma en toda la cuerda. Las cuerdas SOLO tiran (nunca empujan).</p>
 
 <h4>Rozamiento (f<sub>r</sub>)</h4>
 <p>Fuerza tangente a la superficie, que se opone al movimiento (o a la tendencia al movimiento). Dos tipos:</p>
-<ul>
-  <li><b>Estático</b> f<sub>s</sub> ≤ μ<sub>s</sub> · N. Actúa cuando hay tendencia al movimiento pero el cuerpo aún no se mueve. Vale lo necesario para mantener el reposo, hasta un máximo.</li>
-  <li><b>Dinámico</b> f<sub>d</sub> = μ<sub>d</sub> · N. Actúa cuando el cuerpo ya se mueve. Es <b>constante</b> (mientras N lo sea).</li>
-</ul>
 
-<p>Típicamente μ<sub>s</sub> &gt; μ<sub>d</sub>: por eso cuesta más arrancar que mantener en movimiento.</p>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Fórmula</th><th>Cuándo</th></tr>
+  <tr><td>Estático</td><td>f<sub>s</sub> ≤ μ<sub>s</sub> · N</td><td>El cuerpo aún no se mueve. Vale lo necesario para mantenerlo, hasta un máximo.</td></tr>
+  <tr><td>Dinámico</td><td>f<sub>d</sub> = μ<sub>d</sub> · N</td><td>El cuerpo ya se mueve. Es constante (mientras N lo sea).</td></tr>
+</table>
+
+<p>Típicamente <b>μ<sub>s</sub> &gt; μ<sub>d</sub></b>: por eso cuesta más arrancar que mantener en movimiento.</p>
 
 <h4>Fuerza elástica (ley de Hooke)</h4>
-<p>Un resorte estirado (o comprimido) una longitud x desde su equilibrio, ejerce:</p>
+<p>Un resorte estirado (o comprimido) una distancia x desde su equilibrio ejerce:</p>
 
 <div class="formula">
 F<sub>elast</sub> = −k · x
 </div>
 
-<p>donde <b>k</b> es la constante elástica (N/m). El signo "−" indica que la fuerza siempre apunta hacia la posición de equilibrio (fuerza <b>restauradora</b>).</p>
+<p>donde <b>k</b> es la constante elástica del resorte (N/m). El signo "−" indica que la fuerza siempre apunta <b>hacia la posición de equilibrio</b> (es <b>restauradora</b>).</p>
 
-<h3>Receta general</h3>
+<h3>Receta general para problemas de dinámica</h3>
 <ol>
   <li>Identificá los cuerpos.</li>
-  <li>Hacé el DCL de cada cuerpo.</li>
-  <li>Elegí un sistema de coordenadas (a veces conviene uno rotado para planos inclinados).</li>
-  <li>Descomponé todas las fuerzas.</li>
-  <li>Escribí Σ F<sub>x</sub> = m·a<sub>x</sub> y Σ F<sub>y</sub> = m·a<sub>y</sub> para cada cuerpo.</li>
-  <li>Usá los vínculos (cuerdas inextensibles → misma aceleración, poleas ideales → misma tensión).</li>
-  <li>Resolvé el sistema.</li>
+  <li>Hacé el <b>DCL</b> de cada cuerpo.</li>
+  <li>Elegí un sistema de coordenadas (a veces conviene uno rotado, especialmente para planos inclinados).</li>
+  <li>Descomponé todas las fuerzas en componentes.</li>
+  <li>Escribí <b>Σ F<sub>x</sub> = m · a<sub>x</sub></b> y <b>Σ F<sub>y</sub> = m · a<sub>y</sub></b> para cada cuerpo.</li>
+  <li>Usá los <b>vínculos</b> (cuerdas inextensibles → misma aceleración entre cuerpos unidos; poleas ideales → misma tensión a ambos lados).</li>
+  <li>Resolvé el sistema de ecuaciones.</li>
+  <li>Verificá: ¿el sentido del resultado es lógico? ¿unidades correctas?</li>
 </ol>
+
+<h3>Ejemplo clásico: cuerpo en plano inclinado</h3>
+<div class="example">
+  <div class="ex-t">Bloque sobre un plano inclinado</div>
+  Bloque de masa m sobre un plano de inclinación α, sin rozamiento. ¿Aceleración?<br><br>
+  <b>DCL:</b> peso (vertical hacia abajo) y normal (perpendicular al plano).<br><br>
+  <b>Eje rotado:</b> conviene poner el eje x a lo largo del plano (sentido de descenso) y el y perpendicular al plano. Así, la normal queda en el eje y; el peso se descompone:<br>
+  • P<sub>x</sub> = m·g·sen(α) (a lo largo del plano, hacia abajo)<br>
+  • P<sub>y</sub> = m·g·cos(α) (perpendicular al plano)<br><br>
+  <b>Ecuaciones:</b><br>
+  • Eje y: N − m·g·cos(α) = 0 → N = m·g·cos(α)<br>
+  • Eje x: m·g·sen(α) = m·a → <b>a = g·sen(α)</b><br><br>
+  La aceleración no depende de la masa. Plano más inclinado → mayor aceleración. Si α = 90° (plano vertical), a = g (caída libre).
+</div>
 
 <h3>Movimiento circular (dinámica)</h3>
 <p>En un movimiento circular, la fuerza neta en dirección radial (hacia el centro) produce la aceleración centrípeta:</p>
 
 <div class="formula">
-Σ F<sub>radial</sub> = m · <span class="frac"><span>v²</span><span>R</span></span>
+Σ F<sub>radial</sub> = m · v² / R
 </div>
 
-<p>Ejemplos clásicos: <b>péndulo cónico</b>, <b>peralte</b> (curvas inclinadas), <b>auto en una curva</b> (es el rozamiento el que da la fuerza centrípeta en una curva plana).</p>
+<p>Casos clásicos:</p>
+<ul>
+  <li><b>Auto en una curva plana</b>: el rozamiento es la única fuerza radial. Sin rozamiento → no hay curva.</li>
+  <li><b>Curva con peralte</b>: la curva inclinada permite que la componente horizontal de la normal aporte la fuerza centrípeta.</li>
+  <li><b>Péndulo cónico</b>: hilo describe un cono. La componente horizontal de la tensión es la centrípeta.</li>
+  <li><b>Looping</b> (vuelta de campana): en el punto más alto, peso y normal apuntan hacia el centro.</li>
+</ul>
 
 <h3>Movimiento Armónico Simple (MAS)</h3>
-<p>Un resorte con masa oscila con frecuencia:</p>
+<p>Sistema con una fuerza restauradora proporcional a la posición. Lo más típico: <b>masa en un resorte</b>.</p>
 
+<p>Frecuencia angular:</p>
 <div class="formula">
 ω = √(k/m), &nbsp;&nbsp; T = 2π · √(m/k)
 </div>
 
-<p>Un <b>péndulo simple</b> (para pequeñas oscilaciones):</p>
+<p>Para un <b>péndulo simple</b> (para pequeñas oscilaciones, ángulos chicos):</p>
 
 <div class="formula">
 T = 2π · √(L/g)
 </div>
 
-<p>donde L es la longitud del péndulo. <b>No depende de la masa</b>. Por eso Galileo con la lámpara de la catedral.</p>
+<p>donde L es la longitud del péndulo. <b>NO depende de la masa</b>. Galileo lo descubrió mirando lámparas oscilando en una catedral.</p>
 
 <h3>Sistemas no inerciales y fuerzas ficticias</h3>
-<p>En un sistema con aceleración (un auto frenando, un ascensor acelerando), las leyes de Newton NO valen directamente. Para poder aplicarlas, se agrega una <b>fuerza ficticia</b> en el cuerpo:</p>
+<p>En un sistema con aceleración (un auto frenando, un ascensor que arranca), las leyes de Newton no valen directamente. Para poder usarlas, se agrega una <b>fuerza ficticia</b>:</p>
 
 <div class="formula">
 <span class="vec">F⃗</span><sub>ficticia</sub> = −m · <span class="vec">a⃗</span><sub>sistema</sub>
 </div>
 
-<p>Ejemplos: fuerza centrífuga (que sentís en una curva), fuerza de arrastre (cuando un auto frena y te tira hacia adelante). Son reales en cuanto a efectos <b>en ese sistema</b>, pero vistas desde un sistema inercial no existen.</p>
+<p>Ejemplos:</p>
+<ul>
+  <li><b>Fuerza centrífuga</b>: la que sentís hacia afuera en una curva (vista desde el auto).</li>
+  <li><b>Fuerza de arrastre al frenar</b>: el auto frena y vos te tirás hacia adelante (en realidad seguís con la velocidad anterior por inercia, pero relativo al auto parece una fuerza).</li>
+</ul>
+
+<p>Son "reales" en cuanto a sus efectos en ese sistema, pero <b>vistas desde un sistema inercial no existen</b>.</p>
 
 <div class="quiz-wrap" data-qz="6" data-subject="fisica"></div>
 <a class="back" href="#subject-fisica">↑ Volver al índice</a>
@@ -6247,55 +7408,65 @@ T = 2π · √(L/g)
 <summary><span class="num">7</span> Trabajo y Energía <span class="sec-score" id="ss-fisica-7"></span></summary>
 <div class="content">
 
+<h3>¿Por qué energía?</h3>
+<p>La energía es una de las ideas más profundas de la física. Permite resolver problemas <b>sin pasar por las fuerzas</b>: si conocés posiciones y velocidades inicial y final, podés saber el resultado sin importar qué pasa en el medio. La conservación de la energía es una de las leyes más generales de la física.</p>
+
 <h3>Trabajo de una fuerza constante</h3>
-<p>El <b>trabajo</b> mide la transferencia de energía que produce una fuerza al mover un cuerpo. Para una fuerza constante que produce un desplazamiento <span class="vec">Δr⃗</span>:</p>
+<p>El <b>trabajo</b> mide la <b>transferencia de energía</b> que produce una fuerza al mover un cuerpo. Para una fuerza constante <span class="vec">F⃗</span> que produce un desplazamiento <span class="vec">Δr⃗</span>:</p>
 
 <div class="formula">
 W = <span class="vec">F⃗</span> · <span class="vec">Δr⃗</span> = F · |Δr⃗| · cos(θ)
 </div>
 
-<p>donde θ es el ángulo entre la fuerza y el desplazamiento. <b>Es un producto escalar</b>. Unidad: <b>Joule</b> (J) = N·m.</p>
+<p>donde θ es el ángulo entre la fuerza y el desplazamiento. Es un <b>producto escalar</b>. Unidad: <b>Joule (J)</b> = N·m.</p>
 
 <div class="key"><div class="ky-t">Signos del trabajo</div>
-• Si F va a favor del movimiento (θ &lt; 90°): W &gt; 0 (la fuerza entrega energía).<br>
-• Si F es perpendicular al movimiento (θ = 90°): W = 0. La normal, por ejemplo, nunca hace trabajo.<br>
-• Si F se opone al movimiento (θ &gt; 90°): W &lt; 0 (la fuerza quita energía). El rozamiento dinámico siempre hace trabajo negativo.
+• <b>F a favor del movimiento</b> (θ &lt; 90°): W &gt; 0 (la fuerza <b>entrega</b> energía).<br>
+• <b>F perpendicular al movimiento</b> (θ = 90°): W = 0. La normal nunca hace trabajo en superficies horizontales (ni en planos inclinados, porque siempre es perpendicular al desplazamiento).<br>
+• <b>F en contra del movimiento</b> (θ &gt; 90°): W &lt; 0 (la fuerza <b>quita</b> energía). El rozamiento dinámico siempre hace trabajo negativo.
 </div>
 
 <h3>Potencia</h3>
-<p>Rapidez con la que se hace trabajo:</p>
-
+<p>Velocidad con la que se hace trabajo:</p>
 <div class="formula">
-P = <span class="frac"><span>W</span><span>Δt</span></span>
+P = W / Δt
 </div>
-
-<p>Unidad: <b>Watt</b> (W) = J/s. En el caso de fuerza constante y velocidad constante: P = F · v · cos(θ).</p>
+<p>Unidad: <b>Watt (W)</b> = J/s.</p>
+<p>Para fuerza y velocidad constantes:</p>
+<div class="formula">
+P = F · v · cos(θ)
+</div>
+<p>Como referencia, 1 caballo de fuerza (HP) ≈ 746 W. Una bombilla LED son ~10 W.</p>
 
 <h3>Energía cinética</h3>
-<p>Energía que tiene un cuerpo por el hecho de moverse:</p>
+<p>Es la energía que tiene un cuerpo por estar <b>en movimiento</b>:</p>
 
 <div class="formula">
-E<sub>c</sub> = <span class="frac"><span>1</span><span>2</span></span> · m · v²
+E<sub>c</sub> = ½ · m · v²
 </div>
 
-<p>Siempre positiva o nula. Es escalar.</p>
+<p>Siempre <b>positiva o nula</b>. Es escalar. Unidad: J.</p>
+
+<p>Notar que crece con el cuadrado de la velocidad: si duplicás la velocidad, la energía cinética se cuadruplica. Por eso un choque a 80 km/h es 4 veces más violento que uno a 40, no 2 veces.</p>
 
 <h3>Teorema del trabajo y la energía cinética</h3>
-<p>El trabajo neto (de todas las fuerzas) sobre un cuerpo es igual a la variación de su energía cinética:</p>
+<p>El trabajo neto (de todas las fuerzas) sobre un cuerpo es igual a la <b>variación</b> de su energía cinética:</p>
 
 <div class="formula">
 W<sub>neto</sub> = ΔE<sub>c</sub> = E<sub>c,f</sub> − E<sub>c,i</sub>
 </div>
 
-<p>Este teorema es una potente alternativa a las leyes de Newton en muchos problemas.</p>
+<p>Es una herramienta potente: si conocés el trabajo neto, conocés el cambio de velocidad (y viceversa).</p>
 
 <h3>Fuerzas conservativas y no conservativas</h3>
-<p>Una fuerza es <b>conservativa</b> si el trabajo que hace <b>no depende del camino</b>, sólo de las posiciones inicial y final (equivalente: si el trabajo en un camino cerrado es cero).</p>
+<p>Una fuerza es <b>conservativa</b> si el trabajo que hace <b>NO depende del camino</b>, sólo de las posiciones inicial y final. Equivalentemente, si el trabajo en un camino cerrado es cero.</p>
 
-<ul>
-  <li><b>Conservativas:</b> peso, elástica, gravitatoria.</li>
-  <li><b>No conservativas:</b> rozamiento, tensión en casos generales, fuerzas aplicadas.</li>
-</ul>
+<table class="tbl">
+  <tr><th>Conservativas</th><th>No conservativas</th></tr>
+  <tr><td>Peso (gravedad)</td><td>Rozamiento</td></tr>
+  <tr><td>Fuerza elástica</td><td>Fuerzas aplicadas externamente</td></tr>
+  <tr><td>Gravitatoria</td><td>Tensiones que dependen del trayecto</td></tr>
+</table>
 
 <p>A cada fuerza conservativa le corresponde una <b>energía potencial</b>.</p>
 
@@ -6306,13 +7477,13 @@ W<sub>neto</sub> = ΔE<sub>c</sub> = E<sub>c,f</sub> − E<sub>c,i</sub>
 E<sub>pg</sub> = m · g · h
 </div>
 
-<p>donde h es la altura respecto de una referencia que elegimos nosotros (típicamente el suelo).</p>
+<p>donde h es la altura respecto de una <b>referencia que elegís vos</b> (típicamente el suelo, pero puede ser cualquier otra altura — solo importan las diferencias).</p>
 
 <h3>Energía potencial elástica</h3>
 <p>De un resorte estirado o comprimido una distancia x:</p>
 
 <div class="formula">
-E<sub>pe</sub> = <span class="frac"><span>1</span><span>2</span></span> · k · x²
+E<sub>pe</sub> = ½ · k · x²
 </div>
 
 <h3>Energía mecánica</h3>
@@ -6323,38 +7494,64 @@ E<sub>m</sub> = E<sub>c</sub> + E<sub>pg</sub> + E<sub>pe</sub>
 </div>
 
 <h3>Conservación de la energía mecánica</h3>
-<p>Si <b>sólo actúan fuerzas conservativas</b> (no hay rozamiento ni fuerzas aplicadas disipativas), la energía mecánica se <b>conserva</b>:</p>
+<p>Si <b>sólo actúan fuerzas conservativas</b> (sin rozamiento ni otras fuerzas no conservativas que hagan trabajo), la energía mecánica <b>se conserva</b>:</p>
 
 <div class="formula">
 E<sub>m,i</sub> = E<sub>m,f</sub>
 </div>
 
-<div class="key"><div class="ky-t">Aplicación típica</div>
-Caída libre sin rozamiento del aire: al soltar un objeto desde altura h, al llegar al suelo tiene toda la energía potencial transformada en cinética:<br>
-m·g·h = ½·m·v² ⟹ v = √(2·g·h)<br>
-(¡No depende de la masa!)
+<div class="example">
+  <div class="ex-t">Caída sin rozamiento</div>
+  Un objeto se suelta desde una altura h. ¿Velocidad al llegar al suelo?<br><br>
+  Energía inicial (en h, en reposo): E<sub>i</sub> = m·g·h.<br>
+  Energía final (en el suelo, en movimiento): E<sub>f</sub> = ½·m·v².<br>
+  Conservación: m·g·h = ½·m·v² → <b>v = √(2·g·h)</b><br><br>
+  No depende de la masa: una pluma y una piedra (sin aire) caen iguales.
 </div>
 
 <h3>Caso con fuerzas no conservativas</h3>
-<p>Si hay rozamiento u otras fuerzas no conservativas, la energía mecánica no se conserva. El "balance" se expresa como:</p>
+<p>Si hay rozamiento u otras fuerzas no conservativas, la energía mecánica NO se conserva. La parte que se "pierde" se convierte en otras formas de energía (calor, sonido, deformación). El balance es:</p>
 
 <div class="formula">
 W<sub>no conservativas</sub> = ΔE<sub>m</sub> = E<sub>m,f</sub> − E<sub>m,i</sub>
 </div>
 
-<p>Si el rozamiento es la única fuerza no conservativa, W<sub>roz</sub> es negativo y la energía mecánica <b>disminuye</b> (se disipa en calor).</p>
+<p>Si el rozamiento es la única no conservativa, su trabajo es negativo, y la energía mecánica disminuye:</p>
+
+<div class="formula">
+W<sub>roz</sub> = E<sub>m,f</sub> − E<sub>m,i</sub> &nbsp;&nbsp; (W<sub>roz</sub> &lt; 0)
+</div>
 
 <div class="example">
-  <div class="ex-t">Estrategia: cuándo usar energía</div>
-  El método de energías es ideal cuando:<br>
-  • Conocés las posiciones y velocidades inicial y final (pero no los detalles del recorrido).<br>
-  • Hay cambios de altura o deformaciones de resortes.<br>
-  • Querés la rapidez sin calcular tiempos.<br><br>
-  Las leyes de Newton son mejores cuando:<br>
-  • Necesitás la aceleración en cada instante.<br>
-  • El problema tiene vínculos complejos.<br>
-  • Te piden fuerzas.
+  <div class="ex-t">Bajada con rozamiento</div>
+  Un cuerpo de 2 kg baja un plano inclinado de 5 m de altura. Al final tiene v = 8 m/s. ¿Trabajo del rozamiento?<br><br>
+  E<sub>m,i</sub> = 2 · 10 · 5 = 100 J.<br>
+  E<sub>m,f</sub> = ½ · 2 · 64 = 64 J.<br>
+  W<sub>roz</sub> = 64 − 100 = <b>−36 J</b> (negativo, como tenía que ser).
 </div>
+
+<div class="key"><div class="ky-t">¿Cuándo usar energía vs Newton?</div>
+<b>Energía es ideal cuando:</b><br>
+• Conocés las posiciones y velocidades inicial y final (pero no los detalles del recorrido).<br>
+• Hay cambios de altura o deformaciones de resortes.<br>
+• Querés la rapidez sin calcular tiempos.<br>
+• El recorrido es complicado (un montañita rusa) y solo te interesa el resultado neto.<br><br>
+<b>Newton es mejor cuando:</b><br>
+• Necesitás la aceleración en cada instante.<br>
+• El problema tiene vínculos complejos.<br>
+• Te piden fuerzas individuales.<br>
+• Necesitás la velocidad o aceleración instantánea.
+</div>
+
+<h3>Estrategia general · problemas de energía</h3>
+<ol>
+  <li>Identificá los estados inicial y final.</li>
+  <li>Elegí una referencia para la energía potencial gravitatoria.</li>
+  <li>Calculá E<sub>m,i</sub> y E<sub>m,f</sub>.</li>
+  <li>Identificá las fuerzas no conservativas que hacen trabajo.</li>
+  <li>Aplicá: W<sub>NC</sub> = E<sub>m,f</sub> − E<sub>m,i</sub>.</li>
+  <li>Despejá lo que te piden.</li>
+</ol>
 
 <div class="quiz-wrap" data-qz="7" data-subject="fisica"></div>
 <a class="back" href="#subject-fisica">↑ Volver al índice</a>
