@@ -1,0 +1,613 @@
+<!-- ============ UNIDAD 8 · TEORÍA DE NÚMEROS · CONGRUENCIAS ============ -->
+<details id="md-s8">
+<summary><span class="num">8</span> Unidad 8: Teoría de Números (Congruencias) <span class="sec-score" id="ss-matematica-discreta-8"></span></summary>
+<div class="content">
+
+<h3>¿Qué estudia esta unidad?</h3>
+<p>La <b>teoría de números</b> estudia las propiedades de los enteros. En esta unidad nos concentramos en la <b>aritmética modular</b>: una forma de hacer cuentas donde solo importa el <i>resto</i> de una división. Esto parece abstracto, pero tiene aplicaciones directísimas: criptografía, códigos de detección de errores, y cálculos con números enormes que ninguna calculadora puede manejar directamente.</p>
+<p>La herramienta central es la <b>congruencia módulo n</b>, que agrupa a los enteros según el resto que dan al dividirse por <span class="m">n</span>. Todo lo que veamos en esta unidad —tablas de operaciones, ecuaciones, Teorema Chino del Resto, Fermat, Euler— es aritmética modular aplicada.</p>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>1. Congruencia módulo n</h3>
+
+<h4>1.1 Definición</h4>
+<p>Sea <span class="m">n ∈ ℕ</span> (con <span class="m">n ≥ 1</span>). Dados <span class="m">a, b ∈ ℤ</span>, decimos que <b><span class="m">a</span> es congruente con <span class="m">b</span> módulo <span class="m">n</span></b> si <span class="m">n</span> divide a <span class="m">(a − b)</span>. Lo notamos:</p>
+<div class="formula">a ≡ b (mod n) &nbsp;⟺&nbsp; n | (a − b)</div>
+<p>Dicho de otro modo: <span class="m">a − b = n · k</span> para algún <span class="m">k ∈ ℤ</span>.</p>
+
+<div class="key">
+  <div class="ky-t">Interpretación equivalente: mismo resto</div>
+  <p><span class="m">a ≡ b (mod n)</span> si y solo si <span class="m">a</span> y <span class="m">b</span> dejan el <b>mismo resto</b> al dividirse por <span class="m">n</span>.</p>
+  <p>Por ejemplo: <span class="m">38 ≡ 2 (mod 3)</span> porque <span class="m">38 = 3 · 12 + 2</span> y <span class="m">2 = 3 · 0 + 2</span>. Ambos tienen resto 2 al dividir por 3.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de congruencias (V o F)</div>
+  <b>a) ¿Es 128 ≡ 1 (mod 3)?</b> &nbsp;128 − 1 = 127. ¿Divide 3 a 127? 127 = 3·42 + 1 → No. <b>Falso.</b><br>
+  (Alternativamente: 128 = 3·42 + 2, luego 128 ≡ 2 (mod 3), no 1.)<br><br>
+  <b>b) ¿Es 128 ≡ 0 (mod 4)?</b> &nbsp;128 = 4·32 exactamente → resto 0. <b>Verdadero.</b><br><br>
+  <b>c) ¿Es 21 ≡ −4 (mod 5)?</b> &nbsp;21 − (−4) = 25 = 5·5. Sí divide. <b>Verdadero.</b><br>
+  (También: 21 = 5·4 + 1, y −4 ≡ 1 (mod 5) porque −4 + 5 = 1.)<br><br>
+  <b>d) ¿Es 3795 ≡ 0 (mod 11)?</b> &nbsp;3795 ÷ 11 = 344 resto 11·344 = 3784 → 3795 − 3784 = 11. Sí. <b>Verdadero.</b>
+</div>
+
+<div class="trap">
+  <div class="tr-t">No confundir mod n con "resto"</div>
+  <p>La notación <span class="m">a (mod n)</span> con paréntesis es una <i>relación</i>: "<span class="m">a</span> es congruente a algo módulo <span class="m">n</span>". El <b>resto</b> de dividir <span class="m">a</span> por <span class="m">n</span> es un número entre 0 y <span class="m">n−1</span>. Son conceptos relacionados pero distintos.</p>
+  <p>Decir <span class="m">38 ≡ 2 (mod 3)</span> es correcto. Decir "38 mod 3 = 2" es escribir el resto. Pero decir <span class="m">38 ≡ 5 (mod 3)</span> también es <i>verdadero</i> (porque 38 − 5 = 33 = 3·11), aunque 5 no sea el resto "canónico".</p>
+</div>
+
+<h4>1.2 La congruencia es una relación de equivalencia</h4>
+<p>Fijado <span class="m">n</span>, la congruencia módulo <span class="m">n</span> es una relación en ℤ. Veamos que cumple las tres propiedades (recordar Unidad 5):</p>
+
+<div class="key">
+  <div class="ky-t">Demostración: congruencia es relación de equivalencia</div>
+  <p><b>Reflexiva:</b> Para todo <span class="m">x ∈ ℤ</span>, <span class="m">x − x = 0 = n · 0</span>, luego <span class="m">n | (x − x)</span>, es decir <span class="m">x ≡ x (mod n)</span>. ✓</p>
+  <p><b>Simétrica:</b> Si <span class="m">x ≡ y (mod n)</span>, entonces <span class="m">x − y = n · k</span> para algún <span class="m">k ∈ ℤ</span>. Luego <span class="m">y − x = n · (−k)</span> y como <span class="m">−k ∈ ℤ</span>, se tiene <span class="m">n | (y − x)</span>, es decir <span class="m">y ≡ x (mod n)</span>. ✓</p>
+  <p><b>Transitiva:</b> Si <span class="m">x ≡ y (mod n)</span> e <span class="m">y ≡ z (mod n)</span>, entonces <span class="m">x − y = n · k</span> e <span class="m">y − z = n · t</span>. Sumando: <span class="m">x − z = (x−y) + (y−z) = n·k + n·t = n·(k+t)</span>. Como <span class="m">k+t ∈ ℤ</span>, <span class="m">n | (x − z)</span>, luego <span class="m">x ≡ z (mod n)</span>. ✓</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>2. Clases residuales y el conjunto ℤ<sub>n</sub></h3>
+
+<p>Como la congruencia es relación de equivalencia, <b>particiona a ℤ en clases de equivalencia</b>. La clase de un entero <span class="m">x</span> módulo <span class="m">n</span> es:</p>
+<div class="formula">[x] = { y ∈ ℤ | y ≡ x (mod n) } = { y ∈ ℤ | y = n·k + x, con k ∈ ℤ }</div>
+<p>Esta clase se llama <b>clase residual</b> de <span class="m">x</span> módulo <span class="m">n</span>. Contiene todos los enteros con el mismo resto que <span class="m">x</span> al dividir por <span class="m">n</span>.</p>
+<p>El <b>conjunto cociente</b> (el conjunto de todas las clases) tiene exactamente <span class="m">n</span> elementos, uno por cada resto posible:</p>
+<div class="formula">ℤ<sub>n</sub> = ℤ/nℤ = { [0], [1], [2], …, [n−1] }</div>
+<p>Por convención tomamos como representantes de cada clase los restos canónicos: <span class="m">0, 1, 2, …, n−1</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Clases en ℤ₃</div>
+  <span class="m">ℤ₃ = {0, 1, 2}</span><br><br>
+  <b>[0]</b> = {…, −6, −3, 0, 3, 6, 9, …} (múltiplos de 3)<br>
+  <b>[1]</b> = {…, −5, −2, 1, 4, 7, 10, …} (resto 1 al dividir por 3)<br>
+  <b>[2]</b> = {…, −4, −1, 2, 5, 8, 11, …} (resto 2 al dividir por 3)<br><br>
+  Todo entero cae en exactamente una de estas tres clases. Por ejemplo: 38 = 3·12 + 2, luego 38 ∈ [2], es decir <span class="m">38 ≡ 2 (mod 3)</span>.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>3. Aritmética modular: operaciones en ℤ<sub>n</sub></h3>
+
+<h4>3.1 Suma y resta</h4>
+<p>La propiedad fundamental de la aritmética modular es que la suma es <b>compatible con las clases</b>: no importa qué representante de cada clase elijas, la suma siempre cae en la misma clase.</p>
+
+<div class="key">
+  <div class="ky-t">Propiedad de la suma (demostrada)</div>
+  <p>Si <span class="m">a ≡ b (mod n)</span> y <span class="m">c ≡ d (mod n)</span>, entonces <span class="m">a + c ≡ b + d (mod n)</span>.</p>
+  <p><b>Dem:</b> Por hipótesis <span class="m">a − b = n·k</span> y <span class="m">c − d = n·t</span> con <span class="m">k, t ∈ ℤ</span>. Sumando: <span class="m">(a+c) − (b+d) = n·(k+t)</span>. Como <span class="m">k+t ∈ ℤ</span>, <span class="m">n | (a+c)−(b+d)</span>, es decir <span class="m">a+c ≡ b+d (mod n)</span>. ✓</p>
+  <p>De manera análoga: si <span class="m">a ≡ b (mod n)</span> y <span class="m">c ≡ d (mod n)</span>, entonces <span class="m">a − c ≡ b − d (mod n)</span>.</p>
+</div>
+
+<p>Esto significa que en ℤ<sub>n</sub> podemos <b>sumar (y restar) clases directamente</b>, reduciendo el resultado módulo <span class="m">n</span>.</p>
+
+<h4>3.2 Multiplicación</h4>
+<div class="key">
+  <div class="ky-t">Propiedad del producto</div>
+  <p>Si <span class="m">a ≡ b (mod n)</span> y <span class="m">c ≡ d (mod n)</span>, entonces <span class="m">a · c ≡ b · d (mod n)</span>.</p>
+  <p><b>Dem:</b> <span class="m">a = nk + b</span>, <span class="m">c = nt + d</span>. Multiplicando: <span class="m">a·c = (nk+b)(nt+d) = n²kt + nkd + bnt + bd</span>. Entonces <span class="m">a·c − b·d = n·(nkt + kd + bt)</span>, que es divisible por <span class="m">n</span>. ✓</p>
+</div>
+
+<h4>3.3 Potencias</h4>
+<p>Combinando la propiedad del producto repetidamente: si <span class="m">a ≡ b (mod n)</span>, entonces <span class="m">a<sup>k</sup> ≡ b<sup>k</sup> (mod n)</span> para todo <span class="m">k ∈ ℕ</span>. Esto es extremadamente útil para calcular <b>restos de potencias enormes</b>.</p>
+
+<div class="example">
+  <div class="ex-t">Calcular 7¹⁰⁰ mod 13 (usando propiedades básicas)</div>
+  Queremos el resto de dividir 7<sup>100</sup> por 13. Empezamos calculando potencias de 7 módulo 13:<br><br>
+  7<sup>1</sup> ≡ 7 (mod 13)<br>
+  7<sup>2</sup> = 49 = 3·13 + 10 → 7<sup>2</sup> ≡ 10 ≡ −3 (mod 13)<br>
+  7<sup>3</sup> = 7 · 49 → usamos 7·(−3) = −21 ≡ −21 + 26 = 5 (mod 13)<br>
+  7<sup>6</sup> = (7<sup>3</sup>)<sup>2</sup> ≡ 5<sup>2</sup> = 25 ≡ 25 − 26 = −1 (mod 13)<br>
+  7<sup>12</sup> = (7<sup>6</sup>)<sup>2</sup> ≡ (−1)<sup>2</sup> = 1 (mod 13)<br><br>
+  ¡7<sup>12</sup> ≡ 1 (mod 13)! (Esto lo predice el Pequeño Teorema de Fermat, que veremos luego.)<br><br>
+  Como 100 = 12·8 + 4:<br>
+  7<sup>100</sup> = 7<sup>12·8 + 4</sup> = (7<sup>12</sup>)<sup>8</sup> · 7<sup>4</sup> ≡ 1<sup>8</sup> · 7<sup>4</sup> = 7<sup>4</sup> (mod 13)<br><br>
+  7<sup>4</sup> = 7<sup>2</sup> · 7<sup>2</sup> ≡ (−3)(−3) = 9 (mod 13)<br><br>
+  <b>Resultado: 7¹⁰⁰ ≡ 9 (mod 13)</b>
+</div>
+
+<h4>3.4 División: cuándo funciona y cuándo no</h4>
+<div class="trap">
+  <div class="tr-t">Error grave: "cancelar" factores en congruencias</div>
+  <p>En los enteros, si <span class="m">a · c = b · c</span> y <span class="m">c ≠ 0</span>, entonces <span class="m">a = b</span>. En congruencias esto <b>NO siempre vale</b>.</p>
+  <p>Ejemplo: <span class="m">2 · 2 ≡ 2 · 5 (mod 6)</span> (ambos son 4 y 10, y 10 − 4 = 6). Pero 2 ≢ 5 (mod 6).</p>
+  <p>El "cancelado" de <span class="m">c</span> en <span class="m">a·c ≡ b·c (mod n)</span> solo funciona si <span class="m">mcd(c, n) = 1</span>. En ese caso sí se puede concluir <span class="m">a ≡ b (mod n)</span>.</p>
+  <p><b>Propiedad (con demostración):</b> Si <span class="m">a·c ≡ b·c (mod n)</span> y <span class="m">mcd(c,n) = 1</span>, entonces <span class="m">a ≡ b (mod n)</span>.<br>
+  Dem: Por Bézout, <span class="m">1 = s·c + t·n</span>. Multiplicando por <span class="m">(a−b)</span>: <span class="m">a−b = s·c·(a−b) + t·n·(a−b)</span>. Como <span class="m">a·c − b·c = n·k</span>, tenemos <span class="m">c·(a−b) = n·k</span>, y sustituyendo: <span class="m">a−b = s·n·k + t·n·(a−b) = n·(sk + t(a−b))</span>. Luego <span class="m">n | (a−b)</span>. ✓</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>4. Tablas de operaciones en ℤ<sub>n</sub></h3>
+<p>Para módulos pequeños podemos construir tablas de suma y multiplicación. Cada entrada se reduce módulo <span class="m">n</span>.</p>
+
+<h4>Tabla de suma en ℤ₅</h4>
+<table class="tbl">
+  <tr><th>+</th><th class="c">0</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th></tr>
+  <tr><th class="c">0</th><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">4</td></tr>
+  <tr><th class="c">1</th><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">4</td><td class="c">0</td></tr>
+  <tr><th class="c">2</th><td class="c">2</td><td class="c">3</td><td class="c">4</td><td class="c">0</td><td class="c">1</td></tr>
+  <tr><th class="c">3</th><td class="c">3</td><td class="c">4</td><td class="c">0</td><td class="c">1</td><td class="c">2</td></tr>
+  <tr><th class="c">4</th><td class="c">4</td><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td></tr>
+</table>
+
+<p>Observar: 2 + 4 = 6 ≡ 1 (mod 5). En ℤ₅, 2 + 4 = 1. Cualquier elemento de la clase del 2 sumado con cualquier elemento de la clase del 4 siempre da un elemento de la clase del 1 (por ejemplo: 7 + 9 = 16 ≡ 1 (mod 5)).</p>
+
+<h4>Tabla de multiplicación en ℤ₅</h4>
+<table class="tbl">
+  <tr><th>·</th><th class="c">0</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th></tr>
+  <tr><th class="c">0</th><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr>
+  <tr><th class="c">1</th><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">4</td></tr>
+  <tr><th class="c">2</th><td class="c">0</td><td class="c">2</td><td class="c">4</td><td class="c">1</td><td class="c">3</td></tr>
+  <tr><th class="c">3</th><td class="c">0</td><td class="c">3</td><td class="c">1</td><td class="c">4</td><td class="c">2</td></tr>
+  <tr><th class="c">4</th><td class="c">0</td><td class="c">4</td><td class="c">3</td><td class="c">2</td><td class="c">1</td></tr>
+</table>
+
+<p>Notar que en ℤ₅ todo elemento distinto de 0 tiene inverso multiplicativo (hay un 1 en cada fila distinta de la fila 0). Esto se debe a que 5 es primo. En ℤ₆ (módulo compuesto) esto no ocurre:</p>
+
+<h4>Tabla de multiplicación en ℤ₆ (parcial)</h4>
+<table class="tbl">
+  <tr><th>·</th><th class="c">0</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th><th class="c">5</th></tr>
+  <tr><th class="c">0</th><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr>
+  <tr><th class="c">1</th><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">4</td><td class="c">5</td></tr>
+  <tr><th class="c">2</th><td class="c">0</td><td class="c">2</td><td class="c">4</td><td class="c">0</td><td class="c">2</td><td class="c">4</td></tr>
+  <tr><th class="c">3</th><td class="c">0</td><td class="c">3</td><td class="c">0</td><td class="c">3</td><td class="c">0</td><td class="c">3</td></tr>
+  <tr><th class="c">4</th><td class="c">0</td><td class="c">4</td><td class="c">2</td><td class="c">0</td><td class="c">4</td><td class="c">2</td></tr>
+  <tr><th class="c">5</th><td class="c">0</td><td class="c">5</td><td class="c">4</td><td class="c">3</td><td class="c">2</td><td class="c">1</td></tr>
+</table>
+
+<p>En ℤ₆, los elementos 2, 3 y 4 no tienen inverso multiplicativo (sus filas no contienen un 1). Esto ocurre porque mcd(2,6) = 2, mcd(3,6) = 3 y mcd(4,6) = 2, todos distintos de 1.</p>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>5. Inverso multiplicativo módulo n</h3>
+
+<p>En ℤ, el inverso multiplicativo de un número <span class="m">a</span> es otro número <span class="m">a'</span> tal que <span class="m">a · a' ≡ 1 (mod n)</span>. Se denota <span class="m">a<sup>−1</sup></span> en ℤ<sub>n</sub>.</p>
+
+<div class="key">
+  <div class="ky-t">Cuándo existe el inverso multiplicativo</div>
+  <p><span class="m">a</span> tiene inverso multiplicativo módulo <span class="m">n</span> <b>si y solo si</b> <span class="m">mcd(a, n) = 1</span> (es decir, <span class="m">a</span> y <span class="m">n</span> son coprimos).</p>
+  <p>En particular: si <span class="m">n</span> es primo, entonces <b>todo elemento distinto de 0</b> tiene inverso (porque todo entero entre 1 y <span class="m">n−1</span> es coprimo con el primo <span class="m">n</span>).</p>
+</div>
+
+<h4>Cómo calcular el inverso con el algoritmo de Euclides extendido</h4>
+<p>Si <span class="m">mcd(a, n) = 1</span>, por el Teorema de Bézout existen <span class="m">s, t ∈ ℤ</span> tales que:</p>
+<div class="formula">1 = s · a + t · n</div>
+<p>Tomando módulo <span class="m">n</span>: <span class="m">1 ≡ s · a (mod n)</span>. Luego <span class="m">s</span> es el inverso de <span class="m">a</span> módulo <span class="m">n</span>. El proceso de hallar <span class="m">s</span> es el Algoritmo de Euclides Extendido.</p>
+
+<div class="example">
+  <div class="ex-t">Inverso de 3 módulo 7</div>
+  Buscamos <span class="m">s</span> tal que <span class="m">3s ≡ 1 (mod 7)</span>.<br><br>
+  Algoritmo de Euclides: mcd(3, 7)<br>
+  7 = 2·3 + 1<br>
+  3 = 3·1 + 0 → mcd = 1 ✓<br><br>
+  Retrocedemos (Bézout):<br>
+  1 = 7 − 2·3<br>
+  Entonces 1 = (−2)·3 + 1·7, luego <span class="m">s = −2 ≡ 5 (mod 7)</span>.<br><br>
+  <b>Verificación:</b> 3·5 = 15 = 2·7 + 1 ≡ 1 (mod 7). ✓<br>
+  El inverso de 3 en ℤ₇ es 5.
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>6. Función de Euler φ(n)</h3>
+
+<h4>6.1 Definición</h4>
+<p>La <b>función de Euler</b> (o función totiente) de un entero positivo <span class="m">n</span> cuenta cuántos enteros entre 1 y <span class="m">n</span> son coprimos con <span class="m">n</span>:</p>
+<div class="formula">φ(n) = |{ x ∈ ℕ | x ≤ n  y  mcd(x, n) = 1 }|</div>
+<p>Estos son exactamente los elementos de ℤ<sub>n</sub> que tienen inverso multiplicativo.</p>
+
+<div class="example">
+  <div class="ex-t">Primeros valores de φ</div>
+  φ(1) = 1 (solo el 1 es coprimo con 1)<br>
+  φ(2) = 1 (solo el 1 es coprimo con 2 entre los ≤ 2)<br>
+  φ(3) = 2 ({1, 2})<br>
+  φ(4) = 2 ({1, 3}; el 2 no es coprimo con 4 porque mcd(2,4)=2)<br>
+  φ(12) = 4 ({1, 5, 7, 11})<br>
+  φ(15) = 8 ({1, 2, 4, 7, 8, 11, 13, 14})
+</div>
+
+<h4>6.2 Propiedades y fórmula de cálculo</h4>
+<div class="key">
+  <div class="ky-t">Propiedades de φ</div>
+  <p><b>1. Si p es primo:</b> &nbsp;φ(p) = p − 1<br>
+  (todos los enteros entre 1 y p−1 son coprimos con el primo p)</p>
+  <p><b>2. Si p es primo y k ≥ 1:</b> &nbsp;φ(p<sup>k</sup>) = p<sup>k−1</sup>(p − 1) = p<sup>k</sup>(1 − 1/p)<br>
+  (de todos los menores a p<sup>k</sup>, los no coprimos son exactamente los múltiplos de p: hay p<sup>k−1</sup> de ellos)</p>
+  <p><b>3. Si mcd(m, n) = 1:</b> &nbsp;φ(m·n) = φ(m)·φ(n) &nbsp;&nbsp;(φ es multiplicativa)</p>
+  <p><b>Fórmula general:</b> Si <span class="m">n = p₁<sup>a₁</sup> · p₂<sup>a₂</sup> · … · p<sub>r</sub><sup>a<sub>r</sub></sup></span> es la factorización en primos, entonces:</p>
+  <div class="formula">φ(n) = n · (1 − 1/p₁) · (1 − 1/p₂) · … · (1 − 1/p<sub>r</sub>)</div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Cálculos con φ</div>
+  <b>φ(53):</b> 53 es primo → φ(53) = 52.<br><br>
+  <b>φ(343) = φ(7³):</b> φ(7³) = 7²·(7−1) = 49·6 = 294.<br><br>
+  <b>φ(20):</b> 20 = 2²·5. Como mcd(4,5)=1: φ(20) = φ(4)·φ(5) = φ(2²)·(5−1) = 2·4 = 8.<br>
+  Verificación con fórmula: φ(20) = 20·(1−1/2)·(1−1/5) = 20·(1/2)·(4/5) = 8. ✓<br><br>
+  <b>φ(48):</b> 48 = 2⁴·3. φ(48) = 48·(1−1/2)·(1−1/3) = 48·(1/2)·(2/3) = 16.<br><br>
+  <b>φ(450):</b> 450 = 2·3²·5². φ(450) = 450·(1−1/2)·(1−1/3)·(1−1/5) = 450·(1/2)·(2/3)·(4/5) = 120.
+</div>
+
+<div class="trap">
+  <div class="tr-t">φ no es simplemente "n − 1"</div>
+  <p>φ(n) = n − 1 solo cuando n es primo. Para n compuesto, hay enteros entre 1 y n que comparten factores con n y por lo tanto <b>no</b> son coprimos. Por ejemplo, φ(9) = 6 (no 8): de {1,…,9}, los que no son coprimos con 9 son 3, 6 y 9 (múltiplos de 3).</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>7. Pequeño Teorema de Fermat</h3>
+
+<div class="key">
+  <div class="ky-t">Pequeño Teorema de Fermat</div>
+  <p>Sea <span class="m">p</span> un número primo y <span class="m">a ∈ ℤ</span> con <span class="m">mcd(a, p) = 1</span>. Entonces:</p>
+  <div class="formula">a<sup>p−1</sup> ≡ 1 (mod p)</div>
+  <p>Versión equivalente: para todo <span class="m">a ∈ ℤ</span>, <span class="m">a<sup>p</sup> ≡ a (mod p)</span> (sin necesitar que mcd(a,p)=1).</p>
+</div>
+
+<p>Este teorema es enormemente útil para calcular restos de potencias grandes cuando el divisor es primo.</p>
+
+<div class="example">
+  <div class="ex-t">Aplicar Fermat: resto de 7¹²² al dividir por 11</div>
+  p = 11 (primo), a = 7. Como mcd(7, 11) = 1, podemos aplicar Fermat:<br>
+  <b>7<sup>10</sup> ≡ 1 (mod 11)</b><br><br>
+  Descomponemos el exponente 122 = 10·12 + 2:<br>
+  7<sup>122</sup> = 7<sup>10·12 + 2</sup> = (7<sup>10</sup>)<sup>12</sup> · 7² ≡ 1<sup>12</sup> · 49 ≡ 49 (mod 11)<br><br>
+  49 = 4·11 + 5, luego 49 ≡ 5 (mod 11).<br><br>
+  <b>El resto de dividir 7¹²² por 11 es 5.</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Fermat: 7¹⁰⁰ mod 13 (resolución completa)</div>
+  p = 13 (primo), a = 7. mcd(7, 13) = 1. Por Fermat: <b>7<sup>12</sup> ≡ 1 (mod 13)</b><br><br>
+  División: 100 = 12·8 + 4 (ya que 12·8 = 96).<br><br>
+  7<sup>100</sup> = (7<sup>12</sup>)<sup>8</sup> · 7<sup>4</sup> ≡ 1<sup>8</sup> · 7<sup>4</sup> = 7<sup>4</sup> (mod 13)<br><br>
+  Calculamos 7<sup>4</sup>:<br>
+  7<sup>2</sup> = 49 = 3·13 + 10 → 7<sup>2</sup> ≡ 10 (mod 13)<br>
+  7<sup>4</sup> = (7<sup>2</sup>)<sup>2</sup> ≡ 10<sup>2</sup> = 100 = 7·13 + 9 → 7<sup>4</sup> ≡ 9 (mod 13)<br><br>
+  <b>7¹⁰⁰ ≡ 9 (mod 13)</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Fermat con exponente grande: 5¹⁵⁶⁴⁶²⁴ mod 23</div>
+  p = 23 (primo), a = 5. Por Fermat: <b>5<sup>22</sup> ≡ 1 (mod 23)</b><br><br>
+  Dividimos: 1564624 ÷ 22 = 71119 con resto 6 (pues 22·71119 = 1564618, y 1564624 − 1564618 = 6).<br><br>
+  5<sup>1564624</sup> = (5<sup>22</sup>)<sup>71119</sup> · 5<sup>6</sup> ≡ 1<sup>71119</sup> · 5<sup>6</sup> = 5<sup>6</sup> (mod 23)<br><br>
+  5<sup>2</sup> = 25 ≡ 2 (mod 23) &nbsp;→&nbsp; 5<sup>6</sup> = (5<sup>2</sup>)<sup>3</sup> ≡ 2<sup>3</sup> = 8 (mod 23)<br><br>
+  <b>El resto es 8.</b>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Errores al usar el Teorema de Fermat</div>
+  <p><b>Error 1: aplicarlo sin verificar que p es primo.</b> Si p no es primo, el teorema no vale. Por ejemplo, 4<sup>10</sup> (mod 15) ≢ 1 porque 15 no es primo.</p>
+  <p><b>Error 2: olvidar verificar mcd(a, p) = 1.</b> Si p | a, entonces a<sup>p−1</sup> ≡ 0 (mod p), no 1. Si a = 11 y p = 11, a<sup>10</sup> ≡ 0 (mod 11), no 1.</p>
+  <p><b>Error 3: confundir el exponente.</b> El período es p−1, no p. Para p = 7, a<sup>6</sup> ≡ 1, no a<sup>7</sup> ≡ 1.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>8. Teorema de Euler (Euler-Fermat)</h3>
+
+<div class="key">
+  <div class="ky-t">Teorema de Euler</div>
+  <p>Si <span class="m">mcd(a, n) = 1</span>, entonces:</p>
+  <div class="formula">a<sup>φ(n)</sup> ≡ 1 (mod n)</div>
+  <p>Este teorema <b>generaliza el Pequeño Teorema de Fermat</b>: cuando <span class="m">n = p</span> primo, <span class="m">φ(p) = p − 1</span>, recuperamos exactamente Fermat. Ahora podemos trabajar con módulos compuestos.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Euler: 8¹⁷⁹¹⁴⁸⁵ mod 21</div>
+  n = 21 = 3·7. mcd(8, 21) = 1 ✓<br><br>
+  φ(21) = φ(3)·φ(7) = 2·6 = 12<br>
+  Por Euler: <b>8<sup>12</sup> ≡ 1 (mod 21)</b><br><br>
+  División: 1791485 = 12·149290 + 5 (pues 12·149290 = 1791480)<br><br>
+  8<sup>1791485</sup> = (8<sup>12</sup>)<sup>149290</sup> · 8<sup>5</sup> ≡ 1 · 8<sup>5</sup> = 8<sup>5</sup> (mod 21)<br><br>
+  Calculamos 8<sup>5</sup>:<br>
+  8<sup>2</sup> = 64 = 3·21 + 1 → 8<sup>2</sup> ≡ 1 (mod 21)<br>
+  8<sup>4</sup> = (8<sup>2</sup>)<sup>2</sup> ≡ 1<sup>2</sup> = 1 (mod 21)<br>
+  8<sup>5</sup> = 8<sup>4</sup> · 8 ≡ 1 · 8 = 8 (mod 21)<br><br>
+  <b>El resto de dividir 8¹⁷⁹¹⁴⁸⁵ por 21 es 8.</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Euler: 17²⁰⁰ mod 35</div>
+  n = 35 = 5·7. mcd(17, 35) = 1 ✓<br><br>
+  φ(35) = φ(5)·φ(7) = 4·6 = 24<br>
+  Por Euler: <b>17<sup>24</sup> ≡ 1 (mod 35)</b><br><br>
+  División: 200 = 24·8 + 8 (pues 24·8 = 192)<br><br>
+  17<sup>200</sup> = (17<sup>24</sup>)<sup>8</sup> · 17<sup>8</sup> ≡ 1 · 17<sup>8</sup> = 17<sup>8</sup> (mod 35)<br><br>
+  Calculamos 17<sup>8</sup> paso a paso:<br>
+  17<sup>2</sup> = 289 = 8·35 + 9 → 17<sup>2</sup> ≡ 9 (mod 35)<br>
+  17<sup>4</sup> = (17<sup>2</sup>)<sup>2</sup> ≡ 9<sup>2</sup> = 81 = 2·35 + 11 → 17<sup>4</sup> ≡ 11 (mod 35)<br>
+  17<sup>8</sup> = (17<sup>4</sup>)<sup>2</sup> ≡ 11<sup>2</sup> = 121 = 3·35 + 16 → 17<sup>8</sup> ≡ 16 (mod 35)<br><br>
+  <b>17²⁰⁰ ≡ 16 (mod 35)</b>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Euler requiere mcd(a, n) = 1</div>
+  <p>Si mcd(a, n) ≠ 1, el Teorema de Euler <b>no aplica</b>. Por ejemplo, para a = 6 y n = 9: mcd(6, 9) = 3 ≠ 1. En ese caso no podemos concluir 6<sup>φ(9)</sup> = 6<sup>6</sup> ≡ 1 (mod 9). (De hecho, 6<sup>6</sup> = 46656 = 5184·9 → 6<sup>6</sup> ≡ 0 (mod 9).)</p>
+  <p>Siempre verificar la condición de coprimalidad <b>antes</b> de aplicar el teorema.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>9. Ecuaciones lineales de congruencia</h3>
+
+<h4>9.1 Forma y planteamiento</h4>
+<p>Una <b>ecuación lineal de congruencia</b> tiene la forma:</p>
+<div class="formula">a · x ≡ b (mod n)</div>
+<p>donde <span class="m">a, b ∈ ℤ</span>, <span class="m">n ∈ ℕ</span> son datos, y <span class="m">x ∈ ℤ</span> es la incógnita. Como las soluciones se repiten cada <span class="m">n</span> (si <span class="m">x₀</span> es solución, también lo es <span class="m">x₀ + kn</span> para todo <span class="m">k ∈ ℤ</span>), se habla de <b>soluciones principales</b>: las que caen en el intervalo <span class="m">[0, n−1]</span>.</p>
+
+<h4>9.2 Condición de existencia y cantidad de soluciones</h4>
+<div class="key">
+  <div class="ky-t">Teorema: condición necesaria y suficiente</div>
+  <p>La ecuación <span class="m">a·x ≡ b (mod n)</span> tiene solución <b>si y solo si</b> <span class="m">mcd(a, n) | b</span>.</p>
+  <p>Cuando tiene solución, el número de soluciones principales es exactamente <span class="m">d = mcd(a, n)</span>.</p>
+  <p><b>Caso especial:</b> si <span class="m">mcd(a, n) = 1</span>, la solución es única módulo <span class="m">n</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Tiene solución? ¿Cuántas?</div>
+  <b>a) 4x ≡ 5 (mod 6):</b> mcd(4, 6) = 2. ¿Divide 2 a 5? No. <b>Sin solución.</b><br><br>
+  <b>b) 2x ≡ 0 (mod 4):</b> mcd(2, 4) = 2. ¿Divide 2 a 0? Sí. <b>2 soluciones</b> principales. (Son x = 0 y x = 2.)<br><br>
+  <b>c) 78x ≡ 84 (mod 102):</b> mcd(78, 102).<br>
+  Euclides: 102 = 1·78 + 24; 78 = 3·24 + 6; 24 = 4·6 + 0. → mcd = 6.<br>
+  ¿Divide 6 a 84? 84 = 6·14 ✓. <b>Tiene 6 soluciones principales.</b>
+</div>
+
+<h4>9.3 Cómo resolver: caso mcd = 1</h4>
+<p>Si <span class="m">mcd(a, n) = 1</span>, la solución es <span class="m">x ≡ a<sup>−1</sup> · b (mod n)</span>. Usamos Bézout o simplificación por factores comunes para hallar el inverso.</p>
+
+<div class="example">
+  <div class="ex-t">Resolver 7x ≡ 3 (mod 12)</div>
+  <b>Paso 1: verificar existencia.</b> mcd(7, 12) = 1. ✓ Hay solución única.<br><br>
+  <b>Paso 2: hallar el inverso de 7 módulo 12 con Euclides.</b><br>
+  12 = 1·7 + 5<br>
+  7 = 1·5 + 2<br>
+  5 = 2·2 + 1<br>
+  2 = 2·1 + 0 → mcd = 1 ✓<br><br>
+  Retrocedemos:<br>
+  1 = 5 − 2·2<br>
+  &nbsp;&nbsp; = 5 − 2·(7 − 1·5) = 3·5 − 2·7<br>
+  &nbsp;&nbsp; = 3·(12 − 1·7) − 2·7 = 3·12 − 5·7<br><br>
+  Entonces <span class="m">1 = 3·12 + (−5)·7</span>. Luego el inverso de 7 módulo 12 es <span class="m">−5 ≡ 7 (mod 12)</span>.<br><br>
+  <b>Verificación:</b> 7·7 = 49 = 4·12 + 1 ≡ 1 (mod 12). ✓<br><br>
+  <b>Paso 3: calcular x.</b><br>
+  x ≡ 7<sup>−1</sup> · 3 ≡ 7 · 3 = 21 ≡ 9 (mod 12)<br><br>
+  <b>Verificación:</b> 7·9 = 63 = 5·12 + 3 ≡ 3 (mod 12). ✓<br><br>
+  <b>Solución: x ≡ 9 (mod 12)</b>
+</div>
+
+<h4>9.4 Resolver con simplificación (método alternativo)</h4>
+<p>Otra técnica muy útil (del apunte de Piñeiro): escribir los números como productos, identificar factores comunes con <span class="m">n</span>, y simplificar usando la propiedad de cancelación (cuando el factor compartido es coprimo con el nuevo módulo).</p>
+
+<div class="example">
+  <div class="ex-t">Resolver 15x ≡ 6 (mod 28) por simplificación</div>
+  mcd(15, 28) = 1, luego hay solución única.<br><br>
+  Descomponemos: <span class="m">5·3·x ≡ 2·3 (mod 28)</span><br>
+  mcd(3, 28) = 1, así que podemos cancelar el 3:<br>
+  <span class="m">5·x ≡ 2 (mod 28)</span><br><br>
+  El 2 no es divisible por 5; buscamos un elemento de [2] en ℤ₂₈ que sea múltiplo de 5.<br>
+  2 + 28 = 30 = 5·6 ✓<br>
+  <span class="m">5·x ≡ 30 (mod 28)</span> → descomponemos: <span class="m">5·x ≡ 5·6 (mod 28)</span><br>
+  Como mcd(5, 28) = 1, cancelamos: <span class="m">x ≡ 6 (mod 28)</span><br><br>
+  <b>Verificación:</b> 15·6 = 90 = 3·28 + 6 ≡ 6 (mod 28). ✓<br>
+  <b>Solución: x = 6</b>
+</div>
+
+<h4>9.5 Resolver cuando mcd > 1: caso de múltiples soluciones</h4>
+
+<div class="example">
+  <div class="ex-t">Resolver 78x ≡ 84 (mod 102) — 6 soluciones</div>
+  Ya verificamos: mcd(78, 102) = 6 y 6 | 84. Hay 6 soluciones principales.<br><br>
+  <b>Paso 1: dividir todo por mcd = 6.</b><br>
+  78/6 = 13, &nbsp; 84/6 = 14, &nbsp; 102/6 = 17<br>
+  Ecuación simplificada: <span class="m">13·x ≡ 14 (mod 17)</span><br><br>
+  <b>Paso 2: resolver la ecuación simplificada.</b><br>
+  mcd(13, 17) = 1. Por Euclides extendido:<br>
+  17 = 1·13 + 4<br>
+  13 = 3·4 + 1<br>
+  Retroceso: 1 = 13 − 3·4 = 13 − 3·(17 − 13) = 4·13 − 3·17<br>
+  Inverso de 13 mod 17: <span class="m">4</span> (pues 13·4 = 52 = 3·17 + 1 ✓)<br><br>
+  x ≡ 4·14 = 56 = 3·17 + 5 ≡ 5 (mod 17)<br>
+  La solución de la ecuación simplificada es x = 5.<br><br>
+  <b>Paso 3: obtener las 6 soluciones principales sumando 17 sucesivamente.</b><br>
+  x = 5, &nbsp; 5+17=22, &nbsp; 22+17=39, &nbsp; 39+17=56, &nbsp; 56+17=73, &nbsp; 73+17=90<br><br>
+  <b>Soluciones principales: x = 5, 22, 39, 56, 73, 90</b><br><br>
+  <b>Verificación con x = 5:</b> 78·5 = 390 = 3·102 + 84 → 390 ≡ 84 (mod 102). ✓<br>
+  <b>Verificación con x = 56:</b> 78·56 = 4368 = 42·102 + 84 → 4368 ≡ 84 (mod 102). ✓
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error: no simplificar correctamente cuando mcd > 1</div>
+  <p>Cuando <span class="m">mcd(a, n) = d > 1</span>, se divide <b>todo</b> por <span class="m">d</span>: el coeficiente <span class="m">a</span>, el término independiente <span class="m">b</span>, <b>y el módulo</b> <span class="m">n</span>. La ecuación simplificada es <span class="m">(a/d)·x ≡ (b/d) (mod n/d)</span>. Si solo se divide parte de la ecuación, el resultado es incorrecto.</p>
+  <p>Además, las soluciones de la ecuación original se obtienen sumando <span class="m">n/d</span> (el nuevo módulo), <b>no</b> el módulo original <span class="m">n</span>.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>10. Sistemas de congruencias y Teorema Chino del Resto (TCR)</h3>
+
+<h4>10.1 Planteamiento</h4>
+<p>Un sistema de congruencias tiene la forma:</p>
+<div class="formula">x ≡ a₁ (mod n₁)<br>x ≡ a₂ (mod n₂)<br>⋮<br>x ≡ a<sub>k</sub> (mod n<sub>k</sub>)</div>
+<p>La pregunta es: ¿existe una solución? ¿Es única? ¿Cómo se calcula?</p>
+
+<div class="key">
+  <div class="ky-t">Teorema Chino del Resto (TCR)</div>
+  <p>Si <span class="m">n₁, n₂, …, n<sub>k</sub></span> son <b>dos a dos coprimos</b> (mcd(nᵢ, nⱼ) = 1 para todo i ≠ j), entonces el sistema tiene solución <b>única módulo <span class="m">N = n₁·n₂·…·n<sub>k</sub></span></b>.</p>
+  <p><b>Fórmula constructiva:</b> Sea <span class="m">Nᵢ = N / nᵢ</span>. Como mcd(Nᵢ, nᵢ) = 1, existe el inverso <span class="m">Mᵢ = Nᵢ<sup>−1</sup> (mod nᵢ)</span>. La solución es:</p>
+  <div class="formula">x ≡ a₁·N₁·M₁ + a₂·N₂·M₂ + … + a<sub>k</sub>·N<sub>k</sub>·M<sub>k</sub> (mod N)</div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Resolver x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7)</div>
+  <b>Verificamos coprimalidad:</b> mcd(3,5)=1, mcd(3,7)=1, mcd(5,7)=1. ✓<br><br>
+  <b>Datos:</b> n₁=3, n₂=5, n₃=7, a₁=2, a₂=3, a₃=2.<br>
+  N = 3·5·7 = 105<br><br>
+  <b>Calculamos los Nᵢ:</b><br>
+  N₁ = 105/3 = 35<br>
+  N₂ = 105/5 = 21<br>
+  N₃ = 105/7 = 15<br><br>
+  <b>Calculamos los inversos Mᵢ = Nᵢ<sup>−1</sup> (mod nᵢ):</b><br><br>
+  M₁: 35·M₁ ≡ 1 (mod 3). Como 35 = 11·3 + 2, tenemos 35 ≡ 2 (mod 3). Necesito 2·M₁ ≡ 1 (mod 3). Probando: 2·2 = 4 ≡ 1 (mod 3). <b>M₁ = 2.</b><br><br>
+  M₂: 21·M₂ ≡ 1 (mod 5). Como 21 = 4·5 + 1, tenemos 21 ≡ 1 (mod 5). Entonces 1·M₂ ≡ 1 (mod 5). <b>M₂ = 1.</b><br><br>
+  M₃: 15·M₃ ≡ 1 (mod 7). Como 15 = 2·7 + 1, tenemos 15 ≡ 1 (mod 7). Entonces 1·M₃ ≡ 1 (mod 7). <b>M₃ = 1.</b><br><br>
+  <b>Construcción de la solución:</b><br>
+  x ≡ a₁·N₁·M₁ + a₂·N₂·M₂ + a₃·N₃·M₃ (mod 105)<br>
+  x ≡ 2·35·2 + 3·21·1 + 2·15·1 (mod 105)<br>
+  x ≡ 140 + 63 + 30 (mod 105)<br>
+  x ≡ 233 (mod 105)<br>
+  233 = 2·105 + 23, luego <b>x ≡ 23 (mod 105)</b><br><br>
+  <b>Verificación:</b><br>
+  23 = 7·3 + 2 → 23 ≡ 2 (mod 3) ✓<br>
+  23 = 4·5 + 3 → 23 ≡ 3 (mod 5) ✓<br>
+  23 = 3·7 + 2 → 23 ≡ 2 (mod 7) ✓<br><br>
+  <b>Todas las soluciones: x = 23 + 105k para k ∈ ℤ.</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Otro enfoque: sustitución sucesiva</div>
+  Resolver el mismo sistema: x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7)<br><br>
+  De la primera: x = 3k + 2 para algún k ∈ ℤ.<br>
+  Sustituyo en la segunda: 3k + 2 ≡ 3 (mod 5) → 3k ≡ 1 (mod 5).<br>
+  Inverso de 3 mod 5: 3·2 = 6 ≡ 1 (mod 5) → 3<sup>−1</sup> = 2.<br>
+  k ≡ 2·1 = 2 (mod 5) → k = 5j + 2.<br>
+  Entonces x = 3(5j + 2) + 2 = 15j + 8.<br><br>
+  Sustituyo en la tercera: 15j + 8 ≡ 2 (mod 7) → 15j ≡ −6 ≡ 1 (mod 7).<br>
+  15 ≡ 1 (mod 7), luego j ≡ 1 (mod 7) → j = 7m + 1.<br>
+  x = 15(7m + 1) + 8 = 105m + 23.<br><br>
+  <b>x ≡ 23 (mod 105). Mismo resultado.</b>
+</div>
+
+<div class="trap">
+  <div class="tr-t">TCR requiere módulos dos a dos coprimos</div>
+  <p>Si los módulos no son coprimos, el TCR en su forma estándar no aplica. Por ejemplo, el sistema x ≡ 1 (mod 4), x ≡ 2 (mod 6) puede no tener solución (mcd(4,6)=2 y 1 ≢ 2 (mod 2)), o puede tenerla si se verifican condiciones de compatibilidad adicionales. No aplicar el TCR a ciegas sin verificar coprimalidad.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>11. Resumen comparativo: Fermat vs. Euler</h3>
+
+<table class="tbl">
+  <tr>
+    <th>Característica</th>
+    <th>Pequeño T. de Fermat</th>
+    <th>Teorema de Euler</th>
+  </tr>
+  <tr>
+    <td>Condición sobre n</td>
+    <td class="c">n = p (primo)</td>
+    <td class="c">n cualquier entero positivo</td>
+  </tr>
+  <tr>
+    <td>Condición sobre a</td>
+    <td class="c">mcd(a, p) = 1</td>
+    <td class="c">mcd(a, n) = 1</td>
+  </tr>
+  <tr>
+    <td>Resultado</td>
+    <td class="c">a<sup>p−1</sup> ≡ 1 (mod p)</td>
+    <td class="c">a<sup>φ(n)</sup> ≡ 1 (mod n)</td>
+  </tr>
+  <tr>
+    <td>Exponente "período"</td>
+    <td class="c">p − 1 = φ(p)</td>
+    <td class="c">φ(n)</td>
+  </tr>
+  <tr>
+    <td>Caso especial</td>
+    <td class="c">Euler con n primo</td>
+    <td class="c">Generalización de Fermat</td>
+  </tr>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>12. Aplicaciones</h3>
+
+<h4>12.1 Últimos dígitos de potencias</h4>
+<p>El <b>último dígito</b> de un número es su resto al dividir por 10. Con Euler, φ(10) = φ(2)·φ(5) = 1·4 = 4. Si mcd(a, 10) = 1, entonces a<sup>4</sup> ≡ 1 (mod 10), y el último dígito se repite cada 4 potencias.</p>
+
+<div class="example">
+  <div class="ex-t">Último dígito de 3¹⁰⁰¹</div>
+  mcd(3, 10) = 1. φ(10) = 4. Por Euler: 3<sup>4</sup> ≡ 1 (mod 10).<br>
+  1001 = 4·250 + 1.<br>
+  3<sup>1001</sup> = (3<sup>4</sup>)<sup>250</sup>·3<sup>1</sup> ≡ 1·3 = 3 (mod 10).<br>
+  <b>El último dígito de 3¹⁰⁰¹ es 3.</b>
+</div>
+
+<h4>12.2 Criterios de divisibilidad</h4>
+<p>Los criterios de divisibilidad que seguramente ya conocés (por 3, por 9, por 11) son consecuencias directas de la aritmética modular. Por ejemplo:</p>
+<ul>
+  <li>Un número es divisible por 9 si y solo si la suma de sus dígitos es divisible por 9. Esto se debe a que 10 ≡ 1 (mod 9), luego cada dígito contribuye con su propio valor.</li>
+  <li>Un número es divisible por 11 si y solo si la suma alternada de sus dígitos es divisible por 11 (porque 10 ≡ −1 (mod 11)).</li>
+</ul>
+
+<h4>12.3 Idea de la criptografía RSA</h4>
+<p>El sistema RSA (Rivest-Shamir-Adleman) es el algoritmo de clave pública más usado en el mundo. Se basa en el Teorema de Euler:</p>
+<ol>
+  <li>Elegir dos primos grandes <span class="m">p</span> y <span class="m">q</span>. Calcular <span class="m">n = p·q</span> y <span class="m">φ(n) = (p−1)(q−1)</span>.</li>
+  <li>Elegir un exponente de cifrado <span class="m">e</span> con <span class="m">mcd(e, φ(n)) = 1</span>.</li>
+  <li>Calcular el exponente de descifrado <span class="m">d</span> tal que <span class="m">e·d ≡ 1 (mod φ(n))</span> (el inverso de <span class="m">e</span>).</li>
+  <li>Clave pública: <span class="m">(n, e)</span>. Clave privada: <span class="m">(n, d)</span>.</li>
+  <li>Para cifrar un mensaje <span class="m">M</span>: <span class="m">C ≡ M<sup>e</sup> (mod n)</span>.</li>
+  <li>Para descifrar: <span class="m">M ≡ C<sup>d</sup> (mod n)</span>.</li>
+</ol>
+<p>La seguridad se basa en que calcular <span class="m">φ(n)</span> a partir de <span class="m">n</span> (sin conocer <span class="m">p</span> y <span class="m">q</span>) es equivalente a factorizar <span class="m">n</span>, lo cual es computacionalmente inviable para primos de cientos de dígitos.</p>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<h3>13. Síntesis y mapa conceptual</h3>
+
+<table class="tbl">
+  <tr>
+    <th>Concepto</th>
+    <th>Definición / Condición</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr>
+    <td>Congruencia a ≡ b (mod n)</td>
+    <td class="c">n | (a−b)</td>
+    <td>Clasificar enteros por resto</td>
+  </tr>
+  <tr>
+    <td>ℤ<sub>n</sub></td>
+    <td class="c">{0, 1, …, n−1} (clases residuales)</td>
+    <td>Aritmética modular finita</td>
+  </tr>
+  <tr>
+    <td>Inverso de a mod n</td>
+    <td class="c">Existe ⟺ mcd(a,n)=1</td>
+    <td>Dividir en congruencias</td>
+  </tr>
+  <tr>
+    <td>φ(n)</td>
+    <td class="c">Cantidad de coprimos con n en [1,n]</td>
+    <td>Período en Euler; número de invertibles</td>
+  </tr>
+  <tr>
+    <td>Fermat</td>
+    <td class="c">p primo, mcd(a,p)=1 → a<sup>p−1</sup>≡1</td>
+    <td>Restos de potencias (divisor primo)</td>
+  </tr>
+  <tr>
+    <td>Euler</td>
+    <td class="c">mcd(a,n)=1 → a<sup>φ(n)</sup>≡1</td>
+    <td>Restos de potencias (divisor cualquiera)</td>
+  </tr>
+  <tr>
+    <td>Ec. lineal ax≡b (mod n)</td>
+    <td class="c">Solución ⟺ mcd(a,n)|b; d soluciones</td>
+    <td>Resolver ecuaciones modulares</td>
+  </tr>
+  <tr>
+    <td>TCR</td>
+    <td class="c">nᵢ dos a dos coprimos → sol. única mod N</td>
+    <td>Sistemas de congruencias</td>
+  </tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Estrategia general para calcular a<sup>k</sup> mod n</div>
+  <p><b>1.</b> Verificar mcd(a, n).</p>
+  <p><b>2a.</b> Si mcd(a, n) = 1 y n es primo → usar Fermat: a<sup>n−1</sup> ≡ 1 (mod n). Reducir k módulo (n−1).</p>
+  <p><b>2b.</b> Si mcd(a, n) = 1 y n es compuesto → usar Euler: a<sup>φ(n)</sup> ≡ 1 (mod n). Reducir k módulo φ(n).</p>
+  <p><b>2c.</b> Si mcd(a, n) ≠ 1 → factorizar n y aplicar TCR o calcular directamente por exponenciación rápida (cuadrados sucesivos).</p>
+  <p><b>3.</b> Calcular la potencia reducida módulo n mediante cuadrados sucesivos si es necesario.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

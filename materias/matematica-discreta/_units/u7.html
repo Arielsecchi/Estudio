@@ -1,0 +1,631 @@
+<!-- ============ UNIDAD 7 · RELACIONES DE RECURRENCIA ============ -->
+<details id="md-s7">
+<summary><span class="num">7</span> Unidad 7: Relaciones de Recurrencia <span class="sec-score" id="ss-matematica-discreta-7"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una sucesión?</h3>
+<p>Una <b>sucesión</b> es una lista ordenada de elementos, numerada con los números naturales. Formalmente es una función:</p>
+<div class="formula">f : ℕ → ℝ &nbsp;&nbsp; o bien &nbsp;&nbsp; f : ℕ<sub>0</sub> → ℝ</div>
+<p>Cada elemento se llama <b>término</b> y se denota con una letra y un subíndice que indica su posición: <span class="m">a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, ...</span> o bien <span class="m">a<sub>1</sub>, a<sub>2</sub>, a<sub>3</sub>, ...</span> según si empezamos en 0 o en 1.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de sucesiones</div>
+  <ul>
+    <li><span class="m">S<sub>1</sub> : 1, 4, 9, 16, 25, ...</span> &nbsp; → &nbsp; fórmula general: <span class="m">a<sub>n</sub> = n<sup>2</sup></span></li>
+    <li><span class="m">S<sub>2</sub> : -1, 1, -1, 1, -1, ...</span> &nbsp; → &nbsp; fórmula general: <span class="m">a<sub>n</sub> = (-1)<sup>n</sup></span></li>
+    <li><span class="m">S<sub>3</sub> : 1, 1/2, 1/3, 1/4, ...</span> &nbsp; → &nbsp; fórmula general: <span class="m">a<sub>n</sub> = 1/n</span></li>
+  </ul>
+  <p>A veces la fórmula general es fácil de adivinar, otras veces no. Por eso existen <b>métodos sistemáticos</b>.</p>
+</div>
+
+<h3>Recursión: definir una sucesión en términos de sí misma</h3>
+<p>Una <b>definición recursiva</b> hace referencia a sí misma. Para las sucesiones, significa definir el término <span class="m">a<sub>n</sub></span> en función de términos anteriores. El ejemplo más clásico es el factorial:</p>
+<div class="formula">n! = n · (n−1)! &nbsp;&nbsp;&nbsp; con &nbsp;&nbsp; 0! = 1</div>
+<p>Cada vez que quiero saber <span class="m">n!</span> necesito saber <span class="m">(n-1)!</span>, que a su vez necesita <span class="m">(n-2)!</span>, y así hasta llegar a la condición base <span class="m">0! = 1</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Sucesión definida recursivamente</div>
+  <p>Sea <span class="m">a<sub>n</sub> = 2·a<sub>n-1</sub></span> con <span class="m">a<sub>1</sub> = 4</span>.</p>
+  <p>Si quiero saber <span class="m">a<sub>100</sub></span>, necesito <span class="m">a<sub>99</sub></span>, que necesita <span class="m">a<sub>98</sub></span>, ... hasta llegar a <span class="m">a<sub>1</sub> = 4</span>.</p>
+  <p>Calculando algunos términos:</p>
+  <ul>
+    <li><span class="m">a<sub>2</sub> = 2·4 = 8</span></li>
+    <li><span class="m">a<sub>3</sub> = 2·8 = 16</span></li>
+    <li><span class="m">a<sub>4</sub> = 2·16 = 32</span></li>
+  </ul>
+  <p>Observando el patrón: <span class="m">a<sub>n</sub> = 2<sup>n+1</sup></span> &nbsp;→&nbsp; entonces <span class="m">a<sub>100</sub> = 2<sup>101</sup></span>, sin tener que calcular todos los términos.</p>
+</div>
+
+<h3>Relaciones de Recurrencia: definición formal</h3>
+<p>Las sucesiones dadas en forma recursiva se llaman <b>relaciones de recurrencia</b> (o <b>ecuaciones de recurrencia</b>). Su forma general es:</p>
+<div class="formula">a<sub>n</sub> = f(a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n-1</sub>)</div>
+<p><b>Resolver</b> una relación de recurrencia significa encontrar una <b>expresión no recursiva</b> (fórmula cerrada) del término <span class="m">a<sub>n</sub></span> que satisfaga la relación. Es decir, pasar de:</p>
+<div class="formula">a<sub>n</sub> = 2·a<sub>n-1</sub> &nbsp;&nbsp; (recursiva) &nbsp;&nbsp;→&nbsp;&nbsp; a<sub>n</sub> = 2<sup>n+1</sup> &nbsp;&nbsp; (no recursiva)</div>
+
+<h3>Clasificación de Relaciones de Recurrencia</h3>
+<p>Los métodos de resolución dependen del tipo de ecuación. Se clasifican según cuatro criterios:</p>
+
+<table class="tbl">
+  <tr>
+    <th>Criterio</th>
+    <th>Descripción</th>
+    <th>Ejemplo</th>
+  </tr>
+  <tr>
+    <td><b>Orden</b></td>
+    <td>La mayor diferencia entre subíndices que aparecen en la relación. Indica cuántos términos anteriores hay que conocer.</td>
+    <td><span class="m">a<sub>n</sub> = a<sub>n-1</sub> + a<sub>n-2</sub></span> → orden 2</td>
+  </tr>
+  <tr>
+    <td><b>Grado</b></td>
+    <td>El mayor exponente al que están elevados los términos de la sucesión. Grado 1 = lineal.</td>
+    <td><span class="m">a<sub>n</sub><sup>2</sup> = 2a<sub>n-1</sub></span> → grado 2</td>
+  </tr>
+  <tr>
+    <td><b>Homogeneidad</b></td>
+    <td>Una ecuación es <b>homogénea</b> si no tiene término independiente (todo término contiene algún <span class="m">a<sub>k</sub></span>). Si hay términos sin <span class="m">a<sub>k</sub></span> (constantes, polinomios en n, exponenciales en n, etc.), es <b>no homogénea</b>.</td>
+    <td><span class="m">a<sub>n</sub> = a<sub>n-1</sub> + 2</span> → no homogénea (el 2 es independiente)</td>
+  </tr>
+  <tr>
+    <td><b>Coeficientes</b></td>
+    <td><b>Constantes</b> si ningún coeficiente de los <span class="m">a<sub>k</sub></span> depende de n. <b>Variables</b> si alguno depende de n.</td>
+    <td><span class="m">a<sub>n</sub> = n·a<sub>n-2</sub></span> → coeficiente variable (el n)</td>
+  </tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Clasificar estas ecuaciones</div>
+  <table class="tbl">
+    <tr>
+      <th>Ecuación</th>
+      <th>Orden</th>
+      <th>Grado</th>
+      <th>Homogénea</th>
+      <th>Coeficientes</th>
+    </tr>
+    <tr>
+      <td><span class="m">a<sub>n</sub> = a<sub>n-1</sub> + 2</span></td>
+      <td class="c">1</td>
+      <td class="c">1</td>
+      <td class="c">No</td>
+      <td class="c">Constantes</td>
+    </tr>
+    <tr>
+      <td><span class="m">a<sub>n</sub> = a<sub>n-1</sub> + a<sub>n-2</sub></span></td>
+      <td class="c">2</td>
+      <td class="c">1</td>
+      <td class="c">Sí</td>
+      <td class="c">Constantes</td>
+    </tr>
+    <tr>
+      <td><span class="m">a<sub>n</sub> = a<sub>n-1</sub> + 2n<sup>2</sup> − 1</span></td>
+      <td class="c">1</td>
+      <td class="c">1</td>
+      <td class="c">No</td>
+      <td class="c">Constantes</td>
+    </tr>
+    <tr>
+      <td><span class="m">a<sub>n</sub> = n·a<sub>n-2</sub></span></td>
+      <td class="c">2</td>
+      <td class="c">1</td>
+      <td class="c">Sí</td>
+      <td class="c">Variables (n)</td>
+    </tr>
+    <tr>
+      <td><span class="m">a<sub>n+1</sub> = 3a<sub>n-1</sub></span></td>
+      <td class="c">2</td>
+      <td class="c">1</td>
+      <td class="c">Sí</td>
+      <td class="c">Constantes</td>
+    </tr>
+    <tr>
+      <td><span class="m">a<sub>n</sub><sup>2</sup> = 2a<sub>n-1</sub> − 1</span></td>
+      <td class="c">1</td>
+      <td class="c">2</td>
+      <td class="c">No</td>
+      <td class="c">Constantes</td>
+    </tr>
+  </table>
+  <p><i>Nota sobre el orden:</i> en <span class="m">a<sub>n+1</sub> = 3a<sub>n-1</sub></span> la diferencia máxima de subíndices es <span class="m">(n+1)-(n-1) = 2</span>, por eso es orden 2.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Lo que estudiaremos en esta unidad</div>
+  <p>En esta materia nos concentramos en <b>ecuaciones lineales, a coeficientes constantes</b>, tanto de orden 1 como de orden 2, homogéneas y no homogéneas. Estas son las más tratables matemáticamente y las más útiles en la práctica.</p>
+</div>
+
+<h3>Solución General vs. Solución Particular</h3>
+<p>Una <b>solución general</b> de una relación de recurrencia es una expresión de <span class="m">a<sub>n</sub></span> que verifica la ecuación para cualquier valor de ciertas constantes libres. Representa <i>infinitas</i> soluciones a la vez.</p>
+<p>Una <b>solución particular</b> es cualquiera de esas infinitas soluciones, obtenida al fijar valores específicos para las constantes. Para determinar una única solución particular necesitamos tantas <b>condiciones iniciales</b> como el orden de la ecuación:</p>
+<ul>
+  <li>Orden 1 → 1 condición inicial (por ejemplo, <span class="m">a<sub>0</sub></span>)</li>
+  <li>Orden 2 → 2 condiciones iniciales (por ejemplo, <span class="m">a<sub>0</sub></span> y <span class="m">a<sub>1</sub></span>)</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Solución general vs. particular</div>
+  <p>La ecuación <span class="m">a<sub>n</sub> = (5/3)·a<sub>n-1</sub></span> tiene solución general:</p>
+  <div class="formula">a<sub>n</sub> = k · (5/3)<sup>n</sup> &nbsp;&nbsp;&nbsp; con k ∈ ℝ</div>
+  <p>Para cada k hay una sucesión diferente que verifica la ecuación. Si nos dan <span class="m">a<sub>0</sub> = 4</span>, reemplazamos:</p>
+  <div class="formula">a<sub>0</sub> = k · (5/3)<sup>0</sup> = k · 1 = k = 4</div>
+  <p>Entonces la <b>solución particular</b> es: <span class="m">a<sub>n</sub> = 4 · (5/3)<sup>n</sup></span></p>
+</div>
+
+<h3>Recurrencias Lineales Homogéneas de Orden 1</h3>
+<p>Son de la forma <span class="m">a<sub>n</sub> = k · a<sub>n-1</sub></span> con k constante real no nula. La solución es directa:</p>
+<div class="formula">a<sub>n</sub> = k<sup>n</sup> · a<sub>0</sub></div>
+<p>¿Por qué? Porque <span class="m">a<sub>1</sub> = k·a<sub>0</sub></span>, luego <span class="m">a<sub>2</sub> = k·a<sub>1</sub> = k<sup>2</sup>·a<sub>0</sub></span>, y en general <span class="m">a<sub>n</sub> = k<sup>n</sup>·a<sub>0</sub></span>. Esto se puede probar rigurosamente por inducción.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo completo: orden 1 homogénea</div>
+  <p><b>Ecuación:</b> <span class="m">3a<sub>n</sub> − 5a<sub>n-1</sub> = 0</span> con <span class="m">a<sub>0</sub> = 4</span></p>
+  <p><b>Paso 1:</b> Despejamos <span class="m">a<sub>n</sub></span>: &nbsp; <span class="m">a<sub>n</sub> = (5/3)·a<sub>n-1</sub></span></p>
+  <p><b>Paso 2:</b> La solución general es: &nbsp; <span class="m">a<sub>n</sub> = k·(5/3)<sup>n</sup></span></p>
+  <p><b>Paso 3:</b> Con <span class="m">a<sub>0</sub> = 4</span>: &nbsp; <span class="m">a<sub>0</sub> = k·(5/3)<sup>0</sup> = k = 4</span></p>
+  <p><b>Solución particular:</b> <span class="m">a<sub>n</sub> = 4·(5/3)<sup>n</sup></span></p>
+  <p><b>Verificación por inducción:</b></p>
+  <ul>
+    <li><i>Paso base</i> (n=0): <span class="m">a<sub>0</sub> = 4·(5/3)<sup>0</sup> = 4·1 = 4 ✓</span></li>
+    <li><i>Hipótesis inductiva</i>: <span class="m">a<sub>h</sub> = 4·(5/3)<sup>h</sup></span></li>
+    <li><i>Tesis inductiva</i>: <span class="m">a<sub>h+1</sub> = 4·(5/3)<sup>h+1</sup></span></li>
+    <li><i>Demostración</i>: <span class="m">a<sub>h+1</sub> = (5/3)·a<sub>h</sub> = (5/3)·4·(5/3)<sup>h</sup> = 4·(5/3)<sup>h+1</sup> ✓</span></li>
+  </ul>
+</div>
+
+<h3>Recurrencias Lineales Homogéneas de Orden 2</h3>
+<p>Son de la forma:</p>
+<div class="formula">c<sub>n</sub>·a<sub>n</sub> + c<sub>n-1</sub>·a<sub>n-1</sub> + c<sub>n-2</sub>·a<sub>n-2</sub> = 0 &nbsp;&nbsp;&nbsp; (c<sub>n</sub> ≠ 0, coeficientes constantes)</div>
+<p>La idea clave: <i>supongamos</i> que <span class="m">a<sub>n</sub> = x<sup>n</sup></span> es solución. Sustituyendo en la ecuación:</p>
+<div class="formula">c<sub>n</sub>·x<sup>n</sup> + c<sub>n-1</sub>·x<sup>n-1</sup> + c<sub>n-2</sub>·x<sup>n-2</sup> = 0</div>
+<p>Dividiendo entre <span class="m">x<sup>n-2</sup></span> (que no es cero):</p>
+<div class="formula">c<sub>n</sub>·x<sup>2</sup> + c<sub>n-1</sub>·x + c<sub>n-2</sub> = 0</div>
+<p>Esta es la <b>ecuación característica</b>. Sus raíces determinan la forma de la solución general.</p>
+
+<h4>Caso 1: Raíces reales distintas (r<sub>1</sub> ≠ r<sub>2</sub>)</h4>
+<div class="formula">a<sub>n</sub> = k<sub>1</sub>·r<sub>1</sub><sup>n</sup> + k<sub>2</sub>·r<sub>2</sub><sup>n</sup></div>
+
+<h4>Caso 2: Raíz doble (r<sub>1</sub> = r<sub>2</sub> = r)</h4>
+<p>Cuando hay una raíz doble, la solución <span class="m">k·r<sup>n</sup></span> sola no alcanza para generar todas las soluciones posibles. Hay que multiplicar la segunda parte por n:</p>
+<div class="formula">a<sub>n</sub> = k<sub>1</sub>·r<sup>n</sup> + k<sub>2</sub>·n·r<sup>n</sup> &nbsp;&nbsp; = &nbsp;&nbsp; (k<sub>1</sub> + k<sub>2</sub>·n)·r<sup>n</sup></div>
+
+<h4>Caso 3: Raíces complejas conjugadas</h4>
+<p>Si las raíces son <span class="m">r<sub>1,2</sub> = α ± βi</span>, se usan con módulo <span class="m">ρ = √(α²+β²)</span> y argumento <span class="m">θ = arctan(β/α)</span>:</p>
+<div class="formula">a<sub>n</sub> = ρ<sup>n</sup>·(k<sub>1</sub>·cos(nθ) + k<sub>2</sub>·sen(nθ))</div>
+<p><i>Nota: las raíces complejas no se desarrollan en esta materia, solo se menciona la forma.</i></p>
+
+<div class="key">
+  <div class="ky-t">Algoritmo para resolver recurrencia lineal homogénea de orden 2</div>
+  <ol>
+    <li>Escribir la ecuación característica <span class="m">c<sub>n</sub>x<sup>2</sup> + c<sub>n-1</sub>x + c<sub>n-2</sub> = 0</span> (los coeficientes van en el mismo orden que en la recurrencia).</li>
+    <li>Calcular las raíces <span class="m">r<sub>1</sub></span> y <span class="m">r<sub>2</sub></span>.</li>
+    <li>Escribir la solución general según el caso (raíces distintas, doble o complejas).</li>
+    <li>Plantear el sistema con las condiciones iniciales para encontrar <span class="m">k<sub>1</sub></span> y <span class="m">k<sub>2</sub></span>.</li>
+    <li>Escribir la solución particular.</li>
+  </ol>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: signos en la ecuación característica</div>
+  <p>Para la recurrencia <span class="m">a<sub>n</sub> − 5a<sub>n-1</sub> + 6a<sub>n-2</sub> = 0</span>, la ecuación característica es:</p>
+  <div class="formula">x<sup>2</sup> − 5x + 6 = 0</div>
+  <p>Los signos de los coeficientes se copian <i>tal cual</i>. <b>No hay que cambiar signos</b> al pasar a la ecuación característica; solo se reemplaza <span class="m">a<sub>n</sub> → x<sup>2</sup></span>, <span class="m">a<sub>n-1</sub> → x</span>, <span class="m">a<sub>n-2</sub> → 1</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 1: raíces reales distintas</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n</sub> − 5a<sub>n-1</sub> + 6a<sub>n-2</sub> = 0</span> con <span class="m">a<sub>0</sub> = 3</span>, <span class="m">a<sub>1</sub> = 5</span></p>
+  <p><b>Paso 1 – Ecuación característica:</b></p>
+  <div class="formula">x<sup>2</sup> − 5x + 6 = 0 &nbsp;→&nbsp; (x−2)(x−3) = 0 &nbsp;→&nbsp; r<sub>1</sub> = 2, &nbsp; r<sub>2</sub> = 3</div>
+  <p><b>Paso 2 – Solución general:</b></p>
+  <div class="formula">a<sub>n</sub> = k<sub>1</sub>·2<sup>n</sup> + k<sub>2</sub>·3<sup>n</sup></div>
+  <p><b>Paso 3 – Sistema con condiciones iniciales:</b></p>
+  <ul>
+    <li><span class="m">n=0</span>: &nbsp; <span class="m">k<sub>1</sub>·2<sup>0</sup> + k<sub>2</sub>·3<sup>0</sup> = 3 &nbsp;→&nbsp; k<sub>1</sub> + k<sub>2</sub> = 3</span></li>
+    <li><span class="m">n=1</span>: &nbsp; <span class="m">k<sub>1</sub>·2<sup>1</sup> + k<sub>2</sub>·3<sup>1</sup> = 5 &nbsp;→&nbsp; 2k<sub>1</sub> + 3k<sub>2</sub> = 5</span></li>
+  </ul>
+  <p>De la primera: <span class="m">k<sub>1</sub> = 3 − k<sub>2</sub></span>. Sustituyendo en la segunda: <span class="m">2(3−k<sub>2</sub>) + 3k<sub>2</sub> = 5 &nbsp;→&nbsp; 6 + k<sub>2</sub> = 5 &nbsp;→&nbsp; k<sub>2</sub> = −1</span>. Entonces <span class="m">k<sub>1</sub> = 4</span>.</p>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = 4·2<sup>n</sup> − 3<sup>n</sup></div>
+  <p><b>Verificación rápida:</b> <span class="m">a<sub>0</sub> = 4·1 − 1 = 3 ✓</span> &nbsp; <span class="m">a<sub>1</sub> = 4·2 − 3 = 5 ✓</span></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 2: raíz doble</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+2</sub> = 4a<sub>n+1</sub> − 4a<sub>n</sub></span> con <span class="m">a<sub>0</sub> = 1</span>, <span class="m">a<sub>1</sub> = 3</span></p>
+  <p><b>Paso 1 – Reescribir como</b> <span class="m">a<sub>n+2</sub> − 4a<sub>n+1</sub> + 4a<sub>n</sub> = 0</span></p>
+  <p><b>Paso 2 – Ecuación característica:</b></p>
+  <div class="formula">x<sup>2</sup> − 4x + 4 = 0 &nbsp;→&nbsp; (x−2)<sup>2</sup> = 0 &nbsp;→&nbsp; r = 2 &nbsp; (raíz doble)</div>
+  <p><b>Paso 3 – Solución general</b> (caso raíz doble):</p>
+  <div class="formula">a<sub>n</sub> = k<sub>1</sub>·2<sup>n</sup> + k<sub>2</sub>·n·2<sup>n</sup></div>
+  <p><b>Paso 4 – Sistema:</b></p>
+  <ul>
+    <li><span class="m">n=0</span>: &nbsp; <span class="m">k<sub>1</sub>·1 + k<sub>2</sub>·0·1 = 1 &nbsp;→&nbsp; k<sub>1</sub> = 1</span></li>
+    <li><span class="m">n=1</span>: &nbsp; <span class="m">k<sub>1</sub>·2 + k<sub>2</sub>·1·2 = 3 &nbsp;→&nbsp; 2·1 + 2k<sub>2</sub> = 3 &nbsp;→&nbsp; k<sub>2</sub> = 1/2</span></li>
+  </ul>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = 2<sup>n</sup> + (1/2)·n·2<sup>n</sup> = 2<sup>n</sup> + n·2<sup>n-1</sup></div>
+  <p><b>Verificación:</b> <span class="m">a<sub>0</sub> = 1 + 0 = 1 ✓</span> &nbsp; <span class="m">a<sub>1</sub> = 2 + 1 = 3 ✓</span></p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: olvidar el factor n en la raíz doble</div>
+  <p>Cuando la ecuación característica tiene una raíz doble <span class="m">r</span>, muchos estudiantes escriben erróneamente:</p>
+  <p><b>Incorrecto:</b> <span class="m">a<sub>n</sub> = k<sub>1</sub>·r<sup>n</sup> + k<sub>2</sub>·r<sup>n</sup></span> (que es lo mismo que <span class="m">(k<sub>1</sub>+k<sub>2</sub>)·r<sup>n</sup></span>, ¡solo una constante!)</p>
+  <p><b>Correcto:</b> <span class="m">a<sub>n</sub> = k<sub>1</sub>·r<sup>n</sup> + k<sub>2</sub>·<i>n</i>·r<sup>n</sup></span></p>
+  <p>Sin el factor <span class="m">n</span> en el segundo término, no se generan dos soluciones linealmente independientes y el sistema para encontrar <span class="m">k<sub>1</sub></span> y <span class="m">k<sub>2</sub></span> queda mal planteado.</p>
+</div>
+
+<h3>La Sucesión de Fibonacci: un caso famoso</h3>
+<p>La sucesión de Fibonacci fue descrita por Leonardo de Pisa (Fibonacci, 1170-1250) como solución a un problema sobre conejos. Se define:</p>
+<div class="formula">F<sub>1</sub> = 1, &nbsp; F<sub>2</sub> = 1, &nbsp; F<sub>n</sub> = F<sub>n-1</sub> + F<sub>n-2</sub> &nbsp; (para n ≥ 3)</div>
+<p>Los primeros términos son: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...</p>
+<p>Los cocientes entre términos consecutivos se acercan al <b>número áureo</b> <span class="m">φ = (1 + √5)/2 ≈ 1.618</span>, que aparece en la naturaleza (espirales de girasoles, conchas, proporciones del cuerpo humano) y en el arte y la arquitectura.</p>
+
+<div class="example">
+  <div class="ex-t">Resolución de Fibonacci (raíces irracionales)</div>
+  <p><b>Ecuación:</b> <span class="m">F<sub>n</sub> − F<sub>n-1</sub> − F<sub>n-2</sub> = 0</span> con <span class="m">F<sub>1</sub> = 1</span>, <span class="m">F<sub>2</sub> = 1</span></p>
+  <p><b>Paso 1 – Ecuación característica:</b></p>
+  <div class="formula">x<sup>2</sup> − x − 1 = 0</div>
+  <p>Usando la fórmula cuadrática: <span class="m">x = (1 ± √5) / 2</span></p>
+  <div class="formula">r<sub>1</sub> = (1 + √5) / 2 &nbsp;&nbsp; (≈ 1.618, el número áureo φ) <br>r<sub>2</sub> = (1 − √5) / 2 &nbsp;&nbsp; (≈ −0.618)</div>
+  <p><b>Paso 2 – Solución general:</b></p>
+  <div class="formula">F<sub>n</sub> = k<sub>1</sub>·((1+√5)/2)<sup>n</sup> + k<sub>2</sub>·((1−√5)/2)<sup>n</sup></div>
+  <p><b>Paso 3 – Sistema con F<sub>1</sub> = 1 y F<sub>2</sub> = 1:</b></p>
+  <ul>
+    <li>Después de operar algebraicamente se obtiene: &nbsp; <span class="m">k<sub>1</sub> = 1/√5</span>, &nbsp; <span class="m">k<sub>2</sub> = −1/√5</span></li>
+  </ul>
+  <p><b>Fórmula de Binet:</b></p>
+  <div class="formula">F<sub>n</sub> = (1/√5) · [ ((1+√5)/2)<sup>n</sup> − ((1−√5)/2)<sup>n</sup> ]</div>
+  <p>Es notable que aunque aparecen números irracionales (√5), el resultado siempre es un entero. Por ejemplo: <span class="m">F<sub>5</sub> = (1/√5)[(φ)<sup>5</sup> − (ψ)<sup>5</sup>] = 5</span> ✓</p>
+</div>
+
+<h3>Recurrencias Lineales No Homogéneas</h3>
+<p>Son de la forma:</p>
+<div class="formula">c<sub>n</sub>·a<sub>n</sub> + c<sub>n-1</sub>·a<sub>n-1</sub> + ... + c<sub>n-k</sub>·a<sub>n-k</sub> = f(n) &nbsp;&nbsp; (con f(n) ≠ 0)</div>
+<p>donde <span class="m">f(n)</span> es el <b>término independiente</b> (puede ser constante, polinomio en n, exponencial en n, o combinación).</p>
+<p>La solución general se construye como suma de dos partes:</p>
+<div class="formula">a<sub>n</sub> = a<sub>n</sub><sup>H</sup> + a<sub>n</sub><sup>P</sup></div>
+<ul>
+  <li><b>a<sub>n</sub><sup>H</sup></b>: solución general de la <b>ecuación homogénea asociada</b> (la misma ecuación pero con f(n) = 0). Contiene las constantes libres k<sub>1</sub>, k<sub>2</sub>, ...</li>
+  <li><b>a<sub>n</sub><sup>P</sup></b>: cualquier <b>solución particular</b> de la ecuación no homogénea dada. Una sola función específica que satisfaga la ecuación (sin constantes libres).</li>
+</ul>
+
+<h4>Cómo encontrar la solución particular: método de coeficientes indeterminados</h4>
+<p>Se propone una solución del mismo tipo que <span class="m">f(n)</span>, con coeficientes desconocidos (B, C, D, ...) que luego se determinan sustituyendo en la ecuación.</p>
+
+<table class="tbl">
+  <tr>
+    <th>Forma de f(n)</th>
+    <th>Solución particular a proponer</th>
+    <th>Caso especial (resonancia)</th>
+  </tr>
+  <tr>
+    <td>K (constante)</td>
+    <td><span class="m">a<sub>n</sub><sup>P</sup> = B</span></td>
+    <td>Si 1 es raíz del car., proponer B·n</td>
+  </tr>
+  <tr>
+    <td>K·n</td>
+    <td><span class="m">a<sub>n</sub><sup>P</sup> = B·n + C</span></td>
+    <td>Si 1 es raíz, proponer B·n² + C·n</td>
+  </tr>
+  <tr>
+    <td>K·n²</td>
+    <td><span class="m">a<sub>n</sub><sup>P</sup> = B·n² + C·n + D</span></td>
+    <td>Si 1 es raíz, proponer B·n³ + C·n² + D·n</td>
+  </tr>
+  <tr>
+    <td>K·n<sup>t</sup> (polinomio grado t)</td>
+    <td>Polinomio completo de grado t</td>
+    <td>Si 1 es raíz de mult. m, multiplicar por n<sup>m</sup></td>
+  </tr>
+  <tr>
+    <td>K·b<sup>n</sup></td>
+    <td><span class="m">a<sub>n</sub><sup>P</sup> = B·b<sup>n</sup></span></td>
+    <td>Si b es raíz de mult. m, proponer B·n<sup>m</sup>·b<sup>n</sup></td>
+  </tr>
+  <tr>
+    <td>K·b<sup>n</sup>·n<sup>t</sup></td>
+    <td><span class="m">a<sub>n</sub><sup>P</sup> = b<sup>n</sup>·(polinomio grado t)</span></td>
+    <td>Si b es raíz de mult. m, multiplicar por n<sup>m</sup></td>
+  </tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Error típico: no ajustar la solución particular cuando hay resonancia</div>
+  <p>Si la forma propuesta para <span class="m">a<sub>n</sub><sup>P</sup></span> coincide con alguna solución de la homogénea (es decir, si la base b de la exponencial es raíz de la ecuación característica, o si el término independiente es constante y 1 es raíz), la propuesta inicial dará un sistema <b>incompatible o absurdo</b>.</p>
+  <p><b>Solución:</b> multiplicar la propuesta por n. Si sigue dando absurdo, multiplicar de nuevo por n (y así sucesivamente).</p>
+  <p>Esto se reconoce porque al sustituir, los términos se cancelan y aparece algo como "0 = −2" (absurdo).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 3: no homogénea de orden 1, término constante</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+1</sub> = 2a<sub>n</sub> + 1</span> con <span class="m">a<sub>1</sub> = 1</span></p>
+  <p><b>Paso 1 – Homogénea asociada:</b> <span class="m">a<sub>n+1</sub> = 2a<sub>n</sub></span> &nbsp;→&nbsp; <span class="m">a<sub>n</sub><sup>H</sup> = k·2<sup>n</sup></span></p>
+  <p><b>Paso 2 – Proponer solución particular:</b> f(n) = 1 (constante), proponemos <span class="m">a<sub>n</sub><sup>P</sup> = B</span>.</p>
+  <p>Sustituimos en la ecuación original: <span class="m">B = 2B + 1 &nbsp;→&nbsp; −B = 1 &nbsp;→&nbsp; B = −1</span></p>
+  <p>Entonces: <span class="m">a<sub>n</sub><sup>P</sup> = −1</span></p>
+  <p><b>Paso 3 – Solución general:</b></p>
+  <div class="formula">a<sub>n</sub> = k·2<sup>n</sup> − 1</div>
+  <p><b>Paso 4 – Condición inicial a<sub>1</sub> = 1:</b></p>
+  <div class="formula">1 = k·2<sup>1</sup> − 1 &nbsp;→&nbsp; k·2 = 2 &nbsp;→&nbsp; k = 1</div>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = 2<sup>n</sup> − 1</div>
+  <p><b>Verificación directa:</b> <span class="m">a<sub>n+1</sub> = 2<sup>n+1</sup> − 1</span>; el lado derecho: <span class="m">2·(2<sup>n</sup>−1) + 1 = 2<sup>n+1</sup> − 2 + 1 = 2<sup>n+1</sup> − 1 ✓</span></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 4: no homogénea, término polinomial con resonancia</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n</sub> = a<sub>n-1</sub> + (1/2)·n</span> con <span class="m">a<sub>1</sub> = 1</span></p>
+  <p><b>Paso 1 – Homogénea asociada:</b> <span class="m">a<sub>n</sub> = a<sub>n-1</sub></span> &nbsp;→&nbsp; ecuación característica <span class="m">x = 1</span> &nbsp;→&nbsp; raíz r = 1 &nbsp;→&nbsp; <span class="m">a<sub>n</sub><sup>H</sup> = K</span></p>
+  <p><b>Paso 2 – Proponer solución particular:</b> f(n) = (1/2)·n (lineal) → proponemos <span class="m">a<sub>n</sub><sup>P</sup> = B·n + C</span>.</p>
+  <p>Sustituimos: <span class="m">Bn + C = B(n−1) + C + (1/2)n &nbsp;→&nbsp; Bn + C = Bn − B + C + (1/2)n</span></p>
+  <p>Igualando coeficientes: <span class="m">0 = 1/2</span> (coeficiente de n) — ¡ABSURDO! Hay resonancia porque 1 es raíz.</p>
+  <p><b>Multiplicamos por n:</b> proponemos <span class="m">a<sub>n</sub><sup>P</sup> = B·n<sup>2</sup> + C·n</span></p>
+  <p>Sustituimos: <span class="m">Bn<sup>2</sup> + Cn = B(n−1)<sup>2</sup> + C(n−1) + (1/2)n</span></p>
+  <p>Desarrollando: <span class="m">Bn<sup>2</sup> + Cn = Bn<sup>2</sup> − 2Bn + B + Cn − C + (1/2)n</span></p>
+  <p>Igualando coeficientes:</p>
+  <ul>
+    <li>Coef. de n: <span class="m">0 = −2B + 1/2 &nbsp;→&nbsp; B = 1/4</span></li>
+    <li>Términos independientes: <span class="m">0 = B − C &nbsp;→&nbsp; C = B = 1/4</span></li>
+  </ul>
+  <p>Entonces: <span class="m">a<sub>n</sub><sup>P</sup> = (1/4)n<sup>2</sup> + (1/4)n</span></p>
+  <p><b>Paso 3 – Solución general:</b></p>
+  <div class="formula">a<sub>n</sub> = K + (1/4)n<sup>2</sup> + (1/4)n</div>
+  <p><b>Paso 4 – Con a<sub>1</sub> = 1:</b> &nbsp; <span class="m">1 = K + 1/4 + 1/4 &nbsp;→&nbsp; K = 1/2</span></p>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = 1/2 + (1/4)n<sup>2</sup> + (1/4)n</div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 5: no homogénea de orden 2, término exponencial</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+2</sub> + 3a<sub>n+1</sub> + 2a<sub>n</sub> = 42·5<sup>n</sup></span> con <span class="m">a<sub>0</sub> = 4</span>, <span class="m">a<sub>1</sub> = −1</span></p>
+  <p><b>Paso 1 – Homogénea asociada:</b> <span class="m">a<sub>n+2</sub> + 3a<sub>n+1</sub> + 2a<sub>n</sub> = 0</span></p>
+  <p>Ecuación característica: <span class="m">x<sup>2</sup> + 3x + 2 = 0 &nbsp;→&nbsp; (x+1)(x+2) = 0 &nbsp;→&nbsp; r<sub>1</sub> = −1, r<sub>2</sub> = −2</span></p>
+  <div class="formula">a<sub>n</sub><sup>H</sup> = k<sub>1</sub>·(−1)<sup>n</sup> + k<sub>2</sub>·(−2)<sup>n</sup></div>
+  <p><b>Paso 2 – Proponer solución particular:</b> f(n) = 42·5<sup>n</sup>. Como 5 no es raíz, proponemos <span class="m">a<sub>n</sub><sup>P</sup> = B·5<sup>n</sup></span>.</p>
+  <p>Sustituimos en la ecuación original:</p>
+  <div class="formula">B·5<sup>n+2</sup> + 3B·5<sup>n+1</sup> + 2B·5<sup>n</sup> = 42·5<sup>n</sup></div>
+  <p>Factorizando <span class="m">5<sup>n</sup></span>: <span class="m">B·5<sup>n</sup>(25 + 15 + 2) = 42·5<sup>n</sup> &nbsp;→&nbsp; 42B = 42 &nbsp;→&nbsp; B = 1</span></p>
+  <p>Entonces: <span class="m">a<sub>n</sub><sup>P</sup> = 5<sup>n</sup></span></p>
+  <p><b>Paso 3 – Solución general:</b></p>
+  <div class="formula">a<sub>n</sub> = k<sub>1</sub>·(−1)<sup>n</sup> + k<sub>2</sub>·(−2)<sup>n</sup> + 5<sup>n</sup></div>
+  <p><b>Paso 4 – Sistema con condiciones iniciales:</b></p>
+  <ul>
+    <li><span class="m">n=0</span>: <span class="m">k<sub>1</sub> + k<sub>2</sub> + 1 = 4 &nbsp;→&nbsp; k<sub>1</sub> + k<sub>2</sub> = 3</span></li>
+    <li><span class="m">n=1</span>: <span class="m">−k<sub>1</sub> − 2k<sub>2</sub> + 5 = −1 &nbsp;→&nbsp; −k<sub>1</sub> − 2k<sub>2</sub> = −6 &nbsp;→&nbsp; k<sub>1</sub> + 2k<sub>2</sub> = 6</span></li>
+  </ul>
+  <p>Restando la primera de la segunda: <span class="m">k<sub>2</sub> = 3</span>. Entonces <span class="m">k<sub>1</sub> = 0</span>.</p>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = 3·(−2)<sup>n</sup> + 5<sup>n</sup></div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 6: no homogénea de orden 2, resonancia con constante</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+2</sub> − 4a<sub>n+1</sub> + 3a<sub>n</sub> = −2</span> con <span class="m">a<sub>0</sub> = 7</span>, <span class="m">a<sub>1</sub> = 12</span></p>
+  <p><b>Paso 1 – Homogénea:</b> ecuación característica <span class="m">x<sup>2</sup> − 4x + 3 = 0 &nbsp;→&nbsp; (x−1)(x−3) = 0 &nbsp;→&nbsp; r<sub>1</sub> = 1, r<sub>2</sub> = 3</span></p>
+  <div class="formula">a<sub>n</sub><sup>H</sup> = k<sub>1</sub>·1<sup>n</sup> + k<sub>2</sub>·3<sup>n</sup> = k<sub>1</sub> + k<sub>2</sub>·3<sup>n</sup></div>
+  <p><b>Paso 2 – Proponer solución particular:</b> f(n) = −2 (constante). Propuesta inicial: B (constante). Pero 1 es raíz → <b>resonancia</b>. Multiplicamos por n: proponemos <span class="m">a<sub>n</sub><sup>P</sup> = B·n</span>.</p>
+  <p>Sustituimos:</p>
+  <div class="formula">B(n+2) − 4B(n+1) + 3Bn = −2</div>
+  <div class="formula">Bn + 2B − 4Bn − 4B + 3Bn = −2</div>
+  <div class="formula">n(B − 4B + 3B) + (2B − 4B) = −2 &nbsp;→&nbsp; 0·n − 2B = −2 &nbsp;→&nbsp; B = 1</div>
+  <p>Entonces: <span class="m">a<sub>n</sub><sup>P</sup> = n</span></p>
+  <p><b>Paso 3 – Solución general:</b></p>
+  <div class="formula">a<sub>n</sub> = k<sub>1</sub> + k<sub>2</sub>·3<sup>n</sup> + n</div>
+  <p><b>Paso 4 – Sistema:</b></p>
+  <ul>
+    <li><span class="m">n=0</span>: <span class="m">k<sub>1</sub> + k<sub>2</sub> + 0 = 7</span></li>
+    <li><span class="m">n=1</span>: <span class="m">k<sub>1</sub> + 3k<sub>2</sub> + 1 = 12 &nbsp;→&nbsp; k<sub>1</sub> + 3k<sub>2</sub> = 11</span></li>
+  </ul>
+  <p>Restando: <span class="m">2k<sub>2</sub> = 4 &nbsp;→&nbsp; k<sub>2</sub> = 2</span>. Entonces <span class="m">k<sub>1</sub> = 5</span>.</p>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = 5 + 2·3<sup>n</sup> + n</div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 7: resonancia exponencial (la base coincide con una raíz)</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+2</sub> − 6a<sub>n+1</sub> + 9a<sub>n</sub> = 100·(−2)<sup>n</sup></span> con <span class="m">a<sub>0</sub> = 4</span>, <span class="m">a<sub>1</sub> = −5</span></p>
+  <p><b>Paso 1 – Homogénea:</b> <span class="m">x<sup>2</sup> − 6x + 9 = 0 &nbsp;→&nbsp; (x−3)<sup>2</sup> = 0 &nbsp;→&nbsp; r = 3</span> (raíz doble)</p>
+  <div class="formula">a<sub>n</sub><sup>H</sup> = k<sub>1</sub>·3<sup>n</sup> + k<sub>2</sub>·n·3<sup>n</sup></div>
+  <p><b>Paso 2 – Proponer solución particular:</b> f(n) = 100·(−2)<sup>n</sup>. Como −2 no es raíz, proponemos <span class="m">a<sub>n</sub><sup>P</sup> = B·(−2)<sup>n</sup></span>.</p>
+  <p>Sustituimos:</p>
+  <div class="formula">B·(−2)<sup>n+2</sup> − 6B·(−2)<sup>n+1</sup> + 9B·(−2)<sup>n</sup> = 100·(−2)<sup>n</sup></div>
+  <p>Factorizando <span class="m">(−2)<sup>n</sup></span>: <span class="m">B·(−2)<sup>n</sup>[(−2)<sup>2</sup> − 6·(−2) + 9] = 100·(−2)<sup>n</sup></span></p>
+  <div class="formula">B·[4 + 12 + 9] = 100 &nbsp;→&nbsp; 25B = 100 &nbsp;→&nbsp; B = 4</div>
+  <p>Entonces: <span class="m">a<sub>n</sub><sup>P</sup> = 4·(−2)<sup>n</sup></span></p>
+  <p><b>Paso 3 – Solución general:</b></p>
+  <div class="formula">a<sub>n</sub> = k<sub>1</sub>·3<sup>n</sup> + k<sub>2</sub>·n·3<sup>n</sup> + 4·(−2)<sup>n</sup></div>
+  <p><b>Paso 4 – Sistema:</b></p>
+  <ul>
+    <li><span class="m">n=0</span>: <span class="m">k<sub>1</sub> + 0 + 4 = 4 &nbsp;→&nbsp; k<sub>1</sub> = 0</span></li>
+    <li><span class="m">n=1</span>: <span class="m">3k<sub>1</sub> + 3k<sub>2</sub> + 4·(−2) = −5 &nbsp;→&nbsp; 0 + 3k<sub>2</sub> − 8 = −5 &nbsp;→&nbsp; k<sub>2</sub> = 1</span></li>
+  </ul>
+  <p><b>Solución particular:</b></p>
+  <div class="formula">a<sub>n</sub> = n·3<sup>n</sup> + 4·(−2)<sup>n</sup></div>
+</div>
+
+<h3>La Torre de Hanoi</h3>
+<p>La Torre de Hanoi es un famoso puzzle matemático con <span class="m">n</span> discos que hay que mover de un poste a otro. La recurrencia que describe el mínimo número de movimientos <span class="m">T(n)</span> es:</p>
+<div class="formula">T(n) = 2·T(n−1) + 1 &nbsp;&nbsp;&nbsp; con &nbsp;&nbsp; T(1) = 1</div>
+<p>¿Por qué? Para mover n discos: primero se mueven los n−1 discos superiores al poste auxiliar (T(n−1) movimientos), luego se mueve el disco grande (1 movimiento), y finalmente se mueven los n−1 discos del auxiliar al destino (T(n−1) movimientos).</p>
+
+<div class="example">
+  <div class="ex-t">Resolución: Torre de Hanoi</div>
+  <p><b>Ecuación:</b> <span class="m">T(n) = 2·T(n−1) + 1</span> con <span class="m">T(1) = 1</span> (también se puede plantear con T(0) = 0)</p>
+  <p>Reescribimos como <span class="m">T<sub>n</sub> − 2T<sub>n-1</sub> = 1</span>.</p>
+  <p><b>Paso 1 – Homogénea:</b> <span class="m">T<sub>n</sub> − 2T<sub>n-1</sub> = 0</span> &nbsp;→&nbsp; <span class="m">T<sub>n</sub><sup>H</sup> = k·2<sup>n</sup></span></p>
+  <p><b>Paso 2 – Solución particular:</b> f(n) = 1 (constante), proponemos <span class="m">T<sub>n</sub><sup>P</sup> = B</span>.</p>
+  <div class="formula">B − 2B = 1 &nbsp;→&nbsp; −B = 1 &nbsp;→&nbsp; B = −1</div>
+  <p><b>Paso 3 – Solución general:</b></p>
+  <div class="formula">T<sub>n</sub> = k·2<sup>n</sup> − 1</div>
+  <p><b>Paso 4 – Con T(1) = 1:</b> &nbsp; <span class="m">1 = k·2 − 1 &nbsp;→&nbsp; k = 1</span></p>
+  <p><b>Solución:</b></p>
+  <div class="formula">T(n) = 2<sup>n</sup> − 1</div>
+  <p><b>Verificación:</b></p>
+  <ul>
+    <li>T(1) = 2 − 1 = 1 ✓ (1 disco: 1 movimiento)</li>
+    <li>T(2) = 4 − 1 = 3 ✓ (2 discos: 3 movimientos)</li>
+    <li>T(3) = 8 − 1 = 7 ✓ (3 discos: 7 movimientos)</li>
+    <li>T(10) = 1024 − 1 = 1023 movimientos</li>
+  </ul>
+  <p>El crecimiento es <b>exponencial</b> en n. Para 64 discos serían <span class="m">2<sup>64</sup> − 1 ≈ 1.8 × 10<sup>19</sup></span> movimientos — si se hiciera uno por segundo, llevaría más de 585 mil millones de años.</p>
+</div>
+
+<h3>Aplicaciones: análisis de algoritmos y complejidad</h3>
+<p>Las relaciones de recurrencia aparecen naturalmente al analizar algoritmos recursivos. El tiempo de ejecución de un algoritmo que divide el problema en partes más pequeñas cumple una recurrencia.</p>
+
+<div class="example">
+  <div class="ex-t">Aplicación: búsqueda binaria</div>
+  <p>La búsqueda binaria en un arreglo de n elementos funciona así: compara el elemento del medio y descarta la mitad. El número de comparaciones T(n) satisface:</p>
+  <div class="formula">T(n) = T(n/2) + 1 &nbsp;&nbsp;&nbsp; T(1) = 1</div>
+  <p>Su solución es <span class="m">T(n) = log<sub>2</sub>(n) + 1</span>, es decir, complejidad <b>O(log n)</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Aplicación: mergesort</div>
+  <p>El algoritmo mergesort divide el arreglo en dos mitades, las ordena recursivamente y las une. El tiempo satisface:</p>
+  <div class="formula">T(n) = 2·T(n/2) + n &nbsp;&nbsp;&nbsp; T(1) = 1</div>
+  <p>Su solución es <span class="m">T(n) = n·log<sub>2</sub>(n)</span>, complejidad <b>O(n log n)</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Aplicación: modelos de crecimiento de población</div>
+  <p>Un modelo simple de crecimiento: si una población crece en un r% por año:</p>
+  <div class="formula">P<sub>n</sub> = (1 + r)·P<sub>n-1</sub> &nbsp;&nbsp;→&nbsp;&nbsp; P<sub>n</sub> = P<sub>0</sub>·(1+r)<sup>n</sup></div>
+  <p>Modelos más realistas incluyen términos de natalidad, mortalidad, inmigración, lo que da recurrencias no homogéneas de mayor orden.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Aplicación: castillo de naipes</div>
+  <p>Para construir un castillo de naipes de n pisos se necesitan <span class="m">a<sub>n</sub></span> naipes, donde:</p>
+  <ul>
+    <li>Piso 1: 2 naipes</li>
+    <li>Piso 2: 2 + 5 = 7 naipes</li>
+    <li>Piso 3: 7 + 8 = 15 naipes</li>
+  </ul>
+  <p>Cada piso nuevo agrega 5 + 3·(piso−2) naipes a partir del 2. La recurrencia es:</p>
+  <div class="formula">a<sub>n</sub> = a<sub>n-1</sub> + 3n − 1 &nbsp;&nbsp; con a<sub>1</sub> = 2</div>
+  <p>Cuya solución es <span class="m">a<sub>n</sub> = n<sup>2</sup> + 2n</span>. Para 100 pisos: <span class="m">a<sub>100</sub> = 10000 + 200 = 10200</span> naipes.</p>
+</div>
+
+<h3>Resumen del método de resolución completo</h3>
+
+<div class="key">
+  <div class="ky-t">Paso a paso para resolver cualquier recurrencia lineal con coeficientes constantes</div>
+  <ol>
+    <li><b>Clasificar:</b> determinar orden, si es homogénea o no, identificar f(n).</li>
+    <li><b>Resolver la homogénea asociada:</b> plantear ecuación característica, calcular raíces, escribir <span class="m">a<sub>n</sub><sup>H</sup></span> según el tipo de raíces.</li>
+    <li><b>Si es no homogénea:</b> proponer <span class="m">a<sub>n</sub><sup>P</sup></span> según la tabla, verificar resonancia (si la propuesta es solución de la homogénea, multiplicar por n).</li>
+    <li><b>Sustituir la propuesta en la ecuación original</b> y resolver los coeficientes indeterminados (B, C, ...).</li>
+    <li><b>Armar la solución general:</b> <span class="m">a<sub>n</sub> = a<sub>n</sub><sup>H</sup> + a<sub>n</sub><sup>P</sup></span> (si hay término independiente) o <span class="m">a<sub>n</sub> = a<sub>n</sub><sup>H</sup></span> (si es homogénea).</li>
+    <li><b>Aplicar condiciones iniciales:</b> plantear el sistema de ecuaciones y resolver k<sub>1</sub>, k<sub>2</sub>, ... </li>
+    <li><b>Verificar:</b> sustituir la solución particular en la ecuación recursiva para confirmar que funciona.</li>
+  </ol>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Errores típicos frecuentes — resumen</div>
+  <ul>
+    <li><b>Signos en la ecuación característica:</b> se copian igual que en la recurrencia. No hay que cambiar signos al pasar a la ecuación característica.</li>
+    <li><b>Raíz doble sin el factor n:</b> si r es raíz doble, la solución es <span class="m">k<sub>1</sub>·r<sup>n</sup> + k<sub>2</sub>·n·r<sup>n</sup></span>, no <span class="m">(k<sub>1</sub>+k<sub>2</sub>)·r<sup>n</sup></span>.</li>
+    <li><b>No detectar resonancia:</b> si la base b de f(n) coincide con una raíz, o si f(n) es constante y 1 es raíz, la propuesta inicial fracasará. Hay que multiplicar por n.</li>
+    <li><b>Plantear el sistema mal:</b> al aplicar condiciones iniciales, usar n=0 y n=1 (o n=1 y n=2, según los datos), no valores arbitrarios.</li>
+    <li><b>Confundir solución general con particular:</b> la solución general tiene constantes libres; la particular tiene valores numéricos específicos para k<sub>1</sub>, k<sub>2</sub>, etc.</li>
+  </ul>
+</div>
+
+<h3>Ejercicios tipo: clasificación y resolución</h3>
+<p>A continuación se muestran algunos ejercicios representativos con su resolución:</p>
+
+<div class="example">
+  <div class="ex-t">Ej. 8a: homogénea orden 2, raíces distintas con una negativa</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n</sub> = 2a<sub>n-1</sub> + 8a<sub>n-2</sub></span> con <span class="m">a<sub>0</sub> = 1</span>, <span class="m">a<sub>1</sub> = 10</span></p>
+  <p><b>Forma estándar:</b> <span class="m">a<sub>n</sub> − 2a<sub>n-1</sub> − 8a<sub>n-2</sub> = 0</span></p>
+  <p><b>Ecuación característica:</b> <span class="m">x<sup>2</sup> − 2x − 8 = 0 &nbsp;→&nbsp; (x−4)(x+2) = 0 &nbsp;→&nbsp; r<sub>1</sub> = 4, r<sub>2</sub> = −2</span></p>
+  <p><b>Solución general:</b> <span class="m">a<sub>n</sub> = k<sub>1</sub>·4<sup>n</sup> + k<sub>2</sub>·(−2)<sup>n</sup></span></p>
+  <p><b>Sistema:</b></p>
+  <ul>
+    <li><span class="m">k<sub>1</sub> + k<sub>2</sub> = 1</span></li>
+    <li><span class="m">4k<sub>1</sub> − 2k<sub>2</sub> = 10</span></li>
+  </ul>
+  <p>De la primera: <span class="m">k<sub>2</sub> = 1 − k<sub>1</sub></span>. Sustituyendo: <span class="m">4k<sub>1</sub> − 2(1−k<sub>1</sub>) = 10 &nbsp;→&nbsp; 6k<sub>1</sub> = 12 &nbsp;→&nbsp; k<sub>1</sub> = 2</span>, <span class="m">k<sub>2</sub> = −1</span>.</p>
+  <p><b>Solución particular:</b> <span class="m">a<sub>n</sub> = 2·4<sup>n</sup> − (−2)<sup>n</sup></span></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ej. 10: no homogénea de orden 1, verificar la clasificación</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+1</sub> = 3a<sub>n</sub> + 2</span> con <span class="m">a<sub>0</sub> = 1</span></p>
+  <p><b>Clasificación:</b> orden 1, grado 1, no homogénea, coeficientes constantes.</p>
+  <p><b>Homogénea:</b> <span class="m">a<sub>n+1</sub> = 3a<sub>n</sub> &nbsp;→&nbsp; a<sub>n</sub><sup>H</sup> = k·3<sup>n</sup></span></p>
+  <p><b>Particular:</b> f(n) = 2 (constante). Proponer B: <span class="m">B = 3B + 2 &nbsp;→&nbsp; −2B = 2 &nbsp;→&nbsp; B = −1</span></p>
+  <p><b>Solución general:</b> <span class="m">a<sub>n</sub> = k·3<sup>n</sup> − 1</span></p>
+  <p><b>Con a<sub>0</sub> = 1:</b> <span class="m">1 = k·1 − 1 &nbsp;→&nbsp; k = 2</span></p>
+  <p><b>Solución particular:</b> <span class="m">a<sub>n</sub> = 2·3<sup>n</sup> − 1</span></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ej. 12e: resonancia con exponencial en no homogénea orden 1</div>
+  <p><b>Ecuación:</b> <span class="m">a<sub>n+1</sub> − 4a<sub>n</sub> = 4(1−n)·2<sup>n</sup></span> con <span class="m">a<sub>0</sub> = 3</span></p>
+  <p><b>Homogénea:</b> <span class="m">a<sub>n+1</sub> = 4a<sub>n</sub> &nbsp;→&nbsp; a<sub>n</sub><sup>H</sup> = k·4<sup>n</sup></span></p>
+  <p><b>Particular:</b> f(n) = 4(1−n)·2<sup>n</sup> = 2<sup>n</sup>·(4−4n) = 2<sup>n</sup>·(−4n + 4). La base es 2, que no es raíz (la raíz es 4). Proponemos <span class="m">a<sub>n</sub><sup>P</sup> = 2<sup>n</sup>·(Bn + C)</span>.</p>
+  <p>Sustituimos en <span class="m">a<sub>n+1</sub> − 4a<sub>n</sub> = 4(1−n)·2<sup>n</sup></span>:</p>
+  <div class="formula">2<sup>n+1</sup>(B(n+1)+C) − 4·2<sup>n</sup>(Bn+C) = 4(1−n)·2<sup>n</sup></div>
+  <p>Dividimos entre <span class="m">2<sup>n</sup></span>:</p>
+  <div class="formula">2(B(n+1)+C) − 4(Bn+C) = 4(1−n)</div>
+  <div class="formula">2Bn + 2B + 2C − 4Bn − 4C = 4 − 4n</div>
+  <div class="formula">−2Bn + (2B − 2C) = 4 − 4n</div>
+  <p>Igualando: <span class="m">−2B = −4 &nbsp;→&nbsp; B = 2</span>; &nbsp; <span class="m">2B − 2C = 4 &nbsp;→&nbsp; 4 − 2C = 4 &nbsp;→&nbsp; C = 0</span>.</p>
+  <p>Entonces: <span class="m">a<sub>n</sub><sup>P</sup> = 2·n·2<sup>n</sup> = n·2<sup>n+1</sup></span></p>
+  <p><b>Solución general:</b> <span class="m">a<sub>n</sub> = k·4<sup>n</sup> + n·2<sup>n+1</sup></span></p>
+  <p><b>Con a<sub>0</sub> = 3:</b> <span class="m">3 = k + 0 &nbsp;→&nbsp; k = 3</span></p>
+  <p><b>Solución particular:</b> <span class="m">a<sub>n</sub> = 3·4<sup>n</sup> + n·2<sup>n+1</sup></span></p>
+  <p>La respuesta del libro es <span class="m">a<sub>n</sub> = 2·n·2<sup>n</sup> + 3·4<sup>n</sup></span>, que es equivalente.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Casos clásicos de la unidad: qué esperar</div>
+  <table class="tbl">
+    <tr>
+      <th>Nombre</th>
+      <th>Recurrencia</th>
+      <th>Solución</th>
+      <th>Tipo</th>
+    </tr>
+    <tr>
+      <td>Sucesión geométrica</td>
+      <td><span class="m">a<sub>n</sub> = r·a<sub>n-1</sub></span></td>
+      <td><span class="m">a<sub>n</sub> = a<sub>0</sub>·r<sup>n</sup></span></td>
+      <td>Lineal homogénea ord. 1</td>
+    </tr>
+    <tr>
+      <td>Sucesión aritmética</td>
+      <td><span class="m">a<sub>n</sub> = a<sub>n-1</sub> + d</span></td>
+      <td><span class="m">a<sub>n</sub> = a<sub>0</sub> + d·n</span></td>
+      <td>Lineal no homogénea ord. 1</td>
+    </tr>
+    <tr>
+      <td>Fibonacci</td>
+      <td><span class="m">F<sub>n</sub> = F<sub>n-1</sub> + F<sub>n-2</sub></span></td>
+      <td>Fórmula de Binet (raíces áureas)</td>
+      <td>Lineal homogénea ord. 2</td>
+    </tr>
+    <tr>
+      <td>Torre de Hanoi</td>
+      <td><span class="m">T<sub>n</sub> = 2T<sub>n-1</sub> + 1</span></td>
+      <td><span class="m">T<sub>n</sub> = 2<sup>n</sup> − 1</span></td>
+      <td>Lineal no homogénea ord. 1</td>
+    </tr>
+    <tr>
+      <td>Factorial</td>
+      <td><span class="m">n! = n·(n-1)!</span></td>
+      <td>No tiene fórmula cerrada simple</td>
+      <td>Coeficientes variables</td>
+    </tr>
+  </table>
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

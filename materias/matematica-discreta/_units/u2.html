@@ -1,0 +1,707 @@
+<!-- ============ UNIDAD 2 · CONJUNTOS E INDUCCIÓN COMPLETA ============ -->
+<details id="md-s2">
+<summary><span class="num">2</span> Unidad 2: Conjuntos e Inducción completa <span class="sec-score" id="ss-matematica-discreta-2"></span></summary>
+<div class="content">
+
+<!-- ==================== CONJUNTOS ==================== -->
+
+<h3>¿Qué es un conjunto?</h3>
+<p>Un <b>conjunto</b> es una colección bien definida de objetos de una misma especie. Esos objetos se llaman <b>elementos</b> del conjunto. La idea de "bien definida" es clave: dado cualquier objeto, debe ser posible determinar sin ambigüedad si pertenece o no al conjunto.</p>
+<p>Convenciones de notación: los conjuntos se denotan con <b>letras mayúsculas</b> (A, B, C, …) y los elementos con <b>letras minúsculas</b> (a, b, x, …).</p>
+
+<h4>Formas de definir un conjunto</h4>
+<p>Hay tres formas principales de describir un conjunto:</p>
+
+<ul>
+  <li><b>Por extensión:</b> se listan todos los elementos entre llaves, separados por comas. Ejemplo: A = {2, 4, 6, 8}.</li>
+  <li><b>Por comprensión:</b> se indica una propiedad característica que cumplen exactamente los elementos del conjunto. Ejemplo: A = {x / x es un número par positivo menor que 9}.</li>
+  <li><b>Por diagrama de Venn:</b> se dibuja una curva cerrada (generalmente una elipse) y dentro se colocan los elementos. El conjunto universal se representa como un rectángulo que contiene todo.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Extensión vs. comprensión</div>
+  <p>Mismo conjunto, dos formas de escribirlo:</p>
+  <ul>
+    <li>Por extensión: <span class="m">A = {a, e, i, o, u}</span></li>
+    <li>Por comprensión: <span class="m">A = {x / x es una letra vocal del español}</span></li>
+  </ul>
+  <p>Otro ejemplo con números:</p>
+  <ul>
+    <li><span class="m">B = {1, 4, 9, 16, 25}</span></li>
+    <li><span class="m">B = {x ∈ ℕ / x es un cuadrado perfecto y x ≤ 25}</span></li>
+  </ul>
+</div>
+
+<h4>Cardinal de un conjunto</h4>
+<p>El <b>cardinal</b> de un conjunto A es la cantidad de elementos que tiene, y se denota <span class="m">|A|</span>. Si el conjunto tiene infinitos elementos, escribimos <span class="m">|A| = ∞</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Cardinales</div>
+  <ul>
+    <li><span class="m">A = {a, e, i, o, u}</span> → <span class="m">|A| = 5</span></li>
+    <li><span class="m">B = {2, 4, 6, 8}</span> → <span class="m">|B| = 4</span></li>
+    <li><span class="m">ℕ = {0, 1, 2, 3, …}</span> → <span class="m">|ℕ| = ∞</span></li>
+  </ul>
+</div>
+
+<!-- ==================== CONJUNTO VACÍO Y UNIVERSAL ==================== -->
+
+<h3>Conjunto vacío y conjunto universal</h3>
+
+<h4>Conjunto vacío (∅)</h4>
+<p>El <b>conjunto vacío</b> es aquel que no tiene ningún elemento. Se denota <span class="m">∅</span> o también <span class="m">{}</span>. Puede definirse mediante una contradicción: <span class="m">∅ = {x / x ≠ x}</span> (ningún elemento puede ser distinto de sí mismo, así que no hay ningún elemento que satisfaga esa condición).</p>
+
+<div class="trap">
+  <div class="tr-t">¡Cuidado! ∅ ≠ {∅}</div>
+  <p>El conjunto vacío <span class="m">∅</span> no tiene elementos. En cambio, <span class="m">{∅}</span> es un conjunto que tiene un elemento: el conjunto vacío. Es como una bolsa vacía vs. una bolsa que contiene otra bolsa vacía. La segunda bolsa tiene algo adentro (la bolsa interior), por más que esa bolsa interior esté vacía.</p>
+  <p>Por lo tanto: <span class="m">|∅| = 0</span> pero <span class="m">|{∅}| = 1</span>.</p>
+</div>
+
+<h4>Conjunto universal (U)</h4>
+<p>El <b>conjunto universal</b> (o referencial) es el que contiene todos los elementos del universo de discurso que estamos considerando. Se denota <span class="m">U</span>. Puede definirse como <span class="m">U = {x / x = x}</span> (todo elemento es igual a sí mismo). En diagramas de Venn se representa como un rectángulo que contiene todo.</p>
+
+<div class="example">
+  <div class="ex-t">Conjunto universal según el contexto</div>
+  <ul>
+    <li>Si trabajamos con números enteros: <span class="m">U = ℤ</span></li>
+    <li>Si trabajamos con letras: <span class="m">U = {a, b, c, …, z}</span></li>
+    <li>Si queremos estudiar subconjuntos de <span class="m">A = {1,2,3}</span>: podemos tomar <span class="m">U = {0,1,2,3,4,5,6,7,8,9}</span></li>
+  </ul>
+</div>
+
+<!-- ==================== PERTENENCIA E INCLUSIÓN ==================== -->
+
+<h3>Pertenencia e inclusión</h3>
+
+<h4>Relación de pertenencia (∈)</h4>
+<p>La <b>pertenencia</b> es una relación entre un <i>elemento</i> y un <i>conjunto</i>. Decimos que el elemento <span class="m">x</span> pertenece al conjunto <span class="m">A</span>, y escribimos <span class="m">x ∈ A</span>. Si no pertenece, escribimos <span class="m">x ∉ A</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Pertenencia en los números</div>
+  <p>Usando los conjuntos numéricos estándar:</p>
+  <ul>
+    <li><span class="m">-2 ∉ ℕ</span> (los naturales no incluyen negativos)</li>
+    <li><span class="m">0,75 ∈ ℝ</span> (es un real, aunque no es entero)</li>
+    <li><span class="m">√2 ∉ ℚ</span> (la raíz de 2 no es racional)</li>
+    <li><span class="m">169 ∈ ℤ</span> (169 = 13², es entero)</li>
+    <li><span class="m">∅ ∉ ℤ</span> (el conjunto vacío no es un número entero)</li>
+  </ul>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Pertenencia vs. inclusión: error muy frecuente</div>
+  <p>La pertenencia <span class="m">∈</span> relaciona un <b>elemento</b> con un conjunto. La inclusión <span class="m">⊆</span> relaciona dos <b>conjuntos</b>. Son relaciones distintas y no son intercambiables.</p>
+  <ul>
+    <li><span class="m">3 ∈ {1, 2, 3}</span> — correcto (3 es un elemento)</li>
+    <li><span class="m">{3} ⊆ {1, 2, 3}</span> — correcto ({3} es un subconjunto)</li>
+    <li><span class="m">{3} ∈ {1, 2, 3}</span> — FALSO ({3} no es un elemento de ese conjunto)</li>
+    <li><span class="m">3 ⊆ {1, 2, 3}</span> — no tiene sentido (3 es un número, no un conjunto)</li>
+  </ul>
+</div>
+
+<h4>Relación de inclusión (⊆)</h4>
+<p>La <b>inclusión</b> es una relación entre dos conjuntos. Decimos que <span class="m">A</span> está <b>incluido</b> en <span class="m">B</span> (o que A es subconjunto de B) cuando todo elemento de A también pertenece a B. Formalmente:</p>
+<div class="formula">A ⊆ B ⟺ ∀x: [x ∈ A → x ∈ B]</div>
+<p>Si A no está incluido en B, escribimos <span class="m">A ⊄ B</span>. Hay un elemento de A que no está en B.</p>
+
+<h4>Inclusión estricta (⊊)</h4>
+<p>Decimos que <span class="m">A</span> está <b>estrictamente incluido</b> en <span class="m">B</span> (notación <span class="m">A ⊊ B</span> o a veces <span class="m">A ⊂ B</span>) cuando A ⊆ B y además A ≠ B. Es decir, A está dentro de B pero B tiene al menos un elemento que A no tiene.</p>
+
+<div class="example">
+  <div class="ex-t">Inclusión e inclusión estricta</div>
+  <p>Sean <span class="m">X = {a, e, i, o, u}</span>, <span class="m">Y = {a, e, o}</span>, <span class="m">Z = {a, b}</span>.</p>
+  <ul>
+    <li><span class="m">Y ⊆ X</span>: verdadero (a, e, o están todos en X)</li>
+    <li><span class="m">Y ⊊ X</span>: verdadero (además, X tiene i y u que Y no tiene)</li>
+    <li><span class="m">Z ⊆ X</span>: falso (la b no está en X)</li>
+    <li><span class="m">X ⊆ X</span>: siempre verdadero (todo conjunto se incluye en sí mismo)</li>
+    <li><span class="m">∅ ⊆ X</span>: siempre verdadero (el vacío está incluido en todo conjunto)</li>
+  </ul>
+</div>
+
+<h4>Propiedades básicas de la inclusión</h4>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Enunciado</th></tr>
+  <tr><td>Reflexiva</td><td><span class="m">∀A: A ⊆ A</span></td></tr>
+  <tr><td>Vacío</td><td><span class="m">∀A: ∅ ⊆ A</span></td></tr>
+  <tr><td>Universal</td><td><span class="m">∀A: A ⊆ U</span></td></tr>
+  <tr><td>Transitiva</td><td><span class="m">A ⊆ B ∧ B ⊆ C → A ⊆ C</span></td></tr>
+</table>
+
+<h4>Igualdad de conjuntos</h4>
+<p>Dos conjuntos son <b>iguales</b> cuando tienen exactamente los mismos elementos. Formalmente, la igualdad se define como inclusión mutua:</p>
+<div class="formula">A = B ⟺ A ⊆ B ∧ B ⊆ A</div>
+<p>Esto es fundamental para demostrar igualdades de conjuntos: hay que demostrar las dos inclusiones por separado.</p>
+
+<div class="key">
+  <div class="ky-t">Para demostrar A = B</div>
+  <p>La estrategia estándar es demostrar las dos inclusiones:</p>
+  <ol>
+    <li><b>Primera inclusión:</b> tomar un <span class="m">x ∈ A</span> arbitrario y demostrar que <span class="m">x ∈ B</span>.</li>
+    <li><b>Segunda inclusión:</b> tomar un <span class="m">x ∈ B</span> arbitrario y demostrar que <span class="m">x ∈ A</span>.</li>
+  </ol>
+  <p>Si todos los pasos son bicondicionales (⟺), se pueden hacer ambas inclusiones en una sola cadena.</p>
+</div>
+
+<!-- ==================== OPERACIONES ==================== -->
+
+<h3>Operaciones entre conjuntos</h3>
+<p>Dados dos conjuntos A y B (dentro de un universal U), se definen las siguientes operaciones:</p>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Símbolo</th><th>Definición formal</th><th>Significado intuitivo</th></tr>
+  <tr><td>Unión</td><td class="c"><span class="m">A ∪ B</span></td><td><span class="m">{x / x ∈ A ∨ x ∈ B}</span></td><td>Lo que está en A, en B, o en ambos</td></tr>
+  <tr><td>Intersección</td><td class="c"><span class="m">A ∩ B</span></td><td><span class="m">{x / x ∈ A ∧ x ∈ B}</span></td><td>Lo que está en A y también en B</td></tr>
+  <tr><td>Diferencia</td><td class="c"><span class="m">A − B</span></td><td><span class="m">{x / x ∈ A ∧ x ∉ B}</span></td><td>Lo que está en A pero no en B</td></tr>
+  <tr><td>Complemento</td><td class="c"><span class="m">Ā</span></td><td><span class="m">{x ∈ U / x ∉ A} = U − A</span></td><td>Todo lo que no está en A (dentro del universo)</td></tr>
+  <tr><td>Dif. simétrica</td><td class="c"><span class="m">A △ B</span></td><td><span class="m">(A − B) ∪ (B − A)</span></td><td>Lo que está en uno solo de los dos</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Operaciones con conjuntos concretos</div>
+  <p>Sea <span class="m">U = {1,2,3,4,5,6,7,8,9,10}</span>, <span class="m">A = {1,2,3,4,5}</span>, <span class="m">B = {2,4,6}</span>.</p>
+  <ul>
+    <li><span class="m">A ∪ B = {1,2,3,4,5,6}</span></li>
+    <li><span class="m">A ∩ B = {2,4}</span></li>
+    <li><span class="m">A − B = {1,3,5}</span></li>
+    <li><span class="m">B − A = {6}</span></li>
+    <li><span class="m">Ā = {6,7,8,9,10}</span></li>
+    <li><span class="m">B̄ = {1,3,5,7,8,9,10}</span></li>
+    <li><span class="m">A △ B = {1,3,5,6}</span> (lo que está solo en A o solo en B)</li>
+  </ul>
+  <p>Nótese: <span class="m">A ∩ C = ∅</span> cuando C = {7}. Decimos que A y C son <b>disjuntos</b>.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Equivalencia de la diferencia</div>
+  <p>Una propiedad muy usada en demostraciones: <span class="m">A − B = A ∩ B̄</span>. La diferencia A−B se puede expresar como la intersección de A con el complemento de B. Esto permite pasar de diferencias a intersecciones y viceversa, lo que suele facilitar las cuentas.</p>
+</div>
+
+<h4>Conjuntos disjuntos</h4>
+<p>Dos conjuntos A y B son <b>disjuntos</b> cuando <span class="m">A ∩ B = ∅</span>, es decir, no tienen ningún elemento en común.</p>
+
+<!-- ==================== DIAGRAMAS DE VENN ==================== -->
+
+<h3>Diagramas de Venn</h3>
+<p>Los <b>diagramas de Venn</b> son representaciones gráficas de conjuntos y sus operaciones. Se dibuja un rectángulo para el universo U, y dentro del rectángulo se dibujan elipses o círculos para cada conjunto. Las regiones resultantes representan las distintas combinaciones.</p>
+<p>Para dos conjuntos A y B, el diagrama tiene cuatro regiones posibles:</p>
+<ul>
+  <li>Solo en A: <span class="m">A − B</span></li>
+  <li>En A y en B: <span class="m">A ∩ B</span></li>
+  <li>Solo en B: <span class="m">B − A</span></li>
+  <li>En ninguno: <span class="m">Ā ∩ B̄</span></li>
+</ul>
+<p>Los diagramas son útiles para visualizar, pero no son demostraciones formales. Para demostrar propiedades, se trabaja a nivel de elementos o con propiedades ya demostradas.</p>
+
+<!-- ==================== PROPIEDADES DE LAS OPERACIONES ==================== -->
+
+<h3>Propiedades de las operaciones entre conjuntos</h3>
+
+<table class="tbl">
+  <tr><th>#</th><th>Nombre</th><th>Unión</th><th>Intersección</th></tr>
+  <tr><td>1</td><td>Involución</td><td colspan="2" class="c"><span class="m">Ā̄ = A</span> (complemento del complemento es el original)</td></tr>
+  <tr><td>2</td><td>Conmutativa</td><td><span class="m">A ∪ B = B ∪ A</span></td><td><span class="m">A ∩ B = B ∩ A</span></td></tr>
+  <tr><td>3</td><td>Asociativa</td><td><span class="m">A ∪ (B ∪ C) = (A ∪ B) ∪ C</span></td><td><span class="m">A ∩ (B ∩ C) = (A ∩ B) ∩ C</span></td></tr>
+  <tr><td>4</td><td>Distributiva</td><td><span class="m">A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</span></td><td><span class="m">A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</span></td></tr>
+  <tr><td>5</td><td>Idempotencia</td><td><span class="m">A ∪ A = A</span></td><td><span class="m">A ∩ A = A</span></td></tr>
+  <tr><td>6</td><td>De Morgan</td><td><span class="m">A ∪ B̄ = Ā ∩ B̄</span></td><td><span class="m">A ∩ B̄ = Ā ∪ B̄</span></td></tr>
+  <tr><td>7</td><td>Neutro / Absorbente</td><td><span class="m">A ∪ ∅ = A</span> · <span class="m">A ∪ U = U</span></td><td><span class="m">A ∩ U = A</span> · <span class="m">A ∩ ∅ = ∅</span></td></tr>
+  <tr><td>8</td><td>Absorción</td><td><span class="m">A ∪ (A ∩ B) = A</span></td><td><span class="m">A ∩ (A ∪ B) = A</span></td></tr>
+  <tr><td>9</td><td>Complementación</td><td><span class="m">A ∪ Ā = U</span></td><td><span class="m">A ∩ Ā = ∅</span></td></tr>
+  <tr><td>10</td><td>Equiv. diferencia</td><td colspan="2" class="c"><span class="m">A − B = A ∩ B̄</span></td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Leyes de De Morgan para conjuntos</div>
+  <p>Las leyes de De Morgan son las más importantes para simplificar expresiones con complementos:</p>
+  <div class="formula">A ∪ B̄ = Ā ∩ B̄ &nbsp;&nbsp;&nbsp; (complemento de la unión = intersección de complementos)</div>
+  <div class="formula">A ∩ B̄ = Ā ∪ B̄ &nbsp;&nbsp;&nbsp; (complemento de la intersección = unión de complementos)</div>
+  <p>Son análogas a las leyes de De Morgan de la lógica proposicional, con ∪ ↔ ∨ e ∩ ↔ ∧.</p>
+</div>
+
+<h4>Ejemplo de demostración de propiedad (nivel de elementos)</h4>
+
+<div class="example">
+  <div class="ex-t">Demostración: A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</div>
+  <p>Para demostrar la igualdad demostramos dos inclusiones. Como todos los pasos son bicondicionales, los hacemos juntos:</p>
+  <p><i>∀x:</i></p>
+  <p><span class="m">x ∈ A ∩ (B ∪ C)</span></p>
+  <p>⟺ <span class="m">x ∈ A ∧ x ∈ (B ∪ C)</span> — por definición de intersección</p>
+  <p>⟺ <span class="m">x ∈ A ∧ (x ∈ B ∨ x ∈ C)</span> — por definición de unión</p>
+  <p>⟺ <span class="m">(x ∈ A ∧ x ∈ B) ∨ (x ∈ A ∧ x ∈ C)</span> — por distributiva de ∧ sobre ∨ (lógica)</p>
+  <p>⟺ <span class="m">x ∈ (A ∩ B) ∨ x ∈ (A ∩ C)</span> — por definición de intersección</p>
+  <p>⟺ <span class="m">x ∈ (A ∩ B) ∪ (A ∩ C)</span> — por definición de unión</p>
+  <p>Como todos los pasos son ⟺, queda demostrada la igualdad en ambas inclusiones. ∎</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Demostración: A − (B ∩ C) = (A − B) ∪ (A − C)</div>
+  <p><i>∀x:</i></p>
+  <p><span class="m">x ∈ A − (B ∩ C)</span></p>
+  <p>⟺ <span class="m">x ∈ A ∧ x ∉ (B ∩ C)</span> — definición de diferencia</p>
+  <p>⟺ <span class="m">x ∈ A ∧ ¬(x ∈ B ∧ x ∈ C)</span> — definición de intersección</p>
+  <p>⟺ <span class="m">x ∈ A ∧ (x ∉ B ∨ x ∉ C)</span> — De Morgan lógico</p>
+  <p>⟺ <span class="m">(x ∈ A ∧ x ∉ B) ∨ (x ∈ A ∧ x ∉ C)</span> — distributiva</p>
+  <p>⟺ <span class="m">x ∈ (A − B) ∨ x ∈ (A − C)</span> — definición de diferencia</p>
+  <p>⟺ <span class="m">x ∈ (A − B) ∪ (A − C)</span> — definición de unión ∎</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">No suponer la tesis verdadera antes de probarla</div>
+  <p>Un error clásico al demostrar igualdades de conjuntos es escribir lo que hay que demostrar como si ya fuera verdad, y luego "verificarlo". Eso es razonamiento circular.</p>
+  <p>La forma correcta: partir de un miembro (por ejemplo el lado izquierdo) y llegar al otro mediante pasos justificados por definiciones o propiedades ya conocidas.</p>
+</div>
+
+<!-- ==================== CONJUNTO DE PARTES ==================== -->
+
+<h3>Conjunto de partes P(A)</h3>
+<p>Dado un conjunto A, el <b>conjunto de partes</b> de A (también llamado conjunto potencia) es el conjunto formado por <i>todos</i> los subconjuntos de A:</p>
+<div class="formula">P(A) = {X / X ⊆ A}</div>
+<p>Observar que tanto ∅ como A siempre están en P(A) (el conjunto vacío es subconjunto de todo conjunto, y todo conjunto es subconjunto de sí mismo).</p>
+
+<div class="example">
+  <div class="ex-t">Conjuntos de partes</div>
+  <ul>
+    <li><span class="m">A = {a, b}</span> → <span class="m">P(A) = {∅, {a}, {b}, {a,b}}</span>, con <span class="m">|P(A)| = 4</span></li>
+    <li><span class="m">B = {1, 2, 3}</span> → <span class="m">P(B) = {∅, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3}}</span>, con <span class="m">|P(B)| = 8</span></li>
+    <li><span class="m">C = {m}</span> → <span class="m">P(C) = {∅, {m}}</span>, con <span class="m">|P(C)| = 2</span></li>
+    <li><span class="m">D = ∅</span> → <span class="m">P(D) = {∅}</span>, con <span class="m">|P(D)| = 1</span></li>
+  </ul>
+</div>
+
+<div class="key">
+  <div class="ky-t">Cardinalidad de P(A)</div>
+  <p>Si <span class="m">|A| = n</span> (finito), entonces <span class="m">|P(A)| = 2<sup>n</sup></span>.</p>
+  <p><b>¿Por qué?</b> Para construir un subconjunto de A, cada elemento tiene dos opciones: está o no está en el subconjunto. Con n elementos independientes, son 2 × 2 × … × 2 (n veces) = 2<sup>n</sup> subconjuntos posibles.</p>
+  <p>Ejemplo: si <span class="m">|A| = 4</span>, entonces <span class="m">|P(A)| = 2<sup>4</sup> = 16</span>.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">P(A) vs. partición vs. elemento de A</div>
+  <p>Los elementos de P(A) son <b>conjuntos</b> (los subconjuntos de A), no elementos de A. Si <span class="m">A = {1, 2}</span>:</p>
+  <ul>
+    <li><span class="m">{1} ∈ P(A)</span> — verdadero ({1} es un subconjunto de A)</li>
+    <li><span class="m">1 ∈ P(A)</span> — FALSO (1 no es un subconjunto de A, es un elemento)</li>
+    <li><span class="m">{1} ⊆ A</span> — verdadero</li>
+    <li><span class="m">1 ⊆ A</span> — no tiene sentido (1 no es un conjunto)</li>
+  </ul>
+</div>
+
+<!-- ==================== FAMILIAS Y OPERACIONES GENERALIZADAS ==================== -->
+
+<h3>Familias de conjuntos y operaciones generalizadas</h3>
+<p>Una <b>familia de conjuntos</b> es un conjunto cuyos elementos son conjuntos. Cuando tenemos una familia indexada <span class="m">{A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>}</span>, podemos generalizar las operaciones de unión e intersección:</p>
+
+<div class="formula">∪<sub>i=1</sub><sup>n</sup> A<sub>i</sub> = A<sub>1</sub> ∪ A<sub>2</sub> ∪ … ∪ A<sub>n</sub> = {x / ∃i ∈ {1,…,n}: x ∈ A<sub>i</sub>}</div>
+<div class="formula">∩<sub>i=1</sub><sup>n</sup> A<sub>i</sub> = A<sub>1</sub> ∩ A<sub>2</sub> ∩ … ∩ A<sub>n</sub> = {x / ∀i ∈ {1,…,n}: x ∈ A<sub>i</sub>}</div>
+
+<p>Estas operaciones generalizadas son fundamentales cuando se trabaja con inducción sobre conjuntos (ver más adelante la demostración del Ej. 15).</p>
+
+<!-- ==================== PARTICIONES ==================== -->
+
+<h3>Particiones de un conjunto</h3>
+<p>Sea <span class="m">A ≠ ∅</span>. Un conjunto <span class="m">P = {A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>}</span> es una <b>partición</b> de A si cumple las tres condiciones siguientes simultáneamente:</p>
+<ol>
+  <li><span class="m">A<sub>i</sub> ≠ ∅</span> para todo i — ninguna celda está vacía</li>
+  <li><span class="m">A<sub>i</sub> ∩ A<sub>j</sub> = ∅</span> para todo <span class="m">i ≠ j</span> — las celdas son disjuntas entre sí</li>
+  <li><span class="m">A<sub>1</sub> ∪ A<sub>2</sub> ∪ … ∪ A<sub>n</sub> = A</span> — la unión de todas las celdas es el conjunto original</li>
+</ol>
+<p>Los subconjuntos <span class="m">A<sub>i</sub></span> se llaman <b>celdas de la partición</b>. En palabras: partir A es dividirlo en partes no vacías, sin traslapes, que juntas cubren todo A.</p>
+
+<div class="example">
+  <div class="ex-t">¿Cuál es partición de A = {a, b, c, d, e}?</div>
+  <ul>
+    <li><span class="m">P<sub>1</sub> = {{a,b,c}, {d,e}}</span> — SÍ es partición (celdas no vacías, disjuntas, cubren A)</li>
+    <li><span class="m">P<sub>2</sub> = {{a,b}, {c,d}, {b,e}}</span> — NO: b aparece en dos celdas (falla condición 2)</li>
+    <li><span class="m">P<sub>3</sub> = {{a,b}, {c}, {e}}</span> — NO: d no aparece en ninguna celda (falla condición 3)</li>
+    <li><span class="m">P<sub>4</sub> = {{a}, {b}, {c}, {d,e}}</span> — SÍ es partición</li>
+    <li><span class="m">P<sub>5</sub> = {{a}, {b,c,d}, {∅}, {e}}</span> — NO: ∅ es una celda vacía (falla condición 1)</li>
+  </ul>
+</div>
+
+<div class="key">
+  <div class="ky-t">Partición vs. conjunto de partes</div>
+  <p>Diferencia fundamental:</p>
+  <ul>
+    <li><b>P(A)</b> contiene <i>todos</i> los subconjuntos de A, incluyendo ∅ y A mismo. Es uno solo.</li>
+    <li>Una <b>partición</b> de A es una colección de subconjuntos de A que cumple las tres condiciones. Excluye ∅ como celda. Puede haber muchas particiones distintas de A.</li>
+  </ul>
+  <p>Las particiones de un conjunto se vinculan íntimamente con las relaciones de equivalencia (tema de la Unidad 3).</p>
+</div>
+
+<!-- ==================== PRODUCTO CARTESIANO ==================== -->
+
+<h3>Producto cartesiano A × B</h3>
+<p>Dados dos conjuntos A y B, el <b>producto cartesiano</b> de A por B es el conjunto de todos los pares ordenados <span class="m">(x, y)</span> donde la primera componente x viene de A y la segunda componente y viene de B:</p>
+<div class="formula">A × B = {(x, y) / x ∈ A ∧ y ∈ B}</div>
+<p>El orden importa: <span class="m">(x, y) ≠ (y, x)</span> en general (a menos que x = y). Por eso se llama "par <i>ordenado</i>".</p>
+
+<div class="example">
+  <div class="ex-t">Producto cartesiano concreto</div>
+  <p>Sean <span class="m">A = {m, p, h}</span> y <span class="m">B = {1, 2}</span>:</p>
+  <p><span class="m">A × B = {(m,1), (m,2), (p,1), (p,2), (h,1), (h,2)}</span></p>
+  <p><span class="m">B × A = {(1,m), (2,m), (1,p), (2,p), (1,h), (2,h)}</span></p>
+  <p>Claramente <span class="m">A × B ≠ B × A</span> (el producto cartesiano <b>no es conmutativo</b>).</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Cardinal del producto cartesiano</div>
+  <p>Si <span class="m">|A| = n</span> y <span class="m">|B| = m</span>, entonces <span class="m">|A × B| = n · m</span>.</p>
+  <p>Tiene sentido: hay n elecciones para la primera componente y m para la segunda, independientemente.</p>
+  <p>Casos especiales: si <span class="m">A = ∅</span> o <span class="m">B = ∅</span>, entonces <span class="m">A × B = ∅</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Propiedades del producto cartesiano</div>
+  <p>El producto cartesiano distribuye sobre la unión e intersección:</p>
+  <ul>
+    <li><span class="m">A × (B ∪ C) = (A × B) ∪ (A × C)</span> — distribución sobre ∪</li>
+    <li><span class="m">A × (B ∩ C) = (A × B) ∩ (A × C)</span> — distribución sobre ∩</li>
+    <li><span class="m">A × B = ∅ ⟺ A = ∅ ∨ B = ∅</span></li>
+  </ul>
+  <p><b>Ejemplo de distribución:</b> Si <span class="m">A = {0,1}</span>, <span class="m">B = {1,2}</span>, <span class="m">C = {2,3}</span>:<br>
+  <span class="m">A × (B ∪ C) = {0,1} × {1,2,3} = {(0,1),(0,2),(0,3),(1,1),(1,2),(1,3)}</span><br>
+  <span class="m">(A × B) ∪ (A × C) = {(0,1),(0,2),(1,1),(1,2)} ∪ {(0,2),(0,3),(1,2),(1,3)} = {(0,1),(0,2),(0,3),(1,1),(1,2),(1,3)}</span><br>
+  Coinciden.</p>
+</div>
+
+<!-- ==================== CARDINALIDAD Y PIE ==================== -->
+
+<h3>Cardinalidad de conjuntos finitos y principio de inclusión-exclusión</h3>
+<p>Para conjuntos finitos, el <b>cardinal</b> (cantidad de elementos) satisface reglas importantes cuando se opera con ellos.</p>
+
+<h4>Principio de inclusión-exclusión para dos conjuntos</h4>
+<p>Si sumamos |A| + |B|, los elementos que están en A ∩ B los contamos dos veces. Hay que restar una vez esa intersección:</p>
+<div class="formula">|A ∪ B| = |A| + |B| − |A ∩ B|</div>
+
+<h4>Principio de inclusión-exclusión para tres conjuntos</h4>
+<p>Análogamente, para tres conjuntos sumamos los individuales, restamos los de a pares (que se contaron doble), y sumamos la intersección triple (que se sobre-corrigió):</p>
+<div class="formula">|A ∪ B ∪ C| = |A| + |B| + |C| − |A ∩ B| − |A ∩ C| − |B ∩ C| + |A ∩ B ∩ C|</div>
+
+<div class="example">
+  <div class="ex-t">Problema de inclusión-exclusión: lectores</div>
+  <p>Sobre un grupo de 45 personas: 16 leen novelas (N), 18 leen ciencia ficción (CF), 17 leen cuentos (Cu). Además: 3 leen los tres géneros, 1 lee solo cuentos y CF, 8 leen solo cuentos, 4 leen solo N y CF.</p>
+  <p><b>Datos que interpretamos como intersecciones exclusivas o totales:</b></p>
+  <ul>
+    <li><span class="m">|N ∩ CF ∩ Cu| = 3</span></li>
+    <li>"Solo Cu y CF" (sin N): <span class="m">|Cu ∩ CF| − |N ∩ CF ∩ Cu| = 1 → |Cu ∩ CF| = 4</span></li>
+    <li>"Solo N y CF" (sin Cu): <span class="m">|N ∩ CF| − 3 = 4 → |N ∩ CF| = 7</span></li>
+    <li>Por PIE: <span class="m">|N ∪ CF ∪ Cu| = 16 + 18 + 17 − 7 − |N ∩ Cu| − 4 + 3</span></li>
+  </ul>
+  <p>Calculando con todos los datos, resulta que 10 personas no leen ningún género.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio 1 del teórico: A, B, C sobre ℤ</div>
+  <p>Sea <span class="m">A = {x ∈ ℤ / x² < 10} = {-3,-2,-1,0,1,2,3}</span>,<br>
+  <span class="m">B = {x ∈ ℤ / |x−2| ≤ 3} = {-1,0,1,2,3,4,5}</span>,<br>
+  <span class="m">C = {x ∈ ℕ / x es divisor de 8} = {1,2,4,8}</span>.</p>
+  <ul>
+    <li><span class="m">A ∩ B = {-1,0,1,2,3}</span></li>
+    <li><span class="m">A ∩ C = {1,2}</span></li>
+    <li><span class="m">B ∩ C = {1,2,4}</span></li>
+    <li><span class="m">A ∩ B ∩ C = {1,2}</span></li>
+    <li><span class="m">A − B = {-3,-2}</span></li>
+    <li><span class="m">B − A = {4,5}</span></li>
+    <li>Con <span class="m">U = {x ∈ ℤ / |x| ≤ 8}</span>: <span class="m">Ā = {-8,-7,-6,-5,-4,4,5,6,7,8}</span></li>
+  </ul>
+</div>
+
+<!-- ==================== CONJUNTOS NUMÉRICOS ==================== -->
+
+<h3>Conjuntos numéricos</h3>
+<p>Los conjuntos de números estándar forman una cadena de inclusiones. Cada uno está contenido en el siguiente:</p>
+
+<div class="formula">ℕ ⊊ ℤ ⊊ ℚ ⊊ ℝ ⊊ ℂ</div>
+
+<table class="tbl">
+  <tr><th>Símbolo</th><th>Nombre</th><th>Descripción</th><th>Ejemplos</th></tr>
+  <tr><td class="c"><span class="m">ℕ</span></td><td>Naturales</td><td>Enteros no negativos (con 0 en UTN)</td><td>0, 1, 2, 3, …</td></tr>
+  <tr><td class="c"><span class="m">ℤ</span></td><td>Enteros</td><td>Naturales + negativos</td><td>…, -2, -1, 0, 1, 2, …</td></tr>
+  <tr><td class="c"><span class="m">ℚ</span></td><td>Racionales</td><td>Cocientes p/q con p ∈ ℤ, q ∈ ℤ, q ≠ 0</td><td>1/2, -3/4, 0,333…</td></tr>
+  <tr><td class="c"><span class="m">ℝ</span></td><td>Reales</td><td>Racionales + irracionales</td><td>√2, π, e, -7,5</td></tr>
+  <tr><td class="c"><span class="m">ℂ</span></td><td>Complejos</td><td>a + bi con a,b ∈ ℝ, i = √(−1)</td><td>3+2i, -1, 0+5i</td></tr>
+</table>
+
+<p>Los irracionales son los reales que no se pueden expresar como cociente de enteros: √2, √3, π, e, etc. El conjunto de irracionales es <span class="m">ℝ \ ℚ</span>.</p>
+
+<div class="trap">
+  <div class="tr-t">¿El 0 pertenece a ℕ?</div>
+  <p>Hay convenciones distintas según el texto o la cátedra. En Matemática Discreta UTN (Cátedra Piñeiro), se considera <span class="m">ℕ = {0, 1, 2, 3, …}</span> (con el 0 incluido). Verificar siempre la convención de la cátedra antes de responder.</p>
+</div>
+
+<!-- ==================== INDUCCIÓN MATEMÁTICA ==================== -->
+
+<h3>Inducción matemática completa</h3>
+<p>La inducción matemática es una <b>técnica de demostración</b> que nos permite probar que una proposición <span class="m">p(n)</span> es verdadera para <i>todos</i> los naturales (o para todos los naturales a partir de un cierto valor m).</p>
+
+<h4>¿Por qué necesitamos inducción?</h4>
+<p>Verificar un caso particular, o incluso mil casos, no prueba que algo vale para todos los naturales. Por ejemplo, observar que la suma de los primeros k impares es k² para k = 1, 2, 3, 4, 5 no basta para asegurar que vale para k = 1000. La inducción matemática sí nos da esa certeza.</p>
+
+<div class="example">
+  <div class="ex-t">Motivación: suma de impares</div>
+  <p>Calculemos: <span class="m">1 = 1²</span>, <span class="m">1+3 = 4 = 2²</span>, <span class="m">1+3+5 = 9 = 3²</span>, <span class="m">1+3+5+7 = 16 = 4²</span>.</p>
+  <p>Parece que <span class="m">1 + 3 + 5 + … + (2n−1) = n²</span>. Pero ¿es siempre así? Para probarlo con certeza usamos inducción.</p>
+</div>
+
+<h4>Principio de Inducción Completa (PIC)</h4>
+<p>Sea <span class="m">p(n)</span> un predicado con dominio en ℕ. Si se cumplen:</p>
+<ol>
+  <li><b>Caso base:</b> <span class="m">v[p(1)] = V</span> (la proposición es verdadera para n = 1)</li>
+  <li><b>Paso inductivo:</b> <span class="m">∀h ∈ ℕ: v[p(h)] = V → v[p(h+1)] = V</span></li>
+</ol>
+<p>Entonces <span class="m">p(n)</span> es verdadera para todo <span class="m">n ∈ ℕ</span>.</p>
+
+<div class="key">
+  <div class="ky-t">Estructura obligatoria de una demostración por inducción</div>
+  <p>Toda demostración por inducción debe tener exactamente esta estructura:</p>
+  <ol>
+    <li><b>Enunciar p(n)</b> claramente.</li>
+    <li><b>Paso base:</b> verificar p(1) (o p(m) si el enunciado empieza desde m).</li>
+    <li><b>Paso inductivo:</b>
+      <ul>
+        <li><b>Hipótesis inductiva (HI):</b> suponer p(h) verdadera para algún h arbitrario.</li>
+        <li><b>Tesis inductiva (TI):</b> lo que hay que demostrar: p(h+1).</li>
+        <li><b>Demostración:</b> partiendo del primer miembro de TI, usar HI en algún paso y llegar al segundo miembro.</li>
+      </ul>
+    </li>
+    <li><b>Conclusión:</b> "Por el Principio de Inducción, p(n) es verdadera para todo n ∈ ℕ."</li>
+  </ol>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Los 3 errores más frecuentes en inducción</div>
+  <ol>
+    <li><b>Olvidar el caso base:</b> el paso inductivo solo dice "si p(h) entonces p(h+1)". Sin el caso base, la cadena no empieza. Es como afirmar "si la ficha k cae, la k+1 también cae" sin tirar la primera ficha.</li>
+    <li><b>Usar la tesis en la demostración:</b> durante el paso inductivo, la TI es lo que queremos demostrar, no lo que podemos asumir. Solo la HI (p(h)) puede usarse como hipótesis. Usar la TI como verdadera antes de probarla es razonamiento circular.</li>
+    <li><b>Verificar un caso particular y creer que vale en general:</b> demostrar que p(5) es verdadera no implica que p(n) sea verdadera para todo n. Para eso se necesita el argumento completo de inducción.</li>
+  </ol>
+</div>
+
+<!-- ==================== DEMOSTRACIONES POR INDUCCIÓN ==================== -->
+
+<h3>Demostraciones por inducción — Ejemplos completos</h3>
+
+<h4>Ejemplo 1: Suma de los primeros n naturales</h4>
+
+<div class="example">
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ, n ≥ 1: 1 + 2 + 3 + … + n = n(n+1)/2</div>
+  <p><b>p(n):</b> <span class="m">∑<sub>k=1</sub><sup>n</sup> k = n(n+1)/2</span></p>
+  <p><b>Paso base (n=1):</b></p>
+  <p>Primer miembro: <span class="m">1</span>. Segundo miembro: <span class="m">1·(1+1)/2 = 1</span>. Coinciden → <span class="m">v[p(1)] = V</span>. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> <span class="m">1 + 2 + … + h = h(h+1)/2</span> (suponemos esto verdadero para algún h ∈ ℕ arbitrario)</p>
+  <p><b>TI:</b> <span class="m">1 + 2 + … + h + (h+1) = (h+1)(h+2)/2</span> (esto es lo que hay que demostrar)</p>
+  <p><b>Dem.:</b> Partimos del primer miembro de la TI:</p>
+  <p><span class="m">1 + 2 + … + h + (h+1)</span></p>
+  <p>= <span class="m">(1 + 2 + … + h) + (h+1)</span> — asociativa</p>
+  <p>= <span class="m">h(h+1)/2 + (h+1)</span> — aplicamos la HI</p>
+  <p>= <span class="m">(h+1) · [h/2 + 1]</span> — sacamos factor común (h+1)</p>
+  <p>= <span class="m">(h+1) · (h+2)/2</span> — simplificamos</p>
+  <p>Llegamos al segundo miembro de TI. ✓</p>
+  <p><b>Conclusión:</b> Por el Principio de Inducción Completa, la propiedad p(n) es verdadera para todo n ∈ ℕ, n ≥ 1. ∎</p>
+</div>
+
+<h4>Ejemplo 2: Suma de los primeros n números impares</h4>
+
+<div class="example">
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ: 1 + 3 + 5 + … + (2n−1) = n²</div>
+  <p><b>p(n):</b> <span class="m">∑<sub>k=1</sub><sup>n</sup> (2k−1) = n²</span></p>
+  <p><b>Paso base (n=1):</b></p>
+  <p>Primer miembro: <span class="m">2·1−1 = 1</span>. Segundo miembro: <span class="m">1² = 1</span>. → <span class="m">v[p(1)] = V</span>. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> <span class="m">1 + 3 + … + (2h−1) = h²</span></p>
+  <p><b>TI:</b> <span class="m">1 + 3 + … + (2h−1) + (2(h+1)−1) = (h+1)²</span>, o sea <span class="m">1 + 3 + … + (2h+1) = (h+1)²</span></p>
+  <p><b>Dem.:</b></p>
+  <p><span class="m">1 + 3 + … + (2h−1) + (2h+1)</span></p>
+  <p>= <span class="m">[1 + 3 + … + (2h−1)] + (2h+1)</span> — asociativa</p>
+  <p>= <span class="m">h² + (2h+1)</span> — aplicamos HI</p>
+  <p>= <span class="m">h² + 2h + 1</span></p>
+  <p>= <span class="m">(h+1)²</span> — cuadrado de binomio</p>
+  <p>Llegamos al segundo miembro de TI. ✓</p>
+  <p><b>Conclusión:</b> Por PIC, p(n) es verdadera para todo n ∈ ℕ. ∎</p>
+</div>
+
+<h4>Ejemplo 3: Suma de potencias de 2</h4>
+
+<div class="example">
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ₀: 2⁰ + 2¹ + 2² + … + 2ⁿ = 2ⁿ⁺¹ − 1</div>
+  <p><b>Motivación:</b> S₁=1, S₂=3, S₃=7, S₄=15, … siempre una unidad menos que la siguiente potencia de 2.</p>
+  <p><b>p(n):</b> <span class="m">∑<sub>i=0</sub><sup>n</sup> 2<sup>i</sup> = 2<sup>n+1</sup> − 1</span></p>
+  <p><b>Paso base (n=0):</b></p>
+  <p>Primer miembro: <span class="m">2⁰ = 1</span>. Segundo miembro: <span class="m">2¹ − 1 = 1</span>. → <span class="m">v[p(0)] = V</span>. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> <span class="m">2⁰ + 2¹ + … + 2ʰ = 2ʰ⁺¹ − 1</span></p>
+  <p><b>TI:</b> <span class="m">2⁰ + 2¹ + … + 2ʰ + 2ʰ⁺¹ = 2ʰ⁺² − 1</span></p>
+  <p><b>Dem.:</b></p>
+  <p><span class="m">2⁰ + 2¹ + … + 2ʰ + 2ʰ⁺¹</span></p>
+  <p>= <span class="m">(2⁰ + 2¹ + … + 2ʰ) + 2ʰ⁺¹</span> — asociativa</p>
+  <p>= <span class="m">(2ʰ⁺¹ − 1) + 2ʰ⁺¹</span> — aplicamos HI</p>
+  <p>= <span class="m">2 · 2ʰ⁺¹ − 1</span> — juntamos los dos términos iguales</p>
+  <p>= <span class="m">2ʰ⁺² − 1</span> — propiedad de potencias (a · aⁿ = aⁿ⁺¹)</p>
+  <p>Llegamos al segundo miembro de TI. ✓ ∎</p>
+</div>
+
+<h4>Ejemplo 4: Demostración por inducción con divisibilidad</h4>
+
+<div class="example">
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ: 23n − 18n es divisible por 5</div>
+  <p><b>p(n):</b> <span class="m">∃k ∈ ℤ: 23n − 18n = 5k</span></p>
+  <p><b>Paso base (n=1):</b></p>
+  <p><span class="m">23·1 − 18·1 = 23 − 18 = 5 = 5·1</span>, y 1 ∈ ℤ. → <span class="m">v[p(1)] = V</span>. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> <span class="m">23h − 18h = 5k</span> para algún k ∈ ℤ</p>
+  <p><b>TI:</b> <span class="m">23(h+1) − 18(h+1) = 5t</span> para algún t ∈ ℤ (notar: t no tiene por qué ser el mismo k)</p>
+  <p><b>Dem.:</b></p>
+  <p><span class="m">23(h+1) − 18(h+1)</span></p>
+  <p>= <span class="m">23h · 23 − 18h · 18</span> — propiedades de potencias</p>
+  <p>= <span class="m">23h · (5 + 18) − 18h · 18</span> — escribimos 23 = 5 + 18 (truco clave)</p>
+  <p>= <span class="m">5 · 23h + 18 · 23h − 18h · 18</span> — distributiva</p>
+  <p>= <span class="m">5 · 23h + 18 · (23h − 18h)</span> — sacamos factor 18</p>
+  <p>= <span class="m">5 · 23h + 18 · 5k</span> — aplicamos HI</p>
+  <p>= <span class="m">5 · (23h + 18k)</span> — sacamos factor 5</p>
+  <p>= <span class="m">5t</span>, donde <span class="m">t = 23h + 18k ∈ ℤ</span> (suma y producto de enteros es entero). ✓</p>
+  <p><b>Conclusión:</b> Por PIC, 23n − 18n es divisible por 5 para todo n ∈ ℕ. ∎</p>
+</div>
+
+<h4>Ejemplo 5: Desigualdad por inducción</h4>
+
+<div class="example">
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ, n ≥ 4: 2n &lt; n!</div>
+  <p><b>Observación:</b> El enunciado empieza en n = 4 (para n = 1, 2, 3 es falso: 2 &lt; 1! es falso, etc.). El caso base es n = 4.</p>
+  <p><b>Paso base (n=4):</b></p>
+  <p>Primer miembro: <span class="m">2⁴ = 16</span>. Segundo miembro: <span class="m">4! = 24</span>. Como 16 &lt; 24 → <span class="m">v[p(4)] = V</span>. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> <span class="m">2h &lt; h!</span> (para algún h ≥ 4)</p>
+  <p><b>TI:</b> <span class="m">2h+1 &lt; (h+1)!</span></p>
+  <p><b>Dem.:</b></p>
+  <p><span class="m">2h+1 = 2 · 2h</span> — propiedad de potencias</p>
+  <p><span class="m">&lt; 2 · h!</span> — por HI (2h &lt; h!), y como 2 &gt; 0 la desigualdad se mantiene</p>
+  <p><span class="m">≤ (h+1) · h!</span> — porque h+1 ≥ 2 cuando h ≥ 4 ≥ 1 (se cumple h+1 ≥ 2)</p>
+  <p><span class="m">= (h+1)!</span> — definición de factorial</p>
+  <p>Entonces <span class="m">2h+1 &lt; (h+1)!</span>. ✓</p>
+  <p><b>Conclusión:</b> Por PIC (con base en n = 4), p(n) es verdadera para todo n ∈ ℕ, n ≥ 4. ∎</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Truco para divisibilidad: el despiece del factor</div>
+  <p>Para demostrar que una expresión de la forma <span class="m">a<sup>n+1</sup> − b<sup>n+1</sup></span> es divisible por algo, un truco muy útil es escribir <span class="m">a = (a − b) + b</span> y desarrollar. Esto permite extraer la diferencia (a−b) y usar la HI sobre <span class="m">a<sup>n</sup> − b<sup>n</sup></span>. En el ejemplo anterior se usó <span class="m">23 = 5 + 18</span> para extraer el 5 (divisor que buscamos).</p>
+</div>
+
+<!-- ==================== INDUCCIÓN FUERTE ==================== -->
+
+<h3>Inducción fuerte (Segundo Principio de Inducción)</h3>
+<p>El Principio de Inducción fuerte (o segundo principio) es una variante más potente que dice: si puedo demostrar p(n+1) asumiendo que p(h) es verdadera para <i>todos</i> los h ≤ n (no solo para h = n), entonces p vale para todos los naturales.</p>
+
+<div class="formula">Si v[p(m)] = V &nbsp;y&nbsp; [∀h ≤ n: v[p(h)] = V → v[p(n+1)] = V], &nbsp;entonces ∀n ≥ m: v[p(n)] = V</div>
+
+<p>La inducción usual (primera forma) es un caso particular de la fuerte, donde solo se usa p(h) para demostrar p(h+1). En la forma fuerte, se pueden usar <i>todos</i> los casos anteriores.</p>
+
+<div class="example">
+  <div class="ex-t">¿Cuándo usar inducción fuerte?</div>
+  <p>Se usa cuando para demostrar p(n+1) no alcanza con saber solo p(n), sino que necesitamos algún p(k) con k &lt; n. Ejemplo clásico: la demostración del Teorema Fundamental de la Aritmética (todo natural mayor que 1 es producto de primos), donde para descomponer n+1 necesitamos saber que sus factores propios (menores que n+1) ya son productos de primos.</p>
+</div>
+
+<!-- ==================== VERSIÓN GENERALIZADA DEL CASO BASE ==================== -->
+
+<h4>Caso base en valor m ≠ 1</h4>
+<p>El principio de inducción no exige que el caso base sea n = 1. En general:</p>
+<ul>
+  <li>Si el enunciado dice "∀n ≥ m", el caso base es n = m.</li>
+  <li>El paso inductivo demuestra que si p(h) vale para h ≥ m, entonces p(h+1) también vale.</li>
+  <li>La conclusión es que p(n) vale para todo n ≥ m.</li>
+</ul>
+
+<!-- ==================== RECURSIÓN ==================== -->
+
+<h3>Definiciones recursivas (recursión)</h3>
+<p>Una definición es <b>recursiva</b> cuando define un objeto en función de casos más simples del mismo objeto, más un caso base que corta la recursión.</p>
+
+<div class="example">
+  <div class="ex-t">Factorial recursivo</div>
+  <p>El factorial se puede definir recursivamente:</p>
+  <ul>
+    <li>Caso base: <span class="m">0! = 1</span></li>
+    <li>Paso recursivo: <span class="m">n! = n · (n−1)!</span> para n ≥ 1</li>
+  </ul>
+  <p>Entonces: <span class="m">4! = 4 · 3! = 4 · 3 · 2! = 4 · 3 · 2 · 1! = 4 · 3 · 2 · 1 · 0! = 24</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Sucesión de Fibonacci</div>
+  <p>Definición recursiva: <span class="m">F(1) = 1</span>, <span class="m">F(2) = 1</span>, <span class="m">F(n) = F(n−1) + F(n−2)</span> para n ≥ 3.</p>
+  <p>Los primeros términos: 1, 1, 2, 3, 5, 8, 13, 21, 34, …</p>
+  <p>Las definiciones recursivas son el sustento teórico de la recursión en programación y de muchos enunciados de inducción fuerte.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Recursión e inducción son "duales"</div>
+  <p>La <b>definición recursiva</b> construye objetos de abajo hacia arriba (del caso base a los más grandes). La <b>demostración por inducción</b> prueba propiedades de arriba hacia abajo en el sentido conceptual: "si vale para n, vale para n+1". Son dos caras de la misma idea: la estructura de ℕ.</p>
+</div>
+
+<!-- ==================== INDUCCIÓN SOBRE CONJUNTOS ==================== -->
+
+<h3>Inducción aplicada a operaciones de conjuntos</h3>
+<p>La inducción también se aplica para demostrar propiedades que involucran operaciones generalizadas sobre familias de conjuntos. El ejemplo canónico es demostrar la distributividad generalizada.</p>
+
+<div class="example">
+  <div class="ex-t">Demostración: (∩ₙ Aᵢ) ∩ B = ∩ₙ (Aᵢ ∩ B)</div>
+  <p><b>Enunciado formal:</b> <span class="m">∀n ∈ ℕ: (A₁ ∩ A₂ ∩ … ∩ Aₙ) ∩ B = (A₁∩B) ∩ (A₂∩B) ∩ … ∩ (Aₙ∩B)</span></p>
+  <p><b>p(n):</b> <span class="m">(∩<sub>i=1</sub><sup>n</sup> Aᵢ) ∩ B = ∩<sub>i=1</sub><sup>n</sup> (Aᵢ ∩ B)</span></p>
+  <p><b>Paso base (n=1):</b></p>
+  <p><span class="m">A₁ ∩ B = A₁ ∩ B</span> — ambos miembros son iguales trivialmente. → <span class="m">v[p(1)] = V</span>. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> <span class="m">(A₁ ∩ … ∩ Aₕ) ∩ B = (A₁∩B) ∩ … ∩ (Aₕ∩B)</span></p>
+  <p><b>TI:</b> <span class="m">(A₁ ∩ … ∩ Aₕ ∩ Aₕ₊₁) ∩ B = (A₁∩B) ∩ … ∩ (Aₕ∩B) ∩ (Aₕ₊₁∩B)</span></p>
+  <p><b>Dem.:</b> Partimos del primer miembro de la TI:</p>
+  <p><span class="m">(A₁ ∩ … ∩ Aₕ ∩ Aₕ₊₁) ∩ B</span></p>
+  <p>= <span class="m">[(A₁ ∩ … ∩ Aₕ) ∩ Aₕ₊₁] ∩ B</span> — asociativa de ∩</p>
+  <p>= <span class="m">[(A₁ ∩ … ∩ Aₕ) ∩ B] ∩ (Aₕ₊₁ ∩ B)</span> — distributiva de ∩ respecto de ∩ (y conmutativa)</p>
+  <p>= <span class="m">[(A₁∩B) ∩ … ∩ (Aₕ∩B)] ∩ (Aₕ₊₁ ∩ B)</span> — aplicamos HI</p>
+  <p>= <span class="m">(A₁∩B) ∩ … ∩ (Aₕ∩B) ∩ (Aₕ₊₁∩B)</span> — asociativa</p>
+  <p>Llegamos al segundo miembro de TI. ✓</p>
+  <p><b>Conclusión:</b> Por PIC, la propiedad vale para todo n ∈ ℕ. ∎</p>
+  <p><i>Nota:</i> la demostración del Ej.15 (∪ₙ Aᵢ) ∩ B = ∪ₙ (Aᵢ ∩ B) es análoga, usando distributividad de ∩ respecto de ∪.</p>
+</div>
+
+<!-- ==================== DEMOSTRACIÓN |P(A)| = 2^n ==================== -->
+
+<div class="example">
+  <div class="ex-t">Demostración por inducción: |P(A)| = 2ⁿ cuando |A| = n</div>
+  <p><b>p(n):</b> Si |A| = n, entonces |P(A)| = 2<sup>n</sup>.</p>
+  <p><b>Paso base (n=0):</b></p>
+  <p>Si |A| = 0, entonces A = ∅ y P(∅) = {∅}, por lo que |P(∅)| = 1 = 2⁰. ✓</p>
+  <p><b>Paso inductivo:</b></p>
+  <p><b>HI:</b> Si |A| = h, entonces |P(A)| = 2ʰ.</p>
+  <p><b>TI:</b> Si |A| = h+1, entonces |P(A)| = 2ʰ⁺¹.</p>
+  <p><b>Dem.:</b> Sea A un conjunto con h+1 elementos. Tomo un elemento fijo a₀ ∈ A y llamo A' = A \ {a₀}, que tiene h elementos.<br>
+  Cada subconjunto X de A o bien contiene a₀ o bien no lo contiene:<br>
+  — Si X no contiene a₀: X ⊆ A', y hay |P(A')| = 2ʰ de estos (por HI).<br>
+  — Si X contiene a₀: X = X' ∪ {a₀} con X' ⊆ A', y hay también 2ʰ de estos.<br>
+  Total: |P(A)| = 2ʰ + 2ʰ = 2 · 2ʰ = 2ʰ⁺¹. ✓ ∎</p>
+</div>
+
+<!-- ==================== RESUMEN RÁPIDO ==================== -->
+
+<h3>Resumen de la unidad</h3>
+
+<table class="tbl">
+  <tr><th>Concepto</th><th>Lo esencial</th></tr>
+  <tr><td>Conjunto</td><td>Colección bien definida de objetos. Se describe por extensión, comprensión o Venn.</td></tr>
+  <tr><td>∈ vs. ⊆</td><td>∈ relaciona elemento-conjunto; ⊆ relaciona conjunto-conjunto.</td></tr>
+  <tr><td>Igualdad</td><td>A = B ⟺ A ⊆ B ∧ B ⊆ A (demostrar las dos inclusiones).</td></tr>
+  <tr><td>Operaciones</td><td>∪, ∩, −, complemento, △. Todas con definición formal en términos de pertenencia.</td></tr>
+  <tr><td>De Morgan</td><td><span class="m">A ∪ B̄ = Ā ∩ B̄</span> y <span class="m">A ∩ B̄ = Ā ∪ B̄</span>.</td></tr>
+  <tr><td>P(A)</td><td>Todos los subconjuntos de A. Si |A| = n, |P(A)| = 2ⁿ.</td></tr>
+  <tr><td>Partición</td><td>Celdas no vacías, disjuntas, que cubren A. Las tres condiciones son obligatorias.</td></tr>
+  <tr><td>Producto cartesiano</td><td>Pares ordenados. No conmutativo. |A×B| = |A|·|B|.</td></tr>
+  <tr><td>PIE</td><td>|A∪B| = |A|+|B|−|A∩B|. Para tres conjuntos se suma la intersección triple.</td></tr>
+  <tr><td>Inducción</td><td>Caso base + paso inductivo (HI → TI). Demostrar sin suponer la TI verdadera.</td></tr>
+  <tr><td>Inducción fuerte</td><td>La HI supone p(h) para todos los h ≤ n, no solo el inmediato anterior.</td></tr>
+  <tr><td>Recursión</td><td>Definir objetos a partir de casos más simples + caso base.</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="2" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

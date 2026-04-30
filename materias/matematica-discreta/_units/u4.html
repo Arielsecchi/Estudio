@@ -1,0 +1,679 @@
+<!-- ============ UNIDAD 4 · DIVISIBILIDAD EN ENTEROS ============ -->
+<details id="md-s4">
+<summary><span class="num">4</span> Unidad 4: Divisibilidad en Enteros <span class="sec-score" id="ss-matematica-discreta-4"></span></summary>
+<div class="content">
+
+<h3>El conjunto de los enteros ℤ</h3>
+<p>El conjunto de los <b>números enteros</b> se representa con el símbolo <span class="m">ℤ</span> y contiene a todos los números enteros positivos, el cero y los negativos:</p>
+
+<div class="formula">ℤ = { …, −4, −3, −2, −1, 0, 1, 2, 3, 4, … }</div>
+
+<p>Podemos pensar en <span class="m">ℤ</span> como la unión de tres partes:</p>
+<ul>
+  <li><b>Enteros negativos</b> <span class="m">ℤ⁻ = {…, −3, −2, −1}</span></li>
+  <li><b>El cero</b> <span class="m">{0}</span></li>
+  <li><b>Enteros positivos</b> <span class="m">ℤ⁺ = {1, 2, 3, …}</span> (coinciden con los naturales <span class="m">ℕ</span>)</li>
+</ul>
+
+<p>El conjunto <span class="m">ℤ</span> es <b>infinito</b> pero <b>discreto</b>: entre dos enteros consecutivos no hay ningún otro entero (a diferencia de los reales, donde entre dos números siempre hay infinitos más).</p>
+
+<h4>Operaciones en ℤ</h4>
+<p>En <span class="m">ℤ</span>, la <b>suma</b>, la <b>resta</b> y la <b>multiplicación</b> son <b>operaciones cerradas</b>: dados dos enteros cualesquiera, el resultado de aplicar cualquiera de estas tres operaciones siempre es otro entero. Con la <b>división</b> esto no ocurre: <span class="m">8 ÷ 3</span> no da un entero.</p>
+
+<div class="key">
+  <div class="ky-t">Propiedades algebraicas de ℤ</div>
+  <table class="tbl">
+    <tr><th>Propiedad</th><th>Suma</th><th>Multiplicación</th></tr>
+    <tr><td>Cerradura</td><td class="c"><span class="m">a+b ∈ ℤ</span></td><td class="c"><span class="m">a·b ∈ ℤ</span></td></tr>
+    <tr><td>Conmutatividad</td><td class="c"><span class="m">a+b = b+a</span></td><td class="c"><span class="m">a·b = b·a</span></td></tr>
+    <tr><td>Asociatividad</td><td class="c"><span class="m">(a+b)+c = a+(b+c)</span></td><td class="c"><span class="m">(a·b)·c = a·(b·c)</span></td></tr>
+    <tr><td>Elemento neutro</td><td class="c"><span class="m">a+0 = a</span></td><td class="c"><span class="m">a·1 = a</span></td></tr>
+    <tr><td>Inverso</td><td class="c"><span class="m">a+(−a) = 0</span></td><td class="c">solo ±1 tienen inverso en ℤ</td></tr>
+    <tr><td>Distributiva</td><td colspan="2" class="c"><span class="m">a·(b+c) = a·b + a·c</span></td></tr>
+  </table>
+</div>
+
+<h3>Algoritmo de la División</h3>
+<p>Cuando dividimos dos enteros, en general el cociente no es entero. Pero podemos <i>siempre</i> encontrar un cociente entero <span class="m">c</span> y un resto <span class="m">r</span> que cumplan una condición muy precisa.</p>
+
+<div class="key">
+  <div class="ky-t">Teorema: Algoritmo de la División (División Entera)</div>
+  <p>Dados <span class="m">D, d ∈ ℤ</span> con <span class="m">d ≠ 0</span>, existen <b>únicos</b> <span class="m">c, r ∈ ℤ</span> tales que:</p>
+  <div class="formula">D = d · c + r &nbsp;&nbsp; con &nbsp;&nbsp; 0 ≤ r &lt; |d|</div>
+  <p>Donde: <b>D</b> = dividendo, <b>d</b> = divisor, <b>c</b> = cociente, <b>r</b> = resto.</p>
+  <p>El resto es <b>siempre no negativo</b> y <b>estrictamente menor</b> que el valor absoluto del divisor.</p>
+</div>
+
+<p>Para calcular <span class="m">c</span> y <span class="m">r</span> cuando el divisor es positivo, se usa la parte entera y la parte decimal:</p>
+<ul>
+  <li>Si <span class="m">d &gt; 0</span>: <span class="m">c = ent(D/d)</span>, &nbsp; <span class="m">r = mant(D/d) · d</span></li>
+  <li>Si <span class="m">d &lt; 0</span>: trabajamos con <span class="m">d' = −d &gt; 0</span>, calculamos <span class="m">c'</span> y <span class="m">r'</span>, y luego <span class="m">c = −c'</span>, <span class="m">r = r'</span></li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 1 — Dividendo positivo, divisor positivo</div>
+  <p><b>D = 17, d = 3</b></p>
+  <p>En reales: 17/3 = 5,6666… &nbsp;→ ent(5,666…) = 5, &nbsp;mant(5,666…) · 3 = 0,666… · 3 = 2</p>
+  <p>Entonces: <span class="m">c = 5</span>, <span class="m">r = 2</span></p>
+  <p>Verificación: <span class="m">17 = 3 · 5 + 2</span> ✓ &nbsp; y &nbsp; <span class="m">0 ≤ 2 &lt; 3</span> ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 2 — Dividendo negativo, divisor positivo</div>
+  <p><b>D = −8, d = 5</b></p>
+  <p>En reales: −8/5 = −1,6 &nbsp;→ ent(−1,6) = −2, &nbsp;mant(−1,6) · 5 = 0,4 · 5 = 2</p>
+  <p>Entonces: <span class="m">c = −2</span>, <span class="m">r = 2</span></p>
+  <p>Verificación: <span class="m">−8 = 5 · (−2) + 2</span> ✓ &nbsp; y &nbsp; <span class="m">0 ≤ 2 &lt; 5</span> ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 3 — Divisor negativo</div>
+  <p><b>D = −13, d = −4</b></p>
+  <p>Usamos <span class="m">d' = 4</span>: en reales −13/4 = −3,25 → <span class="m">c' = ent(−3,25) = −4</span>, <span class="m">r' = mant(−3,25) · 4 = 0,75 · 4 = 3</span></p>
+  <p>Entonces: <span class="m">c = −c' = 4</span>, <span class="m">r = r' = 3</span></p>
+  <p>Verificación: <span class="m">−13 = (−4) · 4 + 3</span> ✓ &nbsp; y &nbsp; <span class="m">0 ≤ 3 &lt; 4</span> ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 4 — D positivo, d negativo</div>
+  <p><b>D = 15, d = −6</b></p>
+  <p>Usamos <span class="m">d' = 6</span>: 15/6 = 2,5 → <span class="m">c' = 2</span>, <span class="m">r' = 0,5 · 6 = 3</span></p>
+  <p>Entonces: <span class="m">c = −2</span>, <span class="m">r = 3</span></p>
+  <p>Verificación: <span class="m">15 = (−6) · (−2) + 3</span> ✓ &nbsp; y &nbsp; <span class="m">0 ≤ 3 &lt; 6</span> ✓</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: el resto siempre es ≥ 0</div>
+  <p>Cuando el dividendo es negativo es tentador poner el resto negativo. Por ejemplo para −8 ÷ 5, alguien podría escribir <span class="m">−8 = 5 · (−1) + (−3)</span>. Eso da <span class="m">r = −3</span>, que <b>viola la condición</b> <span class="m">r ≥ 0</span>. El único cociente y resto válidos son <span class="m">c = −2, r = 2</span>.</p>
+</div>
+
+<h3>Divisibilidad</h3>
+<p>Cuando el resto de la división entera es exactamente cero, decimos que hay <b>divisibilidad</b>.</p>
+
+<div class="key">
+  <div class="ky-t">Definición de Divisibilidad</div>
+  <p>Sean <span class="m">a, b ∈ ℤ</span>. Se dice que <b><span class="m">a</span> divide a <span class="m">b</span></b>, y se escribe <span class="m">a | b</span>, si y solo si existe <span class="m">k ∈ ℤ</span> tal que:</p>
+  <div class="formula">a | b &nbsp;⟺&nbsp; ∃ k ∈ ℤ : b = k · a</div>
+  <p>Cuando <span class="m">a | b</span> se puede decir cualquiera de estas cosas (son todas equivalentes):</p>
+  <ul>
+    <li><span class="m">a</span> <b>divide</b> a <span class="m">b</span></li>
+    <li><span class="m">a</span> es <b>divisor</b> de <span class="m">b</span></li>
+    <li><span class="m">b</span> es <b>divisible</b> por <span class="m">a</span></li>
+    <li><span class="m">b</span> es <b>múltiplo</b> de <span class="m">a</span></li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de divisibilidad</div>
+  <p><b>a)</b> <span class="m">8 | 72</span> porque existe <span class="m">k = 9 ∈ ℤ</span> tal que <span class="m">72 = 9 · 8</span>. ✓</p>
+  <p><b>b)</b> <span class="m">15 ∤ 50</span> porque no existe ningún entero <span class="m">k</span> tal que <span class="m">50 = k · 15</span> (50/15 = 3,333… no es entero).</p>
+  <p><b>c)</b> Los únicos enteros que dividen al 6 son: <span class="m">1, −1, 2, −2, 3, −3, 6, −6</span>. (Los negativos también dividen, ya que por ejemplo <span class="m">6 = (−2) · (−3)</span>.)</p>
+</div>
+
+<p>Se definen dos notaciones útiles:</p>
+<ul>
+  <li>Conjunto de todos los <b>múltiplos</b> de <span class="m">n</span>: &nbsp; <span class="m">{x ∈ ℤ / x = k·n, k ∈ ℤ}</span></li>
+  <li>Conjunto de todos los <b>divisores positivos</b> de <span class="m">n</span>: &nbsp; <span class="m">D<sub>n</sub> = {x ∈ ℤ<sup>+</sup> / x | n}</span></li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Divisores positivos de algunos números</div>
+  <p><span class="m">D<sub>75</sub> = {1, 3, 5, 15, 25, 75}</span></p>
+  <p><span class="m">D<sub>36</sub> = {1, 2, 3, 4, 6, 9, 12, 18, 36}</span></p>
+  <p><span class="m">D<sub>42</sub> = {1, 2, 3, 6, 7, 14, 21, 42}</span></p>
+</div>
+
+<h4>Propiedades de la Divisibilidad</h4>
+
+<table class="tbl">
+  <tr><th>#</th><th>Propiedad</th><th>Enunciado</th><th>Idea</th></tr>
+  <tr>
+    <td class="c">1</td>
+    <td><b>Reflexiva</b></td>
+    <td><span class="m">∀ a ∈ ℤ, a ≠ 0: a | a</span></td>
+    <td>Todo entero no nulo se divide a sí mismo</td>
+  </tr>
+  <tr>
+    <td class="c">2</td>
+    <td><b>Transitiva</b></td>
+    <td><span class="m">a|b ∧ b|c ⟹ a|c</span></td>
+    <td>Si a divide a b y b divide a c, entonces a divide a c</td>
+  </tr>
+  <tr>
+    <td class="c">3</td>
+    <td><b>Lineal (suma)</b></td>
+    <td><span class="m">a|b ∧ a|c ⟹ a|(b+c)</span></td>
+    <td>Si a divide a b y a c, divide a su suma</td>
+  </tr>
+  <tr>
+    <td class="c">4</td>
+    <td><b>Por escalar</b></td>
+    <td><span class="m">a|b ⟹ a|(b·c) ∀ c ∈ ℤ</span></td>
+    <td>Si a divide a b, divide a cualquier múltiplo de b</td>
+  </tr>
+</table>
+
+<p>La propiedad 3 se generaliza a <b>combinaciones lineales enteras</b>: si <span class="m">a|b</span> y <span class="m">a|c</span>, entonces para cualquier <span class="m">x, y ∈ ℤ</span>:</p>
+<div class="formula">a | (bx + cy)</div>
+
+<div class="example">
+  <div class="ex-t">Demostración de la propiedad transitiva</div>
+  <p>Sea <span class="m">a|b</span> y <span class="m">b|c</span>. Entonces existen <span class="m">k, t ∈ ℤ</span> con <span class="m">b = a·k</span> y <span class="m">c = b·t</span>.</p>
+  <p>Reemplazando: <span class="m">c = (a·k)·t = a·(k·t)</span>.</p>
+  <p>Como <span class="m">k·t ∈ ℤ</span>, esto muestra que <span class="m">a|c</span>. ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Demostración de la propiedad lineal (suma)</div>
+  <p>Sea <span class="m">a|b</span> y <span class="m">a|c</span>. Existen <span class="m">k, t ∈ ℤ</span> con <span class="m">b = a·k</span> y <span class="m">c = a·t</span>.</p>
+  <p>Entonces: <span class="m">b + c = a·k + a·t = a·(k+t)</span>.</p>
+  <p>Como <span class="m">k+t ∈ ℤ</span>, se tiene <span class="m">a|(b+c)</span>. ✓</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: la divisibilidad NO es simétrica</div>
+  <p><span class="m">a|b</span> NO implica <span class="m">b|a</span> en general. Por ejemplo, <span class="m">3|12</span> pero <span class="m">12 ∤ 3</span>. La excepción son los opuestos: si <span class="m">a|b</span> y <span class="m">b|a</span>, entonces <span class="m">a = b</span> o <span class="m">a = −b</span>.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: a|b no implica a|c cuando a|(b+c)</div>
+  <p>Si <span class="m">a|(b+c)</span> NO se puede concluir que <span class="m">a|b</span> y <span class="m">a|c</span> por separado. Por ejemplo, <span class="m">3|(4+5)</span> pero <span class="m">3 ∤ 4</span> y <span class="m">3 ∤ 5</span>. La implicación solo va en sentido inverso.</p>
+</div>
+
+<h3>Números Primos y Compuestos</h3>
+
+<div class="key">
+  <div class="ky-t">Definición: número primo</div>
+  <p>Un entero <span class="m">p &gt; 1</span> es <b>primo</b> si sus únicos divisores son <span class="m">1, −1, p</span> y <span class="m">−p</span>. En otras palabras, no puede escribirse como producto de dos enteros ambos con valor absoluto mayor que 1.</p>
+  <p>Un entero <span class="m">n &gt; 1</span> que no es primo se llama <b>compuesto</b>.</p>
+  <p>El número 1 (y el −1) <b>no se consideran primos ni compuestos</b>: son casos especiales (unidades).</p>
+</div>
+
+<p>Los primeros números primos son: <span class="m">2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, …</span></p>
+<p>El 2 es el único primo par. Todos los primos mayores que 2 son impares.</p>
+
+<h4>Infinitud de los números primos</h4>
+<div class="key">
+  <div class="ky-t">Teorema (Euclides): Hay infinitos números primos</div>
+  <p><b>Demostración:</b> Supongamos por el absurdo que la lista de todos los primos es finita: <span class="m">p<sub>1</sub>, p<sub>2</sub>, …, p<sub>n</sub></span>. Consideremos el número:</p>
+  <div class="formula">N = p<sub>1</sub> · p<sub>2</sub> · … · p<sub>n</sub> + 1</div>
+  <p><span class="m">N &gt; 1</span>, así que es divisible por algún primo. Pero ninguno de los <span class="m">p<sub>i</sub></span> divide a <span class="m">N</span> (porque al dividir, el resto siempre sería 1). Contradicción: si la lista fuera completa, no existiría ningún primo que divida a <span class="m">N</span>. Por lo tanto hay infinitos primos.</p>
+</div>
+
+<h4>Criba de Eratóstenes</h4>
+<p>Para encontrar todos los primos hasta un número <span class="m">N</span>, se puede usar la <b>Criba de Eratóstenes</b>:</p>
+<ol>
+  <li>Escribir todos los números de 2 a <span class="m">N</span>.</li>
+  <li>El primer número no tachado es primo. Tachar todos sus múltiplos (excepto él mismo).</li>
+  <li>Repetir desde el paso 2 hasta haber procesado todos los números hasta <span class="m">√N</span>.</li>
+  <li>Los números no tachados son todos primos.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Criba hasta 30</div>
+  <p>Partimos de: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30</p>
+  <p>Tachamos múltiplos de 2 (excepto 2): <s>4 6 8 10 12 14 16 18 20 22 24 26 28 30</s></p>
+  <p>Tachamos múltiplos de 3 (excepto 3): <s>9 15 21 27</s></p>
+  <p>Tachamos múltiplos de 5 (excepto 5): <s>25</s></p>
+  <p>Primos hasta 30: <b>2, 3, 5, 7, 11, 13, 17, 19, 23, 29</b></p>
+</div>
+
+<h4>¿Por qué importan los primos?</h4>
+<p>Los números primos tienen aplicaciones fundamentales en criptografía. El algoritmo <b>RSA</b>, que protege la mayoría de las comunicaciones seguras en Internet, se basa en la dificultad de factorizar un número que es producto de dos primos enormes (del orden de 10<sup>100</sup>). Encontrar esos factores llevaría más tiempo del que existe el universo con las computadoras actuales.</p>
+
+<h3>Teorema Fundamental de la Aritmética</h3>
+
+<div class="key">
+  <div class="ky-t">Teorema Fundamental de la Aritmética (TFA)</div>
+  <p>Todo entero <span class="m">n &gt; 1</span> es primo o se puede escribir como un producto de factores primos de manera <b>esencialmente única</b> (salvo el orden de los factores):</p>
+  <div class="formula">n = p<sub>1</sub><sup>k<sub>1</sub></sup> · p<sub>2</sub><sup>k<sub>2</sub></sup> · … · p<sub>r</sub><sup>k<sub>r</sub></sup></div>
+  <p>donde <span class="m">p<sub>1</sub> &lt; p<sub>2</sub> &lt; … &lt; p<sub>r</sub></span> son primos y <span class="m">k<sub>i</sub> ≥ 1</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Factorizaciones en primos</div>
+  <p>Para factorizar, dividimos sucesivamente por el menor primo que divida:</p>
+  <table class="tbl">
+    <tr><th>Número</th><th>Proceso</th><th>Factorización</th></tr>
+    <tr><td class="c">84</td><td>84 = 2·42 = 2·2·21 = 2·2·3·7</td><td class="c"><span class="m">2<sup>2</sup> · 3 · 7</span></td></tr>
+    <tr><td class="c">105</td><td>105 = 3·35 = 3·5·7</td><td class="c"><span class="m">3 · 5 · 7</span></td></tr>
+    <tr><td class="c">36</td><td>36 = 2·18 = 2·2·9 = 2·2·3·3</td><td class="c"><span class="m">2<sup>2</sup> · 3<sup>2</sup></span></td></tr>
+    <tr><td class="c">252</td><td>252 = 2·126 = 2·2·63 = 4·9·7</td><td class="c"><span class="m">2<sup>2</sup> · 3<sup>2</sup> · 7</span></td></tr>
+  </table>
+</div>
+
+<h4>Contar divisores con la factorización</h4>
+<p>Si <span class="m">n = p<sub>1</sub><sup>k<sub>1</sub></sup> · p<sub>2</sub><sup>k<sub>2</sub></sup> · … · p<sub>r</sub><sup>k<sub>r</sub></sup></span>, entonces la cantidad de divisores positivos de <span class="m">n</span> es:</p>
+<div class="formula">|D<sub>n</sub>| = (k<sub>1</sub> + 1)(k<sub>2</sub> + 1) · … · (k<sub>r</sub> + 1)</div>
+
+<div class="example">
+  <div class="ex-t">Contar divisores de 36</div>
+  <p><span class="m">36 = 2<sup>2</sup> · 3<sup>2</sup></span> &nbsp;→ &nbsp;<span class="m">|D<sub>36</sub>| = (2+1)(2+1) = 9</span></p>
+  <p>Efectivamente: <span class="m">D<sub>36</sub> = {1, 2, 3, 4, 6, 9, 12, 18, 36}</span> — son 9 divisores. ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Cuándo un número tiene exactamente 8 divisores?</div>
+  <p>Necesitamos <span class="m">(k<sub>1</sub>+1)·(k<sub>2</sub>+1)·… = 8</span>. Las factorizaciones de 8 son: 8 = 8 = 4·2 = 2·2·2.</p>
+  <ul>
+    <li>8 = 8: forma <span class="m">p<sup>7</sup></span>. El menor es <span class="m">2<sup>7</sup> = 128</span>.</li>
+    <li>8 = 4·2: forma <span class="m">p<sup>3</sup>·q</span>. El menor es <span class="m">2<sup>3</sup>·3 = 24</span>.</li>
+    <li>8 = 2·2·2: forma <span class="m">p·q·r</span>. El menor es <span class="m">2·3·5 = 30</span>.</li>
+  </ul>
+  <p>El menor natural con exactamente 8 divisores es <b>24</b>: <span class="m">D<sub>24</sub> = {1, 2, 3, 4, 6, 8, 12, 24}</span>.</p>
+</div>
+
+<h3>Máximo Común Divisor (mcd)</h3>
+<p>Dados dos enteros, nos interesa el mayor divisor que tienen en común.</p>
+
+<div class="key">
+  <div class="ky-t">Definición: Máximo Común Divisor</div>
+  <p>Sean <span class="m">a, b ∈ ℤ</span>, no simultáneamente nulos. El entero positivo <span class="m">d = mcd(a, b)</span> es el máximo común divisor si y solo si:</p>
+  <ol>
+    <li><span class="m">d | a</span></li>
+    <li><span class="m">d | b</span></li>
+    <li>Si <span class="m">d' ≠ 0</span>: &nbsp; <span class="m">d'|a ∧ d'|b ⟹ d'|d</span> &nbsp; (todo divisor común divide al mcd)</li>
+  </ol>
+  <p>Notación alternativa: <span class="m">(a, b) = mcd(a, b)</span>.</p>
+</div>
+
+<h4>Cálculo del mcd por factorización</h4>
+<p>Para calcular el mcd por factorización: se factorizan ambos números y el mcd es el producto de los primos comunes con el <b>menor</b> exponente.</p>
+
+<div class="example">
+  <div class="ex-t">mcd(75, 120) por factorización</div>
+  <p><span class="m">75 = 3 · 5<sup>2</sup></span></p>
+  <p><span class="m">120 = 2<sup>3</sup> · 3 · 5</span></p>
+  <p>Factores comunes: 3 (mínimo exp.: 1) y 5 (mínimo exp.: 1).</p>
+  <p><span class="m">mcd(75, 120) = 3 · 5 = 15</span></p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir "menor exponente" con "mayor exponente"</div>
+  <p>En el mcd se toman los factores comunes con el <b>menor</b> exponente. En el mcm se toman <b>todos</b> los factores con el <b>mayor</b> exponente. Si tomás el mayor para el mcd, obtenés el mcm, y viceversa.</p>
+</div>
+
+<h4>Propiedad de Bézout del mcd</h4>
+
+<div class="key">
+  <div class="ky-t">Propiedad fundamental del mcd</div>
+  <p>Si <span class="m">d = mcd(a, b)</span>, entonces existen enteros <span class="m">k<sub>1</sub>, k<sub>2</sub> ∈ ℤ</span> tales que:</p>
+  <div class="formula">d = k<sub>1</sub> · a + k<sub>2</sub> · b</div>
+  <p>Es decir, el mcd siempre se puede escribir como <b>combinación lineal entera</b> de los dos números.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Combinación lineal del mcd(64, 48)</div>
+  <p><span class="m">64 = 2<sup>6</sup></span>, <span class="m">48 = 2<sup>4</sup> · 3</span>, &nbsp; → &nbsp; <span class="m">mcd(64, 48) = 2<sup>4</sup> = 16</span></p>
+  <p><span class="m">16 = 1 · 64 + (−1) · 48</span> ✓</p>
+</div>
+
+<h3>Algoritmo de Euclides</h3>
+<p>Factorizar es costoso para números grandes. El <b>algoritmo de Euclides</b> calcula el mcd de forma eficiente usando la división entera repetida.</p>
+
+<div class="key">
+  <div class="ky-t">Propiedad base del Algoritmo de Euclides</div>
+  <p>Dados <span class="m">a, b ∈ ℤ</span>, si <span class="m">a = b·q + r</span> (división entera), entonces:</p>
+  <div class="formula">mcd(a, b) = mcd(b, r)</div>
+  <p><b>Idea de la demostración:</b> se prueba que el conjunto de divisores comunes de <span class="m">a</span> y <span class="m">b</span> es exactamente el mismo que el de <span class="m">b</span> y <span class="m">r</span>. Por lo tanto el mayor de cada conjunto es el mismo.</p>
+</div>
+
+<p>El algoritmo aplica esta propiedad repetidamente hasta llegar a un resto 0:</p>
+<div class="formula">
+  mcd(a, b) = mcd(b, r) = mcd(r, r<sub>1</sub>) = … = mcd(r<sub>n</sub>, 0) = r<sub>n</sub>
+</div>
+<p>El <b>último resto no nulo</b> es el mcd.</p>
+
+<div class="example">
+  <div class="ex-t">Algoritmo de Euclides: mcd(720, 224)</div>
+  <table class="tbl">
+    <tr><th>Paso</th><th>División</th><th>Cociente</th><th>Resto</th></tr>
+    <tr><td class="c">1</td><td><span class="m">720 ÷ 224</span></td><td class="c">3</td><td class="c">48</td></tr>
+    <tr><td class="c">2</td><td><span class="m">224 ÷ 48</span></td><td class="c">4</td><td class="c">32</td></tr>
+    <tr><td class="c">3</td><td><span class="m">48 ÷ 32</span></td><td class="c">1</td><td class="c">16</td></tr>
+    <tr><td class="c">4</td><td><span class="m">32 ÷ 16</span></td><td class="c">2</td><td class="c"><b>0</b></td></tr>
+  </table>
+  <p>El último resto no nulo es <b>16</b>. &nbsp; Por lo tanto: <span class="m">mcd(720, 224) = 16</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Algoritmo de Euclides: mcd(252, 198)</div>
+  <table class="tbl">
+    <tr><th>Paso</th><th>División</th><th>Cociente</th><th>Resto</th></tr>
+    <tr><td class="c">1</td><td><span class="m">252 ÷ 198</span></td><td class="c">1</td><td class="c">54</td></tr>
+    <tr><td class="c">2</td><td><span class="m">198 ÷ 54</span></td><td class="c">3</td><td class="c">36</td></tr>
+    <tr><td class="c">3</td><td><span class="m">54 ÷ 36</span></td><td class="c">1</td><td class="c">18</td></tr>
+    <tr><td class="c">4</td><td><span class="m">36 ÷ 18</span></td><td class="c">2</td><td class="c"><b>0</b></td></tr>
+  </table>
+  <p>El último resto no nulo es <b>18</b>. &nbsp; Por lo tanto: <span class="m">mcd(252, 198) = 18</span>.</p>
+</div>
+
+<h4>Algoritmo de Euclides Extendido (Método Matricial de Bézout)</h4>
+<p>El método matricial permite calcular el mcd <b>y al mismo tiempo</b> encontrar los coeficientes <span class="m">s, t</span> tales que <span class="m">mcd(a,b) = s·a + t·b</span>.</p>
+
+<div class="key">
+  <div class="ky-t">Método matricial paso a paso</div>
+  <ol>
+    <li>Colocar la matriz identidad 2×2, con los dos números en una tercera columna (el mayor primero).</li>
+    <li>En cada paso: dividir el término independiente de la anteúltima fila por el de la última, obtener el cociente <span class="m">q</span>, y calcular: <span class="m">nueva fila = anteúltima fila − q × última fila</span> (la operación se aplica a toda la fila).</li>
+    <li>Repetir hasta que el término independiente sea 0.</li>
+    <li>La fila anterior al cero da el mcd (en la tercera columna) y los coeficientes de Bézout (en las primeras dos columnas).</li>
+  </ol>
+</div>
+
+<div class="example">
+  <div class="ex-t">Euclides extendido: mcd(720, 224) y coeficientes de Bézout</div>
+  <table class="tbl">
+    <tr><th>Col s</th><th>Col t</th><th>Valor</th><th>Operación</th></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">720</td><td>F1 (fila inicial)</td></tr>
+    <tr><td class="c">0</td><td class="c">1</td><td class="c">224</td><td>F2 (fila inicial)</td></tr>
+    <tr><td class="c">1</td><td class="c">−3</td><td class="c">48</td><td>F3 = F1 − 3·F2 &nbsp;(720÷224=3)</td></tr>
+    <tr><td class="c">−4</td><td class="c">13</td><td class="c">32</td><td>F4 = F2 − 4·F3 &nbsp;(224÷48=4)</td></tr>
+    <tr><td class="c">5</td><td class="c">−16</td><td class="c"><b>16</b></td><td>F5 = F3 − 1·F4 &nbsp;(48÷32=1)</td></tr>
+    <tr><td class="c">−14</td><td class="c">45</td><td class="c">0</td><td>F6 = F4 − 2·F5 &nbsp;(32÷16=2)</td></tr>
+  </table>
+  <p>Resultado: <span class="m">mcd(720, 224) = 16</span></p>
+  <p>Coeficientes de Bézout: <span class="m">16 = 5 · 720 + (−16) · 224</span></p>
+  <p>Verificación: <span class="m">5 × 720 = 3600</span>, <span class="m">16 × 224 = 3584</span>, <span class="m">3600 − 3584 = 16</span> ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Euclides extendido: mcd(435, 340)</div>
+  <table class="tbl">
+    <tr><th>Col s</th><th>Col t</th><th>Valor</th><th>Operación</th></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">435</td><td>F1</td></tr>
+    <tr><td class="c">0</td><td class="c">1</td><td class="c">340</td><td>F2</td></tr>
+    <tr><td class="c">1</td><td class="c">−1</td><td class="c">95</td><td>F3 = F1 − 1·F2 &nbsp;(435÷340=1)</td></tr>
+    <tr><td class="c">−3</td><td class="c">4</td><td class="c">55</td><td>F4 = F2 − 3·F3 &nbsp;(340÷95=3)</td></tr>
+    <tr><td class="c">4</td><td class="c">−5</td><td class="c">40</td><td>F5 = F3 − 1·F4 &nbsp;(95÷55=1)</td></tr>
+    <tr><td class="c">−7</td><td class="c">9</td><td class="c">15</td><td>F6 = F4 − 1·F5 &nbsp;(55÷40=1)</td></tr>
+    <tr><td class="c">18</td><td class="c">−23</td><td class="c">10</td><td>F7 = F5 − 2·F6 &nbsp;(40÷15=2)</td></tr>
+    <tr><td class="c">−25</td><td class="c">32</td><td class="c"><b>5</b></td><td>F8 = F6 − 1·F7 &nbsp;(15÷10=1)</td></tr>
+    <tr><td class="c">68</td><td class="c">−87</td><td class="c">0</td><td>F9 = F7 − 2·F8 &nbsp;(10÷5=2)</td></tr>
+  </table>
+  <p>Resultado: <span class="m">mcd(435, 340) = 5</span></p>
+  <p>Coeficientes: <span class="m">5 = (−25) · 435 + 32 · 340</span></p>
+  <p>Verificación: <span class="m">−25 × 435 = −10875</span>, <span class="m">32 × 340 = 10880</span>, <span class="m">10880 − 10875 = 5</span> ✓</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico al armar la tabla matricial</div>
+  <p>La operación siempre es: <b>anteúltima fila menos (cociente) veces la última fila</b>. El cociente es el de la división del término independiente de la anteúltima por el de la última. Si lo invertís (última menos algo por anteúltima) los coeficientes salen mal. Siempre chequeá al final que <span class="m">s·a + t·b = mcd(a,b)</span>.</p>
+</div>
+
+<h3>Mínimo Común Múltiplo (mcm)</h3>
+
+<div class="key">
+  <div class="ky-t">Definición: Mínimo Común Múltiplo</div>
+  <p>Sean <span class="m">a, b ∈ ℤ</span>, no simultáneamente nulos. El entero positivo <span class="m">m = mcm(a, b)</span> es el mínimo común múltiplo si y solo si:</p>
+  <ol>
+    <li><span class="m">a | m</span></li>
+    <li><span class="m">b | m</span></li>
+    <li>Si <span class="m">m' ≠ 0</span>: &nbsp; <span class="m">a|m' ∧ b|m' ⟹ m|m'</span> &nbsp; (el mcm divide a todo múltiplo común)</li>
+  </ol>
+  <p>Notación alternativa: <span class="m">[a, b] = mcm(a, b)</span>.</p>
+</div>
+
+<h4>Cálculo del mcm por factorización</h4>
+<p>Se toman <b>todos</b> los factores primos que aparecen en cualquiera de los números (incluso si solo aparecen en uno), con el <b>mayor</b> exponente.</p>
+
+<div class="example">
+  <div class="ex-t">mcm(75, 120) por factorización</div>
+  <p><span class="m">75 = 3 · 5<sup>2</sup></span></p>
+  <p><span class="m">120 = 2<sup>3</sup> · 3 · 5</span></p>
+  <p>Todos los factores: 2 (exp. máx: 3), 3 (exp. máx: 1), 5 (exp. máx: 2).</p>
+  <p><span class="m">mcm(75, 120) = 2<sup>3</sup> · 3 · 5<sup>2</sup> = 8 · 3 · 25 = 600</span></p>
+</div>
+
+<h4>Relación entre mcd y mcm</h4>
+
+<div class="key">
+  <div class="ky-t">Propiedad: mcd · mcm = |a · b|</div>
+  <div class="formula">mcd(a, b) · mcm(a, b) = |a · b|</div>
+  <p>Esta propiedad permite calcular el mcm conociendo el mcd (o viceversa) sin necesidad de factorizar.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Verificación con a=64, b=48</div>
+  <p><span class="m">64 = 2<sup>6</sup></span>, <span class="m">48 = 2<sup>4</sup> · 3</span></p>
+  <p><span class="m">mcd(64, 48) = 2<sup>4</sup> = 16</span></p>
+  <p><span class="m">mcm(64, 48) = 2<sup>6</sup> · 3 = 192</span></p>
+  <p><span class="m">16 · 192 = 3072 = 64 · 48</span> ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Usar la fórmula para calcular mcm conociendo mcd</div>
+  <p>Si <span class="m">mcd(224, 120) = 8</span>, calcular <span class="m">mcm(224, 120)</span>:</p>
+  <p><span class="m">mcm(224, 120) = |224 · 120| / mcd(224, 120) = 26880 / 8 = 3360</span></p>
+</div>
+
+<h3>Números Coprimos (primos relativos)</h3>
+
+<div class="key">
+  <div class="ky-t">Definición: números coprimos</div>
+  <p>Dos enteros <span class="m">a</span> y <span class="m">b</span> son <b>coprimos</b> (o <b>primos entre sí</b> o <b>primos relativos</b>) si:</p>
+  <div class="formula">mcd(a, b) = 1</div>
+  <p>No hace falta que ninguno de los dos sea primo. Lo que importa es que <b>no tienen factores primos en común</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de coprimos y no coprimos</div>
+  <p><span class="m">mcd(8, 15) = 1</span> → 8 y 15 son coprimos (aunque ninguno es primo).</p>
+  <p><span class="m">mcd(6, 10) = 2 ≠ 1</span> → 6 y 10 no son coprimos.</p>
+  <p>Dos enteros <b>consecutivos</b> siempre son coprimos, pues: <span class="m">1 · (n+1) + (−1) · n = 1</span>.</p>
+</div>
+
+<h3>Teorema de Bézout</h3>
+
+<div class="key">
+  <div class="ky-t">Teorema de Bézout</div>
+  <p>Dados <span class="m">a, b ∈ ℤ</span>:</p>
+  <div class="formula">mcd(a, b) = 1 &nbsp;⟺&nbsp; ∃ s, t ∈ ℤ : 1 = s · a + t · b</div>
+  <p>Es decir, <span class="m">a</span> y <span class="m">b</span> son coprimos si y solo si 1 se puede escribir como combinación lineal entera de ambos.</p>
+  <p><b>Utilidad:</b> para demostrar que dos números son coprimos basta exhibir un par <span class="m">(s, t)</span> que cumpla esa igualdad.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Aplicaciones del Teorema de Bézout</div>
+  <p><b>a)</b> Como <span class="m">1 = 3 · 8541 + (−2) · 12811</span>, podemos asegurar que <span class="m">mcd(8541, 12811) = 1</span> (son coprimos).</p>
+  <p><b>b)</b> Si <span class="m">a</span> y <span class="m">b</span> son coprimos, entonces <span class="m">a</span> y <span class="m">a+b</span> también son coprimos:</p>
+  <p style="margin-left:1em">Dem: <span class="m">1 = s·a + t·b = s·a + t·(a+b−a) = (s−t)·a + t·(a+b)</span>, con <span class="m">s−t ∈ ℤ</span>.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: el recíproco de Bézout no vale para d &gt; 1</div>
+  <p>¿Es cierto que si <span class="m">∃ s,t ∈ ℤ: 3 = s·a + t·b</span> entonces <span class="m">mcd(a,b) = 3</span>?</p>
+  <p>¡No! Contraejemplo: <span class="m">3 = 9·2 + (−3)·5</span> pero <span class="m">mcd(2, 5) = 1 ≠ 3</span>. Solo cuando <span class="m">d = 1</span> la implicación es bicondicional (Bézout). Para <span class="m">d &gt; 1</span>, que exista la combinación lineal que da <span class="m">d</span> no garantiza que ese sea el mcd.</p>
+</div>
+
+<h4>Propiedad de primos aplicada con Bézout</h4>
+
+<div class="key">
+  <div class="ky-t">Propiedad importante de los primos</div>
+  <p>Si <span class="m">p</span> es primo y <span class="m">p | a·b</span>, entonces <span class="m">p | a</span> o <span class="m">p | b</span> (o ambos).</p>
+  <p><b>Demostración:</b> Si <span class="m">p ∤ a</span>, como <span class="m">p</span> es primo, sus únicos divisores positivos son 1 y <span class="m">p</span>, así que <span class="m">mcd(p, a) = 1</span>. Por Bézout: <span class="m">1 = s·p + t·a</span>. Multiplicando por <span class="m">b</span>: <span class="m">b = s·p·b + t·a·b</span>. Como <span class="m">p | a·b</span>, sea <span class="m">a·b = p·k</span>; entonces <span class="m">b = s·p·b + t·p·k = p·(sb + tk)</span>. Luego <span class="m">p | b</span>. ✓</p>
+  <p>Esta propiedad <b>es falsa para compuestos</b>: por ejemplo <span class="m">6 | 4·9</span> pero <span class="m">6 ∤ 4</span> y <span class="m">6 ∤ 9</span>.</p>
+</div>
+
+<h3>Ecuaciones Diofánticas Lineales</h3>
+<p>Una <b>ecuación diofántica lineal</b> es una ecuación de la forma:</p>
+<div class="formula">ax + by = c</div>
+<p>donde <span class="m">a, b, c ∈ ℤ</span> son datos y se buscan soluciones enteras <span class="m">x, y ∈ ℤ</span>.</p>
+
+<h4>¿Cuándo tiene solución?</h4>
+
+<div class="key">
+  <div class="ky-t">Condición de existencia de soluciones</div>
+  <p>La ecuación <span class="m">ax + by = c</span> tiene solución entera si y solo si:</p>
+  <div class="formula">mcd(a, b) | c</div>
+  <p>Es decir, el máximo común divisor de los coeficientes divide al término independiente.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Tiene solución 6x + 10y = 8?</div>
+  <p><span class="m">mcd(6, 10) = 2</span>. ¿<span class="m">2 | 8</span>? Sí (<span class="m">8 = 2·4</span>). → La ecuación <b>sí tiene solución</b>.</p>
+  <p>¿Tiene solución <span class="m">6x + 10y = 7</span>? <span class="m">mcd(6, 10) = 2</span>. ¿<span class="m">2 | 7</span>? No. → <b>No tiene solución</b>.</p>
+</div>
+
+<h4>Encontrar todas las soluciones</h4>
+<p>Cuando hay solución, el proceso es:</p>
+<ol>
+  <li>Calcular <span class="m">d = mcd(a, b)</span> con el algoritmo extendido de Euclides, obteniendo <span class="m">d = s·a + t·b</span>.</li>
+  <li>Dividir toda la ecuación por <span class="m">d</span>: &nbsp; <span class="m">(a/d)·x + (b/d)·y = c/d</span>.</li>
+  <li>Una <b>solución particular</b> es <span class="m">x<sub>0</sub> = s·(c/d)</span>, &nbsp; <span class="m">y<sub>0</sub> = t·(c/d)</span>.</li>
+  <li>La <b>solución general</b> es: &nbsp; <span class="m">x = x<sub>0</sub> + (b/d)·k</span>, &nbsp; <span class="m">y = y<sub>0</sub> − (a/d)·k</span> &nbsp; con <span class="m">k ∈ ℤ</span>.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Resolver completamente: 224x + 120y = 8</div>
+  <p><b>Paso 1:</b> <span class="m">mcd(224, 120)</span>. Usamos Euclides:</p>
+  <table class="tbl">
+    <tr><th>División</th><th>Cociente</th><th>Resto</th></tr>
+    <tr><td><span class="m">224 ÷ 120</span></td><td class="c">1</td><td class="c">104</td></tr>
+    <tr><td><span class="m">120 ÷ 104</span></td><td class="c">1</td><td class="c">16</td></tr>
+    <tr><td><span class="m">104 ÷ 16</span></td><td class="c">6</td><td class="c">8</td></tr>
+    <tr><td><span class="m">16 ÷ 8</span></td><td class="c">2</td><td class="c"><b>0</b></td></tr>
+  </table>
+  <p><span class="m">mcd(224, 120) = 8</span>. ¿<span class="m">8 | 8</span>? Sí. Hay solución.</p>
+  <p><b>Paso 2:</b> Dividimos todo por 8: &nbsp; <span class="m">28x + 15y = 1</span>.</p>
+  <p><b>Paso 3:</b> Euclides extendido sobre (28, 15):</p>
+  <table class="tbl">
+    <tr><th>Col s</th><th>Col t</th><th>Valor</th><th>Operación</th></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">28</td><td>F1</td></tr>
+    <tr><td class="c">0</td><td class="c">1</td><td class="c">15</td><td>F2</td></tr>
+    <tr><td class="c">1</td><td class="c">−1</td><td class="c">13</td><td>F3 = F1 − F2</td></tr>
+    <tr><td class="c">−1</td><td class="c">2</td><td class="c">2</td><td>F4 = F2 − F3</td></tr>
+    <tr><td class="c">7</td><td class="c">−13</td><td class="c"><b>1</b></td><td>F5 = F3 − 6·F4</td></tr>
+    <tr><td class="c">−15</td><td class="c">28</td><td class="c">0</td><td>F6 = F4 − 2·F5</td></tr>
+  </table>
+  <p><span class="m">1 = 7·28 + (−13)·15</span></p>
+  <p><b>Solución particular:</b> <span class="m">x<sub>0</sub> = 7</span>, <span class="m">y<sub>0</sub> = −13</span>.</p>
+  <p><b>Solución general</b> (con <span class="m">k ∈ ℤ</span>):</p>
+  <div class="formula">x = 7 + 15k &nbsp;&nbsp;&nbsp;&nbsp; y = −13 − 28k</div>
+  <p>Verificación con <span class="m">k=0</span>: <span class="m">224·7 + 120·(−13) = 1568 − 1560 = 8</span> ✓</p>
+  <p>Con <span class="m">k=1</span>: <span class="m">x=22, y=−41</span> → <span class="m">224·22 + 120·(−41) = 4928 − 4920 = 8</span> ✓</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: solución general con el paso equivocado</div>
+  <p>El paso de la solución general es <span class="m">b/d</span> para <span class="m">x</span> y <span class="m">−a/d</span> para <span class="m">y</span> (con los coeficientes <b>divididos por el mcd</b>, no los originales). Si usás <span class="m">b</span> y <span class="m">−a</span> directamente (sin dividir por <span class="m">d</span>) obtenés soluciones, pero no todas: te saltás algunas.</p>
+</div>
+
+<h3>Sistemas de Numeración</h3>
+<p>Los números que usamos en la vida cotidiana están escritos en <b>base 10 (decimal)</b>, pero en computación se usan frecuentemente la base 2 (binario) y la base 16 (hexadecimal).</p>
+
+<h4>Representación en base b</h4>
+<p>Todo entero positivo <span class="m">n</span> puede escribirse en base <span class="m">b</span> (con <span class="m">b ≥ 2</span>) de forma única como:</p>
+<div class="formula">n = a<sub>k</sub>·b<sup>k</sup> + a<sub>k−1</sub>·b<sup>k−1</sup> + … + a<sub>1</sub>·b + a<sub>0</sub></div>
+<p>donde cada <span class="m">a<sub>i</sub></span> es un <b>dígito</b> con <span class="m">0 ≤ a<sub>i</sub> &lt; b</span>. Se escribe: <span class="m">(a<sub>k</sub>a<sub>k−1</sub>…a<sub>1</sub>a<sub>0</sub>)<sub>b</sub></span>.</p>
+
+<table class="tbl">
+  <tr><th>Base</th><th>Nombre</th><th>Dígitos</th><th>Uso</th></tr>
+  <tr><td class="c">10</td><td>Decimal</td><td>0–9</td><td>Vida cotidiana</td></tr>
+  <tr><td class="c">2</td><td>Binario</td><td>0, 1</td><td>Computadoras (circuitos lógicos)</td></tr>
+  <tr><td class="c">8</td><td>Octal</td><td>0–7</td><td>Sistemas Unix (permisos)</td></tr>
+  <tr><td class="c">16</td><td>Hexadecimal</td><td>0–9, A–F</td><td>Colores web, direcciones de memoria</td></tr>
+</table>
+
+<p>En hexadecimal, las letras representan: A=10, B=11, C=12, D=13, E=14, F=15.</p>
+
+<h4>Conversión de base b a decimal</h4>
+<p>Se expande la notación posicional y se evalúa la suma.</p>
+
+<div class="example">
+  <div class="ex-t">Convertir (1011)<sub>2</sub> a decimal</div>
+  <p><span class="m">(1011)<sub>2</sub> = 1·2<sup>3</sup> + 0·2<sup>2</sup> + 1·2<sup>1</sup> + 1·2<sup>0</sup> = 8 + 0 + 2 + 1 = 11</span></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Convertir (2A)<sub>16</sub> a decimal</div>
+  <p><span class="m">(2A)<sub>16</sub> = 2·16<sup>1</sup> + 10·16<sup>0</sup> = 32 + 10 = 42</span></p>
+</div>
+
+<h4>Conversión de decimal a base b</h4>
+<p>Se divide repetidamente por <span class="m">b</span>, anotando los restos. Los restos leídos de abajo hacia arriba forman la representación.</p>
+
+<div class="example">
+  <div class="ex-t">Convertir 42 a binario</div>
+  <table class="tbl">
+    <tr><th>División</th><th>Cociente</th><th>Resto</th></tr>
+    <tr><td><span class="m">42 ÷ 2</span></td><td class="c">21</td><td class="c">0</td></tr>
+    <tr><td><span class="m">21 ÷ 2</span></td><td class="c">10</td><td class="c">1</td></tr>
+    <tr><td><span class="m">10 ÷ 2</span></td><td class="c">5</td><td class="c">0</td></tr>
+    <tr><td><span class="m">5 ÷ 2</span></td><td class="c">2</td><td class="c">1</td></tr>
+    <tr><td><span class="m">2 ÷ 2</span></td><td class="c">1</td><td class="c">0</td></tr>
+    <tr><td><span class="m">1 ÷ 2</span></td><td class="c">0</td><td class="c">1</td></tr>
+  </table>
+  <p>Restos de abajo hacia arriba: <b>101010</b>. &nbsp; Resultado: <span class="m">42 = (101010)<sub>2</sub></span></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Convertir 255 a hexadecimal</div>
+  <table class="tbl">
+    <tr><th>División</th><th>Cociente</th><th>Resto</th><th>Dígito hex</th></tr>
+    <tr><td><span class="m">255 ÷ 16</span></td><td class="c">15</td><td class="c">15</td><td class="c">F</td></tr>
+    <tr><td><span class="m">15 ÷ 16</span></td><td class="c">0</td><td class="c">15</td><td class="c">F</td></tr>
+  </table>
+  <p>Resultado: <span class="m">255 = (FF)<sub>16</sub></span></p>
+</div>
+
+<h4>Conversión rápida: binario ↔ hexadecimal</h4>
+<p>Como <span class="m">16 = 2<sup>4</sup></span>, cada dígito hexadecimal equivale exactamente a <b>4 bits</b> binarios. Esto permite la conversión directa sin pasar por decimal:</p>
+
+<div class="example">
+  <div class="ex-t">Convertir (1010 1111)<sub>2</sub> a hexadecimal</div>
+  <p>Agrupar de a 4 bits desde la derecha: <span class="m">1010 | 1111</span></p>
+  <p><span class="m">1010<sub>2</sub> = 10<sub>10</sub> = A<sub>16</sub></span></p>
+  <p><span class="m">1111<sub>2</sub> = 15<sub>10</sub> = F<sub>16</sub></span></p>
+  <p>Resultado: <span class="m">(10101111)<sub>2</sub> = (AF)<sub>16</sub></span></p>
+</div>
+
+<h4>Suma en base 2</h4>
+<p>La aritmética binaria sigue las mismas reglas que la decimal, pero con solo dos dígitos: 0 y 1. El "llevar" ocurre cuando la suma supera 1.</p>
+<table class="tbl">
+  <tr><th>a</th><th>b</th><th>a+b</th><th>resultado</th><th>acarreo</th></tr>
+  <tr><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr>
+  <tr><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">0</td></tr>
+  <tr><td class="c">1</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">0</td></tr>
+  <tr><td class="c">1</td><td class="c">1</td><td class="c">10</td><td class="c">0</td><td class="c">1</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Sumar (1011)<sub>2</sub> + (1101)<sub>2</sub></div>
+  <pre style="font-family:monospace; background:#f8f8f8; padding:0.5em; border-radius:4px; display:inline-block;">
+  1011
++ 1101
+------
+ 11000
+  </pre>
+  <p>Paso a paso: posición 0: 1+1=10 → dígito 0, acarreo 1. Pos 1: 1+0+1=10 → dígito 0, acarreo 1. Pos 2: 0+1+1=10 → dígito 0, acarreo 1. Pos 3: 1+1+1=11 → dígito 1, acarreo 1. Pos 4: 0+0+1=1 → dígito 1.</p>
+  <p>Resultado: <span class="m">(11000)<sub>2</sub> = 24<sub>10</sub></span>. Verificación: <span class="m">11<sub>10</sub> + 13<sub>10</sub> = 24<sub>10</sub></span> ✓</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir bases en conversiones</div>
+  <p>Al convertir de decimal a binario, se divide por 2 y los restos se leen de <b>abajo hacia arriba</b> (del último al primero). Si los leés al revés, el número en binario está invertido. Por ejemplo: los restos al convertir 6 son 0, 1, 1 → leídos al revés dan <b>110</b> que es correcto (<span class="m">110<sub>2</sub> = 6</span>), no <b>011</b>.</p>
+</div>
+
+<h3>Resumen de fórmulas y propiedades clave</h3>
+
+<table class="tbl">
+  <tr><th>Concepto</th><th>Fórmula / Propiedad</th></tr>
+  <tr><td><b>Algoritmo de la división</b></td><td><span class="m">D = d·c + r, &nbsp; 0 ≤ r &lt; |d|</span></td></tr>
+  <tr><td><b>Divisibilidad</b></td><td><span class="m">a | b ⟺ ∃ k ∈ ℤ : b = k·a</span></td></tr>
+  <tr><td><b>Combinación lineal</b></td><td><span class="m">a|b ∧ a|c ⟹ a|(bx+cy) ∀ x,y ∈ ℤ</span></td></tr>
+  <tr><td><b>TFA</b></td><td><span class="m">n = p<sub>1</sub><sup>k<sub>1</sub></sup>·…·p<sub>r</sub><sup>k<sub>r</sub></sup></span> (única)</td></tr>
+  <tr><td><b>Cantidad de divisores</b></td><td><span class="m">|D<sub>n</sub>| = (k<sub>1</sub>+1)·…·(k<sub>r</sub>+1)</span></td></tr>
+  <tr><td><b>mcd por factorización</b></td><td>factores comunes, exponente mínimo</td></tr>
+  <tr><td><b>mcm por factorización</b></td><td>todos los factores, exponente máximo</td></tr>
+  <tr><td><b>mcd · mcm</b></td><td><span class="m">mcd(a,b) · mcm(a,b) = |a·b|</span></td></tr>
+  <tr><td><b>Bézout</b></td><td><span class="m">mcd(a,b) = s·a + t·b</span></td></tr>
+  <tr><td><b>Coprimos</b></td><td><span class="m">mcd(a,b) = 1 ⟺ ∃ s,t: 1 = s·a + t·b</span></td></tr>
+  <tr><td><b>Diofántica: existencia</b></td><td><span class="m">ax+by=c</span> tiene solución ⟺ <span class="m">mcd(a,b) | c</span></td></tr>
+  <tr><td><b>Diofántica: solución general</b></td><td><span class="m">x = x<sub>0</sub> + (b/d)k, &nbsp; y = y<sub>0</sub> − (a/d)k</span></td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="4" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>
