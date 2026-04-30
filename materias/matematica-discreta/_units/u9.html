@@ -1,0 +1,583 @@
+<!-- ============ UNIDAD 9 · ESTRUCTURAS ALGEBRAICAS · GRUPOS ============ -->
+<details id="md-s9">
+<summary><span class="num">9</span> Unidad 9: Estructuras algebraicas: Grupos <span class="sec-score" id="ss-matematica-discreta-9"></span></summary>
+<div class="content">
+
+<h3>Introducción: ¿para qué sirven los grupos?</h3>
+<p>Los <b>grupos</b> son estructuras algebraicas que aparecen en criptografía, teoría de códigos, física, química, simetría molecular y resolución de acertijos. La idea clave es simple: dado un conjunto y una operación, ¿qué propiedades cumplen juntos? Dependiendo de cuáles se cumplan, la estructura recibe un nombre.</p>
+<p>Los matemáticos que más aportaron a esta teoría fueron Euler, Gauss, Abel, Lagrange y Galois. Évariste Galois (1811–1832) fue el primero en usar el término "grupo" en sentido matemático, y usó permutaciones de raíces para determinar cuándo una ecuación puede resolverse por radicales.</p>
+
+<h3>1. Operación binaria cerrada (interna)</h3>
+<p>Una <b>operación binaria cerrada</b> en un conjunto <span class="m">A</span> es una función <span class="m">★ : A × A → A</span>. El resultado de operar dos elementos de <span class="m">A</span> siempre permanece en <span class="m">A</span>. Se escribe <span class="m">(A ; ★)</span> para indicar que en <span class="m">A</span> se definió la operación <span class="m">★</span>.</p>
+<p>Formalmente: <span class="m">★</span> es cerrada en <span class="m">A</span> ⟺ <span class="m">∀ x, y ∈ A : x ★ y ∈ A</span>.</p>
+<p>Otras denominaciones: <b>ley de composición interna</b> o <b>ley de cierre</b>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de operaciones cerradas y no cerradas</div>
+  <b>Cerradas:</b><br>
+  • <span class="m">(ℕ ; +)</span>: sumar dos naturales da un natural. ✓<br>
+  • <span class="m">(ℤ ; ·)</span>: multiplicar dos enteros da un entero. ✓<br>
+  • Potencias de 2: <span class="m">A = { 2<sup>k</sup> / k ∈ ℤ }</span> con la multiplicación: <span class="m">2<sup>k</sup> · 2<sup>t</sup> = 2<sup>k+t</sup> ∈ A</span>. ✓<br>
+  • <span class="m">A = {1, 2, 3, 6}</span> con <span class="m">a ★ b = mcd(a,b)</span>: la tabla muestra que todos los resultados pertenecen a <span class="m">A</span>. ✓<br><br>
+  <b>No cerradas:</b><br>
+  • Impares con la adición: <span class="m">3 + 5 = 8</span> (par), no es impar. ✗<br>
+  • <span class="m">(ℕ ; ÷)</span>: <span class="m">3 ÷ 2 ∉ ℕ</span>. ✗<br>
+  • <span class="m">A = {1,2,3,4}</span> con <span class="m">a ★ b = mcm(a,b)</span>: <span class="m">2 ★ 3 = 6 ∉ A</span>. ✗
+</div>
+
+<div class="key">
+  <div class="ky-t">¿Cómo verificar cierre con una tabla?</div>
+  Si la operación está dada por una tabla de Cayley, la operación es cerrada si y solo si <b>todos los resultados de la tabla pertenecen al conjunto</b>. Basta con mirar que no haya ningún valor fuera del conjunto dado.
+</div>
+
+<h3>2. Propiedades de una operación cerrada</h3>
+<p>Dada <span class="m">(A ; ★)</span>, se definen las siguientes propiedades:</p>
+
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Definición formal</th><th>Ejemplo que la cumple</th><th>Ejemplo que NO la cumple</th></tr>
+  <tr>
+    <td><b>Asociativa</b></td>
+    <td><span class="m">∀a,b,c ∈ A: a★(b★c) = (a★b)★c</span></td>
+    <td><span class="m">(ℤ ; +)</span>, <span class="m">(ℤ ; ·)</span></td>
+    <td>Potenciación en ℕ: <span class="m">2<sup>(3<sup>2</sup>)</sup> ≠ (2<sup>3</sup>)<sup>2</sup></span></td>
+  </tr>
+  <tr>
+    <td><b>Conmutativa</b></td>
+    <td><span class="m">∀a,b ∈ A: a★b = b★a</span></td>
+    <td><span class="m">(ℤ ; +)</span>, unión e intersección de conjuntos</td>
+    <td>Potenciación: <span class="m">2<sup>3</sup> ≠ 3<sup>2</sup></span></td>
+  </tr>
+  <tr>
+    <td><b>Elemento neutro</b></td>
+    <td><span class="m">∃e ∈ A : ∀a ∈ A : e★a = a★e = a</span></td>
+    <td>0 en <span class="m">(ℤ;+)</span>, 1 en <span class="m">(ℤ;·)</span>, ∅ en <span class="m">(P(A);∪)</span></td>
+    <td>Potenciación en ℕ: <span class="m">1<sup>x</sup>=1 ≠ x</span> si <span class="m">x≠1</span></td>
+  </tr>
+  <tr>
+    <td><b>Elemento simétrico (inverso)</b></td>
+    <td><span class="m">∀a ∈ A, ∃a′ ∈ A : a★a′ = a′★a = e</span></td>
+    <td>En <span class="m">(ℤ;+)</span>: <span class="m">a′ = -a</span></td>
+    <td>En <span class="m">(ℝ;·)</span>: el 0 no tiene inverso</td>
+  </tr>
+  <tr>
+    <td><b>Idempotente</b></td>
+    <td><span class="m">∀a ∈ A: a★a = a</span></td>
+    <td><span class="m">(P(A);∪)</span>, <span class="m">(P(A);∩)</span></td>
+    <td><span class="m">(ℤ;+)</span>: <span class="m">a+a=2a≠a</span> (salvo <span class="m">a=0</span>)</td>
+  </tr>
+  <tr>
+    <td><b>Elemento absorbente</b></td>
+    <td><span class="m">∃b ∈ A : ∀a ∈ A : b★a = a★b = b</span></td>
+    <td>El 0 en <span class="m">(ℤ;·)</span>, la tautología en <span class="m">(Prop;∨)</span></td>
+    <td>No existe en <span class="m">(ℤ;+)</span></td>
+  </tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Truco: neutro y absorbente en la tabla</div>
+  <b>Neutro:</b> la fila y la columna del neutro reproducen el encabezado en el mismo orden.<br>
+  <b>Absorbente:</b> la fila y la columna del absorbente contienen siempre ese mismo elemento.<br>
+  <b>Idempotentes:</b> aparecen en la diagonal principal (donde el resultado de <span class="m">a★a = a</span>).<br>
+  <b>Conmutativa:</b> la tabla es simétrica respecto a su diagonal principal.<br>
+  <b>Simétrico de <i>a</i>:</b> buscar el neutro en la fila (o columna) de <span class="m">a</span>.
+</div>
+
+<h4>Ejemplo completo: operación combinada en ℤ</h4>
+<p>Sea <span class="m">a * b = a + b + 2</span> definida en <span class="m">ℤ</span>. Analizamos todas las propiedades:</p>
+<div class="example">
+  <div class="ex-t">Análisis de a * b = a + b + 2 en ℤ</div>
+  <b>Cerrada:</b> <span class="m">a,b ∈ ℤ ⟹ a+b ∈ ℤ ⟹ a+b+2 ∈ ℤ</span>. ✓<br><br>
+  <b>Asociativa:</b><br>
+  &nbsp;&nbsp;<span class="m">a*(b*c) = a*(b+c+2) = a+b+c+4</span><br>
+  &nbsp;&nbsp;<span class="m">(a*b)*c = (a+b+2)*c = a+b+2+c+2 = a+b+c+4</span> ✓<br><br>
+  <b>Conmutativa:</b> <span class="m">a*b = a+b+2 = b+a+2 = b*a</span> ✓<br><br>
+  <b>Elemento neutro:</b> Buscamos <span class="m">e</span> tal que <span class="m">a*e = a</span>:<br>
+  &nbsp;&nbsp;<span class="m">a+e+2 = a ⟹ e = -2</span>. El neutro es <span class="m">e = -2</span>. ✓<br><br>
+  <b>Elemento simétrico:</b> Buscamos <span class="m">a′</span> tal que <span class="m">a*a′ = -2</span>:<br>
+  &nbsp;&nbsp;<span class="m">a+a′+2 = -2 ⟹ a′ = -4-a</span>. Todos tienen simétrico. ✓<br><br>
+  <b>Idempotente:</b> <span class="m">a*a = 2a+2 = a ⟹ a = -2</span>. Solo el neutro es idempotente.<br>
+  <b>Absorbente:</b> <span class="m">a*b = b ⟹ a+b+2 = b ⟹ a = -2</span> para todo <span class="m">a</span>. No existe.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir simétrico con inverso multiplicativo</div>
+  El <b>simétrico</b> (o inverso) de un elemento depende de la operación y del neutro. En <span class="m">(ℤ;+)</span> el simétrico de <span class="m">3</span> es <span class="m">-3</span> (opuesto). En <span class="m">(ℚ\{0};·)</span> es <span class="m">1/3</span> (recíproco). Para una operación definida como <span class="m">a*b = a+b+2</span>, el neutro es <span class="m">-2</span>, por lo que el simétrico de 5 es <span class="m">-4-5=-9</span>, ¡no <span class="m">-5</span>!
+</div>
+
+<h3>3. Estructuras algebraicas</h3>
+<p>Según las propiedades que cumpla <span class="m">(A;★)</span>, recibe un nombre:</p>
+
+<table class="tbl">
+  <tr><th>Estructura</th><th>Cerrada</th><th>Asociativa</th><th>Neutro</th><th>Simétrico</th><th>Conmutativa</th></tr>
+  <tr><td><b>Grupoide</b></td><td class="c">✓</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">—</td></tr>
+  <tr><td><b>Semigrupo</b></td><td class="c">✓</td><td class="c">✓</td><td class="c">—</td><td class="c">—</td><td class="c">—</td></tr>
+  <tr><td><b>Monoide</b></td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c">—</td><td class="c">—</td></tr>
+  <tr><td><b>Grupo</b></td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c">—</td></tr>
+  <tr><td><b>Grupo abeliano</b></td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+</table>
+
+<p>Regla nemotécnica: cada estructura agrega exactamente una propiedad más a la anterior. El adjetivo <b>abeliano</b> (en honor a Niels Henrik Abel, 1802–1829) se añade a cualquier estructura cuando la operación es además conmutativa.</p>
+
+<div class="example">
+  <div class="ex-t">¿Qué estructura alcanza cada conjunto?</div>
+  • <span class="m">(ℤ ; +)</span>: cerrada, asociativa, neutro = 0, todos tienen opuesto, conmutativa → <b>Grupo abeliano</b>.<br>
+  • <span class="m">(ℝ ; ·)</span>: cerrada, asociativa, neutro = 1, el 0 no tiene inverso → <b>Monoide abeliano</b>.<br>
+  • <span class="m">(ℚ\{0} ; ÷)</span>: cerrada en ℚ\{0}, pero <span class="m">(a÷b)÷c ≠ a÷(b÷c)</span> → <b>Grupoide</b> (no asociativa).<br>
+  • <span class="m">(ℤ₅ ; +)</span>: cerrada, asociativa, neutro = 0, todos tienen opuesto, conmutativa → <b>Grupo abeliano</b>.<br>
+  • <span class="m">(ℤ₅ ; ·)</span>: el 0 no tiene inverso multiplicativo en ℤ₅ → <b>Monoide abeliano</b>.
+</div>
+
+<h3>4. Definición formal de grupo</h3>
+
+<div class="formula">
+  Sea <span class="m">G</span> un conjunto no vacío y <span class="m">★ : G × G → G</span> una operación binaria interna.<br>
+  <span class="m">(G ; ★)</span> es un <b>grupo</b> si y solo si:<br>
+  &nbsp;&nbsp;<b>G1</b> (Clausura): <span class="m">∀a,b ∈ G : a★b ∈ G</span><br>
+  &nbsp;&nbsp;<b>G2</b> (Asociatividad): <span class="m">∀a,b,c ∈ G : a★(b★c) = (a★b)★c</span><br>
+  &nbsp;&nbsp;<b>G3</b> (Neutro): <span class="m">∃e ∈ G : ∀a ∈ G : e★a = a★e = a</span><br>
+  &nbsp;&nbsp;<b>G4</b> (Inverso): <span class="m">∀a ∈ G, ∃a′ ∈ G : a★a′ = a′★a = e</span><br>
+  Si además cumple <b>G5</b> (Conmutatividad): <span class="m">∀a,b ∈ G : a★b = b★a</span>, es un <b>grupo abeliano</b>.
+</div>
+
+<h3>5. Ejemplos importantes de grupos</h3>
+
+<table class="tbl">
+  <tr><th>Grupo</th><th>Operación</th><th>Neutro</th><th>Inverso de <span class="m">a</span></th><th>¿Abeliano?</th></tr>
+  <tr><td><span class="m">(ℤ ; +)</span></td><td>Suma</td><td>0</td><td><span class="m">-a</span></td><td class="c">Sí</td></tr>
+  <tr><td><span class="m">(ℚ\{0} ; ·)</span></td><td>Multiplicación</td><td>1</td><td><span class="m">1/a</span></td><td class="c">Sí</td></tr>
+  <tr><td><span class="m">(ℝ\{0} ; ·)</span></td><td>Multiplicación</td><td>1</td><td><span class="m">1/a</span></td><td class="c">Sí</td></tr>
+  <tr><td><span class="m">(ℤₙ ; +)</span></td><td>Suma módulo <span class="m">n</span></td><td><span class="m">0</span></td><td><span class="m">n-a</span></td><td class="c">Sí</td></tr>
+  <tr><td><span class="m">(U(n) ; ·)</span> = <span class="m">INV(ℤₙ;·)</span></td><td>Mult. módulo <span class="m">n</span></td><td>1</td><td>inverso mod <span class="m">n</span></td><td class="c">Sí</td></tr>
+  <tr><td><span class="m">(S<sub>n</sub> ; ∘)</span></td><td>Composición de biyecciones</td><td>identidad</td><td>función inversa</td><td class="c">No (si <span class="m">n≥3</span>)</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">INV(ℤₙ ; ·): inversibles módulo n</div>
+  <span class="m">INV(ℤₙ;·) = { k ∈ ℤₙ / mcd(k,n) = 1, 1 ≤ k ≤ n-1 }</span><br><br>
+  <b>INV(ℤ₆;·)</b> = {1, 5} pues mcd(1,6)=1 y mcd(5,6)=1; el resto no son coprimos con 6.<br>
+  <b>INV(ℤ₁₅;·)</b> = {1, 2, 4, 7, 8, 11, 13, 14} (todos los menores a 15 coprimos con 15).<br><br>
+  Propiedad: <span class="m">(INV(ℤₙ;·) ; ·)</span> es siempre un grupo (el "grupo de unidades" módulo <span class="m">n</span>).
+</div>
+
+<h3>6. Tabla de Cayley: ejemplo con ℤ₄</h3>
+<p>La tabla de Cayley muestra todos los resultados de operar pares de elementos. En un grupo, cada elemento aparece exactamente una vez en cada fila y en cada columna (propiedad del "latin square").</p>
+
+<table class="tbl">
+  <tr><th>+</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>
+  <tr><td><b>0</b></td><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td></tr>
+  <tr><td><b>1</b></td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">0</td></tr>
+  <tr><td><b>2</b></td><td class="c">2</td><td class="c">3</td><td class="c">0</td><td class="c">1</td></tr>
+  <tr><td><b>3</b></td><td class="c">3</td><td class="c">0</td><td class="c">1</td><td class="c">2</td></tr>
+</table>
+<p>Lectura: neutro = 0 (su fila/columna reproducen el encabezado). Simétrico de 1 es 3 (1+3=0), simétrico de 2 es 2 (2+2=4≡0). La tabla es simétrica → grupo abeliano.</p>
+
+<div class="key">
+  <div class="ky-t">Regla del "latin square" en grupos</div>
+  En la tabla de un grupo, <b>cada elemento aparece exactamente una vez por fila y una vez por columna</b>. Esto se debe a que la ecuación <span class="m">a★x = b</span> tiene solución única en todo grupo. Esta propiedad permite completar tablas con datos incompletos: si en una fila ya aparecen todos los elementos excepto uno, el faltante debe ir en el casillero que queda vacío.
+</div>
+
+<h3>7. Propiedades elementales de los grupos</h3>
+
+<div class="key">
+  <div class="ky-t">Propiedades que se cumplen en todo grupo</div>
+  Sea <span class="m">(G ; ★)</span> un grupo con neutro <span class="m">e</span>:<br>
+  1. El neutro <span class="m">e</span> es <b>único</b>.<br>
+  2. El neutro es su propio inverso: <span class="m">e′ = e</span>.<br>
+  3. <b>Involutividad del inverso:</b> <span class="m">∀a ∈ G : (a′)′ = a</span>.<br>
+  4. El inverso de cada elemento es <b>único</b>.<br>
+  5. <b>Inverso del producto:</b> <span class="m">(a★b)′ = b′★a′</span> (el orden se invierte).<br>
+  6. <b>Leyes de cancelación:</b> las ecuaciones <span class="m">a★x = b</span> y <span class="m">x★a = b</span> tienen <b>solución única</b>: <span class="m">x = a′★b</span> y <span class="m">x = b★a′</span> respectivamente.<br>
+  7. El único elemento idempotente es el neutro: <span class="m">a★a = a ⟹ a = e</span>.<br>
+  8. <span class="m">∀a,b ∈ G : a′ = b ⟺ b′ = a</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Demostración: unicidad del neutro</div>
+  Supongamos que existen dos neutros <span class="m">e₁</span> y <span class="m">e₂</span>.<br>
+  Como <span class="m">e₁</span> es neutro: <span class="m">e₂ ★ e₁ = e₂</span> &nbsp;(I)<br>
+  Como <span class="m">e₂</span> es neutro: <span class="m">e₂ ★ e₁ = e₁</span> &nbsp;(II)<br>
+  De (I) y (II): <span class="m">e₁ = e₂</span>. Contradicción → el neutro es único.
+</div>
+
+<div class="example">
+  <div class="ex-t">Demostración: (a★b)′ = b′★a′</div>
+  Queremos probar que <span class="m">b′★a′</span> actúa como inverso de <span class="m">a★b</span>:<br>
+  <span class="m">(a★b)★(b′★a′) = a★(b★b′)★a′ = a★e★a′ = a★a′ = e</span> ✓<br>
+  Análogamente a izquierda. Por unicidad del inverso, <span class="m">(a★b)′ = b′★a′</span>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: invertir mal el orden al calcular el inverso de un producto</div>
+  En un grupo no abeliano, <span class="m">(a★b)′ ≠ a′★b′</span>. El orden siempre se invierte: <span class="m">(a★b)′ = b′★a′</span>. Esto es análogo a "ponerse guantes y luego zapatos → sacarse primero los zapatos y luego los guantes".
+</div>
+
+<h3>8. Elementos regulares e inversibles de un semigrupo</h3>
+<p>En un semigrupo con neutro <span class="m">(A;★)</span>:</p>
+<ul>
+  <li>Un elemento <span class="m">a</span> es <b>regular a izquierda</b> si <span class="m">a★x = a★y ⟹ x = y</span>.</li>
+  <li>Un elemento <span class="m">a</span> es <b>regular a derecha</b> si <span class="m">x★a = y★a ⟹ x = y</span>.</li>
+</ul>
+<p><b>Propiedad:</b> en todo grupo, todos los elementos son regulares (se puede cancelar). Esto se deduce de que todos tienen inverso.</p>
+<p>El conjunto <span class="m">INV(A) = { a ∈ A / a′ ∈ A }</span> (elementos que tienen inverso en <span class="m">A</span>) forma siempre un grupo: el <b>grupo de inversibles</b> del semigrupo.</p>
+
+<h3>9. Grupo de permutaciones S<sub>n</sub></h3>
+<p>Sea <span class="m">X = {1, 2, ..., n}</span>. El <b>grupo simétrico</b> <span class="m">Sₙ</span> es el conjunto de todas las funciones biyectivas de <span class="m">X</span> en <span class="m">X</span>, con la composición de funciones <span class="m">∘</span>. Tiene <span class="m">n!</span> elementos.</p>
+
+<div class="example">
+  <div class="ex-t">S₃: las 6 permutaciones de {1,2,3}</div>
+  Las 6 funciones biyectivas <span class="m">f₁,...,f₆</span> con sus imágenes:
+  <table class="tbl">
+    <tr><th>x</th><th>f₁</th><th>f₂</th><th>f₃</th><th>f₄</th><th>f₅</th><th>f₆</th></tr>
+    <tr><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">2</td><td class="c">2</td><td class="c">3</td><td class="c">3</td></tr>
+    <tr><td class="c">2</td><td class="c">2</td><td class="c">3</td><td class="c">1</td><td class="c">3</td><td class="c">1</td><td class="c">2</td></tr>
+    <tr><td class="c">3</td><td class="c">3</td><td class="c">2</td><td class="c">3</td><td class="c">1</td><td class="c">2</td><td class="c">1</td></tr>
+  </table>
+  Tabla de composición (leer: fila∘columna, se aplica primero la columna):
+  <table class="tbl">
+    <tr><th>∘</th><th>f₁</th><th>f₂</th><th>f₃</th><th>f₄</th><th>f₅</th><th>f₆</th></tr>
+    <tr><td><b>f₁</b></td><td class="c">f₁</td><td class="c">f₂</td><td class="c">f₃</td><td class="c">f₄</td><td class="c">f₅</td><td class="c">f₆</td></tr>
+    <tr><td><b>f₂</b></td><td class="c">f₂</td><td class="c">f₁</td><td class="c">f₅</td><td class="c">f₆</td><td class="c">f₃</td><td class="c">f₄</td></tr>
+    <tr><td><b>f₃</b></td><td class="c">f₃</td><td class="c">f₄</td><td class="c">f₁</td><td class="c">f₂</td><td class="c">f₆</td><td class="c">f₅</td></tr>
+    <tr><td><b>f₄</b></td><td class="c">f₄</td><td class="c">f₃</td><td class="c">f₆</td><td class="c">f₅</td><td class="c">f₁</td><td class="c">f₂</td></tr>
+    <tr><td><b>f₅</b></td><td class="c">f₅</td><td class="c">f₆</td><td class="c">f₂</td><td class="c">f₁</td><td class="c">f₄</td><td class="c">f₃</td></tr>
+    <tr><td><b>f₆</b></td><td class="c">f₆</td><td class="c">f₅</td><td class="c">f₄</td><td class="c">f₃</td><td class="c">f₂</td><td class="c">f₁</td></tr>
+  </table>
+  Conclusiones: cerrada ✓, asociativa ✓ (composición siempre lo es), neutro = f₁ ✓, todos tienen inverso ✓, pero <span class="m">f₂∘f₃ = f₅ ≠ f₄ = f₃∘f₂</span> → <b>NO es abeliano</b>.<br>
+  Resultado: <span class="m">(S₃;∘)</span> es un <b>grupo no abeliano</b> de orden 6.
+</div>
+
+<div class="key">
+  <div class="ky-t">Propiedad clave de Sₙ</div>
+  <span class="m">Sₙ</span> es un grupo de orden <span class="m">n!</span>. Para <span class="m">n ≥ 3</span>, <span class="m">Sₙ</span> es <b>no abeliano</b> pues la composición de funciones no es conmutativa en general. <span class="m">S₁</span> y <span class="m">S₂</span> sí son abelianos.
+</div>
+
+<h3>10. Producto cartesiano de grupos</h3>
+<p>Dados dos grupos <span class="m">(G₁;★₁)</span> y <span class="m">(G₂;★₂)</span>, se define en <span class="m">G₁ × G₂</span> la operación:</p>
+<div class="formula">
+  <span class="m">(a ; b) ★ (c ; d) = (a ★₁ c ; b ★₂ d)</span>
+</div>
+<p><b>Propiedad:</b> <span class="m">(G₁ × G₂ ; ★)</span> es grupo. El neutro es <span class="m">(e₁ ; e₂)</span>, el inverso de <span class="m">(a;b)</span> es <span class="m">(a′;b′)</span>. Si ambos son abelianos, el producto también lo es.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: ℤ₂ × ℤ₃</div>
+  <span class="m">ℤ₂ × ℤ₃ = { (0,0), (0,1), (0,2), (1,0), (1,1), (1,2) }</span> con la operación suma componente a componente módulo 2 y módulo 3 respectivamente.<br>
+  Neutro: <span class="m">(0,0)</span>. Inverso de <span class="m">(1,2)</span>: <span class="m">(1, 1)</span> pues <span class="m">1+1=2≡0 (mod 2)</span> y <span class="m">2+1=3≡0 (mod 3)</span>.
+</div>
+
+<h3>11. Subgrupos</h3>
+<p>Sea <span class="m">(G;★)</span> un grupo y <span class="m">H ⊆ G</span> no vacío. Se dice que <span class="m">H</span> es <b>subgrupo</b> de <span class="m">G</span> si <span class="m">(H;★)</span> es también un grupo (con la misma operación).</p>
+
+<p>Todo grupo tiene al menos dos subgrupos:</p>
+<ul>
+  <li><b>Subgrupo trivial:</b> <span class="m">({e} ; ★)</span></li>
+  <li><b>Subgrupo impropio:</b> <span class="m">(G ; ★)</span></li>
+</ul>
+<p>Los demás se llaman <b>subgrupos propios</b>.</p>
+
+<div class="formula">
+  <b>Criterio (CNS) de subgrupo:</b><br>
+  <span class="m">H</span> es subgrupo de <span class="m">(G;★)</span> si y solo si:<br>
+  &nbsp;&nbsp;1) <span class="m">H ≠ ∅</span><br>
+  &nbsp;&nbsp;2) <span class="m">H ⊆ G</span><br>
+  &nbsp;&nbsp;3) <span class="m">∀a, b ∈ H : a★b′ ∈ H</span> (cerrado bajo operación con el inverso)
+</div>
+
+<p>La condición 3 es equivalente a pedir simultáneamente que <span class="m">H</span> sea cerrado bajo <span class="m">★</span> y que los inversos estén en <span class="m">H</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Aplicación del criterio</div>
+  <b>Sea <span class="m">nℤ = {x ∈ ℤ / x = n·k, k ∈ ℤ}</span> (múltiplos de n). ¿Es subgrupo de (ℤ;+)?</b><br>
+  1) <span class="m">n = n·1 ∈ nℤ</span> → no vacío ✓<br>
+  2) <span class="m">nℤ ⊆ ℤ</span> por definición ✓<br>
+  3) Sean <span class="m">a = nk, b = nt ∈ nℤ</span>. El inverso de <span class="m">b</span> en <span class="m">(ℤ;+)</span> es <span class="m">-b = -nt</span>.<br>
+  &nbsp;&nbsp;<span class="m">a + (-b) = nk - nt = n(k-t) ∈ nℤ</span> ✓<br>
+  Conclusión: <span class="m">(nℤ;+)</span> es subgrupo de <span class="m">(ℤ;+)</span> para todo <span class="m">n ∈ ℤ</span>.
+</div>
+
+<div class="key">
+  <div class="ky-t">Criterio simplificado para subgrupos finitos</div>
+  Si <span class="m">G</span> es finito y <span class="m">H</span> es un subconjunto finito no vacío de <span class="m">G</span>, basta verificar que <span class="m">H</span> es <b>cerrado bajo la operación</b>: la asociatividad, neutro e inversos se heredan automáticamente. En la tabla de Cayley de <span class="m">G</span>, basta verificar que la submatriz formada por las filas y columnas de <span class="m">H</span> solo contiene elementos de <span class="m">H</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Intersección de subgrupos: siempre es subgrupo</div>
+  Si <span class="m">H₁</span> y <span class="m">H₂</span> son subgrupos de <span class="m">G</span>, entonces <span class="m">H₁ ∩ H₂</span> también es subgrupo de <span class="m">G</span>. (Demostración: verificar las 3 condiciones usando que ambos son subgrupos.)<br><br>
+  <b>¡La unión NO siempre es subgrupo!</b> Por ejemplo, en <span class="m">(ℤ;+)</span>, los subgrupos <span class="m">3ℤ</span> y <span class="m">5ℤ</span> son subgrupos, pero <span class="m">9 ∈ 3ℤ</span> y <span class="m">20 ∈ 5ℤ</span> y sin embargo <span class="m">9+20=29 ∉ 3ℤ ∪ 5ℤ</span>: la unión no es cerrada.
+</div>
+
+<h3>12. Orden de un grupo y de un elemento</h3>
+<p>El <b>orden de un grupo</b> <span class="m">|G|</span> es el cardinal (número de elementos) del conjunto <span class="m">G</span>. El grupo puede ser finito o infinito.</p>
+<p>El <b>orden de un elemento</b> <span class="m">a ∈ G</span> es el cardinal del subgrupo cíclico que genera: <span class="m">ord(a) = |⟨a⟩|</span>.</p>
+<ul>
+  <li>Equivalentemente: <span class="m">ord(a)</span> es el mínimo entero positivo <span class="m">n</span> tal que <span class="m">aⁿ = e</span>.</li>
+  <li>Si no existe tal <span class="m">n</span>, el elemento tiene <b>orden infinito</b>.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Orden de elementos en S₃</div>
+  <span class="m">|S₃| = 6</span>.<br>
+  • <span class="m">ord(f₁) = 1</span> (es el neutro).<br>
+  • <span class="m">ord(f₂) = 2</span> pues <span class="m">⟨f₂⟩ = {f₂, f₁}</span> (2 elementos).<br>
+  • <span class="m">ord(f₄) = 3</span> pues <span class="m">⟨f₄⟩ = {f₄, f₅, f₁}</span> (3 elementos).<br>
+  • <span class="m">ord(1) = ∞</span> en <span class="m">(ℤ;+)</span> pues sumando 1 nunca se vuelve al 0.
+</div>
+
+<h3>13. Grupos cíclicos y generadores</h3>
+<p>Sea <span class="m">(G;★)</span> un grupo y <span class="m">a ∈ G</span>. El <b>subgrupo cíclico generado por a</b> es:</p>
+<div class="formula">
+  <span class="m">⟨a⟩ = { aⁿ / n ∈ ℤ }</span><br>
+  donde <span class="m">a⁰ = e</span>, <span class="m">aⁿ = a★a★...★a</span> (<span class="m">n</span> veces), <span class="m">a⁻ⁿ = (a′)ⁿ</span>.
+</div>
+<p>Un grupo <span class="m">(G;★)</span> es <b>cíclico</b> si existe <span class="m">a ∈ G</span> tal que <span class="m">⟨a⟩ = G</span>. Ese elemento <span class="m">a</span> se llama <b>generador</b> de <span class="m">G</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de grupos cíclicos y no cíclicos</div>
+  <b>Cíclicos:</b><br>
+  • <span class="m">(ℤ;+)</span>: generadores son 1 y -1 (sumando/restando 1 se obtiene todo ℤ).<br>
+  • <span class="m">(ℤₙ;+)</span>: es cíclico; generadores son los <span class="m">k</span> con <span class="m">mcd(k,n)=1</span>.<br>
+  • <span class="m">({1,-1,i,-i};·)</span>: generadores son <span class="m">i</span> y <span class="m">-i</span>:<br>
+  &nbsp;&nbsp;<span class="m">i¹=-?</span>... no, <span class="m">i¹=i, i²=-1, i³=-i, i⁴=1</span> → genera todo el grupo. ✓<br><br>
+  <b>No cíclico:</b><br>
+  • <span class="m">S₃</span>: ningún elemento genera el grupo completo. Calculando:<br>
+  &nbsp;&nbsp;<span class="m">⟨f₂⟩={f₁,f₂}</span>, <span class="m">⟨f₄⟩={f₁,f₄,f₅}</span>, etc. Ninguno es el grupo entero.<br>
+  • 4-grupo de Klein <span class="m">V₄ = {a,b,c,d}</span>: todos los elementos tienen orden 2 excepto el neutro, ninguno genera el grupo.
+</div>
+
+<div class="key">
+  <div class="ky-t">Propiedad: todo grupo cíclico es abeliano</div>
+  Si <span class="m">g</span> es generador de <span class="m">G</span>, todo elemento se escribe como <span class="m">gⁿ</span>. Entonces:<br>
+  <span class="m">a★b = gⁿ★gᵐ = gⁿ⁺ᵐ = gᵐ⁺ⁿ = gᵐ★gⁿ = b★a</span>.<br><br>
+  <b>Cuidado:</b> el recíproco es falso. Hay grupos abelianos no cíclicos (ej.: el 4-grupo de Klein).<br>
+  <b>Contrarrecíproco útil:</b> si el grupo NO es abeliano, entonces seguro NO es cíclico.
+</div>
+
+<h4>Generadores de ℤₙ</h4>
+<p>Los generadores de <span class="m">(ℤₙ;+)</span> son exactamente las clases <span class="m">k</span> con <span class="m">mcd(k,n)=1</span> y <span class="m">1 ≤ k ≤ n-1</span>. La cantidad de generadores es <span class="m">φ(n)</span> (función de Euler).</p>
+
+<div class="example">
+  <div class="ex-t">Generadores de ℤ₁₈</div>
+  <span class="m">Gen(ℤ₁₈) = { k : mcd(k,18)=1, 1≤k≤17 } = {1, 5, 7, 11, 13, 17}</span><br>
+  Hay 6 generadores. Los subgrupos de ℤ₁₈ corresponden a los divisores de 18: 1, 2, 3, 6, 9, 18.<br>
+  • Subgrupo de orden 1: <span class="m">{0}</span><br>
+  • Subgrupo de orden 2: <span class="m">⟨9⟩ = {0, 9}</span><br>
+  • Subgrupo de orden 3: <span class="m">⟨6⟩ = {0, 6, 12}</span><br>
+  • Subgrupo de orden 6: <span class="m">⟨3⟩ = {0, 3, 6, 9, 12, 15}</span><br>
+  • Subgrupo de orden 9: <span class="m">⟨2⟩ = {0, 2, 4, 6, 8, 10, 12, 14, 16}</span><br>
+  • Subgrupo de orden 18: <span class="m">ℤ₁₈</span>
+</div>
+
+<h3>14. Retículo (red) de subgrupos</h3>
+<p>Los subgrupos de un grupo finito <span class="m">(G;★)</span>, ordenados por la relación de inclusión <span class="m">⊆</span>, forman una red (retículo) con mínimo <span class="m">{e}</span> y máximo <span class="m">G</span>. Para grupos abelianos cíclicos como <span class="m">ℤₙ</span>, la red de subgrupos es isomorfa a la red <span class="m">(D_n; |)</span> de los divisores de <span class="m">n</span> ordenados por divisibilidad.</p>
+
+<div class="example">
+  <div class="ex-t">Red de subgrupos de S₃</div>
+  Los subgrupos de S₃ son:<br>
+  • <span class="m">H₁ = {f₁}</span> (trivial)<br>
+  • <span class="m">H₂ = {f₁, f₂}</span>, <span class="m">H₃ = {f₁, f₃}</span>, <span class="m">H₅ = {f₁, f₆}</span> (orden 2 cada uno)<br>
+  • <span class="m">H₄ = {f₁, f₄, f₅}</span> (orden 3)<br>
+  • <span class="m">H₆ = S₃</span> (impropio, orden 6)<br><br>
+  La red tiene a H₁ en el fondo, H₂, H₃, H₄, H₅ en el medio y H₆ en la cima. Por el Teorema de Lagrange: 1|2, 1|3, 2|6, 3|6.
+</div>
+
+<h3>15. Teorema de Lagrange</h3>
+
+<div class="formula">
+  Si <span class="m">(G;★)</span> es un grupo de orden finito <span class="m">n</span> y <span class="m">H</span> es un subgrupo de <span class="m">G</span>, entonces:<br>
+  <b>|H| divide a |G|</b> (el orden del subgrupo divide al orden del grupo).
+</div>
+
+<p>La demostración se basa en las <b>clases laterales</b>: dado <span class="m">a ∈ G</span>, la clase lateral izquierda es <span class="m">aH = {a★h / h ∈ H}</span> y la derecha es <span class="m">Ha = {h★a / h ∈ H}</span>. Las clases laterales forman una partición de <span class="m">G</span>, todas del mismo cardinal <span class="m">|H|</span>, lo que implica que <span class="m">|G| = [G:H] · |H|</span>, donde <span class="m">[G:H]</span> es el índice (número de clases).</p>
+
+<div class="example">
+  <div class="ex-t">Consecuencias del Teorema de Lagrange</div>
+  • Un grupo de orden 20 no puede tener subgrupo de orden 6 (6 no divide a 20).<br>
+  • Los únicos órdenes posibles de subgrupos de un grupo de 20 elementos son: 1, 2, 4, 5, 10, 20 (divisores de 20).<br>
+  • Si <span class="m">|G| = p</span> (primo), los únicos subgrupos son <span class="m">{e}</span> y <span class="m">G</span>. Entonces todo grupo de orden primo es <b>cíclico</b> (cualquier elemento ≠ e genera el grupo).
+</div>
+
+<div class="trap">
+  <div class="tr-t">El recíproco de Lagrange es falso</div>
+  Si <span class="m">d</span> divide a <span class="m">|G|</span>, no necesariamente existe un subgrupo de orden <span class="m">d</span>. El Teorema de Lagrange es una condición necesaria (si H es subgrupo, su orden divide a |G|), pero no suficiente para garantizar la existencia.
+</div>
+
+<h4>Subgrupos normales (mención)</h4>
+<p>Un subgrupo <span class="m">H</span> de <span class="m">G</span> es <b>normal</b> si <span class="m">∀a ∈ G : aH = Ha</span> (las clases laterales izquierda y derecha coinciden). En grupos abelianos, todo subgrupo es normal. Los subgrupos normales son fundamentales para construir grupos cociente, pero ese tema se profundiza en cursos posteriores.</p>
+
+<h3>16. Homomorfismos de grupos</h3>
+<p>Sean <span class="m">(G₁;★₁)</span> y <span class="m">(G₂;★₂)</span> dos grupos. Una función <span class="m">f: G₁ → G₂</span> es un <b>homomorfismo de grupos</b> si:</p>
+<div class="formula">
+  <span class="m">∀ a, b ∈ G₁ : f(a ★₁ b) = f(a) ★₂ f(b)</span>
+</div>
+<p>Es decir, f "respeta" la operación: operar y luego mapear da lo mismo que mapear y luego operar.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de homomorfismos</div>
+  <b>1. f: (ℤ;+) → (5ℤ;+) / f(x) = 5x</b><br>
+  <span class="m">f(a+b) = 5(a+b) = 5a+5b = f(a)+f(b)</span> ✓ Es homomorfismo.<br><br>
+  <b>2. f: (ℝ⁺;·) → (ℝ;+) / f(x) = log x</b><br>
+  <span class="m">f(x·y) = log(xy) = log x + log y = f(x)+f(y)</span> ✓ Es homomorfismo.<br><br>
+  <b>3. f: (ℤ;+) → (ℤ;+) / f(x) = x+1</b><br>
+  <span class="m">f(a+b) = a+b+1</span>, pero <span class="m">f(a)+f(b) = a+1+b+1 = a+b+2 ≠ a+b+1</span>. ✗ No es homomorfismo.
+</div>
+
+<h4>Propiedades de los homomorfismos</h4>
+<p>Sea <span class="m">f: (G₁;★₁) → (G₂;★₂)</span> un homomorfismo:</p>
+<ul>
+  <li><b>El neutro se mapea al neutro:</b> <span class="m">f(e₁) = e₂</span>.</li>
+  <li><b>Los inversos se preservan:</b> <span class="m">∀a ∈ G₁: f(a′) = [f(a)]′</span>.</li>
+</ul>
+
+<h4>Clasificación de los homomorfismos</h4>
+<table class="tbl">
+  <tr><th>Nombre</th><th>Condición</th></tr>
+  <tr><td><b>Monomorfismo</b></td><td>f es inyectiva</td></tr>
+  <tr><td><b>Epimorfismo</b></td><td>f es sobreyectiva</td></tr>
+  <tr><td><b>Isomorfismo</b></td><td>f es biyectiva</td></tr>
+  <tr><td><b>Endomorfismo</b></td><td><span class="m">G₁ = G₂</span> (mismo grupo)</td></tr>
+  <tr><td><b>Automorfismo</b></td><td><span class="m">G₁ = G₂</span> y f es biyectiva</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: automorfismo en grupo abeliano</div>
+  Sea <span class="m">(G;★)</span> abeliano. La función <span class="m">f: G → G / f(x) = x′</span> (cada elemento va a su inverso) es un <b>automorfismo</b>.<br>
+  Homomorfismo: <span class="m">f(a★b) = (a★b)′ = b′★a′ = a′★b′</span> (usando que G es abeliano) <span class="m">= f(a)★f(b)</span>. ✓<br>
+  Inyectiva: <span class="m">f(a)=f(b) ⟹ a′=b′ ⟹ (a′)′=(b′)′ ⟹ a=b</span>. ✓<br>
+  Sobreyectiva: dado <span class="m">b ∈ G</span>, tomar <span class="m">a = b′</span>; entonces <span class="m">f(a) = (b′)′ = b</span>. ✓
+</div>
+
+<h3>17. Núcleo e imagen de un homomorfismo</h3>
+
+<div class="formula">
+  <b>Núcleo:</b> <span class="m">Nu(f) = { x ∈ G₁ / f(x) = e₂ }</span><br>
+  <b>Imagen:</b> <span class="m">Im(f) = { y ∈ G₂ / ∃x ∈ G₁ : f(x) = y }</span>
+</div>
+
+<p><b>Propiedad:</b> <span class="m">Nu(f)</span> es subgrupo de <span class="m">G₁</span>. <span class="m">Im(f)</span> es subgrupo de <span class="m">G₂</span>.</p>
+<p><b>Propiedad clave:</b> <span class="m">Nu(f) = {e₁} ⟺ f</span> es inyectiva (monomorfismo).</p>
+
+<div class="example">
+  <div class="ex-t">Núcleo e imagen: ejemplos</div>
+  <b>g: (ℤ;+) → (ℤ₅;+) / g(x) = [x]₅</b> (clase de x módulo 5):<br>
+  <span class="m">Nu(g) = { x ∈ ℤ / [x]₅ = [0]₅ } = 5ℤ</span> (múltiplos de 5). Es subgrupo de ℤ. ✓<br>
+  <span class="m">Im(g) = ℤ₅</span> (es sobreyectiva). Es subgrupo de ℤ₅ (el total). ✓<br>
+  El núcleo no es {0}, luego g no es inyectiva → es un <b>epimorfismo</b>.<br><br>
+  <b>f: (ℝ⁺;·) → (ℝ;+) / f(x) = log x</b>:<br>
+  <span class="m">Nu(f) = {x ∈ ℝ⁺ / log x = 0} = {1}</span>. Como el núcleo es solo el neutro, f es <b>inyectiva</b>. De hecho, es un <b>isomorfismo</b> (también sobreyectiva).
+</div>
+
+<h3>18. Grupos isomorfos</h3>
+<p>Dos grupos <span class="m">(G₁;★₁)</span> y <span class="m">(G₂;★₂)</span> son <b>isomorfos</b> (<span class="m">G₁ ≅ G₂</span>) si existe al menos un isomorfismo entre ellos. Grupos isomorfos son "estructuralmente idénticos": solo difieren en el nombre de los elementos.</p>
+
+<p><b>Condiciones necesarias para isomorfismo</b> (si falla alguna, NO son isomorfos):</p>
+<ul>
+  <li>Deben tener el mismo orden: <span class="m">|G₁| = |G₂|</span>.</li>
+  <li>Si uno es abeliano, el otro también debe serlo.</li>
+  <li>Si uno es cíclico, el otro también debe serlo.</li>
+  <li>Deben tener la misma cantidad de elementos de cada orden.</li>
+  <li>Deben tener la misma cantidad de subgrupos de cada orden.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">¿Son isomorfos ({1,-1,i,-i};·) y (ℤ₄;+)?</div>
+  Ambos tienen 4 elementos y son abelianos. Verifiquemos si son cíclicos:<br>
+  • <span class="m">({1,-1,i,-i};·)</span>: <span class="m">i¹=i, i²=-1, i³=-i, i⁴=1</span> → <span class="m">i</span> genera todo → cíclico.<br>
+  • <span class="m">(ℤ₄;+)</span>: <span class="m">⟨1⟩ = {0,1,2,3}</span> → cíclico.<br>
+  Subgrupos de ambos: uno de orden 1, uno de orden 2, uno de orden 4 → coinciden.<br>
+  Definimos el isomorfismo: <span class="m">f(0)=1, f(1)=i, f(2)=-1, f(3)=-i</span>.<br>
+  Verificación: <span class="m">f(a+b) = i^(a+b) = i^a · i^b = f(a)·f(b)</span>. ✓<br>
+  Conclusión: <b>son isomorfos</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">4-grupo de Klein: abeliano pero no isomorfo a ℤ₄</div>
+  El grupo <span class="m">V₄ = ({a,b,c,d};★)</span> con la tabla donde <span class="m">b★b=a, c★c=a, d★d=a</span> (todos los no-neutros tienen orden 2) es abeliano y tiene 4 elementos.<br>
+  Pero <span class="m">V₄</span> <b>NO es cíclico</b>: ningún elemento genera el grupo completo (<span class="m">⟨b⟩={a,b}</span>, etc.).<br>
+  Como <span class="m">ℤ₄</span> sí es cíclico, <span class="m">V₄ ≇ ℤ₄</span>.<br>
+  Además, <span class="m">V₄</span> tiene 3 subgrupos de orden 2, mientras que <span class="m">ℤ₄</span> tiene solo 1.
+</div>
+
+<div class="example">
+  <div class="ex-t">Isomorfismo: ℤ₆ ≅ ℤ₂ × ℤ₃</div>
+  Ambos son abelianos de orden 6 y cíclicos. Se define:<br>
+  <span class="m">f: ℤ₆ → ℤ₂ × ℤ₃ / f(x) = ([x]₂ ; [x]₃)</span><br>
+  Por ejemplo: <span class="m">f(0)=(0,0), f(1)=(1,1), f(2)=(0,2), f(3)=(1,0), f(4)=(0,1), f(5)=(1,2)</span>.<br>
+  Verificación: <span class="m">f(a+b) = ([a+b]₂; [a+b]₃) = ([a]₂+[b]₂; [a]₃+[b]₃) = f(a)+f(b)</span>. ✓
+</div>
+
+<div class="key">
+  <div class="ky-t">Estrategia para demostrar isomorfismo de grupos finitos</div>
+  1. Verificar condiciones necesarias (mismo orden, ambos abelianos o no, misma estructura de subgrupos).<br>
+  2. Definir la función <span class="m">f</span> asociando elementos del mismo orden entre sí.<br>
+  3. Construir las tablas en el orden dado por <span class="m">f</span> y verificar que son "la misma tabla con distinto nombre" (tabla color-isomórfica).<br>
+  Alternativamente, verificar analíticamente que <span class="m">f(a★b) = f(a)★f(b)</span>.
+</div>
+
+<h3>19. Permutaciones: notación cíclica, composición y paridad</h3>
+<p>Una <b>permutación</b> de <span class="m">{1,...,n}</span> es una función biyectiva del conjunto en sí mismo. Se puede escribir como producto de <b>ciclos disjuntos</b>.</p>
+
+<h4>Notación cíclica</h4>
+<p>Un ciclo <span class="m">(a₁ a₂ ... aₖ)</span> significa: <span class="m">a₁ → a₂ → a₃ → ... → aₖ → a₁</span>, y los demás elementos quedan fijos.</p>
+
+<div class="example">
+  <div class="ex-t">Lectura de ciclos en S₅</div>
+  La permutación <span class="m">σ = (1 3 5)(2 4)</span> mapea: <span class="m">1→3, 3→5, 5→1, 2→4, 4→2</span>.<br>
+  En notación de dos líneas: <span class="m">σ = [1 2 3 4 5 / 3 4 5 2 1]</span>.<br><br>
+  <b>Composición</b> <span class="m">σ∘τ</span>: primero se aplica <span class="m">τ</span>, luego <span class="m">σ</span>.<br>
+  Ejemplo: <span class="m">σ = (1 2)(3 4 5)</span>, <span class="m">τ = (1 3)(2 4)</span>.<br>
+  <span class="m">1 →[τ]→ 3 →[σ]→ 4</span>, <span class="m">2 →[τ]→ 4 →[σ]→ 5</span>, <span class="m">3 →[τ]→ 1 →[σ]→ 2</span>, <span class="m">4 →[τ]→ 2 →[σ]→ 1</span>, <span class="m">5 →[τ]→ 5 →[σ]→ 3</span>.<br>
+  Resultado: <span class="m">σ∘τ = (1 4)(2 5 3)</span>.
+</div>
+
+<h4>Paridad de una permutación</h4>
+<p>Toda permutación se puede escribir como producto de <b>trasposiciones</b> (ciclos de longitud 2). El número de trasposiciones puede variar, pero su paridad (par o impar) es invariante.</p>
+<ul>
+  <li>Una permutación es <b>par</b> si se escribe como producto de un número par de trasposiciones.</li>
+  <li>Una permutación es <b>impar</b> si se escribe como producto de un número impar de trasposiciones.</li>
+  <li>El <b>signo</b> de una permutación: <span class="m">sgn(σ) = +1</span> si es par, <span class="m">-1</span> si es impar.</li>
+</ul>
+<p>Un <span class="m">k</span>-ciclo tiene paridad: par si <span class="m">k</span> es impar, impar si <span class="m">k</span> es par (pues un <span class="m">k</span>-ciclo = <span class="m">k-1</span> trasposiciones).</p>
+
+<div class="example">
+  <div class="ex-t">Paridad de permutaciones</div>
+  • <span class="m">(1 2 3)</span> es un 3-ciclo = 2 trasposiciones = <b>par</b>. <span class="m">sgn = +1</span>.<br>
+  • <span class="m">(1 2)</span> es un 2-ciclo = 1 trasposición = <b>impar</b>. <span class="m">sgn = -1</span>.<br>
+  • <span class="m">(1 2 3 4 5) = (1 5)(1 4)(1 3)(1 2)</span> = 4 trasposiciones = <b>par</b>.<br>
+  • <span class="m">(1 2)(3 4 5) = (1 2)(3 5)(3 4)</span> = 3 trasposiciones = <b>impar</b>.
+</div>
+
+<h4>El grupo alternante Aₙ</h4>
+<p>El subconjunto de las permutaciones pares de <span class="m">Sₙ</span> forma un subgrupo llamado <b>grupo alternante</b> <span class="m">Aₙ</span>. Tiene orden <span class="m">n!/2</span> y es el único subgrupo de índice 2 en <span class="m">Sₙ</span>.</p>
+
+<div class="key">
+  <div class="ky-t">Resumen de estructuras de Sₙ</div>
+  • <span class="m">|Sₙ| = n!</span><br>
+  • <span class="m">|Aₙ| = n!/2</span><br>
+  • Para <span class="m">n ≥ 3</span>: <span class="m">Sₙ</span> no es abeliano.<br>
+  • El subgrupo <span class="m">Aₙ</span> es normal en <span class="m">Sₙ</span>.<br>
+  • Todo elemento de orden <span class="m">k</span> en <span class="m">Sₙ</span> es un ciclo de longitud <span class="m">k</span> (o producto de ciclos con mcd de longitudes igual a <span class="m">k</span>).
+</div>
+
+<h3>Resumen: jerarquía de estructuras algebraicas</h3>
+
+<table class="tbl">
+  <tr><th>Estructura</th><th>Axiomas</th><th>Ejemplos</th></tr>
+  <tr><td><b>Grupoide</b></td><td>Solo cerrada</td><td><span class="m">(ℚ\{0};÷)</span></td></tr>
+  <tr><td><b>Semigrupo</b></td><td>Cerrada + asociativa</td><td><span class="m">(ℕ;+)</span>, matrices con mult.</td></tr>
+  <tr><td><b>Monoide</b></td><td>Semigrupo + neutro</td><td><span class="m">(ℕ₀;+)</span>, <span class="m">(ℝ;·)</span></td></tr>
+  <tr><td><b>Grupo</b></td><td>Monoide + inversos</td><td><span class="m">(ℤ;+)</span>, <span class="m">S₃</span></td></tr>
+  <tr><td><b>Grupo abeliano</b></td><td>Grupo + conmutativa</td><td><span class="m">(ℤ;+)</span>, <span class="m">(ℤₙ;+)</span></td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Errores frecuentes en parciales</div>
+  1. <b>Olvidar verificar el cierre</b> antes de analizar las demás propiedades. El cierre no se hereda automáticamente (el subconjunto puede no ser cerrado aunque el conjunto grande lo sea).<br>
+  2. <b>Confundir neutro con absorbente</b>: el neutro deja al otro elemento igual; el absorbente "absorbe" y el resultado siempre es el absorbente.<br>
+  3. Al buscar subgrupos, <b>olvidar los subgrupos no cíclicos</b> (como <span class="m">V₄</span> dentro de un grupo mayor).<br>
+  4. <b>Afirmar que grupos isomorfos son el mismo grupo</b>: son estructuralmente equivalentes, pero pueden tener elementos distintos.<br>
+  5. En permutaciones, <b>invertir el orden de composición</b>: en <span class="m">σ∘τ</span>, se aplica <b>primero <span class="m">τ</span></b> y luego <span class="m">σ</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

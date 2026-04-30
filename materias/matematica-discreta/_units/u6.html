@@ -1,0 +1,606 @@
+<!-- ============ UNIDAD 6 · CONJUNTOS ORDENADOS, REDES Y ÁLGEBRAS DE BOOLE ============ -->
+<details id="md-s6">
+<summary><span class="num">6</span> Unidad 6: Conjuntos ordenados, Redes y Álgebras de Boole <span class="sec-score" id="ss-matematica-discreta-6"></span></summary>
+<div class="content">
+
+<!-- ===== RELACIONES DE ORDEN ===== -->
+<h3>Relaciones de orden</h3>
+<p>Una <b>relación de orden</b> (también llamada de <i>orden amplio</i>) es una relación binaria <span class="m">R: A → A</span> que cumple simultáneamente tres propiedades:</p>
+
+<div class="key">
+  <div class="ky-t">Definición: Relación de orden</div>
+  <table class="tbl">
+    <tr><th>Propiedad</th><th>Formal</th><th>En palabras</th></tr>
+    <tr><td><b>Reflexiva</b></td><td class="c"><span class="m">∀x ∈ A: x R x</span></td><td>Todo elemento se relaciona consigo mismo</td></tr>
+    <tr><td><b>Antisimétrica</b></td><td class="c"><span class="m">x R y ∧ y R x ⇒ x = y</span></td><td>Si van en los dos sentidos, son el mismo</td></tr>
+    <tr><td><b>Transitiva</b></td><td class="c"><span class="m">x R y ∧ y R z ⇒ x R z</span></td><td>Si x precede a y y y precede a z, x precede a z</td></tr>
+  </table>
+  <p>Cuando un conjunto A tiene definida una relación de orden se dice que está <b>parcialmente ordenado</b> y se denota <span class="m">(A; ≼)</span>. Al par se lo llama <b>POSET</b> (Partially Ordered SET). La notación <span class="m">x ≼ y</span> se lee "x <i>precede</i> a y".</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 1 — Orden usual en ℤ</div>
+  <p>En <span class="m">ℤ</span>, la relación <span class="m">x R y ⟺ x ≤ y</span> es de orden:</p>
+  <ul>
+    <li><b>Reflexiva:</b> <span class="m">x ≤ x</span> siempre.</li>
+    <li><b>Antisimétrica:</b> Si <span class="m">x ≤ y</span> e <span class="m">y ≤ x</span>, entonces <span class="m">x = y</span>.</li>
+    <li><b>Transitiva:</b> Si <span class="m">x ≤ y</span> e <span class="m">y ≤ z</span>, entonces <span class="m">x ≤ z</span>.</li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 2 — Divisibilidad en ℕ</div>
+  <p>En <span class="m">ℕ</span>, la relación de <b>divisibilidad</b> <span class="m">a R b ⟺ a | b</span> (a divide a b) es de orden:</p>
+  <ul>
+    <li><b>Reflexiva:</b> <span class="m">a = a · 1</span>, luego <span class="m">a | a</span>.</li>
+    <li><b>Antisimétrica:</b> Si <span class="m">a | b</span> y <span class="m">b | a</span>, entonces <span class="m">b = a·k</span> y <span class="m">a = b·q</span>, con <span class="m">k, q ∈ ℕ</span>. Sustituyendo: <span class="m">b = b·(q·k)</span>, de donde <span class="m">q·k = 1</span> y en ℕ eso obliga a <span class="m">k = q = 1</span>, así <span class="m">a = b</span>.</li>
+    <li><b>Transitiva:</b> Si <span class="m">a | b</span> y <span class="m">b | c</span>, entonces <span class="m">c = b·q = a·(k·q)</span>, luego <span class="m">a | c</span>.</li>
+  </ul>
+  <p>Por tanto <span class="m">(ℕ; |)</span> es un POSET, y también lo es cualquier <span class="m">(D<sub>n</sub>; |)</span> donde <span class="m">D<sub>n</sub> = {x ∈ ℕ / x | n}</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo 3 — Inclusión en partes</div>
+  <p>En <span class="m">P(A)</span>, la inclusión <span class="m">X R Y ⟺ X ⊆ Y</span> es de orden: reflexiva (cada conjunto se incluye en sí mismo), antisimétrica (si <span class="m">X ⊆ Y</span> e <span class="m">Y ⊆ X</span> entonces <span class="m">X = Y</span>) y transitiva (propiedad ya conocida).</p>
+</div>
+
+<h4>Orden estricto</h4>
+<p>Una relación es de <b>orden estricto</b> si es <i>asimétrica</i> y transitiva (no incluye la reflexividad). Por ejemplo, <span class="m">x < y</span> en ℝ. En esta unidad trabajamos con orden amplio.</p>
+
+<!-- ===== DIAGRAMAS DE HASSE ===== -->
+<h3>Diagramas de Hasse</h3>
+<p>Un dígrafo de una relación de orden puede ser engorroso: hay bucles (reflexividad) y muchas aristas (transitividad). El <b>diagrama de Hasse</b> simplifica el dibujo eliminando lo redundante:</p>
+
+<div class="key">
+  <div class="ky-t">Reglas del diagrama de Hasse</div>
+  <ol>
+    <li>Se <b>omiten los bucles</b> (reflexividad se sobrentiende).</li>
+    <li>Se <b>omiten las aristas transitivas</b>: si <span class="m">x ≼ y ≼ z</span> existe, no se dibuja la arista directa <span class="m">x → z</span>.</li>
+    <li>Se dibuja de <b>abajo hacia arriba</b>: si <span class="m">x ≼ y</span>, entonces x queda más abajo que y, con lo cual se puede omitir el sentido de las flechas.</li>
+  </ol>
+</div>
+
+<div class="example">
+  <div class="ex-t">Hasse de D₁₂ con divisibilidad</div>
+  <p><span class="m">D<sub>12</sub> = {1, 2, 3, 4, 6, 12}</span></p>
+  <p>Relaciones directas (sin saltar): 1|2, 1|3, 2|4, 2|6, 3|6, 4|12, 6|12.</p>
+  <pre>
+      12
+     /  \
+    4    6
+    |   / \
+    2  2   3
+     \ |  /
+       1
+  </pre>
+  <p>El diagrama muestra que, por ejemplo, 1|4 queda implícito por la cadena 1→2→4.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Hasse de P({a,b,c}) con inclusión</div>
+  <pre>
+         {a,b,c}
+        /   |   \
+    {a,b} {a,c} {b,c}
+      |  \  |  /  |
+     {a} {b}  {c}
+          |
+          ∅
+  </pre>
+  <p>El vacío está abajo (es subconjunto de todo), el conjunto total arriba.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir el Hasse con el dígrafo completo</div>
+  <p>En el Hasse NO aparece la arista 1→12 aunque 1|12, porque esa relación se "obtiene" transitando 1→2→4→12 (o 1→3→6→12). Solo se dibujan los "saltos mínimos".</p>
+</div>
+
+<!-- ===== ORDEN TOTAL ===== -->
+<h3>Orden total y orden parcial</h3>
+
+<div class="key">
+  <div class="ky-t">Orden total (lineal)</div>
+  <p>Un POSET <span class="m">(A; ≼)</span> es <b>totalmente ordenado</b> (tto.) si todo par de elementos es comparable:</p>
+  <div class="formula">∀x, y ∈ A: x ≼ y &nbsp; ó &nbsp; y ≼ x</div>
+  <p>Si existen <span class="m">x, y</span> tales que ni <span class="m">x ≼ y</span> ni <span class="m">y ≼ x</span>, se dice que son <b>incomparables</b> (notación: <span class="m">x // y</span>) y el orden es <b>parcial</b>.</p>
+  <p>El Hasse de un conjunto totalmente ordenado es una <b>cadena</b> (una línea recta).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Comparación: parcial vs. total</div>
+  <table class="tbl">
+    <tr><th>POSET</th><th>¿Total?</th><th>Motivo</th></tr>
+    <tr><td><span class="m">(ℤ; ≤)</span></td><td class="c">Sí</td><td>Todo par de enteros es comparable</td></tr>
+    <tr><td><span class="m">(D<sub>18</sub>; |)</span></td><td class="c">No</td><td>3 // 2 (ninguno divide al otro)</td></tr>
+    <tr><td><span class="m">(P(A); ⊆)</span></td><td class="c">No</td><td>{a} // {b} en general</td></tr>
+  </table>
+</div>
+
+<h4>Conjunto bien ordenado</h4>
+<p>Un POSET <span class="m">(A; ≼)</span> está <b>bien ordenado</b> si <i>todo subconjunto no vacío</i> de A tiene primer elemento (mínimo). Todo conjunto bien ordenado es totalmente ordenado, pero no al revés (ejemplo: <span class="m">(ℤ; ≤)</span> es total pero no bien ordenado porque ℤ no tiene mínimo).</p>
+
+<!-- ===== ELEMENTOS NOTABLES ===== -->
+<h3>Elementos notables de un POSET</h3>
+<p>Dado <span class="m">(A; ≼)</span> y un subconjunto <span class="m">B ⊆ A</span>, se definen:</p>
+
+<table class="tbl">
+  <tr><th>Elemento</th><th>Definición formal</th><th>Observación clave</th></tr>
+  <tr><td><b>Maximal</b> de A</td><td><span class="m">m ∈ A</span> tal que no existe <span class="m">x ∈ A</span> con <span class="m">m ≺ x</span></td><td>Puede haber varios; no tiene sucesor</td></tr>
+  <tr><td><b>Minimal</b> de A</td><td><span class="m">m ∈ A</span> tal que no existe <span class="m">x ∈ A</span> con <span class="m">x ≺ m</span></td><td>Puede haber varios; no tiene predecesor</td></tr>
+  <tr><td><b>Máximo</b> (último)</td><td>Maximal único de A: <span class="m">∀x ∈ A: x ≼ m</span></td><td>Único si existe</td></tr>
+  <tr><td><b>Mínimo</b> (primero)</td><td>Minimal único de A: <span class="m">∀x ∈ A: m ≼ x</span></td><td>Único si existe</td></tr>
+  <tr><td><b>Cota superior</b> de B</td><td><span class="m">s ∈ A</span> tal que <span class="m">∀x ∈ B: x ≼ s</span></td><td>Puede no existir o haber muchas</td></tr>
+  <tr><td><b>Cota inferior</b> de B</td><td><span class="m">i ∈ A</span> tal que <span class="m">∀x ∈ B: i ≼ x</span></td><td>Puede no existir o haber muchas</td></tr>
+  <tr><td><b>Supremo</b> (∨) de B</td><td>Mínimo del conjunto de cotas superiores</td><td>Único si existe; puede no estar en B</td></tr>
+  <tr><td><b>Ínfimo</b> (∧) de B</td><td>Máximo del conjunto de cotas inferiores</td><td>Único si existe; puede no estar en B</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Supremo, ínfimo, máximo y mínimo — relación</div>
+  <ul>
+    <li>Si el supremo de B pertenece a B, es el <b>máximo de B</b>.</li>
+    <li>Si el ínfimo de B pertenece a B, es el <b>mínimo de B</b>.</li>
+    <li>Al conjunto de todas las cotas superiores se le llama <b>conjunto mayorante</b>.</li>
+    <li>Al conjunto de todas las cotas inferiores se le llama <b>conjunto minorante</b>.</li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo en (ℕ; |) con B = {8, 12, 16, 24, 48}</div>
+  <ul>
+    <li><b>Cotas inferiores</b> (minorante): elementos que dividen a <i>todos</i> los de B → <span class="m">{1, 2, 4}</span>. El mayor de ellos es el ínfimo: <span class="m">inf(B) = 4</span>. Como <span class="m">4 ∉ B</span>, B no tiene mínimo.</li>
+    <li><b>Cotas superiores</b> (mayorante): múltiplos comunes de todos → <span class="m">{48, 96, 144, …}</span>. El menor es el supremo: <span class="m">sup(B) = 48</span>. Como <span class="m">48 ∈ B</span>, B tiene máximo: <span class="m">max(B) = 48</span>.</li>
+  </ul>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: maximal ≠ máximo</div>
+  <p>Un <b>maximal</b> es un elemento sin sucesor; puede haber varios. El <b>máximo</b> es el elemento que supera a <i>todos</i> los demás; es único. Si hay dos o más maximales, el conjunto no tiene máximo.</p>
+  <p>Analogamente: <b>minimal ≠ mínimo</b>.</p>
+</div>
+
+<h4>Átomos</h4>
+<p>Dado un POSET con primer elemento <span class="m">p</span>, un <b>átomo</b> es un elemento que sigue inmediatamente a <span class="m">p</span> (no hay nada entre <span class="m">p</span> y el átomo). En <span class="m">(ℕ; |)</span>, el primer elemento es 1 y los átomos son los números primos (2, 3, 5, 7, …): indivisibles excepto por 1 y sí mismos, de ahí el nombre.</p>
+
+<!-- ===== ORDEN RECIPROCO ===== -->
+<h4>Orden recíproco (inverso)</h4>
+<p>Dado <span class="m">(A; ≼)</span>, se define la relación <span class="m">≼<sup>−1</sup></span> tal que <span class="m">x ≼<sup>−1</sup> y ⟺ y ≼ x</span>. Se puede demostrar que <span class="m">≼<sup>−1</sup></span> también es de orden. En el Hasse, el orden recíproco es simplemente "dar vuelta" el diagrama (lo que estaba arriba queda abajo).</p>
+
+<!-- ===== REDES ===== -->
+<h3>Redes (Retículos / Lattices)</h3>
+<p>Un POSET en el que <i>todo par de elementos</i> tiene supremo e ínfimo recibe el nombre especial de <b>red</b> (también: retículo, lattice, reticulated).</p>
+
+<div class="key">
+  <div class="ky-t">Definición de Red (Retículo)</div>
+  <p>Sea <span class="m">(A; ≼)</span> un POSET.</p>
+  <ul>
+    <li>Es <b>semirretículo superior</b> si <span class="m">∀a, b ∈ A</span> existe <span class="m">sup{a,b}</span>.</li>
+    <li>Es <b>semirretículo inferior</b> si <span class="m">∀a, b ∈ A</span> existe <span class="m">inf{a,b}</span>.</li>
+    <li>Es <b>red</b> si es ambos a la vez.</li>
+  </ul>
+  <p>Se usa la notación: <span class="m">a ∨ b = sup{a,b}</span> (join) y <span class="m">a ∧ b = inf{a,b}</span> (meet).</p>
+  <p><b>Truco útil:</b> si <span class="m">a ≼ b</span> entonces <span class="m">a ∨ b = b</span> y <span class="m">a ∧ b = a</span>. Por tanto, solo hay que verificar los pares incomparables.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Es red D₁₂ con divisibilidad?</div>
+  <p>Los pares incomparables son los problemáticos: 2//3, 2//4 no (2|4), 3//4, etc. Verificamos:</p>
+  <table class="tbl">
+    <tr><th>Par {a,b}</th><th>sup (mcm)</th><th>inf (mcd)</th></tr>
+    <tr><td>{2, 3}</td><td class="c">6</td><td class="c">1</td></tr>
+    <tr><td>{3, 4}</td><td class="c">12</td><td class="c">1</td></tr>
+    <tr><td>{4, 6}</td><td class="c">12</td><td class="c">2</td></tr>
+  </table>
+  <p>Todo par tiene sup e inf → <b>(D₁₂; |) es red</b>. Las operaciones son mcm (supremo) y mcd (ínfimo).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Contraejemplo: {1,2,…,10} con divisibilidad NO es red</div>
+  <p>Tomemos 4 y 6: <span class="m">mcm(4,6) = 12</span>, pero 12 ∉ {1,…,10}. No existe supremo en el conjunto → no es red.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: primer y último elemento no garantizan red</div>
+  <p>Tener único maximal y único minimal es condición <b>necesaria</b> pero <b>no suficiente</b> para ser red. Siempre hay que verificar que todo par de elementos tiene supremo e ínfimo.</p>
+</div>
+
+<!-- ===== PROPIEDADES DE REDES ===== -->
+<h3>Propiedades de las operaciones en una red</h3>
+<p>En toda red <span class="m">(A; ∨; ∧)</span> las operaciones ∨ e ∧ cumplen:</p>
+
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Para ∨</th><th>Para ∧</th></tr>
+  <tr><td><b>Cerradura</b></td><td class="c"><span class="m">a ∨ b ∈ A</span></td><td class="c"><span class="m">a ∧ b ∈ A</span></td></tr>
+  <tr><td><b>Conmutatividad</b></td><td class="c"><span class="m">a ∨ b = b ∨ a</span></td><td class="c"><span class="m">a ∧ b = b ∧ a</span></td></tr>
+  <tr><td><b>Asociatividad</b></td><td class="c"><span class="m">(a ∨ b) ∨ c = a ∨ (b ∨ c)</span></td><td class="c"><span class="m">(a ∧ b) ∧ c = a ∧ (b ∧ c)</span></td></tr>
+  <tr><td><b>Idempotencia</b></td><td class="c"><span class="m">a ∨ a = a</span></td><td class="c"><span class="m">a ∧ a = a</span></td></tr>
+  <tr><td><b>Absorción</b></td><td class="c"><span class="m">a ∨ (a ∧ b) = a</span></td><td class="c"><span class="m">a ∧ (a ∨ b) = a</span></td></tr>
+</table>
+
+<p>Además: si <span class="m">a ≼ b</span>, entonces <span class="m">a ∨ b = b</span> y <span class="m">a ∧ b = a</span>.</p>
+
+<h4>Red algebraica</h4>
+<p>Se puede definir una red de forma puramente algebraica: dados un conjunto A y dos operaciones binarias ∨ y ∧ cerradas en A que cumplen conmutatividad, asociatividad, idempotencia y absorción, el par <span class="m">(A; ∨; ∧)</span> es una <b>red algebraica</b>. La relación de orden queda definida por:</p>
+<div class="formula">a ≼ b &nbsp;⟺&nbsp; a ∨ b = b &nbsp;⟺&nbsp; a ∧ b = a</div>
+
+<div class="example">
+  <div class="ex-t">Red ordenada ↔ Red algebraica</div>
+  <table class="tbl">
+    <tr><th>Red ordenada</th><th>Red algebraica equivalente</th></tr>
+    <tr><td><span class="m">(D<sub>n</sub>; |)</span></td><td><span class="m">(D<sub>n</sub>; mcm; mcd)</span></td></tr>
+    <tr><td><span class="m">(P(A); ⊆)</span></td><td><span class="m">(P(A); ∪; ∩)</span></td></tr>
+    <tr><td><span class="m">(ℤ; ≤)</span></td><td><span class="m">(ℤ; max; min)</span></td></tr>
+  </table>
+</div>
+
+<!-- ===== COMPLEMENTO, DISTRIBUTIVIDAD ===== -->
+<h3>Complemento en una red</h3>
+<p>Sea <span class="m">(A; ∨; ∧)</span> una red con primer elemento <span class="m">0<sub>A</sub></span> y último elemento <span class="m">1<sub>A</sub></span>. El <b>complemento</b> de <span class="m">a ∈ A</span> es un elemento <span class="m">ā ∈ A</span> tal que:</p>
+<div class="formula">a ∨ ā = 1<sub>A</sub> &nbsp;&nbsp; y &nbsp;&nbsp; a ∧ ā = 0<sub>A</sub></div>
+<p>Un elemento puede tener ningún, uno o varios complementos. Una red es <b>complementada</b> si todo elemento tiene al menos un complemento.</p>
+
+<div class="example">
+  <div class="ex-t">Complementos en P({1,2})</div>
+  <p><span class="m">0<sub>A</sub> = ∅</span>, <span class="m">1<sub>A</sub> = {1,2}</span>. Los complementos son: <span class="m">∅̄ = {1,2}</span>, <span class="m">{1}̄ = {2}</span>, <span class="m">{2}̄ = {1}</span>, <span class="m">{1,2}̄ = ∅</span>. Cada elemento tiene un único complemento → es complementada.</p>
+</div>
+
+<h3>Redes distributivas</h3>
+<p>Una red es <b>distributiva</b> si las operaciones ∨ y ∧ se distribuyen mutuamente:</p>
+<div class="formula">a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c) &nbsp;&nbsp;&nbsp; a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c)</div>
+
+<div class="key">
+  <div class="ky-t">Resultado clave sobre distributividad</div>
+  <ul>
+    <li><span class="m">(D<sub>n</sub>; mcm; mcd)</span> siempre es distributiva (mcm y mcd se distribuyen).</li>
+    <li><span class="m">(P(A); ∪; ∩)</span> siempre es distributiva (∪ y ∩ se distribuyen).</li>
+    <li>En toda red distributiva, el complemento (si existe) es <b>único</b>.</li>
+    <li>Una red finita es distributiva si y solo si <b>no contiene subredes isomorfas</b> a los dos pentágonos problemáticos (N₅ y M₃, las formas de diamante y pentágono).</li>
+  </ul>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Cuidado con las subredes</div>
+  <p>Una <b>subred</b> de <span class="m">(A; ∨; ∧)</span> es un subconjunto B no vacío que, con las <i>mismas operaciones</i>, conserva los <i>mismos supremos e ínfimos</i> que en A. Un subconjunto puede ser red en sí mismo pero no ser subred del original si cambia los supremos/ínfimos. Ejemplo: en <span class="m">(D<sub>18</sub>; |)</span>, el subconjunto <span class="m">{1,2,6,18}</span> sin el 3 no es subred porque inf{6,9} = 3 en D₁₈ pero = 1 en el subconjunto.</p>
+</div>
+
+<!-- ===== ÁLGEBRAS DE BOOLE ===== -->
+<h3>Álgebras de Boole</h3>
+<p>Un <b>Álgebra de Boole</b> es una red que es a la vez distributiva y complementada. Formalmente:</p>
+
+<div class="key">
+  <div class="ky-t">Definición: Álgebra de Boole</div>
+  <p>Sea <span class="m">(B; ∨; ∧; ¬)</span>. Es Álgebra de Boole si:</p>
+  <ol>
+    <li>∨ y ∧ son <b>operaciones binarias cerradas</b> en B.</li>
+    <li>∨ y ∧ son <b>conmutativas</b>.</li>
+    <li>∨ y ∧ son <b>distributivas</b> entre sí.</li>
+    <li>Existen <b>elementos neutros</b> <span class="m">0<sub>B</sub></span> (para ∨) y <span class="m">1<sub>B</sub></span> (para ∧).</li>
+    <li>Todo elemento <span class="m">a ∈ B</span> tiene <b>complemento</b> <span class="m">ā</span> tal que <span class="m">a ∨ ā = 1<sub>B</sub></span> y <span class="m">a ∧ ā = 0<sub>B</sub></span>.</li>
+  </ol>
+  <p>Equivalente: toda red distributiva y complementada.</p>
+</div>
+
+<h4>Ejemplos de Álgebras de Boole</h4>
+<table class="tbl">
+  <tr><th>Estructura</th><th>¿Álgebra de Boole?</th><th>Razón</th></tr>
+  <tr><td><span class="m">({0,1}; +; ·)</span></td><td class="c">Sí</td><td>Distributiva, complementada (0̄=1, 1̄=0). Es la mínima (canónica).</td></tr>
+  <tr><td><span class="m">(D<sub>15</sub>; |)</span></td><td class="c">Sí</td><td>15 = 3·5 (primos distintos); distributiva y complementada.</td></tr>
+  <tr><td><span class="m">(D<sub>42</sub>; |)</span></td><td class="c">Sí</td><td>42 = 2·3·7 (primos distintos).</td></tr>
+  <tr><td><span class="m">(D<sub>18</sub>; |)</span></td><td class="c">No</td><td>18 = 2·3² (primo repetido); el 5 no tiene complemento.</td></tr>
+  <tr><td><span class="m">(D<sub>50</sub>; |)</span></td><td class="c">No</td><td>50 = 2·5² (primo repetido); no complementada.</td></tr>
+  <tr><td><span class="m">(P(A); ∪; ∩)</span></td><td class="c">Sí</td><td>Para todo X, el complemento es A−X.</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Propiedades para detectar Álgebras de Boole rápido</div>
+  <ul>
+    <li><span class="m">(D<sub>n</sub>; |)</span> es Álgebra de Boole <b>si y solo si n es producto de primos distintos</b> (libre de cuadrados).</li>
+    <li>El <b>cardinal</b> de toda Álgebra de Boole finita es una <b>potencia de 2</b> (<span class="m">|B| = 2<sup>k</sup></span>). Si el cardinal no es potencia de 2, no puede ser Álgebra de Boole.</li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Test rápido: ¿Es (D₂₅₄₁; |) Álgebra de Boole?</div>
+  <p>Factorizamos: <span class="m">2541 = 3 · 7 · 11²</span>. Como 11 aparece repetido, <b>no es Álgebra de Boole</b>. No hace falta listar todos los divisores.</p>
+</div>
+
+<h3>Propiedades del Álgebra de Boole</h3>
+<p>En toda Álgebra de Boole <span class="m">(B; ∨; ∧)</span> se verifican:</p>
+
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Expresión</th></tr>
+  <tr><td>Unicidad de 0<sub>B</sub> y 1<sub>B</sub></td><td>Los elementos neutros son únicos</td></tr>
+  <tr><td>Complemento único</td><td>Todo elemento tiene exactamente un complemento</td></tr>
+  <tr><td>Involutividad</td><td><span class="m">∀a: ā̄ = a</span></td></tr>
+  <tr><td>Neutros complementados</td><td><span class="m">0̄<sub>B</sub> = 1<sub>B</sub></span> y <span class="m">1̄<sub>B</sub> = 0<sub>B</sub></span></td></tr>
+  <tr><td>Absorción por neutros</td><td><span class="m">a ∧ 1<sub>B</sub> = a</span>, <span class="m">a ∨ 1<sub>B</sub> = 1<sub>B</sub></span>; <span class="m">a ∨ 0<sub>B</sub> = a</span>, <span class="m">a ∧ 0<sub>B</sub> = 0<sub>B</sub></span></td></tr>
+  <tr><td>De Morgan</td><td><span class="m">a ∨ b⎯ = ā ∧ b̄</span> &nbsp; y &nbsp; <span class="m">a ∧ b⎯ = ā ∨ b̄</span></td></tr>
+</table>
+
+<h4>Isomorfismo de Álgebras de Boole</h4>
+<p>Una función <span class="m">f: A → B</span> entre Álgebras de Boole es un <b>homomorfismo</b> si preserva las tres operaciones (∨, ∧, complemento) y los neutros. Si además es biyectiva, es un <b>isomorfismo</b> (las estructuras son "la misma" con distintos nombres).</p>
+
+<div class="key">
+  <div class="ky-t">Teorema: toda Álgebra de Boole finita es isomorfa a P(átomos)</div>
+  <p>Sea X = {átomos de B}. Entonces <span class="m">(B; ∨; ∧) ≅ (P(X); ∪; ∩)</span>. El isomorfismo envía cada elemento al conjunto de átomos que lo "generan".</p>
+  <p>Ejemplo: en <span class="m">(D<sub>30</sub>; |)</span>, los átomos son {2,3,5} y <span class="m">f(6) = {2,3}</span>, <span class="m">f(10) = {2,5}</span>, etc.</p>
+</div>
+
+<!-- ===== FUNCIONES BOOLEANAS ===== -->
+<h3>Funciones booleanas</h3>
+<p>Una <b>función booleana</b> es una función <span class="m">f: {0,1}<sup>n</sup> → {0,1}</span> que toma n variables binarias y devuelve 0 o 1. Se usa el Álgebra de Boole <span class="m">({0,1}; ∨; ∧; ¬)</span> donde ∨ es el OR lógico, ∧ es el AND lógico y ¬ es el NOT lógico.</p>
+
+<div class="key">
+  <div class="ky-t">Tabla de las operaciones básicas</div>
+  <table class="tbl">
+    <tr><th>x</th><th>y</th><th>x ∧ y (AND)</th><th>x ∨ y (OR)</th><th>¬x (NOT)</th><th>x ⊕ y (XOR)</th></tr>
+    <tr><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">0</td></tr>
+    <tr><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">1</td></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c">1</td></tr>
+    <tr><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
+  </table>
+</div>
+
+<h4>Tabla de verdad</h4>
+<p>Para <span class="m">n</span> variables, la tabla tiene <span class="m">2<sup>n</sup></span> filas (una por cada combinación posible). Se listan las combinaciones en orden binario: 0…00, 0…01, 0…10, … , 1…11.</p>
+
+<div class="example">
+  <div class="ex-t">Tabla de f(x,y,z) — 3 variables, 8 filas</div>
+  <table class="tbl">
+    <tr><th>x</th><th>y</th><th>z</th><th>f</th><th>Mintérmino</th></tr>
+    <tr><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">—</td><td><span class="m">¬x·¬y·¬z = m₀</span></td></tr>
+    <tr><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">—</td><td><span class="m">¬x·¬y·z = m₁</span></td></tr>
+    <tr><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c">—</td><td><span class="m">¬x·y·¬z = m₂</span></td></tr>
+    <tr><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">—</td><td><span class="m">¬x·y·z = m₃</span></td></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">—</td><td><span class="m">x·¬y·¬z = m₄</span></td></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">1</td><td class="c">—</td><td><span class="m">x·¬y·z = m₅</span></td></tr>
+    <tr><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">—</td><td><span class="m">x·y·¬z = m₆</span></td></tr>
+    <tr><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">—</td><td><span class="m">x·y·z = m₇</span></td></tr>
+  </table>
+</div>
+
+<!-- ===== MINTÉRMINOS Y MAXTÉRMINOS ===== -->
+<h3>Mintérminos y maxtérminos</h3>
+
+<div class="key">
+  <div class="ky-t">Mintérmino m<sub>i</sub> y maxtérmino M<sub>i</sub></div>
+  <p>Para una fila con valores de variables <span class="m">(x₁, …, xₙ)</span>:</p>
+  <ul>
+    <li><b>Mintérmino</b> <span class="m">m<sub>i</sub></span>: producto (AND) de todas las variables, usando <span class="m">x<sub>j</sub></span> si vale 1 y <span class="m">¬x<sub>j</sub></span> si vale 0. Vale 1 solo en esa fila.</li>
+    <li><b>Maxtérmino</b> <span class="m">M<sub>i</sub></span>: suma (OR) de todas las variables, usando <span class="m">¬x<sub>j</sub></span> si vale 1 y <span class="m">x<sub>j</sub></span> si vale 0. Vale 0 solo en esa fila.</li>
+  </ul>
+  <p>Nota: <span class="m">M<sub>i</sub> = ¬m<sub>i</sub></span> (son complementos entre sí).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Mintérmino y maxtérmino para la fila (x=1, y=0, z=1) → fila 5</div>
+  <p><b>Mintérmino m₅</b> = x · ¬y · z (AND con x positivo, y negado, z positivo)</p>
+  <p><b>Maxtérmino M₅</b> = ¬x + y + ¬z (OR con x negado, y positivo, z negado)</p>
+</div>
+
+<!-- ===== FORMAS CANÓNICAS ===== -->
+<h3>Formas canónicas FND y FNC</h3>
+<p>Toda función booleana se puede expresar en dos formas normales canónicas que son únicas:</p>
+
+<table class="tbl">
+  <tr><th>Nombre</th><th>Sigla</th><th>Cómo se forma</th><th>Cuándo usar</th></tr>
+  <tr><td><b>Forma Normal Disyuntiva</b></td><td>FND / SOP (Sum of Products)</td><td>OR de mintérminos de filas donde f=1</td><td>Cuando hay pocos unos en la tabla</td></tr>
+  <tr><td><b>Forma Normal Conjuntiva</b></td><td>FNC / POS (Product of Sums)</td><td>AND de maxtérminos de filas donde f=0</td><td>Cuando hay pocos ceros en la tabla</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Regla mnemotécnica</div>
+  <p><b>FND:</b> filas con f = <b>1</b> → mintérminos (AND). "Uno → producto con el mintérmino".</p>
+  <p><b>FNC:</b> filas con f = <b>0</b> → maxtérminos (OR). "Cero → factor con el maxtérmino".</p>
+  <p>Relación: si la FND usa los mintérminos <span class="m">{i₁, i₂, …}</span>, la FNC usa los maxtérminos del complemento (los índices que no aparecen en la FND).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Construcción de FND y FNC para una función de 3 variables</div>
+  <p>Supongamos que f(x,y,z) = 1 en las filas 0, 2, 4, 7 (f=0 en las filas 1, 3, 5, 6).</p>
+  <p><b>FND:</b> <span class="m">f = m₀ + m₂ + m₄ + m₇ = ¬x·¬y·¬z + ¬x·y·¬z + x·¬y·¬z + x·y·z</span></p>
+  <p><b>FNC:</b> <span class="m">f = M₁ · M₃ · M₅ · M₆ = (x+y+¬z)·(x+¬y+¬z)·(¬x+y+¬z)·(¬x+¬y+z)</span></p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir mintérmino con maxtérmino</div>
+  <p>En el mintérmino, la variable aparece negada cuando vale <b>0</b>. En el maxtérmino, la variable aparece negada cuando vale <b>1</b>. Son lo opuesto. Si los confundís, la función resultante será incorrecta.</p>
+</div>
+
+<!-- ===== SIMPLIFICACIÓN ===== -->
+<h3>Simplificación de funciones booleanas</h3>
+<p>La FND canónica puede ser muy larga. Se simplifica aplicando las propiedades del Álgebra de Boole:</p>
+
+<div class="key">
+  <div class="ky-t">Propiedades más usadas para simplificar</div>
+  <table class="tbl">
+    <tr><th>Ley</th><th>Expresión</th></tr>
+    <tr><td>Idempotencia</td><td><span class="m">a + a = a</span>, <span class="m">a · a = a</span></td></tr>
+    <tr><td>Absorción</td><td><span class="m">a + a·b = a</span>, <span class="m">a·(a+b) = a</span></td></tr>
+    <tr><td>Complementación</td><td><span class="m">a + ā = 1</span>, <span class="m">a · ā = 0</span></td></tr>
+    <tr><td>De Morgan</td><td><span class="m">a + b⎯ = ā · b̄</span>, <span class="m">a · b⎯ = ā + b̄</span></td></tr>
+    <tr><td>Distributiva</td><td><span class="m">a·(b+c) = a·b + a·c</span>, <span class="m">a+(b·c) = (a+b)·(a+c)</span></td></tr>
+    <tr><td>Identidad</td><td><span class="m">a + 0 = a</span>, <span class="m">a · 1 = a</span></td></tr>
+    <tr><td>Involución</td><td><span class="m">ā̄ = a</span></td></tr>
+  </table>
+</div>
+
+<div class="example">
+  <div class="ex-t">Simplificación paso a paso</div>
+  <p>Simplificar: <span class="m">f(x,y,z) = x·y·¬z + x·¬y·¬z + x·y·z</span></p>
+  <ol>
+    <li>Agrupar primeros dos términos: <span class="m">x·¬z·(y + ¬y) = x·¬z·1 = x·¬z</span></li>
+    <li>Ahora: <span class="m">f = x·¬z + x·y·z</span></li>
+    <li>Factorizar x: <span class="m">f = x·(¬z + y·z)</span></li>
+    <li>Distributiva: <span class="m">¬z + y·z = (¬z + y)·(¬z + z) = (¬z + y)·1 = ¬z + y</span></li>
+    <li>Resultado: <span class="m">f = x·(y + ¬z)</span></li>
+  </ol>
+</div>
+
+<!-- ===== KARNAUGH ===== -->
+<h3>Mapas de Karnaugh (K-maps)</h3>
+<p>Los mapas de Karnaugh son una herramienta visual para simplificar funciones booleanas. Se organizan las filas/columnas con el <b>código Gray</b> (solo cambia un bit entre celdas adyacentes) para que las adyacencias representen agrupaciones válidas.</p>
+
+<h4>K-map de 2 variables</h4>
+<pre>
+        y=0   y=1
+  x=0 |  f₀ |  f₁ |
+  x=1 |  f₂ |  f₃ |
+</pre>
+
+<h4>K-map de 3 variables</h4>
+<pre>
+           yz=00  yz=01  yz=11  yz=10
+  x=0   |   m₀  |  m₁  |  m₃  |  m₂  |
+  x=1   |   m₄  |  m₅  |  m₇  |  m₆  |
+</pre>
+<p>Nota: las columnas van en orden 00, 01, 11, 10 (código Gray), NO en orden binario usual. Las columnas 3 y 4 (yz=11 y yz=10) están adyacentes a las columnas 1 y 2 y también "se tocan" de extremo a extremo (el mapa es cíclico).</p>
+
+<h4>K-map de 4 variables</h4>
+<pre>
+              cd=00  cd=01  cd=11  cd=10
+  ab=00   |   m₀  |  m₁  |  m₃  |  m₂  |
+  ab=01   |   m₄  |  m₅  |  m₇  |  m₆  |
+  ab=11   |  m₁₂  | m₁₃  | m₁₅  | m₁₄  |
+  ab=10   |   m₈  |  m₉  | m₁₁  | m₁₀  |
+</pre>
+
+<div class="key">
+  <div class="ky-t">Reglas para agrupar en K-map</div>
+  <ol>
+    <li>Solo se agrupan celdas con valor <b>1</b> (para FND).</li>
+    <li>Los grupos deben ser <b>potencias de 2</b>: tamaños 1, 2, 4, 8, 16, …</li>
+    <li>Los grupos deben ser <b>rectángulos</b> (filas y columnas completas), pueden "envolver" bordes (el mapa es un toro).</li>
+    <li>Usar los <b>grupos más grandes</b> posibles (cuanto más grande, menos variables quedan en el término simplificado).</li>
+    <li>Cada "1" debe quedar cubierto por al menos un grupo; los grupos pueden solaparse.</li>
+    <li>Un grupo de tamaño 2<sup>k</sup> elimina k variables de la expresión final (quedan n−k variables).</li>
+  </ol>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo K-map 3 variables</div>
+  <p>f vale 1 en filas: 0, 1, 4, 5 (x·y = 00 y 10 con z = 0 o 1 cuando y=0)</p>
+  <pre>
+           yz=00  yz=01  yz=11  yz=10
+  x=0   |   1  |   1  |   0  |   0  |
+  x=1   |   1  |   1  |   0  |   0  |
+  </pre>
+  <p>El rectángulo {m₀, m₁, m₄, m₅} ocupa toda la columna 00 y 01 → las variables que cambian son y y z (z varía 0→1, y permanece 0). Las que NO cambian: x puede ser 0 o 1 (cambia pero es invariante en el grupo), y = 0 en todo el grupo.</p>
+  <p>Resultado: <span class="m">f = ¬y</span> (solo importa que y=0, x y z no importan).</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico en K-maps: agrupar en orden binario</div>
+  <p>Las columnas van 00, 01, <b>11</b>, 10 (no 00, 01, 10, 11). Si se ordena en binario, las celdas que parecen adyacentes pueden no serlo y viceversa. Siempre verificar el orden Gray.</p>
+</div>
+
+<!-- ===== COMPUERTAS LÓGICAS ===== -->
+<h3>Compuertas lógicas</h3>
+<p>Las funciones booleanas se implementan físicamente mediante <b>compuertas lógicas</b>, circuitos electrónicos que realizan las operaciones booleanas básicas.</p>
+
+<table class="tbl">
+  <tr><th>Compuerta</th><th>Símbolo</th><th>Operación</th><th>Tabla (2 entradas)</th></tr>
+  <tr><td><b>AND</b></td><td class="c">a—[&]—salida</td><td><span class="m">s = a · b</span></td><td>0·0=0, 0·1=0, 1·0=0, 1·1=1</td></tr>
+  <tr><td><b>OR</b></td><td class="c">a—[≥1]—salida</td><td><span class="m">s = a + b</span></td><td>0+0=0, 0+1=1, 1+0=1, 1+1=1</td></tr>
+  <tr><td><b>NOT</b></td><td class="c">a—[o]—salida</td><td><span class="m">s = ā</span></td><td>0→1, 1→0 (1 entrada)</td></tr>
+  <tr><td><b>NAND</b></td><td class="c">a—[&o]—salida</td><td><span class="m">s = a · b⎯</span></td><td>Complemento de AND</td></tr>
+  <tr><td><b>NOR</b></td><td class="c">a—[≥1o]—salida</td><td><span class="m">s = a + b⎯</span></td><td>Complemento de OR</td></tr>
+  <tr><td><b>XOR</b></td><td class="c">a—[=1]—salida</td><td><span class="m">s = a ⊕ b</span></td><td>1 si las entradas son distintas</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">NAND y NOR son universales</div>
+  <p>Con solo compuertas NAND (o solo NOR) se puede implementar cualquier función booleana:</p>
+  <ul>
+    <li><b>NOT con NAND:</b> <span class="m">ā = a NAND a</span> (conectar la misma entrada a los dos pines)</li>
+    <li><b>AND con NAND:</b> <span class="m">a · b = (a NAND b) NAND (a NAND b)</span></li>
+    <li><b>OR con NAND:</b> <span class="m">a + b = (a NAND a) NAND (b NAND b)</span></li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Diseño de circuito para f(A,B,C,D) = A + B·(C+D)</div>
+  <p>Este es el tipo de ejercicio típico del examen. Partimos de la expresión simplificada:</p>
+  <ol>
+    <li>Compuerta OR entre C y D → salida: C+D</li>
+    <li>Compuerta AND entre B y (C+D) → salida: B·(C+D)</li>
+    <li>Compuerta OR entre A y B·(C+D) → salida final: A + B·(C+D)</li>
+  </ol>
+  <p>Total: 1 NOT, 1 AND, 2 OR. Para minimizar compuertas, se trabaja con la expresión ya simplificada (no con la forma canónica directa).</p>
+</div>
+
+<!-- ===== EJERCICIOS TIPO EXAMEN ===== -->
+<h3>Ejercicios tipo examen — guía rápida de resolución</h3>
+
+<div class="example">
+  <div class="ex-t">Tipo 1: Verificar si una relación es de orden y hacer el Hasse</div>
+  <p>Pasos: (1) Verificar reflexividad, antisimetría, transitividad. (2) Si falla alguna, mostrar contraejemplo. (3) Si es de orden, dibujar el Hasse (solo aristas directas, sin bucles ni transitivas). (4) Indicar si es parcial o total.</p>
+  <p><b>Ejemplo:</b> T = Δ ∪ {(c;d), (b;c), (a;e), (d;e), (b;e), (b;a)} en A={a,b,c,d,e}. ¿Es de orden? No: b T c y c T d pero no b T d → no es transitiva.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Tipo 2: Hallar cotas, supremo, ínfimo</div>
+  <p>En el POSET <span class="m">(A; ≼)</span> con subconjunto B: (1) Cotas inferiores = elementos que preceden a TODOS los de B. (2) Cotas superiores = elementos que siguen a TODOS los de B. (3) sup(B) = mínimo del conjunto mayorante. (4) inf(B) = máximo del conjunto minorante.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Tipo 3: Determinar si un POSET es red</div>
+  <p>Verificar que TODO par de elementos tiene supremo e ínfimo. Si hay elementos incomparables, calcular supremo e ínfimo de cada par incomparable. Si algún par no tiene supremo o ínfimo en A, no es red.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Tipo 4: Análisis completo de una función booleana</div>
+  <p>Dado f(x,y,z), se pide: (a) Tabla de verdad. (b) FND (suma de mintérminos de filas donde f=1). (c) FNC (producto de maxtérminos de filas donde f=0). (d) Simplificar con álgebra o K-map. (e) Diseñar el circuito mínimo.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Tipo 5: Modelar una situación con función booleana</div>
+  <p>Pasos: (1) Identificar las variables (una por condición binaria). (2) Construir la tabla de verdad según las condiciones del problema. (3) Escribir la FND. (4) Simplificar. (5) Diseñar el circuito.</p>
+  <p><b>Ejemplo (alarma):</b> "Si A está encendido, la alarma suena. Si A está apagado, suena si B está encendido y al menos uno de C o D." → <span class="m">f(A,B,C,D) = A + B·(C+D)</span>.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Errores típicos en funciones booleanas</div>
+  <ul>
+    <li><b>FND:</b> no confundir "la variable vale 0 → se niega en el mintérmino". Si x=0, en el mintérmino va ¬x.</li>
+    <li><b>FNC:</b> no confundir "la variable vale 1 → se niega en el maxtérmino". Si x=1, en el maxtérmino va ¬x.</li>
+    <li><b>K-map:</b> recordar el orden Gray (00, 01, 11, 10). El mapa es cíclico: las celdas del borde izquierdo y derecho son adyacentes, y las del borde superior e inferior también.</li>
+    <li><b>Simplificación:</b> el objetivo es la expresión más corta, no necesariamente con menos variables. Aplicar absorción cuando sea posible.</li>
+  </ul>
+</div>
+
+<!-- ===== RESUMEN FINAL ===== -->
+<h3>Resumen visual de la jerarquía de estructuras</h3>
+
+<div class="key">
+  <div class="ky-t">Jerarquía de estructuras ordenadas</div>
+  <pre>
+  POSET (conjunto parcialmente ordenado)
+    │
+    ├── Orden Total (cadena): todo par es comparable
+    │     └── Buen Orden: todo subconjunto tiene mínimo
+    │
+    └── Red (Retículo): todo par tiene sup e inf
+          │
+          ├── Red Distributiva: ∧ y ∨ se distribuyen
+          │     └── Red Complementada: todo elemento tiene complemento
+          │           └── ÁLGEBRA DE BOOLE (distributiva + complementada)
+          │
+          └── Red No Distributiva (ej: N₅, M₃)
+  </pre>
+</div>
+
+<table class="tbl">
+  <tr><th>Estructura</th><th>Condición extra sobre POSET</th><th>Ejemplo</th></tr>
+  <tr><td>POSET</td><td>(ninguna extra)</td><td><span class="m">(D<sub>18</sub>; |)</span></td></tr>
+  <tr><td>Orden total</td><td>Todo par comparable</td><td><span class="m">(ℤ; ≤)</span></td></tr>
+  <tr><td>Red</td><td>∀a,b: ∃sup y ∃inf</td><td><span class="m">(D<sub>12</sub>; |)</span></td></tr>
+  <tr><td>Red distributiva</td><td>Red + distributividad</td><td><span class="m">(D<sub>n</sub>; mcm, mcd)</span></td></tr>
+  <tr><td>Red complementada</td><td>Red + todo elemento tiene complemento</td><td><span class="m">(P(A); ∪, ∩)</span></td></tr>
+  <tr><td>Álgebra de Boole</td><td>Distributiva + complementada</td><td><span class="m">(D<sub>42</sub>; |), (P(A); ∪, ∩)</span></td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="6" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

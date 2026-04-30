@@ -1,0 +1,584 @@
+<!-- ============ UNIDAD 1 · LÓGICA PROPOSICIONAL Y RAZONAMIENTOS ============ -->
+<details id="md-s1">
+<summary><span class="num">1</span> Unidad 1: Lógica proposicional y razonamientos <span class="sec-score" id="ss-matematica-discreta-1"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una proposición?</h3>
+<p>Una <b>proposición lógica</b> es un enunciado declarativo del que se puede afirmar, sin ambigüedad, si es <b>verdadero (V)</b> o <b>falso (F)</b>. Las proposiciones se denotan con letras minúsculas (<span class="m">p, q, r, …</span>) y su valor de verdad se escribe <span class="m">v(p)</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Proposición vs. no proposición</div>
+  <ul>
+    <li>"Cuatro es un número impar" — proposición, <span class="m">v(p) = F</span>.</li>
+    <li>"París es la capital de Francia" — proposición, <span class="m">v(q) = V</span>.</li>
+    <li>"El cielo es verde" — proposición, <span class="m">v = F</span>.</li>
+    <li>"¿Qué hora es?" — <b>NO</b> es proposición (es pregunta).</li>
+    <li>"¡Hola!" — <b>NO</b> es proposición (es exclamación).</li>
+    <li>"<span class="m">x</span> es un número entero" — <b>NO</b> es proposición (depende de <span class="m">x</span>; es una <i>función proposicional</i>).</li>
+    <li>"Esta materia es muy útil" — es proposición (tiene valor de verdad, aunque subjetivo).</li>
+  </ul>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir "abierto" con "no proposición"</div>
+  <p>"<span class="m">2x + 5 = 8</span>" sola NO es proposición (depende de <span class="m">x</span>). Pero "existe un <span class="m">x</span> entero que cumple <span class="m">2x + 5 = 8</span>" SÍ es proposición (y es verdadera). La cuantificación transforma predicados en proposiciones.</p>
+</div>
+
+<p>Las proposiciones que enuncian una sola idea se llaman <b>proposiciones simples</b>. Combinando varias mediante <b>conectivos lógicos</b> se forman <b>proposiciones compuestas</b>.</p>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Conectivos lógicos y tablas de verdad</h3>
+
+<h4>Negación (¬)</h4>
+<p>Es el único conectivo <b>unario</b>: se aplica a una sola proposición. Invierte el valor de verdad. Se lee "no p" o "es falso que p".</p>
+
+<table class="tbl">
+  <tr><th><span class="m">p</span></th><th><span class="m">¬p</span></th></tr>
+  <tr><td class="c">V</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de negación</div>
+  <ul>
+    <li>"El tres <b>no</b> es un número par."</li>
+    <li>"<b>No es cierto</b> que hoy es domingo."</li>
+    <li>"<b>Es falso</b> que la división es cerrada en ℝ."</li>
+  </ul>
+</div>
+
+<h4>Conjunción (∧)</h4>
+<p>Expresa simultaneidad: "<span class="m">p</span> <b>y</b> <span class="m">q</span>". Es <b>verdadera solo cuando ambas proposiciones son verdaderas</b>; en cualquier otro caso es falsa.</p>
+
+<table class="tbl">
+  <tr><th><span class="m">p</span></th><th><span class="m">q</span></th><th><span class="m">p ∧ q</span></th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Otras formas de expresar conjunción</div>
+  "Estamos en invierno <b>pero</b> hace calor." | "Debo estudiar, <b>además</b> no me gusta el fútbol." | "Tu prima es bonita, <b>también</b> es inteligente."
+</div>
+
+<h4>Disyunción inclusiva (∨)</h4>
+<p>Expresa "al menos una de las dos". Es <b>falsa solo cuando ambas proposiciones son falsas</b>. En el lenguaje cotidiano usa "o".</p>
+
+<table class="tbl">
+  <tr><th><span class="m">p</span></th><th><span class="m">q</span></th><th><span class="m">p ∨ q</span></th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  "Podés pagar en efectivo <b>o</b> con tarjeta." — Si pagás con los dos a la vez, la promesa igual se cumple (disyunción inclusiva).
+</div>
+
+<h4>Disyunción exclusiva (⊕)</h4>
+<p>Es verdadera solo cuando las proposiciones tienen <b>valores de verdad distintos</b>. En el lenguaje debe expresarse explícitamente: "uno u otro, pero no ambos".</p>
+
+<table class="tbl">
+  <tr><th><span class="m">p</span></th><th><span class="m">q</span></th><th><span class="m">p ⊕ q</span></th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">F</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+</table>
+
+<p>La disyunción exclusiva se puede expresar con la equivalencia: <span class="m">p ⊕ q ≡ (p ∨ q) ∧ ¬(p ∧ q)</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  "Pueden recuperar el primer parcial <b>o</b> el segundo, <b>pero no ambos</b>." — Si recuperaran los dos, la propuesta no se cumpliría.
+</div>
+
+<h4>Condicional (→)</h4>
+<p>Expresa "si <span class="m">p</span>, entonces <span class="m">q</span>". La única forma en que un condicional es <b>falso</b> es que el <b>antecedente sea verdadero y el consecuente falso</b>. Cuando la premisa es falsa, no se puede reprochar nada: el condicional resulta verdadero (análogo a la inocencia por falta de pruebas).</p>
+
+<table class="tbl">
+  <tr><th><span class="m">p</span></th><th><span class="m">q</span></th><th><span class="m">p → q</span></th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">V</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Formas equivalentes de expresar p → q</div>
+  <ul>
+    <li>"Si <span class="m">p</span>, entonces <span class="m">q</span>."</li>
+    <li>"<span class="m">p</span> es suficiente para <span class="m">q</span>."</li>
+    <li>"<span class="m">q</span> es necesario para <span class="m">p</span>."</li>
+    <li>"<span class="m">q</span> siempre que <span class="m">p</span>."</li>
+    <li>"El cuadrado de todo número par es par." (≡ "Si un número es par, su cuadrado es par.")</li>
+    <li>"Es necesario ser mayor de edad para ingresar al casino." (≡ "Si ingresás al casino, entonces sos mayor de edad.")</li>
+  </ul>
+</div>
+
+<div class="key">
+  <div class="ky-t">Condicionales asociados a p → q</div>
+  Dado <span class="m">p → q</span>, se definen tres condicionales relacionados:
+  <ul>
+    <li><b>Recíproco:</b> <span class="m">q → p</span> — <i>no</i> es equivalente al original.</li>
+    <li><b>Contrario:</b> <span class="m">¬p → ¬q</span> — <i>no</i> es equivalente al original.</li>
+    <li><b>Contrarrecíproco:</b> <span class="m">¬q → ¬p</span> — <b>sí</b> es equivalente al original: <span class="m">p → q ≡ ¬q → ¬p</span>.</li>
+  </ul>
+</div>
+
+<h4>Bicondicional (↔)</h4>
+<p>Expresa "si y solo si": es <b>verdadero cuando ambas proposiciones tienen el mismo valor de verdad</b>. Si el bicondicional es verdadero, se dice que <span class="m">p</span> y <span class="m">q</span> son equivalentes.</p>
+
+<table class="tbl">
+  <tr><th><span class="m">p</span></th><th><span class="m">q</span></th><th><span class="m">p ↔ q</span></th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">V</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Formas de expresar p ↔ q</div>
+  <ul>
+    <li>"<span class="m">p</span> si y solo si <span class="m">q</span>."</li>
+    <li>"<span class="m">p</span> es necesario y suficiente para <span class="m">q</span>."</li>
+    <li>"Una matriz cuadrada es inversible <b>si y solo si</b> su determinante no es nulo."</li>
+  </ul>
+</div>
+
+<div class="key">
+  <div class="ky-t">Orden de precedencia de los conectivos</div>
+  Cuando no hay paréntesis, el orden de evaluación es (de mayor a menor precedencia):
+  <ol>
+    <li>¬ (negación)</li>
+    <li>∧ (conjunción)</li>
+    <li>∨ (disyunción)</li>
+    <li>→ (condicional)</li>
+    <li>↔ (bicondicional)</li>
+  </ol>
+  Ejemplo: <span class="m">¬p ∧ q → r</span> se interpreta como <span class="m">(¬p ∧ q) → r</span>.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Tablas de verdad de proposiciones compuestas</h3>
+<p>Si una proposición tiene <span class="m">n</span> variables distintas, la tabla tiene <span class="m">2<sup>n</sup></span> renglones. Se construye columna por columna, haciendo una operación por vez.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: tabla de q → (¬p ∧ ¬q)</div>
+  <table class="tbl">
+    <tr><th><span class="m">p</span></th><th><span class="m">q</span></th><th><span class="m">¬p</span></th><th><span class="m">¬q</span></th><th><span class="m">¬p ∧ ¬q</span></th><th><span class="m">q → (¬p ∧ ¬q)</span></th></tr>
+    <tr><td class="c">V</td><td class="c">V</td><td class="c">F</td><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+    <tr><td class="c">V</td><td class="c">F</td><td class="c">F</td><td class="c">V</td><td class="c">F</td><td class="c">V</td></tr>
+    <tr><td class="c">F</td><td class="c">V</td><td class="c">V</td><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+    <tr><td class="c">F</td><td class="c">F</td><td class="c">V</td><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  </table>
+  La última columna tiene V y F: es una <b>contingencia</b>.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Tautología, contradicción y contingencia</h3>
+
+<table class="tbl">
+  <tr><th>Tipo</th><th>Definición</th><th>Símbolo</th><th>Ejemplo</th></tr>
+  <tr>
+    <td><b>Tautología</b></td>
+    <td>Siempre verdadera para cualquier valores de las variables</td>
+    <td class="c"><span class="m">V</span></td>
+    <td><span class="m">p ∨ ¬p</span></td>
+  </tr>
+  <tr>
+    <td><b>Contradicción</b></td>
+    <td>Siempre falsa para cualquier valores de las variables</td>
+    <td class="c"><span class="m">F</span></td>
+    <td><span class="m">p ∧ ¬p</span></td>
+  </tr>
+  <tr>
+    <td><b>Contingencia</b></td>
+    <td>Verdadera en algunos casos, falsa en otros</td>
+    <td class="c">—</td>
+    <td><span class="m">p → q</span></td>
+  </tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Relación entre tautología y equivalencia</div>
+  Dos proposiciones <span class="m">p</span> y <span class="m">q</span> son equivalentes (<span class="m">p ≡ q</span>) si y solo si <span class="m">p ↔ q</span> es una <b>tautología</b>.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Equivalencias lógicas principales</h3>
+<p>Dos proposiciones compuestas son <b>equivalentes</b> si tienen idéntica tabla de verdad. Las equivalencias se usan para simplificar proposiciones y demostrar razonamientos.</p>
+
+<table class="tbl">
+  <tr><th>#</th><th>Nombre</th><th>Equivalencia</th></tr>
+  <tr><td class="c">1</td><td>Involución (doble negación)</td><td><span class="m">¬(¬p) ≡ p</span></td></tr>
+  <tr><td class="c">2</td><td>Conmutatividad</td><td><span class="m">p ∧ q ≡ q ∧ p</span> &nbsp;|&nbsp; <span class="m">p ∨ q ≡ q ∨ p</span></td></tr>
+  <tr><td class="c">3</td><td>Asociatividad</td><td><span class="m">p ∧ (q ∧ r) ≡ (p ∧ q) ∧ r</span> &nbsp;|&nbsp; <span class="m">p ∨ (q ∨ r) ≡ (p ∨ q) ∨ r</span></td></tr>
+  <tr><td class="c">4</td><td>Distributividad</td><td><span class="m">p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)</span><br><span class="m">p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)</span></td></tr>
+  <tr><td class="c">5</td><td>Idempotencia</td><td><span class="m">p ∧ p ≡ p</span> &nbsp;|&nbsp; <span class="m">p ∨ p ≡ p</span></td></tr>
+  <tr><td class="c">6</td><td>De Morgan</td><td><span class="m">¬(p ∧ q) ≡ ¬p ∨ ¬q</span><br><span class="m">¬(p ∨ q) ≡ ¬p ∧ ¬q</span></td></tr>
+  <tr><td class="c">7</td><td>Absorción</td><td><span class="m">p ∧ (p ∨ q) ≡ p</span> &nbsp;|&nbsp; <span class="m">p ∨ (p ∧ q) ≡ p</span></td></tr>
+  <tr><td class="c">8</td><td>Identidad</td><td><span class="m">p ∧ V ≡ p</span> &nbsp;|&nbsp; <span class="m">p ∨ F ≡ p</span></td></tr>
+  <tr><td class="c">9</td><td>Dominación</td><td><span class="m">p ∨ V ≡ V</span> &nbsp;|&nbsp; <span class="m">p ∧ F ≡ F</span></td></tr>
+  <tr><td class="c">10</td><td>Tercero excluido</td><td><span class="m">p ∨ ¬p ≡ V</span></td></tr>
+  <tr><td class="c">11</td><td>Condicional</td><td><span class="m">p → q ≡ ¬p ∨ q</span></td></tr>
+  <tr><td class="c">12</td><td>Contrarrecíproco</td><td><span class="m">p → q ≡ ¬q → ¬p</span></td></tr>
+  <tr><td class="c">13</td><td>Bicondicional</td><td><span class="m">p ↔ q ≡ (p → q) ∧ (q → p)</span></td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">De Morgan en la práctica</div>
+  Para negar una conjunción o disyunción: la negación "entra" cambiando ∧ por ∨ (o viceversa) y negando cada parte.
+  <ul>
+    <li><span class="m">¬(p ∧ q) ≡ ¬p ∨ ¬q</span> — "no (llueve y hace frío)" ≡ "no llueve o no hace frío"</li>
+    <li><span class="m">¬(p ∨ q) ≡ ¬p ∧ ¬q</span> — "no (llueve o hace frío)" ≡ "no llueve y no hace frío"</li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Simplificación usando leyes lógicas</div>
+  Simplificar <span class="m">p → ¬[(¬p → q) → ¬(¬p → r)]</span>:
+  <ol>
+    <li>Equivalencia del condicional en <span class="m">¬p → q</span>: <span class="m">p ∨ q</span></li>
+    <li>Equivalencia del condicional en <span class="m">¬p → r</span>: <span class="m">p ∨ r</span></li>
+    <li>Involución: <span class="m">¬(¬p) ≡ p</span></li>
+    <li>Distributiva de ∨ respecto de ∧: <span class="m">p ∨ (q ∧ r)</span></li>
+    <li>De Morgan + equivalencia condicional</li>
+    <li>Absorción: resultado final <span class="m">¬p</span></li>
+  </ol>
+  (Ver ejemplo completo en el teórico, pág. 22.)
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir ≡ con ↔</div>
+  <ul>
+    <li><span class="m">p ≡ q</span> es una <i>afirmación metalógica</i>: dice que p y q tienen siempre la misma tabla.</li>
+    <li><span class="m">p ↔ q</span> es una <i>proposición compuesta</i>: puede ser V o F dependiendo de los valores de p y q.</li>
+    <li>La relación: <span class="m">p ≡ q</span> si y solo si <span class="m">p ↔ q</span> es tautología.</li>
+  </ul>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Implicación lógica vs. equivalencia lógica</h3>
+
+<table class="tbl">
+  <tr><th></th><th>Implicación lógica (<span class="m">p ⇒ q</span>)</th><th>Equivalencia lógica (<span class="m">p ≡ q</span>)</th></tr>
+  <tr>
+    <td><b>Qué significa</b></td>
+    <td>Siempre que p es V, q también es V (el condicional <span class="m">p → q</span> es tautología)</td>
+    <td>p y q tienen idéntica tabla de verdad (el bicondicional <span class="m">p ↔ q</span> es tautología)</td>
+  </tr>
+  <tr>
+    <td><b>Simbología</b></td>
+    <td><span class="m">p ⇒ q</span></td>
+    <td><span class="m">p ≡ q</span></td>
+  </tr>
+  <tr>
+    <td><b>Dirección</b></td>
+    <td>Un solo sentido</td>
+    <td>Ambos sentidos (<span class="m">p ⇒ q</span> y <span class="m">q ⇒ p</span>)</td>
+  </tr>
+  <tr>
+    <td><b>Ejemplo</b></td>
+    <td><span class="m">p ∧ q ⇒ p</span></td>
+    <td><span class="m">p → q ≡ ¬p ∨ q</span></td>
+  </tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Verificación práctica</div>
+  Para probar <span class="m">p ≡ q</span>: hacer tabla de verdad de <span class="m">p ↔ q</span> y verificar que todos los renglones sean V.<br>
+  Para probar <span class="m">p ⇒ q</span>: hacer tabla de <span class="m">p → q</span> y verificar que sea tautología, o usar equivalencias para transformar p en q.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Razonamientos</h3>
+<p>Un <b>razonamiento</b> es un conjunto de proposiciones en el cual una, llamada <b>conclusión</b>, se afirma sobre la base de las demás, llamadas <b>premisas</b>.</p>
+
+<div class="formula">
+  P<sub>1</sub>, P<sub>2</sub>, …, P<sub>n</sub> ∴ C
+</div>
+
+<p>El símbolo ∴ se lee "por lo tanto".</p>
+
+<div class="example">
+  <div class="ex-t">Razonamiento del ladrón (ejemplo clásico)</div>
+  <p>Definimos: <span class="m">p</span>: "el ladrón tenía llave", <span class="m">v</span>: "entró por la ventana", <span class="m">m</span>: "pisoteó las macetas".</p>
+  <table class="tbl">
+    <tr><th>Premisa</th><th>Simbólico</th></tr>
+    <tr><td>El ladrón tenía llave o entró por la ventana.</td><td><span class="m">p ∨ v</span></td></tr>
+    <tr><td>Si entró por la ventana, pisoteó las macetas.</td><td><span class="m">v → m</span></td></tr>
+    <tr><td>Las macetas no están pisoteadas.</td><td><span class="m">¬m</span></td></tr>
+    <tr><td><b>Conclusión:</b> el ladrón tenía llave.</td><td><b><span class="m">∴ p</span></b></td></tr>
+  </table>
+</div>
+
+<h4>¿Cuándo es válido un razonamiento?</h4>
+<p>Un razonamiento es <b>válido</b> cuando es imposible que todas las premisas sean verdaderas y la conclusión sea falsa. Dicho de otro modo: si las premisas son verdaderas, la conclusión <i>necesariamente</i> lo es.</p>
+
+<div class="trap">
+  <div class="tr-t">Validez ≠ verdad de las premisas</div>
+  Un razonamiento válido no garantiza que las premisas sean verdaderas en el mundo real. Solo garantiza que <i>si</i> las premisas fueran verdaderas, la conclusión también lo sería.
+</div>
+
+<h4>Métodos para probar la validez</h4>
+
+<p><b>1. Método directo (reglas de inferencia):</b> se parte de asumir que las premisas son verdaderas y se trabaja con ellas hasta llegar a la conclusión.</p>
+
+<p><b>2. Método del condicional asociado:</b> se arma el condicional <span class="m">(P<sub>1</sub> ∧ P<sub>2</sub> ∧ … ∧ P<sub>n</sub>) → C</span> y se demuestra que es tautología. Técnica rápida: intentar encontrar un renglón falso; si es imposible, el razonamiento es válido.</p>
+
+<p><b>3. Método demostrativo (formal):</b> lista numerada de proposiciones donde cada una es una premisa, una equivalencia lógica de una anterior, o se obtiene por una regla de inferencia de anteriores. Si la conclusión aparece en la lista, el razonamiento es válido.</p>
+
+<div class="example">
+  <div class="ex-t">Demostración del razonamiento del ladrón (método demostrativo)</div>
+  <table class="tbl">
+    <tr><th>#</th><th>Proposición</th><th>Justificación</th></tr>
+    <tr><td class="c">1</td><td><span class="m">p ∨ v</span></td><td>Premisa</td></tr>
+    <tr><td class="c">2</td><td><span class="m">v → m</span></td><td>Premisa</td></tr>
+    <tr><td class="c">3</td><td><span class="m">¬m</span></td><td>Premisa</td></tr>
+    <tr><td class="c">4</td><td><span class="m">¬v</span></td><td>Modus Tollens (2, 3)</td></tr>
+    <tr><td class="c">5</td><td><span class="m">p</span></td><td>Silogismo disyuntivo (1, 4)</td></tr>
+  </table>
+  Se llega a la conclusión en el paso 5: el razonamiento es <b>válido</b>.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Reglas de inferencia</h3>
+<p>Son pequeños razonamientos ya demostrados válidos, que permiten construir demostraciones más complejas.</p>
+
+<table class="tbl">
+  <tr><th>Nombre</th><th>Sigla</th><th>Esquema</th><th>Lectura</th></tr>
+  <tr>
+    <td>Modus Ponens</td><td class="c">M.P.</td>
+    <td><span class="m">A → B; A ∴ B</span></td>
+    <td>Si tengo el condicional y el antecedente, obtengo el consecuente.</td>
+  </tr>
+  <tr>
+    <td>Modus Tollens</td><td class="c">M.T.</td>
+    <td><span class="m">A → B; ¬B ∴ ¬A</span></td>
+    <td>Si tengo el condicional y el consecuente es falso, el antecedente es falso.</td>
+  </tr>
+  <tr>
+    <td>Silogismo hipotético</td><td class="c">S.H.</td>
+    <td><span class="m">A → B; B → C ∴ A → C</span></td>
+    <td>Cadena de condicionales.</td>
+  </tr>
+  <tr>
+    <td>Silogismo disyuntivo</td><td class="c">S.D.</td>
+    <td><span class="m">A ∨ B; ¬A ∴ B</span></td>
+    <td>Si la disyunción es V y uno es F, el otro es V.</td>
+  </tr>
+  <tr>
+    <td>Ley de combinación (Adjunción)</td><td class="c">L.C.</td>
+    <td><span class="m">A; B ∴ A ∧ B</span></td>
+    <td>De dos proposiciones verdaderas por separado, se obtiene su conjunción.</td>
+  </tr>
+  <tr>
+    <td>Simplificación</td><td class="c">Simp.</td>
+    <td><span class="m">A ∧ B ∴ A</span></td>
+    <td>De una conjunción se puede extraer cualquier parte.</td>
+  </tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Errores frecuentes con reglas de inferencia</div>
+  <ul>
+    <li><b>Afirmación del consecuente (inválido):</b> <span class="m">A → B; B ∴ A</span> — No vale. Ejemplo: "Si llueve hay nubes. Hay nubes. Por lo tanto llueve." Puede haber nubes sin lluvia.</li>
+    <li><b>Negación del antecedente (inválido):</b> <span class="m">A → B; ¬A ∴ ¬B</span> — No vale. El condicional solo promete algo cuando A es verdadero.</li>
+  </ul>
+</div>
+
+<div class="example">
+  <div class="ex-t">Razonamiento resuelto más complejo</div>
+  <p>Premisas: <span class="m">p → q ∨ r; q → t; ¬t ∴ ¬p ∨ r</span></p>
+  <table class="tbl">
+    <tr><th>#</th><th>Proposición</th><th>Justificación</th></tr>
+    <tr><td class="c">1</td><td><span class="m">p → q ∨ r</span></td><td>Premisa</td></tr>
+    <tr><td class="c">2</td><td><span class="m">q → t</span></td><td>Premisa</td></tr>
+    <tr><td class="c">3</td><td><span class="m">¬t</span></td><td>Premisa</td></tr>
+    <tr><td class="c">4</td><td><span class="m">¬q</span></td><td>M.T. (2, 3)</td></tr>
+    <tr><td class="c">5</td><td><span class="m">¬p ∨ (q ∨ r)</span></td><td>Equiv. condicional (1)</td></tr>
+    <tr><td class="c">6</td><td><span class="m">(¬p ∨ q) ∨ r</span></td><td>Asociativa (5)</td></tr>
+    <tr><td class="c">7</td><td><span class="m">¬p ∨ r</span></td><td>S.D. (6, 4)</td></tr>
+  </table>
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Funciones proposicionales (predicados) y cuantificadores</h3>
+
+<h4>Función proposicional (predicado)</h4>
+<p>Una <b>función proposicional</b> o <b>predicado</b> es una expresión <span class="m">p(x)</span> que depende de una o más variables: sola no es proposición, pero al asignar valores o cuantificar las variables, se convierte en una.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo introductorio</div>
+  <ul>
+    <li><span class="m">p(x)</span>: "x es un número par" — NO es proposición (depende de x).</li>
+    <li><span class="m">p(8)</span>: "8 es un número par" — Proposición, V.</li>
+    <li><span class="m">∀x ∈ ℤ: p(x)</span>: "Todos los enteros son pares" — Proposición, F.</li>
+  </ul>
+  Formas de transformar un predicado en proposición:
+  <ol>
+    <li><b>Particularizando:</b> asignar un valor concreto a la variable.</li>
+    <li><b>Cuantificando:</b> anteponer un cuantificador que abarque todas las variables.</li>
+  </ol>
+</div>
+
+<h4>Cuantificadores</h4>
+<table class="tbl">
+  <tr><th>Cuantificador</th><th>Símbolo</th><th>Lectura</th><th>Verdadero cuando…</th></tr>
+  <tr>
+    <td>Universal</td><td class="c">∀</td><td>"Para todo"</td><td><span class="m">p(x)</span> es verdadera para <b>todos</b> los elementos del dominio.</td>
+  </tr>
+  <tr>
+    <td>Existencial</td><td class="c">∃</td><td>"Existe al menos un"</td><td><span class="m">p(x)</span> es verdadera para <b>al menos un</b> elemento del dominio.</td>
+  </tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplos con cuantificadores</div>
+  Sean <span class="m">A = {10, 15, 20}</span>, <span class="m">P(x)</span>: "x es múltiplo de 5", <span class="m">Q(x)</span>: "x es par".
+  <ul>
+    <li><span class="m">∀x ∈ A: P(x)</span> — "Todos los elementos de A son múltiplos de 5." (V)</li>
+    <li><span class="m">∃x ∈ A: Q(x)</span> — "Algún elemento de A es par." (V: 10 y 20)</li>
+    <li><span class="m">∀x ∈ A: Q(x)</span> — "Todos los de A son pares." (F: 15 no lo es)</li>
+  </ul>
+</div>
+
+<h4>Negación de cuantificadores</h4>
+<p>La negación de una proposición cuantificada cambia el cuantificador y niega el predicado:</p>
+
+<div class="formula">
+  ¬[∀x: p(x)] ≡ ∃x: ¬p(x)<br>
+  ¬[∃x: p(x)] ≡ ∀x: ¬p(x)
+</div>
+
+<div class="example">
+  <div class="ex-t">Cómo funciona la negación de cuantificadores</div>
+  <ul>
+    <li>María: "Todos los alumnos aprobaron." → Hernán la refuta: "Existe un alumno que no aprobó." (<span class="m">∃x: ¬p(x)</span>)</li>
+    <li>María: "Algún alumno aprobó." → Para refutarla: "Ningún alumno aprobó." (<span class="m">∀x: ¬p(x)</span>)</li>
+  </ul>
+  <p><b>Ejercicio tipo examen:</b> Negación de <span class="m">∀x ∈ ℝ: (x > 0 → x + 2 > 3)</span>:<br>
+  <span class="m">∃x ∈ ℝ: ¬(x > 0 → x + 2 > 3)</span> ≡ <span class="m">∃x ∈ ℝ: (x > 0 ∧ x + 2 ≤ 3)</span></p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Negar un condicional dentro de un cuantificador</div>
+  <span class="m">¬(p → q) ≡ p ∧ ¬q</span><br>
+  Entonces: <span class="m">¬[∀x: (p(x) → q(x))] ≡ ∃x: (p(x) ∧ ¬q(x))</span>
+</div>
+
+<h4>Variables libres y acotadas</h4>
+<p>Una variable está <b>acotada</b> si hay un cuantificador que la afecta. Está <b>libre</b> si no hay cuantificador sobre ella. Para tener una proposición lógica, todas las variables deben estar acotadas (un cuantificador por variable).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">∀x: (x + y &lt; 5)</span> — la "x" está acotada, la "y" está libre. No es proposición completa.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Cuantificadores anidados</h3>
+<p>Cuando hay más de una variable, se usa un cuantificador por cada una. El orden importa: <b>los cuantificadores no conmutan</b> (excepto cuando son del mismo tipo).</p>
+
+<div class="example">
+  <div class="ex-t">El orden del cuantificador cambia el significado</div>
+  Sea <span class="m">p(x,y)</span>: "x + y = 5" en ℝ.
+  <ul>
+    <li><span class="m">∀x ∈ ℝ: ∃y ∈ ℝ: x + y = 5</span> — "Para cada x, existe un y tal que x + y = 5." (V: basta tomar y = 5 − x)</li>
+    <li><span class="m">∃y ∈ ℝ: ∀x ∈ ℝ: x + y = 5</span> — "Existe un único y que, sumado a cualquier x, da 5." (F: no hay un y fijo que funcione para todo x)</li>
+  </ul>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Dos existenciales consecutivos</div>
+  Si ambas premisas son existenciales (<span class="m">∃x: p(x)</span> y <span class="m">∃x: q(x)</span>), al particularizar hay que usar <b>dos elementos distintos</b>: el que cumple p puede no coincidir con el que cumple q. Este es uno de los errores más comunes en razonamientos categóricos.
+</div>
+
+<!-- ─────────────────────────────────────────── -->
+<h3>Razonamientos categóricos</h3>
+<p>Los razonamientos con proposiciones cuantificadas se llaman <b>categóricos</b>. Para demostrarlos, se necesitan reglas adicionales que permiten "poner" o "sacar" cuantificadores.</p>
+
+<table class="tbl">
+  <tr><th>Regla</th><th>Sigla</th><th>Esquema</th><th>Restricción</th></tr>
+  <tr>
+    <td>Particularización universal</td><td class="c">P.U.</td>
+    <td><span class="m">∀x: p(x) ∴ p(a)</span></td>
+    <td>"a" es cualquier elemento del dominio (genérico).</td>
+  </tr>
+  <tr>
+    <td>Generalización universal</td><td class="c">G.U.</td>
+    <td><span class="m">p(a) ∴ ∀x: p(x)</span></td>
+    <td>Solo si "a" es <b>genérico</b> (no provino de un existencial).</td>
+  </tr>
+  <tr>
+    <td>Particularización existencial</td><td class="c">P.E.</td>
+    <td><span class="m">∃x: p(x) ∴ p(a)</span></td>
+    <td>"a" <b>no</b> es genérico; no se puede reusar para otro existencial.</td>
+  </tr>
+  <tr>
+    <td>Generalización existencial</td><td class="c">G.E.</td>
+    <td><span class="m">p(a) ∴ ∃x: p(x)</span></td>
+    <td>Siempre válida.</td>
+  </tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Orden de aplicación en razonamientos categóricos</div>
+  Las particularizaciones (P.U. y P.E.) deben aplicarse <b>antes</b> de usar M.P., M.T., S.H., etc. No se pueden usar esas reglas mientras haya cuantificadores.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo clásico: Sócrates es mortal</div>
+  <p>Premisas: <span class="m">∀x: [h(x) → m(x)]</span> ; <span class="m">h(Sócrates)</span>. Conclusión: <span class="m">m(Sócrates)</span>.</p>
+  <table class="tbl">
+    <tr><th>#</th><th>Proposición</th><th>Justificación</th></tr>
+    <tr><td class="c">1</td><td><span class="m">∀x: [h(x) → m(x)]</span></td><td>Premisa</td></tr>
+    <tr><td class="c">2</td><td><span class="m">h(Sócrates) → m(Sócrates)</span></td><td>P.U. (1)</td></tr>
+    <tr><td class="c">3</td><td><span class="m">h(Sócrates)</span></td><td>Premisa</td></tr>
+    <tr><td class="c">4</td><td><span class="m">m(Sócrates)</span></td><td>M.P. (2, 3)</td></tr>
+  </table>
+</div>
+
+<h4>Razonamientos categóricos inválidos</h4>
+<p>Para demostrar que un razonamiento categórico es <b>inválido</b>, no basta con no poder demostrarlo: hay que dar una <b>interpretación concreta</b> (conjunto + predicados) donde las premisas sean verdaderas y la conclusión sea falsa.</p>
+
+<div class="example">
+  <div class="ex-t">Razonamiento inválido con cuantificadores</div>
+  <p>Razonamiento: <span class="m">∀x: [a(x) → b(x)] ; c(m) → b(m) ; ¬c(m) ∴ ∃x: ¬a(x)</span></p>
+  <p><b>Interpretación inválida:</b> <span class="m">U = {3, 4, 6}</span>, <span class="m">m = 6</span>,<br>
+  <span class="m">a(x)</span>: "x es entero", <span class="m">b(x)</span>: "x es par", <span class="m">c(x)</span>: "x es múltiplo de 4".</p>
+  <ul>
+    <li>Premisa 1: todos son enteros y pares? No, 3 no es par — pero a(x) → b(x) con x=3 tiene antecedente verdadero y consecuente falso... esperar: 3 es entero (V) y 3 no es par (F), así que la premisa 1 sería falsa para x=3. Esto muestra que encontrar la interpretación correcta requiere cuidado.</li>
+    <li>La idea: se busca un conjunto donde las premisas sean V y la conclusión F. Si la conclusión <span class="m">∃x: ¬a(x)</span> es F, significa que todos son enteros, y se puede construir el escenario apropiado.</li>
+  </ul>
+</div>
+
+<div class="key">
+  <div class="ky-t">Interpretación conjuntista de razonamientos categóricos</div>
+  <p>Un predicado <span class="m">p(x)</span> define un conjunto <span class="m">P = {x ∈ U / p(x) es V}</span>. Entonces:</p>
+  <ul>
+    <li><span class="m">∀x: [p(x) → q(x)]</span> equivale a <span class="m">P ⊆ Q</span>.</li>
+    <li><span class="m">∃x: p(x)</span> equivale a <span class="m">P ≠ ∅</span>.</li>
+    <li><span class="m">∀x: ¬p(x)</span> equivale a <span class="m">P = ∅</span>.</li>
+  </ul>
+  Esto permite usar diagramas de Venn para visualizar la validez de un razonamiento (especialmente útil al estudiar conjuntos en la Unidad 2).
+</div>
+
+<div class="trap">
+  <div class="tr-t">Errores frecuentes en razonamientos categóricos</div>
+  <ul>
+    <li>Usar M.P. directamente sobre <span class="m">∀x: [p(x) → q(x)]</span> sin particularizar primero.</li>
+    <li>Reutilizar el mismo elemento para dos existenciales distintos.</li>
+    <li>Confundir G.U. (requiere elemento genérico) con G.E. (no lo requiere).</li>
+    <li>Concluir <span class="m">∃x: [p(x) ∧ q(x)]</span> desde <span class="m">∃x: p(x)</span> y <span class="m">∃x: q(x)</span> por separado — esto es <b>inválido</b>.</li>
+  </ul>
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

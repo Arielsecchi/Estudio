@@ -1,0 +1,674 @@
+<!-- ============ UNIDAD 10 · GRAFOS Y ÁRBOLES ============ -->
+<details id="md-s10">
+<summary><span class="num">10</span> Unidad 10: Grafos y Árboles <span class="sec-score" id="ss-matematica-discreta-10"></span></summary>
+<div class="content">
+
+<!-- ===== PARTE I: GRAFOS ===== -->
+
+<h3>¿Qué es un grafo?</h3>
+<p>Un <b>grafo</b> es un modelo matemático que representa objetos (llamados <b>vértices</b>) y las relaciones entre ellos (llamadas <b>aristas</b>). Se aplica en redes de computadoras, rutas viales, redes sociales, planificación de proyectos y muchísimas áreas más.</p>
+
+<div class="key">
+  <div class="ky-t">Definición formal</div>
+  Un grafo es una terna <span class="m">G = (V ; A ; φ)</span> donde:<br>
+  • <span class="m">V ≠ ∅</span> — conjunto de <b>vértices</b> (también llamados nodos).<br>
+  • <span class="m">A</span> — conjunto de <b>aristas</b>.<br>
+  • <span class="m">φ : A → V<sup>(2)</sup></span> — <b>función de incidencia</b>, que asigna a cada arista sus dos extremos (un subconjunto de 1 o 2 vértices de V).
+</div>
+
+<p>Ejemplo concreto: <span class="m">V = {v1, v2, v3, v4, v5}</span>, <span class="m">A = {a1, a2, a3, a4, a5}</span> con <span class="m">φ(a1) = {v1,v2}</span>, <span class="m">φ(a2) = {v3}</span> (bucle), <span class="m">φ(a3) = {v4,v2}</span>, <span class="m">φ(a4) = {v1,v3}</span>, <span class="m">φ(a5) = {v1,v2}</span> (paralela a a1).</p>
+
+<h4>Terminología básica</h4>
+<ul>
+  <li><b>Vértices adyacentes:</b> vi y vj son adyacentes si existe alguna arista que los une.</li>
+  <li><b>Vértice aislado:</b> vértice que no es adyacente a ningún otro (g(v) = 0).</li>
+  <li><b>Aristas incidentes en un vértice:</b> aristas que tienen a ese vértice como extremo.</li>
+  <li><b>Aristas adyacentes:</b> aristas que comparten exactamente un vértice en común.</li>
+  <li><b>Aristas paralelas:</b> aristas que tienen los mismos dos extremos (<span class="m">φ(ai) = φ(ak)</span>).</li>
+  <li><b>Bucle o lazo:</b> arista cuyos dos extremos son el mismo vértice (<span class="m">|φ(ai)| = 1</span>).</li>
+</ul>
+
+<h4>Tipos de grafos</h4>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Definición</th><th>Ejemplo</th></tr>
+  <tr><td><b>Grafo simple</b></td><td>Sin aristas paralelas ni bucles</td><td>La mayoría de los grafos teóricos</td></tr>
+  <tr><td><b>Multigrafo</b></td><td>Puede tener aristas paralelas (pero no bucles)</td><td>Redes con rutas múltiples</td></tr>
+  <tr><td><b>Pseudografo</b></td><td>Puede tener paralelas Y bucles</td><td>El ejemplo general de la definición</td></tr>
+  <tr><td><b>Dígrafo</b></td><td>Aristas con dirección (arcos), <span class="m">φ: A → V×V</span></td><td>Circuitos de tránsito, dependencias</td></tr>
+  <tr><td><b>Grafo ponderado</b></td><td>Cada arista tiene un peso numérico</td><td>Redes de carreteras con costos</td></tr>
+</table>
+
+<!-- ===== REPRESENTACIONES ===== -->
+
+<h3>Representaciones matriciales</h3>
+<p>Para trabajar computacionalmente con un grafo, se lo puede codificar en matrices.</p>
+
+<h4>Matriz de adyacencia Ma(G)</h4>
+<p>Es una matriz booleana <b>n × n</b> (donde n = |V|). El elemento <span class="m">m<sub>ij</sub> = 1</span> si los vértices i y j son adyacentes, y 0 si no lo son.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: grafo simple de 5 vértices</div>
+  <pre>
+       v1 v2 v3 v4 v5
+  v1 [  0  1  1  0  1 ]
+  v2 [  1  0  1  1  1 ]
+  v3 [  1  1  0  1  0 ]
+  v4 [  0  1  1  0  1 ]
+  v5 [  1  1  0  1  0 ]</pre>
+  La matriz es <b>simétrica</b> (Ma = Ma<sup>T</sup>) porque si vi es adyacente a vj, también vj es adyacente a vi.<br>
+  La <b>diagonal principal es toda ceros</b> (grafo simple, sin bucles).<br>
+  La suma de la fila i (o columna i) da el grado de vi.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Atención: matriz de adyacencia vs. isomorfismo</div>
+  Dos grafos pueden ser isomorfos pero tener matrices de adyacencia distintas (si se ordenan los vértices diferente). Lo que garantiza isomorfismo es que <i>exista algún ordenamiento</i> que haga iguales las matrices.
+</div>
+
+<h4>Matriz de incidencia Mi(G)</h4>
+<p>Es una matriz booleana <b>n × m</b> (n = |V|, m = |A|). El elemento <span class="m">m<sub>ij</sub> = 1</span> si el vértice i es extremo de la arista j, y 0 si no.</p>
+
+<div class="example">
+  <div class="ex-t">Propiedad de la matriz de incidencia</div>
+  • La suma de cada <b>fila</b> da el grado de ese vértice.<br>
+  • La suma de cada <b>columna</b> es siempre 2 (cada arista tiene exactamente 2 extremos en un grafo simple).<br>
+  • Para grafos con bucles, la columna del bucle suma 1 (solo un extremo).
+</div>
+
+<h4>Lista de adyacencia</h4>
+<p>Para cada vértice se almacena la lista de sus vecinos. Es más eficiente en espacio cuando el grafo es <b>disperso</b> (pocas aristas relativas al número de vértices). La matriz de adyacencia es mejor cuando el grafo es denso o se necesita consultar adyacencias en O(1).</p>
+
+<!-- ===== GRADO ===== -->
+
+<h3>Grado de un vértice y lema del apretón de manos</h3>
+
+<div class="key">
+  <div class="ky-t">Función grado</div>
+  <span class="m">g : V → ℕ<sub>0</sub></span><br>
+  <span class="m">g(v)</span> = cantidad de aristas incidentes en v.<br>
+  Nota: los <b>bucles se cuentan doble</b> (aportan 2 al grado del vértice).
+</div>
+
+<div class="formula">
+  <b>Lema del apretón de manos:</b><br>
+  En todo grafo G = (V; A; φ):<br>
+  <span class="m">∑<sub>v∈V</sub> g(v) = 2 · |A|</span><br><br>
+  <i>Motivo:</i> cada arista aporta exactamente 2 al total de grados (uno por cada extremo).
+</div>
+
+<div class="key">
+  <div class="ky-t">Corolario inmediato</div>
+  En todo grafo, la <b>cantidad de vértices con grado impar es par</b>. (Si la suma total es par, no puede haber una cantidad impar de sumandos impares.)
+</div>
+
+<div class="example">
+  <div class="ex-t">Aplicación del lema</div>
+  Un grafo tiene 2 vértices de grado 4, 1 de grado 3, 5 de grado 2 y X vértices de grado 1. Total: 12 aristas.<br>
+  <span class="m">2·4 + 1·3 + 5·2 + X·1 = 2·12</span><br>
+  <span class="m">8 + 3 + 10 + X = 24</span><br>
+  <span class="m">X = 3</span><br>
+  Total de vértices: 2 + 1 + 5 + 3 = <b>11</b>
+</div>
+
+<h4>Grados en dígrafos</h4>
+<table class="tbl">
+  <tr><th>Nombre</th><th>Notación</th><th>Significado</th></tr>
+  <tr><td>Grado positivo (entrante)</td><td><span class="m">g<sup>+</sup>(v)</span></td><td>Cantidad de arcos que <b>llegan</b> a v</td></tr>
+  <tr><td>Grado negativo (saliente)</td><td><span class="m">g<sup>−</sup>(v)</span></td><td>Cantidad de arcos que <b>salen</b> de v</td></tr>
+  <tr><td>Grado total</td><td><span class="m">g(v)</span></td><td><span class="m">g<sup>+</sup>(v) + g<sup>−</sup>(v)</span></td></tr>
+  <tr><td>Grado neto</td><td><span class="m">g<sub>N</sub>(v)</span></td><td><span class="m">g<sup>+</sup>(v) − g<sup>−</sup>(v)</span></td></tr>
+</table>
+<p>Propiedades: <span class="m">∑ g<sup>+</sup>(v) = ∑ g<sup>−</sup>(v) = |A|</span> y <span class="m">∑ g(v) = 2|A|</span> y <span class="m">∑ g<sub>N</sub>(v) = 0</span>.</p>
+<p>Un <b>pozo</b> es un vértice con <span class="m">g<sup>−</sup>(v) = 0</span> (no salen arcos). Una <b>fuente</b> es un vértice con <span class="m">g<sup>+</sup>(v) = 0</span> (no entran arcos).</p>
+
+<!-- ===== CAMINOS Y CICLOS ===== -->
+
+<h3>Caminos, ciclos y recorridos</h3>
+
+<table class="tbl">
+  <tr><th>Término</th><th>Definición</th></tr>
+  <tr><td><b>Camino</b></td><td>Sucesión de aristas adyacentes</td></tr>
+  <tr><td><b>Camino simple</b></td><td>Camino en que todos los <b>vértices</b> son distintos</td></tr>
+  <tr><td><b>Camino elemental</b></td><td>Camino en que todas las <b>aristas</b> son distintas</td></tr>
+  <tr><td><b>Ciclo (circuito)</b></td><td>Camino cerrado: vértice inicial = vértice final</td></tr>
+  <tr><td><b>Ciclo simple</b></td><td>Ciclo sin vértices repetidos (salvo el inicial = final)</td></tr>
+  <tr><td><b>Longitud</b></td><td>Cantidad de aristas del camino/ciclo</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Camino simple vs. no simple</div>
+  En un grafo con vértices {1,2,3,4,5,6,7}:<br>
+  • C1 = (1; a; 2; b; 3; f; 6) — <b>simple</b>, longitud 3, no repite vértices.<br>
+  • C2 = (1; i; 4; j; 4; h; 3; c; 5; e; 6) — <b>no simple</b>, repite el vértice 4, longitud 5.<br>
+  • Ciclo simple: C = (1; a; 2; b; 3; h; 4; i; 1), longitud 4, no repite vértices.
+</div>
+
+<!-- ===== GRAFOS ESPECIALES ===== -->
+
+<h3>Grafos especiales</h3>
+
+<h4>Grafo regular</h4>
+<p>G es <b>k-regular</b> si todos sus vértices tienen el mismo grado k. Ejemplo: el ciclo C<sub>5</sub> es 2-regular.</p>
+
+<h4>Grafo completo K<sub>n</sub></h4>
+<p>Grafo simple de n vértices donde todo par de vértices es adyacente. Es (n−1)-regular.</p>
+
+<div class="formula">
+  Cantidad de aristas de K<sub>n</sub>:<br>
+  <span class="m">|A| = n(n−1) / 2</span><br><br>
+  <i>Justificación:</i> cada vértice tiene grado n−1, entonces <span class="m">∑g(v) = n(n−1) = 2|A|</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">El brindis: K₈</div>
+  8 personas brindan todos con todos. ¿Cuántos choques de copas?<br>
+  Modelo: K<sub>8</sub>, donde cada vértice es una persona y cada arista un choque.<br>
+  <span class="m">|A| = 8·7/2 = 28</span> choques.
+</div>
+
+<h4>Grafo bipartito y K<sub>n,m</sub></h4>
+<p>G es <b>bipartito</b> si su conjunto de vértices se puede partir en dos subconjuntos disjuntos <span class="m">V = V1 ∪ V2</span> tal que todas las aristas van de V1 a V2 (ninguna arista conecta dos vértices del mismo subconjunto).</p>
+<p>El <b>bipartito completo K<sub>n,m</sub></b> tiene n+m vértices y <b>n·m aristas</b> (todas las aristas posibles entre V1 y V2).</p>
+
+<div class="key">
+  <div class="ky-t">Reconocer bipartitos</div>
+  Un grafo es bipartito si y solo si <b>no tiene ciclos de longitud impar</b>. En particular, todo árbol es bipartito.
+</div>
+
+<h4>Ciclos C<sub>n</sub> y ruedas W<sub>n</sub></h4>
+<p><b>C<sub>n</sub></b>: ciclo de n vértices (grafo 2-regular). <b>W<sub>n</sub></b>: rueda = C<sub>n</sub> con un vértice central conectado a todos los demás.</p>
+
+<!-- ===== SUBGRAFOS ===== -->
+
+<h3>Subgrafos</h3>
+<p>Dado G = (V; A; φ), un <b>subgrafo</b> G' = (V'; A'; φ|<sub>A'</sub>) cumple que <span class="m">V' ⊆ V</span> y <span class="m">A' ⊆ A</span>.</p>
+<ul>
+  <li><b>Subgrafo por supresión de vértice v</b> (~G<sub>v</sub>): se quita v y todas las aristas incidentes en él.</li>
+  <li><b>Subgrafo por supresión de arista a</b> (~G<sub>a</sub>): se quita solo la arista (los vértices permanecen).</li>
+  <li><b>Subgrafo inducido por V' ⊆ V</b>: se toman todos los vértices de V' y todas las aristas de G que tienen ambos extremos en V'.</li>
+  <li><b>Subgrafo generador (spanning)</b>: incluye todos los vértices de G, pero solo algunas aristas.</li>
+</ul>
+
+<!-- ===== CONEXIDAD ===== -->
+
+<h3>Conexidad y componentes conexas</h3>
+
+<div class="key">
+  <div class="ky-t">Relación de conexión</div>
+  En V se define: <span class="m">v<sub>i</sub> R v<sub>j</sub> ⟺ existe camino de v<sub>i</sub> a v<sub>j</sub>, o v<sub>i</sub> = v<sub>j</sub></span>.<br>
+  Esta relación es de <b>equivalencia</b>. Sus clases de equivalencia se llaman <b>componentes conexas</b>.<br>
+  G es <b>conexo</b> si y solo si tiene una única componente conexa.
+</div>
+
+<h4>Elementos de desconexión</h4>
+<table class="tbl">
+  <tr><th>Elemento</th><th>Definición</th></tr>
+  <tr><td><b>Istmo o punto de corte</b></td><td>Vértice v tal que ~G<sub>v</sub> es no conexo</td></tr>
+  <tr><td><b>Puente</b></td><td>Arista a tal que ~G<sub>a</sub> es no conexo</td></tr>
+  <tr><td><b>Conjunto desconectante</b></td><td>Conjunto de aristas B tal que ~G<sub>B</sub> es no conexo</td></tr>
+  <tr><td><b>Conjunto de corte</b></td><td>Conjunto desconectante mínimo (ningún subconjunto propio lo es)</td></tr>
+  <tr><td><b>Conectividad</b></td><td>Menor número de vértices cuya supresión desconecta al grafo</td></tr>
+</table>
+
+<p>Nota: en todo árbol, <b>todas las aristas son puentes</b> y todos los vértices internos son puntos de corte.</p>
+
+<h4>Conexidad en dígrafos</h4>
+<ul>
+  <li><b>Dígrafo conexo:</b> su grafo asociado (sin dirección) es conexo.</li>
+  <li><b>Dígrafo fuertemente conexo:</b> existe camino dirigido entre todo par ordenado de vértices.</li>
+  <li><b>Componentes fuertemente conexas:</b> subgrafos maximales fuertemente conexos.</li>
+</ul>
+
+<!-- ===== EULER Y HAMILTON ===== -->
+
+<h3>Caminos eulerianos y hamiltonianos</h3>
+
+<h4>Euler: recorrer todas las aristas</h4>
+<table class="tbl">
+  <tr><th>Concepto</th><th>Definición</th><th>Condición necesaria y suficiente</th></tr>
+  <tr><td><b>Camino euleriano</b></td><td>Camino que pasa por <b>todas las aristas</b> exactamente una vez</td><td>G conexo Y exactamente 0 o 2 vértices de grado impar</td></tr>
+  <tr><td><b>Ciclo euleriano</b></td><td>Ciclo que pasa por <b>todas las aristas</b> exactamente una vez</td><td>G conexo Y <b>todos</b> los vértices de grado par</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Regla práctica para Euler</div>
+  1. Verificar conexidad.<br>
+  2. Contar vértices de grado impar.<br>
+  — 0 impares → existe <b>ciclo</b> de Euler (se puede empezar en cualquier vértice).<br>
+  — 2 impares → existe <b>camino</b> de Euler (se empieza en uno de los vértices impares y se termina en el otro).<br>
+  — 4 o más impares → no hay camino ni ciclo euleriano.
+</div>
+
+<div class="example">
+  <div class="ex-t">Los puentes de Königsberg (problema histórico)</div>
+  La ciudad tenía 4 zonas unidas por 7 puentes. Euler demostró en 1736 que era imposible recorrer todos los puentes exactamente una vez porque los 4 vértices del grafo tenían grado impar (3, 3, 3, 5). Se necesitan exactamente 0 o 2 vértices impares para que exista camino euleriano.
+</div>
+
+<h4>Condición de Euler para dígrafos</h4>
+<p>Un dígrafo tiene <b>ciclo de Euler</b> si y solo si es conexo y para todo vértice v: <span class="m">g<sup>+</sup>(v) = g<sup>−</sup>(v)</span> (grado neto = 0 para todo vértice).</p>
+
+<h4>Hamilton: recorrer todos los vértices</h4>
+<table class="tbl">
+  <tr><th>Concepto</th><th>Definición</th></tr>
+  <tr><td><b>Camino hamiltoniano</b></td><td>Camino simple que pasa por <b>todos los vértices</b> exactamente una vez</td></tr>
+  <tr><td><b>Ciclo hamiltoniano</b></td><td>Ciclo simple que pasa por <b>todos los vértices</b> exactamente una vez</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Teorema de Dirac (condición suficiente)</div>
+  Si G es un grafo simple con n ≥ 3 vértices y todo vértice tiene grado <span class="m">g(v) ≥ n/2</span>, entonces G tiene ciclo hamiltoniano.<br><br>
+  <b>Importante:</b> esta condición es suficiente, pero no necesaria. Puede haber ciclos hamiltonianos en grafos que no la cumplan.
+</div>
+
+<div class="trap">
+  <div class="tr-t">No confundir Euler con Hamilton</div>
+  • Euler: recorrer <b>todas las aristas</b> (puede repetir vértices).<br>
+  • Hamilton: recorrer <b>todos los vértices</b> (no repite vértices, puede no usar todas las aristas).<br>
+  No implica uno al otro: un grafo puede tener ciclo de Euler sin tener ciclo de Hamilton y viceversa.
+</div>
+
+<!-- ===== GRAFOS ESPECIALES ===== -->
+
+<h3>Isomorfismo de grafos</h3>
+<p>Dos grafos G1 y G2 son <b>isomorfos</b> (tienen la misma estructura) si existen funciones biyectivas <span class="m">f: V1 → V2</span> y <span class="m">g: A1 → A2</span> tales que preservan la función de incidencia: para todo <span class="m">a ∈ A1</span>, <span class="m">φ<sub>2</sub>(g(a)) = f(φ<sub>1</sub>(a))</span>.</p>
+
+<div class="key">
+  <div class="ky-t">Condiciones necesarias para isomorfismo</div>
+  (Deben cumplirse todas; si alguna falla, no son isomorfos. Si todas se cumplen, puede que sí o no lo sean.)<br>
+  1. Misma cantidad de vértices.<br>
+  2. Misma cantidad de aristas.<br>
+  3. Misma secuencia de grados (ordenada).<br>
+  4. Si uno tiene ciclos de cierta longitud, el otro también.<br>
+  5. Misma cantidad de componentes conexas.<br><br>
+  <b>Condición suficiente:</b> si existe algún ordenamiento de los vértices que hace iguales las matrices de adyacencia, entonces son isomorfos.
+</div>
+
+<div class="example">
+  <div class="ex-t">Verificar isomorfismo por matrices</div>
+  Para G1 con vértices {A,B,C,D} y G2 con vértices {X,Y,Z,W}: se propone f(A)=Y, f(B)=Z, f(C)=X, f(D)=W. Se construye Ma(G1) y Ma(G2) reordenando las filas/columnas de G2 según f. Si son iguales → isomorfos.
+</div>
+
+<!-- ===== GRAFOS PLANOS ===== -->
+
+<h3>Grafos planos</h3>
+<p>Un grafo es <b>plano</b> si puede dibujarse en el plano sin que sus aristas se crucen (o equivalentemente, si existe un grafo isomorfo a él que pueda dibujarse así).</p>
+
+<div class="formula">
+  <b>Fórmula de Euler para grafos conexos planos:</b><br>
+  <span class="m">v − e + f = 2</span><br>
+  donde v = vértices, e = aristas, f = caras (regiones del plano, contando la cara exterior).
+</div>
+
+<div class="example">
+  <div class="ex-t">Aplicar la fórmula de Euler</div>
+  K<sub>4</sub>: v = 4, e = 6. Por la fórmula: f = 2 − v + e = 2 − 4 + 6 = 4 caras. Efectivamente K<sub>4</sub> es plano.<br>
+  Consecuencia: en un grafo simple conexo plano con v ≥ 3: <span class="m">e ≤ 3v − 6</span>.<br>
+  Para K<sub>5</sub>: v=5, e=10, pero 3·5−6=9 < 10 → K<sub>5</sub> NO es plano.
+</div>
+
+<div class="key">
+  <div class="ky-t">Teorema de Kuratowski</div>
+  Un grafo es plano si y solo si <b>no contiene</b> ningún subgrafo isomorfo (o homeomorfo) a K<sub>5</sub> ni a K<sub>3,3</sub>.<br>
+  Memorizar: K<sub>5</sub> y K<sub>3,3</sub> son los dos "obstáculos" de la planaridad.<br><br>
+  K<sub>n</sub> es plano si y solo si n ≤ 4.<br>
+  K<sub>n,m</sub> es plano si y solo si n ≤ 2 o m ≤ 2.
+</div>
+
+<!-- ===== COLOREO ===== -->
+
+<h3>Coloreo de grafos y número cromático</h3>
+<p>Un <b>coloreo</b> de un grafo es una asignación de colores a los vértices de modo que dos vértices adyacentes tengan <b>colores distintos</b>. El <b>número cromático</b> χ(G) es la mínima cantidad de colores necesaria.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos de número cromático</div>
+  • K<sub>n</sub>: χ = n (todos adyacentes, necesitan todos distintos).<br>
+  • Grafo bipartito: χ = 2 (los dos grupos pueden colorearse con dos colores).<br>
+  • Ciclo C<sub>n</sub>: χ = 2 si n es par; χ = 3 si n es impar.<br>
+  • <b>Teorema de los 4 colores:</b> todo mapa (grafo plano) se puede colorear con a lo sumo 4 colores.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error frecuente en coloreo</div>
+  Colorear es para los <b>vértices</b>, no para las aristas (a menos que se indique explícitamente "coloreo de aristas"). Dos vértices adyacentes no pueden tener el mismo color; dos no adyacentes sí pueden.
+</div>
+
+<!-- ===== DIJKSTRA ===== -->
+
+<h3>Algoritmo de Dijkstra: camino mínimo</h3>
+<p>Dado un grafo ponderado (con pesos en las aristas), Dijkstra encuentra el <b>camino de menor costo</b> desde un vértice origen a todos los demás.</p>
+
+<div class="key">
+  <div class="ky-t">Idea del algoritmo</div>
+  Mantiene un conjunto de vértices "finalizados" y para cada vértice una distancia tentativa desde el origen. En cada paso:<br>
+  1. Se elige el vértice no finalizado con menor distancia tentativa.<br>
+  2. Se marca como finalizado.<br>
+  3. Se actualizan las distancias de sus vecinos si se puede mejorar pasando por este vértice.<br>
+  Se repite hasta finalizar todos.
+</div>
+
+<div class="example">
+  <div class="ex-t">Dijkstra paso a paso (5 vértices)</div>
+  Grafo con vértices A, B, C, D, E. Origen: A.
+  <pre>
+  Aristas: A-B:4, A-C:2, B-C:1, B-D:5, C-D:8, C-E:10, D-E:2
+
+  Inicio: dist = {A:0, B:∞, C:∞, D:∞, E:∞}
+
+  Paso 1: elegir A (dist 0). Actualizar vecinos:
+    B: min(∞, 0+4) = 4
+    C: min(∞, 0+2) = 2
+    dist = {A:0*, B:4, C:2, D:∞, E:∞}
+
+  Paso 2: elegir C (dist 2). Actualizar vecinos:
+    B: min(4, 2+1) = 3  ← mejora
+    D: min(∞, 2+8) = 10
+    E: min(∞, 2+10) = 12
+    dist = {A:0*, B:3, C:2*, D:10, E:12}
+
+  Paso 3: elegir B (dist 3). Actualizar vecinos:
+    D: min(10, 3+5) = 8  ← mejora
+    dist = {A:0*, B:3*, C:2*, D:8, E:12}
+
+  Paso 4: elegir D (dist 8). Actualizar vecinos:
+    E: min(12, 8+2) = 10  ← mejora
+    dist = {A:0*, B:3*, C:2*, D:8*, E:10}
+
+  Paso 5: elegir E (dist 10). Sin mejoras.
+  Resultado: camino mínimo de A a E = 10 (A→C→B→D→E)</pre>
+</div>
+
+<!-- ===== PARTE II: ÁRBOLES ===== -->
+
+<h3>Árboles: definición y propiedades</h3>
+
+<div class="key">
+  <div class="ky-t">Definición</div>
+  Un <b>árbol</b> es un grafo <b>conexo y sin ciclos</b>.<br>
+  Equivalencias (todas son condiciones equivalentes para un grafo de n vértices):<br>
+  1. G es conexo y sin ciclos (definición).<br>
+  2. Entre todo par de vértices existe <b>exactamente un camino simple</b>.<br>
+  3. G es conexo y <span class="m">|A| = |V| − 1</span>.<br>
+  4. G es sin ciclos y <span class="m">|A| = |V| − 1</span>.
+</div>
+
+<div class="formula">
+  En todo árbol: <span class="m">|V| = |A| + 1</span><br>
+  Equivalentemente: <span class="m">|A| = |V| − 1</span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Propiedades básicas de árboles</div>
+  1. Al <b>agregar una arista</b> entre dos vértices de un árbol, se crea exactamente un ciclo (deja de ser árbol).<br>
+  2. <b>Todas las aristas de un árbol son puentes</b> (quitar cualquiera desconecta el árbol).<br>
+  3. Todo árbol con al menos 2 vértices tiene al menos <b>dos hojas</b>.
+</div>
+
+<h4>Bosque</h4>
+<p>Un <b>bosque</b> es un grafo sin ciclos (no necesariamente conexo). Cada componente conexa de un bosque es un árbol. En un bosque con k componentes: <span class="m">|V| = |A| + k</span>.</p>
+
+<!-- ===== ÁRBOL ENRAIZADO ===== -->
+
+<h3>Árbol enraizado: terminología</h3>
+<p>Un <b>árbol enraizado</b> es un árbol en que se designa un vértice especial llamado <b>raíz</b>. A partir de la raíz se definen relaciones jerárquicas entre los vértices.</p>
+
+<h4>Terminología del árbol enraizado</h4>
+<table class="tbl">
+  <tr><th>Término</th><th>Definición</th></tr>
+  <tr><td><b>Raíz</b></td><td>Vértice distinguido (nivel 0). Grado positivo = 0 en árbol dirigido.</td></tr>
+  <tr><td><b>Hoja</b></td><td>Vértice con <span class="m">g(v) = 1</span> (no raíz). No tiene hijos.</td></tr>
+  <tr><td><b>Vértice interno</b></td><td>Vértice que no es raíz ni hoja.</td></tr>
+  <tr><td><b>Padre de v</b></td><td>El único vértice w tal que hay arista de w a v.</td></tr>
+  <tr><td><b>Hijo de v</b></td><td>Vértice w tal que v es padre de w.</td></tr>
+  <tr><td><b>Hermanos</b></td><td>Vértices con el mismo padre.</td></tr>
+  <tr><td><b>Antecesor de w</b></td><td>Todo vértice en el camino de la raíz a w (inclusive).</td></tr>
+  <tr><td><b>Sucesor / descendiente de v</b></td><td>Todo vértice para el cual v es antecesor.</td></tr>
+  <tr><td><b>Rama</b></td><td>Camino desde la raíz hasta alguna hoja.</td></tr>
+  <tr><td><b>Nivel de v</b></td><td><span class="m">n(raíz) = 0</span>; si p es padre de v → <span class="m">n(v) = n(p) + 1</span></td></tr>
+  <tr><td><b>Altura del árbol</b></td><td>Mayor nivel alcanzado por las hojas.</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Árbol con raíz a (niveles)</div>
+  <pre>
+       a          ← nivel 0
+      / \
+     b   c        ← nivel 1
+    / \ / \
+   d  e f  g      ← nivel 2
+     /|   \
+    h i    j      ← nivel 3
+   / \
+  k   l           ← nivel 4</pre>
+  Raíz: a. Hojas: d, k, l, i (nivel 4 y 3), j, f, g. Altura: 4.<br>
+  Padre de k: h. Hijos de c: f, g. Antecesores de k: a, b, e, h.
+</div>
+
+<h4>Árbol balanceado</h4>
+<p>Un árbol es <b>balanceado</b> si todas las hojas están en el nivel h o en el nivel h−1 (donde h es la altura). Un árbol en que todas las hojas están en el mismo nivel es <b>completo</b>.</p>
+
+<!-- ===== ÁRBOLES N-ARIOS ===== -->
+
+<h3>Árboles n-arios</h3>
+
+<table class="tbl">
+  <tr><th>Tipo</th><th>Definición</th></tr>
+  <tr><td><b>Árbol n-ario</b></td><td>Cada vértice tiene a lo sumo n hijos. Si n=2: binario; n=3: ternario.</td></tr>
+  <tr><td><b>n-ario regular</b></td><td>Todo vértice interno tiene exactamente n hijos.</td></tr>
+  <tr><td><b>n-ario regular completo</b></td><td>Regular + todas las hojas en el mismo nivel.</td></tr>
+</table>
+
+<div class="formula">
+  Árbol <b>binario regular completo</b> de altura h:<br>
+  • Hojas: <span class="m">2<sup>h</sup></span><br>
+  • Vértices totales: <span class="m">2<sup>h+1</sup> − 1</span><br><br>
+  Árbol <b>n-ario regular completo</b> de altura h:<br>
+  • Hojas: <span class="m">n<sup>h</sup></span><br>
+  • Vértices totales: <span class="m">(n<sup>h+1</sup> − 1) / (n − 1)</span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Árbol binario regular completo, h=3</div>
+  <pre>
+           r
+         /   \
+        A     B         ← nivel 1 (2 nodos)
+       / \   / \
+      C   D  E   F      ← nivel 2 (4 nodos)
+     /\ /\ /\  /\
+     G H I J K L M N   ← nivel 3 (8 hojas)</pre>
+  Total: 1 + 2 + 4 + 8 = 15 = 2<sup>4</sup> − 1. ✓
+</div>
+
+<div class="key">
+  <div class="ky-t">Altura mínima de un árbol binario con N vértices</div>
+  <span class="m">h<sub>min</sub> = ⌈log<sub>2</sub>(N+1)⌉ − 1</span><br>
+  Ejemplo: árbol binario con 1000 vértices → <span class="m">h<sub>min</sub> = ⌈log<sub>2</sub>(1001)⌉ − 1 = 10 − 1 = 9</span>.
+</div>
+
+<!-- ===== RECORRIDOS ===== -->
+
+<h3>Recorridos de árbol binario</h3>
+<p>Recorrer un árbol significa nombrar todos sus vértices según un orden determinado. Los recorridos estándar son <b>recursivos</b>: se definen por lo que se hace con la raíz respecto a los subárboles izquierdo (I) y derecho (D).</p>
+
+<table class="tbl">
+  <tr><th>Recorrido</th><th>Orden</th><th>Uso típico</th></tr>
+  <tr><td><b>Preorden (orden previo)</b></td><td>Raíz → I → D</td><td>Notación polaca prefija</td></tr>
+  <tr><td><b>Inorden (orden simétrico)</b></td><td>I → Raíz → D</td><td>Notación usual (infija)</td></tr>
+  <tr><td><b>Postorden (orden posterior)</b></td><td>I → D → Raíz</td><td>Notación polaca inversa (RPN)</td></tr>
+  <tr><td><b>Por niveles (BFS)</b></td><td>Nivel 0, nivel 1, nivel 2, ...</td><td>Búsqueda en anchura</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Los tres recorridos sobre el mismo árbol</div>
+  <pre>
+          a
+        /   \
+       b     c
+      / \   / \
+     d   e  f   g
+        /       \
+       h          j</pre>
+  • <b>Preorden:</b>  a b d e h c f g j<br>
+  • <b>Inorden:</b>   d b h e a f c g j<br>
+  • <b>Postorden:</b> d h e b f j g c a<br>
+  • <b>Por niveles:</b> a b c d e f g h j
+</div>
+
+<div class="trap">
+  <div class="tr-t">Confusión frecuente entre recorridos</div>
+  La diferencia es cuándo se "visita" la raíz: <b>pre</b>-orden = <b>antes</b> que los hijos; <b>in</b>-orden = <b>entre</b> hijo izquierdo y derecho; <b>post</b>-orden = <b>después</b> de todos los hijos.<br>
+  Mnemotecnia: Pre = Primero la raíz; In = La raíz en el medIo; Post = La raíz al final.
+</div>
+
+<!-- ===== EXPRESIONES ALGEBRAICAS ===== -->
+
+<h3>Representación de expresiones algebraicas con árboles</h3>
+<p>Los árboles binarios se usan para representar expresiones aritméticas y lógicas. Los <b>operadores</b> son vértices internos y los <b>operandos</b> son hojas.</p>
+
+<table class="tbl">
+  <tr><th>Notación</th><th>Recorrido</th><th>Ejemplo para (A−B)+(C+D)</th></tr>
+  <tr><td><b>Polaca (prefija)</b></td><td>Preorden</td><td>+ − A B + C D</td></tr>
+  <tr><td><b>Usual (infija)</b></td><td>Inorden</td><td>(A − B) + (C + D)</td></tr>
+  <tr><td><b>Polaca inversa (postfija, RPN)</b></td><td>Postorden</td><td>A B − C D + +</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">De notación polaca a árbol</div>
+  Expresión polaca inversa: <b>• + − A B + C D / E • F + G H</b><br>
+  <pre>
+           •
+          / \
+         +   /
+        / \ / \
+       -  + E  •
+      /\ /\   /\
+     A B C D F  +
+               /\
+              G  H</pre>
+  Expresión usual: <span class="m">[(A−B) + (C+D)] · [E / (F · (G+H))]</span>
+</div>
+
+<div class="key">
+  <div class="ky-t">Ventaja de la notación polaca inversa</div>
+  No requiere paréntesis ni reglas de precedencia. Se evalúa con una <b>pila (LIFO)</b>: cuando aparece un operando, se apila; cuando aparece un operador, se desapilan los dos últimos, se aplica la operación, y se apila el resultado.
+</div>
+
+<!-- ===== ÁRBOL GENERADOR ===== -->
+
+<h3>Árbol generador (Spanning Tree)</h3>
+<p>Dado un grafo conexo G, un <b>árbol generador</b> es un subgrafo que incluye <b>todos los vértices</b> de G y es árbol (conexo y sin ciclos). Si G tiene n vértices, el árbol generador tiene n−1 aristas.</p>
+
+<p>Cuando el grafo es ponderado, el <b>árbol generador mínimo (MST)</b> es el árbol generador cuya suma total de pesos de aristas es mínima. Tiene aplicaciones en diseño de redes (conexión de n puntos al menor costo).</p>
+
+<!-- ===== KRUSKAL ===== -->
+
+<h3>Algoritmo de Kruskal (MST)</h3>
+
+<div class="key">
+  <div class="ky-t">Idea de Kruskal</div>
+  Agregar aristas de menor a mayor peso, saltando las que formarían un ciclo, hasta tener n−1 aristas.
+</div>
+
+<p><b>Pasos:</b></p>
+<ol>
+  <li>Ordenar todas las aristas de menor a mayor peso.</li>
+  <li>Inicializar un grafo vacío (sin aristas).</li>
+  <li>Recorrer las aristas en orden: si agregar la arista <b>no forma un ciclo</b>, agregarla al árbol. Si forma ciclo, descartarla.</li>
+  <li>Terminar cuando el árbol tiene n−1 aristas.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Kruskal paso a paso</div>
+  Grafo con vértices {A, B, C, D, E}:
+  <pre>
+  Aristas ordenadas por peso:
+  B-C: 1,  A-B: 2,  A-C: 3,  B-D: 4,  C-D: 5,  D-E: 6,  A-E: 7
+
+  Paso 1: agregar B-C (peso 1). Árbol: {B-C}
+  Paso 2: agregar A-B (peso 2). Árbol: {B-C, A-B}
+  Paso 3: A-C (peso 3) formaría ciclo A-B-C-A → descartar.
+  Paso 4: agregar B-D (peso 4). Árbol: {B-C, A-B, B-D}
+  Paso 5: C-D (peso 5) formaría ciclo → descartar.
+  Paso 6: agregar D-E (peso 6). Árbol: {B-C, A-B, B-D, D-E}
+          Ya tenemos 4 = n−1 = 5−1 aristas. Listo.
+
+  MST: A-B-C, A-B-D-E, peso total = 1+2+4+6 = 13</pre>
+</div>
+
+<!-- ===== PRIM ===== -->
+
+<h3>Algoritmo de Prim (MST)</h3>
+
+<div class="key">
+  <div class="ky-t">Idea de Prim</div>
+  Partir de un vértice inicial y en cada paso agregar la arista de menor peso que conecte un vértice ya incluido con uno aún no incluido.
+</div>
+
+<p><b>Pasos:</b></p>
+<ol>
+  <li>Elegir un vértice de inicio cualquiera. Marcarlo como visitado.</li>
+  <li>Considerar todas las aristas que salen de los vértices visitados hacia los no visitados.</li>
+  <li>Elegir la de menor peso. Agregar esa arista y marcar el nuevo vértice como visitado.</li>
+  <li>Repetir desde el paso 2 hasta que todos los vértices estén visitados.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Prim paso a paso (mismo grafo)</div>
+  Mismo grafo anterior. Inicio: A.
+  <pre>
+  Visitados: {A}. Aristas disponibles: A-B:2, A-C:3, A-E:7
+  → Agregar A-B (mínimo: 2). Visitados: {A, B}.
+
+  Visitados: {A,B}. Aristas disponibles: A-C:3, A-E:7, B-C:1, B-D:4
+  → Agregar B-C (mínimo: 1). Visitados: {A, B, C}.
+
+  Visitados: {A,B,C}. Aristas disponibles: A-E:7, B-D:4, C-D:5
+  → Agregar B-D (mínimo: 4). Visitados: {A, B, C, D}.
+
+  Visitados: {A,B,C,D}. Aristas disponibles: A-E:7, D-E:6
+  → Agregar D-E (mínimo: 6). Visitados: {A, B, C, D, E}.
+
+  MST: A-B, B-C, B-D, D-E  (mismas aristas que Kruskal, peso total = 13)</pre>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Kruskal vs. Prim: ¿cuándo usar cada uno?</div>
+  Ambos producen el <b>mismo MST</b> (aunque pueden diferir si hay pesos repetidos, existen múltiples MST igualmente óptimos).<br>
+  • <b>Kruskal</b> es más simple de implementar; trabaja bien con grafos dispersos.<br>
+  • <b>Prim</b> es más eficiente para grafos densos (muchas aristas).<br>
+  En examen, ambos llegan al mismo resultado: verificar que la suma total de pesos es igual.
+</div>
+
+<!-- ===== ÁRBOL DIRIGIDO ===== -->
+
+<h3>Árbol dirigido con raíz</h3>
+<p>Un <b>dígrafo simple</b> es un <b>árbol dirigido</b> si su grafo asociado (sin dirección) es un árbol.</p>
+<p>Es un <b>árbol dirigido con raíz</b> si adicionalmente: existe un único vértice r (la raíz) con <span class="m">g<sup>+</sup>(r) = 0</span> y todo otro vértice tiene <span class="m">g<sup>+</sup>(v) = 1</span>. Es decir, de cada vértice no raíz sale exactamente un arco hacia su padre.</p>
+
+<!-- ===== RESUMEN COMPARATIVO ===== -->
+
+<h3>Resumen comparativo: grafos especiales y condiciones</h3>
+
+<table class="tbl">
+  <tr><th>Grafo</th><th>Ciclo Euler</th><th>Camino Euler</th><th>Ciclo Hamilton</th><th>Plano</th></tr>
+  <tr><td>K<sub>n</sub></td><td>n impar ≥ 3</td><td>n impar (o n=2)</td><td>siempre n ≥ 3</td><td>n ≤ 4</td></tr>
+  <tr><td>K<sub>n,m</sub></td><td>n y m pares</td><td>n,m pares o uno de ellos = 2</td><td>n = m</td><td>n ≤ 2 o m ≤ 2</td></tr>
+  <tr><td>Árbol</td><td>nunca (a menos que n=1)</td><td>solo si n=2</td><td>nunca (n ≥ 3)</td><td>siempre</td></tr>
+  <tr><td>C<sub>n</sub></td><td>siempre</td><td>siempre (es ciclo)</td><td>siempre</td><td>siempre</td></tr>
+</table>
+
+<h3>Errores típicos de examen</h3>
+
+<div class="trap">
+  <div class="tr-t">Los 5 errores más comunes en esta unidad</div>
+  1. <b>Suma de grados impares:</b> si la suma de los grados propuestos es impar, el grafo es imposible (violaría el lema del apretón de manos).<br><br>
+  2. <b>Euler vs. Hamilton:</b> confundir "recorrer todas las aristas" (Euler) con "recorrer todos los vértices" (Hamilton).<br><br>
+  3. <b>Condición de árbol:</b> creer que |V|=|A|+1 sola garantiza ser árbol — falta verificar conexidad. Un bosque con k componentes también cumple |V|=|A|+k.<br><br>
+  4. <b>Isomorfismo:</b> creer que misma cantidad de vértices y aristas es suficiente para isomorfismo. Es solo condición necesaria, no suficiente.<br><br>
+  5. <b>Recorridos de árbol:</b> confundir preorden con inorden en la recursión. Recordar: la raíz va Primero / In medio / Postfinal.
+</div>
+
+<div class="quiz-wrap" data-qz="10" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>

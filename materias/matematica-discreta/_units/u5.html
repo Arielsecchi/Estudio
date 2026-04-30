@@ -1,0 +1,612 @@
+<!-- ============ UNIDAD 5 · RELACIONES ============ -->
+<details id="md-s5">
+<summary><span class="num">5</span> Unidad 5: Relaciones <span class="sec-score" id="ss-matematica-discreta-5"></span></summary>
+<div class="content">
+
+<h3>¿Qué es el Producto Cartesiano?</h3>
+<p>Antes de hablar de relaciones, necesitamos entender el <b>producto cartesiano</b>. Dados dos conjuntos <span class="m">A</span> y <span class="m">B</span>, el producto cartesiano <span class="m">A × B</span> es el conjunto de <b>todos los pares ordenados</b> cuya primera componente pertenece a <span class="m">A</span> y cuya segunda componente pertenece a <span class="m">B</span>.</p>
+
+<div class="formula">A × B = { (x ; y) / x ∈ A ∧ y ∈ B }</div>
+
+<p>La palabra <b>ordenado</b> es clave: <span class="m">(a ; b) ≠ (b ; a)</span> salvo que <span class="m">a = b</span>. El par <span class="m">(a ; b)</span> dice "primero <span class="m">a</span>, luego <span class="m">b</span>".</p>
+
+<div class="example">
+  <div class="ex-t">Producto cartesiano concreto</div>
+  <p>Sean <span class="m">A = {m, p, h}</span> y <span class="m">B = {1, 2}</span>.</p>
+  <p><span class="m">A × B = {(m;1), (m;2), (p;1), (p;2), (h;1), (h;2)}</span> → 6 pares.</p>
+  <p>En general: <b>|A × B| = |A| · |B|</b>. Aquí 3 · 2 = 6.</p>
+  <p><span class="m">A × A</span> (o <span class="m">A²</span>) sería todos los pares con ambos elementos de <span class="m">A</span>: <span class="m">{(m;m),(m;p),(m;h),(p;m),…}</span> → 9 pares.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">¿Cuántas relaciones distintas se pueden definir de A en B?</div>
+  <p>Una relación es cualquier subconjunto de <span class="m">A × B</span>. Si <span class="m">|A × B| = n</span>, hay exactamente <span class="m">2<sup>n</sup></span> subconjuntos posibles, por lo tanto hay <span class="m">2<sup>n</sup></span> relaciones distintas.</p>
+  <p>Ejemplo: con <span class="m">|A|=3</span> y <span class="m">|B|=4</span> → <span class="m">|A×B|=12</span> → <span class="m">2<sup>12</sup> = 4096</span> relaciones posibles.</p>
+</div>
+
+<h3>Relaciones Binarias: definición y notación</h3>
+<p>Una <b>relación binaria</b> de <span class="m">A</span> en <span class="m">B</span> es simplemente cualquier subconjunto <span class="m">R ⊆ A × B</span>. Se escribe <span class="m">R : A → B</span>.</p>
+<p>Si el par <span class="m">(x ; y) ∈ R</span>, decimos "<span class="m">x</span> se relaciona con <span class="m">y</span>" y lo escribimos <span class="m">x R y</span>. Si <span class="m">(x ; y) ∉ R</span>, escribimos <span class="m">x R̄ y</span> (o simplemente "x no se relaciona con y").</p>
+
+<div class="example">
+  <div class="ex-t">Relación definida por comprensión y por extensión</div>
+  <p>Sea <span class="m">A = {1,2,3}</span>, <span class="m">B = {2,4,6,8}</span>.<br>
+  Definimos: <span class="m">R₁ = {(x;y) ∈ A×B / 2x ≤ y}</span>.<br>
+  Por extensión: <span class="m">R₁ = {(1;2),(1;4),(1;6),(1;8),(2;4),(2;6),(2;8),(3;6),(3;8)}</span>.</p>
+</div>
+
+<h4>Formas de representar una relación (conjuntos finitos)</h4>
+<ul>
+  <li><b>Extensión:</b> lista de pares ordenados: <span class="m">R = {(p;1),(m;1),(m;2)}</span>.</li>
+  <li><b>Diagrama de Venn con flechas:</b> dos óvalos (A y B), con flechas desde elementos de A a los que se relacionan en B.</li>
+  <li><b>Tabla:</b> filas = pares que pertenecen a R.</li>
+  <li><b>Matriz booleana:</b> filas = elementos de A, columnas = elementos de B; celda <span class="m">m<sub>ij</sub> = 1</span> si <span class="m">(a<sub>i</sub>;b<sub>j</sub>) ∈ R</span>, 0 si no.</li>
+  <li><b>Dígrafo</b> (solo para relaciones en el mismo conjunto): nodos = elementos, flechas = pares.</li>
+</ul>
+
+<h3>Dominio e Imagen de una Relación</h3>
+
+<div class="formula">Dom(R) = { x ∈ A / ∃ y ∈ B : (x;y) ∈ R }</div>
+<div class="formula">Im(R) = { y ∈ B / ∃ x ∈ A : (x;y) ∈ R }</div>
+
+<p>El <b>dominio</b> es el conjunto de elementos del primer conjunto que tienen al menos una imagen. La <b>imagen</b> es el conjunto de elementos del segundo conjunto que son imagen de al menos uno del primero.</p>
+
+<div class="example">
+  <div class="ex-t">Dominio e imagen de R₁</div>
+  <p><span class="m">R₁ = {(1;2),(1;4),(1;6),(1;8),(2;4),(2;6),(2;8),(3;6),(3;8)}</span><br>
+  <span class="m">Dom(R₁) = {1, 2, 3}</span> (todos los elementos de A tienen al menos una imagen).<br>
+  <span class="m">Im(R₁) = {2, 4, 6, 8}</span> (todos los elementos de B son imagen de alguien).</p>
+</div>
+
+<h4>Imagen de un elemento</h4>
+<p>Dado <span class="m">a ∈ A</span>, la <b>imagen de a</b> es el conjunto de todos los elementos de B con los que se relaciona: <span class="m">R(a) = {y ∈ B / (a;y) ∈ R}</span>. En una relación, un elemento puede tener ninguna imagen, una sola imagen o varias imágenes.</p>
+
+<h3>Operaciones sobre Relaciones</h3>
+<p>Como las relaciones son conjuntos de pares, podemos aplicarles todas las operaciones de conjuntos:</p>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Definición</th><th>Cómo se obtiene</th></tr>
+  <tr>
+    <td><b>Unión</b> <span class="m">R ∪ S</span></td>
+    <td><span class="m">{(x;y) / (x;y)∈R ∨ (x;y)∈S}</span></td>
+    <td>Pares que están en R, en S, o en ambos</td>
+  </tr>
+  <tr>
+    <td><b>Intersección</b> <span class="m">R ∩ S</span></td>
+    <td><span class="m">{(x;y) / (x;y)∈R ∧ (x;y)∈S}</span></td>
+    <td>Pares que están simultáneamente en R y en S</td>
+  </tr>
+  <tr>
+    <td><b>Complemento</b> <span class="m">R̄</span></td>
+    <td><span class="m">{(x;y) ∈ A×B / (x;y) ∉ R} = A×B − R</span></td>
+    <td>Todos los pares del producto cartesiano que NO están en R</td>
+  </tr>
+  <tr>
+    <td><b>Inversa</b> <span class="m">R⁻¹</span></td>
+    <td><span class="m">{(y;x) ∈ B×A / (x;y) ∈ R}</span></td>
+    <td>Se dan vuelta todos los pares: primera ↔ segunda componente</td>
+  </tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Inversa y complemento — ejemplo concreto</div>
+  <p>Sea <span class="m">A = {m,p,h}</span>, <span class="m">B = {1,2}</span>, <span class="m">R = {(p;1),(m;1),(m;2)}</span>.<br>
+  <span class="m">R⁻¹ = {(1;p),(1;m),(2;m)}</span> &nbsp;(R⁻¹: B → A).<br>
+  <span class="m">R̄ = {(p;2),(h;1),(h;2)}</span> &nbsp;(los 3 pares de A×B que no estaban en R; |A×B|=6, |R|=3).</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Propiedades matriciales de las operaciones</div>
+  <p>Si <span class="m">R, S: A → B</span> y <span class="m">M(R)</span>, <span class="m">M(S)</span> son sus matrices booleanas:</p>
+  <ul>
+    <li><span class="m">M(R ∪ S) = M(R) ∨ M(S)</span> &nbsp; (OR elemento a elemento)</li>
+    <li><span class="m">M(R ∩ S) = M(R) ∧ M(S)</span> &nbsp; (AND elemento a elemento)</li>
+    <li><span class="m">M(R̄) = M(R)<sup>c</sup></span> &nbsp; (complemento: cambiar 0↔1)</li>
+    <li><span class="m">M(R⁻¹) = [M(R)]<sup>t</sup></span> &nbsp; (traspuesta de la matriz)</li>
+  </ul>
+</div>
+
+<h3>Matrices Booleanas</h3>
+<p>Una <b>matriz booleana</b> es una matriz cuyos elementos solo pueden ser 0 ó 1. Se denota <span class="m">A ∈ {0,1}<sup>n×m</sup></span>.</p>
+
+<h4>Operaciones entre matrices booleanas</h4>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Símbolo</th><th>Cálculo de c<sub>ij</sub></th><th>Requisito de tamaño</th></tr>
+  <tr>
+    <td>Suma lógica (OR)</td>
+    <td class="c"><span class="m">A ∨ B</span></td>
+    <td><span class="m">a<sub>ij</sub> ∨ b<sub>ij</sub></span></td>
+    <td>Mismo orden n×m</td>
+  </tr>
+  <tr>
+    <td>Producto lógico (AND)</td>
+    <td class="c"><span class="m">A ∧ B</span></td>
+    <td><span class="m">a<sub>ij</sub> ∧ b<sub>ij</sub></span></td>
+    <td>Mismo orden n×m</td>
+  </tr>
+  <tr>
+    <td>Producto matricial booleano</td>
+    <td class="c"><span class="m">A • B</span></td>
+    <td><span class="m">c<sub>ij</sub> = ∨<sub>k=1</sub><sup>m</sup>(a<sub>ik</sub> ∧ b<sub>kj</sub>)</span></td>
+    <td>A: n×m, B: m×p → C: n×p</td>
+  </tr>
+  <tr>
+    <td>Traspuesta</td>
+    <td class="c"><span class="m">A<sup>t</sup></span></td>
+    <td><span class="m">b<sub>ij</sub> = a<sub>ji</sub></span></td>
+    <td>A: n×m → A<sup>t</sup>: m×n</td>
+  </tr>
+  <tr>
+    <td>Complemento</td>
+    <td class="c"><span class="m">Ā</span></td>
+    <td><span class="m">b<sub>ij</sub> = 1−a<sub>ij</sub></span></td>
+    <td>Mismo orden n×m</td>
+  </tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Producto matricial booleano — paso a paso</div>
+  <p>Sea <span class="m">A</span> (2×3) y <span class="m">B</span> (3×2). El resultado <span class="m">C = A • B</span> es de 2×2.</p>
+  <p>El elemento <span class="m">c<sub>11</sub></span> se calcula: <span class="m">(a<sub>11</sub>∧b<sub>11</sub>) ∨ (a<sub>12</sub>∧b<sub>21</sub>) ∨ (a<sub>13</sub>∧b<sub>31</sub>)</span>.</p>
+  <p>Regla práctica: para cada celda <span class="m">c<sub>ij</sub></span>, se toma la fila <span class="m">i</span> de <span class="m">A</span> y la columna <span class="m">j</span> de <span class="m">B</span>, se hace AND par a par, y finalmente OR de todos los resultados. Si algún par (fila, columna) es (1,1), el resultado es 1.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir traspuesta con complemento</div>
+  <p>La <b>traspuesta</b> <span class="m">A<sup>t</sup></span> cambia filas por columnas (sin modificar los valores 0 y 1).<br>
+  El <b>complemento</b> <span class="m">Ā</span> cambia los valores 0↔1 (sin cambiar la posición de los elementos).<br>
+  Son operaciones completamente distintas.</p>
+</div>
+
+<h4>Propiedades de las operaciones booleanas</h4>
+<ul>
+  <li><b>Idempotencia:</b> <span class="m">A ∨ A = A</span> ; <span class="m">A ∧ A = A</span></li>
+  <li><b>Conmutatividad:</b> <span class="m">A ∨ B = B ∨ A</span> ; <span class="m">A ∧ B = B ∧ A</span></li>
+  <li><b>Asociatividad:</b> <span class="m">A ∨ (B ∨ C) = (A ∨ B) ∨ C</span> ; también para ∧ y •</li>
+  <li><b>Distributividad:</b> <span class="m">A ∨ (B ∧ C) = (A ∨ B) ∧ (A ∨ C)</span></li>
+  <li><b>Traspuesta del producto:</b> <span class="m">(A • B)<sup>t</sup> = B<sup>t</sup> • A<sup>t</sup></span> (el orden se invierte)</li>
+  <li>El producto matricial booleano NO es conmutativo en general.</li>
+</ul>
+
+<h3>Composición de Relaciones</h3>
+<p>Dadas <span class="m">R : A → B</span> y <span class="m">S : B → C</span>, la <b>composición</b> (o relación compuesta) es:</p>
+<div class="formula">S ∘ R = { (x ; z) ∈ A×C / ∃ y ∈ B : (x;y) ∈ R ∧ (y;z) ∈ S }</div>
+
+<p>La idea es hacer dos pasos en uno: primero R lleva de A a B, luego S lleva de B a C. La composición <span class="m">S ∘ R</span> une directamente A con C saltando B.</p>
+
+<div class="key">
+  <div class="ky-t">Cómo calcular la composición matricialmente</div>
+  <p><span class="m">M(S ∘ R) = M(R) • M(S)</span></p>
+  <p>Atención al orden: en la multiplicación matricial booleana, la matriz de R va primero (a la izquierda) y la de S va después (a la derecha). Esto es consistente con la notación <span class="m">S ∘ R</span>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Composición por extensión</div>
+  <p>Sea <span class="m">R = {(E1;A),(E1;B),(E1;C),(E2;B),(E2;D)}</span> (enfermos → enfermeras) y<br>
+  <span class="m">S = {(A;Juan),(A;Luca),(B;Luca),(C;Juan),(D;Facundo)}</span> (enfermeras → niños).<br>
+  Para hallar <span class="m">S ∘ R</span>, buscamos pares que "se enganchen": si <span class="m">(E1;A) ∈ R</span> y <span class="m">(A;Juan) ∈ S</span>, entonces <span class="m">(E1;Juan) ∈ S∘R</span>.<br>
+  Resultado: <span class="m">S∘R = {(E1;Juan),(E1;Luca),(E2;Luca),(E2;Facundo)}</span>.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: orden en la composición</div>
+  <p><span class="m">S ∘ R</span> significa "primero R, luego S". Se lee de derecha a izquierda. La matriz se calcula como <span class="m">M(R) • M(S)</span> (R a la izquierda). No confundir con <span class="m">R ∘ S</span>, que es el orden inverso.</p>
+</div>
+
+<h3>Relaciones en un Conjunto (Relaciones Binarias en A)</h3>
+<p>A partir de acá nos concentramos en el caso especial <span class="m">R : A → A</span>, es decir relaciones donde el conjunto de partida y el de llegada son el mismo. Estas relaciones se llaman <b>relaciones en A</b> o <b>relaciones binarias en A</b>.</p>
+
+<h4>El dígrafo</h4>
+<p>Cuando <span class="m">R ⊆ A × A</span>, el diagrama de representación se llama <b>dígrafo</b> (grafo dirigido). Se dibuja un solo conjunto con sus elementos como <b>nodos</b>, y por cada par <span class="m">(x;y) ∈ R</span> se traza una <b>flecha</b> de <span class="m">x</span> hacia <span class="m">y</span>. Si <span class="m">(x;x) ∈ R</span>, la flecha apunta al mismo nodo: se llama <b>bucle</b>.</p>
+
+<div class="key">
+  <div class="ky-t">Tres representaciones equivalentes para R ⊆ A×A</div>
+  <ul>
+    <li><b>Lista de pares:</b> <span class="m">R = {(x;y), …}</span></li>
+    <li><b>Matriz booleana cuadrada M(R):</b> <span class="m">m<sub>ij</sub> = 1 ⟺ (a<sub>i</sub>;a<sub>j</sub>) ∈ R</span></li>
+    <li><b>Dígrafo:</b> nodos = elementos de A, flechas = pares de R</li>
+  </ul>
+</div>
+
+<h3>Propiedades de las Relaciones Binarias en A</h3>
+<p>Sea <span class="m">R : A → A</span>. A continuación veremos cada propiedad con su definición formal, cómo se verifica en la matriz y cómo se reconoce en el dígrafo.</p>
+
+<h4>Reflexiva</h4>
+<div class="formula">R es reflexiva ⟺ ∀ a ∈ A : (a;a) ∈ R</div>
+<p>Todo elemento se relaciona consigo mismo. No basta con que "algunos" lo hagan: deben ser <b>todos</b>.</p>
+<ul>
+  <li><b>En la matriz:</b> toda la diagonal principal debe ser 1. Equivale a que la matriz identidad <span class="m">I ≤ M(R)</span>.</li>
+  <li><b>En el dígrafo:</b> todos los nodos tienen bucle.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Reflexiva — ejemplo</div>
+  <p>En <span class="m">A = {1,2,3}</span>: <span class="m">R = {(1;1),(1;2),(1;3),(2;2),(2;3),(3;3)}</span> es reflexiva (contiene (1;1), (2;2) y (3;3)).</p>
+  <p>En <span class="m">ℝ</span>: <span class="m">x R y ⟺ x² = y²</span> es reflexiva, pues ∀x ∈ ℝ: x² = x² ✓.</p>
+</div>
+
+<h4>A-Reflexiva (Irreflexiva)</h4>
+<div class="formula">R es a-reflexiva ⟺ ∀ a ∈ A : (a;a) ∉ R</div>
+<p>Ningún elemento se relaciona consigo mismo.</p>
+<ul>
+  <li><b>En la matriz:</b> toda la diagonal principal es 0. Equivale a <span class="m">I ∧ M(R) = N</span> (matriz nula).</li>
+  <li><b>En el dígrafo:</b> ningún nodo tiene bucle.</li>
+</ul>
+
+<div class="trap">
+  <div class="tr-t">Cuidado: ni reflexiva ni a-reflexiva</div>
+  <p>Una relación puede no ser ninguna de las dos. Por ejemplo, en <span class="m">A = {1,2,3}</span>: <span class="m">R = {(1;1),(2;3)}</span> tiene bucle en 1 pero no en 2 ni en 3, así que no es reflexiva (le falta (2;2) y (3;3)) ni a-reflexiva (tiene (1;1)).</p>
+</div>
+
+<h4>Simétrica</h4>
+<div class="formula">R es simétrica ⟺ ∀ a,b ∈ A : (a;b) ∈ R ⇒ (b;a) ∈ R</div>
+<p>Si hay vínculo de <span class="m">a</span> a <span class="m">b</span>, también debe haberlo de <span class="m">b</span> a <span class="m">a</span>. Toda relación es recíproca.</p>
+<ul>
+  <li><b>En la matriz:</b> <span class="m">M(R) = M(R)<sup>t</sup></span> (la matriz es simétrica respecto de la diagonal principal).</li>
+  <li><b>En el dígrafo:</b> toda flecha tiene su antiparalela (flecha en sentido contrario).</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Simétrica — ejemplo</div>
+  <p>En <span class="m">ℤ</span>: <span class="m">x R y ⟺ x + y = 5</span>. Si <span class="m">x+y=5</span>, entonces <span class="m">y+x=5</span>, por lo tanto <span class="m">y R x</span>. Simétrica ✓.</p>
+  <p>En <span class="m">A={1,2,3}</span>: <span class="m">R = {(1;2),(2;1),(1;1),(2;3),(3;2)}</span> es simétrica.</p>
+</div>
+
+<h4>A-Simétrica (Asimétrica)</h4>
+<div class="formula">R es a-simétrica ⟺ ∀ a,b ∈ A : (a;b) ∈ R ⇒ (b;a) ∉ R</div>
+<p>No existe ningún par relacionado en ambos sentidos. Tampoco pueden existir bucles (pues <span class="m">(a;a) ∈ R</span> implica <span class="m">(a;a) ∈ R</span>, lo que violaría la condición).</p>
+<ul>
+  <li><b>En la matriz:</b> <span class="m">M(R) ∧ M(R)<sup>t</sup> = N</span> (la intersección con su traspuesta es la matriz nula).</li>
+  <li><b>En el dígrafo:</b> entre cualquier par de nodos hay a lo sumo una flecha, y no hay bucles.</li>
+</ul>
+
+<h4>Antisimétrica</h4>
+<div class="formula">R es antisimétrica ⟺ ∀ a,b ∈ A : (a;b) ∈ R ∧ (b;a) ∈ R ⇒ a = b</div>
+<p>Puede haber bucles, pero si hay vínculo entre dos elementos distintos <span class="m">a ≠ b</span>, solo puede ir en un sentido.</p>
+<ul>
+  <li><b>En la matriz:</b> <span class="m">M(R) ∧ M(R)<sup>t</sup> ≤ I</span> (los unos fuera de la diagonal no pueden ser "espejados").</li>
+  <li><b>En el dígrafo:</b> entre cualquier par de nodos distintos hay a lo sumo una flecha; puede haber bucles.</li>
+</ul>
+
+<div class="key">
+  <div class="ky-t">Diferencia entre a-simétrica y antisimétrica</div>
+  <table class="tbl">
+    <tr><th></th><th>Bucles permitidos</th><th>Vínculos dobles (a≠b)</th></tr>
+    <tr><td><b>A-simétrica</b></td><td class="c">NO</td><td class="c">NO</td></tr>
+    <tr><td><b>Antisimétrica</b></td><td class="c">SÍ</td><td class="c">NO</td></tr>
+  </table>
+  <p>Toda a-simétrica es antisimétrica (caso particular). No toda antisimétrica es a-simétrica.</p>
+</div>
+
+<h4>Transitiva</h4>
+<div class="formula">R es transitiva ⟺ ∀ a,b,c ∈ A : (a;b) ∈ R ∧ (b;c) ∈ R ⇒ (a;c) ∈ R</div>
+<p>Si se puede ir de <span class="m">a</span> a <span class="m">b</span> y de <span class="m">b</span> a <span class="m">c</span>, entonces debe poderse ir directamente de <span class="m">a</span> a <span class="m">c</span>. Todo "camino de longitud 2" debe tener su "atajo directo".</p>
+<ul>
+  <li><b>En la matriz:</b> <span class="m">M(R) • M(R) ≤ M(R)</span> (el producto matricial booleano de M(R) con sí mismo debe ser ≤ M(R)).</li>
+  <li><b>En el dígrafo:</b> si hay un camino de longitud 2 (flecha de a a b, flecha de b a c), también debe existir la flecha directa de a a c.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Transitiva — verificación práctica</div>
+  <p>Si <span class="m">M(R) • M(R)</span> produce un 1 en la posición <span class="m">(i,j)</span>, significa que existe un camino de longitud 2 de <span class="m">a<sub>i</sub></span> a <span class="m">a<sub>j</sub></span>. Para que R sea transitiva, toda posición con 1 en <span class="m">M(R)²</span> debe tener también 1 en <span class="m">M(R)</span>.</p>
+</div>
+
+<h4>Tabla resumen de propiedades</h4>
+
+<table class="tbl">
+  <tr>
+    <th>Propiedad</th>
+    <th>Definición formal</th>
+    <th>En la matriz</th>
+    <th>En el dígrafo</th>
+  </tr>
+  <tr>
+    <td><b>Reflexiva</b></td>
+    <td>∀a: (a;a) ∈ R</td>
+    <td>I ≤ M(R) (diagonal toda 1)</td>
+    <td>Todos los nodos tienen bucle</td>
+  </tr>
+  <tr>
+    <td><b>A-reflexiva</b></td>
+    <td>∀a: (a;a) ∉ R</td>
+    <td>I ∧ M(R) = N (diagonal toda 0)</td>
+    <td>Ningún nodo tiene bucle</td>
+  </tr>
+  <tr>
+    <td><b>Simétrica</b></td>
+    <td>∀a,b: (a;b)∈R ⇒ (b;a)∈R</td>
+    <td>M(R) = M(R)<sup>t</sup></td>
+    <td>Toda flecha tiene antiparalela</td>
+  </tr>
+  <tr>
+    <td><b>A-simétrica</b></td>
+    <td>∀a,b: (a;b)∈R ⇒ (b;a)∉R</td>
+    <td>M(R) ∧ M(R)<sup>t</sup> = N</td>
+    <td>A lo sumo 1 flecha entre cada par, sin bucles</td>
+  </tr>
+  <tr>
+    <td><b>Antisimétrica</b></td>
+    <td>∀a,b: (a;b)∈R ∧ (b;a)∈R ⇒ a=b</td>
+    <td>M(R) ∧ M(R)<sup>t</sup> ≤ I</td>
+    <td>A lo sumo 1 flecha entre distintos, bucles OK</td>
+  </tr>
+  <tr>
+    <td><b>Transitiva</b></td>
+    <td>∀a,b,c: (a;b)∈R ∧ (b;c)∈R ⇒ (a;c)∈R</td>
+    <td>M(R)•M(R) ≤ M(R)</td>
+    <td>Todo camino largo tiene "atajo"</td>
+  </tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Error típico al verificar transitividad</div>
+  <p>La transitividad debe verificarse para TODOS los pares <span class="m">(a;b)</span> y <span class="m">(b;c)</span> posibles en R, no solo para algunos. Un solo caso que la viole es suficiente para decir que la relación NO es transitiva. Si la relación es vacía (R = ∅), es transitiva de manera vacua.</p>
+</div>
+
+<h3>Relación de Conectividad</h3>
+<p>Sea <span class="m">R : A → A</span>. Podemos componer R con sí misma repetidamente:</p>
+<ul>
+  <li><span class="m">R² = R ∘ R</span> → todos los caminos de longitud 2 en el dígrafo de R.</li>
+  <li><span class="m">R³ = R ∘ R ∘ R</span> → todos los caminos de longitud 3.</li>
+  <li><span class="m">R<sup>n</sup></span> → todos los caminos de longitud n.</li>
+</ul>
+
+<p>La <b>relación de conectividad</b> <span class="m">R<sup>∞</sup></span> reúne todos los caminos posibles de cualquier longitud:</p>
+<div class="formula">R<sup>∞</sup> = R ∪ R² ∪ R³ ∪ … ∪ R<sup>n</sup> ∪ …</div>
+<div class="formula">M(R<sup>∞</sup>) = M(R) ∨ M(R)² ∨ M(R)³ ∨ … ∨ M(R)<sup>n</sup></div>
+
+<p>Si <span class="m">|A| = n</span>, alcanza con calcular hasta <span class="m">R<sup>n</sup></span>: los caminos más largos no aportan pares nuevos.</p>
+
+<div class="key">
+  <div class="ky-t">Interpretación de R∞</div>
+  <p>En <span class="m">M(R<sup>∞</sup>)</span>, la posición <span class="m">(i,j)</span> vale 1 si y solo si existe <b>algún camino</b> (de cualquier longitud) desde el nodo <span class="m">a<sub>i</sub></span> hasta el nodo <span class="m">a<sub>j</sub></span> en el dígrafo de R. Esto es clave en teoría de grafos y algoritmos (ej. Floyd-Warshall).</p>
+</div>
+
+<h3>Relación de Equivalencia</h3>
+<p>Una <b>relación de equivalencia</b> es una relación <span class="m">R : A → A</span> que cumple simultáneamente tres propiedades:</p>
+
+<div class="formula">R es de equivalencia ⟺ R es reflexiva ∧ simétrica ∧ transitiva</div>
+
+<p>La idea intuitiva: una relación de equivalencia <b>clasifica</b> los elementos de A según algún atributo. Todos los elementos "iguales" según ese criterio quedan en la misma clase.</p>
+
+<div class="example">
+  <div class="ex-t">Motivación intuitiva</div>
+  <p>Los alumnos de UTN FRBA tienen número de legajo. Dos alumnos se relacionan si tienen el mismo último dígito del legajo. Esto es una relación de equivalencia: cada alumno está relacionado con sí mismo (reflexiva), si A se relaciona con B entonces B se relaciona con A (simétrica), y si A se relaciona con B y B con C, entonces A se relaciona con C (transitiva).</p>
+  <p>Resultado: 10 clases (una por cada dígito 0-9), cada una con infinitos alumnos.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Verificar que R es de equivalencia</div>
+  <p>En <span class="m">A = {1,2,3,4,5,6}</span>, la relación <span class="m">R</span> cuyo dígrafo tiene bucles en todos los nodos, y conexiones <span class="m">{1,2,3}</span> todos entre sí, y <span class="m">{5,6}</span> entre sí, y el 4 solo con sí mismo, es de equivalencia porque:</p>
+  <ul>
+    <li><b>Reflexiva:</b> hay bucle en todos los nodos.</li>
+    <li><b>Simétrica:</b> todas las flechas tienen antiparalela.</li>
+    <li><b>Transitiva:</b> dentro de {1,2,3} están todos los pares posibles; ningún camino largo queda sin "atajo".</li>
+  </ul>
+</div>
+
+<h4>Clases de Equivalencia</h4>
+<p>La <b>clase de equivalencia</b> de un elemento <span class="m">a ∈ A</span> es el conjunto de todos los elementos de A que se relacionan con él:</p>
+<div class="formula">cl(a) = [a] = { x ∈ A / x R a }</div>
+
+<p>En el dígrafo: la clase de <span class="m">a</span> es el conjunto de nodos a los que apunta <span class="m">a</span> (incluyendo a sí mismo por reflexividad).</p>
+
+<div class="key">
+  <div class="ky-t">Propiedades fundamentales de las clases de equivalencia</div>
+  <ol>
+    <li><b>No vacías:</b> <span class="m">∀a ∈ A : cl(a) ≠ ∅</span> (por reflexividad, <span class="m">a ∈ cl(a)</span>).</li>
+    <li><b>Elemento pertenece a su clase:</b> si <span class="m">a ∈ cl(b)</span> entonces <span class="m">b ∈ cl(a)</span> (por simetría).</li>
+    <li><b>Disjuntas o iguales:</b> dos clases distintas no tienen ningún elemento en común: <span class="m">cl(a) ≠ cl(b) ⇒ cl(a) ∩ cl(b) = ∅</span>.</li>
+    <li><b>Cubren todo A:</b> <span class="m">∪ cl(a) = A</span> (todo elemento está en alguna clase).</li>
+  </ol>
+</div>
+
+<h4>Conjunto Cociente</h4>
+<p>El <b>conjunto cociente</b> <span class="m">A/R</span> es el conjunto formado por todas las clases de equivalencia distintas:</p>
+<div class="formula">A/R = { cl(a) / a ∈ I }</div>
+<p>donde <span class="m">I</span> es el <b>conjunto de índices</b>: un subconjunto de A con exactamente un representante por clase.</p>
+
+<div class="example">
+  <div class="ex-t">Clases y conjunto cociente</div>
+  <p>En <span class="m">A = {1,2,3,4,5,6}</span>, con <span class="m">cl(1) = cl(2) = cl(3) = {1,2,3}</span>, <span class="m">cl(4) = {4}</span>, <span class="m">cl(5) = cl(6) = {5,6}</span>:<br>
+  Conjunto de índices: <span class="m">I = {1, 4, 5}</span> (uno por clase).<br>
+  Conjunto cociente: <span class="m">A/R = {{1,2,3}, {4}, {5,6}}</span>.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error típico: nombrar la misma clase dos veces</div>
+  <p>Si <span class="m">cl(1) = cl(2) = cl(3) = {1,2,3}</span>, escribir el conjunto cociente como <span class="m">A/R = {cl(1), cl(2), cl(3), cl(4), cl(5), cl(6)}</span> está MAL, porque estaría repitiendo tres veces la misma clase. El conjunto cociente tiene exactamente una entrada por clase distinta.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">Matrices de relaciones de equivalencia — patrón visual</div>
+  <p>Si reordenamos los elementos de A poniendo juntos a los que pertenecen a la misma clase, la matriz de una relación de equivalencia muestra <b>bloques de unos</b> a lo largo de la diagonal principal, con ceros fuera de esos bloques. Esto facilita identificar las clases de equivalencia a partir de la matriz.</p>
+</div>
+
+<h3>Teorema Fundamental de las Relaciones de Equivalencia</h3>
+
+<div class="key">
+  <div class="ky-t">Teorema Fundamental</div>
+  <p><b>Toda relación de equivalencia definida en A determina una partición de A</b> (el conjunto cociente). Recíprocamente, <b>toda partición de A induce una relación de equivalencia</b>.</p>
+  <p>En otras palabras: hay una correspondencia biunívoca entre relaciones de equivalencia en A y particiones de A.</p>
+</div>
+
+<h4>Recordatorio: ¿qué es una partición?</h4>
+<p>Sea <span class="m">A ≠ ∅</span>. Una familia <span class="m">P = {A₁, A₂, …, Aₙ}</span> es una <b>partición</b> de A si cumple:</p>
+<ol>
+  <li><span class="m">Aᵢ ≠ ∅</span> para todo <span class="m">i</span> (ninguna celda vacía).</li>
+  <li><span class="m">Aᵢ ∩ Aⱼ = ∅</span> para todo <span class="m">i ≠ j</span> (celdas disjuntas).</li>
+  <li><span class="m">∪ Aᵢ = A</span> (las celdas cubren todo A).</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Partición ↔ Relación de equivalencia</div>
+  <p>Dada la partición <span class="m">P = {{1,2,3},{4},{5,6}}</span> de <span class="m">A = {1,…,6}</span>, la relación de equivalencia asociada es: <span class="m">x R y ⟺ ∃ Aᵢ ∈ P : x ∈ Aᵢ ∧ y ∈ Aᵢ</span> (ambos están en la misma celda). El conjunto cociente de esta relación coincide exactamente con P.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Verificar si un conjunto es partición</div>
+  <p>Sea <span class="m">A = {1,2,3,4,5,6,7}</span>.</p>
+  <ul>
+    <li><span class="m">P = {{2,4,5},{1},{3,7},{6}}</span> → SÍ es partición (disjuntos, no vacíos, cubren A).</li>
+    <li><span class="m">P = {{4,6},{1,2,3,7},{2,5}}</span> → NO es partición (el 2 aparece en dos celdas: no son disjuntas).</li>
+    <li><span class="m">P = {{3,4,5},{1,7},{2}}</span> → NO es partición (falta el 6).</li>
+  </ul>
+</div>
+
+<h3>Ejemplos Clásicos de Relaciones de Equivalencia</h3>
+
+<h4>1. Congruencia módulo n</h4>
+<p>En <span class="m">ℤ</span>, se define <span class="m">a ≡ b (mod n)</span> (se lee "a es congruente con b módulo n") si <span class="m">n | (a − b)</span>, es decir si <span class="m">a − b = n·k</span> para algún <span class="m">k ∈ ℤ</span>.</p>
+
+<div class="key">
+  <div class="ky-t">Demostración: congruencia módulo n es relación de equivalencia</div>
+  <ul>
+    <li><b>Reflexiva:</b> <span class="m">a − a = 0 = n·0</span>, por lo tanto <span class="m">n | (a−a)</span> ✓</li>
+    <li><b>Simétrica:</b> si <span class="m">a−b = nk</span>, entonces <span class="m">b−a = n(−k)</span>, y <span class="m">−k ∈ ℤ</span> ✓</li>
+    <li><b>Transitiva:</b> si <span class="m">a−b = nk</span> y <span class="m">b−c = nt</span>, entonces <span class="m">a−c = n(k+t)</span> ✓</li>
+  </ul>
+</div>
+
+<p>Las clases de equivalencia de congruencia módulo n son exactamente los residuos posibles al dividir por n:</p>
+<div class="formula">ℤ/≡(n) = ℤₙ = {[0], [1], [2], …, [n−1]}</div>
+<p>donde <span class="m">[r] = {x ∈ ℤ / x = nk + r, k ∈ ℤ}</span> = {todos los enteros con resto r al dividir por n}.</p>
+
+<div class="example">
+  <div class="ex-t">Congruencia módulo 3</div>
+  <p><span class="m">cl(0) = {…, −6, −3, 0, 3, 6, 9, …}</span> = múltiplos de 3.<br>
+  <span class="m">cl(1) = {…, −5, −2, 1, 4, 7, 10, …}</span> = resto 1 al dividir por 3.<br>
+  <span class="m">cl(2) = {…, −4, −1, 2, 5, 8, 11, …}</span> = resto 2 al dividir por 3.<br>
+  Conjunto cociente: <span class="m">ℤ₃ = {cl(0), cl(1), cl(2)}</span>.</p>
+</div>
+
+<h4>2. Mismo cardinal (en conjuntos)</h4>
+<p>En una familia de conjuntos, definir <span class="m">A R B ⟺ |A| = |B|</span> es una relación de equivalencia. Las clases son todos los conjuntos del mismo cardinal.</p>
+
+<h4>3. Paralelismo en rectas</h4>
+<p>En el conjunto de las rectas del plano, <span class="m">r₁ R r₂ ⟺ r₁ ∥ r₂</span> (incluyendo la igualdad) es de equivalencia. Las clases son familias de rectas paralelas entre sí.</p>
+
+<h4>4. Relación inducida por una función</h4>
+<p>Dada <span class="m">f : A → B</span>, definir <span class="m">x R y ⟺ f(x) = f(y)</span> siempre es una relación de equivalencia en A. Las clases de equivalencia son exactamente las <b>fibras</b> de f (preimágenes de cada elemento de B).</p>
+
+<div class="example">
+  <div class="ex-t">R inducida por f(x) = x² − 2</div>
+  <p>En <span class="m">ℝ</span>, <span class="m">x R y ⟺ x² − 2 = y² − 2 ⟺ x² = y²</span>.<br>
+  Clases: <span class="m">cl(x) = {x, −x}</span> para <span class="m">x ≠ 0</span>, y <span class="m">cl(0) = {0}</span>.<br>
+  Conjunto cociente: <span class="m">ℝ/R = {cl(x) / x ∈ [0, +∞)}</span>.</p>
+</div>
+
+<h3>Funciones como Caso Particular de Relaciones</h3>
+<p>Una <b>función</b> <span class="m">F : A → B</span> es una relación que cumple dos condiciones adicionales:</p>
+
+<div class="key">
+  <div class="ky-t">Definición de función</div>
+  <ol>
+    <li><b>Existencia:</b> <span class="m">∀ x ∈ A : ∃ y ∈ B : (x;y) ∈ F</span> — todo elemento del dominio tiene al menos una imagen.</li>
+    <li><b>Unicidad:</b> <span class="m">∀ x ∈ A : ∀ y₁, y₂ ∈ B : (x;y₁) ∈ F ∧ (x;y₂) ∈ F ⇒ y₁ = y₂</span> — todo elemento tiene a lo sumo una imagen (imagen única).</li>
+  </ol>
+  <p>Juntas: cada elemento de A tiene <b>exactamente una</b> imagen en B.</p>
+</div>
+
+<p>Si <span class="m">F</span> es función y <span class="m">(x;y) ∈ F</span>, se escribe <span class="m">y = F(x)</span>.</p>
+
+<div class="example">
+  <div class="ex-t">¿Función o no?</div>
+  <p>Sea <span class="m">A = {1,2,3}</span>, <span class="m">B = {3,4}</span>.</p>
+  <ul>
+    <li><span class="m">F = {(1;3),(2;4),(3;4)}</span> → SÍ es función (existencia y unicidad para cada elemento).</li>
+    <li><span class="m">R = {(1;3),(1;4),(2;3),(3;4)}</span> → NO es función: el 1 tiene dos imágenes (viola unicidad).</li>
+    <li><span class="m">S = {(1;3),(2;4)}</span> → NO es función: el 3 no tiene imagen (viola existencia).</li>
+  </ul>
+</div>
+
+<h4>Clasificación de Funciones</h4>
+
+<table class="tbl">
+  <tr>
+    <th>Tipo</th>
+    <th>Definición</th>
+    <th>Condición equivalente</th>
+    <th>Ejemplo sencillo</th>
+  </tr>
+  <tr>
+    <td><b>Inyectiva</b></td>
+    <td>Elementos distintos tienen imágenes distintas</td>
+    <td><span class="m">F(x₁)=F(x₂) ⇒ x₁=x₂</span></td>
+    <td><span class="m">F={( a;1),(b;2),(c;3)}</span></td>
+  </tr>
+  <tr>
+    <td><b>Sobreyectiva</b></td>
+    <td>Todo elemento de B es imagen de alguien</td>
+    <td><span class="m">Im(F) = B</span></td>
+    <td><span class="m">F={(a;1),(b;1),(c;2)}</span> con B={1,2}</td>
+  </tr>
+  <tr>
+    <td><b>Biyectiva</b></td>
+    <td>Inyectiva y sobreyectiva</td>
+    <td>Cada elemento de B es imagen de exactamente uno de A</td>
+    <td><span class="m">F={(a;1),(b;2),(c;3)}</span> con B={1,2,3}</td>
+  </tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Biyección entre conjuntos finitos</div>
+  <p>Para que exista una función biyectiva entre dos conjuntos finitos A y B, sus cardinales deben ser <b>iguales</b>: <span class="m">|A| = |B|</span>.</p>
+  <p>Si <span class="m">|A| &lt; |B|</span>: no puede ser sobreyectiva.<br>
+  Si <span class="m">|A| &gt; |B|</span>: no puede ser inyectiva.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Clasificar cada relación</div>
+  <p>Sea <span class="m">A = {1,2,3}</span>, <span class="m">B = {x,y,z}</span>, <span class="m">C = {m,n}</span>, <span class="m">D = {a,b,c,d}</span>.</p>
+  <table class="tbl">
+    <tr><th>Relación</th><th>¿Función?</th><th>Tipo</th></tr>
+    <tr><td><span class="m">R₁ = {(1;x),(2;x),(3;y)}</span></td><td class="c">SÍ</td><td>No inyectiva (1 y 2 → x), no sobreyectiva (z sin preimagen)</td></tr>
+    <tr><td><span class="m">R₂ = {(1;z),(2;x),(3;y)}</span></td><td class="c">SÍ</td><td>Biyectiva</td></tr>
+    <tr><td><span class="m">R₃ = {(1;x),(1;y),(2;x),(3;z)}</span></td><td class="c">NO</td><td>El 1 tiene dos imágenes (viola unicidad)</td></tr>
+    <tr><td><span class="m">R₄: A→C = {(1;m),(2;n)}</span></td><td class="c">NO</td><td>El 3 no tiene imagen (viola existencia)</td></tr>
+    <tr><td><span class="m">R₅ = {(1;n),(2;n),(3;n)}</span></td><td class="c">SÍ</td><td>No inyectiva, no sobreyectiva (m sin preimagen)</td></tr>
+    <tr><td><span class="m">R₆ = {(1;m),(2;m),(3;n)}</span></td><td class="c">SÍ</td><td>No inyectiva, sobreyectiva</td></tr>
+    <tr><td><span class="m">R₇: A→D = {(1;a),(2;b),(3;c)}</span></td><td class="c">SÍ</td><td>Inyectiva, no sobreyectiva</td></tr>
+  </table>
+</div>
+
+<h4>Función Inversa</h4>
+<p>Si <span class="m">F : A → B</span> es una función biyectiva, su <b>función inversa</b> <span class="m">F⁻¹ : B → A</span> es la relación <span class="m">R⁻¹</span> (inversa de R como relación), que también resulta ser función. Se define como:</p>
+<div class="formula">F⁻¹ = { (y;x) / (x;y) ∈ F }</div>
+<p>Solo las funciones biyectivas tienen inversa que también sea función. Si F no es biyectiva, <span class="m">F⁻¹</span> como relación puede no ser función (por violar existencia o unicidad).</p>
+
+<h4>Composición de Funciones</h4>
+<p>Si <span class="m">F : A → B</span> y <span class="m">G : B → C</span> son funciones, la composición <span class="m">G ∘ F : A → C</span> definida por <span class="m">(G ∘ F)(x) = G(F(x))</span> también es una función. Se aplica F primero, luego G.</p>
+
+<table class="tbl">
+  <tr><th>Si F es…</th><th>y G es…</th><th>entonces G∘F es…</th></tr>
+  <tr><td>Inyectiva</td><td>Inyectiva</td><td class="c">Inyectiva</td></tr>
+  <tr><td>Sobreyectiva</td><td>Sobreyectiva</td><td class="c">Sobreyectiva</td></tr>
+  <tr><td>Biyectiva</td><td>Biyectiva</td><td class="c">Biyectiva</td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir F⁻¹ con 1/F(x)</div>
+  <p><span class="m">F⁻¹</span> es la <b>función inversa</b> (deshacer lo que hace F). No tiene nada que ver con <span class="m">1/F(x)</span>, que sería el recíproco aritmético. Por ejemplo, si <span class="m">F(x) = x + 3</span>, entonces <span class="m">F⁻¹(x) = x − 3</span> (no <span class="m">1/(x+3)</span>).</p>
+</div>
+
+<h3>Relaciones de Orden (adelanto — profundización en Unidad 6)</h3>
+<p>Una <b>relación de orden parcial</b> en A es una relación que cumple las propiedades <b>reflexiva, antisimétrica y transitiva</b>. Si además todo par de elementos es comparable, se llama <b>orden total</b>. El ejemplo más conocido es <span class="m">≤</span> en los números.</p>
+<p>En la Unidad 6 se estudia en profundidad: diagramas de Hasse, cotas, ínfimo, supremo, reticulados y conjuntos bien ordenados. Por ahora, identificar la terna (reflexiva + antisimétrica + transitiva) como la "firma" del orden.</p>
+
+<div class="key">
+  <div class="ky-t">Comparación: equivalencia vs. orden</div>
+  <table class="tbl">
+    <tr><th>Tipo</th><th>Reflexiva</th><th>Simétrica</th><th>Antisimétrica</th><th>Transitiva</th></tr>
+    <tr><td><b>Equivalencia</b></td><td class="c">✓</td><td class="c">✓</td><td class="c">—</td><td class="c">✓</td></tr>
+    <tr><td><b>Orden parcial</b></td><td class="c">✓</td><td class="c">—</td><td class="c">✓</td><td class="c">✓</td></tr>
+  </table>
+  <p>Ambas son "reflexivas y transitivas", pero se diferencian en la tercera propiedad: equivalencia tiene simetría, orden tiene antisimetría.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="matematica-discreta"></div>
+<a class="back" href="#subject-matematica-discreta">↑ Volver al índice</a>
+</div>
+</details>
