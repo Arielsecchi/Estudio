@@ -1,6 +1,6 @@
 // Quizzes por unidad — Matemática Discreta (LED) UTN FRBA · Cátedra Piñeiro
 
-registerExercises('matematica-discreta', '1', [
+registerExercises('led', '1', [
   {st: '¿Cuál es la negación de '+M('p ∧ q')+'?', opts: [M('¬p ∧ ¬q'), M('¬p ∨ ¬q'), M('p ∨ q'), M('p ∧ ¬q')], c: 1, ex: 'Por De Morgan: ¬(p∧q) ≡ ¬p ∨ ¬q.'},
   {st: '¿Cuál de estas fórmulas es una tautología?', opts: [M('p → q'), M('p ∧ ¬p'), M('p ∨ ¬p'), M('p ↔ ¬p')], c: 2, ex: 'p ∨ ¬p es verdadera para cualquier valor de p (tercio excluido).'},
   {st: 'La proposición "Si llueve entonces me mojo" es falsa únicamente cuando:', opts: ['Llueve y me mojo', 'No llueve y no me mojo', 'Llueve y no me mojo', 'No llueve y me mojo'], c: 2, ex: 'El condicional p→q es falso solo cuando p es verdadero y q es falso.'},
@@ -11,7 +11,7 @@ registerExercises('matematica-discreta', '1', [
   {st: '¿Qué conectivo tiene mayor precedencia en el análisis de fórmulas?', opts: ['∧', '∨', '¬', '→'], c: 2, ex: 'La negación ¬ tiene la mayor precedencia, seguida de ∧, ∨ y finalmente →.'},
 ]);
 
-registerExercises('matematica-discreta', '2', [
+registerExercises('led', '2', [
   {st: '¿Cuántos elementos tiene el conjunto potencia de un conjunto de 4 elementos?', opts: ['4', '8', '16', '12'], c: 2, ex: 'Si |A|=n entonces |P(A)|=2ⁿ; con n=4 resulta 2⁴=16.'},
   {st: 'Si |A|=10, |B|=7 y |A∩B|=3, ¿cuánto vale |A∪B|?', opts: ['14', '17', '20', '13'], c: 0, ex: 'Por inclusión-exclusión: |A∪B|=|A|+|B|−|A∩B|=10+7−3=14.'},
   {st: '¿Cuál de las siguientes equivalencias es correcta para conjuntos?', opts: ['A−B = A∩B', 'A−B = A∩Bᶜ', 'A−B = Aᶜ∩B', 'A−B = A∪Bᶜ'], c: 1, ex: 'A−B contiene los elementos de A que no están en B, es decir A∩Bᶜ.'},
@@ -22,7 +22,7 @@ registerExercises('matematica-discreta', '2', [
   {st: 'Para demostrar por inducción que 5ⁿ ≥ 20n−12n para n≥1, la hipótesis inductiva asume:', opts: ['La fórmula para n=1', 'La fórmula para n=k y se prueba para n=k+1', 'La fórmula para todos los n', 'Que n es par'], c: 1, ex: 'En inducción se asume (HI) que la propiedad vale para n=k y se demuestra para n=k+1.'},
 ]);
 
-registerExercises('matematica-discreta', '3', [
+registerExercises('led', '3', [
   {st: '¿De cuántas formas se pueden ordenar 5 libros distintos en una estantería?', opts: ['25', '60', '120', '100'], c: 2, ex: 'Es una permutación de 5 elementos: 5!=120.'},
   {st: '¿Cuántas palabras de 3 letras distintas se pueden formar con las letras {A,B,C,D,E}?', opts: ['10', '60', '120', '15'], c: 1, ex: 'Variaciones sin repetición V(5,3)=5·4·3=60.'},
   {st: '¿Cuántos comités de 3 personas se pueden elegir de un grupo de 8?', opts: ['56', '24', '336', '512'], c: 0, ex: 'Combinaciones C(8,3)=8!/(3!·5!)=56.'},
@@ -33,7 +33,7 @@ registerExercises('matematica-discreta', '3', [
   {st: 'El número de subconjuntos de k elementos de un conjunto de n elementos es igual a:', opts: [M('n!'), M('n!/k!'), M('C(n,k)'), M('n·k')], c: 2, ex: 'C(n,k)=n!/(k!(n−k)!) cuenta las combinaciones (subconjuntos) de k elementos.'},
 ]);
 
-registerExercises('matematica-discreta', '4', [
+registerExercises('led', '4', [
   {st: '¿Cuál es el mcd(224, 120) aplicando el algoritmo de Euclides?', opts: ['4', '8', '12', '16'], c: 1, ex: '224=1·120+104; 120=1·104+16; 104=6·16+8; 16=2·8+0 → mcd=8.'},
   {st: 'Si mcd(a,b)=1, ¿cómo se llama la relación entre a y b?', opts: ['Divisibles', 'Coprimos', 'Múltiplos', 'Primos'], c: 1, ex: 'Dos enteros son coprimos (o primos entre sí) cuando su mcd es 1.'},
   {st: 'El teorema de Bézout afirma que existen enteros s,t tales que:', opts: ['mcd(a,b)=a·b', 'mcd(a,b)=s·a+t·b', 'mcd(a,b)=s+t', 'mcd(a,b)=a/b'], c: 1, ex: 'Bézout: siempre existen s,t∈ℤ tales que mcd(a,b)=s·a+t·b (combinación lineal).'},
@@ -44,7 +44,7 @@ registerExercises('matematica-discreta', '4', [
   {st: '¿Cuál es el mcm(12,18)?', opts: ['6', '36', '72', '216'], c: 1, ex: 'mcm(12,18)=12·18/mcd(12,18)=216/6=36.'},
 ]);
 
-registerExercises('matematica-discreta', '5', [
+registerExercises('led', '5', [
   {st: 'La relación "=" en ℤ es:', opts: ['Solo reflexiva', 'Solo simétrica', 'De equivalencia', 'De orden estricto'], c: 2, ex: 'La igualdad es reflexiva, simétrica y transitiva, por lo tanto es relación de equivalencia.'},
   {st: '¿Cuál propiedad NO tiene la relación "≤" en ℝ?', opts: ['Reflexiva', 'Antisimétrica', 'Transitiva', 'Simétrica'], c: 3, ex: '"≤" es reflexiva, antisimétrica y transitiva (orden parcial), pero no simétrica: 2≤3 pero 3≤2 es falso.'},
   {st: 'Una partición de un conjunto A es una colección de subconjuntos que son:', opts: ['Vacíos y disjuntos', 'No vacíos, disjuntos y cubren A', 'Iguales entre sí', 'Subconjuntos de A∩B'], c: 1, ex: 'Una partición requiere subconjuntos no vacíos, mutuamente disjuntos y cuya unión sea A.'},
@@ -55,7 +55,7 @@ registerExercises('matematica-discreta', '5', [
   {st: 'Una función biyectiva es aquella que es:', opts: ['Inyectiva pero no sobreyectiva', 'Sobreyectiva pero no inyectiva', 'Inyectiva y sobreyectiva', 'Ni inyectiva ni sobreyectiva'], c: 2, ex: 'Biyección = inyección + sobreyección, establece correspondencia uno a uno entre dominio y codominio.'},
 ]);
 
-registerExercises('matematica-discreta', '6', [
+registerExercises('led', '6', [
   {st: 'En un diagrama de Hasse, un elemento a cubre a b si:', opts: ['a>b y no existe c con a>c>b', 'a=b', 'a<b', 'a y b son comparables'], c: 0, ex: 'a cubre a b cuando a es mayor que b y no hay elemento intermedio entre ellos en el orden.'},
   {st: 'En un álgebra de Boole, ¿cuántos elementos tiene el mínimo álgebra no trivial?', opts: ['1', '2', '4', '8'], c: 2, ex: 'El álgebra de Boole mínima no trivial B₂ tiene 4 elementos: 0, 1 y dos átomos.'},
   {st: 'El supremo de un subconjunto S en un orden parcial es:', opts: ['El máximo de S', 'La menor cota superior de S', 'La mayor cota inferior de S', 'El mínimo de S'], c: 1, ex: 'El supremo (join) es la menor de todas las cotas superiores de S.'},
@@ -66,7 +66,7 @@ registerExercises('matematica-discreta', '6', [
   {st: 'El complemento de un elemento a en un álgebra de Boole cumple:', opts: [M("a∧a'=1 y a∨a'=0"), M("a∧a'=0 y a∨a'=1"), M("a∧a'=a"), M("a∨a'=a")], c: 1, ex: "El complemento a' satisface a∧a'=0 (ínfimo) y a∨a'=1 (supremo)."},
 ]);
 
-registerExercises('matematica-discreta', '7', [
+registerExercises('led', '7', [
   {st: 'La recurrencia aₙ = 5aₙ₋₁ − 6aₙ₋₂ es:', opts: ['No homogénea de orden 1', 'Homogénea de orden 2', 'No homogénea de orden 2', 'Homogénea de orden 1'], c: 1, ex: 'Es lineal, los coeficientes son constantes, sin término independiente (homogénea) y de orden 2.'},
   {st: 'La ecuación característica de aₙ = 5aₙ₋₁ − 6aₙ₋₂ es:', opts: ['r²=5r−6', 'r=5−6r', 'r²−5r+6=0', 'r+5r−6=0'], c: 2, ex: 'Se sustituye aₙ=rⁿ: rⁿ=5rⁿ⁻¹−6rⁿ⁻², dividiendo por rⁿ⁻² queda r²−5r+6=0.'},
   {st: 'Si la ecuación característica tiene raíces simples r₁≠r₂, la solución general es:', opts: [M('aₙ=c·r₁ⁿ'), M('aₙ=c₁·r₁ⁿ+c₂·r₂ⁿ'), M('aₙ=c₁·n·r₁ⁿ+c₂·r₂ⁿ'), M('aₙ=(c₁+c₂n)·r₁ⁿ')], c: 1, ex: 'Con dos raíces distintas la solución general es combinación lineal de r₁ⁿ y r₂ⁿ.'},
@@ -77,7 +77,7 @@ registerExercises('matematica-discreta', '7', [
   {st: 'La sucesión de Fibonacci Fₙ=Fₙ₋₁+Fₙ₋₂ tiene ecuación característica:', opts: ['r²−r−1=0', 'r²+r−1=0', 'r²−r+1=0', 'r²+r+1=0'], c: 0, ex: 'Sustituyendo rⁿ=rⁿ⁻¹+rⁿ⁻² y dividiendo por rⁿ⁻² se obtiene r²−r−1=0.'},
 ]);
 
-registerExercises('matematica-discreta', '8', [
+registerExercises('led', '8', [
   {st: '¿Cuánto vale 541 mod 3?', opts: ['0', '1', '2', '3'], c: 1, ex: '541=180·3+1, por lo que 541≡1 (mod 3).'},
   {st: 'Si a≡b (mod n) y c≡d (mod n), entonces:', opts: ['a·c≡b·d (mod n)', 'a·c≡b+d (mod n)', 'a+c≡b·d (mod n)', 'a−c≡b+d (mod n)'], c: 0, ex: 'La congruencia es compatible con la multiplicación: a≡b y c≡d implica a·c≡b·d (mod n).'},
   {st: 'El inverso de 3 en Z₇ es:', opts: ['3', '4', '5', '6'], c: 2, ex: '3·5=15=2·7+1≡1 (mod 7), luego el inverso de 3 en Z₇ es 5.'},
@@ -88,7 +88,7 @@ registerExercises('matematica-discreta', '8', [
   {st: 'La congruencia 4x≡2 (mod 6) tiene solución porque:', opts: ['4 divide a 6', 'mcd(4,6)=2 divide a 2', 'mcd(4,6)=1', '4 divide a 2'], c: 1, ex: 'ax≡b (mod n) tiene solución si y solo si mcd(a,n) divide a b; aquí mcd(4,6)=2 y 2|2.'},
 ]);
 
-registerExercises('matematica-discreta', '9', [
+registerExercises('led', '9', [
   {st: 'Un grupo (G,·) requiere que la operación sea:', opts: ['Cerrada, asociativa, con neutro y con inversos', 'Cerrada y conmutativa', 'Asociativa y conmutativa', 'Cerrada y con neutro solamente'], c: 0, ex: 'Los cuatro axiomas de grupo son: clausura, asociatividad, existencia de neutro y existencia de inverso.'},
   {st: 'El grupo (ℤ,+) es:', opts: ['Finito y abeliano', 'Infinito y no abeliano', 'Infinito y abeliano', 'Finito y no abeliano'], c: 2, ex: '(ℤ,+) es abeliano porque a+b=b+a, e infinito porque ℤ tiene infinitos elementos.'},
   {st: 'El orden de un grupo finito G es:', opts: ['El número de subgrupos de G', 'El número de elementos de G', 'El orden del generador', 'El número de operaciones'], c: 1, ex: 'El orden |G| es simplemente la cardinalidad del conjunto G.'},
@@ -99,7 +99,7 @@ registerExercises('matematica-discreta', '9', [
   {st: 'Todo grupo de orden primo p es:', opts: ['No abeliano', 'Cíclico y abeliano', 'Tiene subgrupos propios', 'Isomorfo a ℤ'], c: 1, ex: 'Por Lagrange, un grupo de orden primo p solo tiene subgrupos triviales y es necesariamente cíclico y abeliano.'},
 ]);
 
-registerExercises('matematica-discreta', '10', [
+registerExercises('led', '10', [
   {st: 'En un grafo simple con 5 vértices, la suma de grados es 8. ¿Cuántas aristas tiene?', opts: ['4', '8', '16', '5'], c: 0, ex: 'Por el handshaking lemma, suma de grados = 2|E|, luego |E|=8/2=4.'},
   {st: 'Un grafo euleriano es aquel que:', opts: ['Tiene un camino que visita cada vértice exactamente una vez', 'Tiene un circuito que recorre cada arista exactamente una vez', 'Es conexo y sin ciclos', 'Tiene todos los vértices de grado par y es conexo'], c: 1, ex: 'El circuito euleriano recorre todas las aristas exactamente una vez; existe si el grafo es conexo y todos los vértices tienen grado par (condición equivalente).'},
   {st: 'Un árbol con n vértices tiene exactamente:', opts: ['n aristas', 'n−1 aristas', 'n+1 aristas', '2n aristas'], c: 1, ex: 'Un árbol es un grafo conexo acíclico y siempre tiene exactamente n−1 aristas.'},
