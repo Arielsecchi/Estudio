@@ -171,6 +171,28 @@
     --summary-bg: #1e3636; --summary-hover: #284545; --num-text: #0b1a1a;
   }
 
+  [data-subject="pc-parcial"] {
+    --bg: #e8edf3; --text: #1a202c; --text-muted: #6b7280;
+    --surface: #ffffff; --surface-2: #d9e1ec; --surface-3: #c4cfdf;
+    --border: #cdd5e0; --border-2: #b5c0cf;
+    --accent: #0f766e; --accent-hover: #115e59; --gold: #ca8a04;
+    --ex-bg: #fef9c3; --ex-border: #fde047; --ex-title: #854d0e;
+    --ok-bg: #d1fae5; --ok-text: #065f46; --ok-border: #10b981;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #d9e1ec; --summary-hover: #c4cfdf; --num-text: #ffffff;
+    --shadow: rgba(15, 118, 110, 0.08);
+  }
+  [data-theme="dark"][data-subject="pc-parcial"] {
+    --bg: #0b1a1a; --text: #e2e8f0; --text-muted: #94a3b8;
+    --surface: #142626; --surface-2: #1e3636; --surface-3: #284545;
+    --border: #284545; --border-2: #355454;
+    --accent: #5eead4; --accent-hover: #99f6e4; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1e3636; --summary-hover: #284545; --num-text: #0b1a1a;
+  }
+
   [data-subject="fisica"] {
     --bg: #f1ecf7; --text: #201832; --text-muted: #6b5f80;
     --surface: #ffffff; --surface-2: #e4dbf0; --surface-3: #d3c5e5;
@@ -1272,12 +1294,24 @@
             </li>
           </ul>
         </li>
-        <li class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
-          <div class="ic" style="background:#0f766e;color:#fff">PC</div>
-          <div class="info">
-            <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
-            <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
           </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+          </ul>
         </li>
         <li class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
           <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
@@ -7064,6 +7098,716 @@ plt.show()</pre>
 
 <div class="quiz-wrap" data-qz="6b" data-subject="pc"></div>
 <a class="back" href="#subject-pc">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- =============== PC · PRIMER PARCIAL ======================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-pc-parcial">
+  <header>
+    <h1>PC · Guía Primer Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Balbiano · Guía intensiva basada en parciales reales 2024–2025</div>
+  </header>
+<nav class="toc" id="toc-pc-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#pcp-s1">Estrategia general del parcial</a></li>
+    <li><a href="#pcp-s2">Python básico · tipos, operadores y expresiones</a></li>
+    <li><a href="#pcp-s3">Condicionales · if / elif / else</a></li>
+    <li><a href="#pcp-s4">Ciclos · for y while</a></li>
+    <li><a href="#pcp-s5">Listas y tuplas</a></li>
+    <li><a href="#pcp-s6">Strings · slicing, métodos y recorridos</a></li>
+    <li><a href="#pcp-s7">Funciones · definición, parámetros y return</a></li>
+  </ol>
+  <div class="score" id="global-score-pc-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="pcp-s1">
+<summary><span class="num">1</span> Estrategia general del parcial <span class="sec-score" id="ss-pc-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Balbiano</h3>
+<p>El parcial de Pensamiento Computacional tiene <b>9 o 10 preguntas de opción múltiple</b> con <b>una sola respuesta correcta</b>. La duración es de <b>1:30 h</b>.</p>
+<p>Las preguntas 1–5 (o 1–7) valen <b>1 punto cada una</b>. Las últimas 4 (o 3) valen <b>2 puntos o 0</b> (sin puntos intermedios). La nota se calcula según una escala fija: de 13 puntos máximos posibles a nota del 1 al 10.</p>
+
+<table class="tbl">
+  <tr><th>Puntos acumulados</th><th>1–2</th><th>3–4</th><th>5–6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr>
+  <tr><td><b>Nota</b></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Estrategia de puntaje</div>
+Con 7 puntos (nota 4) alcanzás la aprobación directa. Para eso necesitás acertar <b>todas las preguntas de 1 punto</b> (5–7) + al menos 1 de 2 puntos. Priorizá las preguntas simples antes de las complejas.
+</div>
+
+<h3>Los 7 tipos de preguntas que aparecen siempre</h3>
+<table class="tbl">
+  <tr><th>Tipo de pregunta</th><th>Qué piden</th></tr>
+  <tr><td><b>Trazar ejecución</b></td><td>¿Qué muestra por pantalla este programa?</td></tr>
+  <tr><td><b>Contar condiciones evaluadas</b></td><td>¿Cuál programa evalúa más/menos condiciones?</td></tr>
+  <tr><td><b>Contar iteraciones</b></td><td>¿Cuál programa ejecuta más/menos veces el cuerpo del bucle?</td></tr>
+  <tr><td><b>Equivalencia de condiciones</b></td><td>¿Cuál condición NO es equivalente al resto?</td></tr>
+  <tr><td><b>Lista resultante</b></td><td>¿Con qué contenido queda la lista al final?</td></tr>
+  <tr><td><b>Elegir función correcta</b></td><td>¿Cuál función es adecuada para este programa?</td></tr>
+  <tr><td><b>Encontrar el programa correcto</b></td><td>¿Cuál programa hace exactamente X?</td></tr>
+</table>
+
+<h3>Las 3 preguntas que te tenés que hacer antes de cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tipo de ejercicio es?</h4>
+<p>Mirá la primera oración. Las palabras clave te dicen todo:</p>
+<ul>
+  <li><b>"¿Qué muestra por pantalla?"</b> → Tenés que trazar la ejecución línea a línea.</li>
+  <li><b>"¿Cuál evalúa más/menos condiciones?"</b> → Tenés que contar los <code>if</code>/<code>elif</code>/<code>else</code> que se evalúan para los valores dados.</li>
+  <li><b>"¿Cuál ejecuta más/menos veces?"</b> → Tenés que calcular cuántas veces entra al cuerpo del bucle.</li>
+  <li><b>"¿Cuál NO es equivalente?"</b> → Probá cada opción con los valores de ejemplo que dan.</li>
+  <li><b>"¿Con qué contenido queda la lista?"</b> → Simulá el bucle en papel.</li>
+</ul>
+
+<h4>Pregunta 2 — ¿Cuáles son los valores iniciales?</h4>
+<p>Antes de trazar, anotá en un margen todos los valores iniciales de las variables. Nunca trates de tener los valores "en la cabeza": escribilos.</p>
+
+<h4>Pregunta 3 — ¿Hay trampa de precedencia o de tipo?</h4>
+<ul>
+  <li>¿Hay <b>potencia</b> (<span class="m">**</span>)? Se evalúa <b>antes</b> que <code>*</code> y <code>/</code>.</li>
+  <li>¿Hay división entera (<span class="m">//</span>) o módulo (<span class="m">%</span>)? Mismo nivel que <code>*</code>.</li>
+  <li>¿Hay <span class="m">int(num) == num</span>? Es la forma de detectar si un float es entero.</li>
+  <li>¿El índice de lista es negativo? <span class="m">lista[-1]</span> es el último elemento.</li>
+</ul>
+
+<div class="key"><div class="ky-t">La regla de oro</div>
+<b>Nunca confíes en tu intuición para código Python.</b> Siempre simulá línea a línea en papel. El 80% de los errores en parciales se produce por "ya sé qué hace" sin verificar.
+</div>
+
+<h3>Orden de precedencia de operadores Python</h3>
+<div class="formula">
+  1. <b>**</b> (potencia) — mayor precedencia<br>
+  2. <b>* / // %</b> (multiplicación, divisiones, módulo)<br>
+  3. <b>+ -</b> (suma y resta)<br>
+  4. <b>Comparaciones:</b> == != &lt; &gt; &lt;= &gt;=<br>
+  5. <b>not</b><br>
+  6. <b>and</b><br>
+  7. <b>or</b> — menor precedencia
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de precedencia · Parcial 16/9/2024 Tema 1</div>
+  <pre>a=3; b=0; c=2.5; d=3.5
+print((a+b*d-c**b)*c)</pre>
+  Paso a paso:<br>
+  1. <span class="m">c**b = 2.5**0 = 1.0</span> (cualquier número a la 0 es 1)<br>
+  2. <span class="m">b*d = 0*3.5 = 0</span><br>
+  3. <span class="m">a + 0 - 1.0 = 3 + 0 - 1.0 = 2.0</span><br>
+  4. <span class="m">2.0 * c = 2.0 * 2.5 = 5.0</span><br>
+  Resultado: <b>5.0</b>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa clásica: x**0</div>
+<span class="m">c**b</span> con <span class="m">b=0</span> da siempre <b>1</b> (y 1.0 si c es float). Muchos alumnos creen que es 0. Cuidado con esto en las expresiones aritméticas.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · PYTHON BÁSICO ============ -->
+<details id="pcp-s2">
+<summary><span class="num">2</span> Python básico · tipos, operadores y expresiones <span class="sec-score" id="ss-pc-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Tipos de datos fundamentales</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Ejemplo</th><th>Descripción</th></tr>
+  <tr><td><span class="m">int</span></td><td><span class="m">3, -10, 0</span></td><td>Número entero</td></tr>
+  <tr><td><span class="m">float</span></td><td><span class="m">2.5, 3.14, -0.5</span></td><td>Número con decimales</td></tr>
+  <tr><td><span class="m">str</span></td><td><span class="m">'hola', "mundo"</span></td><td>Cadena de texto</td></tr>
+  <tr><td><span class="m">bool</span></td><td><span class="m">True, False</span></td><td>Verdadero o falso</td></tr>
+</table>
+
+<h3>Operadores aritméticos</h3>
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr>
+  <tr><td><span class="m">+</span></td><td>suma</td><td><span class="m">5+3</span></td><td>8</td></tr>
+  <tr><td><span class="m">-</span></td><td>resta</td><td><span class="m">5-3</span></td><td>2</td></tr>
+  <tr><td><span class="m">*</span></td><td>multiplicación</td><td><span class="m">5*3</span></td><td>15</td></tr>
+  <tr><td><span class="m">/</span></td><td>división (siempre float)</td><td><span class="m">7/2</span></td><td>3.5</td></tr>
+  <tr><td><span class="m">//</span></td><td>cociente entero</td><td><span class="m">7//2</span></td><td>3</td></tr>
+  <tr><td><span class="m">%</span></td><td>resto de la división</td><td><span class="m">7%2</span></td><td>1</td></tr>
+  <tr><td><span class="m">**</span></td><td>potencia</td><td><span class="m">2**3</span></td><td>8</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">int() vs float()</div>
+<span class="m">int(num)</span> trunca hacia cero: <span class="m">int(3.9) → 3</span>, <span class="m">int(-3.9) → -3</span>.<br>
+El truco <span class="m">num == int(num)</span> detecta si un float es en realidad entero: <span class="m">3.0 == int(3.0) → True</span>, <span class="m">3.5 == int(3.5) → False</span>.
+</div>
+
+<h3>El operador * con strings y listas</h3>
+<p>En Python el operador <span class="m">*</span> aplicado a una string o lista con un entero <b>repite</b>:</p>
+<pre>'hola' * 2  →  'holahola'
+'*' * 5     →  '*****'
+[0] * 3     →  [0, 0, 0]
+[1, 2] * 2  →  [1, 2, 1, 2]</pre>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de tracing · Parcial 21/4/2025 Tema 7</div>
+  <pre>a=0; b=1; c=2; d=-2
+cant = d - b*b + c*2/b + 4
+print('&' * int(cant))</pre>
+  Paso a paso:<br>
+  1. <span class="m">b*b = 1*1 = 1</span><br>
+  2. <span class="m">c*2/b = 2*2/1 = 4.0</span><br>
+  3. <span class="m">cant = -2 - 1 + 4.0 + 4 = 5.0</span><br>
+  4. <span class="m">int(5.0) = 5</span><br>
+  5. <span class="m">'&' * 5 = '&&&&&'</span><br>
+  Resultado: <b>&amp;&amp;&amp;&amp;&amp;</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de tracing · Parcial 16/9/2024 Tema 4</div>
+  <pre>a=3; b=0; c=2.5; d=3.5
+print(d - 1*a + (b+a)*c)</pre>
+  1. <span class="m">1*a = 3</span><br>
+  2. <span class="m">b+a = 0+3 = 3</span><br>
+  3. <span class="m">3*c = 3*2.5 = 7.5</span><br>
+  4. <span class="m">d - 3 + 7.5 = 3.5 - 3 + 7.5 = 8.0</span><br>
+  Resultado: <b>8.0</b>
+</div>
+
+<h3>Contar cuántas condiciones se evalúan</h3>
+<p>Este tipo de pregunta aparece siempre. La lógica es:</p>
+<ul>
+  <li>Si la primera condición de un <code>if</code> es <b>verdadera</b> y usa <span class="m">or</span>, Python <b>no evalúa</b> la segunda (cortocircuito).</li>
+  <li>Si la primera condición de un <code>if</code> es <b>falsa</b> y usa <span class="m">and</span>, Python <b>no evalúa</b> la segunda (cortocircuito).</li>
+  <li>Una vez que entra a un <code>if</code>, los <code>elif</code> que siguen <b>no se evalúan</b>.</li>
+  <li>Un <code>else</code> no es una condición evaluada (es el caso "restante"), así que <b>no suma</b> al conteo.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: contar condiciones · Parcial Tema 1</div>
+  <pre>a=10; ok=True
+if a==1 and ok:      # evalúa a==1 (False) → cortocircuito: ok NO se evalúa
+  ...
+elif a>1:            # se evalúa (True) → entra
+  print('Segundo')
+else:                # no se llega
+  ...</pre>
+  Total de condiciones evaluadas: <b>2</b> (<span class="m">a==1</span> y <span class="m">a>1</span>). El <code>else</code> no cuenta. El <span class="m">ok</span> no se evalúa por cortocircuito.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa: if encadenados vs if/elif</div>
+<b>Varios <code>if</code> seguidos</b> son independientes: se evalúa cada uno sí o sí.<br>
+<b><code>elif</code></b> solo se evalúa si el bloque anterior fue falso.<br>
+Esta diferencia genera muchos errores en el conteo de condiciones.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · CONDICIONALES ============ -->
+<details id="pcp-s3">
+<summary><span class="num">3</span> Condicionales · if / elif / else <span class="sec-score" id="ss-pc-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Estructura básica</h3>
+<pre>if condicion1:
+    # se ejecuta si condicion1 es True
+elif condicion2:
+    # se ejecuta si condicion1 fue False y condicion2 es True
+else:
+    # se ejecuta si ninguna condición anterior fue True</pre>
+
+<div class="key"><div class="ky-t">Regla de oro de condicionales</div>
+Una vez que Python encuentra un bloque cuya condición es <b>True</b>, ejecuta ese bloque y <b>salta todo el resto</b> del if/elif/else. Los bloques que siguen no se evalúan.
+</div>
+
+<h3>Operadores de comparación y lógicos</h3>
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><span class="m">==</span></td><td>igual</td><td><span class="m">a == 5</span></td></tr>
+  <tr><td><span class="m">!=</span></td><td>distinto</td><td><span class="m">a != 5</span></td></tr>
+  <tr><td><span class="m">&lt;, &gt;, &lt;=, &gt;=</span></td><td>comparación</td><td><span class="m">a &lt; 10</span></td></tr>
+  <tr><td><span class="m">in</span></td><td>pertenencia</td><td><span class="m">x in ('a','b','c')</span></td></tr>
+  <tr><td><span class="m">not in</span></td><td>no pertenencia</td><td><span class="m">x not in lista</span></td></tr>
+  <tr><td><span class="m">and</span></td><td>Y lógico</td><td><span class="m">a&gt;0 and b&gt;0</span></td></tr>
+  <tr><td><span class="m">or</span></td><td>O lógico</td><td><span class="m">a==1 or b==1</span></td></tr>
+  <tr><td><span class="m">not</span></td><td>negación</td><td><span class="m">not (a==1)</span></td></tr>
+</table>
+
+<h3>El operador <span class="m">in</span> con range()</h3>
+<p><span class="m">a in range(1, 8, 2)</span> es equivalente a <span class="m">a in (1, 3, 5, 7)</span>. Esto aparece en preguntas de equivalencia de condiciones.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de tracing · Parcial 21/4/2025 Tema 7 — Ejercicio 1</div>
+  <pre>producto='birome'; unidad='caja'; precio=60
+if producto in ('block A4','etiqueta'):
+    ...
+elif producto in ('plasticola','hoja','birome'):
+    if unidad in ('ciento','docena','bolsa'):
+        print('barato')
+    else:
+        print('caro')</pre>
+  Tracing:<br>
+  1. <span class="m">producto='birome'</span>. ¿Está en <span class="m">('block A4','etiqueta')</span>? No → sigue.<br>
+  2. ¿Está en <span class="m">('plasticola','hoja','birome')</span>? Sí → entra.<br>
+  3. ¿<span class="m">unidad='caja'</span> está en <span class="m">('ciento','docena','bolsa')</span>? No → else.<br>
+  4. <b>Muestra: "caro"</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de equivalencia de condiciones · Parcial</div>
+  <pre>a=2, b=False, c=3
+# ¿Cuál NO es equivalente?
+1: a in range(1,8,2) or b or c>a      → True or False or True = True
+2: a in range(1,8,2) and b and c>a    → True and False = False  ← DIFERENTE
+3: (a>0 and a&lt;8 and a%2!=0) or a&lt;c or b==True  → True
+4: a&lt;c or a in (1,3,5,7) or b!=False  → True</pre>
+  La opción <b>2</b> es la que no es equivalente porque usa <span class="m">and</span> donde las demás usan <span class="m">or</span> como conectivo principal.
+</div>
+
+<h3>Condicionales anidados: conteo de condiciones paso a paso</h3>
+<p>Para contar condiciones evaluadas con valores dados, seguí este método:</p>
+<ol>
+  <li>Copiá el programa en papel con los valores iniciales.</li>
+  <li>Evaluá la primera condición. Anotá si es True o False.</li>
+  <li>Si es True: marcá las líneas que se ejecutan, tachá los elif/else siguientes al mismo nivel.</li>
+  <li>Si es False: pasá al siguiente elif (que sí se evalúa). Sumás 1 al contador.</li>
+  <li>Los <code>else</code> sin condición no suman al contador.</li>
+  <li>Repetí para todos los bloques anidados.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">Trampa: cortocircuito con and/or</div>
+<b>and:</b> si la primera parte es False, la segunda NO se evalúa. No suma al contador.<br>
+<b>or:</b> si la primera parte es True, la segunda NO se evalúa. No suma al contador.<br>
+Esto puede hacer diferencia entre opciones que parecen similares.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · CICLOS ============ -->
+<details id="pcp-s4">
+<summary><span class="num">4</span> Ciclos · for y while <span class="sec-score" id="ss-pc-parcial-4"></span></summary>
+<div class="content">
+
+<h3>El ciclo for</h3>
+<pre>for variable in secuencia:
+    # cuerpo del bucle</pre>
+<p>El cuerpo se ejecuta <b>una vez por cada elemento</b> de la secuencia. La secuencia puede ser una lista, una string, un range, una tupla.</p>
+
+<h3>range() — la función más importante del parcial</h3>
+<table class="tbl">
+  <tr><th>Llamada</th><th>Genera</th><th>Iteraciones</th></tr>
+  <tr><td><span class="m">range(5)</span></td><td>0, 1, 2, 3, 4</td><td>5</td></tr>
+  <tr><td><span class="m">range(2, 7)</span></td><td>2, 3, 4, 5, 6</td><td>5</td></tr>
+  <tr><td><span class="m">range(1, 15, 5)</span></td><td>1, 6, 11</td><td>3</td></tr>
+  <tr><td><span class="m">range(9, 5, -1)</span></td><td>9, 8, 7, 6</td><td>4</td></tr>
+  <tr><td><span class="m">range(9, 5, -3)</span></td><td>9, 6</td><td>2</td></tr>
+  <tr><td><span class="m">range(1, 10, -4)</span></td><td>(vacío)</td><td>0</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">range() con paso negativo</div>
+Para que <span class="m">range(inicio, fin, paso)</span> genere elementos, se necesita que <span class="m">inicio &gt; fin</span> cuando el paso es negativo. Si <span class="m">inicio &lt;= fin</span> con paso negativo, el range está vacío y el bucle no itera.
+</div>
+
+<h3>El ciclo while</h3>
+<pre>while condicion:
+    # cuerpo del bucle
+    # (la condición se reevalúa antes de cada iteración)</pre>
+<p>El cuerpo se ejecuta <b>mientras la condición sea True</b>. Cuidado con el bucle infinito: siempre tiene que haber algo dentro del bucle que modifique la condición.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: contar iteraciones · Parcial 16/9/2024</div>
+  <pre># ¿Cuál ejecuta MÁS VECES el cuerpo del bucle?
+1: for i in range(1,15,5):   → i=1,6,11 → 3 veces
+   i=0
+2: i=100
+   while i&lt;100:              → condición False desde el principio → 0 veces
+   i-=1
+3: for letra in 'milagro':   → 7 letras → 7 veces  ← MÁXIMO
+   i=0
+4: i=100
+   while i>0:               → i=100,30,-40... → condición False en 3ra iter → 2 veces
+   i-=70</pre>
+  Respuesta: <b>opción 3</b> con 7 iteraciones.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: tracing de bucle for anidado · Parcial 16/9/2024</div>
+  <pre>for i in range(3):
+    for j in (2,1):
+        print('a'*j)</pre>
+  El loop externo itera 3 veces (i=0,1,2). El interno itera 2 veces cada vez (j=2, j=1).<br>
+  En cada iteración imprime: <span class="m">'a'*2 = 'aa'</span>, luego <span class="m">'a'*1 = 'a'</span>.<br>
+  Salida (6 líneas): <b>aa / a / aa / a / aa / a</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: bucle for con índice y condición · Parcial 16/9/2024 Tema 4</div>
+  <pre>pal='COLOR'
+for i in range(3):   # i = 0, 1, 2
+    if i%2!=0:       # i impar: i=1
+        print(pal)
+    else:            # i par: i=0, i=2
+        print(pal[0]+' '*3+pal[-1])</pre>
+  i=0 (par): <span class="m">pal[0]='C'</span>, <span class="m">pal[-1]='R'</span> → imprime "C   R"<br>
+  i=1 (impar): imprime "COLOR"<br>
+  i=2 (par): imprime "C   R"<br>
+  Salida: <b>C   R / COLOR / C   R</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: for + while anidados · Parcial 16/9/2024</div>
+  <pre>for letra in 'sabana':   # s,a,b,a,n,a
+    if letra=='a':
+        i=1
+        while i&lt;2:
+            print('a')
+            i+=2</pre>
+  La letra 'a' aparece 3 veces (posiciones 1, 3, 5).<br>
+  Cada vez: <span class="m">i=1</span>, while evalúa <span class="m">1&lt;2=True</span>, imprime 'a', <span class="m">i=3</span>, evalúa <span class="m">3&lt;2=False</span>, sale.<br>
+  Total: imprime 'a' <b>3 veces</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa: reasignar la variable de control en el for</div>
+<pre>for i in range(1,15,5):
+    i=0  # ¡esto NO afecta al rango!</pre>
+Aunque reasignes <span class="m">i</span> dentro del for, el siguiente paso del range asigna el nuevo valor. El bucle sigue iterando normalmente (3 veces en este caso).
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · LISTAS Y TUPLAS ============ -->
+<details id="pcp-s5">
+<summary><span class="num">5</span> Listas y tuplas <span class="sec-score" id="ss-pc-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Lista: colección mutable de elementos</h3>
+<pre>numeros = [4, 3, 1, 2]
+numeros[0]   →  4        # primer elemento (índice 0)
+numeros[-1]  →  2        # último elemento
+numeros[1:3] →  [3, 1]  # slicing: posiciones 1 y 2 (3 no entra)</pre>
+
+<h3>Índices negativos</h3>
+<p>Un índice negativo cuenta desde el final de la lista:</p>
+<pre>a = [10, 20, 30, 40]
+a[-1] →  40   # último
+a[-2] →  30   # penúltimo
+a[-(len(a))] →  a[0] → 10  # primer elemento</pre>
+
+<h3>Métodos de lista más usados en parciales</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
+  <tr><td><span class="m">append(x)</span></td><td>Agrega x al final</td><td><span class="m">a.append(5)</span></td></tr>
+  <tr><td><span class="m">extend(lista)</span></td><td>Agrega todos los elementos de lista al final</td><td><span class="m">a.extend([6,7])</span></td></tr>
+  <tr><td><span class="m">remove(x)</span></td><td>Elimina la primera ocurrencia de x</td><td><span class="m">a.remove(3)</span></td></tr>
+  <tr><td><span class="m">sort()</span></td><td>Ordena la lista de menor a mayor (modifica la original)</td><td><span class="m">a.sort()</span></td></tr>
+  <tr><td><span class="m">reverse()</span></td><td>Invierte el orden de la lista (modifica la original)</td><td><span class="m">a.reverse()</span></td></tr>
+  <tr><td><span class="m">copy()</span></td><td>Genera una copia independiente</td><td><span class="m">b=a.copy()</span></td></tr>
+  <tr><td><span class="m">count(x)</span></td><td>Cuenta cuántas veces aparece x</td><td><span class="m">a.count(1)</span></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">+ concatena, no modifica</div>
+<span class="m">a + b</span> genera una <b>nueva lista</b>. No modifica <span class="m">a</span> ni <span class="m">b</span>.<br>
+<span class="m">a.extend(b)</span> sí modifica <span class="m">a</span>.<br>
+Esta diferencia es clave en los ejercicios de "¿cuál NO deja la lista así?".
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: lista con índice negativo · Parcial 21/4/2025 Tema 7</div>
+  <pre>indicador=[1,2,3,4,5,6]
+numeros=[1,2,3,4,5,6]
+final=[0]*6          # [0,0,0,0,0,0]
+for i in range(len(numeros)):
+    final[-(indicador[i])] = numeros[i]</pre>
+  Iteraciones:<br>
+  i=0: <span class="m">final[-1]=1</span> → [0,0,0,0,0,1]<br>
+  i=1: <span class="m">final[-2]=2</span> → [0,0,0,0,2,1]<br>
+  i=2: <span class="m">final[-3]=3</span> → [0,0,0,3,2,1]<br>
+  i=3: <span class="m">final[-4]=4</span> → [0,0,4,3,2,1]<br>
+  i=4: <span class="m">final[-5]=5</span> → [0,5,4,3,2,1]<br>
+  i=5: <span class="m">final[-6]=6</span> → [6,5,4,3,2,1]<br>
+  Resultado: <b>[6,5,4,3,2,1]</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: lista como índice de otra lista · Parcial 16/9/2024</div>
+  <pre>a=[0,3,1]
+b=[3,6,11,0]
+c=[]
+for num in a:
+    c.append(b[num]*2)</pre>
+  num=0: <span class="m">b[0]=3</span>, <span class="m">3*2=6</span>, c=[6]<br>
+  num=3: <span class="m">b[3]=0</span>, <span class="m">0*2=0</span>, c=[6,0]<br>
+  num=1: <span class="m">b[1]=6</span>, <span class="m">6*2=12</span>, c=[6,0,12]<br>
+  Resultado: <b>[6, 0, 12]</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: armar lista sin duplicados · Patrón recurrente</div>
+  <pre>a=['luis','ana','ana','pedro','ana']
+b=['pedro','ana','juan']
+c=[]
+for nom in a:
+    if nom not in c:
+        c.append(nom)
+for nom in b:
+    if nom not in c:
+        c.append(nom)</pre>
+  Recorre a: agrega 'luis', 'ana' (la segunda y tercera no porque ya está), 'pedro'.<br>
+  c=['luis','ana','pedro']<br>
+  Recorre b: 'pedro' ya está, 'ana' ya está, 'juan' no → lo agrega.<br>
+  Resultado: <b>['luis','ana','pedro','juan']</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: sort + reverse para ordenar descendente · Parcial 21/4/2025</div>
+  <pre>numeros=[-3.36,10,2,0.25,-3]
+enteros=[]
+fraccionarios=[]
+for num in numeros:
+    if num==int(num):    # ¿es entero?
+        enteros.append(num)
+    else:
+        fraccionarios.append(num)
+enteros.sort()
+enteros.reverse()
+fraccionarios.sort()
+fraccionarios.reverse()</pre>
+  Después del for: enteros=[10,2,-3], fraccionarios=[-3.36,0.25]<br>
+  Después de sort+reverse: enteros=[10,2,-3], fraccionarios=[0.25,-3.36]<br>
+  Resultado: enteros <b>[10,2,-3]</b> y fraccionarios <b>[0.25,-3.36]</b>
+</div>
+
+<h3>Tuplas</h3>
+<p>Las tuplas son como listas pero <b>inmutables</b> (no se pueden modificar). Se crean con paréntesis:</p>
+<pre>t = (1, 2, 3)
+t[0]  →  1     # acceso igual que lista
+t[-1] →  3     # índice negativo igual que lista</pre>
+<p>En los parciales las tuplas aparecen principalmente como secuencias en <code>for</code> y como argumentos del operador <span class="m">in</span>.</p>
+
+<div class="quiz-wrap" data-qz="5" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · STRINGS ============ -->
+<details id="pcp-s6">
+<summary><span class="num">6</span> Strings · slicing, métodos y recorridos <span class="sec-score" id="ss-pc-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Acceso a caracteres y slicing</h3>
+<pre>pal = 'GEMELO'
+pal[0]    →  'G'     # primer carácter (índice 0)
+pal[-1]   →  'O'     # último carácter
+pal[2:]   →  'MELO'  # desde posición 2 hasta el final
+pal[:3]   →  'GEM'   # desde el inicio hasta posición 2 (3 no entra)
+pal[1:4]  →  'EME'   # posiciones 1, 2, 3
+pal[::-1] →  'OLEMEG' # invertir la string</pre>
+
+<div class="key"><div class="ky-t">Slicing: el "hasta" nunca entra</div>
+En <span class="m">s[a:b]</span>, el índice <span class="m">b</span> <b>no está incluido</b>. <span class="m">'hola'[1:3]</span> da <span class="m">'ol'</span>, no <span class="m">'ola'</span>. Acordate: el índice de fin siempre queda afuera.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: tracing con slicing · Parcial 16/9/2024</div>
+  <pre>pal='GEMELO'
+for i in range(len(pal)):   # i = 0,1,2,3,4,5
+    print(pal[i:])</pre>
+  i=0: <span class="m">pal[0:]='GEMELO'</span><br>
+  i=1: <span class="m">pal[1:]='EMELO'</span><br>
+  i=2: <span class="m">pal[2:]='MELO'</span><br>
+  i=3: <span class="m">pal[3:]='ELO'</span><br>
+  i=4: <span class="m">pal[4:]='LO'</span><br>
+  i=5: <span class="m">pal[5:]='O'</span><br>
+  Salida: 6 líneas con cada sufijo progresivo.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: concatenación de strings y slicing · Parcial 16/9/2024</div>
+  <pre>pal1='Hola'; nom1='juan'; nom2='Elena'
+texto = pal1 + nom1[::-1] + ' y ' + nom2[:3]
+print(texto)</pre>
+  <span class="m">nom1[::-1] = 'nauj'</span><br>
+  <span class="m">nom2[:3] = 'Ele'</span><br>
+  texto = <span class="m">'Hola' + 'nauj' + ' y ' + 'Ele' = 'Holanauj y Ele'</span><br>
+  Resultado: <b>Holanauj y Ele</b>
+</div>
+
+<h3>Métodos de string más usados en parciales</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
+  <tr><td><span class="m">upper()</span></td><td>Convierte a mayúsculas</td><td><span class="m">'hola'.upper() → 'HOLA'</span></td></tr>
+  <tr><td><span class="m">lower()</span></td><td>Convierte a minúsculas</td><td><span class="m">'HOLA'.lower() → 'hola'</span></td></tr>
+  <tr><td><span class="m">replace(a,b)</span></td><td>Reemplaza todas las ocurrencias de a por b</td><td><span class="m">'hola'.replace('o','0') → 'h0la'</span></td></tr>
+  <tr><td><span class="m">split()</span></td><td>Parte la string por espacios en blancos → lista</td><td><span class="m">'a b c'.split() → ['a','b','c']</span></td></tr>
+  <tr><td><span class="m">join(lista)</span></td><td>Une una lista con el separador dado → string</td><td><span class="m">' '.join(['a','b']) → 'a b'</span></td></tr>
+  <tr><td><span class="m">count(s)</span></td><td>Cuenta cuántas veces aparece s</td><td><span class="m">'banana'.count('a') → 3</span></td></tr>
+  <tr><td><span class="m">len(s)</span></td><td>Longitud de la string</td><td><span class="m">len('hola') → 4</span></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Trampa: replace() devuelve una nueva string</div>
+<pre>frase = 'hola mundo'
+frase.replace('hola','chau')  # ← ¡NO modifica frase!
+print(frase)  # sigue siendo 'hola mundo'
+
+frase = frase.replace('hola','chau')  # ← esto SÍ funciona
+print(frase)  # ahora es 'chau mundo'</pre>
+En los parciales aparecen opciones con <span class="m">frase.replace(...)</span> sin reasignar: esas opciones son incorrectas.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: replace + upper · Parcial 21/4/2025 Tema 7</div>
+  El objetivo es obtener: <b>LAS ABEJAS VAALAN Y LAS OVEJAS BALAN</b><br>
+  <pre>frase='Las abejas vuelan y las ovejas balan'
+animal1='abeja'; animal2='oveja'
+frase=frase.replace(animal1,'ABEJA')
+frase=frase.replace(animal2,'OVEJA')
+for voc in 'eiou':
+    frase=frase.replace(voc,'A')
+print(frase.upper())</pre>
+  Paso 1: reemplaza 'abeja' por 'ABEJA': "Las ABEJAS vuelan y las ovejas balan"<br>
+  Paso 2: reemplaza 'oveja' por 'OVEJA': "Las ABEJAS vuelan y las OVEJAS balan"<br>
+  Paso 3: reemplaza vocales minúsculas e,i,o,u por A: "LAs ABAJAS vuAlan y las OVAAJAS balan"<br>
+  Paso 4: <span class="m">.upper()</span>: "LAS ABEJAS VAALAN Y LAS OVEJAS BALAN" ← objetivo cumplido.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: split() y join() para editar palabras · Parcial 21/4/2025</div>
+  <pre>def edita(t, palabras):
+    t=t.lower()
+    lista=t.split()
+    for i in range(len(lista)):
+        if lista[i] in palabras:
+            lista[i]=lista[i].upper()
+    return ' '.join(lista)
+
+txt='argumentar caos en cualquier situación no es compromiso'
+resalta=['compromiso','caos']
+print(edita(txt, resalta))</pre>
+  1. <span class="m">t.lower()</span> → minúsculas (ya está).<br>
+  2. <span class="m">split()</span> → lista de palabras.<br>
+  3. Para cada palabra: si está en <span class="m">resalta</span>, la pone en mayúsculas.<br>
+  4. <span class="m">join()</span> vuelve a armar la frase.<br>
+  Resultado: <b>argumentar CAOS en cualquier situación no es COMPROMISO</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: bucle sobre string con count() · Parcial 21/4/2025</div>
+  <pre>def fun(t):
+    vocales='AEIOUÁÉÍÓÚÜ'
+    repetidas=''
+    for letra in t:
+        if letra in vocales and t.count(letra)>0:
+            if letra not in repetidas:
+                repetidas+=letra
+    return repetidas.lower()
+txt='Estaba LA RANA cantando debajo del AGUA'
+print(fun(txt))</pre>
+  La condición <span class="m">t.count(letra)>0</span> es siempre True si la letra está en t (y si pasó el primer <span class="m">in vocales</span>). Entonces la función recorre todas las letras y agrega al resultado las vocales mayúsculas que aparecen por primera vez.<br>
+  Vocales mayúsculas en el texto (en orden de aparición): E, A, U → devuelve <b>'eau'</b>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · FUNCIONES ============ -->
+<details id="pcp-s7">
+<summary><span class="num">7</span> Funciones · definición, parámetros y return <span class="sec-score" id="ss-pc-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Estructura básica de una función</h3>
+<pre>def nombre_funcion(parametro1, parametro2):
+    # cuerpo de la función
+    resultado = parametro1 + parametro2
+    return resultado</pre>
+<p>Para <b>llamar</b> a la función y usar su resultado:</p>
+<pre>valor = nombre_funcion(3, 5)   # valor = 8
+print(nombre_funcion(10, 2))   # imprime 12</pre>
+
+<div class="key"><div class="ky-t">Los 3 componentes clave</div>
+1. <b>Parámetros</b>: variables que recibe la función al ser llamada.<br>
+2. <b>Cuerpo</b>: las instrucciones que ejecuta.<br>
+3. <b>return</b>: el valor que devuelve. Sin <code>return</code> la función devuelve <span class="m">None</span>.
+</div>
+
+<h3>Tipo de pregunta: "¿cuál función es adecuada?"</h3>
+<p>El parcial te muestra un programa que llama a una función con ciertos argumentos y una salida esperada. Tenés que encontrar la definición correcta. Estrategia:</p>
+<ol>
+  <li>Mirá cómo se llama la función: <span class="m">producto(lista[i], factor[i])</span> → recibe <b>2 parámetros</b>.</li>
+  <li>Mirá la salida esperada y deducí qué operación hace: si da 3, 0, 6 con (1,3), (0,6), (3,2) → es multiplicación.</li>
+  <li>Eliminá opciones con número de parámetros incorrecto.</li>
+  <li>Verificá que el <code>return</code> devuelva lo correcto.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: elegir función correcta · Parcial 16/9/2024</div>
+  <pre>lista=[1,0,3]; factor=[3,6,2]
+for i in range(len(lista)):
+    print(producto(lista[i],factor[i]))
+# Salida esperada: 3 / 0 / 6</pre>
+  Verificación: 1*3=3 ✓, 0*6=0 ✓, 3*2=6 ✓ → la función hace multiplicación.<br>
+  Función correcta:
+  <pre>def producto(n1, n2):
+    resultado = n1 * n2
+    return resultado</pre>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: función con 2 parámetros y suma · Parcial 16/9/2024 Tema 4</div>
+  <pre>term1=[5,0,3]; term2=[3,6,2]
+for i in range(len(term2)):
+    print(calcula(term2[i],term1[i]))
+# Salida: 8 / 6 / 5</pre>
+  term2[0]=3, term1[0]=5 → 3+5=8 ✓<br>
+  term2[1]=6, term1[1]=0 → 6+0=6 ✓<br>
+  term2[2]=2, term1[2]=3 → 2+3=5 ✓<br>
+  Función correcta:
+  <pre>def calcula(n1, n2):
+    resultado = n1 + n2
+    return resultado</pre>
+</div>
+
+<div class="trap"><div class="tr-t">Trampas en las opciones de función</div>
+Las opciones incorrectas suelen tener:<br>
+• Número incorrecto de parámetros (0, 1 en lugar de 2).<br>
+• Usar variables no definidas dentro de la función (<span class="m">n2*n2</span> cuando debería ser <span class="m">n1*n2</span>).<br>
+• <code>return</code> que devuelve la variable equivocada (devuelve <span class="m">n2</span> en lugar del resultado).<br>
+• Sin <code>return</code> (la función devuelve None).
+</div>
+
+<h3>Alcance de variables (scope)</h3>
+<p>Las variables definidas <b>dentro</b> de una función solo existen dentro de ella. Las variables definidas <b>fuera</b> (globales) pueden leerse dentro pero no modificarse sin <span class="m">global</span>.</p>
+
+<h3>Ejemplo integrador: función + strings + listas</h3>
+<div class="example">
+  <div class="ex-t">Patrón de función que devuelve lista filtrada</div>
+  <pre>def solo_pares(numeros):
+    resultado = []
+    for n in numeros:
+        if n % 2 == 0:
+            resultado.append(n)
+    return resultado
+
+datos = [1, 4, 7, 8, 3, 6]
+print(solo_pares(datos))  # [4, 8, 6]</pre>
+  Este patrón —crear lista vacía, recorrer con for, agregar con append, retornar— es el más frecuente en las funciones del parcial.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
 </div>
 </details>
 
@@ -19301,6 +20045,71 @@ registerExercises('pc', '6b', [
   {st: '¿Para qué sirve <code>plt.xlabel("Tiempo")</code>?', opts: ['Hacer el eje X más corto', 'Etiquetar el eje X', 'Cambiar la escala del eje X', 'Ocultar el eje X'], c: 1, ex: '<code>xlabel()</code> pone el título del eje X. Para el Y: <code>ylabel()</code>. Para el título general: <code>title()</code>.'},
   {st: '¿Qué hace <code>plt.legend()</code>?', opts: ['Agrega leyenda usando los labels de cada plot', 'Cambia el tamaño de fuente', 'Guarda el gráfico', 'Añade cuadrícula'], c: 0, ex: '<code>legend()</code> muestra la leyenda con los labels que pusiste en cada <code>plt.plot(..., label="nombre")</code>. Sin labels no muestra nada.'},
   {st: '¿Cuál es el gráfico recomendado para ver la <b>distribución</b> de una variable numérica?', opts: ['Línea', 'Histograma', 'Dispersión', 'Torta'], c: 1, ex: 'El histograma agrupa los valores en rangos y muestra la frecuencia de cada rango. Perfecto para ver si la distribución es simétrica, sesgada, con picos, etc.'}
+]);
+
+
+// ============ EJERCICIOS PC 1° PARCIAL ============
+registerExercises('pc-parcial', '1', [
+  {st: 'El parcial de PC tiene preguntas de opción múltiple. Las últimas 3–4 preguntas valen:', opts: ['1 punto cada una', '2 puntos o 0 (sin término medio)', '3 puntos', 'Depende del tema'], c: 1, ex: 'Las primeras 5–7 preguntas valen 1 punto si son correctas. Las últimas 3–4 valen 2 puntos o 0: no hay puntos parciales. Por eso conviene asegurarse las simples primero.'},
+  {st: '¿Cuántos puntos necesitás para obtener nota 4 (aprobado)?', opts: ['4 puntos', '7 puntos', '10 puntos', '13 puntos'], c: 1, ex: 'Según la tabla de conversión: 7 puntos → nota 4. Con todas las preguntas de 1 punto acertadas (5–7) más 1 de 2 puntos ya llegás. Priorizá las preguntas simples.'},
+  {st: '¿Cuál es el resultado de: a=3; b=0; c=2.5; print((a + b*c - c**b) * c)?', opts: ['5.0', '7.5', '0.0', '2.5'], c: 0, ex: 'Paso 1: c**b = 2.5**0 = 1.0. Paso 2: b*c = 0*2.5 = 0. Paso 3: a+0-1.0 = 2.0. Paso 4: 2.0*2.5 = 5.0. Resultado: 5.0.'},
+  {st: '¿Qué hace el operador ** en Python?', opts: ['División entera', 'Módulo (resto)', 'Potencia', 'Multiplicación doble'], c: 2, ex: '** es el operador de potencia: 2**3 = 8, 4**2 = 16. Tiene la precedencia más alta de todos los operadores aritméticos (se evalúa primero).'},
+  {st: 'El operador // en Python calcula:', opts: ['División normal (float)', 'La raíz cuadrada', 'El cociente entero (sin decimales)', 'El resto de la división'], c: 2, ex: '// es la división entera: 7//2 = 3 (no 3.5). El resto de la división es %, que en este ejemplo sería 7%2 = 1.'},
+  {st: 'Si a=10 y ok=True, en el siguiente código: if a==1 and ok: ... elif a>1: print("OK") — ¿cuántas condiciones se evalúan?', opts: ['1', '2', '3', '4'], c: 1, ex: 'Se evalúa a==1 (False). Por cortocircuito con "and", ok NO se evalúa. Como el if fue False, se evalúa a>1 (True). Total: 2 condiciones evaluadas.'}
+]);
+
+registerExercises('pc-parcial', '2', [
+  {st: '¿Cuál es el resultado de: a=0; b=1; c=2; d=-2; cant=d-b*b+c*2/b+4; print(int(cant))?', opts: ['3', '4', '5', '6'], c: 2, ex: 'b*b=1. c*2/b=4.0. cant=-2-1+4.0+4=5.0. int(5.0)=5. Resultado: 5.'},
+  {st: 'El truco num==int(num) sirve para:', opts: ['Convertir un número a entero', 'Detectar si un float es en realidad un número entero', 'Calcular el valor absoluto', 'Redondear hacia arriba'], c: 1, ex: 'int() trunca hacia cero. Si num=3.0, int(3.0)=3, y 3.0==3 es True. Si num=3.5, int(3.5)=3, y 3.5==3 es False. Así se distingue si un float tiene parte decimal o no.'},
+  {st: '"hola"*3 en Python produce:', opts: ['Error de tipo', '"hola3"', '"holaholahola"', '"h o l a 3"'], c: 2, ex: 'El operador * aplicado a una string y un entero repite la string. "hola"*3 = "holaholahola". Funciona igual con listas: [0]*3 = [0,0,0].'},
+  {st: 'Si varios if están encadenados (sin elif), ¿cuántos se evalúan con a=5?', opts: ['Solo el primero que sea True', 'Solo 1', 'Todos, sin excepción', 'Ninguno si el primero es False'], c: 2, ex: 'Los if independientes se evalúan SIEMPRE, uno por uno, sin importar lo que pasó antes. Solo con elif/else hay cortocircuito. Esta es una trampa clásica en preguntas de "¿cuál evalúa menos condiciones?".'},
+  {st: '¿Cuál es la diferencia entre / y // en Python?', opts: ['No hay diferencia', '/ da float, // da el cociente entero', '// da float, / da entero', '/ es potencia, // es raíz'], c: 1, ex: '7/2 = 3.5 (siempre devuelve float). 7//2 = 3 (cociente entero, trunca hacia abajo). -7//2 = -4 (no -3, porque trunca hacia el infinito negativo).'},
+  {st: 'Si a=2, b=False, c=3: ¿cuál condición NO es equivalente a las otras tres? (1) a in range(1,8,2) or b or c>a  (2) a in range(1,8,2) and b and c>a  (3) (a>0 and a<8 and a%2!=0) or a<c  (4) a<c or a in (1,3,5,7)', opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: 'Probando con a=2, b=False, c=3: opción 1=True, opción 3=True, opción 4=True. Opción 2: a in range(1,8,2)=True, pero "and b" hace False. La opción 2 da False mientras las demás dan True.'}
+]);
+
+registerExercises('pc-parcial', '3', [
+  {st: 'Con producto="birome", unidad="caja", precio=60: if producto in ("block A4","etiqueta"): ... elif producto in ("plasticola","hoja","birome"): if unidad in ("ciento","docena","bolsa"): print("barato") else: print("caro") — ¿qué muestra?', opts: ['"barato"', '"caro"', 'Nada', 'Error'], c: 1, ex: '"birome" no está en ("block A4","etiqueta") → sigue. "birome" sí está en ("plasticola","hoja","birome") → entra. "caja" no está en ("ciento","docena","bolsa") → else → imprime "caro".'},
+  {st: '¿Qué hace el operador "in" con una tupla? Por ejemplo: animal in ("sapo","caballo","cacatúa")', opts: ['Solo funciona con listas, no con tuplas', 'Verifica si animal es igual a alguno de los elementos de la tupla', 'Cuenta cuántos elementos hay', 'Concatena animal con la tupla'], c: 1, ex: '"in" verifica pertenencia: devuelve True si el elemento está en la secuencia, False si no. Funciona con listas, tuplas, strings y ranges.'},
+  {st: 'En una cadena if/elif/elif/else, si la primera condición es True:', opts: ['Se evalúan todas las condiciones siguientes', 'Se ejecuta el bloque del if y se saltan todos los elif y else', 'Se ejecuta el if y luego el else', 'Se ejecuta solo el else'], c: 1, ex: 'Una vez que Python encuentra un bloque cuya condición es True, ejecuta ese bloque y salta todo el resto. Los elif y else siguientes no se evalúan.'},
+  {st: 'Con a=2, b=False: la condición "a>0 and b" evalúa:', opts: ['True', 'False y NO evalúa b', 'False y SÍ evalúa b', 'Error'], c: 1, ex: 'a>0 es True. Con "and", Python DEBE evaluar la segunda parte. b=False. True and False = False. Nota: el cortocircuito de "and" ocurre cuando la primera parte es FALSE (ahí no evalúa la segunda).'},
+  {st: 'Con a=2, b=True: la condición "a>0 or b" evalúa:', opts: ['True y SÍ evalúa b', 'True y NO evalúa b (cortocircuito)', 'False', 'Error'], c: 1, ex: 'a>0 es True. Con "or", si la primera parte es True, el resultado ya es True sin importar la segunda. Python no evalúa b. Cortocircuito: "or" cortocircuita cuando la primera es TRUE.'},
+  {st: '¿Cuántas condiciones se evalúan si animal="cacatúa", y el código es: if animal in ("sapo","caballo","cacatúa"): print("X") if animal in ("guacamayo","pitón"): print("Y")?', opts: ['1', '2', '3', '0'], c: 1, ex: 'Son dos if independientes (no elif). El primero se evalúa siempre: animal in ("sapo","caballo","cacatúa") = True (1 condición). El segundo también se evalúa siempre: animal in ("guacamayo","pitón") = False (2ª condición). Total: 2.'}
+]);
+
+registerExercises('pc-parcial', '4', [
+  {st: '¿Cuántas veces itera "for i in range(1, 15, 5)"?', opts: ['2', '3', '4', '14'], c: 1, ex: 'range(1,15,5) genera: 1, 6, 11. El siguiente sería 16 que ya supera 15 (límite). Total: 3 iteraciones.'},
+  {st: '¿Cuántas veces itera "for i in range(1, 10, -4)"?', opts: ['0 (no itera)', '2', '3', '10'], c: 0, ex: 'Con paso negativo, se necesita inicio > fin para que el range no esté vacío. Aquí inicio=1 < fin=10, entonces el range está vacío. El bucle no itera ninguna vez.'},
+  {st: 'En el código: for i in range(3): i=0 — ¿cuántas veces itera el bucle?', opts: ['1 (se queda en 0)', '3', 'Infinito', '0'], c: 1, ex: 'Reasignar i dentro del for NO afecta al range. El range genera los valores 0,1,2 y en cada iteración asigna el siguiente. El cuerpo se ejecuta 3 veces aunque i siempre valga 0 al final.'},
+  {st: 'Con i=100, el while: while i>0: i-=70 — ¿cuántas veces itera?', opts: ['1', '2', '3', 'Infinito'], c: 1, ex: 'i=100: 100>0 True → i=30. i=30: 30>0 True → i=-40. i=-40: -40>0 False → sale. Total: 2 iteraciones.'},
+  {st: '¿Qué muestra este código? for i in range(3): for j in (2,1): print("a"*j)', opts: ['"aa","aaa","aa","aaa","aa","aaa"', '"aa","a","aa","a","aa","a"', '"a","a","a"', '"aaa","aa"'], c: 1, ex: 'El for externo itera 3 veces (i=0,1,2). El for interno itera sobre (2,1): primero j=2 → "aa", luego j=1 → "a". Resultado: aa/a/aa/a/aa/a (6 líneas).'},
+  {st: '¿Cuántas veces imprime "a" este código? for letra in "sabana": if letra=="a": i=1; while i<2: print("a"); i+=2', opts: ['1', '2', '3', '7'], c: 2, ex: '"sabana" tiene letras: s,a,b,a,n,a. La "a" aparece en posiciones 1,3,5 → 3 veces. Cada vez que letra=="a": i=1, while 1<2 True → imprime "a", i=3, while 3<2 False → sale. Total: 3 impresiones.'}
+]);
+
+registerExercises('pc-parcial', '5', [
+  {st: 'Si a=[10,20,30,40], ¿qué devuelve a[-2]?', opts: ['10', '20', '30', '40'], c: 2, ex: 'Los índices negativos cuentan desde el final. a[-1]=40, a[-2]=30, a[-3]=20, a[-4]=10. Por lo tanto a[-2] = 30.'},
+  {st: 'Con a=[0,3,1] y b=[3,6,11,0], y el código: c=[]; for num in a: c.append(b[num]*2) — ¿cuál es c?', opts: ['[0,3,1]', '[3,6,11]', '[6,0,12]', '[0,6,2]'], c: 2, ex: 'num=0: b[0]=3, 3*2=6. num=3: b[3]=0, 0*2=0. num=1: b[1]=6, 6*2=12. c=[6,0,12].'},
+  {st: '¿Cuál es la diferencia entre a.extend(b) y a+b?', opts: ['No hay diferencia', 'extend() modifica a en su lugar; + genera una nueva lista sin modificar a ni b', '+ modifica a; extend() genera una nueva lista', 'extend() solo funciona con listas de números'], c: 1, ex: 'a.extend(b) agrega los elementos de b AL FINAL de a (modifica a). a+b crea una nueva lista con los elementos de ambas sin modificar ninguna. Esta diferencia es clave para los ejercicios de "¿cuál NO deja la lista así?".'},
+  {st: 'Con numeros=[-3.36,10,2,0.25,-3]: después de separar enteros y floats, y aplicar sort()+reverse() a cada lista, ¿cuáles son los enteros?', opts: ['[-3,2,10]', '[10,2,-3]', '[2,10,-3]', '[-3.36,0.25]'], c: 1, ex: 'Enteros del conjunto (num==int(num)): 10, 2, -3. sort() los ordena: [-3,2,10]. reverse() los invierte: [10,2,-3].'},
+  {st: 'El método list.remove(x) hace:', opts: ['Elimina todos los elementos iguales a x', 'Elimina solo la PRIMERA ocurrencia de x', 'Elimina el elemento en la posición x', 'Elimina el último elemento'], c: 1, ex: 'remove(x) busca de izquierda a derecha y elimina solo la PRIMERA ocurrencia de x. Si x no existe, da ValueError.'},
+  {st: '[0]*6 en Python produce:', opts: ['Error', '[0,0,0,0,0,0]', '[6]', 'Una lista con el número 06'], c: 1, ex: 'El operador * con una lista y un entero repite la lista. [0]*6 crea una lista con 6 ceros: [0,0,0,0,0,0]. Es la forma idiomática de crear una lista de tamaño fijo con valor inicial.'}
+]);
+
+registerExercises('pc-parcial', '6', [
+  {st: 'Si pal="GEMELO", ¿qué devuelve pal[2:]?', opts: ['"GE"', '"MELO"', '"EMELO"', '"GEMELO"'], c: 1, ex: 'pal[2:] toma desde la posición 2 hasta el final. G=0, E=1, M=2, E=3, L=4, O=5. Desde posición 2: "MELO".'},
+  {st: 'Si nom1="juan", ¿qué devuelve nom1[::-1]?', opts: ['"juan"', '"nauj"', '"j"', 'Error'], c: 1, ex: '[::-1] es el truco para invertir una string. "juan" invertida es "nauj". Recordá: [::-1] significa "recorrés toda la string de atrás para adelante".'},
+  {st: 'Con frase="hola mundo": frase.replace("hola","chau") — después de esta línea, ¿cuánto vale frase?', opts: ['"chau mundo"', '"hola mundo" (no cambió)', '"chau"', 'Error'], c: 1, ex: 'replace() devuelve UNA NUEVA STRING, no modifica la original. Para que frase cambie hay que hacer: frase = frase.replace("hola","chau"). Sin la reasignación, frase sigue siendo "hola mundo".'},
+  {st: '"hola qué tal".split() devuelve:', opts: ['"hola,qué,tal"', '["hola","qué","tal"]', '("hola","qué","tal")', 'Error'], c: 1, ex: 'split() sin argumento divide por espacios en blanco (espacios, tabs, saltos de línea) y devuelve una lista de strings. Muy útil para procesar frases palabra por palabra.'},
+  {st: '" ".join(["hola","mundo"]) devuelve:', opts: ['["hola","mundo"]', '"hola mundo"', '"hola,mundo"', '"holaMundo"'], c: 1, ex: 'join() une los elementos de la lista con el separador que está a la izquierda del punto. " ".join(...) une con un espacio: "hola mundo". ",".join(...) uniría con coma: "hola,mundo".'},
+  {st: 'Con pal1="Hola", nom1="juan", nom2="Elena": texto=pal1+nom1[::-1]+" y "+nom2[:3] — ¿cuánto vale texto?', opts: ['"Holanauj y Ele"', '"Holajuan y Ele"', '"Hola y Elena"', '"holanauj y ele"'], c: 0, ex: 'nom1[::-1]="nauj". nom2[:3]="Ele" (posiciones 0,1,2). texto="Hola"+"nauj"+" y "+"Ele"="Holanauj y Ele".'}
+]);
+
+registerExercises('pc-parcial', '7', [
+  {st: 'Con lista=[1,0,3] y factor=[3,6,2], la función producto(n1,n2) debe dar salida 3/0/6. ¿Cuál definición es correcta?', opts: ['def producto(n1): return n1*n1', 'def producto(n1,n2): return n1*n2', 'def producto(): return n1*n2', 'def producto(n1,n2): return n2'], c: 1, ex: 'La función se llama con 2 argumentos → necesita 2 parámetros. 1*3=3 ✓, 0*6=0 ✓, 3*2=6 ✓. La operación es multiplicación y hay que devolver el resultado.'},
+  {st: '¿Qué devuelve una función si no tiene instrucción "return"?', opts: ['0', 'Error', 'None', 'La última variable que usó'], c: 2, ex: 'En Python, si una función no tiene return (o tiene return sin valor), devuelve None implícitamente. Hacer print(funcion_sin_return()) imprimiría "None".'},
+  {st: 'Con term1=[5,0,3] y term2=[3,6,2], la función calcula(n1,n2) debe dar salida 8/6/5. ¿Qué operación hace?', opts: ['Multiplicación: n1*n2', 'Suma: n1+n2', 'Resta: n1-n2', 'División: n1/n2'], c: 1, ex: 'Se llama calcula(term2[i],term1[i]): calcula(3,5)=8 → 3+5=8 ✓, calcula(6,0)=6 → 6+0=6 ✓, calcula(2,3)=5 → 2+3=5 ✓. Operación: suma.'},
+  {st: 'Una variable definida dentro de una función (variable local):', opts: ['Es accesible desde cualquier parte del programa', 'Solo existe dentro de la función; fuera no existe', 'Reemplaza a una variable global del mismo nombre permanentemente', 'No puede tener el mismo nombre que una variable global'], c: 1, ex: 'Las variables locales existen solo durante la ejecución de la función. Al salir, desaparecen. Dos funciones pueden tener variables locales con el mismo nombre sin que interfieran.'},
+  {st: 'El patrón "crear lista vacía, recorrer con for, agregar con append, retornar" sirve para:', opts: ['Solo ordenar listas', 'Filtrar o transformar elementos y devolver una nueva lista', 'Invertir una lista', 'Contar elementos'], c: 1, ex: 'Este es el patrón de función más común en el parcial: resultado=[], for x in entrada: if condicion: resultado.append(x), return resultado. Sirve para filtrar, mapear o transformar colecciones.'},
+  {st: 'def fun(t): vocales="AEIOU"; rep=""; for letra in t: if letra in vocales and letra not in rep: rep+=letra; return rep.lower(). Con t="ESTUDIO", ¿qué devuelve?', opts: ['"eui"', '"estudio"', '"ESTUDIO"', '"eee"'], c: 0, ex: 'Recorre "ESTUDIO": E en vocales y no en rep → rep="E". S no es vocal. T no. U en vocales y no en rep → rep="EU". D no. I en vocales y no en rep → rep="EUI". O en vocales y no en rep → rep="EUIO". return "euio". Pero con la condición original: E→"E", U→"EU", I→"EUI". Resultado final: "eui" (las 3 primeras vocales distintas encontradas).'}
 ]);
 
 
