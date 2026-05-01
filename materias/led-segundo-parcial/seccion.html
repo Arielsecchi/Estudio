@@ -1,0 +1,446 @@
+<header>
+    <h1>LED · Guía Segundo Parcial</h1>
+    <div class="sub">UTN FRBA · Cátedra Ing. Piñeiro · Guía intensiva basada en 15 parciales reales (2023–2025)</div>
+  </header>
+<nav class="toc" id="toc-led-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#leds-s1">Estrategia general y temas que entran</a></li>
+    <li><a href="#leds-s2">Ejercicio 1 · Recurrencias lineales</a></li>
+    <li><a href="#leds-s3">Ejercicio 2 · Conjuntos ordenados, redes y Álgebras de Boole</a></li>
+    <li><a href="#leds-s4">Ejercicio 3 · Congruencias y aritmética modular</a></li>
+    <li><a href="#leds-s5">Ejercicio 4 · Estructuras algebraicas (grupos, subgrupos)</a></li>
+    <li><a href="#leds-s6">Ejercicio 5 · Grafos y árboles binarios</a></li>
+    <li><a href="#leds-s7">Mix integrador · Modelos completos</a></li>
+  </ol>
+  <div class="score" id="global-score-led-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="leds-s1">
+<summary><span class="num">1</span> Estrategia general y temas que entran <span class="sec-score" id="ss-led-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del 2° parcial Piñeiro</h3>
+<p>El segundo parcial mantiene la estructura del primero: <b>5 ejercicios</b> de desarrollo, <b>2 horas</b> de duración, aprobás con <b>3 ejercicios completos correctos</b> o el 60% del examen. Como en el primer parcial, todo se justifica: sin justificación, no hay puntaje.</p>
+
+<table class="tbl">
+  <tr><th>Ejercicio</th><th>Tema</th><th>Aparece en</th></tr>
+  <tr><td><b>1</b></td><td>Recurrencias lineales (clasificación + resolución)</td><td>100% de los parciales</td></tr>
+  <tr><td><b>2</b></td><td>Conjuntos ordenados (Hasse, cotas, sup/inf), redes, Álgebra de Boole</td><td>100%</td></tr>
+  <tr><td><b>3</b></td><td>Congruencias (ax ≡ b mód n) + propiedades modulares</td><td>100%</td></tr>
+  <tr><td><b>4</b></td><td>Subgrupos, grupos producto, redes de subgrupos, isomorfismos</td><td>100%</td></tr>
+  <tr><td><b>5</b></td><td>Grafos (Euler, Hamilton, conexión) + árboles binarios y notaciones</td><td>100%</td></tr>
+</table>
+
+<h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tipo de objeto matemático aparece?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>aₙ₊₂ + ... + aₙ = ...</td><td>Recurrencia lineal (orden = diferencia entre subíndices)</td></tr>
+  <tr><td>"Diagrama de Hasse", "supremo", "ínfimo"</td><td>Conjunto ordenado / red</td></tr>
+  <tr><td>ax ≡ b (n)</td><td>Congruencia lineal</td></tr>
+  <tr><td>(G, *), grupos producto, INV(ℤₙ)</td><td>Estructuras algebraicas</td></tr>
+  <tr><td>Vértices, aristas, "polaca", "Hamilton"</td><td>Grafos / árboles</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Cuál es la fórmula/método estándar?</h4>
+<p>Cada bloque tiene una receta única. Recurrencias: característica → raíces → forma de la solución. Congruencias: MCD(a,n)|b ⇒ existen soluciones, dividir todo por MCD y resolver. Grupos: verificar definición de subgrupo o tabla de operación.</p>
+
+<h4>Pregunta 3 — ¿Hay un V/F escondido?</h4>
+<p>El parcial siempre tiene al menos 2 V/F (en grafos y en grupos suelen estar). Refute con contraejemplo, demostrá si es V.</p>
+
+<h4>Pregunta 4 — ¿Qué fórmula del primer parcial me sirve?</h4>
+<p>El segundo parcial reutiliza propiedades del primero: divisibilidad y MCD para congruencias, conjuntos para redes, relaciones para órdenes parciales. Mantené las fórmulas a mano.</p>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+<b>Clasificá ANTES de resolver.</b> Cada problema te pide explícita o implícitamente que lo clasifiques: orden de la recurrencia, si es Álgebra de Boole, si la congruencia tiene solución. Esa clasificación define el método.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · RECURRENCIAS ============ -->
+<details id="leds-s2">
+<summary><span class="num">2</span> Ejercicio 1 · Recurrencias lineales <span class="sec-score" id="ss-led-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El primer ejercicio siempre te da una recurrencia y te pide: (a) clasificarla y resolverla; (b) demostrar por inducción que la fórmula explícita es equivalente a la recursiva.</p>
+
+<h3>Clasificación: orden, grado, homogeneidad, coeficientes</h3>
+<table class="tbl">
+  <tr><th>Atributo</th><th>Cómo determinarlo</th></tr>
+  <tr><td><b>Orden</b></td><td>Diferencia entre el subíndice mayor y el menor de aₙ. Ej: aₙ₊₂ + aₙ = ... → orden 2.</td></tr>
+  <tr><td><b>Grado</b></td><td>Mayor potencia a la que está elevado algún aₙ. En las del parcial siempre es <b>grado 1</b> (lineales).</td></tr>
+  <tr><td><b>Homogeneidad</b></td><td>Si la parte sin aₙ vale 0 → <b>homogénea</b>. Si hay un término libre (nº, n, 2ⁿ, etc.) → <b>no homogénea</b>.</td></tr>
+  <tr><td><b>Coeficientes</b></td><td>Los números que multiplican a aₙ, aₙ₋₁, etc. Si son números fijos → <b>constantes</b>; si dependen de n → <b>variables</b>.</td></tr>
+</table>
+
+<h3>Resolver una recurrencia lineal con coef. constantes</h3>
+
+<h4>Paso 1 — Solución de la homogénea asociada</h4>
+<ol>
+  <li>Escribí la <b>ecuación característica</b> reemplazando aₙ₊ₖ por r<sup>k</sup>.</li>
+  <li>Hallá las raíces r₁, r₂ (usando Bhaskara si es de orden 2).</li>
+  <li>Si las raíces son <b>distintas</b>: a<sub>n</sub><sup>(h)</sup> = α·r₁ⁿ + β·r₂ⁿ.</li>
+  <li>Si la raíz es <b>doble</b> (r₁ = r₂ = r): a<sub>n</sub><sup>(h)</sup> = (α + β·n)·rⁿ.</li>
+</ol>
+
+<h4>Paso 2 — Solución particular (si es no homogénea)</h4>
+<table class="tbl">
+  <tr><th>Tipo del término libre</th><th>Forma de la particular</th></tr>
+  <tr><td>Constante c</td><td>a<sub>n</sub><sup>(p)</sup> = K (a determinar)</td></tr>
+  <tr><td>Polinomio en n: P(n)</td><td>Polinomio del mismo grado: K₀ + K₁n + ...</td></tr>
+  <tr><td>Exponencial cⁿ con c ≠ raíz</td><td>K · cⁿ</td></tr>
+  <tr><td>Exponencial cⁿ con c = raíz simple</td><td>K · n · cⁿ</td></tr>
+  <tr><td>Exponencial cⁿ con c = raíz doble</td><td>K · n² · cⁿ</td></tr>
+</table>
+<p>Reemplazás a<sub>n</sub><sup>(p)</sup> en la recurrencia y despejás K.</p>
+
+<h4>Paso 3 — Solución general y particular</h4>
+<p>a<sub>n</sub> = a<sub>n</sub><sup>(h)</sup> + a<sub>n</sub><sup>(p)</sup>. Aplicás las condiciones iniciales (a₀, a₁) para hallar α y β.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 01): aₙ₊₂ − 5aₙ₊₁ + 6aₙ = 2·2ⁿ con a₀=4, a₁=10</div>
+  <p><b>Clasificación:</b> orden 2, grado 1, no homogénea (lado derecho ≠ 0), coef. constantes.</p>
+  <p><b>Homogénea:</b> r² − 5r + 6 = 0 → r = 2 ó r = 3. a<sub>n</sub><sup>(h)</sup> = α·2ⁿ + β·3ⁿ.</p>
+  <p><b>Particular:</b> término libre 2·2ⁿ y c=2 ES raíz simple → probar K·n·2ⁿ.<br>
+  Reemplazo: K(n+2)2^(n+2) − 5·K(n+1)2^(n+1) + 6·Kn·2ⁿ = 2·2ⁿ.<br>
+  Dividiendo por 2ⁿ: 4K(n+2) − 10K(n+1) + 6Kn = 2 → −2K = 2 → K = −1.<br>
+  a<sub>n</sub><sup>(p)</sup> = −n·2ⁿ.</p>
+  <p><b>General:</b> aₙ = α·2ⁿ + β·3ⁿ − n·2ⁿ.<br>
+  a₀ = α + β = 4. a₁ = 2α + 3β − 2 = 10 → 2α + 3β = 12. Resolviendo: β = 4, α = 0.</p>
+  <p><b>Particular:</b> aₙ = 4·3ⁿ − n·2ⁿ.</p>
+</div>
+
+<h3>Inducción para verificar (parte b)</h3>
+<p>Una vez tenés aₙ explícita, hay que probar por inducción que satisface la recurrencia. Caso base con n=0 o n=1; paso inductivo: suponer válido para h y h−1 (orden 2), demostrar para h+1 sustituyendo en la recurrencia.</p>
+
+<div class="quiz-wrap" data-qz="2" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · ORDEN Y REDES ============ -->
+<details id="leds-s3">
+<summary><span class="num">3</span> Ejercicio 2 · Conjuntos ordenados, redes y Álgebras de Boole <span class="sec-score" id="ss-led-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ejercicio 2 mezcla en sus dos ítems: (a) cotas, sup/ínf, máx/mín de un subconjunto B de un conjunto ordenado A; (b) Verdadero/Falso sobre redes/Álgebras de Boole, isomorfismos a (D<sub>n</sub>, |) o (P(X), ⊆).</p>
+
+<h3>Conjuntos ordenados: el lenguaje básico</h3>
+<table class="tbl">
+  <tr><th>Concepto</th><th>Definición</th></tr>
+  <tr><td><b>Cota superior de B</b></td><td>m ∈ A tal que ∀b ∈ B: b ≤ m</td></tr>
+  <tr><td><b>Cota inferior de B</b></td><td>m ∈ A tal que ∀b ∈ B: m ≤ b</td></tr>
+  <tr><td><b>Supremo (sup B)</b></td><td>Mínima cota superior (la más chica de las cotas superiores)</td></tr>
+  <tr><td><b>Ínfimo (ínf B)</b></td><td>Máxima cota inferior</td></tr>
+  <tr><td><b>Máximo de B</b></td><td>Sup B si pertenece a B</td></tr>
+  <tr><td><b>Mínimo de B</b></td><td>Ínf B si pertenece a B</td></tr>
+  <tr><td><b>Maximales</b></td><td>x ∈ B sin elementos arriba (puede haber varios)</td></tr>
+  <tr><td><b>Minimales</b></td><td>x ∈ B sin elementos abajo (puede haber varios)</td></tr>
+</table>
+
+<h3>Receta para hallar cotas en (ℕ, |) restringido a un conjunto A</h3>
+<ol>
+  <li>Identificá los elementos de A y de B (B ⊆ A).</li>
+  <li><b>Cotas superiores</b> en A de B = {a ∈ A : todo b de B divide a a}. Es decir, MCM(B) y todos sus múltiplos que estén en A.</li>
+  <li><b>Cotas inferiores</b> = {a ∈ A : a divide a todo b de B} = MCD(B) y sus divisores que estén en A.</li>
+  <li><b>Sup</b> = mínima cota superior. <b>Ínf</b> = máxima cota inferior.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 02): B = {8, 12, 16} en A = {x ∈ ℕ : 3 &lt; x &lt; 60} con divisibilidad</div>
+  <p>Cotas superiores de B en A: múltiplos comunes de 8, 12, 16 que sean ≤ 59. MCM(8,12,16) = 48. Múltiplos de 48 en A: {48}. Sup = 48 (único). Como 48 ∉ B, NO es máximo.</p>
+  <p>Cotas inferiores de B en A: divisores comunes de 8, 12, 16 que estén en A (es decir &gt; 3 y &lt; 60). MCD(8,12,16) = 4. Cotas inferiores en A: {4}. Ínf = 4 (único). Como 4 ∉ B, NO es mínimo.</p>
+</div>
+
+<h3>Redes y Álgebras de Boole</h3>
+<div class="formula">
+  <b>Red:</b> conjunto ordenado donde todo par {a, b} tiene supremo (a ∨ b) e ínfimo (a ∧ b).<br>
+  <b>Red distributiva:</b> a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c).<br>
+  <b>Red complementada:</b> tiene 0 y 1, y cada elemento tiene complemento.<br>
+  <b>Álgebra de Boole:</b> red distributiva Y complementada.
+</div>
+
+<h3>Isomorfismos típicos del parcial</h3>
+<p>Los ejemplos canónicos de Álgebras de Boole son:</p>
+<ul>
+  <li><b>(P(X), ⊆)</b> con |X| = n → tiene 2ⁿ elementos.</li>
+  <li><b>(D<sub>n</sub>, |)</b> donde D<sub>n</sub> = divisores de n, <b>solo es Álgebra de Boole si n es libre de cuadrados</b> (n = p₁·p₂·...·p_k con primos distintos).</li>
+</ul>
+
+<table class="tbl">
+  <tr><th>n</th><th>D<sub>n</sub></th><th>¿Álgebra de Boole?</th><th>Isomorfa a</th></tr>
+  <tr><td>30 = 2·3·5</td><td>{1,2,3,5,6,10,15,30}</td><td>Sí (8 elementos)</td><td>(P({a,b,c}), ⊆)</td></tr>
+  <tr><td>40 = 2³·5</td><td>8 divisores</td><td>NO (2 está al cuadrado)</td><td>—</td></tr>
+  <tr><td>210 = 2·3·5·7</td><td>16 divisores</td><td>Sí</td><td>(P({a,b,c,d}), ⊆)</td></tr>
+  <tr><td>1001 = 7·11·13</td><td>8 divisores</td><td>Sí</td><td>(P({a,b,c}), ⊆)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Truco para reconocer Álgebras de Boole entre divisores</div>
+Si en la factorización prima de n algún primo aparece elevado a una potencia ≥ 2, <b>NO es Álgebra de Boole</b> (porque el divisor en cuestión no tendría complemento). Solo "n libres de cuadrados" valen.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · CONGRUENCIAS ============ -->
+<details id="leds-s4">
+<summary><span class="num">4</span> Ejercicio 3 · Congruencias y aritmética modular <span class="sec-score" id="ss-led-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ej 3 tiene dos ítems: (a) resolver una ecuación de congruencia ax ≡ b (n) y hallar las soluciones principales (todas las soluciones módulo n); (b) demostrar/justificar V/F sobre propiedades de congruencias.</p>
+
+<h3>Resolver ax ≡ b (n)</h3>
+<ol>
+  <li>Calculá <b>d = MCD(a, n)</b>.</li>
+  <li>Si <b>d ∤ b</b>: <b>NO tiene solución</b>.</li>
+  <li>Si <b>d | b</b>: tiene <b>exactamente d soluciones principales</b> mod n.</li>
+  <li>Dividís toda la ecuación por d (incluido el módulo): a' x ≡ b' (n') con MCD(a', n') = 1.</li>
+  <li>Buscás el inverso de a' mod n' usando el algoritmo de Euclides extendido: a'·s + n'·t = 1 → a'·s ≡ 1 (n') → s = (a')⁻¹.</li>
+  <li>x ≡ b'·s (n'). Esa es <b>una</b> solución principal.</li>
+  <li>Las <b>d soluciones principales en mod n</b> se obtienen sumando 0, n', 2n', ..., (d−1)n' a la primera.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 02): 22x ≡ 30 (150)</div>
+  <p>MCD(22, 150) = 2. 2 | 30 ✓. <b>2 soluciones principales</b>.</p>
+  <p>Divido por 2: 11x ≡ 15 (75). MCD(11, 75) = 1.</p>
+  <p>Inverso de 11 mod 75: 75 = 11·6 + 9; 11 = 9·1 + 2; 9 = 2·4 + 1. Hacia atrás: 1 = 9 − 2·4 = 9 − 4·(11 − 9) = 5·9 − 4·11 = 5·(75 − 11·6) − 4·11 = 5·75 − 34·11. Entonces 11·(−34) ≡ 1 (75), y −34 ≡ 41 (75). 11⁻¹ = 41.</p>
+  <p>x ≡ 15·41 (75) = 615 ≡ 615 − 8·75 (75) = 615 − 600 = 15 (75).</p>
+  <p><b>Soluciones principales en mod 150:</b> x ≡ 15 (150) y x ≡ 15 + 75 = 90 (150).</p>
+</div>
+
+<h3>Propiedades clave de congruencias</h3>
+<div class="formula">
+  • <b>a ≡ b (n) ∧ c ≡ d (n) ⇒ a ± c ≡ b ± d (n)</b><br>
+  • <b>a ≡ b (n) ∧ c ≡ d (n) ⇒ a·c ≡ b·d (n)</b><br>
+  • <b>a ≡ b (n) ⇒ aᵏ ≡ bᵏ (n)</b><br>
+  • <b>a·c ≡ b·c (n) ∧ MCD(c, n) = 1 ⇒ a ≡ b (n)</b> (cancelación válida si c es coprimo con n)<br>
+  • <b>a·c ≡ b·c (n) ⇒ a ≡ b (n / MCD(c,n))</b> (cancelación general)
+</div>
+
+<h3>Aplicaciones típicas del parcial</h3>
+
+<h4>Hallar las últimas dos cifras de N</h4>
+<p>Las últimas dos cifras de N son N mod 100. Reducís N en módulo 100 usando potencias y propiedades.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 12): últimas dos cifras de 7^2451</div>
+  <p>Calculo las potencias de 7 mod 100: 7¹=7, 7²=49, 7³=343≡43, 7⁴=7·43=301≡1.</p>
+  <p>Como 7⁴ ≡ 1 (100), las potencias de 7 se repiten cada 4. 2451 = 4·612 + 3, entonces 7^2451 ≡ 7³ ≡ 43 (100). <b>Últimas dos cifras: 43</b>.</p>
+</div>
+
+<h3>V/F típicos del parcial</h3>
+<table class="tbl">
+  <tr><th>Afirmación</th><th>V/F</th><th>Por qué</th></tr>
+  <tr><td>"a·c ≡ b·c (n) ⇒ a ≡ b (n)"</td><td>F</td><td>Solo vale si MCD(c,n) = 1. Contraej: 2·3 ≡ 4·3 (6), pero 2 ≢ 4 (6).</td></tr>
+  <tr><td>"a ≡ b (n) ∧ b ≡ c (n) ⇒ a ≡ c (n)"</td><td>V</td><td>Transitividad de la congruencia.</td></tr>
+  <tr><td>"Si ax ≡ b(n) tiene 2 soluciones, entonces MCD(a,b)=2"</td><td>F</td><td>Tiene MCD(a,n)=2; el b no entra. Contraej: 2x≡0(4) tiene MCD(2,4)=2 con b=0.</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="4" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · GRUPOS ============ -->
+<details id="leds-s5">
+<summary><span class="num">5</span> Ejercicio 4 · Estructuras algebraicas (grupos, subgrupos) <span class="sec-score" id="ss-led-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ej 4 mezcla: (a) verificar si un conjunto H es subgrupo de un grupo dado o si una operación es asociativa/conmutativa/posee neutro; (b) trabajar con un grupo concreto (INV(ℤₙ), grupo producto) y hacer su red de subgrupos, decidir si es cíclico, isomorfo a otro.</p>
+
+<h3>Recordatorio: definición de grupo</h3>
+<p>(G, *) es grupo si: cierre, asociatividad, neutro, inverso de cada elemento. Si además * es conmutativa, es <b>abeliano</b>.</p>
+
+<h3>Verificar si H ⊆ G es subgrupo</h3>
+<p>Tres condiciones (test del subgrupo):</p>
+<ol>
+  <li>H ≠ ∅ (suele bastar con probar que el neutro de G está en H).</li>
+  <li>Cierre: ∀a, b ∈ H: a*b ∈ H.</li>
+  <li>Inverso: ∀a ∈ H: a⁻¹ ∈ H.</li>
+</ol>
+<p><b>Test reducido:</b> H ≠ ∅ y ∀a, b ∈ H: a*b⁻¹ ∈ H. (Único test que se usa.)</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 02): H = {x ∈ ℤ : x = a + 5b, a, b ∈ ℤ} ⊆ (ℤ, +)</div>
+  <p>Observación: a + 5b con a, b enteros recorre TODO ℤ (basta tomar a libre). Entonces H = ℤ, que es subgrupo trivialmente. ✓</p>
+</div>
+
+<h3>El grupo INV(ℤₙ): inversibles módulo n</h3>
+<p>INV(ℤₙ) = {x ∈ ℤₙ : MCD(x, n) = 1} con la multiplicación. Son los elementos que tienen inverso multiplicativo mod n.</p>
+
+<table class="tbl">
+  <tr><th>n</th><th>|INV(ℤₙ)|</th><th>Elementos</th><th>Cíclico?</th></tr>
+  <tr><td>8</td><td>4</td><td>{1, 3, 5, 7}</td><td>NO (es ℤ₂×ℤ₂)</td></tr>
+  <tr><td>9</td><td>6</td><td>{1, 2, 4, 5, 7, 8}</td><td>SÍ (gen: 2)</td></tr>
+  <tr><td>10</td><td>4</td><td>{1, 3, 7, 9}</td><td>SÍ (gen: 3)</td></tr>
+  <tr><td>16</td><td>8</td><td>{1,3,5,7,9,11,13,15}</td><td>NO (≅ ℤ₂×ℤ₄)</td></tr>
+  <tr><td>18</td><td>6</td><td>{1,5,7,11,13,17}</td><td>SÍ (gen: 5)</td></tr>
+  <tr><td>20</td><td>8</td><td>{1,3,7,9,11,13,17,19}</td><td>NO (≅ ℤ₂×ℤ₄)</td></tr>
+</table>
+
+<h3>Grupos cíclicos y red de subgrupos</h3>
+<p>Si G = ⟨g⟩ tiene orden n, los subgrupos son ⟨g<sup>d</sup>⟩ para cada d | n. La red de subgrupos es <b>isomorfa a (D<sub>n</sub>, |)</b>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 09): INV(ℤ₁₀, ·)</div>
+  <p>INV(ℤ₁₀) = {1, 3, 7, 9}. Verificá que 3¹=3, 3²=9, 3³=27≡7, 3⁴=81≡1. Genera el grupo → cíclico de orden 4.</p>
+  <p>Subgrupos: ⟨1⟩ = {1}, ⟨3²⟩ = ⟨9⟩ = {1, 9}, ⟨3⟩ = todo el grupo. Red: trivial (3 niveles).</p>
+  <p><b>Isomorfo a (ℤ₄, +)</b>: ambos son cíclicos de orden 4. Iso: 1 ↔ 0, 3 ↔ 1, 9 ↔ 2, 7 ↔ 3.</p>
+</div>
+
+<h3>Grupos producto: (G × H, *)</h3>
+<p>(g₁, h₁) * (g₂, h₂) = (g₁·g₂, h₁·h₂). Componente a componente.</p>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Cumple si</th></tr>
+  <tr><td>Abeliano</td><td>G y H abelianos</td></tr>
+  <tr><td>Cíclico</td><td>G y H cíclicos Y MCD(|G|, |H|) = 1</td></tr>
+</table>
+
+<h3>Isomorfismos: cómo demostrar que f: G → H es uno</h3>
+<ol>
+  <li><b>f es función bien definida</b> (cada g ∈ G tiene una imagen única).</li>
+  <li><b>Homomorfismo:</b> f(g₁·g₂) = f(g₁) · f(g₂).</li>
+  <li><b>Biyectiva:</b> mostrar que es inyectiva (kernel trivial) y sobreyectiva (o que |G| = |H| en grupos finitos).</li>
+</ol>
+
+<div class="quiz-wrap" data-qz="5" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · GRAFOS Y ARBOLES ============ -->
+<details id="leds-s6">
+<summary><span class="num">6</span> Ejercicio 5 · Grafos y árboles binarios <span class="sec-score" id="ss-led-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>Dos ítems que pueden aparecer en cualquier orden: (a) caminos de Euler/Hamilton, conexión, puntos de corte, aristas puente; (b) árboles binarios desde notación polaca o polaca inversa, altura, balanceado.</p>
+
+<h3>Definiciones y resultados clave</h3>
+<div class="formula">
+  • <b>Grafo simple:</b> sin lazos ni aristas múltiples.<br>
+  • <b>Grado de un vértice:</b> cantidad de aristas incidentes.<br>
+  • ∑ grados = 2·|A|.<br>
+  • <b>Camino de Euler:</b> recorre TODA arista exactamente una vez. <b>Existe ⇔</b> exactamente 0 ó 2 vértices de grado impar.<br>
+  • <b>Camino de Hamilton:</b> recorre TODOS los vértices exactamente una vez. <b>No hay condición simple</b>.<br>
+  • <b>Conjunto de corte:</b> conjunto mínimo de aristas que al sacarlas desconecta el grafo.<br>
+  • <b>Punto de corte:</b> vértice que al sacarlo desconecta el grafo.<br>
+  • <b>Arista puente:</b> arista que al sacarla desconecta.
+</div>
+
+<h3>Cuándo un grafo simple con V vértices y A aristas es necesariamente conexo</h3>
+<div class="formula">
+  Si A &gt; C(V−1, 2) = (V−1)(V−2)/2, el grafo es necesariamente conexo.
+</div>
+<p>Idea: el grafo no conexo más denso es K<sub>V−1</sub> ∪ {un vértice aislado}, que tiene C(V−1, 2) aristas. Una más obliga la conexión.</p>
+
+<table class="tbl">
+  <tr><th>V</th><th>A máx no conexo</th><th>A &gt; ese ⇒ conexo</th></tr>
+  <tr><td>13</td><td>C(12,2) = 66</td><td>A ≥ 67</td></tr>
+  <tr><td>18</td><td>C(17,2) = 136</td><td>A ≥ 137</td></tr>
+  <tr><td>20</td><td>C(19,2) = 171</td><td>A ≥ 172</td></tr>
+  <tr><td>22</td><td>C(21,2) = 210</td><td>A ≥ 211</td></tr>
+</table>
+
+<h3>Árboles binarios y notaciones</h3>
+<p>Un árbol binario tiene a lo sumo 2 hijos por nodo. <b>Regular</b>: cada nodo interno tiene 0 ó 2 hijos. <b>Balanceado</b>: todas las hojas están a profundidad h o h−1.</p>
+
+<table class="tbl">
+  <tr><th>Recorrido</th><th>Orden</th></tr>
+  <tr><td><b>Pre-orden / Polaca prefija</b></td><td>raíz, izq, der</td></tr>
+  <tr><td><b>In-orden / Simétrico</b></td><td>izq, raíz, der</td></tr>
+  <tr><td><b>Post-orden / Polaca inversa</b></td><td>izq, der, raíz</td></tr>
+</table>
+
+<h3>Reconstruir el árbol desde notación polaca</h3>
+<p><b>Polaca prefija</b>: empezás por la raíz (primer símbolo). Si es un operador binario, le siguen los subárboles izq y der. Recursivamente: en cada subárbol, el primer símbolo es la raíz, etc.</p>
+<p><b>Polaca inversa (post-orden)</b>: usás <b>pila</b>. Recorrés de izq a der: si ves un operando, lo apilás. Si ves un operador, sacás los dos topes (primero der, después izq) y formás un subárbol cuya raíz es el operador. Apilás el subárbol resultante.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 12): Polaca inversa: 5, 2, *, 8, 2, /, −, 4, 6, 3, −, +, /</div>
+  <p>Pila paso a paso:<br>
+  5 → [5]; 2 → [5,2]; * → [10]; 8 → [10,8]; 2 → [10,8,2]; / → [10,4]; − → [6]; 4 → [6,4]; 6 → [6,4,6]; 3 → [6,4,6,3]; − → [6,4,3]; + → [6,7]; / → [6/7].</p>
+  <p>Valor: 6/7. Altura del árbol: contás los niveles desde la raíz hasta la hoja más profunda.</p>
+</div>
+
+<h3>Cantidad de hojas y nodos en árboles regulares</h3>
+<div class="formula">
+  Árbol binario regular con i nodos internos:<br>
+  • Cantidad de hojas: <b>i + 1</b><br>
+  • Total de vértices: <b>2i + 1</b><br>
+  Árbol r-ario regular con i internos: hojas = i·(r−1) + 1, total = r·i + 1.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · MIX ============ -->
+<details id="leds-s7">
+<summary><span class="num">7</span> Mix integrador · Modelos completos <span class="sec-score" id="ss-led-segundo-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Ejercicios mezclados de los 15 parciales</h3>
+
+<div class="example">
+  <div class="ex-t">Integrador 1 — Recurrencia con raíz repetida (Tema 06)</div>
+  <p>aₙ₊₂ + 28aₙ = 11aₙ₊₁ + 18·2ⁿ⁻¹, a₀=−2, a₁=−15.</p>
+  <p>Reescribo: aₙ₊₂ − 11aₙ₊₁ + 28aₙ = 9·2ⁿ. Característica r² − 11r + 28 = 0 → r = 4 ó r = 7. Distintas. a^(h) = α·4ⁿ + β·7ⁿ.</p>
+  <p>Particular: 9·2ⁿ con 2 que no es raíz → K·2ⁿ. K·2ⁿ⁺² − 11K·2ⁿ⁺¹ + 28K·2ⁿ = 9·2ⁿ → 4K − 22K + 28K = 9 → 10K = 9 → K = 9/10.</p>
+  <p>Aplicás condiciones iniciales para hallar α y β.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Conjunto ordenado por divisibilidad (Tema 02)</div>
+  <p>A = {x ∈ ℕ : 3 &lt; x &lt; 60}, B = {8, 12, 16}. Cotas en A.</p>
+  <p>Cotas superiores: múltiplos comunes ≤ 59 de 8, 12, 16. MCM = 48. Cotas en A: {48}. Sup = 48 (no en B → no es máx).</p>
+  <p>Cotas inferiores: divisores comunes en A. MCD = 4. Cotas en A: {4}. Ínf = 4 (no en B → no es mín).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Congruencia 168x ≡ 350 (1001)</div>
+  <p>Tema 07. MCD(168, 1001): 1001 = 168·5 + 161; 168 = 161·1 + 7; 161 = 7·23. MCD = 7.</p>
+  <p>7 | 350 ✓ (350 = 7·50). <b>7 soluciones principales</b>.</p>
+  <p>Divido por 7: 24x ≡ 50 (143). MCD(24, 143) = 1. Inverso de 24 mod 143 con Euclides extendido. Una vez tenés x₀, las 7 soluciones son x₀, x₀+143, ..., x₀+6·143.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 4 — INV(ℤ₂₀, ·) (Tema 08)</div>
+  <p>INV(ℤ₂₀) = {1, 3, 7, 9, 11, 13, 17, 19}, 8 elementos.</p>
+  <p>¿Cíclico? Probá 3: 3¹=3, 3²=9, 3³=27=7, 3⁴=21=1. Orden 4 → no genera todo (necesito orden 8). Probá 7, 11, 13... Ninguno genera 8 elementos.</p>
+  <p>NO es cíclico. Es ≅ ℤ₂ × ℤ₄.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 5 — Grafo simple con V=13, A=65 (Tema 09)</div>
+  <p>¿Necesariamente conexo? Máx aristas no conexo: C(12, 2) = 66. Como A = 65 ≤ 66, NO necesariamente conexo (existe G no conexo con 13 vértices y 65 aristas: K₁₂ ∪ {vértice aislado}).</p>
+  <p>¿Puede ser k-regular? Cada vértice tiene grado k → 13k = 2·65 = 130 → k = 10. Sí, k = 10 es factible (verificá que K₁₂ es 11-regular y no funciona; pero un grafo apropiado de 13 vértices podría ser 10-regular).</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del 2° parcial</div>
+1. Leé los 5 ejercicios en 5 minutos: clasificá cada recurrencia, cada congruencia, cada grupo.<br>
+2. Empezá por recurrencias (es el más mecánico) y congruencias (muy procedimental).<br>
+3. <b>Grupos</b>: si el grupo es INV(ℤₙ) o ℤₙ, ya sabés su tamaño y si es cíclico (mirá la tabla).<br>
+4. <b>Grafos</b>: dibujá. Siempre dibujá. Identificá vértices de grado impar para Euler.<br>
+5. <b>Árboles</b>: usá pila para polaca inversa. No te confíes de "ver" el árbol.<br>
+6. <b>Inducción de la parte (b) de las recurrencias</b>: HI sobre h y h−1, sustituís en la recurrencia para h+1.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="led-segundo-parcial"></div>
+<a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>

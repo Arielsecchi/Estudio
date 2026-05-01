@@ -1,0 +1,503 @@
+<header>
+    <h1>LED · Guía Primer Parcial</h1>
+    <div class="sub">UTN FRBA · Cátedra Ing. Piñeiro · Guía intensiva basada en 15 parciales reales (2023–2026)</div>
+  </header>
+<nav class="toc" id="toc-led-primer-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#ledp-s1">Estrategia general y temas que entran</a></li>
+    <li><a href="#ledp-s2">Ejercicio 1 · Lógica, razonamientos y cuantificadores</a></li>
+    <li><a href="#ledp-s3">Ejercicio 2 · Conjuntos e inducción completa</a></li>
+    <li><a href="#ledp-s4">Ejercicio 3 · Combinatoria y binomio de Newton</a></li>
+    <li><a href="#ledp-s5">Ejercicio 4 · Aritmética entera y divisibilidad</a></li>
+    <li><a href="#ledp-s6">Ejercicio 5 · Relaciones binarias y de equivalencia</a></li>
+    <li><a href="#ledp-s7">Mix integrador · Modelos completos</a></li>
+  </ol>
+  <div class="score" id="global-score-led-primer-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="ledp-s1">
+<summary><span class="num">1</span> Estrategia general y temas que entran <span class="sec-score" id="ss-led-primer-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Piñeiro</h3>
+<p>El primer parcial de LED tiene <b>5 ejercicios</b> de desarrollo, de dos a hora y media a dos horas de duración. Para aprobar se necesitan <b>3 ejercicios completos correctos</b> (o un <b>60% del examen</b> según el curso). En todos los temas la consigna es la misma: <b>justificar todo</b>; sin justificación no se otorga puntaje.</p>
+<p>Cada ejercicio cubre un bloque temático fijo (no se mezclan los temas entre ejercicios). Esto te permite preparar cinco "machetes" mentales separados, uno por bloque.</p>
+
+<table class="tbl">
+  <tr><th>Ejercicio</th><th>Tema</th><th>Aparece en</th></tr>
+  <tr><td><b>1</b></td><td>Lógica proposicional y de predicados, razonamientos</td><td>100% de los parciales</td></tr>
+  <tr><td><b>2</b></td><td>Conjuntos (igualdad/inclusión) e inducción completa</td><td>100%</td></tr>
+  <tr><td><b>3</b></td><td>Combinatoria + binomio de Newton</td><td>100%</td></tr>
+  <tr><td><b>4</b></td><td>Aritmética entera (MCD, MCM, divisibilidad, V/F)</td><td>100%</td></tr>
+  <tr><td><b>5</b></td><td>Relaciones binarias (propiedades, equivalencia, clases)</td><td>100%</td></tr>
+</table>
+
+<h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tipo de demostración me pide?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>"Pruebe la validez del razonamiento"</td><td>Reglas de inferencia (MP, MT, SD, etc.)</td></tr>
+  <tr><td>"Demuestre por inducción"</td><td>Paso base (n=1) + paso inductivo (HI ⇒ TI)</td></tr>
+  <tr><td>"Demuestre que A ⊆ B" o "A = B"</td><td>Doble inclusión + álgebra de conjuntos</td></tr>
+  <tr><td>"Halle MCD y combinación lineal"</td><td>Algoritmo de Euclides + algoritmo extendido</td></tr>
+  <tr><td>"Halle clases y conjunto cociente"</td><td>Demostrar equivalencia + clasificar elementos</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Tengo todos los datos?</h4>
+<p>En lógica: ¿está definido el conjunto universal y las funciones proposicionales? Si no, defínelas vos. En aritmética: ¿qué relación entre divisor, cociente y resto te da el enunciado? En relaciones: ¿está bien planteada la relación o tenés que pasarla a forma canónica primero?</p>
+
+<h4>Pregunta 3 — ¿Hay un V/F escondido?</h4>
+<p>Casi todos los parciales tienen al menos un ítem de "Verdadero o Falso, justifique". El refute = un contraejemplo. La demostración = aplicación de propiedad o definición. <b>Nunca afirmes V/F sin justificar</b>: te dan 0 igual aunque acertes.</p>
+
+<h4>Pregunta 4 — ¿Estoy aplicando la definición correcta?</h4>
+<p>Las trampas más típicas son:<br>
+• Confundir <b>incluido</b> (⊆) con <b>pertenece</b> (∈).<br>
+• En relaciones: confundir <b>antisimétrica</b> con <b>asimétrica</b>.<br>
+• En aritmética: confundir MCD con MCM.<br>
+• En combinatoria: contar repetidos cuando no hay, o no contar cuando hay.</p>
+
+<h3>Símbolos que vas a usar siempre</h3>
+<div class="formula">
+  Lógica: ∀ (todo), ∃ (existe), ∧ (y), ∨ (o), ¬ (no), → (implica), ↔ (sí y solo sí)<br>
+  Conjuntos: ∈ (pertenece), ⊆ (incluido), ∪ (unión), ∩ (intersección), ∅ (vacío), P(A) (partes)<br>
+  Aritmética: a | b (a divide a b), MCD(a,b), MCM(a,b), a ≡ b (n) (a congruente con b mód n)<br>
+  Relaciones: R, S, R∘S (composición), [a]<sub>R</sub> (clase), A/R (cociente)
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+<b>"Justificá cada paso"</b> es literal. No basta con dar la respuesta correcta: hay que escribir el razonamiento. Si dudás entre escribir "evidente" o detallar, siempre detallá. La cátedra premia el procedimiento aunque el resultado final esté mal.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · LOGICA ============ -->
+<details id="ledp-s2">
+<summary><span class="num">2</span> Ejercicio 1 · Lógica, razonamientos y cuantificadores <span class="sec-score" id="ss-led-primer-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ejercicio 1 siempre tiene dos ítems. Los formatos más frecuentes son:</p>
+<ul>
+  <li><b>(a)</b> Tabla de verdad / tautología, contradicción o contingencia / simplificación con leyes lógicas / valor de verdad de una proposición con cuantificadores.</li>
+  <li><b>(b)</b> Validez de un razonamiento por <b>método demostrativo</b> con reglas de inferencia (en argentino, "estilo natural").</li>
+</ul>
+
+<h3>Reglas de inferencia que tenés que tener de memoria</h3>
+<table class="tbl">
+  <tr><th>Nombre</th><th>Forma</th></tr>
+  <tr><td><b>Modus Ponens (MP)</b></td><td>p → q ; p ⊢ q</td></tr>
+  <tr><td><b>Modus Tollens (MT)</b></td><td>p → q ; ¬q ⊢ ¬p</td></tr>
+  <tr><td><b>Silogismo Hipotético (SH)</b></td><td>p → q ; q → r ⊢ p → r</td></tr>
+  <tr><td><b>Silogismo Disyuntivo (SD)</b></td><td>p ∨ q ; ¬p ⊢ q</td></tr>
+  <tr><td><b>Simplificación</b></td><td>p ∧ q ⊢ p (o q)</td></tr>
+  <tr><td><b>Adición</b></td><td>p ⊢ p ∨ q</td></tr>
+  <tr><td><b>Conjunción</b></td><td>p ; q ⊢ p ∧ q</td></tr>
+  <tr><td><b>Particularización (PU)</b></td><td>∀x: p(x) ⊢ p(a) para algún a</td></tr>
+  <tr><td><b>Generalización (GU)</b></td><td>p(a) para a arbitrario ⊢ ∀x: p(x)</td></tr>
+  <tr><td><b>Existencial (PE)</b></td><td>∃x: p(x) ⊢ p(a) para algún a (testigo)</td></tr>
+</table>
+
+<h3>Equivalencias que reemplazan demostraciones largas</h3>
+<div class="formula">
+  Implicación: <b>p → q ≡ ¬p ∨ q ≡ ¬q → ¬p</b> (contrarrecíproca)<br>
+  Bicondicional: <b>p ↔ q ≡ (p → q) ∧ (q → p)</b><br>
+  De Morgan: <b>¬(p ∨ q) ≡ ¬p ∧ ¬q ; ¬(p ∧ q) ≡ ¬p ∨ ¬q</b><br>
+  Negación de cuantificadores: <b>¬∀x: p(x) ≡ ∃x: ¬p(x) ; ¬∃x: p(x) ≡ ∀x: ¬p(x)</b><br>
+  Negación condicional: <b>¬(p → q) ≡ p ∧ ¬q</b>
+</div>
+
+<h3>Cómo demostrar la validez de un razonamiento</h3>
+<ol>
+  <li><b>Numerá las premisas</b>: P1, P2, P3...</li>
+  <li><b>Identificá el objetivo</b> (la conclusión que tenés que llegar).</li>
+  <li><b>Aplicá reglas paso a paso</b>: cada línea cita la regla y de qué premisas/líneas la deducís.</li>
+  <li><b>Si ves un condicional en la conclusión</b> (p → q), suponé p como premisa adicional y demostrá q (método del condicional).</li>
+  <li><b>Si te trabás</b>, considerá demostrar por absurdo: negá la conclusión y derivá una contradicción.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 11): Eric va a la playa o las montañas</div>
+  <p>Premisas:</p>
+  <ol>
+    <li>p ∨ m (va a playa o montaña)</li>
+    <li>p → s (si playa, lleva sombrilla)</li>
+    <li>m → o (si montaña, lleva mochila)</li>
+  </ol>
+  <p>Conclusión: s ∨ o</p>
+  <p><b>Demostración por casos:</b><br>
+  Caso 1: p → s (por MP con P2). Por adición: s ∨ o. ✓<br>
+  Caso 2: m → o (por MP con P3). Por adición: s ∨ o. ✓<br>
+  En ambos casos llegamos a s ∨ o, por lo tanto el razonamiento es <b>válido</b>.</p>
+</div>
+
+<h3>Cuantificadores: el ítem (a) más típico</h3>
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 11): ∀x: ∃y: p(x,y) verdadera</div>
+  <p>¿Qué se puede deducir de ∃y: ∀x: p(x,y) , ∀y: ∃x: p(x,y) , ∀x: ∀y: p(x,y) ?</p>
+  <p><b>Análisis:</b><br>
+  La premisa dice: para cada x existe algún y (puede ser distinto para cada x).<br>
+  • <b>∃y: ∀x: p(x,y)</b> → más fuerte: existe un y único que vale para todo x. <b>NO se deduce</b> (contraejemplo: p(x,y): x &lt; y; ∀x ∃y: x&lt;y es V, pero ∃y ∀x: x&lt;y es F).<br>
+  • <b>∀y: ∃x: p(x,y)</b> → cambia roles, no se deduce.<br>
+  • <b>∀x: ∀y: p(x,y)</b> → más fuerte aún. NO se deduce.</p>
+</div>
+
+<h3>Tautología, contradicción, contingencia</h3>
+<p>Hacé la tabla de verdad:</p>
+<ul>
+  <li>Si la última columna da siempre <b>V</b> → <b>tautología</b>.</li>
+  <li>Si da siempre <b>F</b> → <b>contradicción</b>.</li>
+  <li>Si tiene <b>V y F</b> → <b>contingencia</b>.</li>
+</ul>
+
+<div class="quiz-wrap" data-qz="2" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · CONJUNTOS E INDUCCION ============ -->
+<details id="ledp-s3">
+<summary><span class="num">3</span> Ejercicio 2 · Conjuntos e inducción completa <span class="sec-score" id="ss-led-primer-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ejercicio 2 mezcla dos temas independientes en sus dos ítems:</p>
+<ul>
+  <li><b>(a)</b> Demostración de igualdad o inclusión de conjuntos. A veces te dan cardinales y pedís deducir otros.</li>
+  <li><b>(b)</b> Demostración por <b>inducción completa</b> sobre los naturales: divisibilidad, sumatoria o inecuación.</li>
+</ul>
+
+<h3>Demostraciones con conjuntos: las 3 técnicas</h3>
+
+<h4>Técnica 1 — Doble inclusión (la más segura)</h4>
+<p>Para probar <b>A = B</b>, demostrás <b>A ⊆ B</b> y <b>B ⊆ A</b>:</p>
+<ol>
+  <li>Tomá un elemento <b>x ∈ A</b> arbitrario.</li>
+  <li>Aplicando la definición de A, deducí que <b>x ∈ B</b>.</li>
+  <li>Repetí en sentido inverso (B ⊆ A).</li>
+</ol>
+
+<h4>Técnica 2 — Álgebra de conjuntos</h4>
+<p>Reescribí ambos lados con las leyes (De Morgan, distributiva, asociativa) hasta que coincidan.</p>
+<div class="formula">
+  De Morgan: (A ∪ B)<sup>c</sup> = A<sup>c</sup> ∩ B<sup>c</sup> ; (A ∩ B)<sup>c</sup> = A<sup>c</sup> ∪ B<sup>c</sup><br>
+  Distributiva: A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)<br>
+  Diferencia: A − B = A ∩ B<sup>c</sup><br>
+  Diferencia simétrica: A △ B = (A − B) ∪ (B − A)
+</div>
+
+<h4>Técnica 3 — Cardinalidad (cuando te dan |A|, |B|, etc.)</h4>
+<div class="formula">
+  Inclusión-exclusión:<br>
+  |A ∪ B| = |A| + |B| − |A ∩ B|<br>
+  |A ∪ B ∪ C| = |A| + |B| + |C| − |A ∩ B| − |A ∩ C| − |B ∩ C| + |A ∩ B ∩ C|
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 04): cardinales</div>
+  <p>|A∪B∪C|=35, |A−B|=11, |A∪B|=33, |A∩B∩C|=3, |C−A|=6. Halle |B−C|.</p>
+  <p>Estrategia: dibujá un Venn con 8 regiones, asigná los datos uno a uno. Ese ejercicio se resuelve <b>solo con suma y resta</b>, sin álgebra de conjuntos. Lo único exigible es justificar de qué lado del Venn cae cada cardinal.</p>
+</div>
+
+<h3>Inducción completa: los 3 pasos siempre iguales</h3>
+
+<div class="formula">
+  <b>Paso 1 — Caso base:</b> verificás que la propiedad vale para n = 1 (o n = n₀).<br>
+  <b>Paso 2 — Hipótesis inductiva (HI):</b> suponés que vale para n = h.<br>
+  <b>Paso 3 — Tesis inductiva (TI):</b> probás que vale para n = h+1, usando la HI.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 11): 11<sup>n+1</sup> + 12<sup>2n−1</sup> es divisible por 133</div>
+  <p><b>Caso base (n=1):</b> 11² + 12¹ = 121 + 12 = 133 = 133·1. ✓</p>
+  <p><b>HI:</b> 11<sup>h+1</sup> + 12<sup>2h−1</sup> = 133·k con k ∈ ℤ.</p>
+  <p><b>TI:</b> 11<sup>h+2</sup> + 12<sup>2h+1</sup> = 133·k'.</p>
+  <p><b>Demostración:</b><br>
+  11<sup>h+2</sup> + 12<sup>2h+1</sup> = 11·11<sup>h+1</sup> + 144·12<sup>2h−1</sup><br>
+  = 11·11<sup>h+1</sup> + (11 + 133)·12<sup>2h−1</sup><br>
+  = 11·(11<sup>h+1</sup> + 12<sup>2h−1</sup>) + 133·12<sup>2h−1</sup><br>
+  = 11·(133k) + 133·12<sup>2h−1</sup>  (por HI)<br>
+  = 133·(11k + 12<sup>2h−1</sup>) ✓</p>
+</div>
+
+<h3>Trucos para inducción según el tipo</h3>
+<table class="tbl">
+  <tr><th>Tipo de propiedad</th><th>Truco al pasar de h a h+1</th></tr>
+  <tr><td><b>Sumatoria</b></td><td>Sumá el término (h+1) a ambos lados de la HI.</td></tr>
+  <tr><td><b>Divisibilidad</b></td><td>Sumar y restar el término que te falte para usar la HI.</td></tr>
+  <tr><td><b>Inecuación</b></td><td>Multiplicá la HI por la base de la potencia y trabajá la inecuación.</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="3" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · COMBINATORIA ============ -->
+<details id="ledp-s4">
+<summary><span class="num">4</span> Ejercicio 3 · Combinatoria y binomio de Newton <span class="sec-score" id="ss-led-primer-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>Dos ítems casi siempre: <b>(a)</b> problema de conteo (con o sin restricciones) y <b>(b)</b> binomio de Newton (un término particular, un grado, un coeficiente).</p>
+
+<h3>Decisión: ¿qué fórmula uso?</h3>
+<table class="tbl">
+  <tr><th>Si en el problema...</th><th>Fórmula</th></tr>
+  <tr><td>Importa el orden y NO se repiten</td><td><b>Variaciones</b>: V<sub>n,k</sub> = n!/(n−k)!</td></tr>
+  <tr><td>Importa el orden y SÍ se repiten</td><td><b>Variaciones con repetición</b>: V'<sub>n,k</sub> = n<sup>k</sup></td></tr>
+  <tr><td>NO importa el orden y NO se repiten</td><td><b>Combinaciones</b>: C<sub>n,k</sub> = n!/[k!(n−k)!]</td></tr>
+  <tr><td>NO importa el orden y SÍ se repiten</td><td><b>Combinaciones con repetición</b>: C'<sub>n,k</sub> = C<sub>n+k−1, k</sub></td></tr>
+  <tr><td>Permutar n elementos distintos</td><td><b>Permutaciones</b>: P<sub>n</sub> = n!</td></tr>
+  <tr><td>Permutar con elementos repetidos</td><td><b>P. con repetición</b>: n! / (a! · b! · ...)</td></tr>
+</table>
+
+<h3>Heurística para identificar el caso</h3>
+<ol>
+  <li><b>¿Sustantivo "fila", "ordenamiento", "secuencia"?</b> → orden importa.</li>
+  <li><b>¿"Comité", "selección", "subconjunto"?</b> → orden no importa.</li>
+  <li><b>¿"Idénticos", "indistinguibles"?</b> → con repetición o permutación con repetición.</li>
+  <li><b>¿"Por lo menos uno"?</b> → calculás el total y restás los casos prohibidos (complemento).</li>
+</ol>
+
+<h3>Distribución de objetos idénticos: el modelo de barras</h3>
+<p>Repartir <b>k objetos idénticos</b> entre <b>n personas</b> sin restricciones: <b>C<sub>n+k−1, k</sub></b> (combinatoria con repetición).</p>
+<p>Si cada persona debe recibir <b>al menos uno</b>: primero asignás 1 a cada uno (te quedan k−n para repartir libre): <b>C<sub>k−1, n−1</sub></b>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 01): 25 paquetes entre 12 familias, cada una al menos uno</div>
+  <p>Asigno 1 a cada familia → quedan 25 − 12 = 13 paquetes libres entre 12 familias.<br>
+  Soluciones = C<sub>13+12−1, 13</sub> = C<sub>24, 13</sub> = C<sub>24, 11</sub> = 2.496.144</p>
+</div>
+
+<h3>Binomio de Newton</h3>
+<div class="formula">
+  (a + b)<sup>n</sup> = ∑<sub>k=0..n</sub> C<sub>n,k</sub> · a<sup>n−k</sup> · b<sup>k</sup><br>
+  Término T<sub>k+1</sub> = C<sub>n,k</sub> · a<sup>n−k</sup> · b<sup>k</sup>  (atención: el k empieza en 0)
+</div>
+
+<h4>Receta para "halle el término que..."</h4>
+<ol>
+  <li>Identificá <b>a</b> y <b>b</b> en el binomio.</li>
+  <li>Escribí el término genérico T<sub>k+1</sub>.</li>
+  <li>Igualá la potencia pedida (de "x", de "a", etc.) a la condición.</li>
+  <li>Despejá k.</li>
+  <li>Reemplazá k en el término genérico para obtener el coeficiente y el término concreto.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 02): exponente de a múltiplo de 3 en (2a² + 3(b/a)³)¹⁴</div>
+  <p>Término genérico: T<sub>k+1</sub> = C<sub>14,k</sub> · (2a²)<sup>14−k</sup> · (3b³/a³)<sup>k</sup> = C<sub>14,k</sub> · 2<sup>14−k</sup> · 3<sup>k</sup> · a<sup>2(14−k)</sup> · a<sup>−3k</sup> · b<sup>3k</sup></p>
+  <p>Exponente de a: 2(14−k) − 3k = 28 − 5k. Para que sea múltiplo de 3: 28 − 5k ≡ 0 (3) ⇔ 1 + k ≡ 0 (3) ⇔ k ≡ 2 (3).</p>
+  <p>k ∈ {0,1,...,14}, k ≡ 2 (3): k ∈ {2, 5, 8, 11, 14}. <b>5 términos</b> tienen exponente de a múltiplo de 3.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · ARITMETICA ============ -->
+<details id="ledp-s5">
+<summary><span class="num">5</span> Ejercicio 4 · Aritmética entera y divisibilidad <span class="sec-score" id="ss-led-primer-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>Dos ítems: <b>(a)</b> cálculo concreto (MCD por Euclides + combinación lineal entera) y <b>(b)</b> análisis Verdadero/Falso de propiedades de divisibilidad.</p>
+
+<h3>Algoritmo de Euclides (MCD)</h3>
+<p>Para hallar MCD(a,b): hacés la división entera de a por b (cociente q, resto r). Reemplazás MCD(a,b) = MCD(b,r) y repetís hasta r = 0. El último resto NO nulo es el MCD.</p>
+
+<h3>Algoritmo de Euclides extendido (combinación lineal)</h3>
+<ol>
+  <li>Aplicás Euclides hasta encontrar el MCD.</li>
+  <li>Vas hacia atrás: en cada división escribís el resto como combinación de los términos anteriores.</li>
+  <li>Sustituís hacia arriba hasta llegar a MCD = a·s + b·t.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 01): MCD(7850, 2340)</div>
+  <p><b>Euclides:</b><br>
+  7850 = 2340·3 + 830<br>
+  2340 = 830·2 + 680<br>
+  830 = 680·1 + 150<br>
+  680 = 150·4 + 80<br>
+  150 = 80·1 + 70<br>
+  80 = 70·1 + 10<br>
+  70 = 10·7 + 0 → <b>MCD = 10</b></p>
+  <p><b>Hacia atrás:</b><br>
+  10 = 80 − 70·1 = 80 − (150 − 80) = 2·80 − 150<br>
+  = 2·(680 − 150·4) − 150 = 2·680 − 9·150<br>
+  ...continúa sustituyendo. Al final: 10 = s·7850 + t·2340 con s, t ∈ ℤ.</p>
+</div>
+
+<h3>Propiedades clave de divisibilidad (las que más caen)</h3>
+<div class="formula">
+  • <b>a | b ∧ a | c ⇒ a | (αb + βc)</b> ∀α,β ∈ ℤ (combinación lineal)<br>
+  • <b>MCD(a,b) = 1 ∧ a | bc ⇒ a | c</b> (Lema de Euclides)<br>
+  • <b>MCD(a,b) = d ⇒ ∃ s,t ∈ ℤ : as + bt = d</b> (Bezout)<br>
+  • <b>MCD(a,b) = 1 ⇔ ∃ s,t ∈ ℤ : as + bt = 1</b> (caso particular Bezout)<br>
+  • <b>a · b = MCD(a,b) · MCM(a,b)</b>
+</div>
+
+<h3>División entera: el truco para los V/F con restos</h3>
+<p>Si <b>a = b·q + r</b> con 0 ≤ r &lt; b, y te piden el resto de una expresión más complicada como (a − 2c − 18) por algún módulo, la receta es:</p>
+<ol>
+  <li>Escribí cada variable según su división (a = ..., c = ...).</li>
+  <li>Sustituí en la expresión.</li>
+  <li>Agrupá los múltiplos del módulo aparte (forman 0 mód n).</li>
+  <li>Lo que queda es el resto.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 05): resto de (b − 2c − 18) por 10</div>
+  <p>Datos: en b/q el cociente es 10 y resto 7 → b = 10q + 7. En c/5 el resto es 3 → c = 5k + 3.</p>
+  <p>b − 2c − 18 = (10q + 7) − 2(5k + 3) − 18 = 10q + 7 − 10k − 6 − 18 = 10(q − k) − 17 = 10(q − k − 2) + 3</p>
+  <p>El resto de dividir por 10 es <b>3</b>.</p>
+</div>
+
+<h3>V/F típicos: contraejemplos rápidos</h3>
+<table class="tbl">
+  <tr><th>Afirmación tipo</th><th>Cómo refutar</th></tr>
+  <tr><td>"Si a | b·c entonces a | b ó a | c"</td><td>Contraejemplo: 6 | 4·3, pero 6∤4 y 6∤3. (Falso si a no es primo)</td></tr>
+  <tr><td>"MCD(a,b)=3 y MCD(b,c)=3 ⇒ MCD(a,c)=3"</td><td>Contraejemplo: a=3, b=6, c=2. (Falso)</td></tr>
+  <tr><td>"a|b−c ∧ a|b ⇒ a|c"</td><td>Verdadero (combinación lineal: c = b − (b−c))</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="5" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · RELACIONES ============ -->
+<details id="ledp-s6">
+<summary><span class="num">6</span> Ejercicio 5 · Relaciones binarias y de equivalencia <span class="sec-score" id="ss-led-primer-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El ejercicio 5 mezcla dos partes: <b>(a)</b> demostrar/analizar propiedades de una relación dada, y <b>(b)</b> si es de equivalencia, hallar clases y conjunto cociente.</p>
+
+<h3>Las 4 propiedades + asociaciones automáticas</h3>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Definición</th><th>Cómo verificar</th></tr>
+  <tr><td><b>Reflexiva</b></td><td>∀a ∈ A: a R a</td><td>Tomás "a R a" como pregunta y verificás que la condición se cumple para todo a.</td></tr>
+  <tr><td><b>Simétrica</b></td><td>a R b ⇒ b R a</td><td>Suponés a R b y demostrás que la condición es la misma intercambiando los roles.</td></tr>
+  <tr><td><b>Antisimétrica</b></td><td>a R b ∧ b R a ⇒ a = b</td><td>Si la condición de R a la vez con sus dos órdenes obliga a la igualdad.</td></tr>
+  <tr><td><b>Transitiva</b></td><td>a R b ∧ b R c ⇒ a R c</td><td>Encadenás las dos condiciones y verificás si llegás a a R c.</td></tr>
+</table>
+
+<div class="formula">
+  <b>R es de equivalencia ⇔ es reflexiva, simétrica y transitiva.</b><br>
+  <b>R es de orden parcial ⇔ es reflexiva, antisimétrica y transitiva.</b><br>
+  <b>R es de orden total ⇔ es de orden parcial Y todos los pares están relacionados.</b>
+</div>
+
+<h3>Receta para el análisis cuando R está dada por una condición</h3>
+<ol>
+  <li>Escribí la condición como una <b>igualdad o una proposición simple</b> de x e y.</li>
+  <li>Para reflexiva: reemplazá x ↔ x e y ↔ x. Si la igualdad/proposición se vuelve trivialmente verdadera ✓.</li>
+  <li>Para simétrica: intercambiá x e y. Si la condición es la misma ✓.</li>
+  <li>Para transitiva: tomá x R y, y R z, sumá las condiciones (o multiplicá) hasta despejar x R z.</li>
+</ol>
+
+<h3>Clases de equivalencia + conjunto cociente</h3>
+<p>Si R es de equivalencia en A, la <b>clase</b> de a es [a]<sub>R</sub> = {x ∈ A : x R a}. El <b>conjunto cociente</b> A/R es el conjunto de todas las clases distintas.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Tema 11): x R y ⇔ |x − 4| = |y − 4|</div>
+  <p><b>Reflexiva:</b> |x−4| = |x−4| ✓.<br>
+  <b>Simétrica:</b> |x−4| = |y−4| ⇒ |y−4| = |x−4| ✓.<br>
+  <b>Transitiva:</b> |x−4|=|y−4| ∧ |y−4|=|z−4| ⇒ |x−4|=|z−4| ✓.<br>
+  Es de equivalencia.</p>
+  <p><b>Clases:</b> [a] = {x ∈ ℝ : |x−4| = |a−4|} = {x : x−4 = ±(a−4)} = {a, 8−a}.<br>
+  Cada clase tiene <b>dos elementos</b> (salvo la del 4, que tiene solo el 4).</p>
+  <p><b>Conjunto cociente:</b> ℝ/R = { [a] : a ≥ 4 } (un representante por clase).</p>
+</div>
+
+<h3>Matriz de la relación (cuando A es finito)</h3>
+<p>Si A = {a₁, ..., aₙ}, la matriz M de R es n×n con M<sub>ij</sub> = 1 si a<sub>i</sub> R a<sub>j</sub>, 0 si no.</p>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>En la matriz</th></tr>
+  <tr><td>Reflexiva</td><td>Toda la diagonal es 1.</td></tr>
+  <tr><td>Simétrica</td><td>M = M<sup>t</sup> (la matriz es simétrica).</td></tr>
+  <tr><td>Antisimétrica</td><td>M y M<sup>t</sup> NO comparten unos fuera de la diagonal.</td></tr>
+  <tr><td>Transitiva</td><td>M·M ⊆ M (todo 1 en M² aparece también en M).</td></tr>
+</table>
+
+<h3>Demostraciones sobre composición R∘T</h3>
+<p>Resultado típico para examinar: <b>"Si R y T son simétricas ⇒ R ∩ T es simétrica"</b> (V), <b>"R y T transitivas ⇒ R ∪ T transitiva"</b> (F, hace falta contraejemplo), etc.</p>
+
+<div class="quiz-wrap" data-qz="6" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · MIX ============ -->
+<details id="ledp-s7">
+<summary><span class="num">7</span> Mix integrador · Modelos completos <span class="sec-score" id="ss-led-primer-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Ejercicios mezclados de los 15 parciales</h3>
+<p>Esta sección reúne ejercicios típicos como aparecen en el examen real, así no quedás sorprendido por la presentación.</p>
+
+<div class="example">
+  <div class="ex-t">Integrador 1 — Razonamiento con cuantificadores (Tema 01)</div>
+  <p>"Todos los aspirantes trajeron DNI o cédula. Los aspirantes que trajeron cédula presentaron el apto médico. Sofía no presentó el apto médico. Por lo tanto, al menos un aspirante trajo DNI."</p>
+  <p>Definí U = aspirantes; D(x): x trajo DNI; C(x): x trajo cédula; M(x): x presentó apto médico. Premisas: ∀x: D(x) ∨ C(x); ∀x: C(x) → M(x); ¬M(s) (Sofía). Conclusión: ∃x: D(x).</p>
+  <p>De ¬M(s) y la 2ª premisa por MT: ¬C(s). Por la 1ª: D(s) ∨ C(s); con ¬C(s) y SD: D(s). Por GP existencial: ∃x: D(x). ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Inducción divisibilidad (Tema 03)</div>
+  <p>5<sup>2n</sup> − 7 es múltiplo de 6.</p>
+  <p>Caso base (n=1): 25 − 7 = 18 = 6·3 ✓.<br>
+  HI: 5<sup>2h</sup> − 7 = 6k.<br>
+  TI: 5<sup>2(h+1)</sup> − 7 = 5²·5<sup>2h</sup> − 7 = 25·(6k + 7) − 7 = 150k + 175 − 7 = 150k + 168 = 6(25k + 28). ✓</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Combinatoria con restricciones (Tema 13)</div>
+  <p>10 autitos: 3 camionetas idénticas (juntas), 2 autos de carrera distintos (separados), 5 distintos. Cuantas filas?</p>
+  <p>Estrategia: trato las 3 camionetas como un "bloque". Tengo 8 elementos: bloque + 2 carrera + 5 distintos.<br>
+  Total 8 elementos en fila: 8! Pero los autos de carrera deben estar separados: total − junto = 8! − 7!·2! = 8!·(1 − 2/8) = 8!·6/8 = 7!·6 = 30240. (También = 7!·3!−7!·3!·2! es la opción de la cátedra.)</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 4 — Aritmética V/F (Tema 13)</div>
+  <p>"Si MCD(a,b) = 3 y MCD(b,c) = 3 entonces MCD(a,c) = 3"</p>
+  <p><b>Falso.</b> Contraejemplo: a = 3, b = 6, c = 2. MCD(3,6)=3 ✓, MCD(6,2)=2... no funciona. Probemos a=9, b=6, c=4: MCD(9,6)=3 ✓, MCD(6,4)=2... tampoco.<br>
+  Probemos a=3, b=15, c=5: MCD(3,15)=3 ✓, MCD(15,5)=5. No.<br>
+  Mejor: a=6, b=15, c=10. MCD(6,15)=3 ✓, MCD(15,10)=5. No me sirve la 2ª.<br>
+  Definitivo: a=3, b=21, c=7. MCD(3,21)=3, MCD(21,7)=7. No, fallido.<br>
+  El correcto es: a=3, b=15, c=21. MCD(3,15)=3 ✓, MCD(15,21)=3 ✓, MCD(3,21)=3. <b>Verdadero en este caso</b>.<br>
+  Pero contraejemplo real: a=3, b=33, c=22. MCD(3,33)=3 ✓, MCD(33,22)=11. Tampoco.<br>
+  Necesitás al menos un par que falle. Ej: a=15, b=21, c=14. MCD(15,21)=3 ✓, MCD(21,14)=7. Falla. La afirmación es <b>falsa</b> en general.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 5 — Relación de equivalencia (Tema 12)</div>
+  <p>x R y ⇔ f(x) = f(y) con f(a) = a² + 8a.</p>
+  <p>R reflexiva, simétrica, transitiva (siempre que la relación se define así con una función). Es de equivalencia.</p>
+  <p>Para hallar clases: f(x) = f(y) ⇔ x² + 8x = y² + 8y ⇔ (x − y)(x + y + 8) = 0 ⇔ x = y ó x + y = −8.<br>
+  Clases: [a] = {a, −8 − a}. La clase del −4 tiene un solo elemento. Conjunto cociente: ℝ/R = { [a] : a ≥ −4 }.</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 5 ejercicios en 5 minutos: identificá qué tipo de demostración pide cada ítem.<br>
+2. Empezá por los que dominás (las V/F suelen ser rápidas).<br>
+3. <b>Inducción</b>: escribí explícitamente "Caso base", "HI", "TI" como subtítulos.<br>
+4. <b>Razonamientos</b>: numerá las premisas P1, P2, P3 y citá la regla de inferencia en cada paso.<br>
+5. <b>Conjuntos</b>: si el problema parece largo, hacé álgebra de conjuntos en el costado de la hoja antes de pasar en limpio.<br>
+6. <b>Aritmética</b>: hacé el algoritmo de Euclides en columna; volver atrás en otra columna.<br>
+7. <b>Relaciones</b>: probá las 4 propiedades en orden, una por una.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
