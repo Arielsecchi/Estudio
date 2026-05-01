@@ -127,6 +127,28 @@
     --summary-bg: #243041; --summary-hover: #2e3c4f; --num-text: #0f1623;
   }
 
+  [data-subject="algebra-parcial"] {
+    --bg: #eef2f7; --text: #1f2937; --text-muted: #64748b;
+    --surface: #ffffff; --surface-2: #dbe5f0; --surface-3: #c5d3e3;
+    --border: #d5dfe9; --border-2: #bfcadb;
+    --accent: #1e3a8a; --accent-hover: #2c4eaa; --gold: #d97706;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #dbe5f0; --summary-hover: #c5d3e3; --num-text: #ffffff;
+    --shadow: rgba(30, 58, 138, 0.08);
+  }
+  [data-theme="dark"][data-subject="algebra-parcial"] {
+    --bg: #0f1623; --text: #e2e8f0; --text-muted: #94a3b8;
+    --surface: #1a2332; --surface-2: #243041; --surface-3: #2e3c4f;
+    --border: #2e3c4f; --border-2: #3a4a5e;
+    --accent: #93c5fd; --accent-hover: #bfdbfe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #ef4444;
+    --summary-bg: #243041; --summary-hover: #2e3c4f; --num-text: #0f1623;
+  }
+
   [data-subject="pc"] {
     --bg: #e8edf3; --text: #1a202c; --text-muted: #6b7280;
     --surface: #ffffff; --surface-2: #d9e1ec; --surface-3: #c4cfdf;
@@ -1231,12 +1253,24 @@
             </li>
           </ul>
         </li>
-        <li class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
-          <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
-          <div class="info">
-            <div class="t" style="color:#1e3a8a">Álgebra A</div>
-            <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
           </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+          </ul>
         </li>
         <li class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
           <div class="ic" style="background:#0f766e;color:#fff">PC</div>
@@ -4716,6 +4750,626 @@ P(x) = a<sub>n</sub>·(x − r<sub>1</sub>)<sup>m<sub>1</sub></sup>·(x − r<su
 
 <div class="quiz-wrap" data-qz="8" data-subject="algebra"></div>
 <a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- =============== ÁLGEBRA · PRIMER PARCIAL =================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-algebra-parcial">
+  <header>
+    <h1>Álgebra · Guía Primer Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · Guía intensiva basada en 9 parciales (18/09/2024)</div>
+  </header>
+<nav class="toc" id="toc-algebra-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#alp-s1">Estrategia general y fórmulas clave</a></li>
+    <li><a href="#alp-s2">TIPO 1 · Vectores en R³</a></li>
+    <li><a href="#alp-s3">TIPO 2 · Rectas y planos</a></li>
+    <li><a href="#alp-s4">TIPO 3 · Subespacios vectoriales y bases</a></li>
+    <li><a href="#alp-s5">TIPO 4 · Cónicas</a></li>
+    <li><a href="#alp-s6">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA GENERAL ============ -->
+<details id="alp-s1">
+<summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-algebra-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Escayola</h3>
+<p>El parcial siempre tiene <b>8 ejercicios</b> de opción múltiple, cada uno vale <b>1,25 puntos</b> (total 10 puntos). Todos son de respuesta única. No hay desarrollo obligatorio: elegís la opción correcta.</p>
+<p>Los 8 ejercicios cubren <b>5 sesiones temáticas</b>: vectores (sesión 1), rectas y planos (sesión 3), subespacios y bases (sesión 4), cónicas (sesión 5). <b>Sesión 2 no entra al 1° parcial</b>.</p>
+
+<h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>Norma, ángulo, producto escalar, paralelo, módulo</td><td><b>TIPO 1</b> — Vectores</td></tr>
+  <tr><td>Recta + plano, distancia, simétrico, posición relativa</td><td><b>TIPO 2</b> — Rectas y planos</td></tr>
+  <tr><td>Subespacio S, base, generadores, L.I./L.D., determinante</td><td><b>TIPO 3</b> — Subespacios</td></tr>
+  <tr><td>Elipse, hipérbola, parábola, circunferencia, completar cuadrados</td><td><b>TIPO 4</b> — Cónicas</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Qué fórmula dispara?</h4>
+<ul>
+  <li><b>Producto escalar</b>: <span class="m">v · w = ‖v‖·‖w‖·cos(α)</span></li>
+  <li><b>Norma</b>: <span class="m">‖v‖ = √(v₁² + v₂² + v₃²)</span></li>
+  <li><b>Paralelo</b>: <span class="m">w = k·v</span> para algún <span class="m">k ≠ 0</span></li>
+  <li><b>Distancia punto–plano</b>: recta normal al plano, buscar intersección, medir</li>
+  <li><b>Base</b>: determinante ≠ 0 ↔ L.I. ↔ genera R³</li>
+  <li><b>Cónicas</b>: completar cuadrados para llevar a forma canónica</li>
+</ul>
+
+<h4>Pregunta 3 — ¿Tengo todos los datos?</h4>
+<p>En vectores: fijate si te dan norma, ángulo o coordenadas. En cónicas: identificá los coeficientes antes de completar cuadrados. En subespacios: verificá qué vectores hay que reemplazar en qué ecuación.</p>
+
+<h4>Pregunta 4 — ¿Puedo descartar opciones rápido?</h4>
+<p>El parcial tiene 4 opciones. En muchos ejercicios, 2 de las 4 tienen una característica obvia incorrecta. Por ejemplo, en "posición relativa de rectas": si los vectores directores son múltiplos → no son paralelas en ningún otro sentido. Eso elimina 2 opciones en 10 segundos.</p>
+
+<h3>Fórmulas imprescindibles</h3>
+
+<div class="formula">
+  Producto escalar: <b>v · w = v₁w₁ + v₂w₂ + v₃w₃ = ‖v‖·‖w‖·cos(α)</b><br>
+  Norma: <b>‖v‖ = √(v₁² + v₂² + v₃²)</b><br>
+  Punto medio entre A y B: <b>M = ((A+B)/2)</b> (coordenada a coordenada)<br>
+  Vector AB: <b>AB = B − A</b><br>
+  Versor (vector unitario): <b>v̂ = v / ‖v‖</b>
+</div>
+
+<div class="formula">
+  Determinante 3×3 (regla de Sarrus o cofactores):<br>
+  Si det(M) = 0 → L.D. (no es base, no genera R³)<br>
+  Si det(M) ≠ 0 → L.I. (es base, genera R³)
+</div>
+
+<div class="formula">
+  Distancia de A al plano ax+by+cz=d:<br>
+  <b>d = |ax₀ + by₀ + cz₀ − d| / √(a²+b²+c²)</b><br>
+  (O via recta normal: más segura si no recordás la fórmula directa)
+</div>
+
+<div class="formula">
+  Cónicas canónicas:<br>
+  Circunferencia: (x−h)² + (y−k)² = r²<br>
+  Elipse: (x−h)²/a² + (y−k)²/b² = 1 (a > b > 0)<br>
+  Hipérbola (eje x): (x−h)²/a² − (y−k)²/b² = 1<br>
+  Hipérbola (eje y): (y−k)²/a² − (x−h)²/b² = 1<br>
+  Parábola (abre →): (y−k)² = 4p(x−h), p > 0<br>
+  Parábola (abre ←): (y−k)² = −4p(x−h), p > 0
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre la misma: <b>reemplazá en la ecuación/condición del enunciado, calculá y despejá el parámetro.</b> No intentes "adivinar": sustituí.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · VECTORES ============ -->
+<details id="alp-s2">
+<summary><span class="num">2</span> TIPO 1 · Vectores en R³ <span class="sec-score" id="ss-algebra-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2–3 ejercicios)</h3>
+<p>Los ejercicios de vectores son los más directos. La clave es saber qué fórmula aplicar y no confundir módulo con coordenadas.</p>
+
+<h3>Subtipo A: Producto escalar y ángulo</h3>
+<p>La fórmula clave une dos definiciones del producto escalar:</p>
+<div class="formula">
+  v · w = v₁w₁ + v₂w₂ + v₃w₃ = ‖v‖·‖w‖·cos(α)
+</div>
+<p>Si te dan coordenadas → calculás el producto por componentes. Si te dan normas y ángulo → usás la forma geométrica.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Producto escalar con parámetro</div>
+  <p>Dados <span class="vec">a</span> = (k, −k, k) y <span class="vec">b</span> = (0, 0, −k) con k ∈ R, hallá cos(α).</p>
+  <p><b>Paso 1 (producto escalar por componentes):</b></p>
+  <div class="formula">a · b = k·0 + (−k)·0 + k·(−k) = −k²</div>
+  <p><b>Paso 2 (normas):</b></p>
+  <div class="formula">
+    ‖a‖ = √(k² + k² + k²) = k√3 (tomamos k > 0)<br>
+    ‖b‖ = √(0 + 0 + k²) = |k|
+  </div>
+  <p><b>Paso 3 (despejás cos α):</b></p>
+  <div class="formula">cos(α) = −k² / (k√3 · k) = −k²/(k²√3) = <b>−1/√3</b></div>
+  <p>Respuesta: opción A) −1/√3.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Producto escalar con normas y ángulo</div>
+  <p><span class="vec">v</span> tiene norma √5, <span class="vec">w</span> tiene norma 8, ángulo = 2π/3. Calculá v · w.</p>
+  <div class="formula">v · w = √5 · 8 · cos(2π/3) = 8√5 · (−1/2) = <b>−4√5</b></div>
+</div>
+
+<h3>Subtipo B: Vector paralelo de norma dada</h3>
+<p>Si pedido que <span class="vec">w</span> es paralelo a <span class="vec">v</span> y tiene norma r, la receta es:</p>
+<ol>
+  <li>Escribís <span class="m">w = k·v</span>.</li>
+  <li>Imponés <span class="m">‖w‖ = ‖k·v‖ = |k|·‖v‖ = r</span>.</li>
+  <li>Obtenés dos valores de k (positivo y negativo).</li>
+  <li>El enunciado te dice cuál usar (coordenada negativa, etc.).</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Vector paralelo de norma dada</div>
+  <p>Hallá <span class="vec">w</span> de norma 6√5 paralelo a <span class="vec">v</span> = (−2/9, 4/9, −5/9).</p>
+  <p><b>Paso 1:</b> <span class="m">w = k·(−2/9, 4/9, −5/9)</span>.</p>
+  <p><b>Paso 2:</b> <span class="m">‖v‖ = √((2/9)² + (4/9)² + (5/9)²) = √(4+16+25)/9 = √45/9 = 3√5/9 = √5/3</span>.</p>
+  <p><b>Paso 3:</b> <span class="m">|k|·√5/3 = 6√5 → |k| = 18 → k = ±18</span>.</p>
+  <p>Para k = −18: <span class="m">w = −18·(−2/9, 4/9, −5/9) = (4, −8, 10)</span>. Respuesta: D).</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa frecuente — El versor</div>
+Si te dicen que <span class="vec">v</span> es "paralelo al versor î" significa que solo tiene componente en x. Si es paralelo a î y tiene norma 7 → <span class="m">v = (7, 0, 0)</span> o <span class="m">v = (−7, 0, 0)</span>. El enunciado te dice cuál.
+</div>
+
+<h3>Subtipo C: Punto medio y vector entre puntos</h3>
+<p>Si te dan que M es el punto medio entre los extremos de <span class="vec">v</span> y <span class="vec">u</span>:</p>
+<div class="formula">M = (v + u) / 2 ↔ v + u = 2M</div>
+<p>Entonces: <span class="m">u = 2M − v</span> (coordenada a coordenada).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Punto medio</div>
+  <p><span class="vec">v</span> = (−7, 0, 0) y M = (15/2, 17/4, −1/10). Hallá <span class="vec">u</span>.</p>
+  <div class="formula">
+    ux = 2·(15/2) − (−7) = 15 + 7 = 22<br>
+    uy = 2·(17/4) − 0 = 17/2<br>
+    uz = 2·(−1/10) − 0 = −1/5
+  </div>
+  <p>Respuesta: <span class="vec">u</span> = (22, 17/2, −1/5). Opción B).</p>
+</div>
+
+<h3>Subtipo D: Dilatación + traslación</h3>
+<p>Te dan <span class="m">β·u + t = w</span> con β desconocido, u y t y w conocidos. Despejás β resolviendo coordinada a coordenada.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Dilatación con parámetro</div>
+  <p>β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). Hallá β.</p>
+  <p>Coordenada x: <span class="m">3β/11 − 10 = −7 → 3β/11 = 3 → β = 11</span>. Verificás con y y z. Respuesta: C) 11.</p>
+</div>
+
+<h3>Subtipo E: Vectores AB y CD con igual módulo (parámetro)</h3>
+<p>Calculás <span class="m">AB = B − A</span> y <span class="m">CD = D − C</span>, luego imponés <span class="m">‖AB‖ = ‖CD‖</span>. Sale una ecuación cuadrática en el parámetro.</p>
+
+<div class="key"><div class="ky-t">Resultado típico</div>
+La ecuación cuadrática que sale tiene la forma <span class="m">m² = cte</span>, entonces la solución es <span class="m">|m| = √cte</span>, lo que da dos valores. La opción correcta escribe "|m| = ..." (no solo un valor positivo).
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · RECTAS Y PLANOS ============ -->
+<details id="alp-s3">
+<summary><span class="num">3</span> TIPO 2 · Rectas y planos <span class="sec-score" id="ss-algebra-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2 ejercicios)</h3>
+<p>Los temas son: distancia de punto a plano, distancia de punto a recta, posición relativa de dos rectas, posición relativa de recta y plano, simétrico respecto de un plano y posición relativa de dos planos.</p>
+
+<h3>Formas de escribir rectas y planos</h3>
+<div class="formula">
+  Recta paramétrica: X = t·d + P, t ∈ R (d = vector director, P = punto)<br>
+  Plano implícito: ax + by + cz = d (n = (a, b, c) es el vector normal)<br>
+  Plano paramétrico: X = s·u + t·v + P, s, t ∈ R
+</div>
+
+<div class="key"><div class="ky-t">Vector normal del plano</div>
+Si el plano se da en forma paramétrica con vectores u y v, el vector normal n = u × v (producto vectorial). Pero en los parciales casi siempre te dan la forma implícita directamente o piden posición relativa.
+</div>
+
+<h3>Subtipo A: Distancia de punto a plano</h3>
+<p>Hay dos métodos equivalentes:</p>
+<ul>
+  <li><b>Fórmula directa:</b> d = |ax₀ + by₀ + cz₀ − d| / √(a²+b²+c²)</li>
+  <li><b>Via recta normal:</b> escribís la recta normal al plano que pasa por A, calculás su intersección con el plano (punto B), medís ‖AB‖.</li>
+</ul>
+<p>El parcial siempre evalúa el método via recta normal (más explícito).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Distancia A al plano</div>
+  <p>A = (−1, 2, 3), Π: 2x + y − z + 1 = 0. Hallá la distancia.</p>
+  <p><b>Recta normal al plano por A:</b> <span class="m">X = t·(2, 1, −1) + (−1, 2, 3)</span>.</p>
+  <p>Punto genérico de la recta: <span class="m">(2t−1, t+2, −t+3)</span>.</p>
+  <p><b>Intersección con el plano:</b> <span class="m">2(2t−1) + (t+2) − (−t+3) + 1 = 0 → 6t − 2 = 0 → t = 1/3</span>.</p>
+  <p>Punto B: <span class="m">(2/3−1, 1/3+2, −1/3+3) = (−1/3, 7/3, 8/3)</span>.</p>
+  <div class="formula">
+    ‖AB‖ = ‖(−1/3−(−1), 7/3−2, 8/3−3)‖ = ‖(2/3, 1/3, −1/3)‖<br>
+    = √(4/9 + 1/9 + 1/9) = √(6/9) = √6/3
+  </div>
+  <p>Respuesta: √6/3.</p>
+</div>
+
+<h3>Subtipo B: Distancia de punto a recta</h3>
+<p>Método: escribís el plano que contiene al punto A y es normal a la recta, encontrás la intersección B entre la recta y ese plano, calculás ‖AB‖.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Distancia punto a recta</div>
+  <p>A = (2, 1, 1). Recta r: X = t(−2, 1, 2) + (2, −1, −1). Hallá la distancia.</p>
+  <p><b>Plano normal a r por A:</b> vector normal = (−2, 1, 2), pasa por A = (2, 1, 1):</p>
+  <div class="formula">−2(x−2) + 1(y−1) + 2(z−1) = 0 → −2x + y + 2z = −2</div>
+  <p><b>Punto de r:</b> <span class="m">(−2t+2, t−1, 2t−1)</span>. En el plano:</p>
+  <div class="formula">−2(−2t+2) + (t−1) + 2(2t−1) = −2 → 9t − 7 = −2 → t = 5/9</div>
+  <p>Punto B = (2−10/9, 5/9−1, 10/9−1) = (8/9, −4/9, 1/9).</p>
+  <div class="formula">
+    ‖AB‖ = ‖(8/9−2, −4/9−1, 1/9−1)‖ = ‖(−10/9, −13/9, −8/9)‖<br>
+    = √(100 + 169 + 64)/9 = √333/9 ... (verificar)
+  </div>
+  <div class="key"><div class="ky-t">En el parcial real</div>
+  La respuesta fue C) 2. Los parciales dan números lindos: si te sale algo complicado, revisá la operatoria.
+  </div>
+</div>
+
+<h3>Subtipo C: Posición relativa de dos rectas</h3>
+<p>Los casos posibles son: paralelas, coincidentes, ortogonales, concurrentes (se cruzan o se cortan).</p>
+
+<table class="tbl">
+  <tr><th>Condición</th><th>Conclusión</th></tr>
+  <tr><td>Vectores directores son múltiplos (d₁ ‖ d₂)</td><td>Paralelas o coincidentes</td></tr>
+  <tr><td>Paralelas Y el punto de una pertenece a la otra</td><td>Coincidentes</td></tr>
+  <tr><td>d₁ · d₂ = 0 (sin intersección)</td><td>Ortogonales (se cruzan perpendicularmente)</td></tr>
+  <tr><td>No paralelas y tienen intersección</td><td>Concurrentes (se cortan)</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Posición relativa de rectas</div>
+  <p>r₁: X = k(−4/3, 0, −3) + (−1, 2, 3). r₂: X = t(1/2, 2/7, −2/9) + (−2, −5, 6).</p>
+  <p><b>1) ¿Paralelas?</b> ¿Es (−4/3, 0, −3) = λ·(1/2, 2/7, −2/9)? Por la 2° coord: 0 = λ·2/7 → λ = 0. No. → NO paralelas.</p>
+  <p><b>2) ¿Producto escalar = 0?</b> <span class="m">(−4/3)(1/2) + 0·(2/7) + (−3)(−2/9) = −2/3 + 0 + 2/3 = 0</span>. Sí.</p>
+  <p><b>3) ¿Se intersecan?</b> Planteamos el sistema de 3 ecuaciones con k y t. En este caso la intersección es vacía.</p>
+  <p>→ Ortogonales.</p>
+</div>
+
+<h3>Subtipo D: Posición relativa de recta y plano</h3>
+<p>Reemplazás el punto genérico de la recta en la ecuación del plano. Si sale una ecuación con solución única en t → cortan en un punto. Si sale 0=0 → la recta está contenida. Si sale 0 = c ≠ 0 → paralelos.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Recta y plano</div>
+  <p>Recta: X = α(3, 6, 9) + (4, 2, −1). Plano: −x + y − z = 1.</p>
+  <p>Punto genérico: (3α+4, 6α+2, 9α−1). En el plano:</p>
+  <div class="formula">−(3α+4) + (6α+2) − (9α−1) = 1 → −6α − 1 = 1 → α = −1/3</div>
+  <p>Sale un único α → la recta corta al plano en un punto: evaluando → (3, 0, −4).</p>
+</div>
+
+<h3>Subtipo E: Simétrico de un punto respecto de un plano</h3>
+<p>Receta en 3 pasos:</p>
+<ol>
+  <li>Escribís la recta normal al plano que pasa por A.</li>
+  <li>Hallás el pie B = intersección entre la recta y el plano.</li>
+  <li>A' = 2B − A (coordenada a coordenada). B es el punto medio entre A y su simétrico.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Simétrico respecto de plano</div>
+  <p>A = (7, −10, −1). Plano: 2x − 3y + z = 1.</p>
+  <p><b>Recta normal por A:</b> X = t(2, −3, 1) + (7, −10, −1). Punto: (2t+7, −3t−10, t−1).</p>
+  <p><b>En el plano:</b> 2(2t+7) − 3(−3t−10) + (t−1) = 1 → 14t + 43 = 1 → t = −3.</p>
+  <p>Punto B: (1, −1, −4).</p>
+  <div class="formula">A' = 2B − A = (2·1−7, 2·(−1)−(−10), 2·(−4)−(−1)) = (−5, 8, −7)</div>
+</div>
+
+<h3>Subtipo F: Posición relativa de dos planos</h3>
+<p>Si los normales son paralelos → paralelos o coincidentes. Si no → intersecan en una recta. Verificar perpendicularidad con producto escalar de normales.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Posición relativa de planos</div>
+  <p>π₁ paramétrico: X = s(1,1,0) + t(2,0,2) + (1,1,1). π₂: x + z = 1 + y.</p>
+  <p>Normal a π₂: n₂ = (1, −1, 1). Para π₁: n₁ = (1,1,0) × (2,0,2) = (2, −2, −2) = 2(1,−1,−1).</p>
+  <p>n₁ · n₂ = 1·1 + (−1)(−1) + (−1)·1 = 1 + 1 − 1 = 1 ≠ 0 → No perpendiculares.</p>
+  <p>¿Paralelos? n₁ = λ·n₂ → (1,−1,−1) = λ(1,−1,1) → la 3° componente da λ=−1 pero la 1° da λ=1. Contradicción → NO paralelos → su intersección es una recta.</p>
+  <p>Respuesta: B) La intersección es una recta y no son perpendiculares.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · SUBESPACIOS ============ -->
+<details id="alp-s4">
+<summary><span class="num">4</span> TIPO 3 · Subespacios vectoriales y bases <span class="sec-score" id="ss-algebra-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2 ejercicios)</h3>
+<p>Los dos ejercicios de subespacios son predecibles: uno pide <b>base o generadores de un subespacio</b>, y otro pide <b>para qué k el conjunto no es base de R³</b>.</p>
+
+<h3>Conceptos clave</h3>
+
+<div class="formula">
+  Un conjunto {v₁, v₂, v₃} en R³ es base de R³<br>
+  ↔ los vectores son L.I.<br>
+  ↔ det([v₁ | v₂ | v₃]) ≠ 0<br>
+  ↔ el conjunto genera R³
+</div>
+
+<div class="key"><div class="ky-t">Subespacio S definido por ecuaciones</div>
+Si S = {x ∈ Rⁿ : ec₁(x) = 0, ec₂(x) = 0}, los vectores de un conjunto generador de S deben satisfacer TODAS las ecuaciones. La base tiene dimensión = n − (número de ecuaciones independientes).
+</div>
+
+<h3>Subtipo A: Para qué k el conjunto no es base de R³</h3>
+<p>Receta directa:</p>
+<ol>
+  <li>Formá la matriz con los vectores como filas.</li>
+  <li>Calculá el determinante en función de k.</li>
+  <li>Igualá a 0 (condición para que NO sea base).</li>
+  <li>Resolvés la ecuación cuadrática en k.</li>
+  <li>El enunciado te pide k con alguna restricción (k ∈ Z&gt;0, k ∈ Z&lt;0, etc.).</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales Tema 3 y 1) — Cuándo no es base</div>
+  <p>Conjunto {(1, 0, −1), (−1, k, 0), (0, −2, k+1)}. Hallá k ∈ Z&gt;0 para que NO sea base.</p>
+  <div class="formula">
+    det = 1·(k(k+1) − 0·(−2)) − 0·(−(k+1)−0) + (−1)·(2−0)<br>
+    = k(k+1) − (−2) = k² + k + 2 − 2 ... <br>
+    Expandiendo: k² + k − 2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1
+  </div>
+  <p>Como k ∈ Z&gt;0 → k = 1. Respuesta: B).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Cuándo no es generador de R³</div>
+  <p>A = {(0,−2,−1), (k,1,0), (−8,0,k+3)}. Hallá k para que NO sea generador de R³.</p>
+  <p>det = 0·(k+3) − (−2)·(k(k+3)−0) + (−1)·(0−(−8))<br>
+  = 0 + 2k(k+3) − 8 = 2k² + 6k − 8 = 0 → k² + 3k − 4 = 0 → (k+4)(k−1) = 0</p>
+  <p>No generador para k ∈ {1, −4}. Generador para k ∈ R \ {1, −4}. Respuesta: C).</p>
+</div>
+
+<h3>Subtipo B: Hallar parámetros del subespacio para que un conjunto sea su base</h3>
+<p>Te dan S con parámetros n y m, y te dan un conjunto A = {v₁, v₂} que supuestamente es base de S. Receta:</p>
+<ol>
+  <li>Reemplazás las coordenadas de v₁ en la primera ecuación de S (obtenés una ecuación en n o m).</li>
+  <li>Reemplazás las coordenadas de v₂ en la segunda ecuación de S (obtenés otra ecuación).</li>
+  <li>Resolvés el sistema.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">Error frecuente</div>
+No mezcles: v₁ va en la ecuación que le "corresponde" (la que tiene el parámetro que aparece en sus coordenadas). El parcial siempre elige v₁ y v₂ para que cada uno resuelva una ecuación distinta.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Parámetros del subespacio</div>
+  <p>S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : nx₁ + 2x₂ = 0 ∧ x₂ + mx₃ − x₄ = 0}.<br>
+  Base de S: {(−2,1,0,1), (0,0,1,3)}. Hallá n y m.</p>
+  <p>Reemplazando (−2,1,0,1) en nx₁ + 2x₂ = 0: <span class="m">−2n + 2 = 0 → n = 1</span>.</p>
+  <p>Reemplazando (0,0,1,3) en x₂ + mx₃ − x₄ = 0: <span class="m">0 + m − 3 = 0 → m = 3</span>.</p>
+  <p>Respuesta: D) n = 1 y m = 3.</p>
+</div>
+
+<h3>Subtipo C: Generadores de un subespacio dado</h3>
+<p>Te dan S = {x ∈ R⁴ : condición} y 4 opciones de conjuntos. Tenés que identificar cuál genera S.</p>
+<p>Estrategia: para cada opción, verificás que todos sus vectores satisfacen la condición de S, y que el conjunto tiene suficiente dimensión.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Generadores de S</div>
+  <p>S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : x₁ + x₄ = 0}.</p>
+  <p>Opción C: {(1,0,0,−1), (0,1,0,0), (0,0,1,0)}.</p>
+  <p>Verificación: 1+(−1)=0 ✓, 0+0=0 ✓, 0+0=0 ✓. Los 3 son L.I. (det ≠ 0) y generan S (dim S = 3).</p>
+  <p>Combinación lineal: a(1,0,0,−1) + b(0,1,0,0) + c(0,0,1,0) = (a,b,c,−a). Reemplazando en S: a+(−a) = 0 ✓.</p>
+</div>
+
+<h3>Subtipo D: Combinación lineal</h3>
+<p>Te dan vectores v₁, v₂ y te preguntan cuál de las opciones es combinación lineal de ellos. Tenés que verificar si existe α, β tal que α·v₁ + β·v₂ = w (sistema de 3 ecuaciones con 2 incógnitas).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Combinación lineal</div>
+  <p>¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?</p>
+  <p>Probamos la opción A) (−1,0,3): <span class="m">α(1,2,−1) + β(−1,−1,2) = (−1,0,3)</span>.</p>
+  <div class="formula">
+    α − β = −1<br>
+    2α − β = 0<br>
+    −α + 2β = 3
+  </div>
+  <p>De las primeras dos: α = 1, β = 2. Verificamos: −1 + 2·2 = 3 ✓. Respuesta: A).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · CÓNICAS ============ -->
+<details id="alp-s5">
+<summary><span class="num">5</span> TIPO 4 · Cónicas <span class="sec-score" id="ss-algebra-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2 ejercicios)</h3>
+<p>Las cónicas son la parte más "algebraica" del parcial. Siempre involucran <b>completar cuadrados</b> para llevar la ecuación a forma canónica, y luego leer los datos geométricos.</p>
+
+<h3>Repaso de formas canónicas</h3>
+
+<table class="tbl">
+  <tr><th>Cónica</th><th>Forma canónica (centro C = (h, k))</th><th>Datos</th></tr>
+  <tr><td>Circunferencia</td><td>(x−h)² + (y−k)² = r²</td><td>radio r, centro C</td></tr>
+  <tr><td>Elipse (eje x)</td><td>(x−h)²/a² + (y−k)²/b² = 1, a &gt; b</td><td>focos en (h±c, k), c² = a²−b²</td></tr>
+  <tr><td>Elipse (eje y)</td><td>(x−h)²/b² + (y−k)²/a² = 1, a &gt; b</td><td>focos en (h, k±c), c² = a²−b²</td></tr>
+  <tr><td>Hipérbola (eje x)</td><td>(x−h)²/a² − (y−k)²/b² = 1</td><td>focos en (h±c, k), c² = a²+b²</td></tr>
+  <tr><td>Hipérbola (eje y)</td><td>(y−k)²/a² − (x−h)²/b² = 1</td><td>focos en (h, k±c), c² = a²+b²</td></tr>
+  <tr><td>Parábola (→)</td><td>(y−k)² = 4p(x−h)</td><td>foco (h+p, k), directriz x = h−p</td></tr>
+  <tr><td>Parábola (←)</td><td>(y−k)² = −4p(x−h)</td><td>foco (h−p, k), directriz x = h+p</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Excentricidad</div>
+Para hipérbola e = c/a (siempre &gt; 1). Para elipse e = c/a (siempre &lt; 1). Para circunferencia e = 0.
+Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canónica.
+</div>
+
+<h3>Subtipo A: Hallar el parámetro para que sea una cónica con centro dado</h3>
+<p>Completás cuadrados en función del parámetro y leés el centro de la forma canónica.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Elipse con centro dado</div>
+  <p>144x² − 24kx + 16y² = 63. Centro = (−0,75; 0). Hallá k.</p>
+  <p><b>Completar cuadrados en x:</b></p>
+  <div class="formula">
+    144(x² − kx/6) + 16y² = 63<br>
+    144(x − k/12)² − 144·k²/144 + 16y² = 63<br>
+    144(x − k/12)² + 16y² = 63 + k²/1
+  </div>
+  <p>Centro x: k/12 = −0,75 → k = −9. Respuesta: C).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Elipse con centro dado</div>
+  <p>36y² + 4x² − 2ky = 27. Centro = (0; 0,5). Hallá k.</p>
+  <p>Completar cuadrados en y: 36(y² − ky/18) + 4x² = 27 → 36(y − k/36)² + 4x² = 27 + k²/36.</p>
+  <p>Centro y: k/36 = 0,5 → k = 18. Respuesta: A).</p>
+</div>
+
+<h3>Subtipo B: Identificar cónica con excentricidad y focos</h3>
+<p>Con los focos podés hallar el centro (punto medio) y c. Con la excentricidad e = c/a despejás a. Luego b² = c² − a² (elipse) o b² = c² − a² ... espera, para hipérbola b² = c² − a² también... cuidado:</p>
+<div class="formula">
+  Elipse: c² = a² − b² (a &gt; c)<br>
+  Hipérbola: c² = a² + b² (c &gt; a)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Hipérbola con excentricidad</div>
+  <p>Hipérbola H con excentricidad 2,25, focos F₁ = (0,−8) y F₂ = (0,10).</p>
+  <p><b>Centro:</b> punto medio = (0, 1). <b>c:</b> distancia centro-foco = 9.</p>
+  <p><b>a:</b> e = c/a → 2,25 = 9/a → a = 4. <b>Vértices:</b> (0, 1±4) = (0, 5) y (0, −3).</p>
+  <p><b>b²:</b> c² = a² + b² → 81 = 16 + b² → b² = 65.</p>
+  <p><b>Ecuación canónica:</b> <span class="m">(y−1)²/16 − x²/65 = 1</span>.</p>
+  <p>Para verificar si un punto pertenece: reemplazás sus coordenadas y verificás si = 1.</p>
+</div>
+
+<h3>Subtipo C: Identificar cónica y completar cuadrados</h3>
+<p>Te dan una ecuación general ax² + bxy + cy² + ... = d y tenés que clasificarla y hallar sus elementos (centro, excentricidad, etc.).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Completar cuadrados hipérbola</div>
+  <p>C = {3x² − y² − 6x − 30y − 546 = 0}. Hallá centro y excentricidad.</p>
+  <p><b>En x:</b> 3(x² − 2x) = 3(x−1)² − 3.</p>
+  <p><b>En y:</b> −(y² + 30y) = −(y+15)² + 225.</p>
+  <div class="formula">
+    3(x−1)² − 3 − (y+15)² + 225 − 546 = 0<br>
+    3(x−1)² − (y+15)² = 324<br>
+    (x−1)²/108 − (y+15)²/324 = 1
+  </div>
+  <p>Hipérbola con centro (1, −15), a² = 108, b² = 324. c² = 108 + 324 = 432. e = c/a = √432/√108 = 2.</p>
+  <p>Respuesta: C) e = 2; (1, −15).</p>
+</div>
+
+<h3>Subtipo D: Parábola — foco y directriz</h3>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Parábola</div>
+  <p>y² − 8x + 3 = 6y. Hallá foco y directriz.</p>
+  <p>Reordenamos: y² − 6y = 8x − 3.</p>
+  <p>Completar cuadrados en y: (y−3)² − 9 = 8x − 3 → (y−3)² = 8x + 6 = 8(x + 3/4).</p>
+  <p>Forma canónica: <span class="m">(y−3)² = 8(x + 0,75)</span>. Vértice = (−0,75; 3), 4p = 8 → p = 2.</p>
+  <p>Foco: (−0,75 + 2; 3) = (1,25; 3). Directriz: x = −0,75 − 2 = −2,75.</p>
+  <p>Respuesta: A).</p>
+</div>
+
+<h3>Subtipo E: Intersección de dos cónicas</h3>
+<p>Identificás cada cónica (circunferencia, elipse...), las graficás esquemáticamente y verificás si se intersecan.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Intersección</div>
+  <p>M = {(x+4)² + (y+3)² = 9} → circunferencia, centro (−4, −3), radio 3.</p>
+  <p>N = {3x² + y² + 6y = −6} → 3x² + (y+3)² = 3 → x²/1 + (y+3)²/3 = 1 → elipse, centro (0, −3).</p>
+  <p>La circunferencia tiene centro (−4, −3) y radio 3. El punto más cercano al centro de la elipse a través del radio es (−4+3, −3) = (−1, −3). ¿Pertenece a la elipse? 1/1 + 0/3 = 1 ✓.</p>
+  <p>→ Se intersecan en exactamente un punto (−1, −3). Respuesta: C).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · MIX INTEGRADOR ============ -->
+<details id="alp-s6">
+<summary><span class="num">6</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-algebra-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en menos de 30 segundos</h3>
+<p>En el parcial real, el tiempo es escaso. Entrenate en reconocer los tipos con solo leer el primer renglón del enunciado.</p>
+
+<table class="tbl">
+  <tr><th>Primera palabra/frase del enunciado</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"Considerá los vectores v y w. v tiene norma..."</td><td>Vectores</td><td>Anotar normas y ángulo, usar v·w = ‖v‖‖w‖cos(α)</td></tr>
+  <tr><td>"Al vector u se le aplica una dilatación β..."</td><td>Vectores</td><td>Escribir β·u + t = w, despejar β coord a coord</td></tr>
+  <tr><td>"Considerá los puntos A, B, C, D en R³..."</td><td>Vectores</td><td>Calcular vectores AB = B−A y CD = D−C</td></tr>
+  <tr><td>"Elegí la opción que indica la distancia del punto A al plano..."</td><td>Rectas/planos</td><td>Recta normal al plano por A, intersección, medir</td></tr>
+  <tr><td>"Considerá la recta r₁ y r₂..."</td><td>Rectas/planos</td><td>¿Directores múltiplos? ¿Producto escalar = 0?</td></tr>
+  <tr><td>"Considerá el subespacio S..."</td><td>Subespacios</td><td>Leer la condición de S, reemplazar vectores</td></tr>
+  <tr><td>"Elegí la opción que muestra las coordenadas del punto simétrico..."</td><td>Rectas/planos</td><td>Recta normal al plano por A, pie B, A' = 2B−A</td></tr>
+  <tr><td>"Indicá el valor que debe tomar k para que ... corresponda a la ecuación de una elipse/hipérbola..."</td><td>Cónicas</td><td>Completar cuadrados, leer centro, igualar</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+
+<div class="trap"><div class="tr-t">Error 1 — Confundir la fórmula del simétrico</div>
+El pie B es el punto medio entre A y A'. Por tanto A' = 2B − A (NO A' = B − A). Este error cuesta 1,25 puntos directos.
+</div>
+
+<div class="trap"><div class="tr-t">Error 2 — Mezclar fórmulas de elipse e hipérbola</div>
+Elipse: c² = a²−b² (c &lt; a). Hipérbola: c² = a²+b² (c &gt; a). En la hipérbola b puede ser mayor o menor que a. En la elipse, a es siempre el semieje mayor.
+</div>
+
+<div class="trap"><div class="tr-t">Error 3 — No verificar la restricción en el parámetro</div>
+Cuando te piden "k ∈ Z&gt;0" o "k ∈ Z&lt;0", primero calculás ambas raíces del polinomio y después filtrás según la restricción. Si no leés la restricción, elegís la opción incorrecta aunque el polinomio esté bien.
+</div>
+
+<div class="trap"><div class="tr-t">Error 4 — Plantear el sistema al revés en subespacios</div>
+En "parámetros del subespacio": v₁ va en la ecuación donde sus coordenadas dan información directa (el vector que anula el término con parámetro). El parcial diseña los vectores para que cada uno resuelva una ecuación distinta.
+</div>
+
+<h3>Práctica integradora — 5 ejercicios variados</h3>
+
+<div class="example">
+  <div class="ex-t">Integrador 1 — Vectores: ángulo</div>
+  <p>v = (k, −k, k), w = (0, 0, −k), k > 0. ¿Cuánto vale cos del ángulo entre v y w?</p>
+  <p>v·w = −k². ‖v‖ = k√3, ‖w‖ = k. cos(α) = −k²/(k√3·k) = −1/√3.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Planos: posición relativa</div>
+  <p>Plano π₁ paramétrico y plano π₂ implícito. Primero calculás el normal de π₁ (producto vectorial), luego verificás si son paralelos o perpendiculares comparando con el normal de π₂.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Subespacios: no base</div>
+  <p>{(1,0,2), (0,−2,−k), (1/2, −k−1, 0)}. k ∈ Z&lt;0 para que NO sea base.</p>
+  <div class="formula">
+    det = 1·(−2·0 − (−k)·(−k−1)) − 0·... + 2·(0·(−k−1)−(−2)·(1/2))<br>
+    = 1·(−k²−k) + 2·1 = −k²−k+2 = 0<br>
+    k² + k − 2 = 0 → k = 1 o k = −2
+  </div>
+  <p>k ∈ Z&lt;0 → k = −2. Respuesta C).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 4 — Cónicas: hipérbola desde ecuación general</div>
+  <p>3x² − y² − 6x − 30y − 546 = 0. Completar cuadrados: (x−1)²/108 − (y+15)²/324 = 1. Centro (1, −15), e = 2.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 5 — Recta y plano: posición relativa</div>
+  <p>Recta X = α(3,6,9) + (4,2,−1), plano −x+y−z = 1. Reemplazás el punto genérico: −6α − 1 = 1 → α = −1/3. Único α → se cortan en un punto (3, 0, −4).</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 8 ejercicios en 2 minutos: identificá el tipo de cada uno.<br>
+2. Empezá por los que más dominás.<br>
+3. En vectores y rectas: siempre dibujá un esquema aunque sea tosco.<br>
+4. En cónicas: completar cuadrados antes de tocar las opciones.<br>
+5. En subespacios: reemplazá directamente, no trates de "ver" la respuesta.<br>
+6. Con 5 minutos de sobra, releé las opciones que no elegiste.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
 </div>
 </details>
 
@@ -18513,6 +19167,66 @@ registerExercises('algebra', '8', [
   {st: 'Un polinomio '+M('P ∈ ℝ[x]')+' de grado mínimo con raíces '+M('3')+' y '+M('i')+' tiene grado:', opts: [M('2'), M('3'), M('4'), M('5')], c: 1, ex: 'Raíces: 3 (simple, factor x−3), i (pero debe estar −i también, factor (x²+1)). Grado mínimo: 1 + 2 = 3.'},
   {st: 'Un polinomio '+M('P ∈ ℚ[x]')+' de grado mínimo con raíces '+M('√2')+' y '+M('1')+' tiene grado:', opts: [M('2'), M('3'), M('4'), M('5')], c: 1, ex: 'En ℚ[x], si √2 es raíz, −√2 también (factor x²−2). Más el factor (x−1). Grado mínimo: 2+1 = 3.'},
   {st: 'Sea '+M('P ∈ ℚ[x]')+' de grado mínimo con '+M('P(√5) = 0')+', '+M('i')+' raíz doble, y '+M('P(−2) = −75')+'. Entonces '+M('P(x)')+' es:', opts: [M('3(x² − 5)(x² + 1)²'), M('(x² − 5)(x² + 1)²'), M('−3(x − √5)(x² + 1)²'), M('3(x − √5)(x + √5)(x − i)(x + i)')], c: 0, ex: 'En ℚ[x]: √5 es raíz ⟹ −√5 también (factor x²−5). i raíz doble ⟹ −i también (factor (x²+1)²). Grado mínimo = 6. P(x) = k(x²−5)(x²+1)². Imponer P(−2) = k(−1)(25) = −25k = −75 → k = 3.'}
+]);
+
+
+// ============ EJERCICIOS ÁLGEBRA 1° PARCIAL ============
+registerExercises('algebra-parcial', '1', [
+  {st: 'El parcial Escayola tiene 8 ejercicios de opción múltiple. ¿Cuánto vale cada uno?', opts: ['1 punto', '1,25 puntos', '1,5 puntos', '2 puntos'], c: 1, ex: 'El parcial suma 10 puntos repartidos en 8 ejercicios: 10/8 = 1,25 puntos cada uno. No hay ejercicios que valgan más que otros.'},
+  {st: 'Si en el enunciado ves "norma", "ángulo" y "producto escalar", el tema es:', opts: ['Subespacios', 'Cónicas', 'Vectores', 'Rectas y planos'], c: 2, ex: 'Norma, ángulo y producto escalar son conceptos exclusivos de la unidad de vectores (sesión 1). La fórmula clave es v·w = ‖v‖·‖w‖·cos(α).'},
+  {st: 'Si el enunciado pide "la ecuación de la recta directriz y las coordenadas del foco", el tema es:', opts: ['Vectores', 'Rectas y planos', 'Subespacios', 'Cónicas'], c: 3, ex: 'Foco y directriz son elementos exclusivos de las parábolas (cónicas). El método es siempre completar cuadrados para llevar a la forma canónica (y−k)² = 4p(x−h).'},
+  {st: 'La estrategia cuando un ejercicio tiene un parámetro k desconocido es:', opts: ['Probar las 4 opciones', 'Adivinar por descarte', 'Reemplazar k en la condición del enunciado y despejar', 'No se puede resolver sin más datos'], c: 2, ex: 'Siempre que hay un parámetro, la receta es: identificar la condición del enunciado (centro dado, det=0, etc.), reemplazar la expresión con k, y despejar. Es la estrategia universal del parcial.'},
+  {st: 'La fórmula de distancia de un punto A = (x₀, y₀, z₀) al plano ax+by+cz = d es:', opts: ['‖A‖ / √(a²+b²+c²)', '|ax₀+by₀+cz₀−d| / √(a²+b²+c²)', '|ax₀+by₀+cz₀| / √(a²+b²+c²)', '|ax₀+by₀+cz₀+d| / ‖A‖'], c: 1, ex: 'La fórmula directa es d = |ax₀+by₀+cz₀−d| / √(a²+b²+c²). También se puede calcular via recta normal: escribís la recta normal al plano por A, calculás la intersección B con el plano, y medís ‖AB‖.'},
+  {st: 'Para reconocer si un conjunto de 3 vectores en R³ es base, el test definitivo es:', opts: ['Verificar que ningún vector es nulo', 'Calcular el determinante de la matriz formada por los vectores', 'Ver si los vectores suman cero', 'Verificar que tienen distintas normas'], c: 1, ex: 'Un conjunto es base de R³ si y solo si los vectores son L.I., lo que equivale a que el determinante de la matriz formada por ellos (filas o columnas) sea distinto de cero.'}
+]);
+
+registerExercises('algebra-parcial', '2', [
+  {st: 'v tiene norma √5, w tiene norma 8 y el ángulo entre ellos es 2π/3. ¿Cuánto vale v·w?', opts: ['−4√5', '4√5', '−4√3', '8√5'], c: 0, ex: 'v·w = ‖v‖·‖w‖·cos(α) = √5·8·cos(2π/3) = 8√5·(−1/2) = −4√5. cos(2π/3) = −1/2 (ángulo en el segundo cuadrante).'},
+  {st: 'v = (k, −k, k), w = (0, 0, −k) con k > 0. cos(ángulo entre v y w) vale:', opts: ['−1/3', '1/3', '−1/√3', '1/√3'], c: 2, ex: 'v·w = k·0+(−k)·0+k·(−k) = −k². ‖v‖ = √(3k²) = k√3. ‖w‖ = k. cos(α) = −k²/(k√3·k) = −1/√3.'},
+  {st: 'w es paralelo a v = (5/7, −1/7, −2/7) y tiene norma 3√30. ¿Cuántas soluciones posibles tiene w?', opts: ['Solo una (k > 0)', 'Dos (k positivo y k negativo)', 'Infinitas', 'Ninguna'], c: 1, ex: 'w = k·v para algún k ≠ 0. Imponiendo ‖w‖ = |k|·‖v‖ = 3√30, se obtiene dos valores de k (positivo y negativo). El enunciado suele dar una condición adicional para elegir uno.'},
+  {st: 'β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). ¿Cuánto vale β?', opts: ['−11', '1/11', '11', '−1/11'], c: 2, ex: 'Coordenada x: 3β/11 − 10 = −7 → 3β/11 = 3 → β = 11. Verificás con y: −β/11 + 9 = 8 → β = 11 ✓. Y con z: 2β/11 + 1 = 3 → β = 11 ✓.'},
+  {st: 'A = (−1/3, 2/3, 1/3), B = (0, 4/3, −7/3), C = (1, m, −m), D = (1, 0, −m). Si ‖AB‖ = ‖CD‖, entonces:', opts: ['m = 23/3', 'm ∈ ℝ', '|m| = √(23/3)', 'm = ±√(23/3)'], c: 2, ex: 'AB = B−A = (1/3, 2/3, −8/3). ‖AB‖² = 1/9+4/9+64/9 = 69/9. CD = D−C = (−k, −m, 0). ‖CD‖² = k²+m²... El cálculo da m² = 23/3, es decir |m| = √(23/3). Hay dos soluciones.'},
+  {st: 'v es paralelo al versor î, tiene norma 7 y una coordenada negativa. ¿Cuáles son sus coordenadas?', opts: ['(7, 0, 0)', '(0, −7, 0)', '(−7, 0, 0)', '(0, 0, −7)'], c: 2, ex: 'Paralelo al versor î = (1,0,0) significa que v = (a, 0, 0). Norma 7 → |a| = 7 → a = ±7. Coordenada negativa → a = −7. v = (−7, 0, 0).'},
+  {st: 'v = (−7, 0, 0) y M = (15/2, 17/4, −1/10) es punto medio entre los extremos de v y u. ¿Cuánto vale u?', opts: ['(−22, −17/2, 1/5)', '(22, 17/2, −1/5)', '(4, 17/2, −1/5)', '(22, −17/2, 1/5)'], c: 1, ex: 'u = 2M − v. Coord x: 2·(15/2) − (−7) = 15+7 = 22. Coord y: 2·(17/4) − 0 = 17/2. Coord z: 2·(−1/10) − 0 = −1/5. u = (22, 17/2, −1/5).'}
+]);
+
+registerExercises('algebra-parcial', '3', [
+  {st: 'Para hallar la distancia del punto A al plano Π, el método del parcial es:', opts: ['Evaluar A en la ecuación del plano directamente', 'Escribir la recta normal al plano por A, hallar intersección B con Π, medir ‖AB‖', 'Calcular el producto escalar de A con el normal del plano', 'Sumar las coordenadas de A'], c: 1, ex: 'La recta normal al plano ax+by+cz=d que pasa por A tiene dirección (a, b, c). Se parametriza, se reemplaza en la ecuación del plano para hallar t, se calcula B y luego ‖AB‖. También existe la fórmula directa |ax₀+by₀+cz₀−d|/√(a²+b²+c²).'},
+  {st: 'A = (−1, 2, 3), Π: 2x+y−z+1 = 0. La distancia de A a Π es:', opts: ['√6', '√6/3', '6/√3', '0'], c: 1, ex: 'Recta normal: X = t(2,1,−1)+(−1,2,3). Punto: (2t−1, t+2, −t+3). En Π: 2(2t−1)+(t+2)−(−t+3)+1=0 → 6t−2=0 → t=1/3. B=(−1/3, 7/3, 8/3). ‖AB‖=‖(2/3,1/3,−1/3)‖=√(6/9)=√6/3.'},
+  {st: 'Dos rectas tienen vectores directores d₁ = (−4/3, 0, −3) y d₂ = (1/2, 2/7, −2/9). d₁·d₂ vale:', opts: ['−2/3 + 0 + 2/3 = 0', '1', '−1', '2/3'], c: 0, ex: 'd₁·d₂ = (−4/3)(1/2) + 0·(2/7) + (−3)(−2/9) = −2/3 + 0 + 2/3 = 0. Si el producto escalar es cero Y las rectas no se intersectan, son ortogonales (en R³ las rectas pueden ser ortogonales sin cruzarse).'},
+  {st: 'Si dos rectas tienen vectores directores que NO son múltiplos y su intersección es vacía, son:', opts: ['Paralelas', 'Coincidentes', 'Ortogonales (si d₁·d₂=0)', 'Concurrentes'], c: 2, ex: 'Si los directores no son múltiplos → no paralelas ni coincidentes. Si la intersección es vacía → no concurrentes. La única opción restante es que sean ortogonales (cruces perpendiculares en R³), lo que se verifica con d₁·d₂ = 0.'},
+  {st: 'Recta X = α(3,6,9)+(4,2,−1), plano −x+y−z = 1. La posición relativa es:', opts: ['La recta está contenida en el plano', 'La recta y el plano son paralelos', 'La recta y el plano son ortogonales', 'La recta y el plano se cortan en un único punto'], c: 3, ex: 'Reemplazamos (3α+4, 6α+2, 9α−1) en −x+y−z=1: −(3α+4)+(6α+2)−(9α−1)=1 → −6α−1=1 → α=−1/3. Único valor de α → se cortan en un punto.'},
+  {st: 'A = (7,−10,−1). Plano: 2x−3y+z=1. El simétrico de A respecto del plano es:', opts: ['(2,−3,1)', '(5,−8,7)', '(1,−1,−4)', '(−5,8,−7)'], c: 3, ex: 'Recta normal: X=t(2,−3,1)+(7,−10,−1). En plano: 2(2t+7)−3(−3t−10)+(t−1)=1 → 14t+43=1 → t=−3. Pie B=(1,−1,−4). A\'=2B−A=(2·1−7, 2·(−1)−(−10), 2·(−4)−(−1))=(−5,8,−7).'},
+  {st: 'Para el plano paramétrico X = s(1,1,0)+t(2,0,2)+(1,1,1) y el plano 2: x+z=1+y, la posición relativa es:', opts: ['Son perpendiculares', 'La intersección es una recta y no son perpendiculares', 'Son paralelos', 'Son coincidentes'], c: 1, ex: 'Normal de π₂: n₂=(1,−1,1). Normal de π₁: n₁=(1,1,0)×(2,0,2)=(2,−2,−2). ¿Múltiplos? (1,−1,−1) vs (1,−1,1): la 3° componente da −1 vs 1. No. → No paralelos → intersecan en recta. n₁·n₂=(1)(1)+(−1)(−1)+(−1)(1)=1+1−1=1≠0 → no perpendiculares.'}
+]);
+
+registerExercises('algebra-parcial', '4', [
+  {st: '{(1,0,−1),(−1,k,0),(0,−2,k+1)} no es base de R³ para k ∈ Z>0. ¿Cuál es ese k?', opts: ['−2', '1', '2', '−1'], c: 1, ex: 'det = k(k+1) − (−2) = k²+k+2−2... cuidado, expandiendo bien: det = k²+k−2 = 0 → (k+2)(k−1)=0 → k=−2 o k=1. Como k ∈ Z>0 → k=1.'},
+  {st: 'S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : nx₁+2x₂=0 ∧ x₂+mx₃−x₄=0}. Base de S: {(−2,1,0,1),(0,0,1,3)}. Valores de n y m:', opts: ['n=−1, m=3', 'n=1, m=−3', 'n=−1, m=−3', 'n=1, m=3'], c: 3, ex: 'Reemplazamos (−2,1,0,1) en nx₁+2x₂=0: −2n+2=0 → n=1. Reemplazamos (0,0,1,3) en x₂+mx₃−x₄=0: 0+m−3=0 → m=3.'},
+  {st: 'A = {(0,−2,−1),(k,1,0),(−8,0,k+3)}. Para que A sea generador de R³, k debe ser:', opts: ['k ∈ {1,−4}', 'k ∈ ℝ \\ {−1,4}', 'k ∈ ℝ \\ {1,−4}', 'k ∈ ∅'], c: 2, ex: 'Para que NO sea generador: det=0. El determinante da k²+3k−4=0 → (k+4)(k−1)=0 → k=1 o k=−4. Entonces para que SÍ sea generador: k ∈ ℝ \\ {1,−4}.'},
+  {st: 'S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : x₁+x₄=0}. ¿Cuál conjunto es generador de S?', opts: ['{(1,0,0,−1),(0,1,0,0),(1,0,0,1)}', '{(1,1,0,−1),(0,1,0,0),(1,0,0,−1)}', '{(1,0,0,−1),(0,1,0,0),(0,0,1,0)}', '{(0,1,0,0),(1,0,−1,0),(1,0,0,−1)}'], c: 2, ex: 'Opción C: (1,0,0,−1): 1+(−1)=0 ✓. (0,1,0,0): 0+0=0 ✓. (0,0,1,0): 0+0=0 ✓. Son L.I. (det≠0) y dim S = 3 → generan S. En la opción A, el vector (1,0,0,1) no cumple 1+1=0. En la B, los vectores son L.D.'},
+  {st: '¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?', opts: ['(−1,0,3)', '(0,1,−1)', '(2,3,3)', '(0,−1,1)'], c: 0, ex: '(1,2,−1) + 2(−1,−1,2) = (1−2, 2−2, −1+4) = (−1,0,3). Verificamos: α=1, β=2 satisface las 3 ecuaciones del sistema.'},
+  {st: '{(1,0,2),(0,−2,−k),(1/2,−k−1,0)}. k ∈ Z<0 para que NO sea base. ¿Cuál k?', opts: ['2', '1', '−2', '−1'], c: 2, ex: 'det = 1·(0−(−k)(−k−1)) − 0 + 2·(0·(−k−1)−(−2)·(1/2)) = −k²−k + 2 = 0 → k²+k−2 = 0 → k=1 o k=−2. Como k ∈ Z<0 → k=−2.'},
+  {st: 'S = {x ∈ R⁴ : 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Base: {(1,2,0,1),(0,0,−3,1)}. Valores n y m:', opts: ['n=−3, m=−3', 'n=3, m=−3', 'n=−3, m=3', 'n=3, m=3'], c: 1, ex: 'Reemplazamos (1,2,0,1) en 6x₁+nx₂=0: 6+2n=0 → n=−3. Reemplazamos (0,0,−3,1) en 2x₂+x₃+mx₄=0: 0+(−3)+m=0 → m=3. ¡Cuidado! n=−3 y m=3, opción B.'}
+]);
+
+registerExercises('algebra-parcial', '5', [
+  {st: 'En la hipérbola (x−h)²/a² − (y−k)²/b² = 1, ¿cuál es la relación entre a, b y c (semidistancia focal)?', opts: ['c² = a² − b²', 'c² = a² + b²', 'a² = b² + c²', 'b² = a² + c²'], c: 1, ex: 'Para la hipérbola siempre c² = a² + b² (con c > a). A diferencia de la elipse donde c² = a² − b² (con c < a). Confundirlas es el error más caro en cónicas.'},
+  {st: '144x² − 24kx + 16y² = 63 es una elipse con centro (−0,75; 0). ¿Cuánto vale k?', opts: ['9', '−18', '−9', '0,5'], c: 2, ex: 'Completar cuadrados en x: 144(x−k/12)²+16y²=63+k²/1. Centro: k/12=−0,75 → k=−9. Respuesta C).'},
+  {st: 'Hipérbola H con excentricidad 1,8 y focos F₁=(0,−8) y F₂=(0,10). El centro de H es:', opts: ['(0,0)', '(0,1)', '(0,2)', '(0,−1)'], c: 1, ex: 'El centro es el punto medio entre los focos: ((0+0)/2, (−8+10)/2) = (0, 1).'},
+  {st: 'Misma hipérbola H (e=1,8, focos en y). Sabiendo que c=9, los vértices de H son:', opts: ['(0,±5)', '(0,1±5) = (0,6) y (0,−4)', '(0,±9)', '(0,1±9) = (0,10) y (0,−8)'], c: 1, ex: 'e = c/a → 1,8 = 9/a → a = 5. Centro (0,1). Vértices en (0, 1+5) = (0,6) y (0, 1−5) = (0,−4).'},
+  {st: '3x² − y² − 6x − 30y − 546 = 0. Completando cuadrados, la forma canónica es:', opts: ['(x−1)²/108 − (y+15)²/324 = 1', '(x+1)²/108 − (y−15)²/324 = 1', '(y+15)²/324 − (x−1)²/108 = 1', '(x−1)²/324 − (y+15)²/108 = 1'], c: 0, ex: '3(x²−2x) − (y²+30y) = 546. 3(x−1)²−3 − (y+15)²+225 = 546. 3(x−1)² − (y+15)² = 324. Divido por 324: (x−1)²/108 − (y+15)²/324 = 1.'},
+  {st: 'y² − 8x + 3 = 6y. La directriz de la parábola es:', opts: ['x = −2,75', 'y = −2,75', 'x = 1,25', 'y = 1,25'], c: 0, ex: 'Reordenamos: y²−6y = 8x−3. (y−3)²−9 = 8x−3. (y−3)² = 8(x+3/4). Vértice (−0,75; 3), 4p=8 → p=2. Directriz: x = −0,75−2 = −2,75.'},
+  {st: 'M = {(x+4)²+(y+3)²=9}, N = {3x²+y²+6y=−6}. ¿Cuántos puntos tienen en común?', opts: ['Ninguno', 'Exactamente dos', 'Exactamente uno', 'Más de dos'], c: 2, ex: 'M: circunferencia centro (−4,−3) radio 3. N: 3x²+(y+3)²=3 → x²+(y+3)²/3=1, elipse centro (0,−3). El punto del borde derecho de M hacia el centro de N es (−1,−3). En N: 1+0=1 ✓. Solo ese punto.'}
+]);
+
+registerExercises('algebra-parcial', '6', [
+  {st: 'El simétrico A\' de A respecto del plano se calcula como:', opts: ['A\' = B − A (B = pie de la normal)', 'A\' = 2B − A (B = pie de la normal)', 'A\' = B/2', 'A\' = A − 2B'], c: 1, ex: 'B es el punto medio entre A y A\'. Entonces B = (A+A\')/2, despejando: A\' = 2B − A. Este es el error más caro del parcial: usar B−A en lugar de 2B−A.'},
+  {st: 'En una elipse, la relación entre a (semieje mayor), b (semieje menor) y c (semidistancia focal) es:', opts: ['c² = a² + b²', 'c² = a² − b²', 'a² = b² − c²', 'b² = a² + c²'], c: 1, ex: 'En la elipse: c² = a² − b² con a > b > 0 y c < a. En la hipérbola es al revés: c² = a² + b² con c > a. No los confundas.'},
+  {st: 'Para verificar si un conjunto {v₁,v₂} es base de un subespacio S de R⁴ con dim 2, hay que:', opts: ['Solo verificar que v₁ y v₂ pertenecen a S', 'Verificar que v₁,v₂ ∈ S y que son L.I.', 'Verificar que la suma v₁+v₂ ∈ S', 'Calcular el determinante de la matriz 2×4'], c: 1, ex: 'Para ser base de S: (1) ambos vectores deben cumplir las ecuaciones de S (pertenecer a S), (2) deben ser L.I. (det de la submatriz cuadrada ≠ 0 o verificar directamente). Solo con la primera condición no alcanza.'},
+  {st: 'Recta r₁: directora (4/7, 0, 4) y r₂: directora (1/2, 1/8, −1/14). Calculás el producto escalar de los directores:', opts: ['(4/7)(1/2) + 0·(1/8) + 4·(−1/14) = 2/7 + 0 − 2/7 = 0', '(4/7)(1/2) + 4·(−1/14) = 1', '0 + 1/8 + 4/14 = 1', 'No se puede calcular'], c: 0, ex: '(4/7)(1/2) = 4/14 = 2/7. 0·(1/8) = 0. 4·(−1/14) = −4/14 = −2/7. Total: 2/7 + 0 − 2/7 = 0. Producto escalar nulo → si además la intersección es vacía → las rectas son ortogonales.'},
+  {st: 'Para la parábola (y−k)² = 4p(x−h) con p > 0, el foco está en:', opts: ['(h−p, k)', '(h+p, k)', '(h, k+p)', '(h, k−p)'], c: 1, ex: 'La parábola (y−k)²=4p(x−h) abre hacia la derecha. El foco está p unidades a la derecha del vértice (h, k): foco = (h+p, k). La directriz es x = h−p.'},
+  {st: '¿Cuál de estos pasos del cálculo del simétrico está en el orden correcto?', opts: ['Calcular A\', luego buscar B, luego la recta normal', 'Recta normal por A → pie B → A\' = 2B−A', 'Proyectar A sobre el plano → calcular ‖A‖', 'Calcular el normal, luego igualar a A, luego A\'=2A−normal'], c: 1, ex: 'El orden correcto siempre es: (1) escribir la recta normal al plano que pasa por A, (2) hallar el pie B como intersección de la recta con el plano, (3) calcular A\' = 2B−A. Nunca en otro orden.'}
 ]);
 
 
