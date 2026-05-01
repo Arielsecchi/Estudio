@@ -21543,7 +21543,7 @@ registerExercises('algebra-parcial', '4', [
   {st: 'A = {(0,−2,−1),(k,1,0),(−8,0,k+3)}. Para que A sea generador de R³, k debe ser:', opts: ['k ∈ {1,−4}', 'k ∈ ℝ \\ {−1,4}', 'k ∈ ℝ \\ {1,−4}', 'k ∈ ∅'], c: 2, ex: 'Para que NO sea generador: det=0. El determinante da k²+3k−4=0 → (k+4)(k−1)=0 → k=1 o k=−4. Entonces para que SÍ sea generador: k ∈ ℝ \\ {1,−4}.'},
   {st: 'S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : x₁+x₄=0}. ¿Cuál conjunto es generador de S?', opts: ['{(1,0,0,−1),(0,1,0,0),(1,0,0,1)}', '{(1,1,0,−1),(0,1,0,0),(1,0,0,−1)}', '{(1,0,0,−1),(0,1,0,0),(0,0,1,0)}', '{(0,1,0,0),(1,0,−1,0),(1,0,0,−1)}'], c: 2, ex: 'Opción C: (1,0,0,−1): 1+(−1)=0 ✓. (0,1,0,0): 0+0=0 ✓. (0,0,1,0): 0+0=0 ✓. Son L.I. (det≠0) y dim S = 3 → generan S. En la opción A, el vector (1,0,0,1) no cumple 1+1=0. En la B, los vectores son L.D.'},
   {st: '¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?', opts: ['(−1,0,3)', '(0,1,−1)', '(2,3,3)', '(0,−1,1)'], c: 0, ex: '(1,2,−1) + 2(−1,−1,2) = (1−2, 2−2, −1+4) = (−1,0,3). Verificamos: α=1, β=2 satisface las 3 ecuaciones del sistema.'},
-  {st: '{(1,0,2),(0,−2,−k),(1/2,−k−1,0)}. k ∈ Z<0 para que NO sea base. ¿Cuál k?', opts: ['2', '1', '−2', '−1'], c: 2, ex: 'det = 1·(0−(−k)(−k−1)) − 0 + 2·(0·(−k−1)−(−2)·(1/2)) = −k²−k + 2 = 0 → k²+k−2 = 0 → k=1 o k=−2. Como k ∈ Z<0 → k=−2.'},
+  {st: '{(1,0,2),(0,−2,−k),(1/2,−k−1,0)}. k ∈ Z (negativo) para que NO sea base. ¿Cuál k?', opts: ['2', '1', '−2', '−1'], c: 2, ex: 'det = 1·(0−(−k)(−k−1)) − 0 + 2·(0·(−k−1)−(−2)·(1/2)) = −k²−k + 2 = 0 → k²+k−2 = 0 → k=1 o k=−2. Como k ∈ Z (negativo) → k=−2.'},
   {st: 'S = {x ∈ R⁴ : 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Base: {(1,2,0,1),(0,0,−3,1)}. Valores n y m:', opts: ['n=−3, m=−3', 'n=3, m=−3', 'n=−3, m=3', 'n=3, m=3'], c: 1, ex: 'Reemplazamos (1,2,0,1) en 6x₁+nx₂=0: 6+2n=0 → n=−3. Reemplazamos (0,0,−3,1) en 2x₂+x₃+mx₄=0: 0+(−3)+m=0 → m=3. ¡Cuidado! n=−3 y m=3, opción B.'}
 ]);
 
@@ -21657,7 +21657,7 @@ registerExercises('pc-parcial', '2', [
   {st: '"hola"*3 en Python produce:', opts: ['Error de tipo', '"hola3"', '"holaholahola"', '"h o l a 3"'], c: 2, ex: 'El operador * aplicado a una string y un entero repite la string. "hola"*3 = "holaholahola". Funciona igual con listas: [0]*3 = [0,0,0].'},
   {st: 'Si varios if están encadenados (sin elif), ¿cuántos se evalúan con a=5?', opts: ['Solo el primero que sea True', 'Solo 1', 'Todos, sin excepción', 'Ninguno si el primero es False'], c: 2, ex: 'Los if independientes se evalúan SIEMPRE, uno por uno, sin importar lo que pasó antes. Solo con elif/else hay cortocircuito. Esta es una trampa clásica en preguntas de "¿cuál evalúa menos condiciones?".'},
   {st: '¿Cuál es la diferencia entre / y // en Python?', opts: ['No hay diferencia', '/ da float, // da el cociente entero', '// da float, / da entero', '/ es potencia, // es raíz'], c: 1, ex: '7/2 = 3.5 (siempre devuelve float). 7//2 = 3 (cociente entero, trunca hacia abajo). -7//2 = -4 (no -3, porque trunca hacia el infinito negativo).'},
-  {st: 'Si a=2, b=False, c=3: ¿cuál condición NO es equivalente a las otras tres? (1) a in range(1,8,2) or b or c>a  (2) a in range(1,8,2) and b and c>a  (3) (a>0 and a<8 and a%2!=0) or a<c  (4) a<c or a in (1,3,5,7)', opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: 'Probando con a=2, b=False, c=3: opción 1=True, opción 3=True, opción 4=True. Opción 2: a in range(1,8,2)=True, pero "and b" hace False. La opción 2 da False mientras las demás dan True.'}
+  {st: 'Si a=2, b=False, c=3, ¿cuál de estas 4 condiciones NO es equivalente a las otras tres?', opts: ['(1) a in range(1,8,2) or b or c>a', '(2) a in range(1,8,2) and b and c>a', '(3) (a>0 and a&lt;8 and a%2!=0) or a&lt;c', '(4) a&lt;c or a in (1,3,5,7)'], c: 1, ex: 'Con a=2, b=False, c=3 evalúo cada una. (1): 2 in range(1,8,2) → 2 está en [1,3,5,7]? NO → False. False or False or 3>2=True → True. (2): False and False and True → False. (3): (True and True and True) or True → True. (4): True or 2 in (1,3,5,7)=False → True. La (2) da False; las otras tres dan True.'}
 ]);
 
 registerExercises('pc-parcial', '3', [
@@ -21675,7 +21675,7 @@ registerExercises('pc-parcial', '4', [
   {st: 'En el código: for i in range(3): i=0 — ¿cuántas veces itera el bucle?', opts: ['1 (se queda en 0)', '3', 'Infinito', '0'], c: 1, ex: 'Reasignar i dentro del for NO afecta al range. El range genera los valores 0,1,2 y en cada iteración asigna el siguiente. El cuerpo se ejecuta 3 veces aunque i siempre valga 0 al final.'},
   {st: 'Con i=100, el while: while i>0: i-=70 — ¿cuántas veces itera?', opts: ['1', '2', '3', 'Infinito'], c: 1, ex: 'i=100: 100>0 True → i=30. i=30: 30>0 True → i=-40. i=-40: -40>0 False → sale. Total: 2 iteraciones.'},
   {st: '¿Qué muestra este código? for i in range(3): for j in (2,1): print("a"*j)', opts: ['"aa","aaa","aa","aaa","aa","aaa"', '"aa","a","aa","a","aa","a"', '"a","a","a"', '"aaa","aa"'], c: 1, ex: 'El for externo itera 3 veces (i=0,1,2). El for interno itera sobre (2,1): primero j=2 → "aa", luego j=1 → "a". Resultado: aa/a/aa/a/aa/a (6 líneas).'},
-  {st: '¿Cuántas veces imprime "a" este código? for letra in "sabana": if letra=="a": i=1; while i<2: print("a"); i+=2', opts: ['1', '2', '3', '7'], c: 2, ex: '"sabana" tiene letras: s,a,b,a,n,a. La "a" aparece en posiciones 1,3,5 → 3 veces. Cada vez que letra=="a": i=1, while 1<2 True → imprime "a", i=3, while 3<2 False → sale. Total: 3 impresiones.'}
+  {st: '¿Cuántas veces imprime "a" este código? for letra in "sabana": if letra=="a": i=1; while i&lt;2: print("a"); i+=2', opts: ['1', '2', '3', '7'], c: 2, ex: '"sabana" tiene letras: s,a,b,a,n,a. La "a" aparece en posiciones 1,3,5 → 3 veces. Cada vez que letra=="a": i=1, while 1&lt;2 True → imprime "a", i=3, while 3&lt;2 False → sale. Total: 3 impresiones.'}
 ]);
 
 registerExercises('pc-parcial', '5', [
@@ -22310,7 +22310,7 @@ registerExercises('led', '5', [
 ]);
 
 registerExercises('led', '6', [
-  {st: 'En un diagrama de Hasse, un elemento a cubre a b si:', opts: ['a>b y no existe c con a>c>b', 'a=b', 'a<b', 'a y b son comparables'], c: 0, ex: 'a cubre a b cuando a es mayor que b y no hay elemento intermedio entre ellos en el orden.'},
+  {st: 'En un diagrama de Hasse, un elemento a cubre a b si:', opts: ['a>b y no existe c con a>c>b', 'a=b', 'a&lt;b', 'a y b son comparables'], c: 0, ex: 'a cubre a b cuando a es mayor que b y no hay elemento intermedio entre ellos en el orden.'},
   {st: 'En un álgebra de Boole, ¿cuántos elementos tiene el mínimo álgebra no trivial?', opts: ['1', '2', '4', '8'], c: 2, ex: 'El álgebra de Boole mínima no trivial B₂ tiene 4 elementos: 0, 1 y dos átomos.'},
   {st: 'El supremo de un subconjunto S en un orden parcial es:', opts: ['El máximo de S', 'La menor cota superior de S', 'La mayor cota inferior de S', 'El mínimo de S'], c: 1, ex: 'El supremo (join) es la menor de todas las cotas superiores de S.'},
   {st: 'En una red (lattice), todo par de elementos tiene:', opts: ['Un máximo y un mínimo globales', 'Supremo e ínfimo', 'Solo supremo', 'Solo ínfimo'], c: 1, ex: 'Una red es un orden parcial donde todo par {a,b} tiene supremo a∨b e ínfimo a∧b.'},

@@ -56,7 +56,7 @@ registerExercises('led', '5', [
 ]);
 
 registerExercises('led', '6', [
-  {st: 'En un diagrama de Hasse, un elemento a cubre a b si:', opts: ['a>b y no existe c con a>c>b', 'a=b', 'a<b', 'a y b son comparables'], c: 0, ex: 'a cubre a b cuando a es mayor que b y no hay elemento intermedio entre ellos en el orden.'},
+  {st: 'En un diagrama de Hasse, un elemento a cubre a b si:', opts: ['a>b y no existe c con a>c>b', 'a=b', 'a&lt;b', 'a y b son comparables'], c: 0, ex: 'a cubre a b cuando a es mayor que b y no hay elemento intermedio entre ellos en el orden.'},
   {st: 'En un álgebra de Boole, ¿cuántos elementos tiene el mínimo álgebra no trivial?', opts: ['1', '2', '4', '8'], c: 2, ex: 'El álgebra de Boole mínima no trivial B₂ tiene 4 elementos: 0, 1 y dos átomos.'},
   {st: 'El supremo de un subconjunto S en un orden parcial es:', opts: ['El máximo de S', 'La menor cota superior de S', 'La mayor cota inferior de S', 'El mínimo de S'], c: 1, ex: 'El supremo (join) es la menor de todas las cotas superiores de S.'},
   {st: 'En una red (lattice), todo par de elementos tiene:', opts: ['Un máximo y un mínimo globales', 'Supremo e ínfimo', 'Solo supremo', 'Solo ínfimo'], c: 1, ex: 'Una red es un orden parcial donde todo par {a,b} tiene supremo a∨b e ínfimo a∧b.'},
