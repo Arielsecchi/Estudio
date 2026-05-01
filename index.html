@@ -3941,28 +3941,137 @@ d(P, L) = <span class="frac"><span>|a·x<sub>0</sub> + b·y<sub>0</sub> + c|</sp
 d(P, π) = <span class="frac"><span>|a·x<sub>0</sub> + b·y<sub>0</sub> + c·z<sub>0</sub> + d|</span><span>√(a² + b² + c²)</span></span>
 </div>
 
-<h3>Proyección ortogonal · <b>muy frecuente en parciales</b></h3>
-<p>"Proyectar" un vector sobre otro es la sombra perpendicular que uno arroja sobre el otro.</p>
+<h3>Proyecciones y simetrías · <b>muy frecuente en parciales</b></h3>
+<p>Esta sección cubre la <b>sección 2.6 del libro de Escayola</b> (págs. 72–78). Aparece en todos los primeros parciales — al menos un ejercicio sobre proyección o simétrico, en muchos casos los dos.</p>
+
+<h4>Proyección ortogonal de un vector sobre otro</h4>
+<p>"Proyectar" <span class="vec">v</span> sobre <span class="vec">u</span> es la sombra perpendicular que <span class="vec">v</span> arroja sobre la dirección de <span class="vec">u</span>.</p>
 <div class="formula">
-proy<sub>u</sub>(v) = <span class="frac"><span>v · u</span><span>u · u</span></span> · <span class="vec">u</span> &nbsp;&nbsp;=&nbsp;&nbsp; <span class="frac"><span>v · u</span><span>‖u‖²</span></span> · <span class="vec">u</span>
+proy<sub><span class="vec">u</span></sub>(<span class="vec">v</span>) = <span class="frac"><span><span class="vec">v</span> · <span class="vec">u</span></span><span><span class="vec">u</span> · <span class="vec">u</span></span></span> · <span class="vec">u</span> &nbsp;&nbsp;=&nbsp;&nbsp; <span class="frac"><span><span class="vec">v</span> · <span class="vec">u</span></span><span>‖<span class="vec">u</span>‖²</span></span> · <span class="vec">u</span>
+</div>
+<p>Resultado: un vector <b>paralelo a <span class="vec">u</span></b> cuya magnitud es la "sombra" de <span class="vec">v</span> sobre <span class="vec">u</span>. Si <span class="vec">v</span> y <span class="vec">u</span> son ortogonales, la proyección es el vector cero.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · proy. de vector</div>
+  Proyectar <span class="m">v = (3, 4)</span> sobre <span class="m">u = (1, 0)</span>.<br>
+  v · u = 3·1 + 4·0 = 3. ‖u‖² = 1.<br>
+  proy<sub>u</sub>(v) = (3/1)·(1, 0) = <b>(3, 0)</b>. (Es la "componente x" de v.)
 </div>
 
-<div class="key"><div class="ky-t">Caracterización geométrica</div>
-Si <span class="m">A</span> es la <b>proyección ortogonal del punto B sobre una recta L</b> (con dirección <span class="vec">d</span>), entonces el vector <span class="m">B − A</span> es <b>ortogonal</b> a <span class="vec">d</span>. Es decir: <span class="m">(B − A) · d = 0</span>.
+<h4>Proyección ortogonal de un PUNTO sobre una RECTA · receta paso a paso</h4>
+<p>Esta es la versión que aparece <b>en todos los primeros parciales</b>. Te dan un punto P y una recta L: X = λ·<span class="vec">d</span> + <span class="vec">P</span><sub>0</sub>; tenés que encontrar el punto A ∈ L tal que P − A ⊥ <span class="vec">d</span>.</p>
+
+<div class="key"><div class="ky-t">Algoritmo (1 minuto)</div>
+1. Escribís A genérico de la recta: <span class="m">A = λ·<span class="vec">d</span> + <span class="vec">P</span><sub>0</sub></span>.<br>
+2. Calculás el vector <span class="m">P − A</span> (en función de λ).<br>
+3. Imponés <span class="m">(P − A) · <span class="vec">d</span> = 0</span>.<br>
+4. Despejás λ.<br>
+5. Reemplazás λ en A para obtener las coordenadas del proyectado.
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio tipo parcial</div>
-  Si <span class="m">A = (−1, 8)</span> es la proyección ortogonal de <span class="m">B = (−9, 7)</span> sobre la recta <span class="m">L: (x,y) = λ(k², −9) + (−5, 40)</span>, hallar k.<br><br>
-  Por la caracterización: <span class="m">(B − A) · d = 0</span>.<br>
-  B − A = (−9 − (−1), 7 − 8) = (−8, −1).<br>
-  d = (k², −9).<br>
-  Planteo: (−8)·k² + (−1)·(−9) = 0 → −8k² + 9 = 0 → k² = 9/8 → k = ±√(9/8).<br>
-  (En el parcial real el valor numérico depende del enunciado exacto; el método siempre es este.)
+  <div class="ex-t">Ejemplo · proy. punto sobre recta (Práctica 2, ej. 34c)</div>
+  Proyectar <span class="m">P = (1, 0, 2)</span> sobre <span class="m">L: X = λ(2, −1, 0)</span>.<br>
+  A = (2λ, −λ, 0). P − A = (1 − 2λ, λ, 2).<br>
+  (P − A) · (2, −1, 0) = 2(1 − 2λ) − λ + 0 = 2 − 4λ − λ = 2 − 5λ = 0 → λ = 2/5.<br>
+  A = (4/5, −2/5, 0). <b>Esa es la proyección.</b>
 </div>
 
-<div class="trap"><div class="tr-t">Error frecuente</div>
-Hacer la proyección "al revés". La proyección es de B <b>sobre</b> L (o sobre un vector), no al revés. Si te pide "proyección de B sobre L", el resultado es un punto <b>de L</b>.
+<h4>Proyección ortogonal de un punto sobre un PLANO · receta</h4>
+<p>Si te dan P y un plano π: ax + by + cz = d, el proyectado A = "pie de la perpendicular" se halla así:</p>
+
+<div class="key"><div class="ky-t">Algoritmo</div>
+1. Tomá la <b>recta normal al plano</b> que pasa por P: dirección <span class="vec">n</span> = (a, b, c).<br>
+&nbsp;&nbsp; <span class="m">L: X = t·(a, b, c) + P</span>.<br>
+2. Buscá la intersección de L con π: reemplazás (x, y, z) genérico de L en la ecuación del plano y despejás t.<br>
+3. Reemplazás t en L para obtener A.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · proy. punto sobre plano (Práctica 2, ej. 34d)</div>
+  Proyectar <span class="m">P = (−1, 1, 0)</span> sobre <span class="m">π: 2x − 3z = 0</span>.<br>
+  Normal: <b>n</b> = (2, 0, −3). Recta: X = t(2, 0, −3) + (−1, 1, 0) = (2t − 1, 1, −3t).<br>
+  Reemplazo en π: 2(2t − 1) − 3(−3t) = 0 → 4t − 2 + 9t = 0 → 13t = 2 → t = 2/13.<br>
+  A = (4/13 − 1, 1, −6/13) = <b>(−9/13, 1, −6/13)</b>.
+</div>
+
+<h4>Caracterización geométrica (la "trampa" del parcial)</h4>
+<div class="key"><div class="ky-t">Cuando A es la proyección...</div>
+Si <span class="m">A</span> es la <b>proyección ortogonal de P sobre una recta L con dirección <span class="vec">d</span></b>, entonces:<br>
+&nbsp;&nbsp;&nbsp;• <span class="m">A ∈ L</span> (necesariamente está en la recta).<br>
+&nbsp;&nbsp;&nbsp;• <span class="m">(P − A) · <span class="vec">d</span> = 0</span> (perpendicular a la dirección).<br>
+Para un plano: <span class="m">A ∈ π</span> y P − A es <b>paralelo</b> a la normal (o sea, P − A es múltiplo del vector normal).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo tipo parcial (T2 Álgebra A · 2024)</div>
+  Si <span class="m">A = (2, 6)</span> es la proyección ortogonal de <span class="m">B = (4, −1)</span> sobre <span class="m">L: (x,y) = λ(2/k², 7/7) + (1, 40)</span>, hallar k.<br><br>
+  B − A = (2, −7). Por la caracterización: <span class="m">(B − A) · <span class="vec">d</span> = 0</span>.<br>
+  (2)·(2/k²) + (−7)·1 = 0 → 4/k² = 7 → k² = 4/7 → k = ±2/√7.<br>
+  Verificar también que A ∈ L: 2 = (2/k²)·λ + 1 con el k hallado da un λ que satisface las dos coords.
+</div>
+
+<div class="trap"><div class="tr-t">Error frecuente · al revés</div>
+La proyección es <b>de un punto sobre la recta/plano</b>, no al revés. Si pide "proyección de B sobre L", el resultado es un punto <b>de L</b>. Y si te dan A como proyección, <b>A debe pertenecer a L</b>: chequealo siempre.
+</div>
+
+<h3>Simétrico respecto a un punto, recta o plano</h3>
+<p>El simétrico es el "reflejo": el espejo está en el punto, recta o plano dado.</p>
+
+<h4>Simétrico respecto a un punto Q</h4>
+<p>El simétrico P' de P respecto a Q es tal que <b>Q es el punto medio entre P y P'</b>:</p>
+<div class="formula">
+P' = 2Q − P
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 2, ej. 28b)</div>
+  Simétrico de <span class="m">(2, −4)</span> respecto a <span class="m">(−1, 1)</span>:<br>
+  P' = 2·(−1, 1) − (2, −4) = (−2 − 2, 2 + 4) = <b>(−4, 6)</b>.
+</div>
+
+<h4>Simétrico respecto a una recta L (o plano π) · receta</h4>
+<p>Estrategia universal: <b>el simétrico es A' = 2A − P, donde A es la proyección de P sobre L (o π)</b>.</p>
+
+<div class="key"><div class="ky-t">Receta del simétrico</div>
+1. Hallá A = proyección ortogonal de P sobre L (o sobre π).<br>
+2. P' = <span class="m">2A − P</span>. (A es el punto medio entre P y P'.)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 2, ej. 32b)</div>
+  Simétrico de <span class="m">(0, 0, 0)</span> respecto a <span class="m">L: X = λ(1, 1, 0) + (0, −1, 2)</span>.<br>
+  Paso 1: proyección de O = (0,0,0) sobre L. A = (λ, λ − 1, 2). O − A = (−λ, 1 − λ, −2).<br>
+  (O − A) · (1, 1, 0) = −λ + (1 − λ) = 1 − 2λ = 0 → λ = 1/2.<br>
+  A = (1/2, −1/2, 2).<br>
+  Paso 2: P' = 2A − O = <b>(1, −1, 4)</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · simétrico respecto a plano (Práctica 2, ej. 32c)</div>
+  Simétrico de <span class="m">P = (−1, 1, 2)</span> respecto a <span class="m">π: 2x + y − 3z = 2</span>.<br>
+  Recta normal: X = t(2, 1, −3) + (−1, 1, 2) = (2t − 1, t + 1, −3t + 2).<br>
+  En π: 2(2t − 1) + (t + 1) − 3(−3t + 2) = 2 → 4t − 2 + t + 1 + 9t − 6 = 2 → 14t − 7 = 2 → t = 9/14.<br>
+  A = (4/7, 23/14, −13/14).<br>
+  P' = 2A − P = (8/7 + 1, 23/7 − 1, −13/7 − 2) = <b>(15/7, 16/7, −27/7)</b>.
+</div>
+
+<h4>Simétrico respecto a los ejes coordenados (atajo)</h4>
+<table class="tbl">
+  <tr><th>Eje espejo</th><th>P = (x, y) → P'</th></tr>
+  <tr><td>Eje x</td><td>(x, −y)</td></tr>
+  <tr><td>Eje y</td><td>(−x, y)</td></tr>
+  <tr><td>Origen</td><td>(−x, −y)</td></tr>
+  <tr><td>Recta y = x</td><td>(y, x)</td></tr>
+</table>
+
+<h4>Aplicación · halle un punto Q tal que el simétrico de P respecto a Q es P'</h4>
+<p>De la fórmula P' = 2Q − P, se despeja: <span class="m">Q = (P + P') / 2</span>. Q es el punto medio.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 2, ej. 29b)</div>
+  El simétrico de <span class="m">(3, −1, 1)</span> respecto a Q es <span class="m">(0, 0, 0)</span>.<br>
+  Q = (P + P')/2 = ((3, −1, 1) + (0, 0, 0))/2 = <b>(3/2, −1/2, 1/2)</b>.
 </div>
 
 <div class="quiz-wrap" data-qz="2" data-subject="algebra"></div>
@@ -21332,9 +21441,15 @@ registerExercises('algebra', '2', [
   {st: 'Posición relativa de '+M('L<sub>1</sub>: (x,y,z) = α(1,0,−1) + (−1,2,3)')+' y '+M('L<sub>2</sub>: (x,y,z) = β(0,2,2) + (1,0,1)')+'.', opts: ['Paralelas', 'Iguales', 'Se cortan', 'Alabeadas'], c: 3, ex: 'Direcciones: (1,0,−1) y (0,2,2). No son paralelas (no son múltiplos). Ahora chequeás si se cortan: igualás α(1,0,−1) + (−1,2,3) = β(0,2,2) + (1,0,1) y resolvés el sistema. Si no tiene solución, son alabeadas. En este caso (del parcial real), el sistema es incompatible: alabeadas.'},
   {st: 'Una ecuación del plano que pasa por '+M('(1, 0, 2)')+' con normal '+M('n = (2, −1, 3)')+' es:', opts: [M('2x − y + 3z = 8'), M('2x − y + 3z = 0'), M('x − 2y + z = 1'), M('2x − y + 3z = 5')], c: 0, ex: 'Plano con normal (2,−1,3): 2x − y + 3z = d. Paso por (1,0,2): 2 − 0 + 6 = 8. Entonces d = 8.'},
   {st: 'La distancia del punto '+M('(1, 2)')+' a la recta '+M('3x + 4y − 5 = 0')+' es:', opts: [M('6/5'), M('1'), M('6'), M('1/5')], c: 0, ex: 'd = |3·1 + 4·2 − 5|/√(9+16) = |3+8−5|/5 = 6/5.'},
-  {st: 'La proyección de '+M('v = (3, 4)')+' sobre '+M('u = (1, 0)')+' es:', opts: [M('(3, 0)'), M('(0, 4)'), M('(3, 4)'), M('(1, 0)')], c: 0, ex: 'proy_u(v) = (v·u / u·u)·u = (3/1)·(1,0) = (3, 0).'},
-  {st: '¿Las rectas '+M('(x,y) = λ(2,1) + (0,3)')+' y '+M('(x,y) = μ(4,2) + (1,3,5)')+' son:', opts: ['Paralelas', 'Iguales', 'Se cortan en un punto', 'Alabeadas'], c: 0, ex: 'Direcciones: (2,1) y (4,2) = 2·(2,1), son paralelas. ¿Coincidentes? Chequeo si (0,3) está en la segunda: (0,3) = μ(4,2) + (1,3/5) → μ = −1/4 da (−1,−1/2)+(1,3/5) ≠ (0,3). No coinciden, son paralelas distintas.'},
-  {st: 'Un punto que pertenece al plano '+M('x − 2y + z = 4')+' es:', opts: [M('(1, 0, 3)'), M('(0, 0, 0)'), M('(2, 1, 0)'), M('(4, 0, 1)')], c: 0, ex: 'Chequeás: 1 − 0 + 3 = 4 ✓. Los otros: 0−0+0 = 0, 2−2+0 = 0, 4−0+1 = 5. Solo la A.'}
+  {st: 'La proyección ortogonal de '+M('v = (3, 4)')+' sobre '+M('u = (1, 0)')+' es:', opts: [M('(3, 0)'), M('(0, 4)'), M('(3, 4)'), M('(1, 0)')], c: 0, ex: 'proy_u(v) = (v·u / u·u)·u. v·u = 3·1+4·0 = 3. ‖u‖² = 1. Resultado = (3/1)·(1,0) = (3, 0). Es la "componente x" de v.'},
+  {st: 'Si A = (−1, 8) es la proyección ortogonal de B = (−9, 7) sobre L: (x,y) = λ(k², −9) + (−5, 40), ¿qué condición usás para hallar k?', opts: [M('(B − A) · d = 0')+' (perpendicularidad)', M('(B − A) · A = 0'), M('A · d = 0'), M('B − A = d')], c: 0, ex: 'La caracterización de la proyección dice que (B−A) ⊥ d. Entonces (B−A)·d=0. B−A=(−8,−1). Producto con (k²,−9): −8k² + 9 = 0 → k² = 9/8.'},
+  {st: 'Para hallar la proyección ortogonal de P = (1, 0, 2) sobre L: X = λ(2, −1, 0), ¿qué hacés primero?', opts: ['Calcular ‖P‖', 'Escribís A = (2λ, −λ, 0) genérico de L y planteás (P−A)·(2,−1,0) = 0', 'Resolvés el sistema P = λ·d', 'Calculás producto vectorial de P con d'], c: 1, ex: 'Algoritmo del parcial: A = punto genérico de L = (2λ, −λ, 0). P − A = (1−2λ, λ, 2). (P−A)·d = 0 → 2(1−2λ) − λ = 2 − 5λ = 0 → λ = 2/5. A = (4/5, −2/5, 0).'},
+  {st: 'Para hallar la proyección ortogonal de P sobre el plano π: 2x − 3z = 0, ¿qué recta auxiliar usás?', opts: ['La recta paralela a π por P', 'La recta normal al plano por P, con dirección (2, 0, −3)', 'La recta y = x', 'No hace falta recta auxiliar'], c: 1, ex: 'Receta: tomás la recta normal al plano que pasa por P (dirección = vector normal del plano), buscás la intersección con π, y eso da la proyección. Para π: 2x−3z=0, normal n=(2,0,−3).'},
+  {st: 'El simétrico de P = (2, −4) respecto al punto Q = (−1, 1) es:', opts: [M('(−4, 6)'), M('(0, −2)'), M('(−1, −3)'), M('(3, −5)')], c: 0, ex: 'P\' = 2Q − P = 2(−1,1) − (2,−4) = (−2−2, 2+4) = (−4, 6). Q es el punto medio entre P y P\'.'},
+  {st: 'Si el simétrico de P respecto a Q es P\', ¿cómo hallás Q?', opts: [M('Q = P − P\''), M('Q = (P + P\') / 2')+' (Q es el punto medio)', M('Q = 2P − P\''), M('Q = P · P\'')], c: 1, ex: 'De P\' = 2Q − P se despeja Q = (P + P\')/2. Q es el punto medio del segmento PP\'.'},
+  {st: 'Para hallar el simétrico de P respecto a una recta L, la receta es:', opts: ['P\' = 2P − L', 'Hallar A = proy. ortogonal de P sobre L y luego P\' = 2A − P', 'Reflejar coordenada por coordenada', 'P\' = P + d'], c: 1, ex: 'Receta universal: A = proyección de P sobre L (paso de proyección clásico) y P\' = 2A − P. A queda como punto medio entre P y su simétrico.'},
+  {st: 'El simétrico de (3, −1) respecto al eje x es:', opts: [M('(3, 1)'), M('(−3, −1)'), M('(−3, 1)'), M('(1, 3)')], c: 0, ex: 'Reflejar respecto al eje x cambia de signo la coordenada y. (3, −1) → (3, 1). Atajo de los ejes: (x,y)→(x,−y) sobre x; →(−x,y) sobre y.'},
+  {st: 'Para que A pertenezca a la recta L (al verificar que A es la proyección de P), debés:', opts: ['Hallar λ que da A = λd + P₀', 'Solo verificar que (P−A)·d = 0', 'Calcular ‖P − A‖', 'Verificar que A·d = 0'], c: 0, ex: 'Una proyección debe cumplir DOS condiciones: A ∈ L (existe un λ que lo da) y (P−A)·d = 0 (perpendicularidad). Ambas son necesarias. Si solo verificás la perpendicularidad, podés acertar el vector dirección pero no el punto correcto.'}
 ]);
 
 registerExercises('algebra', '3', [
