@@ -69,16 +69,22 @@ function switchSubject(subject){
   document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
   document.getElementById('subject-' + subject).classList.add('active');
   document.documentElement.setAttribute('data-subject', subject);
-  document.querySelectorAll('.drawer-item').forEach(it => {
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
     it.classList.toggle('active', it.getAttribute('data-target') === subject);
   });
   // Asegura que el grupo al que pertenece la materia activa este expandido
-  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"]');
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
   if (activeItem) {
     const group = activeItem.closest('.drawer-group');
     if (group && group.classList.contains('collapsed')) {
       group.classList.remove('collapsed');
       saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
     }
   }
   try { localStorage.setItem('uba-subject', subject); } catch(e) {}
@@ -90,6 +96,12 @@ function toggleCat(btn){
   const group = btn.closest('.drawer-group');
   group.classList.toggle('collapsed');
   saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
 }
 
 function saveCatState(){
@@ -110,6 +122,30 @@ function restoreCatState(){
     document.querySelectorAll('.drawer-group').forEach(g => {
       const cat = g.getAttribute('data-cat');
       if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
     });
   } catch(e) {}
 }
@@ -236,6 +272,7 @@ const M = s => '<span class="m">'+s+'</span>';
 
   // Estado colapsado de categorias del drawer
   restoreCatState();
+  restoreSubState();
 
   // Materia guardada (default: la primera)
   let savedSubject = null;

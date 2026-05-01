@@ -92,21 +92,49 @@ def construir_drawer(materias: list[dict]) -> str:
     `categoria` caen en un grupo final "Otras". El orden de aparicion de cada
     categoria es el orden en que aparece la primera materia de esa categoria
     en _orden.txt.
+
+    Las materias con campo `parent` (slug de otra materia) se renderizan como
+    hijas debajo del padre, indentadas. El padre obtiene una flecha extra para
+    expandir/colapsar las hijas. Click en el padre navega a su contenido; click
+    en la flecha solo togglea visibilidad. JS: toggleSub(btn).
     """
+    # Indexar hijas por slug del padre
+    children_by_parent: dict[str, list[dict]] = {}
+    for m in materias:
+        p = m.get('parent')
+        if p:
+            children_by_parent.setdefault(p, []).append(m)
+
+    # Agrupar solo materias TOP-LEVEL (sin parent) por categoria
     grupos: dict[str, list[dict]] = {}
     orden_cats: list[str] = []
     for m in materias:
+        if m.get('parent'):
+            continue  # las hijas se renderizan dentro de su padre
         cat = m.get('categoria') or 'Otras'
         if cat not in grupos:
             grupos[cat] = []
             orden_cats.append(cat)
         grupos[cat].append(m)
 
-    bloques = []
-    for cat in orden_cats:
-        items = []
-        for m in grupos[cat]:
-            items.append(
+    def render_subitem(m: dict) -> str:
+        return (
+            f'            <li class="drawer-subitem" data-target="{m["slug"]}" '
+            f'onclick="switchSubject(\'{m["slug"]}\')">\n'
+            f'              <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
+            f'{m["icono_letras"]}</div>\n'
+            f'              <div class="info">\n'
+            f'                <div class="t" style="color:{m["icono_bg"]}">{m["nombre"]}</div>\n'
+            f'                <div class="d">{m["subtitulo_drawer"]}</div>\n'
+            f'              </div>\n'
+            f'            </li>'
+        )
+
+    def render_item(m: dict) -> str:
+        children = children_by_parent.get(m['slug'], [])
+        if not children:
+            # Materia sin hijas: estructura clasica
+            return (
                 f'        <li class="drawer-item" data-target="{m["slug"]}" '
                 f'onclick="switchSubject(\'{m["slug"]}\')">\n'
                 f'          <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
@@ -117,7 +145,30 @@ def construir_drawer(materias: list[dict]) -> str:
                 f'          </div>\n'
                 f'        </li>'
             )
-        items_html = '\n'.join(items)
+        # Materia CON hijas: wrapper con flecha desplegable
+        subitems_html = '\n'.join(render_subitem(c) for c in children)
+        return (
+            f'        <li class="drawer-item-wrap" data-parent="{m["slug"]}">\n'
+            f'          <div class="drawer-item" data-target="{m["slug"]}" '
+            f'onclick="switchSubject(\'{m["slug"]}\')">\n'
+            f'            <div class="ic" style="background:{m["icono_bg"]};color:{m["icono_fg"]}">'
+            f'{m["icono_letras"]}</div>\n'
+            f'            <div class="info">\n'
+            f'              <div class="t" style="color:{m["icono_bg"]}">{m["nombre"]}</div>\n'
+            f'              <div class="d">{m["subtitulo_drawer"]}</div>\n'
+            f'            </div>\n'
+            f'            <button class="subitem-arrow" type="button" '
+            f'onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>\n'
+            f'          </div>\n'
+            f'          <ul class="drawer-children">\n'
+            f'{subitems_html}\n'
+            f'          </ul>\n'
+            f'        </li>'
+        )
+
+    bloques = []
+    for cat in orden_cats:
+        items_html = '\n'.join(render_item(m) for m in grupos[cat])
         bloque = (
             f'    <li class="drawer-group" data-cat="{cat}">\n'
             f'      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">\n'
