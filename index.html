@@ -7906,10 +7906,15 @@ frase=frase.replace(animal2,'OVEJA')
 for voc in 'eiou':
     frase=frase.replace(voc,'A')
 print(frase.upper())</pre>
-  Paso 1: reemplaza 'abeja' por 'ABEJA': "Las ABEJAS vuelan y las ovejas balan"<br>
-  Paso 2: reemplaza 'oveja' por 'OVEJA': "Las ABEJAS vuelan y las OVEJAS balan"<br>
-  Paso 3: reemplaza vocales minúsculas e,i,o,u por A: "LAs ABAJAS vuAlan y las OVAAJAS balan"<br>
-  Paso 4: <span class="m">.upper()</span>: "LAS ABEJAS VAALAN Y LAS OVEJAS BALAN" ← objetivo cumplido.
+  Paso 1: <span class="m">replace('abeja','ABEJA')</span> → "Las ABEJA<b>s</b> vuelan y las ovejas balan" (la 's' final queda minúscula porque <span class="m">replace</span> solo coincide con 'abeja', no con 'abejas').<br>
+  Paso 2: <span class="m">replace('oveja','OVEJA')</span> → "Las ABEJAs vuelan y las OVEJAs balan".<br>
+  Paso 3: el for recorre <span class="m">'eiou'</span>. Solo afecta minúsculas (las MAYÚSCULAS de ABEJAS/OVEJAS no se tocan):<br>
+  &nbsp;&nbsp;• <span class="m">'e'→'A'</span>: 'vuelan' → 'vuAlan'.<br>
+  &nbsp;&nbsp;• <span class="m">'i'→'A'</span>: no hay 'i' en la frase.<br>
+  &nbsp;&nbsp;• <span class="m">'o'→'A'</span>: no hay 'o' minúscula.<br>
+  &nbsp;&nbsp;• <span class="m">'u'→'A'</span>: 'vuAlan' → 'vAAlan'.<br>
+  &nbsp;&nbsp;Resultado tras el for: "Las ABEJAs vAAlan y las OVEJAs balan".<br>
+  Paso 4: <span class="m">.upper()</span> convierte todo a mayúsculas → <b>"LAS ABEJAS VAALAN Y LAS OVEJAS BALAN"</b> ✓
 </div>
 
 <div class="example">
