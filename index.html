@@ -215,6 +215,28 @@
     --summary-bg: #2a2042; --summary-hover: #362a55; --num-text: #120b1f;
   }
 
+  [data-subject="fisica-parcial"] {
+    --bg: #f3eefb; --text: #1d1432; --text-muted: #6b5c89;
+    --surface: #ffffff; --surface-2: #e7dcf3; --surface-3: #d6c6e9;
+    --border: #dccfeb; --border-2: #c7b6dc;
+    --accent: #7c3aed; --accent-hover: #9333ea; --gold: #d97706;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #e7dcf3; --summary-hover: #d6c6e9; --num-text: #ffffff;
+    --shadow: rgba(124, 58, 237, 0.08);
+  }
+  [data-theme="dark"][data-subject="fisica-parcial"] {
+    --bg: #150d24; --text: #ece2f7; --text-muted: #a795c0;
+    --surface: #1f1535; --surface-2: #2c2148; --surface-3: #382a5b;
+    --border: #382a5b; --border-2: #47376e;
+    --accent: #c4b5fd; --accent-hover: #ddd6fe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #2c2148; --summary-hover: #382a5b; --num-text: #150d24;
+  }
+
   [data-subject="biologia"] {
     --bg: #eef3ec; --text: #1a2418; --text-muted: #5e6c5c;
     --surface: #f4f9ed; --surface-2: #dde6d6; --surface-3: #c8d4be;
@@ -1379,12 +1401,24 @@
             </li>
           </ul>
         </li>
-        <li class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
-          <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
-          <div class="info">
-            <div class="t" style="color:#4c1d95">Física</div>
-            <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
           </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+          </ul>
         </li>
         <li class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
           <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
@@ -9340,6 +9374,738 @@ W<sub>roz</sub> = E<sub>m,f</sub> − E<sub>m,i</sub> &nbsp;&nbsp; (W<sub>roz</s
 
 <div class="quiz-wrap" data-qz="7" data-subject="fisica"></div>
 <a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA · PRIMER PARCIAL ==================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica-parcial">
+  <header>
+    <h1>Física · Guía Primer Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Torti · Guía intensiva del 1° Parcial (23/04) · Unidades 0 a 4</div>
+  </header>
+<nav class="toc" id="toc-fisica-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fip-s1">Estrategia general y fórmulas clave</a></li>
+    <li><a href="#fip-s2">TIPO 1 · Mediciones, unidades y dimensiones</a></li>
+    <li><a href="#fip-s3">TIPO 2 · Vectores en el plano</a></li>
+    <li><a href="#fip-s4">TIPO 3 · Estática</a></li>
+    <li><a href="#fip-s5">TIPO 4 · Hidrostática</a></li>
+    <li><a href="#fip-s6">TIPO 5 · Cinemática en una dimensión</a></li>
+    <li><a href="#fip-s7">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA GENERAL ============ -->
+<details id="fip-s1">
+<summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-fisica-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del 1° parcial Torti</h3>
+<p>El 1° parcial cae sobre las <b>Unidades 0 a 4</b>: Medición, Vectores, Estática, Hidrostática y Cinemática en una dimensión. <b>No entra</b> tiro oblicuo ni dinámica (eso es del 2° parcial).</p>
+<p>Suelen ser entre <b>5 y 7 ejercicios</b> de opción múltiple o desarrollo guiado, con preguntas que mezclan conceptos y cálculo. La idea es que <b>identifiques el tipo</b>, apliques la fórmula correcta y operes con cuidado de unidades.</p>
+
+<h3>Las 4 preguntas que tenés que hacerte al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>Cifras significativas, "expresar en m/s", notación científica, dimensiones</td><td><b>TIPO 1</b> — Mediciones</td></tr>
+  <tr><td>Vector, componentes, módulo, ángulo, suma vectorial, producto escalar/cruz</td><td><b>TIPO 2</b> — Vectores</td></tr>
+  <tr><td>Cuerpo en reposo, cuerda, viga, palanca, tensión, normal, momento</td><td><b>TIPO 3</b> — Estática</td></tr>
+  <tr><td>Densidad, presión, profundidad, prensa hidráulica, empuje, flota/se hunde</td><td><b>TIPO 4</b> — Hidrostática</td></tr>
+  <tr><td>x(t), v(t), a(t), MRU, MRUV, caída libre, encuentro, gráficos</td><td><b>TIPO 5</b> — Cinemática 1D</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Qué fórmula dispara?</h4>
+<ul>
+  <li><b>Conversión rápida:</b> km/h → m/s se <b>divide por 3,6</b>; g/cm³ → kg/m³ se <b>multiplica por 1000</b>.</li>
+  <li><b>Componentes:</b> <span class="m">Aₓ = |A|·cos(θ)</span>, <span class="m">Aᵧ = |A|·sen(θ)</span> con θ desde el eje x positivo.</li>
+  <li><b>Equilibrio:</b> <span class="m">ΣFₓ = 0</span> y <span class="m">ΣFᵧ = 0</span>; en cuerpo extenso además <span class="m">ΣM = 0</span>.</li>
+  <li><b>Hidrostática:</b> <span class="m">p = p₀ + δ·g·h</span> y empuje <span class="m">E = δ·g·V</span>.</li>
+  <li><b>Cinemática:</b> MRU <span class="m">x = x₀ + v·t</span>; MRUV <span class="m">x = x₀ + v₀·t + ½·a·t²</span>; "sin tiempo" <span class="m">v² = v₀² + 2·a·Δx</span>.</li>
+</ul>
+
+<h4>Pregunta 3 — ¿Tengo todos los datos en SI?</h4>
+<p>Antes de meter números: convertí todo. Si la velocidad está en km/h y la distancia en metros, vas a tener un error de factor 3,6. Si la densidad está en g/cm³ y necesitás Pa, te falta multiplicar por 1000. <b>El 60% de los errores del parcial vienen de no convertir.</b></p>
+
+<h4>Pregunta 4 — ¿Las unidades del resultado tienen sentido?</h4>
+<p>Análisis dimensional: si te queda una velocidad en kg, una presión en metros o una fuerza en segundos, hay un error. Volvé a chequear el último paso.</p>
+
+<h3>Fórmulas imprescindibles (memorizá estas 10)</h3>
+
+<div class="formula">
+  <b>Conversiones rápidas:</b><br>
+  km/h → m/s: dividir por 3,6 &nbsp;&nbsp; m/s → km/h: multiplicar por 3,6<br>
+  g/cm³ → kg/m³: multiplicar por 1000 &nbsp;&nbsp; 1 atm ≈ 10⁵ Pa ≈ 76 cm Hg
+</div>
+
+<div class="formula">
+  <b>Vectores:</b><br>
+  Aₓ = |A|·cos(θ), &nbsp; Aᵧ = |A|·sen(θ)<br>
+  |A| = √(Aₓ² + Aᵧ²), &nbsp; tan(θ) = Aᵧ/Aₓ<br>
+  Producto escalar: <b>A·B = AₓBₓ + AᵧBᵧ = |A||B|cos(θ)</b><br>
+  Producto vectorial 2D: <b>A × B = (AₓBᵧ − AᵧBₓ)·k̂</b>
+</div>
+
+<div class="formula">
+  <b>Estática:</b><br>
+  Peso: <b>P = m·g</b> &nbsp; (g = 9,8 m/s² o 10 m/s²)<br>
+  Equilibrio puntual: <b>ΣFₓ = 0</b>, <b>ΣFᵧ = 0</b><br>
+  Equilibrio extenso (también): <b>ΣM = 0</b><br>
+  Momento: <b>M = F·d·sen(α)</b>, perpendicular: M = F·d<br>
+  Palanca: <b>F₁·d₁ = F₂·d₂</b>
+</div>
+
+<div class="formula">
+  <b>Hidrostática:</b><br>
+  Densidad: <b>δ = m/V</b><br>
+  Presión: <b>p = F/A</b>, unidad <b>Pa = N/m²</b><br>
+  Teorema fundamental: <b>p = p₀ + δ·g·h</b><br>
+  Pascal (prensa): <b>F₁/A₁ = F₂/A₂</b><br>
+  Arquímedes: <b>E = δ_fluido · V_desalojado · g</b>
+</div>
+
+<div class="formula">
+  <b>Cinemática 1D:</b><br>
+  MRU: <b>x(t) = x₀ + v·t</b><br>
+  MRUV: <b>x(t) = x₀ + v₀·t + ½·a·t²</b>, &nbsp; <b>v(t) = v₀ + a·t</b><br>
+  Sin tiempo: <b>v² = v₀² + 2·a·Δx</b><br>
+  Caída libre/tiro vertical: usar a = −g (eje y hacia arriba)
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial Torti</div>
+Cada problema empieza con un <b>dibujo o esquema</b>. Aunque sea tosco. En estática, hacer el DCL antes de tocar números. En cinemática, dibujar el sistema de referencia (origen + sentido positivo) antes de plantear ecuaciones. En vectores, ubicar el cuadrante. <b>Si no dibujás, te equivocás de signo.</b>
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · MEDICIONES Y UNIDADES ============ -->
+<details id="fip-s2">
+<summary><span class="num">2</span> TIPO 1 · Mediciones, unidades y dimensiones <span class="sec-score" id="ss-fisica-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Lo que cae sí o sí (1 ejercicio)</h3>
+<p>Casi siempre hay un ejercicio de <b>conversión de unidades</b>, <b>cifras significativas</b>, <b>notación científica</b> o <b>análisis dimensional</b>. Son puntos "regalados" si conocés las reglas.</p>
+
+<h3>Subtipo A: Conversión de unidades (factor de conversión)</h3>
+<p>Multiplicás por una <b>fracción que vale 1</b> (numerador y denominador equivalentes en distintas unidades), eligiendo el orden para que se cancelen las unidades que querés sacar.</p>
+
+<div class="example">
+  <div class="ex-t">Pasar 72 km/h a m/s</div>
+  <p>Necesitás km → m y h → s.</p>
+  <div class="formula">72 km/h × (1000 m / 1 km) × (1 h / 3600 s) = 72·1000/3600 = <b>20 m/s</b></div>
+  <p><b>Atajo:</b> km/h ÷ 3,6 = m/s. ▸ 72/3,6 = 20.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Pasar 250 g/cm³ a kg/m³</div>
+  <div class="formula">250 (g/cm³) × (1 kg / 1000 g) × (10⁶ cm³ / 1 m³) = 250 · 1000 = <b>2,5·10⁵ kg/m³</b></div>
+  <p><b>Atajo:</b> g/cm³ × 1000 = kg/m³. ▸ 250 × 1000 = 250.000 = 2,5·10⁵.</p>
+  <p><b>Por qué 10⁶:</b> 1 m³ = (100 cm)³ = 10⁶ cm³.</p>
+</div>
+
+<div class="key"><div class="ky-t">Las 4 conversiones que tenés que tener en la cabeza</div>
+• km/h → m/s: <b>÷ 3,6</b><br>
+• m/s → km/h: <b>× 3,6</b><br>
+• g/cm³ → kg/m³: <b>× 1000</b><br>
+• cm² → m²: <b>÷ 10.000</b> (porque 1 m² = (100 cm)² = 10⁴ cm²)
+</div>
+
+<h3>Subtipo B: Cifras significativas</h3>
+<p>Las cifras significativas son los dígitos con significado. Reglas:</p>
+<ul>
+  <li>Todos los dígitos no nulos cuentan.</li>
+  <li>Ceros <b>entre</b> dígitos no nulos cuentan: 1,008 → 4 cifras.</li>
+  <li>Ceros a la <b>izquierda NO cuentan</b>: 0,00405 → 3 cifras (4, 0, 5).</li>
+  <li>Ceros a la <b>derecha del punto decimal SÍ cuentan</b>: 2,50 → 3 cifras.</li>
+</ul>
+
+<div class="formula">
+  <b>Suma/resta:</b> el resultado conserva tantos <b>decimales</b> como el dato con menos decimales.<br>
+  <b>Multiplicación/división:</b> el resultado conserva tantas <b>cifras significativas</b> como el dato con menos cifras.
+</div>
+
+<div class="example">
+  <div class="ex-t">12,4 + 0,356 con cifras significativas</div>
+  <p>12,4 tiene 1 decimal; 0,356 tiene 3. ▸ El resultado conserva <b>1 decimal</b>.</p>
+  <p>12,4 + 0,356 = 12,756 → redondeado a 1 decimal: <b>12,8</b>.</p>
+</div>
+
+<h3>Subtipo C: Notación científica</h3>
+<p>Cualquier número se escribe como <span class="m">a · 10ⁿ</span> con <b>1 ≤ |a| &lt; 10</b> y <b>n entero</b>.</p>
+
+<div class="example">
+  <div class="ex-t">Expresar 384.000.000 en notación científica</div>
+  <p>Corro la coma 8 lugares hacia la izquierda: 384.000.000 = <b>3,84 · 10⁸</b>.</p>
+  <p><b>Trampas frecuentes:</b> 38,4 · 10⁷ no es válido (a debe estar entre 1 y 10). 0,384 · 10⁹ tampoco (a ≥ 1).</p>
+</div>
+
+<h3>Subtipo D: Análisis dimensional</h3>
+<p>Una fórmula es válida solo si ambos lados tienen las <b>mismas dimensiones</b>. Las usás como letras: [v] = m/s, [a] = m/s², [F] = kg·m/s².</p>
+
+<div class="example">
+  <div class="ex-t">¿Es correcta v = a·t dimensionalmente?</div>
+  <p>[v] = m/s. ▸ [a·t] = (m/s²)·s = m/s. ▸ Ambos lados dan m/s ✓ <b>CONSISTENTE</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Es correcta x = ½·a·t² dimensionalmente?</div>
+  <p>[x] = m. ▸ [a·t²] = (m/s²)·s² = m. ▸ El ½ no tiene dimensiones (número puro). <b>CONSISTENTE</b>.</p>
+</div>
+
+<h3>Subtipo E: Orden de magnitud</h3>
+<p>El orden de magnitud es la <b>potencia de 10 más cercana</b>. Si el coeficiente es ≥ 5, redondeás hacia arriba; si es &lt; 5, hacia abajo.</p>
+
+<div class="example">
+  <div class="ex-t">Orden de magnitud de 4,8·10⁵</div>
+  <p>Como 4,8 &lt; 5 → orden = <b>10⁵</b> (no 10⁶).</p>
+</div>
+
+<h3>Subtipo F: Unidades del SI</h3>
+<p>Hay <b>7 unidades fundamentales</b> en el SI: m, kg, s, A, K, mol, cd. Todas las demás (Newton, Pascal, Joule, Watt) son <b>derivadas</b>.</p>
+
+<table class="tbl">
+  <tr><th>Magnitud</th><th>Unidad SI</th><th>Equivalente fundamental</th></tr>
+  <tr><td>Velocidad</td><td>m/s</td><td>m·s⁻¹</td></tr>
+  <tr><td>Aceleración</td><td>m/s²</td><td>m·s⁻²</td></tr>
+  <tr><td>Fuerza</td><td>N (Newton)</td><td>kg·m/s²</td></tr>
+  <tr><td>Presión</td><td>Pa (Pascal)</td><td>N/m² = kg/(m·s²)</td></tr>
+  <tr><td>Energía</td><td>J (Joule)</td><td>N·m = kg·m²/s²</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Mayúscula importa</div>
+"M" mayúscula = mega (10⁶). "m" minúscula = mili (10⁻³). Confundirlas son <b>9 órdenes de magnitud</b> de error. ▸ "k" siempre va minúscula en SI: kilo. "K" mayúscula es Kelvin.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · VECTORES ============ -->
+<details id="fip-s3">
+<summary><span class="num">3</span> TIPO 2 · Vectores en el plano <span class="sec-score" id="ss-fisica-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en casi todos los parciales (1–2 ejercicios)</h3>
+<p>Los vectores son el "lenguaje" de fuerzas, velocidades y aceleraciones. Aparecen como ejercicio puro o disfrazados dentro de estática o cinemática 2D. Tenés que dominar componentes, módulo y producto escalar.</p>
+
+<h3>Subtipo A: Componentes desde módulo y ángulo</h3>
+<p>Si conocés el módulo y el ángulo respecto del eje x positivo (sentido antihorario):</p>
+
+<div class="formula">
+  Aₓ = |A|·cos(θ) &nbsp;&nbsp; Aᵧ = |A|·sen(θ)
+</div>
+
+<div class="example">
+  <div class="ex-t">Componentes de una fuerza</div>
+  <p>Una fuerza de 50 N forma 30° con la horizontal. Componentes:</p>
+  <p>Fₓ = 50·cos(30°) = 50·(√3/2) ≈ <b>43,3 N</b></p>
+  <p>Fᵧ = 50·sen(30°) = 50·0,5 = <b>25 N</b></p>
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado con el cuadrante</div>
+La calculadora con arctan devuelve entre −90° y +90°. Si el vector está en el <b>2° o 3° cuadrante</b>, hay que sumar 180° al ángulo. Por eso conviene SIEMPRE dibujar el vector primero para saber en qué cuadrante está.
+</div>
+
+<h3>Subtipo B: Módulo y ángulo desde componentes</h3>
+
+<div class="formula">
+  |A| = √(Aₓ² + Aᵧ²) &nbsp;&nbsp; tan(θ) = Aᵧ/Aₓ
+</div>
+
+<div class="example">
+  <div class="ex-t">Módulo del vector A = 3î + 4ĵ</div>
+  <p>|A| = √(9 + 16) = √25 = <b>5</b>. ▸ Triángulo 3-4-5 (Pitágoras clásico).</p>
+</div>
+
+<h3>Subtipo C: Suma y resta por componentes</h3>
+<p>El método más rápido y sin errores:</p>
+
+<div class="formula">
+  A + B = (Aₓ + Bₓ, Aᵧ + Bᵧ)<br>
+  A − B = (Aₓ − Bₓ, Aᵧ − Bᵧ)<br>
+  k·A = (k·Aₓ, k·Aᵧ)
+</div>
+
+<div class="example">
+  <div class="ex-t">Suma de dos fuerzas con ángulos distintos</div>
+  <p>F₁ = 10 N a 60° del eje x. F₂ = 8 N a 150°.</p>
+  <p><b>Componentes:</b></p>
+  <ul>
+    <li>F₁ₓ = 10·cos(60°) = 5; F₁ᵧ = 10·sen(60°) ≈ 8,66</li>
+    <li>F₂ₓ = 8·cos(150°) ≈ −6,93; F₂ᵧ = 8·sen(150°) = 4</li>
+  </ul>
+  <p><b>Suma:</b> Rₓ = 5 − 6,93 = −1,93; Rᵧ = 8,66 + 4 = 12,66.</p>
+  <p>|R| = √(1,93² + 12,66²) ≈ <b>12,8 N</b>.</p>
+</div>
+
+<h3>Subtipo D: Producto escalar (·)</h3>
+<p>Da un <b>número</b>. Tiene dos formas equivalentes:</p>
+
+<div class="formula">
+  A · B = |A|·|B|·cos(θ) &nbsp;&nbsp; (geométrica)<br>
+  A · B = AₓBₓ + AᵧBᵧ &nbsp;&nbsp; (por componentes)
+</div>
+
+<div class="key"><div class="ky-t">Lo que tenés que saber</div>
+• A·B = 0 ⟺ los vectores son <b>perpendiculares</b> (cos 90° = 0).<br>
+• Sirve para calcular el ángulo: cos(θ) = (A·B)/(|A|·|B|).<br>
+• En física: el <b>trabajo</b> W = F·d es producto escalar. Por eso fuerza perpendicular al desplazamiento no hace trabajo.
+</div>
+
+<div class="example">
+  <div class="ex-t">Producto escalar y ángulo</div>
+  <p>A = 2î + 3ĵ y B = 4î − ĵ.</p>
+  <p>A·B = 2·4 + 3·(−1) = 8 − 3 = <b>5</b>.</p>
+  <p>|A| = √13, |B| = √17. ▸ cos(θ) = 5/(√13·√17) ≈ 0,336 → θ ≈ 70°.</p>
+</div>
+
+<h3>Subtipo E: Producto vectorial (×) en 2D</h3>
+<p>Da un <b>vector perpendicular</b> al plano de A y B (en 2D, en el eje z). En el plano xy:</p>
+
+<div class="formula">
+  A × B = (AₓBᵧ − AᵧBₓ)·k̂<br>
+  |A × B| = |A|·|B|·sen(θ)
+</div>
+
+<div class="key"><div class="ky-t">Propiedades</div>
+• <b>NO es conmutativo:</b> A × B = −(B × A). El orden importa.<br>
+• Si A y B son <b>paralelos</b>, A × B = 0 (vector nulo). sen(0°) = 0.<br>
+• En física: el <b>momento</b> τ = r × F. La regla de la mano derecha indica el sentido.
+</div>
+
+<div class="example">
+  <div class="ex-t">Producto vectorial</div>
+  <p>A = 3î + 4ĵ, B = 2î − ĵ.</p>
+  <p>A × B = (3·(−1) − 4·2)·k̂ = (−3 − 8)·k̂ = <b>−11 k̂</b>.</p>
+  <p>El signo negativo dice que apunta hacia −k̂ (saliendo del plano "hacia atrás").</p>
+</div>
+
+<h3>Subtipo F: Vectores opuestos y direcciones</h3>
+
+<div class="example">
+  <div class="ex-t">Fuerzas en sentidos opuestos</div>
+  <p>Dos fuerzas de 100 N y 80 N actúan en direcciones opuestas. La resultante tiene módulo |100 − 80| = <b>20 N</b> en el sentido de la mayor (100 N).</p>
+  <p>Si fueran del mismo sentido: 100 + 80 = 180 N.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · ESTÁTICA ============ -->
+<details id="fip-s4">
+<summary><span class="num">4</span> TIPO 3 · Estática <span class="sec-score" id="ss-fisica-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (1–2 ejercicios)</h3>
+<p>Estática es de los tipos más frecuentes. Casi siempre hay <b>una palanca</b> o <b>una viga apoyada</b> con peso conocido y reacciones desconocidas. La clave es el <b>diagrama de cuerpo libre</b> y plantear ΣF = 0 y ΣM = 0.</p>
+
+<h3>Conceptos básicos</h3>
+
+<div class="formula">
+  Peso: <b>P = m·g</b>, con g ≈ 9,8 m/s² (a veces se usa g = 10).<br>
+  1 N = 1 kg·m/s² (≈ peso de una manzana de 100 g).<br>
+  Equilibrio puntual: <b>ΣFₓ = 0, ΣFᵧ = 0</b><br>
+  Equilibrio extenso: <b>ΣF = 0 Y ΣM = 0</b>
+</div>
+
+<div class="trap"><div class="tr-t">Masa ≠ peso</div>
+La <b>masa</b> es cantidad de materia (en kg, no cambia). El <b>peso</b> es la fuerza con que la Tierra atrae al cuerpo (P = m·g, en N). En la Luna pesarías 6× menos pero tu masa es la misma.
+</div>
+
+<h3>Diagrama de Cuerpo Libre (DCL) · primer paso obligatorio</h3>
+
+<div class="key"><div class="ky-t">Receta del DCL</div>
+1. Aislás el cuerpo (lo dibujás solo).<br>
+2. Identificás las interacciones: Tierra → peso, superficie → normal, cuerda → tensión, resorte → fuerza elástica, etc.<br>
+3. Dibujás cada fuerza como flecha.<br>
+4. Elegís ejes y descomponés.<br>
+5. Planteás ΣFₓ = 0 y ΣFᵧ = 0.
+</div>
+
+<div class="trap"><div class="tr-t">Lo que NO va en el DCL</div>
+• Las fuerzas que el cuerpo hace sobre OTROS (eso va en el DCL del otro cuerpo).<br>
+• La velocidad ni la aceleración (no son fuerzas).<br>
+• Fuerzas "ficticias" como la centrífuga (en sistemas inerciales no existen).
+</div>
+
+<h3>Subtipo A: Cuerpo colgado de cuerdas</h3>
+<p>Una lámpara de peso P se sostiene con dos cuerdas que forman ángulos α y β con la horizontal. Las tensiones se obtienen del equilibrio.</p>
+
+<div class="example">
+  <div class="ex-t">Lámpara con dos cuerdas simétricas</div>
+  <p>P sostenida con dos cuerdas iguales que forman α a cada lado de la vertical. Por simetría: T₁ = T₂ = T.</p>
+  <p><b>Equilibrio vertical:</b> 2·T·sen(α) = P → T = P/(2·sen(α)).</p>
+  <p>Si sen(α) = 1/2 (α = 30°), entonces T = P (cada cuerda soporta el peso entero por el ángulo bajo).</p>
+</div>
+
+<h3>Subtipo B: Palanca / subibaja (momentos)</h3>
+<p>Una barra rígida pivotada en un punto está en equilibrio cuando los momentos a ambos lados son iguales:</p>
+
+<div class="formula">
+  F₁ · d₁ = F₂ · d₂
+</div>
+
+<div class="example">
+  <div class="ex-t">Subibaja con un padre y un hijo</div>
+  <p>Un niño de 21 kg se sienta a 2 m del centro. Su padre de 105 kg, ¿a qué distancia del centro debe sentarse para equilibrar?</p>
+  <p>m₁·d₁ = m₂·d₂ ▸ 21·2 = 105·d ▸ d = 42/105 = <b>0,40 m</b>.</p>
+  <p><b>Intuición:</b> el padre pesa 5× más → tiene que estar a 1/5 de la distancia.</p>
+</div>
+
+<h3>Subtipo C: Viga apoyada en dos puntos</h3>
+<p>Una viga horizontal con carga(s) está apoyada en sus dos extremos A y B. Hay que hallar las reacciones R_A y R_B.</p>
+
+<div class="key"><div class="ky-t">Estrategia (regla de oro)</div>
+1. Hacé el DCL: peso de la viga en el centro, cargas donde estén, reacciones R_A↑ y R_B↑ en los apoyos.<br>
+2. <b>Tomá momentos respecto de A</b> (así R_A no aparece, su brazo es 0): ΣM_A = 0 → despejás R_B.<br>
+3. <b>Después</b> usá ΣF = 0 vertical: R_A + R_B = peso total → despejás R_A.
+</div>
+
+<div class="example">
+  <div class="ex-t">Viga horizontal con carga descentrada</div>
+  <p>Viga homogénea de 100 kg y 4 m, apoyada en sus extremos. Una carga de 50 kg se ubica a 1 m del extremo A.</p>
+  <p>Pesos: viga = 100·9,8 = 980 N (en el centro, x = 2 m). Carga = 490 N (en x = 1 m).</p>
+  <p><b>Momentos respecto de A:</b> R_B·4 − 980·2 − 490·1 = 0 → R_B = (1960 + 490)/4 = <b>612,5 N</b>.</p>
+  <p><b>Suma de fuerzas:</b> R_A + R_B = 980 + 490 = 1470 → R_A = 1470 − 612,5 = <b>857,5 N</b>.</p>
+</div>
+
+<h3>Subtipo D: Centro de gravedad (CG)</h3>
+<p>En cuerpos extensos, el peso "se aplica" en el CG. En cuerpos homogéneos y simétricos, coincide con el centro geométrico.</p>
+
+<table class="tbl">
+  <tr><th>Cuerpo</th><th>Centro de gravedad</th></tr>
+  <tr><td>Varilla / viga uniforme</td><td>Centro de la barra (mitad)</td></tr>
+  <tr><td>Tabla rectangular</td><td>Intersección de diagonales</td></tr>
+  <tr><td>Disco / esfera</td><td>Centro geométrico</td></tr>
+  <tr><td>Triángulo</td><td>Baricentro (1/3 desde cada base)</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">CG de un auto por reparto de peso</div>
+  <p>Un auto tiene 53% del peso sobre las ruedas delanteras y 47% sobre las traseras, con 2,46 m entre ejes. ¿A qué distancia del eje trasero está el CG?</p>
+  <p><b>Momentos respecto del eje trasero:</b> 0,53·P·2,46 = P·x (la fuerza del eje delantero "tira" hacia delante; el peso "tira" hacia abajo desde el CG).</p>
+  <p>x = 0,53·2,46 ≈ <b>1,30 m</b> (medidos desde el eje trasero).</p>
+</div>
+
+<h3>Subtipo E: Momento de una fuerza</h3>
+
+<div class="formula">
+  M = F · d · sen(α) &nbsp;&nbsp; con α = ángulo entre F y el brazo<br>
+  Si F es perpendicular al brazo: M = F · d (lo más común)
+</div>
+
+<div class="key"><div class="ky-t">Cómo elegir el punto inteligentemente</div>
+"Cualquier punto" funciona, pero elegirlo bien simplifica mucho:<br>
+• Poné el punto donde actúa una fuerza desconocida → su momento es 0 y desaparece de la ecuación.<br>
+• Por eso típicamente se elige <b>uno de los apoyos</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · HIDROSTÁTICA ============ -->
+<details id="fip-s5">
+<summary><span class="num">5</span> TIPO 4 · Hidrostática <span class="sec-score" id="ss-fisica-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece casi siempre (1 ejercicio)</h3>
+<p>Hidrostática suele ser <b>un ejercicio</b> con tres temas posibles: presión a una profundidad, prensa hidráulica (Pascal) o flotación (Arquímedes). Memoriza las tres fórmulas y reconocé el caso.</p>
+
+<h3>Conceptos clave</h3>
+
+<div class="formula">
+  Densidad: <b>δ = m/V</b> [kg/m³ o g/cm³]<br>
+  Conversión: <b>1 g/cm³ = 1000 kg/m³</b><br>
+  Presión: <b>p = F/A</b> [Pa = N/m²]<br>
+  1 atm = 1,013·10⁵ Pa ≈ 760 mmHg
+</div>
+
+<div class="key"><div class="ky-t">Densidades de referencia (memorizá las primeras 4)</div>
+• Agua: <b>1,00·10³ kg/m³ = 1 g/cm³</b> (la referencia)<br>
+• Hielo: <b>0,92·10³ kg/m³</b> (¡menor que el agua, por eso flota!)<br>
+• Aire: 1,29 kg/m³<br>
+• Aceite: ~0,9·10³ kg/m³<br>
+• Aluminio: 2,70·10³ kg/m³<br>
+• Hierro/acero: 7,80·10³ kg/m³<br>
+• Plomo: 11,3·10³ kg/m³<br>
+• Mercurio: 13,6·10³ kg/m³<br>
+• Oro: 19,3·10³ kg/m³
+</div>
+
+<h3>Subtipo A: Teorema fundamental de la hidrostática</h3>
+
+<div class="formula">
+  p = p₀ + δ · g · h
+</div>
+
+<p>Con <b>p₀</b> la presión en la superficie (atm si está abierto), <b>δ</b> densidad del fluido y <b>h</b> profundidad. <b>Todos los puntos a igual profundidad tienen igual presión</b> (vasos comunicantes), independiente de la forma del recipiente.</p>
+
+<div class="example">
+  <div class="ex-t">Presión en el fondo de una pileta</div>
+  <p>Una pileta de 2 m de profundidad llena de agua. ¿Cuál es la presión en el fondo? (g = 10 m/s², p_atm = 10⁵ Pa)</p>
+  <p>p = 10⁵ + 1000·10·2 = 10⁵ + 2·10⁴ = <b>1,2·10⁵ Pa</b> (absoluta).</p>
+  <p>Manométrica (sin contar atmósfera): δ·g·h = <b>2·10⁴ Pa</b> (igual al peso de la columna por unidad de área).</p>
+</div>
+
+<h3>Subtipo B: Principio de Pascal · prensa hidráulica</h3>
+<p>La presión aplicada a un fluido encerrado se transmite por igual. En una prensa con dos émbolos:</p>
+
+<div class="formula">
+  F₁ / A₁ = F₂ / A₂ &nbsp;&nbsp; (la misma presión en ambos)
+</div>
+
+<div class="example">
+  <div class="ex-t">Gato hidráulico</div>
+  <p>Émbolo pequeño A₁ = 5 cm², se aplica F₁ = 100 N. Émbolo grande A₂ = 200 cm². ¿Cuánto peso levanta?</p>
+  <p>F₂ = F₁·A₂/A₁ = 100·(200/5) = 100·40 = <b>4000 N</b>.</p>
+  <p><b>Multiplicador de fuerza:</b> el factor es A₂/A₁ = 40. Con poco esfuerzo, mucho peso (a costa de mucho recorrido).</p>
+</div>
+
+<h3>Subtipo C: Principio de Arquímedes · empuje y flotación</h3>
+
+<div class="formula">
+  Empuje: <b>E = δ_fluido · V_desalojado · g</b>
+</div>
+
+<p>El empuje depende solo del fluido y del volumen del cuerpo sumergido (NO del cuerpo en sí). Comparando densidades del cuerpo y el fluido:</p>
+
+<table class="tbl">
+  <tr><th>Caso</th><th>Comportamiento</th></tr>
+  <tr><td>δ_cuerpo &lt; δ_fluido</td><td><b>Flota</b>: solo una parte sumergida (la justa para que E = peso)</td></tr>
+  <tr><td>δ_cuerpo = δ_fluido</td><td><b>Equilibrio</b>: queda sumergido a cualquier profundidad</td></tr>
+  <tr><td>δ_cuerpo &gt; δ_fluido</td><td><b>Se hunde</b></td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Densidad por peso aparente</div>
+  <p>Una pieza de metal pesa 90 g en aire y 75 g sumergida en agua. ¿Cuál es su densidad? (δ_agua = 1 g/cm³)</p>
+  <p><b>Diferencia de pesos:</b> 90 − 75 = 15 g de empuje. ▸ Como δ_agua = 1 g/cm³, eso corresponde a V = 15 cm³.</p>
+  <p>δ = m/V = 90/15 = <b>6 g/cm³</b>. (Probablemente acero.)</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Flota un cubo en agua?</div>
+  <p>Un cubo de 8,5 cm de lado tiene masa 0,650 kg. ¿Flota en agua?</p>
+  <p>V = (0,085)³ ≈ 6,14·10⁻⁴ m³.</p>
+  <p>δ = m/V ≈ 1059 kg/m³ &gt; 1000 kg/m³ (agua) → <b>se hunde</b>.</p>
+</div>
+
+<div class="key"><div class="ky-t">¿Por qué un barco de acero flota?</div>
+La densidad del acero (7,8 g/cm³) es mucho mayor que la del agua. Pero un barco tiene mucho aire adentro: la densidad <b>media</b> (acero + aire) es menor que la del agua, y por eso flota. Si entra agua y se llena, su densidad media supera a la del agua y se hunde.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · CINEMÁTICA 1D ============ -->
+<details id="fip-s6">
+<summary><span class="num">6</span> TIPO 5 · Cinemática en una dimensión <span class="sec-score" id="ss-fisica-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (1–2 ejercicios)</h3>
+<p>Cinemática 1D es la "vedette" del primer parcial. Casi siempre hay un ejercicio de <b>MRUV</b> (autos que aceleran/frenan) o un <b>tiro vertical / caída libre</b>. A veces un ejercicio de <b>encuentro</b> o de <b>interpretar gráficos v(t)</b>.</p>
+
+<h3>Conceptos básicos</h3>
+
+<div class="formula">
+  <b>MRU</b> (velocidad constante, a = 0):<br>
+  &nbsp;&nbsp;x(t) = x₀ + v·t<br><br>
+  <b>MRUV</b> (aceleración constante):<br>
+  &nbsp;&nbsp;v(t) = v₀ + a·t<br>
+  &nbsp;&nbsp;x(t) = x₀ + v₀·t + ½·a·t²<br>
+  &nbsp;&nbsp;v² = v₀² + 2·a·Δx &nbsp;&nbsp; (sin tiempo)
+</div>
+
+<div class="trap"><div class="tr-t">Velocidad ≠ rapidez · Desplazamiento ≠ distancia</div>
+• <b>Velocidad</b>: vector (con signo). <b>Rapidez</b>: módulo (siempre positivo).<br>
+• <b>Desplazamiento</b> Δx: cambio de posición (con signo). <b>Distancia recorrida</b>: longitud del camino, siempre positiva.<br>
+• Si vas y volvés al mismo punto: desplazamiento = 0, distancia = 2·camino.
+</div>
+
+<h3>Subtipo A: MRUV con datos parciales</h3>
+<p>Te dan una velocidad inicial, una final, una distancia o un tiempo. Tenés que usar la combinación correcta de ecuaciones.</p>
+
+<div class="key"><div class="ky-t">Truco infalible: la velocidad media en MRUV</div>
+<b>v_media = (v_i + v_f) / 2</b>. Combinada con v_media = Δx/Δt te ahorra las ecuaciones cuadráticas.
+</div>
+
+<div class="example">
+  <div class="ex-t">Antílope acelerando</div>
+  <p>Un antílope con aceleración constante tarda 7,00 s en recorrer 70,0 m, terminando a 15,0 m/s. ¿Cuál fue su rapidez inicial?</p>
+  <p>v_media = Δx/Δt = 70/7 = 10 m/s.</p>
+  <p>v_media = (v_i + v_f)/2 → (v_i + 15)/2 = 10 → <b>v_i = 5 m/s</b>.</p>
+  <p>Aceleración: a = (15 − 5)/7 = <b>10/7 ≈ 1,43 m/s²</b>.</p>
+</div>
+
+<h3>Subtipo B: Caída libre y tiro vertical</h3>
+<p>Casos particulares de MRUV con a = −g (eje y hacia arriba positivo). Las ecuaciones quedan:</p>
+
+<div class="formula">
+  y(t) = y₀ + v₀·t − ½·g·t²<br>
+  v(t) = v₀ − g·t
+</div>
+
+<div class="key"><div class="ky-t">Simetría del tiro vertical</div>
+• En el <b>punto más alto</b>, v = 0 (y la aceleración sigue siendo −g).<br>
+• El tiempo de subida = tiempo de bajada (al mismo nivel).<br>
+• La rapidez al volver al nivel inicial = rapidez de lanzamiento.
+</div>
+
+<div class="example">
+  <div class="ex-t">Tiempo de vuelo de un cuchillo lanzado hacia arriba</div>
+  <p>v₀ = 8,2 m/s, g = 9,8 m/s². ¿Cuánto tarda en volver a la mano?</p>
+  <p><b>Método 1 (subida + bajada):</b> en el punto más alto v = 0: 0 = 8,2 − 9,8·t_sub → t_sub ≈ 0,837 s. Total = 2·0,837 ≈ <b>1,67 s</b>.</p>
+  <p><b>Método 2 (de raíz a raíz):</b> y(t) = 0 ⟹ 0 = 8,2t − ½·9,8·t² = t·(8,2 − 4,9·t) ⟹ t = 0 o t = 8,2/4,9 ≈ 1,67 s.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Caída desde altura</div>
+  <p>Una piedra cae desde 20 m de altura, desde reposo. ¿Cuánto tarda en tocar el suelo? (g = 10 m/s²)</p>
+  <p>0 = 20 − ½·10·t² → 5·t² = 20 → t² = 4 → <b>t = 2 s</b>.</p>
+  <p>Rapidez al chocar: v = 10·2 = <b>20 m/s</b>.</p>
+</div>
+
+<h3>Subtipo C: Caída libre en otro planeta</h3>
+<p>El truco: la altura es la misma, lo que cambia es g.</p>
+
+<div class="example">
+  <div class="ex-t">Gravedad en otro mundo</div>
+  <p>Una roca cae desde reposo y tarda 1,75 s en la Tierra. La misma caída tarda 18,6 s en una luna lejana. ¿Cuál es g allá?</p>
+  <p><b>Altura (Tierra):</b> h = ½·9,8·1,75² ≈ 15 m.</p>
+  <p><b>En la luna:</b> 15 = ½·g·18,6² → g = 30/345,96 ≈ <b>0,087 m/s²</b>.</p>
+</div>
+
+<h3>Subtipo D: Encuentro de dos móviles</h3>
+
+<div class="key"><div class="ky-t">Estrategia</div>
+1. Plantear x_A(t) y x_B(t) con el MISMO origen y el MISMO sentido positivo.<br>
+2. Igualar: x_A(t) = x_B(t) → ecuación en t.<br>
+3. Resolver. ▸ Si t sale negativo, el "encuentro" fue antes del t=0 (ya pasó).<br>
+4. Reemplazar t en cualquiera para hallar la posición del encuentro.
+</div>
+
+<h3>Subtipo E: Lectura de gráficos</h3>
+
+<table class="tbl">
+  <tr><th>Gráfico</th><th>Pendiente</th><th>Área bajo la curva</th></tr>
+  <tr><td>x(t)</td><td>velocidad</td><td>—</td></tr>
+  <tr><td>v(t)</td><td>aceleración</td><td><b>desplazamiento Δx</b></td></tr>
+  <tr><td>a(t)</td><td>—</td><td>cambio de velocidad Δv</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Cohete con MRUV "sin tiempo"</div>
+  <p>Un cohete parte del suelo con v₀ = 50 m/s, acelera 2 m/s² hacia arriba durante 150 m, y se apaga. ¿Velocidad al apagarse?</p>
+  <p>v² = v₀² + 2·a·Δx = 2500 + 2·2·150 = 2500 + 600 = 3100 → v = √3100 ≈ <b>55,7 m/s</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · MIX INTEGRADOR ============ -->
+<details id="fip-s7">
+<summary><span class="num">7</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-fisica-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en menos de 30 segundos</h3>
+<p>El tiempo del parcial es escaso. Entrenate en identificar el tipo con solo leer la primera línea.</p>
+
+<table class="tbl">
+  <tr><th>Primera frase del enunciado</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"Pasar X km/h a m/s..." o "expresar en notación científica..."</td><td>Mediciones</td><td>Aplicar atajo (÷3,6, ×1000, etc.)</td></tr>
+  <tr><td>"Dado el vector A = ... calculá ..."</td><td>Vectores</td><td>Pasar a componentes y operar</td></tr>
+  <tr><td>"Una caja apoyada / colgada / un padre y un niño en un subibaja..."</td><td>Estática</td><td>Hacer DCL, plantear ΣF=0 y ΣM=0</td></tr>
+  <tr><td>"En un fluido / sumergido en agua / prensa hidráulica..."</td><td>Hidrostática</td><td>Identificar Pascal o Arquímedes y aplicar fórmula</td></tr>
+  <tr><td>"Un auto parte con velocidad ... y acelera..."</td><td>Cinemática 1D</td><td>Identificar MRU/MRUV, escribir ecuaciones horarias</td></tr>
+  <tr><td>"Se lanza una piedra hacia arriba / desde una altura..."</td><td>Cinemática 1D</td><td>Tiro vertical / caída libre con a = −g</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+
+<div class="trap"><div class="tr-t">Error 1 — No convertir unidades</div>
+Si la velocidad está en km/h y la distancia en m, multiplicar directo da un resultado 3,6× más grande de lo correcto. <b>Antes de meter números, llevá todo a SI.</b>
+</div>
+
+<div class="trap"><div class="tr-t">Error 2 — Confundir masa con peso</div>
+Si te dan una masa de 50 kg y te piden trabajar con fuerzas (estática), tenés que multiplicar por g (P = m·g = 490 N). Si trabajás con kg como si fueran N, te falta un factor 9,8.
+</div>
+
+<div class="trap"><div class="tr-t">Error 3 — Signos en cinemática</div>
+Si elegiste "arriba positivo", la aceleración es a = −g. Si elegiste "abajo positivo", a = +g. Mantené el signo de v₀ y a coherentes con tu convención. <b>Anotá el sentido positivo en el dibujo y no lo cambies después.</b>
+</div>
+
+<div class="trap"><div class="tr-t">Error 4 — Olvidarte de los momentos en cuerpo extenso</div>
+Una viga apoyada NO se resuelve con solo ΣF = 0 (eso te da una sola ecuación con dos incógnitas R_A y R_B). Necesitás también ΣM = 0 para tener dos ecuaciones.
+</div>
+
+<h3>Práctica integradora — 5 ejercicios variados</h3>
+
+<div class="example">
+  <div class="ex-t">Integrador 1 — Conversión y cifras significativas</div>
+  <p>Pasar 144 km/h a m/s, con 2 cifras significativas.</p>
+  <p>144 / 3,6 = 40 m/s. ▸ Con 2 cifras: <b>40 m/s</b> (ya cumple).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Vectores: ángulo entre dos</div>
+  <p>A = 3î + 4ĵ, B = −2î + 5ĵ. ¿Ángulo entre ellos?</p>
+  <p>A·B = 3·(−2) + 4·5 = −6 + 20 = 14. |A| = 5, |B| = √29.</p>
+  <p>cos(θ) = 14/(5·√29) ≈ 14/26,93 ≈ 0,52 → θ ≈ <b>58,5°</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Estática: viga con carga</div>
+  <p>Viga homogénea de 60 kg y 6 m apoyada en sus extremos. Carga de 200 kg en el punto a 2 m del extremo izquierdo (A). Hallá R_A y R_B (g = 10).</p>
+  <p>Pesos: viga = 600 N en x = 3 m. Carga = 2000 N en x = 2 m.</p>
+  <p>ΣM_A = 0: R_B·6 − 600·3 − 2000·2 = 0 → R_B = (1800 + 4000)/6 ≈ <b>966,7 N</b>.</p>
+  <p>ΣF = 0: R_A + R_B = 2600 → R_A = 2600 − 966,7 ≈ <b>1633,3 N</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 4 — Hidrostática: empuje y flotación</div>
+  <p>Un cubo de madera de 10 cm de lado y densidad 0,6 g/cm³ flota en agua. ¿Qué fracción del cubo queda sumergida?</p>
+  <p>En equilibrio: peso = empuje. ▸ δ_madera·V·g = δ_agua·V_sumergido·g.</p>
+  <p>V_sumergido / V = δ_madera / δ_agua = 0,6 / 1 = <b>60%</b>.</p>
+  <p>(Un 40% del cubo sobresale del agua.)</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 5 — Cinemática: tiro vertical en otro planeta</div>
+  <p>En Marte (g = 3,71 m/s²), una pelota golpeada hacia arriba vuelve al mismo nivel 8,5 s después. ¿Rapidez inicial?</p>
+  <p>Por simetría, t_subida = 8,5/2 = 4,25 s.</p>
+  <p>En el punto alto v = 0: 0 = v₀ − g·t_sub → v₀ = 3,71·4,25 ≈ <b>15,8 m/s</b>.</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los enunciados completos antes de empezar (2–3 min).<br>
+2. Empezá por los temas que más dominás.<br>
+3. <b>Dibujá siempre</b>: DCL en estática, sistema de referencia en cinemática, esquema en hidrostática.<br>
+4. <b>Antes de meter números, convertí todo a SI</b>.<br>
+5. Verificá las unidades del resultado: si te queda algo raro, retrocedé.<br>
+6. Si te trabás, dejá el ejercicio y volvé después con la cabeza fresca.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="fisica-parcial"></div>
+<a class="back" href="#subject-fisica-parcial">↑ Volver al índice</a>
 </div>
 </details>
 
@@ -21884,6 +22650,90 @@ registerExercises('fisica', '7', [
   {st: '¿Cuál de estas fuerzas es CONSERVATIVA?', opts: ['Rozamiento', 'Tensión', 'Peso (gravedad)', 'Normal'], c: 2, ex: 'Conservativa: el trabajo depende solo del cambio de POSICIÓN, no del CAMINO. Peso y elástica son conservativas. ▸ Por qué las otras están mal: (A) rozamiento depende del camino; (B) (D) no son conservativas en el sentido estricto.'},
   {st: 'Se suelta una piedra desde 20 m sin rozamiento. ¿Velocidad al llegar al suelo? (g=9,8)', opts: ['9,8 m/s', '14 m/s', '19,8 m/s', '392 m/s'], c: 2, ex: 'Conservación de energía: m·g·h = ½·m·v² → v = √(2·g·h) = √(2·9,8·20) = √392 ≈ 19,8 m/s. NO depende de la masa. ▸ Por qué las otras están mal: (A) sin elevar al cuadrado; (B) √200; (D) "392" es v² sin raíz.'},
   {st: 'Si hay rozamiento, la energía mecánica:', opts: ['Se conserva', 'Aumenta', 'Disminuye (se transforma en calor)', 'Cambia de dirección'], c: 2, ex: 'Rozamiento es no conservativo → "consume" energía mecánica → calor en la superficie de contacto. ▸ Por qué las otras están mal: (A) sí se conserva si NO hay rozamiento; (B) la energía no aumenta; (D) "dirección" no aplica a energía (escalar).'}
+]);
+
+
+// ============ EJERCICIOS FÍSICA 1° PARCIAL ============
+// ESTRATEGIA GENERAL Y FÓRMULAS CLAVE
+registerExercises('fisica-parcial', '1', [
+  {st: 'En el 1° parcial Torti, ¿qué unidades NO entran?', opts: ['Mediciones', 'Vectores y Estática', 'Hidrostática y Cinemática 1D', 'Tiro oblicuo, Dinámica y Energía'], c: 3, ex: 'El 1° parcial cubre Unidades 0–4 (Medición, Vectores, Estática, Hidrostática, Cinemática 1D). ▸ Tiro oblicuo (U5), Dinámica (U6) y Energía (U7) caen en el 2° parcial. ▸ Por qué las otras están mal: (A) (B) (C) son temas que SÍ entran al 1° parcial.'},
+  {st: 'Si el enunciado dice "presión a una profundidad", "prensa hidráulica" o "qué fracción del cuerpo flota", el tema es:', opts: ['Vectores', 'Estática', 'Hidrostática', 'Cinemática 1D'], c: 2, ex: 'Profundidad y presión → teorema fundamental p = p₀ + δgh. Prensa → Pascal F₁/A₁ = F₂/A₂. Flotación → Arquímedes E = δVg. Todos hidrostática. ▸ Por qué las otras están mal: (A) vectores no habla de fluidos; (B) estática trata fuerzas en sólidos; (D) cinemática es movimiento.'},
+  {st: 'La estrategia general antes de meter números en cualquier ejercicio del parcial es:', opts: ['Probar las 4 opciones', 'Convertir todas las cantidades a unidades SI y dibujar un esquema', 'Calcular en la calculadora directamente', 'Buscar la fórmula más larga'], c: 1, ex: 'Convertir a SI evita errores de factor 3,6 (km/h vs m/s) o 1000 (g/cm³ vs kg/m³). Dibujar el esquema (DCL, sistema de referencia, vectores) evita errores de signo. ▸ El 60% de los errores en parciales vienen de no convertir o no dibujar. ▸ Por qué las otras están mal: (A) lento y poco confiable; (C) sin entender el problema; (D) la fórmula más simple suele ser la correcta.'},
+  {st: 'Para el equilibrio de un cuerpo extenso (no puntual), las condiciones necesarias son:', opts: ['Solo ΣF = 0', 'Solo ΣM = 0', 'ΣF = 0 Y ΣM = 0', 'ΣF = m·a'], c: 2, ex: 'Cuerpo extenso necesita AMBAS condiciones: ▸ ΣF=0 evita traslación. ▸ ΣM=0 evita rotación. ▸ Sin la 2ª, podría haber un par puro (par de fuerzas iguales y opuestas que rotan al cuerpo). ▸ Por qué las otras están mal: (A) (B) condiciones individuales son insuficientes; (D) implica aceleración (no equilibrio).'},
+  {st: '¿Cuál es la conversión rápida de km/h a m/s?', opts: ['Multiplicar por 3,6', 'Dividir por 3,6', 'Multiplicar por 60', 'Dividir por 60'], c: 1, ex: 'km/h → m/s: dividir por 3,6 (que es 3600 s/h ÷ 1000 m/km). ▸ Por ejemplo: 72 km/h ÷ 3,6 = 20 m/s. ▸ Para el camino inverso (m/s → km/h): multiplicar por 3,6. ▸ Por qué las otras están mal: (A) es la conversión inversa; (C) (D) corresponden a otras conversiones (s/min, etc.).'}
+]);
+
+// TIPO 1: MEDICIONES, UNIDADES Y DIMENSIONES
+registerExercises('fisica-parcial', '2', [
+  {st: 'Pasar 90 km/h a m/s.', opts: ['9 m/s', '15 m/s', '25 m/s', '324 m/s'], c: 2, ex: 'km/h → m/s se DIVIDE por 3,6. ▸ 90/3,6 = 25 m/s. ▸ Verificación: 90·1000/3600 = 90.000/3600 = 25 m/s. ▸ Por qué las otras están mal: (A) divide por 10; (B) divide por 6; (D) multiplica por 3,6 en lugar de dividir.'},
+  {st: 'Convertir 2,7 g/cm³ a kg/m³.', opts: ['0,0027 kg/m³', '2,7 kg/m³', '270 kg/m³', '2700 kg/m³'], c: 3, ex: 'g/cm³ → kg/m³: MULTIPLICAR por 1000. ▸ 2,7 · 1000 = 2700 kg/m³ (densidad del aluminio). ▸ Cálculo detallado: (1 kg/1000 g) · (10⁶ cm³/1 m³) = 1000 (factor neto). ▸ Por qué las otras están mal: (A) divide por 1000; (B) sin conversión; (C) factor 100 incorrecto.'},
+  {st: '¿Cuántas cifras significativas tiene 0,00405?', opts: ['2', '3', '5', '6'], c: 1, ex: 'Reglas: ceros a la izquierda NO cuentan; ceros entre dígitos no nulos SÍ cuentan. ▸ Cifras: 4, 0 (entre 4 y 5), 5 → <b>3 cifras</b>. ▸ Por qué las otras están mal: (A) ignora el cero del medio; (C) cuenta los ceros de la izquierda; (D) cuenta todos los dígitos del número.'},
+  {st: 'Resultado de 12,4 + 0,356 con cifras significativas:', opts: ['12,756', '12,76', '12,8', '13'], c: 2, ex: 'Regla de SUMA: el resultado conserva tantos DECIMALES como el dato con menos decimales. ▸ 12,4 (1 decimal) + 0,356 (3 decimales) → resultado con 1 decimal. ▸ 12,756 → redondeado a 1 decimal: 12,8. ▸ Por qué las otras están mal: (A) (B) más decimales que 12,4; (D) entero (cero decimales) ya redondea de más.'},
+  {st: 'Expresar 384.000.000 en notación científica.', opts: [M('38,4 · 10⁷'), M('3,84 · 10⁸'), M('0,384 · 10⁹'), M('3,84 · 10⁶')], c: 1, ex: 'Notación científica: a · 10ⁿ con 1 ≤ |a| < 10. ▸ Corro la coma 8 lugares hacia la izquierda: 3,84 · 10⁸. ▸ Por qué las otras están mal: (A) "38,4" no cumple a<10; (C) "0,384" no cumple a≥1; (D) la coma está corrida solo 6 lugares.'},
+  {st: '¿Es dimensionalmente consistente la ecuación v = a·t?', opts: ['Sí, ambos lados son m/s', 'No, a·t da m/s²', 'Sí, ambos lados son m/s²', 'No, los signos no coinciden'], c: 0, ex: '[v] = m/s. [a·t] = (m/s²)·s = m/s. ▸ Coinciden → CONSISTENTE. ▸ Por qué las otras están mal: (B) confunde unidades de a con a·t; (C) v no tiene unidades de aceleración; (D) las unidades no tienen "signo".'},
+  {st: '¿Cuál de las siguientes NO es una unidad fundamental del SI?', opts: ['kg', 'm', 's', 'N'], c: 3, ex: 'El Newton es DERIVADA: N = kg·m/s². Las 7 fundamentales son: m (longitud), kg (masa), s (tiempo), A (corriente), K (temperatura), mol (cantidad), cd (intensidad luminosa). ▸ Por qué las otras están mal: kg, m, s SÍ son fundamentales.'},
+  {st: 'El orden de magnitud de 4,8·10⁵ es:', opts: [M('10⁴'), M('10⁵'), M('10⁶'), M('5')], c: 1, ex: 'Orden de magnitud = potencia de 10 más cercana. ▸ Como 4,8 < 5, el redondeo va hacia abajo → 10⁵. ▸ Si fuera 5·10⁵ o más, sería 10⁶. ▸ Por qué las otras están mal: (A) "10⁴" sería para 0,1–0,5; (C) requiere coeficiente ≥ 5; (D) "5" es solo el coeficiente, no orden de magnitud.'}
+]);
+
+// TIPO 2: VECTORES EN EL PLANO
+registerExercises('fisica-parcial', '3', [
+  {st: 'Si '+M('A⃗ = 3î + 4ĵ')+', ¿cuál es su módulo?', opts: ['3', '4', '5', '7'], c: 2, ex: '|A| = √(Aₓ² + Aᵧ²) = √(9+16) = √25 = 5. ▸ Triángulo 3-4-5 (Pitágoras clásico). ▸ Por qué las otras están mal: (A) (B) son las componentes individuales; (D) "7" sería 3+4 (suma sin Pitágoras).'},
+  {st: 'Un vector de módulo 10 forma 30° con el eje x. ¿Cuál es su componente x?', opts: ['5', '5√3 ≈ 8,66', '10', '10/√3'], c: 1, ex: 'Aₓ = |A|·cos(θ) = 10·cos(30°) = 10·(√3/2) = 5√3 ≈ 8,66. ▸ Por qué las otras están mal: (A) "5" sería con sen 30° (es decir, la componente y); (C) "10" es el módulo total; (D) no surge de la fórmula.'},
+  {st: 'Calcular '+M('A⃗ + B⃗')+' con '+M('A⃗ = (2, 3)')+' y '+M('B⃗ = (−1, 4)')+'.', opts: [M('(1, 7)'), M('(3, −1)'), M('(1, 12)'), M('(−2, 12)')], c: 0, ex: 'Suma componente a componente: (2+(−1), 3+4) = (1, 7). ▸ Por qué las otras están mal: (B) hace resta en lugar de suma; (C) (D) multiplican componentes en lugar de sumarlas.'},
+  {st: 'Producto escalar de '+M('A⃗ = 2î + 3ĵ')+' y '+M('B⃗ = 4î − ĵ')+'.', opts: ['5', '8', '11', '14'], c: 0, ex: 'A·B = AₓBₓ + AᵧBᵧ = 2·4 + 3·(−1) = 8 − 3 = 5. ▸ Por qué las otras están mal: (B) "8" es solo Aₓ·Bₓ (sin sumar la 2ª); (C) (D) confunden suma con multiplicación.'},
+  {st: '¿Cuándo dos vectores son perpendiculares?', opts: ['Cuando tienen el mismo módulo', 'Cuando su producto escalar es cero', 'Cuando su suma es cero', 'Cuando su producto vectorial es cero'], c: 1, ex: 'A·B = |A||B|·cos(θ). Si θ = 90° → cos = 0 → A·B = 0. ▸ Por qué las otras están mal: (A) módulos iguales no implican ángulo; (C) suma cero implica que son opuestos (paralelos en sentidos opuestos); (D) producto vectorial cero implica que son PARALELOS, no perpendiculares.'},
+  {st: 'Si '+M('A⃗ = 3î + 4ĵ')+' y '+M('B⃗ = 2î − ĵ')+', ¿cuánto vale '+M('A⃗ × B⃗')+'?', opts: [M('(−11) k̂'), M('11 k̂'), M('2 k̂'), M('10 k̂')], c: 0, ex: 'Producto vectorial 2D: (AₓBᵧ − AᵧBₓ)·k̂ = (3·(−1) − 4·2)·k̂ = (−3 − 8)·k̂ = −11 k̂. ▸ Apunta hacia −k̂. ▸ Por qué las otras están mal: (B) signo invertido; (C) (D) cálculos parciales.'},
+  {st: 'El ángulo entre '+M('A⃗ = (1, 0)')+' y '+M('B⃗ = (1, 1)')+' es:', opts: ['0°', '30°', '45°', '60°'], c: 2, ex: 'cos(θ) = (A·B)/(|A||B|) = 1/(1·√2) = √2/2 → θ = 45°. ▸ Geométricamente: B = (1,1) está en la diagonal entre el eje x y el eje y → 45° respecto a x. ▸ Por qué las otras están mal: (A) sería si fueran iguales; (B) (D) cosenos no coinciden con esos ángulos.'},
+  {st: 'Dos fuerzas de 100 N y 80 N actúan en direcciones opuestas. ¿Cuál es la fuerza resultante?', opts: ['20 N en el sentido de la de 80 N', '20 N en el sentido de la de 100 N', '180 N', '0 N'], c: 1, ex: 'Direcciones opuestas → restar módulos. |100 − 80| = 20 N en sentido de la mayor (la de 100 N). ▸ Por qué las otras están mal: (A) sentido invertido; (C) suma como si fueran paralelas (mismo sentido); (D) cero solo si fueran iguales.'}
+]);
+
+// TIPO 3: ESTÁTICA
+registerExercises('fisica-parcial', '4', [
+  {st: 'Un niño de 21 kg se sienta a 2 m del centro de un subibaja. ¿A qué distancia del centro debe sentarse, del otro lado, su padre de 105 kg para equilibrar?', opts: ['0,20 m', '0,40 m', '0,80 m', '10 m'], c: 1, ex: 'Equilibrio de momentos: m₁·d₁ = m₂·d₂ → 21·2 = 105·d → d = 42/105 = 0,40 m. ▸ Intuición: el padre pesa 5× más → debe estar a 1/5 de la distancia. ▸ Por qué las otras están mal: cálculos parciales o invertidos.'},
+  {st: '¿Qué es la "fuerza normal" en un DCL?', opts: ['La fuerza gravitatoria', 'La reacción de la superficie, perpendicular a ella', 'La fuerza de rozamiento', 'Siempre es igual al peso'], c: 1, ex: 'Normal: reacción de la superficie de apoyo, perpendicular a esa superficie. ▸ Por qué las otras están mal: (A) "gravitatoria" es el peso; (C) "rozamiento" es paralelo (no perpendicular); (D) "siempre igual al peso" es FALSO en planos inclinados o cuando hay otras fuerzas verticales.'},
+  {st: 'Una lámpara de peso P está sostenida por dos cuerdas simétricas con tensión T. Si la tensión en cada cuerda vale exactamente P, ¿qué ángulo α forman las cuerdas con la horizontal?', opts: ['45°', '37°', '60°', '30°'], c: 3, ex: 'Por simetría: ambas cuerdas tienen el mismo α. Equilibrio vertical: 2·T·sen(α) = P. Como T = P: 2P·sen(α) = P → sen(α) = 1/2 → α = 30°. ▸ Por qué las otras están mal: (A) requeriría T = P/√2 ≈ 0,71·P; (B) requeriría sen 37° ≈ 0,6 → T ≈ 0,83·P; (C) sen 60° ≈ 0,87 → T ≈ 0,58·P.'},
+  {st: 'Un cable vertical sostiene un peso P. ¿Cuál es la tensión del cable?', opts: ['0', 'P/2', 'P', '2P'], c: 2, ex: 'Equilibrio vertical: T − P = 0 → T = P. ▸ Una sola cuerda vertical sostiene todo el peso. ▸ Por qué las otras están mal: (A) cero implicaría cuerda floja (no sostiene); (B) (D) no surgen del equilibrio simple.'},
+  {st: 'Un auto tiene 53% de su peso sobre las ruedas delanteras y 47% sobre las traseras, con 2,46 m entre ejes. ¿A qué distancia del eje TRASERO está el centro de gravedad?', opts: ['1,16 m', '1,30 m', '1,50 m', '2,46 m'], c: 1, ex: 'Tomando momentos respecto al eje trasero: el peso (en el CG, a distancia x del eje trasero) genera momento P·x. La fuerza del eje delantero (0,53·P, a distancia 2,46 m del trasero) genera momento 0,53·P·2,46. Iguales: x = 0,53·2,46 ≈ 1,30 m. ▸ Por qué las otras están mal: (A) usaría el 47% mal; (C) (D) sin cálculo.'},
+  {st: 'En una palanca en equilibrio, si DUPLICÁS la fuerza en un extremo sin cambiar la distancia, ¿qué pasa con el otro extremo?', opts: ['Se duplica su fuerza (manteniendo d)', 'La distancia debe duplicarse', 'Nada cambia', 'La fuerza debe reducirse a la mitad'], c: 0, ex: 'F₁·d₁ = F₂·d₂. Si duplicás F₁ con d₁ fijo → 2F₁·d₁ = F₂·d₂. Para mantener la igualdad, F₂ debe duplicarse (con d₂ fijo). ▸ Por qué las otras están mal: (D) sería el caso si quisiéramos mantener la palanca con la mitad del momento.'},
+  {st: 'El momento de una fuerza depende de:', opts: ['Solo de la magnitud de la fuerza', 'Solo de la distancia al eje', 'De la fuerza, la distancia al eje y el ángulo entre ambos', 'Solo del ángulo'], c: 2, ex: 'M = F·d·sen(α). Los tres factores intervienen. ▸ F paralela al brazo (α = 0) → torque cero (sen 0 = 0). Perpendicular (α = 90) → torque máximo (sen 90 = 1). ▸ Por qué las otras están mal: (A) (B) (D) factores parciales (incompletos).'},
+  {st: '¿Dónde conviene plantear la ecuación de momentos en un problema de estática?', opts: ['En el centro del cuerpo', 'En cualquier punto, pero conviene donde haya una fuerza desconocida', 'Siempre en el piso', 'Siempre en el punto más alto'], c: 1, ex: '"Cualquier punto" da una ecuación válida. Estratégicamente: si elegís el punto donde actúa una fuerza desconocida, su momento es 0 (brazo cero) y la ecuación queda con menos incógnitas. ▸ Por qué las otras están mal: (A) (C) (D) son opciones rígidas, sin estrategia.'}
+]);
+
+// TIPO 4: HIDROSTÁTICA
+registerExercises('fisica-parcial', '5', [
+  {st: '¿Cuál es la unidad SI de la presión?', opts: ['Newton (N)', 'Pascal (Pa)', 'kg/m³', 'atm'], c: 1, ex: 'Pa = N/m² (fuerza por unidad de área). ▸ 1 atm = 1,013·10⁵ Pa (presión atmosférica al nivel del mar). ▸ Por qué las otras están mal: (A) Newton es FUERZA, no presión; (C) "kg/m³" es DENSIDAD; (D) atm no es SI (es una unidad práctica).'},
+  {st: '¿Cómo varía la presión con la profundidad en un fluido en reposo?', opts: ['Constante', 'Aumenta linealmente', 'Aumenta con el cuadrado', 'Disminuye'], c: 1, ex: 'Teorema fundamental: p = p₀ + δ·g·h. Lineal en h. ▸ Por qué las otras están mal: (A) sí cambia con h; (C) sería δ·g·h² (no es así); (D) la presión AUMENTA con la profundidad, no disminuye.'},
+  {st: 'Un cubo de 8,5 cm de lado tiene masa de 0,650 kg. ¿Flota en agua? (δ_agua = 1000 kg/m³)', opts: ['Sí, porque δ < 1000', 'No, porque δ > 1000', 'Sí, siempre flota', 'Depende de la temperatura'], c: 1, ex: 'V = (0,085 m)³ ≈ 6,14·10⁻⁴ m³. δ = m/V ≈ 1059 kg/m³ > 1000 → SE HUNDE. ▸ Por qué las otras están mal: (A) requiere δ < 1000 (no se cumple); (C) sin verificar densidad; (D) la temperatura cambia poco la densidad del agua.'},
+  {st: 'Una pieza de metal pesa 90 g en aire y 75 g sumergida en agua. ¿Cuál es su densidad? (δ_agua = 1 g/cm³)', opts: ['1,2 g/cm³', '6,0 g/cm³', '15 g/cm³', '90 g/cm³'], c: 1, ex: 'Empuje = peso aire − peso sumergido = 90 − 75 = 15 g (corresponde al peso del agua desalojada). ▸ Como δ_agua = 1 g/cm³, ese empuje implica V_desalojado = 15 cm³ (volumen del cuerpo). ▸ δ_metal = m/V = 90/15 = 6 g/cm³. ▸ Por qué las otras están mal: cálculos parciales.'},
+  {st: 'En una prensa hidráulica, el émbolo pequeño tiene área A y el grande 6A. ¿Qué fuerza necesitás en el pequeño para sostener 600 N en el grande?', opts: ['100 N', '600 N', '1200 N', '3600 N'], c: 0, ex: 'Pascal: F₁/A₁ = F₂/A₂ → F₁/A = 600/(6A) → F₁ = 600/6 = 100 N. ▸ La prensa multiplica la fuerza por un factor 6. ▸ Por qué las otras están mal: (B) ignora el factor de multiplicación; (C) (D) invierten o exageran.'},
+  {st: 'Un objeto tiene densidad mayor que la del agua. Si lo tirás al agua:', opts: ['Flota en la superficie', 'Queda en el medio', 'Se hunde hasta el fondo', 'Flota con la mitad sumergida'], c: 2, ex: 'δ_cuerpo > δ_fluido → empuje < peso → el cuerpo se HUNDE. ▸ Por qué las otras están mal: (A) requeriría densidad menor; (B) requeriría densidad igual; (D) requeriría densidad específica = 0,5·δ_agua.'},
+  {st: '¿Por qué se usa mercurio (no agua) en barómetros?', opts: ['Es más barato', 'Su densidad es mucho mayor → columna corta', 'Es transparente', 'Por razones históricas'], c: 1, ex: 'p_atm = δ·g·h. Con Hg (13,6 g/cm³): h ≈ 76 cm. Con agua (1 g/cm³): h ≈ 10 m (impractical para un instrumento). ▸ Por qué las otras están mal: (A) Hg es caro; (C) Hg no es transparente; (D) la razón es física, no histórica.'},
+  {st: 'Un cubo de madera (δ = 0,6 g/cm³) flota en agua (δ = 1 g/cm³). ¿Qué fracción del cubo queda sumergida?', opts: ['40%', '50%', '60%', '100%'], c: 2, ex: 'En equilibrio: peso = empuje. ▸ δ_madera·V·g = δ_agua·V_sumergido·g → V_sum/V = δ_madera/δ_agua = 0,6/1 = 60%. ▸ Por encima del agua queda el 40% restante. ▸ Por qué las otras están mal: (A) es el complemento (la parte fuera del agua); (B) requeriría δ = 0,5; (D) sería sumergido total (cuerpo más denso que el fluido).'}
+]);
+
+// TIPO 5: CINEMÁTICA EN UNA DIMENSIÓN
+registerExercises('fisica-parcial', '6', [
+  {st: '¿Cuál es la diferencia entre velocidad y rapidez?', opts: ['Son lo mismo', 'Velocidad es vectorial (con dirección y sentido); rapidez es escalar (solo módulo)', 'Rapidez es vectorial; velocidad escalar', 'Rapidez es la derivada de la velocidad'], c: 1, ex: 'Velocidad = vector (módulo + dirección + sentido). Rapidez = solo módulo (escalar). ▸ 60 km/h al N tiene la misma rapidez que 60 km/h al S, pero distintas velocidades. ▸ Por qué las otras están mal: (A) son distintas; (C) invertido; (D) la derivada de la velocidad es la ACELERACIÓN.'},
+  {st: 'En MRUV con aceleración constante a, ¿cuál es la ecuación horaria de POSICIÓN?', opts: [M('x(t) = x₀ + v·t'), M('x(t) = x₀ + v₀·t + ½·a·t²'), M('x(t) = x₀ + a·t²'), M('x(t) = v₀ + a·t')], c: 1, ex: 'MRUV: posición es CUADRÁTICA en t. ▸ x(t) = x₀ + v₀·t + ½·a·t². ▸ Por qué las otras están mal: (A) es MRU (sin aceleración); (C) le falta el ½ y el v₀·t; (D) es la ecuación de la VELOCIDAD, no de la posición.'},
+  {st: 'Un antílope con aceleración constante tarda 7,00 s en pasar 70,0 m, con rapidez final 15 m/s. ¿Rapidez inicial?', opts: ['3 m/s', '5 m/s', '10 m/s', '12,5 m/s'], c: 1, ex: 'v_media = Δx/Δt = 70/7 = 10 m/s. En MRUV: v_media = (v_i + v_f)/2 → (v_i + 15)/2 = 10 → v_i = 5 m/s. ▸ Por qué las otras están mal: (C) "10" es la velocidad media; (A) (D) no surgen.'},
+  {st: 'Con los datos del ejercicio anterior (Δx=70, Δt=7, v_f=15), ¿qué aceleración lleva?', opts: ['0,71 m/s²', '1,43 m/s²', '2,14 m/s²', '4,29 m/s²'], c: 1, ex: 'a = (v_f − v_i)/Δt = (15 − 5)/7 = 10/7 ≈ 1,43 m/s². ▸ Por qué las otras están mal: (A) "0,71" sería 5/7; (C) "2,14" sería 15/7; (D) "4,29" no surge.'},
+  {st: 'Un malabarista lanza un cuchillo hacia arriba con v₀ = 8,2 m/s. ¿Cuánto tarda en volver a su mano? (g = 9,8)', opts: ['0,84 s', '1,67 s', '2,5 s', '8,2 s'], c: 1, ex: 'En el punto más alto v = 0: 0 = 8,2 − 9,8·t_sub → t_sub ≈ 0,837 s. ▸ Por simetría, el tiempo de bajada al mismo nivel es igual: t_total = 2·0,837 ≈ 1,67 s. ▸ Por qué las otras están mal: (A) solo el tiempo de subida; (C) (D) órdenes de magnitud equivocados.'},
+  {st: 'En Marte (g = 3,71 m/s²), una pelota golpeada hacia arriba vuelve al mismo nivel 8,5 s después. ¿Rapidez inicial?', opts: ['7,9 m/s', '15,8 m/s', '31,5 m/s', '63 m/s'], c: 1, ex: 't_subida = 8,5/2 = 4,25 s (por simetría). v₀ = g·t_sub = 3,71·4,25 ≈ 15,8 m/s. ▸ Por qué las otras están mal: (A) usa todo el tiempo dividido por 2; (C) (D) sin dividir el tiempo total.'},
+  {st: 'Una piedra cae desde el reposo desde 20 m de altura. ¿Cuánto tarda en tocar el suelo? (g = 10 m/s²)', opts: ['1 s', '2 s', '4 s', '20 s'], c: 1, ex: '0 = 20 − ½·10·t² → 5t² = 20 → t² = 4 → t = 2 s. ▸ Por qué las otras están mal: (A) "1 s" sería para 5 m de caída; (C) "4 s" sería para 80 m; (D) "20 s" daría una caída descomunal.'},
+  {st: 'En un gráfico v(t) de un movimiento, ¿qué representa el ÁREA bajo la curva?', opts: ['La aceleración', 'La velocidad media', 'El desplazamiento Δx', 'La posición inicial'], c: 2, ex: 'Geometría: ∫v·dt = Δx. ▸ Por qué las otras están mal: (A) la aceleración es la PENDIENTE de v(t), no el área; (B) v_media es Δx/Δt (no el área directamente); (D) x₀ es solo un valor.'},
+  {st: 'Un cohete parte del suelo con v₀ = 50 m/s y acelera 2 m/s² hacia arriba durante 150 m. ¿Rapidez al apagarse?', opts: ['50 m/s', '54 m/s', '56 m/s', '70 m/s'], c: 2, ex: 'Ecuación sin tiempo: v² = v₀² + 2·a·Δx = 2500 + 2·2·150 = 2500 + 600 = 3100 → v = √3100 ≈ 55,7 ≈ 56 m/s. ▸ Por qué las otras están mal: (A) "50" sería sin acelerar; (B) (D) cálculos parciales.'}
+]);
+
+// MIX INTEGRADOR
+registerExercises('fisica-parcial', '7', [
+  {st: 'El error más caro al resolver problemas de cinemática es:', opts: ['Memorizar mal una fórmula', 'No convertir las unidades a SI antes de calcular', 'Usar cifras significativas', 'No usar calculadora'], c: 1, ex: 'Mezclar km/h con m, o g/cm³ con kg, da errores de factor 3,6 o 1000. ▸ El 60% de los errores en parciales vienen de no convertir. ▸ Por qué las otras están mal: (A) puede pasar pero menos frecuente; (C) las cifras significativas no afectan al resultado, solo a su precisión final; (D) la calculadora ayuda, no entorpece.'},
+  {st: 'En un problema de cuerpo extenso (viga apoyada), si SOLO planteás ΣF = 0 y NO ΣM = 0:', opts: ['Tenés suficiente información', 'Te falta una ecuación, no podés resolver dos incógnitas', 'Da el mismo resultado', 'No se necesitan ecuaciones de momento en estática'], c: 1, ex: 'ΣF = 0 da una ecuación. Si tenés 2 incógnitas (R_A y R_B), necesitás otra ecuación → ΣM = 0. ▸ Por qué las otras están mal: (A) (C) (D) ignoran que hay dos incógnitas y se necesitan dos ecuaciones.'},
+  {st: 'Si elegís "arriba positivo" como sentido del eje en un problema de tiro vertical, ¿qué signo tiene la aceleración?', opts: ['+g', '−g', 'Cero', 'Cambia con el tiempo'], c: 1, ex: 'Eje y positivo hacia arriba → la gravedad apunta HACIA ABAJO → a = −g. ▸ Esto es válido durante TODA la trayectoria (subida, punto alto, bajada). ▸ Por qué las otras están mal: (A) sería con eje positivo hacia abajo; (C) cero es solo durante MRU; (D) g es constante (cerca de la superficie terrestre).'},
+  {st: 'Un cubo de 5 cm de lado tiene masa 750 g. ¿Cuál es su densidad?', opts: ['3 g/cm³', '6 g/cm³', '60 g/cm³', '6000 g/cm³'], c: 1, ex: 'V = 5³ = 125 cm³. δ = m/V = 750/125 = 6 g/cm³ (probablemente un acero o aleación). ▸ Por qué las otras están mal: (A) 750/250; (C) (D) errores de potencias en el volumen.'},
+  {st: 'Si un vector A tiene componentes (−3, 4), ¿en qué cuadrante está?', opts: ['Primer cuadrante', 'Segundo cuadrante (x<0, y>0)', 'Tercer cuadrante', 'Cuarto cuadrante'], c: 1, ex: 'Aₓ = −3 < 0 e Aᵧ = 4 > 0 → segundo cuadrante. ▸ |A| = √(9+16) = 5. El ángulo desde el eje +x es 180° − arctan(4/3) ≈ 180° − 53° = 127°. ▸ Por qué las otras están mal: cada cuadrante tiene combinación distinta de signos.'},
+  {st: 'Una placa cuadrada de 0,5 m² está sumergida horizontalmente a 2 m de profundidad. ¿Qué fuerza ejerce el agua sobre ella? (no contar atmósfera, δ_agua = 1000 kg/m³, g = 10 m/s²)', opts: ['10 N', '1000 N', '10.000 N', '20.000 N'], c: 2, ex: 'p_man = δ·g·h = 1000·10·2 = 2·10⁴ Pa. F = p·A = 2·10⁴·0,5 = 10⁴ = 10.000 N. ▸ Por qué las otras están mal: (A) (B) cálculos parciales; (D) duplica al usar p en lugar de p_manométrica.'},
+  {st: 'En un MRUV, si la velocidad y la aceleración tienen MISMO signo:', opts: ['El cuerpo está frenando', 'El cuerpo está acelerando (rapidez crece)', 'Está en reposo', 'No tiene sentido físico'], c: 1, ex: 'Mismo signo → la aceleración "empuja" en el mismo sentido que la velocidad → la rapidez aumenta. ▸ Si signos opuestos → frena (rapidez disminuye). ▸ Por qué las otras están mal: (A) es el caso de signos opuestos; (C) reposo es v = 0; (D) sí tiene sentido (auto que arranca y acelera).'},
+  {st: 'Estrategia general para empezar cualquier problema de estática:', opts: ['Calcular las reacciones directamente con una fórmula', 'Hacer el DCL del cuerpo aislado, luego plantear ΣF y ΣM', 'Buscar el centro de gravedad', 'Aplicar la 2ª ley de Newton'], c: 1, ex: 'Sin DCL no sabés qué fuerzas actúan. ▸ Receta: aislar cuerpo → identificar interacciones (peso, normal, tensión, etc.) → dibujar flechas → elegir ejes → ΣF=0 (y ΣM=0 si extenso). ▸ Por qué las otras están mal: (A) "fórmula directa" no existe; (C) parte secundaria del análisis; (D) en estática no hay aceleración (la 2ª ley se reduce a ΣF=0).'}
 ]);
 
 
