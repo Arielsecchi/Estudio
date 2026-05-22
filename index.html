@@ -1657,11 +1657,12 @@
 <section class="subject" id="subject-analisis">
   <header>
     <h1>Análisis Matemático A</h1>
-    <div class="sub">UBA XXI · Cátedra Cabana · Parcial 27/04</div>
+    <div class="sub">UBA XXI · Cátedra Cabana · Parcial 27/04 (1°) y 09/06 (2°)</div>
   </header>
 <nav class="toc" id="toc-analisis">
   <h2>Índice</h2>
   <ol>
+    <li class="partial-sep">Primer parcial (27/04)</li>
     <li><a href="#an-s1">Intervalos, módulo e inecuaciones</a></li>
     <li><a href="#an-s2">Funciones: dominio, composición e inversa</a></li>
     <li><a href="#an-s3">Exponenciales, logaritmos y trigonometría</a></li>
@@ -1674,11 +1675,15 @@
     <li><a href="#an-s10">Diferencial y aproximación lineal</a></li>
     <li><a href="#an-s11">Regla de L'Hôpital</a></li>
     <li><a href="#an-s12">Asíntotas</a></li>
+    <li class="partial-sep">Segundo parcial (09/06)</li>
     <li><a href="#an-s13">Estudio de función</a></li>
     <li><a href="#an-s14">Máx/mín absolutos</a></li>
+    <li><a href="#an-s15">Polinomio de Taylor</a></li>
   </ol>
   <div class="score" id="global-score-analisis">Puntaje global: 0 / 86</div>
 </nav>
+
+<div class="partial-header">Primer parcial <span class="date">Unidades 1–4</span></div>
 
 <!-- ============ SECCIÓN 1 ============ -->
 <details id="an-s1">
@@ -2770,6 +2775,8 @@ En cada lado (+∞ o −∞), la función puede tener AH <b>o</b> AO, <b>nunca l
 </div>
 </details>
 
+<div class="partial-header">Segundo parcial <span class="date">Unidades 4–7</span></div>
+
 <!-- ============ SECCIÓN 13 ============ -->
 <details id="an-s13">
 <summary><span class="num">13</span> Estudio de función <span class="sec-score" id="ss-analisis-13"></span></summary>
@@ -2907,6 +2914,102 @@ Si la función es discontinua, tampoco se garantiza: una función con un salto p
 </div>
 
 <div class="quiz-wrap" data-qz="14" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 15 · POLINOMIO DE TAYLOR ============ -->
+<details id="an-s15">
+<summary><span class="num">15</span> Polinomio de Taylor <span class="sec-score" id="ss-analisis-15"></span></summary>
+<div class="content">
+
+<h3>¿Para qué sirve?</h3>
+<p>El <b>polinomio de Taylor</b> permite <b>aproximar una función</b> (no polinómica) por un polinomio cerca de un punto <span class="m">c</span>. Cuanto mayor el grado, mejor la aproximación en un entorno de <span class="m">c</span>. Sirve para estimar valores como <span class="m">√37</span>, <span class="m">ln(1,21)</span> o <span class="m">cos(0,2)</span> a mano, y para acotar el error que se comete.</p>
+
+<h3>La fórmula</h3>
+<p>El polinomio de Taylor de <span class="m">f</span> de grado <span class="m">n</span> <b>centrado en c</b> es:</p>
+<div class="formula">
+P<sub>n</sub>(x) = f(c) + f′(c)·(x−c) + <span class="m">f″(c)/2!</span>·(x−c)² + <span class="m">f‴(c)/3!</span>·(x−c)³ + … + <span class="m">f<sup>(n)</sup>(c)/n!</span>·(x−c)<sup>n</sup>
+</div>
+<p>Si está <b>centrado en c = 0</b> también se lo llama <b>polinomio de Maclaurin</b>.</p>
+
+<div class="key"><div class="ky-t">La idea clave (y el atajo de los parciales)</div>
+El coeficiente del término <span class="m">(x−c)<sup>k</sup></span> es <span class="m">f<sup>(k)</sup>(c) / k!</span>. Se lee en los dos sentidos:<br>
+• Para <b>armar</b> el polinomio: calculás las derivadas y las dividís por el factorial.<br>
+• Para <b>leer</b> derivadas desde un polinomio dado: <span class="m">f<sup>(k)</sup>(c) = k! · (coeficiente de (x−c)<sup>k</sup>)</span>.<br>
+Además el polinomio "imita" a f en c: <span class="m">P<sub>n</sub>(c) = f(c)</span>, <span class="m">P′<sub>n</sub>(c) = f′(c)</span>, … hasta la derivada n-ésima.
+</div>
+
+<h3>Receta para armarlo</h3>
+<ol>
+  <li>Calculá las derivadas sucesivas <span class="m">f′, f″, …, f<sup>(n)</sup></span>.</li>
+  <li>Evaluá cada una en <span class="m">c</span>.</li>
+  <li>Armá <span class="m">P<sub>n</sub></span> con la fórmula: cada coeficiente es la derivada sobre el factorial.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8) — Taylor de ln(x) de orden 3 en c = 1</div>
+  <p>Derivadas: <span class="m">f(x)=ln x → f(1)=0</span>; <span class="m">f′=1/x → f′(1)=1</span>; <span class="m">f″=−1/x² → f″(1)=−1</span>; <span class="m">f‴=2/x³ → f‴(1)=2</span>.</p>
+  <div class="formula">
+  P₃(x) = 0 + 1·(x−1) + <span class="m">(−1)/2!</span>·(x−1)² + <span class="m">2/3!</span>·(x−1)³ = (x−1) − ½(x−1)² + ⅓(x−1)³
+  </div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8) — Taylor de eˣ en c = 0</div>
+  <p>Todas las derivadas de <span class="m">eˣ</span> son <span class="m">eˣ</span>, y en 0 valen 1. Entonces el coeficiente de <span class="m">x<sup>k</sup></span> es <span class="m">1/k!</span>:</p>
+  <div class="formula">P<sub>n</sub>(x) = 1 + x + <span class="m">x²/2!</span> + <span class="m">x³/3!</span> + … + <span class="m">x<sup>n</sup>/n!</span></div>
+  <p>Evaluando en x = 1 se aproxima el número <span class="m">e</span>: 1 + 1 + ½ + ⅙ + … ≈ 2,718.</p>
+</div>
+
+<h3>Subtipo clásico: leer derivadas desde el polinomio</h3>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8.3) — Derivadas a partir del polinomio</div>
+  <p>Si el polinomio de Taylor de f centrado en x = 3 es <span class="m">P(x) = 5(x−3)⁶ + 3(x−3) + 1</span>, hallá f(3), f′(3), f⁽⁵⁾(3), f⁽⁶⁾(3) y la recta tangente.</p>
+  <p>Uso <span class="m">f<sup>(k)</sup>(3) = k! · (coef de (x−3)<sup>k</sup>)</span>:</p>
+  <ul>
+    <li>coef de (x−3)⁰ = 1 → <b>f(3) = 1</b>.</li>
+    <li>coef de (x−3)¹ = 3 → <b>f′(3) = 1!·3 = 3</b>.</li>
+    <li>no hay término (x−3)⁵ → coef = 0 → <b>f⁽⁵⁾(3) = 0</b>.</li>
+    <li>coef de (x−3)⁶ = 5 → <b>f⁽⁶⁾(3) = 6!·5 = 720·5 = 3600</b>.</li>
+  </ul>
+  <p><b>Recta tangente</b> en x = 3: es el polinomio de Taylor de <b>orden 1</b>: y = f(3) + f′(3)(x−3) = 1 + 3(x−3) = <b>3x − 8</b>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">La recta tangente ES Taylor de orden 1</div>
+<span class="m">P₁(x) = f(c) + f′(c)(x−c)</span> es exactamente la recta tangente a f en c. <span class="m">P₂</span> agrega la curvatura con el término de f″, y así mejora la aproximación.
+</div>
+
+<h3>Subtipo: aproximar un número</h3>
+<div class="key"><div class="ky-t">Cómo elegir la función y el centro</div>
+Para aproximar (por ejemplo) <span class="m">√37</span>: elegí <span class="m">f(x)=√x</span> y centrá en el <b>cuadrado perfecto más cercano</b>, <span class="m">c = 36</span> (porque √36 = 6 es exacto). Después evaluás <span class="m">P<sub>n</sub>(37)</span>. La regla general: centrar donde la función y sus derivadas sean fáciles de evaluar.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8.7) — Aproximar √37 con grado 2</div>
+  <p>f(x)=√x, c=36. <span class="m">f(36)=6</span>; <span class="m">f′=1/(2√x) → f′(36)=1/12</span>; <span class="m">f″=−1/(4·x^(3/2)) → f″(36)=−1/864</span>.</p>
+  <div class="formula">P₂(x) = 6 + <span class="m">1/12</span>·(x−36) − <span class="m">1/1728</span>·(x−36)²</div>
+  <p>√37 ≈ P₂(37) = 6 + 1/12 − 1/1728 ≈ <b>6,0827</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8.6) — Aproximar ln(1,21)</div>
+  <p>Como <span class="m">1,21 = 1,1²</span>, conviene <span class="m">g(x) = ln(x²)</span> centrado en x = 1: <span class="m">P₂(x) = 2(x−1) − (x−1)²</span>. Entonces <span class="m">ln(1,21) = g(1,1) ≈ P₂(1,1) = 2·(0,1) − (0,1)² = 0,19</span>.</p>
+</div>
+
+<h3>Subtipo: el resto y la cota del error</h3>
+<p>El error al aproximar f por P<sub>n</sub> es el <b>resto de Lagrange</b>:</p>
+<div class="formula">
+r<sub>n</sub>(x) = <span class="m">f<sup>(n+1)</sup>(z) / (n+1)!</span>·(x−c)<sup>n+1</sup>, &nbsp; con z entre c y x
+</div>
+<p>Para <b>acotar</b> el error se acota <span class="m">|f<sup>(n+1)</sup>(z)|</span> en el intervalo y se reemplaza. Para hallar el <b>grado mínimo</b> que garantice un error pedido, se prueba con valores de n hasta que la cota quede por debajo de lo solicitado.</p>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Olvidar dividir por el factorial en cada coeficiente.<br>
+• Confundir "grado n" con "n derivadas": el polinomio de grado n usa hasta la derivada n; el <b>resto</b> usa la derivada n+1.<br>
+• Al aproximar un número, centrar en un punto donde la función no sea fácil de evaluar: elegí siempre uno "lindo" (cuadrado o cubo perfecto, 0, 1…).
+</div>
+
+<div class="quiz-wrap" data-qz="15" data-subject="analisis"></div>
 <a class="back" href="#subject-analisis">↑ Volver al índice</a>
 </div>
 </details>
@@ -25780,6 +25883,16 @@ registerExercises('analisis', '14', [
   {st: 'En '+M('[0, π]')+', sea '+M('f(x) = sen(x)')+'. ¿Dónde el máximo absoluto?', opts: [M('x = 0'), M('x = π/2'), M('x = π'), 'Ambos extremos'], c: 1, ex: 'f\'(x) = cos(x) = 0 en x = π/2 (interior). f(0)=0, f(π/2)=1, f(π)=0. Máximo en π/2. ▸ Por qué las otras están mal: (A) (C) (D) son donde sen=0.'},
   {st: 'En '+M('[−1, 2]')+', sea '+M('f(x) = e<sup>x</sup> − x')+'. ¿Dónde el mínimo absoluto?', opts: [M('x = −1'), M('x = 0'), M('x = 1'), M('x = 2')], c: 1, ex: 'f\'(x) = e^x − 1 = 0 → x=0. f(−1) ≈ 1,37, f(0)=1, f(2) ≈ 5,39. Mínimo en x=0 (vale 1). ▸ Por qué las otras están mal: (A) (D) son extremos del intervalo, mayores; (C) no es punto crítico.'},
   {st: 'En '+M('[1, e]')+', sea '+M('f(x) = 2x² − 9·ln(x)')+'. ¿Dónde el mínimo absoluto?', opts: [M('x = 1'), M('x = 3/2'), M('x = e'), 'No tiene'], c: 1, ex: 'f\'(x) = 4x − 9/x = (4x²−9)/x = 0 → x²=9/4 → x=3/2 (descarto −3/2). ▸ f(1)=2, f(3/2)≈0,85, f(e)≈5,78. Mínimo en x=3/2. ▸ Por qué las otras están mal: (A) (C) son extremos, mayores; (D) sí tiene.'}
+]);
+
+registerExercises('analisis', '15', [
+  {st: '¿Cuál es el coeficiente del término '+M('(x − c)<sup>k</sup>')+' en el polinomio de Taylor de f centrado en c?', opts: [M('f<sup>(k)</sup>(c)'), M('f<sup>(k)</sup>(c) / k!'), M('f<sup>(k)</sup>(c) · k!'), M('f(c) / k')], c: 1, ex: 'Cada coeficiente es la derivada k-ésima evaluada en c, dividida por k!: f^(k)(c)/k!. ▸ Por qué las otras están mal: (A) olvida el factorial; (C) multiplica en vez de dividir; (D) no usa la derivada k-ésima.'},
+  {st: 'El polinomio de Taylor de orden 1 de f centrado en c es:', opts: ['La recta tangente: '+M('f(c) + f′(c)(x − c)'), 'Una parábola', M('f(c)')+' solamente', 'La asíntota horizontal'], c: 0, ex: 'P₁(x) = f(c) + f′(c)(x−c) es exactamente la recta tangente a f en c. ▸ Por qué las otras están mal: la parábola es P₂ (agrega el término de f″); f(c) solo sería P₀ (orden 0); la asíntota no tiene relación.'},
+  {st: 'Polinomio de Taylor de '+M('f(x) = e<sup>x</sup>')+' de orden 3 centrado en 0:', opts: [M('1 + x + x² + x³'), M('1 + x + x²/2 + x³/6'), M('x + x²/2 + x³/6'), M('1 + x + 2x² + 6x³')], c: 1, ex: 'Todas las derivadas de eˣ valen 1 en 0, así que el coeficiente de xᵏ es 1/k!: 1 + x + x²/2! + x³/3! = 1 + x + x²/2 + x³/6. ▸ Por qué las otras están mal: (A) olvida los factoriales; (C) le falta el término independiente 1 (= f(0)); (D) multiplica por el factorial en vez de dividir.'},
+  {st: 'Si el polinomio de Taylor de f centrado en x = 3 es '+M('P(x) = 5(x−3)⁶ + 3(x−3) + 1')+', ¿cuánto vale '+M('f<sup>(6)</sup>(3)')+'?', opts: [M('5'), M('3600'), M('720'), M('30')], c: 1, ex: 'El coeficiente de (x−3)⁶ es f^(6)(3)/6!. Como ese coeficiente es 5: f^(6)(3) = 6!·5 = 720·5 = 3600. ▸ Por qué las otras están mal: (A) 5 es el coeficiente, no la derivada; (C) 720 es solo 6!; (D) 30 = 6·5 (no es el factorial).'},
+  {st: 'Polinomio de Taylor de '+M('f(x) = ln(x)')+' de orden 2 centrado en c = 1:', opts: [M('(x−1) − ½(x−1)²'), M('(x−1) + ½(x−1)²'), M('x − x²/2'), M('1 + (x−1) − (x−1)²')], c: 0, ex: 'f(1)=0, f′=1/x→1, f″=−1/x²→−1. P₂ = 0 + 1(x−1) + (−1)/2!·(x−1)² = (x−1) − ½(x−1)². ▸ Por qué las otras están mal: (B) erra el signo del 2º término; (C) no está centrado en 1; (D) usa f(1)=1, pero ln(1)=0.'},
+  {st: 'Para aproximar '+M('√37')+' con un polinomio de Taylor, ¿en qué valor conviene centrar?', opts: [M('c = 37'), M('c = 36'), M('c = 0'), M('c = 49')], c: 1, ex: 'Se centra en el cuadrado perfecto MÁS CERCANO a 37, que es 36 (√36 = 6 es exacto y las derivadas son fáciles de evaluar). Después se evalúa P(37). ▸ Por qué las otras están mal: (A) en 37 no conocemos √37 (es justo lo que buscamos); (C) 0 está lejísimo; (D) 49 está más lejos que 36.'},
+  {st: 'El polinomio de Maclaurin (centrado en 0) de '+M('cos(x)')+' tiene:', opts: ['Solo potencias pares, con signos alternados', 'Solo potencias impares', 'Todas las potencias', 'Solo el término independiente'], c: 0, ex: 'cos(x) = 1 − x²/2! + x⁴/4! − x⁶/6! + … : solo potencias PARES con signos que alternan (las derivadas impares del coseno valen 0 en 0). ▸ Por qué las otras están mal: las impares aparecen en sen(x); "todas" mezclaría ambas; no es una constante.'}
 ]);
 
 
