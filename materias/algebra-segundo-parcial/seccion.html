@@ -1,0 +1,560 @@
+<header>
+    <h1>Álgebra · Guía Segundo Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · Guía intensiva basada en parciales reales · 2° Parcial (10/06)</div>
+  </header>
+<nav class="toc" id="toc-algebra-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#alp2-s1">Estrategia general y fórmulas clave</a></li>
+    <li><a href="#alp2-s2">TIPO 1 · Sistemas, matrices y determinantes</a></li>
+    <li><a href="#alp2-s3">TIPO 2 · Transformaciones lineales</a></li>
+    <li><a href="#alp2-s4">TIPO 3 · Números complejos</a></li>
+    <li><a href="#alp2-s5">TIPO 4 · Polinomios</a></li>
+    <li><a href="#alp2-s6">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA GENERAL ============ -->
+<details id="alp2-s1">
+<summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-algebra-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del 2° parcial Escayola</h3>
+<p>El segundo parcial mantiene el mismo formato del primero: <b>8 ejercicios</b> de opción múltiple, cada uno vale <b>1,25 puntos</b> (total 10 puntos), todos de respuesta única. Lo que cambia es el temario: ahora entran las <b>unidades 5 a 8</b> del programa.</p>
+<p>Los 8 ejercicios cubren <b>4 grandes bloques</b>: sistemas/matrices/determinantes (unidad 5), transformaciones lineales (unidad 6), números complejos (unidad 7) y polinomios (unidad 8). Lo típico es 2 ejercicios por bloque, pero el peso puede variar levemente.</p>
+
+<div class="key"><div class="ky-t">El hilo conductor del 2° parcial</div>
+Casi todo el parcial gira alrededor de <b>una sola herramienta: resolver sistemas homogéneos por Gauss y calcular determinantes</b>. El núcleo de una TL, la inversibilidad de una matriz, la clasificación de un sistema y hasta la diagonalización se reducen a "escalonar y mirar el rango / el determinante". Si dominás Gauss y determinantes, dominás 5 de los 8 ejercicios.
+</div>
+
+<h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>Sistema, Gauss, rango, SCD/SCI/SI, det, matriz inversa, A·x = b</td><td><b>TIPO 1</b> — Sistemas/matrices/det</td></tr>
+  <tr><td>T(x,y,z) = ..., núcleo, imagen, inyectiva, matriz canónica, T lineal</td><td><b>TIPO 2</b> — Transformaciones lineales</td></tr>
+  <tr><td>i, a + bi, módulo, argumento, conjugado, zⁿ, raíces, forma polar</td><td><b>TIPO 3</b> — Números complejos</td></tr>
+  <tr><td>P(x), grado, raíz, multiplicidad, resto, factorizar, ℚ[x] / ℝ[x]</td><td><b>TIPO 4</b> — Polinomios</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Qué fórmula/herramienta dispara?</h4>
+<ul>
+  <li><b>Clasificar sistema</b>: escalonar (A|b) y comparar <span class="m">rg(A)</span> con <span class="m">rg(A|b)</span> y con el número de incógnitas <span class="m">n</span>.</li>
+  <li><b>¿Inversible? ¿Base? ¿SCD?</b>: calcular el <span class="m">determinante</span>. Si <span class="m">det ≠ 0</span> → inversible / única solución / L.I.</li>
+  <li><b>Núcleo de T</b>: resolver el sistema homogéneo <span class="m">A·x = 0</span>.</li>
+  <li><b>Dimensión de la imagen</b>: teorema <span class="m">dim Nu + dim Im = n</span> (n = dim del dominio).</li>
+  <li><b>Potencias y raíces de complejos</b>: pasar a <span class="m">forma polar</span> (módulo y argumento) y aplicar De Moivre.</li>
+  <li><b>Grado mínimo de un polinomio</b>: contar las raíces obligatorias (conjugadas/radicales) con su multiplicidad.</li>
+</ul>
+
+<h4>Pregunta 3 — ¿Tengo todos los datos?</h4>
+<p>En sistemas: identificá la matriz de coeficientes y el término independiente. En TL: ¿te dan la fórmula o la matriz? En complejos: ¿en qué forma viene (binómica o polar)? En polinomios: ¿el cuerpo es ℚ[x] o ℝ[x]? (esto cambia qué raíces son obligatorias).</p>
+
+<h4>Pregunta 4 — ¿Puedo descartar opciones rápido?</h4>
+<p>Trucos de descarte que valen oro: en complejos, el <b>módulo</b> de la respuesta suele decidir entre 2 opciones en 10 segundos. En polinomios, contá el <b>grado</b>: si pide grado mínimo en ℚ[x] con una raíz √5 e i doble, el grado es 6 — descartás todo lo que no sea grado 6. En TL, chequeá <span class="m">T(0) = 0</span>: si no se cumple, no es lineal.</p>
+
+<h3>Fórmulas imprescindibles · Sistemas y matrices</h3>
+
+<div class="formula">
+  Clasificación de A·x = b (n incógnitas):<br>
+  <b>SCD</b> (solución única): rg(A) = rg(A|b) = n<br>
+  <b>SCI</b> (infinitas soluciones): rg(A) = rg(A|b) &lt; n<br>
+  <b>SI</b> (sin solución): rg(A) &lt; rg(A|b)
+</div>
+
+<div class="formula">
+  Determinante 2×2: det <span class="mat"><span class="br"><table><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table></span></span> = ad − bc<br><br>
+  Inversa 2×2 (si det ≠ 0): A⁻¹ = <span class="frac"><span>1</span><span>ad − bc</span></span> · <span class="mat"><span class="br"><table><tr><td>d</td><td>−b</td></tr><tr><td>−c</td><td>a</td></tr></table></span></span>
+</div>
+
+<div class="formula">
+  Propiedades del determinante (n×n):<br>
+  det(A·B) = det(A)·det(B) &nbsp;&nbsp; det(Aᵀ) = det(A)<br>
+  det(k·A) = kⁿ·det(A) &nbsp;&nbsp; det(A⁻¹) = 1/det(A)<br>
+  A inversible ⟺ det(A) ≠ 0 ⟺ A·x = 0 solo tiene la solución trivial
+</div>
+
+<h3>Fórmulas imprescindibles · Transformaciones lineales</h3>
+
+<div class="formula">
+  T es lineal ⟺ T(u + v) = T(u) + T(v) y T(k·u) = k·T(u)<br>
+  Consecuencia obligatoria: T(0) = 0<br><br>
+  Matriz canónica: A = [ T(e₁) | T(e₂) | … | T(eₙ) ] (columnas = imágenes de los canónicos)<br>
+  Teorema de las dimensiones: dim Nu(T) + dim Im(T) = n (n = dim del dominio)
+</div>
+
+<div class="key"><div class="ky-t">Inyectiva / sobreyectiva / biyectiva</div>
+• <b>Inyectiva</b> ⟺ Nu(T) = {0} ⟺ dim Nu = 0.<br>
+• <b>Sobreyectiva</b> ⟺ Im(T) = ℝᵐ (codominio) ⟺ dim Im = m.<br>
+• <b>Biyectiva</b> ⟺ inyectiva y sobreyectiva ⟺ la matriz es inversible.<br>
+Si <b>dim dominio = dim codominio</b>, las tres son equivalentes: chequeás una y tenés las otras.
+</div>
+
+<h3>Fórmulas imprescindibles · Complejos</h3>
+
+<div class="formula">
+  z = a + bi (binómica) = r(cos θ + i sen θ) (polar) = r·e<sup>iθ</sup> (exponencial)<br>
+  Módulo: r = |z| = √(a² + b²) &nbsp;&nbsp; Conjugado: z̄ = a − bi &nbsp;&nbsp; z·z̄ = |z|²<br><br>
+  Producto: módulos se multiplican, argumentos se suman<br>
+  De Moivre: zⁿ = rⁿ·e<sup>inθ</sup> = rⁿ(cos nθ + i sen nθ)<br>
+  Raíces n-ésimas de w: z<sub>k</sub> = |w|<sup>1/n</sup>·e<sup>i(θ + 2kπ)/n</sup>, k = 0, …, n−1
+</div>
+
+<h3>Fórmulas imprescindibles · Polinomios</h3>
+
+<div class="formula">
+  Teorema del resto: el resto de dividir P(x) entre (x − a) es P(a)<br>
+  a es raíz ⟺ (x − a) divide a P ⟺ P(a) = 0<br><br>
+  En ℝ[x]: si z = a + bi es raíz ⟹ z̄ = a − bi también (misma multiplicidad)<br>
+  En ℚ[x]: si a + b√n es raíz (√n irracional) ⟹ a − b√n también<br>
+  Teorema fundamental: P de grado n tiene exactamente n raíces en ℂ (con multiplicidad)
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+Si el ejercicio tiene un parámetro (k, a, m, β…), la estrategia es siempre la misma: <b>armá la matriz / la condición del enunciado, calculá el determinante o escalonás, e igualá a lo que pide</b> (det = 0, rango menor, etc.). No intentes adivinar: sustituí y despejá.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra-segundo-parcial"></div>
+<a class="back" href="#subject-algebra-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · SISTEMAS, MATRICES, DETERMINANTES ============ -->
+<details id="alp2-s2">
+<summary><span class="num">2</span> TIPO 1 · Sistemas, matrices y determinantes <span class="sec-score" id="ss-algebra-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (2–3 ejercicios)</h3>
+<p>Es el bloque más mecánico y el que más puntos regala si tenés la operatoria aceitada. Casi todos los ejercicios se resuelven con <b>determinantes</b> o <b>eliminación de Gauss</b>.</p>
+
+<h3>Subtipo A: Clasificar un sistema con parámetro (SCD / SCI / SI)</h3>
+<p>Te dan un sistema que depende de un parámetro y preguntan para qué valores es compatible determinado, indeterminado o incompatible. Estrategia: calculá el determinante de la matriz de coeficientes (si es cuadrada) y/o escaloná la matriz ampliada.</p>
+
+<div class="key"><div class="ky-t">Atajo con determinante (sistema cuadrado n×n)</div>
+1. Si <span class="m">det(A) ≠ 0</span> → <b>SCD</b> (solución única) para ese valor del parámetro.<br>
+2. Si <span class="m">det(A) = 0</span> → es SCI o SI: ahí <b>sí</b> tenés que escalonar la ampliada (A|b) para distinguir.<br>
+Primero hallás los valores del parámetro que anulan el determinante; esos son los "casos especiales" a estudiar aparte.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Sistema 2×2 con parámetro (cubre los 3 casos)</div>
+  <p>Discutir según k: &nbsp; <span class="m">kx + y = 1</span> &nbsp;∧&nbsp; <span class="m">x + ky = 1</span>.</p>
+  <p><b>Paso 1 (determinante):</b> A = <span class="mat"><span class="br"><table><tr><td>k</td><td>1</td></tr><tr><td>1</td><td>k</td></tr></table></span></span>, det(A) = k·k − 1·1 = <b>k² − 1 = (k−1)(k+1)</b>.</p>
+  <p><b>Paso 2 (caso general):</b> si <span class="m">k ≠ 1</span> y <span class="m">k ≠ −1</span> → det ≠ 0 → <b>SCD</b> (solución única).</p>
+  <p><b>Paso 3 (casos especiales):</b></p>
+  <p>• <b>k = 1:</b> el sistema es x + y = 1 y x + y = 1 (la misma ecuación dos veces) → <b>SCI</b> (infinitas soluciones).</p>
+  <p>• <b>k = −1:</b> queda −x + y = 1 y x − y = 1, o sea x − y = −1 y x − y = 1. Contradicción → <b>SI</b> (sin solución).</p>
+  <p><b>Conclusión:</b> SCD si k ≠ ±1; SCI si k = 1; SI si k = −1.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa frecuente — det = 0 no siempre es SCI</div>
+Que el determinante se anule solo te dice que <b>no es SCD</b>. Para decidir entre SCI y SI <b>tenés que mirar la columna de términos independientes</b> (escalonar la ampliada). No asumas "det = 0 → infinitas soluciones".
+</div>
+
+<h3>Subtipo B: Para qué valor del parámetro la matriz NO es inversible</h3>
+<p>"No inversible", "no es base", "el sistema homogéneo tiene soluciones no triviales" y "det = 0" son <b>la misma condición</b>. Receta: armá el determinante en función del parámetro e igualalo a 0.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Determinante 3×3 con parámetro</div>
+  <p>¿Para qué k la matriz A = <span class="mat"><span class="br"><table><tr><td>k</td><td>1</td><td>1</td></tr><tr><td>1</td><td>k</td><td>1</td></tr><tr><td>1</td><td>1</td><td>k</td></tr></table></span></span> NO es inversible?</p>
+  <p><b>Desarrollo por la primera fila:</b></p>
+  <div class="formula">
+    det = k·(k·k − 1·1) − 1·(1·k − 1·1) + 1·(1·1 − k·1)<br>
+    = k(k² − 1) − (k − 1) + (1 − k)<br>
+    = k³ − k − k + 1 + 1 − k = k³ − 3k + 2
+  </div>
+  <p><b>Factorizo:</b> k = 1 anula (1 − 3 + 2 = 0). Dividiendo, <span class="m">k³ − 3k + 2 = (k − 1)²(k + 2)</span>.</p>
+  <p><b>det = 0 ⟺ k = 1 (doble) o k = −2.</b> Para esos valores A no es inversible. Para todo otro k, sí lo es.</p>
+</div>
+
+<h3>Subtipo C: Propiedades del determinante (sin calcular nada)</h3>
+<p>Te dan <span class="m">det(A)</span> y te piden <span class="m">det(2A)</span>, <span class="m">det(A⁻¹)</span>, <span class="m">det(Aᵀ·A)</span>, etc. No hay que calcular la matriz: solo aplicar propiedades.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Aplicar propiedades</div>
+  <p>Sea A una matriz 3×3 con det(A) = 3. Calculá:</p>
+  <p>• <span class="m">det(2A) = 2³·det(A) = 8·3 = <b>24</b></span> &nbsp;(¡el escalar va elevado a n = 3, no multiplicando!)</p>
+  <p>• <span class="m">det(A⁻¹) = 1/det(A) = <b>1/3</b></span></p>
+  <p>• <span class="m">det(Aᵀ·A) = det(Aᵀ)·det(A) = det(A)·det(A) = 3·3 = <b>9</b></span></p>
+  <p>• <span class="m">det(A³) = det(A)³ = 27</span></p>
+</div>
+
+<div class="trap"><div class="tr-t">Error más caro del bloque — det(kA)</div>
+<span class="m">det(kA) = kⁿ·det(A)</span>, NO <span class="m">k·det(A)</span>. El factor multiplica las n filas, así que sale n veces. Para una 3×3, det(2A) = 8·det(A).
+</div>
+
+<h3>Subtipo D: Matriz inversa 2×2 y resolución de A·x = b</h3>
+<p>Si A es inversible, el sistema A·x = b tiene única solución <span class="m">x = A⁻¹·b</span>. Para 2×2 hay fórmula directa.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Inversa y solución</div>
+  <p>A = <span class="mat"><span class="br"><table><tr><td>2</td><td>1</td></tr><tr><td>5</td><td>3</td></tr></table></span></span>, b = (1, 1). Hallá x tal que A·x = b.</p>
+  <p><b>Paso 1 (determinante):</b> det = 2·3 − 1·5 = 6 − 5 = 1 (≠ 0 → inversible).</p>
+  <p><b>Paso 2 (inversa):</b> A⁻¹ = <span class="frac"><span>1</span><span>1</span></span>·<span class="mat"><span class="br"><table><tr><td>3</td><td>−1</td></tr><tr><td>−5</td><td>2</td></tr></table></span></span> = <span class="mat"><span class="br"><table><tr><td>3</td><td>−1</td></tr><tr><td>−5</td><td>2</td></tr></table></span></span>.</p>
+  <p><b>Paso 3 (multiplico A⁻¹·b):</b> x = (3·1 + (−1)·1, &nbsp;(−5)·1 + 2·1) = <b>(2, −3)</b>.</p>
+  <p><b>Verificación:</b> 2·2 + 1·(−3) = 1 ✓ &nbsp;y&nbsp; 5·2 + 3·(−3) = 10 − 9 = 1 ✓.</p>
+</div>
+
+<h3>Subtipo E: El producto de matrices NO es conmutativo</h3>
+<p>Pregunta conceptual frecuente. Para multiplicar A·B, las columnas de A deben igualar las filas de B; el elemento (i,j) es "fila i de A por columna j de B".</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — A·B ≠ B·A</div>
+  <p>A = <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td></tr><tr><td>0</td><td>1</td></tr></table></span></span>, B = <span class="mat"><span class="br"><table><tr><td>1</td><td>0</td></tr><tr><td>3</td><td>1</td></tr></table></span></span>.</p>
+  <p><b>A·B</b> = <span class="mat"><span class="br"><table><tr><td>1+6</td><td>0+2</td></tr><tr><td>0+3</td><td>0+1</td></tr></table></span></span> = <span class="mat"><span class="br"><table><tr><td>7</td><td>2</td></tr><tr><td>3</td><td>1</td></tr></table></span></span> &nbsp;&nbsp; <b>B·A</b> = <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>7</td></tr></table></span></span>.</p>
+  <p>Son distintas: <b>el orden importa</b>. Aun así, det(AB) = det(BA) = det(A)·det(B) = 1·1 = 1 (el determinante sí "no nota" el orden).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra-segundo-parcial"></div>
+<a class="back" href="#subject-algebra-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · TRANSFORMACIONES LINEALES ============ -->
+<details id="alp2-s3">
+<summary><span class="num">3</span> TIPO 2 · Transformaciones lineales <span class="sec-score" id="ss-algebra-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (2 ejercicios)</h3>
+<p>El tema favorito de Escayola en el 2° parcial. Casi siempre piden: hallar núcleo e imagen, decidir inyectividad/sobreyectividad, o analizar una TL con parámetro. Todo se reduce a <b>armar la matriz canónica y estudiarla con Gauss/determinante</b>.</p>
+
+<h3>Subtipo A: ¿Es lineal? El test relámpago</h3>
+<p>Para descartar rápido: <b>toda TL cumple T(0) = 0</b>. Si T(0) ≠ 0, NO es lineal y listo. Si T(0) = 0, hay que verificar las dos propiedades (suma y escalar), pero en el parcial el problema casi siempre se decide con el test del cero o detectando un término "no lineal" (una constante, un cuadrado, un producto de variables).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Detectar la NO lineal</div>
+  <p>¿Cuál de estas NO es transformación lineal?</p>
+  <p>• <span class="m">T(x, y) = (x + y, 2x)</span> → T(0,0) = (0,0) ✓, y es suma de términos lineales → <b>SÍ es TL</b>.</p>
+  <p>• <span class="m">T(x, y) = (x + 1, y)</span> → T(0,0) = (1, 0) ≠ (0,0) → <b>NO es TL</b> (la constante +1 la rompe).</p>
+  <p>• <span class="m">T(x, y) = (x·y, x)</span> → T(0,0) = (0,0) pero tiene un producto x·y: T(2·(1,1)) = T(2,2) = (4,2), y 2·T(1,1) = 2·(1,1) = (2,2). Distintos → <b>NO es TL</b>.</p>
+</div>
+
+<h3>Subtipo B: Armar la matriz canónica</h3>
+<p>Las <b>columnas</b> de la matriz son las imágenes de los vectores canónicos. Es mecánico: evaluás T en e₁, e₂, … y ponés cada resultado como columna.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Matriz canónica</div>
+  <p><span class="m">T(x, y, z) = (x + 2y, y − z)</span>, de ℝ³ en ℝ².</p>
+  <p>T(e₁) = T(1,0,0) = (1, 0); &nbsp; T(e₂) = T(0,1,0) = (2, 1); &nbsp; T(e₃) = T(0,0,1) = (0, −1).</p>
+  <div class="formula">A = <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>−1</td></tr></table></span></span> &nbsp; (2 filas = dim llegada, 3 columnas = dim salida)</div>
+</div>
+
+<h3>Subtipo C: Núcleo (kernel) — resolver A·x = 0</h3>
+<p>El núcleo son los vectores que T manda al cero. Se halla resolviendo el sistema homogéneo <span class="m">T(x) = 0</span>. Siempre es un subespacio del dominio.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Núcleo y su dimensión</div>
+  <p><span class="m">T(x, y, z) = (x + y, y − z)</span>. Hallá Nu(T).</p>
+  <p>Planteo T(x,y,z) = (0, 0):</p>
+  <div class="formula">
+    x + y = 0 → y = −x<br>
+    y − z = 0 → z = y = −x
+  </div>
+  <p>Las soluciones son (x, −x, −x) = x·(1, −1, −1). Entonces <b>Nu(T) = ⟨(1, −1, −1)⟩</b>, con <b>dim Nu = 1</b>.</p>
+  <p>Como T no es inyectiva (Nu ≠ {0}), hay vectores distintos con la misma imagen.</p>
+</div>
+
+<h3>Subtipo D: Imagen y el teorema de las dimensiones</h3>
+<p>La imagen es el subespacio generado por las <b>columnas</b> de la matriz. Pero casi nunca hace falta calcularla a mano: el <b>teorema de las dimensiones</b> te la da gratis.</p>
+
+<div class="formula">
+  dim Nu(T) + dim Im(T) = dim(dominio) = n
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Imagen vía teorema</div>
+  <p>Para la T del ejemplo anterior (ℝ³ → ℝ²) ya vimos que dim Nu = 1. Entonces:</p>
+  <div class="formula">dim Im = n − dim Nu = 3 − 1 = 2</div>
+  <p>Como Im(T) ⊆ ℝ² y tiene dimensión 2, necesariamente <b>Im(T) = ℝ²</b>: T es <b>sobreyectiva</b>.</p>
+</div>
+
+<h3>Subtipo E: Inyectiva / sobreyectiva / biyectiva</h3>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Condición</th></tr>
+  <tr><td>Inyectiva</td><td>Nu(T) = {0} ⟺ dim Nu = 0</td></tr>
+  <tr><td>Sobreyectiva</td><td>Im(T) = codominio ⟺ dim Im = m</td></tr>
+  <tr><td>Biyectiva</td><td>las dos a la vez ⟺ matriz inversible (det ≠ 0)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El atajo cuando dim dominio = dim codominio</div>
+Si T: ℝⁿ → ℝⁿ (mismo n de salida y llegada), entonces <b>inyectiva ⟺ sobreyectiva ⟺ biyectiva ⟺ det de la matriz ≠ 0</b>. Calculás un determinante y ya respondés las tres preguntas.
+</div>
+
+<h3>Subtipo F: TL con parámetro</h3>
+<p>El ejercicio clásico: te dan T con un parámetro y preguntan para qué valores es inyectiva (o el núcleo tiene cierta dimensión). Armás la matriz, calculás el determinante en función del parámetro, e igualás a 0.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Inyectividad según parámetro</div>
+  <p><span class="m">T(x, y) = (x + ay, ax + y)</span>. ¿Para qué a es biyectiva?</p>
+  <p>Matriz: A = <span class="mat"><span class="br"><table><tr><td>1</td><td>a</td></tr><tr><td>a</td><td>1</td></tr></table></span></span>, det = 1 − a².</p>
+  <p>Como va de ℝ² en ℝ², biyectiva ⟺ det ≠ 0 ⟺ <b>a ≠ 1 y a ≠ −1</b>.</p>
+  <p><b>¿Qué pasa en a = 1?</b> T(x,y) = (x + y, x + y). Núcleo: x + y = 0 → ⟨(1, −1)⟩, dim Nu = 1, dim Im = 1. No inyectiva ni sobreyectiva.</p>
+</div>
+
+<h3>Subtipo G: Composición de TL</h3>
+<p>La matriz de S ∘ T es el <b>producto</b> de las matrices: <span class="m">M(S∘T) = M(S)·M(T)</span>. Cuidado con el orden: la que se aplica primero (T) va a la <b>derecha</b>.</p>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra-segundo-parcial"></div>
+<a class="back" href="#subject-algebra-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · NÚMEROS COMPLEJOS ============ -->
+<details id="alp2-s4">
+<summary><span class="num">4</span> TIPO 3 · Números complejos <span class="sec-score" id="ss-algebra-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (2 ejercicios)</h3>
+<p>La regla maestra: <b>para sumar/restar usá binómica; para multiplicar, dividir, elevar a potencias o sacar raíces, pasá a polar/exponencial</b>. El 90% de los errores vienen de no pasar a polar cuando conviene o de equivocar el cuadrante del argumento.</p>
+
+<h3>Subtipo A: Operaciones en binómica (producto y cociente)</h3>
+<p>El producto se expande como un binomio usando <span class="m">i² = −1</span>. El cociente se hace <b>multiplicando arriba y abajo por el conjugado del denominador</b> (así el denominador queda real).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Cociente con conjugado</div>
+  <p>Calcular <span class="m">(2 + i) / (1 − i)</span>.</p>
+  <p>Multiplico numerador y denominador por el conjugado del denominador, (1 + i):</p>
+  <div class="formula">
+    <span class="frac"><span>(2 + i)(1 + i)</span><span>(1 − i)(1 + i)</span></span>
+    = <span class="frac"><span>2 + 2i + i + i²</span><span>1 − i²</span></span>
+    = <span class="frac"><span>2 + 3i − 1</span><span>1 + 1</span></span>
+    = <span class="frac"><span>1 + 3i</span><span>2</span></span> = <b>½ + (3/2)i</b>
+  </div>
+  <p>Clave: <span class="m">(1 − i)(1 + i) = 1 − i² = 1 + 1 = 2</span> (queda real, que es justo lo que buscábamos).</p>
+</div>
+
+<h3>Subtipo B: Forma polar — módulo y argumento (¡cuidado con el cuadrante!)</h3>
+<p>El módulo es directo: <span class="m">r = √(a² + b²)</span>. El argumento es el ángulo, y <b>ahí está la trampa</b>: arctan(b/a) solo da bien el ángulo en el 1° y 4° cuadrante. Si el complejo está en el 2° o 3°, hay que ajustar.</p>
+
+<div class="key"><div class="ky-t">Cómo no equivocar el argumento</div>
+Ubicá <b>siempre</b> el punto (a, b) en el plano antes de dar el ángulo.<br>
+• 1° cuadrante (a&gt;0, b&gt;0): θ = arctan(b/a).<br>
+• 2° cuadrante (a&lt;0, b&gt;0): θ = π − arctan(|b/a|).<br>
+• 3° cuadrante (a&lt;0, b&lt;0): θ = π + arctan(|b/a|).<br>
+• 4° cuadrante (a&gt;0, b&lt;0): θ = −arctan(|b/a|).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — A forma polar</div>
+  <p>Pasar <span class="m">z = −1 + √3·i</span> a forma polar.</p>
+  <p><b>Módulo:</b> r = √((−1)² + (√3)²) = √(1 + 3) = √4 = <b>2</b>.</p>
+  <p><b>Argumento:</b> el punto (−1, √3) está en el <b>2° cuadrante</b>. El ángulo de referencia es arctan(√3/1) = π/3, así que θ = π − π/3 = <b>2π/3</b>.</p>
+  <div class="formula">z = 2·(cos(2π/3) + i·sen(2π/3)) = 2·e<sup>i·2π/3</sup></div>
+  <p><b>Verificación:</b> 2·cos(2π/3) = 2·(−½) = −1 ✓ &nbsp;y&nbsp; 2·sen(2π/3) = 2·(√3/2) = √3 ✓.</p>
+</div>
+
+<h3>Subtipo C: Potencias con De Moivre</h3>
+<p>Para zⁿ: pasás a polar, elevás el módulo a la n y multiplicás el argumento por n. Imposible de hacer cómodo en binómica si n es grande.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Potencia</div>
+  <p>Calcular <span class="m">(−1 + √3·i)³</span>.</p>
+  <p>Ya sabemos (ejemplo anterior): r = 2, θ = 2π/3. Por De Moivre:</p>
+  <div class="formula">z³ = 2³·e<sup>i·3·(2π/3)</sup> = 8·e<sup>i·2π</sup> = 8·(cos 2π + i sen 2π) = 8·1 = <b>8</b></div>
+  <p>El resultado es real y positivo: tiene sentido, porque −1 + √3i es una de las raíces cúbicas de 8 (lo vemos abajo).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Potencia con módulo grande</div>
+  <p>Calcular <span class="m">(1 + i)⁸</span>. Para 1 + i: r = √2, θ = π/4.</p>
+  <div class="formula">(1 + i)⁸ = (√2)⁸·e<sup>i·8·(π/4)</sup> = 2⁴·e<sup>i·2π</sup> = 16·1 = <b>16</b></div>
+  <p>Hacerlo en binómica (multiplicar 1+i ocho veces) sería tedioso y propenso a error. En polar, dos pasos.</p>
+</div>
+
+<h3>Subtipo D: Raíces n-ésimas (el polígono regular)</h3>
+<p>La ecuación <span class="m">zⁿ = w</span> tiene <b>exactamente n soluciones</b>, ubicadas en una circunferencia de radio <span class="m">|w|<sup>1/n</sup></span> formando un <b>polígono regular</b> de n lados (separadas por un ángulo 2π/n).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Raíces cúbicas</div>
+  <p>Resolver <span class="m">z³ = 8</span>.</p>
+  <p>w = 8 tiene |w| = 8 y arg = 0. Las raíces son z<sub>k</sub> = 8<sup>1/3</sup>·e<sup>i(0 + 2kπ)/3</sup> = 2·e<sup>i·2kπ/3</sup>, k = 0, 1, 2:</p>
+  <div class="formula">
+    k=0: 2·e<sup>i·0</sup> = 2<br>
+    k=1: 2·e<sup>i·2π/3</sup> = 2·(−½ + i√3/2) = −1 + √3·i<br>
+    k=2: 2·e<sup>i·4π/3</sup> = 2·(−½ − i√3/2) = −1 − √3·i
+  </div>
+  <p>Las 3 raíces forman un <b>triángulo equilátero</b> centrado en el origen, en la circunferencia de radio 2. (Notá que la raíz k=1 es justo el número del ejemplo de potencias: su cubo daba 8.)</p>
+</div>
+
+<h3>Subtipo E: Ecuaciones con |z| y z̄ (clásico de Escayola)</h3>
+<p>Estrategia universal: escribí <span class="m">z = a + bi</span>, reemplazá <span class="m">z̄ = a − bi</span> y <span class="m">|z|² = a² + b²</span>, y <b>separá parte real e imaginaria</b> para armar un sistema de dos ecuaciones reales.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Ecuación z² = z̄</div>
+  <p>Hallar todos los z tales que <span class="m">z² = z̄</span>.</p>
+  <p><b>Mejor en polar:</b> z = r·e<sup>iθ</sup>. Entonces z² = r²·e<sup>i2θ</sup> y z̄ = r·e<sup>−iθ</sup>.</p>
+  <p><b>Módulos:</b> r² = r → r(r − 1) = 0 → r = 0 o r = 1.</p>
+  <p><b>Argumentos (con r = 1):</b> 2θ = −θ + 2kπ → 3θ = 2kπ → θ = 0, 2π/3, 4π/3.</p>
+  <div class="formula">
+    Soluciones: z = 0, &nbsp; z = 1, &nbsp; z = −½ + (√3/2)i, &nbsp; z = −½ − (√3/2)i
+  </div>
+  <p>Son <b>4 soluciones</b> (el 0 más las 3 raíces cúbicas de la unidad). Hacerlo en binómica también sale, pero es más largo.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra-segundo-parcial"></div>
+<a class="back" href="#subject-algebra-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · POLINOMIOS ============ -->
+<details id="alp2-s5">
+<summary><span class="num">5</span> TIPO 4 · Polinomios <span class="sec-score" id="ss-algebra-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (1–2 ejercicios)</h3>
+<p>El ejercicio estrella es "construir un polinomio de grado mínimo con ciertas raíces". La clave está en saber qué raíces son <b>obligatorias</b> según el cuerpo (ℚ[x] o ℝ[x]) y en contar bien las multiplicidades.</p>
+
+<h3>Subtipo A: Teorema del resto (sin hacer la división)</h3>
+<p>El resto de dividir P(x) entre <span class="m">(x − a)</span> es simplemente <span class="m">P(a)</span>. Y a es raíz ⟺ P(a) = 0 ⟺ (x − a) divide a P.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Resto</div>
+  <p>Hallar el resto de dividir <span class="m">P(x) = x³ − 2x + 5</span> entre <span class="m">(x − 1)</span>.</p>
+  <p>Por el teorema del resto, basta evaluar: <span class="m">P(1) = 1³ − 2·1 + 5 = 1 − 2 + 5 = <b>4</b></span>.</p>
+  <p>No hace falta dividir: como P(1) = 4 ≠ 0, además sabemos que 1 <b>no</b> es raíz de P.</p>
+</div>
+
+<h3>Subtipo B: Multiplicidad de una raíz</h3>
+<p>Una raíz <span class="m">a</span> tiene multiplicidad k si <span class="m">(x − a)<sup>k</sup></span> divide a P pero <span class="m">(x − a)<sup>k+1</sup></span> no. La suma de todas las multiplicidades es el grado.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Leer multiplicidades</div>
+  <p>P(x) = (x − 2)²·(x + 1)·(x² + 1). ¿Grado y raíces?</p>
+  <p>• Raíz 2 con multiplicidad <b>2</b>. &nbsp;• Raíz −1 con multiplicidad <b>1</b>. &nbsp;• x² + 1 aporta las raíces complejas i y −i (multiplicidad 1 cada una).</p>
+  <p>Grado = 2 + 1 + 2 = <b>5</b> (coincide con la suma de multiplicidades en ℂ, por el teorema fundamental).</p>
+</div>
+
+<h3>Subtipo C: Raíces obligatorias según el cuerpo</h3>
+<div class="key"><div class="ky-t">Las dos reglas que deciden el grado mínimo</div>
+• En <b>ℝ[x]</b>: si <span class="m">z = a + bi</span> es raíz (b ≠ 0), entonces <span class="m">z̄ = a − bi</span> también lo es, con la misma multiplicidad. Las complejas vienen <b>de a pares conjugados</b>.<br>
+• En <b>ℚ[x]</b>: si <span class="m">a + b√n</span> es raíz (√n irracional), entonces <span class="m">a − b√n</span> también. Los radicales vienen <b>de a pares</b>. (Y como ℚ[x] ⊆ ℝ[x], también valen los pares conjugados complejos.)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Raíces forzadas</div>
+  <p>Si P ∈ ℝ[x] tiene a 1 + i como raíz, ¿qué otra raíz tiene seguro?</p>
+  <p>Su conjugada: <b>1 − i</b>. El factor real correspondiente es (x − (1+i))(x − (1−i)) = (x−1)² − i² = (x−1)² + 1 = <b>x² − 2x + 2</b>.</p>
+  <p>Si además fuese P ∈ ℚ[x] y tuviese √5 como raíz, también tendría −√5 (factor x² − 5).</p>
+</div>
+
+<h3>Subtipo D: Construir un polinomio de grado mínimo (el ejercicio estrella)</h3>
+<div class="key"><div class="ky-t">Receta en 4 pasos</div>
+1. Para cada raíz dada, sumá las <b>raíces obligatorias</b> (conjugadas en ℝ[x], ±√n en ℚ[x]) y respetá las <b>multiplicidades</b>.<br>
+2. Armá P como producto de los factores. El grado mínimo = suma de multiplicidades.<br>
+3. Dejá un coeficiente principal libre k: P(x) = k·(factores).<br>
+4. Usá el valor numérico dado (ej. P(c) = d) para despejar k.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Grado mínimo en ℚ[x]</div>
+  <p>Hallar P ∈ ℚ[x] de grado mínimo tal que: P(√5) = 0, &nbsp; i es raíz doble, &nbsp; P(−2) = −75.</p>
+  <p><b>Paso 1 (raíces obligatorias):</b></p>
+  <p>• √5 raíz en ℚ[x] ⟹ −√5 también. Factor: (x − √5)(x + √5) = <b>x² − 5</b>.</p>
+  <p>• i raíz doble ⟹ −i raíz doble (par conjugado). Factor: (x − i)²(x + i)² = ((x−i)(x+i))² = <b>(x² + 1)²</b>.</p>
+  <p><b>Paso 2 (grado mínimo):</b> 2 + 4 = <b>6</b>. Forma: P(x) = k·(x² − 5)·(x² + 1)².</p>
+  <p><b>Paso 3 (despejar k con P(−2) = −75):</b></p>
+  <div class="formula">
+    P(−2) = k·((−2)² − 5)·((−2)² + 1)² = k·(4 − 5)·(4 + 1)² = k·(−1)·25 = −25k<br>
+    −25k = −75 → <b>k = 3</b>
+  </div>
+  <p><b>Resultado:</b> P(x) = 3·(x² − 5)·(x² + 1)².</p>
+</div>
+
+<h3>Subtipo E: Factorización en ℝ[x] vs ℂ[x]</h3>
+<p>En ℂ[x] todo polinomio se parte en factores lineales (x − rᵢ). En ℝ[x] quedan factores lineales (raíces reales) y <b>factores cuadráticos irreducibles</b> (x² + px + q con p² − 4q &lt; 0) que esconden cada par de raíces complejas conjugadas.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Factorizar x⁴ − 1</div>
+  <p>En <b>ℝ[x]</b>: x⁴ − 1 = (x² − 1)(x² + 1) = <b>(x − 1)(x + 1)(x² + 1)</b>. El factor x² + 1 es irreducible en ℝ (no tiene raíces reales).</p>
+  <p>En <b>ℂ[x]</b>: x² + 1 = (x − i)(x + i), así que x⁴ − 1 = <b>(x − 1)(x + 1)(x − i)(x + i)</b> (cuatro factores lineales, como predice el teorema fundamental para grado 4).</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes del bloque</div>
+• Olvidar las raíces obligatorias (conjugada o ±√n): subestima el grado mínimo.<br>
+• Ignorar la multiplicidad: si i es raíz <b>doble</b>, el factor es (x² + 1)<b>²</b>, no (x² + 1).<br>
+• Dejar irracionales sueltos en un polinomio de ℚ[x]: los √ deben "cancelarse" al multiplicar los factores conjugados (por eso (x−√5)(x+√5) = x²−5, sin radicales).
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra-segundo-parcial"></div>
+<a class="back" href="#subject-algebra-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · MIX INTEGRADOR ============ -->
+<details id="alp2-s6">
+<summary><span class="num">6</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-algebra-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en menos de 30 segundos</h3>
+<p>En el parcial el tiempo es escaso. Entrenate a clasificar el ejercicio leyendo solo el primer renglón del enunciado.</p>
+
+<table class="tbl">
+  <tr><th>Primera frase del enunciado</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"Discutir según k el sistema…"</td><td>Sistemas</td><td>Determinante de A; igualar a 0 para hallar casos especiales</td></tr>
+  <tr><td>"Sea A con det(A) = … calcular det(2A)…"</td><td>Determinantes</td><td>Aplicar propiedades: det(kA) = kⁿ det(A), etc.</td></tr>
+  <tr><td>"Sea T(x,y,z) = … hallar el núcleo…"</td><td>TL</td><td>Resolver el sistema homogéneo T(x) = 0</td></tr>
+  <tr><td>"¿Para qué a la TL es inyectiva?"</td><td>TL</td><td>Matriz canónica → det = 0 da los valores que fallan</td></tr>
+  <tr><td>"Calcular zⁿ" o "resolver zⁿ = w"</td><td>Complejos</td><td>Pasar a polar; De Moivre / fórmula de raíces</td></tr>
+  <tr><td>"P de grado mínimo en ℚ[x] con raíces…"</td><td>Polinomios</td><td>Listar raíces obligatorias, armar factores, despejar k</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+
+<div class="trap"><div class="tr-t">Error 1 — det(kA) = k·det(A)</div>
+Es <span class="m">det(kA) = kⁿ·det(A)</span> (n = tamaño de la matriz). Para 3×3, det(2A) = 8·det(A), no 2·det(A). Cuesta 1,25 puntos directos.
+</div>
+
+<div class="trap"><div class="tr-t">Error 2 — Olvidar la raíz conjugada</div>
+En ℝ[x] (y ℚ[x]) las raíces complejas vienen <b>de a pares</b>: si i es raíz, −i también. Olvidarlo te da un grado mínimo equivocado y el polinomio mal.
+</div>
+
+<div class="trap"><div class="tr-t">Error 3 — Argumento del complejo en el cuadrante equivocado</div>
+arctan(b/a) NO distingue el 2° del 4° cuadrante (ni el 1° del 3°). Ubicá el punto en el plano antes de escribir θ. Un signo mal en el argumento arruina toda la potencia/raíz.
+</div>
+
+<div class="trap"><div class="tr-t">Error 4 — Confundir núcleo con imagen</div>
+El núcleo vive en el <b>dominio</b> (se resuelve A·x = 0); la imagen vive en el <b>codominio</b> (la generan las columnas). Y usá el teorema dim Nu + dim Im = n para no calcular de más.
+</div>
+
+<h3>Práctica integradora — 5 ejercicios variados</h3>
+
+<div class="example">
+  <div class="ex-t">Integrador 1 — Sistema con parámetro</div>
+  <p>kx + y = 1, x + ky = 1. det = k² − 1. SCD si k ≠ ±1; SCI si k = 1 (ecuaciones iguales); SI si k = −1 (ecuaciones contradictorias).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Determinante con parámetro</div>
+  <p>A = [[k,1,1],[1,k,1],[1,1,k]]. det = k³ − 3k + 2 = (k−1)²(k+2). No inversible para k = 1 o k = −2.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Núcleo de una TL</div>
+  <p>T(x,y,z) = (x + y, y − z). Núcleo: x + y = 0, y − z = 0 → (x, −x, −x) = ⟨(1,−1,−1)⟩, dim Nu = 1. Por el teorema, dim Im = 3 − 1 = 2 → Im = ℝ² (sobreyectiva).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 4 — Raíces cúbicas</div>
+  <p>z³ = 8 → 3 raíces de módulo 2: z = 2, z = −1 + √3 i, z = −1 − √3 i (triángulo equilátero de radio 2).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 5 — Polinomio de grado mínimo</div>
+  <p>P ∈ ℚ[x], P(√5) = 0, i raíz doble, P(−2) = −75. Raíces obligatorias: ±√5 (factor x²−5), ±i dobles (factor (x²+1)²). Grado mínimo 6. P(x) = k(x²−5)(x²+1)²; con P(−2) = −25k = −75 → k = 3.</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 8 ejercicios en 2 minutos: clasificá cada uno (sistema, TL, complejo, polinomio).<br>
+2. Empezá por el bloque que más dominás.<br>
+3. En sistemas y TL: cuando hay parámetro, el camino es siempre determinante → igualar a 0.<br>
+4. En complejos: pasá a polar antes de elevar a potencias o sacar raíces; dibujá el punto para el argumento.<br>
+5. En polinomios: primero listá TODAS las raíces obligatorias con su multiplicidad, después contás el grado.<br>
+6. Con 5 minutos de sobra, revisá los signos (lo que más se rompe: argumentos de complejos y conjugadas).
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra-segundo-parcial"></div>
+<a class="back" href="#subject-algebra-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
