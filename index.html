@@ -1679,6 +1679,8 @@
     <li><a href="#an-s13">Estudio de función</a></li>
     <li><a href="#an-s14">Máx/mín absolutos</a></li>
     <li><a href="#an-s15">Polinomio de Taylor</a></li>
+    <li><a href="#an-s16">Integrales indefinidas</a></li>
+    <li><a href="#an-s17">Integral definida, áreas y ec. diferenciales</a></li>
   </ol>
   <div class="score" id="global-score-analisis">Puntaje global: 0 / 86</div>
 </nav>
@@ -3010,6 +3012,148 @@ r<sub>n</sub>(x) = <span class="m">f<sup>(n+1)</sup>(z) / (n+1)!</span>·(x−c)
 </div>
 
 <div class="quiz-wrap" data-qz="15" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 16 · INTEGRALES INDEFINIDAS ============ -->
+<details id="an-s16">
+<summary><span class="num">16</span> Integrales indefinidas <span class="sec-score" id="ss-analisis-16"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una primitiva?</h3>
+<p>Integrar es la operación <b>inversa</b> de derivar. Una <b>primitiva</b> de <span class="m">f</span> es una función <span class="m">F</span> tal que <span class="m">F′(x) = f(x)</span>. Como la derivada de una constante es 0, hay <b>infinitas</b> primitivas que difieren en una constante: por eso la <b>integral indefinida</b> se escribe con <span class="m">+ C</span>.</p>
+<div class="formula">
+∫ f(x) dx = F(x) + C &nbsp;&nbsp; ⟺ &nbsp;&nbsp; F′(x) = f(x)
+</div>
+
+<h3>Tabla básica (memorizar)</h3>
+<table class="tbl">
+  <tr><th>Función</th><th>Primitiva</th></tr>
+  <tr><td><span class="m">x<sup>n</sup></span> (n ≠ −1)</td><td><span class="m">x<sup>n+1</sup>/(n+1) + C</span></td></tr>
+  <tr><td><span class="m">1/x</span></td><td><span class="m">ln|x| + C</span></td></tr>
+  <tr><td><span class="m">e<sup>x</sup></span></td><td><span class="m">e<sup>x</sup> + C</span></td></tr>
+  <tr><td><span class="m">cos(x)</span></td><td><span class="m">sen(x) + C</span></td></tr>
+  <tr><td><span class="m">sen(x)</span></td><td><span class="m">−cos(x) + C</span></td></tr>
+</table>
+<p>Más la <b>linealidad</b>: <span class="m">∫(a·f + b·g) = a·∫f + b·∫g</span>. (Ojo: NO hay regla del producto ni del cociente para integrar — para eso están los métodos de abajo.)</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 9.1) — Primitivas directas</div>
+  <p><span class="m">∫(1/∛x) dx = ∫x<sup>−1/3</sup> dx = x<sup>2/3</sup>/(2/3) + C = (3/2)·x<sup>2/3</sup> + C</span>.</p>
+  <p><span class="m">∫(sen x + 3/x) dx = −cos x + 3·ln|x| + C</span>.</p>
+</div>
+
+<h3>Método 1: Sustitución</h3>
+<p>Sirve cuando en el integrando aparece <b>una función y (un múltiplo de) su derivada</b>. Llamás <span class="m">u</span> a la función "de adentro", calculás <span class="m">du</span>, y reescribís todo en términos de <span class="m">u</span>.</p>
+<div class="key"><div class="ky-t">El gatillo</div>
+Buscá una parte cuya derivada también esté (salvo constante) en el integrando. Esa parte es <span class="m">u</span>. Ejemplos de "pista": <span class="m">e<sup>(algo)</sup>·(derivada de algo)</span>, <span class="m">(algo)<sup>n</sup>·(derivada)</span>, <span class="m">(derivada)/(algo)</span>.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplos (Práctica 9.3)</div>
+  <p><span class="m">∫(3x−5)<sup>8</sup> dx</span>: con <span class="m">u = 3x−5, du = 3dx</span> → <span class="m">(1/3)∫u<sup>8</sup>du = (3x−5)<sup>9</sup>/27 + C</span>.</p>
+  <p><span class="m">∫3x·e<sup>x²</sup> dx</span>: con <span class="m">u = x², du = 2x dx</span> → <span class="m">(3/2)·e<sup>x²</sup> + C</span>.</p>
+  <p><span class="m">∫(2e<sup>x</sup>−10)/(e<sup>x</sup>−5x) dx</span>: el numerador es la derivada del denominador → <span class="m">2·ln|e<sup>x</sup>−5x| + C</span>.</p>
+</div>
+
+<h3>Método 2: Integración por partes</h3>
+<p>Para productos donde NO sirve sustitución (típicamente <span class="m">x·e<sup>x</sup></span>, <span class="m">x·cos x</span>, <span class="m">x·ln x</span>, <span class="m">ln x</span> solo, <span class="m">arctan x</span>). La fórmula:</p>
+<div class="formula">
+∫ u dv = u·v − ∫ v du
+</div>
+<div class="key"><div class="ky-t">¿Quién es u y quién dv?</div>
+Elegí como <span class="m">u</span> lo que se <b>simplifica al derivar</b> (logaritmos, arco-funciones, polinomios) y como <span class="m">dv</span> lo fácil de integrar (<span class="m">e<sup>x</sup></span>, sen, cos). Regla mnemotécnica: <b>L-A-P-E-T</b> (Logaritmo, Arco, Polinomio, Exponencial, Trigonométrica) — el primero de la lista que aparezca es <span class="m">u</span>.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplos (Práctica 9.6)</div>
+  <p><span class="m">∫x·cos x dx</span>: u = x, dv = cos x dx → v = sen x. = <span class="m">x·sen x − ∫sen x dx = x·sen x + cos x + C</span>.</p>
+  <p><span class="m">∫ln x dx</span>: u = ln x, dv = dx → v = x. = <span class="m">x·ln x − ∫x·(1/x)dx = x·ln x − x + C</span>.</p>
+</div>
+
+<h3>Método 3: Fracciones simples</h3>
+<p>Para integrar un <b>cociente de polinomios</b>: se factoriza el denominador y se descompone la fracción en una suma de fracciones más simples (una por cada factor). Cada pedacito integra a un <span class="m">ln</span> (o a una potencia).</p>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 9.9a)</div>
+  <p><span class="m">∫(5y−3)/(y²−2y−3) dy</span>. Factorizo: <span class="m">y²−2y−3 = (y+1)(y−3)</span>. Descompongo: <span class="m">(5y−3)/((y+1)(y−3)) = 2/(y+1) + 3/(y−3)</span>.</p>
+  <p>Integro cada término: <span class="m">2·ln|y+1| + 3·ln|y−3| + C</span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Olvidar el <span class="m">+ C</span> (en la indefinida siempre va).<br>
+• En sustitución, no reemplazar <span class="m">dx</span> por <span class="m">du</span> (hay que despejar dx de du).<br>
+• Inventar una "regla del producto/cociente" para integrar: no existe; se usa partes o fracciones simples.<br>
+• <span class="m">∫1/x dx = ln|x|</span> (con módulo), NO <span class="m">x⁰/0</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="16" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 17 · INTEGRAL DEFINIDA, ÁREAS Y EC. DIFERENCIALES ============ -->
+<details id="an-s17">
+<summary><span class="num">17</span> Integral definida, áreas y ec. diferenciales <span class="sec-score" id="ss-analisis-17"></span></summary>
+<div class="content">
+
+<h3>La integral definida y la Regla de Barrow</h3>
+<p>La <b>integral definida</b> <span class="m">∫<sub>a</sub><sup>b</sup> f(x) dx</span> es un <b>número</b>: el área con signo entre la curva y el eje x, de <span class="m">a</span> a <span class="m">b</span>. Se calcula con la <b>Regla de Barrow</b>: buscás una primitiva F y restás.</p>
+<div class="formula">
+∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a) &nbsp;&nbsp; (con F′ = f)
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.5a)</div>
+  <p><span class="m">∫<sub>0</sub><sup>4</sup> 2(t−3) dt = [t² − 6t]<sub>0</sub><sup>4</sup> = (16−24) − 0 = −8</span>. (Da negativo porque el área queda mayormente por debajo del eje.)</p>
+</div>
+<div class="key"><div class="ky-t">Propiedades útiles</div>
+• Linealidad: <span class="m">∫(a·f + b·g) = a·∫f + b·∫g</span>.<br>
+• Partición: <span class="m">∫<sub>a</sub><sup>b</sup> = ∫<sub>a</sub><sup>c</sup> + ∫<sub>c</sub><sup>b</sup></span>.<br>
+• Invertir límites cambia el signo: <span class="m">∫<sub>a</sub><sup>b</sup> = −∫<sub>b</sub><sup>a</sup></span>.<br>
+• Función impar en intervalo simétrico [−k, k]: la integral da <b>0</b> (ej: <span class="m">∫<sub>−1</sub><sup>1</sup>(x⁵−3x)dx = 0</span>).
+</div>
+
+<h3>Teorema Fundamental del Cálculo (TFC)</h3>
+<p>Conecta derivada e integral: si definís la <b>función área</b> <span class="m">F(x) = ∫<sub>a</sub><sup>x</sup> f(t) dt</span>, entonces <span class="m">F′(x) = f(x)</span>. Derivar "deshace" integrar.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.2a)</div>
+  <p><span class="m">F(x) = ∫<sub>0</sub><sup>x</sup> e<sup>−t+4</sup> dt → F′(x) = e<sup>−x+4</sup></span> (reemplazo t por x, sin integrar).</p>
+</div>
+<div class="key"><div class="ky-t">Con límite variable compuesto: regla de la cadena</div>
+Si el límite superior es <span class="m">g(x)</span> en vez de x: <span class="m">F(x) = ∫<sub>a</sub><sup>g(x)</sup> f(t) dt → F′(x) = f(g(x))·g′(x)</span>.<br>
+Ejemplo: <span class="m">F(x) = ∫<sub>0</sub><sup>x²</sup> f(t) dt → F′(x) = f(x²)·2x</span>.
+</div>
+
+<h3>Área entre dos curvas</h3>
+<p>El área entre <span class="m">y = f(x)</span> (arriba) e <span class="m">y = g(x)</span> (abajo) entre sus intersecciones es:</p>
+<div class="formula">
+A = ∫<sub>a</sub><sup>b</sup> (f<sub>arriba</sub> − g<sub>abajo</sub>) dx
+</div>
+<div class="key"><div class="ky-t">Receta</div>
+1. Hallá las <b>intersecciones</b> (igualá f = g) para los límites a y b.<br>
+2. Decidí cuál curva queda <b>arriba</b> en ese intervalo (probá un punto).<br>
+3. Integrá <span class="m">(arriba − abajo)</span>. El resultado es siempre positivo.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.7b) — Área entre y = x e y = x²</div>
+  <p>Intersecciones: <span class="m">x = x² → x = 0 y x = 1</span>. En (0,1) la recta <span class="m">y = x</span> está arriba de <span class="m">y = x²</span>.</p>
+  <p><span class="m">A = ∫<sub>0</sub><sup>1</sup>(x − x²) dx = [x²/2 − x³/3]<sub>0</sub><sup>1</sup> = 1/2 − 1/3 = 1/6</span>.</p>
+</div>
+
+<h3>Ecuaciones diferenciales (variables separables)</h3>
+<p>Una <b>ecuación diferencial</b> relaciona una función con su derivada. Las del parcial son <b>separables</b>: se acomodan los <span class="m">y</span> de un lado y los <span class="m">x</span> del otro, se integra y se usa la <b>condición inicial</b> para hallar la constante.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.11)</div>
+  <p>Resolver <span class="m">f(x)·x = −f′(x)</span> con <span class="m">f(1) = 1</span>. Escribo <span class="m">y′/y = −x</span>, integro ambos lados: <span class="m">ln|y| = −x²/2 + C</span> → <span class="m">y = e<sup>−x²/2 + C</sup></span>.</p>
+  <p>Uso <span class="m">f(1) = 1</span>: <span class="m">e<sup>−1/2 + C</sup> = 1 → C = 1/2</span>. Resultado: <span class="m">f(x) = e<sup>(1/2 − x²/2)</sup></span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Confundir integral <b>definida</b> (número) con <b>indefinida</b> (familia de funciones + C).<br>
+• En área entre curvas, no calcular las intersecciones o restar al revés (arriba − abajo, no al revés).<br>
+• Olvidar la regla de la cadena cuando el límite de integración es <span class="m">g(x)</span> y no x.<br>
+• En ecuaciones diferenciales, olvidar usar la condición inicial para hallar C.
+</div>
+
+<div class="quiz-wrap" data-qz="17" data-subject="analisis"></div>
 <a class="back" href="#subject-analisis">↑ Volver al índice</a>
 </div>
 </details>
@@ -25893,6 +26037,26 @@ registerExercises('analisis', '15', [
   {st: 'Polinomio de Taylor de '+M('f(x) = ln(x)')+' de orden 2 centrado en c = 1:', opts: [M('(x−1) − ½(x−1)²'), M('(x−1) + ½(x−1)²'), M('x − x²/2'), M('1 + (x−1) − (x−1)²')], c: 0, ex: 'f(1)=0, f′=1/x→1, f″=−1/x²→−1. P₂ = 0 + 1(x−1) + (−1)/2!·(x−1)² = (x−1) − ½(x−1)². ▸ Por qué las otras están mal: (B) erra el signo del 2º término; (C) no está centrado en 1; (D) usa f(1)=1, pero ln(1)=0.'},
   {st: 'Para aproximar '+M('√37')+' con un polinomio de Taylor, ¿en qué valor conviene centrar?', opts: [M('c = 37'), M('c = 36'), M('c = 0'), M('c = 49')], c: 1, ex: 'Se centra en el cuadrado perfecto MÁS CERCANO a 37, que es 36 (√36 = 6 es exacto y las derivadas son fáciles de evaluar). Después se evalúa P(37). ▸ Por qué las otras están mal: (A) en 37 no conocemos √37 (es justo lo que buscamos); (C) 0 está lejísimo; (D) 49 está más lejos que 36.'},
   {st: 'El polinomio de Maclaurin (centrado en 0) de '+M('cos(x)')+' tiene:', opts: ['Solo potencias pares, con signos alternados', 'Solo potencias impares', 'Todas las potencias', 'Solo el término independiente'], c: 0, ex: 'cos(x) = 1 − x²/2! + x⁴/4! − x⁶/6! + … : solo potencias PARES con signos que alternan (las derivadas impares del coseno valen 0 en 0). ▸ Por qué las otras están mal: las impares aparecen en sen(x); "todas" mezclaría ambas; no es una constante.'}
+]);
+
+registerExercises('analisis', '16', [
+  {st: '¿Cuál es la primitiva de '+M('x<sup>n</sup>')+' (con n ≠ −1)?', opts: [M('x<sup>n+1</sup>/(n+1) + C'), M('n·x<sup>n−1</sup> + C'), M('x<sup>n</sup> + C'), M('x<sup>n+1</sup> + C')], c: 0, ex: 'Se sube el exponente en 1 y se divide por el nuevo exponente: ∫xⁿdx = x^(n+1)/(n+1) + C. ▸ Por qué las otras están mal: (B) es la DERIVADA de xⁿ; (C) (D) olvidan dividir por (n+1). El caso n=−1 es la excepción: ∫1/x dx = ln|x|.'},
+  {st: 'Por sustitución, '+M('∫(3x−5)<sup>8</sup> dx')+' es igual a:', opts: [M('(3x−5)<sup>9</sup>/27 + C'), M('(3x−5)<sup>9</sup>/9 + C'), M('8(3x−5)<sup>7</sup> + C'), M('(3x−5)<sup>9</sup> + C')], c: 0, ex: 'Con u = 3x−5, du = 3dx → dx = du/3. ∫u⁸·(du/3) = (1/3)·u⁹/9 = (3x−5)⁹/27 + C. ▸ Por qué las otras están mal: (B) olvida el 1/3 de la sustitución; (C) deriva en vez de integrar; (D) olvida ambos factores.'},
+  {st: 'Por partes, '+M('∫x·cos(x) dx')+' es igual a:', opts: [M('x·sen(x) + cos(x) + C'), M('x·sen(x) − cos(x) + C'), M('−x·sen(x) + cos(x) + C'), M('x·sen(x) + C')], c: 0, ex: 'u = x (dv = cos x dx → v = sen x): ∫u dv = uv − ∫v du = x·sen x − ∫sen x dx = x·sen x + cos x + C. ▸ Por qué las otras están mal: (B) erra el signo de la última integral (∫sen = −cos); (C) intercambia mal; (D) olvida el término ∫v du.'},
+  {st: 'La primitiva de '+M('1/x')+' es:', opts: [M('ln|x| + C'), M('−1/x² + C'), M('1 + C'), M('x<sup>0</sup>/0 + C')], c: 0, ex: 'Es la única excepción de la regla de la potencia: ∫(1/x)dx = ln|x| + C (con módulo, porque x puede ser negativo). ▸ Por qué las otras están mal: (B) es la derivada de 1/x; (C) no es primitiva; (D) dividir por 0 no tiene sentido (justo por eso se usa ln).'},
+  {st: '¿Qué método conviene para '+M('∫3x·e<sup>x²</sup> dx')+'?', opts: ['Sustitución (u = x²)', 'Integración por partes', 'Fracciones simples', 'Está en la tabla directa'], c: 0, ex: 'La derivada de x² es 2x, que (salvo constante) está en el integrando: es el caso típico de sustitución u = x². Resultado: (3/2)e^(x²) + C. ▸ Por qué las otras están mal: por partes complica; fracciones simples es para cocientes de polinomios; no está en la tabla directa.'},
+  {st: 'Por partes, '+M('∫ln(x) dx')+' es igual a:', opts: [M('x·ln(x) − x + C'), M('1/x + C'), M('x·ln(x) + C'), M('ln(x) − x + C')], c: 0, ex: 'Truco: u = ln x, dv = dx → v = x. ∫ln x dx = x·ln x − ∫x·(1/x)dx = x·ln x − ∫1 dx = x·ln x − x + C. ▸ Por qué las otras están mal: (B) es la derivada de ln x; (C) olvida el término −x; (D) no aplica bien partes.'},
+  {st: 'Para integrar el cociente de polinomios '+M('(5y−3)/((y+1)(y−3))')+' conviene:', opts: ['Descomponer en fracciones simples', 'Sustitución directa', 'Integración por partes', 'No se puede integrar'], c: 0, ex: 'Se descompone en 2/(y+1) + 3/(y−3) y cada término integra a un logaritmo: 2·ln|y+1| + 3·ln|y−3| + C. ▸ Por qué las otras están mal: no hay una sustitución directa útil; partes es para productos; sí se puede integrar.'}
+]);
+
+registerExercises('analisis', '17', [
+  {st: 'La Regla de Barrow dice que '+M('∫<sub>a</sub><sup>b</sup> f(x) dx')+' es igual a (con F primitiva de f):', opts: [M('F(b) − F(a)'), M('F(a) − F(b)'), M('F(b)·F(a)'), M('f(b) − f(a)')], c: 0, ex: 'La integral definida = primitiva evaluada en el límite superior menos en el inferior: F(b) − F(a). ▸ Por qué las otras están mal: (B) está al revés (cambia el signo); (C) no se multiplican; (D) usa f, no su primitiva F.'},
+  {st: 'Por el Teorema Fundamental del Cálculo, '+M('d/dx ∫<sub>0</sub><sup>x</sup> e<sup>−t+4</sup> dt')+' vale:', opts: [M('e<sup>−x+4</sup>'), M('−e<sup>−x+4</sup>'), M('e<sup>−x+4</sup> + C'), M('e<sup>−t+4</sup>')], c: 0, ex: 'Derivar una integral con límite superior x "deshace" la integral: reemplazás t por x. Da e^(−x+4). ▸ Por qué las otras están mal: (B) inventa un signo; (C) no lleva +C (es una derivada, da una función concreta); (D) deja la variable muda t (hay que poner x).'},
+  {st: 'Usando la Regla de Barrow, '+M('∫<sub>0</sub><sup>4</sup> 2(t−3) dt')+' vale:', opts: [M('−8'), M('8'), M('−4'), M('16')], c: 0, ex: 'Primitiva: t² − 6t. Evalúo: (4²−6·4) − (0) = 16 − 24 = −8. ▸ Da negativo porque el área queda mayormente bajo el eje. ▸ Por qué las otras están mal: (B) olvida el signo; (C) (D) son cálculos parciales mal hechos.'},
+  {st: 'El área entre las curvas '+M('y = x')+' e '+M('y = x²')+' (entre x = 0 y x = 1) es:', opts: [M('1/6'), M('1/2'), M('1/3'), M('1')], c: 0, ex: 'En (0,1) la recta y=x está arriba de y=x². A = ∫₀¹(x − x²)dx = [x²/2 − x³/3]₀¹ = 1/2 − 1/3 = 1/6. ▸ Por qué las otras están mal: 1/2 y 1/3 son cada integral por separado (sin restar); 1 no corresponde.'},
+  {st: 'Si '+M('F(x) = ∫<sub>0</sub><sup>x²</sup> g(t) dt')+', entonces '+M("F'(x)")+' vale:', opts: [M('g(x²)·2x'), M('g(x²)'), M('g(x)·2x'), M('2x')], c: 0, ex: 'El límite superior es x² (no x), así que se aplica la regla de la cadena: F′(x) = g(x²)·(x²)′ = g(x²)·2x. ▸ Por qué las otras están mal: (B) olvida multiplicar por la derivada del límite (2x); (C) evalúa g en x en vez de x²; (D) olvida la g.'},
+  {st: 'La integral '+M('∫<sub>−1</sub><sup>1</sup> (x⁵ − 3x) dx')+' vale:', opts: [M('0'), M('2'), M('−2'), M('6')], c: 0, ex: 'x⁵ − 3x es una función IMPAR (f(−x) = −f(x)) y el intervalo [−1,1] es simétrico: la integral da 0 (lo positivo y lo negativo se cancelan). ▸ Por qué las otras están mal: cualquier valor ≠ 0 ignora la simetría impar. (También sale por Barrow: [x⁶/6 − 3x²/2] da lo mismo en 1 y en −1.)'},
+  {st: 'Al resolver la ecuación diferencial separable '+M("y'/y = −x")+' e integrar ambos lados, la solución general tiene la forma:', opts: [M('y = e<sup>(−x²/2 + C)</sup>'), M('y = −x²/2 + C'), M('y = ln(x) + C'), M('y = e<sup>x</sup> + C')], c: 0, ex: 'Integrando: ln|y| = −x²/2 + C → y = e^(−x²/2 + C). Después se usa la condición inicial para hallar C. ▸ Por qué las otras están mal: (B) es el resultado ANTES de despejar y (falta el exponencial); (C) (D) no surgen de integrar y′/y = −x.'}
 ]);
 
 
