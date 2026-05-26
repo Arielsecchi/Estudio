@@ -24,6 +24,7 @@
     <li><a href="#an-s15">Polinomio de Taylor</a></li>
     <li><a href="#an-s16">Integrales indefinidas</a></li>
     <li><a href="#an-s17">Integral definida, áreas y ec. diferenciales</a></li>
+    <li><a href="#an-s18">Sucesiones y series</a></li>
   </ol>
   <div class="score" id="global-score-analisis">Puntaje global: 0 / 86</div>
 </nav>
@@ -1497,6 +1498,129 @@ A = ∫<sub>a</sub><sup>b</sup> (f<sub>arriba</sub> − g<sub>abajo</sub>) dx
 </div>
 
 <div class="quiz-wrap" data-qz="17" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 18 · SUCESIONES Y SERIES ============ -->
+<details id="an-s18">
+<summary><span class="num">18</span> Sucesiones y series <span class="sec-score" id="ss-analisis-18"></span></summary>
+<div class="content">
+
+<h3>Sucesiones</h3>
+<p>Una <b>sucesión</b> es una función cuyo dominio son los números naturales: <span class="m">a: ℕ → ℝ</span>. En vez de <span class="m">a(n)</span> se escribe <span class="m">a<sub>n</sub></span> (el término general). Por ejemplo, <span class="m">a<sub>n</sub> = n²</span> da 1, 4, 9, 16, …</p>
+<p>El <b>límite</b> de una sucesión se calcula como el de una función (mismas reglas):</p>
+<div class="formula">
+lim<sub>n→∞</sub> (n+2)/(n²−4) = 0 &nbsp;&nbsp; lim<sub>n→∞</sub> (3n³−2n+5)/(n³−2n) = 3 &nbsp;&nbsp; lim<sub>n→∞</sub> ⁿ√(7ⁿ+5ⁿ) = 7
+</div>
+<div class="key"><div class="ky-t">Límite notable (aparece en los problemas de interés)</div>
+<span class="m">lim<sub>n→∞</sub> (1 + a/n)<sup>n</sup> = e<sup>a</sup></span>.<br>
+Por eso un capital <span class="m">C</span> a tasa anual <span class="m">r</span> capitalizado <span class="m">n</span> veces al año da <span class="m">C(1 + r/n)<sup>n</sup></span>, y con <b>capitalización continua</b> (<span class="m">n→∞</span>) tiende a <span class="m">C·e<sup>r</sup></span> en un año (y a <span class="m">C·e<sup>rt</sup></span> en <span class="m">t</span> años).
+</div>
+
+<h3>Series: sumar infinitos términos</h3>
+<p>Una <b>serie</b> es la "suma infinita" <span class="m">Σ<sub>n=1</sub><sup>∞</sup> a<sub>n</sub></span>. Se define a través de las <b>sumas parciales</b> <span class="m">S<sub>n</sub> = a<sub>1</sub> + a<sub>2</sub> + … + a<sub>n</sub></span>: la serie es el límite de esas sumas.</p>
+<div class="formula">
+Σ<sub>n=1</sub><sup>∞</sup> a<sub>n</sub> = lim<sub>n→∞</sub> S<sub>n</sub>
+</div>
+<p>Si ese límite es <b>finito</b>, la serie <b>converge</b>; si no, <b>diverge</b>.</p>
+<div class="example">
+  <div class="ex-t">Sumas parciales</div>
+  <p>Con <span class="m">a<sub>n</sub> = n</span>: <span class="m">S<sub>1</sub>=1, S<sub>2</sub>=3, S<sub>3</sub>=6, S<sub>4</sub>=10…</span> crecen sin tope → <b>diverge</b>. Con <span class="m">a<sub>n</sub> = (1/3)<sup>n</sup></span> (desde n=0): <span class="m">S<sub>1</sub>=1, S<sub>2</sub>=4/3, S<sub>3</sub>=13/9…</span> se acercan a <span class="m">3/2</span> → <b>converge</b>.</p>
+</div>
+<div class="key"><div class="ky-t">Linealidad (para partir una serie en pedazos)</div>
+Si <span class="m">Σa<sub>n</sub></span> y <span class="m">Σb<sub>n</sub></span> convergen y <span class="m">k</span> es constante: <span class="m">Σ(a<sub>n</sub> ± b<sub>n</sub>) = Σa<sub>n</sub> ± Σb<sub>n</sub></span> &nbsp;y&nbsp; <span class="m">Σk·a<sub>n</sub> = k·Σa<sub>n</sub></span>.<br>
+Ej: <span class="m">Σ(3<sup>n</sup>+5<sup>n+1</sup>)/8<sup>n</sup> = Σ(3/8)<sup>n</sup> + 5·Σ(5/8)<sup>n</sup> = 8/5 + 5·(8/3) = 224/15</span>.
+</div>
+
+<h3>Condición necesaria (el primer filtro)</h3>
+<div class="key"><div class="ky-t">Si la serie converge, el término general tiende a 0</div>
+<span class="m">Σ a<sub>n</sub> converge ⟹ lim<sub>n→∞</sub> a<sub>n</sub> = 0</span>.<br>
+Se usa al revés (contrarrecíproco): si <span class="m">lim a<sub>n</sub> ≠ 0</span>, la serie <b>DIVERGE</b> seguro. Ej: <span class="m">Σ n/(n+3)</span> diverge porque <span class="m">lim n/(n+3) = 1 ≠ 0</span>.<br>
+<b>Ojo:</b> es necesaria pero NO suficiente. Que <span class="m">a<sub>n</sub>→0</span> no garantiza convergencia (la armónica <span class="m">Σ1/n</span> diverge aunque <span class="m">1/n→0</span>).
+</div>
+
+<h3>Las dos series que hay que conocer de memoria</h3>
+
+<h4>Serie geométrica</h4>
+<div class="formula">
+Σ<sub>n=0</sub><sup>∞</sup> r<sup>n</sup> = 1/(1−r) &nbsp; si |r| &lt; 1 &nbsp; (diverge si |r| ≥ 1)
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <p><span class="m">Σ<sub>n=0</sub> (1/3)ⁿ = 1/(1−1/3) = 3/2</span>. &nbsp; <span class="m">Σ<sub>n=0</sub> (1/2)ⁿ = 1/(1−1/2) = 2</span>. &nbsp; <span class="m">Σ 4ⁿ</span> diverge (r = 4 ≥ 1).</p>
+</div>
+<div class="key"><div class="ky-t">Si no arranca en n = 0</div>
+La fórmula <span class="m">1/(1−r)</span> es para la suma desde <b>n = 0</b>. Si empieza en otro índice, restá los términos que faltan. Ej: <span class="m">Σ<sub>n=2</sub> (1/2)ⁿ = 1/(1−1/2) − 1 − 1/2 = 2 − 3/2 = 1/2</span>.
+</div>
+
+<h4>Serie p (y la armónica)</h4>
+<div class="formula">
+Σ<sub>n=1</sub><sup>∞</sup> 1/n<sup>p</sup> converge ⟺ p &gt; 1
+</div>
+<p>Con <span class="m">p = 1</span> es la <b>serie armónica</b> <span class="m">Σ1/n</span>, que <b>diverge</b>. Ej: <span class="m">Σ1/n<sup>2/3</sup></span> diverge (p = 2/3 ≤ 1); <span class="m">Σ1/n<sup>7/5</sup></span> converge (p = 7/5 &gt; 1).</p>
+
+<h4>Serie telescópica (truco de cancelación)</h4>
+<p>Cuando el término general se parte como una <b>resta de términos consecutivos</b>, las sumas parciales se cancelan en cascada y queda algo simple. El caso típico:</p>
+<div class="formula">
+1/(n(n+1)) = 1/n − 1/(n+1) &nbsp;⟹&nbsp; S<sub>n</sub> = 1 − 1/(n+1) → 1
+</div>
+<p>Por eso <span class="m">Σ<sub>n=1</sub><sup>∞</sup> 1/(n(n+1)) = 1</span>: cada <span class="m">−1/(k+1)</span> se cancela con el <span class="m">+1/(k+1)</span> del término siguiente y sobrevive solo el primer <span class="m">1</span>.</p>
+
+<h3>Criterios de convergencia</h3>
+<table class="tbl">
+  <tr><th>Criterio</th><th>Cuándo usarlo</th><th>Qué dice</th></tr>
+  <tr><td><b>Comparación</b></td><td>El término se parece a una p o geométrica conocida</td><td>Si 0 ≤ aₙ ≤ bₙ: bₙ converge ⟹ aₙ converge; aₙ diverge ⟹ bₙ diverge</td></tr>
+  <tr><td><b>Comparación al límite</b></td><td>aₙ es un cociente parecido a una p o geométrica bₙ</td><td>Si lim aₙ/bₙ = L con 0 &lt; L &lt; ∞, las dos series hacen lo MISMO (ambas convergen o ambas divergen)</td></tr>
+  <tr><td><b>Cociente (D'Alembert)</b></td><td>Hay <b>factoriales</b> o potencias n-ésimas</td><td>L = lim |aₙ₊₁/aₙ|: si L&lt;1 converge, si L&gt;1 diverge, si L=1 no decide</td></tr>
+  <tr><td><b>Raíz (Cauchy)</b></td><td>Todo elevado <b>a la n</b></td><td>L = lim ⁿ√|aₙ|: si L&lt;1 converge, si L&gt;1 diverge, si L=1 no decide</td></tr>
+  <tr><td><b>Leibniz</b></td><td>Serie <b>alternada</b> Σ(−1)ⁿaₙ</td><td>Si aₙ ≥ 0 es decreciente y aₙ→0 ⟹ converge</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplos (Práctica 11)</div>
+  <p>• <span class="m">Σ 3/n!</span>: por cociente, lim = lim 1/(n+1) = 0 &lt; 1 → converge.</p>
+  <p>• <span class="m">Σ ((n+1)/(2n+3))ⁿ</span>: por raíz, lim = lim (n+1)/(2n+3) = 1/2 &lt; 1 → converge.</p>
+  <p>• <span class="m">Σ (−1)ⁿ/n</span>: por Leibniz (1/n decrece y → 0) → converge.</p>
+  <p>• <span class="m">Σ 1/(n+2ⁿ)</span>: comparación directa, <span class="m">0 ≤ 1/(n+2ⁿ) ≤ 1/2ⁿ</span> y <span class="m">Σ1/2ⁿ</span> converge → converge.</p>
+  <p>• <span class="m">Σ 2ⁿ/(9ⁿ+3ⁿ)</span>: comparación al límite con <span class="m">b<sub>n</sub> = (2/9)ⁿ</span>, <span class="m">lim a<sub>n</sub>/b<sub>n</sub> = 1 &gt; 0</span> → converge.</p>
+</div>
+
+<h4>Convergencia absoluta y condicional</h4>
+<div class="key"><div class="ky-t">Definiciones</div>
+• <b>Absolutamente convergente</b>: <span class="m">Σ|a<sub>n</sub>|</span> converge. (Y si converge absolutamente ⟹ converge.)<br>
+• <b>Condicionalmente convergente</b>: <span class="m">Σa<sub>n</sub></span> converge pero <span class="m">Σ|a<sub>n</sub>|</span> diverge.<br>
+Ej: <span class="m">Σ(−1)ⁿ/n</span> converge condicionalmente (la de módulos es la armónica, que diverge).
+</div>
+<div class="example">
+  <div class="ex-t">Para qué sirve la convergencia absoluta — Σ sen(n)/n²</div>
+  <p>Los signos de <span class="m">sen(n)</span> son impredecibles (no es una alternada). Pero <span class="m">|sen(n)/n²| ≤ 1/n²</span> y <span class="m">Σ1/n²</span> converge (p = 2). Por comparación, <span class="m">Σ|sen(n)/n²|</span> converge → la serie converge <b>absolutamente</b>, así que <b>converge</b>.</p>
+</div>
+
+<h3>Series de potencias</h3>
+<p>Una <b>serie de potencias</b> es <span class="m">Σ<sub>n=0</sub><sup>∞</sup> a<sub>n</sub>(x−c)<sup>n</sup></span>. Según el valor de x converge o no. Hay un <b>radio de convergencia R</b>: converge si <span class="m">|x−c| &lt; R</span> y diverge si <span class="m">|x−c| &gt; R</span>.</p>
+<div class="key"><div class="ky-t">Receta (la del 2° parcial)</div>
+1. Aplicá el criterio de la <b>raíz</b> o del <b>cociente</b> al término general (con la x adentro).<br>
+2. Pedí que el límite sea &lt; 1: queda <span class="m">|x−c| &lt; R</span>, de ahí leés R y el intervalo abierto.<br>
+3. <b>Analizá los extremos</b> (x = c±R) por separado: el criterio no decide ahí (da 1). El intervalo puede ser abierto, cerrado o semiabierto.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (apunte, ej. 11) — Radio e intervalo</div>
+  <p><span class="m">Σ<sub>n=1</sub> (x+1)ⁿ/(n·2ⁿ)</span>. Por la raíz: <span class="m">lim ⁿ√|(x+1)ⁿ/(n·2ⁿ)| = |x+1|/2</span>.</p>
+  <p>&lt; 1 → <span class="m">|x+1| &lt; 2</span> → <b>R = 2</b>, intervalo abierto (−3, 1).</p>
+  <p>• <span class="m">x = 1</span>: queda <span class="m">Σ1/n</span> (armónica) → diverge.</p>
+  <p>• <span class="m">x = −3</span>: queda <span class="m">Σ(−1)ⁿ/n</span> → converge.</p>
+  <p><b>Intervalo de convergencia: [−3, 1).</b> (Cerrado en −3, abierto en 1.)</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes del tema</div>
+• Concluir "converge" solo porque <span class="m">a<sub>n</sub>→0</span>: es necesario pero no suficiente (mirá la armónica).<br>
+• Usar la fórmula <span class="m">1/(1−r)</span> cuando la geométrica no arranca en n = 0 (hay que ajustar el índice).<br>
+• En series de potencias, dar solo el intervalo abierto: SIEMPRE hay que analizar los extremos.<br>
+• Confundir radio (un número R) con intervalo de convergencia (el conjunto de x).
+</div>
+
+<div class="quiz-wrap" data-qz="18" data-subject="analisis"></div>
 <a class="back" href="#subject-analisis">↑ Volver al índice</a>
 </div>
 </details>
