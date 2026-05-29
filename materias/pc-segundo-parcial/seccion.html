@@ -1,0 +1,507 @@
+<header>
+    <h1>Pensamiento Computacional · Guía Segundo Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Balbiano · Guía intensiva basada en parciales reales · 2° Parcial (08/06)</div>
+  </header>
+<nav class="toc" id="toc-pc-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#pcp2-s1">Estrategia general y sintaxis clave</a></li>
+    <li><a href="#pcp2-s2">TIPO 1 · Diccionarios</a></li>
+    <li><a href="#pcp2-s3">TIPO 2 · map() y filter()</a></li>
+    <li><a href="#pcp2-s4">TIPO 3 · Archivos de texto</a></li>
+    <li><a href="#pcp2-s5">TIPO 4 · try/except y validación</a></li>
+    <li><a href="#pcp2-s6">TIPO 5 · Pandas (DataFrames)</a></li>
+    <li><a href="#pcp2-s7">TIPO 6 · Matplotlib (gráficos)</a></li>
+    <li><a href="#pcp2-s8">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-pc-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="pcp2-s1">
+<summary><span class="num">1</span> Estrategia general y sintaxis clave <span class="sec-score" id="ss-pc-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<h3>Cómo es el 2° parcial de PC</h3>
+<p>El 2° parcial es <b>100% de opción múltiple</b> (una sola respuesta correcta por pregunta, que se vuelca en una grilla). Tiene entre <b>9 y 11 preguntas</b>, en Python 3 (entorno Colab). <b>Nunca</b> se escribe código desde cero: siempre es uno de estos dos formatos.</p>
+
+<table class="tbl">
+  <tr><th>Formato de pregunta</th><th>Qué te piden</th></tr>
+  <tr><td><b>"¿Qué imprime / qué devuelve / cómo queda el archivo?"</b></td><td>Trazar la ejecución mentalmente y elegir la salida correcta</td></tr>
+  <tr><td><b>"¿Cuál de estas 4 versiones es la correcta?"</b></td><td>Comparar 4 fragmentos casi iguales y detectar el que funciona</td></tr>
+</table>
+
+<p>Esto te da una ventaja enorme: <b>el examen ya es opción múltiple igual que estos quizzes</b>. Practicar trazando código es exactamente lo que vas a hacer el día del parcial.</p>
+
+<h3>Los 6 temas que entran (unidades 4–6)</h3>
+<table class="tbl">
+  <tr><th>Si la pregunta tiene...</th><th>Es...</th></tr>
+  <tr><td><code>{clave: valor}</code>, <code>d[k]</code>, <code>.get()</code>, <code>.items()</code></td><td><b>TIPO 1</b> — Diccionarios</td></tr>
+  <tr><td><code>map(</code>, <code>filter(</code>, <code>list(map(...))</code></td><td><b>TIPO 2</b> — map / filter</td></tr>
+  <tr><td><code>open(</code>, <code>readlines()</code>, <code>write()</code>, modos <code>'r'/'w'/'a'</code></td><td><b>TIPO 3</b> — Archivos</td></tr>
+  <tr><td><code>try:</code> / <code>except:</code>, validar <code>input()</code></td><td><b>TIPO 4</b> — Errores y validación</td></tr>
+  <tr><td><code>df[...]</code>, <code>groupby</code>, <code>.mean()</code>, DataFrame</td><td><b>TIPO 5</b> — Pandas</td></tr>
+  <tr><td><code>plt.</code>, <code>ax.bar</code>, <code>subplots</code>, gráfico</td><td><b>TIPO 6</b> — Matplotlib</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El tema que MÁS se toma</div>
+<b>map() y filter()</b> aparecen en TODOS los parciales, normalmente 2 a 4 veces. Si dominás ese tema solo, ya tenés varios puntos asegurados. La segunda estrella son los <b>diccionarios</b> (sobre todo el patrón "clave → lista de datos").
+</div>
+
+<div class="trap"><div class="tr-t">Lo que NO entra (no pierdas tiempo)</div>
+En este parcial <b>no hay recursión</b>, ni algoritmos de ordenamiento/búsqueda para programar a mano. Las "matrices" que aparecen son en realidad <b>listas dentro de un diccionario</b> (clave → <code>[dato1, dato2, ...]</code>), no matrices NxM.
+</div>
+
+<h3>Cómo trazar código sin equivocarte</h3>
+<ol>
+  <li><b>Llevá el estado de cada variable</b> en un papel: anotá qué vale cada una después de cada línea.</li>
+  <li><b>Mirá la indentación:</b> en Python define qué está adentro de un <code>for</code>, <code>if</code> o <code>def</code>. Un <code>return</code> mal indentado cambia todo.</li>
+  <li><b>map/filter:</b> aplicá la función mentalmente a cada elemento y anotá el resultado.</li>
+  <li><b>Acordate:</b> <code>range(n)</code> va de 0 a n−1; <code>input()</code> siempre devuelve <code>str</code>; <code>'w'</code> borra el archivo.</li>
+</ol>
+
+<h3>Mini-recordatorio de sintaxis (lo que más se olvida)</h3>
+<div class="formula">
+  <b>Diccionario:</b> d = {clave: valor} &nbsp;·&nbsp; d[clave] &nbsp;·&nbsp; clave in d &nbsp;·&nbsp; d.items()<br>
+  <b>map/filter:</b> list(map(func, secuencia)) &nbsp;·&nbsp; list(filter(func, secuencia))<br>
+  <b>Archivo:</b> open(ruta, 'r'/'w'/'a') &nbsp;·&nbsp; .readlines() &nbsp;·&nbsp; .write(texto) &nbsp;·&nbsp; .close()<br>
+  <b>Error:</b> try: … except ValueError: …<br>
+  <b>Pandas:</b> df[df['col'] &gt; x] &nbsp;·&nbsp; df.groupby('col')['otra'].mean()<br>
+  <b>Gráfico:</b> fig, ax = plt.subplots() &nbsp;·&nbsp; ax.bar(categorías, valores)
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · DICCIONARIOS ============ -->
+<details id="pcp2-s2">
+<summary><span class="num">2</span> TIPO 1 · Diccionarios <span class="sec-score" id="ss-pc-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un diccionario?</h3>
+<p>Un <b>diccionario</b> guarda pares <b>clave → valor</b>. A diferencia de una lista (que se accede por posición 0, 1, 2…), un diccionario se accede por su <b>clave</b>.</p>
+
+<pre class="code-block">persona = {"nombre": "Ana", "edad": 25}
+persona["nombre"]      # "Ana"
+persona["edad"]        # 25</pre>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Sintaxis</th><th>Qué hace</th></tr>
+  <tr><td>Acceder</td><td><code>d[clave]</code></td><td>Devuelve el valor. <b>KeyError</b> si la clave no existe</td></tr>
+  <tr><td>Acceder seguro</td><td><code>d.get(clave, default)</code></td><td>Devuelve el valor, o <code>default</code> si no está (no falla)</td></tr>
+  <tr><td>¿Existe la clave?</td><td><code>clave in d</code></td><td><code>True</code>/<code>False</code></td></tr>
+  <tr><td>Agregar / modificar</td><td><code>d[clave] = valor</code></td><td>Crea la clave o pisa su valor</td></tr>
+  <tr><td>Recorrer claves</td><td><code>for k in d:</code></td><td>Itera sobre las claves</td></tr>
+  <tr><td>Recorrer pares</td><td><code>for k, v in d.items():</code></td><td>Itera clave y valor a la vez</td></tr>
+</table>
+
+<h3>El patrón estrella: clave → lista de datos</h3>
+<p>El 90% de los ejercicios de diccionarios del parcial usan un diccionario donde <b>cada valor es una lista</b>. Por ejemplo, DNI → [nombre, apellido, aula]:</p>
+
+<pre class="code-block">datos = {41234225: ['Juan', 'Aguirre', 301]}
+datos[41234225]        # ['Juan', 'Aguirre', 301]
+datos[41234225][2]     # 301  (índice 2 del valor, que es una lista)
+datos[41234225][0]     # 'Juan'</pre>
+
+<p>Para acceder a un dato puntual encadenás <b>dos accesos</b>: primero la clave (te da la lista), después el índice dentro de la lista.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024) — Modificar un dato in-place</div>
+  <p>Aumentar 10% el precio (2° dato) de un botón:</p>
+  <pre class="code-block">botones = {'MET 002': ['plata', 350.0, 1]}
+boton = 'MET 002'
+botones[boton][1] *= 1.1     # 350.0 * 1.1 = 385.0
+precio = round(botones[boton][1], 2)
+print('Nuevo precio de', boton, '$', precio)</pre>
+  <p><b>Salida:</b> <code>Nuevo precio de MET 002 $ 385.0</code></p>
+  <p><b>Por qué:</b> <code>botones[boton]</code> es la lista <code>['plata', 350.0, 1]</code>; <code>[1]</code> es el precio (350.0); <code>*= 1.1</code> lo modifica adentro de la lista. <b>Trampa:</b> escribir <code>botones[boton] = 1.1</code> pisaría toda la lista por el número 1.1.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Camejo) — Validar usuario con diccionario</div>
+  <p>El diccionario es <code>mail → [password, usuario]</code>. Verificar login:</p>
+  <pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ')
+    resp = False
+    for datos in usr:                 # datos = cada clave (mail)
+        if usr[datos] == [passw, usuario]:
+            resp = True
+    return resp</pre>
+  <p><b>Por qué es correcta:</b> compara la <b>lista completa</b> <code>[passw, usuario]</code> contra el valor del diccionario, exigiendo que coincidan los dos datos. <b>Trampa:</b> comparar solo <code>usr[datos][0]</code> validaría únicamente el password.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• <code>KeyError</code>: acceder a una clave que no existe (usá <code>.get()</code> o <code>in</code> antes).<br>
+• Confundir clave <code>int</code> con <code>str</code>: <code>{0: 'a'}</code> se accede con <code>d[0]</code>, no <code>d['0']</code>.<br>
+• Pisar toda la lista (<code>d[k] = x</code>) cuando querías modificar un solo dato (<code>d[k][i] = x</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · MAP Y FILTER ============ -->
+<details id="pcp2-s3">
+<summary><span class="num">3</span> TIPO 2 · map() y filter() <span class="sec-score" id="ss-pc-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<h3>El tema más tomado del parcial</h3>
+<p>Las dos son <b>funciones de orden superior</b>: reciben <b>una función</b> y <b>una secuencia</b>, y aplican esa función a cada elemento. La diferencia es qué hacen con el resultado.</p>
+
+<div class="formula">
+  <b>map(func, secuencia)</b> → TRANSFORMA cada elemento. Devuelve la MISMA cantidad de elementos.<br>
+  <b>filter(func, secuencia)</b> → SELECCIONA. La func debe devolver <b>True/False</b>; deja solo los que dan True.
+</div>
+
+<p><b>Importante:</b> las dos devuelven un "iterador", no una lista. Para ver el resultado hay que envolverlas en <code>list(...)</code>.</p>
+
+<pre class="code-block">def doble(x):
+    return x * 2
+
+def es_par(x):
+    return x % 2 == 0
+
+list(map(doble, [1, 2, 3]))        # [2, 4, 6]   -> transforma cada uno
+list(filter(es_par, [1, 2, 3, 4])) # [2, 4]      -> deja los pares</pre>
+
+<div class="key"><div class="ky-t">La diferencia, en una frase</div>
+<b>map</b> cambia los elementos (misma cantidad de salida). <b>filter</b> elige cuáles pasan (devuelve los originales que cumplen la condición). El orden de los argumentos es SIEMPRE <code>(función, secuencia)</code>.
+</div>
+
+<h3>Se combinan: primero filtrar, después transformar</h3>
+<pre class="code-block">list(map(doble, filter(es_par, [1, 2, 3, 4])))
+# filter deja [2, 4]; map los duplica -> [4, 8]</pre>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024) — filter con condición</div>
+  <pre class="code-block">def mes31(m):
+    de30dias = (4, 6, 9, 11)
+    return m not in de30dias and m != 2
+
+meses = [1, 5, 6, 2, 7]
+print(list(filter(mes31, meses)))</pre>
+  <p><b>Salida:</b> <code>[1, 5, 7]</code></p>
+  <p><b>Por qué:</b> <code>filter</code> deja los <code>m</code> que dan <code>True</code>. El 6 está en <code>de30dias</code> → False (sale). El 2 lo excluye <code>m != 2</code> → False (sale). Quedan 1, 5 y 7.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Camejo) — Precedencia and/or dentro del filter</div>
+  <pre class="code-block">def organiza(n):
+    if n % 3 == 0 and n % 2 == 0 or n &lt; 100:
+        return True
+    return False
+
+a = [15, -150, 150, 66]
+print(list(filter(organiza, a)))</pre>
+  <p><b>Salida:</b> <code>[15, -150, 150, 66]</code> (todos)</p>
+  <p><b>Por qué:</b> <code>and</code> tiene más prioridad que <code>or</code>, así que la condición es <code>(n%3==0 and n%2==0) or (n&lt;100)</code>. 15, −150 y 66 son <code>&lt; 100</code> → True. 150 es múltiplo de 3 y de 2 → True. Pasan todos.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2025) — filter + map encadenados</div>
+  <pre class="code-block">def mayus(txt): return txt.upper()
+def tiene_tilde(txt): return ('á' in txt) or ('ó' in txt)
+
+ciudades = ['anillaco', 'san javier', 'la dársena', 'fiambalá']
+sel = list(filter(tiene_tilde, ciudades))
+print(list(map(mayus, sel)))</pre>
+  <p><b>Salida:</b> <code>['LA DÁRSENA', 'FIAMBALÁ']</code></p>
+  <p><b>Por qué:</b> <code>filter</code> deja las que tienen á u ó ("la dársena", "fiambalá"); después <code>map(mayus)</code> las pasa a mayúsculas. <b>Primero seleccionar, después transformar.</b></p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos (los distractores del parcial)</div>
+• Invertir los argumentos: <code>map(secuencia, func)</code> ❌ — va <code>map(func, secuencia)</code>.<br>
+• Usar <code>filter</code> con una función que NO devuelve booleano.<br>
+• Olvidar el <code>list(...)</code> y creer que imprime la lista (imprime <code>&lt;map object&gt;</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · ARCHIVOS ============ -->
+<details id="pcp2-s4">
+<summary><span class="num">4</span> TIPO 3 · Archivos de texto <span class="sec-score" id="ss-pc-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Abrir, leer, escribir, cerrar</h3>
+<p>Trabajar con un archivo es siempre: <b>abrir</b> (con un modo) → <b>leer o escribir</b> → <b>cerrar</b>.</p>
+
+<table class="tbl">
+  <tr><th>Modo</th><th>Qué hace</th></tr>
+  <tr><td><code>'r'</code> (read)</td><td>Lee. <b>Falla</b> (<code>FileNotFoundError</code>) si el archivo no existe</td></tr>
+  <tr><td><code>'w'</code> (write)</td><td><b>Borra todo</b> el contenido previo y escribe de cero (crea el archivo si no existe)</td></tr>
+  <tr><td><code>'a'</code> (append)</td><td>Conserva lo que hay y <b>agrega al final</b></td></tr>
+  <tr><td><code>'r+'</code></td><td>Lee y escribe</td></tr>
+</table>
+
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th></tr>
+  <tr><td><code>.readlines()</code></td><td>Devuelve una <b>lista</b> con todas las líneas (cada una termina en <code>\n</code>)</td></tr>
+  <tr><td><code>.readline()</code></td><td>Lee <b>una sola</b> línea (útil para saltear un título)</td></tr>
+  <tr><td><code>.write(texto)</code></td><td>Escribe un string. <b>NO agrega <code>\n</code></b> solo: lo ponés vos</td></tr>
+  <tr><td><code>.writelines(lista)</code></td><td>Escribe una lista de strings (cada uno debe traer su <code>\n</code>)</td></tr>
+</table>
+
+<h3>El patrón típico: leer, procesar línea por línea, escribir otro</h3>
+<pre class="code-block">arch = open('contactos.txt', 'r')
+lineas = arch.readlines()
+arch.close()
+
+invitados = []
+for amigo in lineas:
+    amigo = amigo.strip('\n')        # saca el salto de línea
+    campos = amigo.split(',')        # separa por coma -> lista
+    if campos[3].lower() == 'trabajo':
+        invitados.append(campos[0] + ',' + campos[2] + '\n')
+
+arch2 = open('invitados.txt', 'w')
+arch2.writelines(invitados)
+arch2.close()</pre>
+
+<p>Las dos herramientas clave para procesar cada línea: <code>.strip('\n')</code> (quita el salto de línea) y <code>.split(',')</code> (parte la línea en una lista de campos).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024) — Numerar líneas en un archivo nuevo</div>
+  <pre class="code-block">arch = open('Clientes.txt', 'r')
+lineas = arch.readlines()
+arch.close()
+
+arch = open('nuevo.txt', 'w')
+lineas.sort()                        # ordena alfabéticamente
+i = 1
+for lin in lineas:
+    arch.write(str(i) + ';' + lin)   # lin ya trae '\n'
+    i += 1
+arch.close()</pre>
+  <p>El archivo <code>nuevo.txt</code> queda con cada línea ordenada y numerada desde 1: <code>1;Artelac…</code>, <code>2;Novallen…</code>, etc. <b>Clave:</b> <code>lin</code> ya incluye su <code>\n</code>, por eso no se agrega otro.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• Usar <code>'w'</code> cuando querías conservar lo anterior (borra todo). Para agregar, usá <code>'a'</code>.<br>
+• Olvidar el <code>\n</code> al hacer <code>write</code> (queda todo pegado en una línea).<br>
+• No hacer <code>.strip('\n')</code> y arrastrar el salto de línea en las comparaciones.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · TRY/EXCEPT ============ -->
+<details id="pcp2-s5">
+<summary><span class="num">5</span> TIPO 4 · try/except y validación <span class="sec-score" id="ss-pc-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Capturar errores en vez de que el programa explote</h3>
+<p>El bloque <code>try/except</code> intenta ejecutar algo; si surge un error, en vez de cortar el programa, salta al <code>except</code> y sigue.</p>
+
+<pre class="code-block">try:
+    n = int(input("Número: "))   # esto puede fallar si escriben texto
+    print(10 / n)                 # esto puede fallar si n = 0
+except ValueError:
+    print("No es un número entero")
+except ZeroDivisionError:
+    print("No se puede dividir por cero")</pre>
+
+<table class="tbl">
+  <tr><th>Excepción</th><th>Cuándo salta</th></tr>
+  <tr><td><code>ValueError</code></td><td><code>int("hola")</code> — convertir algo que no es número</td></tr>
+  <tr><td><code>ZeroDivisionError</code></td><td>Dividir por 0</td></tr>
+  <tr><td><code>FileNotFoundError</code></td><td>Abrir en modo <code>'r'</code> un archivo inexistente</td></tr>
+  <tr><td><code>KeyError</code></td><td>Acceder a una clave que no está en el diccionario</td></tr>
+  <tr><td><code>IndexError</code></td><td>Acceder a un índice fuera de la lista</td></tr>
+</table>
+
+<h3>El esqueleto clásico: validar input con while + try</h3>
+<pre class="code-block">sigue = True
+while sigue:
+    try:
+        n = int(input("Ingresá un par positivo: "))
+        if n &gt; 0 and n % 2 == 0:
+            sigue = False            # dato válido -> corta el while
+        else:
+            print("No es par positivo")
+    except ValueError:
+        print("Debe ser un entero")
+print(n)</pre>
+
+<div class="key"><div class="ky-t">Por qué esta versión es la correcta (y los distractores no)</div>
+• El <code>while</code> <b>insiste</b> hasta tener un dato válido.<br>
+• <code>sigue = True</code> al inicio → entra al ciclo (si fuera <code>False</code>, no entraría nunca).<br>
+• <code>sigue = False</code> <b>solo</b> cuando el dato cumple la condición.<br>
+• El <code>try</code> envuelve únicamente lo que puede fallar (el <code>int()</code>).
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• Inicializar la bandera al revés (<code>sigue = False</code>) → el <code>while</code> nunca arranca.<br>
+• Poner el <code>try</code> sin <code>while</code> → no insiste, falla un dato y sigue de largo.<br>
+• Inventar excepciones que no existen (<code>IndexOutOfRangeError</code> no es de Python; es <code>IndexError</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · PANDAS ============ -->
+<details id="pcp2-s6">
+<summary><span class="num">6</span> TIPO 5 · Pandas (DataFrames) <span class="sec-score" id="ss-pc-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<h3>El DataFrame: una tabla con filas y columnas</h3>
+<p>Pandas trabaja con <b>DataFrames</b> (tablas). Lo que se toma en el parcial es: <b>filtrar filas</b>, <b>agrupar y promediar</b>, y operaciones simples (<code>.sum()</code>, <code>.mean()</code>).</p>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Sintaxis</th><th>Qué devuelve</th></tr>
+  <tr><td>Una columna</td><td><code>df['col']</code></td><td>La columna (Series)</td></tr>
+  <tr><td>Varias columnas</td><td><code>df[['col1', 'col2']]</code></td><td>Sub-tabla (corchete <b>doble</b>)</td></tr>
+  <tr><td>Filtrar filas</td><td><code>df[df['edad'] &gt; 18]</code></td><td>Las filas que cumplen</td></tr>
+  <tr><td>Filtro con 2 condiciones</td><td><code>df[(df['a'] &gt; 1) &amp; (df['b'] != 'C')]</code></td><td>Usar <code>&amp;</code> <code>|</code> y <b>paréntesis</b></td></tr>
+  <tr><td>Sumar / promediar</td><td><code>df['col'].sum()</code> · <code>.mean()</code></td><td>Un número</td></tr>
+  <tr><td>Agrupar y promediar</td><td><code>df.groupby('mes')['mm'].mean()</code></td><td>Promedio por grupo</td></tr>
+  <tr><td>Ordenar</td><td><code>df.sort_values(by='año')</code></td><td>La tabla ordenada</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La trampa #1 de pandas: <code>&amp;</code> no <code>and</code></div>
+Para combinar condiciones de filtro se usa <code>&amp;</code> (y), <code>|</code> (o), <code>~</code> (no), <b>con paréntesis obligatorios</b> en cada condición. <code>and</code>/<code>or</code> de Python NO funcionan acá.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024) — Filtro con dos condiciones</div>
+  <pre class="code-block">vue1 = vue[(vue['fila'] &lt; 20) &amp; (vue['asiento'] != 'C')]</pre>
+  <p>Deja las filas con <code>fila &lt; 20</code> <b>Y</b> <code>asiento</code> distinto de <code>'C'</code>. Una fila con asiento C se descarta; una con fila 23 también. <b>Clave:</b> los paréntesis y el <code>&amp;</code> son obligatorios.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Camejo) — groupby + mean</div>
+  <pre class="code-block">lluvias.groupby('mes')['mm'].mean()</pre>
+  <p>Agrupa las filas por <code>mes</code> y promedia la columna <code>mm</code> de cada grupo. Si abril tiene 65 y 96 → promedio 80.5; si marzo tiene 120 y 115 → 117.5; etc. Devuelve un valor por mes. <b>Distractor típico:</b> confundirlo con <code>head(4)</code> o con un filtro.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · MATPLOTLIB ============ -->
+<details id="pcp2-s7">
+<summary><span class="num">7</span> TIPO 6 · Matplotlib (gráficos) <span class="sec-score" id="ss-pc-segundo-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Las DOS formas de graficar (las dos se toman)</h3>
+<p>Hay dos APIs y el parcial usa ambas. Conviene reconocer las dos.</p>
+
+<h4>Forma pyplot (la directa)</h4>
+<pre class="code-block">import matplotlib.pyplot as plt
+plt.bar(['A', 'B', 'C'], [10, 20, 15])
+plt.title("Ventas")
+plt.show()</pre>
+
+<h4>Forma orientada a objetos (la que toman los parciales nuevos)</h4>
+<pre class="code-block">fig, ax = plt.subplots()
+ax.bar(jugadores, alturas)       # bar(categorías, valores)
+ax.set_title("Plantel")
+ax.set_xlabel("Jugador")
+ax.set_ylabel("Altura (cm)")
+ax.set_ylim(0, 200)
+ax.grid(axis='y')
+plt.show()</pre>
+
+<table class="tbl">
+  <tr><th>Función</th><th>Qué dibuja</th></tr>
+  <tr><td><code>ax.bar(cat, val)</code></td><td>Barras verticales</td></tr>
+  <tr><td><code>ax.barh(cat, val)</code></td><td>Barras horizontales</td></tr>
+  <tr><td><code>ax.plot(x, y)</code></td><td>Línea</td></tr>
+  <tr><td><code>ax.scatter(x, y)</code></td><td>Puntos (dispersión)</td></tr>
+  <tr><td><code>ax.set_title / set_xlabel / set_ylabel</code></td><td>Títulos y etiquetas</td></tr>
+</table>
+
+<h3>Grilla de subgráficos</h3>
+<pre class="code-block">fig, ax = plt.subplots(nrows=3, ncols=3)
+ax[1, 1].plot(x, y)    # fila 1, columna 1 = el del centro
+ax[2, 2].bar(x, y)     # esquina inferior derecha</pre>
+<p>Con una grilla, <code>ax</code> se indexa <code>ax[fila, columna]</code> (ambas empiezan en 0).</p>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• Invertir los argumentos de <code>bar</code>: va <code>ax.bar(categorías, valores)</code>, no al revés.<br>
+• Leer mal la posición en la grilla: <code>ax[fila, columna]</code> empezando en 0 (el del medio de una 3×3 es <code>ax[1,1]</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 · MIX INTEGRADOR ============ -->
+<details id="pcp2-s8">
+<summary><span class="num">8</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-pc-segundo-parcial-8"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en menos de 15 segundos</h3>
+<table class="tbl">
+  <tr><th>Si la pregunta muestra...</th><th>Tipo</th><th>Qué hacer</th></tr>
+  <tr><td><code>list(map(...))</code> o <code>list(filter(...))</code></td><td>map/filter</td><td>Aplicar la función a cada elemento; filter deja los True</td></tr>
+  <tr><td><code>d[clave]</code>, <code>d[k][i]</code></td><td>Diccionarios</td><td>Encadenar clave + índice de la lista</td></tr>
+  <tr><td><code>open(...)</code>, <code>.readlines()</code>, <code>.write()</code></td><td>Archivos</td><td>Ver el modo; procesar con strip/split</td></tr>
+  <tr><td><code>try:</code> / <code>except:</code></td><td>Validación</td><td>Ver bandera del while y qué excepción captura</td></tr>
+  <tr><td><code>df[...]</code>, <code>groupby</code></td><td>Pandas</td><td>Filtro con &amp; y paréntesis; groupby agrupa</td></tr>
+  <tr><td><code>ax.bar</code>, <code>subplots</code></td><td>Matplotlib</td><td>bar(categorías, valores); ax[fila, col]</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+<div class="trap"><div class="tr-t">Error 1 — Orden de argumentos en map/filter</div>
+Es <code>map(función, secuencia)</code>, nunca <code>map(secuencia, función)</code>. Y <code>filter</code> necesita una función que devuelva True/False.
+</div>
+<div class="trap"><div class="tr-t">Error 2 — <code>'w'</code> borra el archivo</div>
+Abrir en modo <code>'w'</code> borra todo el contenido anterior. Si querías conservar y agregar, era <code>'a'</code>.
+</div>
+<div class="trap"><div class="tr-t">Error 3 — <code>and</code> en lugar de <code>&amp;</code> en pandas</div>
+Los filtros de pandas usan <code>&amp;</code>, <code>|</code>, <code>~</code> con paréntesis. <code>and</code>/<code>or</code> de Python tiran error ahí.
+</div>
+<div class="trap"><div class="tr-t">Error 4 — Pisar la lista de un diccionario</div>
+<code>d[k] = x</code> reemplaza TODO el valor; para tocar un dato puntual era <code>d[k][i] = x</code>.
+</div>
+
+<h3>Práctica integradora — combinaciones típicas</h3>
+<div class="example">
+  <div class="ex-t">Integrador 1 — filter + map + print(*lista)</div>
+  <pre class="code-block">def cuenta_o(p):
+    return p.count('O') + p.count('Ó')
+
+nombres = ['ÁLVARO', 'CAROLINA', 'ESTEBAN', 'PEDRO']
+print(*list(map(cuenta_o, nombres)))</pre>
+  <p><b>Salida:</b> <code>1 1 0 1</code> — cuenta O+Ó en cada nombre. El <code>*</code> desempaqueta la lista e imprime separado por espacios, sin corchetes.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — filter + dos diccionarios + in sobre strings</div>
+  <pre class="code-block">def es_primavera(m):
+    est = {9: 'invierno-primavera', 10: 'primavera', 11: 'primavera'}
+    return 'primavera' in est.get(m, '')
+
+meses = {9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre'}
+sel = list(filter(es_primavera, [9, 10, 11]))
+for m in sel:
+    print(meses[m])</pre>
+  <p><b>Salida:</b> <code>Septiembre</code>, <code>Octubre</code>, <code>Noviembre</code> (cada uno en su línea). <code>filter</code> deja los meses cuyo texto de estación <b>contiene</b> "primavera"; después se imprime el nombre desde el otro diccionario.</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé la pregunta y clasificá el tema en 15 segundos.<br>
+2. En map/filter: aplicá la función a cada elemento en un papel.<br>
+3. En archivos: fijate el modo (<code>'w'</code> borra) y dónde se concatena cada dato.<br>
+4. En diccionarios: ¿la clave es int o str? ¿el valor es lista (encadenar índice)?<br>
+5. En pandas: filtros con <code>&amp;</code> y paréntesis; <code>groupby</code> agrupa.<br>
+6. Si dudás entre dos opciones, descartá la que tenga un error de sintaxis evidente (argumentos invertidos, <code>and</code> en pandas, excepción inexistente).
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>

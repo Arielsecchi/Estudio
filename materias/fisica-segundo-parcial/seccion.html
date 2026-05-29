@@ -1,0 +1,427 @@
+<header>
+    <h1>Física · Guía Segundo Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Torti · Guía intensiva basada en parciales reales · 2° Parcial (11/06) · Unidades 5 a 7</div>
+  </header>
+<nav class="toc" id="toc-fisica-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fi2p-s1">Estrategia general y fórmulas clave</a></li>
+    <li><a href="#fi2p-s2">TIPO 1 · Tiro oblicuo (cinemática 2D)</a></li>
+    <li><a href="#fi2p-s3">TIPO 2 · Movimiento circular y relativo</a></li>
+    <li><a href="#fi2p-s4">TIPO 3 · Dinámica (Newton, rozamiento, sistemas)</a></li>
+    <li><a href="#fi2p-s5">TIPO 4 · Trabajo, potencia y energía</a></li>
+    <li><a href="#fi2p-s6">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="fi2p-s1">
+<summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-fisica-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del 2° parcial Torti</h3>
+<p>El 2° parcial cae sobre las <b>Unidades 5 a 7</b>: Cinemática en dos dimensiones (tiro oblicuo y movimiento circular), Dinámica (leyes de Newton, rozamiento, sistemas) y Trabajo y Energía. <b>No entra</b> hidrostática ni estática (eso fue del 1° parcial).</p>
+
+<div class="key"><div class="ky-t">Formato real (basado en parciales 2023, 2024 y 2025)</div>
+• <b>3 problemas</b> de respuesta numérica (NO multiple choice). Cada uno con varios incisos (a, b, c, d…). Total 10 puntos.<br>
+• <b>Duración: 90 minutos.</b><br>
+• <b>3 cifras significativas y unidades</b> en cada resultado (es criterio de corrección).<br>
+• <b>Asumir g = 9,80 m/s²</b> (lo aclara el enunciado).<br>
+• <b>Trae una hoja de fórmulas oficial</b> con MRUV, energía, F=ma, rozamiento, Hooke, potencia, circular, etc. No hace falta memorizar todo, pero sí saber cuál disparar.<br>
+• Los problemas son <b>integradores</b>: un mismo enunciado mezcla cinemática + dinámica + energía (ej: un auto que frena → calculás aceleración, trabajo, fuerza y potencia).
+</div>
+
+<p>Los 3 problemas típicos combinan estos contextos recurrentes:</p>
+<table class="tbl">
+  <tr><th>Contexto clásico</th><th>Qué se mezcla</th></tr>
+  <tr><td>Auto de F1 que arranca o frena</td><td>Cinemática (MRUV) + Dinámica (F=ma) + Energía (W=ΔEc) + Potencia</td></tr>
+  <tr><td>Catapulta / cañón que dispara</td><td>Tiro oblicuo + Energía (Ec y Ep en la altura máxima)</td></tr>
+  <tr><td>Resorte con masa colgada o que recibe un impacto</td><td>Ley de Hooke + Energía potencial elástica + conservación</td></tr>
+  <tr><td>Cuerpo + balde por una polea / vagones unidos</td><td>Dinámica de sistemas + rozamiento + cinemática</td></tr>
+  <tr><td>Objeto que desliza con rozamiento hasta frenar</td><td>Energía (½mv²) + trabajo del rozamiento</td></tr>
+  <tr><td>Montaña rusa sin rozamiento</td><td>Conservación de energía mecánica entre puntos a distinta altura</td></tr>
+</table>
+
+<h3>Las 4 preguntas que tenés que hacerte al leer cada problema</h3>
+
+<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>Ángulo de lanzamiento, altura máxima, alcance, proyectil, cae al suelo</td><td><b>TIPO 1</b> — Tiro oblicuo</td></tr>
+  <tr><td>Vuelta, radio, rapidez constante en una curva, período, rpm, satélite</td><td><b>TIPO 2</b> — Movimiento circular</td></tr>
+  <tr><td>Fuerza, masa, aceleración, rozamiento (μ), cuerda, polea, plano inclinado</td><td><b>TIPO 3</b> — Dinámica</td></tr>
+  <tr><td>Trabajo, energía, velocidad sin tiempo, resorte, altura, potencia, frena</td><td><b>TIPO 4</b> — Trabajo y energía</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Conviene Newton o Energía?</h4>
+<div class="key"><div class="ky-t">La decisión que ahorra más tiempo</div>
+• Si te piden <b>velocidad o distancia</b> y conocés <b>alturas o resortes</b> (pero no te importan los tiempos) → <b>Energía</b> (E<sub>m,i</sub> = E<sub>m,f</sub> o W<sub>roz</sub> = ΔE<sub>m</sub>).<br>
+• Si te piden <b>aceleración, fuerzas, tensión o tiempos</b> → <b>Newton</b> (ΣF = m·a en cada eje).<br>
+• Muchos incisos se resuelven más rápido con energía que con cinemática. Ej: "rapidez al pie de una rampa" sale directo de conservación, sin calcular la aceleración.
+</div>
+
+<h4>Pregunta 3 — ¿Tengo todo en el Sistema Internacional (SI)?</h4>
+<p>Antes de meter números: convertí. <b>km/h → m/s se divide por 3,6</b>; los gramos a kg; los cm a m. El error más común del parcial es dejar la velocidad en km/h y mezclarla con metros y segundos.</p>
+
+<h4>Pregunta 4 — ¿El resultado tiene sentido y unidades?</h4>
+<p>3 cifras significativas y unidad SIEMPRE (es nota). Una energía en Joule, una fuerza en Newton, una potencia en Watt. Si te da una velocidad negativa donde esperabas positiva, o una energía gigante, revisá.</p>
+
+<h3>Fórmulas imprescindibles · Cinemática</h3>
+<div class="formula">
+  <b>Conversión:</b> km/h → m/s: dividir por 3,6<br>
+  <b>MRUV:</b> v = v₀ + a·t &nbsp;·&nbsp; Δx = v₀·t + ½·a·t² &nbsp;·&nbsp; v² = v₀² + 2·a·Δx<br>
+  <b>Tiro oblicuo:</b> v₀ₓ = v₀·cos(α) (constante) &nbsp;·&nbsp; v₀ᵧ = v₀·sen(α)<br>
+  aₓ = 0, aᵧ = −g &nbsp;·&nbsp; en la altura máxima vᵧ = 0 (pero vₓ NO)
+</div>
+
+<h3>Fórmulas imprescindibles · Movimiento circular</h3>
+<div class="formula">
+  v = ω·R &nbsp;·&nbsp; a_c = v²/R = ω²·R (centrípeta, apunta al centro)<br>
+  ω = 2π/T = 2π·f &nbsp;·&nbsp; f = 1/T<br>
+  En dinámica circular: ΣF_radial = m·v²/R
+</div>
+
+<h3>Fórmulas imprescindibles · Dinámica</h3>
+<div class="formula">
+  <b>2ª ley:</b> ΣF = m·a (se aplica eje por eje: ΣFₓ = m·aₓ, ΣFᵧ = m·aᵧ)<br>
+  <b>Peso:</b> P = m·g &nbsp;·&nbsp; <b>Normal:</b> ⊥ a la superficie<br>
+  <b>Rozamiento:</b> estático f_s ≤ μ_s·N (hasta arrancar) ; dinámico f_d = μ_d·N (ya moviéndose)<br>
+  <b>Plano inclinado sin roce:</b> a = g·sen(α)<br>
+  <b>Hooke:</b> F_elástica = −k·x
+</div>
+
+<h3>Fórmulas imprescindibles · Trabajo y Energía</h3>
+<div class="formula">
+  W = F·d·cos(θ) &nbsp;·&nbsp; P = W/t = F·v·cos(θ)<br>
+  E_c = ½·m·v² &nbsp;·&nbsp; E_pg = m·g·h &nbsp;·&nbsp; E_pe = ½·k·x²<br>
+  <b>Teorema W-Ec:</b> W_neto = ΔE_c<br>
+  <b>Conservación</b> (sin roce): E_m,i = E_m,f<br>
+  <b>Con rozamiento:</b> W_roz = E_m,f − E_m,i (negativo)
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+Todo problema integrador se desarma igual: <b>(1) listá los datos en SI, (2) decidí Newton o Energía, (3) escribí la fórmula que dispara, (4) despejá la incógnita, (5) chequeá unidades y cifras.</b> No saltees el paso de convertir unidades.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica-segundo-parcial"></div>
+<a class="back" href="#subject-fisica-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · TIRO OBLICUO ============ -->
+<details id="fi2p-s2">
+<summary><span class="num">2</span> TIPO 1 · Tiro oblicuo (cinemática 2D) <span class="sec-score" id="ss-fisica-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en casi todos los parciales (1 problema completo)</h3>
+<p>El contexto clásico de Torti: una <b>catapulta</b> o un <b>cañón</b> que dispara un proyectil con cierta velocidad y ángulo. Es el problema más visual del parcial y se resuelve con una sola idea.</p>
+
+<div class="key"><div class="ky-t">La idea que resuelve TODO el tiro oblicuo</div>
+El movimiento se separa en <b>dos movimientos independientes</b> conectados solo por el tiempo:<br>
+• <b>Eje x (horizontal):</b> MRU (velocidad constante), porque no hay fuerza horizontal. vₓ = v₀·cos(α) <b>no cambia nunca</b>.<br>
+• <b>Eje y (vertical):</b> tiro vertical / caída libre, con aceleración −g. vᵧ = v₀·sen(α) − g·t.
+</div>
+
+<h3>Las fórmulas que vas a usar</h3>
+<div class="formula">
+  v₀ₓ = v₀·cos(α) &nbsp;&nbsp; v₀ᵧ = v₀·sen(α)<br>
+  x(t) = x₀ + v₀ₓ·t &nbsp;&nbsp; y(t) = y₀ + v₀ᵧ·t − ½·g·t²<br>
+  vᵧ(t) = v₀ᵧ − g·t<br>
+  <b>Altura que sube</b> (desde el lanzamiento): h_subida = v₀ᵧ² / (2g)
+</div>
+
+<div class="trap"><div class="tr-t">La trampa que más se cobra en este tema</div>
+En la <b>altura máxima</b>, vᵧ = 0 <b>pero vₓ NO es cero</b>: el proyectil sigue avanzando horizontal a v₀ₓ. Por eso la energía cinética en la altura máxima <b>no es cero</b>: vale E_c = ½·m·vₓ². Mucha gente pone E_c = 0 en el punto más alto y pierde el inciso.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2023) — Catapulta contra una torre</div>
+  <p>Una catapulta lanza una piedra de <b>40,0 kg</b> desde <b>2,00 m</b> de altura, con <b>v₀ = 80,0 km/h</b> a <b>45,0°</b>. La torre está a <b>50,0 m</b>. Hallá: a) altura máxima, b) E<sub>c</sub> en la altura máxima, c) energía mecánica ahí, d) tiempo de vuelo hasta la torre, e) altura a la que golpea.</p>
+  <p><b>Paso 0 — convertir y descomponer:</b> v₀ = 80/3,6 = 22,2 m/s. vₓ = vᵧ = 22,2·cos(45°) = 15,7 m/s.</p>
+  <p><b>a) Altura máxima:</b> h_subida = vᵧ²/(2g) = 15,7²/(2·9,8) = 12,6 m. Como salió desde 2 m: <b>h_max = 2 + 12,6 = 14,6 m</b>.</p>
+  <p><b>b) E<sub>c</sub> en la altura máxima:</b> ahí vᵧ = 0, pero vₓ = 15,7 m/s. E_c = ½·40·15,7² = <b>4,94 × 10³ J</b> (¡no es cero!).</p>
+  <p><b>c) Energía mecánica:</b> E_m = E_c + E_pg = 4,94×10³ + 40·9,8·14,6 = 4,94×10³ + 5,72×10³ = <b>1,07 × 10⁴ J</b>.</p>
+  <p><b>d) Tiempo de vuelo:</b> el horizontal es MRU, así que t = distancia/vₓ = 50/15,7 = <b>3,18 s</b>.</p>
+  <p><b>e) Altura de impacto:</b> y(3,18) = 2 + 15,7·3,18 − ½·9,8·3,18² = 2 + 49,9 − 49,5 = <b>2,39 m</b>.</p>
+</div>
+
+<div class="key"><div class="ky-t">Datos útiles (proyectil lanzado y recibido a igual altura)</div>
+• Tiempo de vuelo total: t = 2·v₀·sen(α)/g<br>
+• Alcance horizontal: R = v₀²·sen(2α)/g<br>
+• El alcance máximo se da con <b>α = 45°</b>.<br>
+Ojo: estas fórmulas valen solo si sale y cae a la misma altura. Si sale desde una altura h₀ (como la catapulta), conviene trabajar con las ecuaciones horarias.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de cálculo — Componentes y altura</div>
+  <p>Un proyectil sale a v₀ = 30 m/s y 60°. ¿Altura máxima sobre el punto de lanzamiento?</p>
+  <p>vᵧ = 30·sen(60°) = 30·0,866 = 26,0 m/s. h = vᵧ²/(2g) = 26²/19,6 = 676/19,6 = <b>34,5 m</b>.</p>
+  <p>vₓ = 30·cos(60°) = 15 m/s (este valor se mantiene todo el vuelo).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fisica-segundo-parcial"></div>
+<a class="back" href="#subject-fisica-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · CIRCULAR Y RELATIVO ============ -->
+<details id="fi2p-s3">
+<summary><span class="num">3</span> TIPO 2 · Movimiento circular y relativo <span class="sec-score" id="ss-fisica-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Movimiento circular uniforme (MCU)</h3>
+<p>La partícula recorre una circunferencia de radio R con <b>rapidez constante</b>. La rapidez no cambia, pero la <b>velocidad sí</b> (cambia de dirección todo el tiempo). Por eso hay aceleración: la <b>centrípeta</b>, que siempre apunta <b>hacia el centro</b>.</p>
+
+<div class="formula">
+  a_c = v²/R = ω²·R &nbsp;&nbsp; (siempre hacia el centro)<br>
+  v = ω·R &nbsp;&nbsp; ω = 2π/T = 2π·f &nbsp;&nbsp; f = 1/T
+</div>
+
+<table class="tbl">
+  <tr><th>Variable</th><th>Qué es</th><th>Unidad</th></tr>
+  <tr><td>Período T</td><td>Tiempo de una vuelta completa</td><td>s</td></tr>
+  <tr><td>Frecuencia f</td><td>Vueltas por segundo (f = 1/T)</td><td>Hz</td></tr>
+  <tr><td>Velocidad angular ω</td><td>Ángulo barrido por segundo</td><td>rad/s</td></tr>
+  <tr><td>Velocidad tangencial v</td><td>Rapidez sobre la circunferencia (v = ω·R)</td><td>m/s</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Lo más importante de entender</div>
+Un cuerpo en MCU <b>tiene aceleración aunque su rapidez sea constante</b>, porque la dirección de la velocidad cambia. Esa aceleración es la centrípeta. Si además la rapidez cambia, aparece una aceleración <b>tangencial</b> (a_t), y la total es |a| = √(a_t² + a_c²).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo — Aceleración centrípeta</div>
+  <p>Un auto toma una curva de R = 50 m a v = 72 km/h = 20 m/s. ¿Aceleración centrípeta?</p>
+  <p>a_c = v²/R = 20²/50 = 400/50 = <b>8,00 m/s²</b>, apuntando hacia el centro de la curva.</p>
+  <p>(En dinámica, esa aceleración la provee el rozamiento: f = m·v²/R. Si el rozamiento no alcanza, el auto se va de la curva.)</p>
+</div>
+
+<h3>Movimiento relativo</h3>
+<p>La velocidad <b>depende del sistema de referencia</b>. Para combinar velocidades se usa la suma vectorial:</p>
+<div class="formula">
+  <span class="vec">v</span><sub>A/C</sub> = <span class="vec">v</span><sub>A/B</sub> + <span class="vec">v</span><sub>B/C</sub><br>
+  "velocidad de A respecto de C = (A respecto de B) + (B respecto de C)"
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo clásico — Bote cruzando un río</div>
+  <p>Un bote apunta perpendicular a la orilla a <b>4 m/s</b> respecto del agua. La corriente lleva <b>3 m/s</b>. ¿Velocidad del bote respecto de la orilla?</p>
+  <p>Las dos velocidades son perpendiculares, así que se suman con Pitágoras:</p>
+  <p>|v| = √(4² + 3²) = √(16 + 9) = √25 = <b>5 m/s</b>.</p>
+  <p>El bote cruza, pero la corriente lo arrastra río abajo: su trayectoria respecto de la orilla es diagonal.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="fisica-segundo-parcial"></div>
+<a class="back" href="#subject-fisica-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · DINÁMICA ============ -->
+<details id="fi2p-s4">
+<summary><span class="num">4</span> TIPO 3 · Dinámica (Newton, rozamiento, sistemas) <span class="sec-score" id="ss-fisica-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales</h3>
+<p>La herramienta central es la <b>2ª ley de Newton</b>: ΣF = m·a, aplicada eje por eje. La receta nunca cambia: hacer el <b>diagrama de cuerpo libre (DCL)</b>, descomponer fuerzas y plantear ΣFₓ = m·aₓ y ΣFᵧ = m·aᵧ.</p>
+
+<h3>Las fuerzas que vas a ver</h3>
+<table class="tbl">
+  <tr><th>Fuerza</th><th>Fórmula / Dirección</th></tr>
+  <tr><td>Peso</td><td>P = m·g, vertical hacia abajo</td></tr>
+  <tr><td>Normal (N)</td><td>⊥ a la superficie. Su módulo NO siempre es el peso: se calcula</td></tr>
+  <tr><td>Tensión (T)</td><td>A lo largo de la cuerda, tirando. En cuerda ideal es igual en toda la cuerda</td></tr>
+  <tr><td>Rozamiento estático</td><td>f_s ≤ μ_s·N (mientras el cuerpo no arranca)</td></tr>
+  <tr><td>Rozamiento dinámico</td><td>f_d = μ_d·N (cuerpo ya en movimiento), se opone al movimiento</td></tr>
+  <tr><td>Elástica (resorte)</td><td>F = k·x (restauradora)</td></tr>
+</table>
+
+<h3>Subtipo A: Fuerza mínima para mover algo (rozamiento estático)</h3>
+<p>Para que un cuerpo apoyado <b>empiece</b> a moverse, hay que vencer el rozamiento estático máximo: F ≥ μ_s·N. En piso horizontal, N = m·g.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2025) — Empujar una caja</div>
+  <p>Una caja de <b>70,0 kg</b> sobre piso rugoso, con <b>μ_s = 0,650</b> y <b>μ_d = 0,450</b>.</p>
+  <p><b>a) Fuerza mínima para moverla:</b> hay que igualar el rozamiento estático máximo. F = μ_s·m·g = 0,650·70·9,8 = <b>446 N</b>.</p>
+  <p><b>b) Trabajo al moverla 3,50 m a velocidad constante:</b> si va a velocidad constante, la fuerza aplicada iguala el rozamiento <b>dinámico</b> (F = μ_d·m·g = 0,450·70·9,8 = 309 N). W = F·d = 309·3,50 = <b>1,08 × 10³ J</b>.</p>
+  <p><b>c) Potencia (en 5,00 s):</b> P = W/t = 1080/5,00 = <b>216 W</b>.</p>
+  <p><b>Lógica:</b> para <b>arrancar</b> se usa μ_s (más grande); una vez en movimiento a velocidad constante se usa μ_d (más chico). Por eso "cuesta más arrancar que mantener".</p>
+</div>
+
+<h3>Subtipo B: Sistemas de dos cuerpos (cuerpo + balde por polea)</h3>
+<p>Cuando dos cuerpos están unidos por una cuerda que pasa por una polea ideal, <b>se mueven con la misma aceleración</b> y la tensión es la misma a ambos lados. Se plantea Newton para el sistema completo o para cada cuerpo.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2024) — Cuerpo C sobre la mesa + balde B colgando</div>
+  <p>Cuerpo C de <b>16,5 kg</b> sobre superficie rugosa; balde B de <b>2,00 kg</b> colgando de una cuerda por una polea. μ_s entre C y la mesa = <b>0,450</b>.</p>
+  <p><b>a) Masa mínima a agregar al balde para que C arranque:</b> el peso total colgante debe igualar el rozamiento estático máximo de C:</p>
+  <p>(m_balde + m_agregada)·g = μ_s·m_C·g → m_balde + m_agregada = μ_s·m_C = 0,450·16,5 = 7,425 kg.</p>
+  <p>m_agregada = 7,425 − 2,00 = <b>5,43 kg</b>.</p>
+  <p><b>b) Con 6,50 kg en el balde, el sistema acelera a 1,81 m/s². ¿μ_d?</b> Newton al sistema (lo que empuja = peso colgante; lo que frena = rozamiento dinámico):</p>
+  <p>(2,00 + 6,50)·g − μ_d·m_C·g = (m_C + 8,50)·a</p>
+  <p>8,50·9,8 − μ_d·16,5·9,8 = 25,0·1,81 → 83,3 − 161,7·μ_d = 45,25 → μ_d = <b>0,235</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2025) — Vagones unidos con un resorte</div>
+  <p>Dos vagones sin rozamiento: A de <b>850 kg</b> y B de <b>250 kg</b>. Se tira con <b>F = 400 N</b>. Entre la cuerda y A hay un resorte de k = 5200 N/m.</p>
+  <p><b>a) Aceleración del sistema:</b> a = F/(m_A + m_B) = 400/1100 = <b>0,364 m/s²</b>.</p>
+  <p><b>b) Tensión en la cuerda que une los vagones:</b> esa cuerda solo arrastra al vagón de atrás (B, 250 kg): T = m_B·a = 250·0,364 = <b>90,9 N</b>.</p>
+  <p><b>c) Rapidez a los 30 s:</b> v = a·t = 0,364·30 = <b>10,9 m/s</b>.</p>
+  <p><b>d) Estiramiento del resorte:</b> el resorte transmite la fuerza que acelera todo el sistema: F_res = (m_A+m_B)·a = 400 N. x = F_res/k = 400/5200 = 0,0769 m = <b>7,69 cm</b>.</p>
+  <p><b>e) Distancia a los 60 s:</b> d = ½·a·t² = ½·0,364·60² = <b>655 m</b>.</p>
+</div>
+
+<h3>Subtipo C: Plano inclinado</h3>
+<p>Conviene rotar los ejes: x a lo largo del plano, y perpendicular. El peso se descompone en P_x = m·g·sen(α) (baja por el plano) y P_y = m·g·cos(α). Sin rozamiento:</p>
+<div class="formula">
+  a = g·sen(α) &nbsp;&nbsp; (no depende de la masa)<br>
+  Con rozamiento: a = g·(sen α − μ_d·cos α)
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fisica-segundo-parcial"></div>
+<a class="back" href="#subject-fisica-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · TRABAJO Y ENERGÍA ============ -->
+<details id="fi2p-s5">
+<summary><span class="num">5</span> TIPO 4 · Trabajo, potencia y energía <span class="sec-score" id="ss-fisica-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<h3>El tema más "rendidor" del parcial</h3>
+<p>La energía permite resolver muchos incisos <b>sin pasar por las fuerzas ni los tiempos</b>: si conocés velocidades y alturas inicial y final, sabés el resultado. Es la herramienta favorita para "rapidez al final de…", "distancia hasta detenerse", "compresión de un resorte".</p>
+
+<h3>Definiciones</h3>
+<div class="formula">
+  <b>Trabajo:</b> W = F·d·cos(θ) (θ = ángulo entre fuerza y desplazamiento). Unidad: Joule (J)<br>
+  <b>Potencia:</b> P = W/t = F·v·cos(θ). Unidad: Watt (W)<br>
+  <b>E. cinética:</b> E_c = ½·m·v² &nbsp;·&nbsp; <b>E. potencial grav.:</b> E_pg = m·g·h &nbsp;·&nbsp; <b>E. elástica:</b> E_pe = ½·k·x²
+</div>
+
+<div class="key"><div class="ky-t">Signos del trabajo (clave para el rozamiento)</div>
+• Fuerza a favor del movimiento (θ = 0°) → W &gt; 0 (entrega energía).<br>
+• Fuerza perpendicular (θ = 90°) → W = 0. <b>La normal nunca hace trabajo.</b><br>
+• Fuerza en contra (θ = 180°) → W &lt; 0 (quita energía). <b>El rozamiento dinámico siempre hace trabajo negativo</b> (por eso lleva cos 180° = −1).
+</div>
+
+<h3>Las dos herramientas estrella</h3>
+<div class="formula">
+  <b>Teorema trabajo–energía cinética:</b> W_neto = ΔE_c = E_c,f − E_c,i<br>
+  <b>Conservación</b> (solo fuerzas conservativas): E_m,i = E_m,f<br>
+  <b>Con rozamiento u otras no conservativas:</b> W_no_cons = E_m,f − E_m,i
+</div>
+
+<h3>Subtipo A: Resorte y energía potencial elástica (Hooke)</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2024) — Pesa colgada de un resorte</div>
+  <p>De un resorte ideal cuelga una pesa de <b>12,5 kg</b> y el resorte se estira <b>5,00 cm</b>. a) ¿Energía potencial elástica acumulada? b) ¿Y si se cuelgan dos pesas?</p>
+  <p><b>Paso 1 — hallar k:</b> en equilibrio el peso iguala la fuerza elástica: m·g = k·Δx → k = (12,5·9,8)/0,05 = <b>2450 N/m</b>.</p>
+  <p><b>a) Energía elástica:</b> E_pe = ½·k·Δx² = ½·2450·(0,05)² = ½·2450·0,0025 = <b>3,06 J</b>.</p>
+  <p><b>b) Con dos pesas:</b> el estiramiento se duplica (Δx = 0,10 m). Como E_pe ∝ Δx², al duplicar Δx la energía se <b>cuadruplica</b> (×4): 12,25 J.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2025) — Masa que cae y comprime un resorte</div>
+  <p>Una masa de <b>120 kg</b> se eleva 1,85 m sobre un resorte (k = 4,75×10⁵ N/m), se suelta y lo comprime hasta detenerse.</p>
+  <p><b>a) Incremento de E potencial al elevarla:</b> ΔE_pg = m·g·h = 120·9,8·1,85 = <b>2,18 × 10³ J</b>.</p>
+  <p><b>b) Compresión del resorte:</b> toda esa energía se transfiere al resorte (conservación). Aproximando E_pg ≈ ½·k·x²: x = √(2·E/k) = √(2·2176/475000) = √(0,00916) = 0,0957 m = <b>9,57 cm</b>.</p>
+</div>
+
+<h3>Subtipo B: Objeto que desliza con rozamiento hasta frenar</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2023) — Jarra que desliza por el mostrador</div>
+  <p>Una jarra de <b>0,800 kg</b> se desliza a <b>4,00 m/s</b>; μ_d entre vidrio y acero = <b>0,155</b>. ¿Distancia L hasta detenerse?</p>
+  <p>El rozamiento disipa toda la energía cinética: ΔE_c = W_roz.</p>
+  <p>0 − ½·m·v² = −μ_d·m·g·L → ½·v² = μ_d·g·L → L = v²/(2·μ_d·g) = 16/(2·0,155·9,8) = <b>5,27 m</b>.</p>
+  <p><b>Lógica:</b> la masa se cancela. La distancia de frenado depende solo de la velocidad inicial (al cuadrado) y del rozamiento.</p>
+</div>
+
+<h3>Subtipo C: Auto que frena o arranca (W = ΔE_c y potencia)</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2024) — F1 que frena en una curva</div>
+  <p>Un F1 de <b>800 kg</b> frena de <b>250 km/h</b> a <b>80,0 km/h</b> en <b>1,25 s</b>. Hallá: espacio, trabajo de frenado, fuerza de frenado y potencia.</p>
+  <p>Convierto: v_i = 250/3,6 = 69,4 m/s ; v_f = 80/3,6 = 22,2 m/s.</p>
+  <p><b>a) Aceleración:</b> a = (22,2 − 69,4)/1,25 = −37,7 m/s². <b>Espacio:</b> e = v_i·t + ½·a·t² = 69,4·1,25 − ½·37,7·1,25² = <b>57,3 m</b>.</p>
+  <p><b>b) Trabajo de frenado</b> (= variación de E_c): W = ½·800·(22,2² − 69,4²) = <b>−1,73 × 10⁶ J</b> (negativo: frena).</p>
+  <p><b>c) Fuerza de frenado:</b> W = F·e·cos(180°) → F = |W|/e = 1,73×10⁶/57,3 = <b>3,02 × 10⁴ N</b>.</p>
+  <p><b>d) Potencia media:</b> P = |W|/t = 1,73×10⁶/1,25 = <b>1,39 × 10⁶ W</b>.</p>
+</div>
+
+<h3>Subtipo D: Conservación entre puntos a distinta altura (montaña rusa)</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Torti 2024) — Montaña rusa sin rozamiento</div>
+  <p>Un carrito (250 kg) pasa por el punto 1 a <b>60,0 km/h</b> (16,7 m/s). El punto 2 está <b>9,00 m</b> más arriba; el punto 3 vuelve al nivel del 1.</p>
+  <p><b>Rapidez en 2</b> (conservación): ½·v₂² = ½·v₁² − g·h → v₂² = 16,7² − 2·9,8·9 = 278 − 176 = 101 → v₂ = <b>10,1 m/s</b>.</p>
+  <p><b>Rapidez en 3:</b> como el punto 3 está a la misma altura que el 1, por conservación <b>v₃ = v₁ = 16,7 m/s</b>.</p>
+  <p><b>Lógica:</b> sin rozamiento, la rapidez depende solo de la altura. A igual altura, igual rapidez (sin importar el recorrido).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="fisica-segundo-parcial"></div>
+<a class="back" href="#subject-fisica-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · MIX INTEGRADOR ============ -->
+<details id="fi2p-s6">
+<summary><span class="num">6</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-fisica-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Reconocer qué fórmula disparar en menos de 30 segundos</h3>
+<table class="tbl">
+  <tr><th>El enunciado pide...</th><th>Herramienta</th></tr>
+  <tr><td>Rapidez al final de una rampa / caída (sin tiempo)</td><td>Conservación: E_m,i = E_m,f</td></tr>
+  <tr><td>Distancia hasta detenerse por rozamiento</td><td>½·m·v² = μ_d·m·g·L</td></tr>
+  <tr><td>Fuerza, aceleración o tensión</td><td>Newton: ΣF = m·a</td></tr>
+  <tr><td>Altura máxima / alcance de un proyectil</td><td>Tiro oblicuo: separar x (MRU) e y (caída)</td></tr>
+  <tr><td>Trabajo o potencia de una fuerza que frena/impulsa</td><td>W = ΔE_c ; P = W/t</td></tr>
+  <tr><td>Compresión / estiramiento de un resorte</td><td>Energía: E_pg o E_c = ½·k·x²</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+<div class="trap"><div class="tr-t">Error 1 — No convertir km/h a m/s</div>
+Mezclar km/h con metros y segundos da resultados con factor 3,6 de error. <b>Siempre dividí por 3,6 primero.</b>
+</div>
+<div class="trap"><div class="tr-t">Error 2 — Poner E_c = 0 en la altura máxima del tiro oblicuo</div>
+En el punto más alto vᵧ = 0 pero vₓ ≠ 0. La energía cinética vale ½·m·vₓ², no cero.
+</div>
+<div class="trap"><div class="tr-t">Error 3 — Confundir μ_s con μ_d</div>
+Para que algo <b>arranque</b> se usa el estático μ_s (mayor). Una vez moviéndose, el dinámico μ_d (menor).
+</div>
+<div class="trap"><div class="tr-t">Error 4 — Olvidar el cuadrado en la energía</div>
+E_c = ½·m·v² y E_pe = ½·k·x²: la velocidad y la deformación van <b>al cuadrado</b>. Por eso al duplicar v la energía se cuadruplica.
+</div>
+
+<h3>Práctica integradora — el problema estrella resuelto</h3>
+<div class="example">
+  <div class="ex-t">Integrador 1 — F1 que arranca (Parcial Torti 2023)</div>
+  <p>Un F1 de <b>800 kg</b> acelera de 0 a <b>96,6 km/h</b> en <b>1,70 s</b>. Fuerza, distancia y potencia.</p>
+  <p>v_f = 96,6/3,6 = 26,8 m/s. a = 26,8/1,70 = 15,8 m/s². <b>F = m·a = 800·15,8 = 1,26 × 10⁴ N</b>.</p>
+  <p>Distancia: e = ½·a·t² = ½·15,8·1,70² = <b>22,8 m</b>. Potencia: P = W/t = ½·m·v_f²/t = ½·800·26,8²/1,70 = <b>1,69 × 10⁵ W</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Cañón Gustav (Parcial Torti 2024)</div>
+  <p>Proyectil de 5000 kg disparado a <b>720 m/s</b> a <b>63,0°</b> (sin aire). Altura máxima y energía cinética en ella.</p>
+  <p>vᵧ = 720·sen(63°) = 642 m/s ; vₓ = 720·cos(63°) = 327 m/s.</p>
+  <p>h_max = vᵧ²/(2g) = 642²/19,6 = <b>2,10 × 10⁴ m</b> (¡21 km!). E_c en altura máxima = ½·5000·327² = <b>2,67 × 10⁸ J</b> (con vₓ, no cero).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Resorte, energía y Hooke</div>
+  <p>Pesa de 12,5 kg estira un resorte 5,00 cm. k = m·g/Δx = 2450 N/m; E_pe = ½·k·Δx² = 3,06 J. Al duplicar la masa, Δx se duplica y la energía se cuadruplica (×4).</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 3 problemas y anotá los datos de cada uno <b>convertidos a SI</b>.<br>
+2. En cada inciso decidí: ¿Newton (fuerzas, tiempos) o Energía (velocidades, alturas)?<br>
+3. En tiro oblicuo: separá x (MRU) e y (caída). Acordate que vₓ no cambia.<br>
+4. En rozamiento: ¿arranca (μ_s) o se mueve (μ_d)? El rozamiento dinámico hace W &lt; 0.<br>
+5. Escribí cada resultado con <b>unidad y 3 cifras significativas</b> (es nota).<br>
+6. Chequeo final de unidades: energía en J, fuerza en N, potencia en W.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fisica-segundo-parcial"></div>
+<a class="back" href="#subject-fisica-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>

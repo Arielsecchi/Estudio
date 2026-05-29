@@ -1,0 +1,363 @@
+<header>
+    <h1>Análisis · Guía Segundo Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Cabana · Guía intensiva basada en parciales reales (2022–2024) · 2° Parcial 09/06</div>
+  </header>
+<nav class="toc" id="toc-analisis-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#a2p-s1">Estrategia general y fórmulas clave</a></li>
+    <li><a href="#a2p-s2">TIPO 1 · Integrales (métodos)</a></li>
+    <li><a href="#a2p-s3">TIPO 2 · Integral definida, áreas y TFC</a></li>
+    <li><a href="#a2p-s4">TIPO 3 · Polinomio de Taylor</a></li>
+    <li><a href="#a2p-s5">TIPO 4 · Series</a></li>
+    <li><a href="#a2p-s6">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-analisis-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA GENERAL ============ -->
+<details id="a2p-s1">
+<summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-analisis-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<h3>Cómo es el 2° parcial Cabana</h3>
+<p>Mirando los parciales reales (TEMA 1, 2, 3, 4 de 2022 y 2024), el examen es <b>extremadamente predecible</b>: siempre tiene <b>6 ejercicios</b> sobre los mismos 4 ó 5 temas, mezclando ejercicios <b>para completar</b> (escribís el resultado) y de <b>opción múltiple</b>. Total 10 puntos.</p>
+<p>El 2° parcial cubre <b>todo lo que viene después de las asíntotas</b> (donde terminó el 1°): estudio de funciones, polinomio de Taylor, integrales, áreas y series.</p>
+
+<div class="key"><div class="ky-t">El "menú fijo" del parcial</div>
+Casi siempre vas a encontrar:<br>
+• 1 ejercicio de <b>integral con un dato</b> (cambio de variable + partes usando una integral que te dan).<br>
+• 1 de <b>series</b> (radio e intervalo de convergencia, o suma de una serie geométrica).<br>
+• 1 de <b>área = valor → hallar un parámetro</b> (a, o un ángulo).<br>
+• 1 de <b>integral de tabla / por sustitución</b> (opción múltiple).<br>
+• 1 de <b>Taylor</b> (con composición o leyendo derivadas del polinomio).<br>
+• 1 de <b>TFC + área</b> (derivar una integral, o plantear la integral del área).
+</div>
+
+<h3>Las 3 preguntas al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>∫ sin límites, "hallar la primitiva", sustitución, partes</td><td><b>TIPO 1</b> — Integrales</td></tr>
+  <tr><td>∫ con límites, "área encerrada", "Regla de Barrow", d/dx de una integral</td><td><b>TIPO 2</b> — Definida / áreas / TFC</td></tr>
+  <tr><td>"polinomio de Taylor", P(x) centrado en x₀, f⁽ⁿ⁾(c)</td><td><b>TIPO 3</b> — Taylor</td></tr>
+  <tr><td>Σ (sumatoria), "radio de convergencia", "suma de la serie"</td><td><b>TIPO 4</b> — Series</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Qué dispara?</h4>
+<ul>
+  <li><b>Integral con un dato</b> (∫t·f(t)dt o f(a)): cambio de variable y después <b>partes</b>.</li>
+  <li><b>Área = número → hallar parámetro</b>: planteás la integral, la resolvés con el parámetro adentro, e igualás al número.</li>
+  <li><b>Radio de convergencia</b>: criterio de la <b>raíz</b> o del <b>cociente</b> sobre el término general; después analizás los extremos aparte.</li>
+  <li><b>Suma de serie geométrica</b>: <span class="m">Σ a·rⁿ = a/(1−r)</span> (si |r|&lt;1); ojo con desde qué n arranca.</li>
+  <li><b>Derivar una integral</b>: Teorema Fundamental del Cálculo (+ regla de la cadena / del producto).</li>
+</ul>
+
+<h3>Fórmulas imprescindibles · Integrales</h3>
+<div class="formula">
+∫xⁿ dx = x<sup>n+1</sup>/(n+1) + C (n ≠ −1) &nbsp;&nbsp; ∫(1/x) dx = ln|x| + C<br>
+∫eˣ dx = eˣ + C &nbsp;&nbsp; ∫cos x dx = sen x + C &nbsp;&nbsp; ∫sen x dx = −cos x + C<br><br>
+Sustitución: u = "función de adentro", se reemplaza dx por du<br>
+Por partes: ∫u dv = u·v − ∫v du
+</div>
+
+<h3>Fórmulas imprescindibles · Definida, áreas y TFC</h3>
+<div class="formula">
+Regla de Barrow: ∫<sub>a</sub><sup>b</sup> f = F(b) − F(a)<br>
+Área entre curvas: A = ∫<sub>a</sub><sup>b</sup> (arriba − abajo) dx (los límites son las intersecciones)<br><br>
+TFC: d/dx ∫<sub>a</sub><sup>x</sup> f(t) dt = f(x)<br>
+Con límite g(x): d/dx ∫<sub>a</sub><sup>g(x)</sup> f(t) dt = f(g(x))·g′(x)
+</div>
+
+<h3>Fórmulas imprescindibles · Taylor</h3>
+<div class="formula">
+P<sub>n</sub>(x) = f(c) + f′(c)(x−c) + f″(c)/2!·(x−c)² + … + f⁽ⁿ⁾(c)/n!·(x−c)ⁿ<br>
+Coeficiente de (x−c)<sup>k</sup> = f⁽ᵏ⁾(c)/k! &nbsp;⟺&nbsp; f⁽ᵏ⁾(c) = k!·(ese coeficiente)
+</div>
+
+<h3>Fórmulas imprescindibles · Series</h3>
+<div class="formula">
+Geométrica: Σ<sub>n=0</sub><sup>∞</sup> a·rⁿ = a/(1−r) si |r| &lt; 1 (diverge si |r| ≥ 1)<br>
+Serie p: Σ 1/n<sup>p</sup> converge ⟺ p &gt; 1<br><br>
+Radio R de Σ a<sub>n</sub>(x−c)ⁿ: por criterio de la raíz/cociente; converge para |x−c| &lt; R<br>
+Después: analizar por separado los extremos x = c ± R
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro</div>
+El parcial Cabana es de "recetas": cada tipo de ejercicio se resuelve con un procedimiento fijo. No improvises — identificá el tipo y seguí la receta. La mayoría de los errores son de <b>cuentas</b> (signos, factoriales, límites de integración), no de concepto.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="analisis-segundo-parcial"></div>
+<a class="back" href="#subject-analisis-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · INTEGRALES ============ -->
+<details id="a2p-s2">
+<summary><span class="num">2</span> TIPO 1 · Integrales (métodos) <span class="sec-score" id="ss-analisis-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (2–3 ejercicios)</h3>
+<p>Hay que tener los tres métodos aceitados: <b>sustitución</b>, <b>por partes</b> y <b>tabla</b>. El parcial casi siempre combina varios en un mismo ejercicio.</p>
+
+<h3>Subtipo A: Integral de tabla / sustitución (opción múltiple)</h3>
+<p>Reconocé la primitiva directa o la sustitución. Truco para opción múltiple: <b>derivá cada opción</b> y mirá cuál te devuelve el integrando.</p>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 1/2) — Integral con secante</div>
+  <p>Calcular <span class="m">∫ sec(2x)·tan(2x) dx</span>.</p>
+  <p><b>Clave:</b> recordá que <span class="m">d/dx sec(u) = sec(u)·tan(u)·u′</span>. Con u = 2x, u′ = 2, así que <span class="m">d/dx sec(2x) = 2·sec(2x)tan(2x)</span>.</p>
+  <div class="formula">∫ sec(2x)tan(2x) dx = ½·sec(2x) + C</div>
+  <p>(También sale con la sustitución u = cos(2x), reescribiendo sec·tan = sen(2x)/cos²(2x).)</p>
+</div>
+
+<h3>Subtipo B: Integral combinada (separar + tabla + partes)</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2022/2024, Tema 3/4) — Separar y resolver</div>
+  <p>Calcular <span class="m">∫ (√(3x) − 3x⁴·cos x)/x³ dx</span>.</p>
+  <p><b>Paso 1 — separo en dos:</b> <span class="m">∫ √3·x<sup>1/2</sup>/x³ dx − ∫ 3x⁴cos x/x³ dx = √3·∫x<sup>−5/2</sup> dx − 3·∫x·cos x dx</span>.</p>
+  <p><b>Paso 2 — primera por tabla:</b> <span class="m">√3·x<sup>−3/2</sup>/(−3/2) = −(2√3/3)·x<sup>−3/2</sup></span>.</p>
+  <p><b>Paso 3 — segunda por partes:</b> <span class="m">∫x cos x dx = x·sen x + cos x</span>.</p>
+  <div class="formula">Resultado: −(2√3/3)·x<sup>−3/2</sup> − 3x·sen x − 3·cos x + C</div>
+</div>
+
+<h3>Subtipo C: Integral con un dato (cambio de variable + partes) · ¡el clásico!</h3>
+<p>Te dan datos sobre <span class="m">f</span> (como <span class="m">f(5)=2</span> y <span class="m">∫₀⁵ t·f(t)dt = 15</span>) y te piden otra integral con <span class="m">f′</span> adentro. Receta: <b>cambio de variable</b> para "limpiar", después <b>partes</b> para que aparezcan los datos.</p>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 1) — Integral con dato</div>
+  <p>f tiene derivada continua, <span class="m">f(5)=2</span> y <span class="m">∫₀⁵ t·f(t)dt = 15</span>. Hallar <span class="m">A = ∫₀<sup>125</sup> f′(x<sup>1/3</sup>) dx</span>.</p>
+  <p><b>Paso 1 — cambio de variable</b> <span class="m">y = x<sup>1/3</sup></span> → <span class="m">x = y³, dx = 3y² dy</span>. Límites: x=0→y=0, x=125→y=5.</p>
+  <div class="formula">A = ∫₀⁵ f′(y)·3y² dy = 3·∫₀⁵ y²·f′(y) dy</div>
+  <p><b>Paso 2 — por partes</b> (u = y², dv = f′(y)dy → v = f(y)):</p>
+  <div class="formula">
+  3·[ y²·f(y) |₀⁵ − ∫₀⁵ 2y·f(y) dy ] = 3·[ 25·f(5) − 2·∫₀⁵ y·f(y) dy ]
+  </div>
+  <p><b>Paso 3 — reemplazo los datos:</b> <span class="m">3·(25·2 − 2·15) = 3·(50 − 30) = 3·20 = 60</span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa — recordar reescalar los límites</div>
+Cuando hacés un cambio de variable en una integral <b>definida</b>, tenés que cambiar también los límites (x=125 → y=5), o volver a la variable original antes de evaluar. Olvidarlo es el error más común de este ejercicio.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="analisis-segundo-parcial"></div>
+<a class="back" href="#subject-analisis-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · DEFINIDA, ÁREAS, TFC ============ -->
+<details id="a2p-s3">
+<summary><span class="num">3</span> TIPO 2 · Integral definida, áreas y TFC <span class="sec-score" id="ss-analisis-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (2 ejercicios)</h3>
+<p>Dos clásicos: <b>área = valor → hallar un parámetro</b>, y <b>plantear / derivar</b> usando el Teorema Fundamental del Cálculo.</p>
+
+<h3>Subtipo A: Área = valor → hallar el parámetro</h3>
+<div class="key"><div class="ky-t">Receta</div>
+1. Planteá la integral del área (con el parámetro a adentro).<br>
+2. Resolvé con Barrow, dejando el parámetro.<br>
+3. Igualá al valor dado y despejá el parámetro.
+</div>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 1) — Hallar a</div>
+  <p>Hallar <span class="m">a &gt; 0</span> para que el área entre el eje x, <span class="m">f(x) = a·√x</span> y la recta <span class="m">x = 1</span> sea 10.</p>
+  <div class="formula">∫₀¹ a·√x dx = a·(2/3)·x<sup>3/2</sup> |₀¹ = (2a)/3 = 10 → a = 15</div>
+</div>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 4) — Hallar el ángulo a</div>
+  <p>Hallar <span class="m">a ∈ [0, π/4]</span> sabiendo que el área entre <span class="m">f(x)=cos(2x)</span>, los ejes y <span class="m">x = a</span> es <span class="m">√2/4</span>.</p>
+  <div class="formula">∫₀<sup>a</sup> cos(2x) dx = ½·sen(2x) |₀<sup>a</sup> = ½·sen(2a) = √2/4 → sen(2a) = √2/2 → 2a = π/4 → a = π/8</div>
+</div>
+
+<h3>Subtipo B: Plantear el área (dónde corta el eje / valor absoluto)</h3>
+<p>Cuando la función cambia de signo, el área NO es <span class="m">∫f</span> directo: primero hay que ver <b>dónde corta el eje x</b> para poner bien los límites (y el signo).</p>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 1) — Dónde corta el eje</div>
+  <p>Área entre <span class="m">f(x) = 4·ln(x/7) − 1</span>, el eje x y la recta <span class="m">x = 7e</span>.</p>
+  <p><b>Busco el corte:</b> <span class="m">4·ln(x/7) − 1 = 0 → ln(x/7) = 1/4 → x/7 = e<sup>1/4</sup> → x = 7e<sup>1/4</sup></span>.</p>
+  <p>Entre <span class="m">7e<sup>1/4</sup></span> y <span class="m">7e</span> la función es positiva, así que el área es <span class="m">∫<sub>7e^(1/4)</sub><sup>7e</sup> (4·ln(x/7) − 1) dx</span>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2022/2024, Tema 3/4) — Área entre varias curvas</div>
+  <p><span class="m">f(x) = 16/(x−2)²</span>, <span class="m">y = 16</span>, <span class="m">y = 4</span>. Para plantear el área hay que hallar los cruces: <span class="m">16/(x−2)² = 16 → x = 1, 3</span>; <span class="m">16/(x−2)² = 4 → x = 0, 4</span>. El área se arma por tramos: <span class="m">∫₀¹(f−4) + ∫₁³(16−4) + ∫₃⁴(f−4)</span>.</p>
+</div>
+
+<h3>Subtipo C: Teorema Fundamental del Cálculo (derivar integrales)</h3>
+<p>Derivar una integral con límite variable "deshace" la integral. Si el límite es <span class="m">g(x)</span>, se multiplica por <span class="m">g′(x)</span> (regla de la cadena). Si la integral está <b>multiplicada</b> por otra función, va con regla del producto.</p>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 4) — TFC + producto</div>
+  <p><span class="m">h(x) = x·∫₀<sup>x</sup> e<sup>t²</sup> dt + 9</span>. Hallar h″(x) y el Taylor de orden 2 en 0.</p>
+  <p><b>Primera derivada</b> (producto + TFC): <span class="m">h′(x) = 1·∫₀<sup>x</sup>e<sup>t²</sup>dt + x·e<sup>x²</sup></span>.</p>
+  <p><b>Segunda derivada:</b> <span class="m">h″(x) = e<sup>x²</sup> + (e<sup>x²</sup> + x·e<sup>x²</sup>·2x) = 2e<sup>x²</sup>(1 + x²)</span>.</p>
+  <p><b>Taylor en 0:</b> h(0)=9, h′(0)=0, h″(0)=2 → <span class="m">P(x) = 9 + 0·x + (2/2!)x² = 9 + x²</span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa — el área siempre es positiva</div>
+Si la función queda por debajo del eje en parte del intervalo, ∫f puede dar negativo o "cancelarse". El <b>área</b> usa el valor absoluto: separá en tramos según dónde corta el eje y sumá cada pedazo en positivo.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="analisis-segundo-parcial"></div>
+<a class="back" href="#subject-analisis-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · TAYLOR ============ -->
+<details id="a2p-s4">
+<summary><span class="num">4</span> TIPO 3 · Polinomio de Taylor <span class="sec-score" id="ss-analisis-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en casi todos los parciales (1 ejercicio)</h3>
+<p>En el 2° parcial Cabana, Taylor casi nunca pide "calculá el polinomio de cero": pide <b>composición</b> (usar el polinomio de g para una f que contiene a g) o <b>leer derivadas</b> a partir del polinomio dado.</p>
+
+<h3>Recordatorio de la fórmula</h3>
+<div class="formula">
+P<sub>n</sub>(x) = f(c) + f′(c)(x−c) + f″(c)/2!·(x−c)² + … + f⁽ⁿ⁾(c)/n!·(x−c)ⁿ
+</div>
+<div class="key"><div class="ky-t">El atajo que usan estos ejercicios</div>
+El coeficiente de <span class="m">(x−c)<sup>k</sup></span> es <span class="m">f⁽ᵏ⁾(c)/k!</span>. Por lo tanto, desde un polinomio dado leés directo: <span class="m">f(c)</span> = término independiente, <span class="m">f′(c)</span> = coef de (x−c), <span class="m">f″(c)</span> = 2!·(coef de (x−c)²), etc.<br>
+También: <span class="m">P<sub>n</sub>(c) = f(c)</span> y <span class="m">P′<sub>n</sub>(c) = f′(c)</span> (las derivadas del polinomio en c coinciden con las de f).
+</div>
+
+<h3>Subtipo A: Composición — usar el Taylor de g dentro de f</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 1) — f que contiene a g</div>
+  <p>Sea <span class="m">f(x) = 3·ln(g(x)) + 4x²</span>. Si <span class="m">P(x) = 1 + 9(x+1) + 40(x+1)²</span> es el Taylor de orden 2 de <span class="m">g</span> en <span class="m">x₀ = −1</span>, hallar f′(x) y f′(−1).</p>
+  <p><b>Derivo f</b> (cadena en el ln): <span class="m">f′(x) = 3·g′(x)/g(x) + 8x</span>.</p>
+  <p><b>Leo del polinomio de g:</b> <span class="m">P(−1) = 1 = g(−1)</span>; <span class="m">P′(x) = 9 + 80(x+1) → P′(−1) = 9 = g′(−1)</span>.</p>
+  <p><b>Evalúo:</b> <span class="m">f′(−1) = 3·(9/1) + 8·(−1) = 27 − 8 = 19</span>.</p>
+</div>
+
+<h3>Subtipo B: Taylor de una función definida con una integral</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 4) — Taylor + TFC</div>
+  <p><span class="m">h(x) = x·∫₀<sup>x</sup> e<sup>t²</sup> dt + 9</span>. Taylor de orden 2 en 0.</p>
+  <p>Ya calculamos (sección anterior): h(0)=9, h′(0)=0, h″(0)=2. Entonces:</p>
+  <div class="formula">P(x) = 9 + 0·x + (2/2!)·x² = 9 + x²</div>
+  <p>Moraleja: para armar Taylor solo necesitás los valores <span class="m">f(c), f′(c), f″(c)…</span>, aunque la función venga "disfrazada" con una integral.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa — leer mal el coeficiente</div>
+Si te dan <span class="m">P(x) = … + 40(x+1)²</span>, entonces <span class="m">g″(−1) = 2!·40 = 80</span> (NO 40). El 40 es el coeficiente; la derivada es coeficiente × factorial. (En el ejercicio de arriba solo se necesitaba g y g′, pero esta confusión aparece seguido.)
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="analisis-segundo-parcial"></div>
+<a class="back" href="#subject-analisis-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · SERIES ============ -->
+<details id="a2p-s5">
+<summary><span class="num">5</span> TIPO 4 · Series <span class="sec-score" id="ss-analisis-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los parciales (1–2 ejercicios)</h3>
+<p>Dos sabores: <b>series de potencias</b> (hallar radio e intervalo de convergencia) y <b>series geométricas</b> (calcular la suma). Es la última unidad del programa (se habilita cerca del parcial), pero es muy "mecánica".</p>
+
+<h3>Subtipo A: Radio e intervalo de convergencia</h3>
+<div class="key"><div class="ky-t">Receta</div>
+1. Aplicá el criterio de la <b>raíz</b> (<span class="m">lim ⁿ√|aₙ|</span>) o del <b>cociente</b> (<span class="m">lim |aₙ₊₁/aₙ|</span>) al término general.<br>
+2. Pedí que el límite sea <b>&lt; 1</b>: te queda <span class="m">|x − c| &lt; R</span>, de donde sale el radio R y el intervalo abierto.<br>
+3. <b>Analizá los extremos</b> (x = c−R y x = c+R) por separado: reemplazás y mirás si la serie numérica converge.
+</div>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2024, Tema 1) — Serie de potencias</div>
+  <p>Serie <span class="m">Σ<sub>n=1</sub><sup>∞</sup> (4ⁿ/n³)·(x−3)ⁿ</span>.</p>
+  <p><b>Criterio de la raíz:</b> <span class="m">lim ⁿ√|(4ⁿ/n³)(x−3)ⁿ| = lim (4/ⁿ√(n³))·|x−3| = 4·|x−3|</span> (porque <span class="m">ⁿ√(n³) → 1</span>).</p>
+  <p><b>Pido &lt; 1:</b> <span class="m">4|x−3| &lt; 1 → |x−3| &lt; 1/4</span>. <b>Radio R = 1/4</b>, intervalo abierto <span class="m">(11/4, 13/4)</span>.</p>
+  <p><b>Extremos:</b></p>
+  <p>• <span class="m">x = 13/4</span>: queda <span class="m">Σ (4ⁿ/n³)(1/4)ⁿ = Σ 1/n³</span> → converge (serie p con p=3).</p>
+  <p>• <span class="m">x = 11/4</span>: queda <span class="m">Σ (−1)ⁿ/n³</span> → converge (absolutamente).</p>
+  <p><b>Convergen ambos extremos → intervalo cerrado [11/4, 13/4].</b></p>
+</div>
+
+<h3>Subtipo B: Suma de una serie geométrica</h3>
+<div class="formula">
+Σ<sub>n=0</sub><sup>∞</sup> a·rⁿ = a/(1−r) &nbsp; (si |r| &lt; 1)
+</div>
+<div class="key"><div class="ky-t">Cuidado con el índice de arranque</div>
+La fórmula <span class="m">a/(1−r)</span> es para una suma que <b>arranca en n = 0</b>. Si tu serie empieza en <span class="m">n = 2</span>, calculás la suma desde 0 y le <b>restás los términos n = 0 y n = 1</b>.
+</div>
+<div class="example">
+  <div class="ex-t">Ejercicio real (2022/2024, Tema 3/4) — Suma de serie</div>
+  <p>Calcular <span class="m">Σ<sub>n=2</sub><sup>∞</sup> (4·3ⁿ + 4ⁿ)/7ⁿ</span>.</p>
+  <p><b>Separo en dos geométricas:</b> <span class="m">4·Σ<sub>n=2</sub>(3/7)ⁿ + Σ<sub>n=2</sub>(4/7)ⁿ</span>.</p>
+  <p><b>Cada una desde 0 y resto n=0,1:</b></p>
+  <p>• <span class="m">Σ<sub>n=2</sub>(3/7)ⁿ = 1/(1−3/7) − 1 − 3/7 = 7/4 − 10/7 = 9/28</span>. Por 4: <span class="m">9/7</span>.</p>
+  <p>• <span class="m">Σ<sub>n=2</sub>(4/7)ⁿ = 1/(1−4/7) − 1 − 4/7 = 7/3 − 11/7 = 16/21</span>.</p>
+  <p><b>Total:</b> <span class="m">9/7 + 16/21 = 27/21 + 16/21 = 43/21</span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa — confundir radio con intervalo, y olvidar los extremos</div>
+El <b>radio</b> es un número (R); el <b>intervalo</b> es el conjunto de x. Y el criterio de la raíz/cociente NO decide en los extremos (ahí da exactamente 1): SIEMPRE hay que analizarlos a mano, porque el intervalo puede ser abierto, cerrado o semiabierto.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="analisis-segundo-parcial"></div>
+<a class="back" href="#subject-analisis-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · MIX INTEGRADOR ============ -->
+<details id="a2p-s6">
+<summary><span class="num">6</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-analisis-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en 20 segundos</h3>
+<table class="tbl">
+  <tr><th>Primera frase del enunciado</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"f con f(5)=2 y ∫t·f(t)dt=… calcular ∫f′(…)"</td><td>Integrales</td><td>Cambio de variable + por partes</td></tr>
+  <tr><td>"Hallar a para que el área sea …"</td><td>Áreas</td><td>Plantear ∫, resolver con a, igualar al valor</td></tr>
+  <tr><td>"Σ aₙ(x−c)ⁿ … radio de convergencia"</td><td>Series</td><td>Criterio de la raíz/cociente, luego extremos</td></tr>
+  <tr><td>"La suma de la serie Σ … es"</td><td>Series</td><td>Geométrica a/(1−r); ajustar el índice</td></tr>
+  <tr><td>"P(x)=… es el Taylor de g … calcular f′"</td><td>Taylor</td><td>Leer g, g′ del polinomio (coef × factorial)</td></tr>
+  <tr><td>"h(x)=x·∫… calcular h″"</td><td>TFC</td><td>Regla del producto + TFC</td></tr>
+</table>
+
+<h3>Los 4 errores más caros</h3>
+<div class="trap"><div class="tr-t">Error 1 — No reescalar los límites en el cambio de variable</div>
+En una integral definida, al sustituir hay que cambiar también los límites (o volver a la variable original antes de evaluar con Barrow).
+</div>
+<div class="trap"><div class="tr-t">Error 2 — Olvidar analizar los extremos de la serie</div>
+El radio te da el intervalo abierto; los extremos se estudian aparte. Saltearlos cuesta el punto.
+</div>
+<div class="trap"><div class="tr-t">Error 3 — Confundir coeficiente con derivada en Taylor</div>
+El coeficiente de (x−c)ᵏ es f⁽ᵏ⁾(c)/k!. Para recuperar la derivada hay que <b>multiplicar por k!</b>.
+</div>
+<div class="trap"><div class="tr-t">Error 4 — Plantear el área sin ver dónde corta el eje</div>
+Si la función cambia de signo, ∫f no es el área. Hallá los cortes y armá el área por tramos (en positivo).
+</div>
+
+<h3>Práctica integradora — 5 ejercicios reales</h3>
+<div class="example">
+  <div class="ex-t">Integrador 1 — Integral con dato</div>
+  <p>f(5)=2, ∫₀⁵ t·f(t)dt=15, A=∫₀<sup>125</sup>f′(x<sup>1/3</sup>)dx. Cambio y=x<sup>1/3</sup> → 3∫₀⁵y²f′(y)dy; partes → 3(25·2 − 2·15) = 60.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Integrador 2 — Serie geométrica</div>
+  <p>Σ<sub>n=2</sub>(4·3ⁿ+4ⁿ)/7ⁿ = 4·(9/28) + 16/21 = 9/7 + 16/21 = 43/21.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Integrador 3 — Área = valor</div>
+  <p>Área entre eje x, f=a√x y x=1 igual a 10: ∫₀¹a√x dx = 2a/3 = 10 → a = 15.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Integrador 4 — Taylor con composición</div>
+  <p>f=3ln(g)+4x², P de g en −1 dado. f′(−1)=3·g′(−1)/g(−1) − 8 = 3·9/1 − 8 = 19.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Integrador 5 — TFC + producto</div>
+  <p>h(x)=x∫₀ˣe<sup>t²</sup>dt+9 → h″(x)=2e<sup>x²</sup>(1+x²); Taylor orden 2 en 0: P(x)=9+x².</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 6 ejercicios y etiquetá cada uno (Integral / Área / TFC / Taylor / Serie).<br>
+2. Arrancá por los de "receta corta" (tabla, sustitución, área = valor).<br>
+3. En series, primero el radio, y NO te olvides los extremos.<br>
+4. En "integral con dato": cambio de variable y después partes (siempre en ese orden).<br>
+5. En áreas: dibujá y fijate dónde corta el eje antes de plantear.<br>
+6. Revisá signos y factoriales: ahí se pierde la mayoría de los puntos.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="analisis-segundo-parcial"></div>
+<a class="back" href="#subject-analisis-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>

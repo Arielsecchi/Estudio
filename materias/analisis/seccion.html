@@ -1,10 +1,11 @@
 <header>
     <h1>Análisis Matemático A</h1>
-    <div class="sub">UBA XXI · Cátedra Cabana · Parcial 27/04</div>
+    <div class="sub">UBA XXI · Cátedra Cabana · Parcial 27/04 (1°) y 09/06 (2°)</div>
   </header>
 <nav class="toc" id="toc-analisis">
   <h2>Índice</h2>
   <ol>
+    <li class="partial-sep">Primer parcial (27/04)</li>
     <li><a href="#an-s1">Intervalos, módulo e inecuaciones</a></li>
     <li><a href="#an-s2">Funciones: dominio, composición e inversa</a></li>
     <li><a href="#an-s3">Exponenciales, logaritmos y trigonometría</a></li>
@@ -17,11 +18,18 @@
     <li><a href="#an-s10">Diferencial y aproximación lineal</a></li>
     <li><a href="#an-s11">Regla de L'Hôpital</a></li>
     <li><a href="#an-s12">Asíntotas</a></li>
+    <li class="partial-sep">Segundo parcial (09/06)</li>
     <li><a href="#an-s13">Estudio de función</a></li>
     <li><a href="#an-s14">Máx/mín absolutos</a></li>
+    <li><a href="#an-s15">Polinomio de Taylor</a></li>
+    <li><a href="#an-s16">Integrales indefinidas</a></li>
+    <li><a href="#an-s17">Integral definida, áreas y ec. diferenciales</a></li>
+    <li><a href="#an-s18">Sucesiones y series</a></li>
   </ol>
   <div class="score" id="global-score-analisis">Puntaje global: 0 / 86</div>
 </nav>
+
+<div class="partial-header">Primer parcial <span class="date">Unidades 1–4</span></div>
 
 <!-- ============ SECCIÓN 1 ============ -->
 <details id="an-s1">
@@ -1113,6 +1121,8 @@ En cada lado (+∞ o −∞), la función puede tener AH <b>o</b> AO, <b>nunca l
 </div>
 </details>
 
+<div class="partial-header">Segundo parcial <span class="date">Unidades 4–7</span></div>
+
 <!-- ============ SECCIÓN 13 ============ -->
 <details id="an-s13">
 <summary><span class="num">13</span> Estudio de función <span class="sec-score" id="ss-analisis-13"></span></summary>
@@ -1250,6 +1260,367 @@ Si la función es discontinua, tampoco se garantiza: una función con un salto p
 </div>
 
 <div class="quiz-wrap" data-qz="14" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 15 · POLINOMIO DE TAYLOR ============ -->
+<details id="an-s15">
+<summary><span class="num">15</span> Polinomio de Taylor <span class="sec-score" id="ss-analisis-15"></span></summary>
+<div class="content">
+
+<h3>¿Para qué sirve?</h3>
+<p>El <b>polinomio de Taylor</b> permite <b>aproximar una función</b> (no polinómica) por un polinomio cerca de un punto <span class="m">c</span>. Cuanto mayor el grado, mejor la aproximación en un entorno de <span class="m">c</span>. Sirve para estimar valores como <span class="m">√37</span>, <span class="m">ln(1,21)</span> o <span class="m">cos(0,2)</span> a mano, y para acotar el error que se comete.</p>
+
+<h3>La fórmula</h3>
+<p>El polinomio de Taylor de <span class="m">f</span> de grado <span class="m">n</span> <b>centrado en c</b> es:</p>
+<div class="formula">
+P<sub>n</sub>(x) = f(c) + f′(c)·(x−c) + <span class="m">f″(c)/2!</span>·(x−c)² + <span class="m">f‴(c)/3!</span>·(x−c)³ + … + <span class="m">f<sup>(n)</sup>(c)/n!</span>·(x−c)<sup>n</sup>
+</div>
+<p>Si está <b>centrado en c = 0</b> también se lo llama <b>polinomio de Maclaurin</b>.</p>
+
+<div class="key"><div class="ky-t">La idea clave (y el atajo de los parciales)</div>
+El coeficiente del término <span class="m">(x−c)<sup>k</sup></span> es <span class="m">f<sup>(k)</sup>(c) / k!</span>. Se lee en los dos sentidos:<br>
+• Para <b>armar</b> el polinomio: calculás las derivadas y las dividís por el factorial.<br>
+• Para <b>leer</b> derivadas desde un polinomio dado: <span class="m">f<sup>(k)</sup>(c) = k! · (coeficiente de (x−c)<sup>k</sup>)</span>.<br>
+Además el polinomio "imita" a f en c: <span class="m">P<sub>n</sub>(c) = f(c)</span>, <span class="m">P′<sub>n</sub>(c) = f′(c)</span>, … hasta la derivada n-ésima.
+</div>
+
+<h3>Receta para armarlo</h3>
+<ol>
+  <li>Calculá las derivadas sucesivas <span class="m">f′, f″, …, f<sup>(n)</sup></span>.</li>
+  <li>Evaluá cada una en <span class="m">c</span>.</li>
+  <li>Armá <span class="m">P<sub>n</sub></span> con la fórmula: cada coeficiente es la derivada sobre el factorial.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8) — Taylor de ln(x) de orden 3 en c = 1</div>
+  <p>Derivadas: <span class="m">f(x)=ln x → f(1)=0</span>; <span class="m">f′=1/x → f′(1)=1</span>; <span class="m">f″=−1/x² → f″(1)=−1</span>; <span class="m">f‴=2/x³ → f‴(1)=2</span>.</p>
+  <div class="formula">
+  P₃(x) = 0 + 1·(x−1) + <span class="m">(−1)/2!</span>·(x−1)² + <span class="m">2/3!</span>·(x−1)³ = (x−1) − ½(x−1)² + ⅓(x−1)³
+  </div>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8) — Taylor de eˣ en c = 0</div>
+  <p>Todas las derivadas de <span class="m">eˣ</span> son <span class="m">eˣ</span>, y en 0 valen 1. Entonces el coeficiente de <span class="m">x<sup>k</sup></span> es <span class="m">1/k!</span>:</p>
+  <div class="formula">P<sub>n</sub>(x) = 1 + x + <span class="m">x²/2!</span> + <span class="m">x³/3!</span> + … + <span class="m">x<sup>n</sup>/n!</span></div>
+  <p>Evaluando en x = 1 se aproxima el número <span class="m">e</span>: 1 + 1 + ½ + ⅙ + … ≈ 2,718.</p>
+</div>
+
+<h3>Subtipo clásico: leer derivadas desde el polinomio</h3>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8.3) — Derivadas a partir del polinomio</div>
+  <p>Si el polinomio de Taylor de f centrado en x = 3 es <span class="m">P(x) = 5(x−3)⁶ + 3(x−3) + 1</span>, hallá f(3), f′(3), f⁽⁵⁾(3), f⁽⁶⁾(3) y la recta tangente.</p>
+  <p>Uso <span class="m">f<sup>(k)</sup>(3) = k! · (coef de (x−3)<sup>k</sup>)</span>:</p>
+  <ul>
+    <li>coef de (x−3)⁰ = 1 → <b>f(3) = 1</b>.</li>
+    <li>coef de (x−3)¹ = 3 → <b>f′(3) = 1!·3 = 3</b>.</li>
+    <li>no hay término (x−3)⁵ → coef = 0 → <b>f⁽⁵⁾(3) = 0</b>.</li>
+    <li>coef de (x−3)⁶ = 5 → <b>f⁽⁶⁾(3) = 6!·5 = 720·5 = 3600</b>.</li>
+  </ul>
+  <p><b>Recta tangente</b> en x = 3: es el polinomio de Taylor de <b>orden 1</b>: y = f(3) + f′(3)(x−3) = 1 + 3(x−3) = <b>3x − 8</b>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">La recta tangente ES Taylor de orden 1</div>
+<span class="m">P₁(x) = f(c) + f′(c)(x−c)</span> es exactamente la recta tangente a f en c. <span class="m">P₂</span> agrega la curvatura con el término de f″, y así mejora la aproximación.
+</div>
+
+<h3>Subtipo: aproximar un número</h3>
+<div class="key"><div class="ky-t">Cómo elegir la función y el centro</div>
+Para aproximar (por ejemplo) <span class="m">√37</span>: elegí <span class="m">f(x)=√x</span> y centrá en el <b>cuadrado perfecto más cercano</b>, <span class="m">c = 36</span> (porque √36 = 6 es exacto). Después evaluás <span class="m">P<sub>n</sub>(37)</span>. La regla general: centrar donde la función y sus derivadas sean fáciles de evaluar.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8.7) — Aproximar √37 con grado 2</div>
+  <p>f(x)=√x, c=36. <span class="m">f(36)=6</span>; <span class="m">f′=1/(2√x) → f′(36)=1/12</span>; <span class="m">f″=−1/(4·x^(3/2)) → f″(36)=−1/864</span>.</p>
+  <div class="formula">P₂(x) = 6 + <span class="m">1/12</span>·(x−36) − <span class="m">1/1728</span>·(x−36)²</div>
+  <p>√37 ≈ P₂(37) = 6 + 1/12 − 1/1728 ≈ <b>6,0827</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 8.6) — Aproximar ln(1,21)</div>
+  <p>Como <span class="m">1,21 = 1,1²</span>, conviene <span class="m">g(x) = ln(x²)</span> centrado en x = 1: <span class="m">P₂(x) = 2(x−1) − (x−1)²</span>. Entonces <span class="m">ln(1,21) = g(1,1) ≈ P₂(1,1) = 2·(0,1) − (0,1)² = 0,19</span>.</p>
+</div>
+
+<h3>Subtipo: el resto y la cota del error</h3>
+<p>El error al aproximar f por P<sub>n</sub> es el <b>resto de Lagrange</b>:</p>
+<div class="formula">
+r<sub>n</sub>(x) = <span class="m">f<sup>(n+1)</sup>(z) / (n+1)!</span>·(x−c)<sup>n+1</sup>, &nbsp; con z entre c y x
+</div>
+<p>Para <b>acotar</b> el error se acota <span class="m">|f<sup>(n+1)</sup>(z)|</span> en el intervalo y se reemplaza. Para hallar el <b>grado mínimo</b> que garantice un error pedido, se prueba con valores de n hasta que la cota quede por debajo de lo solicitado.</p>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Olvidar dividir por el factorial en cada coeficiente.<br>
+• Confundir "grado n" con "n derivadas": el polinomio de grado n usa hasta la derivada n; el <b>resto</b> usa la derivada n+1.<br>
+• Al aproximar un número, centrar en un punto donde la función no sea fácil de evaluar: elegí siempre uno "lindo" (cuadrado o cubo perfecto, 0, 1…).
+</div>
+
+<div class="quiz-wrap" data-qz="15" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 16 · INTEGRALES INDEFINIDAS ============ -->
+<details id="an-s16">
+<summary><span class="num">16</span> Integrales indefinidas <span class="sec-score" id="ss-analisis-16"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una primitiva?</h3>
+<p>Integrar es la operación <b>inversa</b> de derivar. Una <b>primitiva</b> de <span class="m">f</span> es una función <span class="m">F</span> tal que <span class="m">F′(x) = f(x)</span>. Como la derivada de una constante es 0, hay <b>infinitas</b> primitivas que difieren en una constante: por eso la <b>integral indefinida</b> se escribe con <span class="m">+ C</span>.</p>
+<div class="formula">
+∫ f(x) dx = F(x) + C &nbsp;&nbsp; ⟺ &nbsp;&nbsp; F′(x) = f(x)
+</div>
+
+<h3>Tabla básica (memorizar)</h3>
+<table class="tbl">
+  <tr><th>Función</th><th>Primitiva</th></tr>
+  <tr><td><span class="m">x<sup>n</sup></span> (n ≠ −1)</td><td><span class="m">x<sup>n+1</sup>/(n+1) + C</span></td></tr>
+  <tr><td><span class="m">1/x</span></td><td><span class="m">ln|x| + C</span></td></tr>
+  <tr><td><span class="m">e<sup>x</sup></span></td><td><span class="m">e<sup>x</sup> + C</span></td></tr>
+  <tr><td><span class="m">cos(x)</span></td><td><span class="m">sen(x) + C</span></td></tr>
+  <tr><td><span class="m">sen(x)</span></td><td><span class="m">−cos(x) + C</span></td></tr>
+</table>
+<p>Más la <b>linealidad</b>: <span class="m">∫(a·f + b·g) = a·∫f + b·∫g</span>. (Ojo: NO hay regla del producto ni del cociente para integrar — para eso están los métodos de abajo.)</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 9.1) — Primitivas directas</div>
+  <p><span class="m">∫(1/∛x) dx = ∫x<sup>−1/3</sup> dx = x<sup>2/3</sup>/(2/3) + C = (3/2)·x<sup>2/3</sup> + C</span>.</p>
+  <p><span class="m">∫(sen x + 3/x) dx = −cos x + 3·ln|x| + C</span>.</p>
+</div>
+
+<h3>Método 1: Sustitución</h3>
+<p>Sirve cuando en el integrando aparece <b>una función y (un múltiplo de) su derivada</b>. Llamás <span class="m">u</span> a la función "de adentro", calculás <span class="m">du</span>, y reescribís todo en términos de <span class="m">u</span>.</p>
+<div class="key"><div class="ky-t">El gatillo</div>
+Buscá una parte cuya derivada también esté (salvo constante) en el integrando. Esa parte es <span class="m">u</span>. Ejemplos de "pista": <span class="m">e<sup>(algo)</sup>·(derivada de algo)</span>, <span class="m">(algo)<sup>n</sup>·(derivada)</span>, <span class="m">(derivada)/(algo)</span>.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplos (Práctica 9.3)</div>
+  <p><span class="m">∫(3x−5)<sup>8</sup> dx</span>: con <span class="m">u = 3x−5, du = 3dx</span> → <span class="m">(1/3)∫u<sup>8</sup>du = (3x−5)<sup>9</sup>/27 + C</span>.</p>
+  <p><span class="m">∫3x·e<sup>x²</sup> dx</span>: con <span class="m">u = x², du = 2x dx</span> → <span class="m">(3/2)·e<sup>x²</sup> + C</span>.</p>
+  <p><span class="m">∫(2e<sup>x</sup>−10)/(e<sup>x</sup>−5x) dx</span>: el numerador es la derivada del denominador → <span class="m">2·ln|e<sup>x</sup>−5x| + C</span>.</p>
+</div>
+
+<h3>Método 2: Integración por partes</h3>
+<p>Para productos donde NO sirve sustitución (típicamente <span class="m">x·e<sup>x</sup></span>, <span class="m">x·cos x</span>, <span class="m">x·ln x</span>, <span class="m">ln x</span> solo, <span class="m">arctan x</span>). La fórmula:</p>
+<div class="formula">
+∫ u dv = u·v − ∫ v du
+</div>
+<div class="key"><div class="ky-t">¿Quién es u y quién dv?</div>
+Elegí como <span class="m">u</span> lo que se <b>simplifica al derivar</b> (logaritmos, arco-funciones, polinomios) y como <span class="m">dv</span> lo fácil de integrar (<span class="m">e<sup>x</sup></span>, sen, cos). Regla mnemotécnica: <b>L-A-P-E-T</b> (Logaritmo, Arco, Polinomio, Exponencial, Trigonométrica) — el primero de la lista que aparezca es <span class="m">u</span>.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplos (Práctica 9.6)</div>
+  <p><span class="m">∫x·cos x dx</span>: u = x, dv = cos x dx → v = sen x. = <span class="m">x·sen x − ∫sen x dx = x·sen x + cos x + C</span>.</p>
+  <p><span class="m">∫ln x dx</span>: u = ln x, dv = dx → v = x. = <span class="m">x·ln x − ∫x·(1/x)dx = x·ln x − x + C</span>.</p>
+</div>
+
+<h3>Método 3: Fracciones simples</h3>
+<p>Para integrar un <b>cociente de polinomios</b>: se factoriza el denominador y se descompone la fracción en una suma de fracciones más simples (una por cada factor). Cada pedacito integra a un <span class="m">ln</span> (o a una potencia).</p>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 9.9a)</div>
+  <p><span class="m">∫(5y−3)/(y²−2y−3) dy</span>. Factorizo: <span class="m">y²−2y−3 = (y+1)(y−3)</span>. Descompongo: <span class="m">(5y−3)/((y+1)(y−3)) = 2/(y+1) + 3/(y−3)</span>.</p>
+  <p>Integro cada término: <span class="m">2·ln|y+1| + 3·ln|y−3| + C</span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Olvidar el <span class="m">+ C</span> (en la indefinida siempre va).<br>
+• En sustitución, no reemplazar <span class="m">dx</span> por <span class="m">du</span> (hay que despejar dx de du).<br>
+• Inventar una "regla del producto/cociente" para integrar: no existe; se usa partes o fracciones simples.<br>
+• <span class="m">∫1/x dx = ln|x|</span> (con módulo), NO <span class="m">x⁰/0</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="16" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 17 · INTEGRAL DEFINIDA, ÁREAS Y EC. DIFERENCIALES ============ -->
+<details id="an-s17">
+<summary><span class="num">17</span> Integral definida, áreas y ec. diferenciales <span class="sec-score" id="ss-analisis-17"></span></summary>
+<div class="content">
+
+<h3>La integral definida y la Regla de Barrow</h3>
+<p>La <b>integral definida</b> <span class="m">∫<sub>a</sub><sup>b</sup> f(x) dx</span> es un <b>número</b>: el área con signo entre la curva y el eje x, de <span class="m">a</span> a <span class="m">b</span>. Se calcula con la <b>Regla de Barrow</b>: buscás una primitiva F y restás.</p>
+<div class="formula">
+∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a) &nbsp;&nbsp; (con F′ = f)
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.5a)</div>
+  <p><span class="m">∫<sub>0</sub><sup>4</sup> 2(t−3) dt = [t² − 6t]<sub>0</sub><sup>4</sup> = (16−24) − 0 = −8</span>. (Da negativo porque el área queda mayormente por debajo del eje.)</p>
+</div>
+<div class="key"><div class="ky-t">Propiedades útiles</div>
+• Linealidad: <span class="m">∫(a·f + b·g) = a·∫f + b·∫g</span>.<br>
+• Partición: <span class="m">∫<sub>a</sub><sup>b</sup> = ∫<sub>a</sub><sup>c</sup> + ∫<sub>c</sub><sup>b</sup></span>.<br>
+• Invertir límites cambia el signo: <span class="m">∫<sub>a</sub><sup>b</sup> = −∫<sub>b</sub><sup>a</sup></span>.<br>
+• Función impar en intervalo simétrico [−k, k]: la integral da <b>0</b> (ej: <span class="m">∫<sub>−1</sub><sup>1</sup>(x⁵−3x)dx = 0</span>).
+</div>
+
+<h3>Teorema Fundamental del Cálculo (TFC)</h3>
+<p>Conecta derivada e integral: si definís la <b>función área</b> <span class="m">F(x) = ∫<sub>a</sub><sup>x</sup> f(t) dt</span>, entonces <span class="m">F′(x) = f(x)</span>. Derivar "deshace" integrar.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.2a)</div>
+  <p><span class="m">F(x) = ∫<sub>0</sub><sup>x</sup> e<sup>−t+4</sup> dt → F′(x) = e<sup>−x+4</sup></span> (reemplazo t por x, sin integrar).</p>
+</div>
+<div class="key"><div class="ky-t">Con límite variable compuesto: regla de la cadena</div>
+Si el límite superior es <span class="m">g(x)</span> en vez de x: <span class="m">F(x) = ∫<sub>a</sub><sup>g(x)</sup> f(t) dt → F′(x) = f(g(x))·g′(x)</span>.<br>
+Ejemplo: <span class="m">F(x) = ∫<sub>0</sub><sup>x²</sup> f(t) dt → F′(x) = f(x²)·2x</span>.
+</div>
+
+<h3>Área entre dos curvas</h3>
+<p>El área entre <span class="m">y = f(x)</span> (arriba) e <span class="m">y = g(x)</span> (abajo) entre sus intersecciones es:</p>
+<div class="formula">
+A = ∫<sub>a</sub><sup>b</sup> (f<sub>arriba</sub> − g<sub>abajo</sub>) dx
+</div>
+<div class="key"><div class="ky-t">Receta</div>
+1. Hallá las <b>intersecciones</b> (igualá f = g) para los límites a y b.<br>
+2. Decidí cuál curva queda <b>arriba</b> en ese intervalo (probá un punto).<br>
+3. Integrá <span class="m">(arriba − abajo)</span>. El resultado es siempre positivo.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.7b) — Área entre y = x e y = x²</div>
+  <p>Intersecciones: <span class="m">x = x² → x = 0 y x = 1</span>. En (0,1) la recta <span class="m">y = x</span> está arriba de <span class="m">y = x²</span>.</p>
+  <p><span class="m">A = ∫<sub>0</sub><sup>1</sup>(x − x²) dx = [x²/2 − x³/3]<sub>0</sub><sup>1</sup> = 1/2 − 1/3 = 1/6</span>.</p>
+</div>
+
+<h3>Ecuaciones diferenciales (variables separables)</h3>
+<p>Una <b>ecuación diferencial</b> relaciona una función con su derivada. Las del parcial son <b>separables</b>: se acomodan los <span class="m">y</span> de un lado y los <span class="m">x</span> del otro, se integra y se usa la <b>condición inicial</b> para hallar la constante.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 10.11)</div>
+  <p>Resolver <span class="m">f(x)·x = −f′(x)</span> con <span class="m">f(1) = 1</span>. Escribo <span class="m">y′/y = −x</span>, integro ambos lados: <span class="m">ln|y| = −x²/2 + C</span> → <span class="m">y = e<sup>−x²/2 + C</sup></span>.</p>
+  <p>Uso <span class="m">f(1) = 1</span>: <span class="m">e<sup>−1/2 + C</sup> = 1 → C = 1/2</span>. Resultado: <span class="m">f(x) = e<sup>(1/2 − x²/2)</sup></span>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Confundir integral <b>definida</b> (número) con <b>indefinida</b> (familia de funciones + C).<br>
+• En área entre curvas, no calcular las intersecciones o restar al revés (arriba − abajo, no al revés).<br>
+• Olvidar la regla de la cadena cuando el límite de integración es <span class="m">g(x)</span> y no x.<br>
+• En ecuaciones diferenciales, olvidar usar la condición inicial para hallar C.
+</div>
+
+<div class="quiz-wrap" data-qz="17" data-subject="analisis"></div>
+<a class="back" href="#subject-analisis">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 18 · SUCESIONES Y SERIES ============ -->
+<details id="an-s18">
+<summary><span class="num">18</span> Sucesiones y series <span class="sec-score" id="ss-analisis-18"></span></summary>
+<div class="content">
+
+<h3>Sucesiones</h3>
+<p>Una <b>sucesión</b> es una función cuyo dominio son los números naturales: <span class="m">a: ℕ → ℝ</span>. En vez de <span class="m">a(n)</span> se escribe <span class="m">a<sub>n</sub></span> (el término general). Por ejemplo, <span class="m">a<sub>n</sub> = n²</span> da 1, 4, 9, 16, …</p>
+<p>El <b>límite</b> de una sucesión se calcula como el de una función (mismas reglas):</p>
+<div class="formula">
+lim<sub>n→∞</sub> (n+2)/(n²−4) = 0 &nbsp;&nbsp; lim<sub>n→∞</sub> (3n³−2n+5)/(n³−2n) = 3 &nbsp;&nbsp; lim<sub>n→∞</sub> ⁿ√(7ⁿ+5ⁿ) = 7
+</div>
+<div class="key"><div class="ky-t">Límite notable (aparece en los problemas de interés)</div>
+<span class="m">lim<sub>n→∞</sub> (1 + a/n)<sup>n</sup> = e<sup>a</sup></span>.<br>
+Por eso un capital <span class="m">C</span> a tasa anual <span class="m">r</span> capitalizado <span class="m">n</span> veces al año da <span class="m">C(1 + r/n)<sup>n</sup></span>, y con <b>capitalización continua</b> (<span class="m">n→∞</span>) tiende a <span class="m">C·e<sup>r</sup></span> en un año (y a <span class="m">C·e<sup>rt</sup></span> en <span class="m">t</span> años).
+</div>
+
+<h3>Series: sumar infinitos términos</h3>
+<p>Una <b>serie</b> es la "suma infinita" <span class="m">Σ<sub>n=1</sub><sup>∞</sup> a<sub>n</sub></span>. Se define a través de las <b>sumas parciales</b> <span class="m">S<sub>n</sub> = a<sub>1</sub> + a<sub>2</sub> + … + a<sub>n</sub></span>: la serie es el límite de esas sumas.</p>
+<div class="formula">
+Σ<sub>n=1</sub><sup>∞</sup> a<sub>n</sub> = lim<sub>n→∞</sub> S<sub>n</sub>
+</div>
+<p>Si ese límite es <b>finito</b>, la serie <b>converge</b>; si no, <b>diverge</b>.</p>
+<div class="example">
+  <div class="ex-t">Sumas parciales</div>
+  <p>Con <span class="m">a<sub>n</sub> = n</span>: <span class="m">S<sub>1</sub>=1, S<sub>2</sub>=3, S<sub>3</sub>=6, S<sub>4</sub>=10…</span> crecen sin tope → <b>diverge</b>. Con <span class="m">a<sub>n</sub> = (1/3)<sup>n</sup></span> (desde n=0): <span class="m">S<sub>1</sub>=1, S<sub>2</sub>=4/3, S<sub>3</sub>=13/9…</span> se acercan a <span class="m">3/2</span> → <b>converge</b>.</p>
+</div>
+<div class="key"><div class="ky-t">Linealidad (para partir una serie en pedazos)</div>
+Si <span class="m">Σa<sub>n</sub></span> y <span class="m">Σb<sub>n</sub></span> convergen y <span class="m">k</span> es constante: <span class="m">Σ(a<sub>n</sub> ± b<sub>n</sub>) = Σa<sub>n</sub> ± Σb<sub>n</sub></span> &nbsp;y&nbsp; <span class="m">Σk·a<sub>n</sub> = k·Σa<sub>n</sub></span>.<br>
+Ej: <span class="m">Σ(3<sup>n</sup>+5<sup>n+1</sup>)/8<sup>n</sup> = Σ(3/8)<sup>n</sup> + 5·Σ(5/8)<sup>n</sup> = 8/5 + 5·(8/3) = 224/15</span>.
+</div>
+
+<h3>Condición necesaria (el primer filtro)</h3>
+<div class="key"><div class="ky-t">Si la serie converge, el término general tiende a 0</div>
+<span class="m">Σ a<sub>n</sub> converge ⟹ lim<sub>n→∞</sub> a<sub>n</sub> = 0</span>.<br>
+Se usa al revés (contrarrecíproco): si <span class="m">lim a<sub>n</sub> ≠ 0</span>, la serie <b>DIVERGE</b> seguro. Ej: <span class="m">Σ n/(n+3)</span> diverge porque <span class="m">lim n/(n+3) = 1 ≠ 0</span>.<br>
+<b>Ojo:</b> es necesaria pero NO suficiente. Que <span class="m">a<sub>n</sub>→0</span> no garantiza convergencia (la armónica <span class="m">Σ1/n</span> diverge aunque <span class="m">1/n→0</span>).
+</div>
+
+<h3>Las dos series que hay que conocer de memoria</h3>
+
+<h4>Serie geométrica</h4>
+<div class="formula">
+Σ<sub>n=0</sub><sup>∞</sup> r<sup>n</sup> = 1/(1−r) &nbsp; si |r| &lt; 1 &nbsp; (diverge si |r| ≥ 1)
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <p><span class="m">Σ<sub>n=0</sub> (1/3)ⁿ = 1/(1−1/3) = 3/2</span>. &nbsp; <span class="m">Σ<sub>n=0</sub> (1/2)ⁿ = 1/(1−1/2) = 2</span>. &nbsp; <span class="m">Σ 4ⁿ</span> diverge (r = 4 ≥ 1).</p>
+</div>
+<div class="key"><div class="ky-t">Si no arranca en n = 0</div>
+La fórmula <span class="m">1/(1−r)</span> es para la suma desde <b>n = 0</b>. Si empieza en otro índice, restá los términos que faltan. Ej: <span class="m">Σ<sub>n=2</sub> (1/2)ⁿ = 1/(1−1/2) − 1 − 1/2 = 2 − 3/2 = 1/2</span>.
+</div>
+
+<h4>Serie p (y la armónica)</h4>
+<div class="formula">
+Σ<sub>n=1</sub><sup>∞</sup> 1/n<sup>p</sup> converge ⟺ p &gt; 1
+</div>
+<p>Con <span class="m">p = 1</span> es la <b>serie armónica</b> <span class="m">Σ1/n</span>, que <b>diverge</b>. Ej: <span class="m">Σ1/n<sup>2/3</sup></span> diverge (p = 2/3 ≤ 1); <span class="m">Σ1/n<sup>7/5</sup></span> converge (p = 7/5 &gt; 1).</p>
+
+<h4>Serie telescópica (truco de cancelación)</h4>
+<p>Cuando el término general se parte como una <b>resta de términos consecutivos</b>, las sumas parciales se cancelan en cascada y queda algo simple. El caso típico:</p>
+<div class="formula">
+1/(n(n+1)) = 1/n − 1/(n+1) &nbsp;⟹&nbsp; S<sub>n</sub> = 1 − 1/(n+1) → 1
+</div>
+<p>Por eso <span class="m">Σ<sub>n=1</sub><sup>∞</sup> 1/(n(n+1)) = 1</span>: cada <span class="m">−1/(k+1)</span> se cancela con el <span class="m">+1/(k+1)</span> del término siguiente y sobrevive solo el primer <span class="m">1</span>.</p>
+
+<h3>Criterios de convergencia</h3>
+<table class="tbl">
+  <tr><th>Criterio</th><th>Cuándo usarlo</th><th>Qué dice</th></tr>
+  <tr><td><b>Comparación</b></td><td>El término se parece a una p o geométrica conocida</td><td>Si 0 ≤ aₙ ≤ bₙ: bₙ converge ⟹ aₙ converge; aₙ diverge ⟹ bₙ diverge</td></tr>
+  <tr><td><b>Comparación al límite</b></td><td>aₙ es un cociente parecido a una p o geométrica bₙ</td><td>Si lim aₙ/bₙ = L con 0 &lt; L &lt; ∞, las dos series hacen lo MISMO (ambas convergen o ambas divergen)</td></tr>
+  <tr><td><b>Cociente (D'Alembert)</b></td><td>Hay <b>factoriales</b> o potencias n-ésimas</td><td>L = lim |aₙ₊₁/aₙ|: si L&lt;1 converge, si L&gt;1 diverge, si L=1 no decide</td></tr>
+  <tr><td><b>Raíz (Cauchy)</b></td><td>Todo elevado <b>a la n</b></td><td>L = lim ⁿ√|aₙ|: si L&lt;1 converge, si L&gt;1 diverge, si L=1 no decide</td></tr>
+  <tr><td><b>Leibniz</b></td><td>Serie <b>alternada</b> Σ(−1)ⁿaₙ</td><td>Si aₙ ≥ 0 es decreciente y aₙ→0 ⟹ converge</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplos (Práctica 11)</div>
+  <p>• <span class="m">Σ 3/n!</span>: por cociente, lim = lim 1/(n+1) = 0 &lt; 1 → converge.</p>
+  <p>• <span class="m">Σ ((n+1)/(2n+3))ⁿ</span>: por raíz, lim = lim (n+1)/(2n+3) = 1/2 &lt; 1 → converge.</p>
+  <p>• <span class="m">Σ (−1)ⁿ/n</span>: por Leibniz (1/n decrece y → 0) → converge.</p>
+  <p>• <span class="m">Σ 1/(n+2ⁿ)</span>: comparación directa, <span class="m">0 ≤ 1/(n+2ⁿ) ≤ 1/2ⁿ</span> y <span class="m">Σ1/2ⁿ</span> converge → converge.</p>
+  <p>• <span class="m">Σ 2ⁿ/(9ⁿ+3ⁿ)</span>: comparación al límite con <span class="m">b<sub>n</sub> = (2/9)ⁿ</span>, <span class="m">lim a<sub>n</sub>/b<sub>n</sub> = 1 &gt; 0</span> → converge.</p>
+</div>
+
+<h4>Convergencia absoluta y condicional</h4>
+<div class="key"><div class="ky-t">Definiciones</div>
+• <b>Absolutamente convergente</b>: <span class="m">Σ|a<sub>n</sub>|</span> converge. (Y si converge absolutamente ⟹ converge.)<br>
+• <b>Condicionalmente convergente</b>: <span class="m">Σa<sub>n</sub></span> converge pero <span class="m">Σ|a<sub>n</sub>|</span> diverge.<br>
+Ej: <span class="m">Σ(−1)ⁿ/n</span> converge condicionalmente (la de módulos es la armónica, que diverge).
+</div>
+<div class="example">
+  <div class="ex-t">Para qué sirve la convergencia absoluta — Σ sen(n)/n²</div>
+  <p>Los signos de <span class="m">sen(n)</span> son impredecibles (no es una alternada). Pero <span class="m">|sen(n)/n²| ≤ 1/n²</span> y <span class="m">Σ1/n²</span> converge (p = 2). Por comparación, <span class="m">Σ|sen(n)/n²|</span> converge → la serie converge <b>absolutamente</b>, así que <b>converge</b>.</p>
+</div>
+
+<h3>Series de potencias</h3>
+<p>Una <b>serie de potencias</b> es <span class="m">Σ<sub>n=0</sub><sup>∞</sup> a<sub>n</sub>(x−c)<sup>n</sup></span>. Según el valor de x converge o no. Hay un <b>radio de convergencia R</b>: converge si <span class="m">|x−c| &lt; R</span> y diverge si <span class="m">|x−c| &gt; R</span>.</p>
+<div class="key"><div class="ky-t">Receta (la del 2° parcial)</div>
+1. Aplicá el criterio de la <b>raíz</b> o del <b>cociente</b> al término general (con la x adentro).<br>
+2. Pedí que el límite sea &lt; 1: queda <span class="m">|x−c| &lt; R</span>, de ahí leés R y el intervalo abierto.<br>
+3. <b>Analizá los extremos</b> (x = c±R) por separado: el criterio no decide ahí (da 1). El intervalo puede ser abierto, cerrado o semiabierto.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo (apunte, ej. 11) — Radio e intervalo</div>
+  <p><span class="m">Σ<sub>n=1</sub> (x+1)ⁿ/(n·2ⁿ)</span>. Por la raíz: <span class="m">lim ⁿ√|(x+1)ⁿ/(n·2ⁿ)| = |x+1|/2</span>.</p>
+  <p>&lt; 1 → <span class="m">|x+1| &lt; 2</span> → <b>R = 2</b>, intervalo abierto (−3, 1).</p>
+  <p>• <span class="m">x = 1</span>: queda <span class="m">Σ1/n</span> (armónica) → diverge.</p>
+  <p>• <span class="m">x = −3</span>: queda <span class="m">Σ(−1)ⁿ/n</span> → converge.</p>
+  <p><b>Intervalo de convergencia: [−3, 1).</b> (Cerrado en −3, abierto en 1.)</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes del tema</div>
+• Concluir "converge" solo porque <span class="m">a<sub>n</sub>→0</span>: es necesario pero no suficiente (mirá la armónica).<br>
+• Usar la fórmula <span class="m">1/(1−r)</span> cuando la geométrica no arranca en n = 0 (hay que ajustar el índice).<br>
+• En series de potencias, dar solo el intervalo abierto: SIEMPRE hay que analizar los extremos.<br>
+• Confundir radio (un número R) con intervalo de convergencia (el conjunto de x).
+</div>
+
+<div class="quiz-wrap" data-qz="18" data-subject="analisis"></div>
 <a class="back" href="#subject-analisis">↑ Volver al índice</a>
 </div>
 </details>
