@@ -17894,6 +17894,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <summary><span class="num">1</span> Unidad 1: Lógica proposicional y razonamientos <span class="sec-score" id="ss-led-1"></span></summary>
 <div class="content">
 
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  La lógica es el lenguaje con el que la matemática decide qué es verdadero y qué es falso <b>sin ambigüedad</b>. Si nunca viste el tema, no importa: arrancamos de cero. Vas a aprender a (1) reconocer qué enunciados son <b>proposiciones</b>; (2) combinarlas con <b>conectivos</b> (no, y, o, si…entonces, si y solo si) y calcular su valor de verdad con <b>tablas</b>; (3) decidir si dos proposiciones <b>significan lo mismo</b> (equivalencias lógicas); (4) demostrar que un <b>razonamiento</b> es válido usando reglas de inferencia; (5) manejar <b>cuantificadores</b> ("para todo", "existe"). Este lenguaje es la base de TODA la materia: las demostraciones de conjuntos, inducción, divisibilidad, etc. se escriben con estas herramientas. Leé los ejemplos y las cajas de "error típico": ahí está lo que más se evalúa.
+</div>
+
 <h3>¿Qué es una proposición?</h3>
 <p>Una <b>proposición lógica</b> es un enunciado declarativo del que se puede afirmar, sin ambigüedad, si es <b>verdadero (V)</b> o <b>falso (F)</b>. Las proposiciones se denotan con letras minúsculas (<span class="m">p, q, r, …</span>) y su valor de verdad se escribe <span class="m">v(p)</span>.</p>
 
@@ -18068,6 +18073,17 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
     <tr><td class="c">F</td><td class="c">F</td><td class="c">V</td><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
   </table>
   La última columna tiene V y F: es una <b>contingencia</b>.
+</div>
+
+<div class="key">
+  <div class="ky-t">Cómo armar una tabla de verdad paso a paso (si nunca lo hiciste)</div>
+  <ol>
+    <li><b>Contá las variables distintas.</b> Con n variables, la tabla tiene 2ⁿ filas (1 var → 2 filas; 2 → 4; 3 → 8; 4 → 16).</li>
+    <li><b>Llená las columnas de las variables</b> con todas las combinaciones de V y F. Truco para no saltearte ninguna: la 1ª columna va "mitad V arriba, mitad F abajo"; la 2ª alterna de a pares (VV-FF); la 3ª de a uno (V-F-V-F). Con ese patrón quedan las 2ⁿ combinaciones automáticamente.</li>
+    <li><b>Agregá una columna por cada operación intermedia</b>, resolviendo de adentro hacia afuera: primero las negaciones y lo que está entre paréntesis, después los conectivos exteriores (respetando la precedencia ¬, ∧, ∨, →, ↔).</li>
+    <li><b>Resolvé cada columna</b> mirando solo las columnas de las que depende y aplicando la tabla del conectivo correspondiente.</li>
+    <li><b>La última columna es el resultado.</b> Si quedó toda V → <b>tautología</b>; toda F → <b>contradicción</b>; con V y F mezclados → <b>contingencia</b>.</li>
+  </ol>
 </div>
 
 <!-- ─────────────────────────────────────────── -->
@@ -18438,14 +18454,17 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <p>Para demostrar que un razonamiento categórico es <b>inválido</b>, no basta con no poder demostrarlo: hay que dar una <b>interpretación concreta</b> (conjunto + predicados) donde las premisas sean verdaderas y la conclusión sea falsa.</p>
 
 <div class="example">
-  <div class="ex-t">Razonamiento inválido con cuantificadores</div>
-  <p>Razonamiento: <span class="m">∀x: [a(x) → b(x)] ; c(m) → b(m) ; ¬c(m) ∴ ∃x: ¬a(x)</span></p>
-  <p><b>Interpretación inválida:</b> <span class="m">U = {3, 4, 6}</span>, <span class="m">m = 6</span>,<br>
-  <span class="m">a(x)</span>: "x es entero", <span class="m">b(x)</span>: "x es par", <span class="m">c(x)</span>: "x es múltiplo de 4".</p>
+  <div class="ex-t">Razonamiento categórico INVÁLIDO (con contraejemplo)</div>
+  <p>Razonamiento: "Todos los perros son mamíferos. Algún mamífero es acuático. Por lo tanto, algún perro es acuático."</p>
+  <p>Simbólico, con <span class="m">U</span> = animales, <span class="m">P(x)</span>: "x es perro", <span class="m">M(x)</span>: "x es mamífero", <span class="m">A(x)</span>: "x es acuático":</p>
+  <div class="formula">∀x: [P(x) → M(x)] ; &nbsp; ∃x: [M(x) ∧ A(x)] &nbsp; ∴ &nbsp; ∃x: [P(x) ∧ A(x)]</div>
+  <p><b>Es inválido.</b> Para probarlo NO alcanza con "no poder demostrarlo": hay que exhibir una interpretación donde las premisas sean verdaderas y la conclusión falsa.</p>
   <ul>
-    <li>Premisa 1: todos son enteros y pares? No, 3 no es par — pero a(x) → b(x) con x=3 tiene antecedente verdadero y consecuente falso... esperar: 3 es entero (V) y 3 no es par (F), así que la premisa 1 sería falsa para x=3. Esto muestra que encontrar la interpretación correcta requiere cuidado.</li>
-    <li>La idea: se busca un conjunto donde las premisas sean V y la conclusión F. Si la conclusión <span class="m">∃x: ¬a(x)</span> es F, significa que todos son enteros, y se puede construir el escenario apropiado.</li>
+    <li>Premisa 1 — "todo perro es mamífero": <b>V</b> (es cierto en el mundo real).</li>
+    <li>Premisa 2 — "existe un mamífero acuático": <b>V</b> (la ballena, por ejemplo).</li>
+    <li>Conclusión — "existe un perro acuático": <b>F</b> (ningún perro es acuático).</li>
   </ul>
+  <p>Premisas verdaderas + conclusión falsa ⟹ el razonamiento es <b>inválido</b>. El error de fondo: el existencial de la premisa 2 (el "mamífero acuático") no tiene por qué ser el mismo individuo del que habla la conclusión (un perro). Dos existenciales/predicados distintos no se pueden "fusionar".</p>
 </div>
 
 <div class="key">
@@ -18469,6 +18488,20 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
   </ul>
 </div>
 
+<div class="key">
+  <div class="ky-t">Resumen de la Unidad 1 — qué tenés que dominar</div>
+  <ul>
+    <li><b>Proposición:</b> enunciado con un único valor de verdad (V o F). Preguntas/órdenes/predicados con variable libre NO lo son.</li>
+    <li><b>Conectivos:</b> ¬ invierte; ∧ es V solo si ambas V; ∨ es F solo si ambas F; → es F solo en el caso V→F; ↔ es V cuando ambas tienen igual valor.</li>
+    <li><b>Tablas de verdad:</b> 2ⁿ filas. Clasifican la fórmula en tautología (toda V), contradicción (toda F) o contingencia (mezcla).</li>
+    <li><b>Equivalencias que más se usan:</b> De Morgan, condicional (p→q ≡ ¬p∨q), contrarrecíproco (p→q ≡ ¬q→¬p), negación del condicional (¬(p→q) ≡ p∧¬q).</li>
+    <li><b>Razonamiento válido:</b> es imposible que las premisas sean V y la conclusión F. Se demuestra con el método demostrativo (reglas: MP, MT, SH, SD, simplificación, adjunción).</li>
+    <li><b>Razonamiento inválido:</b> se prueba dando un contraejemplo (una interpretación con premisas V y conclusión F).</li>
+    <li><b>Cuantificadores:</b> ∀ ("para todo"), ∃ ("existe"). Negación: ¬∀x:p ≡ ∃x:¬p ; ¬∃x:p ≡ ∀x:¬p. El orden importa: ∀x∃y ≠ ∃y∀x.</li>
+    <li><b>Categóricos:</b> primero particularizar (P.U./P.E.), recién después aplicar las reglas proposicionales. Nunca reutilizar el mismo testigo para dos existenciales distintos.</li>
+  </ul>
+</div>
+
 <div class="quiz-wrap" data-qz="1" data-subject="led"></div>
 <a class="back" href="#subject-led">↑ Volver al índice</a>
 </div>
@@ -18478,6 +18511,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <details id="md-s2">
 <summary><span class="num">2</span> Unidad 2: Conjuntos e Inducción completa <span class="sec-score" id="ss-led-2"></span></summary>
 <div class="content">
+
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Tiene dos grandes temas. <b>Conjuntos:</b> la forma en que la matemática agrupa objetos. Vas a aprender la diferencia entre <b>pertenencia</b> (∈) e <b>inclusión</b> (⊆) —que se confunden todo el tiempo—, las operaciones (unión, intersección, diferencia, complemento), cómo contar elementos con <b>inclusión-exclusión</b>, y el conjunto de partes P(A). <b>Inducción completa:</b> la técnica estrella para demostrar que algo vale para TODOS los naturales (sumas, divisibilidad, desigualdades). Lo único que necesitás de antes es la lógica de la Unidad 1 (en especial implicación y cuantificadores). La inducción es de lo que MÁS se toma: seguí los 5 ejemplos resueltos paso a paso, fijándote bien qué se asume (HI) y qué se demuestra (TI).
+</div>
 
 <!-- ==================== CONJUNTOS ==================== -->
 
@@ -18903,7 +18941,7 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 
 <div class="trap">
   <div class="tr-t">¿El 0 pertenece a ℕ?</div>
-  <p>Hay convenciones distintas según el texto o la cátedra. En Matemática Discreta UTN (Cátedra Piñeiro), se considera <span class="m">ℕ = {0, 1, 2, 3, …}</span> (con el 0 incluido). Verificar siempre la convención de la cátedra antes de responder.</p>
+  <p>Hay convenciones distintas según el texto o la cátedra. En LED (Lógica y Estructuras Discretas) UTN, Cátedra Piñeiro, se considera <span class="m">ℕ = {0, 1, 2, 3, …}</span> (con el 0 incluido). Verificar siempre la convención de la cátedra antes de responder.</p>
 </div>
 
 <!-- ==================== INDUCCIÓN MATEMÁTICA ==================== -->
@@ -19186,6 +19224,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <details id="md-s3">
 <summary><span class="num">3</span> Unidad 3: Métodos de Conteo <span class="sec-score" id="ss-led-3"></span></summary>
 <div class="content">
+
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Combinatoria = contar sin enumerar uno por uno. Vas a aprender los dos principios base (<b>producto</b>: etapas que se multiplican; <b>suma</b>: casos excluyentes que se suman) y las tres herramientas centrales: <b>permutaciones</b> (importa el orden, se usan TODOS los elementos), <b>variaciones</b> (importa el orden, se usan ALGUNOS) y <b>combinaciones</b> (NO importa el orden). Lo más difícil no es la fórmula sino <b>decidir cuál usar</b>: para eso, al final tenés un árbol de decisión. También verás el binomio de Newton. No necesitás nada previo más allá de saber qué es un factorial (n! = n·(n−1)·…·1, con 0! = 1).
+</div>
 
 <h3>¿Por qué contar?</h3>
 <p>En muchas situaciones necesitamos saber <b>cuántos elementos</b> tiene un conjunto o <b>de cuántas formas</b> puede ocurrir algo, sin necesidad de listarlos todos. Eso es la <b>combinatoria</b>: el arte de contar de forma inteligente.</p>
@@ -19722,6 +19765,18 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
   Si los asientos de la calesita están numerados (o tienen algún elemento fijo que los distingue), NO es permutación circular: cada rotación es un ordenamiento diferente → usar n! y no (n−1)!
 </div>
 
+<div class="key">
+  <div class="ky-t">Resumen de la Unidad 3 — las preguntas para elegir el método</div>
+  <ol>
+    <li><b>¿El problema se resuelve en etapas independientes?</b> → multiplicá las opciones de cada etapa (principio del producto). <b>¿Se parte en casos que no se solapan?</b> → sumá (principio de la suma). Si se solapan → inclusión-exclusión.</li>
+    <li><b>¿Importa el orden?</b> Sí y uso TODOS → permutación (n!). Sí y uso ALGUNOS (h de n) → variación. No importa el orden → combinación C(n,h).</li>
+    <li><b>¿Se pueden repetir elementos?</b> Sin repetición: V(n,h)=n!/(n−h)!, C(n,h)=n!/(h!(n−h)!). Con repetición: V'=nʰ, C'(n,h)=C(n+h−1,h).</li>
+    <li><b>¿Hay elementos repetidos en una permutación?</b> (anagramas) → dividí por el factorial de cada repetición: n!/(a!·b!·…).</li>
+    <li><b>Binomio:</b> el término que tiene b^k en (a+b)ⁿ es C(n,k)·a^(n−k)·b^k.</li>
+  </ol>
+  Errores a evitar: no preguntarte si los objetos son distinguibles, olvidar "no empieza con 0", confundir permutación circular (n−1)! con lineal n!.
+</div>
+
 <div class="quiz-wrap" data-qz="3" data-subject="led"></div>
 <a class="back" href="#subject-led">↑ Volver al índice</a>
 </div>
@@ -19731,6 +19786,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <details id="md-s4">
 <summary><span class="num">4</span> Unidad 4: Divisibilidad en Enteros <span class="sec-score" id="ss-led-4"></span></summary>
 <div class="content">
+
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Teoría de números: las propiedades de los enteros (ℤ) bajo la <b>divisibilidad</b>. Vas a aprender el <b>algoritmo de la división</b> (cociente y resto), qué significa que "a divide a b", los <b>primos</b> y la factorización única, cómo calcular el <b>máximo común divisor (mcd)</b> con el algoritmo de Euclides, el <b>mínimo común múltiplo (mcm)</b>, el <b>teorema de Bézout</b> (escribir el mcd como combinación lineal s·a+t·b), las <b>ecuaciones diofánticas</b> (cuándo tienen solución entera) y los <b>sistemas de numeración</b> (bases). Es la base directa de la Unidad 8 (congruencias). Solo necesitás saber dividir con resto. Atención: en divisibilidad el resto siempre es ≥ 0 y menor que el divisor.
+</div>
 
 <h3>El conjunto de los enteros ℤ</h3>
 <p>El conjunto de los <b>números enteros</b> se representa con el símbolo <span class="m">ℤ</span> y contiene a todos los números enteros positivos, el cero y los negativos:</p>
@@ -20412,6 +20472,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <summary><span class="num">5</span> Unidad 5: Relaciones <span class="sec-score" id="ss-led-5"></span></summary>
 <div class="content">
 
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Una <b>relación</b> es cualquier vínculo entre elementos (por ejemplo "≤", "es divisor de", "es paralelo a"). Formalmente es un subconjunto de pares ordenados del producto cartesiano A×B. Vas a aprender a representarlas (pares, <b>matrices booleanas</b>, dígrafos), a analizar sus cuatro <b>propiedades</b> clave (reflexiva, simétrica, antisimétrica, transitiva) y a reconocer los dos tipos más importantes: las de <b>equivalencia</b> (reflexiva + simétrica + transitiva → parten el conjunto en clases) y las de <b>orden</b> (reflexiva + antisimétrica + transitiva → se profundizan en la Unidad 6). Al final verás que las <b>funciones</b> son un caso particular de relación. Necesitás conjuntos y producto cartesiano (Unidad 2).
+</div>
+
 <h3>¿Qué es el Producto Cartesiano?</h3>
 <p>Antes de hablar de relaciones, necesitamos entender el <b>producto cartesiano</b>. Dados dos conjuntos <span class="m">A</span> y <span class="m">B</span>, el producto cartesiano <span class="m">A × B</span> es el conjunto de <b>todos los pares ordenados</b> cuya primera componente pertenece a <span class="m">A</span> y cuya segunda componente pertenece a <span class="m">B</span>.</p>
 
@@ -21015,17 +21080,32 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
   <p>Ambas son "reflexivas y transitivas", pero se diferencian en la tercera propiedad: equivalencia tiene simetría, orden tiene antisimetría.</p>
 </div>
 
+<div class="key">
+  <div class="ky-t">Resumen de la Unidad 5 — qué tenés que dominar</div>
+  <ul>
+    <li><b>Relación R de A en B:</b> subconjunto de A×B. En un conjunto (R en A) se representa con dígrafo o matriz booleana.</li>
+    <li><b>Cómo verificar cada propiedad</b> (relación en A): <b>Reflexiva</b> = toda la diagonal de la matriz en 1 (∀a: aRa). <b>Simétrica</b> = matriz simétrica (aRb ⟹ bRa). <b>Antisimétrica</b> = no hay 1 simétricos fuera de la diagonal (aRb ∧ bRa ⟹ a=b). <b>Transitiva</b> = si aRb y bRc entonces aRc (M² no agrega unos nuevos).</li>
+    <li><b>Equivalencia</b> = reflexiva + simétrica + transitiva. Genera <b>clases</b> [a] = {x : xRa} que forman una <b>partición</b> (Teorema Fundamental). El conjunto de clases es el <b>cociente</b> A/R.</li>
+    <li><b>Orden parcial</b> = reflexiva + antisimétrica + transitiva. Total si además todo par es comparable.</li>
+    <li><b>Funciones</b> = relación donde cada elemento del dominio tiene exactamente una imagen. Clasificación: inyectiva (no repite imágenes), sobreyectiva (cubre todo el codominio), biyectiva (ambas → tiene inversa).</li>
+    <li><b>La clave del parcial:</b> dada una relación, decidir si es de equivalencia o de orden mirando qué propiedades cumple, y si es de equivalencia, hallar las clases y el cociente.</li>
+  </ul>
+</div>
+
 <div class="quiz-wrap" data-qz="5" data-subject="led"></div>
 <a class="back" href="#subject-led">↑ Volver al índice</a>
 </div>
 </details>
 
-<div class="partial-header">Segundo parcial <span class="date">Unidades 6–10</span></div>
-
 <!-- ============ UNIDAD 6 · CONJUNTOS ORDENADOS, REDES Y ÁLGEBRAS DE BOOLE ============ -->
 <details id="md-s6">
 <summary><span class="num">6</span> Unidad 6: Conjuntos ordenados, Redes y Álgebras de Boole <span class="sec-score" id="ss-led-6"></span></summary>
 <div class="content">
+
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Esta unidad construye una jerarquía: relaciones de <b>orden</b> → <b>diagramas de Hasse</b> (la forma de dibujarlas) → <b>redes</b> (lattices) → <b>álgebras de Boole</b>. Una red es un orden donde todo par de elementos tiene supremo (∨) e ínfimo (∧); un álgebra de Boole es una red distributiva y complementada (los ejemplos típicos: el conjunto de partes P(X) y los divisores de un número libre de cuadrados). Vas a aprender los elementos notables (máximo, mínimo, cotas, supremo, ínfimo, átomos), las funciones booleanas, las formas canónicas FND/FNC, la simplificación con <b>mapas de Karnaugh</b> y las compuertas lógicas. Necesitás las relaciones de orden de la Unidad 5 y la lógica (∧, ∨, ¬) de la Unidad 1: el álgebra de Boole es "la misma estructura" que la lógica proposicional.
+</div>
 
 <!-- ===== RELACIONES DE ORDEN ===== -->
 <h3>Relaciones de orden</h3>
@@ -21633,6 +21713,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <details id="md-s7">
 <summary><span class="num">7</span> Unidad 7: Relaciones de Recurrencia <span class="sec-score" id="ss-led-7"></span></summary>
 <div class="content">
+
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Una <b>recurrencia</b> define una sucesión en términos de sus valores anteriores (como Fibonacci: cada término es la suma de los dos previos). "Resolverla" es encontrar una <b>fórmula cerrada</b> que dé el término n directamente, sin calcular todos los anteriores. Vas a aprender a <b>clasificarlas</b> (orden, grado, homogeneidad, tipo de coeficientes), a resolver las lineales de orden 1 y 2 con la <b>ecuación característica</b> (y sus 3 casos: raíces reales distintas, raíz doble, raíces complejas), y las <b>no homogéneas</b> (solución general = homogénea + particular). Necesitás resolver ecuaciones de segundo grado (Bhaskara) y la inducción de la Unidad 2 para verificar que la fórmula hallada es correcta.
+</div>
 
 <h3>¿Qué es una sucesión?</h3>
 <p>Una <b>sucesión</b> es una lista ordenada de elementos, numerada con los números naturales. Formalmente es una función:</p>
@@ -22266,6 +22351,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <summary><span class="num">8</span> Unidad 8: Teoría de Números (Congruencias) <span class="sec-score" id="ss-led-8"></span></summary>
 <div class="content">
 
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  La aritmética modular es "la matemática del reloj": si son las 22 hs y pasan 5 horas, son las 3 (no las 27), porque trabajamos módulo 24. <b>a ≡ b (mod n)</b> significa que a y b dejan el mismo resto al dividir por n. Vas a aprender a operar en ℤₙ (sumar, multiplicar, elevar potencias usando el resto), calcular <b>inversos multiplicativos</b>, la función <b>φ de Euler</b>, los teoremas de <b>Fermat y Euler</b> (para reducir potencias gigantes), resolver <b>ecuaciones de congruencia</b> ax ≡ b (n) y sistemas con el <b>Teorema Chino del Resto</b>. Es la continuación directa de la Unidad 4 (divisibilidad, mcd, algoritmo de Euclides): conviene tenerla fresca.
+</div>
+
 <h3>¿Qué estudia esta unidad?</h3>
 <p>La <b>teoría de números</b> estudia las propiedades de los enteros. En esta unidad nos concentramos en la <b>aritmética modular</b>: una forma de hacer cuentas donde solo importa el <i>resto</i> de una división. Esto parece abstracto, pero tiene aplicaciones directísimas: criptografía, códigos de detección de errores, y cálculos con números enormes que ninguna calculadora puede manejar directamente.</p>
 <p>La herramienta central es la <b>congruencia módulo n</b>, que agrupa a los enteros según el resto que dan al dividirse por <span class="m">n</span>. Todo lo que veamos en esta unidad —tablas de operaciones, ecuaciones, Teorema Chino del Resto, Fermat, Euler— es aritmética modular aplicada.</p>
@@ -22880,6 +22970,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <summary><span class="num">9</span> Unidad 9: Estructuras algebraicas: Grupos <span class="sec-score" id="ss-led-9"></span></summary>
 <div class="content">
 
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Un <b>grupo</b> es un conjunto con una operación que cumple 4 reglas: <b>cerrada</b> (la operación no se "sale" del conjunto), <b>asociativa</b>, con <b>elemento neutro</b> y con <b>inverso</b> de cada elemento. Los enteros con la suma, las simetrías de una figura y las permutaciones son todos grupos. Vas a aprender a verificar si algo es grupo, las <b>tablas de Cayley</b>, los <b>subgrupos</b>, el <b>orden</b> de un elemento, los grupos <b>cíclicos</b> (generados por un solo elemento), el <b>Teorema de Lagrange</b> (el orden de un subgrupo divide al del grupo) y los <b>homomorfismos/isomorfismos</b> (cuándo dos grupos son "el mismo" con otros nombres). Necesitás manejar operaciones y la lógica de demostración (Unidad 1). Si además es conmutativa, el grupo se llama <b>abeliano</b>.
+</div>
+
 <h3>Introducción: ¿para qué sirven los grupos?</h3>
 <p>Los <b>grupos</b> son estructuras algebraicas que aparecen en criptografía, teoría de códigos, física, química, simetría molecular y resolución de acertijos. La idea clave es simple: dado un conjunto y una operación, ¿qué propiedades cumplen juntos? Dependiendo de cuáles se cumplan, la estructura recibe un nombre.</p>
 <p>Los matemáticos que más aportaron a esta teoría fueron Euler, Gauss, Abel, Lagrange y Galois. Évariste Galois (1811–1832) fue el primero en usar el término "grupo" en sentido matemático, y usó permutaciones de raíces para determinar cuándo una ecuación puede resolverse por radicales.</p>
@@ -23463,6 +23558,11 @@ La cinta debe tener goma sin burbujas. Un aire atrapado durante el levantamiento
 <details id="md-s10">
 <summary><span class="num">10</span> Unidad 10: Grafos y Árboles <span class="sec-score" id="ss-led-10"></span></summary>
 <div class="content">
+
+<div class="key">
+  <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
+  Un <b>grafo</b> es un conjunto de puntos (<b>vértices</b>) unidos por líneas (<b>aristas</b>): modela redes sociales, mapas de rutas, circuitos, dependencias. Vas a aprender a representarlos (matrices de <b>adyacencia</b> e <b>incidencia</b>), medir <b>grados</b> (lema del apretón de manos: la suma de grados = 2·aristas), recorrerlos (<b>camino de Euler</b> = pasar por todas las aristas una vez; <b>de Hamilton</b> = por todos los vértices una vez), decidir <b>conexión</b> e <b>isomorfismo</b>, <b>colorearlos</b>, hallar el <b>camino mínimo</b> (Dijkstra) y trabajar con <b>árboles</b> (grafos conexos sin ciclos, con n−1 aristas): recorridos, expresiones algebraicas y árboles generadores mínimos (<b>Kruskal</b> y <b>Prim</b>). Es la unidad más visual: dibujá todo. No necesitás casi nada previo.
+</div>
 
 <!-- ===== PARTE I: GRAFOS ===== -->
 
