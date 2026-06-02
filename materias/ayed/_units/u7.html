@@ -1,0 +1,526 @@
+<!-- ============ UNIDAD 7 · MODULARIZACIÓN: FUNCIONES Y PROCEDIMIENTOS ============ -->
+<details id="ay-s7">
+<summary><span class="num">7</span> Unidad 7: Modularización — procedimientos, funciones, parámetros y recursividad <span class="sec-score" id="ss-ayed-7"></span></summary>
+<div class="content">
+
+<p>Hasta ahora escribiste todos tus programas <b>amontonados dentro de <code>main</code></b>: una sentencia abajo de la otra, todo junto. Eso funciona para programas chiquitos, pero apenas crecen se vuelven un bollo imposible de leer y de mantener. En esta unidad vas a aprender a <b>partir un programa en piezas</b> —llamadas <b>módulos</b>— para que cada una haga <i>una</i> cosa bien. Vas a ver los dos tipos de módulos de C++: los <b>procedimientos</b> (que hacen algo pero no devuelven nada) y las <b>funciones</b> (que devuelven un valor). Después: cómo pasarles <b>datos</b> (parámetros), la diferencia clave entre pasarlos <b>por valor</b> y <b>por referencia</b>, qué es la <b>firma</b> de una función y la <b>sobrecarga</b>, el <b>alcance</b> (scope) de las variables, y por último el tema más alucinante: la <b>recursividad</b>, funciones que se llaman a sí mismas. Todo desde cero y con el código tal cual lo da la cátedra.</p>
+
+<!-- ─── 1. QUÉ ES MODULARIZAR ─────────────────────────────────────────────── -->
+<h3>¿Qué es modularizar y por qué conviene?</h3>
+<p><b>Modularizar</b> es <b>dividir un programa grande en piezas más chicas</b>, cada una con un nombre y una tarea concreta. A esas piezas las llamamos <b>módulos</b>, y en C++ se construyen con <b>funciones</b> y <b>procedimientos</b>. En vez de tener doscientas líneas seguidas en <code>main</code>, tenés un <code>main</code> cortito que <b>llama</b> a piezas con nombres que se entienden: <code>leerDatos()</code>, <code>calcularPromedio()</code>, <code>mostrarResultado()</code>.</p>
+
+<div class="example">
+  <div class="ex-t">Modularizar en la vida real</div>
+  Pensá en un restaurante. No hay <i>una</i> persona que compre, cocine, sirva, cobre y limpie todo a la vez en un solo bloque caótico. Hay <b>roles</b>: el que cocina, el mozo, el cajero. Cada uno hace <b>su</b> tarea, y vos —cliente— pedís "una pizza" sin saber <i>cómo</i> se amasa por dentro. El restaurante es el programa; cada rol es un <b>módulo</b>. Si mañana cambian la receta de la masa, solo se toca al cocinero: el mozo y el cajero ni se enteran.
+</div>
+
+<div class="key">
+  <div class="ky-t">Las cuatro razones para modularizar</div>
+  • <b>Legibilidad</b>: un <code>main</code> que llama a <code>saludar()</code>, <code>procesar()</code>, <code>despedir()</code> se lee como un índice. Entendés <i>qué</i> hace el programa de un vistazo, sin perderte en el <i>cómo</i>.<br>
+  • <b>Reusabilidad</b>: escribís el módulo <b>una sola vez</b> y lo <b>llamás muchas</b>. ¿Necesitás dibujar una línea separadora diez veces? Escribís <code>raya()</code> una vez y la llamás diez veces, en vez de copiar y pegar el mismo <code>cout</code> diez veces.<br>
+  • <b>Abstracción</b>: para <i>usar</i> un módulo te alcanza con saber <b>qué hace</b> y <b>qué recibe/devuelve</b>, sin conocer su tripa interna. Usás <code>cout</code> sin saber cómo le habla a la pantalla; igual usás tus propias funciones.<br>
+  • <b>Mantenimiento</b>: si hay un error en el cálculo del promedio, lo arreglás <b>en un solo lugar</b> (la función) y queda arreglado en todos lados donde se la llama. Sin módulos, tendrías que cazar el mismo bug copiado en mil lados.
+</div>
+
+<p>A esta forma de encarar problemas se la llama <b>"divide y vencerás"</b> (<i>divide and conquer</i>): un problema grande y difícil se vuelve manejable cuando lo partís en subproblemas chicos, resolvés cada uno por separado (cada uno en su módulo) y después los combinás. Es la idea más importante de toda la programación, y la vas a usar para siempre.</p>
+
+<!-- ─── 2. PROCEDIMIENTOS (VOID) ──────────────────────────────────────────── -->
+<h3>Procedimientos: módulos que <i>hacen</i> pero no devuelven nada (<code>void</code>)</h3>
+<p>Un <b>procedimiento</b> es un módulo que <b>ejecuta una serie de acciones</b> pero <b>no entrega ningún valor</b> de vuelta. En C++ se lo declara con la palabra clave <code>void</code> (que en inglés significa "vacío", "nada"): justamente, no devuelve nada. La sintaxis más simple es:</p>
+
+<pre class="code-block">void nombre() {
+    // las acciones que hace el procedimiento
+}</pre>
+
+<p>Se lee de izquierda a derecha: <code>void</code> dice "no devuelve nada"; <code>nombre</code> es el nombre que vos le ponés (con el que después lo vas a llamar); los <b>paréntesis</b> <code>()</code> son donde irían los parámetros (por ahora vacíos, lo vemos más adelante); y entre <b>llaves</b> <code>{ }</code> va el cuerpo, las sentencias que se ejecutan cuando lo llamás. El ejemplo más simple de la cátedra es una línea separadora:</p>
+
+<pre class="code-block">void raya() {
+    cout &lt;&lt; "------------" &lt;&lt; endl;
+}</pre>
+
+<h4>Cómo se invoca (se llama) un procedimiento</h4>
+<p>Definir el procedimiento <b>no lo ejecuta</b>: solo lo deja "guardado", listo para usar. Para que efectivamente corra, hay que <b>invocarlo</b> (llamarlo) escribiendo su <b>nombre seguido de los paréntesis y un punto y coma</b>:</p>
+
+<pre class="code-block">raya();   // ahora SÍ se ejecuta: muestra ------------</pre>
+
+<p>Cuando el programa llega a <code>raya();</code>, hace una especie de "salto": va al cuerpo de <code>raya</code>, ejecuta sus líneas (el <code>cout</code>), y al terminar <b>vuelve exactamente a la línea de abajo</b> de donde lo llamaste, y sigue. Ese ida y vuelta es lo que hace tan cómodos a los módulos.</p>
+
+<h4>Un procedimiento puede llamar a otro</h4>
+<p>Adentro de un procedimiento podés llamar a otros procedimientos. La cátedra arma <code>saludar()</code> y <code>despedir()</code>, y <code>saludar()</code> reutiliza a <code>raya()</code>:</p>
+
+<pre class="code-block">void saludar() {
+    cout &lt;&lt; "Hola" &lt;&lt; endl;
+    cout &lt;&lt; "Como va?" &lt;&lt; endl;
+    raya();
+}
+
+void despedir() {
+    cout &lt;&lt; "hasta luego" &lt;&lt; endl;
+    cout &lt;&lt; "nos vemos la proxima" &lt;&lt; endl;
+    raya();
+}</pre>
+
+<p>Fijate la <b>reusabilidad</b> en acción: tanto <code>saludar</code> como <code>despedir</code> terminan con una línea separadora, y ninguna de las dos repite el <code>cout &lt;&lt; "------------"</code>: ambas <b>llaman a <code>raya()</code></b>. Si mañana querés que la raya sea más larga, la cambiás en <b>un solo lugar</b> (dentro de <code>raya</code>) y se actualiza en todos lados.</p>
+
+<h4>Llamándolos desde <code>main</code> (varias veces = reuso)</h4>
+<p>En <code>main</code> los invocás como cualquier otra sentencia. Y los podés llamar <b>las veces que quieras</b>:</p>
+
+<pre class="code-block">int main() {
+
+    saludar();
+    saludar();
+
+    despedir();
+
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza: qué muestra ese <code>main</code></div>
+  El programa arranca en <code>main</code> y va de arriba hacia abajo.<br><br>
+  1. <code>saludar();</code> → salta a <code>saludar</code>: muestra <code>Hola</code>, <code>Como va?</code>, y llama a <code>raya()</code> que muestra <code>------------</code>. Vuelve a <code>main</code>.<br>
+  2. <code>saludar();</code> otra vez → repite lo mismo: <code>Hola</code>, <code>Como va?</code>, <code>------------</code>.<br>
+  3. <code>despedir();</code> → muestra <code>hasta luego</code>, <code>nos vemos la proxima</code>, y <code>raya()</code> muestra <code>------------</code>.<br><br>
+  Salida final en pantalla:<br>
+  <code>Hola</code><br>
+  <code>Como va?</code><br>
+  <code>------------</code><br>
+  <code>Hola</code><br>
+  <code>Como va?</code><br>
+  <code>------------</code><br>
+  <code>hasta luego</code><br>
+  <code>nos vemos la proxima</code><br>
+  <code>------------</code><br><br>
+  Una sola definición de <code>saludar</code>, dos llamadas, dos veces el saludo: <b>eso es reuso</b>.
+</div>
+
+<!-- ─── 3. FUNCIONES (DEVUELVEN VALOR) ────────────────────────────────────── -->
+<h3>Funciones: módulos que <i>devuelven</i> un valor (<code>return</code>)</h3>
+<p>Una <b>función</b> es un módulo que, además de poder hacer cosas, <b>calcula y devuelve un valor</b> al que la llamó. La diferencia con un procedimiento es justamente esa: <i>el procedimiento no devuelve nada (<code>void</code>); la función devuelve un dato de un tipo concreto</i>. La sintaxis es:</p>
+
+<pre class="code-block">tipo nombre() {
+    // ... cálculos
+    return valor;   // entrega un valor del tipo declarado
+}</pre>
+
+<p>Ahora, donde antes ponías <code>void</code>, va el <b>tipo del dato que devuelve</b>: <code>int</code> si devuelve un entero, <code>bool</code> si devuelve verdadero/falso, <code>float</code> si devuelve un decimal, <code>string</code> si devuelve texto, etc. Y aparece la palabra clave <b><code>return</code></b>, que cumple dos roles a la vez:</p>
+
+<div class="key">
+  <div class="ky-t">Qué hace exactamente <code>return valor;</code></div>
+  • <b>Entrega</b> el <code>valor</code> a quien llamó a la función: ese valor "sale" de la función y ocupa el lugar de la llamada.<br>
+  • <b>Termina</b> la función en el acto: cualquier línea que esté <i>debajo</i> del <code>return</code> ejecutado <b>no se corre</b>. El <code>return</code> es la puerta de salida.<br>
+  • El tipo del <code>valor</code> tiene que <b>coincidir</b> con el tipo declarado: si la función es <code>int</code>, devolvés un entero; si es <code>bool</code>, un <code>true</code>/<code>false</code>.
+</div>
+
+<p>Estos son los ejemplos de la cátedra, uno por cada tipo. Una función que devuelve un <code>int</code>:</p>
+
+<pre class="code-block">int obtenerNumero() {
+    int n = 30;
+    return n;     // devuelve 30
+}</pre>
+
+<p>Una que devuelve un <code>bool</code> (un booleano, verdadero/falso) y otra que devuelve un <code>float</code> (un decimal):</p>
+
+<pre class="code-block">bool pepe() {
+    return true;
+}
+
+float func2() {
+    return 1.5;
+}</pre>
+
+<h4>Lo más importante: hay que USAR el valor devuelto</h4>
+<p>Acá está la diferencia práctica más grande con los procedimientos. A un procedimiento lo llamás "suelto" (<code>raya();</code>) porque no devuelve nada. Pero una función <b>devuelve un valor, y ese valor tenés que hacer algo con él</b>: guardarlo en una variable, mostrarlo, o usarlo en una cuenta. Si no, el valor se calcula y se tira a la basura.</p>
+
+<p>La forma más común es <b>guardarlo en una variable</b>:</p>
+
+<pre class="code-block">int w = obtenerNumero();   // obtenerNumero() devuelve 30, así que w queda en 30
+cout &lt;&lt; w &lt;&lt; endl;          // muestra: 30</pre>
+
+<p>Pensálo así: cuando el programa ejecuta <code>obtenerNumero()</code>, esa llamada <b>se reemplaza por el valor que devuelve</b>. O sea, la línea termina siendo, en los hechos, <code>int w = 30;</code>. Por eso también podés usar la llamada <b>dentro de una expresión más grande</b>, como si fuera un número más:</p>
+
+<pre class="code-block">int z = 1 + obtenerNumero();   // 1 + 30
+cout &lt;&lt; z &lt;&lt; endl;              // muestra: 31</pre>
+
+<p>Acá <code>obtenerNumero()</code> devuelve <code>30</code>, la expresión queda <code>1 + 30</code>, da <code>31</code>, y eso es lo que se guarda en <code>z</code>. Una función con un nombre claro se lee casi como castellano:</p>
+
+<pre class="code-block">int calcularLaCantidadDeAlumnos() {
+    //................
+    return 50;
+}
+
+int cant = calcularLaCantidadDeAlumnos();   // cant queda en 50</pre>
+
+<div class="trap">
+  <div class="tr-t">Trampa: olvidar el <code>return</code> en una función no <code>void</code></div>
+  Si declarás una función que devuelve un tipo (por ejemplo <code>int</code>) pero te <b>olvidás de poner el <code>return</code></b>, la función no entrega ningún valor: el resultado es <b>basura impredecible</b> (un número cualquiera que había en memoria) y el compilador, en el mejor de los casos, te avisa con un warning. La regla: <b>toda función no <code>void</code> tiene que terminar devolviendo un valor de su tipo</b> por todos los caminos posibles. Si tu módulo no necesita devolver nada, entonces no es una función: hacelo <code>void</code>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Trampa: llamar a una función y no usar lo que devuelve</div>
+  Escribir <code>obtenerNumero();</code> sola, en una línea, <b>no es un error de compilación</b>, pero casi siempre es un error <i>lógico</i>: la función calcula su valor <code>30</code> y, como nadie lo recibe, se <b>descarta</b>. Es como ir al cajero, sacar la plata y dejarla ahí. Si te interesa el valor, <b>guardalo o usalo</b>: <code>int w = obtenerNumero();</code>.
+</div>
+
+<div class="key">
+  <div class="ky-t">Procedimiento vs. función, de un vistazo</div>
+  <table class="tbl">
+    <tr><th></th><th>Procedimiento</th><th>Función</th></tr>
+    <tr><td>Palabra clave / tipo</td><td class="c"><code>void</code></td><td class="c"><code>int</code>, <code>bool</code>, <code>float</code>, <code>string</code>…</td></tr>
+    <tr><td>¿Devuelve un valor?</td><td class="c">No</td><td class="c">Sí, con <code>return</code></td></tr>
+    <tr><td>Cómo se llama</td><td class="c"><code>raya();</code></td><td class="c"><code>int w = obtenerNumero();</code></td></tr>
+    <tr><td>Para qué sirve</td><td>Hacer una acción (mostrar, dibujar…)</td><td>Calcular y entregar un resultado</td></tr>
+  </table>
+</div>
+
+<!-- ─── 4. PARÁMETROS ─────────────────────────────────────────────────────── -->
+<h3>Parámetros: pasarle datos al módulo para que trabaje</h3>
+<p>Los módulos de recién siempre hacían <i>exactamente lo mismo</i>: <code>raya()</code> siempre dibuja la misma línea, <code>obtenerNumero()</code> siempre devuelve 30. Para que un módulo sea de verdad útil, necesita poder trabajar con <b>datos distintos cada vez</b>. Esos datos de entrada se llaman <b>parámetros</b>, y se declaran <b>entre los paréntesis</b>, indicando el <b>tipo</b> y un <b>nombre</b> para cada uno.</p>
+
+<p>Un procedimiento que recibe un <code>string</code> (un texto) y saluda a esa persona:</p>
+
+<pre class="code-block">void saludarA(string nombre) {
+    cout &lt;&lt; "Hola " &lt;&lt; nombre &lt;&lt; endl;
+}</pre>
+
+<p>Dentro del cuerpo, <code>nombre</code> se usa como una variable normal: vale lo que le hayan pasado al llamar. Y al llamar, ponés el <b>valor concreto</b> entre los paréntesis:</p>
+
+<pre class="code-block">saludarA("Adrian");   // muestra: Hola Adrian
+saludarA("Carla");    // muestra: Hola Carla</pre>
+
+<p>El mismo procedimiento, con <b>distintos datos</b>, produce <b>distintos resultados</b>. También podés pasarle el valor a través de una <b>variable</b>, no solo un literal escrito a mano:</p>
+
+<pre class="code-block">string n = "Pedro";
+saludarA(n);          // muestra: Hola Pedro</pre>
+
+<h4>Parámetro vs. argumento (la palabra fina)</h4>
+<div class="key">
+  <div class="ky-t">Dos nombres para no confundir</div>
+  • <b>Parámetro</b>: es el nombre que aparece <b>en la definición</b> de la función, el "hueco" que espera un valor. En <code>void saludarA(string nombre)</code>, el parámetro es <code>nombre</code>.<br>
+  • <b>Argumento</b>: es el <b>valor concreto</b> que le pasás <b>al llamarla</b>. En <code>saludarA("Adrian")</code>, el argumento es <code>"Adrian"</code>.<br><br>
+  Dicho fácil: el <b>parámetro</b> es el casillero, el <b>argumento</b> es lo que metés en el casillero. (En la práctica mucha gente los usa como sinónimos; no te van a retar por eso, pero está bueno saber la diferencia.)
+</div>
+
+<h4>Funciones con parámetros: lo mejor de los dos mundos</h4>
+<p>Lo más potente es combinar las dos cosas: un módulo que <b>recibe datos</b> (parámetros) <b>y devuelve un resultado</b> (función). El ejemplo canónico de la cátedra es una suma:</p>
+
+<pre class="code-block">int suma(int a, int b) {
+    return a + b;
+}</pre>
+
+<p>Recibe dos enteros (<code>a</code> y <code>b</code>, separados por coma) y devuelve su suma. Mirá las distintas formas de llamarla y usar lo que devuelve:</p>
+
+<pre class="code-block">int total = suma(2, 8);     // argumentos literales: total queda en 10
+cout &lt;&lt; total &lt;&lt; endl;       // muestra: 10
+
+int d = 5;
+int f = 6;
+int total2 = suma(d, f);    // argumentos por variables: total2 queda en 11
+cout &lt;&lt; total2 &lt;&lt; endl;      // muestra: 11</pre>
+
+<p>Otro ejemplo de la cátedra, que recibe un número y devuelve el siguiente:</p>
+
+<pre class="code-block">int dameElSiguienteNumero(int nro) {
+    return nro + 1;
+}
+
+int x = dameElSiguienteNumero(8);   // x queda en 9
+cout &lt;&lt; x &lt;&lt; endl;                   // muestra: 9</pre>
+
+<div class="key">
+  <div class="ky-t">El orden de los argumentos importa</div>
+  Los argumentos se asignan a los parámetros <b>por posición</b>: el primer argumento va al primer parámetro, el segundo al segundo, y así. En <code>suma(d, f)</code> con <code>d=5</code> y <code>f=6</code>, adentro de la función <code>a</code> vale 5 y <code>b</code> vale 6. Para la suma da igual el orden, pero para una resta <code>resta(10, 3)</code> y <code>resta(3, 10)</code> dan resultados <b>opuestos</b>. Prestá atención a en qué orden pasás las cosas.
+</div>
+
+<!-- ─── 5. POR VALOR VS POR REFERENCIA ────────────────────────────────────── -->
+<h3>Paso por valor vs. paso por referencia <span style="font-weight:normal">(sección clave)</span></h3>
+<p>Esta es una de las ideas más importantes —y más confundidas— de toda la unidad. La pregunta es: cuando le paso una variable a un módulo y el módulo la modifica… ¿se modifica también <b>la variable original</b> de afuera, o no? La respuesta depende de <i>cómo</i> pasaste el parámetro: <b>por valor</b> o <b>por referencia</b>.</p>
+
+<h4>Por VALOR (lo que pasa por defecto): se trabaja sobre una COPIA</h4>
+<p>Por defecto, cuando pasás un argumento, la función recibe una <b>copia</b> de ese valor. Es como si fotocopiaras el dato y le dieras la fotocopia a la función. La función puede rayar, romper o cambiar su fotocopia todo lo que quiera: <b>el original de afuera queda intacto</b>. Mirá:</p>
+
+<pre class="code-block">void duplicarMal(int n) {      // n es una COPIA del argumento
+    n = n * 2;                  // cambio la copia... nada más
+}
+
+int main() {
+    int x = 5;
+    duplicarMal(x);             // le paso una copia de x (un 5)
+    cout &lt;&lt; x &lt;&lt; endl;           // muestra: 5  (¡NO cambió!)
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">¿Por qué <code>x</code> sigue valiendo 5?</div>
+  1. <code>int x = 5;</code> → en memoria, la variable <code>x</code> de <code>main</code> vale 5.<br>
+  2. <code>duplicarMal(x);</code> → se crea una <b>copia</b> de ese 5 y se la mete en el parámetro <code>n</code>. Ahora hay <i>dos</i> casilleros distintos: <code>x</code> (en main, vale 5) y <code>n</code> (en la función, vale 5), independientes.<br>
+  3. <code>n = n * 2;</code> → se modifica <b>solo <code>n</code></b>: ahora <code>n</code> vale 10. Pero <code>x</code> ni se enteró, sigue en 5.<br>
+  4. La función termina y <code>n</code> <b>desaparece</b>. Volvemos a main.<br>
+  5. <code>cout &lt;&lt; x</code> → muestra <b>5</b>. El original nunca se tocó.
+</div>
+
+<h4>Por REFERENCIA (con <code>&amp;</code>): se trabaja sobre la variable ORIGINAL</h4>
+<p>Si querés que la función modifique <b>la variable de verdad</b> (no una copia), agregás un <b>ampersand <code>&amp;</code></b> pegado al tipo del parámetro. Eso lo convierte en un parámetro <b>por referencia</b>: la función ya no recibe una fotocopia, sino que trabaja directamente sobre <b>el mismo casillero de memoria</b> de afuera. Es como darle a la función no la fotocopia, sino <b>el original mismo</b>. Cualquier cambio que haga, <b>persiste</b> al volver:</p>
+
+<pre class="code-block">void duplicar(int&amp; n) {        // OJO el &amp;: n es la variable ORIGINAL, no una copia
+    n = n * 2;                  // modifico el original
+}
+
+int main() {
+    int x = 5;
+    duplicar(x);                // le paso x "de verdad"
+    cout &lt;&lt; x &lt;&lt; endl;           // muestra: 10  (¡SÍ cambió!)
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">¿Por qué ahora <code>x</code> sí cambia a 10?</div>
+  1. <code>int x = 5;</code> → <code>x</code> vale 5.<br>
+  2. <code>duplicar(x);</code> → como el parámetro es <code>int&amp; n</code> (por referencia), <b>no se copia nada</b>: <code>n</code> pasa a ser <i>otro nombre</i> para el mismísimo casillero de <code>x</code>. Donde dice <code>n</code>, leé "<code>x</code>".<br>
+  3. <code>n = n * 2;</code> → como <code>n</code> <b>es</b> <code>x</code>, esto pone 10 en el casillero de <code>x</code>.<br>
+  4. La función termina. Volvemos a main.<br>
+  5. <code>cout &lt;&lt; x</code> → muestra <b>10</b>. El cambio quedó.
+</div>
+
+<div class="key">
+  <div class="ky-t">El detalle que decide todo: el <code>&amp;</code></div>
+  La <b>única</b> diferencia entre <code>void duplicar(int&amp; n)</code> y <code>void duplicarMal(int n)</code> es ese <code>&amp;</code>. Con <code>&amp;</code> → por referencia → modifica el original. Sin <code>&amp;</code> → por valor → trabaja sobre una copia y el original no cambia. Un solo carácter cambia por completo el comportamiento del programa. El <code>&amp;</code> va <b>pegado al tipo</b> (podés verlo pegado al tipo <code>int&amp; n</code> o pegado al nombre <code>int &amp;n</code>; son lo mismo).
+</div>
+
+<h4>¿Para qué sirve el paso por referencia?</h4>
+<p>Tiene dos usos centrales que vas a aprovechar muchísimo:</p>
+<div class="key">
+  <div class="ky-t">Cuándo usar referencia</div>
+  • <b>Parámetros de salida: devolver MÁS de un resultado.</b> Una función con <code>return</code> devuelve <b>un solo</b> valor. Pero a veces necesitás devolver dos o tres (por ejemplo, el máximo <i>y</i> el mínimo de una lista). Pasás esas variables por referencia y la función las "carga" desde adentro: <code>void calcular(int datos, int&amp; maximo, int&amp; minimo)</code>. Salen modificadas con los resultados.<br>
+  • <b>Modificar el dato que recibís.</b> Cuando el objetivo del módulo <i>es</i> cambiar la variable que le das (duplicarla, ordenarla, incrementarla), la referencia es la herramienta.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Trampa: modificar un parámetro por VALOR esperando que cambie afuera</div>
+  El error clásico es escribir algo como <code>void incrementar(int n) { n = n + 1; }</code>, llamarlo con <code>incrementar(x)</code> y <b>esperar que <code>x</code> aumente</b>. <b>No aumenta</b>: <code>n</code> es una copia, el incremento se pierde cuando la función termina. Si querés que el cambio persista afuera, el parámetro tiene que ser <b>por referencia</b>: <code>void incrementar(int&amp; n)</code>. Es uno de los bugs más comunes y silenciosos del principiante: el programa compila, corre, y "misteriosamente" la variable no cambia.
+</div>
+
+<!-- ─── 6. FIRMA Y SOBRECARGA ─────────────────────────────────────────────── -->
+<h3>La firma de una función y la sobrecarga (<i>overloading</i>)</h3>
+<p>La <b>firma</b> de una función es lo que la <b>identifica de forma única</b> para el compilador. Y está compuesta por exactamente dos cosas:</p>
+
+<div class="key">
+  <div class="ky-t">¿Qué forma la FIRMA?</div>
+  <b>Firma = NOMBRE de la función + TIPOS de sus parámetros (en orden).</b><br><br>
+  Y muy importante: <b>el tipo de retorno NO forma parte de la firma</b>. Tampoco forman parte los <i>nombres</i> de los parámetros (da igual si el parámetro se llama <code>nombre</code> o <code>apellido</code>): lo que cuenta son los <b>tipos</b> y su <b>orden</b>.
+</div>
+
+<p>Por ejemplo, la firma de <code>void mostrarPersona(string nombre)</code> es <code>mostrarPersona(string)</code>. La firma de <code>int suma(int a, int b)</code> es <code>suma(int, int)</code>.</p>
+
+<h4>Sobrecarga: varias funciones con el MISMO nombre</h4>
+<p>La <b>sobrecarga</b> (en inglés <i>overloading</i>) es poder tener <b>varias funciones con el mismo nombre</b>, siempre y cuando tengan <b>firmas distintas</b> (es decir, difieran en la <i>cantidad</i> o el <i>tipo</i> de sus parámetros). El compilador decide cuál llamar según los argumentos que le pases. Es comodísimo: usás <i>un solo nombre</i> intuitivo para "la misma idea" aplicada a distintos datos. El ejemplo de la cátedra con <code>mostrarPersona</code>:</p>
+
+<pre class="code-block">// FIRMA: mostrarPersona(string)
+void mostrarPersona(string nombre) {
+    cout &lt;&lt; "Nombre: " &lt;&lt; nombre &lt;&lt; endl;
+}
+
+// FIRMA: mostrarPersona(string, string)
+void mostrarPersona(string nombre, string apellido) {
+    cout &lt;&lt; "Nombre: " &lt;&lt; nombre &lt;&lt; " - Apellido: " &lt;&lt; apellido &lt;&lt; endl;
+}
+
+// FIRMA: mostrarPersona(string, int)
+void mostrarPersona(string nombre, int dni) {
+    cout &lt;&lt; "Nombre: " &lt;&lt; nombre &lt;&lt; " - DNI: " &lt;&lt; dni &lt;&lt; endl;
+}
+
+// FIRMA: mostrarPersona(string, string, int)
+void mostrarPersona(string nombre, string apellido, int edad) {
+    cout &lt;&lt; "Nombre: " &lt;&lt; nombre &lt;&lt; " - Apellido: " &lt;&lt; apellido &lt;&lt; " - Edad: " &lt;&lt; edad &lt;&lt; endl;
+}</pre>
+
+<p>Las cuatro se llaman <code>mostrarPersona</code>, pero cada una tiene una firma <b>distinta</b>, así que conviven sin problema. Al llamarlas, el compilador mira los argumentos y elige la correcta:</p>
+
+<pre class="code-block">mostrarPersona("Adrian");                    // usa mostrarPersona(string)
+mostrarPersona("Adrian", "Fiore");           // usa mostrarPersona(string, string)
+mostrarPersona("Adrian", 10);                // usa mostrarPersona(string, int)  → el 10 es DNI
+mostrarPersona("Pedro", "Gonzalez", 25);     // usa mostrarPersona(string, string, int)</pre>
+
+<h4>Cuándo NO se puede sobrecargar</h4>
+<p>No podés tener dos funciones con la <b>misma firma</b>, aunque te parezca que son distintas. Dos casos sutiles que la cátedra marca explícitamente como "NO SE PUEDE":</p>
+
+<pre class="code-block">// Ya existe: void mostrarPersona(string nombre, string apellido)  → firma (string, string)
+
+// NO SE PUEDE: tiene la MISMA firma (string, string).
+// Cambiar el NOMBRE de los parámetros no cambia la firma.
+// void mostrarPersona(string apellido, string nombre) {
+//     cout &lt;&lt; "Nombre: " &lt;&lt; nombre &lt;&lt; " - Apellido: " &lt;&lt; apellido &lt;&lt; endl;
+// }</pre>
+
+<pre class="code-block">// Ya existe: void mostrarPersona(string, string, int)
+
+// NO SE PUEDE: misma firma (string, string, int).
+// El TIPO DEL RETURN no forma parte de la firma: cambiar void por int NO alcanza.
+// int mostrarPersona(string nombre, string apellido, int edad) {
+//     cout &lt;&lt; "..." &lt;&lt; endl;
+//     return 1;
+// }</pre>
+
+<div class="trap">
+  <div class="tr-t">Trampa: creer que cambiar el nombre del parámetro o el tipo de retorno crea una firma nueva</div>
+  Son los dos errores típicos con sobrecarga:<br>
+  ✗ Renombrar el parámetro (de <code>nombre</code> a <code>apellido</code>) <b>no</b> cambia la firma: los tipos son los mismos.<br>
+  ✗ Cambiar solo el tipo de retorno (de <code>void</code> a <code>int</code>) <b>no</b> cambia la firma: el retorno no cuenta.<br>
+  En ambos casos el compilador ve <b>la misma firma repetida</b> y tira error de "redefinición / función duplicada". Para sobrecargar de verdad tenés que cambiar la <b>cantidad</b> o los <b>tipos</b> de los parámetros.
+</div>
+
+<div class="key">
+  <div class="ky-t">Ojo: una llamada que compila igual puede ser un error LÓGICO</div>
+  Como <code>mostrarPersona(string, string)</code> existe, la llamada <code>mostrarPersona("Fiore", "Adrian")</code> <b>compila perfecto</b>… pero muestra "Nombre: Fiore - Apellido: Adrian", que está al revés. La cátedra lo marca como <i>error lógico</i>: el programa funciona, pero hace lo que no querías porque te equivocaste en el <b>orden</b> de los argumentos. En cambio, una llamada como <code>mostrarPersona("Pedro", 25, "Gonzalez")</code> directamente <b>no compila</b>: no existe ninguna firma <code>mostrarPersona(string, int, string)</code>.
+</div>
+
+<!-- ─── 7. ALCANCE (SCOPE) ────────────────────────────────────────────────── -->
+<h3>Alcance (scope) de las variables: ¿dónde vive cada variable?</h3>
+<p>El <b>alcance</b> (en inglés <i>scope</i>) de una variable es <b>la zona del programa donde esa variable existe y se la puede usar</b>. La regla de oro es simple:</p>
+
+<div class="key">
+  <div class="ky-t">La regla del bloque <code>{ }</code></div>
+  Una variable existe <b>solo dentro del bloque <code>{ }</code> donde fue declarada</b>, desde la línea en que se declara hasta la llave de cierre <code>}</code> de ese bloque. Apenas el programa sale de ese bloque, la variable <b>desaparece</b> (deja de existir y no se la puede usar más). A una variable así se la llama <b>variable local</b> de ese bloque.
+</div>
+
+<p>Esto explica algo que ya venías viendo sin darte cuenta: la variable <code>n</code> dentro de <code>obtenerNumero</code> no existe en <code>main</code>; los parámetros de una función solo viven dentro de esa función. Cada bloque es como una habitación: lo que declarás adentro, se queda adentro.</p>
+
+<h4>Variables locales de distintas funciones son INDEPENDIENTES</h4>
+<p>Como cada función es su propio bloque, podés tener una variable <code>res</code> en una función y otra <code>res</code> en otra: son <b>dos variables totalmente distintas</b> que casualmente comparten nombre. No se pisan, no se mezclan, no saben una de la otra. El nombre se "reusa" sin conflicto porque viven en cuartos separados.</p>
+
+<h4>Ocultamiento (<i>shadowing</i>): un bloque interno tapa a uno externo</h4>
+<p>Hay un caso fino: si declarás una variable en un <b>bloque interno</b> con el <b>mismo nombre</b> que una de afuera, la de adentro <b>"tapa" (oculta)</b> a la de afuera <i>mientras dure el bloque interno</i>. Adentro, el nombre se refiere a la variable interna; al salir del bloque, vuelve a "verse" la de afuera (que nunca se tocó). Es exactamente lo que pasa en el ejemplo de scope de la cátedra. Mirálo entero:</p>
+
+<pre class="code-block">int main() {
+
+    int x = 3;
+    cout &lt;&lt; x &lt;&lt; endl;
+
+    int z = 10;
+    cout &lt;&lt; "z vale: " &lt;&lt; z &lt;&lt; endl; //10
+
+    if (1 == 1) {
+        int y = 28;
+        cout &lt;&lt; y &lt;&lt; endl;
+        x = 7;
+        cout &lt;&lt; "z vale: " &lt;&lt; z &lt;&lt; endl; //10
+        int z = 20;
+        cout &lt;&lt; "z vale: " &lt;&lt; z &lt;&lt; endl; //20
+    }
+
+    cout &lt;&lt; x &lt;&lt; endl;
+    cout &lt;&lt; "z vale: " &lt;&lt; z &lt;&lt; endl; //10
+
+    return 0;
+}</pre>
+
+<p>Hay dos cosas distintas pasando acá: el <b>ocultamiento</b> de <code>z</code> y la <b>modificación</b> de <code>x</code>. Vamos paso a paso.</p>
+
+<div class="example">
+  <div class="ex-t">Traza completa: qué muestra el programa</div>
+  Seguimos el bloque externo (el de <code>main</code>) y el interno (el del <code>if</code>):<br><br>
+  1. <code>int x = 3;</code> → <code>x</code> (externa) vale <b>3</b>.<br>
+  2. <code>cout &lt;&lt; x</code> → muestra <b>3</b>.<br>
+  3. <code>int z = 10;</code> → <code>z</code> (externa) vale <b>10</b>.<br>
+  4. <code>cout &lt;&lt; "z vale: " &lt;&lt; z</code> → muestra <b>z vale: 10</b>.<br>
+  5. Entra al <code>if</code> (porque <code>1 == 1</code> es true). <b>Abre bloque interno.</b><br>
+  6. <code>int y = 28;</code> → <code>y</code> existe <i>solo</i> dentro del if. Muestra <b>28</b>.<br>
+  7. <code>x = 7;</code> → ojo: <b>NO</b> hay un <code>x</code> interno, así que esto modifica la <code>x</code> <b>externa</b> (la misma de siempre). Ahora <code>x</code> vale <b>7</b>.<br>
+  8. <code>cout &lt;&lt; "z vale: " &lt;&lt; z</code> → todavía <b>no</b> se declaró el <code>z</code> interno, así que este <code>z</code> es el <b>externo</b> → muestra <b>z vale: 10</b>.<br>
+  9. <code>int z = 20;</code> → acá nace un <b>nuevo <code>z</code> interno</b> que vale 20. A partir de esta línea y hasta el cierre del if, <b>este <code>z</code> interno TAPA al externo</b> (ocultamiento).<br>
+  10. <code>cout &lt;&lt; "z vale: " &lt;&lt; z</code> → ahora <code>z</code> es el <b>interno</b> → muestra <b>z vale: 20</b>.<br>
+  11. <b>Cierra el bloque interno</b> <code>}</code>: mueren <code>y</code> y el <code>z</code> interno. El <code>z</code> externo sigue valiendo <b>10</b> (nunca se tocó: el de 20 era otro).<br>
+  12. <code>cout &lt;&lt; x</code> → muestra <b>7</b> (la <code>x</code> externa quedó modificada desde el paso 7).<br>
+  13. <code>cout &lt;&lt; "z vale: " &lt;&lt; z</code> → de nuevo se ve el <code>z</code> externo → muestra <b>z vale: 10</b>.<br><br>
+  <b>Salida en pantalla:</b> <code>3</code> · <code>z vale: 10</code> · <code>28</code> · <code>z vale: 10</code> · <code>z vale: 20</code> · <code>7</code> · <code>z vale: 10</code> (cada uno en su renglón).
+</div>
+
+<div class="key">
+  <div class="ky-t">Las dos lecciones del ejemplo</div>
+  • <b><code>z</code> (ocultamiento):</b> afuera vale 10; adentro del if se declara <i>otro</i> <code>z = 20</code> que oculta al de afuera; al salir del if, ese <code>z</code> interno muere y vuelve a verse el 10. Eran <b>dos variables distintas</b> que compartían nombre.<br>
+  • <b><code>x</code> (modificación real):</b> como dentro del if <b>no</b> se declaró ningún <code>x</code>, la línea <code>x = 7;</code> no crea uno nuevo: <b>modifica</b> el único <code>x</code> que existe (el externo). Por eso afuera, después del if, <code>x</code> ya vale 7. La diferencia con <code>z</code> es que <code>z</code> fue <i>redeclarada</i> adentro (con <code>int</code>) y <code>x</code> no.
+</div>
+
+<h4>Variables globales: por qué se evitan</h4>
+<p>Una variable declarada <b>fuera de toda función</b> (a nivel del archivo) se llama <b>global</b>: la pueden ver y modificar <i>todas</i> las funciones del programa. Suena cómodo, pero es una <b>mala práctica</b> en general, porque <b>cualquier parte del programa puede cambiarla</b> y se vuelve imposible saber quién la modificó y cuándo: aparecen bugs muy difíciles de rastrear, y rompe la abstracción (las funciones dejan de ser cajas independientes). La regla práctica de la materia: <b>pasá los datos como parámetros y devolvé resultados con <code>return</code> (o por referencia)</b>; reservá las globales para constantes que de verdad sean de todo el programa.</p>
+
+<!-- ─── 8. RECURSIVIDAD ───────────────────────────────────────────────────── -->
+<h3>Recursividad: una función que se llama a sí misma</h3>
+<p>La <b>recursividad</b> es una técnica donde <b>una función se llama a sí misma</b> para resolver un problema, descomponiéndolo en una versión <b>más chica</b> del mismo problema. Suena a magia (¿una función que se llama a sí misma no se cuelga para siempre?), pero la clave es que cada llamada trabaja sobre un caso <b>más pequeño</b>, hasta llegar a uno tan simple que se resuelve <b>sin volver a llamarse</b>. Por eso, toda función recursiva necesita <b>dos partes</b>:</p>
+
+<div class="key">
+  <div class="ky-t">Los dos ingredientes obligatorios de la recursión</div>
+  • <b>Caso base</b> (condición de corte): el caso más simple, que se resuelve <b>directamente, SIN volver a llamarse</b>. Es el freno que detiene la cadena. <b>Si falta, la recursión nunca termina.</b><br>
+  • <b>Caso recursivo</b>: la función <b>se llama a sí misma con un problema más chico</b>, acercándose al caso base.
+</div>
+
+<h4>El ejemplo clásico: el factorial</h4>
+<p>El <b>factorial</b> de un número <code>n</code> (se escribe <code>n!</code>) es el producto de todos los enteros desde <code>1</code> hasta <code>n</code>. Por ejemplo, <code>3! = 3 · 2 · 1 = 6</code>. La definición matemática ya es recursiva: <code>n! = n · (n−1)!</code>, y <code>0! = 1</code> (ese es el caso base). Así lo escribe la cátedra en C++:</p>
+
+<pre class="code-block">int factorial(int nro) {
+    int res;
+    if (nro != 0) {
+        res = nro * factorial(nro - 1);   // CASO RECURSIVO: se llama con nro-1 (más chico)
+    } else {
+        res = 1;                          // CASO BASE: 0! = 1, sin volver a llamarse
+    }
+    return res;
+}</pre>
+
+<p>Leelo así: "si <code>nro</code> no es 0, el resultado es <code>nro</code> multiplicado por el factorial de <code>nro − 1</code> (un problema más chico); si <code>nro</code> es 0, el resultado es 1 (y acá freno)". Cada llamada reduce <code>nro</code> en 1, así que tarde o temprano llega a 0 y se corta.</p>
+
+<div class="example">
+  <div class="ex-t">Traza de <code>factorial(3)</code>: cómo se apilan las llamadas</div>
+  Cada llamada <b>queda en pausa</b> esperando el resultado de la llamada que hizo. Primero se "baja" hasta el caso base, y después se "sube" calculando:<br><br>
+  <b>Bajada</b> (cada una llama a la siguiente y queda esperando):<br>
+  • <code>factorial(3)</code>: <code>3 != 0</code> → <code>res = 3 * factorial(2)</code> &nbsp;⟶ <i>pausa, espera factorial(2)</i><br>
+  • <code>factorial(2)</code>: <code>2 != 0</code> → <code>res = 2 * factorial(1)</code> &nbsp;⟶ <i>pausa, espera factorial(1)</i><br>
+  • <code>factorial(1)</code>: <code>1 != 0</code> → <code>res = 1 * factorial(0)</code> &nbsp;⟶ <i>pausa, espera factorial(0)</i><br>
+  • <code>factorial(0)</code>: <code>0 != 0</code> es <b>false</b> → entra al <code>else</code> → <code>res = 1</code> → <b>devuelve 1</b> &nbsp;✋ <b>(caso base, acá frena)</b><br><br>
+  <b>Subida</b> (cada una recibe el resultado y completa su cuenta):<br>
+  • <code>factorial(1)</code> recibe 1 → <code>res = 1 * 1 = 1</code> → devuelve <b>1</b><br>
+  • <code>factorial(2)</code> recibe 1 → <code>res = 2 * 1 = 2</code> → devuelve <b>2</b><br>
+  • <code>factorial(3)</code> recibe 2 → <code>res = 3 * 2 = 6</code> → devuelve <b>6</b><br><br>
+  Resultado final: <code>factorial(3)</code> = <b>3 · 2 · 1 = 6</b>. Y por el mismo mecanismo: <code>factorial(0)</code>=1, <code>factorial(1)</code>=1, <code>factorial(2)</code>=2, <code>factorial(4)</code>=24.
+</div>
+
+<div class="key">
+  <div class="ky-t">La "pila" de llamadas</div>
+  Cada vez que una función se llama (a sí misma o a otra), la llamada en curso se <b>apila</b>: queda guardada con todas sus variables locales, en pausa, hasta que la nueva llamada devuelva. Por eso <code>factorial(3)</code> espera a <code>factorial(2)</code>, que espera a <code>factorial(1)</code>… Cuando el caso base devuelve, la pila se va <b>desapilando</b> de a una, y cada nivel completa su cuenta. Esa estructura "lo último que entra es lo primero que sale" se llama <b>pila</b> (<i>stack</i>), y la vas a estudiar en detalle más adelante.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Trampa MORTAL: recursión sin caso base (recursión infinita)</div>
+  Si te olvidás del caso base —o la condición de corte nunca se cumple— la función se llama a sí misma <b>para siempre</b>. Por ejemplo, si en el factorial te olvidás el <code>else</code> y siempre hacés <code>res = nro * factorial(nro - 1)</code>, con un número negativo (o sin freno) <code>nro</code> nunca llega a 0 y las llamadas se apilan sin fin. Como cada llamada ocupa memoria en la pila, esta se <b>llena y revienta</b>: el programa explota con un error llamado <b>desbordamiento de pila</b> (<i>stack overflow</i>). <b>Toda recursión DEBE tener un caso base alcanzable.</b>
+</div>
+
+<h4>Lo mismo, sin recursión: la versión iterativa</h4>
+<p>Casi todo lo que se puede hacer con recursión se puede hacer también con un <b>ciclo</b> (iteración). El propio archivo de la cátedra trae, comentada, la versión del factorial con un <code>for</code>:</p>
+
+<pre class="code-block">int factorial(int nro) {
+    int res = 1;
+    for (int i = 1; i &lt;= nro; i++) {
+        res = res * i;          // 1*1, *2, *3, ... hasta nro
+    }
+    return res;
+}</pre>
+
+<p>Esta versión multiplica <code>res</code> por <code>1</code>, <code>2</code>, …, hasta <code>nro</code>, sin que la función se llame a sí misma. Da <b>el mismo resultado</b> que la recursiva. ¿Cuál usar? La <b>iterativa</b> suele ser más eficiente (no apila llamadas, no arriesga desbordar la pila); la <b>recursiva</b> a veces es más elegante y se parece más a la definición matemática del problema. Las dos son válidas: con el tiempo vas a desarrollar el ojo para elegir.</p>
+
+<!-- ─── 9. REPASO ─────────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • <b>Modularizar</b> = partir el programa en módulos chicos (funciones/procedimientos). Gana en <b>legibilidad</b>, <b>reuso</b>, <b>abstracción</b> y <b>mantenimiento</b> ("divide y vencerás").<br>
+  • Un <b>procedimiento</b> (<code>void nombre() { ... }</code>) <b>hace</b> algo pero <b>no devuelve</b> nada; se llama con <code>nombre();</code>.<br>
+  • Una <b>función</b> (<code>tipo nombre() { ... return valor; }</code>) <b>devuelve</b> un valor con <code>return</code> (que además corta la función). <b>Hay que usar</b> el valor: <code>int w = obtenerNumero();</code>.<br>
+  • Los <b>parámetros</b> son los datos de entrada (en la definición); los <b>argumentos</b> son los valores concretos al llamar. Se asignan por <b>posición</b>.<br>
+  • <b>Por valor</b> (default): la función recibe una <b>copia</b>; el original no cambia. <b>Por referencia</b> (con <code>&amp;</code>): trabaja sobre el <b>original</b>; los cambios <b>persisten</b>. Sirve para parámetros de salida (devolver más de un dato) o modificar lo recibido.<br>
+  • La <b>firma</b> = <b>nombre + tipos de los parámetros</b>; el tipo de retorno y los nombres de parámetros <b>no</b> cuentan. La <b>sobrecarga</b> permite mismo nombre con firmas distintas; no se puede repetir firma.<br>
+  • El <b>alcance (scope)</b>: una variable vive solo dentro de su bloque <code>{ }</code>. El <b>ocultamiento</b> hace que una variable interna tape a otra externa del mismo nombre (mientras dura el bloque). Las <b>globales</b> se evitan.<br>
+  • La <b>recursividad</b> = función que se llama a sí misma. Necesita <b>caso base</b> (corte, sin recursión) y <b>caso recursivo</b> (problema más chico). <code>factorial(3) = 3·2·1 = 6</code>. Sin caso base → <b>desbordamiento de pila</b>. Alternativa: versión iterativa con <code>for</code>.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="ayed"></div>
+</div>
+</details>

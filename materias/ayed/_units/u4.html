@@ -1,0 +1,342 @@
+<!-- ============ UNIDAD 4 · ESTRUCTURAS DE DECISIÓN ============ -->
+<details id="ay-s4">
+<summary><span class="num">4</span> Unidad 4: Estructuras de decisión (if, switch, ternario) <span class="sec-score" id="ss-ayed-4"></span></summary>
+<div class="content">
+
+<p>Hasta ahora tus programas iban siempre <b>derecho</b>: una sentencia abajo de la otra, de arriba hacia abajo, ejecutando <i>todas</i> las líneas sí o sí. En esta unidad eso cambia: el programa va a aprender a <b>tomar decisiones</b>. Según una <b>condición</b> que se cumpla o no, va a ejecutar ciertas líneas <i>o saltearlas</i>. Vamos a ver el <code>if</code>, el <code>if/else</code>, las escaleras <code>else if</code>, el <b>operador ternario</b> y el <code>switch</code>, paso a paso y desde cero.</p>
+
+<!-- ─── 1. FLUJO DE CONTROL ─────────────────────────────────────────────── -->
+<h3>¿Qué es el flujo de control?</h3>
+<p>El <b>flujo de control</b> es el <i>orden</i> en el que se van ejecutando las sentencias de tu programa. En la Unidad 1 viste la regla de oro: el programa corre <b>secuencialmente, de arriba hacia abajo, una sentencia a la vez</b>. Eso es el <b>flujo secuencial</b>: no se saltea nada, no se repite nada, todas las líneas se ejecutan una vez, en orden.</p>
+<p>Pero los programas de verdad necesitan <b>reaccionar</b>. "Si el usuario es mayor de edad, dejalo pasar; si no, mostrale un cartel." "Si la nota es mayor o igual a 4, aprobó; si no, desaprobó." Esa palabrita <b>"si"</b> es la clave: introduce una <b>bifurcación</b>, un punto donde el camino se parte en dos (o más) y el programa <i>elige</i> por cuál seguir.</p>
+
+<div class="example">
+  <div class="ex-t">El flujo de control en la vida real</div>
+  Pensá en cómo salís de tu casa: "<b>Si</b> está lloviendo, agarro el paraguas; <b>si no</b>, lo dejo." El paso "agarrar el paraguas" <i>solo se ejecuta</i> cuando se cumple la condición "está lloviendo". Tu cabeza evalúa la condición y elige el camino. Una estructura de decisión hace exactamente eso, pero en el programa.
+</div>
+
+<p>A las estructuras que controlan ese orden se las llama <b>estructuras de control</b>. Las de esta unidad se llaman <b>estructuras de decisión</b> (o <b>selección</b>): permiten ejecutar (o no) un bloque de código según una <b>condición</b>.</p>
+
+<!-- ─── 2. CONDICIONES Y BOOLEANOS ──────────────────────────────────────── -->
+<h3>La condición: una expresión que vale <code>true</code> o <code>false</code></h3>
+<p>Toda decisión se basa en una <b>condición</b>: una <b>expresión booleana</b>, es decir, una expresión que al evaluarse da uno de dos valores posibles: <b>verdadero</b> (<code>true</code>) o <b>falso</b> (<code>false</code>). No hay grises: o se cumple, o no se cumple.</p>
+<p>La forma más común de armar una condición es <b>comparar</b> dos valores con un <b>operador relacional</b>:</p>
+
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr>
+  <tr><td class="c"><code>&gt;</code></td><td>mayor que</td><td class="c"><code>3 &gt; 2</code></td><td class="c"><code>true</code></td></tr>
+  <tr><td class="c"><code>&lt;</code></td><td>menor que</td><td class="c"><code>3 &lt; 2</code></td><td class="c"><code>false</code></td></tr>
+  <tr><td class="c"><code>&gt;=</code></td><td>mayor o igual</td><td class="c"><code>5 &gt;= 5</code></td><td class="c"><code>true</code></td></tr>
+  <tr><td class="c"><code>&lt;=</code></td><td>menor o igual</td><td class="c"><code>4 &lt;= 3</code></td><td class="c"><code>false</code></td></tr>
+  <tr><td class="c"><code>==</code></td><td>igual a</td><td class="c"><code>2 == 2</code></td><td class="c"><code>true</code></td></tr>
+  <tr><td class="c"><code>!=</code></td><td>distinto de</td><td class="c"><code>2 != 3</code></td><td class="c"><code>true</code></td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Para comparar igualdad se usan DOS signos igual: <code>==</code></div>
+  Un solo <code>=</code> en C++ significa <b>asignar</b> (guardar un valor en una variable): <code>x = 5</code> mete un 5 en <code>x</code>. Para <b>preguntar</b> "¿son iguales?" usás <b>dos</b>: <code>x == 5</code>. Confundirlos es uno de los errores más típicos y peligrosos; le dedicamos una caja entera más abajo.
+</div>
+
+<p>También podés <b>combinar</b> varias condiciones con los <b>operadores lógicos</b>: <code>&amp;&amp;</code> (Y / <i>and</i>: se cumplen <i>ambas</i>), <code>||</code> (O / <i>or</i>: se cumple <i>al menos una</i>) y <code>!</code> (NO / <i>not</i>: invierte el valor). Por ejemplo, <code>edad &gt;= 18 &amp;&amp; tieneEntrada</code> es <code>true</code> solo si las dos cosas se cumplen a la vez. Y existe el tipo de dato <b>booleano</b>, que se declara con <code>bool</code> y solo puede valer <code>true</code> o <code>false</code>: <code>bool esValido = true;</code>.</p>
+
+<!-- ─── 3. IF SIMPLE ────────────────────────────────────────────────────── -->
+<h3>El <code>if</code> simple: ejecutar algo SOLO si se cumple una condición</h3>
+<p>El <code>if</code> (que en inglés significa "si") es la estructura de decisión más básica. Dice: "<b>si</b> esta condición es verdadera, ejecutá esto; si es falsa, salteálo". La sintaxis más simple, para <b>una sola sentencia</b>, es:</p>
+
+<pre class="code-block">if (CONDICION)
+    sentencia;</pre>
+
+<p>Se lee así: se evalúa lo que está entre paréntesis. Si da <code>true</code>, se ejecuta <code>sentencia</code>. Si da <code>false</code>, esa sentencia <b>no se ejecuta</b> y el programa sigue con la línea de abajo. Ojo: <b>la condición va entre paréntesis</b> <code>( )</code> y <b>no</b> lleva punto y coma después del paréntesis.</p>
+
+<p>Veamos el primer ejemplo de la cátedra:</p>
+
+<pre class="code-block">if (3 &gt; 2) // true
+    cout &lt;&lt; "Hola mundo" &lt;&lt; endl;</pre>
+
+<p>El programa evalúa <code>3 &gt; 2</code>. ¿Tres es mayor que dos? Sí. La condición es <b>verdadera</b>, así que se ejecuta la sentencia: en pantalla aparece <code>Hola mundo</code>. Si la condición hubiera sido falsa, esa línea simplemente no se ejecutaría.</p>
+
+<h4>Con bloque: varias sentencias bajo el <code>if</code></h4>
+<p>Si querés que <b>más de una</b> sentencia dependa de la condición, las agrupás en un <b>bloque</b> con llaves <code>{ }</code> (¿te acordás de los bloques de la Unidad 1?). Todo lo que esté <i>adentro</i> de las llaves se ejecuta junto, solo si la condición es verdadera:</p>
+
+<pre class="code-block">if (CONDICION) {
+    sentencia1;
+    sentencia2;
+    // ... cuantas haga falta
+}</pre>
+
+<p>El segundo ejemplo de la cátedra usa una condición <b>falsa</b> a propósito:</p>
+
+<pre class="code-block">if (3 &gt; 4) { // false
+    cout &lt;&lt; "Hola" &lt;&lt; endl;
+    cout &lt;&lt; "Chau" &lt;&lt; endl;
+}</pre>
+
+<p>Acá la condición es <code>3 &gt; 4</code>. ¿Tres es mayor que cuatro? No. La condición es <b>falsa</b>, así que <b>todo el bloque se saltea</b>: no se muestra ni <code>Hola</code> ni <code>Chau</code>. El programa salta directo a lo que venga después de la llave de cierre <code>}</code>.</p>
+
+<div class="key">
+  <div class="ky-t">La traza del <code>if</code>, paso a paso</div>
+  Cuando el programa llega a un <code>if</code>:<br><br>
+  1. <b>Evalúa la condición</b> entre paréntesis → obtiene <code>true</code> o <code>false</code>.<br>
+  2. Si es <code>true</code> → <b>ejecuta</b> el cuerpo (la sentencia o el bloque) y después sigue abajo.<br>
+  3. Si es <code>false</code> → <b>saltea</b> el cuerpo por completo y sigue directo en la línea posterior.<br><br>
+  "Hacer de computadora": parate en la condición, decidí verdadero/falso, y recién ahí elegí qué líneas corren.
+</div>
+
+<div class="key">
+  <div class="ky-t">Consejo de oro: usá SIEMPRE llaves <code>{ }</code></div>
+  Aunque el cuerpo sea una sola sentencia y las llaves no sean obligatorias, <b>conviene ponerlas siempre</b>. ¿Por qué? Porque sin llaves, el <code>if</code> solo "agarra" la <i>primera</i> sentencia de abajo. Mirá la trampa:<br><br>
+  <code>if (edad &gt;= 18)</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Mayor" &lt;&lt; endl;</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Pasá" &lt;&lt; endl;</code> &nbsp;← <i>esta línea se ejecuta SIEMPRE</i>, no depende del if.<br><br>
+  La indentación engaña: parece que las dos líneas están "adentro", pero solo la primera lo está. Con llaves esto no te pasa nunca. Es un hábito que te ahorra horas de bugs.
+</div>
+
+<!-- ─── 4. IF / ELSE ────────────────────────────────────────────────────── -->
+<h3><code>if</code> / <code>else</code>: el camino del SÍ y el camino del NO</h3>
+<p>Muchas veces no solo querés hacer algo cuando la condición se cumple, sino <b>otra cosa distinta</b> cuando NO se cumple. Para eso está el <code>else</code> (en inglés, "si no"). La sintaxis es:</p>
+
+<pre class="code-block">if (CONDICION) {
+    // camino A: se ejecuta si la condición es TRUE
+} else {
+    // camino B: se ejecuta si la condición es FALSE
+}</pre>
+
+<p>La clave del <code>if/else</code> es que <b>se ejecuta exactamente UNO de los dos caminos</b>, nunca los dos, nunca ninguno. Si la condición es verdadera, corre el bloque del <code>if</code> y se ignora el <code>else</code>. Si es falsa, se ignora el <code>if</code> y corre el bloque del <code>else</code>. Son mutuamente excluyentes.</p>
+
+<p>El ejemplo de la cátedra (auto / avión):</p>
+
+<pre class="code-block">if (3 &gt; 4) {
+    cout &lt;&lt; "auto" &lt;&lt; endl;   // en caso de verdad
+} else {
+    cout &lt;&lt; "avión" &lt;&lt; endl;  // en caso de falso
+}</pre>
+
+<p>La condición <code>3 &gt; 4</code> es <b>falsa</b>. Por lo tanto, se saltea el bloque del <code>if</code> (no se muestra <code>auto</code>) y se ejecuta el del <code>else</code>: en pantalla aparece <code>avión</code>. Si la condición hubiera sido verdadera, habría pasado al revés: se mostraría <code>auto</code> y nunca <code>avión</code>.</p>
+
+<div class="example">
+  <div class="ex-t">Traza completa de un <code>if/else</code></div>
+  <code>int nota = 7;</code><br>
+  <code>if (nota &gt;= 4) {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Aprobado" &lt;&lt; endl;</code><br>
+  <code>} else {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "Desaprobado" &lt;&lt; endl;</code><br>
+  <code>}</code><br><br>
+  La condición <code>nota &gt;= 4</code> es <code>7 &gt;= 4</code> → <b>true</b>. Se ejecuta el primer bloque → muestra <code>Aprobado</code>. El <code>else</code> se ignora por completo. Si <code>nota</code> valiera <code>2</code>, la condición sería <code>false</code> y mostraría <code>Desaprobado</code>.
+</div>
+
+<!-- ─── 5. IF ANIDADOS Y ESCALERA ELSE-IF ──────────────────────────────── -->
+<h3><code>if</code> anidados y la escalera <code>else if</code></h3>
+<p>Un <code>if</code> dentro de otro <code>if</code> (o dentro de un <code>else</code>) se dice que está <b>anidado</b>. Es perfectamente válido y a veces necesario. La cátedra lo muestra así:</p>
+
+<pre class="code-block">if (3 &gt; 4) {
+    cout &lt;&lt; "auto" &lt;&lt; endl;   // en caso de verdad
+} else {
+    if (2 == 2) {
+        // ....
+    }
+}</pre>
+
+<p>Acá, <b>dentro</b> del <code>else</code> hay otro <code>if</code>. Se lee: "si <code>3 &gt; 4</code>... (es falso, salteo) si no, entro al else, y ahí adentro pregunto si <code>2 == 2</code>". El anidamiento permite encadenar decisiones, pero si lo abusás, el código se llena de llaves y se vuelve difícil de leer. Para el caso común —<b>varios casos mutuamente excluyentes</b>— existe una forma mucho más prolija: la <b>escalera <code>else if</code></b>.</p>
+
+<h4>La escalera <code>if</code> / <code>else if</code> / <code>else</code></h4>
+<p>Cuando tenés <b>varios casos</b> y querés que se ejecute <b>solo uno</b> (el primero que se cumpla), encadenás condiciones así:</p>
+
+<pre class="code-block">if (CONDICION_1) {
+    // se ejecuta si CONDICION_1 es true
+} else if (CONDICION_2) {
+    // se ejecuta si la 1 fue false y la 2 es true
+} else if (CONDICION_3) {
+    // se ejecuta si las anteriores fueron false y esta es true
+} else {
+    // se ejecuta si NINGUNA de las anteriores se cumplió
+}</pre>
+
+<p>El programa evalúa las condiciones <b>de arriba hacia abajo</b> y se detiene en la <b>primera que da <code>true</code></b>: ejecuta ese bloque y <b>saltea todo el resto</b> de la escalera. El <code>else</code> final (opcional) es el "cajón de sastre": atrapa todos los casos que no encajaron en ninguna condición anterior.</p>
+
+<div class="example">
+  <div class="ex-t">Escalera de notas (rangos)</div>
+  <pre class="code-block">int nota = 8;
+
+if (nota &gt;= 9) {
+    cout &lt;&lt; "Sobresaliente" &lt;&lt; endl;
+} else if (nota &gt;= 7) {
+    cout &lt;&lt; "Distinguido" &lt;&lt; endl;
+} else if (nota &gt;= 4) {
+    cout &lt;&lt; "Aprobado" &lt;&lt; endl;
+} else {
+    cout &lt;&lt; "Desaprobado" &lt;&lt; endl;
+}</pre>
+  Con <code>nota = 8</code>: primero pregunta <code>8 &gt;= 9</code> → false, sigue. Después <code>8 &gt;= 7</code> → <b>true</b>: muestra <code>Distinguido</code> y <b>corta</b>. Nunca llega a evaluar <code>nota &gt;= 4</code> ni el <code>else</code>. Por eso el orden importa y alcanza con poner <code>&gt;= 7</code> (ya sabemos que no es <code>&gt;= 9</code>).
+</div>
+
+<div class="key">
+  <div class="ky-t">El orden de la escalera importa</div>
+  Como se toma <b>el primer <code>true</code></b>, las condiciones se ordenan de la más restrictiva a la más general. Si pusieras <code>nota &gt;= 4</code> arriba de <code>nota &gt;= 9</code>, ¡un 10 caería en "Aprobado" y nunca llegaría a "Sobresaliente"! Pensá la escalera como un colador con agujeros cada vez más grandes.
+</div>
+
+<!-- ─── 6. OPERADOR TERNARIO ───────────────────────────────────────────── -->
+<h3>El operador ternario <code>? :</code>: un <code>if/else</code> que devuelve un valor</h3>
+<p>Hay un caso muy común: un <code>if/else</code> cuyo único trabajo es <b>asignarle a una variable</b> un valor u otro según la condición. Para eso existe un atajo, el <b>operador ternario</b>. Se llama "ternario" porque trabaja con <b>tres</b> partes:</p>
+
+<pre class="code-block">condicion ? valorSiTrue : valorSiFalse</pre>
+
+<p>Se lee: "si <code>condicion</code> es verdadera, el resultado es <code>valorSiTrue</code>; si no, es <code>valorSiFalse</code>". El signo de pregunta <code>?</code> separa la condición del primer valor, y los dos puntos <code>:</code> separan los dos valores. La gran diferencia con un <code>if</code> normal es que el ternario <b>es una expresión que produce un valor</b>, así que podés asignarlo directamente.</p>
+
+<p>Mirá la equivalencia. Este <code>if/else</code> (comentado en el código de la cátedra)...</p>
+
+<pre class="code-block">int x;
+if (1 &lt; 2) {
+    x = 10;
+} else {
+    x = 20;
+}</pre>
+
+<p>...se escribe en una sola línea con el ternario así (esta es la versión que la cátedra deja activa):</p>
+
+<pre class="code-block">int x = (1 &lt; 2) ? 10 : 20;</pre>
+
+<p>Los dos hacen <b>exactamente lo mismo</b>. Se evalúa <code>1 &lt; 2</code> → es <b>true</b> → entonces <code>x</code> toma el valor <code>10</code>. Si la condición fuera falsa, <code>x</code> tomaría <code>20</code>. En general, el patrón de la cátedra es:</p>
+
+<pre class="code-block">// Estas dos formas son equivalentes:
+int dato;
+if (COND) {
+    dato = 1;
+} else {
+    dato = 2;
+}
+
+int dato = (COND) ? 1 : 2;</pre>
+
+<div class="key">
+  <div class="ky-t">Cuándo usar el ternario</div>
+  El ternario es ideal cuando <b>elegís entre dos valores</b> para asignar o mostrar: <code>int mayor = (a &gt; b) ? a : b;</code>. Es corto y claro <i>para casos simples</i>. Pero no abuses: si dentro de cada rama hacés varias cosas (no solo asignar un valor), o si encadenás muchos ternarios, el <code>if/else</code> normal se lee mucho mejor. Regla práctica: ternario para asignar un valor; <code>if/else</code> para ejecutar acciones.
+</div>
+
+<!-- ─── 7. BUENAS PRÁCTICAS ────────────────────────────────────────────── -->
+<h3>Buenas prácticas al escribir condiciones</h3>
+
+<div class="trap">
+  <div class="tr-t">No dejes la parte verdadera VACÍA: negá la condición con <code>!</code></div>
+  Un error feo de principiante es escribir un <code>if</code> donde el bloque verdadero queda <b>vacío</b> y toda la lógica está en el <code>else</code>. La cátedra lo marca explícitamente como "NO hacer". Así <b>NO</b>:<br><br>
+  <code>bool w = true;</code><br>
+  <code>if (w) {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;// vacío... no hace nada</code><br>
+  <code>} else {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "hola" &lt;&lt; endl;</code><br>
+  <code>}</code><br><br>
+  En su lugar, <b>negá</b> la condición con el operador <code>!</code> (NO lógico, que invierte verdadero/falso) y borrá el <code>else</code>. Así <b>SÍ</b>:<br><br>
+  <code>bool w = true;</code><br>
+  <code>if (!w) {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "hola" &lt;&lt; endl;</code><br>
+  <code>}</code><br><br>
+  <code>!w</code> se lee "no w": vale <code>true</code> cuando <code>w</code> es <code>false</code>. Como acá <code>w</code> es <code>true</code>, <code>!w</code> es <code>false</code> y no se muestra nada — igual que en la versión de arriba, pero mucho más limpio.
+</div>
+
+<div class="key">
+  <div class="ky-t">No compares un <code>bool</code> contra <code>true</code></div>
+  Si <code>esValido</code> ya es un booleano, <i>ya</i> vale <code>true</code> o <code>false</code>: no hace falta volver a compararlo.<br><br>
+  ✗ <code>if (esValido == true)</code> &nbsp;→ redundante y se presta a confundir <code>==</code> con <code>=</code>.<br>
+  ✓ <code>if (esValido)</code> &nbsp;→ directo, claro, idiomático.<br><br>
+  Y para el caso falso: en vez de <code>if (esValido == false)</code>, escribí <code>if (!esValido)</code>. La condición de un <code>if</code> <i>ya</i> espera un booleano, así que poné directamente el booleano.
+</div>
+
+<!-- ─── 8. SWITCH ──────────────────────────────────────────────────────── -->
+<h3>El <code>switch</code>: decisión múltiple sobre una variable</h3>
+<p>Cuando tenés que comparar <b>una misma variable</b> contra <b>varios valores fijos</b> (constantes) y hacer algo distinto en cada caso, el <code>switch</code> es más prolijo que una escalera larga de <code>else if</code>. La sintaxis:</p>
+
+<pre class="code-block">switch (variable) {
+case valor1:
+    // sentencias para cuando variable == valor1
+    break;
+case valor2:
+    // sentencias para cuando variable == valor2
+    break;
+default:
+    // sentencias para cualquier otro valor (opcional)
+}</pre>
+
+<p>Funciona así: el <code>switch</code> mira el valor de <code>variable</code> y <b>salta</b> al <code>case</code> cuyo valor coincide. Desde ahí ejecuta las sentencias hacia abajo <b>hasta encontrar un <code>break</code></b>, momento en el que <b>sale</b> de todo el <code>switch</code> y continúa con lo que venga después de la llave de cierre.</p>
+
+<p>El ejemplo de la cátedra lee un número por teclado y lo clasifica:</p>
+
+<pre class="code-block">int nro;
+cin &gt;&gt; nro;
+
+switch (nro) {
+case 1:
+    cout &lt;&lt; "El numero es 1" &lt;&lt; endl;
+    break;
+case 2:
+    cout &lt;&lt; "El numero es 2" &lt;&lt; endl;
+    break;
+case 3:
+    cout &lt;&lt; "El numero es 3" &lt;&lt; endl;
+    break;
+default:
+    cout &lt;&lt; "El numero es mayor a 3" &lt;&lt; endl;
+}</pre>
+
+<p>Si el usuario teclea <code>2</code>, el <code>switch</code> salta a <code>case 2:</code>, muestra <code>El numero es 2</code>, encuentra el <code>break</code> y sale. Si teclea <code>1</code>, muestra <code>El numero es 1</code>. Si teclea <code>3</code>, muestra <code>El numero es 3</code>. Y si teclea cualquier otra cosa (un <code>5</code>, un <code>0</code>, un <code>-7</code>) no coincide con ningún <code>case</code>, así que cae en <code>default</code> y muestra <code>El numero es mayor a 3</code>.</p>
+
+<h4>El rol de <code>break</code>: cortar el "fallthrough"</h4>
+<p>El <code>break</code> es <b>fundamental</b>. Sin él, una vez que el <code>switch</code> entra a un <code>case</code>, <b>sigue ejecutando los <code>case</code> de abajo</b> aunque sus valores no coincidan, hasta toparse con un <code>break</code> o llegar al final. A ese "caerse" hacia los casos siguientes se lo llama <b>fallthrough</b> (caída en cascada), y casi siempre es un <b>error</b>.</p>
+
+<div class="trap">
+  <div class="tr-t">Olvidar un <code>break</code> = se ejecutan los casos de abajo (fallthrough)</div>
+  Imaginá que en el ejemplo borrás el <code>break</code> del <code>case 1</code>:<br><br>
+  <code>case 1:</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "El numero es 1" &lt;&lt; endl;</code><br>
+  <code>case 2:</code> &nbsp;← <i>sin break arriba, también entra acá</i><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "El numero es 2" &lt;&lt; endl;</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;break;</code><br><br>
+  Si el usuario teclea <code>1</code>, ahora se muestran <b>DOS</b> líneas: <code>El numero es 1</code> y <code>El numero es 2</code>. ¿Por qué? Porque entró en <code>case 1</code>, no encontró <code>break</code>, y "cayó" hacia <code>case 2</code> ejecutándolo también, hasta el <code>break</code> de ahí. Por eso: <b>poné <code>break</code> al final de cada <code>case</code></b> (salvo que el fallthrough sea justo lo que querés, cosa rara al principio).
+</div>
+
+<h4>El <code>default</code>: el caso "por defecto"</h4>
+<p><code>default</code> es el caso que se ejecuta cuando <b>ningún <code>case</code> coincide</b> con el valor de la variable. Es el equivalente al <code>else</code> de la escalera. Es <b>opcional</b> (podés no ponerlo, y entonces si nada coincide no se hace nada), pero es buena práctica incluirlo para cubrir lo inesperado. Como suele ir último, su <code>break</code> es opcional (no hay nada debajo hacia donde caer); por eso en el ejemplo de la cátedra el <code>default</code> no lo lleva.</p>
+
+<div class="key">
+  <div class="ky-t"><code>switch</code> vs. escalera <code>if</code> / <code>else if</code></div>
+  <b>Usá <code>switch</code></b> cuando comparás <b>una sola variable</b> contra <b>valores constantes</b> e iguales exactos (<code>nro == 1</code>, <code>nro == 2</code>, ...). Es más claro y muestra de un vistazo todos los casos.<br><br>
+  <b>Usá la escalera <code>else if</code></b> cuando las condiciones son <b>rangos</b> (<code>nota &gt;= 7</code>), <b>combinaciones</b> (<code>edad &gt; 18 &amp;&amp; tieneEntrada</code>) o involucran <b>variables distintas</b>. El <code>switch</code> no sabe comparar rangos: solo igualdad contra constantes.
+</div>
+
+<!-- ─── 9. ERRORES TÍPICOS ─────────────────────────────────────────────── -->
+<h3>Errores típicos que tenés que evitar</h3>
+
+<div class="trap">
+  <div class="tr-t">Usar <code>=</code> (asignación) en vez de <code>==</code> (comparación)</div>
+  Este es <b>el</b> clásico, y el más traicionero porque muchas veces <i>compila igual</i> y no avisa.<br><br>
+  ✗ <code>if (x = 5)</code> &nbsp;→ esto <b>asigna</b> 5 a <code>x</code> y después usa ese 5 como condición. En C++ cualquier número distinto de cero cuenta como verdadero, así que la condición da <b>siempre true</b>, pase lo que pase. Además, ¡le cambiaste el valor a <code>x</code> sin querer!<br>
+  ✓ <code>if (x == 5)</code> &nbsp;→ esto <b>compara</b> si <code>x</code> vale 5, sin tocar nada.<br><br>
+  Para preguntar igualdad, <b>siempre dos signos</b>: <code>==</code>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Poner <code>;</code> justo después del paréntesis del <code>if</code></div>
+  ✗ <code>if (edad &gt;= 18);</code> &nbsp;← ese punto y coma de más es el cuerpo del <code>if</code> (¡un cuerpo vacío!). Lo que escribas en la línea de abajo ya <b>no depende</b> de la condición y se ejecuta siempre. Compila sin chistar, pero hace algo distinto de lo que querías. No pongas <code>;</code> después de la condición de un <code>if</code>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Condición que no es booleana</div>
+  La condición de un <code>if</code> debería dar <code>true</code> o <code>false</code>. Si por error ponés una expresión que da un número (por ejemplo <code>if (cantidad)</code> con <code>cantidad</code> entero), C++ la interpreta como "verdadero si es distinto de cero, falso si es cero". A veces eso es lo que querés, pero <b>al principio escribí la comparación explícita</b> (<code>if (cantidad != 0)</code>, <code>if (cantidad &gt; 0)</code>) para que se entienda y no te equivoques.
+</div>
+
+<!-- ─── 10. REPASO ─────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • El <b>flujo de control</b> es el orden de ejecución; las <b>estructuras de decisión</b> permiten ejecutar líneas (o no) según una <b>condición</b>.<br>
+  • Una <b>condición</b> es una expresión booleana: vale <code>true</code> o <code>false</code> (operadores <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>, combinados con <code>&amp;&amp;</code>, <code>||</code>, <code>!</code>).<br>
+  • <code>if (COND) { ... }</code> ejecuta el cuerpo solo si la condición es verdadera. <b>Usá siempre llaves.</b><br>
+  • <code>if (COND) { ... } else { ... }</code> ejecuta <b>exactamente uno</b> de los dos caminos.<br>
+  • La <b>escalera</b> <code>else if</code> toma <b>el primer <code>true</code></b>; el <code>else</code> final atrapa lo que no encajó.<br>
+  • El <b>ternario</b> <code>COND ? a : b</code> es un <code>if/else</code> que <i>devuelve un valor</i>: <code>int x = (1 &lt; 2) ? 10 : 20;</code>.<br>
+  • Buenas prácticas: no dejes el <code>if</code> verdadero vacío (<b>negá</b> con <code>!</code>); no compares un bool con <code>true</code> (usá <code>if (esValido)</code>).<br>
+  • El <code>switch</code> compara <b>una variable</b> contra <b>valores constantes</b>; cada <code>case</code> necesita su <code>break</code> (si no, hay <b>fallthrough</b>); <code>default</code> es el caso por defecto.<br>
+  • Cuidado con <code>=</code> vs <code>==</code>, con el <code>;</code> de más tras el <code>if</code> y con olvidar el <code>break</code>.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="ayed"></div>
+</div>
+</details>

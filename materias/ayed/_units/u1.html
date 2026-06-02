@@ -1,0 +1,172 @@
+<!-- ============ UNIDAD 1 · INTRODUCCIÓN: ALGORITMOS, DATOS Y TU PRIMER PROGRAMA ============ -->
+<details id="ay-s1">
+<summary><span class="num">1</span> Unidad 1: Introducción — algoritmos, datos y tu primer programa <span class="sec-score" id="ss-ayed-1"></span></summary>
+<div class="content">
+
+<p>Esta primera unidad arranca de cero absoluto: vas a entender <b>qué es un algoritmo</b>, <b>qué son los datos</b>, qué significa <b>programar</b>, y vas a escribir, entender línea por línea y correr tu <b>primer programa en C++</b>. No hace falta saber nada previo.</p>
+
+<!-- ─── 1. QUÉ ES UN ALGORITMO ─────────────────────────────────────────── -->
+<h3>¿Qué es un algoritmo?</h3>
+<p>Un <b>algoritmo</b> es una <b>secuencia finita de pasos</b>, ordenados y bien definidos, que resuelven un problema. La idea clave es que si seguís esos pasos <i>en el orden indicado</i>, siempre llegás <b>al mismo resultado</b> para la misma entrada: el comportamiento es <b>predecible</b>.</p>
+<p>No es algo exclusivo de las computadoras. Usás algoritmos todo el tiempo en la vida real, solo que no los llamás así.</p>
+
+<div class="example">
+  <div class="ex-t">Algoritmos de la vida cotidiana</div>
+  <b>Receta de cocina</b> — "1) Calentar el agua. 2) Cuando hierve, echar los fideos. 3) Esperar 10 minutos. 4) Colar." Son pasos, en orden, que resuelven el problema "cocinar fideos".<br><br>
+  <b>Llegar a la facultad</b> — "1) Tomar el 28. 2) Bajar en Medrano. 3) Caminar 2 cuadras." Si alguien sigue exactamente esos pasos, llega al mismo lugar.<br><br>
+  El trabajo del programador es escribir estos "pasos" de forma tan precisa que hasta una máquina —que no entiende sobreentendidos ni "vos ya sabés"— pueda ejecutarlos sin equivocarse.
+</div>
+
+<div class="key">
+  <div class="ky-t">Propiedades de todo buen algoritmo</div>
+  • <b>Preciso</b>: cada paso no deja lugar a dudas (nada de "agregar sal a gusto").<br>
+  • <b>Ordenado / definido</b>: los pasos tienen un orden claro y conocés cuál sigue.<br>
+  • <b>Finito</b>: termina en algún momento, después de una cantidad limitada de pasos.<br>
+  • <b>Determinístico</b>: con la misma entrada produce <i>siempre</i> la misma salida.<br>
+  • Tiene <b>entrada</b> (los datos con los que arranca, que pueden ser cero) y <b>salida</b> (el resultado).
+</div>
+
+<!-- ─── 2. QUÉ ES UNA ESTRUCTURA DE DATOS ──────────────────────────────── -->
+<h3>¿Qué son los datos y qué es una estructura de datos?</h3>
+<p>Un <b>dato</b> es un <b>valor</b> que el programa manipula: el número <code>42</code>, la palabra <code>"Hola"</code>, el valor lógico <code>verdadero</code>. Los algoritmos no operan en el vacío: leen datos, los transforman y producen nuevos datos.</p>
+<p>Una <b>estructura de datos</b> es la <b>forma de organizar</b> esos datos para poder usarlos cómodamente en el algoritmo. No es lo mismo tener 100 números sueltos que tenerlos ordenados en una "lista" donde podés acceder al elemento número 37 de una.</p>
+
+<div class="key">
+  <div class="ky-t">La ecuación que da nombre a la materia</div>
+  <b>Algoritmos + Estructuras de datos = Programas.</b> Esta frase (del científico Niklaus Wirth) resume la materia: un programa útil combina <i>buenos pasos</i> (algoritmos) operando sobre <i>datos bien organizados</i> (estructuras de datos). Las primeras unidades se enfocan en los algoritmos; más adelante aparecen las estructuras (vectores, registros).
+</div>
+
+<!-- ─── 3. QUÉ ES PROGRAMAR ────────────────────────────────────────────── -->
+<h3>¿Qué significa "programar"? Lenguajes y compilación</h3>
+<p>La computadora, en el fondo, solo entiende <b>lenguaje de máquina</b>: ceros y unos. Escribir directamente en ceros y unos sería imposible para un humano. Por eso usamos <b>lenguajes de programación de alto nivel</b> —como <b>C++</b>— que se parecen más al inglés y a las matemáticas, y que después se traducen a lenguaje de máquina.</p>
+<p>El texto que vos escribís se llama <b>código fuente</b> (un archivo de texto, en C++ con extensión <code>.cpp</code>). Pero ese texto no se puede ejecutar tal cual: hay que <b>traducirlo</b>.</p>
+
+<div class="key">
+  <div class="ky-t">C++ es un lenguaje COMPILADO</div>
+  El camino de tu código a un programa que corre es:<br><br>
+  <b>código fuente</b> (<code>programa.cpp</code>) → <b>COMPILADOR</b> → <b>ejecutable</b> (un archivo que la máquina puede correr).<br><br>
+  El <b>compilador</b> es un programa que lee todo tu <code>.cpp</code>, revisa que esté bien escrito (si hay errores de sintaxis, no compila y te avisa) y genera el ejecutable. Esto se hace <i>una vez</i>; después corrés el ejecutable las veces que quieras. (Otros lenguajes, como Python, son <b>interpretados</b>: se traducen línea por línea cada vez que corren. C++ no: primero compila, después ejecuta.)
+</div>
+
+<!-- ─── 4. ANATOMÍA DEL PRIMER PROGRAMA ────────────────────────────────── -->
+<h3>Tu primer programa: "Hola mundo", línea por línea</h3>
+<p>Este es el programa más simple que muestra un texto en pantalla. Mirálo entero y después lo desarmamos:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Hola mundo" &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<p>Cada parte cumple un rol concreto:</p>
+
+<h4><code>#include &lt;iostream&gt;</code></h4>
+<p>Es una <b>directiva</b> que le dice al compilador: "traé el conjunto de herramientas de <i>entrada/salida</i>". <code>iostream</code> significa <i>input/output stream</i> (flujo de entrada/salida). Gracias a esta línea podemos usar <code>cout</code> (mostrar en pantalla) y <code>cin</code> (leer del teclado). Sin ella, el programa no sabría qué es <code>cout</code>.</p>
+
+<h4><code>using namespace std;</code></h4>
+<p>Las herramientas estándar de C++ viven en un "espacio de nombres" llamado <code>std</code> (de <i>standard</i>). Esta línea nos permite escribir <code>cout</code> en lugar de <code>std::cout</code> cada vez. Es una comodidad: la vas a ver en casi todos los programas de la materia.</p>
+
+<h4><code>int main() { ... }</code></h4>
+<p>Es la <b>función principal</b>: el <b>punto de arranque</b> de todo programa en C++. Cuando ejecutás el programa, la computadora busca <code>main</code> y empieza a correr las líneas que están <b>entre sus llaves</b> <code>{ }</code>, <b>de arriba hacia abajo</b>. Todo programa tiene exactamente un <code>main</code>.</p>
+
+<div class="key">
+  <div class="ky-t">Inicio y fin de tu programa</div>
+  <b>Comienzo:</b> <code>int main() {</code><br>
+  <b>Fin:</b> <code>&nbsp;&nbsp;&nbsp;&nbsp;return 0;</code> seguido de <code>}</code><br><br>
+  Todo lo que quieras que el programa haga va <i>adentro</i> de esas llaves.
+</div>
+
+<h4><code>cout &lt;&lt; "Hola mundo" &lt;&lt; endl;</code></h4>
+<p>Esta es la línea que <b>hace algo visible</b>: muestra el texto <code>Hola mundo</code> en pantalla y baja un renglón. La explicamos en detalle en la próxima sección.</p>
+
+<h4><code>return 0;</code></h4>
+<p>Le indica al sistema operativo que el programa <b>terminó bien</b>. El <code>0</code> significa "todo salió OK" (un número distinto se usaría para indicar que hubo un error). Como <code>main</code> está declarada como <code>int</code> (devuelve un entero), debe terminar devolviendo un número: por eso <code>return 0;</code>.</p>
+
+<!-- ─── 5. SALIDA POR PANTALLA ─────────────────────────────────────────── -->
+<h3>Mostrar por pantalla: <code>cout</code> y <code>endl</code></h3>
+<p><code>cout</code> (se lee "ci-aut", <i>console output</i>) es la <b>salida estándar</b>: la pantalla. Para mandarle algo se usa el operador <code>&lt;&lt;</code>, que podés imaginar como una <b>flecha</b> que empuja datos <i>hacia</i> la pantalla.</p>
+
+<pre class="code-block">cout &lt;&lt; "Hola mundo";        // muestra: Hola mundo
+cout &lt;&lt; 42;                  // muestra: 42
+cout &lt;&lt; "Edad: " &lt;&lt; 20;      // muestra: Edad: 20</pre>
+
+<p>Fijate que podés <b>encadenar</b> varios <code>&lt;&lt;</code> en una misma línea: cada uno empuja una cosa más a la pantalla, en orden, de izquierda a derecha. El texto entre comillas dobles (<code>"..."</code>) se muestra tal cual; los números se muestran sin comillas.</p>
+
+<h4><code>endl</code> y <code>"\n"</code>: el salto de línea</h4>
+<p><code>endl</code> (de <i>end line</i>) produce un <b>salto de renglón</b>: lo próximo que se muestre aparece en la línea de abajo. Es lo mismo que escribir <code>"\n"</code> dentro de un texto.</p>
+
+<pre class="code-block">cout &lt;&lt; "Linea 1" &lt;&lt; endl;
+cout &lt;&lt; "Linea 2" &lt;&lt; endl;
+
+/* Muestra en pantalla:
+   Linea 1
+   Linea 2
+*/</pre>
+
+<div class="trap">
+  <div class="tr-t">Error típico: olvidar los <code>&lt;&lt;</code> entre cada cosa</div>
+  Si querés mostrar un texto y un número juntos, cada elemento necesita su propia flecha:<br>
+  ✗ <code>cout &lt;&lt; "Edad: " 20;</code> &nbsp;→ error, falta el <code>&lt;&lt;</code> antes del 20.<br>
+  ✓ <code>cout &lt;&lt; "Edad: " &lt;&lt; 20;</code>
+</div>
+
+<!-- ─── 6. COMENTARIOS ─────────────────────────────────────────────────── -->
+<h3>Comentarios: notas para humanos</h3>
+<p>Un <b>comentario</b> es texto que el compilador <b>ignora</b> por completo. Sirve para que vos (o quien lea el código) entienda qué hace cada parte. No afecta en nada lo que el programa ejecuta.</p>
+<p>Hay dos formas:</p>
+<pre class="code-block">// Comentario de UNA línea: desde las // hasta el final del renglón.
+
+/* Comentario de
+   VARIAS líneas: todo lo que está
+   entre la barra-asterisco queda comentado. */
+
+cout &lt;&lt; "Hola" /* incluso en el medio de una linea */ &lt;&lt; endl;</pre>
+<div class="key">
+  <div class="ky-t">Usá comentarios desde el día uno</div>
+  Comentar bien tu código es una <b>costumbre profesional</b>, no un adorno. Te ayuda a recordar qué pensabas y le facilita la corrección al docente. Pero comentá <i>el porqué</i>, no lo obvio: <code>x++; // sumo 1 a x</code> no aporta nada; <code>x++; // cuento un alumno mas</code> sí.
+</div>
+
+<!-- ─── 7. PUNTO Y COMA Y BLOQUES ──────────────────────────────────────── -->
+<h3>El punto y coma <code>;</code> y los bloques <code>{ }</code></h3>
+<p>En C++, cada <b>sentencia</b> (cada instrucción completa) termina con un <b>punto y coma</b> <code>;</code>. Es el <b>delimitador de sentencias</b>: le dice al compilador "esta orden terminó acá".</p>
+<p>Las <b>llaves</b> <code>{ }</code> sirven para <b>agrupar</b> varias sentencias en un <b>bloque</b> que se trata como una unidad (ya viste el bloque de <code>main</code>; más adelante los vas a usar en <code>if</code>, ciclos, funciones).</p>
+
+<div class="trap">
+  <div class="tr-t">El error número uno de quien empieza: olvidar el <code>;</code></div>
+  Si olvidás un punto y coma, el compilador se confunde y tira un error que muchas veces <i>apunta a la línea siguiente</i> (porque sigue leyendo esperando que la sentencia anterior termine). Ante un error raro de compilación, lo primero que conviene revisar es si falta un <code>;</code> en la línea de arriba.
+</div>
+
+<!-- ─── 8. CÓMO SE EJECUTA ─────────────────────────────────────────────── -->
+<h3>¿Cómo corro mi programa?</h3>
+<p>En la materia se trabaja típicamente con un editor como <b>Visual Studio Code</b> + un compilador de C++ (como <b>g++</b>, de MinGW). El flujo es siempre el mismo:</p>
+<table class="tbl">
+  <tr><th>Paso</th><th>Qué pasa</th></tr>
+  <tr><td>1. Escribís el código</td><td>Guardás el archivo <code>.cpp</code> (código fuente).</td></tr>
+  <tr><td>2. Compilás</td><td>El compilador traduce y, si no hay errores, genera el ejecutable. Si hay errores, los corregís y volvés a compilar.</td></tr>
+  <tr><td>3. Ejecutás</td><td>Corrés el ejecutable. El programa empieza en <code>main</code> y ejecuta las líneas <b>de arriba hacia abajo</b>.</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">La regla mental más importante para empezar</div>
+  Salvo que una estructura de control diga lo contrario (lo verás en las próximas unidades), el programa se ejecuta <b>secuencialmente, de arriba hacia abajo, una sentencia a la vez</b>. Cuando leas un programa, "hacé de computadora": seguí las líneas en orden imaginando qué va pasando.
+</div>
+
+<!-- ─── 9. RESUMEN ─────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Un <b>algoritmo</b> son pasos finitos, ordenados y precisos que resuelven un problema.<br>
+  • Un <b>dato</b> es un valor; una <b>estructura de datos</b> es la forma de organizarlo.<br>
+  • C++ es <b>compilado</b>: código fuente <code>.cpp</code> → compilador → ejecutable.<br>
+  • Todo programa arranca en <code>int main()</code> y termina con <code>return 0;</code>.<br>
+  • <code>#include &lt;iostream&gt;</code> habilita <code>cout</code>/<code>cin</code>; <code>using namespace std;</code> evita escribir <code>std::</code>.<br>
+  • Se muestra en pantalla con <code>cout &lt;&lt; ... ;</code> y se salta renglón con <code>endl</code>.<br>
+  • Cada sentencia termina en <code>;</code> y los bloques se agrupan con <code>{ }</code>.<br>
+  • El programa se ejecuta de <b>arriba hacia abajo</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="ayed"></div>
+</div>
+</details>

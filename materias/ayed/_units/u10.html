@@ -1,0 +1,372 @@
+<!-- ============ UNIDAD 10 · MATRICES (ARREGLOS BIDIMENSIONALES) ============ -->
+<details id="ay-s10">
+<summary><span class="num">10</span> Unidad 10: Matrices (arreglos bidimensionales) <span class="sec-score" id="ss-ayed-10"></span></summary>
+<div class="content">
+
+<p>En la unidad de arreglos aprendiste a guardar muchos datos del mismo tipo en <b>una fila de casilleros</b>: un <b>vector</b>. Eso resuelve un montón de problemas… pero hay datos que <b>no son una fila</b>, son una <b>tabla</b>: un tablero de ajedrez, las notas de varios alumnos en varias materias, los píxeles de una imagen, las temperaturas tomadas a lo largo de muchos días y muchas horas. Para esos datos —los que tienen <b>filas y columnas</b>— está la <b>matriz</b>: un arreglo de <b>dos dimensiones</b>. En esta unidad vas a ver qué es, cómo se declara, cómo se accede a cada celda, cómo se recorre con un <b>doble for</b>, los recorridos más útiles (sumar, buscar el máximo, contar) y cómo pasar una matriz a una función. Todo desde cero, asumiendo que ya manejás <b>vectores</b> y <b>ciclos <code>for</code></b>.</p>
+
+<!-- ─── 1. MOTIVACIÓN ──────────────────────────────────────────────────── -->
+<h3>¿Por qué un vector no alcanza? De la fila a la tabla</h3>
+<p>Un <b>vector</b> es una fila de casilleros numerados: <code>nota[0]</code>, <code>nota[1]</code>, <code>nota[2]</code>… Con <b>un solo número</b> (el índice) alcanza para señalar cualquier casillero. Es perfecto para una lista: las 167 notas de un curso, los sueldos de una empresa, los días de un mes.</p>
+<p>Pero pensá en estos datos:</p>
+
+<div class="example">
+  <div class="ex-t">Datos que son naturalmente una TABLA</div>
+  <b>Notas de alumnos en materias</b> — 5 alumnos, 3 materias. No es una lista plana: es una grilla. La nota de Ana en Matemática vive en el cruce de <i>la fila de Ana</i> con <i>la columna de Matemática</i>.<br><br>
+  <b>Tablero de ajedrez</b> — 8 filas por 8 columnas. Cada casilla se ubica por su fila <i>y</i> su columna (la torre está en "fila 1, columna 1").<br><br>
+  <b>Imagen en blanco y negro</b> — una grilla de píxeles; cada píxel tiene un valor de gris según su fila y su columna.<br><br>
+  <b>Temperaturas por día y hora</b> — un día tiene 24 horas; un mes, 30 días. La temperatura de "el día 5 a las 14 hs" se ubica por su fila (día) y su columna (hora).<br><br>
+  En todos estos casos necesitás <b>dos números</b> para señalar un dato: <i>en qué fila</i> y <i>en qué columna</i>. Eso es justo lo que un vector (con un solo índice) no te da.
+</div>
+
+<p>Podrías intentar forzarlo con un vector gigante y "hacer la cuenta a mano" para saber qué posición corresponde a cada fila/columna, pero es incómodo y propenso a errores. C++ te da la herramienta exacta para esto: la <b>matriz</b>, un arreglo de <b>dos dimensiones</b>, donde a cada dato lo ubicás dando <b>fila y columna</b>.</p>
+
+<div class="key">
+  <div class="ky-t">La idea en una frase</div>
+  Un <b>vector</b> organiza datos en <b>una</b> dimensión (una fila): un índice. Una <b>matriz</b> los organiza en <b>dos</b> dimensiones (filas × columnas): dos índices. Si el dato "se dibuja como una tabla", pedís una matriz.
+</div>
+
+<!-- ─── 2. DEFINICIÓN ──────────────────────────────────────────────────── -->
+<h3>Qué es una matriz y cómo se declara</h3>
+<p>Una <b>matriz</b> (o <b>arreglo bidimensional</b>) es una colección de casilleros del <b>mismo tipo</b>, organizados en <b>filas y columnas</b>. Se declara igual que un vector, pero con <b>dos pares de corchetes</b>: el primero dice cuántas <b>filas</b> tiene; el segundo, cuántas <b>columnas</b>:</p>
+
+<pre class="code-block">tipo nombre[FILAS][COLUMNAS];</pre>
+
+<p>Por ejemplo, una matriz de enteros con <b>3 filas</b> y <b>4 columnas</b>:</p>
+
+<pre class="code-block">int m[3][4];</pre>
+
+<p>Esa declaración reserva en memoria <b>3 × 4 = 12 casilleros</b> de tipo <code>int</code>, todos pegados, listos para guardar 12 números enteros. Visualmente, pensala como una grilla de 3 filas por 4 columnas:</p>
+
+<table class="tbl">
+  <tr><th></th><th>col 0</th><th>col 1</th><th>col 2</th><th>col 3</th></tr>
+  <tr><th>fila 0</th><td class="c">m[0][0]</td><td class="c">m[0][1]</td><td class="c">m[0][2]</td><td class="c">m[0][3]</td></tr>
+  <tr><th>fila 1</th><td class="c">m[1][0]</td><td class="c">m[1][1]</td><td class="c">m[1][2]</td><td class="c">m[1][3]</td></tr>
+  <tr><th>fila 2</th><td class="c">m[2][0]</td><td class="c">m[2][1]</td><td class="c">m[2][2]</td><td class="c">m[2][3]</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Una matriz es "un arreglo de arreglos"</div>
+  La forma más útil de imaginar <code>int m[3][4]</code> es: <b>un vector de 3 elementos, donde cada elemento es, a su vez, un vector de 4 enteros</b>. O sea, <code>m</code> tiene 3 <b>filas</b>, y cada fila es un vectorcito de 4 <b>columnas</b>. Esta idea —"un arreglo cuyos elementos son arreglos"— explica por qué se escribe con dos corchetes y, más adelante, por qué al pasarla a una función hay que aclarar cuántas columnas tiene cada fila.
+</div>
+
+<p>El tipo puede ser cualquiera: <code>int</code>, <code>float</code>, <code>char</code>, etc. Y las dimensiones suelen ser <b>constantes</b> conocidas. Es muy común definirlas con <code>const</code> para no repetir números "mágicos" por todo el código:</p>
+
+<pre class="code-block">const int FILAS = 3;
+const int COLUMNAS = 4;
+
+int m[FILAS][COLUMNAS];   // misma matriz de 3x4, pero con nombres claros</pre>
+
+<!-- ─── 3. ACCESO A CELDAS ─────────────────────────────────────────────── -->
+<h3>Acceder a una celda: <code>m[i][j]</code></h3>
+<p>Para usar una celda puntual escribís el nombre de la matriz seguido de <b>dos índices entre corchetes</b>: el primero es la <b>fila</b>, el segundo es la <b>columna</b>.</p>
+
+<pre class="code-block">m[i][j]   // i = numero de FILA, j = numero de COLUMNA</pre>
+
+<div class="key">
+  <div class="ky-t">El orden es SIEMPRE [fila][columna]</div>
+  En <code>m[i][j]</code>: el <b>primer</b> índice <code>i</code> es la <b>fila</b>; el <b>segundo</b> índice <code>j</code> es la <b>columna</b>. Igual que en un vector, <b>ambos arrancan en 0</b>. Para una matriz <code>int m[3][4]</code>, las filas válidas son <code>0, 1, 2</code> (tres filas) y las columnas válidas son <code>0, 1, 2, 3</code> (cuatro columnas).
+</div>
+
+<p>Una celda se usa <b>igual que cualquier variable</b> <code>int</code>: le podés <b>asignar</b> un valor, <b>leer</b> el que tiene, mostrarlo, usarlo en una cuenta. Mirá:</p>
+
+<pre class="code-block">int m[3][4];
+
+m[0][0] = 7;          // guarda 7 en la celda fila 0, columna 0 (esquina superior izquierda)
+m[1][2] = 25;         // guarda 25 en la celda fila 1, columna 2
+m[2][3] = 100;        // guarda 100 en la celda fila 2, columna 3 (esquina inferior derecha)
+
+cout &lt;&lt; m[1][2] &lt;&lt; endl;            // muestra: 25
+int doble = m[1][2] * 2;           // doble queda en 50
+m[0][0] = m[0][0] + 1;             // ahora m[0][0] vale 8</pre>
+
+<p>También podés <b>cargar</b> celdas desde el teclado con <code>cin</code>, exactamente como con un vector:</p>
+
+<pre class="code-block">cout &lt;&lt; "Ingrese el valor de la fila 0, columna 1: ";
+cin &gt;&gt; m[0][1];        // lo que tipea el usuario queda guardado en esa celda</pre>
+
+<div class="trap">
+  <div class="tr-t">Trampa MUY común: confundir el orden fila/columna</div>
+  <code>m[i][j]</code> es <b>fila <code>i</code>, columna <code>j</code></b>, en ese orden. Si querés la celda de la <i>fila 1</i> y la <i>columna 2</i>, es <code>m[1][2]</code>, <b>no</b> <code>m[2][1]</code> (esa última es fila 2, columna 1, ¡otra celda!). En una matriz cuadrada (mismas filas que columnas) el programa igual compila y "anda", pero te da el dato equivocado: es un <b>error lógico</b> silencioso. Memorizá: <b>primero fila, después columna</b>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Trampa: salirse de rango</div>
+  En <code>int m[3][4]</code> la última fila es la <code>2</code> y la última columna es la <code>3</code> (no la 3 y la 4: arrancan en 0). Escribir <code>m[3][0]</code> o <code>m[0][4]</code> es <b>pasarse de rango</b>: estás tocando memoria que no es tuya. C++ <b>no te avisa</b> con un error claro; el programa puede mostrar basura, dar resultados raros o cerrarse de golpe. Cuidá siempre que la fila vaya de <code>0</code> a <code>FILAS-1</code> y la columna de <code>0</code> a <code>COLUMNAS-1</code>.
+</div>
+
+<!-- ─── 4. INICIALIZACIÓN POR LISTA ────────────────────────────────────── -->
+<h3>Inicializar una matriz por lista de valores</h3>
+<p>Igual que un vector se puede inicializar con <code>{...}</code>, una matriz se inicializa con <b>llaves dentro de llaves</b>: una llave general que contiene <b>una subllave por cada fila</b>. Cada subllave lista, en orden, los valores de las columnas de esa fila:</p>
+
+<pre class="code-block">int m[2][3] = { {1, 2, 3},
+                {4, 5, 6} };</pre>
+
+<p>Leelo así: la matriz tiene <b>2 filas</b> y <b>3 columnas</b>. La <b>primera subllave</b> <code>{1, 2, 3}</code> es la <b>fila 0</b>; la <b>segunda subllave</b> <code>{4, 5, 6}</code> es la <b>fila 1</b>. Dentro de cada subllave, los valores van llenando las columnas <code>0, 1, 2</code> en orden. Queda así:</p>
+
+<table class="tbl">
+  <tr><th></th><th>col 0</th><th>col 1</th><th>col 2</th></tr>
+  <tr><th>fila 0</th><td class="c">1</td><td class="c">2</td><td class="c">3</td></tr>
+  <tr><th>fila 1</th><td class="c">4</td><td class="c">5</td><td class="c">6</td></tr>
+</table>
+
+<p>Con esa inicialización, por ejemplo, <code>m[0][0]</code> vale <code>1</code>, <code>m[0][2]</code> vale <code>3</code>, <code>m[1][0]</code> vale <code>4</code> y <code>m[1][2]</code> vale <code>6</code>. La estructura de llaves <b>copia visualmente la tabla</b>: cada renglón de código es una fila de la matriz, lo cual ayuda muchísimo a leerla.</p>
+
+<div class="key">
+  <div class="ky-t">Cada subllave = una fila</div>
+  En <code>int m[2][3] = { {1,2,3}, {4,5,6} }</code>: hay <b>2 subllaves</b> porque hay <b>2 filas</b>, y cada subllave tiene <b>3 números</b> porque hay <b>3 columnas</b>. Si la cantidad de subllaves o de números por subllave no coincide con las dimensiones declaradas, el compilador se queja o rellena con ceros. Mantené la coherencia: la forma de las llaves tiene que reflejar el tamaño de la matriz.
+</div>
+
+<!-- ─── 5. RECORRIDO CON DOBLE FOR ─────────────────────────────────────── -->
+<h3>Recorrer toda la matriz: el doble <code>for</code> (ciclos anidados)</h3>
+<p>Para recorrer un <b>vector</b> usabas <b>un</b> <code>for</code> que movía el índice de <code>0</code> a <code>N-1</code>. Una matriz tiene <b>dos</b> índices (fila y columna), así que necesitás <b>dos <code>for</code>, uno adentro del otro</b>. A esto se lo llama <b>ciclos anidados</b> (o "doble for"). El patrón es <i>siempre</i> el mismo:</p>
+
+<pre class="code-block">for (int i = 0; i &lt; FILAS; i++) {           // for EXTERNO: recorre las filas
+    for (int j = 0; j &lt; COLUMNAS; j++) {    // for INTERNO: recorre las columnas
+        // aca uso la celda m[i][j]
+    }
+}</pre>
+
+<p>La clave para entenderlo es el <b>orden en que se visitan las celdas</b>. El <code>for</code> externo fija una fila (<code>i</code> empieza en 0) y <b>no avanza</b> hasta que el <code>for</code> interno terminó de recorrer <b>todas</b> las columnas de esa fila. O sea: se completa la <b>fila 0 entera</b> (columna 0, 1, 2, 3), recién ahí <code>i</code> pasa a 1 y se hace la <b>fila 1 entera</b>, y así. Se barre la tabla <b>de a renglones, de izquierda a derecha y de arriba hacia abajo</b>, igual que cuando leés.</p>
+
+<div class="example">
+  <div class="ex-t">Traza del doble for sobre una matriz de 2×3</div>
+  Con <code>FILAS = 2</code> y <code>COLUMNAS = 3</code>, estos son <b>todos</b> los pasos, en orden, y qué celda <code>m[i][j]</code> se visita en cada uno:<br><br>
+  <table class="tbl">
+    <tr><th>Paso</th><th>i (fila)</th><th>j (col)</th><th>Celda visitada</th></tr>
+    <tr><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">m[0][0]</td></tr>
+    <tr><td class="c">2</td><td class="c">0</td><td class="c">1</td><td class="c">m[0][1]</td></tr>
+    <tr><td class="c">3</td><td class="c">0</td><td class="c">2</td><td class="c">m[0][2]</td></tr>
+    <tr><td class="c">4</td><td class="c">1</td><td class="c">0</td><td class="c">m[1][0]</td></tr>
+    <tr><td class="c">5</td><td class="c">1</td><td class="c">1</td><td class="c">m[1][1]</td></tr>
+    <tr><td class="c">6</td><td class="c">1</td><td class="c">2</td><td class="c">m[1][2]</td></tr>
+  </table>
+  <br>
+  Fijate el patrón: mientras <code>i</code> vale 0 (fila 0), <code>j</code> recorre <b>0, 1, 2</b> (toda la fila). Recién cuando <code>j</code> se pasa de 2, el <code>for</code> interno termina, <code>i</code> avanza a 1 y <code>j</code> <b>vuelve a 0</b> para recorrer la fila 1 completa. Son 2 filas × 3 columnas = <b>6 celdas</b>, visitadas en 6 pasos.
+</div>
+
+<div class="key">
+  <div class="ky-t">Quién manda a quién</div>
+  El <code>for</code> <b>externo</b> (filas) avanza <b>una sola vez</b> por cada <b>vuelta completa</b> del <code>for</code> interno (columnas). Por eso el interno "gira más rápido": para cada valor de <code>i</code>, el <code>j</code> hace todo su recorrido de 0 a <code>COLUMNAS-1</code>. Si la matriz es de <code>F</code> filas por <code>C</code> columnas, el cuerpo de adentro se ejecuta <b><code>F × C</code></b> veces (una por celda).
+</div>
+
+<h4>Cargar la matriz desde el teclado con doble for</h4>
+<p>El uso más típico del doble for es <b>llenar</b> toda la matriz pidiendo los datos al usuario, celda por celda:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+const int FILAS = 3;
+const int COLUMNAS = 4;
+
+int main() {
+    int m[FILAS][COLUMNAS];
+
+    for (int i = 0; i &lt; FILAS; i++) {
+        for (int j = 0; j &lt; COLUMNAS; j++) {
+            cout &lt;&lt; "Ingrese el valor de la celda [" &lt;&lt; i &lt;&lt; "][" &lt;&lt; j &lt;&lt; "]: ";
+            cin &gt;&gt; m[i][j];
+        }
+    }
+
+    return 0;
+}</pre>
+
+<p>Ese doble for le pide al usuario, en orden, la celda <code>[0][0]</code>, <code>[0][1]</code>, …, <code>[0][3]</code>, después <code>[1][0]</code>, y así hasta <code>[2][3]</code>: las 12 celdas, fila por fila.</p>
+
+<!-- ─── 6. IMPRIMIR LA MATRIZ ──────────────────────────────────────────── -->
+<h3>Imprimir la matriz como tabla</h3>
+<p>Para <b>mostrar</b> la matriz con forma de tabla (cada fila en su propio renglón) usás el mismo doble for, con dos detalles: dentro del for interno mostrás cada celda <b>seguida de un espacio</b> (con <code>"\t"</code>, una tabulación, o un simple espacio), y al <b>terminar cada fila</b> —es decir, justo después del for interno, todavía dentro del externo— hacés un <code>endl</code> para <b>bajar de renglón</b>:</p>
+
+<pre class="code-block">for (int i = 0; i &lt; FILAS; i++) {
+    for (int j = 0; j &lt; COLUMNAS; j++) {
+        cout &lt;&lt; m[i][j] &lt;&lt; "\t";    // muestra la celda y un tab (sin bajar de renglon)
+    }
+    cout &lt;&lt; endl;                    // OJO: aca, fuera del for interno: termina la fila
+}</pre>
+
+<div class="key">
+  <div class="ky-t">El <code>endl</code> va ENTRE los dos for</div>
+  El detalle que arma la tabla es <b>dónde</b> ponés el <code>endl</code>: <b>afuera del for interno pero adentro del externo</b>. Así, todas las celdas de una misma fila salen <b>en el mismo renglón</b> (separadas por el tab), y el salto de línea ocurre <b>una sola vez por fila</b>, al terminarla. Si pusieras el <code>endl</code> <i>adentro</i> del for interno, bajarías de renglón en cada celda y verías la matriz como una columna larguísima.
+</div>
+
+<div class="example">
+  <div class="ex-t">Qué imprime, con la matriz de ejemplo</div>
+  Si la matriz es <code>int m[2][3] = { {1,2,3}, {4,5,6} }</code>, el doble for de impresión de arriba muestra en pantalla:<br><br>
+  <code>1&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;3</code><br>
+  <code>4&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;6</code><br><br>
+  La fila 0 (<code>1 2 3</code>) sale en un renglón; el <code>endl</code> baja; la fila 1 (<code>4 5 6</code>) sale en el siguiente. Se ve como la tabla original.
+</div>
+
+<!-- ─── 7. RECORRIDOS ÚTILES ───────────────────────────────────────────── -->
+<h3>Recorridos útiles sobre matrices</h3>
+<p>Con el doble for como herramienta base, resolvés casi cualquier problema típico. Veamos los más frecuentes. En todos asumimos una matriz <code>int m[FILAS][COLUMNAS]</code> ya cargada.</p>
+
+<h4>1) Sumar TODOS los elementos</h4>
+<p>Acumulás en una variable que arranca en 0, recorriendo todas las celdas con el doble for:</p>
+
+<pre class="code-block">int suma = 0;
+for (int i = 0; i &lt; FILAS; i++) {
+    for (int j = 0; j &lt; COLUMNAS; j++) {
+        suma = suma + m[i][j];     // sumo cada celda
+    }
+}
+cout &lt;&lt; "Suma de todos los elementos: " &lt;&lt; suma &lt;&lt; endl;</pre>
+
+<p>Es la misma idea del acumulador que usabas en vectores, solo que el recorrido ahora es doble. Si la matriz es <code>{ {1,2,3}, {4,5,6} }</code>, da <code>1+2+3+4+5+6 = 21</code>.</p>
+
+<h4>2) Buscar el MÁXIMO de toda la matriz</h4>
+<p>Arrancás suponiendo que el máximo es la primera celda (<code>m[0][0]</code>) y, recorriendo el resto, cada vez que encontrás una celda <b>mayor</b>, actualizás:</p>
+
+<pre class="code-block">int maximo = m[0][0];              // arranco con la primera celda como candidata
+for (int i = 0; i &lt; FILAS; i++) {
+    for (int j = 0; j &lt; COLUMNAS; j++) {
+        if (m[i][j] &gt; maximo) {
+            maximo = m[i][j];       // encontre una mayor: la guardo
+        }
+    }
+}
+cout &lt;&lt; "El maximo es: " &lt;&lt; maximo &lt;&lt; endl;</pre>
+
+<p>Misma estrategia que el máximo de un vector (inicializar con el primer elemento y comparar contra el resto), extendida a dos dimensiones. Para guardar <b>dónde</b> está el máximo, te alcanza con recordar también la fila y la columna en dos variables extra cuando actualizás.</p>
+
+<h4>3) Sumar una FILA dada</h4>
+<p>Si te interesa una sola fila (digamos la fila <code>f</code>), <b>no hace falta doble for</b>: fijás la fila y recorrés solo sus columnas con <b>un</b> <code>for</code>:</p>
+
+<pre class="code-block">int f = 1;                         // quiero la suma de la fila 1
+int sumaFila = 0;
+for (int j = 0; j &lt; COLUMNAS; j++) {
+    sumaFila = sumaFila + m[f][j]; // f queda fijo; j recorre las columnas
+}
+cout &lt;&lt; "Suma de la fila " &lt;&lt; f &lt;&lt; ": " &lt;&lt; sumaFila &lt;&lt; endl;</pre>
+
+<p>Fijate que <code>m[f][j]</code> mantiene <code>f</code> <b>constante</b> y solo mueve <code>j</code>: recorrés "a lo ancho", quedándote en el mismo renglón. Para la matriz de ejemplo, la fila 1 es <code>{4,5,6}</code>, así que da <code>15</code>.</p>
+
+<h4>4) Sumar una COLUMNA dada</h4>
+<p>Al revés: para una sola columna (la columna <code>c</code>), fijás la columna y recorrés las <b>filas</b>. Ojo el detalle: ahora lo que se mueve es el <b>primer</b> índice:</p>
+
+<pre class="code-block">int c = 2;                         // quiero la suma de la columna 2
+int sumaColumna = 0;
+for (int i = 0; i &lt; FILAS; i++) {
+    sumaColumna = sumaColumna + m[i][c];  // c queda fijo; i recorre las filas
+}
+cout &lt;&lt; "Suma de la columna " &lt;&lt; c &lt;&lt; ": " &lt;&lt; sumaColumna &lt;&lt; endl;</pre>
+
+<p>Acá <code>m[i][c]</code> mantiene <code>c</code> fijo y mueve <code>i</code>: recorrés "a lo alto", bajando por la misma columna. Para la matriz de ejemplo, la columna 2 es <code>3</code> (de la fila 0) y <code>6</code> (de la fila 1), así que da <code>9</code>.</p>
+
+<div class="key">
+  <div class="ky-t">Fila fija vs. columna fija</div>
+  Para recorrer <b>una fila</b>: dejás el <b>primer</b> índice <i>fijo</i> y movés el segundo (<code>m[f][j]</code>, variando <code>j</code>). Para recorrer <b>una columna</b>: dejás el <b>segundo</b> índice <i>fijo</i> y movés el primero (<code>m[i][c]</code>, variando <code>i</code>). Confundir cuál índice se mueve es el error más típico de estos recorridos.
+</div>
+
+<h4>5) Contar cuántas celdas cumplen una condición</h4>
+<p>Llevás un contador que arranca en 0 y lo incrementás cada vez que la celda cumple lo pedido. Por ejemplo, contar cuántas celdas son mayores a 50:</p>
+
+<pre class="code-block">int cuenta = 0;
+for (int i = 0; i &lt; FILAS; i++) {
+    for (int j = 0; j &lt; COLUMNAS; j++) {
+        if (m[i][j] &gt; 50) {
+            cuenta++;               // una mas que cumple
+        }
+    }
+}
+cout &lt;&lt; "Hay " &lt;&lt; cuenta &lt;&lt; " celdas mayores a 50" &lt;&lt; endl;</pre>
+
+<!-- ─── 8. PASAJE A FUNCIONES ──────────────────────────────────────────── -->
+<h3>Pasar una matriz a una función: las columnas son obligatorias</h3>
+<p>Igual que con los vectores, conviene <b>modularizar</b>: tener una función que cargue la matriz, otra que la muestre, otra que sume, etc. Pero al declarar el <b>parámetro matriz</b> hay una regla que <b>tenés que respetar sí o sí</b>:</p>
+
+<div class="key">
+  <div class="ky-t">La regla de oro al pasar una matriz</div>
+  Para pasar una matriz a una función, <b>hay que indicar el número de COLUMNAS</b> en el parámetro. El número de filas <b>se puede dejar vacío</b> (y, como con los vectores, se suele pasar aparte como un <code>int</code>). La forma típica es:<br><br>
+  <code>void mostrar(int m[][COLUMNAS], int filas)</code><br><br>
+  Las <b>columnas van entre los segundos corchetes, obligatorias</b>; las <b>filas van como parámetro entero aparte</b>.
+</div>
+
+<p>Por ejemplo, una función que muestra una matriz de 4 columnas como tabla:</p>
+
+<pre class="code-block">const int COLUMNAS = 4;
+
+void mostrar(int m[][COLUMNAS], int filas) {
+    for (int i = 0; i &lt; filas; i++) {
+        for (int j = 0; j &lt; COLUMNAS; j++) {
+            cout &lt;&lt; m[i][j] &lt;&lt; "\t";
+        }
+        cout &lt;&lt; endl;
+    }
+}</pre>
+
+<p>Y se la llama pasándole la matriz (solo el nombre, sin corchetes) y la cantidad de filas:</p>
+
+<pre class="code-block">int main() {
+    int datos[3][COLUMNAS];
+    // ... (acá se cargaría la matriz) ...
+
+    mostrar(datos, 3);     // le paso la matriz y le aviso que tiene 3 filas
+    return 0;
+}</pre>
+
+<h4>¿Por qué las columnas son obligatorias y las filas no?</h4>
+<p>Acá es donde vuelve la idea de "<b>un arreglo de arreglos</b>". En memoria, la matriz está guardada como <b>una sola tira</b> de casilleros, fila tras fila: primero toda la fila 0, después toda la fila 1, etc. (esto se llama "por filas"). Cuando vos pedís <code>m[i][j]</code>, el compilador calcula <b>en qué posición de esa tira</b> está la celda, y para eso necesita saber <b>cuántas columnas tiene cada fila</b>: la cuenta es, a grandes rasgos, "saltá <code>i</code> filas enteras (cada una de <code>COLUMNAS</code> casilleros) y después avanzá <code>j</code>". Sin el número de columnas, no puede saber <b>dónde termina una fila y empieza la siguiente</b>, así que no puede ubicar la celda. El número de <b>filas</b>, en cambio, no entra en esa cuenta de posición: por eso se puede omitir (y se pasa aparte solo para saber <i>hasta dónde</i> recorrer).</p>
+
+<div class="trap">
+  <div class="tr-t">Trampa: olvidar el número de columnas en el parámetro</div>
+  Escribir <code>void mostrar(int m[][], int filas)</code> (con los dos corchetes vacíos) <b>no compila</b>: el compilador necesita las columnas para calcular las posiciones. Tampoco sirve <code>int m[3][]</code> (vacío justo el de columnas). Lo correcto es dejar vacío el <i>primero</i> y poner el número de columnas en el <i>segundo</i>: <code>int m[][4]</code> (o <code>int m[][COLUMNAS]</code>). Regla mnemotécnica: <b>las columnas no se negocian</b>.
+</div>
+
+<h4>Las matrices también se pasan por referencia (los cambios persisten)</h4>
+<p>Otra cosa que heredás de los vectores: cuando pasás una matriz a una función, <b>no se hace una copia</b>. La función trabaja directamente sobre la matriz <b>original</b>, así que <b>cualquier cambio que le haga adentro, persiste afuera</b> al volver (es, en los hechos, un paso por referencia, sin necesidad de poner <code>&amp;</code>). Por eso una función puede <b>cargar</b> la matriz desde adentro y, al volver a <code>main</code>, los datos quedan cargados:</p>
+
+<pre class="code-block">const int COLUMNAS = 4;
+
+void cargar(int m[][COLUMNAS], int filas) {
+    for (int i = 0; i &lt; filas; i++) {
+        for (int j = 0; j &lt; COLUMNAS; j++) {
+            cin &gt;&gt; m[i][j];        // escribe en la matriz ORIGINAL
+        }
+    }
+}
+
+int main() {
+    int datos[3][COLUMNAS];
+    cargar(datos, 3);             // al volver, datos YA quedo cargada
+    mostrar(datos, 3);            // y la mostramos cargada
+    return 0;
+}</pre>
+
+<div class="key">
+  <div class="ky-t">Patrón completo: main cortito + funciones</div>
+  Como con los vectores, lo prolijo es un <code>main</code> que solo <b>orquesta</b> —<code>cargar(datos, 3); mostrar(datos, 3); cout &lt;&lt; suma(datos, 3);</code>— mientras cada función se encarga de su tarea con su propio doble for adentro. Todas reciben la matriz y la cantidad de filas; todas declaran las <b>columnas</b> en el parámetro. Ese es el esqueleto de casi todos los ejercicios de matrices de la cátedra.
+</div>
+
+<!-- ─── 9. CONEXIÓN: STRUCTS Y EL EJERCICIO 13 ─────────────────────────── -->
+<h3>Conexión: matrices de structs y el ejercicio de las temperaturas</h3>
+<p>Dos ideas para cerrar y conectar con lo que ya sabés y con lo que viene.</p>
+
+<p><b>Matrices de cualquier tipo, incluso de structs.</b> Una matriz puede ser de <code>int</code>, de <code>float</code>, de <code>char</code>… y también de <b>registros (structs)</b>. Por ejemplo, si tenés un <code>struct Punto { int x; int y; };</code>, podés declarar <code>Punto tablero[3][3];</code> y acceder con <code>tablero[i][j].x</code>. Es la misma idea de siempre —filas y columnas— pero donde cada celda guarda un dato compuesto en vez de un número suelto.</p>
+
+<p><b>El ejercicio 13 de la guía</b> (las temperaturas) es un caso perfecto para pensar con estas herramientas. Dice: <i>"se dispone de 8640 temperaturas horarias, tomadas durante los 12 meses del año, considerando que todos los meses tienen 30 días y cada día 24 horas; determinar la mayor temperatura y en qué mes, día y hora ocurrió"</i>. Notá que <code>12 × 30 × 24 = 8640</code>: el dato es <b>naturalmente multidimensional</b>. Una versión más simple del mismo tipo de problema (el ejercicio 56) trabaja con una sola matriz <b>día × hora</b>: una matriz de 30 filas (días) por 24 columnas (horas), donde <code>temp[d][h]</code> es la temperatura del día <code>d</code> a la hora <code>h</code>. Buscar la temperatura máxima y <b>en qué día y hora</b> ocurrió es exactamente el recorrido de "máximo de toda la matriz" que viste recién, recordando además la fila (día) y la columna (hora) donde apareció.</p>
+
+<div class="key">
+  <div class="ky-t">Una dimensión por cada "eje" del dato</div>
+  La cantidad de dimensiones de un arreglo se corresponde con la cantidad de "ejes" independientes del dato. <b>Día × hora</b> → 2 dimensiones (una matriz). <b>Mes × día × hora</b> (como el ejercicio 13 completo) → 3 dimensiones (se declara con <i>tres</i> corchetes: <code>int t[12][30][24]</code> y se recorre con un <b>triple</b> for). Las matrices que viste acá son el peldaño de dos dimensiones; el salto a tres o más es la misma idea, con un índice y un <code>for</code> más por cada dimensión extra.
+</div>
+
+<!-- ─── 10. REPASO ─────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Una <b>matriz</b> (arreglo bidimensional) organiza datos del mismo tipo en <b>filas × columnas</b>; es la extensión natural del vector a <b>dos dimensiones</b> ("un arreglo de arreglos").<br>
+  • Se declara <code>tipo nombre[FILAS][COLUMNAS];</code>. Ej: <code>int m[3][4]</code> tiene <b>3 filas, 4 columnas → 12 casilleros</b>.<br>
+  • Se accede con <code>m[i][j]</code>: <b>primero la fila <code>i</code>, después la columna <code>j</code></b>, ambas desde 0. En <code>int m[3][4]</code>, filas válidas 0..2 y columnas 0..3.<br>
+  • Inicialización por lista: <code>int m[2][3] = { {1,2,3}, {4,5,6} };</code> — <b>cada subllave es una fila</b>.<br>
+  • Se recorre con un <b>doble <code>for</code></b> (anidado): el externo para las filas, el interno para las columnas. Se visita la <b>fila 0 completa, después la fila 1</b>, etc. El cuerpo corre <code>FILAS × COLUMNAS</code> veces.<br>
+  • Para <b>imprimir como tabla</b>, el <code>endl</code> va <b>entre los dos for</b> (fuera del interno, dentro del externo): así cada fila ocupa un renglón.<br>
+  • Recorridos clave: <b>sumar todo</b>, <b>sumar una fila</b> (fila fija, se mueve <code>j</code>), <b>sumar una columna</b> (columna fija, se mueve <code>i</code>), <b>máximo de toda la matriz</b>, <b>contar</b> los que cumplen una condición.<br>
+  • Al pasar una matriz a una función, <b>las columnas son obligatorias</b>: <code>void mostrar(int m[][COLUMNAS], int filas)</code>. Las filas se pasan aparte. El compilador necesita el ancho de fila para calcular posiciones. Se pasan <b>por referencia</b>: los cambios <b>persisten</b>.<br>
+  • Puede haber <b>matrices de structs</b>, y datos como las temperaturas <b>mes × día × hora</b> (ejercicio 13) se modelan con estas ideas, escalando a más dimensiones cuando hace falta.
+</div>
+
+<div class="quiz-wrap" data-qz="10" data-subject="ayed"></div>
+</div>
+</details>

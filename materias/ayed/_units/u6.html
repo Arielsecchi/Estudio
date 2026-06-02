@@ -1,0 +1,554 @@
+<!-- ============ UNIDAD 6 · PATRONES ALGORÍTMICOS CLÁSICOS ============ -->
+<details id="ay-s6">
+<summary><span class="num">6</span> Unidad 6: Patrones algorítmicos clásicos (contar, sumar, promediar, máximos/mínimos) <span class="sec-score" id="ss-ayed-6"></span></summary>
+<div class="content">
+
+<p>En las unidades anteriores aprendiste las <b>piezas sueltas</b>: variables y operadores (U2–U3), tomar decisiones con <code>if</code> (U4) y repetir con ciclos (U5). Esta unidad no trae piezas nuevas: trae <b>recetas</b>. Vas a ver que cuando combinás un ciclo con una variable que se va actualizando adentro, aparecen una y otra vez los mismos cinco o seis <b>patrones</b>: <i>contar</i>, <i>sumar</i>, <i>promediar</i>, <i>buscar el máximo/mínimo</i> y <i>descomponer un número</i>. Si los reconocés, la mitad de los ejercicios de la cátedra se resuelven casi en automático.</p>
+
+<div class="key">
+  <div class="ky-t">La idea central de toda esta unidad</div>
+  Casi todos estos patrones tienen la <b>misma forma de tres tiempos</b>:<br><br>
+  <b>1) ANTES del ciclo</b> → inicializo una variable "acumuladora" (un contador en 0, una suma en 0, un máximo en algún valor de arranque).<br>
+  <b>2) ADENTRO del ciclo</b> → por cada dato que leo, <i>actualizo</i> esa variable (sumo 1, sumo el valor, comparo y me quedo con el mayor…).<br>
+  <b>3) DESPUÉS del ciclo</b> → uso el resultado (lo muestro, lo divido para promediar, etc.).<br><br>
+  Si entendés este esqueleto, todo lo demás son variantes.
+</div>
+
+<p>Para los ejemplos vamos a usar muchísimo el <b>ciclo con centinela</b> (un valor especial que marca el fin de los datos), porque es el que más aparece en la guía. Recordá el molde de U5: leemos un valor, y mientras no sea el centinela, lo procesamos y volvemos a leer.</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+
+    cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+    cin &gt;&gt; valor;            // PRIMERA lectura, antes del while
+
+    while (valor != 0) {        // 0 es el CENTINELA: corta el ciclo
+        // ... acá adentro PROCESAMOS el valor ...
+
+        cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+        cin &gt;&gt; valor;        // SIGUIENTE lectura, al final del cuerpo
+    }
+
+    return 0;
+}</pre>
+
+<div class="trap">
+  <div class="tr-t">El centinela NO se procesa</div>
+  Fijate que la primera lectura va <i>antes</i> del <code>while</code> y la siguiente al <i>final</i> del cuerpo. Esto se llama "lectura adelantada". Su gracia es que cuando entra el centinela (el <code>0</code>), el <code>while</code> evalúa la condición, da falso y <b>no ejecuta el cuerpo</b>: el <code>0</code> nunca se cuenta ni se suma. Es el error más típico contar o sumar el valor que justamente indicaba "terminá".
+</div>
+
+<!-- ─── 1. CONTAR ──────────────────────────────────────────────────────── -->
+<h3>Patrón 1 — Contar (contador condicional)</h3>
+<p><b>Contar</b> significa responder a la pregunta "<i>¿cuántos</i> elementos cumplen tal condición?". Por ejemplo: cuántos valores fueron cero, cuántos negativos, cuántos alumnos aprobaron. La herramienta es una variable entera, el <b>contador</b>, que arranca en <code>0</code> y le sumamos <code>1</code> cada vez que el dato cumple la condición.</p>
+
+<div class="key">
+  <div class="ky-t">La receta de contar</div>
+  • <b>Antes:</b> <code>int cantidad = 0;</code> &nbsp;(siempre en cero, porque todavía no contamos nada).<br>
+  • <b>Adentro:</b> <code>if (condición) { cantidad = cantidad + 1; }</code><br>
+  • <b>Después:</b> mostrás <code>cantidad</code>.<br><br>
+  El <code>cantidad = cantidad + 1;</code> se puede escribir más corto como <code>cantidad++;</code>. Las dos formas hacen exactamente lo mismo: "tomá el valor que tenías, sumale uno y guardalo de nuevo".
+</div>
+
+<p>Veámoslo con el <b>ejercicio 1.a</b> de la guía: <i>dado un conjunto de valores enteros, calcular cuántos valores cero hubo</i>. Usamos centinela. Ojo: el enunciado dice "valores enteros", así que el cero es un dato válido del conjunto; para no confundir el "cero que cuento" con el "cero que termina", muchos enunciados usan otro centinela, pero acá seguimos el espíritu de la guía contando los ceros que aparezcan antes de que el usuario decida cortar. Para que se vea limpio, usemos un centinela distinto, por ejemplo terminar cuando ingresan <code>-9999</code>:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int cantidadCeros = 0;          // ANTES: arranca en 0
+
+    cout &lt;&lt; "Ingrese un valor (-9999 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != -9999) {
+        if (valor == 0) {           // ADENTRO: solo si es cero
+            cantidadCeros++;        // ...sumo uno al contador
+        }
+
+        cout &lt;&lt; "Ingrese un valor (-9999 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    // DESPUES: ya recorrí todo, muestro el resultado
+    cout &lt;&lt; "Hubo " &lt;&lt; cantidadCeros &lt;&lt; " valores cero." &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza con los datos: 4, 0, 7, 0, 0, -2, -9999</div>
+  Seguimos "haciendo de computadora". <code>cantidadCeros</code> arranca en <b>0</b>.<br><br>
+  • Leo <b>4</b> → ¿es 0? No → contador sigue en 0.<br>
+  • Leo <b>0</b> → ¿es 0? Sí → contador pasa a <b>1</b>.<br>
+  • Leo <b>7</b> → ¿es 0? No → sigue en 1.<br>
+  • Leo <b>0</b> → ¿es 0? Sí → contador pasa a <b>2</b>.<br>
+  • Leo <b>0</b> → ¿es 0? Sí → contador pasa a <b>3</b>.<br>
+  • Leo <b>-2</b> → ¿es 0? No → sigue en 3.<br>
+  • Leo <b>-9999</b> → es el centinela → corta el <code>while</code> (no se procesa).<br><br>
+  Resultado en pantalla: <code>Hubo 3 valores cero.</code> ✓
+</div>
+
+<div class="key">
+  <div class="ky-t">Contar TODO vs. contar CON condición</div>
+  Si querés contar <i>cuántos datos hubo en total</i> (sin condición), simplemente ponés el <code>contador++;</code> <b>sin</b> <code>if</code>, directamente adentro del ciclo: se suma uno por cada vuelta. Y si querés contar <i>según varias categorías</i> (como el ejercicio 6: cuántos ganan menos de $520, cuántos entre $520 y $780, etc.), usás <b>varios contadores</b>, cada uno con su <code>if</code>. La idea es siempre la misma, multiplicada.
+</div>
+
+<!-- ─── 2. ACUMULAR / SUMAR ────────────────────────────────────────────── -->
+<h3>Patrón 2 — Acumular / Sumar (sumatoria)</h3>
+<p><b>Sumar</b> (o "acumular") responde a "<i>¿cuánto suma</i> el conjunto?" o "¿cuál es la suma de los que cumplen tal condición?". La diferencia con contar es sutil pero fundamental:</p>
+<table class="tbl">
+  <tr><th>Contar</th><th>Sumar</th></tr>
+  <tr><td class="c">Sumo siempre <b>1</b> (me importa <i>cuántos</i> son).</td><td>Sumo el <b>valor del dato</b> (me importa <i>cuánto valen</i> juntos).</td></tr>
+  <tr><td class="c"><code>cantidad = cantidad + 1;</code></td><td><code>suma = suma + valor;</code></td></tr>
+</table>
+
+<p>La variable que va guardando la suma se llama <b>acumulador</b>, y también arranca en <code>0</code> (porque la suma de "nada" es cero, el elemento neutro de la suma).</p>
+
+<p>Tomemos el <b>ejercicio 1.c</b>: <i>la sumatoria de los valores negativos</i>. Recorremos el conjunto y, cada vez que el valor es negativo, lo agregamos al acumulador:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int sumaNegativos = 0;          // ANTES: acumulador en 0
+
+    cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != 0) {
+        if (valor &lt; 0) {            // ADENTRO: solo si es negativo
+            sumaNegativos = sumaNegativos + valor;   // acumulo el valor
+        }
+
+        cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    cout &lt;&lt; "La suma de los negativos es: " &lt;&lt; sumaNegativos &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza con los datos: 5, -3, 8, -10, -2, 0</div>
+  <code>sumaNegativos</code> arranca en <b>0</b>.<br><br>
+  • Leo <b>5</b> → ¿negativo? No → suma sigue en 0.<br>
+  • Leo <b>-3</b> → ¿negativo? Sí → suma = 0 + (−3) = <b>−3</b>.<br>
+  • Leo <b>8</b> → ¿negativo? No → sigue en −3.<br>
+  • Leo <b>-10</b> → ¿negativo? Sí → suma = −3 + (−10) = <b>−13</b>.<br>
+  • Leo <b>-2</b> → ¿negativo? Sí → suma = −13 + (−2) = <b>−15</b>.<br>
+  • Leo <b>0</b> → centinela → corta.<br><br>
+  Resultado: <code>La suma de los negativos es: -15</code> ✓
+</div>
+
+<div class="trap">
+  <div class="tr-t">No inicializar el acumulador (o inicializarlo mal)</div>
+  Si declarás <code>int suma;</code> <b>sin</b> el <code>= 0</code>, esa variable arranca con <b>basura</b> (un valor impredecible que quedó en la memoria). Tu suma quedaría contaminada con un número al azar. <b>Siempre</b> inicializá el acumulador en <code>0</code>. (Para multiplicar/acumular un producto, en cambio, se arranca en <code>1</code>, porque 1 es el neutro de la multiplicación.)
+</div>
+
+<!-- ─── 3. PROMEDIAR ───────────────────────────────────────────────────── -->
+<h3>Patrón 3 — Promediar (y sus dos trampas)</h3>
+<p>El <b>promedio</b> es "suma dividida por cantidad". Es decir: <b>combina los dos patrones anteriores</b>. Necesitás llevar al mismo tiempo un <i>acumulador</i> (la suma) y un <i>contador</i> (cuántos elementos sumaste), y al final dividir uno por el otro.</p>
+
+<p>Hagamos el <b>ejercicio 1.b</b>: <i>el promedio de los valores positivos</i>. Por cada positivo, lo sumo <b>y además</b> cuento uno:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int sumaPositivos = 0;          // acumulador
+    int cantPositivos = 0;          // contador
+
+    cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != 0) {
+        if (valor &gt; 0) {
+            sumaPositivos = sumaPositivos + valor;   // sumo
+            cantPositivos = cantPositivos + 1;       // y cuento
+        }
+
+        cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    // DESPUES: ¿hubo positivos? Recién ahí divido.
+    if (cantPositivos &gt; 0) {
+        float promedio = (float) sumaPositivos / cantPositivos;
+        cout &lt;&lt; "El promedio de positivos es: " &lt;&lt; promedio &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "No hubo valores positivos." &lt;&lt; endl;
+    }
+
+    return 0;
+}</pre>
+
+<p>Mirá las dos cosas raras de ese final, porque son las <b>dos trampas clásicas</b> del promedio que la cátedra busca que reconozcas:</p>
+
+<div class="trap">
+  <div class="tr-t">Trampa 1: división por cero</div>
+  Si el conjunto <b>no tuvo ningún positivo</b>, <code>cantPositivos</code> vale 0. Hacer <code>suma / 0</code> es una <b>división por cero</b>: matemáticamente indefinida, y en C++ con enteros provoca que el programa <b>se rompa</b> (crash). Por eso <b>antes de dividir SIEMPRE preguntás</b> <code>if (cantPositivos &gt; 0)</code>. Si la cantidad es 0, mostrás un mensaje ("no hubo positivos") en lugar de dividir. Olvidar este chequeo es uno de los errores que más puntos cuesta.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Trampa 2: división entera</div>
+  En C++, si dividís <b>dos enteros</b>, el resultado es <b>entero</b>: la parte decimal se <i>tira</i> (no redondea, trunca). Por ejemplo <code>7 / 2</code> da <b>3</b>, no 3.5. Entonces, si la suma es 7 y la cantidad 2, un promedio calculado como <code>int</code> te daría <b>3</b>, ¡que está mal! La solución es que el cálculo se haga en <b>punto flotante</b>: declarás el resultado como <code>float</code> (o <code>double</code>) y <b>casteás</b> uno de los operandos con <code>(float)</code>. Con <code>(float) suma / cant</code>, la suma se convierte a real, y entonces la división es real: <code>7.0 / 2</code> = <b>3.5</b>. ✓
+</div>
+
+<div class="key">
+  <div class="ky-t">¿Qué es "castear"?</div>
+  <b>Castear</b> es <i>convertir</i> un dato de un tipo a otro momentáneamente. <code>(float) sumaPositivos</code> le dice a C++: "tratá este entero como si fuera un número real <i>para esta operación</i>". Con que <b>uno</b> de los dos lados de la división sea real, C++ hace toda la división en real. Cuidado con esta trampa sutil: <code>(float)(suma / cant)</code> NO sirve — los paréntesis hacen que primero se divida entero (truncando) y recién después convierta. El casteo tiene que estar <b>antes</b> de la división: <code>(float) suma / cant</code>.
+</div>
+
+<!-- ─── 4. MÁXIMOS Y MÍNIMOS ───────────────────────────────────────────── -->
+<h3>Patrón 4 — Máximos y mínimos</h3>
+<p>El problema es: tenés un conjunto de valores que se van leyendo de a uno (no los tenés todos juntos a la vista), y querés saber <b>cuál es el mayor</b> (o el menor). Como solo ves un valor por vez, la estrategia es llevar una variable <code>max</code> que guarde "el mayor que vi <i>hasta ahora</i>", e ir comparando cada nuevo dato contra ella.</p>
+
+<div class="key">
+  <div class="ky-t">La lógica de comparar contra "el mejor hasta ahora"</div>
+  Adentro del ciclo, por cada valor leído:<br>
+  • <b>Máximo:</b> <code>if (valor &gt; max) { max = valor; }</code> &nbsp;→ "si este es más grande que el récord actual, es el nuevo récord".<br>
+  • <b>Mínimo:</b> <code>if (valor &lt; min) { min = valor; }</code> &nbsp;→ misma idea, al revés.<br><br>
+  Es como ver una carrera: te quedás con "el que va primero por ahora", y solo lo cambiás si alguien lo pasa.
+</div>
+
+<p>Toda la dificultad real está en <b>una sola pregunta</b>: ¿con qué valor arranca <code>max</code>? Porque la primera comparación necesita que <code>max</code> ya tenga <i>algo</i> adentro. Hay tres técnicas para resolver esto (las tres de las notas de clase). Vamos una por una.</p>
+
+<h4>Técnica A — Inicializar con un valor FUERA DEL DOMINIO</h4>
+<p>Si el enunciado te dice en qué rango están los datos (el "dominio"), podés arrancar <code>max</code> en un valor <b>imposible de alcanzar por debajo</b>, de modo que el primer dato real <i>seguro</i> lo supere y se convierta en el nuevo máximo.</p>
+<p>Por ejemplo, si el enunciado dice que los valores son del dominio <b>[0, +∞)</b> (cero o positivos), arrancás el máximo en algo más chico que cualquier dato posible, como <code>-1</code>:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int max = -1;       // mas chico que CUALQUIER dato del dominio [0, +inf)
+
+    cout &lt;&lt; "Ingrese un valor positivo (-9999 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != -9999) {
+        if (valor &gt; max) {      // el primer dato (&gt;= 0) siempre supera al -1
+            max = valor;
+        }
+
+        cout &lt;&lt; "Ingrese un valor positivo (-9999 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    cout &lt;&lt; "El maximo fue: " &lt;&lt; max &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<p>Para un <b>mínimo</b> es al revés: arrancás en algo <i>más grande</i> que cualquier dato posible. Si el dominio fuese, digamos, notas de 0 a 10, podrías arrancar <code>min = 11;</code>.</p>
+
+<div class="trap">
+  <div class="tr-t">La limitación de la técnica A</div>
+  Esta técnica <b>solo sirve si el enunciado define el dominio</b> y te permite elegir un valor por fuera. Si los datos pueden ser <i>cualquier</i> entero (positivos y negativos sin límite), no existe un "más chico que todos" y esta técnica falla. Ese es justo el peligro de la próxima caja: arrancar un máximo en <code>0</code> "porque sí". Cuando no conocés el dominio, usá la técnica B o C.
+</div>
+
+<h4>Técnica B — Tomar el PRIMER elemento usando un contador de posición</h4>
+<p>La idea acá es: <b>el primer dato que llega es, por definición, el máximo provisorio</b> (es el único que viste, así que es el mayor hasta ahora). Para detectar "¿estoy en el primer dato?" usamos un contador de posición <code>i</code> que arranca en 1, y aprovechamos el operador <b>OR</b> (<code>||</code>):</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int max;            // NO la inicializo: el primer dato la define
+    int i = 1;          // contador de posicion
+
+    cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != 0) {
+        if (i == 1 || valor &gt; max) {    // si es el PRIMERO, o si supera al max
+            max = valor;
+        }
+
+        i = i + 1;                       // avanzo la posicion
+        cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    cout &lt;&lt; "El maximo fue: " &lt;&lt; max &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="key">
+  <div class="ky-t">Por qué funciona el <code>i == 1 || valor &gt; max</code></div>
+  El <code>||</code> (OR) da verdadero si <b>al menos una</b> de las dos condiciones se cumple. En la <b>primera</b> vuelta, <code>i == 1</code> es verdadero, así que entra al <code>if</code> y hace <code>max = valor</code> sin siquiera mirar <code>valor &gt; max</code> (gracias a esto no usamos <code>max</code> antes de inicializarla). En las vueltas siguientes <code>i</code> ya no es 1, entonces lo único que decide es <code>valor &gt; max</code>: la comparación normal. Esta técnica funciona <b>con cualquier dominio</b>, incluso negativos, porque no inventás ningún valor de arranque.
+</div>
+
+<h4>Técnica C — Tomar el primer elemento usando una BANDERA booleana</h4>
+<p>Es exactamente la misma idea que la B, pero en lugar de contar posiciones usamos una <b>bandera</b> (una variable <code>bool</code>) que dice "¿es la primera vez?". Arranca en <code>true</code> y la apagamos apenas procesamos el primer dato.</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int max;
+    bool esLaPrimeraVez = true;     // bandera: arranca encendida
+
+    cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != 0) {
+        if (esLaPrimeraVez || valor &gt; max) {
+            max = valor;
+            esLaPrimeraVez = false;     // la apago: ya no es la primera vez
+        }
+
+        cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    cout &lt;&lt; "El maximo fue: " &lt;&lt; max &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza de la técnica C con: -5, -2, -9, -1, 0</div>
+  Estos son <b>todos negativos</b>, justo el caso donde "arrancar en 0" fallaría. Veamos que con la bandera anda perfecto. <code>max</code> = (sin definir), <code>esLaPrimeraVez</code> = <b>true</b>.<br><br>
+  • Leo <b>-5</b> → ¿<code>esLaPrimeraVez</code>? Sí → entra: <code>max = -5</code>, bandera pasa a <b>false</b>.<br>
+  • Leo <b>-2</b> → ¿primera vez? No. ¿−2 &gt; −5? Sí → <code>max = -2</code>.<br>
+  • Leo <b>-9</b> → ¿−9 &gt; −2? No → <code>max</code> sigue en −2.<br>
+  • Leo <b>-1</b> → ¿−1 &gt; −2? Sí → <code>max = -1</code>.<br>
+  • Leo <b>0</b> → centinela → corta.<br><br>
+  Resultado: <code>El maximo fue: -1</code> ✓ &nbsp;(correcto: −1 es el mayor de los negativos).
+</div>
+
+<div class="trap">
+  <div class="tr-t">El bug estrella: inicializar el máximo en 0 cuando hay negativos</div>
+  Es tentador escribir <code>int max = 0;</code> y comparar directo. Pero si <b>todos los datos son negativos</b> (como −5, −2, −9, −1), ningún valor va a superar al 0, así que el <code>if</code> nunca entra y el programa informa que el máximo es… <b>0</b>, ¡un valor que ni siquiera estaba en el conjunto! El <code>0</code> solo es un arranque seguro si el dominio garantiza que hay valores ≥ 0. Ante la duda, técnica B o C.
+</div>
+
+<!-- ─── 5. VARIANTE: MAX + REPETICIONES ────────────────────────────────── -->
+<h3>Variante — Máximo y cuántas veces se repite</h3>
+<p>Esta es una vuelta de tuerca muy pedida (el <b>ejercicio 12 modificado</b> de las notas): además del máximo, querés saber <b>cuántas veces aparece</b> ese máximo en el conjunto. La clave está en distinguir <b>tres situaciones</b> al comparar cada valor con el máximo actual:</p>
+
+<table class="tbl">
+  <tr><th>Caso</th><th>Qué hacés</th></tr>
+  <tr><td>El valor es <b>mayor</b> que el máximo</td><td>Hay un nuevo récord: <code>max = valor</code> y <b>reinicio</b> el contador de repeticiones en <code>1</code> (esta es la primera vez que veo este nuevo máximo).</td></tr>
+  <tr><td>El valor es <b>igual</b> al máximo</td><td>Apareció otra vez el mismo récord: <code>repeticiones++</code> (sumo una aparición).</td></tr>
+  <tr><td>El valor es <b>menor</b></td><td>No hago nada: ni cambia el máximo ni el contador.</td></tr>
+</table>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int max;
+    int repeticiones = 0;
+    bool esLaPrimeraVez = true;
+
+    cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor != 0) {
+        if (esLaPrimeraVez || valor &gt; max) {
+            max = valor;            // nuevo maximo...
+            repeticiones = 1;       // ...lo vi por PRIMERA vez (reinicio en 1)
+            esLaPrimeraVez = false;
+        } else if (valor == max) {
+            repeticiones = repeticiones + 1;    // mismo maximo otra vez
+        }
+
+        cout &lt;&lt; "Ingrese un valor (0 para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    cout &lt;&lt; "El maximo es " &lt;&lt; max
+         &lt;&lt; " y se repite " &lt;&lt; repeticiones &lt;&lt; " veces." &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza con: 1 5 7 7 7 15 4 15 15 3 9 7 15 2 (centinela 0)</div>
+  Vamos siguiendo <code>max</code> y <code>repeticiones</code>. Empieza con la bandera en <b>true</b>.<br><br>
+  • <b>1</b> → primera vez → max=<b>1</b>, rep=<b>1</b><br>
+  • <b>5</b> → 5&gt;1 → max=<b>5</b>, rep se reinicia a <b>1</b><br>
+  • <b>7</b> → 7&gt;5 → max=<b>7</b>, rep=<b>1</b><br>
+  • <b>7</b> → 7==7 → rep=<b>2</b><br>
+  • <b>7</b> → 7==7 → rep=<b>3</b><br>
+  • <b>15</b> → 15&gt;7 → max=<b>15</b>, rep se reinicia a <b>1</b><br>
+  • <b>4</b> → 4&lt;15 → nada (max=15, rep=1)<br>
+  • <b>15</b> → 15==15 → rep=<b>2</b><br>
+  • <b>15</b> → 15==15 → rep=<b>3</b><br>
+  • <b>3</b> → menor → nada<br>
+  • <b>9</b> → menor → nada<br>
+  • <b>7</b> → menor → nada<br>
+  • <b>15</b> → 15==15 → rep=<b>4</b><br>
+  • <b>2</b> → menor → nada<br>
+  • <b>0</b> → centinela → corta<br><br>
+  <div class="key" style="margin-top:8px">
+  <div class="ky-t">Resultado</div>
+  <code>El maximo es 15 y se repite 4 veces.</code><br>
+  En el conjunto, el 15 aparece en las posiciones del 6º, 8º, 9º y 13º dato → efectivamente <b>4 apariciones</b>. (Si contás solo "a ojo" rápido podrías decir 3; por eso la traza paso a paso es tan importante: el cuarto 15 aparece tarde, después de varios números chicos.)
+  </div>
+</div>
+
+<div class="trap">
+  <div class="tr-t">El error: reiniciar repeticiones a 0 (en vez de 1) al cambiar de máximo</div>
+  Cuando encontrás un nuevo máximo, ese valor <b>ya cuenta como una aparición</b>: lo estás viendo en este preciso instante. Por eso se reinicia en <code>1</code>, no en <code>0</code>. Si lo ponés en 0, vas a terminar con una repetición de menos.
+</div>
+
+<!-- ─── 6. VARIANTE: POSICIÓN DEL MÁXIMO ───────────────────────────────── -->
+<h3>Variante — Posición relativa del máximo</h3>
+<p>Otra pregunta muy común (el <b>ejercicio 10</b>: <i>imprimir el valor máximo y su posición relativa dentro del conjunto</i>). "Posición relativa" significa el <b>lugar</b> que ocupa: si fue el 1º dato ingresado, el 5º, etc. La idea es llevar un contador de posición <code>i</code>, y cada vez que actualizás el máximo, <b>guardar también en qué posición estabas</b>.</p>
+
+<p>El ejercicio 10 trabaja con <i>valores positivos terminados con un negativo</i>, así que el centinela es "valor negativo" (corta cuando <code>valor &lt; 0</code>):</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int valor;
+    int max;
+    int posMax;             // posicion donde encontre el maximo
+    int i = 1;              // posicion actual
+    bool esLaPrimeraVez = true;
+
+    cout &lt;&lt; "Ingrese un valor positivo (negativo para terminar): ";
+    cin &gt;&gt; valor;
+
+    while (valor &gt;= 0) {            // corta con el primer negativo
+        if (esLaPrimeraVez || valor &gt; max) {
+            max = valor;
+            posMax = i;             // me guardo la posicion del nuevo maximo
+            esLaPrimeraVez = false;
+        }
+
+        i = i + 1;
+        cout &lt;&lt; "Ingrese un valor positivo (negativo para terminar): ";
+        cin &gt;&gt; valor;
+    }
+
+    cout &lt;&lt; "El maximo es " &lt;&lt; max
+         &lt;&lt; " y esta en la posicion " &lt;&lt; posMax &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza con: 4 9 2 9 7 -1</div>
+  • <b>4</b> (pos 1) → primera vez → max=4, posMax=<b>1</b><br>
+  • <b>9</b> (pos 2) → 9&gt;4 → max=9, posMax=<b>2</b><br>
+  • <b>2</b> (pos 3) → 2&lt;9 → nada<br>
+  • <b>9</b> (pos 4) → 9&gt;9 es <b>falso</b> → nada (se queda con la PRIMERA aparición)<br>
+  • <b>7</b> (pos 5) → 7&lt;9 → nada<br>
+  • <b>-1</b> → centinela → corta<br><br>
+  Resultado: <code>El maximo es 9 y esta en la posicion 2</code>. ✓<br><br>
+  <i>Detalle fino:</i> como usamos <code>&gt;</code> estricto (no <code>&gt;=</code>), si el máximo se repite nos quedamos con la posición de la <b>primera</b> vez que apareció. Si el enunciado pidiera la última, usarías <code>&gt;=</code>.
+</div>
+
+<!-- ─── 7. DESCOMPOSICIÓN / BILLETES ───────────────────────────────────── -->
+<h3>Patrón 5 — Descomposición numérica (cambio de billetes)</h3>
+<p>Este patrón aparece en el <b>ejercicio 14</b>: <i>dado un monto, calcular cuántos billetes de $100, $50, $20, $10, $5, $2 y $1 se necesitan, usando la mínima cantidad de billetes</i>. La estrategia se llama "<b>algoritmo voraz</b>" (greedy): siempre usás <b>la mayor cantidad posible del billete más grande</b>, y con lo que sobra repetís bajando de denominación.</p>
+
+<p>Las dos herramientas son operadores que ya viste en U3, pero acá lucen su verdadera utilidad:</p>
+<div class="key">
+  <div class="ky-t">División entera <code>/</code> y módulo <code>%</code></div>
+  • <code>monto / 100</code> → <b>cuántos billetes de 100 entran</b> (la división entera tira los decimales: 5388/100 = 53).<br>
+  • <code>monto % 100</code> → <b>cuánto sobra después</b> de sacar esos billetes de 100 (el resto: 5388%100 = 88).<br><br>
+  La receta por cada denominación es siempre la misma pareja:<br>
+  <code>billetes = resto / denominacion;</code> &nbsp;&nbsp;(cuántos uso)<br>
+  <code>resto = resto % denominacion;</code> &nbsp;&nbsp;(qué me queda para la próxima)
+</div>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int monto;
+    cout &lt;&lt; "Ingrese el monto: ";
+    cin &gt;&gt; monto;
+
+    int b100 = monto / 100;     monto = monto % 100;
+    int b50  = monto / 50;      monto = monto % 50;
+    int b20  = monto / 20;      monto = monto % 20;
+    int b10  = monto / 10;      monto = monto % 10;
+    int b5   = monto / 5;       monto = monto % 5;
+    int b2   = monto / 2;       monto = monto % 2;
+    int b1   = monto;           // lo que queda son billetes de 1
+
+    cout &lt;&lt; "Billetes de 100: " &lt;&lt; b100 &lt;&lt; endl;
+    cout &lt;&lt; "Billetes de  50: " &lt;&lt; b50  &lt;&lt; endl;
+    cout &lt;&lt; "Billetes de  20: " &lt;&lt; b20  &lt;&lt; endl;
+    cout &lt;&lt; "Billetes de  10: " &lt;&lt; b10  &lt;&lt; endl;
+    cout &lt;&lt; "Billetes de   5: " &lt;&lt; b5   &lt;&lt; endl;
+    cout &lt;&lt; "Billetes de   2: " &lt;&lt; b2   &lt;&lt; endl;
+    cout &lt;&lt; "Billetes de   1: " &lt;&lt; b1   &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza completa con $5388</div>
+  Arrancamos con <code>monto = 5388</code> y vamos "gastando" el monto denominación por denominación:<br><br>
+  • <b>$100:</b> 5388 / 100 = <b>53</b> billetes. Resto: 5388 % 100 = <b>88</b>.<br>
+  • <b>$50:</b> 88 / 50 = <b>1</b> billete. Resto: 88 % 50 = <b>38</b>.<br>
+  • <b>$20:</b> 38 / 20 = <b>1</b> billete. Resto: 38 % 20 = <b>18</b>.<br>
+  • <b>$10:</b> 18 / 10 = <b>1</b> billete. Resto: 18 % 10 = <b>8</b>.<br>
+  • <b>$5:</b> 8 / 5 = <b>1</b> billete. Resto: 8 % 5 = <b>3</b>.<br>
+  • <b>$2:</b> 3 / 2 = <b>1</b> billete. Resto: 3 % 2 = <b>1</b>.<br>
+  • <b>$1:</b> queda <b>1</b> billete.<br><br>
+  <div class="key" style="margin-top:8px">
+  <div class="ky-t">Verificación</div>
+  53·100 + 1·50 + 1·20 + 1·10 + 1·5 + 1·2 + 1·1 = 5300 + 50 + 20 + 10 + 5 + 2 + 1 = <b>5388</b> ✓<br>
+  Total de billetes: 53 + 1 + 1 + 1 + 1 + 1 + 1 = <b>59 billetes</b>, la mínima cantidad posible.
+  </div>
+</div>
+
+<div class="key">
+  <div class="ky-t">Detalle clave: por qué reutilizamos <code>monto</code></div>
+  Fijate que después de cada paso hacemos <code>monto = monto % denominacion;</code>. Así <code>monto</code> deja de ser el total original y pasa a ser "lo que falta por cambiar". El paso siguiente trabaja sobre ese resto, no sobre el monto entero. Si te olvidás de actualizar el resto y siempre dividís el monto original, te dan cantidades disparatadas. (El ejercicio 14 completo pide hacer esto para <i>un conjunto</i> de sueldos terminado en cero — o sea: este bloque de billetes va <b>adentro</b> de un ciclo con centinela, acumulando los billetes de todos los sueldos.)
+</div>
+
+<!-- ─── 8. VALIDACIÓN DE ENTRADA ───────────────────────────────────────── -->
+<h3>Patrón extra — Validación de entrada con <code>do-while</code></h3>
+<p>Muchos enunciados exigen que un dato esté dentro de cierto rango (por ejemplo "ingresar N menor que 25", como en varios ejercicios de la guía). Si el usuario mete algo inválido, no querés seguir: querés <b>volver a pedírselo hasta que esté bien</b>. El ciclo ideal para esto es el <code>do-while</code>, porque pide el dato <b>al menos una vez</b> y repite mientras siga siendo inválido.</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int n;
+    do {
+        cout &lt;&lt; "Ingrese N (entre 1 y 24): ";
+        cin &gt;&gt; n;
+    } while (n &lt; 1 || n &gt; 24);     // repite MIENTRAS el dato sea invalido
+
+    cout &lt;&lt; "Perfecto, N = " &lt;&lt; n &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="key">
+  <div class="ky-t">Cómo leer la condición del <code>do-while</code></div>
+  La condición describe <b>cuándo seguir pidiendo</b> (cuándo el dato es malo), no cuándo está bien. <code>n &lt; 1 || n &gt; 24</code> es verdadero si N se pasó por abajo <b>o</b> por arriba: en cualquiera de esos casos, vuelve a pedir. En cuanto el usuario mete un valor del 1 al 24, la condición da falso y el ciclo termina dejando un dato garantizado válido para el resto del programa.
+</div>
+
+<!-- ─── 9. RESUMEN ─────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Todos los patrones siguen el esqueleto <b>inicializar (antes) → actualizar (adentro del ciclo) → usar (después)</b>.<br>
+  • <b>Contar:</b> contador en <code>0</code>; <code>if (cond) contador++;</code> (sumo <b>1</b>).<br>
+  • <b>Sumar:</b> acumulador en <code>0</code>; <code>suma = suma + valor;</code> (sumo <b>el valor</b>).<br>
+  • <b>Promediar:</b> suma / cantidad. Cuidado con <b>dividir por cero</b> (chequeá <code>if (cant &gt; 0)</code>) y con la <b>división entera</b> (usá <code>(float)</code> antes de dividir).<br>
+  • <b>Máximo/mínimo:</b> el problema real es la inicialización. Tres técnicas: (A) valor fuera del dominio, (B) primer elemento con contador <code>i == 1 || ...</code>, (C) primer elemento con bandera <code>bool</code>. Nunca arranques un máximo en <code>0</code> si puede haber negativos.<br>
+  • <b>Máximo + repeticiones:</b> al subir el máximo, reiniciás repeticiones en <code>1</code>; si es igual, sumás 1.<br>
+  • <b>Posición del máximo:</b> guardás <code>posMax = i</code> cuando actualizás el máximo.<br>
+  • <b>Descomposición / billetes:</b> por cada denominación, <code>billetes = resto / denom;</code> y <code>resto = resto % denom;</code>.<br>
+  • <b>Validar entrada:</b> <code>do { pedir } while (dato invalido);</code>.<br>
+  • El <b>centinela</b> nunca se procesa: por eso la lectura adelantada (una antes del ciclo, otra al final del cuerpo).
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="ayed"></div>
+</div>
+</details>

@@ -1,0 +1,379 @@
+<!-- ============ UNIDAD 8 · ARREGLOS (VECTORES) ============ -->
+<details id="ay-s8">
+<summary><span class="num">8</span> Unidad 8: Arreglos (vectores) <span class="sec-score" id="ss-ayed-8"></span></summary>
+<div class="content">
+
+<p>Hasta ahora cada dato que guardabas vivía en su propia variable: <code>edad</code>, <code>nota</code>, <code>sueldo</code>. Eso alcanza cuando son pocos. Pero, ¿qué hacés cuando tenés que guardar <b>100 notas</b> a la vez para después recorrerlas? En esta unidad aparece la primera <b>estructura de datos</b> de verdad de la materia: el <b>arreglo</b> (también llamado <i>array</i> o <i>vector</i>). Vamos desde cero: qué problema resuelve, cómo se declara, cómo se accede a cada posición, cómo se recorre con un <code>for</code>, qué pasa por dentro en la memoria, y cómo se pasa a una función. No hace falta más que lo de las unidades anteriores (variables, <code>for</code>, los patrones de la U6).</p>
+
+<!-- ─── 1. EL PROBLEMA QUE RESUELVE ────────────────────────────────────── -->
+<h3>El problema: 100 variables es inviable</h3>
+<p>Imaginá que el enunciado te pide leer las <b>notas de 100 alumnos</b> y después hacer algo con ellas (mostrarlas todas, buscar la más alta, promediarlas…). Con lo que sabés hasta ahora tendrías que declarar:</p>
+
+<pre class="code-block">int nota1;
+int nota2;
+int nota3;
+// ... y así hasta ...
+int nota100;</pre>
+
+<p>Esto es <b>inviable</b> por varios motivos: son 100 líneas para declarar, ¿cómo las leés con un ciclo si cada una tiene un nombre distinto?, ¿cómo recorrés <code>nota1, nota2, …</code> automáticamente? No se puede escribir <code>notaX</code> donde <code>X</code> sea una variable. El nombre de cada variable es fijo y hay que escribirlo a mano.</p>
+
+<div class="key">
+  <div class="ky-t">La idea del arreglo</div>
+  Un <b>arreglo</b> (array / vector) guarda un <b>conjunto de elementos del MISMO tipo</b> bajo un <b>solo nombre</b>, y a cada elemento lo identificás por su <b>número de posición</b> (un índice). En vez de 100 nombres distintos, tenés <i>un</i> nombre (<code>notas</code>) y pedís el elemento que quieras con un número: <code>notas[0]</code>, <code>notas[1]</code>, … <code>notas[99]</code>. Y como ese número puede ser una variable, ahora <b>sí</b> podés recorrer todo con un ciclo.
+</div>
+
+<p>Las tres palabras —<b>arreglo</b>, <b>array</b> y <b>vector</b>— son sinónimos en esta materia: nombran la misma cosa. Vas a escucharlas indistintamente, así que acostumbrate a las tres.</p>
+
+<!-- ─── 2. DEFINICIÓN / DECLARACIÓN ────────────────────────────────────── -->
+<h3>Cómo se declara un arreglo</h3>
+<p>La forma general de declarar un arreglo es:</p>
+
+<pre class="code-block">tipo nombre[CANTIDAD_MAX];</pre>
+
+<p>Donde:</p>
+<table class="tbl">
+  <tr><th>Parte</th><th>Qué significa</th></tr>
+  <tr><td><code>tipo</code></td><td>El tipo de dato de <b>cada</b> elemento (todos iguales): <code>int</code>, <code>float</code>, <code>char</code>, etc.</td></tr>
+  <tr><td><code>nombre</code></td><td>El nombre del arreglo (uno solo para todo el conjunto).</td></tr>
+  <tr><td class="c"><code>[CANTIDAD_MAX]</code></td><td>Entre corchetes, <b>cuántos</b> elementos como máximo va a poder guardar. Es el <b>tamaño FIJO</b> del arreglo.</td></tr>
+</table>
+
+<p>Un ejemplo concreto, el de la cátedra:</p>
+
+<pre class="code-block">int arr[5];</pre>
+
+<p>Esa línea dice: "creá un arreglo llamado <code>arr</code> que puede guardar <b>hasta 5</b> números enteros". Reservás de una el espacio para 5 enteros, todos juntos, bajo el nombre <code>arr</code>.</p>
+
+<div class="key">
+  <div class="ky-t">El tamaño es FIJO y se decide al declarar</div>
+  <code>CANTIDAD_MAX</code> es la cantidad <b>máxima</b> de elementos que el arreglo puede guardar, y queda <b>fijada</b> al momento de declararlo. <b>No</b> podés cargar más que eso: en <code>int arr[5]</code> entran 5 enteros y ni uno más. (En esta etapa de la materia el tamaño es un número fijo conocido al escribir el programa; más adelante verás formas de manejar tamaños variables.)
+</div>
+
+<!-- ─── 3. ÍNDICES / SUBÍNDICES ────────────────────────────────────────── -->
+<h3>Posiciones, índices y subíndices: ¡arrancan en CERO!</h3>
+<p>Para acceder a un elemento puntual del arreglo usás el <b>nombre seguido de la posición entre corchetes</b>:</p>
+
+<pre class="code-block">nombre[posicion];</pre>
+
+<p>Esa <i>posición</i> se llama <b>índice</b> o <b>subíndice</b>. Y acá viene lo más importante de toda la unidad, lo que más confunde al principio:</p>
+
+<div class="key">
+  <div class="ky-t">Los índices van de 0 a CANTIDAD_MAX − 1</div>
+  El primer elemento <b>NO</b> es la posición 1: es la posición <b>0</b>. Las posiciones válidas van desde <b>0</b> hasta <b>CANTIDAD_MAX − 1</b>.<br><br>
+  En <code>int arr[5]</code> las posiciones válidas son: <b>0, 1, 2, 3, 4</b>. Son 5 posiciones (que es lo correcto: el arreglo tiene 5 lugares), pero numeradas del 0 al 4. <b>No existe</b> la posición 5.
+</div>
+
+<p>Una vez que tenés el arreglo declarado, cada <code>arr[i]</code> se comporta como una <b>variable normal</b> de tipo <code>int</code>: le podés <b>asignar</b> un valor con <code>=</code> y podés <b>leer</b> su valor (por ejemplo, mostrarlo). Veamos las dos cosas, tal como aparecen en el código de la cátedra:</p>
+
+<pre class="code-block">int arr[5];        // 5 lugares: posiciones 0, 1, 2, 3, 4
+
+arr[0] = 21;       // guardo 21 en la posicion 0
+arr[1] = 48;       // guardo 48 en la posicion 1
+arr[3] = 7;        // guardo 7 en la posicion 3
+arr[2] = 28;       // guardo 28 en la posicion 2
+arr[4] = 70;       // guardo 70 en la posicion 4
+
+cout &lt;&lt; arr[0] &lt;&lt; endl;   // LEO la posicion 0 -&gt; muestra: 21
+cout &lt;&lt; arr[1] &lt;&lt; endl;   // LEO la posicion 1 -&gt; muestra: 48</pre>
+
+<div class="key">
+  <div class="ky-t">El orden en que cargás no importa</div>
+  Fijate que en el código de arriba se carga primero la posición 0, después la 1, después la <b>3</b>, después la 2 y al final la 4. Da igual: cada <code>arr[i] = ...</code> es independiente, escribe en <i>su</i> casillero sin importar el orden en que aparezcan las líneas. Después de esas 5 asignaciones el arreglo quedó así, sin importar el orden de carga:
+</div>
+
+<table class="tbl">
+  <tr><th>Índice (posición)</th><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">4</td></tr>
+  <tr><th>Valor guardado</th><td class="c">21</td><td class="c">48</td><td class="c">28</td><td class="c">7</td><td class="c">70</td></tr>
+</table>
+
+<p>Te conviene imaginarte el arreglo como una <b>fila de casilleros numerados</b> (como los lockers de un gimnasio): todos del mismo tamaño (porque guardan el mismo tipo), pegados uno al lado del otro, y cada uno con su número de casillero (el índice) empezando en 0.</p>
+
+<!-- ─── 4. INICIALIZACIÓN POR LISTA ────────────────────────────────────── -->
+<h3>Inicialización por lista (cargar en la misma declaración)</h3>
+<p>Cuando ya conocés los valores desde el arranque, en vez de asignar posición por posición podés cargarlos todos juntos en la misma línea de la declaración, usando <b>llaves</b> y separando con comas:</p>
+
+<pre class="code-block">int arr2[3] = {4, 9, 56};</pre>
+
+<p>Eso es equivalente a haber escrito tres asignaciones:</p>
+
+<pre class="code-block">int arr2[3];
+arr2[0] = 4;
+arr2[1] = 9;
+arr2[2] = 56;</pre>
+
+<p>Los valores se reparten <b>en orden</b>: el primero de la lista va a la posición 0, el segundo a la 1, el tercero a la 2. Así, <code>arr2[0]</code> es <b>4</b>, <code>arr2[1]</code> es <b>9</b> y <code>arr2[2]</code> es <b>56</b>.</p>
+
+<!-- ─── 5. RECORRIDO CON FOR ───────────────────────────────────────────── -->
+<h3>Recorrer un arreglo con un <code>for</code></h3>
+<p>Acá está la verdadera potencia del arreglo: como la posición es un <b>número</b>, podés usar la <b>variable del <code>for</code></b> como índice y así pasar por <i>todos</i> los elementos con un ciclo de pocas líneas. El patrón es recorrer de <b>0 hasta CANTIDAD − 1</b>:</p>
+
+<pre class="code-block">for(int i = 0; i &lt;= 4; i++) {
+    cout &lt;&lt; arr[i] &lt;&lt; endl;
+}</pre>
+
+<p>En cada vuelta, <code>i</code> toma un valor distinto (0, 1, 2, 3, 4) y <code>arr[i]</code> es el elemento de esa posición. Vamos a "hacer de computadora" y trazar el recorrido con el arreglo que cargamos antes (<code>21, 48, 28, 7, 70</code>):</p>
+
+<div class="example">
+  <div class="ex-t">Traza del recorrido: arr = {21, 48, 28, 7, 70}</div>
+  • <code>i = 0</code> → ¿0 &lt;= 4? Sí → muestra <code>arr[0]</code> = <b>21</b>, baja renglón.<br>
+  • <code>i = 1</code> → ¿1 &lt;= 4? Sí → muestra <code>arr[1]</code> = <b>48</b>.<br>
+  • <code>i = 2</code> → ¿2 &lt;= 4? Sí → muestra <code>arr[2]</code> = <b>28</b>.<br>
+  • <code>i = 3</code> → ¿3 &lt;= 4? Sí → muestra <code>arr[3]</code> = <b>7</b>.<br>
+  • <code>i = 4</code> → ¿4 &lt;= 4? Sí → muestra <code>arr[4]</code> = <b>70</b>.<br>
+  • <code>i = 5</code> → ¿5 &lt;= 4? <b>No</b> → corta el ciclo.<br><br>
+  Salida en pantalla (uno por renglón):<br>
+  <code>21</code><br><code>48</code><br><code>28</code><br><code>7</code><br><code>70</code> ✓
+</div>
+
+<div class="key">
+  <div class="ky-t">Dos formas equivalentes de escribir la condición</div>
+  Como las posiciones de <code>int arr[5]</code> llegan hasta 4, podés cortar el <code>for</code> de dos maneras que hacen <b>exactamente lo mismo</b>:<br>
+  • <code>for(int i = 0; i &lt;= 4; i++)</code> &nbsp;→ "hasta el índice máximo, 4, inclusive".<br>
+  • <code>for(int i = 0; i &lt; 5; i++)</code> &nbsp;→ "mientras sea menor que el tamaño, 5".<br><br>
+  La segunda (<code>i &lt; 5</code>, o sea <code>i &lt; CANTIDAD</code>) es la que más vas a ver, porque escribís directamente el tamaño del arreglo y no tenés que acordarte de restarle 1. Las dos recorren las posiciones 0, 1, 2, 3, 4.
+</div>
+
+<!-- ─── 6. MEMORIA CONTIGUA Y ACCESO DIRECTO ──────────────────────────── -->
+<h3>Qué pasa por dentro: memoria contigua y acceso directo</h3>
+<p>¿Por qué un arreglo es tan cómodo y rápido? La razón está en <b>cómo se guarda en la memoria</b>. Cuando declarás <code>int arr[5]</code>, la máquina reserva un <b>bloque CONTIGUO</b> de memoria: 5 casilleros para enteros, <b>pegados uno tras otro</b>, sin huecos en el medio.</p>
+
+<div class="key">
+  <div class="ky-t">El nombre del arreglo guarda la dirección del comienzo</div>
+  En la variable <code>arr</code> (el nombre del arreglo) no está "el arreglo entero": está la <b>dirección de memoria donde EMPIEZA</b> el bloque (la posición de arranque). A partir de ahí, los elementos siguen ordenados de a uno.
+</div>
+
+<p>Entonces, ¿cómo hace la computadora para ir a la posición <code>i</code> sin recorrer todo desde el principio? Con una <b>cuentita</b>. Como sabe dónde empieza el bloque y sabe cuánto ocupa cada elemento (cuántos bits ocupa el tipo de dato), calcula directamente:</p>
+
+<pre class="code-block">direccion de arr[i] = direccionDeComienzo + i &times; (tamano del tipo)</pre>
+
+<p>Por ejemplo, con <code>int arr[5]</code> (donde cada <code>int</code> ocupa, digamos, 32 bits), para ubicar <code>arr[i]</code> hace <code>direccionDeComienzo + i &times; 32</code>. Es una <b>multiplicación y una suma</b>: una sola cuenta, y listo.</p>
+
+<div class="key">
+  <div class="ky-t">Acceso directo en tiempo CONSTANTE</div>
+  Como ubicar cualquier posición se reduce a esa única cuenta, <b>acceder a cualquier elemento cuesta lo mismo</b>: da igual pedir <code>arr[0]</code> que <code>arr[4]</code> que <code>arr[9999]</code> (en un arreglo grande). No hay que "caminar" desde el principio. Esto se llama <b>acceso directo</b> y se dice que es en <b>tiempo constante</b>. En la notación de complejidad que viste, esto se anota como <b>O(1)</b> (o, como aparece en las notas, O(n) = k: el costo no depende de la posición, es siempre el mismo <i>k</i>).
+</div>
+
+<!-- ─── 7. ELEMENTOS ÚTILES (N) ────────────────────────────────────────── -->
+<h3>Tamaño físico vs. elementos útiles (la variable N)</h3>
+<p>Hay una distinción que la cátedra remarca mucho y que conviene tener clarísima. El arreglo tiene un <b>tamaño FÍSICO</b> fijo (lo que reservaste al declararlo, por ejemplo 100 lugares). Pero en la práctica casi nunca usás <i>todos</i> los lugares: reservás "de más, por las dudas" y cargás solo los que necesitás.</p>
+
+<p>Pensalo así: declarás <code>int notas[100]</code> porque "podrían venir hasta 100 alumnos", pero hoy se anotaron solo 30. Tenés 100 casilleros reservados, pero <b>solo 30 están cargados con datos válidos</b>. Los otros 70 contienen <b>basura</b>: valores impredecibles que quedaron en la memoria y que no significan nada.</p>
+
+<div class="key">
+  <div class="ky-t">Llevá una variable N con los elementos REALMENTE cargados</div>
+  Como el tamaño físico no te dice cuántos datos válidos hay, se acostumbra llevar una variable entera —que la cátedra llama <b>N</b> (o también <i>cantElemUtiles</i>, <i>size</i>, <i>length</i>, <i>len</i>)— que guarda <b>cuántas posiciones están realmente en uso</b>. Y entonces:<br><br>
+  • El recorrido válido va de <b>0 hasta N − 1</b> (NO hasta el tamaño físico − 1).<br>
+  • Las posiciones de <b>N en adelante</b> contienen basura y <b>no</b> se tocan.
+</div>
+
+<table class="tbl">
+  <tr><th>Concepto</th><th>Qué es</th><th>Ejemplo</th></tr>
+  <tr><td>Tamaño <b>físico</b></td><td>Cuánto reservaste al declarar (fijo).</td><td class="c"><code>int notas[100]</code> → 100</td></tr>
+  <tr><td>Elementos <b>útiles</b> (N)</td><td>Cuántos cargaste de verdad (variable).</td><td class="c">N = 30</td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Confundir tamaño físico con elementos útiles</div>
+  Si recorrés siempre hasta el tamaño físico (las 100 posiciones) cuando en realidad cargaste solo 30, vas a procesar 70 posiciones llenas de <b>basura</b>: tu promedio, tu máximo y tus cuentas van a salir mal, con números que nunca ingresaste. <b>Siempre</b> recorré hasta <b>N − 1</b>, no hasta el tamaño físico, salvo que el arreglo esté lleno y N coincida con el tamaño.
+</div>
+
+<!-- ─── 8. OPERACIONES: CARGAR ─────────────────────────────────────────── -->
+<h3>Operación 1 — Cargar el arreglo (con <code>cin</code> en un <code>for</code>)</h3>
+<p>"Cargar" es <b>llenar</b> el arreglo con datos que el usuario ingresa. Como cada posición es un <code>arr[i]</code>, alcanza con un <code>for</code> que en cada vuelta lea un valor con <code>cin</code> y lo guarde en la posición <code>i</code>. Acá usamos un <code>N</code> ya conocido (por ejemplo 5):</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int notas[5];
+    int n = 5;                  // cuantos voy a cargar
+
+    for(int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; "Ingrese la nota " &lt;&lt; i &lt;&lt; ": ";
+        cin &gt;&gt; notas[i];         // guardo lo ingresado en la posicion i
+    }
+
+    return 0;
+}</pre>
+
+<p>En la primera vuelta (<code>i = 0</code>) lo que el usuario escriba se guarda en <code>notas[0]</code>; en la segunda (<code>i = 1</code>) en <code>notas[1]</code>; y así hasta <code>notas[4]</code>. El mismo <code>cin &gt;&gt; notas[i]</code> sirve para todas las posiciones, porque <code>i</code> va cambiando.</p>
+
+<!-- ─── 9. OPERACIONES: BÚSQUEDA SECUENCIAL ───────────────────────────── -->
+<h3>Operación 2 — Búsqueda secuencial</h3>
+<p><b>Buscar</b> en un arreglo es responder "¿está tal valor? ¿en qué posición?". La <b>búsqueda secuencial</b> (o lineal) es la más simple: recorrés el arreglo <b>desde el principio comparando</b> cada elemento con el valor buscado, hasta encontrarlo (o llegar al final sin éxito). Usamos una <b>bandera</b> y guardamos la posición:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[5] = {21, 48, 28, 7, 70};
+    int n = 5;
+    int buscado = 28;
+
+    int posEncontrada = -1;         // -1 = "todavia no lo encontre"
+
+    for(int i = 0; i &lt; n; i++) {
+        if(arr[i] == buscado) {
+            posEncontrada = i;      // me guardo DONDE estaba
+        }
+    }
+
+    if(posEncontrada != -1) {
+        cout &lt;&lt; "Encontrado en la posicion " &lt;&lt; posEncontrada &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "No esta en el arreglo." &lt;&lt; endl;
+    }
+
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza buscando el 28 en {21, 48, 28, 7, 70}</div>
+  <code>posEncontrada</code> arranca en <b>−1</b>.<br><br>
+  • <code>i = 0</code> → ¿<code>arr[0]</code> (21) == 28? No.<br>
+  • <code>i = 1</code> → ¿<code>arr[1]</code> (48) == 28? No.<br>
+  • <code>i = 2</code> → ¿<code>arr[2]</code> (28) == 28? <b>Sí</b> → <code>posEncontrada = 2</code>.<br>
+  • <code>i = 3</code> → ¿<code>arr[3]</code> (7) == 28? No.<br>
+  • <code>i = 4</code> → ¿<code>arr[4]</code> (70) == 28? No.<br><br>
+  Como <code>posEncontrada</code> quedó en 2 (distinto de −1): <code>Encontrado en la posicion 2</code> ✓
+</div>
+
+<div class="key">
+  <div class="ky-t">¿Por qué arrancar la posición en −1?</div>
+  El <b>−1</b> es un valor "imposible" como posición (los índices válidos arrancan en 0), así que sirve de <b>marca</b> de "no encontrado". Si después del ciclo <code>posEncontrada</code> sigue valiendo −1, es porque nunca entró al <code>if</code>: el valor no estaba. Es la misma idea de bandera/centinela que usabas en los patrones de la U6, aplicada a posiciones.
+</div>
+
+<!-- ─── 10. OPERACIONES: COPIAR ───────────────────────────────────────── -->
+<h3>Operación 3 — Copiar un arreglo en otro</h3>
+<p>Un arreglo <b>no</b> se copia con un simple <code>=</code> (eso no funciona con arreglos como con las variables comunes). Para copiar el contenido hay que recorrer y copiar <b>posición por posición</b>, justo como en el código de la cátedra:</p>
+
+<pre class="code-block">int arr[5] = {21, 48, 28, 7, 70};
+
+int copia[5];
+for(int i = 0; i &lt;= 4; i++) {
+    copia[i] = arr[i];      // copio el elemento i de arr al elemento i de copia
+}</pre>
+
+<p>En cada vuelta tomás <code>arr[i]</code> (el valor original de esa posición) y lo guardás en <code>copia[i]</code> (la misma posición del nuevo arreglo). Al terminar el ciclo, <code>copia</code> tiene exactamente los mismos valores que <code>arr</code>, pero es un arreglo <b>independiente</b>: cambiar uno no afecta al otro (cada uno tiene su propio bloque de memoria).</p>
+
+<!-- ─── 11. OPERACIONES: MÁXIMO/MÍNIMO ────────────────────────────────── -->
+<h3>Operación 4 — Buscar el máximo (o el mínimo) del arreglo</h3>
+<p>Acá <b>reusás un patrón que ya conocés</b>: el de máximo/mínimo de la Unidad 6. La diferencia es que antes los valores llegaban de a uno por <code>cin</code> con un centinela; ahora ya están <b>todos guardados en el arreglo</b>, así que en vez de leer con <code>cin</code> simplemente recorrés con el <code>for</code> y comparás <code>arr[i]</code>.</p>
+
+<p>Y hay una ventaja muy linda: como el arreglo te deja acceder a cualquier posición, podés <b>arrancar el máximo con el primer elemento</b> (<code>arr[0]</code>) y comparar desde la posición 1 en adelante. Así te evitás todo el lío de "¿con qué valor inicializo el máximo?" que tenías en la U6:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[5] = {21, 48, 28, 7, 70};
+    int n = 5;
+
+    int max = arr[0];               // arranco con el PRIMER elemento
+    for(int i = 1; i &lt; n; i++) {    // comparo desde la posicion 1
+        if(arr[i] &gt; max) {
+            max = arr[i];           // nuevo record
+        }
+    }
+
+    cout &lt;&lt; "El maximo es: " &lt;&lt; max &lt;&lt; endl;
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">Traza del máximo en {21, 48, 28, 7, 70}</div>
+  <code>max</code> arranca en <code>arr[0]</code> = <b>21</b>. El <code>for</code> empieza en <code>i = 1</code>.<br><br>
+  • <code>i = 1</code> → ¿<code>arr[1]</code> (48) &gt; 21? Sí → <code>max = 48</code>.<br>
+  • <code>i = 2</code> → ¿<code>arr[2]</code> (28) &gt; 48? No.<br>
+  • <code>i = 3</code> → ¿<code>arr[3]</code> (7) &gt; 48? No.<br>
+  • <code>i = 4</code> → ¿<code>arr[4]</code> (70) &gt; 48? Sí → <code>max = 70</code>.<br><br>
+  Resultado: <code>El maximo es: 70</code> ✓ &nbsp;Para el <b>mínimo</b> es idéntico, pero arrancás <code>min = arr[0]</code> y comparás con <code>&lt;</code>: <code>if(arr[i] &lt; min) min = arr[i];</code>.
+</div>
+
+<!-- ─── 12. PASAJE A FUNCIONES ────────────────────────────────────────── -->
+<h3>Pasaje de arreglos a funciones</h3>
+<p>Como vas a querer reusar estas operaciones (cargar, buscar el máximo, etc.), lo natural es meterlas en <b>funciones</b>. Para que una función reciba un arreglo, se declara el parámetro con corchetes vacíos: <code>tipo nombre[]</code>. El ejemplo de la cátedra:</p>
+
+<pre class="code-block">void cargarArray(int a[]) {
+    a[0] = 7;
+    a[1] = 30;
+}</pre>
+
+<p>Pero acá hay algo <b>muy importante</b> que la cátedra remarca, y que es distinto a todo lo que viste con las variables comunes:</p>
+
+<div class="key">
+  <div class="ky-t">Los arreglos se pasan SIEMPRE por referencia</div>
+  Con una variable común (un <code>int</code>, por ejemplo), la función recibe una <b>copia</b>: si la modifica adentro, afuera <i>no</i> cambia nada. Con los <b>arreglos es al revés</b>: NO se copia el arreglo entero. Lo que se pasa es, en realidad, la <b>dirección de memoria donde empieza</b> (ese "comienzo" del que hablamos antes). Por eso la función trabaja sobre el <b>mismo</b> arreglo que está afuera: si la función modifica una posición, <b>el cambio PERSISTE</b> cuando la función termina.
+</div>
+
+<p>Veámoslo con el programa completo de la cátedra. El <code>main</code> declara un arreglo, lo manda a <code>cargarArray</code> y después lo recorre para ver qué quedó:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+void cargarArray(int a[]) {
+    a[0] = 7;
+    a[1] = 30;
+}
+
+int main() {
+    int arrayPrueba[2];             // sin cargar: contiene basura
+    cargarArray(arrayPrueba);       // le paso el arreglo a la funcion
+
+    for(int i = 0; i &lt;= 1; i++) {
+        cout &lt;&lt; arrayPrueba[i] &lt;&lt; endl;
+    }
+
+    return 0;
+}</pre>
+
+<div class="example">
+  <div class="ex-t">¿Qué imprime? — y por qué cambió afuera</div>
+  Antes de llamar a la función, <code>arrayPrueba</code> tiene basura en sus 2 posiciones. Al llamar <code>cargarArray(arrayPrueba)</code>, la función recibe la <b>dirección</b> de <code>arrayPrueba</code> (su comienzo), así que dentro de la función <code>a</code> es <i>el mismo</i> arreglo que <code>arrayPrueba</code> afuera. La función hace <code>a[0] = 7</code> y <code>a[1] = 30</code>, que escriben directamente en los casilleros reales. Cuando la función termina, esos cambios <b>quedan</b>. El <code>for</code> entonces muestra:<br><br>
+  <code>7</code><br><code>30</code> ✓<br><br>
+  Si los arreglos se pasaran por copia (como un <code>int</code> común), afuera <code>arrayPrueba</code> habría seguido con basura. Pero no: con arreglos, lo que toca la función queda tocado afuera.
+</div>
+
+<div class="key">
+  <div class="ky-t">Por eso se pasa también N como parámetro aparte</div>
+  Cuando le pasás un arreglo a una función, la función recibe la dirección de inicio… pero <b>no sabe cuántos elementos útiles tiene</b> (esa información no viaja con el arreglo). Por eso lo habitual es pasar <b>también el <code>N</code></b> como un segundo parámetro, así la función sabe hasta dónde recorrer. Por ejemplo:<br><br>
+  <code>void cargar(int a[], int n) { for(int i = 0; i &lt; n; i++) cin &gt;&gt; a[i]; }</code><br><br>
+  Y como el arreglo es por referencia, lo que la función cargue queda cargado en el arreglo del <code>main</code>.
+</div>
+
+<!-- ─── 13. CAJAS TRAMPA ──────────────────────────────────────────────── -->
+<h3>Errores típicos (para no perder puntos)</h3>
+
+<div class="trap">
+  <div class="tr-t">Salirse de rango: <code>arr[5]</code> en un <code>int arr[5]</code></div>
+  Es el error más grave y el más fácil de cometer por culpa de que los índices arrancan en 0. En <code>int arr[5]</code> las posiciones que existen son <b>0, 1, 2, 3, 4</b>. La posición <b>5 NO existe</b> (sería la sexta). Si hacés <code>arr[5] = 10;</code> estás escribiendo <b>fuera del espacio reservado</b>, pisando memoria que no es tuya. C++ muchas veces <b>no te avisa</b> al compilar: el programa parece andar pero corrompe datos o se rompe de forma impredecible (en la materia se anota como "no tengo que cargar datos fuera del espacio reservado"). Regla de oro: el índice máximo válido es <b>tamaño − 1</b>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Confundir tamaño físico con elementos útiles</div>
+  Ya lo vimos, pero se repite tanto que va de nuevo: si reservaste <code>int v[100]</code> pero cargaste <code>N = 30</code>, recorré <b>0 a N − 1</b> (0 a 29), NO 0 a 99. Procesar las 70 posiciones de basura te arruina cualquier cuenta.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Olvidar que el índice arranca en 0</div>
+  El primer elemento es <code>arr[0]</code>, no <code>arr[1]</code>. Y el "elemento número 5" (el quinto) es <code>arr[4]</code>, no <code>arr[5]</code>. Arrancar un recorrido en <code>i = 1</code> "porque empiezo a contar desde 1" te saltea el primer elemento (el de la posición 0). Salvo casos puntuales (como el máximo, donde arrancás en 1 a propósito porque ya tomaste el 0), los recorridos empiezan en <code>i = 0</code>.
+</div>
+
+<!-- ─── 14. RESUMEN ───────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Un <b>arreglo</b> (array / vector) guarda un <b>conjunto de elementos del mismo tipo</b> bajo un solo nombre. Resuelve el problema de "necesito 100 variables".<br>
+  • Se declara <code>tipo nombre[CANTIDAD_MAX];</code> (ej. <code>int arr[5];</code>). El tamaño es <b>fijo</b>.<br>
+  • Se accede con <code>nombre[posicion]</code>. Los índices van de <b>0</b> a <b>CANTIDAD_MAX − 1</b> (¡arrancan en 0!). En <code>int arr[5]</code>: posiciones 0,1,2,3,4; el índice máximo es <b>4</b>.<br>
+  • Inicialización por lista: <code>int arr2[3] = {4, 9, 56};</code>.<br>
+  • Se recorre con <code>for(int i = 0; i &lt; n; i++)</code> usando <code>arr[i]</code> en cada vuelta.<br>
+  • En memoria es un <b>bloque contiguo</b>; el nombre guarda la <b>dirección de comienzo</b>; ubicar <code>arr[i]</code> es una sola cuenta → <b>acceso directo en tiempo constante, O(1)</b>.<br>
+  • Distinguí <b>tamaño físico</b> (lo reservado) de <b>elementos útiles N</b> (lo cargado). Recorré de 0 a <b>N − 1</b>; el resto es basura.<br>
+  • Operaciones básicas: <b>cargar</b> (for con <code>cin</code>), <b>búsqueda secuencial</b> (recorrer comparando), <b>copiar</b> (posición a posición), <b>máximo/mínimo</b> (arrancando con <code>arr[0]</code>).<br>
+  • Los arreglos se pasan a funciones <b>por referencia</b> (se pasa la dirección): lo que la función modifica <b>persiste afuera</b>. Por eso se suele pasar <b>N</b> como parámetro aparte.
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="ayed"></div>
+</div>
+</details>

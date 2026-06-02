@@ -1,0 +1,395 @@
+<!-- ============ UNIDAD 9 · REGISTROS (STRUCTS) ============ -->
+<details id="ay-s9">
+<summary><span class="num">9</span> Unidad 9: Registros (structs) y arreglos de structs <span class="sec-score" id="ss-ayed-9"></span></summary>
+<div class="content">
+
+<p>Hasta ahora, cuando necesitabas guardar muchos datos juntos, usabas un <b>arreglo</b> (un vector): una fila de cajitas que sirve para almacenar muchos valores… pero todos <b>del mismo tipo</b>. Un arreglo de <code>int</code> guarda enteros, uno de <code>string</code> guarda textos. ¿Y si lo que querés describir es <i>una cosa</i> formada por <b>datos de distinto tipo</b>? Por ejemplo una persona: tiene un DNI (un número), un nombre (un texto) y un apellido (otro texto). Para eso existe el <b>registro</b> —en C++, el <b>struct</b>—: un <b>tipo de dato nuevo, inventado por vos</b>, que agrupa varios datos relacionados bajo un solo nombre. En esta unidad vas a aprender a definir tus propios tipos, a meterlos unos adentro de otros, a pasarlos a funciones (por valor y por referencia) y a combinarlos con arreglos. Todo desde cero y con el código tal cual lo da la cátedra.</p>
+
+<!-- ─── 1. EL PROBLEMA QUE RESUELVE ───────────────────────────────────────── -->
+<h3>¿Qué problema resuelve un registro?</h3>
+<p>Pensá en un <b>punto</b> del plano, como en geometría: tiene una coordenada <code>x</code> y una coordenada <code>y</code>. Las dos son enteros, así que hasta podrías guardarlas en dos variables sueltas:</p>
+
+<pre class="code-block">int x = 3;
+int y = 2;
+cout &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; endl;   // muestra: 3, 2</pre>
+
+<p>Funciona… pero <code>x</code> e <code>y</code> son <b>dos variables independientes</b>: nada en el código dice que "van juntas", que forman <i>un</i> punto. Si ahora querés un segundo punto, te aparece otro par de variables sueltas:</p>
+
+<pre class="code-block">int x2 = 1;
+int y2 = 4;
+cout &lt;&lt; x2 &lt;&lt; ", " &lt;&lt; y2 &lt;&lt; endl;  // muestra: 1, 4</pre>
+
+<p>Con dos puntos ya tenés cuatro variables flotando. Con diez puntos, veinte variables. Y si quisieras pasarle "un punto" a una función, tendrías que pasarle <i>dos</i> parámetros y rezar para no mezclarlos. El problema de fondo es que el lenguaje <b>no sabe</b> que <code>x</code> e <code>y</code> son una sola entidad.</p>
+
+<p>Tampoco te salva un arreglo: un arreglo agrupa muchos datos, sí, pero todos <b>del mismo tipo</b>. Un punto justo da la casualidad de ser dos enteros, pero una <b>persona</b> es un <code>int</code> (el DNI) y dos <code>string</code> (nombre y apellido): tipos <i>distintos</i> que no entran juntos en un solo arreglo.</p>
+
+<div class="key">
+  <div class="ky-t">Arreglo vs. registro: la diferencia de fondo</div>
+  • Un <b>arreglo</b> agrupa muchos datos del <b>MISMO</b> tipo (muchos enteros, muchos textos). Los accedés por <b>posición</b>: <code>v[0]</code>, <code>v[1]</code>…<br>
+  • Un <b>registro (struct)</b> agrupa pocos datos de <b>DISTINTO</b> tipo que describen <b>una</b> entidad (un punto, una persona). Los accedés por <b>nombre de campo</b>: <code>p.x</code>, <code>persona.dni</code>.<br><br>
+  Un struct es, ni más ni menos, un <b>tipo de dato definido por vos</b> (el usuario), hecho a medida del problema.
+</div>
+
+<!-- ─── 2. DEFINICIÓN DE UN STRUCT ────────────────────────────────────────── -->
+<h3>Definir un registro: la palabra clave <code>struct</code></h3>
+<p>Para crear un tipo nuevo usás la palabra clave <code>struct</code>, le ponés un <b>nombre</b> y, entre <b>llaves</b>, listás los <b>campos</b> (los datos que lo componen), cada uno con su tipo y su nombre. La forma general es:</p>
+
+<pre class="code-block">struct NombreDelTipo {
+    tipoDeDato nombreCampo1;
+    tipoDeDato nombreCampo2;
+    tipoDeDato nombreCampo3;
+    ....
+    tipoDeDato nombreCampoN;
+};</pre>
+
+<p>A cada uno de esos datos internos lo llamamos <b>campo</b> (o <i>miembro</i>, o <i>atributo</i>). Aplicado al punto de la cátedra, que guarda <code>x</code>, <code>y</code> y además una <code>descripcion</code> de texto, queda así:</p>
+
+<pre class="code-block">struct Punto {
+    int x;
+    int y;
+    string descripcion;
+};</pre>
+
+<p>Leído en castellano: "definí un tipo nuevo llamado <code>Punto</code>; todo <code>Punto</code> tiene un entero <code>x</code>, un entero <code>y</code> y un texto <code>descripcion</code>". Por convención, los nombres de tipos se escriben con <b>mayúscula inicial</b> (<code>Punto</code>, <code>Persona</code>, <code>Recta</code>) para distinguirlos de las variables, que van en minúscula.</p>
+
+<div class="key">
+  <div class="ky-t">Definir un tipo NO crea ninguna variable todavía</div>
+  La definición de un <code>struct</code> es como un <b>molde</b> o <b>plano de construcción</b>: describe <i>cómo</i> es un <code>Punto</code>, pero no fabrica ninguno. Es como el plano de una casa: el plano no es una casa, es la <i>forma</i> de construir casas. Recién cuando declarás una variable de ese tipo (lo vemos en la próxima sección) se reserva memoria de verdad. Por eso la definición suele ir <b>arriba de todo</b>, antes de <code>main</code>, junto a los <code>#include</code>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">El error más típico: olvidar el <code>;</code> después de la <code>}</code></div>
+  La llave de cierre de un <code>struct</code> <b>lleva punto y coma</b>. Esto es muy fácil de olvidar porque en los <code>if</code>, los <code>for</code> y las funciones la llave de cierre <i>no</i> lo lleva. Pero un <code>struct</code> es una <b>declaración</b>, y como toda declaración termina en <code>;</code>:<br><br>
+  ✗ <code>struct Punto { int x; int y; }</code> &nbsp;→ <b>falta el <code>;</code></b>, no compila.<br>
+  ✓ <code>struct Punto { int x; int y; };</code><br><br>
+  El error que tira el compilador suele ser confuso y <i>apuntar a la línea de abajo</i> (a veces directo a <code>int main</code>), porque sigue leyendo esperando que la declaración termine. Ante un error raro justo después de un <code>struct</code>, lo primero que tenés que revisar es ese <code>;</code> final.
+</div>
+
+<!-- ─── 3. DECLARAR Y ACCEDER CON EL PUNTO ────────────────────────────────── -->
+<h3>Declarar una variable y acceder a los campos: el operador punto <code>.</code></h3>
+<p>Una vez definido el tipo <code>Punto</code>, ya podés usarlo <b>igual que usás <code>int</code> o <code>string</code></b>: para declarar variables. Escribís el nombre del tipo y el nombre de la variable:</p>
+
+<pre class="code-block">Punto punto1;</pre>
+
+<p>Esto crea una variable <code>punto1</code> que <b>adentro</b> tiene los tres campos (<code>x</code>, <code>y</code>, <code>descripcion</code>), todavía sin valores útiles. Para <b>entrar a un campo</b> —tanto para escribirlo como para leerlo— se usa el <b>operador punto</b> <code>.</code>: se escribe la variable, un punto, y el nombre del campo. Se lee "el <code>x</code> <i>de</i> <code>punto1</code>":</p>
+
+<pre class="code-block">Punto punto1;
+punto1.x = 3;                  // guardo 3 en el campo x de punto1
+punto1.y = 2;                  // guardo 2 en el campo y de punto1
+punto1.descripcion = "el punto 1";
+cout &lt;&lt; punto1.x &lt;&lt; ", " &lt;&lt; punto1.y &lt;&lt; endl;   // muestra: 3, 2</pre>
+
+<p>Fijate que <code>punto1.x</code> se comporta <b>exactamente como una variable <code>int</code></b>: le podés asignar (<code>punto1.x = 3;</code>), lo podés leer (<code>cout &lt;&lt; punto1.x;</code>), sumarlo, etc. Lo mismo <code>punto1.descripcion</code> es un <code>string</code> común y corriente. El operador punto simplemente dice <i>cuál</i> de los campos del registro querés tocar.</p>
+
+<div class="key">
+  <div class="ky-t">El operador punto en una frase</div>
+  <code>variable.campo</code> significa "<b>el <i>campo</i> que vive adentro de <i>variable</i></b>". A la izquierda del punto va siempre una <b>variable de tipo struct</b>; a la derecha, el <b>nombre de un campo</b> de ese struct. Y ese <code>variable.campo</code> se usa como cualquier dato del tipo del campo.
+</div>
+
+<!-- ─── 4. INICIALIZACIÓN POR LISTA ───────────────────────────────────────── -->
+<h3>Inicialización por lista: cargar todos los campos de una</h3>
+<p>Asignar campo por campo (tres líneas para tres campos) funciona, pero es largo. C++ te deja <b>inicializar el struct entero</b> en el momento de declararlo, usando una <b>lista de valores entre llaves</b>, separados por comas. Los valores se asignan a los campos <b>en el mismo orden</b> en que los definiste:</p>
+
+<pre class="code-block">Punto punto2 = {1, 4, "este es el punto 2"};
+cout &lt;&lt; punto2.x &lt;&lt; ", " &lt;&lt; punto2.y &lt;&lt; endl;   // muestra: 1, 4</pre>
+
+<p>Como en <code>struct Punto</code> el orden de los campos es <code>x</code>, <code>y</code>, <code>descripcion</code>, el <code>1</code> va a <code>x</code>, el <code>4</code> va a <code>y</code> y el texto <code>"este es el punto 2"</code> va a <code>descripcion</code>. Es decir, estas dos formas dejan a <code>punto2</code> exactamente igual:</p>
+
+<table class="tbl">
+  <tr><th>Campo por campo</th><th>Por lista (equivalente)</th></tr>
+  <tr><td class="c"><code>Punto punto2;</code><br><code>punto2.x = 1;</code><br><code>punto2.y = 4;</code><br><code>punto2.descripcion = "este es el punto 2";</code></td><td class="c"><code>Punto punto2 = {1, 4, "este es el punto 2"};</code></td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">El orden importa, y mucho</div>
+  La lista <code>{...}</code> se asigna <b>por posición</b>, no por nombre. Si te equivocás de orden, el compilador no te avisa (mientras los tipos coincidan) y el programa hace cosas raras. Por ejemplo, <code>Punto p = {4, 1, "x"};</code> deja <code>x = 4</code> e <code>y = 1</code>, ¡al revés de lo que quizás querías! Respetá siempre el orden en que aparecen los campos en la definición del <code>struct</code>.
+</div>
+
+<!-- ─── 5. ASIGNACIÓN: COPIA TODO ─────────────────────────────────────────── -->
+<h3>Asignar un struct a otro: se copia TODO (semántica de valor)</h3>
+<p>Acá hay algo muy importante y muy cómodo: si tenés dos variables del mismo tipo struct, podés asignar una a la otra con un simple <code>=</code>, y C++ <b>copia todos los campos, uno por uno</b>. No tenés que copiar campo por campo a mano.</p>
+
+<pre class="code-block">Punto a = {3, 2, "original"};
+Punto b = a;     // b queda con x=3, y=2, descripcion="original": una COPIA de a</pre>
+
+<p>Lo crucial: <code>b</code> es una <b>copia totalmente independiente</b> de <code>a</code>. Son dos cajas separadas en memoria que <i>por ahora</i> tienen el mismo contenido. Si después cambiás un campo de <code>b</code>, <code>a</code> <b>no se entera</b>. A esto se lo llama <b>semántica de valor</b>: asignar copia el <i>valor</i> completo, no comparte.</p>
+
+<p>Esto se ve clarísimo con la <code>Recta</code> de la cátedra, que es un struct con dos puntos adentro (ya lo vemos en detalle en la próxima sección; por ahora alcanza con saber que <code>r.p1.x</code> es la <code>x</code> del primer punto de la recta <code>r</code>). Mirá esta secuencia:</p>
+
+<pre class="code-block">Recta r;
+r.p1.x = 9;        // la x del primer punto de r vale 9
+
+Recta r3 = r;      // r3 es una COPIA independiente de r
+r3.p1.x = 2;       // toco SOLO la copia r3
+
+cout &lt;&lt; r.p1.x  &lt;&lt; endl;   // muestra: 9   (la original NO cambió)
+cout &lt;&lt; r3.p1.x &lt;&lt; endl;   // muestra: 2   (solo cambió la copia)</pre>
+
+<p>Sigamos la traza como si fuéramos la computadora:</p>
+<table class="tbl">
+  <tr><th>Línea</th><th><code>r.p1.x</code></th><th><code>r3.p1.x</code></th><th>Qué pasó</th></tr>
+  <tr><td class="c"><code>r.p1.x = 9;</code></td><td class="c">9</td><td class="c">—</td><td><code>r3</code> todavía no existe.</td></tr>
+  <tr><td class="c"><code>Recta r3 = r;</code></td><td class="c">9</td><td class="c">9</td><td><code>r3</code> nace como copia de <code>r</code>: copia <i>todos</i> los campos, así que su <code>p1.x</code> arranca en 9.</td></tr>
+  <tr><td class="c"><code>r3.p1.x = 2;</code></td><td class="c"><b>9</b></td><td class="c"><b>2</b></td><td>Toco solo a <code>r3</code>. Como es independiente, <code>r</code> queda intacta.</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Asignar un struct = fotocopiarlo</div>
+  <code>Punto b = a;</code> (o <code>b = a;</code>) hace una <b>fotocopia</b> de <code>a</code> dentro de <code>b</code>, campo por campo. Después son <b>dos cosas distintas</b>: tocar una no afecta a la otra. Esto vale aunque el struct tenga otros structs adentro (se copia todo, hasta el último rincón).
+</div>
+
+<!-- ─── 6. STRUCTS ANIDADOS ───────────────────────────────────────────────── -->
+<h3>Structs anidados: un registro adentro de otro</h3>
+<p>Un campo de un struct puede ser de <b>cualquier</b> tipo… incluso de <b>otro struct</b> que vos hayas definido antes. A esto se lo llama <b>anidar</b> (un struct dentro de otro). Es la forma natural de modelar cosas que están compuestas por otras cosas.</p>
+
+<p>El ejemplo de la cátedra es la <code>Recta</code>: una recta tiene un nombre y está formada por <b>dos puntos</b>. Como ya tenemos el tipo <code>Punto</code>, lo reutilizamos como tipo de dos campos:</p>
+
+<pre class="code-block">struct Recta {
+    string nombre;
+    Punto p1;
+    Punto p2;
+};</pre>
+
+<p>Ahora, para acceder a un campo que está <i>dentro</i> de otro struct, encadenás el operador punto: primero entrás a la <code>Recta</code>, después al <code>Punto</code>, después al campo del punto. Se lee de izquierda a derecha:</p>
+
+<pre class="code-block">Recta r;
+r.nombre = "recta ejemplo 1";
+r.p1.x = 9;                    // la x  del punto p1 de la recta r
+r.p1.y = 7;                    // la y  del punto p1 de la recta r
+r.p1.descripcion = "aaaaa";
+r.p2 = punto1;                 // a p2 le asigno un Punto entero (copia)
+
+cout &lt;&lt; r.p2.x &lt;&lt; endl;        // la x del punto p2 de la recta r</pre>
+
+<p>Desglosá <code>r.p1.x</code> de izquierda a derecha: <code>r</code> es la recta → <code>.p1</code> es su primer punto → <code>.x</code> es la coordenada x de ese punto. Tres puntos, tres niveles. Y fijate en <code>r.p2 = punto1;</code>: a un campo que es <code>Punto</code> le podés asignar <b>otro <code>Punto</code> entero</b> de una sola vez (se copian sus tres campos), exactamente por la semántica de valor de la sección anterior.</p>
+
+<p>Una <code>Recta</code> también se puede inicializar por lista, anidando llaves: la lista de afuera es para la <code>Recta</code>, y donde va un <code>Punto</code> metés <i>otra</i> lista entre llaves:</p>
+
+<pre class="code-block">Recta r2 = {"abc", {1, 4, "bbbb"}, punto1};
+//          nombre   ↑ p1 (un Punto entre llaves)   ↑ p2 (un Punto ya existente)</pre>
+
+<p>El anidamiento puede tener más de un nivel. La cátedra modela una <code>Persona</code> que, además de DNI, nombre y apellido, tiene una <b>dirección</b>, que a su vez es un struct con calle, número, etc. Primero se define el tipo interno y después el que lo usa:</p>
+
+<pre class="code-block">struct Direccion {
+    string calle;
+    int nro;
+    int cp;
+    string provincia;
+    string pais;
+};
+
+struct Persona {
+    int dni;
+    string nombre;
+    string apellido;
+    Direccion direccion;
+};</pre>
+
+<p>Y se accede igual, encadenando puntos hasta el campo que querés:</p>
+
+<pre class="code-block">Persona persona;
+persona.dni = 40123456;
+persona.nombre = "Ana";
+persona.direccion.calle = "Medrano";   // la calle, de la direccion, de la persona
+persona.direccion.nro = 951;
+cout &lt;&lt; persona.direccion.calle &lt;&lt; endl;   // muestra: Medrano</pre>
+
+<div class="key">
+  <div class="ky-t">Regla para definir tipos anidados</div>
+  El tipo <b>interno</b> tiene que estar definido <b>antes</b> de usarlo. Por eso <code>Punto</code> se define arriba de <code>Recta</code>, y <code>Direccion</code> arriba de <code>Persona</code>: cuando el compilador lee <code>Punto p1;</code> dentro de <code>Recta</code>, ya tiene que saber qué es un <code>Punto</code>. Y para acceder, recordá la lectura de izquierda a derecha: <code>persona.direccion.calle</code> = "la calle, de la dirección, de la persona".
+</div>
+
+<!-- ─── 7. FUNCIONES CON STRUCTS ──────────────────────────────────────────── -->
+<h3>Funciones con structs: recibir, devolver y modificar</h3>
+<p>La gran ventaja de tener un tipo propio es que ahora podés tratar a <i>un punto</i> como <b>un solo dato</b>: pasárselo a una función completo, o que una función te devuelva uno. Veamos los tres casos, con el código de la cátedra.</p>
+
+<h4>Recibir un struct por valor</h4>
+<p>Una función puede recibir un struct como parámetro, igual que recibe un <code>int</code>. Acá un procedimiento que muestra un punto:</p>
+
+<pre class="code-block">void mostrarPunto(Punto p) {
+    cout &lt;&lt; p.x &lt;&lt; ", " &lt;&lt; p.y &lt;&lt; endl;
+}</pre>
+
+<p>Y se lo llamamos pasándole una variable <code>Punto</code> entera:</p>
+
+<pre class="code-block">mostrarPunto(punto1);   // muestra: 3, 2</pre>
+
+<p>Como el parámetro <code>p</code> se recibe <b>por valor</b>, lo que entra a la función es una <b>copia</b> de <code>punto1</code> (con todos sus campos). Adentro, <code>p</code> es una variable local; cualquier cosa que le hicieras a <code>p</code> no tocaría a <code>punto1</code>.</p>
+
+<h4>Devolver un struct</h4>
+<p>Una función puede <b>construir</b> un struct adentro y <b>devolverlo</b> con <code>return</code>. El tipo de retorno (a la izquierda del nombre) es el nombre del struct. Esta función arma un punto nuevo que es la suma de otros dos:</p>
+
+<pre class="code-block">Punto sumar(Punto p1, Punto p2) {
+    Punto res;
+    res.x = p1.x + p2.x;
+    res.y = p1.y + p2.y;
+    return res;
+}</pre>
+
+<p>Adentro declara un <code>Punto res</code>, le carga campo por campo la suma, y lo devuelve con <code>return res;</code>. Quien la llama recibe ese punto y lo puede guardar en una variable:</p>
+
+<pre class="code-block">Punto p3 = sumar(punto1, punto2);   // p3.x = 3+1 = 4 ; p3.y = 2+4 = 6</pre>
+
+<p>Con <code>punto1 = {3,2,...}</code> y <code>punto2 = {1,4,...}</code>, el resultado <code>p3</code> tiene <code>x = 4</code> e <code>y = 6</code>. (La función no toca la <code>descripcion</code>, así que ese campo de <code>res</code> queda sin un valor útil; en este ejemplo no importa porque solo nos interesan las coordenadas.)</p>
+
+<h4>Modificar el original: recibir por referencia con <code>&amp;</code></h4>
+<p>¿Y si quiero que la función <b>cambie</b> el punto original, no una copia? Para eso se recibe el parámetro <b>por referencia</b>, poniendo un <code>&amp;</code> (ampersand) después del tipo. Con <code>&amp;</code>, el parámetro <b>no es una copia</b>: es <b>el mismo</b> dato de afuera, con otro nombre adentro. Lo que le hagas, le pasa al original.</p>
+
+<pre class="code-block">void incX(Punto&amp; p) {
+    p.x = p.x + 1;
+}</pre>
+
+<p>Mirá el efecto al llamarla. <code>punto1.x</code> valía 3; después de <code>incX(punto1)</code> vale 4, <b>de verdad</b>:</p>
+
+<pre class="code-block">incX(punto1);
+cout &lt;&lt; punto1.x &lt;&lt; endl;   // muestra: 4</pre>
+
+<p>Tracemos qué pasa con <code>punto1.x</code>:</p>
+<table class="tbl">
+  <tr><th>Momento</th><th><code>punto1.x</code></th><th>Comentario</th></tr>
+  <tr><td>Antes de llamar</td><td class="c">3</td><td>Lo dejamos así en <code>punto1.x = 3;</code>.</td></tr>
+  <tr><td>Dentro de <code>incX</code></td><td class="c">3 → 4</td><td>Como <code>p</code> es <code>Punto&amp; p</code>, <b>es</b> <code>punto1</code>: <code>p.x = p.x + 1</code> le suma 1 al original.</td></tr>
+  <tr><td>Después de volver</td><td class="c">4</td><td>El cambio quedó: <code>punto1.x</code> ahora vale 4.</td></tr>
+</table>
+
+<p>Si <code>incX</code> hubiera recibido el punto <b>por valor</b> (<code>void incX(Punto p)</code>, sin el <code>&amp;</code>), habría incrementado solo su copia local y <code>punto1.x</code> habría seguido valiendo 3 afuera. El <code>&amp;</code> es lo que marca toda la diferencia.</p>
+
+<div class="key">
+  <div class="ky-t">Por valor vs. por referencia, con structs</div>
+  • <b>Por valor</b> (<code>void f(Punto p)</code>): entra una <b>copia</b>. La función puede leerla y trastearla, pero el original de afuera <b>no cambia</b>.<br>
+  • <b>Por referencia</b> (<code>void f(Punto&amp; p)</code>, con <code>&amp;</code>): entra el <b>mismo</b> dato. Lo que la función modifica <b>sí</b> cambia afuera.<br><br>
+  Además, pasar un struct por valor <b>copia todos sus campos</b>, y si el struct es grande eso cuesta tiempo y memoria. Por eso muchas veces se pasan por referencia: para modificar el original <i>o</i> simplemente para evitar la copia.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Creer que "por valor" modifica el original</div>
+  Un error clásico: escribís <code>void incX(Punto p)</code> (sin <code>&amp;</code>), adentro hacés <code>p.x = p.x + 1;</code>, y te sorprende que afuera <code>punto1.x</code> siga en 3. No está roto: sin <code>&amp;</code>, <code>p</code> es una <b>copia</b>, y le sumaste 1 a la copia, que se descarta al terminar la función. Si querés tocar el original, <b>necesitás el <code>&amp;</code></b>.
+</div>
+
+<!-- ─── 8. ARREGLOS DE STRUCTS ────────────────────────────────────────────── -->
+<h3>Arreglos de structs: juntar las dos ideas</h3>
+<p>Ahora combinamos lo de esta unidad con los arreglos: nada te impide hacer un <b>arreglo cuyos elementos son structs</b>. Cada casillero del arreglo es un struct completo. Es la forma natural de guardar <i>muchas entidades del mismo tipo</i>: muchos puntos, muchas personas.</p>
+
+<pre class="code-block">Punto puntos[2] = { {1, 2}, {3, 4} };</pre>
+
+<p>Esto crea un arreglo de 2 <code>Punto</code>. Cada par de llaves de adentro inicializa un punto: el casillero <code>0</code> queda en <code>{1,2}</code> y el <code>1</code> en <code>{3,4}</code>. (Como solo damos dos valores por punto, se completan <code>x</code> e <code>y</code>; la <code>descripcion</code> queda vacía.) Para llegar a un campo, primero elegís el elemento con el corchete <code>[i]</code> y <b>después</b> aplicás el punto:</p>
+
+<pre class="code-block">cout &lt;&lt; puntos[0].x &lt;&lt; endl;   // muestra: 1   (la x del punto en la posicion 0)
+cout &lt;&lt; puntos[1].y &lt;&lt; endl;   // muestra: 4   (la y del punto en la posicion 1)</pre>
+
+<p>La lectura de <code>puntos[1].y</code> es, de izquierda a derecha: <code>puntos</code> es el arreglo → <code>[1]</code> elige el segundo elemento (un <code>Punto</code>) → <code>.y</code> es su coordenada y. Y como es un arreglo, lo recorrés con un <code>for</code> de toda la vida, usando <code>puntos[i]</code> en cada vuelta:</p>
+
+<pre class="code-block">for (int i = 0; i &lt; 2; i++) {
+    cout &lt;&lt; puntos[i].x &lt;&lt; ", " &lt;&lt; puntos[i].y &lt;&lt; endl;
+}
+/* Muestra:
+   1, 2
+   3, 4
+*/</pre>
+
+<p>También podés declarar el arreglo <b>vacío</b> (sin inicializar) y cargar cada casillero después, asignándole un struct entero. Así aparece en el archivo de complejos de la cátedra:</p>
+
+<pre class="code-block">Complejo arr[5];      // arreglo de 5 Complejo, todavia sin cargar
+arr[0] = c1;          // en la posicion 0 guardo el complejo c1 (copia)
+arr[1] = c2;
+arr[3] = c3;
+
+cout &lt;&lt; arr[3].real &lt;&lt; " " &lt;&lt; arr[3].imaginaria &lt;&lt; "i" &lt;&lt; endl;</pre>
+
+<p>Cada <code>arr[i] = ...;</code> copia un <code>Complejo</code> entero en ese casillero (otra vez la semántica de valor). Y <code>arr[3].real</code> es "la parte real del complejo que está en la posición 3".</p>
+
+<div class="trap">
+  <div class="tr-t">Primero el corchete, después el punto</div>
+  En un arreglo de structs el orden es <code>arreglo[i].campo</code>: <b>primero</b> elegís <i>cuál</i> elemento con <code>[i]</code>, y <b>después</b> entrás a su campo con <code>.</code>. Escribir <code>arreglo.campo[i]</code> no tiene sentido (el arreglo no tiene un campo <code>campo</code>) y no compila.
+</div>
+
+<!-- ─── 9. EJEMPLO INTEGRADOR: COMPLEJOS ──────────────────────────────────── -->
+<h3>Ejemplo integrador completo: números complejos</h3>
+<p>Cerramos juntando <b>todo</b> lo de la unidad en un solo programa: el de <b>números complejos</b> de la cátedra. Un número complejo tiene una <b>parte real</b> y una <b>parte imaginaria</b> (lo que en matemática escribís como <code>3 + 5i</code>). Lo modelamos con un struct de dos campos <code>float</code>:</p>
+
+<pre class="code-block">struct Complejo {
+    float real;
+    float imaginaria;
+};</pre>
+
+<p>Ahora tres módulos que muestran los tres usos de structs en funciones. Primero, uno que <b>crea</b> un complejo a partir de sus partes y lo <b>devuelve</b> (usa inicialización por lista adentro):</p>
+
+<pre class="code-block">Complejo crearComplejo(float real, float imaginaria) {
+    Complejo c = {real, imaginaria};
+    return c;
+}</pre>
+
+<p>Segundo, uno que <b>recibe dos</b> complejos por valor y <b>devuelve</b> su suma (sumar dos complejos es sumar real con real e imaginaria con imaginaria):</p>
+
+<pre class="code-block">Complejo sumarComplejos(Complejo c1, Complejo c2) {
+    Complejo c = {c1.real + c2.real, c1.imaginaria + c2.imaginaria};
+    return c;
+}</pre>
+
+<p>Tercero, un <b>procedimiento</b> que multiplica un complejo por un número (un escalar). Como queremos <b>modificar el complejo original</b>, lo recibimos <b>por referencia</b> con <code>&amp;</code>:</p>
+
+<pre class="code-block">void multiplicarEscalar(Complejo&amp; c, int valor) {
+    c.real = c.real * valor;
+    c.imaginaria = c.imaginaria * valor;
+}</pre>
+
+<p>Y el <code>main</code> que lo usa todo —crear, sumar, multiplicar por referencia y guardar en un arreglo—:</p>
+
+<pre class="code-block">int main() {
+
+    Complejo c1 = crearComplejo(40, 10);
+    Complejo c2 = crearComplejo(50, 5);
+
+    Complejo c3 = sumarComplejos(c1, c2);
+    cout &lt;&lt; c3.real &lt;&lt; " " &lt;&lt; c3.imaginaria &lt;&lt; "i" &lt;&lt; endl;
+
+    multiplicarEscalar(c3, 2);
+    cout &lt;&lt; c3.real &lt;&lt; " " &lt;&lt; c3.imaginaria &lt;&lt; "i" &lt;&lt; endl;
+
+    Complejo arr[5];
+    arr[0] = c1;
+    arr[1] = c2;
+    arr[3] = c3;
+
+    cout &lt;&lt; arr[3].real &lt;&lt; " " &lt;&lt; arr[3].imaginaria &lt;&lt; "i" &lt;&lt; endl;
+
+    return 0;
+}</pre>
+
+<p>Sigamos la traza paso a paso, como una computadora:</p>
+<table class="tbl">
+  <tr><th>Línea</th><th>Qué hace</th><th>Estado / salida</th></tr>
+  <tr><td class="c"><code>c1 = crearComplejo(40, 10);</code></td><td>Crea y devuelve un complejo.</td><td class="c"><code>c1 = {40, 10}</code></td></tr>
+  <tr><td class="c"><code>c2 = crearComplejo(50, 5);</code></td><td>Ídem.</td><td class="c"><code>c2 = {50, 5}</code></td></tr>
+  <tr><td class="c"><code>c3 = sumarComplejos(c1, c2);</code></td><td>Suma real+real (40+50) e imag+imag (10+5).</td><td class="c"><code>c3 = {90, 15}</code></td></tr>
+  <tr><td class="c"><code>cout &lt;&lt; c3...</code></td><td>Muestra c3.</td><td class="c">imprime <code>90 15i</code></td></tr>
+  <tr><td class="c"><code>multiplicarEscalar(c3, 2);</code></td><td>Por <b>referencia</b>: multiplica los campos de c3 por 2. <i>Modifica el original.</i></td><td class="c"><code>c3 = {180, 30}</code></td></tr>
+  <tr><td class="c"><code>cout &lt;&lt; c3...</code></td><td>Muestra c3 ya modificado.</td><td class="c">imprime <code>180 30i</code></td></tr>
+  <tr><td class="c"><code>arr[3] = c3;</code></td><td>Copia c3 en la posición 3 del arreglo.</td><td class="c"><code>arr[3] = {180, 30}</code></td></tr>
+  <tr><td class="c"><code>cout &lt;&lt; arr[3]...</code></td><td>Muestra el complejo de la posición 3.</td><td class="c">imprime <code>180 30i</code></td></tr>
+</table>
+
+<p>La salida completa del programa es:</p>
+<pre class="code-block">90 15i
+180 30i
+180 30i</pre>
+
+<p>En catorce líneas de <code>main</code> usaste <b>todo</b>: definiste un tipo propio (<code>struct Complejo</code>), una función que <b>devuelve</b> un struct (<code>crearComplejo</code>), otra que <b>recibe structs y devuelve</b> uno (<code>sumarComplejos</code>), un procedimiento que <b>modifica por referencia</b> (<code>multiplicarEscalar</code> con <code>&amp;</code>), accediste a campos con el <b>punto</b> (<code>c3.real</code>) y guardaste structs en un <b>arreglo</b> (<code>arr</code>). Ese es exactamente el repertorio de la unidad, funcionando junto.</p>
+
+<!-- ─── 10. RESUMEN ───────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Un <b>registro (struct)</b> es un <b>tipo de dato definido por vos</b> que agrupa <b>campos</b> de distinto tipo para describir <i>una</i> entidad (un punto, una persona).<br>
+  • Se define con <code>struct Nombre { tipo campo1; tipo campo2; ... };</code> &nbsp;<b>¡con <code>;</code> después de la <code>}</code>!</b><br>
+  • Se declara como cualquier variable (<code>Punto p1;</code>) y se accede a los campos con el <b>operador punto</b>: <code>p1.x = 3; cout &lt;&lt; p1.x;</code>.<br>
+  • Se puede inicializar por <b>lista</b>, en el orden de los campos: <code>Punto p2 = {1, 4, "..."};</code>.<br>
+  • Asignar copia <b>todo</b> (semántica de valor): <code>Recta r3 = r;</code> crea una copia independiente; tocar <code>r3</code> no afecta a <code>r</code>.<br>
+  • Los structs se pueden <b>anidar</b>: un campo puede ser otro struct (<code>Recta</code> con dos <code>Punto</code>; <code>Persona</code> con <code>Direccion</code>), y se accede encadenando puntos (<code>r.p1.x</code>, <code>persona.direccion.calle</code>).<br>
+  • Las funciones pueden <b>recibir</b> structs (por valor = copia), <b>devolverlos</b> (<code>return res;</code>) y <b>modificar el original</b> recibiéndolos por <b>referencia</b> con <code>&amp;</code> (<code>void incX(Punto&amp; p)</code>).<br>
+  • Un <b>arreglo de structs</b> guarda muchas entidades del mismo tipo; se accede <code>arreglo[i].campo</code> (primero el corchete, después el punto) y se recorre con un <code>for</code>.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="ayed"></div>
+</div>
+</details>

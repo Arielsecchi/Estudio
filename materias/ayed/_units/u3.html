@@ -1,0 +1,369 @@
+<!-- ============ UNIDAD 3 · OPERADORES, EXPRESIONES, CONTADORES Y ACUMULADORES ============ -->
+<details id="ay-s3">
+<summary><span class="num">3</span> Unidad 3: Operadores, expresiones, contadores y acumuladores <span class="sec-score" id="ss-ayed-3"></span></summary>
+<div class="content">
+
+<p>En la Unidad 1 aprendiste a mostrar cosas en pantalla y en la Unidad 2 a guardar datos en <b>variables</b> y a leerlos del teclado. Ahora viene el corazón de cualquier programa: <b>operar</b> con esos datos. Vas a aprender qué es una <b>expresión</b>, qué tipos de <b>operadores</b> hay (aritméticos, de comparación y lógicos), en qué <b>orden</b> se resuelven (precedencia) y dos patrones que vas a usar en TODA la materia: los <b>contadores</b> y los <b>acumuladores</b>. Arrancamos de cero; no hace falta saber nada de matemática avanzada.</p>
+
+<!-- ─── 1. QUÉ ES UNA EXPRESIÓN Y UN OPERADOR ──────────────────────────── -->
+<h3>¿Qué es una expresión? ¿Qué es un operador?</h3>
+<p>Una <b>expresión</b> es cualquier combinación de valores y operadores que la computadora puede <b>evaluar</b> (calcular) hasta obtener <b>un único resultado</b>. Pensala como una cuenta: tiene "ingredientes" y una "operación" que los combina, y al final da un valor.</p>
+<p>Dentro de una expresión hay dos piezas:</p>
+<div class="key">
+  <div class="ky-t">Operadores y operandos</div>
+  • Un <b>operador</b> es el <b>símbolo</b> que indica qué operación hacer: <code>+</code> (sumar), <code>*</code> (multiplicar), <code>&lt;</code> (menor que), etc.<br>
+  • Un <b>operando</b> es <b>cada valor sobre el que el operador trabaja</b>. Pueden ser números escritos directamente (<code>4</code>, <code>6</code>), variables (<code>x</code>, <code>z</code>) u otras expresiones.<br><br>
+  Ejemplo: en <code>4 + 6</code>, el <code>+</code> es el operador y <code>4</code> y <code>6</code> son los dos operandos. El resultado de evaluar esa expresión es <code>10</code>.
+</div>
+<p>Una expresión puede ser tan simple como un solo número (<code>42</code> es una expresión que vale 42) o tan grande como quieras (<code>x + 3 * 4 - z</code>). Lo importante: <b>toda expresión, al evaluarse, se reduce a un único valor</b> de algún tipo (un número, o un <code>bool</code>, etc.).</p>
+<p>Según cuántos operandos toma, un operador puede ser:</p>
+<div class="key">
+  <div class="ky-t">Operadores unarios y binarios</div>
+  • <b>Binario</b>: trabaja con <b>dos</b> operandos, uno a cada lado. Es lo más común: <code>a + b</code>, <code>x &lt; y</code>, <code>p &amp;&amp; q</code>.<br>
+  • <b>Unario</b>: trabaja con <b>un solo</b> operando. Por ejemplo el <code>!</code> (negación lógica) se escribe <i>delante</i> de su único operando: <code>!encontrado</code>.
+</div>
+
+<!-- ─── 2. OPERADORES ARITMÉTICOS ──────────────────────────────────────── -->
+<h3>Operadores aritméticos: número op número → número</h3>
+<p>Los <b>operadores aritméticos</b> toman <b>dos números</b> y producen <b>otro número</b>. Son los que ya conocés de la matemática, más uno nuevo (el resto). En la cátedra se resumen así: <b>NÚMERO op NÚMERO ⟶ NÚMERO</b>.</p>
+<table class="tbl">
+  <tr><th>Operador</th><th>Nombre</th><th>Ejemplo</th><th class="c">Resultado</th></tr>
+  <tr><td class="c"><code>+</code></td><td>Suma</td><td><code>4 + 6</code></td><td class="c">10</td></tr>
+  <tr><td class="c"><code>-</code></td><td>Resta</td><td><code>3 - 1</code></td><td class="c">2</td></tr>
+  <tr><td class="c"><code>*</code></td><td>Multiplicación</td><td><code>3 * 4</code></td><td class="c">12</td></tr>
+  <tr><td class="c"><code>/</code></td><td>División</td><td><code>10 / 2</code></td><td class="c">5</td></tr>
+  <tr><td class="c"><code>%</code></td><td>Módulo (resto)</td><td><code>5 % 2</code></td><td class="c">1</td></tr>
+</table>
+<p>La suma, la resta y la multiplicación funcionan tal como esperás. Los dos que necesitan explicación seria son la <b>división</b> y el <b>módulo</b>: prestales mucha atención porque son una de las fuentes de error más típicas para quien empieza.</p>
+
+<h4>La división <code>/</code> a fondo: división ENTERA vs división real</h4>
+<p>Acá está la trampa más importante de toda la unidad. En C++, <b>el tipo del resultado de la división depende del tipo de los operandos</b>:</p>
+<div class="key">
+  <div class="ky-t">La regla de oro de la división</div>
+  • Si <b>los dos operandos son enteros</b>, C++ hace una <b>división entera</b>: calcula cuántas veces entero entra uno en el otro y <b>descarta (tira) la parte decimal</b>. No redondea: la corta.<br>
+  • Si <b>al menos uno de los operandos es real</b> (tiene decimales, como <code>5.0</code>), C++ hace la <b>división real</b> y conserva los decimales.
+</div>
+<pre class="code-block">cout &lt;&lt; 5 / 2 &lt;&lt; endl;     // 2   (entero / entero  -> division ENTERA, se descarta el .5)
+cout &lt;&lt; 5.0 / 2 &lt;&lt; endl;   // 2.5 (uno es real -> division REAL, conserva decimales)
+cout &lt;&lt; 7 / 2 &lt;&lt; endl;     // 3   (3.5 -> se corta el .5, queda 3)
+cout &lt;&lt; 1 / 4 &lt;&lt; endl;     // 0   (0.25 -> se descarta todo el decimal, queda 0)</pre>
+<p>Fijate que <code>5 / 2</code> no da 2.5 ni 3: da <b>2</b>. La computadora no redondea hacia el más cercano, simplemente <b>elimina lo que está después de la coma</b>. Por eso <code>1 / 4</code> da <code>0</code> y no <code>0.25</code>: ambos son enteros, el resultado real sería 0,25, y al descartar el decimal queda 0.</p>
+<p>Esto aparece tal cual en el código de la cátedra (<code>clase_02_operaciones_aritmeticas.cpp</code>). Mirá cómo el <b>tipo de la variable que recibe</b> y el de los operandos cambian todo:</p>
+<pre class="code-block">float v1 = 3;
+
+float d = v1 / 2;     // v1 es float (real), asi que la division es REAL: 3.0 / 2 = 1.5
+cout &lt;&lt; d &lt;&lt; endl;     // 1.5
+
+float v = 3.0 / 2;    // 3.0 es real -> division REAL = 1.5
+cout &lt;&lt; v &lt;&lt; endl;     // 1.5</pre>
+<p>En el primer caso, aunque escribís <code>v1 / 2</code> y el <code>2</code> es entero, como <code>v1</code> es <code>float</code> alcanza para que toda la división sea real: da <code>1.5</code>. En el segundo, <code>3.0</code> ya es real por la coma. La conclusión práctica: <b>si querés decimales, asegurate de que al menos un operando sea real</b> (escribilo con <code>.0</code>, como <code>5.0</code>, o usá una variable <code>float</code>/<code>double</code>).</p>
+<div class="trap">
+  <div class="tr-t">Trampa: división entera inesperada</div>
+  Querés calcular el promedio de dos notas, <code>7</code> y <code>8</code>:<br>
+  ✗ <code>float prom = (7 + 8) / 2;</code> &nbsp;→ <code>15 / 2</code> son <b>dos enteros</b>, da división entera <code>7</code> (¡se perdió el .5!). Aunque <code>prom</code> sea <code>float</code>, el cálculo ya se hizo con enteros <i>antes</i> de guardarlo.<br>
+  ✓ <code>float prom = (7 + 8) / 2.0;</code> &nbsp;→ con <code>2.0</code> la división es real y da <code>7.5</code>.<br><br>
+  Moraleja: que la variable destino sea <code>float</code> <b>no</b> te salva; lo que importa es el tipo de los operandos en el momento de operar.
+</div>
+
+<h4>El operador módulo <code>%</code>: el resto de la división entera</h4>
+<p>El operador <code>%</code> (se lee "módulo" o "resto") devuelve <b>el resto que sobra</b> al hacer una división entera. Trabaja <b>solo con enteros</b>.</p>
+<p>Acordate de la división del colegio: <code>5</code> dividido <code>2</code> da <b>cociente 2</b> y <b>resto 1</b> (porque 2 × 2 = 4, y para llegar a 5 sobra 1). Bueno: <code>5 / 2</code> te da el cociente (<code>2</code>) y <code>5 % 2</code> te da el resto (<code>1</code>).</p>
+<pre class="code-block">int resto = 5 % 2;
+cout &lt;&lt; resto &lt;&lt; endl;   // 1   (5 = 2*2 + 1, sobra 1)
+
+cout &lt;&lt; 10 % 3 &lt;&lt; endl;  // 1   (10 = 3*3 + 1)
+cout &lt;&lt; 12 % 4 &lt;&lt; endl;  // 0   (12 = 4*3 + 0, division exacta, no sobra nada)
+cout &lt;&lt; 7  % 10 &lt;&lt; endl; // 7   (10 no entra en 7, asi que sobra el 7 entero)</pre>
+<div class="key">
+  <div class="ky-t">Para qué sirve <code>%</code> en la práctica</div>
+  El módulo es utilísimo. Por ejemplo: un número es <b>par</b> si <code>n % 2</code> da <code>0</code> (no sobra nada al dividir por 2) e <b>impar</b> si da <code>1</code>. Y como vas a ver al final de la unidad, combinando <code>/</code> y <code>%</code> se pueden <b>extraer los dígitos</b> de un número (las unidades, las decenas, etc.). Es una herramienta que vas a usar muchísimo.
+</div>
+
+<!-- ─── 3. OPERADORES DE COMPARACIÓN ───────────────────────────────────── -->
+<h3>Operadores de comparación (relacionales): número op número → bool</h3>
+<p>Los <b>operadores de comparación</b> (o <b>relacionales</b>) toman <b>dos números</b> y devuelven un <b>valor lógico</b> de tipo <code>bool</code>: o bien <b>verdadero</b> (<code>true</code>) o bien <b>falso</b> (<code>false</code>). Sirven para hacerle <i>preguntas</i> a los datos: "¿es <code>x</code> mayor que 10?". La cátedra lo resume: <b>NÚMERO op NÚMERO ⟶ BOOLEANO</b>.</p>
+<table class="tbl">
+  <tr><th>Operador</th><th>Pregunta que hace</th><th>Ejemplo</th><th class="c">Resultado</th></tr>
+  <tr><td class="c"><code>&gt;</code></td><td>¿es mayor que?</td><td><code>5 &gt; 2</code></td><td class="c">true</td></tr>
+  <tr><td class="c"><code>&gt;=</code></td><td>¿es mayor o igual que?</td><td><code>5 &gt;= 5</code></td><td class="c">true</td></tr>
+  <tr><td class="c"><code>&lt;</code></td><td>¿es menor que?</td><td><code>5 &lt; 2</code></td><td class="c">false</td></tr>
+  <tr><td class="c"><code>&lt;=</code></td><td>¿es menor o igual que?</td><td><code>2 &lt;= 5</code></td><td class="c">true</td></tr>
+  <tr><td class="c"><code>==</code></td><td>¿son iguales?</td><td><code>5 == 5</code></td><td class="c">true</td></tr>
+  <tr><td class="c"><code>!=</code></td><td>¿son distintos?</td><td><code>5 != 2</code></td><td class="c">true</td></tr>
+</table>
+<p>Estas comparaciones son la base de las <b>decisiones</b> (el <code>if</code>) y de los <b>ciclos</b> que vas a ver en las próximas unidades: el programa pregunta algo, obtiene <code>true</code> o <code>false</code>, y según eso hace una cosa u otra.</p>
+
+<div class="trap">
+  <div class="tr-t">Trampa clásica: confundir <code>==</code> (comparar) con <code>=</code> (asignar)</div>
+  Este es el error más cometido por principiantes. Son <b>dos operadores totalmente distintos</b>:<br><br>
+  • <code>=</code> (un solo igual) es la <b>asignación</b>: <i>guarda</i> un valor en una variable. <code>x = 5;</code> significa "metele 5 a <code>x</code>".<br>
+  • <code>==</code> (doble igual) es la <b>comparación</b>: <i>pregunta</i> si dos cosas son iguales y devuelve <code>true</code>/<code>false</code>. <code>x == 5</code> significa "¿<code>x</code> vale 5?".<br><br>
+  Si en una decisión escribís <code>x = 5</code> (con un solo igual) en vez de <code>x == 5</code>, no estás preguntando nada: le estás <i>asignando</i> 5 a <code>x</code>, y eso casi siempre rompe la lógica del programa. <b>Regla:</b> cuando quieras <i>preguntar si son iguales</i>, usá SIEMPRE <code>==</code>.
+</div>
+
+<!-- ─── 4. OPERADORES LÓGICOS ──────────────────────────────────────────── -->
+<h3>Operadores lógicos: combinando condiciones (bool op bool → bool)</h3>
+<p>Los <b>operadores lógicos</b> trabajan sobre valores <code>bool</code> (verdadero/falso) y devuelven otro <code>bool</code>. Sirven para <b>combinar varias condiciones</b> en una sola: "¿es mayor de edad <b>Y</b> tiene entrada?", "¿está lloviendo <b>O</b> hace frío?". Son tres:</p>
+<div class="key">
+  <div class="ky-t">Los tres operadores lógicos</div>
+  • <code>!</code> &nbsp;<b>NOT (negación)</b> — es <b>unario</b> (un operando): <b>invierte</b> el valor. <code>!true</code> es <code>false</code> y <code>!false</code> es <code>true</code>.<br>
+  • <code>&amp;&amp;</code> &nbsp;<b>AND (conjunción / "y")</b> — es <b>binario</b>: da <code>true</code> <i>solo si los dos</i> operandos son <code>true</code>.<br>
+  • <code>||</code> &nbsp;<b>OR (disyunción / "o")</b> — es <b>binario</b>: da <code>true</code> si <i>al menos uno</i> de los operandos es <code>true</code>; solo da <code>false</code> si <i>los dos</i> son <code>false</code>.
+</div>
+<p>La forma más precisa de definirlos es con su <b>tabla de verdad</b>: una tabla que lista <i>todas</i> las combinaciones posibles de los operandos y muestra el resultado en cada caso. Usamos <b>V</b> por verdadero (<code>true</code>) y <b>F</b> por falso (<code>false</code>).</p>
+
+<h4>Tabla de verdad del NOT (<code>!</code>)</h4>
+<p>El <code>!</code> simplemente <b>da vuelta</b> el valor: lo verdadero se vuelve falso y viceversa.</p>
+<table class="tbl">
+  <tr><th>p</th><th class="c">!p</th></tr>
+  <tr><td class="c">V</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td></tr>
+</table>
+
+<h4>Tabla de verdad del AND (<code>&amp;&amp;</code>)</h4>
+<p>El AND es <b>exigente</b>: solo da V cuando <b>ambos</b> operandos son V. Si al menos uno es F, el resultado es F.</p>
+<table class="tbl">
+  <tr><th>p</th><th>q</th><th class="c">p &amp;&amp; q</th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">F</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+</table>
+
+<h4>Tabla de verdad del OR (<code>||</code>)</h4>
+<p>El OR es <b>generoso</b>: alcanza con que <b>uno</b> sea V para que dé V. Solo da F en el único caso en que <b>los dos</b> son F.</p>
+<table class="tbl">
+  <tr><th>p</th><th>q</th><th class="c">p || q</th></tr>
+  <tr><td class="c">V</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">V</td><td class="c">F</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">V</td><td class="c">V</td></tr>
+  <tr><td class="c">F</td><td class="c">F</td><td class="c">F</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Combinando comparaciones con lógicos</div>
+  Imaginá que <code>edad</code> vale <code>20</code> y <code>tieneEntrada</code> vale <code>true</code>. Queremos saber si puede pasar al recital (tiene que ser mayor o igual a 18 <b>y</b> tener entrada):<br><br>
+  <code>edad &gt;= 18</code> &nbsp;→ <code>20 &gt;= 18</code> &nbsp;→ <b>true</b><br>
+  <code>edad &gt;= 18 &amp;&amp; tieneEntrada</code> &nbsp;→ <code>true &amp;&amp; true</code> &nbsp;→ <b>true</b> → puede pasar.<br><br>
+  Si en cambio <code>edad</code> fuera <code>15</code>: <code>15 &gt;= 18</code> da <b>false</b>, y <code>false &amp;&amp; true</code> da <b>false</b> → no pasa. Con el AND, basta que <i>una</i> condición falle para que todo dé falso.
+</div>
+<div class="key">
+  <div class="ky-t">Truco para recordarlas</div>
+  • <b>AND (<code>&amp;&amp;</code>)</b>: pensá en "<i>todas las condiciones tienen que cumplirse</i>". Una sola que falle y ya es F.<br>
+  • <b>OR (<code>||</code>)</b>: pensá en "<i>con que se cumpla una alcanza</i>". Todas tienen que fallar para que dé F.<br>
+  • <b>NOT (<code>!</code>)</b>: "<i>lo contrario</i>". Da vuelta el valor.
+</div>
+
+<!-- ─── 5. PRECEDENCIA / PRIORIDADES ───────────────────────────────────── -->
+<h3>Precedencia: en qué orden se resuelven los operadores</h3>
+<p>Cuando una expresión mezcla varios operadores, C++ no los resuelve de izquierda a derecha sin más: sigue un <b>orden de prioridad</b> (también llamado <b>precedencia</b> o <b>jerarquía</b>), igual que en matemática "primero multiplico y después sumo". Esta es la tabla de la cátedra, ordenada de <b>mayor</b> a <b>menor</b> prioridad:</p>
+<table class="tbl">
+  <tr><th>Prioridad</th><th>Operadores</th><th>Qué son</th></tr>
+  <tr><td class="c">1ª (la más alta)</td><td class="c"><code>( )</code></td><td>Paréntesis</td></tr>
+  <tr><td class="c">2ª</td><td class="c"><code>!</code></td><td>NOT lógico (unario)</td></tr>
+  <tr><td class="c">3ª</td><td class="c"><code>*</code> &nbsp; <code>/</code> &nbsp; <code>%</code></td><td>Multiplicación, división, módulo</td></tr>
+  <tr><td class="c">4ª</td><td class="c"><code>+</code> &nbsp; <code>-</code></td><td>Suma y resta</td></tr>
+  <tr><td class="c">5ª</td><td class="c"><code>&lt;</code> &nbsp; <code>&lt;=</code> &nbsp; <code>&gt;</code> &nbsp; <code>&gt;=</code> &nbsp; <code>==</code> &nbsp; <code>!=</code></td><td>Comparaciones (relacionales)</td></tr>
+  <tr><td class="c">6ª</td><td class="c"><code>&amp;&amp;</code></td><td>AND lógico</td></tr>
+  <tr><td class="c">7ª</td><td class="c"><code>||</code></td><td>OR lógico</td></tr>
+  <tr><td class="c">8ª (la más baja)</td><td class="c"><code>=</code></td><td>Asignación</td></tr>
+</table>
+<p>Se lee así: <b>lo que está más arriba se ejecuta primero</b>. Los <b>paréntesis</b> ganan siempre: lo que esté adentro se resuelve antes que nada. El <code>!</code> (unario) se aplica muy temprano, antes que <code>&amp;&amp;</code> y <code>||</code>. Las cuentas (<code>* / %</code> y luego <code>+ -</code>) se hacen <b>antes</b> que las comparaciones, y los lógicos <b>después</b>. La <b>asignación <code>=</code> es la última</b>: primero se calcula todo el lado derecho y recién al final se guarda en la variable de la izquierda.</p>
+
+<div class="example">
+  <div class="ex-t">El ejemplo de la cátedra: <code>* /</code> antes que <code>+</code></div>
+  Con <code>x</code> valiendo <code>2</code> (del código de clase):<br><br>
+  <code>int r = x + 3 * 4;</code><br>
+  Como <code>*</code> tiene más prioridad que <code>+</code>, primero se hace <code>3 * 4 = 12</code>, después <code>2 + 12 = 14</code>. &nbsp;→ <b>r vale 14</b>.<br><br>
+  <code>int a = (x + 3) * 4;</code><br>
+  Acá el paréntesis fuerza el orden: primero <code>x + 3 = 2 + 3 = 5</code>, después <code>5 * 4 = 20</code>. &nbsp;→ <b>a vale 20</b>.<br><br>
+  Misma cuenta "a ojo", resultados distintos (14 vs 20): el paréntesis cambia <i>qué se hace primero</i>.
+</div>
+<div class="key">
+  <div class="ky-t">Consejo profesional: ante la duda, paréntesis</div>
+  No tenés que memorizar la tabla entera a la perfección. Si una expresión te resulta ambigua o tenés que pensarla dos veces, <b>poné paréntesis</b> para dejar clarísimo el orden. <code>(a &amp;&amp; b) || c</code> se entiende de una; <code>a &amp;&amp; b || c</code> obliga a recordar que <code>&amp;&amp;</code> va antes que <code>||</code>. Los paréntesis no cuestan nada y hacen tu código <b>legible y a prueba de errores</b>.
+</div>
+
+<!-- ─── 6. CONTADORES ──────────────────────────────────────────────────── -->
+<h3>Contadores: variables que suman (o restan) de a 1</h3>
+<p>Un <b>contador</b> es una variable cuyo único trabajo es <b>aumentar o disminuir de a 1</b> cada vez. Sirve para <i>contar</i> cosas: cuántos alumnos aprobaron, cuántas vueltas dio un ciclo, etc. La idea es: tomo el valor actual de la variable, le sumo 1, y vuelvo a guardar el resultado en la misma variable.</p>
+<p>La forma "explícita" de hacerlo es <code>x = x + 1;</code>. Hay que entenderla bien porque parece rara la primera vez:</p>
+<div class="key">
+  <div class="ky-t">Cómo leer <code>x = x + 1;</code></div>
+  No es una ecuación matemática (en matemática "x = x + 1" sería imposible). Es una <b>asignación</b>, y se lee <b>de derecha a izquierda</b>:<br><br>
+  1) Primero se calcula el lado derecho <code>x + 1</code> usando el valor <i>actual</i> de <code>x</code>.<br>
+  2) Ese resultado se <b>guarda de nuevo</b> en <code>x</code>, pisando el valor viejo.<br><br>
+  Si <code>x</code> valía 10, <code>x + 1</code> da 11, y ese 11 se guarda en <code>x</code>. Ahora <code>x</code> vale 11.
+</div>
+<p>Como contar de a 1 es tan común, C++ ofrece <b>formas equivalentes y más cortas</b> de escribir lo mismo:</p>
+<table class="tbl">
+  <tr><th>Forma</th><th>Qué hace</th><th>Equivale a</th></tr>
+  <tr><td class="c"><code>x = x + 1;</code></td><td>Suma 1 (forma explícita)</td><td class="c">—</td></tr>
+  <tr><td class="c"><code>x++;</code></td><td>Suma 1 (post-incremento)</td><td class="c"><code>x = x + 1;</code></td></tr>
+  <tr><td class="c"><code>++x;</code></td><td>Suma 1 (pre-incremento)</td><td class="c"><code>x = x + 1;</code></td></tr>
+  <tr><td class="c"><code>x += 1;</code></td><td>Suma 1 (asignación compuesta)</td><td class="c"><code>x = x + 1;</code></td></tr>
+  <tr><td class="c"><code>x = x - 1;</code></td><td>Resta 1 (forma explícita)</td><td class="c">—</td></tr>
+  <tr><td class="c"><code>x--;</code></td><td>Resta 1 (post-decremento)</td><td class="c"><code>x = x - 1;</code></td></tr>
+  <tr><td class="c"><code>--x;</code></td><td>Resta 1 (pre-decremento)</td><td class="c"><code>x = x - 1;</code></td></tr>
+  <tr><td class="c"><code>x -= 1;</code></td><td>Resta 1 (asignación compuesta)</td><td class="c"><code>x = x - 1;</code></td></tr>
+</table>
+<p>Como contador "suelto" (una sentencia que solo incrementa), <b>las cuatro formas de sumar son intercambiables</b>: <code>x++;</code>, <code>++x;</code>, <code>x += 1;</code> y <code>x = x + 1;</code> dejan a <code>x</code> exactamente igual. (La diferencia entre <code>x++</code> y <code>++x</code> solo importa cuando se usan <i>dentro de una expresión más grande</i>; lo vemos en breve.)</p>
+
+<!-- ─── 7. ACUMULADORES / SUMADORES ────────────────────────────────────── -->
+<h3>Acumuladores (sumadores): sumar de a <i>k</i></h3>
+<p>Un <b>acumulador</b> (también llamado <b>sumador</b>) es la generalización del contador: en vez de sumar siempre 1, suma <b>una cantidad cualquiera <i>k</i></b> que puede cambiar en cada paso. Sirve para <i>acumular</i> totales: la suma de varios precios, el total de puntos, etc.</p>
+<table class="tbl">
+  <tr><th>Forma</th><th>Qué hace</th><th>Equivale a</th></tr>
+  <tr><td class="c"><code>x = x + k;</code></td><td>Le suma <code>k</code> a <code>x</code> (explícita)</td><td class="c">—</td></tr>
+  <tr><td class="c"><code>x += k;</code></td><td>Le suma <code>k</code> a <code>x</code> (compuesta)</td><td class="c"><code>x = x + k;</code></td></tr>
+  <tr><td class="c"><code>x = x - k;</code></td><td>Le resta <code>k</code> a <code>x</code> (explícita)</td><td class="c">—</td></tr>
+  <tr><td class="c"><code>x -= k;</code></td><td>Le resta <code>k</code> a <code>x</code> (compuesta)</td><td class="c"><code>x = x - k;</code></td></tr>
+</table>
+<p>Un contador es, en el fondo, un acumulador con <code>k = 1</code>. La operación <code>x += 7;</code> es lo mismo que <code>x = x + 7;</code>: toma el valor actual de <code>x</code>, le suma 7 y guarda el resultado de nuevo en <code>x</code>.</p>
+
+<div class="example">
+  <div class="ex-t">Traza del código de la cátedra (<code>clase_03_sumadores_contadores.cpp</code>)</div>
+  Seguimos el programa "haciendo de computadora", anotando el valor de <code>x</code> después de cada línea:<br><br>
+  <code>int x = 10;</code> &nbsp;&nbsp;&nbsp;→ x = <b>10</b><br>
+  <code>cout &lt;&lt; x;</code> &nbsp;&nbsp;&nbsp;→ muestra <b>10</b><br>
+  <code>x = x + 1;</code> &nbsp;→ 10 + 1 = 11, se guarda en x → x = <b>11</b><br>
+  <code>cout &lt;&lt; x;</code> &nbsp;&nbsp;&nbsp;→ muestra <b>11</b><br>
+  <code>x++;</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ suma 1 → x = <b>12</b><br>
+  <code>cout &lt;&lt; x;</code> &nbsp;&nbsp;&nbsp;→ muestra <b>12</b><br>
+  <code>x += 7;</code> &nbsp;&nbsp;&nbsp;→ 12 + 7 = 19 (acá <code>k</code> es 7) → x = <b>19</b><br>
+  <code>cout &lt;&lt; x;</code> &nbsp;&nbsp;&nbsp;→ muestra <b>19</b><br><br>
+  Salida en pantalla: &nbsp;<code>10</code> &nbsp;<code>11</code> &nbsp;<code>12</code> &nbsp;<code>19</code> (cada una en su renglón).
+</div>
+
+<!-- ─── 8. REGLA DE ORO: INICIALIZAR ───────────────────────────────────── -->
+<h3>Regla de oro: SIEMPRE inicializar antes de usar</h3>
+<p>Acá va una regla que la cátedra recalca y que no podés saltearte: <b>todo contador y todo acumulador DEBE estar inicializado en algún valor ANTES de empezar a usarlo</b>. "Inicializar" significa <b>darle un valor de arranque</b> (típicamente <code>0</code> para sumar, o <code>1</code> para multiplicar).</p>
+<p>¿Por qué? Porque cuando declarás una variable sin asignarle nada, <b>no arranca en 0</b>: arranca con un valor <b>basura</b> (lo que hubiera quedado en esa zona de memoria, un número impredecible). Si le sumás 1 a basura, obtenés "basura + 1", que sigue siendo basura. Tu programa daría resultados distintos y sin sentido cada vez que corre.</p>
+<div class="trap">
+  <div class="tr-t">Contraejemplo de la cátedra: contador SIN inicializar (MAL)</div>
+  Esto está marcado en el código de clase como algo que <b>nunca debería pasar</b>:<br><br>
+  <pre class="code-block">int v;        // se declara v PERO no se le da valor: v tiene BASURA
+v = v + 1;    // basura + 1 = ... basura. Resultado impredecible.</pre>
+  Como <code>v</code> nunca recibió un valor inicial, <code>v + 1</code> opera sobre un número desconocido. <b>El arreglo correcto</b> es inicializarla primero:<br><br>
+  <pre class="code-block">int v = 0;    // ✓ ahora v arranca en un valor conocido
+v = v + 1;    // 0 + 1 = 1. Resultado correcto y predecible.</pre>
+</div>
+<div class="key">
+  <div class="ky-t">La costumbre que te ahorra horas de bugs</div>
+  Cada vez que crees un contador o acumulador, <b>dale su valor inicial en la misma línea en que lo declarás</b>: <code>int suma = 0;</code>, <code>int cantidad = 0;</code>. Es una línea que parece de más pero te evita los errores más difíciles de detectar (los que dan resultados "casi bien" o cambian entre corridas).
+</div>
+
+<!-- ─── 9. PRE vs POST INCREMENTO ──────────────────────────────────────── -->
+<h3>Pre-incremento (<code>++i</code>) vs post-incremento (<code>i++</code>)</h3>
+<p>Ya vimos que <code>i++</code> y <code>++i</code>, usados <b>solos</b>, hacen lo mismo: suman 1 a <code>i</code>. La diferencia aparece cuando los usás <b>dentro de una expresión más grande</b>, donde además de incrementar, ese <code>i++</code> o <code>++i</code> <i>aporta un valor</i> a la cuenta. La pregunta es: ¿aporta el valor de <code>i</code> <b>antes</b> o <b>después</b> de sumarle 1?</p>
+<div class="key">
+  <div class="ky-t">La regla, en una frase</div>
+  • <b><code>++i</code> (pre-incremento)</b>: <b>incrementa primero y después usa</b> el valor ya aumentado. ("Primero sumo, después te doy el número.")<br>
+  • <b><code>i++</code> (post-incremento)</b>: <b>usa el valor actual primero y después incrementa</b>. ("Primero te doy el número que tengo, y recién ahí sumo.")<br><br>
+  En ambos casos <code>i</code> termina valiendo uno más; lo que cambia es <i>qué valor aporta a la expresión</i> en el momento.
+</div>
+
+<div class="example">
+  <div class="ex-t">Traza del ejemplo de la cátedra: <code>int k = (++i + j++);</code></div>
+  Partimos de <code>i = 10</code> y <code>j = 20</code>. Resolvemos la expresión <code>(++i + j++)</code> pieza por pieza:<br><br>
+  <b>1)</b> <code>++i</code> es <b>pre</b>-incremento: primero sube <code>i</code> a <b>11</b>, y aporta a la cuenta ese valor ya aumentado → <b>aporta 11</b>. (Ahora <code>i</code> vale 11.)<br>
+  <b>2)</b> <code>j++</code> es <b>post</b>-incremento: aporta a la cuenta el valor <i>actual</i> de <code>j</code>, que es <b>20</b>, y <i>después</i> sube <code>j</code> a 21 → <b>aporta 20</b>. (Ahora <code>j</code> vale 21.)<br>
+  <b>3)</b> La suma es <code>11 + 20 = 31</code>, que se guarda en <code>k</code>.<br><br>
+  <b>Resultado final:</b> &nbsp;<code>i = 11</code>, &nbsp;<code>j = 21</code>, &nbsp;<code>k = 31</code>.<br><br>
+  <pre class="code-block">int i = 10;
+int j = 20;
+int k = (++i + j++);
+cout &lt;&lt; i &lt;&lt; endl;   // 11  (++i lo subio a 11 antes de usarlo)
+cout &lt;&lt; j &lt;&lt; endl;   // 21  (j++ se uso como 20 y despues subio a 21)
+cout &lt;&lt; k &lt;&lt; endl;   // 31  (11 + 20)</pre>
+  Fijate el detalle clave de <code>j</code>: en la cuenta participó como <b>20</b> (su valor de antes), pero al imprimirlo después ya vale <b>21</b>, porque el post-incremento sí lo aumentó, solo que <i>después</i> de aportar su valor.
+</div>
+<div class="key">
+  <div class="ky-t">Recomendación para principiantes</div>
+  Cuando un incremento es una <b>sentencia suelta</b> (su único objetivo es contar), usá la forma simple <code>i++;</code> y no te preocupes por pre/post: ahí dan exactamente lo mismo. <b>Evitá</b> meter <code>i++</code> o <code>++i</code> en medio de expresiones complicadas: confunde y es fuente de errores. La distinción pre/post hay que <b>entenderla</b> (te la pueden tomar), pero en tu propio código conviene escribir cosas claras.
+</div>
+
+<!-- ─── 10. EJEMPLO INTEGRADOR: FECHAS ─────────────────────────────────── -->
+<h3>Ejemplo integrador: descomponer una fecha con <code>/</code> y <code>%</code></h3>
+<p>Ahora juntamos división entera y módulo en un programa real de la cátedra (<code>clase_02_fechas.cpp</code>). El problema: el usuario ingresa una fecha como un <b>único número entero</b> en formato <b>AAAAMMDD</b> (año-mes-día), por ejemplo <code>20260407</code> (que representa el 07/04/2026), y queremos reimprimirla en formato <b>DDMMAAAA</b>, o sea <code>07042026</code>.</p>
+<p>La clave es entender que un número como <code>20260407</code> es, en realidad, sus dígitos pegados: <code>2026</code> (año), <code>04</code> (mes) y <code>07</code> (día). Con <code>/</code> y <code>%</code> podemos "recortar" cada parte. Mirá el programa completo:</p>
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+
+    unsigned int fecha;
+    cout &lt;&lt; "ingrese una fecha en formato AAAAMMDD: " &lt;&lt; endl;
+    cin &gt;&gt; fecha;
+
+    unsigned int anio = fecha / 10000;
+    unsigned int dia  = fecha % 100;
+    unsigned int mes  = (fecha / 100) % 100;
+
+    unsigned int fechaSalida = dia * 1000000 + mes * 10000 + anio;
+
+    cout &lt;&lt; "La fecha en formato DDMMAAAA es: " &lt;&lt; fechaSalida &lt;&lt; endl;
+
+    return 0;
+}</pre>
+<p>(El tipo <code>unsigned int</code> es un entero "sin signo": solo números positivos. Una fecha nunca es negativa, así que encaja perfecto.) Vamos a trazar <b>paso a paso</b> con la entrada <code>fecha = 20260407</code>:</p>
+
+<h4>Extraer el año: <code>fecha / 10000</code></h4>
+<p>Dividir un entero por <code>10000</code> (un 1 seguido de cuatro ceros) equivale a <b>borrar los últimos 4 dígitos</b> (división entera, descarta el resto). Como los últimos 4 dígitos son justo el mes y el día (MMDD), lo que queda es el año:</p>
+<pre class="code-block">anio = 20260407 / 10000;
+// 20260407 / 10000 = 2026,0407  -> division ENTERA: se descarta el ,0407
+// anio = 2026</pre>
+
+<h4>Extraer el día: <code>fecha % 100</code></h4>
+<p>El módulo por <code>100</code> da <b>el resto de dividir por 100</b>, que son siempre <b>los últimos 2 dígitos</b> del número. Los dos últimos de AAAAMMDD son DD, o sea el día:</p>
+<pre class="code-block">dia = 20260407 % 100;
+// 20260407 dividido 100 da cociente 202604 y RESTO 07
+// dia = 7</pre>
+
+<h4>Extraer el mes: <code>(fecha / 100) % 100</code></h4>
+<p>El mes está "en el medio", así que necesitamos dos pasos (por eso el paréntesis, que por precedencia se ejecuta primero):</p>
+<pre class="code-block">// Paso 1: fecha / 100  -> borra los ultimos 2 digitos (el dia DD)
+//   20260407 / 100 = 202604   (quedo AAAAMM: 2026 y 04)
+// Paso 2: ... % 100   -> toma los ultimos 2 digitos de ESE resultado
+//   202604 % 100 = 4          (el resto es 04 = el mes)
+mes = (20260407 / 100) % 100;
+// mes = 4</pre>
+<div class="key">
+  <div class="ky-t">La idea general, para que la puedas reusar</div>
+  Sobre un número entero:<br>
+  • <b>Dividir por una potencia de 10</b> (<code>/ 10</code>, <code>/ 100</code>, <code>/ 1000</code>…) <b>borra dígitos por la derecha</b>.<br>
+  • <b>Sacar el módulo por una potencia de 10</b> (<code>% 10</code>, <code>% 100</code>…) <b>se queda con esa cantidad de dígitos de la derecha</b>.<br>
+  Combinando ambos podés aislar cualquier "tramo" de dígitos de un número. <code>% 10</code> te da la última cifra (la unidad); <code>/ 10</code> te quita la última cifra; etc.
+</div>
+
+<h4>Rearmar en formato DDMMAAAA</h4>
+<p>Ya tenemos <code>dia = 7</code>, <code>mes = 4</code>, <code>anio = 2026</code>. Para pegarlos en el orden DDMMAAAA los "empujamos" a su posición multiplicando por la potencia de 10 correspondiente y sumando:</p>
+<pre class="code-block">fechaSalida = dia * 1000000 + mes * 10000 + anio;
+// dia * 1000000 = 7 * 1000000 = 7000000   (el dia queda en las posiciones de millones)
+// mes * 10000   = 4 * 10000   =   40000   (el mes en el medio)
+// anio          =                  2026   (el anio en las ultimas 4 posiciones)
+// suma          = 7000000 + 40000 + 2026 = 7042026</pre>
+<p>El programa imprime: <code>La fecha en formato DDMMAAAA es: 7042026</code>. Leído como DDMMAAAA es <b>07/04/2026</b>, exactamente la fecha original. (Se muestra <code>7042026</code> sin el cero inicial porque, como número, el <code>0</code> de la izquierda no se guarda; el valor numérico es correcto.)</p>
+<div class="trap">
+  <div class="tr-t">¿Por qué no alcanza con <code>/ 10000</code> y listo?</div>
+  Para el <b>año</b> alcanza una sola división porque está al principio (a la izquierda). Para el <b>día</b> alcanza un solo módulo porque está al final (a la derecha). Pero el <b>mes</b> está en el medio: si solo dividieras (<code>fecha / 100</code>) te quedaría <code>202604</code> (año + mes pegados), y si solo sacaras módulo (<code>fecha % 10000</code>) te quedaría <code>0407</code> (mes + día pegados). Por eso hay que <b>combinar</b> los dos: primero borrar el día con <code>/ 100</code> y después quedarte con dos dígitos usando <code>% 100</code>.
+</div>
+
+<!-- ─── 11. REPASO ─────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Una <b>expresión</b> se evalúa hasta dar un único valor; un <b>operador</b> es el símbolo de la operación y los <b>operandos</b> son los valores sobre los que actúa.<br>
+  • <b>Aritméticos</b> (número→número): <code>+ - * / %</code>. División de <b>dos enteros</b> ⟶ <b>entera</b> (descarta decimales: <code>5/2</code> da <code>2</code>); con al menos un real ⟶ conserva decimales (<code>5.0/2</code> da <code>2.5</code>). El <code>%</code> da el <b>resto</b> (<code>5%2</code> da <code>1</code>).<br>
+  • <b>Comparación</b> (número→<code>bool</code>): <code>&gt; &gt;= &lt; &lt;= == !=</code>. Ojo: <code>==</code> compara, <code>=</code> asigna.<br>
+  • <b>Lógicos</b> (<code>bool</code>→<code>bool</code>): <code>!</code> invierte; <code>&amp;&amp;</code> da V solo si ambos son V; <code>||</code> da F solo si ambos son F.<br>
+  • <b>Precedencia</b>: <code>( )</code> → <code>!</code> → <code>* / %</code> → <code>+ -</code> → relacionales → <code>&amp;&amp;</code> → <code>||</code> → <code>=</code>. Ante la duda, paréntesis.<br>
+  • <b>Contador</b>: suma/resta de a 1 (<code>x++</code>, <code>++x</code>, <code>x += 1</code>, <code>x = x + 1</code>). <b>Acumulador</b>: de a <code>k</code> (<code>x += k</code>, <code>x = x + k</code>).<br>
+  • <b>Regla de oro</b>: todo contador/acumulador se <b>inicializa</b> antes de usarse; si no, arranca con basura.<br>
+  • <b>Pre vs post</b>: <code>++i</code> incrementa y luego usa; <code>i++</code> usa y luego incrementa. En <code>k = (++i + j++)</code> con i=10, j=20 → i=11, j=21, k=31.<br>
+  • <b>Fechas</b>: <code>/ 10000</code> saca el año, <code>% 100</code> saca el día y <code>(/ 100) % 100</code> saca el mes de un AAAAMMDD.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="ayed"></div>
+</div>
+</details>

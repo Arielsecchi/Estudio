@@ -1,0 +1,349 @@
+<!-- ============ UNIDAD 5 · ESTRUCTURAS DE REPETICIÓN (CICLOS) ============ -->
+<details id="ay-s5">
+<summary><span class="num">5</span> Unidad 5: Estructuras de repetición (for, while, do-while) y centinela <span class="sec-score" id="ss-ayed-5"></span></summary>
+<div class="content">
+
+<p>En la Unidad 4 tu programa aprendió a <b>decidir</b>: ejecutar ciertas líneas o saltearlas según una condición. En esta unidad aprende a <b>repetir</b>: ejecutar un mismo bloque de código muchas veces, sin que vos tengas que copiarlo y pegarlo. A esas estructuras se las llama <b>ciclos</b> o <b>bucles</b>. Vas a ver las tres que usa la cátedra —<code>for</code>, <code>while</code> y <code>do-while</code>— paso a paso, con trazas, y el <b>patrón centinela</b> para leer datos hasta un valor de corte. Arrancamos de cero, como siempre.</p>
+
+<!-- ─── 1. MOTIVACIÓN: POR QUÉ REPETIR ──────────────────────────────────── -->
+<h3>¿Por qué necesitamos repetir? La motivación</h3>
+<p>Imaginá que tu programa tiene que mostrar la palabra <code>Hola</code> <b>diez veces</b> en pantalla. Con lo que sabés hasta ahora, lo harías así:</p>
+
+<pre class="code-block">cout &lt;&lt; "Hola" &lt;&lt; endl;
+cout &lt;&lt; "Hola" &lt;&lt; endl;
+cout &lt;&lt; "Hola" &lt;&lt; endl;
+// ... y así seis líneas más, hasta diez</pre>
+
+<p>Funciona, pero es <b>horrible</b>. ¿Y si fueran <i>cien</i> veces? ¿O <i>un millón</i>? ¿Y si te equivocás en una línea y tenés que corregirla en las cien? Copiar y pegar el mismo código es propenso a errores, imposible de mantener y, sobre todo, <b>no escala</b>: la cantidad de veces muchas veces ni siquiera la conocés de antemano (depende de lo que el usuario tipee).</p>
+
+<p>Un <b>ciclo</b> resuelve esto: es una estructura de control que ejecuta un <b>bloque de código</b> (llamado <b>cuerpo del ciclo</b>) <b>varias veces</b>, mientras se cumpla una condición. Cada ejecución del cuerpo es una <b>iteración</b> (una "vuelta" del ciclo). Vos escribís el bloque <b>una sola vez</b> y el ciclo se encarga de repetirlo.</p>
+
+<div class="example">
+  <div class="ex-t">Los ciclos en la vida real</div>
+  <b>Hacer flexiones</b> — "Repetí: bajá y subí, <i>hasta llegar a 20</i>." Sabés exactamente cuántas: son 20. Eso es una repetición <b>exacta</b>.<br><br>
+  <b>Llenar un balde con un vaso</b> — "Repetí: cargá el vaso y volcalo en el balde, <i>mientras el balde no esté lleno</i>." No sabés cuántos vasos van a ser: depende del tamaño del balde y del vaso. Eso es una repetición <b>indefinida</b>.<br><br>
+  Esta diferencia —¿sé cuántas veces, o repito mientras pase algo?— es justo la que separa al <code>for</code> de los otros dos ciclos.
+</div>
+
+<!-- ─── 2. DEFINIDA VS INDEFINIDA ──────────────────────────────────────── -->
+<h3>Dos familias de ciclos: repetición DEFINIDA vs INDEFINIDA</h3>
+<p>Antes de ver la sintaxis, lo más importante es entender <b>cuándo usar cada ciclo</b>. La pregunta clave es una sola: <i>¿sé de antemano cuántas veces tengo que repetir?</i></p>
+
+<table class="tbl">
+  <tr><th>Tipo</th><th>¿Sé cuántas veces?</th><th>Estructura</th><th>Ejemplo típico</th></tr>
+  <tr><td><b>Repetición DEFINIDA</b> (o exacta)</td><td>SÍ — la cantidad es conocida (un número fijo, o calculable)</td><td class="c"><code>for</code></td><td>Mostrar "Hola" 10 veces; sumar los números del 1 al 100</td></tr>
+  <tr><td><b>Repetición INDEFINIDA</b> (o inexacta)</td><td>NO — repito mientras se cumpla una condición; la cantidad depende de algo (ej. lo que ingresa el usuario)</td><td class="c"><code>while</code> / <code>do-while</code></td><td>Pedir una contraseña hasta que sea correcta; leer números hasta que ingresen un 0</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">La regla para elegir el ciclo</div>
+  • Si <b>conocés la cantidad</b> de repeticiones (o la podés calcular antes de empezar) → usás <b>FOR</b>.<br>
+  • Si <b>no la conocés</b> y repetís <i>mientras se cumpla una condición</i> → usás <b>WHILE</b> (chequea la condición <i>antes</i> de cada vuelta) o <b>DO-WHILE</b> (la chequea <i>después</i>, así que da al menos una vuelta).<br><br>
+  Los tres ciclos podrían escribirse uno en términos de otro, pero cada uno está pensado para un caso: usar el que corresponde hace tu código más claro.
+</div>
+
+<!-- ─── 3. FOR ─────────────────────────────────────────────────────────── -->
+<h3>El <code>for</code>: repetición DEFINIDA</h3>
+<p>El <code>for</code> (en inglés, "para") es el ciclo que usás cuando <b>sabés cuántas veces</b> querés repetir. Su gran ventaja es que junta en una sola línea las tres cosas que todo conteo necesita: <i>desde dónde empiezo</i>, <i>hasta dónde llego</i> y <i>de a cuánto avanzo</i>. La sintaxis es:</p>
+
+<pre class="code-block">for (inicialización; condición; incremento) {
+    // cuerpo del ciclo: lo que se repite
+}</pre>
+
+<p>Adentro de los paréntesis hay <b>tres partes</b>, separadas por <b>punto y coma</b> <code>;</code>. Esa variable que controla el ciclo y lleva la cuenta de las vueltas se llama <b>índice</b> o <b>variable de control</b> (por costumbre se la nombra <code>i</code>). Veamos qué hace cada parte:</p>
+
+<table class="tbl">
+  <tr><th>Parte</th><th>Qué hace</th><th>¿Cuántas veces ocurre?</th></tr>
+  <tr><td><b>1. Inicialización</b><br><code>int i = 1</code></td><td>Crea el índice y le da su valor de arranque. Es lo primero que pasa.</td><td><b>Una sola vez</b>, al entrar al for</td></tr>
+  <tr><td><b>2. Condición</b><br><code>i &lt;= 10</code></td><td>Expresión booleana. Mientras dé <code>true</code>, el ciclo sigue dando vueltas; cuando da <code>false</code>, el ciclo termina.</td><td><b>Antes de cada vuelta</b> (incluida la primera)</td></tr>
+  <tr><td><b>3. Incremento</b><br><code>i = i + 1</code></td><td>Modifica el índice (normalmente le suma 1) para acercarlo al final. Es lo que hace que el ciclo <i>avance</i> y eventualmente termine.</td><td><b>Al final de cada vuelta</b>, justo antes de re-chequear la condición</td></tr>
+</table>
+
+<h4>El orden EXACTO de ejecución de un <code>for</code></h4>
+<p>Esto es lo que tenés que tener grabado a fuego. Cuando el programa llega a un <code>for</code>, los pasos son <b>siempre en este orden</b>:</p>
+
+<div class="key">
+  <div class="ky-t">Los pasos de un <code>for</code>, en orden</div>
+  <b>1.</b> Se ejecuta la <b>inicialización</b> (<code>int i = 1</code>). Esto pasa <b>una sola vez</b>.<br>
+  <b>2.</b> Se evalúa la <b>condición</b> (<code>i &lt;= 10</code>):<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;• Si es <b>true</b> → se ejecuta el <b>cuerpo</b> (paso 3).<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;• Si es <b>false</b> → el ciclo <b>termina</b> y el programa sigue después de la llave <code>}</code>.<br>
+  <b>3.</b> Se ejecuta el <b>cuerpo</b> del ciclo (las sentencias entre llaves).<br>
+  <b>4.</b> Se ejecuta el <b>incremento</b> (<code>i = i + 1</code>).<br>
+  <b>5.</b> Se <b>vuelve al paso 2</b> (re-chequear la condición), repitiendo 3 y 4 mientras la condición siga dando <code>true</code>.
+</div>
+
+<p>Fijate el detalle clave: la inicialización (paso 1) ocurre una sola vez, pero después el ciclo gira entre <b>condición → cuerpo → incremento → condición → cuerpo → incremento...</b> hasta que la condición da <code>false</code>. El cuerpo y el incremento <b>nunca</b> se ejecutan si la condición ya arrancó en <code>false</code>.</p>
+
+<h4>El primer ejemplo de la cátedra</h4>
+<p>Este es el <code>for</code> que muestra la cátedra (con un <b>contador</b> extra para llevar la cuenta de las vueltas, como viste en la Unidad 3):</p>
+
+<pre class="code-block">int contador = 0;
+for (int i = 1; i &lt;= 10; i = i + 1) {
+    cout &lt;&lt; "hola" &lt;&lt; endl;
+    contador = contador + 1;
+}</pre>
+
+<p>Leelo en palabras: "<b>para</b> <code>i</code> empezando en 1, <b>mientras</b> <code>i</code> sea menor o igual que 10, y sumándole 1 a <code>i</code> en cada vuelta: mostrá <code>hola</code> y sumá 1 al contador". El índice <code>i</code> va a tomar los valores 1, 2, 3, ..., 10, así que el cuerpo se ejecuta <b>exactamente 10 veces</b>: en pantalla aparece <code>hola</code> diez veces y <code>contador</code> queda valiendo <code>10</code>.</p>
+
+<div class="key">
+  <div class="ky-t">El índice va del VALOR INICIAL al VALOR FINAL <i>inclusive</i> (con <code>&lt;=</code>)</div>
+  Cuando usás la condición <code>i &lt;= final</code>, el índice toma <b>todos</b> los valores desde el inicial hasta el final, <b>incluyéndolo</b>. Por eso <code>for (int i = 1; i &lt;= 10; ...)</code> da <b>10</b> vueltas (i = 1, 2, ..., 10). El esquema general de la cátedra es:<br><br>
+  <code>for (int INDICE = VALOR_INICIAL; INDICE &lt;= VALOR_FINAL; INDICE = INDICE + 1)</code><br><br>
+  El índice siempre se incrementa de a 1 y va desde <code>VALOR_INICIAL</code> hasta <code>VALOR_FINAL</code> inclusive. El ciclo sigue mientras <code>INDICE &lt;= VALOR_FINAL</code> sea <code>true</code>; cuando da <code>false</code>, sale y continúa la ejecución.
+</div>
+
+<h4>Traza paso a paso de un <code>for</code> chiquito</h4>
+<p>"Hacer de computadora" es la mejor forma de entender un ciclo: anotás en una tabla qué vale el índice, qué da la condición y qué acción ocurre, vuelta por vuelta. Trazemos este <code>for</code> que muestra <code>Hola</code> con <code>i</code> yendo de 1 a 5 (el mismo ejemplo de las notas de la cátedra):</p>
+
+<pre class="code-block">for (int i = 1; i &lt;= 5; i = i + 1) {
+    cout &lt;&lt; "Hola" &lt;&lt; endl;
+}</pre>
+
+<table class="tbl">
+  <tr><th>Vuelta</th><th><code>i</code> (al evaluar)</th><th>Condición <code>i &lt;= 5</code></th><th>Acción</th><th><code>i</code> tras el incremento</th></tr>
+  <tr><td class="c">1ª</td><td class="c">1</td><td class="c"><code>1 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">2</td></tr>
+  <tr><td class="c">2ª</td><td class="c">2</td><td class="c"><code>2 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">3</td></tr>
+  <tr><td class="c">3ª</td><td class="c">3</td><td class="c"><code>3 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">4</td></tr>
+  <tr><td class="c">4ª</td><td class="c">4</td><td class="c"><code>4 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">5</td></tr>
+  <tr><td class="c">5ª</td><td class="c">5</td><td class="c"><code>5 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">6</td></tr>
+  <tr><td class="c">—</td><td class="c">6</td><td class="c"><code>6 &lt;= 5</code> → <b>false</b></td><td>sale del ciclo</td><td class="c">—</td></tr>
+</table>
+
+<p>Resultado: <code>Hola</code> aparece <b>5 veces</b>. Mirá la última fila: cuando <code>i</code> llega a 6, la condición <code>6 &lt;= 5</code> da <code>false</code>, así que el cuerpo <b>ya no se ejecuta</b> y el ciclo termina. Ese chequeo "de más" que da falso es normal y necesario: es la forma en que el ciclo sabe que tiene que parar.</p>
+
+<h4>Variantes del <code>for</code>: partes vacías y el <code>for</code> infinito</h4>
+<p>Las tres partes del <code>for</code> son <b>opcionales</b>: podés dejar alguna (o todas) vacías, siempre que mantengas los dos <code>;</code>. El código de la cátedra muestra dos variantes para que las reconozcas. En la primera, la inicialización y el incremento están <b>fuera</b> del <code>for</code>:</p>
+
+<pre class="code-block">int i = 1;            // inicialización afuera
+for (; i &lt;= 10; ) {   // solo la condición; las otras dos partes, vacías
+    cout &lt;&lt; "hola" &lt;&lt; endl;
+    i = i + 1;        // incremento adentro del cuerpo
+}</pre>
+
+<p>Hace <b>exactamente lo mismo</b> que el for completo: 10 vueltas. Simplemente, la creación del índice se hizo antes y el incremento se metió como una línea más del cuerpo. Es válido, aunque lo habitual y más claro es poner las tres partes dentro del paréntesis.</p>
+
+<p>Y si dejás <b>las tres partes vacías</b>, obtenés un <code>for</code> que <b>no termina nunca</b> (la condición ausente se considera siempre verdadera):</p>
+
+<pre class="code-block">for (;;) {            // for INFINITO: no hay condición que lo corte
+    cout &lt;&lt; "hola" &lt;&lt; endl;
+}</pre>
+
+<p>Este <code>for (;;)</code> muestra <code>hola</code> para siempre. La cátedra lo incluye para ilustrar la sintaxis, pero un ciclo infinito sin una salida controlada es un <b>error</b> (lo vemos en las cajas de trampas).</p>
+
+<!-- ─── 4. WHILE ───────────────────────────────────────────────────────── -->
+<h3>El <code>while</code>: repetición INDEFINIDA (condición al PRINCIPIO)</h3>
+<p>El <code>while</code> (en inglés, "mientras") es el ciclo que usás cuando <b>no sabés cuántas veces</b> vas a repetir: repetís <i>mientras</i> se cumpla una condición. La sintaxis es la más simple de todas:</p>
+
+<pre class="code-block">while (CONDICION) {
+    // cuerpo: se repite mientras CONDICION sea true
+}</pre>
+
+<p>Funciona así: se <b>evalúa la condición al principio</b>. Si da <code>true</code>, se ejecuta el cuerpo y se <b>vuelve a evaluar</b> la condición; y así sucesivamente. En cuanto la condición da <code>false</code>, el ciclo termina y el programa sigue después de la llave.</p>
+
+<div class="key">
+  <div class="ky-t">Los pasos de un <code>while</code>, en orden</div>
+  <b>1.</b> Se evalúa la <b>condición</b>:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;• Si es <b>true</b> → se ejecuta el <b>cuerpo</b> (paso 2).<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;• Si es <b>false</b> → el ciclo <b>termina</b>.<br>
+  <b>2.</b> Se ejecuta el <b>cuerpo</b>.<br>
+  <b>3.</b> Se <b>vuelve al paso 1</b> (re-chequear la condición), repitiendo el cuerpo mientras siga dando <code>true</code>.
+</div>
+
+<p>Como la condición se chequea <b>antes</b> de entrar, el <code>while</code> puede girar <b>0 veces</b> (si la condición arranca en <code>false</code>, el cuerpo no se ejecuta ni una sola vez) o <b>infinitas</b> veces (si la condición nunca llega a hacerse falsa). Esa es su característica distintiva: <b>puede no ejecutarse nunca</b>.</p>
+
+<h4>El ejemplo de la cátedra</h4>
+<p>La cátedra lee un número con <code>cin</code> y repite mientras ese número sea mayor que 8:</p>
+
+<pre class="code-block">int x;
+cin &gt;&gt; x;            // primera lectura: el usuario tipea un número
+while (x &gt; 8) {
+    cout &lt;&lt; "chau" &lt;&lt; endl;
+    cin &gt;&gt; x;        // vuelve a leer: x puede cambiar en cada vuelta
+}</pre>
+
+<p>Recordá que <code>cin &gt;&gt; x</code> lee del teclado y guarda lo que el usuario tipea en <code>x</code> (la flecha <code>&gt;&gt;</code> "trae" el dato <i>desde</i> el teclado <i>hacia</i> la variable). Sigamos el flujo según lo que ingrese el usuario:</p>
+
+<div class="example">
+  <div class="ex-t">Traza del <code>while</code> de la cátedra</div>
+  Supongamos que el usuario va tecleando: <code>10</code>, después <code>9</code>, después <code>3</code>.<br><br>
+  • <code>cin &gt;&gt; x</code> → <code>x = 10</code>. Condición <code>10 &gt; 8</code> → <b>true</b> → muestra <code>chau</code> → <code>cin &gt;&gt; x</code> → <code>x = 9</code>.<br>
+  • Condición <code>9 &gt; 8</code> → <b>true</b> → muestra <code>chau</code> → <code>cin &gt;&gt; x</code> → <code>x = 3</code>.<br>
+  • Condición <code>3 &gt; 8</code> → <b>false</b> → <b>sale del ciclo</b>.<br><br>
+  Mostró <code>chau</code> <b>2 veces</b>. Ahora mirá un caso límite: si lo <b>primero</b> que teclea es <code>5</code>, la condición <code>5 &gt; 8</code> da <code>false</code> de entrada y el cuerpo <b>no se ejecuta ni una vez</b> (0 vueltas). Eso es lo que solo un <code>while</code> puede hacer.
+</div>
+
+<!-- ─── 5. DO-WHILE ────────────────────────────────────────────────────── -->
+<h3>El <code>do-while</code>: repetición INDEFINIDA (condición al FINAL)</h3>
+<p>El <code>do-while</code> (en inglés, "hacer... mientras") es casi igual al <code>while</code>, con <b>una diferencia fundamental</b>: la condición se chequea <b>al final</b>, después de ejecutar el cuerpo. La sintaxis es:</p>
+
+<pre class="code-block">do {
+    // cuerpo: se ejecuta y RECIÉN DESPUÉS se chequea la condición
+} while (CONDICION);</pre>
+
+<p>Ojo a dos detalles de escritura: el cuerpo va <b>primero</b> (después de la palabra <code>do</code>), y el <code>while</code> con la condición va <b>al final</b>, <b>terminado en punto y coma</b> <code>;</code> (este es el único ciclo que lleva <code>;</code> después del paréntesis de la condición).</p>
+
+<div class="key">
+  <div class="ky-t">Los pasos de un <code>do-while</code>, en orden</div>
+  <b>1.</b> Se ejecuta el <b>cuerpo</b> (sí o sí, sin preguntar nada todavía).<br>
+  <b>2.</b> Se evalúa la <b>condición</b>:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;• Si es <b>true</b> → se <b>vuelve al paso 1</b> (otra vuelta).<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;• Si es <b>false</b> → el ciclo <b>termina</b>.<br><br>
+  Como el cuerpo se ejecuta <i>antes</i> del primer chequeo, el <code>do-while</code> gira <b>como mínimo 1 vez</b>, pase lo que pase.
+</div>
+
+<p>El código de la cátedra muestra el <code>do-while</code> paralelo a su <code>while</code>:</p>
+
+<pre class="code-block">int y;
+do {
+    cout &lt;&lt; "chau" &lt;&lt; endl;
+    cin &gt;&gt; y;
+} while (y &gt; 8);</pre>
+
+<p>Acá <b>siempre</b> se muestra <code>chau</code> al menos una vez <i>antes</i> de leer <code>y</code> y de chequear nada. Recién después de mostrar y leer, se evalúa <code>y &gt; 8</code> para decidir si hay otra vuelta. Compará con el <code>while</code> anterior: aquel leía <i>antes</i> y podía no mostrar <code>chau</code> nunca; este muestra <code>chau</code> <b>sí o sí</b> la primera vez.</p>
+
+<h4><code>while</code> vs <code>do-while</code>, lado a lado</h4>
+<table class="tbl">
+  <tr><th>Aspecto</th><th><code>while</code></th><th><code>do-while</code></th></tr>
+  <tr><td>¿Dónde se evalúa la condición?</td><td class="c">Al <b>principio</b> (antes del cuerpo)</td><td class="c">Al <b>final</b> (después del cuerpo)</td></tr>
+  <tr><td>Mínimo de vueltas</td><td class="c"><b>0</b> (puede no entrar nunca)</td><td class="c"><b>1</b> (siempre da al menos una)</td></tr>
+  <tr><td>Máximo de vueltas</td><td class="c">infinitas</td><td class="c">infinitas</td></tr>
+  <tr><td><code>;</code> tras la condición</td><td class="c">no lleva</td><td class="c"><b>sí</b> lleva</td></tr>
+  <tr><td>¿Cuándo conviene?</td><td>Cuando puede que <b>no haya que hacer nada</b> (ej. el dato ya viene "fuera de rango")</td><td>Cuando el cuerpo se tiene que ejecutar <b>al menos una vez</b> antes de poder evaluar la condición</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">El caso clásico del <code>do-while</code>: pedir usuario y contraseña</div>
+  ¿Cuándo el <code>do-while</code> es la elección natural? Cuando <b>necesitás ejecutar el cuerpo al menos una vez para recién después poder evaluar la condición</b>. El ejemplo de manual es un login: <i>tenés que pedir</i> usuario y contraseña al menos una vez antes de poder saber si están bien o mal. La cátedra lo plantea así (en pseudocódigo):<br><br>
+  <code>do {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;pedir usuario</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;pedir contraseña</code><br>
+  <code>} while (las credenciales están mal);</code><br><br>
+  Se piden las credenciales (1ª vuelta, seguro), y solo entonces se evalúa si están mal: si están mal, se vuelven a pedir; si están bien, se sale. Con un <code>while</code> normal tendrías que pedirlas una vez "a mano" antes del ciclo para tener algo que evaluar; el <code>do-while</code> lo resuelve más naturalmente.
+</div>
+
+<!-- ─── 6. CENTINELA ───────────────────────────────────────────────────── -->
+<h3>El patrón centinela (valor de corte)</h3>
+<p>Un problema clásico: "se siguen ingresando números <b>hasta</b> que el usuario ingresa un valor especial". Ese valor especial que marca <b>el fin de los datos</b> se llama <b>centinela</b> o <b>valor de corte</b>. No es un dato a procesar: es una <i>señal</i> de "ya terminé de cargar". Ejemplos: terminar cuando ingresan <code>999</code>, o <code>0</code>, o un número negativo.</p>
+
+<p>La cátedra lo plantea con el centinela <code>999</code>: "se siguen ingresando números hasta que termina cuando se ingresa el número 999". Definamos las dos ideas centrales:</p>
+
+<div class="key">
+  <div class="ky-t">CORTE y la idea de "seguir mientras NO sea el centinela"</div>
+  • <b>CORTE</b>: la condición que indica que hay que <b>parar</b>. Es <code>valor == 999</code> (el dato ingresado <i>es</i> el centinela).<br>
+  • <b>!CORTE</b> (no corte): la condición para <b>seguir</b>. Es <code>valor != 999</code> (el dato <i>no es</i> el centinela).<br><br>
+  Como el ciclo repite <i>mientras haya que seguir</i>, la condición del <code>while</code> es justamente <b>!CORTE</b>: "<code>while (valor != 999)</code>", es decir, "seguí mientras lo ingresado no sea 999".
+</div>
+
+<p>La gran pregunta es <b>dónde poner la lectura</b> (<code>cin &gt;&gt; valor</code>). La cátedra distingue <b>dos esquemas</b> según una sutileza: <i>¿la condición del ciclo depende del dato que se lee, o no?</i></p>
+
+<h4>Esquema (a): la condición NO depende de la entrada → leés ADENTRO</h4>
+<p>Si la condición de corte <b>no</b> se fija en el valor recién ingresado (por ejemplo, repetir una cantidad fija de veces, o mientras un contador no llegue a cierto número), podés leer el dato cómodamente <b>dentro</b> del cuerpo:</p>
+
+<pre class="code-block">// SI la CONDICIÓN NO depende de la entrada de datos
+while (COND) {
+    cin &gt;&gt; x;
+    // ... procesar x ...
+}</pre>
+
+<p>Acá la lectura es una acción más del cuerpo. Como <code>COND</code> no mira a <code>x</code>, no hay riesgo de procesar de más.</p>
+
+<h4>Esquema (b): la condición SÍ depende de la entrada → lectura ADELANTADA</h4>
+<p>Este es el caso del centinela y el que más confunde al principio. Si la condición <b>sí</b> depende del dato ingresado (<code>while (x != 999)</code> mira a <code>x</code>), no podés leer <i>recién dentro</i> del cuerpo, porque la <b>primera</b> vez el <code>while</code> evaluaría <code>x</code> sin que el usuario haya tecleado nada todavía. La solución es la <b>lectura adelantada</b>: leés <b>una vez antes</b> del while (para tener un primer valor que evaluar) y volvés a leer <b>al final del cuerpo</b> (para tener el siguiente):</p>
+
+<pre class="code-block">// SI la CONDICIÓN SÍ depende de la entrada de datos
+cin &gt;&gt; x;              // 1) lectura ADELANTADA: primer valor, antes del while
+while (x != 999) {    // 2) la condición evalúa el x que YA tenemos
+    // ... procesar x (que NO es 999) ...
+    cin &gt;&gt; x;          // 3) leé el SIGUIENTE valor, al final del cuerpo
+}</pre>
+
+<p>El truco es entender los dos <code>cin</code>: el de <b>arriba</b> carga el primer valor para que la condición tenga algo que mirar; el del <b>final del cuerpo</b> prepara el valor para la <i>próxima</i> evaluación de la condición. Así, cuando el usuario ingresa <code>999</code>, ese valor se lee (en alguno de los dos <code>cin</code>), el <code>while</code> evalúa <code>999 != 999</code> → <code>false</code> y sale <b>sin procesar el 999</b>. ¡Eso es justo lo que queremos: el centinela marca el fin, no es un dato!</p>
+
+<div class="example">
+  <div class="ex-t">Traza de la lectura adelantada con centinela 999</div>
+  El usuario teclea: <code>5</code>, <code>8</code>, <code>999</code>. Seguimos el código del esquema (b):<br><br>
+  • <code>cin &gt;&gt; x</code> (adelantada) → <code>x = 5</code>.<br>
+  • <code>while (5 != 999)</code> → <b>true</b> → procesa el <code>5</code> → <code>cin &gt;&gt; x</code> → <code>x = 8</code>.<br>
+  • <code>while (8 != 999)</code> → <b>true</b> → procesa el <code>8</code> → <code>cin &gt;&gt; x</code> → <code>x = 999</code>.<br>
+  • <code>while (999 != 999)</code> → <b>false</b> → <b>sale</b>. El <code>999</code> <i>nunca se procesa</i>.<br><br>
+  Se procesaron solo el <code>5</code> y el <code>8</code> (los datos reales), no el centinela. Si hubieras leído dentro del cuerpo sin la lectura adelantada, habrías procesado el <code>999</code> por error antes de chequear.
+</div>
+
+<!-- ─── 7. BREAK Y CONTINUE ────────────────────────────────────────────── -->
+<h3>Dos atajos: <code>break</code> y <code>continue</code></h3>
+<p>Dentro de cualquier ciclo podés usar dos sentencias especiales para alterar su flujo. Ya viste <code>break</code> en el <code>switch</code> de la Unidad 4; en los ciclos cumple un rol parecido.</p>
+
+<p><b><code>break</code></b> — <b>corta</b> el ciclo por completo: lo abandona inmediatamente y el programa salta a lo que venga después de la llave de cierre, sin importar la condición. Sirve para salir antes de tiempo cuando ya encontraste lo que buscabas:</p>
+
+<pre class="code-block">for (int i = 1; i &lt;= 10; i = i + 1) {
+    if (i == 5) {
+        break;           // al llegar i a 5, abandona el for
+    }
+    cout &lt;&lt; i &lt;&lt; endl;    // muestra 1, 2, 3, 4 y corta
+}</pre>
+
+<p><b><code>continue</code></b> — <b>saltea el resto del cuerpo</b> de la vuelta actual y va directo a la siguiente iteración (en el <code>for</code>, pasa al incremento y vuelve a chequear la condición). No corta el ciclo: solo se saltea lo que queda de <i>esa</i> vuelta:</p>
+
+<pre class="code-block">for (int i = 1; i &lt;= 5; i = i + 1) {
+    if (i == 3) {
+        continue;        // en la vuelta de i = 3, salta el cout y sigue
+    }
+    cout &lt;&lt; i &lt;&lt; endl;    // muestra 1, 2, 4, 5 (se saltea el 3)
+}</pre>
+
+<div class="key">
+  <div class="ky-t"><code>break</code> vs <code>continue</code> en una frase</div>
+  • <code>break</code> = <b>"me voy del ciclo"</b> (lo termina del todo).<br>
+  • <code>continue</code> = <b>"salteo esta vuelta"</b> (sigo con la próxima iteración).<br><br>
+  Usalos con moderación: muchas veces una condición bien pensada en el <code>while</code> o un <code>if</code> en el cuerpo logran lo mismo y se leen mejor.
+</div>
+
+<!-- ─── 8. ERRORES TÍPICOS ─────────────────────────────────────────────── -->
+<h3>Errores típicos que tenés que evitar</h3>
+
+<div class="trap">
+  <div class="tr-t">Ciclo INFINITO: olvidar el incremento o que la condición nunca se haga falsa</div>
+  Un ciclo que <b>nunca termina</b> deja tu programa colgado mostrando cosas (o sin responder) para siempre. La causa número uno es <b>olvidar modificar la variable de control</b>, de modo que la condición se quede <i>eternamente verdadera</i>. Mirá:<br><br>
+  <code>int i = 1;</code><br>
+  <code>while (i &lt;= 10) {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "hola" &lt;&lt; endl;</code><br>
+  <code>}</code> &nbsp;← <i>¡falta <code>i = i + 1;</code>!</i> Como <code>i</code> siempre vale 1, <code>1 &lt;= 10</code> es <b>siempre true</b> y nunca para.<br><br>
+  Lo mismo pasa con <code>for (;;)</code> (sin condición) o si en un <code>while (x != 999)</code> te olvidás de volver a leer <code>x</code>. <b>Regla:</b> asegurate de que en cada vuelta algo <i>acerque</i> la condición a hacerse falsa (incrementar el índice, leer un dato nuevo, etc.).
+</div>
+
+<div class="trap">
+  <div class="tr-t">Error "off-by-one": confundir <code>&lt;</code> con <code>&lt;=</code> (una vuelta de más o de menos)</div>
+  Cambiar <code>&lt;=</code> por <code>&lt;</code> (o al revés) altera la cantidad de vueltas en <b>uno</b>, y es un error tan común que tiene nombre propio: <i>off-by-one</i> ("por uno de diferencia").<br><br>
+  • <code>for (int i = 1; i &lt;= 10; i = i + 1)</code> → da <b>10</b> vueltas (i = 1, 2, ..., 10).<br>
+  • <code>for (int i = 1; i &lt; 10; i = i + 1)</code> → da <b>9</b> vueltas (i = 1, 2, ..., 9): ¡el 10 se queda afuera!<br><br>
+  Antes de dar por bueno un <code>for</code>, "hacé de computadora" con el primer y el último valor del índice y contá las vueltas. ¿Querés incluir el valor final? Usá <code>&lt;=</code>. ¿Querés frenar justo antes? Usá <code>&lt;</code>.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Procesar el valor centinela por error</div>
+  En un ciclo con centinela, el valor de corte <b>no es un dato</b>: es la señal de "terminé". Si lo procesás (lo sumás, lo mostrás, lo contás), tu resultado queda mal. El error típico es leer <i>dentro</i> del cuerpo sin lectura adelantada:<br><br>
+  <code>do {</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; x;</code><br>
+  <code>&nbsp;&nbsp;&nbsp;&nbsp;suma = suma + x;</code> &nbsp;← <i>cuando x es 999, ¡lo suma igual antes de cortar!</i><br>
+  <code>} while (x != 999);</code><br><br>
+  Por eso, cuando la condición depende del dato, se usa la <b>lectura adelantada</b> (leer antes del while y al final del cuerpo): así el <code>while</code> ve el 999 y sale <b>antes</b> de procesarlo. Si igual querés usar este esquema, tenés que chequear con un <code>if (x != 999)</code> antes de sumar.
+</div>
+
+<!-- ─── 9. REPASO ──────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Un <b>ciclo</b> repite un bloque (el <b>cuerpo</b>) varias veces; cada vuelta es una <b>iteración</b>. Sirve para no copiar y pegar código.<br>
+  • Repetición <b>definida</b> (sé cuántas veces) → <code>for</code>. Repetición <b>indefinida</b> (repito mientras se cumpla una condición) → <code>while</code> / <code>do-while</code>.<br>
+  • <code>for (init; condición; incremento)</code>: la init corre <b>una vez</b>; después gira condición → cuerpo → incremento. Con <code>i &lt;= final</code> el índice llega <b>hasta el final inclusive</b>.<br>
+  • <code>while (COND)</code> evalúa <b>al principio</b>: puede dar <b>0</b> vueltas.<br>
+  • <code>do { ... } while (COND);</code> evalúa <b>al final</b>: da <b>mínimo 1</b> vuelta (y lleva <code>;</code> al final).<br>
+  • <b>Centinela</b> (valor de corte): se repite <i>mientras NO sea el centinela</i> (<code>while (x != 999)</code>). Si la condición depende del dato, usá <b>lectura adelantada</b> (leer antes del while y al final del cuerpo) para no procesar el centinela.<br>
+  • <code>break</code> abandona el ciclo; <code>continue</code> saltea el resto de la vuelta.<br>
+  • Cuidado con el <b>ciclo infinito</b> (olvidar el incremento / leer de nuevo), el <b>off-by-one</b> (<code>&lt;</code> vs <code>&lt;=</code>) y <b>procesar el centinela</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="ayed"></div>
+</div>
+</details>

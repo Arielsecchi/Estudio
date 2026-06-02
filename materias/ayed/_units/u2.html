@@ -1,0 +1,275 @@
+<!-- ============ UNIDAD 2 · VARIABLES Y TIPOS DE DATOS ============ -->
+<details id="ay-s2">
+<summary><span class="num">2</span> Unidad 2: Variables y tipos de datos <span class="sec-score" id="ss-ayed-2"></span></summary>
+<div class="content">
+
+<p>En la unidad anterior tu programa solo <i>mostraba</i> textos fijos. En esta unidad vas a aprender a <b>guardar datos en la memoria</b> de la computadora para poder usarlos, modificarlos y mostrarlos: eso son las <b>variables</b>. También vas a ver de qué <b>tipos</b> pueden ser esos datos (números enteros, decimales, caracteres, textos, valores de verdadero/falso) y cómo <b>leer un dato que el usuario escribe por teclado</b>. Seguimos de cero: cada término nuevo lo definimos antes de usarlo.</p>
+
+<!-- ─── 1. QUÉ ES UNA VARIABLE ─────────────────────────────────────────── -->
+<h3>¿Qué es una variable?</h3>
+<p>Una <b>variable</b> es un <b>espacio en la memoria</b> de la computadora donde tu programa guarda un dato para usarlo más tarde. Pensala como una <b>cajita con una etiqueta</b>: la etiqueta es el nombre que vos le ponés, y adentro de la cajita hay un valor que podés mirar o cambiar.</p>
+<p>¿Por qué se llama "variable"? Porque su contenido <b>puede variar</b> mientras el programa corre: hoy la cajita guarda un <code>10</code>, dos líneas después puede guardar un <code>27</code>. Lo que <i>no</i> cambia es su nombre ni el tipo de dato que puede guardar.</p>
+
+<div class="key">
+  <div class="ky-t">Las 3 componentes de toda variable</div>
+  Cada variable que creás tiene siempre estas tres cosas:<br><br>
+  • <b>IDENTIFICADOR</b> — el <i>nombre</i> con el que la llamás. Ej: <code>edad</code>, <code>cantidadDeAlumnos</code>. Es la "etiqueta" de la cajita.<br>
+  • <b>VALOR</b> — el <i>dato</i> que guarda adentro en este momento. Ej: <code>20</code>.<br>
+  • <b>TIPO DE DATO asociado</b> — qué <i>clase</i> de dato puede guardar: un número entero, un decimal, una letra, un texto... Lo elegís vos al crearla y <b>ya no cambia</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">La analogía de la cajita</div>
+  Imaginá una cajita etiquetada <code>edad</code> que solo acepta números enteros y que adentro tiene un <code>20</code>:<br><br>
+  • IDENTIFICADOR → <code>edad</code> (lo que dice la etiqueta)<br>
+  • VALOR → <code>20</code> (lo que hay adentro hoy)<br>
+  • TIPO → número entero (lo que la cajita acepta guardar)<br><br>
+  Mañana podés cambiar el contenido a <code>21</code>, pero la etiqueta sigue diciendo <code>edad</code> y la cajita sigue aceptando solo enteros.
+</div>
+
+<!-- ─── 2. LAS DOS ETAPAS ──────────────────────────────────────────────── -->
+<h3>Las dos etapas de una variable: definición y asignación</h3>
+<p>Para usar una variable hay dos momentos bien distintos que tenés que separar en tu cabeza: primero <b>la creás</b> (definición) y después le <b>ponés valores</b> (asignación). Vamos una por una.</p>
+
+<h4>Etapa 1 — DEFINICIÓN (crear la variable)</h4>
+<p><b>Definir</b> una variable es <b>crear la cajita</b>: reservar el espacio en memoria y decirle al compilador su nombre y su tipo. Se escribe así:</p>
+<pre class="code-block">&lt;tipo de dato&gt; &lt;nombre de la variable&gt;;
+
+// ejemplo real:
+int x;</pre>
+<p>Esa línea se lee: "creá una variable llamada <code>x</code> que va a guardar números enteros (<code>int</code>)". Dos reglas clave sobre la definición:</p>
+<p>• Se hace <b>una sola vez</b> por variable, <b>antes</b> de poder usarla. No tiene sentido (ni se permite) volver a definir la misma variable.</p>
+<p>• Ni bien la definís y <b>todavía no le pusiste un valor</b>, la cajita <b>no está vacía</b>: tiene un <b>valor BASURA</b>, un número aleatorio e impredecible que quedó de antes en esa zona de memoria. <b>Nunca</b> confíes en ese valor.</p>
+
+<div class="trap">
+  <div class="tr-t">Error típico: usar una variable recién definida (valor basura)</div>
+  Apenas definís <code>int x;</code>, <code>x</code> NO vale 0: vale lo que haya quedado en esa posición de memoria (puede ser <code>32766</code>, <code>-4391</code>, cualquier cosa). Si la mostrás o la usás en una cuenta sin haberle asignado nada antes, vas a obtener resultados <b>aleatorios y distintos en cada ejecución</b>. Regla de oro: <i>nunca uses una variable que no inicializaste vos</i>.
+</div>
+
+<h4>Etapa 2 — ASIGNACIÓN (ponerle un valor)</h4>
+<p><b>Asignar</b> es <b>guardar un valor adentro</b> de la cajita que ya existe. Se usa el signo <code>=</code>, que en programación <b>NO significa "es igual"</b> sino "<b>asigná</b>" / "<b>guardá</b>":</p>
+<pre class="code-block">&lt;nombre de la variable&gt; = &lt;valor&gt;;
+
+// ejemplo real:
+x = 10;</pre>
+<p>Eso se lee: "guardá el valor <code>10</code> dentro de <code>x</code>". A diferencia de la definición, la asignación <b>se puede repetir todas las veces que quieras</b>: cada nueva asignación <b>pisa</b> (reemplaza) el valor anterior.</p>
+
+<div class="key">
+  <div class="ky-t">El <code>=</code> es asignación, no igualdad</div>
+  En <code>x = 10;</code> pensalo como una flecha hacia la izquierda: el <b>valor va a la DERECHA</b> y la <b>variable que lo recibe va a la IZQUIERDA</b>. El valor de la derecha "viaja" hacia la cajita de la izquierda.<br><br>
+  Por eso <code>x = 10;</code> es válido (guardá 10 en x) pero <code>10 = x;</code> NO tiene sentido: no podés guardar nada "dentro del número 10".
+</div>
+
+<div class="example">
+  <div class="ex-t">Una variable, varias asignaciones (traza paso a paso)</div>
+<pre class="code-block">int x;        // DEFINICIÓN: existe x, pero adentro hay BASURA
+x = 10;       // ASIGNACIÓN: ahora x vale 10
+x = 25;       // ASIGNACIÓN: el 10 se pisa, ahora x vale 25
+x = x + 5;    // ASIGNACIÓN: toma el valor actual (25), suma 5, guarda 30</pre>
+  Seguimos el contenido de la cajita <code>x</code> línea por línea:<br>
+  • Tras <code>int x;</code> → x = <i>basura</i><br>
+  • Tras <code>x = 10;</code> → x = 10<br>
+  • Tras <code>x = 25;</code> → x = 25<br>
+  • Tras <code>x = x + 5;</code> → x = 30 &nbsp;(primero se calcula la derecha con el valor viejo: 25 + 5 = 30, y recién después se guarda en x)
+</div>
+
+<h4>El atajo: definición con inicialización</h4>
+<p>Casi siempre vas a querer darle un valor a la variable <b>en el mismo momento de crearla</b>, así nunca queda con basura. Eso se llama <b>inicializar</b>, y combina las dos etapas en una sola línea:</p>
+<pre class="code-block">int x = 10;    // define x (entero) Y le guarda 10 de una</pre>
+<p>Es equivalente a hacer <code>int x;</code> y después <code>x = 10;</code>, pero más corto y más seguro (no pasás por el estado de basura). Es la forma que vas a usar la mayoría de las veces.</p>
+
+<table class="tbl">
+  <tr><th>&nbsp;</th><th>DEFINICIÓN</th><th>ASIGNACIÓN</th></tr>
+  <tr><td class="c">Qué hace</td><td class="c">Crea la variable (reserva memoria)</td><td class="c">Le guarda un valor adentro</td></tr>
+  <tr><td class="c">Cómo se escribe</td><td class="c"><code>int x;</code></td><td class="c"><code>x = 10;</code></td></tr>
+  <tr><td class="c">¿Lleva el tipo?</td><td class="c">Sí (<code>int</code>)</td><td class="c">No, solo el nombre</td></tr>
+  <tr><td class="c">¿Cuántas veces?</td><td class="c">Una sola vez</td><td class="c">Las que quieras</td></tr>
+</table>
+
+<!-- ─── 3. IDENTIFICADORES ─────────────────────────────────────────────── -->
+<h3>Reglas para nombrar variables (identificadores)</h3>
+<p>El <b>identificador</b> es el nombre de la variable. No podés ponerle cualquier cosa: C++ tiene reglas <b>obligatorias</b> (si no las cumplís, no compila) y además hay <b>convenciones</b> (buenas costumbres que no son obligatorias pero que todos siguen).</p>
+
+<div class="key">
+  <div class="ky-t">Reglas OBLIGATORIAS (si no, error de compilación)</div>
+  • Puede tener <b>letras</b> (a–z, A–Z), <b>dígitos</b> (0–9) y el <b>guion bajo</b> <code>_</code>. Nada más.<br>
+  • <b>No puede empezar con un dígito</b>. <code>edad2</code> es válido; <code>2edad</code> no.<br>
+  • <b>Sin espacios</b>. <code>cantidad alumnos</code> es inválido; usá <code>cantidadAlumnos</code> o <code>cantidad_alumnos</code>.<br>
+  • <b>Sin tildes ni eñes ni símbolos</b> (<code>á</code>, <code>ñ</code>, <code>$</code>, <code>%</code>...). Escribí <code>numeroDNi­os</code> sin la eñe, por ejemplo <code>cantidadNenes</code>.<br>
+  • No puede ser una <b>palabra reservada</b> del lenguaje (como <code>int</code>, <code>return</code>, <code>main</code>).
+</div>
+
+<div class="trap">
+  <div class="tr-t">C++ distingue MAYÚSCULAS de minúsculas (case sensitive)</div>
+  Para C++, <code>edad</code>, <code>Edad</code> y <code>EDAD</code> son <b>tres variables DISTINTAS</b>. Si definís <code>int edad;</code> y después escribís <code>Edad = 20;</code>, el compilador te dice que <code>Edad</code> no existe. Cuidá siempre cómo escribís cada letra: este es uno de los errores más comunes al empezar.
+</div>
+
+<h4>Convención: camelCase y nombres descriptivos</h4>
+<p>La <b>convención</b> que se usa en la materia (y en gran parte del mundo C++) para nombres de varias palabras es <b>camelCase</b>: la primera palabra va en minúscula y cada palabra siguiente arranca con mayúscula, todo pegado, sin espacios ni guiones.</p>
+<pre class="code-block">int cantidadDeAlumnosEnElCurso;   // camelCase
+float promedioFinal;
+string nombreDelUsuario;</pre>
+<p>Se llama así porque las mayúsculas en el medio parecen las <i>jorobas de un camello</i>. Además, elegí <b>nombres descriptivos</b>: que el nombre diga qué guarda la variable.</p>
+
+<div class="key">
+  <div class="ky-t">Un buen nombre se explica solo</div>
+  Comparál: <code>int c;</code> vs <code>int cantidadDeAlumnos;</code>. Las dos funcionan, pero la segunda hace que tu código <b>se lea como una frase</b> y no tengas que adivinar qué es <code>c</code>. Nombres claros = menos errores y corrección más fácil. Evitá nombres de una sola letra salvo para cosas muy chiquitas y momentáneas.
+</div>
+
+<!-- ─── 4. TIPOS DE DATOS ──────────────────────────────────────────────── -->
+<h3>Tipos de datos</h3>
+<p>El <b>tipo de dato</b> define <i>qué clase de valor</i> guarda la variable y, muy importante, <b>cuánta memoria ocupa</b>. La memoria se mide en <b>bytes</b> (un byte son 8 bits, es decir 8 ceros/unos). Cuantos más bytes, más grande es el rango de valores que entra. Vamos a recorrer todas las familias.</p>
+
+<h4>Numéricos enteros</h4>
+<p>Guardan números <b>sin parte decimal</b> (…, -2, -1, 0, 1, 2, …). Se diferencian por cuántos bytes ocupan, y por lo tanto por cuán grandes pueden ser:</p>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Tamaño</th><th>Para qué</th></tr>
+  <tr><td class="c"><code>char</code></td><td class="c">1 byte</td><td class="c">Enteros muy chicos (y también caracteres, ya lo vemos)</td></tr>
+  <tr><td class="c"><code>short int</code></td><td class="c">2 bytes</td><td class="c">Enteros chicos</td></tr>
+  <tr><td class="c"><code>int</code></td><td class="c">4 bytes</td><td class="c">El entero "de uso general", el más usado</td></tr>
+  <tr><td class="c"><code>long int</code></td><td class="c">4 bytes</td><td class="c">Enteros grandes</td></tr>
+</table>
+<p>En la práctica, mientras aprendés, casi siempre vas a usar <code>int</code> para los enteros.</p>
+
+<h4><code>signed</code> vs <code>unsigned</code>: ¿admite negativos o no?</h4>
+<p>Cada tipo entero puede ser:</p>
+<p>• <b><code>signed</code></b> (con signo): admite <b>negativos y positivos</b>. <b>Es el comportamiento por defecto</b>: si escribís <code>int</code> a secas, es <code>signed</code>.</p>
+<p>• <b><code>unsigned</code></b> (sin signo): <b>NO admite negativos</b>, solo desde 0 hacia arriba. A cambio, como no "gasta" la mitad del rango en números negativos, <b>duplica el máximo positivo</b> que puede guardar.</p>
+
+<div class="example">
+  <div class="ex-t">El caso de <code>unsigned short</code> (sacado del código de la cátedra)</div>
+  Un <code>short int</code> ocupa 2 bytes. Con signo llega hasta unos <code>32767</code>. Pero <b>sin signo</b> (sin gastar rango en negativos) llega al doble, hasta <code>65535</code>:
+<pre class="code-block">unsigned short int x = 65535;   // máximo valor que entra en un short sin signo</pre>
+  Por eso <code>unsigned</code> conviene cuando sabés que el valor <b>nunca va a ser negativo</b> (una cantidad de personas, una edad) y querés aprovechar todo el rango positivo.
+</div>
+
+<h4>Numéricos decimales (de punto flotante)</h4>
+<p>Guardan números <b>con parte decimal</b>, como <code>1.5</code>, <code>3.14159</code> o <code>-0.001</code>. (En C++ el separador decimal es el <b>punto</b>, no la coma.)</p>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Precisión</th></tr>
+  <tr><td class="c"><code>float</code></td><td class="c">Decimal simple (menos cifras exactas)</td></tr>
+  <tr><td class="c"><code>double</code></td><td class="c">Decimal de doble precisión (más cifras, el más usado)</td></tr>
+  <tr><td class="c"><code>long double</code></td><td class="c">Decimal de precisión extendida (el que más cifras guarda)</td></tr>
+</table>
+<pre class="code-block">float numero_A = 1.5;     // un decimal simple
+double pi = 3.14159;      // doble precisión</pre>
+
+<h4>Booleano</h4>
+<p>El tipo <b><code>bool</code></b> (1 byte) guarda un <b>valor de verdad</b>: solo puede valer <code>true</code> (verdadero) o <code>false</code> (falso). Sirve para responder preguntas de sí/no (¿el usuario es mayor de edad?, ¿el número es par?). Lo vas a usar muchísimo cuando lleguen las decisiones (<code>if</code>).</p>
+<pre class="code-block">bool vBooleanaA = true;
+bool vBooleanaB = false;</pre>
+
+<h4>Carácter: <code>char</code> con comilla SIMPLE</h4>
+<p>El tipo <b><code>char</code></b> (1 byte) guarda <b>un único carácter</b>: una letra, un dígito o un símbolo. El valor va siempre entre <b>comillas SIMPLES</b> <code>' '</code>:</p>
+<pre class="code-block">char letra = 'A';    // UN carácter, comilla simple
+char signo = '$';
+char digito = '7';   // ojo: esto es el CARÁCTER 7, no el número 7</pre>
+
+<h4>Cadena de caracteres: <code>string</code> con comillas DOBLES</h4>
+<p>El tipo <b><code>string</code></b> guarda un <b>texto</b>: un conjunto de caracteres, de cualquier largo. El valor va siempre entre <b>comillas DOBLES</b> <code>" "</code>. (Ocupa 1 byte por cada carácter, más 1 byte extra de control.)</p>
+<pre class="code-block">string saludo = "Hola mundo";    // un texto, comillas dobles
+string nombre = "Adrian";</pre>
+
+<div class="trap">
+  <div class="tr-t">Error típico: confundir <code>'A'</code> (char) con <code>"A"</code> (string)</div>
+  Aunque parezcan lo mismo, son tipos distintos:<br>
+  • <code>'A'</code> con comilla <b>simple</b> → es un <b><code>char</code></b>, UN solo carácter.<br>
+  • <code>"A"</code> con comillas <b>dobles</b> → es un <b><code>string</code></b>, un texto (que justo tiene un carácter).<br><br>
+  Por eso <code>char c = "A";</code> da error (le estás dando un texto a una cajita de un solo carácter) y <code>char c = 'A';</code> es lo correcto. Regla simple: <b>comilla simple para char, comillas dobles para string</b>.
+</div>
+
+<h4>Un <code>char</code> en el fondo es un número (código ASCII)</h4>
+<p>Acá viene algo que sorprende a todos: la computadora <b>no sabe de letras</b>, solo de números. Cada carácter tiene asociado un <b>número entero</b> según una tabla estándar llamada <b>ASCII</b>. Por ejemplo, la letra <code>'A'</code> es el número <code>65</code>, la <code>'B'</code> el <code>66</code>, y así. Por eso un <code>char</code> "es" un número de 1 byte por dentro.</p>
+<p>Esto significa que podés definir un <code>char</code> dándole directamente su número ASCII:</p>
+<pre class="code-block">char y = 65;     // 65 es el código ASCII de 'A', así que y vale 'A'</pre>
+<p>¿Cómo veo el <b>número</b> que hay detrás de un carácter? Si hacés <code>cout &lt;&lt; letra;</code> vas a ver la <b>letra</b> (<code>A</code>), porque <code>cout</code> sabe que es un <code>char</code> y lo muestra como carácter. Para ver el <b>número</b> hay dos trucos que usa la cátedra:</p>
+<p>• El <b><code>+</code> adelante</b> (<code>+letra</code>): ese <code>+</code> fuerza a que el <code>char</code> se trate como número entero, así <code>cout</code> muestra el código en lugar de la letra.</p>
+<p>• <b><code>printf("%d", letra)</code></b>: <code>printf</code> es otra forma de mostrar por pantalla; el <code>%d</code> significa "mostralo como número entero (<i>decimal</i>)", forzando también a ver el código.</p>
+
+<div class="example">
+  <div class="ex-t">Ver la letra y su código ASCII (programa de la cátedra)</div>
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char letra = 'A';   // guarda la letra A (ASCII 65)
+    char y = 65;        // guarda el código 65, que ES la letra A
+
+    cout &lt;&lt; "El valor de letra es: " &lt;&lt; +letra &lt;&lt; endl;  // el + muestra el NÚMERO
+    cout &lt;&lt; "El valor de y es: " &lt;&lt; y &lt;&lt; endl;            // sin +, muestra la LETRA
+
+    printf("%d", letra);   // %d fuerza a mostrar el número: 65
+    printf("%d", y);       // idem: 65
+
+    return 0;
+}</pre>
+  Salida en pantalla:<br>
+<pre class="code-block">El valor de letra es: 65
+El valor de y es: A
+6565</pre>
+  Fijate la diferencia: con <code>+letra</code> aparece <b>65</b> (el número), y con <code>y</code> a secas aparece <b>A</b> (la letra). Los dos <code>printf</code> imprimen <code>65</code> pegados (no hay salto de línea entre ellos), por eso se ve <code>6565</code>.
+</div>
+
+<!-- ─── 5. LECTURA POR TECLADO ─────────────────────────────────────────── -->
+<h3>Leer un dato por teclado: <code>cin</code></h3>
+<p>Hasta ahora vos ponías los valores en el código. Pero lo interesante es que el <b>usuario</b> escriba un dato mientras el programa corre. Para eso está <b><code>cin</code></b> (se lee "ci-in", de <i>console input</i>): la <b>entrada estándar</b>, o sea el teclado.</p>
+<p>Se usa con el operador <code>&gt;&gt;</code>. Si en la unidad 1 viste que <code>cout &lt;&lt;</code> empuja datos <i>hacia</i> la pantalla, acá la flecha apunta al revés: <code>cin &gt;&gt; variable</code> trae lo que se escribe en el teclado y lo <b>mete dentro de la variable</b>. La flecha <b>apunta desde el teclado HACIA la variable</b>.</p>
+<pre class="code-block">&lt;tipo de dato&gt; &lt;nombre variable&gt;;   // primero defino la cajita
+cin &gt;&gt; &lt;nombre variable&gt;;            // después leo el teclado y lo guardo ahí</pre>
+
+<div class="example">
+  <div class="ex-t">Leer un entero y mostrarlo</div>
+<pre class="code-block">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x;                       // defino la cajita (todavía con basura)
+    cout &lt;&lt; "Ingresa un numero: ";
+    cin &gt;&gt; x;                     // el usuario escribe; ese valor se guarda en x
+    cout &lt;&lt; "Ingresaste el " &lt;&lt; x &lt;&lt; endl;
+    return 0;
+}</pre>
+  Si el usuario escribe <code>7</code> y aprieta Enter, la pantalla muestra:<br>
+<pre class="code-block">Ingresa un numero: 7
+Ingresaste el 7</pre>
+  El <code>cin &gt;&gt; x;</code> <b>frena el programa</b> esperando que el usuario escriba algo y apriete Enter; recién ahí guarda el valor en <code>x</code> y sigue.
+</div>
+
+<div class="key">
+  <div class="ky-t">Las dos flechas, una al lado de la otra</div>
+  • <code>cout &lt;&lt; x;</code> → la flecha <b>sale</b> de <code>x</code> hacia la pantalla (MOSTRAR).<br>
+  • <code>cin  &gt;&gt; x;</code> → la flecha <b>entra</b> desde el teclado hacia <code>x</code> (LEER/GUARDAR).<br><br>
+  Truco para no confundirlas: las flechas siempre apuntan en el sentido en que <b>viaja el dato</b>.
+</div>
+
+<!-- ─── 6. ERRORES TÍPICOS (REPASO) ────────────────────────────────────── -->
+<h3>Errores típicos con variables</h3>
+<div class="trap">
+  <div class="tr-t">Elegir un tipo que no alcanza para el valor (overflow)</div>
+  Cada tipo tiene un <b>máximo</b>. Si intentás guardar un valor más grande del que entra, el número "se desborda" (<b>overflow</b>) y obtenés un resultado <b>incorrecto</b>, no un error. Ejemplo: un <code>unsigned short</code> llega hasta <code>65535</code>; si le guardás <code>70000</code>, el valor da la vuelta y queda algo chiquito y sin sentido. Solución: <b>elegí el tipo según el rango de valores</b> que vas a manejar (ante la duda con enteros, usá <code>int</code>).
+</div>
+<div class="trap">
+  <div class="tr-t">Los tres errores que más vas a cometer al principio</div>
+  • Usar una variable <b>sin inicializar</b> → te trae un valor BASURA aleatorio.<br>
+  • Confundir <code>'A'</code> (char, comilla simple) con <code>"A"</code> (string, comillas dobles).<br>
+  • Equivocarte con <b>mayúsculas/minúsculas</b> del nombre (<code>Edad</code> ≠ <code>edad</code>).<br><br>
+  Si un programa "anda mal sin razón", revisá primero estas tres cosas.
+</div>
+
+<!-- ─── 7. RESUMEN ─────────────────────────────────────────────────────── -->
+<h3>Repaso de la unidad</h3>
+<div class="key">
+  <div class="ky-t">Lo que tenés que llevarte</div>
+  • Una <b>variable</b> es una cajita en memoria con 3 componentes: <b>identificador</b> (nombre), <b>valor</b> (dato) y <b>tipo</b> (qué clase de dato).<br>
+  • <b>Definir</b> (<code>int x;</code>) crea la variable UNA vez; recién definida tiene <b>valor basura</b>. <b>Asignar</b> (<code>x = 10;</code>) le guarda un valor y se repite cuantas veces quieras.<br>
+  • El <code>=</code> es <b>asignación</b>: valor a la derecha, variable a la izquierda. Podés inicializar al crear: <code>int x = 10;</code>.<br>
+  • Nombres: letras, dígitos y <code>_</code>; no empiezan con dígito; sin espacios ni tildes; <b>case sensitive</b>; convención <b>camelCase</b> y descriptivos.<br>
+  • Enteros: <code>char</code>(1), <code>short int</code>(2), <code>int</code>(4), <code>long int</code>(4). <code>signed</code> (por defecto, admite negativos) vs <code>unsigned</code> (sin negativos, duplica el máximo: <code>unsigned short</code> llega a 65535).<br>
+  • Decimales: <code>float</code>, <code>double</code>, <code>long double</code>. Booleano: <code>bool</code>(1) → <code>true</code>/<code>false</code>.<br>
+  • <code>char</code>(1) va con <b>comilla simple</b> <code>'A'</code> y por dentro es un número (ASCII: <code>'A'</code> = 65); <code>string</code> va con <b>comillas dobles</b> <code>"texto"</code>. Para ver el número de un char: <code>+letra</code> o <code>printf("%d", letra)</code>.<br>
+  • Se lee del teclado con <code>cin &gt;&gt; variable;</code> (la flecha apunta hacia la variable).
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="ayed"></div>
+</div>
+</details>
