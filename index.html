@@ -30987,77 +30987,526 @@ registerExercises('pc-parcial', '7', [
 
 
 // ============ EJERCICIOS PC 2° PARCIAL ============
-// Ejercicios PC · 2° Parcial — basados en parciales reales (Balbiano/Camejo 2023-2025)
+// Ejercicios PC · 2° Parcial — TRANSCRIPTOS TAL CUAL de parciales reales (cátedra Camejo/Balbiano, 2023-2025).
+// Cada ejercicio indica su origen (año · tema · ejercicio). La opción correcta es la marcada con X en el parcial original.
+// En los ejercicios "¿cuál versión funciona?", las 4 versiones se muestran como bloques en el enunciado
+// y las opciones son las etiquetas (1/2/3/4 o A/B/C/D), igual que se marca en la matriz de respuestas.
+
 registerExercises('pc-segundo-parcial', '1', [
-  {st: '¿Cómo es el formato del 2° parcial de PC?', opts: ['Hay que escribir programas completos desde cero', 'Son entre 9 y 11 preguntas de opción múltiple (una sola correcta)', 'Es oral', 'Es un único ejercicio largo'], c: 1, ex: 'El 2° parcial es 100% opción múltiple: entre 9 y 11 preguntas, cada una con una sola respuesta correcta que se vuelca en una grilla. Nunca se escribe código desde cero: o predecís la salida, o elegís cuál de 4 versiones funciona. ▸ Por qué las otras: nunca se programa desde cero ni es oral; siempre son varias preguntas.'},
-  {st: '¿Cuál es el tema que MÁS aparece en el 2° parcial?', opts: ['Recursión', 'map() y filter()', 'Ordenamiento de listas a mano', 'Clases y objetos'], c: 1, ex: 'map() y filter() aparecen en TODOS los parciales, normalmente 2 a 4 veces. Dominarlos asegura varios puntos. La segunda estrella son los diccionarios (clave → lista de datos). ▸ Por qué las otras: recursión, ordenamientos a mano y clases NO entran en este parcial.'},
-  {st: 'Si una pregunta muestra <code>list(filter(func, datos))</code>, el tema es:', opts: ['Archivos', 'Funciones de orden superior (map/filter)', 'Pandas', 'Matplotlib'], c: 1, ex: 'map() y filter() son funciones de orden superior: reciben una función y una secuencia. filter deja los elementos donde la función devuelve True. ▸ Por qué las otras: archivos usa open/readlines; pandas usa df[...]; matplotlib usa ax/plt.'},
-  {st: 'Abrir un archivo con <code>open("datos.txt", "w")</code> (modo write):', opts: ['Agrega al final sin borrar lo anterior', 'Borra TODO el contenido previo y escribe de cero', 'Falla si el archivo ya existe', 'Solo permite leerlo'], c: 1, ex: 'El modo "w" abre para escribir y BORRA todo el contenido previo (crea el archivo si no existe). Si querías conservar lo anterior y agregar al final, el modo es "a" (append). ▸ Por qué las otras: agregar sin borrar es "a"; "w" no falla si existe (lo pisa); "w" no es de lectura.'},
-  {st: 'Para combinar dos condiciones en un filtro de pandas (DataFrame) se usa:', opts: ['<code>and</code> / <code>or</code>', '<code>&amp;</code> / <code>|</code> con paréntesis en cada condición', '<code>+</code> / <code>-</code>', '<code>&amp;&amp;</code> / <code>||</code>'], c: 1, ex: 'En pandas los filtros se combinan con &amp; (y), | (o), ~ (no), y CADA condición va entre paréntesis: <code>df[(df["a"] &gt; 1) &amp; (df["b"] != "C")]</code>. ▸ Por qué las otras: <code>and</code>/<code>or</code> de Python tiran error con Series; <code>+/-</code> no son lógicos; <code>&amp;&amp;/||</code> no existen en Python.'},
-  {st: 'La función <code>input()</code> en Python siempre devuelve un valor de tipo:', opts: ['<code>int</code>', '<code>float</code>', '<code>str</code> (string)', '<code>bool</code>'], c: 2, ex: 'input() SIEMPRE devuelve str, aunque el usuario escriba un número. Por eso para usarlo como número hay que convertir: <code>int(input(...))</code> o <code>float(input(...))</code> — y eso puede lanzar ValueError si el texto no es numérico (de ahí el try/except). ▸ Por qué las otras: Python no "adivina" el tipo de lo que escribe el usuario.'}
+  {st: '¿Cómo es el 2° parcial de PC (cátedra Camejo/Balbiano)?', opts: ['Hay que escribir programas completos desde cero', 'Son entre 9 y 13 preguntas de opción múltiple, una sola correcta, que se vuelcan en una matriz', 'Es un examen oral', 'Es un único ejercicio largo de programación'], c: 1, ex: 'Según los parciales 2023–2025: es 100% opción múltiple, entre 9 y 13 preguntas (2025: 9 · 2024: 10 · 2023: 11 a 13), cada una con UNA sola respuesta correcta que se marca con una X en una matriz de opciones. "Sólo se considerarán las respuestas anotadas en la matriz". ▸ Por qué las otras: nunca se programa desde cero ni es oral; son varias preguntas, no una.'},
+  {st: 'En el parcial, cada pregunta tiene uno de DOS formatos posibles. ¿Cuáles son?', opts: ['Verdadero/Falso y desarrollo', 'O predecís la salida de un programa, o elegís cuál de 4 versiones de un código cumple lo pedido', 'Multiple choice y completar huecos', 'Solo armar tablas de verdad'], c: 1, ex: 'Los dos formatos reales: (1) "¿Qué imprime / qué contiene / cómo queda el archivo?" → trazás la ejecución y elegís la salida correcta; (2) "¿Cuál de estas 4 versiones funciona?" → comparás 4 fragmentos casi iguales y detectás el que cumple. ▸ Por eso practicar trazando código es exactamente lo que vas a hacer el día del parcial.'},
+  {st: 'En el parcial 2025 (9 preguntas), ¿cómo se reparte el puntaje?', opts: ['Todas las preguntas valen lo mismo', 'Las preguntas 1 a 5 valen 1 punto cada una; las 6 a 9 valen 2 puntos (o 0)', 'Solo cuentan las últimas 4', 'Cada pregunta vale 2 puntos'], c: 1, ex: 'Del encabezado real 2025: "Las preguntas de la 1 a la 5 inclusive permiten acumular 1 punto; de la 6 a la 9 cada una acumula 2 puntos o 0". Las últimas (2 puntos) son las más integradoras: predicción de salida con map/filter, elegir la estructura de datos correcta y pandas. ▸ Conviene asegurar las primeras y no dejar sin responder las de 2 puntos.'}
 ]);
 
 registerExercises('pc-segundo-parcial', '2', [
-  {st: 'Cuál de estos diccionarios tiene TODAS sus claves numéricas (int/float)?', opts: ['<code>{"1":2, "23":5, "0":13}</code>', '<code>{0:"cero", 2:66, 5:3.45, 1:[-2,5]}</code>', '<code>{("1","0"):2, ("3","5"):44}</code>', '<code>{"a":1, "b":2}</code>'], c: 1, ex: 'Las claves de la opción B son 0, 2, 5 y 1: todas enteras (lo que esté del lado del VALOR no importa). ▸ Por qué las otras están mal: (A) y (D) tienen claves entre comillas → son strings, no números; (C) tiene claves que son tuplas. ▸ Detalle fino: <code>True</code> y <code>False</code> también cuentan como numéricos (bool es subtipo de int, True==1), una trampa habitual del parcial.'},
-  {st: 'En <code>botones = {"MET 002": ["plata", 350.0, 1]}</code>, ¿qué línea aumenta 10% el precio (2° dato)?', opts: ['<code>botones["MET 002"] = 1.1</code>', '<code>botones["MET 002"][1] *= 1.1</code>', '<code>botones["MET 002"][2] -= 1</code>', '<code>precio = 350 * 1.1</code>'], c: 1, ex: '<code>botones["MET 002"]</code> es la lista <code>["plata", 350.0, 1]</code>; el índice [1] es el precio (350.0); <code>*= 1.1</code> lo modifica DENTRO de la lista → 385.0. ▸ Por qué las otras están mal: (A) pisa toda la lista por el número 1.1; (C) modifica el tamaño (índice 2), no el precio; (D) calcula aparte pero no toca el diccionario.'},
-  {st: 'Para que <code>estructura[0] = "primero"</code> se ejecute SIN error, <code>estructura</code> puede ser:', opts: ['Una lista vacía <code>[]</code>', 'Una tupla de dos elementos', 'Un diccionario', 'La cadena vacía <code>""</code>'], c: 2, ex: 'En un diccionario, <code>d[0] = "primero"</code> CREA la clave 0 (o la pisa) — siempre funciona. ▸ Por qué las otras fallan: la lista vacía da IndexError (no hay posición 0 para asignar); la tupla es inmutable (TypeError); el string es inmutable (TypeError).'},
-  {st: 'Con <code>datos = {41234225: ["Juan", "Aguirre", 301]}</code>, ¿qué devuelve <code>datos[41234225][2]</code>?', opts: ['<code>"Juan"</code>', '<code>301</code>', '<code>"Aguirre"</code>', 'Error'], c: 1, ex: 'Se encadenan dos accesos: <code>datos[41234225]</code> da la lista <code>["Juan", "Aguirre", 301]</code>, y <code>[2]</code> toma su índice 2 → 301. ▸ Por qué las otras: el índice 0 sería "Juan", el 1 "Aguirre"; no hay error porque la clave existe y el índice es válido.'},
-  {st: 'Al recorrer un diccionario con <code>for k in d:</code>, la variable <code>k</code> toma:', opts: ['las claves', 'los valores', 'los pares (clave, valor)', 'las posiciones 0,1,2…'], c: 0, ex: 'Iterar un diccionario directo recorre las CLAVES. Para los valores se usa <code>for v in d.values()</code>, y para ambos a la vez <code>for k, v in d.items()</code>. ▸ Por qué las otras: los valores y los pares requieren .values()/.items(); los diccionarios no se recorren por posición.'},
-  {st: 'El diccionario es <code>mail → [password, usuario]</code>. ¿Qué comparación valida que coincidan los DOS datos?', opts: ['<code>if usr[datos][0] == usuario:</code>', '<code>if usr[datos] == [passw, usuario]:</code>', '<code>if usuario in usr:</code>', '<code>if passw in usr:</code>'], c: 1, ex: 'El valor de cada clave es la lista <code>[password, usuario]</code>. Comparar contra <code>[passw, usuario]</code> exige que coincidan AMBOS datos en el orden correcto. ▸ Por qué las otras: (A) valida solo el password; (C) y (D) chequean si un texto es una CLAVE (mail) del diccionario, no los datos de acceso.'}
+  {st: `¿Cuál de los siguientes diccionarios tiene todas sus claves numéricas (tipo int, float o complex)?`, opts: [`<code>{'1':2, '23':5, '0':13}</code>`, `<code>{1:'uno', 2:'dos', True:'V', False:'F'}</code>`, `<code>{0:'3', 2:66, 5:3.45, 1:[-2,5]}</code>`, `<code>{('1','0'):2, ('3','5'):44}</code>`], c: 2, ex: `La consigna pide claves de tipo int/float/complex. En la opción C las claves son 0, 2, 5 y 1: todas enteras (lo que esté del lado del VALOR —incluso una lista— no importa). ▸ Opción A: las claves '1', '23' y '0' van entre comillas → son strings. ▸ Opción B (la trampa): True y False son bool; aunque bool es subtipo de int, el parcial no la da por válida porque pide int/float/complex, y además 1 y True son la MISMA clave (colisionan). ▸ Opción D: las claves son tuplas, no números. ▸ <i>(Parcial real 2025 · T1 · E1)</i>`},
+  {st: `¿Cuál de los siguientes diccionarios tiene todas sus claves numéricas (tipo int, float o complex)?`, opts: [`<code>a = True</code> &nbsp; <code>{a:'verano', True:False, 1.25:'invierno'}</code>`, `<code>a = 1</code> &nbsp; <code>{True:a, 1:'uno', 4:'cuatro'}</code>`, `<code>a = str(True)</code> &nbsp; <code>{a[0]:0, 2:66, 5:3.45, a:[-2,5]}</code>`, `<code>a = int(True)</code> &nbsp; <code>{2:('1','0'), a:('3','5')}</code>`], c: 3, ex: `Hay que resolver primero cuánto vale <code>a</code>. ▸ Opción D: <code>a = int(True)</code> vale 1, así que las claves son 2 y 1: ambas enteras (los valores son tuplas, no importa). ✓ ▸ Opción A: <code>a = True</code> → claves True (bool) y 1.25; además a y True colisionan. ▸ Opción B: claves True (bool), 1 y 4; True y 1 colisionan. ▸ Opción C: <code>a = str(True)</code> es 'True', entonces a[0] es 'T' y a es 'True' → claves string. ▸ <i>(Parcial real 2025 · T5 · E1)</i>`},
+  {st: `¿Cuál versión de la función <code>ingreso()</code> valida correctamente los datos de acceso a una cuenta de mail? Deben coincidir usuario y password.
+<pre class="code-block"># users contiene  mail: [password, usuario]
+users = {'info@usina.com.ar': ['X25fc230', 'joanaBur'],
+         'iro@hotmail.com':   ['Irma1211', 'rojas_27'],
+         'ergo@gmail.com':    ['joacoS01', 'infoGENERAL']}
+
+while not ingreso(users):
+    print('Datos de Acceso Erróneos')</pre>
+<b>Opción 1</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ').lower()
+    resp = False
+    for datos in usr:
+        if usr[datos][0] == usuario:
+            resp = True
+    return resp</pre>
+<b>Opción 2</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ')
+    resp = False
+    for datos in usr:
+        if usr[datos] == [passw, usuario]:
+            resp = True
+    return resp</pre>
+<b>Opción 3</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ')
+    return usuario in usr or passw in usr</pre>
+<b>Opción 4</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ').lower()
+    passw = input('Password: ').lower()
+    return usuario in usr and passw in usr</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `Cada clave (un mail) guarda la lista <code>[password, usuario]</code>. Al recorrer <code>for datos in usr</code>, <code>datos</code> es cada mail (la clave) y <code>usr[datos]</code> es su lista <code>[password, usuario]</code>. La Opción 2 compara <code>usr[datos] == [passw, usuario]</code>: exige que coincidan los DOS datos, en ese orden. ▸ Opción 1: compara <code>usr[datos][0]</code> (el password guardado) contra <code>usuario</code> (lo tipeado como usuario) → mezcla los campos y valida uno solo; encima hace <code>.lower()</code> al password. ▸ Opciones 3 y 4: <code>usuario in usr</code> / <code>passw in usr</code> preguntan si ese texto es una CLAVE (un mail) del diccionario, no los datos de acceso. ▸ <i>(Parcial real 2023 · T8 · Ej. 0208)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '3', [
-  {st: '¿Qué imprime?<br><pre class="code-block">def mes31(m):\n    de30dias = (4, 6, 9, 11)\n    return m not in de30dias and m != 2\n\nmeses = [1, 5, 6, 2, 7]\nprint(list(filter(mes31, meses)))</pre>', opts: ['<code>[1, 5, 6, 2, 7]</code>', '<code>[1, 5, 7]</code>', '<code>[6, 2]</code>', '<code>[]</code>'], c: 1, ex: 'filter deja los <code>m</code> donde la función da True. ▸ 1: no está en (4,6,9,11) y ≠2 → True. ▸ 5: True. ▸ 6: está en de30dias → False (sale). ▸ 2: <code>m != 2</code> es False → sale. ▸ 7: True. Quedan [1, 5, 7]. ▸ Por qué las otras: (A) sería sin filtrar; (C) son justo los que NO pasan; (D) vacío implicaría que ninguno cumple.'},
-  {st: 'Para que la salida sea <code>["ASA", "UTO", "ANCO", "ARTEL", "EMÁFORO"]</code> (saca la 1ª letra y pasa a mayúsculas), con <code>def edita(p): return p[1:].upper()</code> y <code>palabras = ["casa","auto","banco","cartel","semáforo"]</code>, la línea es:', opts: ['<code>nueva = list(map(palabras, edita))</code>', '<code>nueva = list(map(edita, palabras))</code>', '<code>nueva = list(filter(edita, palabras))</code>', '<code>nueva = palabras.map(edita)</code>'], c: 1, ex: 'map aplica la función a CADA elemento y devuelve la misma cantidad transformada. El orden es SIEMPRE <code>map(función, secuencia)</code>. ▸ Por qué las otras: (A) invierte los argumentos; (C) filter espera una función que devuelva True/False y selecciona, no transforma; (D) las listas no tienen método .map().'},
-  {st: '¿Qué imprime?<br><pre class="code-block">def mayus(t): return t.upper()\ndef tilde(t): return ("á" in t) or ("ó" in t)\n\nciudades = ["anillaco", "san javier", "la dársena", "fiambalá"]\nsel = list(filter(tilde, ciudades))\nprint(list(map(mayus, sel)))</pre>', opts: ['<code>["anillaco", "san javier", "la dársena", "fiambalá"]</code>', '<code>["LA DÁRSENA", "FIAMBALÁ"]</code>', '<code>["ANILLACO", "SAN JAVIER"]</code>', '<code>[]</code>'], c: 1, ex: 'Primero filter deja las que tienen á u ó: "la dársena" y "fiambalá" (las otras no tienen tilde). Después map(mayus) las pasa a mayúsculas → ["LA DÁRSENA", "FIAMBALÁ"]. ▸ Lógica clave: primero SELECCIONAR (filter), después TRANSFORMAR (map). ▸ Por qué las otras: (A) no aplica map; (C) son justo las que filter descarta; (D) sí hay resultados.'},
-  {st: '¿Cuál es la diferencia entre <code>map</code> y <code>filter</code>?', opts: ['Hacen exactamente lo mismo', 'map TRANSFORMA cada elemento (misma cantidad); filter SELECCIONA los que dan True', 'filter transforma y map selecciona', 'Ninguna devuelve algo útil'], c: 1, ex: 'map(func, sec) aplica func a cada elemento y devuelve la MISMA cantidad, pero transformados. filter(func, sec) usa una func que devuelve True/False y deja SOLO los elementos que dan True (devuelve los originales, no transformados). ▸ Por qué las otras: no son lo mismo, y los roles no están invertidos.'},
-  {st: '¿Qué imprime?<br><pre class="code-block">def calc(n): return (n, n % 2)\nnumeros = [36, 14007, 33, 20]\nprint(list(map(calc, numeros)))</pre>', opts: ['<code>[36, 14007, 33, 20]</code>', '<code>[(36, 0), (14007, 1), (33, 1), (20, 0)]</code>', '<code>[0, 1, 1, 0]</code>', '<code>[(0, 36), (1, 14007)]</code>'], c: 1, ex: 'map aplica calc a cada número; calc devuelve la tupla <code>(n, n%2)</code> (el número y su resto al dividir por 2: 0 si es par, 1 si es impar). ▸ 36 par → (36,0); 14007 impar → (14007,1); 33 impar → (33,1); 20 par → (20,0). ▸ Por qué las otras: (A) no transforma; (C) muestra solo el resto; (D) invierte el orden de la tupla y pierde elementos.'},
-  {st: '¿Por qué se escribe <code>list(map(...))</code> y no solo <code>map(...)</code>?', opts: ['Porque map ya imprime la lista solo', 'Porque map devuelve un iterador; <code>list()</code> lo convierte en una lista visible', 'Porque list() ordena los elementos', 'Porque no hace falta, da igual'], c: 1, ex: 'En Python 3, map() y filter() devuelven un objeto iterador "perezoso" (no una lista). Si lo imprimís directo ves algo como <code>&lt;map object at 0x...&gt;</code>. Hay que envolverlo en <code>list(...)</code> para materializar y ver la lista. ▸ Por qué las otras: map no imprime solo, list() no ordena, y sí hace falta convertir.'}
+  {st: `¿Qué contiene <code>b</code>?
+<pre class="code-block">def organiza(n):
+    if n % 3 == 0 and n % 2 == 0 or n &lt; 100:
+        return True
+    else:
+        return False
+
+a = [15, -150, 150, 66]
+b = list(filter(organiza, a))</pre>`, opts: [`<code>[15, -150, 150, 66]</code>`, `<code>[-150, 66]</code>`, `<code>[15, 66]</code>`, `<code>[]</code>`], c: 0, ex: `Por precedencia, <code>and</code> se evalúa ANTES que <code>or</code>, así que la condición es <code>(n%3==0 and n%2==0) or (n &lt; 100)</code>. ▸ 15: es &lt; 100 → True. ▸ -150: &lt; 100 → True. ▸ 150: múltiplo de 3 y de 2 → True (no necesita el &lt; 100). ▸ 66: &lt; 100 → True. Pasan los cuatro. ▸ La trampa es creer que 150 (que no es &lt; 100) queda afuera, pero sí es múltiplo de 6. ▸ <i>(Parcial real 2023 · T8 · Ej. 0108)</i>`},
+  {st: `Dado el programa, ¿cuál debería ser la línea faltante para que la salida sea <code>['ASA', 'UTO', 'ANCO', 'ARTEL', 'EMÁFORO']</code>?
+<pre class="code-block">def edita1(pal):
+    return pal[1:].upper()
+def edita2(pal):
+    return pal[0].upper()
+def edita3(pal):
+    return len(pal) &gt; 5
+
+palabras = ['casa', 'auto', 'banco', 'cartel', 'semáforo']
+............................   # línea de código faltante
+print(nuevaLista)</pre>`, opts: [`<code>nuevaLista = list(map(palabras, edita2))</code>`, `<code>nuevaLista.append(map(edita1, palabras))</code>`, `<code>nuevaLista = list(map(edita1, palabras))</code>`, `<code>nuevaLista = list(map(edita3, palabras))</code>`], c: 2, ex: `La salida saca la 1ª letra de cada palabra y la pasa a mayúsculas: eso es <code>edita1</code> (<code>pal[1:].upper()</code>). <code>map</code> la aplica a cada palabra y <code>list()</code> la materializa. ▸ Opción A: invierte los argumentos (es <code>map(función, secuencia)</code>, no al revés). ▸ Opción B: usa <code>.append</code> sobre una lista que todavía no existe y no convierte con <code>list()</code>. ▸ Opción D: usa <code>edita3</code>, que devuelve True/False (largo &gt; 5), no transforma el texto. ▸ <i>(Parcial real 2025 · T1 · E7)</i>`},
+  {st: `¿Cuál es la salida del siguiente programa?
+<pre class="code-block">def edita(txt):
+    return txt.upper()
+def patron(txt):
+    return ('á' in txt) or ('ó' in txt)
+
+ciudades = ['anillaco', 'san javier', 'la dársena', 'fiambalá']
+mostrar = list(filter(patron, ciudades))
+salida = list(map(edita, mostrar))
+print(salida)</pre>`, opts: [`<code>['anillaco', 'san javier', 'la dársena', 'fiambalá']</code>`, `<code>['ANILLACO', 'SAN JAVIER']</code>`, `<code>[]</code>`, `<code>['LA DÁRSENA', 'FIAMBALÁ']</code>`], c: 3, ex: `Primero <code>filter(patron, ...)</code> deja las que tienen 'á' u 'ó': "la dársena" y "fiambalá" (las otras no tienen esas tildes). Después <code>map(edita, ...)</code> las pasa a mayúsculas → <code>['LA DÁRSENA', 'FIAMBALÁ']</code>. ▸ Lógica clave: primero SELECCIONAR (filter), después TRANSFORMAR (map). ▸ Opción B son las que NO tienen á/ó; A no aplica el map; C implicaría que ninguna tiene á/ó. ▸ <i>(Parcial real 2025 · T1 · E9)</i>`},
+  {st: `Dado el programa, ¿cuál debería ser la línea faltante para que la salida sea <code>[(36, 0), (14007, 1), (33, 1), (20, 0)]</code>?
+<pre class="code-block">def calc1(num):
+    return num % 2 != 0
+def calc2(num):
+    return num * 2
+def calc3(num):
+    return (num, num % 2)
+
+numeros = [36, 14007, 33, 20]
+............................   # línea de código faltante
+print(nuevaLista)</pre>`, opts: [`<code>nuevaLista.sort(map(numeros, calc3))</code>`, `<code>nuevaLista = list(map(calc3, numeros))</code>`, `<code>nuevaLista = list(map(calc2, numeros))</code>`, `<code>nuevaLista.append(map(calc1, numeros))</code>`], c: 1, ex: `La salida son tuplas <code>(num, num%2)</code> — el número y su resto al dividir por 2 (0 si es par, 1 si es impar): eso es <code>calc3</code>. <code>map(calc3, numeros)</code> las genera y <code>list()</code> las muestra. ▸ Opción A usa <code>.sort</code> con argumentos inválidos. ▸ Opción C usa <code>calc2</code> (num*2) → daría [72, 28014, 66, 40]. ▸ Opción D usa <code>calc1</code> (True/False) y <code>.append</code> sobre una lista inexistente. ▸ <i>(Parcial real 2025 · T5 · E7)</i>`},
+  {st: `¿Cuál es la salida del siguiente programa?
+<pre class="code-block">def edita(txt):
+    return txt[2:].lower()
+def patron(txt):
+    cant = 0
+    for voc in 'aeiou':
+        if voc in txt:
+            cant += 1
+    return cant &gt; 1
+
+frutas = ['CIRUELA', 'FRUTILLA', 'MANZANA', 'NARANJA']
+salida = list(map(edita, frutas))
+mostrar = list(filter(patron, salida))
+print(mostrar)</pre>`, opts: [`<code>['ciruela', 'frutilla', 'naranja']</code>`, `<code>['MANZANA', 'NARANJA']</code>`, `<code>['manzan', 'naranj']</code>`, `<code>['ruela', 'utilla']</code>`], c: 3, ex: `OJO al orden. PRIMERO <code>map(edita)</code> sobre TODAS: saca las 2 primeras letras y pasa a minúscula → 'CIRUELA'→'ruela', 'FRUTILLA'→'utilla', 'MANZANA'→'nzana', 'NARANJA'→'ranja'. DESPUÉS <code>filter(patron)</code> deja las que tienen MÁS DE UNA vocal distinta: 'ruela' (u,e,a) y 'utilla' (u,i,a) sí; 'nzana' y 'ranja' solo tienen 'a'. Resultado: <code>['ruela', 'utilla']</code>. ▸ B no transforma (mayúsculas); A y C no aplican bien edita o filter. ▸ <i>(Parcial real 2025 · T5 · E9)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '4', [
-  {st: 'Un programa hace <code>arch.write(...)</code> en dos archivos que se crean de cero. ¿Qué par de modos NO produce error?', opts: ['<code>"r"</code> y <code>"r"</code>', '<code>"w"</code> y <code>"a"</code>', '<code>"r"</code> y <code>"w"</code>', '<code>"r+"</code> y <code>"r"</code>'], c: 1, ex: 'Para ESCRIBIR hace falta "w" (crea/sobrescribe) o "a" (crea/agrega): ambos sirven y no fallan aunque el archivo no exista. ▸ Por qué las otras: "r" es solo lectura (write da error) y además lanza FileNotFoundError si el archivo no existe; "r+" también falla si el archivo no existe todavía.'},
-  {st: '¿Qué modo de apertura conserva el contenido previo y agrega al final?', opts: ['<code>"r"</code>', '<code>"w"</code>', '<code>"a"</code> (append)', '<code>"x"</code>'], c: 2, ex: '"a" (append) abre el archivo conservando lo que ya tenía y escribe a continuación, al final. ▸ Por qué las otras: "r" es solo lectura; "w" BORRA todo antes de escribir; "x" es creación exclusiva (falla si ya existe), no se usa en estos parciales.'},
-  {st: '¿Qué devuelve <code>archivo.readlines()</code>?', opts: ['Una sola línea (string)', 'Una LISTA con todas las líneas (cada una termina en <code>\\n</code>)', 'Todo el archivo como un único string', 'La cantidad de líneas'], c: 1, ex: 'readlines() devuelve una lista de strings, una por línea, y cada string conserva su <code>\\n</code> final. ▸ Por qué las otras: readline() (singular) lee UNA línea; read() devuelve todo como un solo string; para contar usarías len(readlines()).'},
-  {st: 'Si <code>linea = "ana,25,CABA"</code>, ¿qué devuelve <code>linea.split(",")</code>?', opts: ['<code>"ana"</code>', '<code>["ana", "25", "CABA"]</code>', '<code>("ana", 25, "CABA")</code>', '<code>3</code>'], c: 1, ex: 'split(",") parte el texto usando la coma como separador y devuelve una LISTA de strings. Ojo: el "25" queda como string, no como número. ▸ Por qué las otras: no devuelve un solo dato ni una tupla ni la cantidad; para procesar campos de un CSV este es el patrón estándar (strip + split).'},
-  {st: 'Para escribir en líneas separadas con <code>arch.write(...)</code>, hay que:', opts: ['Nada, write() agrega el salto de línea solo', 'Agregar <code>"\\n"</code> al final de cada texto escrito', 'Usar print() en su lugar', 'Llamar a append()'], c: 1, ex: 'A diferencia de print(), write() NO agrega el salto de línea: hay que ponerlo manualmente con <code>"\\n"</code>, sino queda todo pegado en una sola línea. ▸ Por qué las otras: write no lo agrega solo; print escribe en pantalla, no en archivo; append es de listas.'},
-  {st: '¿Qué ocurre al ejecutar <code>open("noexiste.txt", "r")</code> si el archivo no existe?', opts: ['Crea el archivo vacío', 'Lanza <code>FileNotFoundError</code>', 'Devuelve <code>None</code>', 'Lo abre en modo escritura'], c: 1, ex: 'El modo "r" exige que el archivo exista; si no, lanza FileNotFoundError (por eso a veces se envuelve en try/except). ▸ Por qué las otras: "r" no crea archivos (eso hacen "w" y "a"); no devuelve None ni cambia de modo solo.'}
+  {st: `Dado el archivo <code>carreras.txt</code> (alumnos anotados por carrera), ¿con cuál conjunto de modos de apertura funciona el programa? Al finalizar deben quedar 3 archivos nuevos (quimica-alumnos.txt, industrial-alumnos.txt, civil-alumnos.txt), cada uno con sus alumnos.
+<pre class="code-block">def abre(archivo, modo):
+    nombre = open(archivo, modo)
+    return nombre
+
+alumnos = abre('carreras.txt', …)        # modo 1?
+tit = alumnos.readline()
+tit = tit.strip('\\n').lower()
+archivo = tit + '-alumnos.txt'
+lista = abre(archivo, …)                  # modo 2?
+for lin in alumnos:
+    if ',' in lin:
+        lista.write(lin)
+    else:
+        lista.close()
+        tit = lin.strip('\\n').lower()
+        archivo = tit + '-alumnos.txt'
+        lista = abre(archivo, …)          # modo 3?
+alumnos.close()
+lista.close()</pre>`, opts: [`<code>modo 1 'r' · modo 2 'w' · modo 3 'r'</code>`, `<code>modo 1 'a' · modo 2 'r' · modo 3 'r'</code>`, `<code>modo 1 'r' · modo 2 'w' · modo 3 'w'</code>`, `<code>modo 1 'w' · modo 2 'w' · modo 3 'w'</code>`], c: 2, ex: `<code>alumnos</code> (carreras.txt) sólo se LEE (readline + for) → modo <code>'r'</code>. <code>lista</code> se ESCRIBE (write) y se reabre para cada carrera → <code>'w'</code> en ambos casos. Por eso C: r, w, w. ▸ A pone <code>'r'</code> en el modo 3 (no podría escribir). ▸ B abre el de lectura como <code>'a'</code> y los de escritura como <code>'r'</code>. ▸ D abre carreras.txt en <code>'w'</code> → lo BORRARÍA antes de poder leerlo. ▸ <i>(Parcial real 2025 · T1 · E4)</i>`},
+  {st: `Dados <code>vtas-suc1.txt</code> y <code>vtas-suc2.txt</code> (ventas mensuales), ¿con cuál conjunto de modos funciona? Al final debe quedar <code>vtas-semestre.txt</code> con el total, y <code>vtas-suc1.txt</code> debe tener agregadas al final las líneas de <code>vtas-suc2.txt</code>.
+<pre class="code-block">total = 0
+suc1 = open('vtas-suc1.txt', …)          # modo 1?
+todas = suc1.readlines()
+suc1.close()
+for elem in todas:
+    lin = elem.strip('\\n').split(',')
+    total += float(lin[1])
+suc2 = open('vtas-suc2.txt', …)          # modo 2?
+todas = suc2.readlines()
+suc2.close()
+for elem in todas:
+    lin = elem.strip('\\n').split(',')
+    total += float(lin[1])
+linea = 'Total ventas semestre suc 1 y 2: $' + str(total)
+semestre = open('vtas-semestre.txt', …)  # modo 3?
+semestre.write(linea)
+semestre.close()
+suc1 = open('vtas-suc1.txt', …)          # modo 4?
+for elem in todas:
+    suc1.write(elem)
+suc1.close()</pre>`, opts: [`<code>modo 1 'r' · modo 2 'r' · modo 3 'w' · modo 4 'a'</code>`, `<code>modo 1 'a' · modo 2 'a' · modo 3 'w' · modo 4 'w'</code>`, `<code>modo 1 'r' · modo 2 'r+' · modo 3 'r' · modo 4 'r'</code>`, `<code>modo 1 'w' · modo 2 'r' · modo 3 'a' · modo 4 'w'</code>`], c: 0, ex: `suc1 y suc2 se LEEN (readlines) → <code>'r'</code> y <code>'r'</code>. vtas-semestre.txt se crea para escribir → <code>'w'</code>. suc1 se reabre para AGREGAR al final (sin borrar) las líneas de suc2 → <code>'a'</code>. Por eso A: r, r, w, a. ▸ El modo 4 debe ser <code>'a'</code>: con <code>'w'</code> (D) borraría suc1 en vez de agregar. ▸ C abre todo en lectura (no podría escribir). ▸ B abre los de lectura en <code>'a'</code>. ▸ <i>(Parcial real 2025 · T5 · E4)</i>`},
+  {st: `¿Cuál versión de <code>abreParaLeer()</code> evita que el programa se interrumpa si el archivo no existe (y, sólo si no existe, lo crea)?
+<pre class="code-block">datos = abreParaLeer('uno.txt')
+...
+datos.close()</pre>
+<b>Opción 1</b>
+<pre class="code-block">def abreParaLeer(arch):
+    a = open(arch, 'r')
+    try:
+        return a
+    except FileNotFoundError:
+        a = open(arch, 'w')
+        a.close()
+        a = open(arch, 'r')
+        return a</pre>
+<b>Opción 2</b>
+<pre class="code-block">def abreParaLeer(arch):
+    try:
+        a = open(arch, 'r')
+        return a
+    except FileNotFoundError:
+        print('No existe', arch)</pre>
+<b>Opción 3</b>
+<pre class="code-block">def abreParaLeer(arch):
+    a = open(arch, 'w')
+    try:
+        a = open(arch)
+        return a
+    except:
+        a = open(arch, 'w')
+        a.close()
+        a = open(arch, 'r')
+        return a</pre>
+<b>Opción 4</b>
+<pre class="code-block">def abreParaLeer(arch):
+    try:
+        a = open(arch, 'r')
+        return a
+    except FileNotFoundError:
+        a = open(arch, 'w')
+        a.close()
+        a = open(arch, 'r')
+        return a</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 3, ex: `El <code>open(arch, 'r')</code> que puede fallar tiene que estar DENTRO del <code>try</code>. La Opción 4 intenta abrir en 'r'; si salta <code>FileNotFoundError</code>, crea el archivo con 'w', lo cierra y lo reabre en 'r' para devolverlo. ▸ Opción 1: el open('r') está FUERA del try → si no existe, explota antes de entrar al try. ▸ Opción 2: maneja el error pero NO crea el archivo (devuelve None → <code>datos.close()</code> falla). ▸ Opción 3: abre primero en 'w' (¡borra/crea el archivo siempre!), desvirtuando el "sólo si no existe". ▸ <i>(Parcial real 2023 · T8 · Ej. 0308)</i>`},
+  {st: `¿Cuál versión de <code>guarda()</code> genera <code>personal.txt</code> con EXACTAMENTE este contenido?
+<pre class="code-block">pa,ANA PAZ
+ai,INÉS ALZA
+os,SERGIO ORTIZ</pre>
+<pre class="code-block">nombres = {'ana':'paz', 'inés':'alza', 'sergio':'ortiz'}
+guarda(nombres, 'personal.txt')</pre>
+<b>Opción 1</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'a', encoding='utf-8')
+    for nom in dicci:
+        inicio = dicci[nom][0].upper() + nom[0] + ','
+        dat.write(inicio + '\\n' + nom + ' ' + dicci[nom])
+    dat.close()</pre>
+<b>Opción 2</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'W', encoding='utf-8')
+    for nom in dicci:
+        inicio = nom[0] + dicci[nom][1].upper() + ','
+        fin = nom + ' ' + dicci[nom].upper() + '\\n'
+        dat.write(inicio + '\\n' + fin)
+    arch.close()</pre>
+<b>Opción 3</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'w', encoding='utf-8')
+    lineas = []
+    for nom in dicci:
+        inicio = dicci[nom][0] + nom[0] + ','
+        fin = nom.upper() + ' ' + dicci[nom].upper()
+        lineas.append(inicio + fin + '\\n')
+    dat.writelines(lineas)
+    dat.close()</pre>
+<b>Opción 4</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'r', encoding='utf-8')
+    lineas = []
+    for nom in dicci:
+        inicio = nom[1] + nom[0] + ','
+        fin = nom.upper() + ' ' + nom[1].upper() + '\\n'
+        lineas.append(inicio + fin)
+    dat.writelines(lineas)
+    arch.close()</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `Para 'ana':'paz' la línea debe ser <code>pa,ANA PAZ</code>: el inicio es <code>dicci[nom][0] + nom[0] + ','</code> = 'p' + 'a' + ',' = 'pa,', y el fin es <code>nom.upper() + ' ' + dicci[nom].upper()</code> = 'ANA PAZ'. La Opción 3 arma justo eso, abre en 'w' y usa writelines. ▸ Opción 1: pone <code>dicci[nom][0].upper()</code> ('P') y mete un <code>\\n</code> en el medio. ▸ Opción 2: usa modo <code>'W'</code> (mayúscula → modo inválido, ValueError) y hace <code>arch.close()</code> (arch es el nombre, no el archivo). ▸ Opción 4: abre en <code>'r'</code> (lectura → no puede escribir) y usa <code>nom[1]</code> en vez de los datos del diccionario. ▸ <i>(Parcial real 2023 · T8 · Ej. 0408)</i>`},
+  {st: `¿Cuál es la estructura de <code>archivo.txt</code> para que el programa imprima la salida indicada?
+<pre class="code-block">archivo = open("archivo.txt", "r")
+lineas = archivo.readlines()
+archivo.close()
+for linea in lineas:
+    campos = linea.split(";")
+    nombre = tuple(campos[0].split(","))
+    direccion = tuple(campos[1].split(","))
+    print(f"Nombre: {nombre[0]} {nombre[1]}")
+    print(f"Dirección: {direccion[0]} {direccion[1]}")</pre>
+<pre class="code-block">Nombre: Luis Huergo
+Dirección: Paseo Colón 850
+Nombre: Elisa Bachofen
+Dirección: Las Heras 2214</pre>`, opts: [`<code>nombre apellido;calle altura;código postal localidad</code>`, `<code>nombre,apellido;calle,altura;código postal,localidad</code>`, `<code>nombre;apellido,calle;altura,código postal;localidad</code>`, `<code>nombre,apellido,calle,altura,código postal,localidad</code>`], c: 1, ex: `La línea se parte PRIMERO por <code>;</code> (campos) y cada campo por <code>,</code> (split anidado). <code>campos[0].split(",")</code> debe dar (nombre, apellido) → "Luis,Huergo"; <code>campos[1].split(",")</code> → (calle, altura) → "Paseo Colón,850". Entonces cada línea es <code>nombre,apellido;calle,altura;…</code> → opción 2. ▸ La 1 separa todo con espacios (el split(",") no dividiría nada). ▸ La 3 mezcla ; y , al revés. ▸ La 4 usa solo comas (no habría ';' para separar los campos). ▸ <i>(Parcial real 2023 · T8 · Ej. 0908)</i>`},
+  {st: `¿Cómo queda el archivo <code>instrucciones.txt</code> luego de ejecutar el programa? (receta.txt contiene una lista de "Ingredientes", la palabra "Preparación", y debajo los pasos: cremar manteca con azúcar, integrar las yemas, saborizar, incorporar secos, estirar masa, cortar discos, hornear.)
+<pre class="code-block">def leer(arch):
+    receta = open(arch, 'r', encoding='utf-8')
+    lineas = receta.readlines()
+    receta.close()
+    pasos = []
+    i = 0
+    bandera = True
+    while i &lt; len(lineas) and bandera:
+        if 'Preparación' in lineas[i]:
+            bandera = False
+        i += 1
+    while i &lt; len(lineas):
+        pasos.append(lineas[i])
+        i += 1
+    return pasos
+
+def guarda(lista, arch):
+    datos = open(arch, 'w', encoding='utf-8')
+    for i in range(len(lista)):
+        desc = lista[i].strip('\\n').capitalize()
+        datos.write(str(i+1) + ' - ' + desc + '\\n')
+    datos.close()
+
+pasos = leer('receta.txt')
+guarda(pasos, 'instrucciones.txt')</pre>
+<b>Opción 1</b>: la lista de ingredientes tal cual.
+<b>Opción 2</b>: los pasos EN MAYÚSCULAS, sin numerar.
+<b>Opción 3</b>:
+<pre class="code-block">1 - Cremar manteca con azúcar
+2 - Integrar las yemas
+3 - Saborizar
+4 - Incorporar secos
+5 - Estirar masa
+6 - Cortar discos
+7 - Hornear</pre>
+<b>Opción 4</b>: todos los pasos pegados en una sola línea.`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `<code>leer()</code> saltea todo hasta encontrar 'Preparación' (con la bandera) y devuelve SÓLO los pasos siguientes. <code>guarda()</code> los numera (<code>str(i+1) + ' - '</code>) y los <code>.capitalize()</code> (primera letra en mayúscula). Resultado: "1 - Cremar manteca con azúcar", etc. → Opción 3. ▸ Opción 1 son los ingredientes (justo lo que leer descarta). ▸ Opción 2 usa MAYÚSCULAS completas (<code>.capitalize()</code> sólo pone la 1ª) y sin numerar. ▸ Opción 4 no separa por líneas (faltaría el <code>\\n</code>). ▸ <i>(Parcial real 2023 · T8 · Ej. 1008)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '5', [
-  {st: '¿Qué excepción lanza <code>int("hola")</code>?', opts: ['<code>ValueError</code>', '<code>ZeroDivisionError</code>', '<code>KeyError</code>', '<code>TypeError</code>'], c: 0, ex: 'Intentar convertir a entero un texto que no representa un número lanza ValueError. Por eso al validar input numérico se captura <code>except ValueError</code>. ▸ Por qué las otras: ZeroDivisionError es dividir por 0; KeyError es clave inexistente en dict; TypeError es operar tipos incompatibles (como "a" + 5).'},
-  {st: 'En el patrón <code>while/try</code> para validar un dato, ¿con qué valor debe arrancar la bandera <code>sigue</code>?', opts: ['<code>sigue = False</code>', '<code>sigue = True</code>', '<code>sigue = 0</code>', '<code>sigue = None</code>'], c: 1, ex: 'Debe arrancar en True para que <code>while sigue:</code> ENTRE al ciclo; recién se pone en False cuando el dato es válido. ▸ Por qué las otras: con False (o 0 o None, que son "falsos") el while no arrancaría nunca y el programa no pediría el dato. Es el error de bandera más típico de los distractores.'},
-  {st: '¿Qué versión evita que el programa aborte si la patente buscada no está en el diccionario?', opts: ['Acceder <code>titulares[pat]</code> sin try', 'Poner el acceso <code>titulares[pat]</code> dentro de <code>try:</code> y manejar el fallo en <code>except:</code>', 'Poner <code>except:</code> sin <code>try:</code>', 'Calcular el acceso ANTES del try'], c: 1, ex: 'Si la clave no existe, <code>titulares[pat]</code> lanza KeyError. La forma correcta es hacer el acceso DENTRO del try y, en el except, devolver un cartel tipo "desconocido". ▸ Por qué las otras: sin try el programa se corta; except sin try es error de sintaxis; calcular el acceso antes del try no lo protege (igual explota).'},
-  {st: '¿Qué contiene <code>nombres</code> al final?<br><pre class="code-block">nombres = ["julio", "ana", "lía"]\nsigue = True\nwhile sigue:\n    try:\n        nombres.pop()\n    except IndexError:\n        sigue = False</pre>', opts: ['<code>[]</code> (lista vacía)', '<code>["julio"]</code>', '<code>["julio", "ana", "lía"]</code>', 'Error'], c: 0, ex: 'pop() saca el último elemento una y otra vez. Cuando la lista queda vacía, pop() lanza IndexError, que el except captura poniendo <code>sigue = False</code> y cortando el ciclo. La lista termina vacía: []. ▸ Por qué las otras: el while no para hasta vaciarla; no hay error sin manejar porque IndexError se captura.'},
-  {st: '¿Cuándo se produce un <code>FileNotFoundError</code>?', opts: ['Al abrir con modo <code>"r"</code> un archivo que no existe', 'Al dividir por cero', 'Al hacer <code>int("abc")</code>', 'Al acceder a una clave inexistente'], c: 0, ex: 'Abrir en modo lectura "r" un archivo inexistente lanza FileNotFoundError. ▸ Por qué las otras: dividir por cero es ZeroDivisionError; int de texto no numérico es ValueError; clave inexistente en dict es KeyError.'},
-  {st: 'Si por error se escribe <code>sigue = True</code> y luego <code>while not sigue:</code>, ¿qué pasa?', opts: ['Entra al ciclo y se repite', 'NO entra al ciclo nunca (se saltea)', 'Da error de sintaxis', 'Es un bucle infinito'], c: 1, ex: '<code>not True</code> es False, así que <code>while not sigue:</code> evalúa False y el ciclo NO se ejecuta ni una vez. Es un distractor clásico: el código "se ve bien" pero la condición está negada. ▸ Por qué las otras: no entra (así que no se repite ni es infinito) y es sintácticamente válido.'}
+  {st: `¿Cuál programa realiza un ingreso validado de un número PAR? (no acepta impares · no debe fallar si se ingresa algo que no es entero · debe insistir hasta lograrlo)
+<b>Opción 1</b>
+<pre class="code-block">for i in range(3):
+    numPar = int(input('Ingresá un número par: '))
+    if numPar &lt; 0 or numPar % 2 != 0:
+        print('No es par')
+print(numPar)</pre>
+<b>Opción 2</b>
+<pre class="code-block">pide = True
+while pide:
+    try:
+        numPar = int(input('Ingresá un número par: '))
+        if numPar &gt; 0 and numPar % 2 == 0:
+            pide = False
+        else:
+            print('No es par')
+    except ValueError:
+        print('Debe ser número entero')
+print(numPar)</pre>
+<b>Opción 3</b>
+<pre class="code-block">pide = False
+while pide:
+    try:
+        numPar = int(input('Ingresá un número par: '))
+        if numPar &lt; 0 or numPar % 2 != 0:
+            pide = False
+        else:
+            print('No es par')
+    except ValueError:
+        print('Debe ser número entero')
+print(numPar)</pre>
+<b>Opción 4</b>
+<pre class="code-block">try:
+    numPar = int(input('Ingresá un número par: '))
+except:
+    print('No es un número')
+if numPar &gt; 0 and numPar % 2 == 0:
+    print(numPar)</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `Hacen falta tres cosas: (1) un bucle que INSISTA (while), (2) un try/except ValueError para no fallar con texto, (3) cortar SÓLO cuando el dato es válido. La Opción 2 cumple las tres: <code>while pide</code> con <code>pide = True</code>, try/except, y <code>pide = False</code> sólo si es par. ▸ Opción 1: usa <code>for</code> (3 intentos fijos) y sin try (un texto rompe el <code>int()</code>). ▸ Opción 3: arranca con <code>pide = False</code> → el while NO entra nunca. ▸ Opción 4: no tiene bucle (no insiste) y, si el int falla, igual usa <code>numPar</code> después. ▸ <i>(Parcial real 2025 · T1 · E5)</i>`},
+  {st: `¿Cuál programa realiza un ingreso validado de un número en el intervalo cerrado [1, 15]? (debe ser ≥ 1 y ≤ 15 · no debe fallar con texto · debe insistir)
+<b>Opción 1</b>
+<pre class="code-block">sigue = True
+while sigue:
+    try:
+        num = float(input('Número entre 1 y 15: '))
+        if num &lt;= 15 and num &gt;= 1:
+            sigue = False
+        else:
+            print('No está en el intervalo válido')
+    except ValueError:
+        print('Debe ser un número')
+print(num)</pre>
+<b>Opción 2</b>
+<pre class="code-block">while True:
+    try:
+        num = float(input('Número entre 1 y 15: '))
+    except ValueError:
+        print('Debe ser un número')
+if num &gt;= 1 and num &lt;= 15:
+    print(num)</pre>
+<b>Opción 3</b>
+<pre class="code-block">sigue = True
+while not sigue:
+    try:
+        num = float(input('Número entre 1 y 15: '))
+        if num &lt;= 15 and num &gt;= 1:
+            print(num)
+        else:
+            print('No está en el intervalo válido')
+        sigue = False
+    except ValueError:
+        print('Debe ser un número')
+print(num)</pre>
+<b>Opción 4</b>
+<pre class="code-block">num = float(input('Número entre 1 y 15: '))
+try:
+    if num &gt; 15 and num &lt; 1:
+        print(num)
+    else:
+        print('No está en el intervalo válido')
+except ValueError:
+    print('Debe ser un número')</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 0, ex: `La Opción 1 insiste con <code>while sigue</code> (arranca en True), captura <code>ValueError</code>, y corta (<code>sigue = False</code>) sólo cuando <code>1 &lt;= num &lt;= 15</code>. ▸ Opción 2: <code>while True</code> sin forma de cortar y valida FUERA del bucle → bucle infinito. ▸ Opción 3: arranca con <code>while not sigue</code> y sigue=True → no entra nunca. ▸ Opción 4: no tiene bucle (no insiste), pone el try DESPUÉS del input (el <code>float()</code> que puede fallar queda afuera) y la condición <code>num &gt; 15 and num &lt; 1</code> es imposible. ▸ <i>(Parcial real 2025 · T5 · E5)</i>`},
+  {st: `Con estos ingresos del usuario — <code>s</code>, <code>S</code>, <code>SIPI</code>, <code>DALE</code>, <code>si</code>, <code>sisi</code> — ¿qué contendrá <code>nombres</code> al finalizar?
+<pre class="code-block">nombres = ['julio', 'ana', 'inés', 'juan', 'lía']
+sigue = True
+respSi = ('s', 'si', 'sipi', 'sisi', 'oki', 'dale')
+while sigue:
+    opc = input('Saca? (si/no) ')
+    if opc.lower() in respSi:
+        try:
+            elimina = nombres.pop()
+        except IndexError:
+            sigue = False
+    else:
+        sigue = False</pre>`, opts: [`<code>[]</code> (lista vacía)`, `<code>['julio', 'ana', 'inés', 'juan', 'lía']</code>`, `<code>['juan', 'lía']</code>`, `<code>['julio']</code>`], c: 0, ex: `Las 6 respuestas (s, S, SIPI, DALE, si, sisi) están todas en <code>respSi</code> gracias al <code>.lower()</code>, así que cada una hace un <code>pop()</code> (saca el último). La lista tiene 5 elementos: los primeros 5 pop la vacían y el 6° pop sobre lista vacía lanza <code>IndexError</code>, que el except captura cortando el ciclo. Queda <code>[]</code>. ▸ Si alguna respuesta hubiera sido "no", cortaría antes (else). ▸ Las demás opciones implican menos pops de los que ocurren. ▸ <i>(Parcial real 2023 · T8 · Ej. 0708)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '6', [
-  {st: 'Con la columna <code>humedad = [60, 75, 79, 68, 62, 55]</code>, ¿qué devuelve <code>print(df["humedad"].sum())</code>?', opts: ['<code>75</code>', '<code>399</code>', 'Todo el DataFrame', '<code>6</code>'], c: 1, ex: '.sum() de una columna devuelve un ÚNICO número: la suma de todos sus valores. 60+75+79+68+62+55 = 399. ▸ Por qué las otras: 75 es solo un valor; no devuelve el DataFrame; 6 sería la cantidad de filas (.count()).'},
-  {st: '¿Qué hace <code>df[df["cantidad"] &lt; 32]</code>?', opts: ['Ordena el DataFrame por cantidad', 'Devuelve las FILAS donde cantidad es menor a 32', 'Suma la columna cantidad', 'Borra la columna cantidad'], c: 1, ex: 'Es un filtro: la condición <code>df["cantidad"] &lt; 32</code> genera una máscara de True/False, y <code>df[...]</code> deja solo las filas con True (cantidad menor a 32). ▸ Por qué las otras: ordenar es sort_values; sumar es .sum(); borrar es drop.'},
-  {st: '¿Qué produce <code>lluvias.groupby("mes")["mm"].mean()</code>?', opts: ['El total general de mm', 'El PROMEDIO de mm por cada mes', 'La primera fila', 'Las columnas mes y mm sin cambios'], c: 1, ex: 'groupby("mes") junta las filas del mismo mes; <code>["mm"].mean()</code> calcula el promedio de mm dentro de cada grupo. Si abril tiene 65 y 96 → 80.5; si marzo tiene 120 y 115 → 117.5. Devuelve un valor por mes (ordenado por mes). ▸ Por qué las otras: no es el total ni una fila suelta; agrupar transforma la salida.'},
-  {st: 'Para quedarte con las filas que tienen un valor NULO (NaN) en la columna calorías, usás:', opts: ['<code>df[df["calorías"].isnull()]</code>', '<code>df["calorías"].sum()</code>', '<code>df.head()</code>', '<code>df.dropna()</code>'], c: 0, ex: '.isnull() devuelve True donde el valor es NaN/None; usado como filtro <code>df[...]</code> deja justo esas filas vacías. ▸ Por qué las otras: .sum() suma; .head() muestra las primeras; .dropna() hace lo CONTRARIO (elimina las filas con nulos). Para "los que NO son nulos" se usa <code>~df["col"].isnull()</code>.'},
-  {st: '¿Qué hace <code>df.loc[5] = ["Heinz", 12558741, 3, "A", "flex"]</code>?', opts: ['Borra la fila con índice 5', 'AGREGA (o define) la fila con índice 5 con esos valores', 'Lee la fila 5', 'Da error siempre'], c: 1, ex: '.loc[5] = [...] asigna toda una fila en el índice 5: si no existía, la AGREGA al DataFrame con esos valores. ▸ Por qué las otras: borrar es drop(5); leer es solo <code>df.loc[5]</code> sin el =; no da error si la cantidad de valores coincide con las columnas.'},
-  {st: 'En pandas, combinar dos condiciones de filtro con <code>and</code> (en vez de <code>&amp;</code>):', opts: ['Funciona igual que <code>&amp;</code>', 'Lanza un error (hay que usar <code>&amp;</code> con paréntesis)', 'Ordena el DataFrame', 'Suma las columnas'], c: 1, ex: 'Con Series de pandas hay que usar &amp; (y), | (o), ~ (no), y paréntesis en cada condición: <code>df[(c1) &amp; (c2)]</code>. Usar <code>and</code>/<code>or</code> lanza un ValueError ("ambiguous truth value"). ▸ Por qué las otras: no funciona igual, no ordena ni suma.'}
+  {st: `Dado el DataFrame <code>resfrios</code>:
+<pre class="code-block">       mes  humedad  cantidad
+0    enero       60         2
+1  febrero       75        23
+2    marzo       79        32
+3    abril       68        31
+4     mayo       62        45
+5    junio       55        61</pre>
+¿Cuál instrucción produce esta salida?
+<pre class="code-block">       mes  humedad  cantidad
+0    enero       60         2
+1  febrero       75        23
+3    abril       68        31</pre>`, opts: [`<code>resfrios.tail(3)</code>`, `<code>resfrios[['cantidad','mes']]</code>`, `<code>resfrios.loc[resfrios.index[[1,3,5]]]</code>`, `<code>resfrios[resfrios['cantidad']&lt;32]</code>`], c: 3, ex: `La salida son las filas 0, 1 y 3: las que tienen <code>cantidad</code> menor a 32 (2, 23 y 31). Eso es el filtro booleano <code>resfrios[resfrios['cantidad']&lt;32]</code>. ▸ <code>tail(3)</code> da las ÚLTIMAS 3 filas (3, 4, 5). ▸ <code>resfrios[['cantidad','mes']]</code> selecciona columnas, no filtra filas. ▸ <code>loc[...[1,3,5]]</code> tomaría las filas 1, 3 y 5. ▸ <i>(Parcial real 2025 · T1 · E3)</i>`},
+  {st: `Dado el DataFrame <code>resfrios</code> (columna humedad = 60, 75, 79, 68, 62, 55), ¿qué salida produce <code>print(resfrios['humedad'].sum())</code>?`, opts: [`<code>75</code>`, `<code>399</code>`, `El DataFrame completo`, `<code>6</code>`], c: 1, ex: `<code>.sum()</code> de una columna devuelve UN número: la suma de todos sus valores. 60+75+79+68+62+55 = 399. ▸ 75 es un solo valor. ▸ No devuelve el DataFrame. ▸ 6 sería la cantidad de filas (<code>.count()</code>). ▸ <i>(Parcial real 2025 · T1 · E6)</i>`},
+  {st: `Dado el DataFrame <code>menu</code>:
+<pre class="code-block">         día      plato  calorías
+0      lunes      guiso     750.0
+1     martes      pasta       NaN
+2  miércoles  milanesas     560.0
+3     jueves     pastel       NaN
+4    viernes      guiso     800.0
+5     sábado      asado     750.0</pre>
+¿Cuál instrucción produce esta salida?
+<pre class="code-block">       día  plato  calorías
+0    lunes  guiso     750.0
+4  viernes  guiso     800.0</pre>`, opts: [`<code>menu[(~menu['calorías'].isnull()) &amp; (menu['plato']=='guiso')]</code>`, `<code>menu.sort_values(by=['día','calorías'])</code>`, `<code>menu[(menu['plato']&gt;'p') &amp; (menu['plato']&lt;'q')]</code>`, `<code>menu[['calorías','plato']]</code>`], c: 0, ex: `La salida son las filas de 'guiso' que ADEMÁS tienen calorías (no NaN): filas 0 y 4. El filtro combina dos condiciones con <code>&amp;</code> y paréntesis: <code>~isnull()</code> (no nulo) Y <code>plato=='guiso'</code>. ▸ <code>sort_values</code> ordena, no filtra. ▸ La opción C filtra platos entre 'p' y 'q' (comparando strings), no 'guiso'. ▸ La D selecciona columnas. ▸ <i>(Parcial real 2025 · T5 · E3)</i>`},
+  {st: `Dado el DataFrame <code>menu</code> (mismo de arriba; pasta y pastel tienen calorías NaN), ¿qué salida produce <code>print(menu[(menu['calorías'].isnull())])</code>?
+<b>Opción A</b>: una columna suelta de calorías.
+<b>Opción B</b>:
+<pre class="code-block">      día  plato  calorías
+0   lunes  guiso     750.0
+1  martes  pasta       NaN</pre>
+<b>Opción C</b>:
+<pre class="code-block">      día   plato  calorías
+1  martes   pasta       NaN
+3  jueves  pastel       NaN</pre>
+<b>Opción D</b>: las filas 0, 4 y 5 (las que SÍ tienen calorías).`, opts: ['Opción A', 'Opción B', 'Opción C', 'Opción D'], c: 2, ex: `<code>.isnull()</code> marca True donde calorías es NaN: filas 1 (pasta) y 3 (pastel). <code>menu[...]</code> deja esas filas completas → Opción C. ▸ Las opciones B y D incluyen filas con calorías (que justamente NO son nulas). ▸ La A no es una tabla de filas. ▸ Para quedarte con las que NO son nulas usarías <code>~menu['calorías'].isnull()</code>. ▸ <i>(Parcial real 2025 · T5 · E6)</i>`},
+  {st: `Dado el DataFrame <code>lluvias</code> (columnas localidad, mes, mm; abril tiene 65 y 96; marzo tiene 120 y 115; julio 30; octubre 72; enero 110), ¿qué instrucción produce esta salida?
+<pre class="code-block">mes
+abril       80.5
+enero      110.0
+julio       30.0
+marzo      117.5
+octubre     72.0</pre>`, opts: [`<code>lluvias.describe()</code>`, `<code>lluvias.groupby('mes')['mm'].mean()</code>`, `<code>lluvias.loc[1:3, ['mes','mm']]</code>`, `<code>lluvias.head(4)</code>`], c: 1, ex: `La salida agrupa por mes y promedia mm: abril (65 y 96 → 80.5), marzo (120 y 115 → 117.5), etc. Eso es <code>groupby('mes')['mm'].mean()</code> (devuelve un valor por mes, ordenado por mes). ▸ <code>describe()</code> da estadísticas (count, mean, std…) de las columnas numéricas. ▸ <code>.loc[1:3]</code> toma filas por índice. ▸ <code>head(4)</code> da las primeras 4 filas. ▸ <i>(Parcial real 2023 · T8 · Ej. 0508)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '7', [
-  {st: 'Para un gráfico de BARRAS verticales con <code>jugadores</code> en el eje x y <code>altura</code> como valor, ¿qué instrucción usás?', opts: ['<code>ax.scatter(altura, jugadores)</code>', '<code>ax.barh(jugadores)</code>', '<code>ax.bar(jugadores, altura)</code>', '<code>ax.set_title(altura)</code>'], c: 2, ex: '<code>ax.bar(categorías, valores)</code>: primer argumento las etiquetas del eje x (jugadores), segundo las alturas. ▸ Por qué las otras: scatter dibuja puntos (y acá invierte ejes); barh es horizontal y le falta el valor; set_title pone un título, no dibuja barras.'},
-  {st: 'Para un gráfico de LÍNEA de <code>precioDol</code> a lo largo de <code>meses</code>, la instrucción correcta es:', opts: ['<code>ax.plot(meses, precioDol)</code>', '<code>ax.scatter(precioDol)</code>', '<code>ax.bar(precioDol)</code>', '<code>plt.set_label(x, "Precio")</code>'], c: 0, ex: '<code>ax.plot(x, y)</code> dibuja una línea uniendo los puntos (meses en x, precio en y). ▸ Por qué las otras: scatter y bar reciben x e y (acá les falta un argumento) y además no son líneas; set_label no es una función válida de pyplot.'},
-  {st: 'En <code>ax.bar(categorías, valores)</code>, el PRIMER argumento representa:', opts: ['los valores (las alturas de las barras)', 'las categorías que van en el eje x', 'el título del gráfico', 'el color de las barras'], c: 1, ex: 'El orden es <code>bar(categorías, valores)</code>: primero las etiquetas del eje x, después las alturas. Invertirlos es un distractor típico del parcial. ▸ Por qué las otras: las alturas son el 2° argumento; el título es set_title; el color es el parámetro color=.'},
-  {st: 'En la interfaz orientada a objetos (con <code>ax</code>), para poner el título del gráfico se usa:', opts: ['<code>ax.title("Ventas")</code>', '<code>ax.set_title("Ventas")</code>', '<code>plt.label("Ventas")</code>', '<code>ax.nombre("Ventas")</code>'], c: 1, ex: 'Con un objeto <code>ax</code> (de <code>fig, ax = plt.subplots()</code>) los textos se ponen con set_*: <code>ax.set_title(...)</code>, <code>ax.set_xlabel(...)</code>, <code>ax.set_ylabel(...)</code>. ▸ Por qué las otras: ax.title sin set_ no asigna; plt.label no existe; ax.nombre tampoco.'},
-  {st: '<code>ax.scatter(x, y)</code> dibuja:', opts: ['barras', 'una línea continua', 'puntos sueltos (gráfico de dispersión)', 'un título'], c: 2, ex: 'scatter dibuja un punto por cada par (x, y), sin unirlos: sirve para ver la relación/correlación entre dos variables. ▸ Por qué las otras: barras es bar/barh; la línea es plot; el título es set_title.'},
-  {st: 'Con <code>fig, ax = plt.subplots(nrows=3, ncols=3)</code>, ¿a qué gráfico apunta <code>ax[1, 1]</code>?', opts: ['la esquina superior izquierda', 'el gráfico del CENTRO de la grilla 3×3', 'el último (abajo a la derecha)', 'da error'], c: 1, ex: 'En una grilla, ax se indexa <code>ax[fila, columna]</code> empezando en 0. En una 3×3, las filas/columnas son 0,1,2; <code>ax[1,1]</code> es el del medio. ▸ Por qué las otras: la esquina superior izquierda es ax[0,0]; la inferior derecha es ax[2,2]; no da error.'}
+  {st: `Querés un gráfico de BARRAS verticales con estos datos (el parcial mostraba un gráfico de barras): <code>altura = [1.83, 1.56, 2.00, 1.72, 1.69]</code> y <code>jugadores = ['Juan', 'Mauro', 'Sebas', 'Nacho', 'Aldo']</code>, con los jugadores en el eje x y la altura como valor. ¿Cuál instrucción usás?`, opts: [`<code>ax.scatter(altura, jugadores)</code>`, `<code>ax.barh(jugadores)</code>`, `<code>ax.set_title(altura)</code>`, `<code>ax.bar(jugadores, altura)</code>`], c: 3, ex: `Un gráfico de barras verticales con categorías en x y valores en y es <code>ax.bar(categorías, valores)</code> = <code>ax.bar(jugadores, altura)</code>. ▸ <code>scatter</code> dibuja puntos y además invierte los ejes. ▸ <code>barh</code> es horizontal y le falta el argumento de valores. ▸ <code>set_title</code> pone un título, no dibuja barras. ▸ <i>(Parcial real 2025 · T1 · E2)</i>`},
+  {st: `Querés un gráfico de LÍNEA del precio del dólar a lo largo de los meses (el parcial mostraba una línea): <code>precioDol = [1195, 1200, 1215, 1235, 1370]</code> y <code>meses = ['diciembre', 'enero', 'febrero', 'marzo', 'abril']</code>. ¿Cuál instrucción usás?`, opts: [`<code>ax.plot(meses, precioDol)</code>`, `<code>plt.set_label(x, 'Precio final Dólar en $')</code>`, `<code>ax.scatter(precioDol)</code>`, `<code>ax.bar(precioDol)</code>`], c: 0, ex: `Una línea que une los puntos (x, y) es <code>ax.plot(meses, precioDol)</code>. ▸ <code>set_label</code> no es una función válida de pyplot. ▸ <code>scatter</code> dibuja puntos sueltos y le falta un argumento. ▸ <code>bar</code> son barras y también le falta un argumento. ▸ <i>(Parcial real 2025 · T5 · E2)</i>`},
+  {st: `¿Cuál opción describe correctamente el gráfico que produce este código?
+<pre class="code-block">x = [0, 1, 2, 3, 4]
+x_lineal = [0, 2, 4, 6, 8]
+x_bar = [0, 2, 1, 6, 3]
+fig, ax = plt.subplots(nrows=3, ncols=3)
+ax[1, 1].plot(x, x_lineal)
+ax[2, 2].bar(x, x_bar)
+plt.show()</pre>`, opts: [`Se hará una grilla de 9 gráficos. En el centro hay un gráfico de línea y en la esquina inferior derecha, uno de barras.`, `Se hará una grilla de 9 gráficos. En la esquina superior izquierda hay una línea y en el centro, uno de barras.`, `Se hará una grilla de 9 gráficos con dos gráficos, uno de línea y uno de barras, ambos en el centro.`, `Ninguna de las opciones describe lo que ocurre.`], c: 0, ex: `<code>subplots(nrows=3, ncols=3)</code> crea una grilla 3×3 (9 ejes). Se indexa <code>ax[fila, columna]</code> empezando en 0. <code>ax[1,1]</code> es el del CENTRO → línea (plot). <code>ax[2,2]</code> es la esquina inferior derecha → barras (bar). Por eso la opción 1. ▸ La superior izquierda sería <code>ax[0,0]</code>; el centro es <code>ax[1,1]</code> (eso descarta la 2 y la 3). ▸ <i>(Parcial real 2023 · T1 · Ej. 0901)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '8', [
-  {st: '¿Qué imprime?<br><pre class="code-block">def noLaborable(d):\n    finde = (6, 7)\n    return d in finde\n\ndias = [1, 5, 4, 6, 2, 7]\nprint(list(filter(noLaborable, dias)))</pre>', opts: ['<code>[1, 5, 4, 2]</code>', '<code>[6, 7]</code>', '<code>[1, 5, 4, 6, 2, 7]</code>', '<code>[]</code>'], c: 1, ex: 'filter deja los días donde <code>d in finde</code> es True, o sea los que están en (6,7): el 6 y el 7. ▸ Por qué las otras: (A) son los que NO cumplen; (C) sería sin filtrar; (D) vacío implicaría que ninguno está en finde.'},
-  {st: '¿Qué imprime?<br><pre class="code-block">def nomDia(d):\n    dias = {1:"domingo",2:"lunes",5:"jueves",6:"viernes",7:"sábado"}\n    return dias[d]\n\ndias = [1, 5, 2, 6, 7]\nprint(list(map(nomDia, dias)))</pre>', opts: ['<code>["domingo", "jueves", "lunes", "viernes", "sábado"]</code>', '<code>[1, 5, 2, 6, 7]</code>', '<code>["SABADO"]</code>', 'Error'], c: 0, ex: 'map aplica nomDia a cada número, devolviendo el nombre del diccionario en ese orden: dias[1]="domingo", dias[5]="jueves", dias[2]="lunes", dias[6]="viernes", dias[7]="sábado". ▸ Por qué las otras: (B) no transforma; (C) toma uno solo; no hay error porque todas las claves existen.'},
-  {st: 'Tras <code>df["región"] = df["región"].map({"cuyo":"centro", "pampa":"centro"})</code>, las regiones que NO eran cuyo ni pampa quedan:', opts: ['igual que antes', 'como <code>NaN</code> (nulo), porque .map() solo reemplaza las claves del diccionario', 'borradas del DataFrame', 'en 0'], c: 1, ex: 'Series.map(dicc) reemplaza cada valor por el del diccionario; los valores que NO son claves del diccionario quedan como NaN. Por eso "litoral" y "patagonia" (que no están en el dict) se vuelven nulos. ▸ Por qué las otras: no quedan igual ni en 0; .map() no borra filas (eso lo haría un filtro posterior con isnull).'},
-  {st: 'Querés AGREGAR una línea a un archivo de log sin borrar lo anterior. El modo correcto de open() es:', opts: ['<code>"r"</code>', '<code>"w"</code>', '<code>"a"</code>', '<code>"x"</code>'], c: 2, ex: '"a" (append) conserva el contenido y escribe al final: justo lo que necesita un log. ▸ Por qué las otras: "r" no escribe; "w" BORRARÍA todo el historial; "x" falla si el archivo ya existe.'},
-  {st: '¿Qué imprime?<br><pre class="code-block">def organiza(n):\n    return n % 3 == 0 and n % 2 == 0 or n &lt; 100\n\na = [15, -150, 150, 66]\nprint(list(filter(organiza, a)))</pre>', opts: ['<code>[150]</code>', '<code>[15, -150, 150, 66]</code>', '<code>[-150, 66]</code>', '<code>[]</code>'], c: 1, ex: 'Por precedencia, <code>and</code> se evalúa antes que <code>or</code>: la condición es <code>(n%3==0 and n%2==0) or (n &lt; 100)</code>. ▸ 15, −150 y 66 son &lt; 100 → True. ▸ 150: es múltiplo de 3 y de 2 → True. Pasan todos. ▸ Por qué las otras: ninguna excluye correctamente; el truco está en la precedencia and/or.'},
-  {st: 'El error MÁS caro del parcial al filtrar un DataFrame es:', opts: ['Usar <code>&amp;</code> con paréntesis', 'Usar <code>and</code>/<code>or</code> en vez de <code>&amp;</code>/<code>|</code>', 'Poner el filtro entre corchetes', 'Usar comillas en los nombres de columnas'], c: 1, ex: 'Combinar condiciones de pandas con <code>and</code>/<code>or</code> lanza error: hay que usar &amp; / | / ~ y paréntesis en cada condición. ▸ Por qué las otras: usar &amp; con paréntesis es justamente lo correcto; el filtro va entre corchetes <code>df[...]</code>; los nombres de columnas SÍ van entre comillas.'}
+  {st: `Dado el programa, ¿cuál opción de la estructura <code>estaciones</code> produce la salida indicada?
+<pre class="code-block">estaciones = ...   # ??
+primSemes = [0, 10000, 25000, 67500, 48000, 33000, 29000]
+print('Ventas Colección Sweaters Invierno 2025')
+for i in range(1, len(primSemes)):
+    print(estaciones[i][0], '$', primSemes[i],
+          estaciones[i][1].upper())</pre>
+<pre class="code-block">Ventas Colección Sweaters Invierno 2025
+enero $ 10000 VERANO
+febrero $ 25000 VERANO
+marzo $ 67500 VERANO-OTOÑO
+abril $ 48000 OTOÑO
+mayo $ 33000 OTOÑO
+junio $ 29000 OTOÑO-INVIERNO</pre>
+<b>Opción 1</b>
+<pre class="code-block">estaciones = ['enero','verano','febrero','verano','marzo',
+              'verano-otoño','abril','otoño','mayo','otoño',
+              'junio','otoño-invierno']</pre>
+<b>Opción 2</b>
+<pre class="code-block">estaciones = {1:['enero','verano'], 2:['febrero','verano'],
+              3:['marzo','verano-otoño'], 4:['abril','otoño'],
+              5:['mayo','otoño'], 6:['junio','otoño-invierno']}</pre>
+<b>Opción 3</b>
+<pre class="code-block">estaciones = {'enero':'verano', 'febrero':'verano',
+              'marzo':'verano-otoño', 'abril':'otoño',
+              'mayo':'otoño', 'junio':'otoño-invierno'}</pre>
+<b>Opción 4</b>
+<pre class="code-block">estaciones = {'0':['enero','verano'], '1':['febrero','verano'],
+              '2':['marzo','verano-otoño'], '3':['abril','otoño'],
+              '4':['mayo','otoño'], '5':['junio','otoño-invierno']}</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `El código usa <code>estaciones[i]</code> con <code>i</code> entero de 1 a 6, y de cada uno toma <code>[0]</code> (mes) y <code>[1]</code> (estación). Necesita un diccionario con claves ENTERAS 1..6, cada una con una lista <code>[mes, estación]</code>: eso es la Opción 2. ▸ Opción 1 es una lista plana: <code>estaciones[1]</code> sería 'verano' y <code>'verano'[0]</code> daría 'v'. ▸ Opción 3 usa los meses como clave (<code>estaciones[1]</code> → KeyError). ▸ Opción 4 tiene claves string '0'..'5' (<code>estaciones[1]</code> con el int 1 → KeyError, y arranca en '0'). ▸ <i>(Parcial real 2025 · T1 · E8)</i>`},
+  {st: `Dado el programa, ¿cuál opción de la estructura <code>flores</code> produce la salida indicada (al ingresar "lilium")?
+<pre class="code-block">flores = ...   # ??
+proveedores = ['', 'Don Pedro', 'Cartagena Rosas', 'Escobar II',
+               'El Brocal', 'Vivero Sarrundis']
+tipo = input('Qué tipo de flor necesita? ')
+print('Lista de Proveedores de', tipo)
+for clave in flores:
+    if tipo.lower() in flores[clave]:
+        print(proveedores[clave])</pre>
+<pre class="code-block">Qué tipo de flor necesita? lilium
+Lista de Proveedores de lilium
+Vivero Sarrundis
+Don Pedro
+Escobar II</pre>
+<b>Opción 1</b>: diccionario con claves en MAYÚSCULAS ('DON PEDRO': [...], 'EL BROCAL': [...], …).
+<b>Opción 2</b>: una lista plana con todas las flores.
+<b>Opción 3</b>
+<pre class="code-block">flores = {2:['rosa monocolor','rosa bicolor','rosa rococó','gerbera'],
+          5:['gerbera','jazmín','lilium','margarita natural'],
+          1:['lilium','lisianto','gisófila','rosa rococó'],
+          4:['rosa bicolor','clavel bicolor'],
+          3:['lilium','margarita natural','margarita teñida']}</pre>
+<b>Opción 4</b>: diccionario con claves de 2 letras ('CR': [...], 'VS': [...], …).`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `El código hace <code>proveedores[clave]</code>, así que la clave tiene que ser un ENTERO (índice de la lista proveedores). Por cada clave cuya lista contenga 'lilium' imprime <code>proveedores[clave]</code>. Sólo la Opción 3 usa claves enteras (2,5,1,4,3): recorriéndolas en ese orden, las que tienen 'lilium' son la 5 → proveedores[5]='Vivero Sarrundis', la 1 → 'Don Pedro' y la 3 → 'Escobar II'. ▸ Opciones 1 y 4 usan strings como clave → <code>proveedores[clave]</code> da TypeError. ▸ Opción 2 es una lista plana, no un diccionario clave→lista. ▸ <i>(Parcial real 2025 · T5 · E8)</i>`},
+  {st: `Dado el DataFrame <code>cobertura</code>:
+<pre class="code-block">      región     provincia  sucursales
+0       cuyo      san juan           3
+1    litoral      santa fé           0
+2       cuyo       mendoza           5
+3  patagonia        chubut           2
+4       cuyo      san luis           1
+5      pampa  buenos aires           8</pre>
+¿Qué se muestra al ejecutar estas instrucciones?
+<pre class="code-block">cobertura['región'] = cobertura['región'].map({'cuyo':'centro', 'pampa':'centro'})
+cobertura[(cobertura['región'].isnull() == False)]</pre>
+<b>Opción 1</b>: solo columnas región y sucursales, con 'cuyo' y 'pampa' sin cambiar.
+<b>Opción 2</b>: una sola fila (la 5).
+<b>Opción 3</b>
+<pre class="code-block">      región     provincia  sucursales
+0     centro      san juan           3
+2     centro       mendoza           5
+4     centro      san luis           1
+5     centro  buenos aires           8</pre>
+<b>Opción 4</b>: las 6 filas (incluyendo litoral y patagonia), solo columnas región y provincia.`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `<code>.map({...})</code> reemplaza cada valor por el del diccionario: 'cuyo'→'centro', 'pampa'→'centro', y los que NO son claves ('litoral', 'patagonia') quedan como <code>NaN</code>. Después <code>isnull() == False</code> deja las filas NO nulas: las 0, 2, 4 y 5, con todas sus columnas y región='centro' → Opción 3. ▸ Opción 1 no aplica el map y descarta una columna. ▸ Opción 2 deja una sola fila. ▸ Opción 4 no filtra los nulos y pierde la columna sucursales. ▸ <i>(Parcial real 2023 · T8 · Ej. 1108)</i>`}
 ]);
 
 
