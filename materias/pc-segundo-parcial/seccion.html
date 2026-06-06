@@ -487,26 +487,32 @@ Los filtros de pandas usan <code>&amp;</code>, <code>|</code>, <code>~</code> co
 
 <h3>Práctica integradora — combinaciones típicas</h3>
 <div class="example">
-  <div class="ex-t">Integrador 1 — filter + map + print(*lista)</div>
-  <pre class="code-block">def cuenta_o(p):
-    return p.count('O') + p.count('Ó')
-
-nombres = ['ÁLVARO', 'CAROLINA', 'ESTEBAN', 'PEDRO']
-print(*list(map(cuenta_o, nombres)))</pre>
-  <p><b>Salida:</b> <code>1 1 0 1</code> — cuenta O+Ó en cada nombre. El <code>*</code> desempaqueta la lista e imprime separado por espacios, sin corchetes.</p>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0607) — try/except con diccionario</div>
+  <p>Devolver el titular de una patente sin que el programa aborte si la patente no está (ej. <code>jdd003</code>):</p>
+  <pre class="code-block">titulares = {'AG 234 FF': 'Andreoli, Julieta', 'AC 217 DR': 'Vargas, Ulises',
+             'KDF 876': 'Fiquet, Paulo', 'LBD 976': 'Carassa, Emilia'}
+pat = input('Patente: ')
+print('El titular de', pat, quien(titulares, pat))</pre>
+  <p>La versión correcta de <code>quien()</code> (entre las 4 del parcial) es:</p>
+  <pre class="code-block">def quien(titulares, pat):
+    try:
+        cartel = 'es ' + titulares[pat.upper()]
+    except:
+        cartel = ' es desconocido'
+    return cartel</pre>
+  <p><b>Por qué:</b> el acceso <code>titulares[pat.upper()]</code> (que da <code>KeyError</code> si la patente no existe) va DENTRO del <code>try</code>; si falla, el <code>except</code> arma "es desconocido". <b>Trampa:</b> si el acceso al diccionario estuviera fuera del try, el programa se cortaría igual.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Integrador 2 — filter + dos diccionarios + in sobre strings</div>
-  <pre class="code-block">def es_primavera(m):
-    est = {9: 'invierno-primavera', 10: 'primavera', 11: 'primavera'}
-    return 'primavera' in est.get(m, '')
-
-meses = {9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre'}
-sel = list(filter(es_primavera, [9, 10, 11]))
-for m in sel:
-    print(meses[m])</pre>
-  <p><b>Salida:</b> <code>Septiembre</code>, <code>Octubre</code>, <code>Noviembre</code> (cada uno en su línea). <code>filter</code> deja los meses cuyo texto de estación <b>contiene</b> "primavera"; después se imprime el nombre desde el otro diccionario.</p>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T4 · Ej 1004) — for + diccionario + replace</div>
+  <p>Traducir los caracteres del texto que están definidos en el diccionario <code>traductor</code>. ¿Cuál es la línea faltante?</p>
+  <pre class="code-block">txt = 'Me picaron MAS mosquitos QUE EN EL VERANO'
+traductor = {'e':')', 'o':'%', 'a':'*', 'i':'/', 'u':'@', 'm':'&amp;', ' ':'+-'}
+for letra in txt:
+    if letra in traductor:
+        ……………           # línea a completar
+print(txt)</pre>
+  <p>La línea correcta es <code>txt = txt.replace(letra, traductor[letra])</code>: reemplaza en TODO el texto cada carácter por su traducción. <b>Trampa:</b> <code>letra = traductor[letra]</code> cambia una variable suelta pero no toca <code>txt</code>; y hay que reasignar <code>txt =</code> porque <code>replace</code> devuelve un texto nuevo (no modifica el original).</p>
 </div>
 
 <div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>

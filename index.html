@@ -10090,26 +10090,32 @@ Los filtros de pandas usan <code>&amp;</code>, <code>|</code>, <code>~</code> co
 
 <h3>Práctica integradora — combinaciones típicas</h3>
 <div class="example">
-  <div class="ex-t">Integrador 1 — filter + map + print(*lista)</div>
-  <pre class="code-block">def cuenta_o(p):
-    return p.count('O') + p.count('Ó')
-
-nombres = ['ÁLVARO', 'CAROLINA', 'ESTEBAN', 'PEDRO']
-print(*list(map(cuenta_o, nombres)))</pre>
-  <p><b>Salida:</b> <code>1 1 0 1</code> — cuenta O+Ó en cada nombre. El <code>*</code> desempaqueta la lista e imprime separado por espacios, sin corchetes.</p>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0607) — try/except con diccionario</div>
+  <p>Devolver el titular de una patente sin que el programa aborte si la patente no está (ej. <code>jdd003</code>):</p>
+  <pre class="code-block">titulares = {'AG 234 FF': 'Andreoli, Julieta', 'AC 217 DR': 'Vargas, Ulises',
+             'KDF 876': 'Fiquet, Paulo', 'LBD 976': 'Carassa, Emilia'}
+pat = input('Patente: ')
+print('El titular de', pat, quien(titulares, pat))</pre>
+  <p>La versión correcta de <code>quien()</code> (entre las 4 del parcial) es:</p>
+  <pre class="code-block">def quien(titulares, pat):
+    try:
+        cartel = 'es ' + titulares[pat.upper()]
+    except:
+        cartel = ' es desconocido'
+    return cartel</pre>
+  <p><b>Por qué:</b> el acceso <code>titulares[pat.upper()]</code> (que da <code>KeyError</code> si la patente no existe) va DENTRO del <code>try</code>; si falla, el <code>except</code> arma "es desconocido". <b>Trampa:</b> si el acceso al diccionario estuviera fuera del try, el programa se cortaría igual.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Integrador 2 — filter + dos diccionarios + in sobre strings</div>
-  <pre class="code-block">def es_primavera(m):
-    est = {9: 'invierno-primavera', 10: 'primavera', 11: 'primavera'}
-    return 'primavera' in est.get(m, '')
-
-meses = {9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre'}
-sel = list(filter(es_primavera, [9, 10, 11]))
-for m in sel:
-    print(meses[m])</pre>
-  <p><b>Salida:</b> <code>Septiembre</code>, <code>Octubre</code>, <code>Noviembre</code> (cada uno en su línea). <code>filter</code> deja los meses cuyo texto de estación <b>contiene</b> "primavera"; después se imprime el nombre desde el otro diccionario.</p>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T4 · Ej 1004) — for + diccionario + replace</div>
+  <p>Traducir los caracteres del texto que están definidos en el diccionario <code>traductor</code>. ¿Cuál es la línea faltante?</p>
+  <pre class="code-block">txt = 'Me picaron MAS mosquitos QUE EN EL VERANO'
+traductor = {'e':')', 'o':'%', 'a':'*', 'i':'/', 'u':'@', 'm':'&amp;', ' ':'+-'}
+for letra in txt:
+    if letra in traductor:
+        ……………           # línea a completar
+print(txt)</pre>
+  <p>La línea correcta es <code>txt = txt.replace(letra, traductor[letra])</code>: reemplaza en TODO el texto cada carácter por su traducción. <b>Trampa:</b> <code>letra = traductor[letra]</code> cambia una variable suelta pero no toca <code>txt</code>; y hay que reasignar <code>txt =</code> porque <code>replace</code> devuelve un texto nuevo (no modifica el original).</p>
 </div>
 
 <div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
@@ -31053,7 +31059,9 @@ while not ingreso(users):
 <pre class="code-block">def ingreso(usr):
     usuario = input('Usuario: ').lower()
     passw = input('Password: ').lower()
-    return usuario in usr and passw in usr</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `Cada clave (un mail) guarda la lista <code>[password, usuario]</code>. Al recorrer <code>for datos in usr</code>, <code>datos</code> es cada mail (la clave) y <code>usr[datos]</code> es su lista <code>[password, usuario]</code>. La Opción 2 compara <code>usr[datos] == [passw, usuario]</code>: exige que coincidan los DOS datos, en ese orden. ▸ Opción 1: compara <code>usr[datos][0]</code> (el password guardado) contra <code>usuario</code> (lo tipeado como usuario) → mezcla los campos y valida uno solo; encima hace <code>.lower()</code> al password. ▸ Opciones 3 y 4: <code>usuario in usr</code> / <code>passw in usr</code> preguntan si ese texto es una CLAVE (un mail) del diccionario, no los datos de acceso. ▸ <i>(Parcial real 2023 · T8 · Ej. 0208)</i>`}
+    return usuario in usr and passw in usr</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `Cada clave (un mail) guarda la lista <code>[password, usuario]</code>. Al recorrer <code>for datos in usr</code>, <code>datos</code> es cada mail (la clave) y <code>usr[datos]</code> es su lista <code>[password, usuario]</code>. La Opción 2 compara <code>usr[datos] == [passw, usuario]</code>: exige que coincidan los DOS datos, en ese orden. ▸ Opción 1: compara <code>usr[datos][0]</code> (el password guardado) contra <code>usuario</code> (lo tipeado como usuario) → mezcla los campos y valida uno solo; encima hace <code>.lower()</code> al password. ▸ Opciones 3 y 4: <code>usuario in usr</code> / <code>passw in usr</code> preguntan si ese texto es una CLAVE (un mail) del diccionario, no los datos de acceso. ▸ <i>(Parcial real 2023 · T8 · Ej. 0208)</i>`},
+  {st: `Para que <code>estructura[0] = 'primero'</code> se ejecute SIN error, <code>estructura</code> puede ser:`, opts: [`Una lista vacía <code>[]</code>`, `Una tupla de dos elementos`, `Un diccionario`, `La cadena nula <code>''</code>`], c: 2, ex: `En un diccionario, <code>d[0] = 'primero'</code> CREA la clave 0 (o la pisa) — siempre funciona. ▸ La lista vacía da <code>IndexError</code> (no hay posición 0 para asignar). ▸ La tupla es inmutable (<code>TypeError</code>). ▸ El string es inmutable (<code>TypeError</code>). ▸ <i>(Parcial real 2024 · T7 · Ej 0507)</i>`},
+  {st: `¿Qué <b>NO</b> debería ser <code>estructura</code> para que <code>dato = estructura[0][1]</code> se ejecute sin problemas?`, opts: [`Una lista de strings`, `Una lista de tuplas`, `Una tupla de strings`, `Una string`], c: 3, ex: `<code>estructura[0][1]</code> necesita que <code>estructura[0]</code> sea indexable con <code>[1]</code>. ▸ Lista de strings: <code>estructura[0]</code> es un string y <code>[1]</code> es su 2° carácter (anda). ▸ Lista de tuplas / tupla de strings: <code>estructura[0]</code> es una tupla o string, <code>[1]</code> anda. ▸ Una string sola: <code>estructura[0]</code> es UN carácter y <code>[1]</code> se va de rango → <code>IndexError</code>. Por eso "una string" es la que NO sirve. ▸ <i>(Parcial real 2024 · T4 · Ej 0504)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '3', [
@@ -31111,7 +31119,15 @@ def patron(txt):
 frutas = ['CIRUELA', 'FRUTILLA', 'MANZANA', 'NARANJA']
 salida = list(map(edita, frutas))
 mostrar = list(filter(patron, salida))
-print(mostrar)</pre>`, opts: [`<code>['ciruela', 'frutilla', 'naranja']</code>`, `<code>['MANZANA', 'NARANJA']</code>`, `<code>['manzan', 'naranj']</code>`, `<code>['ruela', 'utilla']</code>`], c: 3, ex: `OJO al orden. PRIMERO <code>map(edita)</code> sobre TODAS: saca las 2 primeras letras y pasa a minúscula → 'CIRUELA'→'ruela', 'FRUTILLA'→'utilla', 'MANZANA'→'nzana', 'NARANJA'→'ranja'. DESPUÉS <code>filter(patron)</code> deja las que tienen MÁS DE UNA vocal distinta: 'ruela' (u,e,a) y 'utilla' (u,i,a) sí; 'nzana' y 'ranja' solo tienen 'a'. Resultado: <code>['ruela', 'utilla']</code>. ▸ B no transforma (mayúsculas); A y C no aplican bien edita o filter. ▸ <i>(Parcial real 2025 · T5 · E9)</i>`}
+print(mostrar)</pre>`, opts: [`<code>['ciruela', 'frutilla', 'naranja']</code>`, `<code>['MANZANA', 'NARANJA']</code>`, `<code>['manzan', 'naranj']</code>`, `<code>['ruela', 'utilla']</code>`], c: 3, ex: `OJO al orden. PRIMERO <code>map(edita)</code> sobre TODAS: saca las 2 primeras letras y pasa a minúscula → 'CIRUELA'→'ruela', 'FRUTILLA'→'utilla', 'MANZANA'→'nzana', 'NARANJA'→'ranja'. DESPUÉS <code>filter(patron)</code> deja las que tienen MÁS DE UNA vocal distinta: 'ruela' (u,e,a) y 'utilla' (u,i,a) sí; 'nzana' y 'ranja' solo tienen 'a'. Resultado: <code>['ruela', 'utilla']</code>. ▸ B no transforma (mayúsculas); A y C no aplican bien edita o filter. ▸ <i>(Parcial real 2025 · T5 · E9)</i>`},
+  {st: `¿Cuál es la salida del siguiente programa?<pre class="code-block">def nomMes(mes):
+    meses = {1:'enero', 2:'febrero', 3:'marzo', 4:'abril', 5:'mayo', 6:'junio',
+             7:'julio', 8:'agosto', 9:'septiembre', 10:'octubre', 11:'noviembre', 12:'diciembre'}
+    return meses[mes].upper()
+
+meses = [10, 5, 2, 6, 7, 9]
+nombres = list(map(nomMes, meses))
+print(nombres)</pre>`, opts: [`<code>['JUNIO']</code>`, `<code>[0, 0, 0, 0, 0, 0]</code>`, `<code>[9, 7, 6, 2, 5, 10]</code>`, `<code>['OCTUBRE', 'MAYO', 'FEBRERO', 'JUNIO', 'JULIO', 'SEPTIEMBRE']</code>`], c: 3, ex: `<code>map(nomMes, meses)</code> aplica nomMes a cada número de <code>[10, 5, 2, 6, 7, 9]</code>: busca el nombre en el diccionario y lo pasa a mayúsculas. 10→OCTUBRE, 5→MAYO, 2→FEBRERO, 6→JUNIO, 7→JULIO, 9→SEPTIEMBRE. ▸ map devuelve la MISMA cantidad de elementos (transforma, no filtra). ▸ <i>(Parcial real 2024 · T4 · Ej 0204)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '4', [
@@ -31387,7 +31403,56 @@ while sigue:
         except IndexError:
             sigue = False
     else:
-        sigue = False</pre>`, opts: [`<code>[]</code> (lista vacía)`, `<code>['julio', 'ana', 'inés', 'juan', 'lía']</code>`, `<code>['juan', 'lía']</code>`, `<code>['julio']</code>`], c: 0, ex: `Las 6 respuestas (s, S, SIPI, DALE, si, sisi) están todas en <code>respSi</code> gracias al <code>.lower()</code>, así que cada una hace un <code>pop()</code> (saca el último). La lista tiene 5 elementos: los primeros 5 pop la vacían y el 6° pop sobre lista vacía lanza <code>IndexError</code>, que el except captura cortando el ciclo. Queda <code>[]</code>. ▸ Si alguna respuesta hubiera sido "no", cortaría antes (else). ▸ Las demás opciones implican menos pops de los que ocurren. ▸ <i>(Parcial real 2023 · T8 · Ej. 0708)</i>`}
+        sigue = False</pre>`, opts: [`<code>[]</code> (lista vacía)`, `<code>['julio', 'ana', 'inés', 'juan', 'lía']</code>`, `<code>['juan', 'lía']</code>`, `<code>['julio']</code>`], c: 0, ex: `Las 6 respuestas (s, S, SIPI, DALE, si, sisi) están todas en <code>respSi</code> gracias al <code>.lower()</code>, así que cada una hace un <code>pop()</code> (saca el último). La lista tiene 5 elementos: los primeros 5 pop la vacían y el 6° pop sobre lista vacía lanza <code>IndexError</code>, que el except captura cortando el ciclo. Queda <code>[]</code>. ▸ Si alguna respuesta hubiera sido "no", cortaría antes (else). ▸ Las demás opciones implican menos pops de los que ocurren. ▸ <i>(Parcial real 2023 · T8 · Ej. 0708)</i>`},
+  {st: `¿Cuál de los siguientes códigos valida que se ingrese un nombre SIN tilde, insistiendo hasta lograrlo? (Válidos: lucas, Pedro, JUAN · Inválidos: Úrsula, Inés, 9ema). Nota: <code>isalpha()</code> da True si el texto tiene sólo letras.
+<b>Opción 1</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    marca = False
+    for letra in n.lower():
+        if letra in voc:
+            marca = True
+    return True
+nom = input('Nombre sin acentos: ')
+while tilde(nom) or not nom.isalpha():
+    nom = input('Nombre sin acentos: ')</pre>
+<b>Opción 2</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    for letra in voc:
+        if letra in n.lower():
+            marca = True
+        else:
+            marca = False
+    return marca
+nom = input('Nombre sin acentos: ')
+while tilde(nom) or not nom.isalpha():
+    nom = input('Nombre sin acentos: ')</pre>
+<b>Opción 3</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    n = n.upper()
+    marca = False
+    for letra in voc:
+        if letra in n:
+            marca = True
+    return marca
+nom = input('Nombre sin acentos: ')
+while not (tilde(nom) == False and nom.isalpha()):
+    nom = input('Nombre sin acentos: ')</pre>
+<b>Opción 4</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    marca = False
+    for letra in n.upper():
+        if letra in voc:
+            marca = True
+    return marca
+nom = input('Nombre sin acentos: ')
+if nom.isalpha() or tilde(nom):
+    print('Válido')
+else:
+    print('Inválido')</pre>`, opts: [`Opción 1`, `Opción 2`, `Opción 3`, `Opción 4`], c: 2, ex: `La 3 es la única correcta: <code>tilde()</code> pasa el nombre a mayúsculas y devuelve True si hay alguna vocal acentuada (sin pisar la marca), y el <code>while</code> insiste mientras NO se cumpla (no tiene tilde Y es alfabético). ▸ Opción 1: <code>tilde</code> tiene <code>return True</code> fijo → rechaza todo siempre. ▸ Opción 2: pisa <code>marca</code> en cada vuelta del for, así que sólo cuenta la última vocal. ▸ Opción 4: no tiene bucle (no insiste) y la condición <code>isalpha() or tilde()</code> está mal armada. ▸ <i>(Parcial real 2024 · T4 · Ej 0104)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '6', [
@@ -31434,7 +31499,12 @@ abril       80.5
 enero      110.0
 julio       30.0
 marzo      117.5
-octubre     72.0</pre>`, opts: [`<code>lluvias.describe()</code>`, `<code>lluvias.groupby('mes')['mm'].mean()</code>`, `<code>lluvias.loc[1:3, ['mes','mm']]</code>`, `<code>lluvias.head(4)</code>`], c: 1, ex: `La salida agrupa por mes y promedia mm: abril (65 y 96 → 80.5), marzo (120 y 115 → 117.5), etc. Eso es <code>groupby('mes')['mm'].mean()</code> (devuelve un valor por mes, ordenado por mes). ▸ <code>describe()</code> da estadísticas (count, mean, std…) de las columnas numéricas. ▸ <code>.loc[1:3]</code> toma filas por índice. ▸ <code>head(4)</code> da las primeras 4 filas. ▸ <i>(Parcial real 2023 · T8 · Ej. 0508)</i>`}
+octubre     72.0</pre>`, opts: [`<code>lluvias.describe()</code>`, `<code>lluvias.groupby('mes')['mm'].mean()</code>`, `<code>lluvias.loc[1:3, ['mes','mm']]</code>`, `<code>lluvias.head(4)</code>`], c: 1, ex: `La salida agrupa por mes y promedia mm: abril (65 y 96 → 80.5), marzo (120 y 115 → 117.5), etc. Eso es <code>groupby('mes')['mm'].mean()</code> (devuelve un valor por mes, ordenado por mes). ▸ <code>describe()</code> da estadísticas (count, mean, std…) de las columnas numéricas. ▸ <code>.loc[1:3]</code> toma filas por índice. ▸ <code>head(4)</code> da las primeras 4 filas. ▸ <i>(Parcial real 2023 · T8 · Ej. 0508)</i>`},
+  {st: `Para el DataFrame <code>vue</code> (columnas nombre, dni, fila, asiento, tarifa), ¿qué operación produce esta salida?<pre class="code-block">asiento
+A     6
+C    22
+D    11
+F    14</pre>`, opts: [`<code>vue[vue['tarifa'].isnull()]</code>`, `<code>vue.loc[:, ['dni', 'tarifa']]</code>`, `<code>vue.groupby('asiento')['fila'].max()</code>`, `<code>vue.iloc[2:]</code>`], c: 2, ex: `La salida agrupa por <code>asiento</code> y devuelve el MÁXIMO de <code>fila</code> de cada grupo: <code>vue.groupby('asiento')['fila'].max()</code> (A→6, C→22, D→11, F→14). ▸ <code>isnull()</code> filtra filas con nulos. ▸ <code>loc[:, [...]]</code> selecciona columnas. ▸ <code>iloc[2:]</code> toma filas por posición. ▸ <i>(Parcial real 2024 · T4 · Ej 0904)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '7', [
@@ -31447,7 +31517,14 @@ x_bar = [0, 2, 1, 6, 3]
 fig, ax = plt.subplots(nrows=3, ncols=3)
 ax[1, 1].plot(x, x_lineal)
 ax[2, 2].bar(x, x_bar)
-plt.show()</pre>`, opts: [`Se hará una grilla de 9 gráficos. En el centro hay un gráfico de línea y en la esquina inferior derecha, uno de barras.`, `Se hará una grilla de 9 gráficos. En la esquina superior izquierda hay una línea y en el centro, uno de barras.`, `Se hará una grilla de 9 gráficos con dos gráficos, uno de línea y uno de barras, ambos en el centro.`, `Ninguna de las opciones describe lo que ocurre.`], c: 0, ex: `<code>subplots(nrows=3, ncols=3)</code> crea una grilla 3×3 (9 ejes). Se indexa <code>ax[fila, columna]</code> empezando en 0. <code>ax[1,1]</code> es el del CENTRO → línea (plot). <code>ax[2,2]</code> es la esquina inferior derecha → barras (bar). Por eso la opción 1. ▸ La superior izquierda sería <code>ax[0,0]</code>; el centro es <code>ax[1,1]</code> (eso descarta la 2 y la 3). ▸ <i>(Parcial real 2023 · T1 · Ej. 0901)</i>`}
+plt.show()</pre>`, opts: [`Se hará una grilla de 9 gráficos. En el centro hay un gráfico de línea y en la esquina inferior derecha, uno de barras.`, `Se hará una grilla de 9 gráficos. En la esquina superior izquierda hay una línea y en el centro, uno de barras.`, `Se hará una grilla de 9 gráficos con dos gráficos, uno de línea y uno de barras, ambos en el centro.`, `Ninguna de las opciones describe lo que ocurre.`], c: 0, ex: `<code>subplots(nrows=3, ncols=3)</code> crea una grilla 3×3 (9 ejes). Se indexa <code>ax[fila, columna]</code> empezando en 0. <code>ax[1,1]</code> es el del CENTRO → línea (plot). <code>ax[2,2]</code> es la esquina inferior derecha → barras (bar). Por eso la opción 1. ▸ La superior izquierda sería <code>ax[0,0]</code>; el centro es <code>ax[1,1]</code> (eso descarta la 2 y la 3). ▸ <i>(Parcial real 2023 · T1 · Ej. 0901)</i>`},
+  {st: `¿Cuál opción describe correctamente el gráfico que produce este código?<pre class="code-block">x = [0, 1, 2, 3, 4, 5]
+x_cubica = [0, 1, 8, 27, 64, 125]
+x_bar = [2, 3, 1, 6, 2, 1]
+fig, ax = plt.subplots(nrows=4, ncols=5)
+ax[0, 4].plot(x, x_cubica)
+ax[2, 3].bar(x, x_bar)
+plt.show()</pre>`, opts: [`Una grilla de 20 gráficos con DOS de línea: uno en la 1ª fila y 4ª columna, y otro en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con una línea y unas barras: la línea en la 1ª fila y 5ª columna, las barras en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con la línea en la 1ª fila y 4ª columna, y las barras en la 2ª fila y 3ª columna.`, `Ninguna de las opciones describe lo que ocurre.`], c: 1, ex: `<code>subplots(nrows=4, ncols=5)</code> crea una grilla de 4×5 = 20 ejes, indexados <code>ax[fila, columna]</code> desde 0. <code>ax[0, 4]</code> = 1ª fila (índice 0), 5ª columna (índice 4) → línea (plot). <code>ax[2, 3]</code> = 3ª fila (índice 2), 4ª columna (índice 3) → barras (bar). Eso es la opción 2. ▸ <i>(Parcial real 2023 · Camejo · Ej 0902)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '8', [
