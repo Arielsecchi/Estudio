@@ -9626,7 +9626,7 @@ print(solo_pares(datos))  # [4, 8, 6]</pre>
 <div class="content">
 
 <h3>Cómo es el 2° parcial de PC</h3>
-<p>El 2° parcial es <b>100% de opción múltiple</b> (una sola respuesta correcta por pregunta, que se vuelca en una grilla). Tiene entre <b>9 y 11 preguntas</b>, en Python 3 (entorno Colab). <b>Nunca</b> se escribe código desde cero: siempre es uno de estos dos formatos.</p>
+<p>El 2° parcial es <b>100% de opción múltiple</b> (una sola respuesta correcta por pregunta, que se vuelca en una grilla). Tiene entre <b>9 y 13 preguntas</b>, en Python 3 (entorno Colab). <b>Nunca</b> se escribe código desde cero: siempre es uno de estos dos formatos.</p>
 
 <table class="tbl">
   <tr><th>Formato de pregunta</th><th>Qué te piden</th></tr>
@@ -9711,29 +9711,39 @@ datos[41234225][0]     # 'Juan'</pre>
 <p>Para acceder a un dato puntual encadenás <b>dos accesos</b>: primero la clave (te da la lista), después el índice dentro de la lista.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial 2024) — Modificar un dato in-place</div>
-  <p>Aumentar 10% el precio (2° dato) de un botón:</p>
-  <pre class="code-block">botones = {'MET 002': ['plata', 350.0, 1]}
-boton = 'MET 002'
-botones[boton][1] *= 1.1     # 350.0 * 1.1 = 385.0
-precio = round(botones[boton][1], 2)
-print('Nuevo precio de', boton, '$', precio)</pre>
-  <p><b>Salida:</b> <code>Nuevo precio de MET 002 $ 385.0</code></p>
-  <p><b>Por qué:</b> <code>botones[boton]</code> es la lista <code>['plata', 350.0, 1]</code>; <code>[1]</code> es el precio (350.0); <code>*= 1.1</code> lo modifica adentro de la lista. <b>Trampa:</b> escribir <code>botones[boton] = 1.1</code> pisaría toda la lista por el número 1.1.</p>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 1007) — Completá la línea faltante</div>
+  <p>Por cada botón la clave es el código y los datos son <code>[color, precio unitario, tamaño]</code>. Hay que incrementar 10% el precio. ¿Cuál es la línea faltante?</p>
+  <pre class="code-block">botones = {'MET 002': ['plata', 350.0, 1], 'MET 001': ['dorado', 475.6, 1.5],
+           'ACR 102': ['rojo', 210, 0.8], 'PVC 233 ': ['azul', 650, 2]}
+boton = input('Cgo botón: ').upper()
+if boton in botones:
+    ……………           # línea a completar
+    precio = round(botones[boton][1], 2)
+    print('El nuevo precio unitario de', boton,
+          'con 10% de aumento es $', precio)</pre>
+  <p>Para el ingreso <code>met002</code> la salida debe ser: <code>El nuevo precio unitario de MET 002 con 10% de aumento es $ 385.0</code></p>
+  <p><b>La línea correcta es</b> <code>botones[boton][1] *= 1.1</code>: <code>botones[boton]</code> es la lista <code>['plata', 350.0, 1]</code>; el índice <code>[1]</code> es el precio (350.0); <code>*= 1.1</code> lo modifica adentro de la lista → 385.0. <b>Las otras opciones del parcial:</b> <code>botones[boton] = 1</code> pisa toda la lista por el número 1; <code>boton = 350*10/100+350</code> no toca el diccionario; <code>botones[boton][2] -= 1</code> cambia el tamaño, no el precio.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Camejo) — Validar usuario con diccionario</div>
-  <p>El diccionario es <code>mail → [password, usuario]</code>. Verificar login:</p>
+  <div class="ex-t">Ejercicio real (Camejo · 2023 · T8 · Ej 0208) — Validar usuario con diccionario</div>
+  <p>El diccionario es <code>mail → [password, usuario]</code>: cada clave es un mail y su valor es la lista <code>[password, usuario]</code>. El programa insiste hasta que el login sea correcto:</p>
+  <pre class="code-block">users = {'info@usina.com.ar': ['X25fc230', 'joanaBur'],
+         'iro@hotmail.com':   ['Irma1211', 'rojas_27'],
+         'ergo@gmail.com':    ['joacoS01', 'infoGENERAL']}
+
+while not ingreso(users):
+    print('Datos de Acceso Erróneos')</pre>
+  <p>La versión correcta de <code>ingreso()</code> (entre las 4 que daba el parcial) es:</p>
   <pre class="code-block">def ingreso(usr):
     usuario = input('Usuario: ')
     passw = input('Password: ')
     resp = False
-    for datos in usr:                 # datos = cada clave (mail)
+    for datos in usr:                 # datos = cada clave (un mail)
         if usr[datos] == [passw, usuario]:
             resp = True
     return resp</pre>
-  <p><b>Por qué es correcta:</b> compara la <b>lista completa</b> <code>[passw, usuario]</code> contra el valor del diccionario, exigiendo que coincidan los dos datos. <b>Trampa:</b> comparar solo <code>usr[datos][0]</code> validaría únicamente el password.</p>
+  <p><b>Por qué:</b> al recorrer <code>for datos in usr</code>, <code>datos</code> es cada mail y <code>usr[datos]</code> es su lista <code>[password, usuario]</code>. Comparar <code>usr[datos] == [passw, usuario]</code> exige que coincidan los <b>dos</b> datos. <b>Trampa:</b> comparar solo <code>usr[datos][0]</code> validaría únicamente el password; y <code>usuario in usr</code> chequea si es una clave (un mail), no los datos de acceso. <b>(Es la versión completa del ejercicio 2.3 del quiz.)</b></p>
 </div>
 
 <div class="trap"><div class="tr-t">Errores típicos del bloque</div>
@@ -9780,7 +9790,7 @@ list(filter(es_par, [1, 2, 3, 4])) # [2, 4]      -> deja los pares</pre>
 # filter deja [2, 4]; map los duplica -> [4, 8]</pre>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial 2024) — filter con condición</div>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0307) — filter con condición</div>
   <pre class="code-block">def mes31(m):
     de30dias = (4, 6, 9, 11)
     return m not in de30dias and m != 2
@@ -9792,7 +9802,7 @@ print(list(filter(mes31, meses)))</pre>
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Camejo) — Precedencia and/or dentro del filter</div>
+  <div class="ex-t">Ejercicio real (Camejo · 2023 · T8 · Ej 0108) — Precedencia and/or dentro del filter</div>
   <pre class="code-block">def organiza(n):
     if n % 3 == 0 and n % 2 == 0 or n &lt; 100:
         return True
@@ -9805,15 +9815,18 @@ print(list(filter(organiza, a)))</pre>
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial 2025) — filter + map encadenados</div>
-  <pre class="code-block">def mayus(txt): return txt.upper()
-def tiene_tilde(txt): return ('á' in txt) or ('ó' in txt)
+  <div class="ex-t">Ejercicio real (Parcial 2025 · T1 · Ej 9) — filter + map encadenados</div>
+  <pre class="code-block">def edita(txt):
+    return txt.upper()
+def patron(txt):
+    return ('á' in txt) or ('ó' in txt)
 
 ciudades = ['anillaco', 'san javier', 'la dársena', 'fiambalá']
-sel = list(filter(tiene_tilde, ciudades))
-print(list(map(mayus, sel)))</pre>
+mostrar = list(filter(patron, ciudades))
+salida = list(map(edita, mostrar))
+print(salida)</pre>
   <p><b>Salida:</b> <code>['LA DÁRSENA', 'FIAMBALÁ']</code></p>
-  <p><b>Por qué:</b> <code>filter</code> deja las que tienen á u ó ("la dársena", "fiambalá"); después <code>map(mayus)</code> las pasa a mayúsculas. <b>Primero seleccionar, después transformar.</b></p>
+  <p><b>Por qué:</b> <code>filter</code> deja las que tienen á u ó ("la dársena", "fiambalá"); después <code>map(edita)</code> las pasa a mayúsculas. <b>Primero seleccionar, después transformar.</b></p>
 </div>
 
 <div class="trap"><div class="tr-t">Errores típicos (los distractores del parcial)</div>
@@ -9870,19 +9883,23 @@ arch2.close()</pre>
 <p>Las dos herramientas clave para procesar cada línea: <code>.strip('\n')</code> (quita el salto de línea) y <code>.split(',')</code> (parte la línea en una lista de campos).</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial 2024) — Numerar líneas en un archivo nuevo</div>
-  <pre class="code-block">arch = open('Clientes.txt', 'r')
-lineas = arch.readlines()
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0407) — Filtrar y escribir otro archivo</div>
+  <p><code>contactos.txt</code> tiene una línea por contacto con el formato <code>nombre,apellido,mail,categoría</code>. Hay que dejar en <code>invitados.txt</code> solo los de categoría "trabajo", escribiendo <code>nombre,mail</code>:</p>
+  <pre class="code-block">arch = open('contactos.txt', 'r+')
+lista = arch.readlines()
 arch.close()
 
-arch = open('nuevo.txt', 'w')
-lineas.sort()                        # ordena alfabéticamente
-i = 1
-for lin in lineas:
-    arch.write(str(i) + ';' + lin)   # lin ya trae '\n'
-    i += 1
+invitados = []
+for amigo in lista:
+    amigo = amigo.strip('\n')        # saca el salto de línea
+    a = amigo.split(',')             # separa por coma -> lista de campos
+    if a[3].lower() == 'trabajo':    # la categoría es el 4° campo
+        invitados.append(a[0] + ',' + a[2] + '\n')
+
+arch = open('invitados.txt', 'w')
+arch.writelines(invitados)
 arch.close()</pre>
-  <p>El archivo <code>nuevo.txt</code> queda con cada línea ordenada y numerada desde 1: <code>1;Artelac…</code>, <code>2;Novallen…</code>, etc. <b>Clave:</b> <code>lin</code> ya incluye su <code>\n</code>, por eso no se agrega otro.</p>
+  <p><b>invitados.txt</b> queda con: <code>AnaEmilia,anitapaz@yahoo.como.ar</code>, <code>Rodo,rgarcia04@gmail.com</code> y <code>Ema,derbita34@gmail.com</code> (los tres con "trabajo"; el <code>.lower()</code> hace que entre también "TRABAJO"). <b>Claves:</b> <code>strip('\n')</code> saca el salto, <code>split(',')</code> parte en campos, y al escribir se agrega el <code>\n</code> a mano.</p>
 </div>
 
 <div class="trap"><div class="tr-t">Errores típicos del bloque</div>
@@ -9976,13 +9993,13 @@ Para combinar condiciones de filtro se usa <code>&amp;</code> (y), <code>|</code
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial 2024) — Filtro con dos condiciones</div>
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0707) — Filtro con dos condiciones</div>
   <pre class="code-block">vue1 = vue[(vue['fila'] &lt; 20) &amp; (vue['asiento'] != 'C')]</pre>
   <p>Deja las filas con <code>fila &lt; 20</code> <b>Y</b> <code>asiento</code> distinto de <code>'C'</code>. Una fila con asiento C se descarta; una con fila 23 también. <b>Clave:</b> los paréntesis y el <code>&amp;</code> son obligatorios.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Camejo) — groupby + mean</div>
+  <div class="ex-t">Ejercicio real (Camejo · 2023 · T8 · Ej 0508) — groupby + mean</div>
   <pre class="code-block">lluvias.groupby('mes')['mm'].mean()</pre>
   <p>Agrupa las filas por <code>mes</code> y promedia la columna <code>mm</code> de cada grupo. Si abril tiene 65 y 96 → promedio 80.5; si marzo tiene 120 y 115 → 117.5; etc. Devuelve un valor por mes. <b>Distractor típico:</b> confundirlo con <code>head(4)</code> o con un filtro.</p>
 </div>
