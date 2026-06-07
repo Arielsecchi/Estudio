@@ -9984,8 +9984,9 @@ print(n)</pre>
   <tr><td>Filtrar filas</td><td><code>df[df['edad'] &gt; 18]</code></td><td>Las filas que cumplen</td></tr>
   <tr><td>Filtro con 2 condiciones</td><td><code>df[(df['a'] &gt; 1) &amp; (df['b'] != 'C')]</code></td><td>Usar <code>&amp;</code> <code>|</code> y <b>paréntesis</b></td></tr>
   <tr><td>Sumar / promediar</td><td><code>df['col'].sum()</code> · <code>.mean()</code></td><td>Un número</td></tr>
-  <tr><td>Agrupar y promediar</td><td><code>df.groupby('mes')['mm'].mean()</code></td><td>Promedio por grupo</td></tr>
-  <tr><td>Ordenar</td><td><code>df.sort_values(by='año')</code></td><td>La tabla ordenada</td></tr>
+  <tr><td>Agrupar y resumir</td><td><code>df.groupby('mes')['mm'].mean()</code> · <code>.max()</code> · <code>.min()</code></td><td>Un valor por grupo</td></tr>
+  <tr><td>Ordenar</td><td><code>df.sort_values('apellido')</code></td><td>La tabla ordenada por esa columna</td></tr>
+  <tr><td>Contar repetidos</td><td><code>df['col'].value_counts()</code></td><td>Cuántas veces aparece cada valor</td></tr>
 </table>
 
 <div class="key"><div class="ky-t">La trampa #1 de pandas: <code>&amp;</code> no <code>and</code></div>
@@ -31504,7 +31505,42 @@ octubre     72.0</pre>`, opts: [`<code>lluvias.describe()</code>`, `<code>lluvia
 A     6
 C    22
 D    11
-F    14</pre>`, opts: [`<code>vue[vue['tarifa'].isnull()]</code>`, `<code>vue.loc[:, ['dni', 'tarifa']]</code>`, `<code>vue.groupby('asiento')['fila'].max()</code>`, `<code>vue.iloc[2:]</code>`], c: 2, ex: `La salida agrupa por <code>asiento</code> y devuelve el MÁXIMO de <code>fila</code> de cada grupo: <code>vue.groupby('asiento')['fila'].max()</code> (A→6, C→22, D→11, F→14). ▸ <code>isnull()</code> filtra filas con nulos. ▸ <code>loc[:, [...]]</code> selecciona columnas. ▸ <code>iloc[2:]</code> toma filas por posición. ▸ <i>(Parcial real 2024 · T4 · Ej 0904)</i>`}
+F    14</pre>`, opts: [`<code>vue[vue['tarifa'].isnull()]</code>`, `<code>vue.loc[:, ['dni', 'tarifa']]</code>`, `<code>vue.groupby('asiento')['fila'].max()</code>`, `<code>vue.iloc[2:]</code>`], c: 2, ex: `La salida agrupa por <code>asiento</code> y devuelve el MÁXIMO de <code>fila</code> de cada grupo: <code>vue.groupby('asiento')['fila'].max()</code> (A→6, C→22, D→11, F→14). ▸ <code>isnull()</code> filtra filas con nulos. ▸ <code>loc[:, [...]]</code> selecciona columnas. ▸ <code>iloc[2:]</code> toma filas por posición. ▸ <i>(Parcial real 2024 · T4 · Ej 0904)</i>`},
+  {st: `Dado el DataFrame <code>verduleria</code>:<pre class="code-block">    producto  Stock Unidad  Precio   Hoja
+0     Tomate    1.0  cajón    3100  False
+1    Lechuga    NaN   None    4150   True
+2   Espinaca    NaN  atado    1250   True
+3    Cebolla    2.0  bolsa    4150  False
+4       Papa    5.0  bolsa     970  False</pre>¿Qué muestra <code>print(verduleria.groupby('Unidad')['Precio'].max())</code>?
+<b>Opción A</b>: el DataFrame completo, las 5 filas de productos.
+<b>Opción B</b>: una tabla con las columnas Precio y Producto.
+<b>Opción C</b><pre class="code-block">Unidad
+atado    1250
+bolsa    4150
+cajón    3100</pre>
+<b>Opción D</b>: solo las filas de Lechuga y Cebolla.`, opts: [`Opción A`, `Opción B`, `Opción C`, `Opción D`], c: 2, ex: `<code>groupby('Unidad')</code> junta las filas por unidad y <code>['Precio'].max()</code> toma el precio MÁXIMO de cada grupo: atado→1250, bolsa→(4150 y 970)→4150, cajón→3100. El grupo None/NaN se descarta. Da la Opción C. ▸ Las otras no agrupan: muestran el DataFrame entero o filas sueltas. ▸ <i>(Ejemplo oficial de la cátedra 2025 · T1 · Ej 8)</i>`},
+  {st: `Dado el DataFrame <code>resfrios</code> con <code>humedad = [60, 75, 79, 68, 60, 60]</code> y <code>cantidad = [2, 23, 32, 31, 45, 61]</code>, ¿qué muestra <code>print(resfrios['humedad'].value_counts())</code>?
+<b>Opción A</b>: el DataFrame completo ordenado.
+<b>Opción B</b>: una tabla con cantidad y mes.
+<b>Opción C</b><pre class="code-block">humedad
+60    108
+68     31
+75     23
+79     32</pre>
+<b>Opción D</b><pre class="code-block">humedad
+60    3
+75    1
+79    1
+68    1</pre>`, opts: [`Opción A`, `Opción B`, `Opción C`, `Opción D`], c: 3, ex: `<code>value_counts()</code> cuenta CUÁNTAS VECES aparece cada valor de la columna: el 60 aparece 3 veces; el 75, el 79 y el 68 una vez cada uno → Opción D (ordenado de mayor a menor frecuencia). ▸ La Opción C suma la <code>cantidad</code> por cada humedad (60: 2+45+61 = 108), no cuenta repeticiones. ▸ A y B muestran tablas que value_counts no produce. ▸ <i>(Ejemplo oficial de la cátedra 2025 · T4 · Ej 6)</i>`},
+  {st: `Para el DataFrame <code>alumnos</code>:<pre class="code-block">  apellido  nota  ejer realizados  año carrera  prom gral
+0   Giunta    10              35            1       8.75
+1    Terra     2               5            2       7.00
+2   Kempes    10              18            2       6.25
+3  Ardiles     6              27            1       9.00</pre>¿Qué instrucción produce esta salida (las filas ordenadas alfabéticamente por apellido)?<pre class="code-block">  apellido  nota  ejer realizados  año carrera  prom gral
+3  Ardiles     6              27            1       9.00
+0   Giunta    10              35            1       8.75
+2   Kempes    10              18            2       6.25
+1    Terra     2               5            2       7.00</pre>`, opts: [`<code>alumnos.sort_values('apellido')</code>`, `<code>alumnos.tail(2)</code>`, `<code>alumnos.groupby('año carrera')['nota'].min()</code>`, `<code>alumnos[['prom gral','nota','apellido']]</code>`], c: 0, ex: `<code>sort_values('apellido')</code> reordena TODAS las filas según la columna apellido en orden alfabético (Ardiles, Giunta, Kempes, Terra), conservando todas las columnas. ▸ <code>tail(2)</code> da las últimas 2 filas. ▸ <code>groupby(...).min()</code> agrupa y resume (no devuelve la tabla entera). ▸ <code>alumnos[[...]]</code> selecciona columnas. ▸ <i>(Ejemplo oficial de la cátedra 2024 · T1 · Ej 1)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '7', [
