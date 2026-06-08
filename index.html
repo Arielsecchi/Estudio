@@ -31544,8 +31544,43 @@ cajón    3100</pre>
 ]);
 
 registerExercises('pc-segundo-parcial', '7', [
-  {st: `Querés un gráfico de BARRAS verticales con estos datos (el parcial mostraba un gráfico de barras): <code>altura = [1.83, 1.56, 2.00, 1.72, 1.69]</code> y <code>jugadores = ['Juan', 'Mauro', 'Sebas', 'Nacho', 'Aldo']</code>, con los jugadores en el eje x y la altura como valor. ¿Cuál instrucción usás?`, opts: [`<code>ax.scatter(altura, jugadores)</code>`, `<code>ax.barh(jugadores)</code>`, `<code>ax.set_title(altura)</code>`, `<code>ax.bar(jugadores, altura)</code>`], c: 3, ex: `Un gráfico de barras verticales con categorías en x y valores en y es <code>ax.bar(categorías, valores)</code> = <code>ax.bar(jugadores, altura)</code>. ▸ <code>scatter</code> dibuja puntos y además invierte los ejes. ▸ <code>barh</code> es horizontal y le falta el argumento de valores. ▸ <code>set_title</code> pone un título, no dibuja barras. ▸ <i>(Parcial real 2025 · T1 · E2)</i>`},
-  {st: `Querés un gráfico de LÍNEA del precio del dólar a lo largo de los meses (el parcial mostraba una línea): <code>precioDol = [1195, 1200, 1215, 1235, 1370]</code> y <code>meses = ['diciembre', 'enero', 'febrero', 'marzo', 'abril']</code>. ¿Cuál instrucción usás?`, opts: [`<code>ax.plot(meses, precioDol)</code>`, `<code>plt.set_label(x, 'Precio final Dólar en $')</code>`, `<code>ax.scatter(precioDol)</code>`, `<code>ax.bar(precioDol)</code>`], c: 0, ex: `Una línea que une los puntos (x, y) es <code>ax.plot(meses, precioDol)</code>. ▸ <code>set_label</code> no es una función válida de pyplot. ▸ <code>scatter</code> dibuja puntos sueltos y le falta un argumento. ▸ <code>bar</code> son barras y también le falta un argumento. ▸ <i>(Parcial real 2025 · T5 · E2)</i>`},
+  {st: `¿Cuál instrucción genera este gráfico de barras?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 215" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="barras verticales de altura por jugador">
+<text x="185" y="14" font-size="12" text-anchor="middle" fill="currentColor">Altura por jugador (m)</text>
+<line x1="42" y1="20" x2="42" y2="180" stroke="currentColor"/>
+<line x1="42" y1="180" x2="345" y2="180" stroke="currentColor"/>
+<rect x="50" y="34" width="40" height="146" fill="#0891b2"/>
+<rect x="110" y="55" width="40" height="125" fill="#0891b2"/>
+<rect x="170" y="20" width="40" height="160" fill="#0891b2"/>
+<rect x="230" y="42" width="40" height="138" fill="#0891b2"/>
+<rect x="290" y="45" width="40" height="135" fill="#0891b2"/>
+<text x="70" y="194" font-size="11" text-anchor="middle" fill="currentColor">Juan</text>
+<text x="130" y="194" font-size="11" text-anchor="middle" fill="currentColor">Mauro</text>
+<text x="190" y="194" font-size="11" text-anchor="middle" fill="currentColor">Sebas</text>
+<text x="250" y="194" font-size="11" text-anchor="middle" fill="currentColor">Nacho</text>
+<text x="310" y="194" font-size="11" text-anchor="middle" fill="currentColor">Aldo</text>
+</svg></div>
+Los datos son <code>altura = [1.83, 1.56, 2.00, 1.72, 1.69]</code> y <code>jugadores = ['Juan', 'Mauro', 'Sebas', 'Nacho', 'Aldo']</code> (jugadores en el eje x, altura como valor).`, opts: [`<code>ax.scatter(altura, jugadores)</code>`, `<code>ax.barh(jugadores)</code>`, `<code>ax.set_title(altura)</code>`, `<code>ax.bar(jugadores, altura)</code>`], c: 3, ex: `Un gráfico de barras verticales con categorías en x y valores en y es <code>ax.bar(categorías, valores)</code> = <code>ax.bar(jugadores, altura)</code>. ▸ <code>scatter</code> dibuja puntos y además invierte los ejes. ▸ <code>barh</code> es horizontal y le falta el argumento de valores. ▸ <code>set_title</code> pone un título, no dibuja barras. ▸ <i>(Parcial real 2025 · T1 · E2)</i>`},
+  {st: `¿Cuál instrucción genera este gráfico de línea?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 215" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="grafico de linea del precio del dolar por mes">
+<text x="185" y="14" font-size="12" text-anchor="middle" fill="currentColor">Precio del dólar por mes ($)</text>
+<line x1="45" y1="20" x2="45" y2="180" stroke="currentColor"/>
+<line x1="45" y1="180" x2="345" y2="180" stroke="currentColor"/>
+<polyline points="55,169 125,165 195,154 265,139 335,40" fill="none" stroke="#0891b2" stroke-width="2.5"/>
+<circle cx="55" cy="169" r="3" fill="#0891b2"/>
+<circle cx="125" cy="165" r="3" fill="#0891b2"/>
+<circle cx="195" cy="154" r="3" fill="#0891b2"/>
+<circle cx="265" cy="139" r="3" fill="#0891b2"/>
+<circle cx="335" cy="40" r="3" fill="#0891b2"/>
+<text x="55" y="194" font-size="11" text-anchor="middle" fill="currentColor">dic</text>
+<text x="125" y="194" font-size="11" text-anchor="middle" fill="currentColor">ene</text>
+<text x="195" y="194" font-size="11" text-anchor="middle" fill="currentColor">feb</text>
+<text x="265" y="194" font-size="11" text-anchor="middle" fill="currentColor">mar</text>
+<text x="335" y="194" font-size="11" text-anchor="middle" fill="currentColor">abr</text>
+</svg></div>
+Los datos son <code>precioDol = [1195, 1200, 1215, 1235, 1370]</code> y <code>meses = ['diciembre', 'enero', 'febrero', 'marzo', 'abril']</code>.`, opts: [`<code>ax.plot(meses, precioDol)</code>`, `<code>plt.set_label(x, 'Precio final Dólar en $')</code>`, `<code>ax.scatter(precioDol)</code>`, `<code>ax.bar(precioDol)</code>`], c: 0, ex: `Una línea que une los puntos (x, y) es <code>ax.plot(meses, precioDol)</code>. ▸ <code>set_label</code> no es una función válida de pyplot. ▸ <code>scatter</code> dibuja puntos sueltos y le falta un argumento. ▸ <code>bar</code> son barras y también le falta un argumento. ▸ <i>(Parcial real 2025 · T5 · E2)</i>`},
   {st: `¿Cuál opción describe correctamente el gráfico que produce este código?
 <pre class="code-block">x = [0, 1, 2, 3, 4]
 x_lineal = [0, 2, 4, 6, 8]
@@ -31560,7 +31595,36 @@ x_bar = [2, 3, 1, 6, 2, 1]
 fig, ax = plt.subplots(nrows=4, ncols=5)
 ax[0, 4].plot(x, x_cubica)
 ax[2, 3].bar(x, x_bar)
-plt.show()</pre>`, opts: [`Una grilla de 20 gráficos con DOS de línea: uno en la 1ª fila y 4ª columna, y otro en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con una línea y unas barras: la línea en la 1ª fila y 5ª columna, las barras en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con la línea en la 1ª fila y 4ª columna, y las barras en la 2ª fila y 3ª columna.`, `Ninguna de las opciones describe lo que ocurre.`], c: 1, ex: `<code>subplots(nrows=4, ncols=5)</code> crea una grilla de 4×5 = 20 ejes, indexados <code>ax[fila, columna]</code> desde 0. <code>ax[0, 4]</code> = 1ª fila (índice 0), 5ª columna (índice 4) → línea (plot). <code>ax[2, 3]</code> = 3ª fila (índice 2), 4ª columna (índice 3) → barras (bar). Eso es la opción 2. ▸ <i>(Parcial real 2023 · Camejo · Ej 0902)</i>`}
+plt.show()</pre>`, opts: [`Una grilla de 20 gráficos con DOS de línea: uno en la 1ª fila y 4ª columna, y otro en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con una línea y unas barras: la línea en la 1ª fila y 5ª columna, las barras en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con la línea en la 1ª fila y 4ª columna, y las barras en la 2ª fila y 3ª columna.`, `Ninguna de las opciones describe lo que ocurre.`], c: 1, ex: `<code>subplots(nrows=4, ncols=5)</code> crea una grilla de 4×5 = 20 ejes, indexados <code>ax[fila, columna]</code> desde 0. <code>ax[0, 4]</code> = 1ª fila (índice 0), 5ª columna (índice 4) → línea (plot). <code>ax[2, 3]</code> = 3ª fila (índice 2), 4ª columna (índice 3) → barras (bar). Eso es la opción 2. ▸ <i>(Parcial real 2023 · Camejo · Ej 0902)</i>`},
+  {st: `¿Cuál instrucción genera este gráfico con matplotlib?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 215" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="barras horizontales de precio por producto">
+<text x="200" y="14" font-size="12" text-anchor="middle" fill="currentColor">Precio por producto ($)</text>
+<line x1="78" y1="20" x2="78" y2="185" stroke="currentColor"/>
+<rect x="78" y="28" width="118" height="22" fill="#0891b2"/>
+<rect x="78" y="60" width="67" height="22" fill="#0891b2"/>
+<rect x="78" y="92" width="69" height="22" fill="#0891b2"/>
+<rect x="78" y="124" width="250" height="22" fill="#0891b2"/>
+<rect x="78" y="156" width="44" height="22" fill="#0891b2"/>
+<text x="73" y="43" font-size="11" text-anchor="end" fill="currentColor">chocolate</text>
+<text x="73" y="75" font-size="11" text-anchor="end" fill="currentColor">manteca</text>
+<text x="73" y="107" font-size="11" text-anchor="end" fill="currentColor">azúcar</text>
+<text x="73" y="139" font-size="11" text-anchor="end" fill="currentColor">huevo</text>
+<text x="73" y="171" font-size="11" text-anchor="end" fill="currentColor">harina</text>
+</svg></div>
+Los datos son <code>precio = [3400, 1915, 2000, 7200, 1270]</code> y <code>productos = ['chocolate', 'manteca', 'azúcar', 'huevo', 'harina']</code>.`, opts: [`<code>ax.bar(precio)</code>`, `<code>ax.set_ylabel('Precio en $')</code>`, `<code>ax.barh(productos, precio)</code>`, `<code>ax.plot(productos, precio)</code>`], c: 2, ex: `El gráfico son barras HORIZONTALES (la más larga es "huevo", 7200) → <code>ax.barh(categorías, valores)</code> = <code>ax.barh(productos, precio)</code>. ▸ <code>ax.bar(precio)</code> son barras verticales y además le falta un argumento. ▸ <code>set_ylabel</code> pone una etiqueta, no dibuja. ▸ <code>ax.plot</code> dibujaría una línea, no barras. ▸ Clave: <code>bar</code> = vertical, <code>barh</code> = horizontal. ▸ <i>(Ejemplo oficial de la cátedra 2025 · T4 · Ej 2)</i>`},
+  {st: `Mirá la figura. ¿Cuál de estas líneas de código <b>NO</b> se corresponde con el gráfico?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 225" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="grafico de linea de ventas con titulo eje y y referencia">
+<text x="195" y="15" font-size="12" text-anchor="middle" fill="currentColor">Gráfico de ventas</text>
+<text x="14" y="120" font-size="11" text-anchor="middle" fill="currentColor" transform="rotate(-90 14 120)">Ventas ($)</text>
+<line x1="50" y1="28" x2="50" y2="190" stroke="currentColor"/>
+<line x1="50" y1="190" x2="345" y2="190" stroke="currentColor"/>
+<polyline points="60,175 120,150 180,158 240,98 300,72 335,58" fill="none" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="255" y="30" width="80" height="20" fill="none" stroke="currentColor" stroke-width="0.5"/>
+<line x1="262" y1="40" x2="282" y2="40" stroke="#0891b2" stroke-width="2.5"/>
+<text x="288" y="44" font-size="11" fill="currentColor">Ventas</text>
+</svg></div>`, opts: [`<code>ax.set_ylabel('Ventas ($)')</code>`, `<code>ax.set_title('Gráfico de ventas')</code>`, `<code>ax.plot(x, y, label='Ventas ($)')</code>`, `<code>ax.plot(x, y, label='Ventas')</code>`], c: 2, ex: `Hay que comparar cada texto con lo que muestra la figura. ▸ El título dice "Gráfico de ventas" → la opción 2 (<code>set_title</code>) coincide. ▸ El eje y dice "Ventas ($)" → la opción 1 (<code>set_ylabel</code>) coincide. ▸ La REFERENCIA (el recuadro arriba a la derecha) dice "Ventas" → la opción 4 (<code>label='Ventas'</code>) coincide; pero la opción 3 usa <code>label='Ventas ($)'</code>, que NO coincide con la referencia. Por eso la 3 es la que NO se corresponde. ▸ Truco: leé el título, las etiquetas de los ejes y la referencia, y buscá el texto distinto. ▸ <i>(Parcial real 2023 · T8 · Ej 0808)</i>`}
 ]);
 
 registerExercises('pc-segundo-parcial', '8', [
