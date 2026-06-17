@@ -100,7 +100,7 @@
   <tr><td><b>Conjunción</b></td><td>p ; q ⊢ p ∧ q</td></tr>
   <tr><td><b>Particularización (PU)</b></td><td>∀x: p(x) ⊢ p(a) para algún a</td></tr>
   <tr><td><b>Generalización (GU)</b></td><td>p(a) para a arbitrario ⊢ ∀x: p(x)</td></tr>
-  <tr><td><b>Existencial (PE)</b></td><td>∃x: p(x) ⊢ p(a) para algún a (testigo)</td></tr>
+  <tr><td><b>Particularización Existencial (PE)</b></td><td>∃x: p(x) ⊢ p(a) para algún a (testigo)</td></tr>
 </table>
 
 <h3>Equivalencias que reemplazan demostraciones largas</h3>
@@ -130,10 +130,27 @@
     <li>m → o (si montaña, lleva mochila)</li>
   </ol>
   <p>Conclusión: s ∨ o</p>
-  <p><b>Demostración por casos:</b><br>
-  Caso 1: p → s (por MP con P2). Por adición: s ∨ o. ✓<br>
-  Caso 2: m → o (por MP con P3). Por adición: s ∨ o. ✓<br>
+  <p><b>Demostración por casos</b> (sobre la disyunción P1 = p ∨ m):<br>
+  Caso 1: supongo <b>p</b>. Con P2 (p → s) por MP obtengo <b>s</b>. Por adición: s ∨ o. ✓<br>
+  Caso 2: supongo <b>m</b>. Con P3 (m → o) por MP obtengo <b>o</b>. Por adición: s ∨ o. ✓<br>
   En ambos casos llegamos a s ∨ o, por lo tanto el razonamiento es <b>válido</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo modelo — demostración directa numerada (formato que la cátedra califica)</div>
+  <p>Probar la validez de: <b>p → q ; ¬r → ¬q ; ¬r ∨ s ; ¬s ⊢ ¬p</b>.</p>
+  <p>Escribí UNA línea por paso, citando la regla y de qué líneas sale. Las primeras líneas son las premisas:</p>
+  <table class="tbl">
+    <tr><th>#</th><th>Fórmula</th><th>Justificación</th></tr>
+    <tr><td>1</td><td>p → q</td><td>Premisa</td></tr>
+    <tr><td>2</td><td>¬r → ¬q</td><td>Premisa</td></tr>
+    <tr><td>3</td><td>¬r ∨ s</td><td>Premisa</td></tr>
+    <tr><td>4</td><td>¬s</td><td>Premisa</td></tr>
+    <tr><td>5</td><td>¬r</td><td>SD entre 3 y 4</td></tr>
+    <tr><td>6</td><td>¬q</td><td>MP entre 2 y 5</td></tr>
+    <tr><td>7</td><td>¬p</td><td>MT entre 1 y 6</td></tr>
+  </table>
+  <p>La línea 7 es la conclusión buscada, por lo tanto el razonamiento es <b>válido</b>. (Si la conclusión fuera un condicional q → r, en la línea inicial agregás "q · Premisa adicional (método del condicional)" y cerrás derivando r.)</p>
 </div>
 
 <h3>Cuantificadores: el ítem (a) más típico</h3>
@@ -330,10 +347,13 @@
   150 = 80·1 + 70<br>
   80 = 70·1 + 10<br>
   70 = 10·7 + 0 → <b>MCD = 10</b></p>
-  <p><b>Hacia atrás:</b><br>
+  <p><b>Hacia atrás</b> (despejo el resto de cada línea y sustituyo, sin operar los números que son <i>a</i> o <i>b</i>):<br>
   10 = 80 − 70·1 = 80 − (150 − 80) = 2·80 − 150<br>
   = 2·(680 − 150·4) − 150 = 2·680 − 9·150<br>
-  ...continúa sustituyendo. Al final: 10 = s·7850 + t·2340 con s, t ∈ ℤ.</p>
+  = 2·680 − 9·(830 − 680) = 11·680 − 9·830<br>
+  = 11·(2340 − 830·2) − 9·830 = 11·2340 − 31·830<br>
+  = 11·2340 − 31·(7850 − 2340·3) = <b>(−31)·7850 + 104·2340</b><br>
+  Combinación lineal final: 10 = (−31)·7850 + 104·2340 → <b>s = −31, t = 104</b>. (Verificá: −31·7850 = −243350; 104·2340 = 243360; suma = 10 ✓.)</p>
 </div>
 
 <h3>Propiedades clave de divisibilidad (las que más caen)</h3>
@@ -449,7 +469,7 @@
   <div class="ex-t">Integrador 1 — Razonamiento con cuantificadores (Tema 01)</div>
   <p>"Todos los aspirantes trajeron DNI o cédula. Los aspirantes que trajeron cédula presentaron el apto médico. Sofía no presentó el apto médico. Por lo tanto, al menos un aspirante trajo DNI."</p>
   <p>Definí U = aspirantes; D(x): x trajo DNI; C(x): x trajo cédula; M(x): x presentó apto médico. Premisas: ∀x: D(x) ∨ C(x); ∀x: C(x) → M(x); ¬M(s) (Sofía). Conclusión: ∃x: D(x).</p>
-  <p>De ¬M(s) y la 2ª premisa por MT: ¬C(s). Por la 1ª: D(s) ∨ C(s); con ¬C(s) y SD: D(s). Por GP existencial: ∃x: D(x). ✓</p>
+  <p>De ¬M(s) y la 2ª premisa por MT: ¬C(s). Por la 1ª: D(s) ∨ C(s); con ¬C(s) y SD: D(s). Por Generalización Existencial: ∃x: D(x). ✓</p>
 </div>
 
 <div class="example">
@@ -464,19 +484,18 @@
   <div class="ex-t">Integrador 3 — Combinatoria con restricciones (Tema 13)</div>
   <p>10 autitos: 3 camionetas idénticas (juntas), 2 autos de carrera distintos (separados), 5 distintos. Cuantas filas?</p>
   <p>Estrategia: trato las 3 camionetas como un "bloque". Tengo 8 elementos: bloque + 2 carrera + 5 distintos.<br>
-  Total 8 elementos en fila: 8! Pero los autos de carrera deben estar separados: total − junto = 8! − 7!·2! = 8!·(1 − 2/8) = 8!·6/8 = 7!·6 = 30240. (También = 7!·3!−7!·3!·2! es la opción de la cátedra.)</p>
+  Total 8 elementos en fila: 8! Pero los autos de carrera deben estar separados: total − junto = 8! − 7!·2! = 8!·(1 − 2/8) = 8!·6/8 = 7!·6 = 30240. (Las 3 camionetas son idénticas, así que el bloque no aporta orden interno; por eso no se multiplica por 3!.)</p>
 </div>
 
 <div class="example">
   <div class="ex-t">Integrador 4 — Aritmética V/F (Tema 13)</div>
   <p>"Si MCD(a,b) = 3 y MCD(b,c) = 3 entonces MCD(a,c) = 3"</p>
-  <p><b>Falso.</b> Contraejemplo: a = 3, b = 6, c = 2. MCD(3,6)=3 ✓, MCD(6,2)=2... no funciona. Probemos a=9, b=6, c=4: MCD(9,6)=3 ✓, MCD(6,4)=2... tampoco.<br>
-  Probemos a=3, b=15, c=5: MCD(3,15)=3 ✓, MCD(15,5)=5. No.<br>
-  Mejor: a=6, b=15, c=10. MCD(6,15)=3 ✓, MCD(15,10)=5. No me sirve la 2ª.<br>
-  Definitivo: a=3, b=21, c=7. MCD(3,21)=3, MCD(21,7)=7. No, fallido.<br>
-  El correcto es: a=3, b=15, c=21. MCD(3,15)=3 ✓, MCD(15,21)=3 ✓, MCD(3,21)=3. <b>Verdadero en este caso</b>.<br>
-  Pero contraejemplo real: a=3, b=33, c=22. MCD(3,33)=3 ✓, MCD(33,22)=11. Tampoco.<br>
-  Necesitás al menos un par que falle. Ej: a=15, b=21, c=14. MCD(15,21)=3 ✓, MCD(21,14)=7. Falla. La afirmación es <b>falsa</b> en general.</p>
+  <p><b>Falso.</b> Para refutar basta UN contraejemplo donde se cumplan las dos premisas pero no la conclusión.<br>
+  Contraejemplo: a = 15 (=3·5), b = 33 (=3·11), c = 45 (=3²·5).<br>
+  • MCD(15, 33) = 3 ✓ (solo comparten el 3).<br>
+  • MCD(33, 45) = 3 ✓ (solo comparten el 3).<br>
+  • Pero MCD(15, 45) = 15 ≠ 3 (a y c comparten también el factor 5, que no pasa por b).<br>
+  La intuición: b funciona como "puente" pero no transmite todos los factores comunes entre a y c. Por eso la afirmación es <b>falsa</b> en general.</p>
 </div>
 
 <div class="example">

@@ -852,7 +852,7 @@
   <tr><td>3</td><td>Asociativa</td><td><span class="m">A ∪ (B ∪ C) = (A ∪ B) ∪ C</span></td><td><span class="m">A ∩ (B ∩ C) = (A ∩ B) ∩ C</span></td></tr>
   <tr><td>4</td><td>Distributiva</td><td><span class="m">A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)</span></td><td><span class="m">A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</span></td></tr>
   <tr><td>5</td><td>Idempotencia</td><td><span class="m">A ∪ A = A</span></td><td><span class="m">A ∩ A = A</span></td></tr>
-  <tr><td>6</td><td>De Morgan</td><td><span class="m">A ∪ B̄ = Ā ∩ B̄</span></td><td><span class="m">A ∩ B̄ = Ā ∪ B̄</span></td></tr>
+  <tr><td>6</td><td>De Morgan</td><td><span class="m">(A ∪ B)<sup>c</sup> = Ā ∩ B̄</span></td><td><span class="m">(A ∩ B)<sup>c</sup> = Ā ∪ B̄</span></td></tr>
   <tr><td>7</td><td>Neutro / Absorbente</td><td><span class="m">A ∪ ∅ = A</span> · <span class="m">A ∪ U = U</span></td><td><span class="m">A ∩ U = A</span> · <span class="m">A ∩ ∅ = ∅</span></td></tr>
   <tr><td>8</td><td>Absorción</td><td><span class="m">A ∪ (A ∩ B) = A</span></td><td><span class="m">A ∩ (A ∪ B) = A</span></td></tr>
   <tr><td>9</td><td>Complementación</td><td><span class="m">A ∪ Ā = U</span></td><td><span class="m">A ∩ Ā = ∅</span></td></tr>
@@ -862,8 +862,8 @@
 <div class="key">
   <div class="ky-t">Leyes de De Morgan para conjuntos</div>
   <p>Las leyes de De Morgan son las más importantes para simplificar expresiones con complementos:</p>
-  <div class="formula">A ∪ B̄ = Ā ∩ B̄ &nbsp;&nbsp;&nbsp; (complemento de la unión = intersección de complementos)</div>
-  <div class="formula">A ∩ B̄ = Ā ∪ B̄ &nbsp;&nbsp;&nbsp; (complemento de la intersección = unión de complementos)</div>
+  <div class="formula">(A ∪ B)<sup>c</sup> = Ā ∩ B̄ &nbsp;&nbsp;&nbsp; (complemento de la unión = intersección de complementos)</div>
+  <div class="formula">(A ∩ B)<sup>c</sup> = Ā ∪ B̄ &nbsp;&nbsp;&nbsp; (complemento de la intersección = unión de complementos)</div>
   <p>Son análogas a las leyes de De Morgan de la lógica proposicional, con ∪ ↔ ∨ e ∩ ↔ ∧.</p>
 </div>
 
@@ -1193,41 +1193,41 @@
 <h4>Ejemplo 4: Demostración por inducción con divisibilidad</h4>
 
 <div class="example">
-  <div class="ex-t">Demostrar: ∀n ∈ ℕ: 23n − 18n es divisible por 5</div>
-  <p><b>p(n):</b> <span class="m">∃k ∈ ℤ: 23n − 18n = 5k</span></p>
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ: 23<sup>n</sup> − 18<sup>n</sup> es divisible por 5</div>
+  <p><b>p(n):</b> <span class="m">∃k ∈ ℤ: 23<sup>n</sup> − 18<sup>n</sup> = 5k</span></p>
   <p><b>Paso base (n=1):</b></p>
-  <p><span class="m">23·1 − 18·1 = 23 − 18 = 5 = 5·1</span>, y 1 ∈ ℤ. → <span class="m">v[p(1)] = V</span>. ✓</p>
+  <p><span class="m">23<sup>1</sup> − 18<sup>1</sup> = 23 − 18 = 5 = 5·1</span>, y 1 ∈ ℤ. → <span class="m">v[p(1)] = V</span>. ✓</p>
   <p><b>Paso inductivo:</b></p>
-  <p><b>HI:</b> <span class="m">23h − 18h = 5k</span> para algún k ∈ ℤ</p>
-  <p><b>TI:</b> <span class="m">23(h+1) − 18(h+1) = 5t</span> para algún t ∈ ℤ (notar: t no tiene por qué ser el mismo k)</p>
+  <p><b>HI:</b> <span class="m">23<sup>h</sup> − 18<sup>h</sup> = 5k</span> para algún k ∈ ℤ</p>
+  <p><b>TI:</b> <span class="m">23<sup>h+1</sup> − 18<sup>h+1</sup> = 5t</span> para algún t ∈ ℤ (notar: t no tiene por qué ser el mismo k)</p>
   <p><b>Dem.:</b></p>
-  <p><span class="m">23(h+1) − 18(h+1)</span></p>
-  <p>= <span class="m">23h · 23 − 18h · 18</span> — propiedades de potencias</p>
-  <p>= <span class="m">23h · (5 + 18) − 18h · 18</span> — escribimos 23 = 5 + 18 (truco clave)</p>
-  <p>= <span class="m">5 · 23h + 18 · 23h − 18h · 18</span> — distributiva</p>
-  <p>= <span class="m">5 · 23h + 18 · (23h − 18h)</span> — sacamos factor 18</p>
-  <p>= <span class="m">5 · 23h + 18 · 5k</span> — aplicamos HI</p>
-  <p>= <span class="m">5 · (23h + 18k)</span> — sacamos factor 5</p>
-  <p>= <span class="m">5t</span>, donde <span class="m">t = 23h + 18k ∈ ℤ</span> (suma y producto de enteros es entero). ✓</p>
-  <p><b>Conclusión:</b> Por PIC, 23n − 18n es divisible por 5 para todo n ∈ ℕ. ∎</p>
+  <p><span class="m">23<sup>h+1</sup> − 18<sup>h+1</sup></span></p>
+  <p>= <span class="m">23<sup>h</sup> · 23 − 18<sup>h</sup> · 18</span> — propiedades de potencias</p>
+  <p>= <span class="m">23<sup>h</sup> · (5 + 18) − 18<sup>h</sup> · 18</span> — escribimos 23 = 5 + 18 (truco clave)</p>
+  <p>= <span class="m">5 · 23<sup>h</sup> + 18 · 23<sup>h</sup> − 18<sup>h</sup> · 18</span> — distributiva</p>
+  <p>= <span class="m">5 · 23<sup>h</sup> + 18 · (23<sup>h</sup> − 18<sup>h</sup>)</span> — sacamos factor 18</p>
+  <p>= <span class="m">5 · 23<sup>h</sup> + 18 · 5k</span> — aplicamos HI</p>
+  <p>= <span class="m">5 · (23<sup>h</sup> + 18k)</span> — sacamos factor 5</p>
+  <p>= <span class="m">5t</span>, donde <span class="m">t = 23<sup>h</sup> + 18k ∈ ℤ</span> (suma y producto de enteros es entero). ✓</p>
+  <p><b>Conclusión:</b> Por PIC, 23<sup>n</sup> − 18<sup>n</sup> es divisible por 5 para todo n ∈ ℕ. ∎</p>
 </div>
 
 <h4>Ejemplo 5: Desigualdad por inducción</h4>
 
 <div class="example">
-  <div class="ex-t">Demostrar: ∀n ∈ ℕ, n ≥ 4: 2n &lt; n!</div>
-  <p><b>Observación:</b> El enunciado empieza en n = 4 (para n = 1, 2, 3 es falso: 2 &lt; 1! es falso, etc.). El caso base es n = 4.</p>
+  <div class="ex-t">Demostrar: ∀n ∈ ℕ, n ≥ 4: 2<sup>n</sup> &lt; n!</div>
+  <p><b>Observación:</b> El enunciado empieza en n = 4 (para n = 1, 2, 3 es falso: 2<sup>1</sup> &lt; 1! es falso, etc.). El caso base es n = 4.</p>
   <p><b>Paso base (n=4):</b></p>
   <p>Primer miembro: <span class="m">2⁴ = 16</span>. Segundo miembro: <span class="m">4! = 24</span>. Como 16 &lt; 24 → <span class="m">v[p(4)] = V</span>. ✓</p>
   <p><b>Paso inductivo:</b></p>
-  <p><b>HI:</b> <span class="m">2h &lt; h!</span> (para algún h ≥ 4)</p>
-  <p><b>TI:</b> <span class="m">2h+1 &lt; (h+1)!</span></p>
+  <p><b>HI:</b> <span class="m">2<sup>h</sup> &lt; h!</span> (para algún h ≥ 4)</p>
+  <p><b>TI:</b> <span class="m">2<sup>h+1</sup> &lt; (h+1)!</span></p>
   <p><b>Dem.:</b></p>
-  <p><span class="m">2h+1 = 2 · 2h</span> — propiedad de potencias</p>
-  <p><span class="m">&lt; 2 · h!</span> — por HI (2h &lt; h!), y como 2 &gt; 0 la desigualdad se mantiene</p>
+  <p><span class="m">2<sup>h+1</sup> = 2 · 2<sup>h</sup></span> — propiedad de potencias</p>
+  <p><span class="m">&lt; 2 · h!</span> — por HI (2<sup>h</sup> &lt; h!), y como 2 &gt; 0 la desigualdad se mantiene</p>
   <p><span class="m">≤ (h+1) · h!</span> — porque h+1 ≥ 2 cuando h ≥ 4 ≥ 1 (se cumple h+1 ≥ 2)</p>
   <p><span class="m">= (h+1)!</span> — definición de factorial</p>
-  <p>Entonces <span class="m">2h+1 &lt; (h+1)!</span>. ✓</p>
+  <p>Entonces <span class="m">2<sup>h+1</sup> &lt; (h+1)!</span>. ✓</p>
   <p><b>Conclusión:</b> Por PIC (con base en n = 4), p(n) es verdadera para todo n ∈ ℕ, n ≥ 4. ∎</p>
 </div>
 
@@ -1339,7 +1339,7 @@
   <tr><td>∈ vs. ⊆</td><td>∈ relaciona elemento-conjunto; ⊆ relaciona conjunto-conjunto.</td></tr>
   <tr><td>Igualdad</td><td>A = B ⟺ A ⊆ B ∧ B ⊆ A (demostrar las dos inclusiones).</td></tr>
   <tr><td>Operaciones</td><td>∪, ∩, −, complemento, △. Todas con definición formal en términos de pertenencia.</td></tr>
-  <tr><td>De Morgan</td><td><span class="m">A ∪ B̄ = Ā ∩ B̄</span> y <span class="m">A ∩ B̄ = Ā ∪ B̄</span>.</td></tr>
+  <tr><td>De Morgan</td><td><span class="m">(A ∪ B)<sup>c</sup> = Ā ∩ B̄</span> y <span class="m">(A ∩ B)<sup>c</sup> = Ā ∪ B̄</span>.</td></tr>
   <tr><td>P(A)</td><td>Todos los subconjuntos de A. Si |A| = n, |P(A)| = 2ⁿ.</td></tr>
   <tr><td>Partición</td><td>Celdas no vacías, disjuntas, que cubren A. Las tres condiciones son obligatorias.</td></tr>
   <tr><td>Producto cartesiano</td><td>Pares ordenados. No conmutativo. |A×B| = |A|·|B|.</td></tr>
@@ -3303,12 +3303,14 @@
   <p><span class="m">D<sub>12</sub> = {1, 2, 3, 4, 6, 12}</span></p>
   <p>Relaciones directas (sin saltar): 1|2, 1|3, 2|4, 2|6, 3|6, 4|12, 6|12.</p>
   <pre>
-      12
-     /  \
-    4    6
-    |   / \
-    2  2   3
-     \ |  /
+       12
+      /  \
+     4    6
+     |   / \
+     |  /   3
+     | /   /
+     2    /
+      \  /
        1
   </pre>
   <p>El diagrama muestra que, por ejemplo, 1|4 queda implícito por la cadena 1→2→4.</p>
@@ -3498,7 +3500,7 @@
 
 <div class="trap">
   <div class="tr-t">Cuidado con las subredes</div>
-  <p>Una <b>subred</b> de <span class="m">(A; ∨; ∧)</span> es un subconjunto B no vacío que, con las <i>mismas operaciones</i>, conserva los <i>mismos supremos e ínfimos</i> que en A. Un subconjunto puede ser red en sí mismo pero no ser subred del original si cambia los supremos/ínfimos. Ejemplo: en <span class="m">(D<sub>18</sub>; |)</span>, el subconjunto <span class="m">{1,2,6,18}</span> sin el 3 no es subred porque inf{6,9} = 3 en D₁₈ pero = 1 en el subconjunto.</p>
+  <p>Una <b>subred</b> de <span class="m">(A; ∨; ∧)</span> es un subconjunto B no vacío que, con las <i>mismas operaciones</i>, conserva los <i>mismos supremos e ínfimos</i> que en A. Un subconjunto puede ser red en sí mismo pero no ser subred del original si cambia los supremos/ínfimos. Ejemplo: en <span class="m">(D<sub>18</sub>; |)</span> (donde D<sub>18</sub> = {1,2,3,6,9,18}), el subconjunto <span class="m">{1,6,9,18}</span> no es subred: contiene 6 y 9, pero inf{6,9} = mcd(6,9) = 3 en D₁₈, y 3 ∉ {1,6,9,18}, así que el ínfimo dentro del subconjunto cambia a 1.</p>
 </div>
 
 <!-- ===== ÁLGEBRAS DE BOOLE ===== -->
@@ -3524,7 +3526,7 @@
   <tr><td><span class="m">({0,1}; +; ·)</span></td><td class="c">Sí</td><td>Distributiva, complementada (0̄=1, 1̄=0). Es la mínima (canónica).</td></tr>
   <tr><td><span class="m">(D<sub>15</sub>; |)</span></td><td class="c">Sí</td><td>15 = 3·5 (primos distintos); distributiva y complementada.</td></tr>
   <tr><td><span class="m">(D<sub>42</sub>; |)</span></td><td class="c">Sí</td><td>42 = 2·3·7 (primos distintos).</td></tr>
-  <tr><td><span class="m">(D<sub>18</sub>; |)</span></td><td class="c">No</td><td>18 = 2·3² (primo repetido); el 5 no tiene complemento.</td></tr>
+  <tr><td><span class="m">(D<sub>18</sub>; |)</span></td><td class="c">No</td><td>18 = 2·3² (primo repetido); el 3 no tiene complemento.</td></tr>
   <tr><td><span class="m">(D<sub>50</sub>; |)</span></td><td class="c">No</td><td>50 = 2·5² (primo repetido); no complementada.</td></tr>
   <tr><td><span class="m">(P(A); ∪; ∩)</span></td><td class="c">Sí</td><td>Para todo X, el complemento es A−X.</td></tr>
 </table>
@@ -3552,7 +3554,7 @@
   <tr><td>Involutividad</td><td><span class="m">∀a: ā̄ = a</span></td></tr>
   <tr><td>Neutros complementados</td><td><span class="m">0̄<sub>B</sub> = 1<sub>B</sub></span> y <span class="m">1̄<sub>B</sub> = 0<sub>B</sub></span></td></tr>
   <tr><td>Absorción por neutros</td><td><span class="m">a ∧ 1<sub>B</sub> = a</span>, <span class="m">a ∨ 1<sub>B</sub> = 1<sub>B</sub></span>; <span class="m">a ∨ 0<sub>B</sub> = a</span>, <span class="m">a ∧ 0<sub>B</sub> = 0<sub>B</sub></span></td></tr>
-  <tr><td>De Morgan</td><td><span class="m">a ∨ b⎯ = ā ∧ b̄</span> &nbsp; y &nbsp; <span class="m">a ∧ b⎯ = ā ∨ b̄</span></td></tr>
+  <tr><td>De Morgan</td><td><span class="m">(a ∨ b)′ = ā ∧ b̄</span> &nbsp; y &nbsp; <span class="m">(a ∧ b)′ = ā ∨ b̄</span></td></tr>
 </table>
 
 <h4>Isomorfismo de Álgebras de Boole</h4>
@@ -3656,7 +3658,7 @@
     <tr><td>Idempotencia</td><td><span class="m">a + a = a</span>, <span class="m">a · a = a</span></td></tr>
     <tr><td>Absorción</td><td><span class="m">a + a·b = a</span>, <span class="m">a·(a+b) = a</span></td></tr>
     <tr><td>Complementación</td><td><span class="m">a + ā = 1</span>, <span class="m">a · ā = 0</span></td></tr>
-    <tr><td>De Morgan</td><td><span class="m">a + b⎯ = ā · b̄</span>, <span class="m">a · b⎯ = ā + b̄</span></td></tr>
+    <tr><td>De Morgan</td><td><span class="m">(a + b)′ = ā · b̄</span>, <span class="m">(a · b)′ = ā + b̄</span></td></tr>
     <tr><td>Distributiva</td><td><span class="m">a·(b+c) = a·b + a·c</span>, <span class="m">a+(b·c) = (a+b)·(a+c)</span></td></tr>
     <tr><td>Identidad</td><td><span class="m">a + 0 = a</span>, <span class="m">a · 1 = a</span></td></tr>
     <tr><td>Involución</td><td><span class="m">ā̄ = a</span></td></tr>
@@ -3741,8 +3743,8 @@
   <tr><td><b>AND</b></td><td class="c">a—[&]—salida</td><td><span class="m">s = a · b</span></td><td>0·0=0, 0·1=0, 1·0=0, 1·1=1</td></tr>
   <tr><td><b>OR</b></td><td class="c">a—[≥1]—salida</td><td><span class="m">s = a + b</span></td><td>0+0=0, 0+1=1, 1+0=1, 1+1=1</td></tr>
   <tr><td><b>NOT</b></td><td class="c">a—[o]—salida</td><td><span class="m">s = ā</span></td><td>0→1, 1→0 (1 entrada)</td></tr>
-  <tr><td><b>NAND</b></td><td class="c">a—[&o]—salida</td><td><span class="m">s = a · b⎯</span></td><td>Complemento de AND</td></tr>
-  <tr><td><b>NOR</b></td><td class="c">a—[≥1o]—salida</td><td><span class="m">s = a + b⎯</span></td><td>Complemento de OR</td></tr>
+  <tr><td><b>NAND</b></td><td class="c">a—[&o]—salida</td><td><span class="m">s = (a · b)′</span></td><td>Complemento de AND</td></tr>
+  <tr><td><b>NOR</b></td><td class="c">a—[≥1o]—salida</td><td><span class="m">s = (a + b)′</span></td><td>Complemento de OR</td></tr>
   <tr><td><b>XOR</b></td><td class="c">a—[=1]—salida</td><td><span class="m">s = a ⊕ b</span></td><td>1 si las entradas son distintas</td></tr>
 </table>
 
@@ -4356,7 +4358,7 @@
   </ul>
   <p>Cada piso nuevo agrega 5 + 3·(piso−2) naipes a partir del 2. La recurrencia es:</p>
   <div class="formula">a<sub>n</sub> = a<sub>n-1</sub> + 3n − 1 &nbsp;&nbsp; con a<sub>1</sub> = 2</div>
-  <p>Cuya solución es <span class="m">a<sub>n</sub> = n<sup>2</sup> + 2n</span>. Para 100 pisos: <span class="m">a<sub>100</sub> = 10000 + 200 = 10200</span> naipes.</p>
+  <p>Cuya solución es <span class="m">a<sub>n</sub> = (3n<sup>2</sup> + n)/2</span> (verificá: a<sub>1</sub>=2, a<sub>2</sub>=7, a<sub>3</sub>=15 ✓). Para 100 pisos: <span class="m">a<sub>100</sub> = (3·10000 + 100)/2 = 30100/2 = 15050</span> naipes.</p>
 </div>
 
 <h3>Resumen del método de resolución completo</h3>
@@ -4515,7 +4517,7 @@
   <b>b) ¿Es 128 ≡ 0 (mod 4)?</b> &nbsp;128 = 4·32 exactamente → resto 0. <b>Verdadero.</b><br><br>
   <b>c) ¿Es 21 ≡ −4 (mod 5)?</b> &nbsp;21 − (−4) = 25 = 5·5. Sí divide. <b>Verdadero.</b><br>
   (También: 21 = 5·4 + 1, y −4 ≡ 1 (mod 5) porque −4 + 5 = 1.)<br><br>
-  <b>d) ¿Es 3795 ≡ 0 (mod 11)?</b> &nbsp;3795 ÷ 11 = 344 resto 11·344 = 3784 → 3795 − 3784 = 11. Sí. <b>Verdadero.</b>
+  <b>d) ¿Es 3795 ≡ 0 (mod 11)?</b> &nbsp;3795 = 11·345 exactamente (resto 0). Sí. <b>Verdadero.</b>
 </div>
 
 <div class="trap">
@@ -5302,7 +5304,7 @@
   Supongamos que existen dos neutros <span class="m">e₁</span> y <span class="m">e₂</span>.<br>
   Como <span class="m">e₁</span> es neutro: <span class="m">e₂ ★ e₁ = e₂</span> &nbsp;(I)<br>
   Como <span class="m">e₂</span> es neutro: <span class="m">e₂ ★ e₁ = e₁</span> &nbsp;(II)<br>
-  De (I) y (II): <span class="m">e₁ = e₂</span>. Contradicción → el neutro es único.
+  De (I) y (II): <span class="m">e₁ = e₂</span>. Por lo tanto, los dos "neutros" coinciden → el neutro es único.
 </div>
 
 <div class="example">
@@ -5660,7 +5662,7 @@
   • <span class="m">|Aₙ| = n!/2</span><br>
   • Para <span class="m">n ≥ 3</span>: <span class="m">Sₙ</span> no es abeliano.<br>
   • El subgrupo <span class="m">Aₙ</span> es normal en <span class="m">Sₙ</span>.<br>
-  • Todo elemento de orden <span class="m">k</span> en <span class="m">Sₙ</span> es un ciclo de longitud <span class="m">k</span> (o producto de ciclos con mcd de longitudes igual a <span class="m">k</span>).
+  • El orden de un elemento de <span class="m">Sₙ</span> es el <b>mcm</b> de las longitudes de los ciclos disjuntos en que se descompone (un único ciclo de longitud <span class="m">k</span> tiene orden <span class="m">k</span>).
 </div>
 
 <h3>Resumen: jerarquía de estructuras algebraicas</h3>
@@ -6134,7 +6136,7 @@
     h i    j      ← nivel 3
    / \
   k   l           ← nivel 4</pre>
-  Raíz: a. Hojas: d, k, l, i (nivel 4 y 3), j, f, g. Altura: 4.<br>
+  Raíz: a. Hojas: d, k, l, i, j, g (nodos sin hijos). Altura: 4.<br>
   Padre de k: h. Hijos de c: f, g. Antecesores de k: a, b, e, h.
 </div>
 

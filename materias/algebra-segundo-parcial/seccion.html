@@ -153,6 +153,31 @@ Primero hallás los valores del parámetro que anulan el determinante; esos son 
 Que el determinante se anule solo te dice que <b>no es SCD</b>. Para decidir entre SCI y SI <b>tenés que mirar la columna de términos independientes</b> (escalonar la ampliada). No asumas "det = 0 → infinitas soluciones".
 </div>
 
+<h3>Subtipo A-bis: Eliminación de Gauss paso a paso (sistema 3×3 con parámetro)</h3>
+<p>Cuando el determinante se anula, el único modo seguro de distinguir <b>SCI de SI</b> es <b>escalonar la matriz ampliada</b> (A|b) y comparar el rango de A con el de (A|b). El método: usar la primera fila para "limpiar" la primera columna de las de abajo, seguir con la segunda, y leer la <b>última fila</b>.</p>
+
+<div class="key"><div class="ky-t">Las tres lecturas de la última fila</div>
+Tras escalonar, la fila de abajo queda de la forma <span class="m">(0 0 p)·z = q</span>:<br>
+• <b>p ≠ 0</b> → se despeja z → <b>SCD</b> (rg A = rg(A|b) = n).<br>
+• <b>p = 0 y q = 0</b> (fila <span class="m">0 = 0</span>) → sobra una ecuación → <b>SCI</b> (rg A = rg(A|b) &lt; n).<br>
+• <b>p = 0 y q ≠ 0</b> (fila <span class="m">0 = q</span>, absurdo) → <b>SI</b> (rg A &lt; rg(A|b)).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial — Discutir un sistema 3×3 según el parámetro a</div>
+  <p>Discutir según a: &nbsp; <span class="m">x + y + z = 1</span>, &nbsp; <span class="m">x + 2y + 3z = 4</span>, &nbsp; <span class="m">x + y + (a² − 3)z = a − 1</span>.</p>
+  <p><b>Paso 1 — armo la ampliada (A|b):</b></p>
+  <div class="formula">(A|b) = <span class="mat"><span class="br"><table><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>1</td></tr><tr><td>1</td><td>2</td><td>3</td><td>|</td><td>4</td></tr><tr><td>1</td><td>1</td><td>a²−3</td><td>|</td><td>a−1</td></tr></table></span></span></div>
+  <p><b>Paso 2 — escalono (uso F₁ para anular la columna 1):</b> hago <span class="m">F₂ → F₂ − F₁</span> y <span class="m">F₃ → F₃ − F₁</span>:</p>
+  <div class="formula"><span class="mat"><span class="br"><table><tr><td>1</td><td>1</td><td>1</td><td>|</td><td>1</td></tr><tr><td>0</td><td>1</td><td>2</td><td>|</td><td>3</td></tr><tr><td>0</td><td>0</td><td>a²−4</td><td>|</td><td>a−2</td></tr></table></span></span></div>
+  <p>(La fila 3 ya quedó escalonada porque su segundo coeficiente se anuló solo.) Factorizo: <span class="m">a² − 4 = (a−2)(a+2)</span>, así que la última fila dice <b>(a−2)(a+2)·z = (a−2)</b>.</p>
+  <p><b>Paso 3 — discuto los tres casos según esa última fila:</b></p>
+  <p>• <b>a ≠ 2 y a ≠ −2:</b> el coeficiente (a−2)(a+2) ≠ 0 → se despeja z = (a−2)/((a−2)(a+2)) = 1/(a+2) → hay pivote en las 3 columnas → <b>SCD</b> (solución única).</p>
+  <p>• <b>a = 2:</b> la fila queda <span class="m">0·z = 0</span> (es 0 = 0): se descarta, sobra una ecuación. Quedan 2 ecuaciones con 3 incógnitas → rg A = rg(A|b) = 2 &lt; 3 → <b>SCI</b> (infinitas soluciones, una variable libre).</p>
+  <p>• <b>a = −2:</b> la fila queda <span class="m">0·z = −4</span> (es 0 = −4, absurdo): rg A = 2 &lt; rg(A|b) = 3 → <b>SI</b> (sin solución).</p>
+  <p><b>Conclusión:</b> SCD si a ≠ ±2; SCI si a = 2; SI si a = −2.</p>
+</div>
+
 <h3>Subtipo B: Para qué valor del parámetro la matriz NO es inversible</h3>
 <p>"No inversible", "no es base", "el sistema homogéneo tiene soluciones no triviales" y "det = 0" son <b>la misma condición</b>. Receta: armá el determinante en función del parámetro e igualalo a 0.</p>
 

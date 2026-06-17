@@ -177,6 +177,7 @@ function registerExercises(subject, unit, list){
 
 function renderQuizzes(){
   let totalBySubject = {};
+  let unitsBySubject = {};
   document.querySelectorAll('.quiz-wrap').forEach(wrap => {
     const subject = wrap.getAttribute('data-subject');
     const unit = wrap.getAttribute('data-qz');
@@ -184,6 +185,7 @@ function renderQuizzes(){
     const list = window.EX[key];
     if (!list) return;
     totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
     let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
     list.forEach((q, idx) => {
       const id = subject + '-' + unit + '-' + idx;
@@ -199,6 +201,7 @@ function renderQuizzes(){
     wrap.innerHTML = html;
   });
   window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
   updateAllScores();
 }
 
@@ -224,32 +227,29 @@ function pickQ(subject, unit, idx, picked){
 }
 
 function updateAllScores(){
-  ['analisis','algebra','pc','fisica'].forEach(subject => {
-    const total = (window.totalBySubject || {})[subject] || 0;
-    let correct = 0, done = 0;
-    Object.keys(state).forEach(k => {
-      if (k.startsWith(subject + '-')) {
-        done++;
-        if (state[k]) correct++;
-      }
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
     });
     const el = document.getElementById('global-score-' + subject);
     if (el) {
       el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
     }
-    // por sección
-    Object.keys(window.EX).forEach(k => {
-      if (!k.startsWith(subject + '-')) return;
-      const list = window.EX[k];
-      let c = 0, d = 0;
-      list.forEach((_, idx) => {
-        const sk = k + '-' + idx;
-        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
-      });
-      const unit = k.split('-').slice(1).join('-');
-      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
-      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
-    });
   });
 }
 

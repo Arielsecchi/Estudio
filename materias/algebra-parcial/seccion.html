@@ -232,31 +232,35 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 <p>Método: escribís el plano que contiene al punto A y es normal a la recta, encontrás la intersección B entre la recta y ese plano, calculás ‖AB‖.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Distancia punto a recta</div>
-  <p>A = (2, 1, 1). Recta r: X = t(−2, 1, 2) + (2, −1, −1). Hallá la distancia.</p>
-  <p><b>Plano normal a r por A:</b> vector normal = (−2, 1, 2), pasa por A = (2, 1, 1):</p>
-  <div class="formula">−2(x−2) + 1(y−1) + 2(z−1) = 0 → −2x + y + 2z = −2</div>
-  <p><b>Punto de r:</b> <span class="m">(−2t+2, t−1, 2t−1)</span>. En el plano:</p>
-  <div class="formula">−2(−2t+2) + (t−1) + 2(2t−1) = −2 → 9t − 7 = −2 → t = 5/9</div>
-  <p>Punto B = (2−10/9, 5/9−1, 10/9−1) = (8/9, −4/9, 1/9).</p>
+  <div class="ex-t">Ejercicio resuelto — Distancia punto a recta</div>
+  <p>A = (4, 0, 3). Recta r: X = t(1, 2, 2) + (1, 0, 0). Hallá la distancia de A a r.</p>
+  <p><b>Plano normal a r por A:</b> vector normal = director de r = (1, 2, 2), pasa por A = (4, 0, 3):</p>
+  <div class="formula">1(x−4) + 2(y−0) + 2(z−3) = 0 → x + 2y + 2z = 10</div>
+  <p><b>Punto genérico de r:</b> <span class="m">(t+1, 2t, 2t)</span>. Lo reemplazo en el plano:</p>
+  <div class="formula">(t+1) + 2(2t) + 2(2t) = 10 → 9t + 1 = 10 → t = 1</div>
+  <p>Pie de la perpendicular B = (1+1, 2, 2) = (2, 2, 2).</p>
   <div class="formula">
-    ‖AB‖ = ‖(8/9−2, −4/9−1, 1/9−1)‖ = ‖(−10/9, −13/9, −8/9)‖<br>
-    = √(100 + 169 + 64)/9 = √333/9 ... (verificar)
+    ‖AB‖ = ‖(2−4, 2−0, 2−3)‖ = ‖(−2, 2, −1)‖<br>
+    = √(4 + 4 + 1) = √9 = 3
   </div>
-  <div class="key"><div class="ky-t">En el parcial real</div>
-  La respuesta fue C) 2. Los parciales dan números lindos: si te sale algo complicado, revisá la operatoria.
+  <p>Respuesta: <b>la distancia es 3</b>.</p>
+  <div class="key"><div class="ky-t">Verificación rápida</div>
+  Atajo (fórmula con producto vectorial): d = ‖AP × d‖ / ‖d‖, con P = (1,0,0) un punto de r y d = (1,2,2).
+  AP = P − A = (−3, 0, −3); AP × d = (0·2−(−3)·2, (−3)·1−(−3)·2, (−3)·2−0·1) = (6, 3, −6), ‖·‖ = √81 = 9.
+  ‖d‖ = √9 = 3 → d = 9/3 = 3 ✓. Los parciales dan números lindos: si te sale algo feo, revisá la operatoria.
   </div>
 </div>
 
 <h3>Subtipo C: Posición relativa de dos rectas</h3>
-<p>Los casos posibles son: paralelas, coincidentes, ortogonales, concurrentes (se cruzan o se cortan).</p>
+<p>En R³ las cuatro posiciones posibles son: <b>paralelas</b>, <b>coincidentes</b>, <b>concurrentes</b> (se cortan en un punto) y <b>alabeadas</b> (no se cortan ni son paralelas). La perpendicularidad (d₁·d₂ = 0) es una propiedad <i>extra</i>: tanto las concurrentes como las alabeadas pueden ser perpendiculares.</p>
 
 <table class="tbl">
   <tr><th>Condición</th><th>Conclusión</th></tr>
   <tr><td>Vectores directores son múltiplos (d₁ ‖ d₂)</td><td>Paralelas o coincidentes</td></tr>
   <tr><td>Paralelas Y el punto de una pertenece a la otra</td><td>Coincidentes</td></tr>
-  <tr><td>d₁ · d₂ = 0 (sin intersección)</td><td>Ortogonales (se cruzan perpendicularmente)</td></tr>
-  <tr><td>No paralelas y tienen intersección</td><td>Concurrentes (se cortan)</td></tr>
+  <tr><td>No múltiplos Y tienen intersección</td><td>Concurrentes (se cortan en un punto)</td></tr>
+  <tr><td>No múltiplos Y sin intersección</td><td>Alabeadas (no se cortan)</td></tr>
+  <tr><td>d₁ · d₂ = 0 (perpendiculares)</td><td>Propiedad extra: concurrentes-ortogonales si se cortan, alabeadas-perpendiculares si no</td></tr>
 </table>
 
 <div class="example">
@@ -265,7 +269,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
   <p><b>1) ¿Paralelas?</b> ¿Es (−4/3, 0, −3) = λ·(1/2, 2/7, −2/9)? Por la 2° coord: 0 = λ·2/7 → λ = 0. No. → NO paralelas.</p>
   <p><b>2) ¿Producto escalar = 0?</b> <span class="m">(−4/3)(1/2) + 0·(2/7) + (−3)(−2/9) = −2/3 + 0 + 2/3 = 0</span>. Sí.</p>
   <p><b>3) ¿Se intersecan?</b> Planteamos el sistema de 3 ecuaciones con k y t. En este caso la intersección es vacía.</p>
-  <p>→ Ortogonales.</p>
+  <p>→ <b>Alabeadas perpendiculares</b>: no son paralelas, no se cortan, pero sus direcciones forman 90° (d₁·d₂ = 0). Si el sistema hubiera tenido solución, serían concurrentes-ortogonales.</p>
 </div>
 
 <h3>Subtipo D: Posición relativa de recta y plano</h3>
@@ -465,10 +469,10 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 </div>
 
 <h3>Subtipo B: Identificar cónica con excentricidad y focos</h3>
-<p>Con los focos podés hallar el centro (punto medio) y c. Con la excentricidad e = c/a despejás a. Luego b² = c² − a² (elipse) o b² = c² − a² ... espera, para hipérbola b² = c² − a² también... cuidado:</p>
+<p>Con los focos hallás el centro (punto medio) y c (distancia centro-foco). Con la excentricidad e = c/a despejás a. Luego obtenés b² según la cónica. <b>Cuidado con el signo</b>, es lo que más se confunde:</p>
 <div class="formula">
-  Elipse: c² = a² − b² (a &gt; c)<br>
-  Hipérbola: c² = a² + b² (c &gt; a)
+  Elipse: c² = a² − b² → b² = a² − c² (a &gt; c, focos dentro)<br>
+  Hipérbola: c² = a² + b² → b² = c² − a² (c &gt; a, focos fuera)
 </div>
 
 <div class="example">

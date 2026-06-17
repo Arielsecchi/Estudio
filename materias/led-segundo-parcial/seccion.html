@@ -118,7 +118,24 @@
 </div>
 
 <h3>Inducción para verificar (parte b)</h3>
-<p>Una vez tenés aₙ explícita, hay que probar por inducción que satisface la recurrencia. Caso base con n=0 o n=1; paso inductivo: suponer válido para h y h−1 (orden 2), demostrar para h+1 sustituyendo en la recurrencia.</p>
+<p>Una vez tenés aₙ explícita, hay que probar por inducción que satisface la recurrencia. Como la recurrencia es de orden 2, usás <b>inducción fuerte con dos casos base</b> (a₀ y a₁) e <b>HI doble</b> (suponés válido para h y h+1 y demostrás para h+2). El punto donde más alumnos pierden el ejercicio es el álgebra de exponentes del paso inductivo: hay que factorizar 3ʰ y 2ʰ y reagrupar. Acá va completo.</p>
+
+<div class="example">
+  <div class="ex-t">Inducción completa: aₙ = 4·3ⁿ − n·2ⁿ satisface aₙ₊₂ = 5aₙ₊₁ − 6aₙ + 2·2ⁿ</div>
+  <p><b>Qué probamos:</b> que la sucesión definida por la fórmula explícita aₙ = 4·3ⁿ − n·2ⁿ cumple, para todo n ≥ 0, la igualdad recursiva aₙ₊₂ = 5aₙ₊₁ − 6aₙ + 2·2ⁿ.</p>
+  <p><b>Casos base</b> (orden 2 ⇒ dos): a₀ = 4·1 − 0 = 4 ✓ y a₁ = 4·3 − 1·2 = 10 ✓ (coinciden con los datos iniciales).</p>
+  <p><b>Hipótesis inductiva (HI doble):</b> supongo que la fórmula vale para n = h y n = h+1, es decir aₕ = 4·3ʰ − h·2ʰ y aₕ₊₁ = 4·3ʰ⁺¹ − (h+1)·2ʰ⁺¹.</p>
+  <p><b>Tesis:</b> probar que aₕ₊₂ = 4·3ʰ⁺² − (h+2)·2ʰ⁺². Parto del <b>lado derecho de la recurrencia</b> y sustituyo la HI:</p>
+  <p>aₕ₊₂ = 5aₕ₊₁ − 6aₕ + 2·2ʰ<br>
+  = 5[4·3ʰ⁺¹ − (h+1)·2ʰ⁺¹] − 6[4·3ʰ − h·2ʰ] + 2·2ʰ</p>
+  <p><b>Bajo todo a base 3ʰ y 2ʰ</b> (acá está la manipulación de potencias clave: 3ʰ⁺¹ = 3·3ʰ, 2ʰ⁺¹ = 2·2ʰ):<br>
+  = 5·4·3·3ʰ − 5(h+1)·2·2ʰ − 24·3ʰ + 6h·2ʰ + 2·2ʰ<br>
+  = 60·3ʰ − 10(h+1)·2ʰ − 24·3ʰ + 6h·2ʰ + 2·2ʰ</p>
+  <p><b>Agrupo términos en 3ʰ y en 2ʰ:</b><br>
+  • Coef. de 3ʰ: 60 − 24 = 36 ⟹ 36·3ʰ = 4·9·3ʰ = <b>4·3ʰ⁺²</b>.<br>
+  • Coef. de 2ʰ: −10(h+1) + 6h + 2 = −10h − 10 + 6h + 2 = −4h − 8 = −4(h+2) ⟹ (−4(h+2))·2ʰ = −(h+2)·4·2ʰ = <b>−(h+2)·2ʰ⁺²</b>.</p>
+  <p>Entonces aₕ₊₂ = 4·3ʰ⁺² − (h+2)·2ʰ⁺², que es <b>exactamente la fórmula explícita evaluada en n = h+2</b>. Queda probado el paso inductivo. ∎</p>
+</div>
 
 <div class="quiz-wrap" data-qz="2" data-subject="led-segundo-parcial"></div>
 <a class="back" href="#subject-led-segundo-parcial">↑ Volver al índice</a>
@@ -198,7 +215,7 @@ Si en la factorización prima de n algún primo aparece elevado a una potencia �
 <div class="content">
 
 <h3>Aparece en el 100% de los parciales</h3>
-<p>El Ej 3 tiene dos ítems: (a) resolver una ecuación de congruencia ax ≡ b (n) y hallar las soluciones principales (todas las soluciones módulo n); (b) demostrar/justificar V/F sobre propiedades de congruencias.</p>
+<p>El Ej 3 tiene dos ítems: (a) resolver una ecuación de congruencia ax ≡ b (n) y hallar las soluciones principales (las soluciones incongruentes entre sí módulo n); (b) demostrar/justificar V/F sobre propiedades de congruencias.</p>
 
 <h3>Resolver ax ≡ b (n)</h3>
 <ol>
@@ -271,7 +288,7 @@ Si en la factorización prima de n algún primo aparece elevado a una potencia �
   <li>Cierre: ∀a, b ∈ H: a*b ∈ H.</li>
   <li>Inverso: ∀a ∈ H: a⁻¹ ∈ H.</li>
 </ol>
-<p><b>Test reducido:</b> H ≠ ∅ y ∀a, b ∈ H: a*b⁻¹ ∈ H. (Único test que se usa.)</p>
+<p><b>Test reducido (un solo paso):</b> H ≠ ∅ y ∀a, b ∈ H: a*b⁻¹ ∈ H. Es equivalente a las tres condiciones de arriba y suele ser el más práctico en el parcial.</p>
 
 <div class="example">
   <div class="ex-t">Ejemplo (Tema 02): H = {x ∈ ℤ : x = a + 5b, a, b ∈ ℤ} ⊆ (ℤ, +)</div>
@@ -428,7 +445,7 @@ Si en la factorización prima de n algún primo aparece elevado a una potencia �
 <div class="example">
   <div class="ex-t">Integrador 5 — Grafo simple con V=13, A=65 (Tema 09)</div>
   <p>¿Necesariamente conexo? Máx aristas no conexo: C(12, 2) = 66. Como A = 65 ≤ 66, NO necesariamente conexo (existe G no conexo con 13 vértices y 65 aristas: K₁₂ ∪ {vértice aislado}).</p>
-  <p>¿Puede ser k-regular? Cada vértice tiene grado k → 13k = 2·65 = 130 → k = 10. Sí, k = 10 es factible (verificá que K₁₂ es 11-regular y no funciona; pero un grafo apropiado de 13 vértices podría ser 10-regular).</p>
+  <p>¿Puede ser k-regular? Cada vértice tiene grado k → 13k = 2·65 = 130 → k = 10. Es factible: necesitás que 13·k sea par (130 ✓) y que k ≤ V−1 = 12 (10 ✓). Un grafo 10-regular de 13 vértices SÍ existe. (Ojo: el grafo completo K₁₃ es 12-regular con 78 aristas; nuestro caso es uno menos denso.)</p>
 </div>
 
 <div class="key"><div class="ky-t">Estrategia final para el día del 2° parcial</div>

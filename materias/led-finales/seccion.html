@@ -160,8 +160,17 @@
 <h4>Cuándo R ∩ S es de equivalencia</h4>
 <p>Si R y S son ambas de equivalencia, <b>R ∩ S siempre es de equivalencia</b>. (Pregunta clásica del final.)</p>
 
+<div class="example">
+  <div class="ex-t">Demostración formal (cómo se escribe, si el ítem pide justificar)</div>
+  <p>Sean R y S relaciones de equivalencia sobre A. Probamos las tres propiedades de R ∩ S.</p>
+  <p><b>Reflexiva:</b> sea a ∈ A. Como R es refleja, (a,a) ∈ R; como S es refleja, (a,a) ∈ S. Luego (a,a) ∈ R ∩ S. ∴ R ∩ S es refleja.</p>
+  <p><b>Simétrica:</b> sea (a,b) ∈ R ∩ S. Entonces (a,b) ∈ R y (a,b) ∈ S. Por simetría de R, (b,a) ∈ R; por simetría de S, (b,a) ∈ S. Luego (b,a) ∈ R ∩ S. ∴ R ∩ S es simétrica.</p>
+  <p><b>Transitiva:</b> sean (a,b) ∈ R ∩ S y (b,c) ∈ R ∩ S. Entonces (a,b),(b,c) ∈ R, y por transitividad de R, (a,c) ∈ R. Análogamente (a,b),(b,c) ∈ S dan (a,c) ∈ S. Luego (a,c) ∈ R ∩ S. ∴ R ∩ S es transitiva.</p>
+  <p>Las tres se cumplen ⇒ <b>R ∩ S es de equivalencia</b>. ∎ <br><i>(El mismo esquema sirve para "R y T simétricas ⇒ R ∩ T simétrica", que también aparece en finales.)</i></p>
+</div>
+
 <h4>Cuándo R ∪ S es de equivalencia</h4>
-<p><b>NO siempre</b>. R ∪ S es de equivalencia si y sólo si <b>R ∘ S = S ∘ R</b> (las composiciones coinciden) o si R ⊆ S ó S ⊆ R.</p>
+<p><b>NO siempre</b>. R ∪ S es de equivalencia si y sólo si <b>R ∘ S = S ∘ R</b> (las composiciones coinciden). El caso "R ⊆ S ó S ⊆ R" es un <b>caso particular</b> de esa condición (si una contiene a la otra, R∪S = la mayor, que ya es de equivalencia), no una alternativa independiente.</p>
 
 <h3>Redes (D<sub>n</sub>, |) y Álgebras de Boole</h3>
 <table class="tbl">
@@ -180,7 +189,8 @@
 <p>"¿Cuál se puede demostrar por inducción?" suele venir con 3 propiedades: P1 (en reales, descartar), P2 (en naturales — la verdadera), P3 (falsa, contraejemplo).</p>
 
 <div class="example">
-  <div class="ex-t">Ejemplo (Final 19/02/2024): "1 + 2ⁿ ≤ 3ⁿ" para n ∈ ℕ</div>
+  <div class="ex-t">Ejemplo (Final 19/02/2024): "1 + 2ⁿ ≤ 3ⁿ" para n ≥ 1</div>
+  <p><b>Ojo con el dominio:</b> la propiedad es <b>falsa en n=0</b> (1 + 2⁰ = 2, pero 3⁰ = 1, y 2 ≤ 1 es falso). Por eso el enunciado se fija en <b>n ≥ 1</b> y el caso base arranca en n=1.</p>
   <p>Caso base (n=1): 1 + 2 = 3 ≤ 3 ✓.</p>
   <p>HI: 1 + 2ʰ ≤ 3ʰ.</p>
   <p>TI: 1 + 2^(h+1) = 1 + 2·2ʰ ≤ 1 + 2(3ʰ − 1) = 2·3ʰ − 1 &lt; 3·3ʰ = 3^(h+1). ✓</p>
@@ -318,16 +328,16 @@
 
 <table class="tbl">
   <tr><th>Propiedad</th><th>¿Se puede con A=4, V=5?</th></tr>
-  <tr><td>Simple y no conexo</td><td>Sí (ej: K₃ + 2 vértices aislados, A=3 — necesita ajustar; con A=4: cuadrado + 1 aislado)</td></tr>
+  <tr><td>Simple y no conexo</td><td>Sí (ej: un C₄ —cuadrado, 4 aristas— sobre 4 vértices + 1 vértice aislado)</td></tr>
   <tr><td>Conexo, simple, sin aristas puente</td><td>Difícil: con 4 aristas, conexo de 5 vértices, sin puentes... necesita ciclo. Con 4 aristas y 5 vértices, conexo significa A = V−1 = 4 = árbol → todo árbol tiene puentes → IMPOSIBLE</td></tr>
   <tr><td>Conexo y tiene camino de Euler</td><td>Sí (ej: cadena P₅ con A=4)</td></tr>
-  <tr><td>Tiene 3 vértices colgantes</td><td>Sí: estrella K₁,₄ tiene 4 colgantes, restringir... árbol con grados (1,1,1,2,3) tiene 3 colgantes</td></tr>
+  <tr><td>Tiene 3 vértices colgantes</td><td>Sí: un árbol de 5 vértices con secuencia de grados (1,1,1,2,3) tiene 3 vértices colgantes (grado 1) y A=4</td></tr>
 </table>
 
 <h3>Condiciones de existencia</h3>
 <div class="formula">
   <b>Camino de Euler ⇔</b> grafo conexo con 0 ó 2 vértices de grado impar.<br>
-  <b>Camino de Hamilton:</b> no hay condición simple necesaria y suficiente.<br>
+  <b>Circuito de Hamilton:</b> no hay condición simple necesaria y suficiente. Pero hay <b>condiciones suficientes</b> (V≥3): <b>Dirac</b> — si todo vértice tiene grado ≥ V/2, hay circuito de Hamilton; <b>Ore</b> — si para todo par de vértices NO adyacentes deg(u)+deg(v) ≥ V, hay circuito. (Son suficientes, no necesarias: un grafo puede tener Hamilton sin cumplirlas.)<br>
   <b>Conexión necesaria:</b> A &gt; (V−1)(V−2)/2.<br>
   <b>Suma de grados = 2·|A|</b> (handshaking lemma).
 </div>

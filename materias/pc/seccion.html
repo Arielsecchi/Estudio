@@ -964,6 +964,36 @@ a = 1
 b = 2
 a, b = b, a    # ahora a=2, b=1</pre>
 
+<h3>Comprensión de listas (list comprehension)</h3>
+<p>Forma compacta de <b>crear una lista nueva</b> a partir de otra secuencia, en una sola línea. Reemplaza el patrón "lista vacía + <code>for</code> + <code>append</code>".</p>
+
+<pre class="code-block"># Forma larga
+dobles = []
+for x in [1, 2, 3, 4]:
+    dobles.append(x * 2)
+# dobles == [2, 4, 6, 8]
+
+# Comprensión equivalente
+dobles = [x * 2 for x in [1, 2, 3, 4]]
+print(dobles)    # [2, 4, 6, 8]</pre>
+
+<p>Estructura: <code>[<i>expresión</i> for <i>elemento</i> in <i>secuencia</i>]</code>. La <i>expresión</i> se evalúa para cada <i>elemento</i> y el resultado va a la lista.</p>
+
+<h4>Con condición (filtrar)</h4>
+<p>Se agrega un <code>if</code> al final para quedarse solo con los elementos que cumplen la condición:</p>
+<pre class="code-block">nums = [1, 2, 3, 4, 5, 6]
+pares = [n for n in nums if n % 2 == 0]
+print(pares)    # [2, 4, 6]
+
+# Transformar y filtrar a la vez
+cuadrados_pares = [n*n for n in nums if n % 2 == 0]
+print(cuadrados_pares)    # [4, 16, 36]</pre>
+
+<h4>Comprensión de diccionarios</h4>
+<p>Misma idea pero con <code>{clave: valor for ...}</code> para construir un diccionario:</p>
+<pre class="code-block">cuadrados = {x: x**2 for x in range(4)}
+print(cuadrados)    # {0: 0, 1: 1, 2: 4, 3: 9}</pre>
+
 <div class="trap"><div class="tr-t">Errores típicos en listas</div>
 • <b>Acceder a índice fuera de rango:</b> <code>lista[10]</code> en lista de 5 elementos.<br>
 • <b>Modificar lista mientras la recorrés:</b> resultados imprevisibles. Si necesitás filtrar, creá lista nueva.<br>
@@ -1047,8 +1077,8 @@ Soluciones:<br>
 <h3>Métodos útiles</h3>
 <table class="tbl">
   <tr><th>Método</th><th>Devuelve</th><th>Ejemplo</th></tr>
-  <tr><td><code>d.keys()</code></td><td>Todas las claves</td><td><code>persona.keys()</code> → <code>['nombre', 'edad']</code></td></tr>
-  <tr><td><code>d.values()</code></td><td>Todos los valores</td><td><code>persona.values()</code> → <code>['Ariel', 30]</code></td></tr>
+  <tr><td><code>d.keys()</code></td><td>Todas las claves</td><td><code>persona.keys()</code> → <code>dict_keys(['nombre', 'edad'])</code></td></tr>
+  <tr><td><code>d.values()</code></td><td>Todos los valores</td><td><code>persona.values()</code> → <code>dict_values(['Ariel', 30])</code></td></tr>
   <tr><td><code>d.items()</code></td><td>Pares (clave, valor)</td><td><code>persona.items()</code></td></tr>
   <tr><td><code>d.get(k)</code></td><td>Valor o <code>None</code> si no existe</td><td><code>persona.get("foo")</code> → <code>None</code></td></tr>
   <tr><td><code>d.get(k, default)</code></td><td>Valor o default si no existe</td><td><code>persona.get("foo", 0)</code> → <code>0</code></td></tr>
@@ -1294,7 +1324,7 @@ except ValueError:
 <h3>Excepciones más comunes</h3>
 <table class="tbl">
   <tr><th>Excepción</th><th>Cuándo ocurre</th></tr>
-  <tr><td><code>ValueError</code></td><td>Tipo incorrecto: <code>int("hola")</code>, <code>float("abc")</code></td></tr>
+  <tr><td><code>ValueError</code></td><td>Valor no convertible (el tipo sí es correcto): <code>int("hola")</code>, <code>float("abc")</code></td></tr>
   <tr><td><code>ZeroDivisionError</code></td><td>División por cero: <code>5 / 0</code></td></tr>
   <tr><td><code>FileNotFoundError</code></td><td>Abrir archivo inexistente con <code>"r"</code></td></tr>
   <tr><td><code>KeyError</code></td><td>Acceder a clave no existente en diccionario</td></tr>

@@ -107,6 +107,26 @@ Por ejemplo: <span class="m">sen(5x)/(5x) → 1</span>, <span class="m">(1 − c
 <div class="formula">y − f(x<sub>0</sub>) = f'(x<sub>0</sub>)·(x − x<sub>0</sub>)</div>
 <p>Si te dan <b>la tangente</b> ya calculada, leéla al revés: la pendiente <b>es</b> <span class="m">f'(x<sub>0</sub>)</span>, y al pasar el <span class="m">x<sub>0</sub></span> obtenés <span class="m">f(x<sub>0</sub>)</span>.</p>
 
+<h3>Composición de funciones</h3>
+<p>La compuesta <span class="m">(f∘g)(x) = f(g(x))</span> se lee de adentro hacia afuera: primero aplicás <span class="m">g</span>, después <span class="m">f</span> al resultado.</p>
+<div class="key"><div class="ky-t">Dominio de la compuesta</div>
+<span class="m">x</span> tiene que cumplir <b>dos</b> condiciones a la vez: estar en el <b>dominio de g</b>, y que <span class="m">g(x)</span> caiga en el <b>dominio de f</b>.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = √x</span>, <span class="m">g(x) = x − 3</span>. Entonces <span class="m">(f∘g)(x) = √(x − 3)</span>. Necesitás <span class="m">x − 3 ≥ 0</span> → <b>Dom = [3, +∞)</b>. Evaluación: <span class="m">(f∘g)(7) = √4 = 2</span>.
+</div>
+
+<h3>Función inversa</h3>
+<p>Una función tiene inversa <span class="m">f<sup>−1</sup></span> solo si es <b>inyectiva</b> (cada <span class="m">y</span> proviene de un único <span class="m">x</span>; en la práctica, monótona en su dominio). La inversa <b>deshace</b>: <span class="m">f<sup>−1</sup>(f(x)) = x</span>.</p>
+<div class="key"><div class="ky-t">Receta y el truco del intercambio</div>
+1) Escribís <span class="m">y = f(x)</span>. 2) Despejás <span class="m">x</span> en función de <span class="m">y</span>. 3) Renombrás. Y lo más útil: el <b>dominio de f<sup>−1</sup> es la imagen de f</b>, y la <b>imagen de f<sup>−1</sup> es el dominio de f</b> (se intercambian).
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">f(x) = e<sup>x</sup> + 1</span> (creciente → inyectiva). <span class="m">y = e<sup>x</sup> + 1</span> → <span class="m">x = ln(y − 1)</span>, así <span class="m">f<sup>−1</sup>(x) = ln(x − 1)</span>. Como <span class="m">Im(f) = (1, +∞)</span>, el dominio de la inversa es <span class="m">(1, +∞)</span>.
+</div>
+
 <div class="quiz-wrap" data-qz="1" data-subject="analisis-parcial"></div>
 <a class="back" href="#subject-analisis-parcial">↑ Volver al índice</a>
 </div>
@@ -712,7 +732,7 @@ Olvidarse de evaluar en los <b>bordes</b>. En 28/04/2025 el máximo NO está en 
   <li><span class="m">x = −3</span>: usando la simplificada, <span class="m">5·9/(−6) = −15/2</span> finito → <b>NO es AV</b> (es agujero).</li>
 </ul>
 
-<p><b>AH:</b> <span class="m">lim<sub>x→∞</sub> 5x²/(x−3) = +∞</span>. <b>No hay AH.</b></p>
+<p><b>AH:</b> <span class="m">lim<sub>x→+∞</sub> 5x²/(x−3) = +∞</span> (y en <span class="m">−∞</span> da <span class="m">−∞</span>). <b>No hay AH</b> en ninguno de los dos lados.</p>
 
 <p><b>AO:</b></p>
 <div class="formula">
@@ -738,18 +758,22 @@ Olvidarse de evaluar en los <b>bordes</b>. En 28/04/2025 el máximo NO está en 
 </table>
 
 <h4>Ejemplo trabajado · Parcial 23/09/2024 Tema 5 ej 3</h4>
-<p><span class="m">g(0) = π/3</span>, <span class="m">cos(g(x)) = 2x − √(x² + 5x + 4)</span>. Hallar <span class="m">g'(0)</span>.</p>
+<p><span class="m">g(0) = π/3</span>, <span class="m">cos(g(x)) = x + √(x² − x + 1)/2</span>. Hallar <span class="m">g'(0)</span>.</p>
+
+<div class="key"><div class="ky-t">Chequeo de consistencia primero</div>
+Antes de derivar, verificá que el dato cierra en <span class="m">x = 0</span>: el lado derecho da <span class="m">0 + √1/2 = 1/2</span>, y <span class="m">cos(π/3) = 1/2</span> ✓. Si no coincidiera, el enunciado sería imposible (cos siempre vive en [−1, 1]).
+</div>
 
 <p><b>Derivar ambos lados:</b></p>
 <ul>
   <li>Lado izq (cadena): <span class="m">−sen(g(x)) · g'(x)</span>.</li>
-  <li>Lado der: <span class="m">2 − (2x + 5)/[2√(x² + 5x + 4)]</span>.</li>
+  <li>Lado der: <span class="m">1 + (2x − 1)/[4√(x² − x + 1)]</span>.</li>
 </ul>
 
 <p><b>Evaluar en x = 0:</b></p>
 <ul>
   <li>Izq: <span class="m">−sen(π/3) · g'(0) = −(√3/2)·g'(0)</span>.</li>
-  <li>Der: <span class="m">2 − 5/(2·2) = 2 − 5/4 = 3/4</span>.</li>
+  <li>Der: <span class="m">1 + (−1)/(4·1) = 1 − 1/4 = 3/4</span>.</li>
 </ul>
 
 <p><b>Despejar:</b> <span class="m">g'(0) = (3/4) · (−2/√3) = −√3/2</span>.</p>

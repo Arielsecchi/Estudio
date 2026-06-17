@@ -34,7 +34,7 @@
 Con 7 puntos (nota 4) alcanzás la aprobación directa. Para eso necesitás acertar <b>todas las preguntas de 1 punto</b> (5–7) + al menos 1 de 2 puntos. Priorizá las preguntas simples antes de las complejas.
 </div>
 
-<h3>Los 6 tipos de preguntas del parcial 21/4/2025</h3>
+<h3>Los tipos de preguntas del parcial 21/4/2025</h3>
 <p>Cada tema (1 a 8) repite la misma estructura de 9 ejercicios. Los tipos que aparecen:</p>
 <table class="tbl">
   <tr><th>Ejercicio</th><th>Tipo de pregunta</th><th>Qué piden</th></tr>
@@ -199,6 +199,30 @@ else:                # no se llega
 <b>Varios <code>if</code> seguidos</b> son independientes: se evalúa cada uno sí o sí.<br>
 <b><code>elif</code></b> solo se evalúa si el bloque anterior fue falso.<br>
 Esta diferencia genera muchos errores en el conteo de condiciones.
+</div>
+
+<h3>Leer datos del usuario: input()</h3>
+<p>La función <span class="m">input()</span> lee lo que el usuario escribe por teclado. Regla clave: <b><span class="m">input()</span> SIEMPRE devuelve un <span class="m">str</span></b> (una string), aunque el usuario escriba un número.</p>
+<pre>nombre = input('Tu nombre: ')   # si tipea Ana  → nombre = 'Ana'  (str)
+edad   = input('Tu edad: ')     # si tipea 30   → edad   = '30'   (str, NO 30)</pre>
+<p>Por eso, para hacer cuentas hay que <b>convertir</b> la entrada con <span class="m">int()</span> o <span class="m">float()</span>:</p>
+<pre>n = int(input('Un entero: '))     # tipea 7    → n = 7      (int)
+p = float(input('Un decimal: '))  # tipea 2.5  → p = 2.5    (float)</pre>
+
+<div class="trap"><div class="tr-t">Trampa clásica: olvidar la conversión</div>
+Si hacés <span class="m">edad = input(...)</span> y luego <span class="m">edad * 2</span>, como <span class="m">edad</span> es la string <span class="m">'30'</span>, el resultado es <span class="m">'3030'</span> (repite la string), <b>no</b> <span class="m">60</span>. Para sumar/multiplicar como número necesitás <span class="m">int(input(...))</span> o <span class="m">float(input(...))</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Patrón leer-y-procesar</div>
+  <pre>n = int(input('Numero: '))   # usuario escribe 7
+resultado = n * 3 + 1
+print(resultado)</pre>
+  Paso a paso:<br>
+  1. <span class="m">input()</span> devuelve <span class="m">'7'</span> (str)<br>
+  2. <span class="m">int('7') = 7</span> (ahora es int)<br>
+  3. <span class="m">7 * 3 + 1 = 22</span><br>
+  Resultado: <b>22</b>
 </div>
 
 <div class="quiz-wrap" data-qz="2" data-subject="pc-parcial"></div>
