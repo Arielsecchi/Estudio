@@ -1821,7 +1821,7 @@
           <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
           <div class="info">
             <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
-            <div class="d">UTN FRBA · DISI · C++ · 10 unidades</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
           </div>
         </li>
       </ul>
@@ -31659,7 +31659,7 @@ Dos marcas en una: <b>"no data currently exist on..."</b> (no existen datos sobr
 <section class="subject" id="subject-ayed">
   <header>
     <h1>Algoritmos y Estructuras de Datos</h1>
-    <div class="sub">UTN FRBA · Depto. de Ing. en Sistemas (DISI) · C++ · 10 unidades</div>
+    <div class="sub">UTN FRBA · Depto. de Ing. en Sistemas (DISI) · C++ · 14 unidades</div>
   </header>
 <nav class="toc" id="toc-ayed">
   <h2>Índice</h2>
@@ -31676,6 +31676,12 @@ Dos marcas en una: <b>"no data currently exist on..."</b> (no existen datos sobr
     <li><a href="#ay-s8">Unidad 8: Arreglos (vectores)</a></li>
     <li><a href="#ay-s9">Unidad 9: Registros (structs) y arreglos de structs</a></li>
     <li><a href="#ay-s10">Unidad 10: Matrices (arreglos bidimensionales)</a></li>
+    <li class="partial-sep">Cadenas, archivos y biblioteca · Unidades 11–13</li>
+    <li><a href="#ay-s11">Unidad 11: Cadenas de caracteres (<code>string</code> y <code>char[]</code>)</a></li>
+    <li><a href="#ay-s12">Unidad 12: Archivos (<code>FILE*</code>, lectura y escritura binaria)</a></li>
+    <li><a href="#ay-s13">Unidad 13: Biblioteca de arrays (buscar, ordenar, insertar)</a></li>
+    <li class="partial-sep">Parciales resueltos · Unidad 14</li>
+    <li><a href="#ay-s14">Unidad 14: Parcial resuelto (02/09/2025) + Parcialito (08/06)</a></li>
   </ol>
   <div class="score" id="global-score-ayed">Puntaje: 0 / 0 correctas</div>
 </nav>
@@ -35427,6 +35433,560 @@ int main() {
 </div>
 </details>
 
+<div class="partial-header">Cadenas, archivos y biblioteca <span class="date">Unidades 11–13</span></div>
+
+<!-- ============ UNIDAD 11 · CADENAS DE CARACTERES ============ -->
+<details id="ay-s11">
+<summary><span class="num">11</span> Unidad 11: Cadenas de caracteres (<code>string</code> y <code>char[]</code>) <span class="sec-score" id="ss-ayed-11"></span></summary>
+<div class="content">
+
+<p>Hasta ahora trabajaste con números y con un solo carácter (<code>char</code>). En esta unidad ves cómo manejar <b>texto</b>: palabras y frases. En C++ hay <b>dos formas</b> de guardar texto, y las dos te van a hacer falta — sobre todo la segunda, porque es la que se usa para <b>archivos</b> (Unidad 12).</p>
+
+<h3>Dos maneras de guardar texto</h3>
+<table class="tbl">
+  <tr><th>Forma</th><th>Cómo se declara</th><th>Cuándo se usa</th></tr>
+  <tr><td class="c"><b><code>string</code></b></td><td><code>string s = "Hola";</code></td><td>La cómoda: se asigna con <code>=</code>, se compara con <code>&lt;</code>/<code>==</code>, se concatena con <code>+</code>. Necesita <code>#include &lt;string&gt;</code>.</td></tr>
+  <tr><td class="c"><b><code>char[]</code></b><br>(arreglo de caracteres)</td><td><code>char s[20 + 1];</code></td><td>La "de bajo nivel": un texto es un <b>arreglo de <code>char</code></b>. Es la que se guarda en archivos y la que aparece en los registros del parcial. Se maneja con funciones de <code>&lt;string.h&gt;</code>.</td></tr>
+</table>
+
+<h3>Una cadena <code>char[]</code> es un arreglo que termina en <code>'\0'</code></h3>
+<p>Una cadena estilo C es un arreglo de <code>char</code> donde un carácter especial, el <b>nulo <code>'\0'</code></b>, marca <b>dónde termina</b> el texto. Lo que viene después del <code>'\0'</code> se ignora. Por eso, para guardar una palabra de N letras necesitás <b>N + 1</b> casilleros: las N letras más el lugar del <code>'\0'</code>.</p>
+
+<div class="key">
+  <div class="ky-t">La regla del <code>+ 1</code></div>
+  Siempre declarás la cadena con <b>un casillero de más</b> para el <code>'\0'</code>: <code>char cadena[20 + 1];</code> guarda hasta <b>20 caracteres útiles</b>. Por eso en los registros del parcial, "Nombre: 100 caracteres" se modela como <code>char nombre[100 + 1];</code> y "Código: 5 caracteres" como <code>char cod[5 + 1];</code>.
+</div>
+
+<h3>Formas de inicializar una cadena <code>char[]</code></h3>
+<pre class="code-block">char cadena1[20 + 1];          // letra por letra (yo pongo el '\0')
+cadena1[0] = 'H';
+cadena1[1] = 'o';
+cadena1[2] = 'l';
+cadena1[3] = 'a';
+cadena1[4] = '\0';             // marca el final de la cadena
+
+char cadena2[20 + 1] = {'H', 'o', 'l', 'a', '\0'};   // por lista
+
+char cadena3[20 + 1] = "Hola";  // por literal: agrega el '\0' solo</pre>
+
+<h3>Copiar y comparar: <code>strcpy</code> y <code>strcmp</code></h3>
+<p>Con <code>char[]</code> <b>no</b> se puede usar <code>=</code> para asignar ni <code>&lt;</code>/<code>==</code> para comparar (eso es solo para <code>string</code>). Se usan funciones de <code>&lt;string.h&gt;</code>:</p>
+
+<pre class="code-block">char cadena4[20 + 1];
+// cadena4 = "Hola";        // ✗ NO se puede asignar un arreglo con '='
+strcpy(cadena4, "Hola");    // ✓ copia "Hola" dentro de cadena4
+
+char cadena5[20 + 1];
+strcpy(cadena5, cadena4);   // copia una cadena en otra
+
+// pasar de string a char[]: con .c_str()
+char cadena6[20 + 1];
+strcpy(cadena6, cadena_string.c_str());</pre>
+
+<div class="key">
+  <div class="ky-t"><code>strcmp</code>: el comparador de cadenas</div>
+  <code>strcmp(a, b)</code> compara alfabéticamente y devuelve un número:<br>
+  • <b>== 0</b> → las cadenas son <b>iguales</b>.<br>
+  • <b>&lt; 0</b> → <code>a</code> es <b>menor</b> que <code>b</code> (va antes alfabéticamente).<br>
+  • <b>&gt; 0</b> → <code>a</code> es <b>mayor</b> que <code>b</code>.<br>
+  Por eso para preguntar "¿son iguales?" se escribe <code>if (strcmp(a, b) == 0)</code>. Este detalle es la base de buscar y ordenar por nombre (Unidad 13).
+</div>
+
+<pre class="code-block">char palabra1[20 + 1] = "perro";
+char palabra2[20 + 1] = "pernil";
+// palabra1 &lt; palabra2;     // ✗ NO se puede comparar con &lt;
+int valor = strcmp(palabra1, palabra2);   // &gt; 0: "perro" va después de "pernil"</pre>
+
+<h3>Secuencias de escape</h3>
+<p>Dentro de un texto, algunos caracteres se escriben con barra invertida: <code>\n</code> (salto de línea), <code>\t</code> (tabulación) y <code>\\</code> (una barra invertida literal). Ejemplo: <code>"hola\ncomo estas\tbueno\\"</code> muestra "hola", baja un renglón, "como estas", un tab, "bueno" y una barra.</p>
+
+<div class="trap">
+  <div class="tr-t">Errores típicos con cadenas <code>char[]</code></div>
+  • <b>Olvidar el <code>+ 1</code></b>: si guardás "Hola" (4 letras) en <code>char c[4]</code>, no entra el <code>'\0'</code> y la cadena queda "sin terminar".<br>
+  • <b>Comparar con <code>==</code></b>: <code>if (c1 == c2)</code> no compara el texto (compara direcciones). Va <code>strcmp(c1, c2) == 0</code>.<br>
+  • <b>Asignar con <code>=</code></b>: <code>c = "Hola";</code> no compila. Va <code>strcpy(c, "Hola");</code>.
+</div>
+
+<div class="quiz-wrap" data-qz="11" data-subject="ayed"></div>
+</div>
+</details>
+
+<!-- ============ UNIDAD 12 · ARCHIVOS ============ -->
+<details id="ay-s12">
+<summary><span class="num">12</span> Unidad 12: Archivos (<code>FILE*</code>, lectura y escritura binaria) <span class="sec-score" id="ss-ayed-12"></span></summary>
+<div class="content">
+
+<p>Todo lo que guardaste hasta ahora (variables, arreglos) vive en la <b>memoria RAM</b>: cuando el programa termina, <b>se pierde</b>. Un <b>archivo</b> guarda los datos en el <b>disco</b>, de forma <b>persistente</b>: siguen ahí la próxima vez que abrís el programa. Esta unidad es la base de los puntos 3 y 4 del parcial, que leen datos de <code>Usuarios.dat</code> y <code>Compras.dat</code>.</p>
+
+<h3>Abrir, usar y cerrar: el ciclo de vida de un archivo</h3>
+<p>Se trabaja con archivos <b>binarios</b> usando <code>#include &lt;stdio.h&gt;</code>. Un archivo se maneja con un puntero <code>FILE*</code> que se obtiene con <code>fopen</code> y se libera con <code>fclose</code>:</p>
+
+<pre class="code-block">#include &lt;stdio.h&gt;
+
+FILE* archivo = fopen("datos.dat", "wb+");   // abrir
+// ... leer o escribir ...
+fclose(archivo);                             // cerrar (siempre!)</pre>
+
+<table class="tbl">
+  <tr><th>Modo</th><th>Significado</th></tr>
+  <tr><td class="c"><code>"wb+"</code></td><td><b>w</b>rite <b>b</b>inary: crea el archivo (o lo vacía si existe) para <b>escribir</b>.</td></tr>
+  <tr><td class="c"><code>"rb+"</code></td><td><b>r</b>ead <b>b</b>inary: abre un archivo existente para <b>leer</b>.</td></tr>
+</table>
+
+<h3>Escribir y leer con <code>fwrite</code> / <code>fread</code></h3>
+<p>Las dos funciones tienen la misma forma: <code>(&amp;dato, sizeof(Tipo), 1, archivo)</code>. La <code>&amp;</code> pasa la <b>dirección</b> del dato, <code>sizeof(Tipo)</code> dice <b>cuántos bytes</b> ocupa, y el <code>1</code> es "un elemento por vez".</p>
+
+<pre class="code-block">FILE* archivo = fopen("datos.dat", "wb+");
+int x = 2;
+fwrite(&amp;x, sizeof(int), 1, archivo);    // escribe el 2
+int w = 7;
+fwrite(&amp;w, sizeof(int), 1, archivo);    // escribe el 7
+fclose(archivo);
+
+archivo = fopen("datos.dat", "rb+");
+int y;
+fread(&amp;y, sizeof(int), 1, archivo);     // lee el 2
+int a;
+fread(&amp;a, sizeof(int), 1, archivo);     // lee el 7
+fclose(archivo);</pre>
+
+<h3>Archivos de registros (structs)</h3>
+<p>Lo más común es guardar <b>registros</b> completos. Por eso los campos de texto van en <code>char[N + 1]</code> (tamaño fijo): así cada registro ocupa <i>siempre lo mismo</i> y se puede leer/escribir de a uno con <code>sizeof(Tipo)</code>.</p>
+
+<pre class="code-block">struct Alumno {
+    int  dni;
+    char nombre[30 + 1];
+};
+
+FILE* arch = fopen("alumnos.dat", "wb+");
+Alumno alumno = {1234, "Adrian"};
+fwrite(&amp;alumno, sizeof(Alumno), 1, arch);     // escribe el registro entero
+fclose(arch);
+
+arch = fopen("alumnos.dat", "rb+");
+Alumno alumnoLectura;
+fread(&amp;alumnoLectura, sizeof(Alumno), 1, arch);  // lee el registro entero</pre>
+
+<h3>El patrón estrella: leer un archivo secuencialmente hasta el final</h3>
+<p>Cuando no sabés cuántos registros hay, se recorre el archivo <b>hasta el fin</b> con <code>feof</code> (<i>end of file</i>). El patrón que usa la cátedra es <b>lectura adelantada</b>: una lectura <b>antes</b> del <code>while</code> y otra <b>al final</b> del cuerpo. Memorizalo, es la base de medio parcial:</p>
+
+<pre class="code-block">FILE* arch = fopen("datos.dat", "rb+");
+
+int dato;
+fread(&amp;dato, sizeof(int), 1, arch);     // 1ra lectura (adelantada)
+
+while (!feof(arch)) {                    // mientras NO sea fin de archivo
+    cout &lt;&lt; dato &lt;&lt; endl;            // proceso el dato leído
+    fread(&amp;dato, sizeof(int), 1, arch); // leo el SIGUIENTE (al final del cuerpo)
+}
+
+fclose(arch);</pre>
+
+<div class="key">
+  <div class="ky-t">¿Por qué leer dos veces?</div>
+  <code>feof</code> solo devuelve <code>true</code> <b>después</b> de que una lectura falló por llegar al final. Por eso se lee <b>antes</b> del <code>while</code> (para tener el primer dato y poder evaluar la condición) y se vuelve a leer <b>al final</b> del cuerpo (para traer el siguiente). Si pusieras una sola lectura adentro, <b>procesarías basura</b> al pasarte del final. Patrón: <i>leo → mientras no sea fin: proceso y vuelvo a leer</i>.
+</div>
+
+<h3>Combinado: cargar un archivo dentro de un array</h3>
+<p>Juntando archivos (esta unidad) con arreglos (Unidad 8), el patrón clave es <b>leer cada registro y agregarlo a un array</b>. Es exactamente lo que hace <code>cargarUsuarios</code> en el parcial:</p>
+
+<pre class="code-block">int arrNumeros[200];
+int len = 0;                              // 0 elementos útiles
+
+FILE* archivo = fopen("numeros.dat", "rb+");
+int numero;
+fread(&amp;numero, sizeof(int), 1, archivo); // lectura adelantada
+while (!feof(archivo)) {
+    arrNumeros[len] = numero;            // lo agrego al array
+    len = len + 1;
+    fread(&amp;numero, sizeof(int), 1, archivo);
+}
+fclose(archivo);</pre>
+
+<h3>Ejemplo resuelto (oficial de la cátedra): leer <code>Ventas.dat</code></h3>
+<p>Del <b>Parcialito 1</b>, punto 4: <i>"Dado un archivo Ventas.dat con idProducto (5 dígitos), codVendedor (6 caracteres), precio (float) y cantidad (int), leelo secuencialmente e imprimí cada registro"</i>. Esta es la resolución oficial, que muestra el estilo exacto que esperan:</p>
+
+<pre class="code-block">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+using namespace std;
+
+struct Venta {
+    int   idProducto;
+    char  codVendedor[6 + 1];   // "6 caracteres"
+    float precio;
+    int   cantidad;
+};
+
+int main() {
+    FILE* arch = fopen("Ventas.dat", "rb+");
+    Venta registro;
+    fread(&amp;registro, sizeof(Venta), 1, arch);
+    while (!feof(arch)) {
+        cout &lt;&lt; registro.idProducto &lt;&lt; endl;
+        cout &lt;&lt; registro.codVendedor &lt;&lt; endl;
+        cout &lt;&lt; registro.precio &lt;&lt; endl;
+        cout &lt;&lt; registro.cantidad &lt;&lt; endl;
+        fread(&amp;registro, sizeof(Venta), 1, arch);
+    }
+    fclose(arch);
+    return 0;
+}</pre>
+
+<div class="trap">
+  <div class="tr-t">Errores típicos con archivos</div>
+  • <b>Olvidar <code>fclose</code></b>: podés perder datos que quedaron "en el aire" sin grabarse.<br>
+  • <b>Una sola lectura</b> en el <code>while</code>: procesás el último registro dos veces o leés basura. Van <b>dos</b> (adelantada + al final).<br>
+  • <b>Confundir el modo</b>: abrir con <code>"wb+"</code> para leer <b>vacía</b> el archivo. Para leer es <code>"rb+"</code>.<br>
+  • <b>Pasar el dato sin <code>&amp;</code></b>: <code>fread(dato, …)</code> en vez de <code>fread(&amp;dato, …)</code> no compila bien: hay que pasar la <b>dirección</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="12" data-subject="ayed"></div>
+</div>
+</details>
+
+<!-- ============ UNIDAD 13 · BIBLIOTECA DE ARRAYS ============ -->
+<details id="ay-s13">
+<summary><span class="num">13</span> Unidad 13: Biblioteca de arrays (buscar, ordenar, insertar) <span class="sec-score" id="ss-ayed-13"></span></summary>
+<div class="content">
+
+<p>Sobre un arreglo y su <code>len</code> (cantidad de elementos útiles) hay un conjunto de operaciones que se repiten en todos los problemas: agregar, buscar, ordenar, insertar. La cátedra las junta en una <b>"biblioteca de arrays"</b>. Estas son <b>las funciones que en el parcial podés invocar sin desarrollar</b> (las del material oficial, pág. 93–97) — salvo las que el examen te pida codificar a mano.</p>
+
+<div class="key">
+  <div class="ky-t"><code>len</code> = elementos útiles, no tamaño físico</div>
+  Un arreglo se reserva con un tamaño físico grande (<code>int arr[1000]</code>) pero rara vez se llena entero. Por eso <b>siempre</b> se lleva un <code>len</code> aparte con la <b>cantidad de elementos realmente cargados</b>. Todas las funciones reciben <code>(arr, len)</code> y solo trabajan de <code>0</code> a <code>len - 1</code>.
+</div>
+
+<h3>Las dos básicas: <code>inicializar</code> y <code>agregar</code></h3>
+<pre class="code-block">void inicializar(int&amp; len) {
+    len = 0;                  // al principio hay 0 elementos útiles
+}
+
+void agregar(int arr[], int&amp; len, int v) {
+    arr[len] = v;             // pongo el elemento en la 1ra posición libre
+    len = len + 1;            // ahora hay un elemento útil más
+}</pre>
+<p>El <code>len</code> va <b>por referencia</b> (<code>int&amp; len</code>) porque <code>agregar</code> lo modifica y ese cambio tiene que verse afuera. Son justo las dos operaciones del <b>punto 2.1</b> del parcial.</p>
+
+<h3>Búsqueda lineal: <code>buscar</code></h3>
+<p>Recorre el arreglo de principio a fin; devuelve la <b>posición</b> del elemento o <b>−1</b> si no está. Sirve aunque el arreglo esté desordenado.</p>
+<pre class="code-block">// retorna la posición del elemento, o -1 si no lo encuentra
+int buscar(int arr[], int len, int v) {
+    int pos = -1;
+    int i = 0;
+    while (pos == -1 &amp;&amp; i &lt;= len - 1) {   // mientras no lo encuentre y no se acabe
+        if (arr[i] == v) {
+            pos = i;
+        }
+        i = i + 1;
+    }
+    return pos;
+}</pre>
+<p>Para un arreglo de structs se busca <b>por un campo</b> (DNI, id…) y, si el campo es texto, se compara con <code>strcmp(...) == 0</code> (Unidad 11).</p>
+
+<h3>Generalizar con <code>templates</code> y un comparador</h3>
+<p>En vez de escribir un <code>buscar</code> distinto para <code>int</code>, <code>Persona</code>, etc., se usa una <b>plantilla (template)</b> que sirve para cualquier tipo, y se le pasa un <b>criterio de comparación</b> como parámetro (un puntero a función):</p>
+<pre class="code-block">template &lt;typename T&gt;
+void agregar(T arr[], int&amp; len, T v) {
+    arr[len] = v;
+    len = len + 1;
+}
+
+// el criterio devuelve 0 si son iguales, &lt;0 si a&lt;b, &gt;0 si a&gt;b
+template &lt;typename T, typename K&gt;
+int buscar(T arr[], int len, K v, int (*criterio)(T, K)) {
+    int pos = -1, i = 0;
+    while (pos == -1 &amp;&amp; i &lt;= len - 1) {
+        if (criterio(arr[i], v) == 0) pos = i;
+        i = i + 1;
+    }
+    return pos;
+}
+
+int criterioPersonaPorDni(Persona p, int dni) { return p.dni - dni; }
+// invocación: buscar&lt;Persona, int&gt;(arr, len, 12345, criterioPersonaPorDni);</pre>
+
+<div class="key">
+  <div class="ky-t">Comparadores ASC y DESC</div>
+  Un comparador <b>ascendente</b> devuelve <b>0</b> si son iguales, un número <b>negativo</b> si <code>a &lt; b</code> y <b>positivo</b> si <code>a &gt; b</code> (para números, directamente <code>a - b</code>; para texto, <code>strcmp</code>). El <b>descendente</b> es <code>-1 ×</code> el ascendente. Cambiando el comparador, la misma función ordena o busca en cualquier orden.
+</div>
+
+<h3>Ordenamiento por burbujeo (<i>bubble sort</i>)</h3>
+<p>Compara elementos <b>vecinos</b> y los intercambia si están en el orden equivocado; repitiendo, los grandes "burbujean" hacia el final. Para <b>descendente</b> solo se invierte el signo de la comparación:</p>
+<pre class="code-block">void ordenar(int arr[], int len) {           // ASCENDENTE
+    for (int j = 1; j &lt;= len - 1; j++) {
+        for (int i = 0; i &lt;= len - 1 - j; i++) {  // -j: el final ya quedó ordenado
+            if (arr[i] &gt; arr[i + 1]) {            // &gt; para ASC
+                int aux = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = aux;
+            }
+        }
+    }
+}
+
+void ordenarDESC(int arr[], int len) {       // DESCENDENTE
+    for (int j = 1; j &lt;= len - 1; j++) {
+        for (int i = 0; i &lt;= len - 1 - j; i++) {
+            if (arr[i] &lt; arr[i + 1]) {            // &lt; para DESC (único cambio)
+                int aux = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = aux;
+            }
+        }
+    }
+}</pre>
+<p>Ordenar por un <b>campo de struct</b> es lo mismo cambiando la condición: <code>arr[i].dni &gt; arr[i+1].dni</code> (por DNI), o <code>strcmp(arr[i].nombre, arr[i+1].nombre) &gt; 0</code> (por nombre). El <b>punto 2.2</b> del parcial es exactamente esto: ordenar por <i>Total gastado</i> en forma <b>descendente</b>.</p>
+
+<div class="key">
+  <div class="ky-t">Optimización con bandera</div>
+  Se puede cortar antes con una bandera <code>huboMovimientos</code>: si en una pasada completa <b>no se hizo ningún intercambio</b>, el arreglo ya está ordenado y se frena. Útil cuando los datos ya vienen casi ordenados.
+</div>
+
+<h3>Búsqueda binaria: rápida, pero con precondición</h3>
+<p>En vez de recorrer todo, mira el elemento del <b>medio</b> y descarta media lista en cada paso. Es muchísimo más veloz, pero tiene una <b>precondición</b> ineludible:</p>
+<div class="key">
+  <div class="ky-t">Precondición de la búsqueda binaria</div>
+  1) El arreglo <b>debe estar ordenado</b> por el campo que se busca.<br>
+  2) La estructura debe permitir <b>acceso directo</b> a sus elementos (los arreglos siempre lo cumplen: <code>arr[medio]</code> es instantáneo). Si el arreglo <b>no</b> está ordenado, la búsqueda binaria da resultados incorrectos.
+</div>
+<pre class="code-block">int busquedaBinaria(int arr[], int len, int v, bool&amp; enc) {
+    int pos = -1;  enc = false;
+    int ini = 0;          // posición del primer elemento
+    int fin = len - 1;    // posición del último elemento útil
+    while (pos == -1 &amp;&amp; ini &lt;= fin) {
+        int medio = (ini + fin) / 2;
+        if (arr[medio] == v) { pos = medio; enc = true; }
+        else if (arr[medio] &lt; v) ini = medio + 1;   // descarto la mitad izquierda
+        else                     fin = medio - 1;   // descarto la mitad derecha
+    }
+    return pos;
+}</pre>
+
+<h3>Insertar ordenado e insertar sin repetir</h3>
+<p><code>insertarOrdenado</code> mete un elemento <b>en su lugar</b> dentro de un arreglo ya ordenado, corriendo los mayores una posición a la derecha. Su precondición: el arreglo <b>ya debe estar ordenado</b> (o vacío).</p>
+<pre class="code-block">// PRECONDICION: arr ya está ordenado (o vacío). Retorna la posición donde insertó.
+int insertarOrdenado(int arr[], int&amp; len, int v) {
+    int pos = len;
+    while (pos &gt; 0 &amp;&amp; v &lt; arr[pos - 1]) {
+        arr[pos] = arr[pos - 1];     // corro el mayor a la derecha
+        pos = pos - 1;
+    }
+    arr[pos] = v;                    // dejo v en su lugar
+    len = len + 1;
+    return pos;
+}
+
+// insertar SIN REPETIR: si ya existe no hace nada; si no, lo inserta ordenado
+int buscaEInsertaOrdenado(int arr[], int&amp; len, int v, bool&amp; enc) {
+    int pos = busquedaBinaria(arr, len, v, enc);
+    if (pos == -1) {                 // no estaba
+        pos = insertarOrdenado(arr, len, v);
+    }
+    return pos;
+}</pre>
+
+<h3>Eliminar</h3>
+<p>Borra el elemento de una posición corriendo todos los siguientes una posición a la izquierda y bajando <code>len</code>:</p>
+<pre class="code-block">void eliminar(int arr[], int&amp; len, int pos) {
+    for (int i = pos; i &lt;= len - 1 - 1; i++) {
+        arr[i] = arr[i + 1];
+    }
+    len = len - 1;
+}</pre>
+
+<div class="trap">
+  <div class="tr-t">Errores típicos con la biblioteca</div>
+  • <b>Búsqueda binaria sobre un arreglo desordenado</b>: rompe la precondición y devuelve cualquier cosa. Si no está ordenado, usá búsqueda lineal.<br>
+  • <b><code>insertarOrdenado</code> sin que esté ordenado</b>: la precondición es estar ya ordenado (o vacío).<br>
+  • <b>Recorrer hasta el tamaño físico</b> en vez de hasta <code>len - 1</code>: procesás basura.<br>
+  • <b>Olvidar <code>&amp;</code> en <code>len</code></b> en <code>agregar</code>/<code>insertar</code>/<code>eliminar</code>: el cambio de tamaño no se vería afuera.
+</div>
+
+<div class="quiz-wrap" data-qz="13" data-subject="ayed"></div>
+</div>
+</details>
+
+<div class="partial-header">Parciales resueltos <span class="date">Unidad 14</span></div>
+
+<!-- ============ UNIDAD 14 · PARCIAL RESUELTO ============ -->
+<details id="ay-s14">
+<summary><span class="num">14</span> Unidad 14: Parcial resuelto (02/09/2025) + Parcialito (08/06) <span class="sec-score" id="ss-ayed-14"></span></summary>
+<div class="content">
+
+<p>Unidad integradora: el <b>1er Parcial del 02/09/2025</b> resuelto y comentado punto por punto, usando todo lo de las Unidades 8 a 13 (structs, arreglos, archivos y biblioteca). Al final, el <b>Parcialito del 08/06</b> con su resolución oficial como práctica extra.</p>
+
+<h3>Enunciado (1er Parcial · 02/09/2025)</h3>
+<div class="example">
+  <div class="ex-t">El problema</div>
+  El área de cobranza de una empresa de venta de juguetes necesita unificar las compras de sus usuarios de un período en una sola estructura. Cuenta con:<br><br>
+  <b>A) Archivo <code>Usuarios.dat</code></b> (máximo 5000 usuarios distintos). Cada registro: <i>Id de Usuario (6 dígitos)</i> y <i>Nombre de Usuario (100 caracteres)</i>.<br><br>
+  <b>B) Archivo <code>Compras.dat</code></b> (un registro por compra realizada). Cada registro: <i>Id de Usuario (6 dígitos)</i>, <i>Código de juguete (5 caracteres)</i>, <i>precio unitario (float)</i> y <i>cantidad comprada (int)</i>.<br><br>
+  Se requiere cargar un <b>array de totales por usuario</b> con la info de todos los usuarios, sumarizando para cada uno el <b>total de juguetes comprados</b> y el <b>total gastado</b> (Σ de cada cantidad × su precio unitario). Cada elemento: <i>Id (6 dígitos)</i>, <i>Nombre (100 caracteres)</i>, <i>Total gastado (float)</i>, <i>Total de juguetes (int)</i>.<br><br>
+  <b>1)</b> Tipos de datos. <b>2)</b> Codificar (sin biblioteca) <code>agregar</code> (2.1) y <code>ordenar</code> por total gastado descendente (2.2). <b>3)</b> <code>cargarUsuarios</code>. <b>4)</b> <code>cargarCompras</code>. <b>5)</b> <code>mostrarTotales</code>.
+</div>
+
+<div class="key">
+  <div class="ky-t">Estrategia para encararlo</div>
+  El problema es un <b>archivo → array con sumarización</b>: 1) defino los registros y el array; 2) cargo un elemento por usuario con totales en 0; 3) recorro las compras y, por cada una, <b>busco</b> su usuario y le sumo; 4) ordeno y muestro. Las dos trampas: en el punto 4 se <b>busca</b> el usuario antes de sumar, y en el punto 5 hay que distinguir <b>"todos los usuarios"</b> (para la sumatoria) de <b>"los que compraron"</b> (para el listado).
+</div>
+
+<h3>Punto 1 — Tipos de datos</h3>
+<p>Los "N dígitos" se modelan como <code>int</code> (igual que <code>idProducto</code> en el parcialito) y los "N caracteres" como <code>char[N + 1]</code>:</p>
+<pre class="code-block">const int MAX_USUARIOS = 5000;
+
+struct Usuario {              // registro de Usuarios.dat
+    int  id;                  // 6 dígitos
+    char nombre[100 + 1];     // 100 caracteres
+};
+struct Compra {               // registro de Compras.dat
+    int   idUsuario;          // 6 dígitos
+    char  codJuguete[5 + 1];  // 5 caracteres
+    float precioUnitario;
+    int   cantidad;
+};
+struct TotalUsuario {         // elemento del array de totales
+    int   id;                 // 6 dígitos
+    char  nombre[100 + 1];    // 100 caracteres
+    float totalGastado;
+    int   totalJuguetes;
+};
+typedef TotalUsuario ArrayTotales[MAX_USUARIOS];</pre>
+
+<h3>Punto 2 — <code>agregar</code> y <code>ordenar</code> (a mano, sin biblioteca)</h3>
+<pre class="code-block">// 2.1  agrega luego del último elemento útil
+template &lt;typename T&gt;
+void agregar(T arr[], int&amp; len, T v) {
+    arr[len] = v;
+    len = len + 1;
+}
+
+// 2.2  ordena por Total gastado DESCENDENTE (burbujeo)
+void ordenar(ArrayTotales arr, int len) {
+    for (int j = 1; j &lt;= len - 1; j++) {
+        for (int i = 0; i &lt;= len - 1 - j; i++) {
+            if (arr[i].totalGastado &lt; arr[i + 1].totalGastado) {  // &lt; = DESC
+                TotalUsuario aux = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = aux;
+            }
+        }
+    }
+}</pre>
+
+<h3>Punto 3 — <code>cargarUsuarios</code></h3>
+<p>Recibe el array vacío y su <code>len</code> ya inicializada (en 0). Lee <code>Usuarios.dat</code> con el patrón de lectura adelantada y crea un total por usuario con los acumuladores en 0:</p>
+<pre class="code-block">void cargarUsuarios(ArrayTotales arr, int&amp; len) {
+    FILE* archUsuarios = fopen("Usuarios.dat", "rb+");
+    Usuario u;
+    fread(&amp;u, sizeof(Usuario), 1, archUsuarios);
+    while (!feof(archUsuarios)) {
+        TotalUsuario t;
+        t.id = u.id;
+        strcpy(t.nombre, u.nombre);
+        t.totalGastado  = 0;
+        t.totalJuguetes = 0;
+        agregar&lt;TotalUsuario&gt;(arr, len, t);     // punto 2.1
+        fread(&amp;u, sizeof(Usuario), 1, archUsuarios);
+    }
+    fclose(archUsuarios);
+}</pre>
+
+<h3>Punto 4 — <code>cargarCompras</code></h3>
+<p>Recibe el array <b>con los usuarios ya cargados</b>. Por cada compra, <b>busca</b> el usuario por id y le suma la plata y los juguetes. <code>buscar</code> es de la biblioteca, así que se puede invocar:</p>
+<pre class="code-block">int criterioTotalPorId(TotalUsuario t, int id) { return t.id - id; }
+
+void cargarCompras(ArrayTotales arr, int len) {
+    FILE* archCompras = fopen("Compras.dat", "rb+");
+    Compra c;
+    fread(&amp;c, sizeof(Compra), 1, archCompras);
+    while (!feof(archCompras)) {
+        int pos = buscar&lt;TotalUsuario, int&gt;(arr, len, c.idUsuario, criterioTotalPorId);
+        if (pos != -1) {
+            arr[pos].totalGastado  += c.cantidad * c.precioUnitario;
+            arr[pos].totalJuguetes += c.cantidad;
+        }
+        fread(&amp;c, sizeof(Compra), 1, archCompras);
+    }
+    fclose(archCompras);
+}</pre>
+
+<h3>Punto 5 — <code>mostrarTotales</code></h3>
+<p>Ordena por total gastado descendente (punto 2.2), muestra <b>solo a los que compraron</b>, y retorna la suma de juguetes de <b>todos</b> los usuarios del array:</p>
+<pre class="code-block">int mostrarTotales(ArrayTotales arr, int len) {
+    ordenar(arr, len);                          // listado ordenado (punto 2.2)
+    int totalJuguetes = 0;
+    for (int i = 0; i &lt;= len - 1; i++) {
+        totalJuguetes += arr[i].totalJuguetes;  // sumatoria de TODOS los usuarios
+        if (arr[i].totalJuguetes &gt; 0) {         // muestra solo los que compraron
+            cout &lt;&lt; arr[i].id &lt;&lt; " - " &lt;&lt; arr[i].totalGastado &lt;&lt; endl;
+        }
+    }
+    return totalJuguetes;
+}</pre>
+
+<div class="key">
+  <div class="ky-t">Cómo se encadena todo</div>
+<pre class="code-block">int main() {
+    ArrayTotales totales;
+    int len = 0;                                  // len inicializada (punto 3)
+    cargarUsuarios(totales, len);                 // 3
+    cargarCompras(totales, len);                  // 4
+    int juguetes = mostrarTotales(totales, len);  // 5
+    cout &lt;&lt; "Total de juguetes (todos): " &lt;&lt; juguetes &lt;&lt; endl;
+    return 0;
+}</pre>
+  La única función de biblioteca que se <b>invoca sin desarrollar</b> es <code>buscar</code> (punto 4). <code>agregar</code> y <code>ordenar</code> van <b>desarrolladas</b> (punto 2), como exige la consigna.
+</div>
+
+<div class="trap">
+  <div class="tr-t">Las trampas del parcial</div>
+  • <b>Punto 5, "todos" vs "los que compraron"</b>: la sumatoria que se retorna es sobre <b>todos</b> los usuarios; el listado en pantalla es <b>solo</b> los que tienen <code>totalJuguetes &gt; 0</code> (pueden existir usuarios sin compras).<br>
+  • <b><code>len</code> por referencia</b> en <code>cargarUsuarios</code> y en <code>agregar</code>: si no, el array no "crece".<br>
+  • <b>Buscar antes de sumar</b> (punto 4): cada compra trae un id; hay que ubicar a su usuario en el array antes de acumular. Compras de un id inexistente se ignoran (<code>pos == -1</code>).<br>
+  • <b>Total gastado = Σ (cantidad × precio unitario)</b>, no solo el precio.
+</div>
+
+<h3>Práctica extra — Parcialito 1 (08/06) con resolución oficial</h3>
+<p>Cuatro puntos cortos que repasan scope de variables, parámetros por referencia y lectura de archivos.</p>
+
+<div class="example">
+  <div class="ex-t">Punto 1 — ¿Qué imprime?</div>
+<pre class="code-block">int x = 10;
+int y = 2;
+cout &lt;&lt; x &lt;&lt; endl;          // 10
+if (x + y &gt; 5) {
+    cout &lt;&lt; x + y &lt;&lt; endl;   // 12
+    int x = 20;             // x LOCAL del if (oculta al de afuera)
+    cout &lt;&lt; x + y &lt;&lt; endl;   // 22
+}
+cout &lt;&lt; x &lt;&lt; endl;          // 10  (el x interno ya murió)</pre>
+  Salida: <b>10 / 12 / 22 / 10</b>. La clave es el <b>scope</b>: el <code>x = 20</code> vive solo dentro del <code>if</code>; afuera vuelve a verse el <code>x = 10</code>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Puntos 2 y 3 — función con retorno y parámetro por referencia</div>
+  Una función que retorna la suma de las dos primeras componentes y, por un segundo parámetro <b>por referencia</b>, deja el producto de la tercera por la cuarta:
+<pre class="code-block">int sumayproducto(int array[], int&amp; producto) {
+    producto = array[2] * array[3];
+    return array[0] + array[1];
+}
+
+int main() {
+    int array[4] = {1, 2, 3, 4};
+    int producto;
+    int suma = sumayproducto(array, producto);
+    cout &lt;&lt; suma &lt;&lt; producto &lt;&lt; endl;   // 3 (1+2) y 12 (3*4)
+    return 0;
+}</pre>
+  El <b>retorno</b> trae la suma; el dato que se "devuelve" por el segundo canal (el producto) viaja <b>por referencia</b> (<code>int&amp; producto</code>).
+</div>
+
+<p>El <b>punto 4</b> (leer <code>Ventas.dat</code> secuencialmente) ya está resuelto como ejemplo en la <a href="#ay-s12">Unidad 12</a>.</p>
+
+<div class="quiz-wrap" data-qz="14" data-subject="ayed"></div>
+</div>
+</details>
+
 </section>
 
 
@@ -38659,6 +39219,44 @@ registerExercises('ayed', '10', [
   {st: '¿Cuál es la forma correcta de recorrer TODA una matriz?', opts: ['Un solo <code>for</code> de 0 a FILAS', 'Un doble <code>for</code> anidado: uno para filas y otro para columnas', 'Un <code>for</code> de 0 a FILAS*COLUMNAS sin corchetes', 'Un <code>while</code> sin índices'], c: 1, ex: 'Como hay dos índices (fila y columna), se usan dos <code>for</code> anidados: el externo mueve la fila <code>i</code> y el interno las columnas <code>j</code>, accediendo a <code>m[i][j]</code>.'},
   {st: 'Al pasar una matriz a una función, ¿por qué hay que indicar el número de columnas, como en <code>void mostrar(int m[][3], int filas)</code>?', opts: ['Por una regla de estilo, se puede omitir', 'Porque el compilador necesita el ancho de cada fila para calcular la posición de cada celda en memoria', 'Porque las filas no se pueden pasar nunca', 'Para que la matriz se copie más rápido'], c: 1, ex: 'La matriz se guarda como una tira fila tras fila; para ubicar <code>m[i][j]</code> el compilador necesita saber cuántas columnas tiene cada fila. Por eso las columnas son obligatorias y las filas se pasan aparte.'},
   {st: 'Con un doble <code>for</code> (externo = filas, interno = columnas) sobre una matriz 2×3, ¿en qué orden se visitan las celdas?', opts: ['m[0][0], m[1][0], m[0][1]…', 'Toda la fila 0 (m[0][0], m[0][1], m[0][2]) y después toda la fila 1', 'Toda la columna 0 primero, después la columna 1', 'm[2][3], m[2][2], m[2][1]… en reversa'], c: 1, ex: 'El <code>for</code> externo fija la fila y no avanza hasta que el interno recorre todas sus columnas: se completa la fila 0 entera, luego la fila 1 entera (izquierda a derecha, arriba hacia abajo).'},
+]);
+
+registerExercises('ayed', '11', [
+  {st: '¿Por qué una cadena para 100 caracteres se declara <code>char nombre[100 + 1]</code> y no <code>char nombre[100]</code>?', opts: ['Por una convención de estilo, da igual', 'Por el casillero extra que necesita el carácter nulo <code>\'\\0\'</code> que marca el fin de la cadena', 'Porque los arreglos arrancan en 1', 'Porque C++ reserva el último lugar para el largo'], c: 1, ex: 'Una cadena estilo C es un arreglo de <code>char</code> terminado en <code>\'\\0\'</code>. Ese carácter nulo ocupa un casillero, así que para N caracteres útiles hacen falta N + 1 lugares. Por eso los registros del parcial usan <code>char nombre[100 + 1]</code>.'},
+  {st: 'Tenés <code>char a[20+1]</code> y <code>char b[20+1]</code> con texto. ¿Cómo preguntás correctamente si son iguales?', opts: ['<code>if (a == b)</code>', '<code>if (strcmp(a, b) == 0)</code>', '<code>if (a.equals(b))</code>', '<code>if (a &lt; b)</code>'], c: 1, ex: 'Con <code>char[]</code> no se compara con <code>==</code> (eso compara direcciones, no el texto). Se usa <code>strcmp(a, b)</code>, que devuelve <b>0 si son iguales</b>, negativo si <code>a</code> va antes y positivo si va después. Por eso "¿son iguales?" es <code>strcmp(a, b) == 0</code>.'},
+  {st: 'Querés poner el texto "Hola" en <code>char c[20+1]</code> ya declarado. ¿Cuál es la forma correcta?', opts: ['<code>c = "Hola";</code>', '<code>strcpy(c, "Hola");</code>', '<code>c := "Hola";</code>', '<code>c[0] = "Hola";</code>'], c: 1, ex: 'No se puede asignar un arreglo con <code>=</code> (<code>c = "Hola"</code> no compila). Se copia con <code>strcpy(destino, origen)</code>: <code>strcpy(c, "Hola")</code>. Para pasar de <code>string</code> a <code>char[]</code> se usa <code>strcpy(c, s.c_str())</code>.'},
+  {st: '¿Cuál de las dos formas de texto es la que se guarda en los archivos <code>.dat</code> y aparece en los registros del parcial?', opts: ['<code>string</code>, porque es más cómoda', '<code>char[]</code> (arreglo de caracteres de tamaño fijo)', 'Las dos por igual', 'Ninguna: en archivos no se guarda texto'], c: 1, ex: 'Los registros de archivo necesitan tamaño fijo para poder leerse/escribirse con <code>sizeof</code>. Por eso el texto va en <code>char[N + 1]</code> (p. ej. <code>char nombre[100 + 1]</code>), no en <code>string</code>. El <code>string</code> es cómodo para trabajar en memoria.'},
+  {st: 'Si <code>strcmp(palabra1, palabra2)</code> devuelve un número <b>mayor que 0</b>, eso significa que…', opts: ['palabra1 y palabra2 son iguales', 'palabra1 es alfabéticamente mayor que palabra2 (va después)', 'palabra1 es más corta', 'hubo un error'], c: 1, ex: 'Convención de <code>strcmp</code>: <b>0</b> = iguales, <b>&lt; 0</b> = el primero va antes (es "menor"), <b>&gt; 0</b> = el primero va después (es "mayor"). Ej.: <code>strcmp("perro", "pernil") &gt; 0</code> porque "perro" va después de "pernil".'},
+  {st: '¿Cuál define correctamente una variable que guarda la letra A?', opts: ['<code>char c = "A";</code>', '<code>char c = \'A\';</code>', '<code>char c = A;</code>', '<code>char c[] = A;</code>'], c: 1, ex: 'Un <code>char</code> guarda UN carácter y va con comilla <b>simple</b>: <code>\'A\'</code>. Las comillas dobles (<code>"A"</code>) arman una cadena (un <code>char[]</code> con la A y el <code>\'\\0\'</code>), que es de otro tipo.'},
+]);
+
+registerExercises('ayed', '12', [
+  {st: '¿Cuál es la diferencia central entre guardar datos en una variable y guardarlos en un archivo?', opts: ['Ninguna, es lo mismo', 'La variable vive en memoria y se pierde al terminar el programa; el archivo guarda en disco de forma persistente', 'El archivo es más rápido de leer', 'Las variables no se pueden modificar'], c: 1, ex: 'Las variables y arreglos viven en la RAM: al cerrar el programa desaparecen. Un archivo persiste los datos en el disco, así que siguen disponibles la próxima vez. Por eso el parcial lee usuarios y compras desde <code>.dat</code>.'},
+  {st: 'Para ABRIR un archivo existente y LEERLO en binario, ¿qué modo se le pasa a <code>fopen</code>?', opts: ['<code>"wb+"</code>', '<code>"rb+"</code>', '<code>"texto"</code>', '<code>"leer"</code>'], c: 1, ex: '<code>"rb+"</code> = read binary, para leer un archivo existente. Cuidado: <code>"wb+"</code> (write binary) sirve para escribir y <b>vacía</b> el archivo si ya existe, así que no se usa para leer.'},
+  {st: '¿Cuál es la forma correcta de leer un registro <code>Usuario u</code> desde el archivo <code>arch</code>?', opts: ['<code>fread(u, sizeof(Usuario), 1, arch);</code>', '<code>fread(&amp;u, sizeof(Usuario), 1, arch);</code>', '<code>fread(arch, u, 1);</code>', '<code>u = fread(arch);</code>'], c: 1, ex: 'La forma es <code>fread(&amp;dato, sizeof(Tipo), 1, archivo)</code>: se pasa la <b>dirección</b> del dato (<code>&amp;u</code>), cuántos bytes ocupa (<code>sizeof(Usuario)</code>), de a 1 elemento, y el archivo. <code>fwrite</code> tiene la misma forma para escribir.'},
+  {st: 'En el patrón de lectura secuencial con <code>while(!feof(arch))</code>, ¿cuántas llamadas a <code>fread</code> hay y dónde?', opts: ['Una sola, dentro del while', 'Dos: una antes del while (adelantada) y otra al final del cuerpo', 'Tres, una por cada campo', 'Ninguna, feof lee solo'], c: 1, ex: 'Lectura adelantada: una <code>fread</code> ANTES del <code>while</code> (para tener el primer registro y poder evaluar <code>feof</code>) y otra AL FINAL del cuerpo (para traer el siguiente). Con una sola lectura adentro procesarías el último registro dos veces o leerías basura.'},
+  {st: '¿Por qué en un registro que se va a guardar en archivo el texto se pone en <code>char[N+1]</code> y no en <code>string</code>?', opts: ['Porque string no existe en C++', 'Porque el registro necesita tamaño fijo para poder leerse/escribirse de a uno con <code>sizeof</code>', 'Porque char[] es más lindo', 'Porque string ocupa menos'], c: 1, ex: 'Para leer/escribir un registro entero con <code>fread/fwrite</code> y <code>sizeof(Tipo)</code>, todos los campos deben ocupar un tamaño fijo y conocido. Un <code>string</code> tiene tamaño variable; un <code>char[N+1]</code> siempre ocupa lo mismo.'},
+  {st: '¿Qué problema causa olvidarse del <code>fclose(arch)</code> al terminar de usar un archivo?', opts: ['Da error de compilación', 'Podés perder datos que quedaron en el buffer sin grabarse en el disco', 'El archivo se duplica', 'Nada, es opcional siempre'], c: 1, ex: '<code>fclose</code> cierra el archivo y vuelca al disco lo que haya quedado en el buffer. Si no lo llamás, parte de lo escrito puede no llegar a grabarse. Siempre se cierra lo que se abrió.'},
+]);
+
+registerExercises('ayed', '13', [
+  {st: 'En la biblioteca de arrays, ¿qué representa <code>len</code>?', opts: ['El tamaño físico reservado del arreglo', 'La cantidad de elementos realmente cargados (elementos útiles)', 'La última posición posible', 'Un índice cualquiera'], c: 1, ex: '<code>len</code> es la cantidad de elementos <b>útiles</b> (los realmente cargados), distinta del tamaño físico reservado (<code>int arr[1000]</code>). Todas las funciones trabajan de <code>0</code> a <code>len - 1</code> y reciben <code>(arr, len)</code>.'},
+  {st: 'La función <code>buscar</code> lineal devuelve <code>-1</code>. ¿Qué significa?', opts: ['Que el arreglo está vacío', 'Que el elemento NO se encontró', 'Que está en la última posición', 'Que hubo un error de memoria'], c: 1, ex: 'Por convención, <code>buscar</code> devuelve la <b>posición</b> del elemento (0, 1, 2…) o <b>-1</b> si no lo encontró. Por eso quien la invoca pregunta <code>if (pos != -1)</code> antes de usar la posición.'},
+  {st: '¿Cuál es la PRECONDICIÓN ineludible de la búsqueda binaria?', opts: ['Que el arreglo tenga menos de 100 elementos', 'Que el arreglo esté ordenado por el campo que se busca', 'Que el arreglo esté vacío', 'Que se use con structs'], c: 1, ex: 'La búsqueda binaria descarta media lista en cada paso mirando el elemento del medio: eso solo funciona si el arreglo está <b>ordenado</b> por ese campo (y permite acceso directo, que los arrays siempre cumplen). Sobre un arreglo desordenado da resultados incorrectos.'},
+  {st: 'Tenés un bubble sort ascendente. ¿Qué cambio lo vuelve descendente?', opts: ['Recorrer el arreglo al revés', 'Cambiar el signo de la comparación entre vecinos (de <code>&gt;</code> a <code>&lt;</code>)', 'Duplicar el len', 'Usar un segundo arreglo'], c: 1, ex: 'El burbujeo intercambia vecinos según una comparación. En ASC se intercambia cuando <code>arr[i] &gt; arr[i+1]</code>; para DESC se cambia a <code>arr[i] &lt; arr[i+1]</code>. Es el único cambio. (El comparador descendente es <code>-1 ×</code> el ascendente.)'},
+  {st: 'Un comparador ascendente <code>criterio(a, b)</code> devuelve <b>0</b>. ¿Qué quiere decir?', opts: ['Que a es menor que b', 'Que a y b son iguales según el criterio', 'Que a es mayor que b', 'Que hubo error'], c: 1, ex: 'Convención de comparadores (igual que <code>strcmp</code>): <b>0</b> = iguales, <b>&lt; 0</b> = <code>a</code> menor que <code>b</code>, <b>&gt; 0</b> = <code>a</code> mayor. Para números suele ser directamente <code>a - b</code>; para texto, <code>strcmp</code>.'},
+  {st: '¿Cuál es la precondición de <code>insertarOrdenado</code>?', opts: ['Que el arreglo esté lleno', 'Que el arreglo ya esté ordenado (o vacío) por el criterio de inserción', 'Que el elemento no exista', 'Ninguna'], c: 1, ex: '<code>insertarOrdenado</code> mete el elemento en su lugar corriendo los mayores a la derecha; eso solo deja todo ordenado si el arreglo <b>ya venía ordenado</b> (o estaba vacío). Si no, hay que ordenar primero.'},
+  {st: 'En <code>void agregar(int arr[], int&amp; len, int v)</code>, ¿por qué <code>len</code> va por referencia (<code>int&amp; len</code>)?', opts: ['Por costumbre', 'Porque agregar incrementa len y ese cambio tiene que verse afuera de la función', 'Porque los int siempre van por referencia', 'Para que sea más rápido'], c: 1, ex: '<code>agregar</code> hace <code>len = len + 1</code>: modifica la cantidad de elementos útiles. Si <code>len</code> fuera por valor, el incremento se perdería al volver y el arreglo no "crecería". Por eso va por referencia.'},
+]);
+
+registerExercises('ayed', '14', [
+  {st: 'En el punto 5 (<code>mostrarTotales</code>), ¿sobre qué usuarios se calcula la sumatoria de juguetes que se RETORNA?', opts: ['Solo los que compraron', 'TODOS los usuarios del array', 'Solo el de mayor gasto', 'Ninguno, se muestra nada más'], c: 1, ex: 'La consigna pide "la sumatoria de la cantidad total de juguetes comprados por TODOS los usuarios existentes en el array". Por eso el acumulador suma <code>arr[i].totalJuguetes</code> en cada vuelta, sin filtrar.'},
+  {st: 'En ese mismo punto 5, ¿a qué usuarios se MUESTRA por pantalla?', opts: ['A todos', 'Solo a los que realizaron compras (totalJuguetes &gt; 0)', 'Solo al primero', 'A ninguno'], c: 1, ex: 'El enunciado aclara que pueden existir usuarios sin compras en el período. El listado muestra solo a los que compraron: <code>if (arr[i].totalJuguetes &gt; 0)</code>. La trampa del ejercicio es distinguir esto de la sumatoria, que sí es sobre todos.'},
+  {st: 'El "total gastado" de un usuario se calcula como…', opts: ['La suma de los precios unitarios', 'La suma de (cantidad × precio unitario) de cada una de sus compras', 'La cantidad de compras', 'El precio de la compra más cara'], c: 1, ex: 'Cada compra aporta <code>cantidad * precioUnitario</code>; el total gastado del usuario es la suma de eso sobre todas sus compras. En el código: <code>arr[pos].totalGastado += c.cantidad * c.precioUnitario;</code>.'},
+  {st: 'En <code>cargarCompras</code> (punto 4), por cada registro de compra hay que…', opts: ['Agregar un nuevo usuario al array', 'Buscar al usuario por su id en el array y sumarle la cantidad y el gasto', 'Ordenar el array', 'Borrar al usuario'], c: 1, ex: 'Los usuarios ya se cargaron en el punto 3. Por cada compra se la ubica con <code>buscar</code> usando el id, y si existe (<code>pos != -1</code>) se acumulan sus juguetes y su gasto. <code>buscar</code> es de biblioteca, así que se puede invocar sin desarrollarla.'},
+  {st: 'Según el estilo de la cátedra, ¿cómo se modelan "Id de Usuario: 6 dígitos" y "Nombre: 100 caracteres"?', opts: ['Ambos como string', 'El id como <code>int</code> y el nombre como <code>char[100 + 1]</code>', 'Ambos como char', 'El id como float'], c: 1, ex: 'En la resolución oficial del parcialito, "idProducto: 99999" se modeló como <code>int</code>. Siguiendo ese criterio, "6 dígitos" → <code>int id</code> y "N caracteres" → <code>char[N + 1]</code> (con el +1 del <code>\'\\0\'</code>).'},
+  {st: '¿Qué imprime el punto 1 del Parcialito (el del scope de variables)?', opts: ['10 12 22 22', '10 12 22 10', '10 10 10 10', '12 22 10 10'], c: 1, ex: 'Sale <b>10, 12, 22, 10</b>. Dentro del <code>if</code> se declara un <code>x = 20</code> LOCAL que oculta al de afuera (por eso 20+2 = 22). Al cerrar el <code>if</code>, ese x interno muere y vuelve a verse el <code>x = 10</code> original.'},
+  {st: 'En el parcial, ¿qué función se puede INVOCAR sin desarrollar y cuáles hay que CODIFICAR a mano?', opts: ['Se desarrolla todo', 'Se puede invocar <code>buscar</code> (biblioteca); hay que desarrollar <code>agregar</code> y <code>ordenar</code> (punto 2)', 'Se puede invocar todo', 'Hay que desarrollar solo buscar'], c: 1, ex: 'La consigna permite invocar las funciones de biblioteca SALVO para el punto 2, donde pide codificar <code>agregar</code> (2.1) y <code>ordenar</code> (2.2). El resto (como <code>buscar</code> en el punto 4) se puede invocar sin desarrollarlo.'},
 ]);
 
 
