@@ -322,13 +322,13 @@
   <!-- Carga FILTRADA: recta proporcional -->
   <line x1="60" y1="290" x2="500" y2="50" stroke="currentColor" stroke-width="2.5"/>
   <text x="470" y="44" text-anchor="end" fill="currentColor" font-size="11" font-weight="bold">Filtrada</text>
-  <!-- REABSORBIDA: crece y se aplana en Tm (splay suave) -->
-  <path d="M60 290 L250 186 Q310 150 360 110 Q400 95 500 95" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+  <!-- REABSORBIDA: sigue a la filtrada hasta el umbral, luego splay suave y se aplana en Tm -->
+  <path d="M60 290 L250 186 Q300 168 360 135 Q430 110 500 95" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
   <text x="150" y="225" fill="var(--accent)" font-size="11" font-weight="bold">Reabsorbida</text>
-  <!-- EXCRETADA: 0 hasta umbral, luego paralela a filtrada -->
-  <path d="M60 290 L250 290 Q290 288 310 276 L500 145" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="2 0"/>
-  <text x="468" y="160" text-anchor="end" fill="currentColor" font-size="11" font-weight="bold">Excretada</text>
-  <text x="330" y="266" fill="var(--text-muted)" font-size="9">aparece glucosuria</text>
+  <!-- EXCRETADA: 0 hasta el umbral, luego = filtrada - reabsorbida (gap = Tm) -->
+  <path d="M60 290 L250 290 Q300 289 360 281 Q430 263 500 245" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <text x="478" y="240" text-anchor="end" fill="currentColor" font-size="11" font-weight="bold">Excretada</text>
+  <text x="312" y="276" fill="var(--text-muted)" font-size="9">aparece glucosuria</text>
 </svg>
 <div class="fig-cap">Curva de titulación de la glucosa. La carga <b>filtrada</b> crece proporcional a la glucemia. La <b>reabsorbida</b> la sigue hasta saturar los SGLT en el <b>Tm</b> (&asymp; 375&ndash;400 mg/min); a partir del <b>umbral renal</b> (&asymp; 200 mg/dL) se supera la capacidad y aparece glucosuria, de modo que la <b>excretada</b> = filtrada &minus; Tm.</div>
 </div>
@@ -845,7 +845,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
     <li>Disminución de la conductancia al K<sup>+</sup> (se queda dentro &rarr; interior más positivo).</li>
   </ul>
 
-  <div class="fig"><svg viewBox="0 0 440 280" role="img" aria-label="Comparacion de dos potenciales de accion cardiacos: a la izquierda la fibra ventricular con fase 0 rapida, fase 1, meseta de fase 2, fase 3 de repolarizacion y fase 4 de reposo estable en -90 mV; a la derecha la celula marcapaso del nodo sinusal con despolarizacion diastolica espontanea en la fase 4, fase 0 lenta y fase 3">
+  <div class="fig"><svg viewBox="0 0 440 280" role="img" aria-label="Comparaci&oacute;n de dos potenciales de acci&oacute;n card&iacute;acos: a la izquierda la fibra ventricular con fase 0 r&aacute;pida, fase 1, meseta de fase 2, fase 3 de repolarizaci&oacute;n y fase 4 de reposo estable en -90 mV; a la derecha la c&eacute;lula marcapaso del nodo sinusal con despolarizaci&oacute;n diast&oacute;lica espont&aacute;nea en la fase 4, fase 0 lenta y fase 3">
     <line x1="55" y1="30" x2="55" y2="240" stroke="currentColor" stroke-width="1.2"/>
     <line x1="55" y1="240" x2="425" y2="240" stroke="currentColor" stroke-width="1.2"/>
     <g stroke="var(--border)" stroke-width="0.7"><line x1="55" y1="225" x2="51" y2="225"/><line x1="55" y1="180" x2="51" y2="180"/><line x1="55" y1="90" x2="51" y2="90"/><line x1="55" y1="30" x2="51" y2="30"/></g>
@@ -855,7 +855,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
     <line x1="55" y1="225" x2="205" y2="225" stroke="var(--text-muted)" stroke-width="0.6" stroke-dasharray="2 3"/>
     <path d="M70 225 L82 224 L84 33 L92 60 L96 96 Q120 96 150 100 L165 150 L178 225 L205 225" fill="none" stroke="var(--accent)" stroke-width="2"/>
     <g fill="currentColor" font-size="10"><text x="90" y="48">0</text><text x="100" y="86">1</text><text x="120" y="90">2</text><text x="168" y="138">3</text><text x="120" y="219">4</text></g>
-    <text x="135" y="22" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="700">Ventricular (rapida)</text>
+    <text x="135" y="22" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="700">Ventricular (r&aacute;pida)</text>
     <line x1="245" y1="180" x2="420" y2="180" stroke="var(--text-muted)" stroke-width="0.6" stroke-dasharray="2 3"/>
     <text x="244" y="184" text-anchor="end" fill="currentColor" font-size="9">umbral</text>
     <path d="M250 207 L290 180 L296 96 L320 120 L345 207 L360 200 L400 173" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -863,7 +863,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
     <path d="M250 207 L290 180" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
     <text x="333" y="22" text-anchor="middle" fill="currentColor" font-size="11" font-weight="700">Marcapaso (nodo SA)</text>
     <text x="276" y="223" text-anchor="middle" fill="var(--accent)" font-size="9">DDE</text>
-  </svg><div class="fig-cap">Potenciales de accion comparados. <b>Ventricular (fibra rapida):</b> fase 0 vertical por Na<sup>+</sup>, fase 1 (I<sub>to</sub>), fase 2 meseta por Ca<sup>2+</sup>, fase 3 de repolarizacion y fase 4 estable en &minus;90 mV. <b>Marcapaso (nodo SA):</b> sin meseta; la fase 4 muestra <b>despolarizacion diastolica espontanea</b> (pendiente, resaltada) que lleva el potencial diastolico maximo al umbral y dispara una fase 0 lenta por Ca<sup>2+</sup>.</div></div>
+  </svg><div class="fig-cap">Potenciales de acci&oacute;n comparados. <b>Ventricular (fibra r&aacute;pida):</b> fase 0 vertical por Na<sup>+</sup>, fase 1 (I<sub>to</sub>), fase 2 meseta por Ca<sup>2+</sup>, fase 3 de repolarizaci&oacute;n y fase 4 estable en &minus;90 mV. <b>Marcapaso (nodo SA):</b> sin meseta; la fase 4 muestra <b>despolarizaci&oacute;n diast&oacute;lica espont&aacute;nea</b> (pendiente, resaltada) que lleva el potencial diast&oacute;lico m&aacute;ximo al umbral y dispara una fase 0 lenta por Ca<sup>2+</sup>.</div></div>
 
   <h3>Propiedades del corazón y modulación autonómica</h3>
   <table class="tbl">
@@ -938,7 +938,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
     <tr><td>Intervalo QT</td><td>Despolarización + repolarización ventricular</td><td>0,38&ndash;0,44 s (inverso a la FC)</td></tr>
   </table>
 
-  <div class="fig"><svg viewBox="0 0 460 230" role="img" aria-label="Trazado de un latido normal del ECG sobre la linea isoelectrica: onda P redondeada, complejo QRS con onda Q pequena, R alta y S, y onda T redondeada; debajo se marcan el intervalo PR, el segmento ST y el intervalo QT">
+  <div class="fig"><svg viewBox="0 0 460 230" role="img" aria-label="Trazado de un latido normal del ECG sobre la l&iacute;nea isoel&eacute;ctrica: onda P redondeada, complejo QRS con onda Q peque&ntilde;a, R alta y S, y onda T redondeada; debajo se marcan el intervalo PR, el segmento ST y el intervalo QT">
     <line x1="30" y1="150" x2="440" y2="150" stroke="var(--text-muted)" stroke-width="0.7" stroke-dasharray="4 3"/>
     <path d="M30 150 L70 150 Q95 122 120 150 L165 150 L172 158 L180 150 L192 55 L204 168 L214 150 L255 150 Q300 108 345 150 L440 150" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
     <g fill="currentColor" font-size="11" font-weight="700"><text x="95" y="118" text-anchor="middle">P</text><text x="192" y="48" text-anchor="middle">R</text><text x="171" y="172">Q</text><text x="205" y="182">S</text><text x="300" y="100" text-anchor="middle">T</text></g>
@@ -952,7 +952,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
       <marker id="ear" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M6 1 L1 3.5 L6 6" fill="none" stroke="currentColor" stroke-width="1"/></marker>
       <marker id="emr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M6 1 L1 3.5 L6 6" fill="none" stroke="var(--text-muted)" stroke-width="1"/></marker>
     </defs>
-  </svg><div class="fig-cap">Latido normal del ECG. La <b>onda P</b> (despolarizacion auricular) precede al <b>complejo QRS</b> (despolarizacion ventricular) y a la <b>onda T</b> (repolarizacion ventricular, misma polaridad que el QRS). El <b>intervalo PR</b> mide la conduccion AV; el <b>segmento ST</b> es isoelectrico (meseta, fase 2); el <b>intervalo QT</b> abarca despolarizacion + repolarizacion ventricular.</div></div>
+  </svg><div class="fig-cap">Latido normal del ECG. La <b>onda P</b> (despolarizaci&oacute;n auricular) precede al <b>complejo QRS</b> (despolarizaci&oacute;n ventricular) y a la <b>onda T</b> (repolarizaci&oacute;n ventricular, misma polaridad que el QRS). El <b>intervalo PR</b> mide la conducci&oacute;n AV; el <b>segmento ST</b> es isoel&eacute;ctrico (meseta, fase 2); el <b>intervalo QT</b> abarca despolarizaci&oacute;n + repolarizaci&oacute;n ventricular.</div></div>
 
   <div class="key"><div class="ky-t">Criterios de ECG normal</div>
   Ritmo sinusal &bull; ritmo regular &bull; FC 60&ndash;100 lat/min &bull; eje eléctrico entre 0&deg; y +90&deg; &bull; ondas, segmentos e intervalos de duración normal.</div>
@@ -1037,22 +1037,22 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
   </table>
   <p>El loop recorre: AB/BC llenado (50&rarr;120 ml) &rarr; CD contracción isovolumétrica (presión 10&rarr;80 mmHg, vol. cte) &rarr; DE/EF eyección (120&rarr;70 ml) &rarr; FA relajación isovolumétrica (presión 100&rarr;10 mmHg, vol. cte).</p>
 
-  <div class="fig"><svg viewBox="0 0 420 300" role="img" aria-label="Loop presion-volumen del ventriculo izquierdo normal con sus cuatro fases: borde inferior de llenado entre 50 y 120 ml, borde derecho de contraccion isovolumetrica vertical, borde superior de eyeccion entre 120 y 50 ml, y borde izquierdo de relajacion isovolumetrica; se marcan la apertura y el cierre de las valvulas mitral y aortica">
+  <div class="fig"><svg viewBox="0 0 420 300" role="img" aria-label="Loop presi&oacute;n-volumen del ventr&iacute;culo izquierdo normal con sus cuatro fases: borde inferior de llenado entre 50 y 120 ml, borde derecho de contracci&oacute;n isovolum&eacute;trica vertical, borde superior de eyecci&oacute;n entre 120 y 50 ml, y borde izquierdo de relajaci&oacute;n isovolum&eacute;trica; se marcan la apertura y el cierre de las v&aacute;lvulas mitral y a&oacute;rtica">
     <line x1="55" y1="30" x2="55" y2="250" stroke="currentColor" stroke-width="1.2"/>
     <line x1="55" y1="250" x2="405" y2="250" stroke="currentColor" stroke-width="1.2"/>
     <g stroke="var(--border)" stroke-width="0.7"><line x1="162.8" y1="250" x2="162.8" y2="246"/><line x1="313.8" y1="250" x2="313.8" y2="246"/><line x1="55" y1="207.7" x2="59" y2="207.7"/><line x1="55" y1="165.4" x2="59" y2="165.4"/><line x1="55" y1="123.1" x2="59" y2="123.1"/><line x1="55" y1="80.8" x2="59" y2="80.8"/><line x1="55" y1="38.5" x2="59" y2="38.5"/></g>
     <g fill="currentColor" font-size="10"><text x="162.8" y="262" text-anchor="middle">50</text><text x="313.8" y="262" text-anchor="middle">120</text><text x="50" y="211" text-anchor="end">25</text><text x="50" y="169" text-anchor="end">50</text><text x="50" y="127" text-anchor="end">75</text><text x="50" y="84" text-anchor="end">100</text><text x="50" y="42" text-anchor="end">125</text></g>
     <text x="232" y="280" text-anchor="middle" fill="currentColor" font-size="11">Volumen ventricular (ml)</text>
-    <text x="16" y="140" text-anchor="middle" fill="currentColor" font-size="11" transform="rotate(-90 16 140)">Presion (mmHg)</text>
+    <text x="16" y="140" text-anchor="middle" fill="currentColor" font-size="11" transform="rotate(-90 16 140)">Presi&oacute;n (mmHg)</text>
     <path d="M162.8 236.5 Q240 226 313.8 233.1 L313.8 114.6 Q288 35 259.8 46.9 Q205 88 162.8 80.8 Z" fill="var(--accent)" fill-opacity="0.10" stroke="var(--accent)" stroke-width="2.2"/>
     <g stroke="var(--text-muted)" stroke-width="0.7" stroke-dasharray="3 3"><line x1="162.8" y1="236.5" x2="162.8" y2="250"/><line x1="313.8" y1="233.1" x2="313.8" y2="250"/></g>
     <g fill="currentColor" font-size="9.5"><text x="162.8" y="231" text-anchor="middle">VFS</text><text x="313.8" y="228" text-anchor="middle">VFD</text></g>
-    <g fill="currentColor" font-size="10"><text x="240" y="244" text-anchor="middle">Llenado</text><text x="330" y="180" text-anchor="start">Contraccion</text><text x="330" y="192" text-anchor="start">isovol.</text><text x="235" y="58" text-anchor="middle">Eyeccion</text><text x="92" y="160" text-anchor="middle">Relajacion</text><text x="92" y="172" text-anchor="middle">isovol.</text></g>
+    <g fill="currentColor" font-size="10"><text x="240" y="244" text-anchor="middle">Llenado</text><text x="330" y="180" text-anchor="start">Contracci&oacute;n</text><text x="330" y="192" text-anchor="start">isovol.</text><text x="235" y="58" text-anchor="middle">Eyecci&oacute;n</text><text x="92" y="160" text-anchor="middle">Relajaci&oacute;n</text><text x="92" y="172" text-anchor="middle">isovol.</text></g>
     <circle cx="313.8" cy="233.1" r="3" fill="currentColor"/><text x="318" y="245" fill="currentColor" font-size="8.5">cierre mitral</text>
-    <circle cx="313.8" cy="114.6" r="3" fill="var(--accent)"/><text x="318" y="112" fill="var(--accent)" font-size="8.5">apertura aortica</text>
-    <circle cx="162.8" cy="80.8" r="3" fill="var(--accent)"/><text x="98" y="78" fill="var(--accent)" font-size="8.5">cierre aortico</text>
+    <circle cx="313.8" cy="114.6" r="3" fill="var(--accent)"/><text x="318" y="112" fill="var(--accent)" font-size="8.5">apertura a&oacute;rtica</text>
+    <circle cx="162.8" cy="80.8" r="3" fill="var(--accent)"/><text x="98" y="78" fill="var(--accent)" font-size="8.5">cierre a&oacute;rtico</text>
     <circle cx="162.8" cy="236.5" r="3" fill="currentColor"/><text x="80" y="240" fill="currentColor" font-size="8.5">apert. mitral</text>
-  </svg><div class="fig-cap">Loop presion-volumen del VI normal y sus <b>4 fases</b>: borde inferior = <b>llenado</b> (mitral abierta, 50&rarr;120 ml); borde derecho vertical = <b>contraccion isovolumetrica</b> (sube la presion a volumen constante); borde superior = <b>eyeccion</b> (aortica abierta, 120&rarr;50 ml); borde izquierdo vertical = <b>relajacion isovolumetrica</b>. El ancho del loop es el volumen sistolico (VFD &minus; VFS &asymp; 70 ml).</div></div>
+  </svg><div class="fig-cap">Loop presi&oacute;n-volumen del VI normal y sus <b>4 fases</b>: borde inferior = <b>llenado</b> (mitral abierta, 50&rarr;120 ml); borde derecho vertical = <b>contracci&oacute;n isovolum&eacute;trica</b> (sube la presi&oacute;n a volumen constante); borde superior = <b>eyecci&oacute;n</b> (a&oacute;rtica abierta, 120&rarr;50 ml); borde izquierdo vertical = <b>relajaci&oacute;n isovolum&eacute;trica</b>. El ancho del loop es el volumen sist&oacute;lico (VFD &minus; VFS &asymp; 70 ml).</div></div>
 
   <div class="key"><div class="ky-t">Ejemplo resuelto (loop P-V)</div>
   De un loop se lee VFD = 150 ml y VFS = 70 ml. &rarr; <b>VS = VFD &minus; VFS = 150 &minus; 70 = 80 ml</b>; <b>FE = VS/VFD = 80/150 = 0,53 (53%)</b>. La FE queda <b>levemente por debajo</b> del valor normal (&gt; 55%), lo que indica función sistólica en el límite inferior.</div>
@@ -1522,7 +1522,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
   <text x="245" y="304" fill="currentColor" font-size="11.5" text-anchor="middle">PO&#8322; (mmHg)</text>
   <text x="16" y="145" fill="currentColor" font-size="11.5" text-anchor="middle" transform="rotate(-90 16 145)">SaO&#8322; (%)</text>
 </svg>
-<div class="fig-cap">Curva de disociación Hb-O&#8322; (sigmoidea). La curva NORMAL tiene p50 = 27 mmHg. Desplazamiento a la DERECHA (var. acento: &uarr;T&#176;, &uarr;PCO&#8322;, &uarr;H&#8314;/&darr;pH, &uarr;2,3-DPG = efecto Bohr, menor afinidad, libera O&#8322; al tejido) y a la IZQUIERDA (mayor afinidad: &darr;T&#176;, &darr;PCO&#8322;, &uarr;pH, &darr;2,3-DPG, CO; capta O&#8322; en el pulmón).</div>
+<div class="fig-cap">Curva de disociación Hb-O&#8322; (sigmoidea). La curva NORMAL tiene p50 = 27 mmHg. Desplazamiento a la DERECHA (trazo de color, curva inferior: &uarr;T&#176;, &uarr;PCO&#8322;, &uarr;H&#8314;/&darr;pH, &uarr;2,3-DPG = efecto Bohr, menor afinidad, libera O&#8322; al tejido) y a la IZQUIERDA (mayor afinidad: &darr;T&#176;, &darr;PCO&#8322;, &uarr;pH, &darr;2,3-DPG, CO; capta O&#8322; en el pulmón).</div>
 </div>
 
 <h3>Transporte de CO<sub>2</sub> y efecto Haldane</h3>
@@ -1691,9 +1691,8 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
   <!-- ZONA 1 (apex) capilar colapsado -->
   <text x="112" y="58" fill="currentColor" font-size="13" text-anchor="middle" font-weight="bold">Zona 1</text>
   <text x="112" y="74" fill="currentColor" font-size="9.5" text-anchor="middle">(ápex)</text>
-  <!-- capilar aplastado: arteria -> capilar muy fino -> vena -->
-  <path d="M 90 95 Q 112 90, 134 95" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
-  <path d="M 90 99 Q 112 99, 134 99" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <!-- capilar aplastado: el de menor calibre (colapsado por la PA) -->
+  <path d="M 86 96 Q 112 92, 138 96" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round"/>
   <!-- ZONA 2 (media) capilar parcial -->
   <text x="112" y="155" fill="currentColor" font-size="13" text-anchor="middle" font-weight="bold">Zona 2</text>
   <text x="112" y="171" fill="currentColor" font-size="9.5" text-anchor="middle">(media)</text>
@@ -1720,7 +1719,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
   <!-- Eje gravedad/altura -->
   <text x="30" y="170" fill="currentColor" font-size="10" text-anchor="middle" transform="rotate(-90 30 170)">de pie (gravedad)</text>
 </svg>
-<div class="fig-cap">Zonas de West (sujeto de pie). De ápex a base la perfusión crece (var. acento). Zona 1: PA&gt;Pa&gt;Pv, capilar colapsado, ventilado pero no perfundido (espacio muerto; normalmente no existe). Zona 2: Pa&gt;PA&gt;Pv. Zona 3: Pa&gt;Pv&gt;PA, vasos distendidos.</div>
+<div class="fig-cap">Zonas de West (sujeto de pie). De ápex a base la perfusión crece (flecha en color a la derecha; el calibre del capilar aumenta de arriba hacia abajo). Zona 1: PA&gt;Pa&gt;Pv, capilar colapsado, ventilado pero no perfundido (espacio muerto; normalmente no existe). Zona 2: Pa&gt;PA&gt;Pv. Zona 3: Pa&gt;Pv&gt;PA, vasos distendidos.</div>
 </div>
 
 <h3>Distribución regional (de pie)</h3>
@@ -1897,15 +1896,15 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
 <p>Célula <b>anucleada</b>, bicóncava, deformable (atraviesa capilares de 2 &mu;m), que comprende ~10% del volumen celular del organismo. <b>Carece de mitocondrias y de glucógeno</b>: obtiene ATP por glucólisis anaeróbica de la glucosa. Membrana = 40% lípidos (flexibilidad) + 52% proteínas (forma bicóncava). VCM del GR: 85-95 &mu;m<sup>3</sup>.</p>
 <p><b>Funciones:</b> transporte de Hb; mantener el hierro en estado <b>ferroso</b>; regular la afinidad por O<sub>2</sub> (2,3-DPG); transporte de CO<sub>2</sub> (anhidrasa carbónica); reservorio de NO/nitritos; y función <b>protrombótica</b> en la hemostasia (estimula TXA<sub>2</sub> y liberación plaquetaria, libera ADP).</p>
 
-<div class="fig"><svg viewBox="0 0 380 270" role="img" aria-label="Curva de disociacion de la hemoglobina por el oxigeno, forma sigmoidea; eje X pO2 en mmHg, eje Y saturacion de Hb en porcentaje; p50 normal en 27 mmHg al 50 por ciento; punto venoso a 40 mmHg con 75 por ciento y punto arterial a 100 mmHg con 97 por ciento; flechas indicando desplazamiento a la derecha por aumento de temperatura, CO2, 2,3-DPG y descenso de pH (menor afinidad) y a la izquierda en sentido inverso (mayor afinidad)">
+<div class="fig"><svg viewBox="0 0 380 270" role="img" aria-label="Curva de disociaci&oacute;n de la hemoglobina por el ox&iacute;geno, forma sigmoidea; eje X pO&#8322; en mmHg, eje Y saturaci&oacute;n de Hb en porcentaje; p50 normal en 27 mmHg al 50 por ciento; punto venoso a 40 mmHg con 75 por ciento y punto arterial a 100 mmHg con 97 por ciento; flechas indicando desplazamiento a la derecha por aumento de temperatura, CO&#8322;, 2,3-DPG y descenso de pH (menor afinidad) y a la izquierda en sentido inverso (mayor afinidad)">
 <line x1="50" y1="20" x2="50" y2="220" stroke="currentColor" stroke-width="1.2"/>
 <line x1="50" y1="220" x2="360" y2="220" stroke="currentColor" stroke-width="1.2"/>
 <line x1="50" y1="120" x2="360" y2="120" stroke="var(--border)" stroke-width="0.8" stroke-dasharray="3 3"/>
 <text x="44" y="24" fill="currentColor" font-size="10" text-anchor="end">100</text>
 <text x="44" y="124" fill="currentColor" font-size="10" text-anchor="end">50</text>
 <text x="44" y="223" fill="currentColor" font-size="10" text-anchor="end">0</text>
-<text x="18" y="120" fill="currentColor" font-size="11" transform="rotate(-90 18 120)" text-anchor="middle">SatO2 de la Hb (%)</text>
-<text x="205" y="252" fill="currentColor" font-size="11" text-anchor="middle">pO2 (mmHg)</text>
+<text x="18" y="120" fill="currentColor" font-size="11" transform="rotate(-90 18 120)" text-anchor="middle">SatO&#8322; de la Hb (%)</text>
+<text x="205" y="252" fill="currentColor" font-size="11" text-anchor="middle">pO&#8322; (mmHg)</text>
 <text x="130" y="234" fill="currentColor" font-size="9" text-anchor="middle">27</text>
 <text x="161" y="234" fill="currentColor" font-size="9" text-anchor="middle">40</text>
 <text x="298" y="234" fill="currentColor" font-size="9" text-anchor="middle">100</text>
@@ -1915,11 +1914,11 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
 <circle cx="130" cy="120" r="3.2" fill="var(--accent)"/>
 <text x="136" y="112" fill="currentColor" font-size="10">p50 (27 mmHg)</text>
 <circle cx="161" cy="78" r="3.2" fill="currentColor"/>
-<text x="166" y="74" fill="currentColor" font-size="9">venoso (~75%)</text>
+<text x="166" y="74" fill="currentColor" font-size="9">venoso (&asymp;75%)</text>
 <circle cx="298" cy="33" r="3.2" fill="currentColor"/>
-<text x="244" y="48" fill="currentColor" font-size="9">arterial (~97%)</text>
+<text x="244" y="48" fill="currentColor" font-size="9">arterial (&asymp;97%)</text>
 <path d="M168 168 q 45 6 70 -8" fill="none" stroke="var(--text-muted)" stroke-width="1.3" marker-end="url(#cR)"/>
-<text x="208" y="186" fill="currentColor" font-size="8.5" text-anchor="middle">derecha: &uarr;T, &uarr;CO2, &uarr;2,3-DPG, &darr;pH</text>
+<text x="208" y="186" fill="currentColor" font-size="8.5" text-anchor="middle">derecha: &uarr;T, &uarr;CO&#8322;, &uarr;2,3-DPG, &darr;pH</text>
 <text x="208" y="196" fill="currentColor" font-size="8.5" text-anchor="middle">(menor afinidad)</text>
 <path d="M118 70 q -40 -6 -58 8" fill="none" stroke="var(--text-muted)" stroke-width="1.3" marker-end="url(#cL)"/>
 <text x="92" y="58" fill="currentColor" font-size="8.5" text-anchor="middle">izquierda</text>
@@ -2144,7 +2143,7 @@ ENA = (50 &times; 1) + (40 &times; 1) &minus; (0.01 &times; 1) &asymp; <strong>9
 <li><b>Vía final común:</b> Xa + <b>Va</b> = <b>complejo protrombinasa</b> &rarr; convierte protrombina (FII) en <b>trombina (FIIa)</b> &rarr; fibrinógeno en <b>fibrina inestable</b>; la trombina activa el <b>FXIII</b>, que entrecruza la fibrina a <b>fibrina estable</b> (tapón hemostático secundario).</li>
 </ul>
 
-<div class="fig"><svg viewBox="0 0 460 420" role="img" aria-label="Esquema de la cascada de la coagulacion. Via intrinseca a la izquierda: factor XII a XIIa, XI a XIa, IX a IXa que con el cofactor VIIIa forma la tenaza intrinseca; se evalua con el KPTT o aPTT. Via extrinseca a la derecha: factor tisular y factor VII forman la tenaza extrinseca; se evalua con el tiempo de Quick. Ambas convergen en la activacion del factor X a Xa, que con el cofactor Va forma el complejo protrombinasa; este convierte protrombina (factor II) en trombina (IIa), que transforma el fibrinogeno (factor I) en fibrina inestable; el factor XIII activado por la trombina la entrecruza a fibrina estable. Se rotulan los factores dependientes de vitamina K: II, VII, IX y X.">
+<div class="fig"><svg viewBox="0 0 460 420" role="img" aria-label="Esquema de la cascada de la coagulaci&oacute;n. V&iacute;a intr&iacute;nseca a la izquierda: factor XII a XIIa, XI a XIa, IX a IXa que con el cofactor VIIIa forma la tenaza intr&iacute;nseca; se eval&uacute;a con el KPTT o aPTT. V&iacute;a extr&iacute;nseca a la derecha: factor tisular y factor VII forman la tenaza extr&iacute;nseca; se eval&uacute;a con el tiempo de Quick. Ambas convergen en la activaci&oacute;n del factor X a Xa, que con el cofactor Va forma el complejo protrombinasa; este convierte protrombina (factor II) en trombina (IIa), que transforma el fibrin&oacute;geno (factor I) en fibrina inestable; el factor XIII activado por la trombina la entrecruza a fibrina estable. Se rotulan los factores dependientes de vitamina K: II, VII, IX y X.">
 <rect x="14" y="14" width="200" height="226" rx="6" fill="var(--accent)" fill-opacity="0.06" stroke="var(--border)" stroke-width="1"/>
 <rect x="252" y="14" width="194" height="120" rx="6" fill="var(--accent)" fill-opacity="0.06" stroke="var(--border)" stroke-width="1"/>
 <text x="114" y="32" fill="currentColor" font-size="12" font-weight="bold" text-anchor="middle">Vía intrínseca</text>
