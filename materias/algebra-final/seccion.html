@@ -1,0 +1,325 @@
+<header>
+    <h1>Álgebra · Guía de Final</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · Basada en 28 finales reales resueltos (2024–2026)</div>
+  </header>
+<nav class="toc" id="toc-algebra-final">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#algfin-s1">Estrategia general y qué temas entran</a></li>
+    <li><a href="#algfin-s2">Vectores (ℝ², ℝ³)</a></li>
+    <li><a href="#algfin-s3">Rectas y planos</a></li>
+    <li><a href="#algfin-s4">Números complejos</a></li>
+    <li><a href="#algfin-s5">Cónicas</a></li>
+    <li><a href="#algfin-s6">Transformaciones lineales</a></li>
+    <li><a href="#algfin-s7">Polinomios</a></li>
+    <li><a href="#algfin-s8">Subespacios y dependencia lineal</a></li>
+    <li><a href="#algfin-s9">Sistemas, matrices y determinantes</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra-final">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="algfin-s1">
+<summary><span class="num">1</span> Estrategia general y qué temas entran <span class="sec-score" id="ss-algebra-final-1"></span></summary>
+<div class="content">
+
+<h3>Cómo es el final</h3>
+<p>El final de Álgebra A son <b>8 ejercicios</b> (1,25 puntos cada uno), cada uno de un tema distinto. Aproximadamente la mitad son <b>multiple choice</b> (elegís A, B, C o D) y la otra mitad piden un <b>resultado numérico exacto</b>. Esta guía está armada sobre <b>28 finales reales resueltos</b> (Julio, Diciembre y Febrero de 2024, 2025 y 2026): 224 ejercicios.</p>
+
+<h3>Qué temas entran y cuánto pesan</h3>
+<p>El examen es muy predecible: <b>siete temas aparecen en casi todos los finales</b> (uno por examen) y un octavo lugar rota entre tres temas emparentados. Conviene dominar los siete fijos sí o sí.</p>
+<table class="tbl">
+  <tr><th>Tema</th><th>Frecuencia (en 28 finales)</th><th>Peso</th></tr>
+  <tr><td><b>Rectas y planos</b></td><td>30 ejercicios (~1,1 por final)</td><td>Fijo — fundamental</td></tr>
+  <tr><td><b>Vectores</b></td><td>28 (~1 por final)</td><td>Fijo</td></tr>
+  <tr><td><b>Números complejos</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Cónicas</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Transformaciones lineales</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Polinomios</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Subespacios</b></td><td>26 (~0,9 por final)</td><td>Fijo</td></tr>
+  <tr><td><b>Determinantes / Matrices / Sistemas</b></td><td>12 / 8 / 8 (≈ 1 por final, rotando)</td><td>El "8º ejercicio" rotativo</td></tr>
+</table>
+<p>Conclusión: <b>no hay un tema más importante que otro entre los siete fijos</b> — cada uno vale un ejercicio garantizado. Si tenés que priorizar el repaso del octavo, <b>determinantes</b> es el más frecuente de los tres rotativos.</p>
+
+<h3>Tres atajos que sirven en medio examen</h3>
+<table class="tbl">
+  <tr><th>Cuando el ejercicio pide...</th><th>El atajo es...</th></tr>
+  <tr><td>parámetro para que "T no sea isomorfismo", "la matriz no sea inversible", o el sistema "no sea compatible determinado"</td><td><b>Anular el determinante</b> (det = 0) y despejar. Son la misma condición: la matriz pierde rango.</td></tr>
+  <tr><td>el cuadrante o el argumento de z = (a+bi)ⁿ</td><td><b>De Moivre:</b> arg(zⁿ) = n·arg(a+bi). No eleves a la n; calculá el ángulo y reducílo a [0, 2π).</td></tr>
+  <tr><td>"indicá la única afirmación verdadera/falsa"</td><td><b>Verificá cada opción A–D</b> con su definición. Tres son falsas y una verdadera; no hay un único cálculo.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Regla de oro en multiple choice</div>
+<b>Calculá primero, mirá las opciones después.</b> Casi todos los MC se resuelven hallando el valor (un k, un punto, un cuadrante) y recién entonces se busca la opción que coincide. Las opciones suelen ser "trampas" típicas: el recíproco, el cambio de signo, o el resultado intermedio sin terminar. En los ejercicios de respuesta numérica no hay red: revisá las cuentas dos veces.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · VECTORES ============ -->
+<details id="algfin-s2">
+<summary><span class="num">2</span> Vectores (ℝ², ℝ³) <span class="sec-score" id="ss-algebra-final-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3>
+<p>Casi siempre te dan vectores con alguna condición (opuesto, múltiplo, perpendicular) y un parámetro a despejar, o te piden la única afirmación verdadera.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Cómo se reconoce</th><th>Método</th></tr>
+  <tr><td><b>Norma de una combinación lineal</b></td><td>"w es el opuesto de v, u = ½v ... ‖4(w+u)−2v‖ = k‖−8v‖"</td><td>Sustituí cada vector, simplificá la combinación a un múltiplo de v, y usá ‖λv‖ = |λ|·‖v‖. Igualá y despejá k.</td></tr>
+  <tr><td><b>Producto escalar / ortogonalidad con parámetro</b></td><td>"hallá a para que u ⊥ w" o condiciones de norma</td><td>Imponé u·w = 0 (ortogonales) y/o ‖·‖ = dato; queda una ecuación en el parámetro.</td></tr>
+  <tr><td><b>Producto vectorial</b></td><td>vector "perpendicular a u y a v a la vez", o paralelismo</td><td>El que es ⊥ a dos vectores es u × v. Para paralelos, u × v = 0⃗.</td></tr>
+  <tr><td><b>Independencia / dependencia lineal con parámetro</b></td><td>"para qué k los 3 vectores de ℝ³ son LD"</td><td>Armá el determinante 3×3 con los vectores y poné det = 0 (LD) o det ≠ 0 (LI).</td></tr>
+  <tr><td><b>Ángulo entre vectores</b></td><td>"ángulo que forma con los semiejes", cos del ángulo</td><td>cos θ = (u·v)/(‖u‖‖v‖).</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T1) — norma de una combinación lineal</div>
+  <p>Vectores de ℝ²: v⃗ = (√2; √2), w⃗ el opuesto de v⃗ y u⃗ = (1/2)·v⃗. Hallá k tal que ‖4·(w⃗ + u⃗) − 2·v⃗‖ + ‖v⃗‖ = k·‖−8·v⃗‖.<br>
+  <b>A)</b> 1/2 · <b>B)</b> 8/5 · <b>C)</b> 5/8 · <b>D)</b> 1/8</p>
+  <p><b>Cómo se decide:</b> w⃗ = −v⃗ y u⃗ = ½v⃗ ⇒ 4(w⃗+u⃗) − 2v⃗ = 4(−½v⃗) − 2v⃗ = −4v⃗... más en detalle, w⃗+u⃗ = −½v⃗, entonces 4(w⃗+u⃗) = −2v⃗ y 4(w⃗+u⃗)−2v⃗ = −4v⃗ con norma 4‖v⃗‖. Como ‖v⃗‖ = 2: lado izquierdo = 8 + 2 = 10, lado derecho = k·16. Entonces k = 10/16 = <b>5/8 (C)</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2025 · T2) — producto vectorial, paralelismo y ortogonalidad</div>
+  <p>u⃗ = (3; 0; −4), v⃗ = ‖u⃗‖·(−2/5)·u⃗, w⃗ = v⃗ × (1; −1; 1). Indicá la única afirmación <b>falsa</b>.<br>
+  Como ‖u⃗‖ = 5: v⃗ = (−6; 0; 8) (paralelo a u⃗). w⃗ = (−6;0;8)×(1;−1;1) = (8; 14; 6), que es ⊥ a u⃗ y a v⃗. La opción falsa es la que pone w⃗ = (8; −14; 6) (signo cambiado en la 2ª coordenada).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · RECTAS Y PLANOS ============ -->
+<details id="algfin-s3">
+<summary><span class="num">3</span> Rectas y planos <span class="sec-score" id="ss-algebra-final-3"></span></summary>
+<div class="content">
+
+<h3>El tema más frecuente (≈ 1,1 por final)</h3>
+<p>Gira alrededor de distancias, simétricos, posiciones relativas y ángulos, siempre en ℝ³.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Distancia de un punto a un plano</b></td><td>d = |a·x₀ + b·y₀ + c·z₀ + d| / √(a²+b²+c²). No hace falta proyectar.</td></tr>
+  <tr><td><b>Punto simétrico respecto de un plano</b> (y distancia A–A′)</td><td>A′ = A − 2·(distancia con signo)·n̂. La distancia A a A′ es 2·d(A, π).</td></tr>
+  <tr><td><b>Posición relativa de dos rectas</b></td><td>Mirá los directores: paralelos ⇒ paralelas/coincidentes; si no, ¿se cortan? Si no se cortan ni son paralelas ⇒ <b>alabeadas</b>. Ortogonales ⇔ directores con producto escalar 0.</td></tr>
+  <tr><td><b>Ángulo entre dos planos</b></td><td>cos θ = |N₁·N₂| / (‖N₁‖‖N₂‖) con las normales (se toma el agudo).</td></tr>
+  <tr><td><b>Paralelismo recta–plano</b></td><td>La recta es ‖ al plano ⇔ su director es ⊥ a la normal del plano (producto escalar 0).</td></tr>
+  <tr><td><b>Punto en un plano con condiciones</b></td><td>Sistema: el punto cumple la ecuación del plano + una condición de distancia o de perpendicularidad.</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T1) — distancia punto-plano (respuesta numérica)</div>
+  <p>Distancia entre π: −8x − 6y − 24z = 2 y A = (6; 4; 11).<br>
+  <b>Cómo se decide:</b> π: −8x − 6y − 24z − 2 = 0, normal (−8, −6, −24). d = |−8·6 − 6·4 − 24·11 − 2| / √(8²+6²+24²) = |−338| / √676 = 338/26 = <b>13</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2025 · T1) — única afirmación verdadera (perpendicularidad)</div>
+  <p>π₁: 2x + ½y + 5z = −4, π₂: x − 4y = 1, A = (−1; 2; 1), B = (5; 3; −1). Una sola afirmación es verdadera.<br>
+  <b>Cómo se decide:</b> normales N₁ = (2; ½; 5), N₂ = (1; −4; 0). N₁·N₂ = 2 − 2 + 0 = 0 ⇒ <b>los planos son perpendiculares</b> (opción B). Las otras se descartan probando que los puntos no verifican las ecuaciones.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · COMPLEJOS ============ -->
+<details id="algfin-s4">
+<summary><span class="num">4</span> Números complejos <span class="sec-score" id="ss-algebra-final-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3>
+<p>Todo se resuelve más rápido pasando a <b>forma polar</b> y usando De Moivre.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Cuadrante / argumento de una potencia</b></td><td>arg((a+bi)ⁿ) = n·arg(a+bi); reducí a [0, 2π) y mirá el cuadrante. El módulo no cambia el cuadrante.</td></tr>
+  <tr><td><b>Forma polar de un producto / potencia</b></td><td>De Moivre: módulos se multiplican/elevan, argumentos se suman/multiplican.</td></tr>
+  <tr><td><b>Ecuación con |z| y arg → menor argumento</b></td><td>Pasás a polar, resolvés módulo y argumento; entre las soluciones elegís la de menor argumento.</td></tr>
+  <tr><td><b>Raíces cúbicas z³ = w</b></td><td>Las 3 raíces tienen módulo ³√|w| y argumentos (arg w + 2kπ)/3. Suelen pedir el módulo de la parte imaginaria de las no reales.</td></tr>
+  <tr><td><b>Ecuación polinómica en ℂ (factor común zⁿ)</b></td><td>Sacás factor común z y resolvés la ecuación restante (a veces z = 0 y luego una de tipo zᵐ = c).</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T1) — mismo cuadrante que una potencia</div>
+  <p>z = (2 + 3i)⁶. ¿Cuál de estas está en el mismo cuadrante que z?<br>
+  <b>A)</b> cos(π/5) + i·sen(π/5) · <b>B)</b> 2·e^(i·4π/3) · <b>C)</b> −√2/2 + i·√2/2 · <b>D)</b> 1 − √3·i</p>
+  <p><b>Cómo se decide:</b> arg(2+3i) = arctan(3/2) ≈ 56,3°; ×6 ≈ 337,9° → <b>4º cuadrante</b>. Las opciones: A) 1º (36°), B) 3º (240°), C) 2º (135°), D) arg(1−√3i) = −60° = 300° → 4º cuadrante. Coincide <b>D)</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · CONICAS ============ -->
+<details id="algfin-s5">
+<summary><span class="num">5</span> Cónicas <span class="sec-score" id="ss-algebra-final-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3>
+<p>El 90% de las cónicas se resuelve <b>completando cuadrados</b> para llevarlas a la forma canónica.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Elipse: hallar un parámetro desde un foco</b></td><td>Completá cuadrados → (x−h)²/a² + (y−k)²/b² = 1. Identificá el eje focal y usá c² = a² − b² (eje mayor) con el foco dado.</td></tr>
+  <tr><td><b>Hipérbola: asíntotas / excentricidad</b></td><td>Forma canónica; asíntotas y = k ± (b/a)(x−h). Excentricidad e = c/a con c² = a² + b². "Misma excentricidad" = misma relación b/a.</td></tr>
+  <tr><td><b>Parábola: vértice</b></td><td>Completá cuadrados en la variable que está al cuadrado; el vértice sale directo.</td></tr>
+  <tr><td><b>Circunferencia: radio</b></td><td>Completá cuadrados → (x−h)²+(y−k)² = r². Si dan un diámetro, el centro es el punto medio y r = mitad de la cuerda.</td></tr>
+  <tr><td><b>Intersección de cónicas</b></td><td>Igualá/restá las ecuaciones (dos circunferencias → eje radical, una recta) y contá los puntos comunes.</td></tr>
+  <tr><td><b>Única afirmación verdadera</b></td><td>Llevá la cónica a canónica y verificá cada opción (¿pertenece tal punto?, ¿corta al eje en cuántos puntos?, ¿eje focal horizontal o vertical?).</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T3) — elipse: hallar k desde un foco (respuesta numérica)</div>
+  <p>Elipse x² + k·y² − 16x = 0, k ∈ ℝ−{0}, con foco F₁ = (8 + √(128/3), 0). Hallá k.<br>
+  <b>Cómo se decide:</b> completar cuadrados: (x−8)²/64 + y²/(64/k) = 1, centro (8,0), eje focal horizontal (a² = 64). El foco da c = √(128/3) y c² = a² − b²: 128/3 = 64 − 64/k ⇒ 64/k = 64/3 ⇒ <b>k = 3</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2025 · T1) — elipse, única afirmación verdadera</div>
+  <p>Elipse de focos F₁=(−7;9), F₂=(−7;1) y excentricidad e = 8/10.<br>
+  <b>Cómo se decide:</b> centro = punto medio = (−7;5); focos con misma x ⇒ eje focal <b>vertical</b>. 2c = 8 ⇒ c = 4; e = c/a = 8/10 ⇒ a = 5, b² = a²−c² = 9. Ecuación (x+7)²/9 + (y−5)²/25 = 1. Con y=0 la ecuación da una sola solución ⇒ "corta al eje x en un solo punto" (opción D).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · TRANSFORMACIONES LINEALES ============ -->
+<details id="algfin-s6">
+<summary><span class="num">6</span> Transformaciones lineales <span class="sec-score" id="ss-algebra-final-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3>
+<p>Se trabaja casi siempre con la <b>matriz asociada</b> de la TL.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Composición y que NO sea isomorfismo</b></td><td>Matriz de T₂∘T₁ = M_{T₂}·M_{T₁}. No es isomorfismo ⇔ det = 0; despejá el parámetro.</td></tr>
+  <tr><td><b>Preimagen T⁻¹(S)</b></td><td>Pedís que T(x) ∈ S: reemplazás T(x) en las ecuaciones de S y resolvés el sistema en x. (Es el sub-tipo más frecuente.)</td></tr>
+  <tr><td><b>Núcleo, imagen y clasificación</b></td><td>Núcleo = soluciones de M·x = 0. Por el teorema de la dimensión: dim Nu + dim Im = dim dominio. Mono ⇔ Nu = {0}; epi ⇔ Im = codominio; iso ⇔ ambas.</td></tr>
+  <tr><td><b>Rotación en ℝ²</b></td><td>Matriz [cos θ −sen θ; sen θ cos θ]; aplicala al punto.</td></tr>
+  <tr><td><b>Volumen de la imagen</b></td><td>El factor por el que se escala el volumen es |det(M)|.</td></tr>
+  <tr><td><b>Evaluar con la inversa</b></td><td>Si te dan la matriz de T⁻¹, entonces T(v) = (M⁻¹)·v... o usás la relación inversa según lo que pidan.</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T4) — composición que no es isomorfismo</div>
+  <p>M_{T₁} = [1 −3; 2 1; 1 1] (3×2), M_{T₂} = [p 0 1; 1 −2 6] (2×3). Hallá p para que T₂∘T₁ no sea isomorfismo.<br>
+  <b>Cómo se decide:</b> M_{T₂∘T₁} = M_{T₂}·M_{T₁} = [p+1 −3p+1; 3 1] (2×2). No es isomorfismo ⇔ det = 0: (p+1)·1 − (−3p+1)·3 = 10p − 2 = 0 ⇒ <b>p = 1/5</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · POLINOMIOS ============ -->
+<details id="algfin-s7">
+<summary><span class="num">7</span> Polinomios <span class="sec-score" id="ss-algebra-final-7"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3>
+<p>La clave casi siempre es: en ℝ[x], las <b>raíces complejas vienen de a pares conjugados</b>.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Polinomio de grado mínimo en ℝ[x] + suma de raíces</b></td><td>Si una raíz es compleja z, su conjugada z̄ también es raíz. Sumás las raíces <b>distintas</b> (una raíz doble cuenta una vez). z + z̄ = 2·Re(z).</td></tr>
+  <tr><td><b>Suma / producto de raíces (Vieta)</b></td><td>Para xⁿ + ... : suma de raíces = −(coef. de xⁿ⁻¹), producto = (−1)ⁿ·(término independiente).</td></tr>
+  <tr><td><b>Teorema del resto</b></td><td>El resto de dividir P por (x − a) es P(a). Para comparar restos de P y Q, evaluás en el mismo a.</td></tr>
+  <tr><td><b>Factorización en ℂ[x] dada una raíz</b></td><td>Si z es raíz, dividís por (x − z) (y por (x − z̄) si P es real) y factorizás lo que queda.</td></tr>
+  <tr><td><b>Teorema de Gauss</b></td><td>Las raíces racionales p/q cumplen: p | término independiente, q | coef. principal. Probás los candidatos.</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T4) — suma de raíces distintas (respuesta numérica)</div>
+  <p>B(x) ∈ ℝ[x] de grado mínimo con raíces z₁, z₂, z₃, donde (5+5i)·z₁ = −3−3i, z₂ = (4−i)², y z₃ = −9 es raíz doble. Hallá la suma de todas las raíces <b>distintas</b>.<br>
+  <b>Cómo se decide:</b> z₁ = (−3−3i)/(5+5i) = −3/5 (real). z₂ = (4−i)² = 15−8i; como B es real, también 15+8i es raíz. z₃ = −9 (cuenta una vez). Suma = −3/5 + (15−8i) + (15+8i) + (−9) = −3/5 + 21 = <b>102/5</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 · SUBESPACIOS ============ -->
+<details id="algfin-s8">
+<summary><span class="num">8</span> Subespacios y dependencia lineal <span class="sec-score" id="ss-algebra-final-8"></span></summary>
+<div class="content">
+
+<h3>Aparece en casi todos los finales (1 ejercicio)</h3>
+<p>Un subespacio puede venir <b>por ecuaciones</b> (S = {x : ...}) o <b>por generadores</b> (T = ⟨v₁, v₂⟩). Hay que saber moverse entre las dos formas.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Pertenencia a S (ecuaciones) vs T (generadores)</b></td><td>Para S: el vector cumple las ecuaciones. Para T: el vector es combinación lineal de los generadores (resolvés a·v₁ + b·v₂ = vector). Verificás cada afirmación.</td></tr>
+  <tr><td><b>Inclusión T ⊆ S (hallar parámetro)</b></td><td>Cada generador de T debe cumplir las ecuaciones de S; eso da una ecuación en el parámetro.</td></tr>
+  <tr><td><b>Dimensión de un subespacio generado</b></td><td>dim = cantidad de generadores linealmente independientes. Eliminás los dependientes (rango).</td></tr>
+  <tr><td><b>Dependencia lineal de 3 vectores en ℝ³</b></td><td>Son LD ⇔ el determinante 3×3 que forman es 0. Despejás el parámetro de det = 0.</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T2) — pertenencia a S y a T</div>
+  <p>S = {(x₁,...,x₅) ∈ ℝ⁵ : x₁ + x₃ − x₅ = 0; 2x₁ + 2x₂ = 0}, T = ⟨(3,−3,0,−3,−3); (2,−2,0,2,−4)⟩. ¿Cuál afirmación es cierta?<br>
+  <b>Cómo se decide:</b> tomá v = (1,−1,0,−5,1). En S: 1+0−1 = 0 ✓ y 2−2 = 0 ✓ ⇒ v ∈ S. En T: buscá a,b con a(3,−3,0,−3,−3)+b(2,−2,0,2,−4) = v; de las coords 1ª y 4ª sale a=1, b=−1, y verifica las cinco ⇒ v ∈ T. Entonces "v pertenece a T y a S" (opción C).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 9 · SISTEMAS / MATRICES / DETERMINANTES ============ -->
+<details id="algfin-s9">
+<summary><span class="num">9</span> Sistemas, matrices y determinantes <span class="sec-score" id="ss-algebra-final-9"></span></summary>
+<div class="content">
+
+<h3>El "8º ejercicio" rotativo</h3>
+<p>Un final trae uno de estos tres (determinantes es el más frecuente). Los tres se apoyan en el <b>determinante</b> y en la matriz inversa.</p>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl">
+  <tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+  <tr><td><b>Determinante: parámetro para que NO sea inversible</b></td><td>det(M) = 0; resolvés la ecuación en el parámetro.</td></tr>
+  <tr><td><b>Propiedades del determinante</b></td><td>det(λA) = λⁿ·det(A); det(A·B) = det(A)·det(B); det(A⁻¹) = 1/det(A); det(Aᵗ) = det(A). Útiles para despejar det(B) de una expresión.</td></tr>
+  <tr><td><b>det(A² + AB) = det(A)·det(A + B)</b></td><td>Factorizás A: A² + AB = A(A + B); cada determinante se calcula aparte.</td></tr>
+  <tr><td><b>Ecuación matricial (despejar con la inversa)</b></td><td>Tipo A·B = 4A + A² ⇒ B = A⁻¹(4A + A²) = 4I + A. Despejás usando A⁻¹ (cuidando el lado por el que multiplicás).</td></tr>
+  <tr><td><b>Sistemas con parámetro</b></td><td>det ≠ 0 ⇒ compatible determinado. Si det = 0, analizás cada valor: queda compatible indeterminado (infinitas) o incompatible (sin solución).</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Jul 2024 · T2) — determinante de A² + AB</div>
+  <p>A = [k 1 −1; 0 2 0; k −1 0], B = [−1 −2 1; −1 1 −2; 2 −1 1]. Hallá k ∈ ℝ−{0} para que det(A² + AB) = 0.<br>
+  <b>Cómo se decide:</b> det(A² + AB) = det(A(A+B)) = det(A)·det(A+B). Sale det(A) = 2k y det(A+B) = k+4, así que 2k(k+4) = 0 ⇒ k = 0 o k = −4; como k ≠ 0, <b>k = −4</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Dic 2024 · T2) — sistema con parámetro</div>
+  <p>{ x + y + 2z = 2 ; −x + my + 2z = 0 ; 3x + mz = 4 }. Hallá m para que sea <b>incompatible</b>.<br>
+  <b>Cómo se decide:</b> det de la matriz de coeficientes = (m−2)(m−3), que se anula en m=2 y m=3. Analizando: m=2 da compatible indeterminado; <b>m=3 da incompatible</b> (opción D). El truco es: anular el determinante deja dos candidatos; recién ahí se distingue indeterminado de incompatible.</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia para el día del final</div>
+1. Repartí el tiempo: 8 ejercicios, ~15 minutos cada uno. Empezá por los temas que más dominás.<br>
+2. En multiple choice, <b>calculá el valor y después buscá la opción</b>; desconfiá de la opción que es "el recíproco" o "el signo cambiado".<br>
+3. Cónicas, elipses e hipérbolas: <b>completá cuadrados</b> siempre antes de afirmar nada.<br>
+4. Complejos: pasá a <b>forma polar</b> y usá De Moivre para argumentos y potencias.<br>
+5. "No isomorfismo / no inversible / no compatible determinado" = <b>det = 0</b>.<br>
+6. Polinomios reales: si aparece una raíz compleja, su conjugada también es raíz.<br>
+7. En los de respuesta numérica revisá las cuentas: no hay opciones que te avisen del error.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
