@@ -1,0 +1,440 @@
+<header>
+    <h1>Análisis · Guía Examen Final</h1>
+    <div class="sub">UBA XXI · Cátedra Cabana · Guía intensiva basada en 10 finales reales (2022–2024) · Integra todo el programa</div>
+  </header>
+<nav class="toc" id="toc-analisis-final">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#afin-s1">Estrategia general y notables del final</a></li>
+    <li><a href="#afin-s2">TIPO 1 · Integrales, áreas y TFC (100%)</a></li>
+    <li><a href="#afin-s3">TIPO 2 · Recta tangente y polinomio de Taylor (90%)</a></li>
+    <li><a href="#afin-s4">TIPO 3 · Estudio de función: extremos, imagen, f(x)=k (80%)</a></li>
+    <li><a href="#afin-s5">TIPO 4 · Series de potencias y numéricas (80%)</a></li>
+    <li><a href="#afin-s6">TIPO 5 · Continuidad y derivabilidad de funciones partidas (70%)</a></li>
+    <li><a href="#afin-s7">TIPO 6 · Límites con indeterminación (70%)</a></li>
+    <li><a href="#afin-s8">TIPO 7 · Dominio, imagen y asíntotas (60% / 30%)</a></li>
+    <li><a href="#afin-s9">Mix integrador · Las 10 plantillas + reconocer el tipo</a></li>
+  </ol>
+  <div class="score" id="global-score-analisis-final">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="afin-s1">
+<summary><span class="num">1</span> Estrategia general y notables del final <span class="sec-score" id="ss-analisis-final-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del final Cabana</h3>
+<p>El final es <b>integrador</b>: cubre todo el programa de Análisis A, sumando a lo del cursado los temas de <b>integrales, series y polinomio de Taylor</b>. Son <b>~10 ejercicios de opción múltiple</b> (4 opciones, una correcta, +1 punto cada uno) en <b>1:30 h</b>. Algunas versiones (D/E) traen ítems "a completar" con la respuesta escrita en vez de opciones.</p>
+
+<div class="trap"><div class="tr-t">El dato que te ahorra medio final: los temas B/C/D son el mismo examen</div>
+Cada fecha se toma en varias versiones (<b>Tema B, C, D, E</b>) que son <b>el mismo examen con los números cambiados</b>. De hecho <b>C 2022 y D 2022 son idénticos ejercicio por ejercicio</b>, y lo mismo pasa entre C/D 2023 y C/D 2024. Conclusión: estudiá por <b>plantillas de ejercicio</b> (hay unas 10) y memorizá el <b>método</b>, no el resultado. El mismo tipo reaparece con otra constante.
+</div>
+
+<h3>Lo que más cae (ranking sobre 10 finales)</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Frecuencia</th><th>Cuántos por final</th></tr>
+  <tr><td><b>Integrales</b> (áreas, TFC, ec. diferenciales)</td><td>100% (10/10)</td><td>2 a 4</td></tr>
+  <tr><td><b>Recta tangente / Taylor</b></td><td>90% (9/10)</td><td>1 a 2</td></tr>
+  <tr><td><b>Estudio de función</b> (extremos, imagen, f(x)=k)</td><td>80% (8/10)</td><td>1 a 2</td></tr>
+  <tr><td><b>Series</b> (radio, geométrica, comparación)</td><td>80% (8/10)</td><td>1</td></tr>
+  <tr><td><b>Continuidad / derivabilidad</b> de partidas</td><td>70% (7/10)</td><td>1</td></tr>
+  <tr><td><b>Límites</b> (tipo e, 0/0 por L'Hôpital)</td><td>70% (7/10)</td><td>1</td></tr>
+  <tr><td><b>Dominio / Imagen</b></td><td>60% (6/10)</td><td>1</td></tr>
+  <tr><td><b>Asíntotas</b> oblicuas con parámetros</td><td>30% (3/10)</td><td>1</td></tr>
+</table>
+<p><b>Integrales, tangente/Taylor, estudio de función y series</b> son las cuatro columnas: cubren la enorme mayoría del examen. Un final típico trae 2–3 integrales, una tangente/Taylor, un estudio de función y una serie.</p>
+
+<h3>Los notables imprescindibles (escribilos al empezar)</h3>
+<div class="formula">
+  <b>Equivalentes cerca de 0 (para límites 0/0):</b><br>
+  1 − cos(u) ~ u²/2 &nbsp;·&nbsp; e<sup>u</sup> − 1 ~ u &nbsp;·&nbsp; sen(u) ~ u &nbsp;·&nbsp; ln(1+u) ~ u &nbsp;·&nbsp; (con u → 0)
+</div>
+<div class="formula">
+  <b>Límite tipo e (1<sup>∞</sup>):</b> &nbsp; lím (1 + f(x))<sup>g(x)</sup> = e<sup>lím f(x)·g(x)</sup> &nbsp; cuando f → 0 y g → ∞
+</div>
+<div class="formula">
+  <b>Cálculo diferencial:</b><br>
+  Recta tangente en x=a: &nbsp; y = f(a) + f'(a)·(x − a)<br>
+  Taylor orden 2 en 0: &nbsp; P(x) = f(0) + f'(0)·x + (f''(0)/2)·x²
+</div>
+<div class="formula">
+  <b>Cálculo integral:</b><br>
+  Barrow: &nbsp; ∫<sub>a</sub><sup>b</sup> f = F(b) − F(a) &nbsp;·&nbsp; Área = ∫<sub>a</sub><sup>b</sup> (mayor − menor) dx<br>
+  TFC + cadena: &nbsp; d/dx ∫<sub>a</sub><sup>u(x)</sup> f(t) dt = f(u(x))·u'(x)
+</div>
+<div class="formula">
+  <b>Series:</b><br>
+  Geométrica: &nbsp; Σ<sub>n≥0</sub> r<sup>n</sup> = 1/(1−r) &nbsp; converge ⟺ |r| &lt; 1<br>
+  p-serie: &nbsp; Σ 1/n<sup>p</sup> converge ⟺ p &gt; 1 &nbsp;·&nbsp; Radio: R = 1/L con L = lím |a<sub>n+1</sub>/a<sub>n</sub>|
+</div>
+
+<h3>Las 3 preguntas que te hacés al leer cada ejercicio</h3>
+<h4>Pregunta 1 — ¿De qué plantilla es?</h4>
+<table class="tbl">
+  <tr><th>Si ves…</th><th>Es…</th></tr>
+  <tr><td>"área", "∫", "recta tangente + eje x", ecuación con f'</td><td><b>TIPO 1</b> — Integrales</td></tr>
+  <tr><td>"recta tangente", "polinomio de Taylor", "f'' y hallar f(2)"</td><td><b>TIPO 2</b> — Tangente/Taylor</td></tr>
+  <tr><td>"máximo/mínimo absoluto", "imagen", "f(x)=k tiene… soluciones"</td><td><b>TIPO 3</b> — Estudio de función</td></tr>
+  <tr><td>"Σ", "converge", "radio", "para qué p/a…"</td><td><b>TIPO 4</b> — Series</td></tr>
+  <tr><td>Función partida + "continua/derivable en x₀", hallar a/k</td><td><b>TIPO 5</b> — Partidas</td></tr>
+  <tr><td>"Calcular el límite" con 1<sup>∞</sup> o 0/0</td><td><b>TIPO 6</b> — Límites</td></tr>
+  <tr><td>"imagen de", "dominio", "asíntota oblicua"</td><td><b>TIPO 7</b> — Dominio/imagen/asíntotas</td></tr>
+</table>
+<h4>Pregunta 2 — ¿Qué tengo gratis?</h4>
+<p>"Me dan la recta tangente y = 5x − 1 en x=1" → tengo <b>f'(1) = 5</b> y <b>f(1) = 4</b>. "Me dan el polinomio de Taylor" → tengo <b>f(0), f'(0) y f''(0)</b>. Anotalos al margen: la mitad del ejercicio sale de ordenar la información.</p>
+<h4>Pregunta 3 — ¿Dónde está el "ruido"?</h4>
+<p>¿Reemplazo directo da 0/0, ∞/∞, 1<sup>∞</sup>? ¿Hay un parámetro (a, b, k, p) que controla algo? ¿Un límite de integración variable (⇒ TFC)? ¿Un empalme de función partida? Reconocer el ruido te dice la técnica.</p>
+
+<div class="quiz-wrap" data-qz="1" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · INTEGRALES ============ -->
+<details id="afin-s2">
+<summary><span class="num">2</span> TIPO 1 · Integrales, áreas y TFC <span class="sec-score" id="ss-analisis-final-2"></span></summary>
+<div class="content">
+
+<h3>El tema estrella: aparece en el 100% de los finales</h3>
+<p>Siempre hay 2 a 4 ejercicios de integrales. Vienen de dos formas: <b>calcular</b> un área/integral, o <b>elegir el planteo correcto</b> (la integral bien armada) sin resolverla. Para las de planteo, la clave es hallar los <b>puntos de corte</b> y decidir <b>quién va arriba</b> en cada tramo.</p>
+
+<h3>Subtipo A · Área entre f(x)=√x, su recta tangente y una vertical (la más repetida)</h3>
+<p>Se pide el <b>planteo</b> del área entre √x, su recta tangente en un punto P, y una recta vertical x = c. La tangente queda por <b>encima</b> de √x (porque √x es cóncava), así que el integrando es (tangente − √x).</p>
+<div class="formula">
+  f(x) = √x → f'(x) = 1/(2√x). &nbsp; En P=(1,1): tangente y = ½x + ½. &nbsp; Área = ∫<sub>1</sub><sup>c</sup> (tangente − √x) dx
+</div>
+<div class="example">
+  <div class="ex-t">Área con la tangente · Final B 2022 Ej10 (real)</div>
+  <p>Área entre f(x) = √x, su recta tangente en P=(1, f(1)) y la recta x = 4.</p>
+  <p><b>1) Tangente en x=1:</b> f(1)=1, f'(1)=1/(2·1)=½. Recta: y = 1 + ½(x−1) = <b>½x + ½</b>.</p>
+  <p><b>2) La tangente va por encima</b> de √x en [1,4] → integrando (½x + ½ − √x).</p>
+  <p><b>3) Planteo:</b> Área = <b>∫<sub>1</sub><sup>4</sup> (½x + ½ − √x) dx</b>. ▸ Distractor típico: cambiar el límite inferior a 0 (mal: la región arranca en x=1, el punto de tangencia).</p>
+</div>
+
+<h3>Subtipo B · Área entre dos curvas (resolver la integral)</h3>
+<div class="example">
+  <div class="ex-t">Área entre e<sup>x</sup> y e<sup>−x</sup> · Final B 2022 Ej6 (real)</div>
+  <p>Área encerrada por f(x)=e<sup>x</sup>, g(x)=e<sup>−x</sup> en 0 ≤ x ≤ 1.</p>
+  <p><b>1) ¿Quién va arriba?</b> En x ≥ 0, e<sup>x</sup> ≥ e<sup>−x</sup> → integrando (e<sup>x</sup> − e<sup>−x</sup>).</p>
+  <p><b>2) Barrow:</b> ∫<sub>0</sub><sup>1</sup>(e<sup>x</sup> − e<sup>−x</sup>) dx = [e<sup>x</sup> + e<sup>−x</sup>]<sub>0</sub><sup>1</sup> = (e + 1/e) − (1 + 1) = <b>e + 1/e − 2</b>.</p>
+</div>
+
+<h3>Subtipo C · Planteo de área entre curvas y el eje x</h3>
+<div class="example">
+  <div class="ex-t">Dos raíces y el eje x · Final B 2024 Ej1 / E 2022 Ej1 (real, idénticos)</div>
+  <p>Área entre f(x) = √(x+3), g(x) = √(3x−9) y el eje x. Elegir la integral.</p>
+  <p><b>1) Dónde arranca cada una:</b> f existe desde x=−3; g desde x=3. <b>Corte:</b> √(x+3)=√(3x−9) → x+3 = 3x−9 → x = 6.</p>
+  <p><b>2) Idea:</b> el área bajo f (de −3 a 6) menos la parte que g "recorta" (de 3 a 6).</p>
+  <p><b>3) Planteo:</b> Área = <b>∫<sub>−3</sub><sup>6</sup> f(x) dx − ∫<sub>3</sub><sup>6</sup> g(x) dx</b>.</p>
+</div>
+
+<h3>Subtipo D · Teorema Fundamental del Cálculo (límite variable)</h3>
+<p>Cuando la <b>integral tiene un límite que depende de x</b>, se deriva con TFC + cadena: d/dx ∫<sub>a</sub><sup>u(x)</sup> f = f(u(x))·u'(x). Aparece dentro de límites 0/0 o para reconstruir f.</p>
+<div class="example">
+  <div class="ex-t">Límite con integral variable · Final B 2023 Ej1 (real)</div>
+  <p>Calcular lím<sub>x→0<sup>+</sup></sub> ( ∫<sub>0</sub><sup>x²</sup> sen(√t) dt ) / x³.</p>
+  <p><b>1) Es 0/0</b> (numerador y denominador → 0). Aplico L'Hôpital.</p>
+  <p><b>2) Derivo el numerador con TFC + cadena:</b> d/dx ∫<sub>0</sub><sup>x²</sup> sen(√t) dt = sen(√(x²))·2x = sen(x)·2x (para x&gt;0). Denominador: 3x².</p>
+  <p><b>3)</b> lím [2x·sen(x)] / [3x²] = (2/3)·lím sen(x)/x = <b>2/3</b>.</p>
+</div>
+
+<h3>Subtipo E · Ecuación diferencial de variables separables</h3>
+<div class="example">
+  <div class="ex-t">f'(x) = 2(x+1)·f(x) · Final B 2023 Ej6 (real)</div>
+  <p>Hallar f sabiendo f'(x) = 2(x+1)·f(x) y f(0) = 6.</p>
+  <p><b>1) Separo:</b> f'/f = 2(x+1) → ∫ f'/f dx = ∫ 2(x+1) dx → ln|f| = x² + 2x + C.</p>
+  <p><b>2) Exponencio:</b> f(x) = K·e<sup>x²+2x</sup>. <b>3) Condición inicial:</b> f(0) = K = 6.</p>
+  <p><b>Resultado:</b> f(x) = <b>6·e<sup>x²+2x</sup></b>. ▸ Variante f''=2f' (C/D 2023): tratás f' como incógnita → f' = K·e<sup>2x</sup>, integrás y usás las condiciones.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Truco que aparece: área que da 1 "para todo k"</div>
+Si te piden hallar k para que el área entre f(x)=e<sup>kx</sup> y g(x)=e<sup>kx</sup>+1 en [0,1] valga 1, notá que g − f = 1 (constante): el área es ∫<sub>0</sub><sup>1</sup> 1 dx = 1 <b>para cualquier k</b>. Respuesta: k ∈ ℝ (C/D 2023).
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · TANGENTE Y TAYLOR ============ -->
+<details id="afin-s3">
+<summary><span class="num">3</span> TIPO 2 · Recta tangente y polinomio de Taylor <span class="sec-score" id="ss-analisis-final-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 90% de los finales</h3>
+<p>Todo gira alrededor de que la <b>recta tangente te regala dos datos</b>: la pendiente es f'(a) y la ordenada en x=a es f(a). Y de que en Taylor los <b>coeficientes son las derivadas</b>: P(x) = f(0) + f'(0)x + (f''(0)/2)x².</p>
+
+<h3>Subtipo A · Reconstruir f(2) desde f'' y la recta tangente (integrar dos veces)</h3>
+<div class="example">
+  <div class="ex-t">Hallar f(2) · Final B 2022 Ej5 (real)</div>
+  <p>La recta tangente en x=1 es y = 5x − 1 y f''(x) = 6x. Hallar f(2).</p>
+  <p><b>1) Datos gratis de la tangente:</b> f'(1) = 5 (pendiente), f(1) = 5·1 − 1 = 4.</p>
+  <p><b>2) Integro f'' para f':</b> f'(x) = ∫6x dx = 3x² + C₁. Con f'(1)=5: 3 + C₁ = 5 → C₁ = 2. Entonces f'(x) = 3x² + 2.</p>
+  <p><b>3) Integro f' para f:</b> f(x) = x³ + 2x + C₂. Con f(1)=4: 1 + 2 + C₂ = 4 → C₂ = 1. Entonces f(x) = x³ + 2x + 1.</p>
+  <p><b>4)</b> f(2) = 8 + 4 + 1 = <b>13</b>.</p>
+</div>
+
+<h3>Subtipo B · Coeficientes del polinomio de Taylor de orden 2</h3>
+<p>Igualás el polinomio dado con P(x) = f(0) + f'(0)x + (f''(0)/2)x²: cada coeficiente es una derivada. Si f tiene una integral de límite variable, usás TFC para derivar.</p>
+<div class="example">
+  <div class="ex-t">Taylor con integral · Final B 2022 Ej7 (real)</div>
+  <p>f(x) = 1 + x² + ∫<sub>0</sub><sup>x</sup> e<sup>bt</sup> dt. Hallar b para que P(x) = 1 + x + 2x².</p>
+  <p><b>f(0):</b> 1 + 0 + 0 = 1 ✓. <b>f'(x)</b> = 2x + e<sup>bx</sup> (TFC) → f'(0) = 0 + 1 = 1 ✓ (coincide con el coef de x).</p>
+  <p><b>f''(x)</b> = 2 + b·e<sup>bx</sup> → f''(0) = 2 + b. El coef de x² es f''(0)/2 = (2+b)/2 = 2 → 2 + b = 4 → <b>b = 2</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Taylor de cos(x) + a·x² · Final B 2024 Ej7 (real)</div>
+  <p>f(x) = cos(x) + a·x², P(x) = 1 + b·x + 9x². Hallar a y b.</p>
+  <p><b>f'(x)</b> = −sen(x) + 2ax → f'(0) = 0 → <b>b = 0</b>. <b>f''(x)</b> = −cos(x) + 2a → f''(0) = −1 + 2a.</p>
+  <p>Coef de x²: (−1+2a)/2 = 9 → −1 + 2a = 18 → <b>a = 19/2</b>.</p>
+</div>
+
+<h3>Subtipo C · Hallar un parámetro por la pendiente o el paralelismo</h3>
+<div class="example">
+  <div class="ex-t">Tangente paralela a una recta · Final B 2024 Ej5 (real)</div>
+  <p>f(x) = x·e<sup>cos(x)</sup>. Su tangente en x=0 es paralela a y = e<sup>4k</sup>x + 1. Hallar k.</p>
+  <p><b>1) Pendiente de f en 0:</b> f'(x) = e<sup>cos x</sup> + x·e<sup>cos x</sup>·(−sen x) → f'(0) = e<sup>1</sup> = e.</p>
+  <p><b>2) Paralela ⇒ misma pendiente:</b> e<sup>4k</sup> = e → 4k = 1 → <b>k = 1/4</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · ESTUDIO DE FUNCIÓN ============ -->
+<details id="afin-s4">
+<summary><span class="num">4</span> TIPO 3 · Estudio de función: extremos, imagen, f(x)=k <span class="sec-score" id="ss-analisis-final-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 80% de los finales</h3>
+<p>Un análisis de función que se pregunta por incisos: crecimiento, extremos absolutos, imagen, y cuántas soluciones tiene f(x) = k. La receta es siempre la misma: <b>f' para crecimiento y extremos</b>, <b>límites en ±∞</b>, y armar la imagen entre el extremo absoluto y los límites.</p>
+
+<h3>Subtipo A · Extremos absolutos en intervalo cerrado</h3>
+<p>En un intervalo cerrado [a,b] hay máximo y mínimo absolutos (Weierstrass). Se comparan los valores de f en los <b>puntos críticos</b> (donde f'=0 o f' no existe) y en los <b>extremos</b> del intervalo.</p>
+<div class="example">
+  <div class="ex-t">f(x) = ∛((x²−4x)²) en [1;5] · Final B 2022 Ej9 (real)</div>
+  <p>Es f(x) = |x²−4x|<sup>2/3</sup> = |x(x−4)|<sup>2/3</sup>. Tiene un cero (mínimo) en x=4 y "picos" no derivables ahí.</p>
+  <p><b>Comparo valores en [1,5]:</b> f(1)=|−3|<sup>2/3</sup>=3<sup>2/3</sup>≈2,08; f(4)=0; f(5)=|5|<sup>2/3</sup>=5<sup>2/3</sup>≈2,92.</p>
+  <p><b>El mayor es f(5).</b> → <b>x = 5 es máximo absoluto</b>. ▸ En C/D 2022 el intervalo es [1;6] y el máximo cae en x=6 (siempre el extremo derecho).</p>
+</div>
+
+<h3>Subtipo B · Análisis completo de (x²−24)·e<sup>x+7</sup></h3>
+<div class="example">
+  <div class="ex-t">Crecimiento, extremos, imagen, f(x)=k · Final C 2024 Ej6–9 (real)</div>
+  <p>f(x) = (x²−24)·e<sup>x+7</sup>. <b>Derivo (producto):</b> f'(x) = e<sup>x+7</sup>(x² + 2x − 24) = e<sup>x+7</sup>(x+6)(x−4).</p>
+  <p><b>Signo de f':</b> como e<sup>x+7</sup>&gt;0, manda (x+6)(x−4): positivo fuera de (−6,4), negativo dentro. → <b>f decrece en (−6;4)</b>, crece afuera.</p>
+  <p><b>Extremos:</b> x=−6 <b>máximo</b> local, x=4 <b>mínimo</b> (absoluto). <b>Límites:</b> x→−∞ → 0 (por arriba), x→+∞ → +∞.</p>
+  <p><b>Imagen:</b> [f(4); +∞). <b>f(x)=k tiene 1 sola solución</b> cuando k &gt; f(−6). ▸ D 2024 es idéntico.</p>
+</div>
+
+<h3>Subtipo C · Campana gaussiana 3·e<sup>−5(x−8)²</sup></h3>
+<div class="example">
+  <div class="ex-t">Crecimiento e imagen · Final B 2024 Ej4 (real)</div>
+  <p>f(x) = 3·e<sup>−5(x−8)²</sup>. <b>f'(x)</b> = 3e<sup>−5(x−8)²</sup>·(−10)(x−8): se anula en x=8.</p>
+  <p><b>f' &gt; 0 antes de 8 y &lt; 0 después</b> → x=8 es máximo absoluto, f(8)=3. <b>Límites ±∞ → 0</b> (nunca lo alcanza).</p>
+  <p><b>Crece en (−∞; 8)</b>. <b>Imagen = (0; 3]</b> (el 3 se alcanza, el 0 no).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · SERIES ============ -->
+<details id="afin-s5">
+<summary><span class="num">5</span> TIPO 4 · Series de potencias y numéricas <span class="sec-score" id="ss-analisis-final-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 80% de los finales</h3>
+<p>Casi siempre una serie. Los tres sabores: <b>radio de convergencia</b> de una serie de potencias (hallar un parámetro), <b>serie geométrica</b> (suma o convergencia), y <b>comparación</b> con una p-serie.</p>
+
+<h3>Subtipo A · Radio de convergencia: hallar p</h3>
+<p>El radio no depende de factores como n<sup>p</sup> (su raíz n-ésima tiende a 1). Para Σ (n<sup>p</sup>/b<sup>np</sup>)·(x<sup>n</sup>/c<sup>n</sup>) el radio es R = c·b<sup>p</sup>. Se impone que sea el pedido.</p>
+<div class="example">
+  <div class="ex-t">Serie de potencias · Final B 2022 Ej4 (real)</div>
+  <p>Hallar p para que Σ (n<sup>p</sup>/5<sup>np</sup>)·(x<sup>n</sup>/3<sup>n</sup>) converja para |x| &lt; 75.</p>
+  <p><b>1) Criterio de la raíz:</b> lím |a<sub>n</sub>|<sup>1/n</sup>·|x| &lt; 1. La raíz da (1)·(1/5<sup>p</sup>)·(1/3)·|x| → converge si |x| &lt; 3·5<sup>p</sup>.</p>
+  <p><b>2) Impongo el radio:</b> 3·5<sup>p</sup> = 75 → 5<sup>p</sup> = 25 → <b>p = 2</b>. ▸ C/D 2022: 2·3<sup>p</sup>=54 → p=3.</p>
+</div>
+
+<h3>Subtipo B · Serie geométrica (suma o convergencia)</h3>
+<div class="example">
+  <div class="ex-t">Convergencia de Σ e<sup>an</sup>/b<sup>n</sup> · Final C 2023 Ej5 (real)</div>
+  <p>¿Para qué a converge Σ e<sup>an</sup>/3<sup>n</sup>?</p>
+  <p><b>Es geométrica</b> con razón r = e<sup>a</sup>/3. Converge ⟺ |r| &lt; 1 → e<sup>a</sup>/3 &lt; 1 → e<sup>a</sup> &lt; 3 → <b>a &lt; ln 3</b>.</p>
+  <p>▸ Variante con suma dada (B 2023): Σ 3<sup>n+1</sup>/a<sup>2n</sup> = 48/13 → usás A/(1−r) y despejás → a = 4 o −4.</p>
+</div>
+
+<h3>Subtipo C · Comparación con p-serie</h3>
+<div class="example">
+  <div class="ex-t">Σ n/(n<sup>a</sup>+1) · Final C 2024 Ej10 (real)</div>
+  <p>¿Para qué a converge Σ n/(n<sup>a</sup>+1)?</p>
+  <p><b>Para n grande:</b> n/(n<sup>a</sup>+1) ~ n/n<sup>a</sup> = 1/n<sup>a−1</sup>. <b>Es una p-serie con p = a−1</b>.</p>
+  <p>Converge ⟺ a−1 &gt; 1 → <b>a &gt; 2</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · PARTIDAS ============ -->
+<details id="afin-s6">
+<summary><span class="num">6</span> TIPO 5 · Continuidad y derivabilidad de funciones partidas <span class="sec-score" id="ss-analisis-final-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 70% de los finales</h3>
+<p>Una función definida por tramos y hay que hallar un parámetro (a, k) en el <b>empalme</b>. <b>Continuidad</b>: los límites laterales coinciden con el valor. <b>Derivabilidad</b>: además coinciden las derivadas laterales. Casi siempre uno de los tramos da un límite 0/0 que se resuelve con equivalentes o L'Hôpital.</p>
+
+<h3>Subtipo A · Derivable en x₀ = 0 (rama con 1 − cos)</h3>
+<div class="example">
+  <div class="ex-t">Hallar a para derivabilidad · Final B 2022 Ej3 (real)</div>
+  <p>f(x) = (1 − cos(3ax))/(5(e<sup>x</sup>−1)) si x&gt;0 ; &nbsp; 17x² + 90x si x ≤ 0. Hallar a ≥ 0 para que sea derivable en 0.</p>
+  <p><b>1) Rama izquierda (x≤0):</b> vale 0 en x=0; su derivada es 34x+90 → en 0 vale <b>90</b>.</p>
+  <p><b>2) Rama derecha, con equivalentes:</b> 1−cos(3ax) ~ (3ax)²/2 = 9a²x²/2; &nbsp; 5(e<sup>x</sup>−1) ~ 5x. Entonces la rama ~ (9a²x²/2)/(5x) = (9a²/10)·x → su "pendiente" cerca de 0 es <b>9a²/10</b>.</p>
+  <p><b>3) Igualo derivadas laterales:</b> 9a²/10 = 90 → a² = 100 → <b>a = 10</b>.</p>
+</div>
+
+<h3>Subtipo B · Continua en x₀ (rama 0/0 por L'Hôpital)</h3>
+<div class="example">
+  <div class="ex-t">Hallar k para continuidad · Final B 2024 Ej3 (real)</div>
+  <p>La rama es (2x·ln x + x² − 1)/(x − 1) cuando x→1, contra un valor 2k − 10.</p>
+  <p><b>1) Es 0/0.</b> L'Hôpital: derivo numerador 2·ln x + 2 + 2x y denominador 1. En x=1: 0 + 2 + 2 = <b>4</b>.</p>
+  <p><b>2) Continuidad:</b> 2k − 10 = 4 → <b>k = 7</b>. ▸ E 2022: contra k directo → k = 4.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · LÍMITES ============ -->
+<details id="afin-s7">
+<summary><span class="num">7</span> TIPO 6 · Límites con indeterminación <span class="sec-score" id="ss-analisis-final-7"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 70% de los finales</h3>
+<p>Dos clásicos: el límite <b>tipo e</b> (1<sup>∞</sup>) y el <b>0/0 por L'Hôpital</b>. El tipo e tiene un atajo que conviene automatizar.</p>
+
+<h3>Subtipo A · Límite tipo e (1<sup>∞</sup>)</h3>
+<div class="formula">
+  lím (1 + f)<sup>g</sup> = e<sup>lím f·g</sup> &nbsp; (f → 0, g → ∞). &nbsp; Para (1 + (√x+c)/(dx+1))<sup>2√x</sup> el resultado es <b>e<sup>2/d</sup></b>.
+</div>
+<div class="example">
+  <div class="ex-t">El clásico · Final B 2022 Ej1 (real)</div>
+  <p>lím<sub>x→+∞</sub> (1 + (√x + 4)/(3x + 1))<sup>2√x</sup>.</p>
+  <p><b>1) Exponente del e:</b> f·g = [(√x + 4)/(3x + 1)]·2√x. Para x grande ~ (√x·2√x)/(3x) = 2x/(3x) = 2/3.</p>
+  <p><b>2)</b> Resultado = <b>e<sup>2/3</sup></b>. ▸ Con denominador 5x+1 (C/D 2022) da e<sup>2/5</sup>. Atajo: e<sup>2/d</sup>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Hallar el parámetro · Final D 2023 Ej1 (real)</div>
+  <p>Determinar a tal que lím ((5x²+3)/(5x²−1))<sup>a·x²</sup> = e<sup>20</sup>.</p>
+  <p><b>base − 1</b> = 4/(5x²−1). Exponente del e: lím (base−1)·a x² = lím 4a x²/(5x²−1) = 4a/5.</p>
+  <p><b>Impongo:</b> 4a/5 = 20 → <b>a = 25</b>.</p>
+</div>
+
+<h3>Subtipo B · Indeterminación 0/0 por L'Hôpital</h3>
+<div class="example">
+  <div class="ex-t">0/0 con seno y raíz · Final B 2024 Ej6 (real)</div>
+  <p>lím<sub>x→9</sub> 5·sen(x − 9)/(√x − 3).</p>
+  <p><b>Es 0/0.</b> L'Hôpital: numerador 5·cos(x−9), denominador 1/(2√x). En x=9: 5·1 / (1/6) = 5·6 = <b>30</b>. ▸ Con factor 3 (E 2022) da 18. Atajo: 6·(factor).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 · DOMINIO/IMAGEN/ASÍNTOTAS ============ -->
+<details id="afin-s8">
+<summary><span class="num">8</span> TIPO 7 · Dominio, imagen y asíntotas <span class="sec-score" id="ss-analisis-final-8"></span></summary>
+<div class="content">
+
+<h3>Imagen (60%) y asíntotas oblicuas (30%)</h3>
+
+<h3>Subtipo A · Imagen de f(x) = (x + c)/√x</h3>
+<p>Un ejercicio que reaparece casi verbatim. El truco es <b>reescribir</b> y usar que √x + c/√x tiene un mínimo.</p>
+<div class="formula">
+  f(x) = (x+c)/√x = √x + c/√x &nbsp; → &nbsp; mínimo = 2√c (en x = c) &nbsp; → &nbsp; Imagen = [2√c ; +∞)
+</div>
+<div class="example">
+  <div class="ex-t">Imagen · Final B 2022 Ej2 (real)</div>
+  <p>f(x) = (x + 9)/√x. Reescribo: √x + 9/√x. Por AM-GM (o derivando), el mínimo es 2·√9 = <b>6</b>, en x=9.</p>
+  <p>Como f → +∞ en 0<sup>+</sup> y en +∞, la <b>imagen = [6; +∞)</b>. ▸ Con c=16 (C/D 2022): 2√16 = 8 → [8; +∞).</p>
+</div>
+
+<h3>Subtipo B · Asíntota oblicua de una racional con parámetros</h3>
+<p>Para f(x) = (−kx³ + a(x²−x)) / (b(x²−x) + 1): la <b>pendiente</b> la fija el cociente de coeficientes líderes (−k/b), y el <b>término independiente</b> lo fija a. Se hace la división de polinomios.</p>
+<div class="example">
+  <div class="ex-t">Hallar a y b · Final B 2022 Ej8 (real)</div>
+  <p>f(x) = (−2x³ + a(x²−x)) / (b(x²−x) + 1). La recta y = −2x + 3 es asíntota oblicua. Hallar a, b.</p>
+  <p><b>1) Pendiente:</b> el cociente líder −2x³/(bx²) = −2x/b debe dar pendiente −2 → −2/b = −2 → <b>b = 1</b>.</p>
+  <p><b>2) Con b=1, hago la división:</b> el cociente da −2x + (a − 2). Como el término independiente debe ser 3: a − 2 = 3 → <b>a = 5</b>.</p>
+  <p><b>Resultado:</b> a = 5, b = 1. ▸ C/D 2022 (−x³ y y=−x+5): a=6, b=1.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 9 · MIX INTEGRADOR ============ -->
+<details id="afin-s9">
+<summary><span class="num">9</span> Mix integrador · Las 10 plantillas + reconocer el tipo <span class="sec-score" id="ss-analisis-final-9"></span></summary>
+<div class="content">
+
+<h3>Las ~10 plantillas que cubren casi todo el final</h3>
+<p>Como los temas B/C/D/E repiten el mismo ejercicio con otros números, dominar estas plantillas (el <b>método</b>, no el número) te alcanza para casi cualquier final:</p>
+<table class="tbl">
+  <tr><th>#</th><th>Plantilla</th><th>Atajo / resultado</th></tr>
+  <tr><td>1</td><td>Límite tipo e (1+(√x+c)/(dx+1))<sup>2√x</sup></td><td>e<sup>2/d</sup></td></tr>
+  <tr><td>2</td><td>Imagen de (x+c)/√x</td><td>[2√c ; +∞)</td></tr>
+  <tr><td>3</td><td>Derivable en 0 con rama (1−cos)/(e<sup>x</sup>−1)</td><td>igualar 9a²/10 = coef lineal</td></tr>
+  <tr><td>4</td><td>Radio de convergencia (hallar p)</td><td>c·b<sup>p</sup> = R</td></tr>
+  <tr><td>5</td><td>f(2) desde f'' y la tangente</td><td>integrar 2 veces con f'(1), f(1)</td></tr>
+  <tr><td>6</td><td>Área entre e<sup>x</sup> y e<sup>−x</sup></td><td>∫ (e<sup>x</sup>−e<sup>−x</sup>)</td></tr>
+  <tr><td>7</td><td>Taylor orden 2 con integral</td><td>coef x² = f''(0)/2, TFC</td></tr>
+  <tr><td>8</td><td>Asíntota oblicua con a, b</td><td>b por pendiente, a por término indep.</td></tr>
+  <tr><td>9</td><td>Extremos de ∛((x²−4x)²) en cerrado</td><td>máximo en el extremo derecho</td></tr>
+  <tr><td>10</td><td>Planteo del área con la recta tangente</td><td>∫ (tangente − √x)</td></tr>
+</table>
+
+<h3>Reconocer el tipo en 10 segundos</h3>
+<table class="tbl">
+  <tr><th>Primera frase</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"El área…", "∫…", "se calcula mediante"</td><td>Integrales</td><td>Puntos de corte + quién va arriba</td></tr>
+  <tr><td>"recta tangente… hallar f(2)", "f''(x)="</td><td>Tangente</td><td>f'(a), f(a) e integrar</td></tr>
+  <tr><td>"polinomio de Taylor… hallar…"</td><td>Taylor</td><td>Igualar coeficientes = derivadas</td></tr>
+  <tr><td>"máximo/mínimo absoluto", "imagen", "f(x)=k"</td><td>Estudio de función</td><td>f', signo, límites en ±∞</td></tr>
+  <tr><td>"Σ…", "converge", "radio"</td><td>Series</td><td>Criterio del cociente/raíz o geométrica</td></tr>
+  <tr><td>Función partida + "continua/derivable"</td><td>Partidas</td><td>Límites (y derivadas) laterales</td></tr>
+  <tr><td>"Calcular el límite" 1<sup>∞</sup> o 0/0</td><td>Límites</td><td>Atajo del e o L'Hôpital</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del final</h3>
+<div class="trap"><div class="tr-t">Error 1 — Elegir mal quién va arriba en un área</div>
+En un área entre curvas, integrás (mayor − menor). Si te equivocás de orden, el signo sale al revés. Hallá primero los puntos de corte y evaluá un punto de cada tramo.
+</div>
+<div class="trap"><div class="tr-t">Error 2 — Olvidar la regla de la cadena en el TFC</div>
+d/dx ∫<sub>0</sub><sup>x²</sup> f = f(x²)·<b>2x</b>, no f(x²). El factor u'(x) es obligatorio.
+</div>
+<div class="trap"><div class="tr-t">Error 3 — Confundir continuidad con derivabilidad</div>
+Derivable ⇒ continua, pero no al revés. Para derivabilidad tenés que igualar <b>también</b> las derivadas laterales, no solo los valores.
+</div>
+<div class="trap"><div class="tr-t">Error 4 — Buscar el máximo solo en los críticos</div>
+En un intervalo cerrado, el máximo/mínimo absoluto puede estar en un <b>extremo</b> del intervalo. Evaluá siempre f en a y en b, no solo donde f'=0.
+</div>
+
+<div class="key"><div class="ky-t">Plan del día del final</div>
+1. Barré los 10 ejercicios y marcá de qué plantilla es cada uno.<br>
+2. Empezá por las que reconocés al toque (las de atajo: tipo e, imagen, radio).<br>
+3. En las de "elegir la integral", no la resuelvas: hallá cortes y orden, y matcheá.<br>
+4. Anotá lo que te dan gratis (f'(a), f(a), coeficientes de Taylor).<br>
+5. Revisá que cada respuesta tenga sentido (una imagen es un intervalo, un radio es positivo).
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="analisis-final"></div>
+<a class="back" href="#subject-analisis-final">↑ Volver al índice</a>
+</div>
+</details>
