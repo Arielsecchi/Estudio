@@ -1,0 +1,1227 @@
+<header>
+    <h1>Álgebra Lineal · Guía del Primer Parcial</h1>
+    <div class="sub">FIUBA · Álgebra II (61.08 / 81.02) — Álgebra Lineal (CB002) · Cátedra Palacios · Guía intensiva basada en <b>103 ejercicios de 21 parciales reales</b> (2021–2024) · Teoría, guías de TP y método por tipo de ejercicio</div>
+  </header>
+<nav class="toc" id="toc-fiuba-algebra-lineal">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fal-s1">Estrategia · El esqueleto del parcial y qué cae</a></li>
+    <li><a href="#fal-s2">Herramientas · Sistemas, matrices, rango y determinantes</a></li>
+    <li><a href="#fal-s3">Ej1 · Subespacios: intersección, suma y completar base (79%)</a></li>
+    <li><a href="#fal-s4">Ej1 alt · Coordenadas y cambio de base (21%)</a></li>
+    <li><a href="#fal-s5">Ej2 · Transformaciones lineales: núcleo, imagen y preimagen (95%)</a></li>
+    <li><a href="#fal-s6">Ej3 · Proyecciones y simetrías (84%)</a></li>
+    <li><a href="#fal-s7">Ej4 · Producto interno: distancia, mejor aproximación y áreas (68%)</a></li>
+    <li><a href="#fal-s8">Ej5 · La fibra de la proyección ortogonal (32%)</a></li>
+    <li><a href="#fal-s9">Ej5 · Cuadrados mínimos (53%)</a></li>
+    <li><a href="#fal-s10">Ecuaciones diferenciales (2021–2022)</a></li>
+    <li><a href="#fal-s11">Unidad 4 · Autovalores, diagonalización y DVS (2º parcial)</a></li>
+    <li><a href="#fal-s12">Mix integrador · Reconocer el tipo y plan del día</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-algebra-lineal">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · ESTRATEGIA ============ -->
+<details id="fal-s1">
+<summary><span class="num">1</span> Estrategia · El esqueleto del parcial y qué cae <span class="sec-score" id="ss-fiuba-algebra-lineal-1"></span></summary>
+<div class="content">
+
+<h3>El formato, sin sorpresas</h3>
+<p>El primer parcial de <b>Álgebra II (61.08 / 81.02) — Álgebra Lineal (CB002)</b> es de <b>desarrollo</b>: <b>5 ejercicios</b> en <b>3 horas</b>. No hay opción múltiple, no hay teoría suelta para recitar: cada ejercicio es un problema que hay que resolver y justificar. Eso da <b>36 minutos por ejercicio</b>, que es mucho si reconocés el tipo y muy poco si arrancás a explorar.</p>
+
+<div class="key"><div class="ky-t">De dónde sale esta guía</div>
+De <b>21 parciales reales</b> de la cátedra —17 fechas identificadas entre <b>2021 y 2024</b>, entre primeros parciales, diferidos y recuperatorios— con <b>103 ejercicios</b> clasificados uno por uno. Los enunciados están transcriptos textuales; las resoluciones son el método de la cátedra aplicado paso a paso.
+</div>
+
+<h3>El descubrimiento que te ahorra medio parcial: el examen tiene esqueleto fijo</h3>
+<p>No es un examen que "puede tocar cualquier cosa". <b>La posición del ejercicio te dice el tema</b> con una regularidad altísima. Sobre los 19 parciales con encabezado completo:</p>
+
+<table class="tbl">
+  <tr><th>Posición</th><th>Tema dominante</th><th>Frecuencia</th><th>Alternativa</th></tr>
+  <tr><td><b>Ej 1</b></td><td>Subespacios: intersección, suma, suma directa, completar base</td><td><b>15/19 · 79%</b></td><td>Cambio de base (4/19 · 21%)</td></tr>
+  <tr><td><b>Ej 2</b></td><td>Transformación lineal: núcleo, imagen, preimagen</td><td><b>18/19 · 95%</b></td><td>Proyección (1/19)</td></tr>
+  <tr><td><b>Ej 3</b></td><td>Proyecciones y simetrías (oblicuas / idempotentes / involutivas)</td><td><b>16/19 · 84%</b></td><td>Ec. diferencial (2/19), TL (1/19)</td></tr>
+  <tr><td><b>Ej 4</b></td><td>Producto interno: distancia, mejor aproximación, área</td><td><b>13/19 · 68%</b></td><td>Fibra de la proyección (5/19 · 26%)</td></tr>
+  <tr><td><b>Ej 5</b></td><td>Cuadrados mínimos</td><td><b>10/19 · 53%</b></td><td>Fibra de la proyección (6/19 · 32%), producto interno (3/19)</td></tr>
+</table>
+
+<p>Traducido: <b>si entrás sabiendo resolver cinco tipos de ejercicio, entrás sabiendo resolver el parcial</b>. No son cinco temas amplios: son cinco plantillas con enunciados que se repiten casi palabra por palabra entre fechas, cambiando los números.</p>
+
+<h3>Ranking por tema, sobre los 103 ejercicios</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Tema</th><th>Ejercicios</th><th>Parciales en que aparece</th></tr>
+  <tr><td>B</td><td><b>Transformaciones lineales</b></td><td>20 (19,4%)</td><td>18/19 · 95%</td></tr>
+  <tr><td>C</td><td><b>Producto interno</b> (distancia, mejor aproximación, áreas)</td><td>19 (18,4%)</td><td>15/19 · 79%</td></tr>
+  <tr><td>E</td><td><b>Proyecciones y simetrías</b></td><td>17 (16,5%)</td><td>17/19 · 89%</td></tr>
+  <tr><td>A</td><td><b>Subespacios</b> (intersección, suma, suma directa)</td><td>16 (15,5%)</td><td>15/19 · 79%</td></tr>
+  <tr><td>G</td><td><b>Cuadrados mínimos</b></td><td>12 (11,7%)</td><td>11/19 · 58%</td></tr>
+  <tr><td>D</td><td><b>Fibra de la proyección ortogonal</b></td><td>11 (10,7%)</td><td>11/19 · 58%</td></tr>
+  <tr><td>F</td><td>Coordenadas y cambio de base</td><td>4 (3,9%)</td><td>4/19 · 21%</td></tr>
+  <tr><td>H</td><td>Ecuaciones diferenciales</td><td>4 (3,9%)</td><td>2/19 · 11%</td></tr>
+</table>
+
+<h3>Dos temas se están yendo del parcial: miralo antes de repartir tu tiempo</h3>
+<div class="trap"><div class="tr-t">Cuadrados mínimos cayó a cero en 2024</div>
+La tendencia es nítida en el material: <b>2022 → 5 de 5 parciales</b> lo toman · <b>2023 → 5 de 7</b> · <b>2024 → 0 de 6</b>. En los seis exámenes de 2024 el Ej5 pasó a ser la <b>fibra de la proyección ortogonal</b> (4 de 6) o producto interno (2 de 6).<br><br>
+Ojo con qué conclusión sacás: la muestra <b>llega hasta 2024</b> y no tenemos exámenes posteriores, así que esto describe una tendencia, no una garantía. Cuadrados mínimos es además un tema barato de sostener (son tres fórmulas). <b>Estudialo igual, pero primero asegurate la fibra de la proyección</b>, que es lo que efectivamente ocupó su lugar.
+</div>
+
+<div class="trap"><div class="tr-t">Ecuaciones diferenciales: aparece en 2021–2022 y desaparece</div>
+Los 4 ejercicios de ecuaciones diferenciales del material están en exámenes de <b>2021 y 2022</b> (y en dos hojas sin encabezado). <b>No aparecen en ninguno de los 13 exámenes de 2023 y 2024.</b> Tiene sección propia en esta guía (la 10) porque los enunciados reales existen, pero tratala como repaso de bajo costo, no como columna del parcial. Confirmá contra el programa vigente de tu curso antes de invertirle horas.
+</div>
+
+<h3>Lo que sí es columna: el producto interno atraviesa todo</h3>
+<p>Sumá los tipos C + D + G: <b>42 de 103 ejercicios (41%)</b> son producto interno en alguna forma —distancia a un subespacio, proyección ortogonal, mejor aproximación, cuadrados mínimos—. Y el tipo E (proyecciones y simetrías) usa las mismas ideas con suma directa oblicua. <b>Si algo tenés que dominar hasta el automatismo, es proyectar.</b></p>
+
+<h3>La hoja que escribís apenas te dan el enunciado</h3>
+<div class="formula">
+  <b>Dimensiones y rango</b><br>
+  dim Nu(T) + dim Im(T) = dim V &nbsp;(teorema de la dimensión)<br>
+  dim(S₁ + S₂) = dim S₁ + dim S₂ − dim(S₁ ∩ S₂) &nbsp;(Grassmann)<br>
+  S₁ ⊕ S₂ ⟺ S₁ + S₂ y S₁ ∩ S₂ = {0} &nbsp;·&nbsp; rg(A) + dim Nul(A) = n
+</div>
+<div class="formula">
+  <b>Matriz asociada y cambio de base</b><br>
+  [T(v)]<sub>C</sub> = [T]<sub>B</sub><sup>C</sup> · [v]<sub>B</sub> &nbsp; (B: base del <b>dominio</b>, C: del <b>codominio</b>)<br>
+  [v]<sub>B₂</sub> = M<sub>B₁</sub><sup>B₂</sup> · [v]<sub>B₁</sub> &nbsp;·&nbsp; (M<sub>B₁</sub><sup>B₂</sup>)<sup>−1</sup> = M<sub>B₂</sub><sup>B₁</sup>
+</div>
+<div class="formula">
+  <b>Producto interno</b><br>
+  ⟨x, y⟩ = y<sup>T</sup>A x &nbsp;(A simétrica definida positiva) &nbsp;·&nbsp; ‖v‖ = √⟨v, v⟩<br>
+  P<sub>S</sub>(v) = Σ<sub>i</sub> (⟨v, u<sub>i</sub>⟩ / ⟨u<sub>i</sub>, u<sub>i</sub>⟩) u<sub>i</sub> &nbsp;(con {u<sub>i</sub>} base <b>ortogonal</b> de S)<br>
+  d(v, S) = ‖v − P<sub>S</sub>(v)‖ = ‖P<sub>S<sup>⊥</sup></sub>(v)‖ &nbsp;·&nbsp; ‖v‖² = ‖P<sub>S</sub>(v)‖² + ‖P<sub>S<sup>⊥</sup></sub>(v)‖² (Pitágoras)
+</div>
+<div class="formula">
+  <b>Gram-Schmidt</b> (de una base cualquiera a una ortogonal)<br>
+  w₁ = v₁ &nbsp;·&nbsp; w<sub>k</sub> = v<sub>k</sub> − Σ<sub>i&lt;k</sub> (⟨v<sub>k</sub>, w<sub>i</sub>⟩ / ⟨w<sub>i</sub>, w<sub>i</sub>⟩) w<sub>i</sub><br>
+  Ortonormal: u<sub>i</sub> = w<sub>i</sub> / ‖w<sub>i</sub>‖
+</div>
+<div class="formula">
+  <b>Cuadrados mínimos</b><br>
+  Ecuación normal: A<sup>T</sup>A x̂ = A<sup>T</sup>b &nbsp;·&nbsp; siempre compatible<br>
+  Columnas de A independientes: x̂ = (A<sup>T</sup>A)<sup>−1</sup>A<sup>T</sup>b &nbsp; (única)<br>
+  Columnas dependientes: soluciones = x̂<sub>p</sub> + Nul(A); la de <b>norma mínima</b> es la que cae en Fil(A)<br>
+  Error: E = ‖b − A x̂‖ &nbsp;·&nbsp; A x̂ = P<sub>Col(A)</sub>(b)
+</div>
+
+<h3>Reconocer el tipo en 10 segundos</h3>
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Es tipo…</th><th>Primera acción</th></tr>
+  <tr><td>"S₁ ∩ S₂", "S₁ + S₂", "⊕", "una base de V que contenga…"</td><td><b>A</b> — Subespacios</td><td>Pasar todo a ecuaciones o todo a generadores</td></tr>
+  <tr><td>"la matriz de cambio de coordenadas de B₁ en B₂"</td><td><b>F</b> — Cambio de base</td><td>Fijar el sentido: [v]<sub>B₂</sub> = M [v]<sub>B₁</sub></td></tr>
+  <tr><td>"[T]<sub>B</sub><sup>C</sup>", "núcleo", "imagen", "preimagen"</td><td><b>B</b> — Transformación lineal</td><td>Identificar qué base es dominio y cuál codominio</td></tr>
+  <tr><td>"proyección sobre el plano … en la dirección de la recta …", "Π∘Π = Π", "Σ∘Σ = I"</td><td><b>E</b> — Proyección/simetría</td><td>Escribir ℝ³ = plano ⊕ recta y armar la base natural</td></tr>
+  <tr><td>"distancia del vector … al subespacio", "el más cercano", "área del triángulo"</td><td><b>C</b> — Producto interno</td><td>Base ortogonal de S (Gram-Schmidt si hace falta)</td></tr>
+  <tr><td>"todos los x tales que P<sub>S</sub>(x) = v cuya distancia … es k"</td><td><b>D</b> — Fibra de la proyección</td><td>x = v + w con w ∈ S<sup>⊥</sup>; ¿distancia a S o al origen?</td></tr>
+  <tr><td>"por mínimos cuadrados", "ajustar … mediante una recta/parábola", "de norma mínima"</td><td><b>G</b> — Cuadrados mínimos</td><td>Armar A y b, después A<sup>T</sup>A x̂ = A<sup>T</sup>b</td></tr>
+  <tr><td>"y'' + … = …", "y(0) = …, y'(0) = …"</td><td><b>H</b> — Ec. diferencial</td><td>Polinomio característico; chequear resonancia</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El hábito que más puntos salva</div>
+En este parcial <b>casi todo se verifica en 30 segundos</b>: si hallaste una base del núcleo, aplicale T y tiene que dar 0; si hallaste una preimagen, aplicale T y tiene que dar el vector pedido; si proyectaste, restá y comprobá que v − P<sub>S</sub>(v) es ortogonal a S <b>con el producto interno del enunciado</b>. Reservá 15 minutos al final sólo para eso.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · HERRAMIENTAS ============ -->
+<details id="fal-s2">
+<summary><span class="num">2</span> Herramientas · Sistemas, matrices, rango y determinantes <span class="sec-score" id="ss-fiuba-algebra-lineal-2"></span></summary>
+<div class="content">
+
+<p>Esta sección no es un tema del parcial: es <b>la máquina con la que se resuelven los otros cinco</b>. Intersección de subespacios, núcleo de una TL, preimagen, complemento ortogonal, ecuación normal de cuadrados mínimos: todos terminan en <b>escalonar una matriz</b>. Si escalonás lento o con errores, no importa cuánta teoría sepas.</p>
+
+<h3>La habilidad que decide el parcial: cambiar de representación</h3>
+<p>Un subespacio se puede describir de dos formas, y <b>casi todo ejercicio empieza por pasar de una a la otra</b>:</p>
+
+<table class="tbl">
+  <tr><th></th><th>Por ecuaciones (implícita)</th><th>Por generadores (paramétrica)</th></tr>
+  <tr><td>Forma</td><td>S = {x : Ax = 0}</td><td>S = gen{v₁, …, v<sub>k</sub>}</td></tr>
+  <tr><td>Sirve para</td><td><b>Verificar</b> si un vector está en S · <b>intersecar</b> (apilás las ecuaciones)</td><td><b>Generar</b> elementos · calcular <b>dimensión</b> · <b>sumar</b> subespacios</td></tr>
+  <tr><td>dim S</td><td>n − rg(A)</td><td>cantidad de generadores <b>independientes</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Las dos conversiones, en una línea cada una</div>
+<b>Ecuaciones → generadores:</b> resolvés Ax = 0, escribís la solución general con parámetros y los <b>vectores que multiplican a cada parámetro</b> son los generadores.<br><br>
+<b>Generadores → ecuaciones:</b> ponés los generadores como <b>filas</b>, escalonás, y buscás las condiciones sobre x = (x₁,…,x<sub>n</sub>) para que el sistema "x es combinación de los generadores" sea compatible. Equivalente y más rápido: las ecuaciones de S son una base de S<sup>⊥</sup> (con el producto interno canónico) puesta como coeficientes.
+</div>
+
+<div class="trap"><div class="tr-t">Para intersecar, las dos en ecuaciones. Para sumar, las dos en generadores.</div>
+<b>S₁ ∩ S₂</b>: pasá ambos a <b>ecuaciones</b> y apilá todos los sistemas en uno solo. Intentar intersecar generadores contra generadores obliga a resolver un sistema con dos juegos de parámetros: se puede, pero es el camino largo y donde más se falla.<br>
+<b>S₁ + S₂</b>: pasá ambos a <b>generadores</b>, juntá todos y quedate con los independientes (escalonás y contás pivotes).
+</div>
+
+<h3>Gauss, escalonada reducida y rango</h3>
+<p>Las tres <b>operaciones elementales por filas</b> (intercambiar dos filas · multiplicar una fila por un escalar ≠ 0 · sumarle a una fila un múltiplo de otra) no cambian el conjunto solución. Aplicándolas llegás a la <b>forma escalonada</b> (Gauss) o, siguiendo, a la <b>escalonada reducida E<sub>A</sub></b> (Gauss-Jordan).</p>
+<div class="formula">
+  <b>rg(A)</b> = cantidad de filas no nulas de E<sub>A</sub> = cantidad de columnas pivotales<br>
+  <b>Variables libres</b> = n − rg(A), con n la cantidad de <b>incógnitas</b> (no de ecuaciones)
+</div>
+<p>La forma escalonada <b>no es única</b>; la escalonada reducida <b>sí</b>. Esa unicidad es la que permite leer en E<sub>A</sub> las relaciones entre columnas: si una columna no básica de E<sub>A</sub> es combinación de las básicas a su izquierda con ciertos coeficientes, <b>las columnas de A cumplen exactamente la misma relación</b>. Es la forma más rápida de extraer una base de un conjunto de generadores <b>quedándote con vectores del conjunto original</b>, que es lo que casi siempre pide el enunciado.</p>
+
+<h3>Rouché-Frobenius, que es cómo se clasifica todo</h3>
+<div class="formula">
+  rg(A) = rg(A|b) = n &nbsp;→&nbsp; <b>SCD</b> (solución única)<br>
+  rg(A) = rg(A|b) &lt; n &nbsp;→&nbsp; <b>SCI</b>, con n − rg(A) variables libres<br>
+  rg(A) &lt; rg(A|b) &nbsp;→&nbsp; <b>SI</b> (incompatible)
+</div>
+<p>Un sistema <b>homogéneo</b> nunca es incompatible: x = 0 siempre es solución, así que es SCD (sólo la trivial) o SCI. Y si tiene más incógnitas que ecuaciones, es SCI seguro.</p>
+
+<h3>Inversa y determinante: lo que se usa acá</h3>
+<div class="formula">
+  <b>Caracterización:</b> A ∈ ℝ<sup>n×n</sup> es inversible ⟺ rg(A) = n ⟺ det(A) ≠ 0 ⟺ Ax = b tiene solución única para todo b<br>
+  <b>Método (A|I):</b> escalonás hasta que a la izquierda quede I; a la derecha queda A<sup>−1</sup><br>
+  <b>Propiedades:</b> (AB)<sup>−1</sup> = B<sup>−1</sup>A<sup>−1</sup> &nbsp;·&nbsp; (AB)<sup>T</sup> = B<sup>T</sup>A<sup>T</sup> &nbsp;·&nbsp; det(A<sup>T</sup>) = det(A) &nbsp;·&nbsp; det(αA) = α<sup>n</sup>·det(A)
+</div>
+
+<h3>Los errores que más caro salen acá</h3>
+<div class="trap"><div class="tr-t">Cancelar matrices como si fueran números</div>
+De AB = AC <b>no</b> se deduce B = C, y de AB = 0 <b>no</b> se deduce A = 0 ni B = 0. Sólo podés cancelar A si es <b>inversible</b>, y multiplicando siempre del <b>mismo lado</b> en los dos miembros.
+</div>
+<div class="trap"><div class="tr-t">Dar vuelta mal el orden en (AB)<sup>T</sup> y (AB)<sup>−1</sup></div>
+Son B<sup>T</sup>A<sup>T</sup> y B<sup>−1</sup>A<sup>−1</sup>, no A<sup>T</sup>B<sup>T</sup>. Control rápido: si A es m×n y B es n×r, B<sup>T</sup>A<sup>T</sup> es r×m, que es el tamaño correcto de (AB)<sup>T</sup>. Con A<sup>T</sup>B<sup>T</sup> ni siquiera cierran los tamaños.
+</div>
+<div class="trap"><div class="tr-t">det(αA) = α·det(A)</div>
+Es <b>α<sup>n</sup>·det(A)</b>, con n el orden de la matriz: multiplicás las n filas. Si A es 3×3 con det(A) = 4, entonces det(5A) = 125·4 = 500, no 20. Y det(A + B) ≠ det(A) + det(B): ante sumas, sacá factor común matricial primero.
+</div>
+<div class="trap"><div class="tr-t">Operar por columnas al resolver un sistema</div>
+Intercambiar o combinar <b>columnas</b> mezcla las incógnitas y cambia el conjunto solución. Para resolver sistemas, sólo operaciones por <b>filas</b>. (En determinantes sí valen las dos, porque det(A) = det(A<sup>T</sup>).)
+</div>
+<div class="trap"><div class="tr-t">Dividir por un parámetro sin abrir casos</div>
+Si escalonás un sistema con parámetro k y hacés F₂ ← F₂/k, estás perdiendo el caso k = 0, que suele ser justamente el caso interesante (SCI o SI). Cada vez que vayas a dividir por algo con parámetro, frená y abrí las dos ramas.
+</div>
+<div class="trap"><div class="tr-t">Contar mal las variables libres</div>
+Son <b>n − rg(A)</b> con n la cantidad de <b>incógnitas</b>, no "ecuaciones menos rango" ni la cantidad de filas nulas. Verificación: contá que tu respuesta final tenga exactamente esa cantidad de parámetros.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · SUBESPACIOS ============ -->
+<details id="fal-s3">
+<summary><span class="num">3</span> Ej1 · Subespacios: intersección, suma y completar base (79%) <span class="sec-score" id="ss-fiuba-algebra-lineal-3"></span></summary>
+<div class="content">
+
+<p>Es el <b>Ej 1</b> en 15 de 19 parciales. Te dan dos (a veces tres) subespacios y te piden construir <b>una base con propiedades</b>. Aparece en ℝ<sup>n</sup>, en ℝ<sub>n</sub>[x] y en ℝ<sup>2×2</sup>, y las consignas se repiten casi palabra por palabra entre fechas.</p>
+
+<h3>Las tres formas del enunciado</h3>
+<table class="tbl">
+  <tr><th>Forma</th><th>Cómo suena</th></tr>
+  <tr><td><b>(a) Completar base</b></td><td>"Hallar una base de V que contenga una base de S₁ ∩ S₂, una base de S₁ y una base de S₂" (o de S₁ + S₂)</td></tr>
+  <tr><td><b>(b) Complemento</b></td><td>"Hallar un subespacio T tal que (S₁ ∩ S₂) ⊕ T = V"</td></tr>
+  <tr><td><b>(c) Complemento simultáneo</b></td><td>"Construir T tal que S₁ ⊕ T = S₂ ⊕ T = W. ¿Es único? Si la respuesta es negativa, construir otro"</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El teorema que hace funcionar la forma (a) — y el orden es obligatorio</div>
+<b>1.</b> Base B₀ de S₁ ∩ S₂.<br>
+<b>2.</b> Extendé B₀ a una base de S₁: queda B₀ ∪ B₁.<br>
+<b>3.</b> Extendé <b>la misma B₀</b> a una base de S₂: queda B₀ ∪ B₂.<br>
+<b>4.</b> Entonces <b>B₀ ∪ B₁ ∪ B₂ es base de S₁ + S₂</b> (y en particular es LI).<br>
+<b>5.</b> Recién ahí completás a una base de V.<br><br>
+Empezar por cualquier otro lado no funciona: una base cualquiera de V casi nunca tiene vectores dentro de S₁ ni de S₂. <b>La pertenencia hay que forzarla desde el principio.</b>
+</div>
+
+<div class="trap"><div class="tr-t">Por qué unir una base de S₁ con una de S₂ no alcanza</div>
+Elegidas <b>por separado</b>, las dos bases aportan d₁ + d₂ vectores distintos, pero generan S₁ + S₂, que por Grassmann tiene dimensión d₁ + d₂ − dim(S₁ ∩ S₂). Ese exceso <b>es</b> la dependencia lineal: si la intersección no es nula, el conjunto es LD.<br><br>
+La única forma de que la unión sirva es que las dos bases <b>compartan una base de S₁ ∩ S₂</b> — que es exactamente el método de arriba.
+</div>
+
+<h3>La habilidad que decide el ejercicio: cambiar de representación</h3>
+<div class="formula">
+  <b>Para INTERSECAR:</b> las dos en <b>ecuaciones</b> → apilás todos los sistemas en uno solo.<br>
+  <b>Para SUMAR:</b> las dos en <b>generadores</b> → juntás todos y te quedás con los independientes.
+</div>
+<p>Las conversiones: de <b>ecuaciones a generadores</b>, resolvés el sistema homogéneo y los vectores que multiplican a cada parámetro son los generadores. De <b>generadores a ecuaciones</b>, ponés los generadores como filas, escalonás, e imponés la condición de compatibilidad sobre x.</p>
+<div class="key"><div class="ky-t">En ℝ<sub>n</sub>[x] y ℝ<sup>2×2</sup>: pasá a coordenadas y no vuelvas hasta el final</div>
+Fijá una base de referencia (E = {1, x, x², x³} o la canónica de matrices), <b>declará el orden</b> en el margen, traducí todo a vectores de ℝ<sup>n</sup>, resolvé como siempre, y recién al final reconstruí los polinomios o matrices.<br><br>
+<b>Ojo con la dimensión del ambiente:</b> dim ℝ₃[x] = <b>4</b>, no 3 — el subíndice es el grado máximo y hay que contar el término independiente. Y dim ℝ<sup>2×2</sup> = 4, pero el subespacio de las <b>simétricas</b> tiene dimensión 3.
+</div>
+
+<div class="key"><div class="ky-t">Atajo de raíces para los subespacios de polinomios</div>
+Si S = {p ∈ ℝ₃[x] : p(1) = p(2) = 0}, entonces p ∈ S ⟺ <b>(x−1)(x−2) divide a p</b>, o sea p = (x−1)(x−2)·q con q de grado ≤ 1.<br><br>
+Base inmediata: <b>{(x−1)(x−2), &nbsp;x(x−1)(x−2)}</b>, y <b>dim S = 2</b>. Sin resolver ningún sistema.<br>
+(Error frecuente: quedarse sólo con (x−1)(x−2) y decir dim S = 1, olvidando los múltiplos de grado 3.)
+</div>
+
+<h3>Formas (b) y (c): complementos</h3>
+<div class="formula">
+  De S ⊕ T = V sale <b>dim T = dim V − dim S</b>, sin excepción.<br><br>
+  Para justificar que S ⊕ T = V alcanza con verificar <b>las cuatro cosas</b>:<br>
+  · S ⊆ V &nbsp;·&nbsp; T ⊆ V &nbsp;·&nbsp; <b>S ∩ T = {0}</b> &nbsp;·&nbsp; <b>dim S + dim T = dim V</b>
+</div>
+<div class="trap"><div class="tr-t">El complemento NUNCA es único (y el enunciado te lo pregunta)</div>
+Cuando 0 &lt; dim T &lt; dim V hay <b>infinitos</b> complementos. Por eso varios enunciados agregan "¿Es único? Si la respuesta es negativa, construir otro" — es parte de la nota.<br><br>
+En un parcial real con S₁ ∩ S₂ = gen{e₁, e₃} dentro de ℝ⁴, sirven tanto <b>gen{e₂, e₄}</b> como <b>gen{e₁+e₂, e₃+e₄}</b>. La receta segura para fabricar un segundo complemento: sumarle a cada generador de T un vector de S, que no cambia la suma directa.<br><br>
+Sólo son únicos los casos triviales T = {0} y T = V.
+</div>
+
+<div class="trap"><div class="tr-t">Verificar T ∩ S = {0} mirando sólo los generadores es INSUFICIENTE</div>
+Comprobar que u ∉ S y que v ∉ S <b>no</b> prueba que gen{u,v} ∩ S = {0}: una combinación puede caer adentro aunque ningún generador esté.<br><br>
+Contraejemplo de un parcial real (13/VII/22): e₁ ∉ S₂ y e₂ ∉ S₂, pero <b>e₁ + e₂ ∈ S₂</b>. Con T = gen{e₁, e₂} pasa que S₁ ⊕ T = ℝ⁴ pero S₂ ∩ T tiene dimensión 1, así que ese T <b>no sirve</b> para la forma (c).<br><br>
+<b>La verificación correcta:</b> imponé las ecuaciones de S al vector <b>genérico</b> αu + βv y comprobá que el sistema homogéneo en (α, β) sólo tiene la solución nula.
+</div>
+
+<h3>Forma (c): la condición necesaria que hay que chequear primero</h3>
+<div class="formula">
+  De S₁ ⊕ T = W y S₂ ⊕ T = W sale dim T = dim W − dim S₁ = dim W − dim S₂, o sea<br>
+  <b>dim S₁ = dim S₂</b> &nbsp;(obligatorio), y además <b>S₁ ⊆ W y S₂ ⊆ W</b>.
+</div>
+<p>Lo que <b>no</b> hace falta: que S₁ ∩ S₂ = {0} (hay parciales reales donde la intersección tiene dimensión 1 y el T existe igual), ni que S₁ + S₂ = W (en un parcial W = ℝ⁴ mientras que S₁ + S₂ tiene dimensión 3).</p>
+
+<div class="example">
+  <div class="ex-t">Forma (a) en polinomios · p12e1 · Primer recuperatorio 10/VI/23 (real)</div>
+  <b>Enunciado:</b> En ℝ₃[x] se consideran los subespacios S₁ = {p ∈ ℝ₃[x] : p(0) = p(1) = 0} y S₂ = {p ∈ ℝ₃[x] : p(1) = p(2) = 0}. Hallar una base de ℝ₃[x] que contenga a una base de S₁ ∩ S₂ y a una base de S₁ + S₂.<br><br>
+  <b>1.</b> Ambiente: dim ℝ₃[x] = <b>4</b> (base 1, x, x², x³). No 3.<br>
+  <b>2.</b> Atajo de raíces: p ∈ S₁ ⟺ x(x−1) divide a p ⟺ p = x(x−1)·q con q de grado ≤ 1 → <b>S₁ = gen{x(x−1), x²(x−1)}</b>, dim 2. Igual, <b>S₂ = gen{(x−1)(x−2), x(x−1)(x−2)}</b>, dim 2.<br>
+  <b>3.</b> <b>La intersección sale sola:</b> p ∈ S₁ ∩ S₂ ⟺ p(0) = p(1) = p(2) = 0 ⟺ x(x−1)(x−2) divide a p. Con grado ≤ 3, eso deja p = c·x(x−1)(x−2) → <b>B₀ = {x(x−1)(x−2)}</b>, dim 1.<br>
+  <b>4.</b> Grassmann: dim(S₁ + S₂) = 2 + 2 − 1 = <b>3</b>. Y como todo elemento de S₁ + S₂ se anula en 1, y {p : p(1) = 0} tiene dimensión 3, resulta <b>S₁ + S₂ = {p ∈ ℝ₃[x] : p(1) = 0}</b>.<br>
+  <b>5.</b> Extiendo B₀ dentro de S₁: agrego x(x−1) → base de S₁ = {x(x−1)(x−2), x(x−1)}. Extiendo <b>la misma</b> B₀ dentro de S₂: agrego (x−1)(x−2) → base de S₂ = {x(x−1)(x−2), (x−1)(x−2)}.<br>
+  <b>6.</b> Los tres juntos son base de S₁ + S₂ (son 3 = dim ✔). Completo a ℝ₃[x] con cualquier polinomio que <b>no</b> se anule en 1: el más cómodo es <b>1</b>.<br>
+  <b>Resultado:</b> base de ℝ₃[x] = <b>{ x(x−1)(x−2), &nbsp;x(x−1), &nbsp;(x−1)(x−2), &nbsp;1 }</b>, donde el primero es base de S₁ ∩ S₂ y los tres primeros son base de S₁ + S₂.<br>
+  <b>Dónde se cae la gente:</b> usar dim ℝ₃[x] = 3 y que no cierre nada; o quedarse con S₁ = gen{x(x−1)} olvidando el múltiplo de grado 3; o extender S₁ y S₂ desde <b>bases distintas</b> de la intersección, con lo que el conjunto final queda linealmente dependiente.
+</div>
+
+<div class="example">
+  <div class="ex-t">Forma (b): complemento · p3e1 · Primer parcial (R) 10/VII/24 (real)</div>
+  <b>Enunciado:</b> En ℝ⁴ se consideran los subespacios S₁ = {x ∈ ℝ⁴ : x₂ + x₄ = 0} y S₂ = gen{[1 0 1 0]<sup>T</sup>, [0 0 2 1]<sup>T</sup>, [2 0 0 3]<sup>T</sup>}. Hallar un subespacio T ⊂ ℝ⁴ tal que (S₁ ∩ S₂) ⊕ T = ℝ⁴.<br><br>
+  <b>1.</b> S₁ viene por ecuación: dim S₁ = 4 − 1 = 3.<br>
+  <b>2.</b> S₂ viene por generadores. Los tres tienen <b>segunda coordenada 0</b>, y son de rango 3, así que <b>S₂ = {x ∈ ℝ⁴ : x₂ = 0}</b>, dim 3. Pasarlo a ecuación es lo que hace fácil el resto.<br>
+  <b>3.</b> Ahora las dos están en ecuaciones, así que <b>intersecar es apilar</b>: {x₂ + x₄ = 0, x₂ = 0} ⟹ x₂ = 0 y x₄ = 0.<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<b>S₁ ∩ S₂ = gen{e₁, e₃}</b>, de dimensión 2.<br>
+  <b>4.</b> dim T = 4 − 2 = <b>2</b>. Elijo T completando: <b>T = gen{e₂, e₄}</b>.<br>
+  <b>5.</b> Verifico las cuatro condiciones: T ⊆ ℝ⁴ ✔; (S₁∩S₂) ∩ T = {0} porque un vector de T genérico es (0, α, 0, β) y estar en S₁∩S₂ exige α = β = 0 ✔; y 2 + 2 = 4 ✔.<br>
+  <b>Resultado:</b> <b>T = gen{e₂, e₄}</b>. &nbsp;<b>No es único:</b> también sirve gen{e₁ + e₂, e₃ + e₄}, y en general sumarle a cada generador de T un vector de S₁ ∩ S₂ da otro complemento válido.<br>
+  <b>Dónde se cae la gente:</b> intentar intersecar los generadores de S₂ contra la ecuación de S₁ sin pasar S₂ a ecuación — se puede, pero es el camino largo. Y no notar que los tres generadores de S₂ describen simplemente {x₂ = 0}.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Equivocar la dimensión del ambiente</div>
+dim ℝ₃[x] = <b>4</b> (base 1, x, x², x³), no 3. dim ℝ<sup>2×2</sup> = 4, pero las simétricas son 3. Si arrancás con el ambiente mal, todas las cuentas de dimensión salen mal y ni siquiera te das cuenta.
+</div>
+<div class="trap"><div class="tr-t">Intersecar generadores contra generadores</div>
+Se puede, pero obliga a igualar dos combinaciones con dos juegos de parámetros y es donde más se falla. Pasá los dos a <b>ecuaciones</b> y apilá.
+</div>
+<div class="trap"><div class="tr-t">Contar ecuaciones en vez de rango</div>
+dim S = n − <b>rg(A)</b>, no "n − cantidad de ecuaciones". Si dos ecuaciones son dependientes, el rango baja y la dimensión sube. Verificá siempre el rango del sistema que define S.
+</div>
+<div class="trap"><div class="tr-t">Extender S₁ y S₂ desde bases distintas de la intersección</div>
+El teorema exige que las dos extensiones partan de <b>la misma</b> B₀. Si calculás una base de S₁ por un lado y una de S₂ por otro, los vectores de la intersección aparecen dos veces escritos de formas distintas y el conjunto final es LD.
+</div>
+<div class="trap"><div class="tr-t">No contestar la pregunta de unicidad</div>
+Cuando el enunciado dice "¿Es único? Si la respuesta es negativa, construir otro", <b>construir otro es parte del ejercicio</b>. Contestar sólo "no es único" deja puntos en la mesa.
+</div>
+<div class="trap"><div class="tr-t">Entregar coordenadas en vez de polinomios o matrices</div>
+Mismo error que en la sección 5: si trabajaste en coordenadas, <b>reconstruí</b> antes de escribir la respuesta final. Si el enunciado habla de ℝ₃[x], la base tiene que estar escrita con x.
+</div>
+
+<div class="key"><div class="ky-t">Chequeo final</div>
+<b>1.</b> Contá dimensiones y verificá <b>Grassmann</b>: dim(S₁ + S₂) = dim S₁ + dim S₂ − dim(S₁ ∩ S₂).<br>
+<b>2.</b> Verificá que cada vector que pusiste en la base de S<sub>i</sub> <b>efectivamente pertenece</b> a S<sub>i</sub> (reemplazá en sus ecuaciones).<br>
+<b>3.</b> Verificá que el conjunto final sea LI: armá la matriz de coordenadas y comprobá que el rango es la cantidad de vectores.<br>
+<b>4.</b> Si construiste un complemento, verificá las cuatro condiciones (inclusiones, intersección trivial con el vector <b>genérico</b>, y suma de dimensiones).
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · CAMBIO DE BASE ============ -->
+<details id="fal-s4">
+<summary><span class="num">4</span> Ej1 alt · Coordenadas y cambio de base (21%) <span class="sec-score" id="ss-fiuba-algebra-lineal-4"></span></summary>
+<div class="content">
+
+<p>Es la alternativa del Ej 1: cuando no cae subespacios, cae esto (4 de 19 parciales). Es un ejercicio corto y muy mecánico, en el que <b>todo el riesgo está en el sentido de la flecha</b>.</p>
+
+<div class="key"><div class="ky-t">La convención, escrita antes de tocar un número</div>
+<b>[v]<sub>B₂</sub> = M<sub>B₁</sub><sup>B₂</sup> · [v]<sub>B₁</sub></b> &nbsp;&nbsp;("matriz de cambio de coordenadas <b>de</b> B₁ <b>en</b> B₂")<br><br>
+Y la lectura por columnas: &nbsp;<b>col<sub>j</sub>(M<sub>B₁</sub><sup>B₂</sup>) = [b<sub>j</sub>]<sub>B₂</sub></b> &nbsp;(la columna j son las coordenadas del j-ésimo vector de B₁ en la base B₂).<br><br>
+Es la <b>misma</b> convención que en [T]<sub>B</sub><sup>C</sup>: subíndice = de dónde viene, superíndice = a dónde va. Y M siempre es inversible, con (M<sub>B₁</sub><sup>B₂</sup>)<sup>−1</sup> = M<sub>B₂</sub><sup>B₁</sup>.
+</div>
+
+<h3>Variante A · Te dan v, piden [v]<sub>B₂</sub></h3>
+<div class="formula">
+  <b>1.</b> Fijá una base de referencia y <b>declará el orden</b>. En ℝ<sup>n</sup> es la canónica; en ℝ₂[x] anotá en el margen "uso E = {1, x, x²}" y no lo muevas más.<br>
+  <b>2.</b> Calculá <b>[v]<sub>B₁</sub></b> planteando v = a·b₁ + b·b₂ + c·b₃ e igualando componente a componente.<br>
+  <b>3.</b> Verificá recombinando: a·b₁ + b·b₂ + c·b₃ tiene que dar v exactamente. Diez segundos.<br>
+  <b>4.</b> Multiplicá: [v]<sub>B₂</sub> = M · [v]<sub>B₁</sub>.<br>
+  <b>5.</b> Entregá el <b>vector de coordenadas</b>, con el nombre puesto: [v]<sub>B₂</sub> = [· · ·]<sup>T</sup>.
+</div>
+<div class="trap"><div class="tr-t">No reconstruyas ningún vector ni polinomio al final</div>
+En esta variante <b>B₂ nunca te la dan</b>. Si estás "armando el polinomio" a partir de [p]<sub>B₂</sub> = [10 13 13]<sup>T</sup> y escribís 10 + 13x + 13x², te inventaste una base: eso serían coordenadas en la canónica, no en B₂. La respuesta <b>es</b> el vector de coordenadas.
+</div>
+
+<h3>Variante B · Te dan M (y B₁), piden B₂</h3>
+<div class="formula">
+  <b>1.</b> Si algún vector de B₁ es incógnita y te dan [p]<sub>B₁</sub> para un p conocido, <b>despejalo primero</b>. Sin B₁ completa no se avanza un renglón.<br>
+  <b>2.</b> Escribí B₂ = {w₁, w₂, w₃} como incógnitas y leé <b>las columnas</b> de M:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<b>b<sub>j</sub> = M<sub>1j</sub>w₁ + M<sub>2j</sub>w₂ + M<sub>3j</sub>w₃</b> &nbsp;para j = 1, 2, 3.<br>
+  <b>3.</b> Resolvé el sistema tratando los w<sub>i</sub> como escalares (sumar y restar ecuaciones es legítimo: todo es lineal).<br>
+  <b>4.</b> Verificá que B₂ sea base: det ≠ 0 de la matriz de coordenadas.
+</div>
+<div class="trap"><div class="tr-t">B₂ es única, aunque el enunciado diga "una base"</div>
+Dados B₁ y M inversible, B₂ queda <b>unívocamente determinada</b>. No la reescales para sacarte las fracciones ni la reordenes para que quede más linda: escalar w<sub>i</sub> por λ divide la fila i de M por λ, y permutar B₂ permuta filas de M. Verificación: reconstruí M al final; si no es idéntica a la del enunciado, tocaste algo que no debías.
+</div>
+
+<div class="key"><div class="ky-t">El chequeo que detecta el error rey de este tipo</div>
+Aplicá tu propia receta al vector <b>b₁, el primer vector de B₁</b>. Como [b₁]<sub>B₁</sub> = [1 0 0]<sup>T</sup>, el resultado tiene que ser <b>exactamente la primera columna de M</b>.<br><br>
+Si te da la primera columna de M<sup>−1</sup>, invertiste el sentido del cambio de base y todo el ejercicio está mal.
+</div>
+
+<div class="example">
+  <div class="ex-t">Variante A · p7e1 · Primer recuperatorio 18/XI/23 (real)</div>
+  <b>Enunciado:</b> Sea B₁ la base de ℝ³ definida por B₁ = {[1 1 1]<sup>T</sup>, [1 1 0]<sup>T</sup>, [1 0 0]<sup>T</sup>}, y sea B₂ la base de ℝ³ tal que la matriz de cambio de coordenadas de la base B₁ en la base B₂ es M<sub>B₁</sub><sup>B₂</sup> = [[3,2,1],[1,3,2],[2,1,3]]. Hallar el vector de coordenadas del vector v = [6 3 1]<sup>T</sup> en base B₂.<br><br>
+  <b>1.</b> Primero <b>[v]<sub>B₁</sub></b>, que es el paso que la gente saltea. Planteo [6 3 1]<sup>T</sup> = a[1 1 1]<sup>T</sup> + b[1 1 0]<sup>T</sup> + c[1 0 0]<sup>T</sup>. La base es escalonada, así que sale por sustitución directa: tercera coordenada a = 1; segunda a + b = 3 → b = 2; primera a + b + c = 6 → c = 3.<br>
+  <b>2.</b> Verifico recombinando: 1·[1 1 1] + 2·[1 1 0] + 3·[1 0 0] = [1+2+3, 1+2, 1] = [6 3 1] ✔.<br>
+  <b>3.</b> Multiplico: [v]<sub>B₂</sub> = M·[1 2 3]<sup>T</sup> = [3+4+3, 1+6+6, 2+2+9]<sup>T</sup> = <b>[10 13 13]<sup>T</sup></b>.<br>
+  <b>Resultado:</b> [v]<sub>B₂</sub> = <b>[10 13 13]<sup>T</sup></b>.<br>
+  <b>Dónde se cae la gente:</b> hace M·v directo con el vector crudo y obtiene [25 17 18]<sup>T</sup>. Es un número limpio que <b>no dispara ninguna alarma</b>, y el ejercicio vale cero. El objeto que se multiplica tiene que llevar el sello [·]<sub>B₁</sub>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Variante A en polinomios · p10e1 · Segundo recuperatorio 5/VII/23 (real)</div>
+  <b>Enunciado:</b> Sea B₁ la base de ℝ₂[x] definida por B₁ = {x², x² + x, x² + x + 1} y sea B₂ la base tal que M<sub>B₁</sub><sup>B₂</sup> = [[3,2,1],[1,3,2],[2,1,3]]. Hallar el vector de coordenadas de p = x² + 3x + 6 en base B₂.<br><br>
+  <b>1.</b> Declaro el orden: <b>E = {1, x, x²}</b>, así que p ↔ (6, 3, 1) y B₁ ↔ {(0,0,1), (0,1,1), (1,1,1)}.<br>
+  <b>2.</b> [p]<sub>B₁</sub>: planteo p = a·x² + b·(x²+x) + c·(x²+x+1). Coeficiente de 1: c = 6. De x: b + c = 3 → b = −3. De x²: a + b + c = 1 → a = −2. Entonces [p]<sub>B₁</sub> = [−2, −3, 6]<sup>T</sup>.<br>
+  <b>3.</b> Multiplico: M·[−2 −3 6]<sup>T</sup> = [−6−6+6, −2−9+12, −4−3+18]<sup>T</sup> = <b>[−6 1 11]<sup>T</sup></b>.<br>
+  <b>Resultado:</b> [p]<sub>B₂</sub> = <b>[−6 1 11]<sup>T</sup></b>.<br>
+  <b>Dónde se cae la gente:</b> no declara el orden y usa (1,3,6) en un paso y (6,3,1) en otro. Los dos órdenes mal mezclados dan [15 22 23]<sup>T</sup> y [25 17 18]<sup>T</sup>, ambos incorrectos. Anotá "uso E = {1, x, x²}" en el margen y no lo muevas en toda la hoja.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Invertir el sentido del cambio de base</div>
+Leer "de la base B₁ en la base B₂" como "de B₂ hacia B₁" y usar M<sup>−1</sup>. El resultado es un vector de coordenadas perfectamente válido… de otro problema. Usá el test del vector de prueba (arriba).
+</div>
+<div class="trap"><div class="tr-t">Leer filas de M al despejar B₂</div>
+La regla es por <b>columnas</b>: b<sub>j</sub> = Σ<sub>i</sub> M<sub>ij</sub>w<sub>i</sub>. Leer por filas da un sistema parecido, con los mismos números, y una base final incorrecta que <b>encima suele ser base</b> — así que el det ≠ 0 no lo detecta. El chequeo que sí lo detecta: expresá los b<sub>j</sub> en la B₂ que hallaste y verificá que vuelvan las columnas originales de M.
+</div>
+<div class="trap"><div class="tr-t">Arrancar sin completar la base incógnita</div>
+Si B₁ tiene un vector incógnita y el enunciado te regala un [p]<sub>B₁</sub>, es porque lo vas a necesitar: despejalo <b>primero</b>. Si no, terminás con una "base" que depende de un parámetro y no podés verificar nada.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · TRANSFORMACIONES LINEALES ============ -->
+<details id="fal-s5">
+<summary><span class="num">5</span> Ej2 · Transformaciones lineales: núcleo, imagen y preimagen (95%) <span class="sec-score" id="ss-fiuba-algebra-lineal-5"></span></summary>
+<div class="content">
+
+<p>Es el <b>Ej 2</b> en 18 de 19 parciales: el ejercicio más seguro de todo el examen. Te dan una TL <b>definida únicamente por su matriz asociada entre dos bases</b> —nunca por una fórmula— y te piden un objeto: núcleo, imagen de algo, o preimagen de algo.</p>
+
+<div class="key"><div class="ky-t">La notación de la cátedra, sin ambigüedad (esto ES el ejercicio)</div>
+En los 20 casos, sin una sola excepción:<br><br>
+<b>subíndice = base del DOMINIO &nbsp;·&nbsp; superíndice = base del CODOMINIO</b><br><br>
+y vale &nbsp; <b>[T]<sub>B</sub><sup>C</sup> · [v]<sub>B</sub> = [T(v)]<sub>C</sub></b><br><br>
+Es la misma convención que en M<sub>B₁</sub><sup>B₂</sup> de los ejercicios de cambio de base (sección 4).
+</div>
+
+<h3>El diagrama. Memorizá esto y el resto sale solo</h3>
+<div class="formula">
+  v ∈ V &nbsp;──(1) coordenadas en B──▶&nbsp; [v]<sub>B</sub> ∈ ℝ<sup>n</sup><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) × A &nbsp;con A = [T]<sub>B</sub><sup>C</sup><br>
+  T(v) ∈ W &nbsp;◀──(3) combinar con C──&nbsp; [T(v)]<sub>C</sub> ∈ ℝ<sup>m</sup>
+</div>
+<p>La matriz <b>come coordenadas en B y escupe coordenadas en C</b>. Nunca come vectores y nunca escupe vectores. Los pasos (1) y (3) son exactamente los que la gente saltea.</p>
+
+<h3>Paso 0 · 30 segundos que evitan el 80% de los ceros</h3>
+<div class="formula">
+  <b>1.</b> Identificá qué espacio es el dominio y cuál el codominio, mirando T : V → W.<br>
+  <b>2.</b> Leé la matriz: subíndice = dominio, superíndice = codominio.<br>
+  <b>3.</b> <b>Chequeo estructural, independiente de la convención:</b> la matriz tiene tantas <b>columnas</b> como dim(dominio) y tantas <b>filas</b> como dim(codominio). Si tu lectura contradice esto, la que está mal es tu lectura.<br>
+  <b>4.</b> Calculá rg(A) a ojo (buscá filas repetidas o dependientes) → ya sabés dim Im(T) = rg(A) y dim Nu(T) = n − rg(A), o sea <b>qué dimensión tiene que tener tu respuesta</b>.
+</div>
+
+<div class="key"><div class="ky-t">El patrón silencioso más útil: la matriz SIEMPRE tiene rango deficiente</div>
+En los 20 casos. Las 3×3 tienen rango 2, la 3×4 tiene rango 2, la 4×4 tiene rango 3.<br><br>
+<b>Consecuencia práctica: la respuesta nunca es un punto solo.</b> Si te da un único vector, te equivocaste — siempre hay un "+ gen{…}" colgando, o la imagen que pedís colapsa de dimensión. La cátedra pone filas dependientes evidentes (una matriz tiene la fila 1 igual a la fila 3; otra es la clásica [[1,2,3],[4,5,6],[7,8,9]]).
+</div>
+
+<h3>Las cinco variantes y su frecuencia</h3>
+<table class="tbl">
+  <tr><th>Variante</th><th>Frecuencia</th></tr>
+  <tr><td><b>Preimagen de un vector</b> ("preimagen de v", "conjunto solución de T(x) = b", "todos los p tales que T(p) = w", "T<sup>−1</sup>(w)")</td><td><b>10/20</b></td></tr>
+  <tr><td><b>Preimagen de un subespacio</b></td><td><b>5/20</b></td></tr>
+  <tr><td>Núcleo</td><td>2/20 (los dos en 2024)</td></tr>
+  <tr><td>Imagen de un subespacio</td><td>2/20 (los dos en 2024)</td></tr>
+  <tr><td>Imagen de una figura (triángulo)</td><td>1/20</td></tr>
+</table>
+<p>Los espacios se reparten: sólo ℝ<sup>n</sup> → ℝ<sup>m</sup> en 7 casos, con ℝ<sub>n</sub>[x] de un lado en 8, y con V = {A ∈ ℝ<sup>2×2</sup> : A<sup>T</sup> = A} (simétricas) en 5. En <b>9 de 20 las dos bases son no canónicas</b> y hay que convertir en las dos puntas.</p>
+
+<h3>Método por variante</h3>
+<p><b>Núcleo:</b> resolvés A z = 0. Lo que obtenés son <b>coordenadas en B</b>: traducí cada solución a un elemento del dominio combinando con B. La base del codominio <b>no se usa nunca</b> acá (el 0 tiene coordenadas 0 en cualquier base).</p>
+<p><b>Imagen de un subespacio:</b> para cada generador s<sub>i</sub>, calculás [s<sub>i</sub>]<sub>B</sub>, multiplicás por A, y reconstruís con C. Después <b>depurá</b>: si algún T(s<sub>i</sub>) da 0 o quedan proporcionales, la dimensión baja — y hay que decirlo.</p>
+<p><b>Preimagen de un vector w:</b> calculás [w]<sub>C</sub>, resolvés el sistema <b>no homogéneo</b> A z = [w]<sub>C</sub>, y traducís. La respuesta es <b>v<sub>p</sub> + Nu(T)</b>, que <b>no es un subespacio</b> si w ≠ 0 (no contiene al 0).</p>
+
+<div class="trap"><div class="tr-t">Preimagen de un SUBESPACIO: la variante que más se equivoca</div>
+Si piden T<sup>−1</sup>(gen{w}), <b>no</b> es resolver A z = [w]<sub>C</sub>. Hay que plantear<br><br>
+<b>A z = α·[w]<sub>C</sub> &nbsp;con α parámetro libre</b><br><br>
+o sea un sistema <b>homogéneo</b> en las incógnitas (z₁, …, z<sub>n</sub>, α). La solución general queda como combinación de la dirección del núcleo (α = 0) y la de α = 1.<br><br>
+<b>Control de dimensión:</b> dim T<sup>−1</sup>(S) = dim(S ∩ Im T) + dim Nu(T). Y la respuesta <b>sí</b> es un subespacio: tiene que contener al 0.
+</div>
+
+<div class="example">
+  <div class="ex-t">Núcleo con dominio de polinomios · p3e2 · Primer parcial (R) 10/VII/24 (real)</div>
+  <b>Enunciado:</b> Sea T : ℝ₂[x] → ℝ³ la transformación lineal definida por [T]<sub>B</sub><sup>E</sup> = [[1,2,1],[−2,4,6],[1,3,2]], donde E es la base canónica de ℝ³ y B es la base de ℝ₂[x] definida por B = {x², x + 1, x + 2}. Hallar una base del núcleo de T.<br><br>
+  <b>1.</b> Paso 0: dominio ℝ₂[x] (dim 3) → 3 columnas ✔; codominio ℝ³ (dim 3) → 3 filas ✔.<br>
+  <b>2.</b> Resuelvo A z = 0. Escalonando, el sistema tiene rango 2 y la solución es z = t·(1, −1, 1)<sup>T</sup>.<br>
+  <b>3.</b> <b>Acá está el ejercicio:</b> (1, −1, 1) son <b>coordenadas en B</b>, no un vector. Traduzco:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;1·x² + (−1)·(x + 1) + 1·(x + 2) = x² − x − 1 + x + 2 = <b>x² + 1</b>.<br>
+  <b>Resultado:</b> Nu(T) = gen{x² + 1}; una base es <b>{x² + 1}</b>.<br>
+  <b>Dónde se cae la gente:</b> entrega <b>{(1, −1, 1)}</b>. La cuenta está toda bien y la respuesta está mal: pedían un <b>polinomio</b>. Regla dura: si el enunciado pide un polinomio, la respuesta tiene x; si pide una matriz, la respuesta tiene corchetes 2×2.
+</div>
+
+<div class="example">
+  <div class="ex-t">Preimagen de un subespacio con simétricas · p13e2 · Primer parcial 20/V/23 (real)</div>
+  <b>Enunciado:</b> Sea V = {A ∈ ℝ<sup>2×2</sup> : A<sup>T</sup> = A} y sea T : V → ℝ³ definida por [T]<sub>B</sub><sup>E</sup> = [[1,1,1],[2,0,−2],[2,1,0]], donde E es la canónica de ℝ³ y B = {[[1,0],[0,0]], [[0,1],[1,0]], [[1,1],[1,1]]}. Determinar la preimagen por T del subespacio S = gen{[2 2 3]<sup>T</sup>}.<br><br>
+  <b>1.</b> Es preimagen de un <b>subespacio</b> → sistema con parámetro: A z = α·[2 2 3]<sup>T</sup>, incógnitas (z₁, z₂, z₃, α).<br>
+  <b>2.</b> Resolviendo el homogéneo en 4 incógnitas, la solución queda generada por dos direcciones: una con α = 0 (el núcleo) y otra con α = 1.<br>
+  <b>3.</b> Traduzco cada dirección a una matriz simétrica combinando con B. Ojo con esta base: el tercer elemento [[1,1],[1,1]] aporta a <b>las cuatro</b> entradas.<br>
+  <b>Resultado:</b> T<sup>−1</sup>(S) = gen{ [[2,−1],[−1,1]] , [[−1,2],[2,−1]] }, subespacio de V de <b>dimensión 2</b>.<br>
+  <b>Dónde se cae la gente:</b> resuelve A z = [2 2 3]<sup>T</sup> sin el parámetro α, y obtiene una variedad lineal de dimensión 1 en vez de un subespacio de dimensión 2. <b>Control instantáneo:</b> la preimagen de un subespacio contiene al 0; si tu respuesta no lo contiene, resolviste el ejercicio equivocado.
+</div>
+
+<div class="example">
+  <div class="ex-t">Imagen de un triángulo que degenera · p9e2 · Primer parcial 28/X/23 (real)</div>
+  <b>Enunciado:</b> Sea V = {A ∈ ℝ<sup>2×2</sup> : A<sup>T</sup> = A} y sea T : ℝ³ → V definida por [T]<sub>E</sub><sup>B</sup> = [[1,1,1],[2,0,−2],[2,1,0]], donde E es la canónica de ℝ³ y B = {[[1,0],[0,0]], [[0,1],[1,0]], [[0,0],[0,1]]}. Determinar la imagen por T del triángulo de vértices v₁ = [0 0 0]<sup>T</sup>, v₂ = [1 1 1]<sup>T</sup> y v₃ = [1 −2 1]<sup>T</sup>.<br><br>
+  <b>1.</b> El dominio es canónico → [v<sub>i</sub>]<sub>E</sub> = v<sub>i</sub>, el paso (1) es gratis.<br>
+  <b>2.</b> A·v₁ = 0 → T(v₁) = matriz nula. A·v₂ = (3, 0, 3)<sup>T</sup>. A·v₃ = (0, 0, 0)<sup>T</sup>: <b>v₃ está en el núcleo</b>.<br>
+  <b>3.</b> Reconstruyo con B: las coordenadas (3, 0, 3) dan 3·[[1,0],[0,0]] + 0·[[0,1],[1,0]] + 3·[[0,0],[0,1]] = <b>[[3,0],[0,3]]</b>.<br>
+  <b>4.</b> Dos de los tres vértices van al mismo punto (la matriz nula) → <b>el triángulo degenera en un segmento</b>.<br>
+  <b>Resultado:</b> T(triángulo) = { [[s,0],[0,s]] : <b>0 ≤ s ≤ 3</b> }, el segmento de extremos la matriz nula y [[3,0],[0,3]].<br>
+  <b>Dónde se cae la gente:</b> contesta "el triángulo de vértices…" sin notar la degeneración, y sobre todo <b>se olvida de acotar el parámetro</b>. La imagen de un triángulo es un conjunto <b>acotado</b>: nunca una recta ni un plano entero. Y entregar (3, 0, 3) en vez de la matriz es el mismo error de coordenadas de siempre.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Entregar coordenadas en lugar de vectores</div>
+El error más frecuente del tipo y el más caro: <b>la cuenta está toda bien y la respuesta está mal</b>. Decir {(1,−1,1)} en vez de {x² + 1}, o (3,0,3) en vez de [[3,0],[0,3]]. Regla dura: si piden un polinomio, la respuesta tiene x; si piden una matriz, tiene corchetes 2×2.
+</div>
+<div class="trap"><div class="tr-t">Multiplicar la matriz por el vector crudo cuando el dominio no es canónico</div>
+La matriz come <b>coordenadas</b>. El síntoma es traicionero: el producto <b>se puede hacer</b> y sale un número, así que no hay ninguna alarma — simplemente no significa nada. Antes de multiplicar, preguntate en voz alta: "¿la base del dominio es la canónica? Si no, ¿ya calculé [v]<sub>B</sub>?".
+</div>
+<div class="trap"><div class="tr-t">Olvidar el núcleo en las preimágenes</div>
+Como en los 20 casos la matriz tiene rango deficiente, <b>nunca</b> la preimagen de un vector es un solo punto. Calculá rg(A) <b>antes</b> de resolver: ya sabés de antemano qué dimensión tiene que tener tu respuesta, y si no le colgás el "+ t·n", sabés que te falta algo.
+</div>
+<div class="trap"><div class="tr-t">Declarar "no existe preimagen" por un sistema que armaste mal</div>
+Hay parciales diseñados para eso: sin convertir w a coordenadas de C, el sistema explota (filas repetidas de A contra componentes distintas del lado derecho). Ante una incompatibilidad, <b>re-chequeá primero el cambio de base del codominio</b>. Y si el enunciado dice "hallar todos los p tales que…" o "comprobar que pertenece a la imagen", el conjunto <b>no</b> es vacío.
+</div>
+<div class="trap"><div class="tr-t">Coordenadas mal armadas en el espacio de las simétricas</div>
+Con C = {[[1,0],[0,0]], [[0,1],[1,0]], [[0,0],[0,1]]}, la matriz [[1,2],[2,1]] tiene coordenadas <b>(1, 2, 1)</b>, no (1,2,2,1) ni (1,4,1): el generador [[0,1],[1,0]] cubre las <b>dos</b> posiciones fuera de la diagonal a la vez. Peor con bases tipo {…, [[1,1],[1,1]]}, donde el tercer elemento aporta a las cuatro entradas. Planteá siempre αB₁ + βB₂ + γB₃ = A y comparás entrada por entrada.
+</div>
+<div class="trap"><div class="tr-t">Perder el orden de la base en espacios de polinomios</div>
+B = {1 − x³, x + x², x − 1, x} o B = {x², x + 1, x + 2} <b>no</b> están ordenadas por grado, y z₁ va con el <b>primer</b> elemento listado. Escribí la combinación completa z₁b₁ + z₂b₂ + … con los polinomios copiados del enunciado, y recién después agrupá potencias.
+</div>
+
+<div class="key"><div class="ky-t">Chequeo final: recorré el diagrama de ida, desde cero</div>
+Agarrá <b>un</b> elemento concreto no nulo de tu respuesta y, <b>sin reusar ninguna cuenta anterior</b>: (a) calculá sus coordenadas en la base del <b>dominio</b> resolviendo v = Σz<sub>i</sub>b<sub>i</sub>; (b) multiplicá A·z; (c) armá el vector del codominio combinando con C; (d) comparalo con lo que pedía el enunciado.<br><br>
+Este chequeo detecta el error letal del tipo: haber usado la matriz al revés o haber salteado un cambio de base.
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · PROYECCIONES Y SIMETRÍAS ============ -->
+<details id="fal-s6">
+<summary><span class="num">6</span> Ej3 · Proyecciones y simetrías (84%) <span class="sec-score" id="ss-fiuba-algebra-lineal-6"></span></summary>
+<div class="content">
+
+<p>Es el <b>Ej 3</b> en 16 de los 17 casos, y <b>siempre en ℝ³</b>. Detrás de todas las variantes hay una única estructura: un <b>plano W</b> por el origen y una <b>recta L = gen{d}</b>, con ℝ³ = W ⊕ L. La suma es directa pero <b>no necesariamente ortogonal</b>: por eso se llaman proyección y simetría <b>oblicuas</b>.</p>
+
+<div class="key"><div class="ky-t">Toda la sección en dos matrices</div>
+En la base natural B = {w₁, w₂, d} (dos vectores del plano y el generador de la recta):<br>
+<b>Proyección:</b> [Π]<sub>B</sub> = diag(1, 1, 0) — el plano queda fijo, la recta se aplasta.<br>
+<b>Simetría:</b> [Σ]<sub>B</sub> = diag(1, 1, −1) — el plano queda fijo, la recta se da vuelta.<br><br>
+Cualquier ejercicio de este tipo es <b>leer o reconstruir ese par (W, L)</b>. Nada más.
+</div>
+
+<h3>Las dos familias</h3>
+<table class="tbl">
+  <tr><th>Familia</th><th>Cómo viene el enunciado</th><th>Frecuencia</th></tr>
+  <tr><td><b>A · Geométrica</b></td><td>"la proyección sobre el plano … <b>en la dirección de</b> la recta generada por …"</td><td>10/17</td></tr>
+  <tr><td><b>B · Algebraica</b></td><td>Te dan una matriz A, o la condición <b>Π∘Π = Π</b> / <b>Σ∘Σ = I</b> con dos datos sueltos</td><td>7/17</td></tr>
+</table>
+<p>Dentro de la familia A piden: imagen de un <b>triángulo</b> (5 casos), imagen de un <b>subespacio</b> (4) o <b>preimagen</b> de un subespacio (1). En la familia B: comprobar que A es proyección/simetría y hallar la base que la diagonaliza (3), o reconstruir la TL desde Π∘Π = Π con dos datos (4).</p>
+
+<div class="trap"><div class="tr-t">El detalle que casi nadie mira: la mitad de las veces es ortogonal disfrazada</div>
+En <b>5 de los 10</b> ejercicios geométricos la dirección de la recta <b>coincide con la normal del plano</b> — ahí la proyección es ortogonal. En los otros <b>5 es genuinamente oblicua</b>, y aplicar la fórmula con producto interno ⟨x,n⟩/⟨n,n⟩ da <b>mal</b>.<br><br>
+Solución: <b>usá siempre el método de descomposición</b>, que funciona en los dos casos. Nunca tenés que preguntarte cuál es.
+</div>
+
+<h3>Método · Familia A (te la dan geométricamente)</h3>
+<p>Datos: el plano W = {x ∈ ℝ³ : f(x) = 0} con f(x) = n₁x₁ + n₂x₂ + n₃x₃, y la recta L = gen{d}.</p>
+<div class="formula">
+  <b>1.</b> Verificá la suma directa: <b>f(d) ≠ 0</b> (o sea d ∉ W). Ese número es el denominador de todo lo que sigue.<br>
+  <b>2.</b> Todo x se escribe único como x = w + γd con w ∈ W. Aplicando f: f(x) = γ·f(d), entonces &nbsp;<b>γ = f(x) / f(d)</b><br>
+  <b>3.</b> Proyección: &nbsp; Π(x) = x − (f(x)/f(d))·d<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;Simetría: &nbsp;&nbsp;&nbsp; Σ(x) = x − <b>2</b>·(f(x)/f(d))·d
+</div>
+<p>Después, según lo que pidan:</p>
+<ul>
+  <li><b>Triángulo:</b> transformás los <b>tres vértices</b> y listo. Vale porque una TL manda combinaciones convexas en combinaciones convexas: si p = αv₁ + βv₂ + δv₃ con α+β+δ = 1 y α,β,δ ≥ 0, entonces T(p) es la misma combinación de las imágenes.</li>
+  <li><b>Subespacio U:</b> tomás una <b>base</b> de U, transformás cada vector y U' = gen{imágenes}. <b>Recalculá la dimensión</b>: si las imágenes quedan dependientes, bajó.</li>
+  <li><b>Preimagen de S por Π:</b> con x = w + γd es Π(x) = w, así que &nbsp;<b>Π<sup>−1</sup>(S) = (S ∩ W) ⊕ L</b>. Para una <b>simetría</b>, como Σ<sup>−1</sup> = Σ, la preimagen es directamente Σ(S).</li>
+</ul>
+<div class="key"><div class="ky-t">Chequeo final (familia A)</div>
+Aplicá tu fórmula a <b>d</b> y a un <b>w</b> del plano: tiene que dar Π(d) = 0 y Π(w) = w (proyección), o Σ(d) = −d y Σ(w) = w (simetría). Después, en el caso proyección, <b>reemplazá cada imagen en la ecuación del plano: tiene que dar 0</b>. Si alguna no la anula, calculaste mal γ.
+</div>
+
+<div class="example">
+  <div class="ex-t">Triángulo que degenera en segmento · p2e3 · Primer parcial (R) 31/VII/24 (real)</div>
+  <b>Enunciado:</b> Sea Π la proyección de ℝ³ sobre el plano {x ∈ ℝ³ : x₁ + x₂ − 2x₃ = 0} en la dirección de la recta generada por [1 1 −2]<sup>T</sup>. Determinar la imagen por Π del triángulo de vértices [0 0 0]<sup>T</sup>, [1 1 1]<sup>T</sup> y [2 2 −1]<sup>T</sup>.<br><br>
+  <b>1.</b> f(x) = x₁ + x₂ − 2x₃, d = [1 1 −2]<sup>T</sup>. &nbsp; f(d) = 1 + 1 + 4 = <b>6 ≠ 0</b> ✔ &nbsp;(acá d <i>es</i> la normal, así que resulta ortogonal — el método no cambia).<br>
+  <b>2.</b> Π(x) = x − (f(x)/6)·[1 1 −2]<sup>T</sup>.<br>
+  <b>3.</b> v₁ = [0 0 0]<sup>T</sup> → Π(v₁) = <b>[0 0 0]<sup>T</sup></b> (linealidad).<br>
+  <b>4.</b> v₂ = [1 1 1]<sup>T</sup>: f(v₂) = 1 + 1 − 2 = 0 → v₂ ∈ W → Π(v₂) = <b>[1 1 1]<sup>T</sup></b>.<br>
+  <b>5.</b> v₃ = [2 2 −1]<sup>T</sup>: f(v₃) = 2 + 2 + 2 = 6 → γ = 1 → Π(v₃) = [2 2 −1]<sup>T</sup> − [1 1 −2]<sup>T</sup> = <b>[1 1 1]<sup>T</sup></b>.<br>
+  <b>6.</b> v₂ y v₃ tienen la <b>misma</b> imagen, y no es casualidad: v₃ − v₂ = [1 1 −2]<sup>T</sup> = d ∈ Nu(Π).<br>
+  <b>Resultado:</b> la imagen <b>no es un triángulo</b>: es el <b>segmento de [0 0 0]<sup>T</sup> a [1 1 1]<sup>T</sup></b>, o sea { t·[1 1 1]<sup>T</sup> : 0 ≤ t ≤ 1 }.<br>
+  <b>Dónde se cae la gente:</b> obtiene las dos imágenes iguales y <b>igual escribe</b> "el triángulo de vértices [0 0 0], [1 1 1] y [1 1 1]". Eso no es un triángulo: hay que decir que degeneró en un segmento y justificar por qué.
+</div>
+
+<div class="example">
+  <div class="ex-t">La imagen de un plano que resulta ser una recta · p16e3 · Primer parcial 29/X/22 (real)</div>
+  <b>Enunciado:</b> Sea Π la proyección de ℝ³ sobre el plano {x ∈ ℝ³ : x₃ = 0} en la dirección de la recta generada por [2 −1 2]<sup>T</sup>. Hallar la imagen por Π del subespacio {x ∈ ℝ³ : 2x₁ − 2x₂ − 3x₃ = 0}.<br><br>
+  <b>1.</b> f(x) = x₃, d = [2 −1 2]<sup>T</sup>, f(d) = <b>2 ≠ 0</b> ✔. La normal del plano es [0 0 1]<sup>T</sup> y el director es [2 −1 2]<sup>T</sup>: <b>oblicua de verdad</b>.<br>
+  <b>2.</b> Π(x) = x − (x₃/2)·[2 −1 2]<sup>T</sup> = [x₁ − x₃, &nbsp;x₂ + x₃/2, &nbsp;0]<sup>T</sup>. &nbsp;(La tercera coordenada siempre da 0 ✔.)<br>
+  <b>3.</b> Base de U = {2x₁ − 2x₂ − 3x₃ = 0}: despejando x₁ = x₂ + (3/2)x₃ → u₁ = [1 1 0]<sup>T</sup>, u₂ = [3 0 2]<sup>T</sup>.<br>
+  <b>4.</b> Π(u₁) = [1 1 0]<sup>T</sup> (ya estaba en W) &nbsp;·&nbsp; Π(u₂) = [3 − 2, &nbsp;0 + 1, &nbsp;0]<sup>T</sup> = [1 1 0]<sup>T</sup>.<br>
+  <b>5.</b> Coinciden. Y hay razón: d = [2 −1 2]<sup>T</sup> <b>pertenece a U</b> (4 + 2 − 6 = 0), o sea Nu(Π) ⊂ U, y entonces dim Π(U) = dim U − dim(U ∩ Nu Π) = 2 − 1 = 1.<br>
+  <b>Resultado:</b> Π(U) = gen{[1 1 0]<sup>T</sup>} = {x : x₁ − x₂ = 0, x₃ = 0} — una <b>recta</b>, no un plano.<br>
+  <b>Dónde se cae la gente:</b> da por sentado que "imagen de un plano = plano" y rehace la cuenta tres veces creyendo que se equivocó. Chequeo preventivo de 5 segundos: <b>antes</b> de transformar, fijate si d satisface la ecuación del subespacio.
+</div>
+
+<div class="example">
+  <div class="ex-t">Preimagen (el único de la serie) · p9e3 · Primer parcial 28/X/23 (real)</div>
+  <b>Enunciado:</b> Sea Π la proyección de ℝ³ sobre el plano {x ∈ ℝ³ : x₁ − x₂ + 2x₃ = 0} en la dirección de la recta generada por [1 −1 2]<sup>T</sup>. Hallar la preimagen por Π del subespacio S = gen{[2 0 −1]<sup>T</sup>}.<br><br>
+  <b>1.</b> f(x) = x₁ − x₂ + 2x₃, d = [1 −1 2]<sup>T</sup>, f(d) = 1 + 1 + 4 = <b>6 ≠ 0</b> ✔.<br>
+  <b>2.</b> ¿[2 0 −1]<sup>T</sup> ∈ W? &nbsp; 2 − 0 − 2 = 0 ✔ → <b>S ⊂ W</b>.<br>
+  <b>3.</b> Escribiendo x = w + γd es Π(x) = w, entonces &nbsp; x ∈ Π<sup>−1</sup>(S) ⟺ w ∈ S ⟺ x ∈ S + L.<br>
+  <b>4.</b> Como S ∩ L = {0}, &nbsp;<b>Π<sup>−1</sup>(S) = S ⊕ L = gen{[2 0 −1]<sup>T</sup>, [1 −1 2]<sup>T</sup>}</b>, de dimensión 2.<br>
+  <b>5.</b> En ecuación: [2 0 −1]<sup>T</sup> × [1 −1 2]<sup>T</sup> = (−1, −5, −2) → <b>x₁ + 5x₂ + 2x₃ = 0</b>. Control: 2 + 0 − 2 = 0 ✔ y 1 − 5 + 4 = 0 ✔.<br>
+  <b>Resultado:</b> un <b>plano</b>, no una recta.<br>
+  <b>Dónde se cae la gente:</b> confunde preimagen con imagen y contesta S (que efectivamente cumple Π(S) = S, porque S ⊂ W). La preimagen es <b>más grande</b>: hay que sumarle el núcleo. Regla salvavidas: T<sup>−1</sup>(S) ⊇ Nu(T) <b>siempre</b>, así que la respuesta nunca puede tener dimensión menor que dim Nu.
+</div>
+
+<h3>Método · Familia B (te dan la matriz, o Π∘Π = Π con datos sueltos)</h3>
+<p><b>Si te dan A explícita:</b></p>
+<div class="formula">
+  <b>1.</b> Comprobá multiplicando: proyección ⟺ A² = A &nbsp;·&nbsp; simetría ⟺ A² = I (y A ≠ ±I).<br>
+  <b>2.</b> Autoespacios: proyección → Im = Nu(A − I), Nu = Nu(A). &nbsp; Simetría → E₁ = Nu(A − I), E₋₁ = Nu(A + I).<br>
+  <b>3.</b> Armá B <b>en el orden que dicta la matriz diagonal pedida</b>.
+</div>
+<div class="trap"><div class="tr-t">"Comprobar" no es mirar la matriz: es multiplicarla</div>
+Decir "A es simétrica" o "det(A) = −1" <b>no comprueba nada</b>: una simetría oblicua tiene matriz no simétrica, y hay infinitas matrices de determinante −1 que no son involutivas. Lo único que vale es hacer A·A entrada por entrada y ver que da A o I, y aclarar que A ≠ I, A ≠ −I para descartar los casos triviales.
+</div>
+
+<p><b>Si te dan Π∘Π = Π (idempotente) con datos Π(v) = u:</b></p>
+<div class="formula">
+  Aplicando Π a la igualdad: &nbsp;Π(u) = Π(Π(v)) = Π(v) = u &nbsp;→&nbsp; <b>u queda fijo: u ∈ Im(Π)</b><br>
+  Restando: &nbsp;Π(v − u) = u − u = 0 &nbsp;→&nbsp; <b>v − u ∈ Nu(Π)</b>
+</div>
+<p><b>Si te dan Σ∘Σ = I (involutiva) con datos Σ(v) = u:</b></p>
+<div class="formula">
+  Gratis: &nbsp;Σ(u) = v. &nbsp; Y el <b>truco de simetrización</b>:<br>
+  Σ(v + u) = u + v &nbsp;→&nbsp; <b>v + u ∈ E₁</b> (el plano) &nbsp;·&nbsp; Σ(v − u) = −(v − u) &nbsp;→&nbsp; <b>v − u ∈ E₋₁</b> (la recta)
+</div>
+
+<div class="example">
+  <div class="ex-t">Reconstruir desde Π∘Π = Π · p6e3 · Primer parcial 15/V/24 (real)</div>
+  <b>Enunciado:</b> Sea Π : ℝ³ → ℝ³ una transformación lineal tal que Π ∘ Π = Π y &nbsp;Π([0 −1 1]<sup>T</sup>) = [1 1 1]<sup>T</sup>, &nbsp;Π([2 3 4]<sup>T</sup>) = [2 2 2]<sup>T</sup>. Hallar una base B de ℝ³ tal que [Π]<sub>B</sub><sup>B</sup> = diag(1, 0, 0).<br><br>
+  <b>1.</b> La matriz pedida dice: b₁ fijo (b₁ ∈ Im), b₂ y b₃ al núcleo. Necesito <b>1 de la imagen y 2 del núcleo, en ese orden</b>.<br>
+  <b>2.</b> Idempotencia sobre el primer dato: Π([1 1 1]<sup>T</sup>) = Π(Π([0 −1 1]<sup>T</sup>)) = Π([0 −1 1]<sup>T</sup>) = [1 1 1]<sup>T</sup> → <b>[1 1 1]<sup>T</sup> ∈ Im</b>.<br>
+  <b>3.</b> Restando: Π([0 −1 1]<sup>T</sup> − [1 1 1]<sup>T</sup>) = 0, y [0 −1 1]<sup>T</sup> − [1 1 1]<sup>T</sup> = [−1 −2 0]<sup>T</sup> → <b>[1 2 0]<sup>T</sup> ∈ Nu</b>.<br>
+  <b>4.</b> Segundo dato: [2 2 2]<sup>T</sup> = 2·[1 1 1]<sup>T</sup> también queda fijo, y [2 3 4]<sup>T</sup> − [2 2 2]<sup>T</sup> = [0 1 2]<sup>T</sup> → <b>[0 1 2]<sup>T</sup> ∈ Nu</b>.<br>
+  <b>5.</b> [1 2 0]<sup>T</sup> y [0 1 2]<sup>T</sup> son independientes → dim Nu = 2, rg = 1 ✔ coherente con diag(1,0,0).<br>
+  <b>6.</b> Es base: det[[1,1,0],[1,2,1],[1,0,2]] = 4 − 1 = <b>3 ≠ 0</b> ✔.<br>
+  <b>7.</b> Verificación con los datos originales: Nu = {4x₁ − 2x₂ + x₃ = 0}, y Π(x) = ((4x₁ − 2x₂ + x₃)/3)·[1 1 1]<sup>T</sup>. Con [0 −1 1]<sup>T</sup>: (0 + 2 + 1)/3 = 1 → [1 1 1]<sup>T</sup> ✔. Con [2 3 4]<sup>T</sup>: (8 − 6 + 4)/3 = 2 → [2 2 2]<sup>T</sup> ✔.<br>
+  <b>Resultado:</b> B = { [1 1 1]<sup>T</sup>, [1 2 0]<sup>T</sup>, [0 1 2]<sup>T</sup> }.<br>
+  <b>Dónde se cae la gente:</b> toma [0 −1 1]<sup>T</sup> como vector fijo "porque es el dato". <b>Falso</b>: lo que queda fijo es la <b>imagen</b> [1 1 1]<sup>T</sup>. El segundo error es poner el núcleo primero: la matriz pedida tiene el 1 en la posición (1,1).
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Usar la fórmula ortogonal cuando la proyección es oblicua</div>
+Ver el plano por su ecuación y aplicar Π(x) = x − (⟨x,n⟩/⟨n,n⟩)·n <b>ignorando la dirección que dio el enunciado</b>. En 5 de los 10 ejercicios geométricos el director no es la normal y esa fórmula da mal. Usá siempre γ = f(x)/f(d).
+</div>
+<div class="trap"><div class="tr-t">Olvidar el factor 2 en la simetría</div>
+Σ(x) = x − <b>2</b>γd, no x − γd. Con el factor mal, lo que calculaste es la proyección. Chequeo instantáneo: tu fórmula evaluada en d tiene que dar <b>−d</b>; si da 0, te comiste el 2.
+</div>
+<div class="trap"><div class="tr-t">Suponer que la imagen de un plano es un plano</div>
+Con una <b>proyección</b> la dimensión baja exactamente en dim(U ∩ Nu Π). Con una <b>simetría</b> nunca baja (Σ es inversible): si te da una recta, hay error de cuenta. Saberlo te dice de antemano qué esperar.
+</div>
+<div class="trap"><div class="tr-t">Armar la base en el orden equivocado</div>
+La matriz diagonal pedida <b>dicta el orden</b>: diag(1,1,−1) → los dos del plano primero; diag(0,0,1) → primero <b>dos del núcleo</b>; diag(1,0,0) → primero el de la imagen. La base correcta en otro orden es respuesta <b>incorrecta</b>, porque la matriz pedida no da.
+</div>
+<div class="trap"><div class="tr-t">Escalar los vértices de un triángulo para "simplificar"</div>
+Si Π(e₁) = [1/2, 1/2, −1/2]<sup>T</sup>, la respuesta es ese punto, no [1, 1, −1]<sup>T</sup>. Los vértices son <b>puntos</b>, no generadores. (Cuando la respuesta es un <b>subespacio</b>, escalar los generadores sí es legítimo.)
+</div>
+<div class="trap"><div class="tr-t">No verificar los datos del enunciado al reconstruir</div>
+En la familia B armás el par (plano, recta) desde dos datos sueltos. El paso final <b>obligatorio</b> es evaluar tu fórmula en los vectores del enunciado y ver que reproduce exactamente las imágenes dadas. Si no las reproduce, todo lo que sigue está mal.
+</div>
+
+<div class="reveal-wrap" data-rv="6" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · PRODUCTO INTERNO ============ -->
+<details id="fal-s7">
+<summary><span class="num">7</span> Ej4 · Producto interno: distancia, mejor aproximación y áreas (68%) <span class="sec-score" id="ss-fiuba-algebra-lineal-7"></span></summary>
+<div class="content">
+
+<p>Te dan un espacio euclídeo (V, ⟨·,·⟩) con un producto interno <b>explícito y casi nunca canónico</b>, un subespacio S y un vector v. Todo lo que pueden pedirte es una cara de la misma moneda: <b>proyectar sobre S</b>.</p>
+
+<table class="tbl">
+  <tr><th>Qué piden</th><th>Casos</th></tr>
+  <tr><td><b>Distancia</b> de un vector a un subespacio</td><td>10/19 · 53%</td></tr>
+  <tr><td><b>Mejor aproximación</b> (piden el vector, no el número)</td><td>4/19 · 21%</td></tr>
+  <tr><td><b>Área</b> de un triángulo con el PI dado</td><td>2/19 · 11%</td></tr>
+  <tr><td><b>Lugar geométrico</b> de puntos equidistantes</td><td>2/19 · 11%</td></tr>
+  <tr><td><b>Norma</b> de un vector con el PI deducido de datos geométricos</td><td>1/19 · 5%</td></tr>
+</table>
+
+<h3>Los cuatro productos internos que usa esta cátedra</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Forma</th><th>Dónde aparece</th></tr>
+  <tr><td><b>Por matriz</b></td><td>⟨x,y⟩ = y<sup>T</sup>A x en ℝ<sup>n</sup></td><td>7/19 · el más frecuente</td></tr>
+  <tr><td><b>Por evaluación</b></td><td>⟨p,q⟩ = Σ p(x<sub>i</sub>)q(x<sub>i</sub>) en ℝ<sub>2</sub>[x]</td><td>4/19 · dominó 2023</td></tr>
+  <tr><td><b>Abstracto</b></td><td>No te lo escriben: lo deducís de datos geométricos</td><td>5/19 · entró fuerte en 2024</td></tr>
+  <tr><td><b>Integral / traza</b></td><td>⟨p,q⟩ = ∫<sub>−1</sub><sup>1</sup> pq &nbsp;·&nbsp; ⟨A,B⟩ = tr(B<sup>T</sup>A)</td><td>2/19</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La trampa madre de toda la sección: el complemento ortogonal NO es el visual</div>
+Con ⟨x,y⟩ = y<sup>T</sup>A x y S = {x : n<sup>T</sup>x = 0}, escribir S<sup>⊥</sup> = gen{n} es lo que vale con el PI <b>canónico</b>. Acá lo correcto es <b>S<sup>⊥</sup> = gen{A<sup>−1</sup>n}</b>.<br><br>
+En un parcial real la normal canónica es [2 1 2]<sup>T</sup> pero el generador de S<sup>⊥</sup> es [1 1 1]<sup>T</sup>, y la distancia pasa de 11/3 a 11/√5. <b>Nunca declares un vector "ortogonal a S" sin haber calculado s<sup>T</sup>A w = 0 con la matriz del enunciado.</b>
+</div>
+
+<h3>Método · S dado por ecuación (la ruta rápida)</h3>
+<p>Si S = {x ∈ ℝ<sup>n</sup> : n<sup>T</sup>x = 0} y ⟨x,y⟩ = y<sup>T</sup>A x, entonces dim S<sup>⊥</sup> = 1 y conviene proyectar sobre S<sup>⊥</sup>:</p>
+<div class="formula">
+  <b>1.</b> Resolvé <b>A w = n</b> (resolvé el sistema, no invirtas A). Entonces S<sup>⊥</sup> = gen{w}.<br>
+  <b>2.</b> Atajo que ahorra la mitad de las cuentas: ⟨v,w⟩ = w<sup>T</sup>Av = (Aw)<sup>T</sup>v = <b>n<sup>T</sup>v</b> — el numerador es <b>la ecuación de S evaluada en v</b>. Y ⟨w,w⟩ = n<sup>T</sup>w.<br>
+  <b>3.</b> &nbsp;<b>d(v, S) = |n<sup>T</sup>v| / √(n<sup>T</sup>w)</b><br>
+  <b>4.</b> Si piden la proyección: P<sub>S</sub>(v) = v − (⟨v,w⟩/⟨w,w⟩)·w<br>
+  <b>5.</b> Si piden <b>la matriz</b> en base canónica: P<sub>S<sup>⊥</sup></sub> = (1/(n<sup>T</sup>w))·w·n<sup>T</sup> y P<sub>S</sub> = I − P<sub>S<sup>⊥</sup></sub>
+</div>
+
+<h3>Método · S dado por generadores (ruta Gram)</h3>
+<div class="formula">
+  Con base {s₁, …, s<sub>k</sub>} de S:<br>
+  <b>1.</b> Armá G con G<sub>ij</sub> = ⟨s<sub>j</sub>, s<sub>i</sub>⟩ y b con b<sub>i</sub> = ⟨v, s<sub>i</sub>⟩ &nbsp;(<b>todo con el PI del enunciado</b>).<br>
+  <b>2.</b> Resolvé G c = b &nbsp;→&nbsp; P<sub>S</sub>(v) = c₁s₁ + … + c<sub>k</sub>s<sub>k</sub> &nbsp;→&nbsp; d(v,S) = ‖v − P<sub>S</sub>(v)‖<br>
+  <b>3.</b> <b>Si la base ya es ortogonal</b> en ese PI (chequealo, es una cuenta), G es diagonal y se parte:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;P<sub>S</sub>(v) = Σ (⟨v,s<sub>i</sub>⟩/⟨s<sub>i</sub>,s<sub>i</sub>⟩)·s<sub>i</sub>
+</div>
+<div class="key"><div class="ky-t">En estos parciales los generadores casi siempre son ortogonales</div>
+Verificá el producto cruzado <b>primero</b>: si da 0, te ahorrás el sistema entero. Pero verificalo de verdad — hay un parcial donde 1 − 2x y 3 + 6x tienen producto interno −2 ≠ 0, y quien lo asume ortogonal entrega un polinomio equivocado.
+</div>
+
+<h3>El atajo que vale oro: el PI por evaluación es ℝ³ disfrazado</h3>
+<p>Si ⟨p,q⟩ = p(x₁)q(x₁) + p(x₂)q(x₂) + p(x₃)q(x₃) con nodos distintos, el mapa Φ(p) = (p(x₁), p(x₂), p(x₃)) es un <b>isomorfismo</b> de ℝ₂[x] en ℝ³ y por definición ⟨p,q⟩ = Φ(p)·Φ(q) con el <b>producto escalar canónico</b>. Traducí todo a la terna de valores, trabajá en ℝ³ y volvé interpolando al final. Es el camino más rápido y el que menos errores da.</p>
+
+<div class="example">
+  <div class="ex-t">Distancia con PI matricial · p1e4 · Primer parcial (R) 7/VIII/24 (real)</div>
+  <b>Enunciado:</b> Se considera el espacio euclídeo (ℝ³, ⟨·,·⟩) con el producto interno definido por ⟨x,y⟩ = y<sup>T</sup>[[3,0,1],[0,1,0],[1,0,1]]x. Calcular la distancia del vector [0 1 −1] al subespacio S = {x ∈ ℝ³ : x₁ − x₂ + x₃ = 0}.<br><br>
+  <b>1.</b> A es simétrica y definida positiva (menores 3 &gt; 0, 3 &gt; 0, det A = 2 &gt; 0) ✔, así que es un PI y la matriz de Gram en base canónica <b>es A</b>.<br>
+  <b>2.</b> n = [1 −1 1]<sup>T</sup>, dim S = 2 → dim S<sup>⊥</sup> = 1. Resuelvo <b>Aw = n</b>: de la fila 2, w₂ = −1; de las filas 1 y 3, 3w₁ + w₃ = 1 y w₁ + w₃ = 1 → w₁ = 0, w₃ = 1.<br>
+  <b>3.</b> S<sup>⊥</sup> = gen{[0 −1 1]<sup>T</sup>}. Y ahora el detalle: <b>v = [0 1 −1]<sup>T</sup> = −w</b>, o sea <b>v ∈ S<sup>⊥</sup></b> → P<sub>S</sub>(v) = 0 y d(v,S) = ‖v‖.<br>
+  <b>4.</b> ‖v‖² = v<sup>T</sup>Av = [0, 1, −1]·[−1, 1, −1] = 0 + 1 + 1 = 2.<br>
+  <b>Resultado:</b> <b>d = √2</b>.<br>
+  <b>Dónde se cae la gente:</b> mira v = [0 1 −1] y n = [1 −1 1], ve que no son múltiplos, concluye "no es perpendicular a S" y se mete en el sistema de Gram. Con el PI <b>canónico</b> v ∉ S<sup>⊥</sup>; con <b>este</b> PI sí. La perpendicularidad la fija A, no el ojo. El error más caro es copiar la fórmula canónica punto-plano y entregar |1−1−1|/‖n‖ = 1/√3.
+</div>
+
+<div class="example">
+  <div class="ex-t">Mejor aproximación con PI por evaluación · p7e4 · Primer recuperatorio 18/XI/23 (real)</div>
+  <b>Enunciado:</b> Se considera el espacio euclídeo (ℝ₂[x], ⟨·,·⟩) con ⟨p,q⟩ = p(−1)q(−1) + p(0)q(0) + p(1)q(1). Hallar el polinomio del subespacio S = gen{x(1+x), x(1−x)} más cercano al polinomio p = 2 − x².<br><br>
+  <b>1.</b> Paso todo a valores en (−1, 0, 1): &nbsp; q₁ = x + x² → Φ(q₁) = (0, 0, 2) &nbsp;·&nbsp; q₂ = x − x² → Φ(q₂) = (−2, 0, 0) &nbsp;·&nbsp; p = 2 − x² → Φ(p) = (1, 2, 1).<br>
+  <b>2.</b> ¿La base de S es ortogonal? Φ(q₁)·Φ(q₂) = 0 ✔ → la proyección se parte en términos independientes. ⟨q₁,q₁⟩ = 4, ⟨q₂,q₂⟩ = 4.<br>
+  <b>3.</b> ⟨p,q₁⟩ = (1,2,1)·(0,0,2) = 2 &nbsp;·&nbsp; ⟨p,q₂⟩ = (1,2,1)·(−2,0,0) = −2.<br>
+  <b>4.</b> P<sub>S</sub>(p) = (2/4)q₁ − (2/4)q₂ = ½(x + x²) − ½(x − x²) = <b>x²</b>.<br>
+  <b>5.</b> Chequeo: el residuo r = p − x² = 2 − 2x² tiene Φ(r) = (0, 2, 0), y ⟨r,q₁⟩ = ⟨r,q₂⟩ = 0 ✔. De paso, d(p,S) = ‖r‖ = 2.<br>
+  <b>Resultado:</b> <b>x²</b>.<br>
+  <b>Dónde se cae la gente:</b> trabaja con las coordenadas en {1, x, x²} como si el PI fuera el canónico de los <b>coeficientes</b>. Este PI es el de los <b>valores</b>: son productos internos distintos y dan respuestas distintas. (Y de paso: S = gen{x, x²}, sumando y restando los generadores.)
+</div>
+
+<div class="example">
+  <div class="ex-t">Área de un triángulo de polinomios · p9e4 · Primer parcial 28/X/23 (real)</div>
+  <b>Enunciado:</b> Con ⟨p,q⟩ = p(−1)q(−1) + p(0)q(0) + p(1)q(1), calcular el área del triángulo de vértices p₁ = 6, p₂ = 2x(x+1) + 6, p₃ = 3x(x−1) + 6.<br><br>
+  <b>1.</b> Lados desde p₁ (el +6 se cancela — está puesto justamente para castigar a quien no resta el vértice): u = p₂ − p₁ = 2x² + 2x, z = p₃ − p₁ = 3x² − 3x.<br>
+  <b>2.</b> A valores: Φ(u) = (0, 0, 4), Φ(z) = (6, 0, 0).<br>
+  <b>3.</b> ⟨u,z⟩ = 0 → el triángulo es <b>rectángulo en p₁</b>. ‖u‖ = 4, ‖z‖ = 6.<br>
+  <b>4.</b> Área = ½·√(‖u‖²‖z‖² − ⟨u,z⟩²) = ½·√576 = <b>12</b>.<br>
+  <b>5.</b> Chequeo por Pitágoras: ‖z − u‖² = 52 = 16 + 36 ✔.<br>
+  <b>Dónde se cae la gente:</b> calcula el área en ℝ³ con los <b>coeficientes</b> y obtiene 6, la mitad. Otros usan producto vectorial "en ℝ₂[x]", que no existe. La fórmula válida en <b>cualquier</b> espacio euclídeo es la del determinante de Gram: <b>Área = ½√(‖u‖²‖z‖² − ⟨u,z⟩²)</b>.
+</div>
+
+<h3>Los PI abstractos: cuando no te lo escriben</h3>
+<p>En 2024 entró fuerte la variante donde el producto interno <b>no se da</b>: se deduce de datos geométricos. La herramienta es siempre la misma — <b>elevar al cuadrado</b>:</p>
+<div class="formula">
+  ‖u ± w‖² = ‖u‖² ± 2⟨u,w⟩ + ‖w‖²
+</div>
+<table class="tbl">
+  <tr><th>Dato</th><th>Qué sale</th></tr>
+  <tr><td>"B = {u₁,u₂,u₃} base ortonormal"</td><td>G = I: es el canónico <b>en coordenadas de esa base</b></td></tr>
+  <tr><td>"‖u<sub>i</sub>‖ = 1 y ‖u<sub>i</sub> + u<sub>j</sub>‖² = 2"</td><td>2 + 2⟨u<sub>i</sub>,u<sub>j</sub>⟩ = 2 → ⟨u<sub>i</sub>,u<sub>j</sub>⟩ = 0: es ortonormal</td></tr>
+  <tr><td>"base ortogonal con ‖v₁‖ = 1, ‖v₁ + v₂‖ = √5"</td><td>1 + ‖v₂‖² = 5 → ‖v₂‖ = 2, G = diag(1, 4)</td></tr>
+  <tr><td>"triángulo equilátero de lado L y área A"</td><td>De A = (√3/4)L² sacás L²; con vértices 0, a, b queda ‖a‖² = ‖b‖² = L² y ⟨a,b⟩ = L²/2</td></tr>
+</table>
+
+<h3>Equidistancia: el lugar geométrico</h3>
+<div class="formula">
+  <b>A dos puntos P y Q:</b> ‖x − P‖² = ‖x − Q‖². Los ‖x‖² se cancelan y queda una <b>ecuación lineal</b>:<br>
+  2⟨x, Q − P⟩ = ‖Q‖² − ‖P‖² &nbsp;→&nbsp; los coeficientes del plano son los de <b>A(Q − P)</b>, no los de Q − P.
+</div>
+<div class="trap"><div class="tr-t">Contestar la mediatriz canónica</div>
+En un parcial real, con A = diag(2,1,2), la respuesta canónica x₁ + x₂ + x₃ = 9 es <b>incorrecta</b>: la correcta es 2x₁ + x₂ + 2x₃ = 15. Verificación de dos segundos que detecta el error al instante: <b>el punto medio (P+Q)/2 tiene que satisfacer tu ecuación</b>.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Aplicar la fórmula de proyección sobre una base que no es ortogonal</div>
+P<sub>S</sub>(v) = Σ(⟨v,s<sub>i</sub>⟩/⟨s<sub>i</sub>,s<sub>i</sub>⟩)s<sub>i</sub> <b>sólo</b> vale si ⟨s<sub>i</sub>,s<sub>j</sub>⟩ = 0 para i ≠ j <b>en el PI dado</b>. Si no, hay que resolver el sistema de Gram G c = b.
+</div>
+<div class="trap"><div class="tr-t">Manipular normas como si fueran lineales</div>
+De ‖v₁ + v₂‖ = √5 con ‖v₁‖ = 1 <b>no</b> sale ‖v₂‖ = √5 − 1. Hay que elevar al cuadrado y recién ahí usar la ortogonalidad para matar el término cruzado: da ‖v₂‖ = 2. En cualquier dato con ‖u ± w‖, el primer paso mecánico es <b>elevar al cuadrado y desarrollar</b>.
+</div>
+<div class="trap"><div class="tr-t">Suponer que la matriz de la proyección ortogonal es simétrica</div>
+Con PI no canónico, [P<sub>S</sub>]<sub>E</sub> casi nunca es simétrica. Verificá en cambio las tres propiedades que sí valen siempre: P<sub>S</sub>² = P<sub>S</sub>, P<sub>S</sub>(s) = s para s ∈ S, y P<sub>S</sub>(w) = 0 para w ∈ S<sup>⊥</sup>.
+</div>
+<div class="trap"><div class="tr-t">No verificar que sea realmente un producto interno</div>
+Si te dan A, mirá los <b>menores principales</b> (tiene que ser definida positiva, o ‖x‖² podría dar negativo). Y si te dan ⟨p,q⟩ = Σp(x<sub>i</sub>)q(x<sub>i</sub>) con <b>menos nodos que dim V</b> —por ejemplo dos nodos en ℝ₂[x]— <b>no es un producto interno</b>: hay p ≠ 0 con ‖p‖ = 0.
+</div>
+<div class="trap"><div class="tr-t">No mirar si v ya está en S o en S<sup>⊥</sup></div>
+Si v ∈ S, la distancia es <b>0</b>. Si v ∈ S<sup>⊥</sup>, la distancia es directamente <b>‖v‖</b>. Apenas obtenés el generador w de S<sup>⊥</sup>, compará con v: si son proporcionales, terminaste. Pasa en dos parciales reales.
+</div>
+
+<div class="reveal-wrap" data-rv="7" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 8 · FIBRA DE LA PROYECCIÓN ============ -->
+<details id="fal-s8">
+<summary><span class="num">8</span> Ej5 · La fibra de la proyección ortogonal (32%) <span class="sec-score" id="ss-fiuba-algebra-lineal-8"></span></summary>
+<div class="content">
+
+<p>El enunciado casi siempre dice lo mismo: <b>"hallar todos los x tales que P<sub>S</sub>(x) = v cuya distancia … es k"</b>. Es el ejercicio con la idea más linda del parcial, y el que se pierde por una preposición.</p>
+
+<div class="key"><div class="ky-t">La idea entera, en dos líneas</div>
+Si P<sub>S</sub>(x) = v, entonces <b>x = v + w con w ∈ S<sup>⊥</sup></b>.<br>
+(Ida: P<sub>S</sub>(v + w) = P<sub>S</sub>(v) + P<sub>S</sub>(w) = v + 0. Vuelta: si P<sub>S</sub>(x) = v, entonces x − v = x − P<sub>S</sub>(x) ∈ S<sup>⊥</sup>.)<br><br>
+La fibra es el <b>subespacio afín v + S<sup>⊥</sup></b>. La condición de distancia lo recorta a dos puntos.
+</div>
+
+<h3>La bifurcación que decide el ejercicio</h3>
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Entonces…</th><th>Casos</th></tr>
+  <tr><td>"cuya distancia <b>al origen</b> es k"</td><td>‖x‖ = k, y como v ⊥ w vale <b>Pitágoras</b>: ‖w‖² = k² − ‖v‖²</td><td>6/11 · 55%</td></tr>
+  <tr><td>"cuya distancia <b>al subespacio S</b> es k"</td><td>d(x,S) = ‖x − P<sub>S</sub>(x)‖ = <b>‖w‖ = k</b> directo. ‖v‖ no interviene</td><td>3/11 · 27%</td></tr>
+  <tr><td>Sin condición de distancia</td><td>La respuesta es la fibra completa v + S<sup>⊥</sup>, con parámetros libres</td><td>2/11 · 18%</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La trampa que decide la nota: subrayá la preposición antes de escribir una línea</div>
+Confundir "al origen" con "al subespacio" no arruina un paso: <b>arruina el ejercicio entero</b> aunque todo el resto esté impecable. La respuesta queda a distancia √(k² + ‖v‖²) del origen en vez de k, o a √(k² − ‖v‖²) de S en vez de k.<br><br>
+<b>Control:</b> en un parcial real con d(x,S) = 3, las soluciones tienen ‖x‖ = 3√2. En otro con ‖x‖ = 5, resulta d(x,S) = 4. Si <b>tus dos números coinciden</b>, confundiste las variantes.
+</div>
+
+<h3>Método</h3>
+<div class="formula">
+  <b>1.</b> Fijá el producto interno. Sólo podés usar el producto punto de las coordenadas si el enunciado dice que el PI es el de los <b>coeficientes</b> o la <b>traza</b>. Si hay integral o matriz, hay que integrar o multiplicar.<br>
+  <b>2.</b> Escribí S con una base explícita.<br>
+  <b>3.</b> <b>Verificá que v ∈ S</b> — obligatorio, lo pida o no el enunciado. Si v ∉ S el conjunto es <b>vacío</b>, porque la imagen de P<sub>S</sub> es S.<br>
+  <b>4.</b> Calculá S<sup>⊥</sup>. Control: dim S + dim S<sup>⊥</sup> = dim V. En 10 de los 11 casos dim S<sup>⊥</sup> = 1.<br>
+  <b>5.</b> Parametrizá: x = v + t·n con n generador de S<sup>⊥</sup>.<br>
+  <b>6.</b> Traducí la distancia según la bifurcación de arriba → obtenés ‖w‖.<br>
+  <b>7.</b> Despejá: t²‖n‖² = ‖w‖² → <b>t = ± ‖w‖/‖n‖</b>. &nbsp;<b>Los dos signos van.</b>
+</div>
+
+<div class="trap"><div class="tr-t">|t| no es ‖w‖ salvo que n sea unitario</div>
+De ‖w‖ = k <b>no</b> sale t = ±k, sino ‖t·n‖ = |t|·‖n‖ = k. En estos parciales ‖n‖ vale 3, 7, √2 o 2√2, así que el resultado sale escalado por ese factor. Escribí siempre la ecuación completa <b>t²‖n‖² = ‖w‖²</b> y calculá ‖n‖² en un renglón aparte.
+</div>
+
+<div class="key"><div class="ky-t">Discusión obligatoria en el caso "al origen"</div>
+De ‖w‖² = k² − ‖v‖²:<br>
+· <b>k &gt; ‖v‖</b> → dos soluciones.<br>
+· <b>k = ‖v‖</b> → una sola, x = v (hay que justificarlo por escrito).<br>
+· <b>k &lt; ‖v‖</b> → <b>no hay solución</b>: ningún punto de la fibra puede estar más cerca del origen que v, porque v <i>es</i> el más cercano.
+</div>
+
+<div class="example">
+  <div class="ex-t">Distancia al origen · p9e5 · Primer parcial 28/X/23 (real)</div>
+  <b>Enunciado:</b> En ℝ³ con el producto interno canónico se considera el subespacio S = {x ∈ ℝ³ : x₁ − 2x₂ − 2x₃ = 0}. Sea P<sub>S</sub> la proyección ortogonal sobre S. Hallar todos los x ∈ ℝ³ tales que P<sub>S</sub>(x) = [2 −1 2]<sup>T</sup> cuya distancia al origen sea igual a 5.<br><br>
+  <b>1.</b> ¿v ∈ S? &nbsp; 2 − 2(−1) − 2(2) = 2 + 2 − 4 = 0 ✔.<br>
+  <b>2.</b> PI canónico y S por ecuación → S<sup>⊥</sup> = gen{n} con <b>n = [1 −2 −2]<sup>T</sup></b>, ‖n‖² = 1 + 4 + 4 = 9, ‖n‖ = 3.<br>
+  <b>3.</b> x = v + t·n. ‖v‖² = 4 + 1 + 4 = 9.<br>
+  <b>4.</b> Dice <b>"al origen"</b> → Pitágoras: ‖w‖² = k² − ‖v‖² = 25 − 9 = <b>16</b>.<br>
+  <b>5.</b> t²·9 = 16 → t = <b>±4/3</b>.<br>
+  <b>Resultado:</b> x = [2 −1 2]<sup>T</sup> ± (4/3)·[1 −2 −2]<sup>T</sup>, o sea &nbsp;<b>x = [10/3, −11/3, −2/3]<sup>T</sup></b> &nbsp;o&nbsp; <b>x = [2/3, 5/3, 14/3]<sup>T</sup></b>.<br>
+  <b>Chequeo:</b> ‖x‖² = 100/9 + 121/9 + 4/9 = 225/9 = 25 ✔. Y d(x,S) = ‖w‖ = 4, que <b>no</b> es 5 — justamente la señal de que no confundiste las variantes.
+</div>
+
+<div class="example">
+  <div class="ex-t">Distancia al subespacio · p13e4 · Primer parcial 20/V/23 (real)</div>
+  <b>Enunciado:</b> En ℝ³ con el producto interno canónico se considera el subespacio S = gen{[1 −1 0]<sup>T</sup>, [1 1 4]<sup>T</sup>}. Comprobar que el vector v = [2 −1 2]<sup>T</sup> pertenece a S y hallar todos los x ∈ ℝ³ tales que P<sub>S</sub>(x) = v cuya distancia a S sea igual a 3.<br><br>
+  <b>1.</b> v ∈ S: hay que resolver v = α[1 −1 0]<sup>T</sup> + β[1 1 4]<sup>T</sup>. De la tercera coordenada 4β = 2 → β = 1/2; de la segunda −α + 1/2 = −1 → α = 3/2; verifico la primera: 3/2 + 1/2 = 2 ✔. (Éste es el único parcial donde el enunciado <b>pide</b> la verificación; en los otros 10 hay que hacerla igual.)<br>
+  <b>2.</b> S<sup>⊥</sup> = gen{[1 −1 0]<sup>T</sup> × [1 1 4]<sup>T</sup>} = gen{[−4, −4, 2]<sup>T</sup>} = gen{<b>[2 2 −1]<sup>T</sup></b>}, con ‖n‖ = 3.<br>
+  <b>3.</b> Dice <b>"a S"</b> → ‖w‖ = 3 <b>directo</b>, sin Pitágoras y sin usar ‖v‖.<br>
+  <b>4.</b> |t|·3 = 3 → t = ±1.<br>
+  <b>Resultado:</b> x = [2 −1 2]<sup>T</sup> ± [2 2 −1]<sup>T</sup> → &nbsp;<b>x = [4 1 1]<sup>T</sup></b> &nbsp;o&nbsp; <b>x = [0 −3 3]<sup>T</sup></b>.<br>
+  <b>Chequeo:</b> d(x,S) = ‖x − v‖ = ‖[2 2 −1]<sup>T</sup>‖ = 3 ✔. Y ‖x‖ = √18 = 3√2 ≠ 3: si te hubiera dado 3, habrías confundido las variantes.
+</div>
+
+<div class="example">
+  <div class="ex-t">Sin condición de distancia: la fibra completa · p8e5 · Primer parcial diferido 30/X/23 (real)</div>
+  <b>Enunciado:</b> Se considera el espacio euclídeo (ℝ₂[x], ⟨·,·⟩) con ⟨p,q⟩ = ∫<sub>−1</sub><sup>1</sup> p(x)q(x)dx. Sea P<sub>S</sub> la proyección ortogonal sobre S = gen{x² + x, x}. Hallar todos los p ∈ ℝ₂[x] tales que P<sub>S</sub>(p) = x² − x.<br><br>
+  <b>1.</b> Simplificá S primero: gen{x² + x, x} = <b>gen{x², x}</b> (restando el segundo generador del primero).<br>
+  <b>2.</b> ¿x² − x ∈ S? Sí, es combinación de x² y x ✔.<br>
+  <b>3.</b> S<sup>⊥</sup>: buscá a + bx + cx² con ⟨·, x⟩ = 0 y ⟨·, x²⟩ = 0, <b>integrando</b>. Con ∫<sub>−1</sub><sup>1</sup>1 = 2, ∫x = 0, ∫x² = 2/3, ∫x³ = 0, ∫x⁴ = 2/5: la primera condición da b = 0; la segunda da 2a/3 + 2c/5 = 0 → c = −5a/3. Tomando a = 3: <b>S<sup>⊥</sup> = gen{3 − 5x²}</b>.<br>
+  <b>4.</b> Sin condición de distancia → la respuesta es la <b>fibra entera</b>.<br>
+  <b>Resultado:</b> &nbsp;<b>{p : P<sub>S</sub>(p) = x² − x} = (x² − x) + gen{3 − 5x²}</b>, o sea p = 3t − x + (1 − 5t)x² con t ∈ ℝ. Infinitas soluciones, una recta afín.<br>
+  <b>Dónde se cae la gente:</b> trata a + bx + cx² como el vector (a, b, c) y usa el producto punto. Con esa cuenta S<sup>⊥</sup> daría gen{1}, que es <b>falso</b>: acá el PI es una integral y hay que integrar.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Perder uno de los dos signos</div>
+Despejás t² = α y escribís t = √α. La fibra corta a la esfera en <b>dos</b> puntos simétricos respecto de v. En los 9 ejercicios con condición de distancia y dim S<sup>⊥</sup> = 1 la respuesta son <b>exactamente dos vectores</b>: nunca uno, nunca infinitos. Si te dio uno solo, o te comiste el signo, o estás en el caso borde k = ‖v‖ y hay que justificarlo.
+</div>
+<div class="trap"><div class="tr-t">No verificar que v ∈ S</div>
+Si v ∉ S el conjunto pedido es <b>vacío</b>, y entregás dos vectores que no cumplen nada. Sólo un parcial lo pide explícitamente; en los otros diez hay que hacerlo por cuenta propia.
+</div>
+<div class="trap"><div class="tr-t">Usar el normal de la ecuación como generador de S<sup>⊥</sup> con PI no canónico</div>
+Ver S = {3x₁ + 5x₂ = 0} y escribir S<sup>⊥</sup> = gen{[3 5]<sup>T</sup>}. Con ⟨x,y⟩ = y<sup>T</sup>Mx y M ≠ I eso es falso. Hay que resolver s<sub>i</sub><sup>T</sup>Mu = 0 para cada generador de S.
+</div>
+<div class="trap"><div class="tr-t">Armar la matriz de proyección y resolver P x = v</div>
+Calcular P = A(A<sup>T</sup>A)<sup>−1</sup>A<sup>T</sup> y plantear el sistema son 40 minutos perdidos en un sistema indeterminado — y el enunciado ya te dio v justamente para que no hicieras eso. La caracterización x ∈ v + S<sup>⊥</sup> resuelve el ejercicio <b>sin una sola inversa</b>.
+</div>
+<div class="trap"><div class="tr-t">Leer mal col(A) cuando A viene como suma de productos externos</div>
+Si A = u·r<sup>T</sup> + u'·r'<sup>T</sup>, entonces col(A) = <b>gen{u, u'}</b>: cada u·r<sup>T</sup> es una matriz de <b>rango 1</b> cuyo espacio columna es gen{u}, y la fila r sólo decide los coeficientes. Meter u, r, u' y r' todos juntos daría S = ℝ³, S<sup>⊥</sup> = {0} y "no hay solución".
+</div>
+
+<div class="key"><div class="ky-t">Chequeo final, las dos cosas por separado</div>
+<b>(a)</b> ⟨x − v, s<sub>i</sub>⟩ = 0 para cada generador de S → confirma que P<sub>S</sub>(x) = v de verdad.<br>
+<b>(b)</b> Recalculá <b>la magnitud que pidió el enunciado, no la otra</b>: si pidió distancia al origen, ‖x‖ tiene que dar k; si pidió a S, ‖x − v‖ tiene que dar k. Este es el chequeo que detecta el error caro.
+</div>
+
+<div class="reveal-wrap" data-rv="8" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="8" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 9 · CUADRADOS MÍNIMOS ============ -->
+<details id="fal-s9">
+<summary><span class="num">9</span> Ej5 · Cuadrados mínimos (53%) <span class="sec-score" id="ss-fiuba-algebra-lineal-9"></span></summary>
+<div class="content">
+
+<div class="trap"><div class="tr-t">Antes de estudiar esto, leé esto</div>
+Cuadrados mínimos está en <b>11 de 19</b> parciales, pero su distribución en el tiempo es muy despareja: <b>2022 → 5/5 · 2023 → 5/7 · 2024 → 0/6</b>. En 2024 desapareció del primer parcial y su lugar lo ocupó la fibra de la proyección (sección 8). Sigue vivo en los <b>recuperatorios</b>, que son más integradores.<br><br>
+Son tres fórmulas: es barato sostenerlo. Pero si tenés tiempo limitado, <b>primero asegurate la sección 8</b>.
+</div>
+
+<h3>El núcleo teórico, que vale para las tres variantes</h3>
+<div class="formula">
+  x̂ minimiza ‖b − Ax‖ &nbsp;⟺&nbsp; b − Ax̂ ⊥ col(A) &nbsp;⟺&nbsp; A<sup>T</sup>(b − Ax̂) = 0 &nbsp;⟺&nbsp; <b>A<sup>T</sup>A x̂ = A<sup>T</sup>b</b><br><br>
+  Esta ecuación normal es <b>siempre compatible</b>, tenga o no solución el sistema original.<br>
+  Su conjunto solución es <b>x̂₀ + Nul(A)</b>: única si las columnas de A son independientes, infinitas si no.
+</div>
+
+<h3>Variante 1 · Ajustar una recta o una parábola a una tabla de datos</h3>
+<div class="formula">
+  Las incógnitas son los <b>coeficientes</b>, no los datos. A tiene <b>una fila por dato y una columna por coeficiente</b>.<br>
+  Recta y = ax + b: fila i = [x<sub>i</sub>, 1] &nbsp;·&nbsp; Parábola y = ax² + bx + c: fila i = [x<sub>i</sub>², x<sub>i</sub>, 1]<br><br>
+  Recta: &nbsp; A<sup>T</sup>A = [[Σx², Σx], [Σx, n]] &nbsp;·&nbsp; A<sup>T</sup>y = [Σxy, Σy]<sup>T</sup><br>
+  Parábola: &nbsp; A<sup>T</sup>A = [[Σx⁴, Σx³, Σx²], [Σx³, Σx², Σx], [Σx², Σx, n]] &nbsp;·&nbsp; A<sup>T</sup>y = [Σx²y, Σxy, Σy]<sup>T</sup>
+</div>
+<div class="key"><div class="ky-t">Atajo cuando los x<sub>i</sub> son simétricos</div>
+Si Σx = 0 (por ejemplo x = −2, −1, 0, 1, 2), entonces A<sup>T</sup>A queda <b>diagonal</b> y los coeficientes salen de a uno, sin resolver sistema: a = Σxy/Σx², b = Σy/n.<br><br>
+<b>Pero verificá que efectivamente Σx = 0.</b> En dos parciales reales los datos son x = −1, 0, 1, 2 (Σx = 2) y x = −1, 0, 1, 2, 3 (Σx = 5): ahí hay término cruzado y arrastrar el atajo da −11/6 y 1 en vez de los correctos −13/5 y 23/10.
+</div>
+
+<h3>Variante 2 · A con columnas dependientes: todas las soluciones y la de norma mínima</h3>
+<p>Cuando A tiene rango deficiente, A<sup>T</sup>A es <b>singular</b> y el conjunto solución es un subespacio afín completo: x̂₀ + Nul(A). De todas ellas, piden la de <b>norma mínima</b>.</p>
+<div class="formula">
+  ℝ<sup>n</sup> = fil(A) ⊕ Nul(A), y son <b>ortogonales</b> entre sí (fil(A) = (Nul A)<sup>⊥</sup>).<br>
+  Escribiendo x = x<sub>F</sub> + x<sub>N</sub>: todas las soluciones comparten la misma x<sub>F</sub> y difieren en x<sub>N</sub>.<br>
+  Por Pitágoras ‖x‖² = ‖x<sub>F</sub>‖² + ‖x<sub>N</sub>‖² ≥ ‖x<sub>F</sub>‖², con igualdad ⟺ x<sub>N</sub> = 0.<br><br>
+  <b>La de norma mínima es la única solución que cae en fil(A) = (Nul A)<sup>⊥</sup>.</b>
+</div>
+<div class="key"><div class="ky-t">Atajo de rango 1: si A = u·v<sup>T</sup>, el ejercicio sale en tres renglones</div>
+Ax = (v·x)·u &nbsp;·&nbsp; col(A) = gen{u} &nbsp;·&nbsp; fil(A) = gen{v} &nbsp;·&nbsp; Nul(A) = v<sup>⊥</sup><br>
+La ecuación normal colapsa a <b>una sola ecuación escalar</b>: &nbsp; v·x = (u·b)/(u·u)<br>
+Y la de norma mínima es &nbsp; x<sub>mín</sub> = [(u·b)/((u·u)(v·v))]·v
+</div>
+
+<div class="example">
+  <div class="ex-t">Norma mínima con A de rango 1 · p12e5 · Primer recuperatorio 10/VI/23 (real)</div>
+  <b>Enunciado:</b> Entre todas las soluciones por mínimos cuadrados de [[1,2,3],[2,4,6],[3,6,9]]·[x₁ x₂ x₃]<sup>T</sup> = [2 2 2]<sup>T</sup>, determinar la de norma mínima.<br><br>
+  <b>1.</b> A tiene <b>rango 1</b>: las tres filas son múltiplos de [1 2 3] y las tres columnas de [1 2 3]<sup>T</sup>. De hecho A = u·v<sup>T</sup> con u = [1 2 3]<sup>T</sup> y v = [1 2 3]<sup>T</sup>.<br>
+  <b>2.</b> Ecuación normal colapsada: v·x = (u·b)/(u·u). Con u·b = 2 + 4 + 6 = 12 y u·u = 1 + 4 + 9 = 14 → &nbsp;<b>x₁ + 2x₂ + 3x₃ = 12/14 = 6/7</b>. Ese plano afín <b>es</b> el conjunto de todas las soluciones.<br>
+  <b>3.</b> La de norma mínima es la que cae en fil(A) = gen{[1 2 3]<sup>T</sup>}: x = λ[1 2 3]<sup>T</sup> con 14λ = 6/7 → λ = 3/49.<br>
+  <b>Resultado:</b> <b>x = (3/49)·[1 2 3]<sup>T</sup> = [3/49, 6/49, 9/49]<sup>T</sup></b>.<br>
+  <b>Dónde se cae la gente:</b> resolver Ax = b directamente (la primera fila daría x₁ + 2x₂ + 3x₃ = 2, misma dirección pero escala equivocada: (1/7)(1,2,3) en vez de (3/49)(1,2,3)). Otros normalizan y entregan el versor: <b>"norma mínima" no es "norma 1"</b>.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Resolver Ax = b en vez de A<sup>T</sup>A x = A<sup>T</sup>b</div>
+El sistema original es incompatible: por eso te piden cuadrados mínimos. Reflejo obligatorio: leer "mínimos cuadrados" significa <b>multiplicar por A<sup>T</sup> antes de tocar nada</b>.
+</div>
+<div class="trap"><div class="tr-t">Creer que A<sup>T</sup>A siempre es inversible</div>
+Sólo lo es si las columnas de A son independientes, y en la mitad de estos ejercicios A tiene rango 1 o 2. Cuando A<sup>T</sup>A es singular, mucha gente escribe "no tiene solución": es al revés, <b>la ecuación normal siempre es compatible</b> y lo que tiene es infinitas soluciones. Detectá la dependencia entre columnas <b>antes</b> de invertir nada.
+</div>
+<div class="trap"><div class="tr-t">Confundir la de norma mínima con la solución particular</div>
+Poner el parámetro t = 0 y entregar ese vector. La de norma mínima se caracteriza por ser la <b>única ortogonal a Nul(A)</b>, no por tener ceros. Chequeo de 10 segundos: hacé el producto escalar con cada generador del núcleo; si no da 0, no es la mínima.
+</div>
+<div class="trap"><div class="tr-t">Mezclar fil(A) con col(A), y Nul(A) con Nul(A<sup>T</sup>)</div>
+El <b>residuo</b> b − Ax̂ vive en (col A)<sup>⊥</sup> = Nul(A<sup>T</sup>) ⊂ ℝ<sup>m</sup>. La solución de <b>norma mínima</b> vive en fil(A) = (Nul A)<sup>⊥</sup> ⊂ ℝ<sup>n</sup>. Test dimensional que nunca falla: si A es 4×3, las soluciones están en ℝ³ y los residuos en ℝ⁴.
+</div>
+<div class="trap"><div class="tr-t">Armar mal la matriz de diseño</div>
+Meter los y<sub>i</sub> adentro de A, ordenar las columnas [1, x, x²] pero leer el resultado como [a, b, c] del modelo ax² + bx + c, o directamente escribir "A = [[Σx², Σx],[Σx, n]]" (eso es A<sup>T</sup>A, no A). Regla: <b>A tiene una fila por dato y una columna por coeficiente incógnita, y ningún y<sub>i</sub> aparece adentro</b>.
+</div>
+
+<div class="reveal-wrap" data-rv="9" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="9" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 10 · ECUACIONES DIFERENCIALES ============ -->
+<details id="fal-s10">
+<summary><span class="num">10</span> Ecuaciones diferenciales (2021–2022) <span class="sec-score" id="ss-fiuba-algebra-lineal-10"></span></summary>
+<div class="content">
+
+<div class="trap"><div class="tr-t">Alcance real de este tema: leelo antes de invertirle tiempo</div>
+Los 4 ejercicios de ecuaciones diferenciales del material están en exámenes de <b>2021 y 2022</b> (más dos hojas sin encabezado). <b>No aparecen en ninguno de los 13 exámenes de 2023 ni 2024.</b><br><br>
+La sección existe porque los enunciados reales existen y no se inventan, y porque el capítulo 7 del apunte oficial (Pustilnik–Muszkats) lo cubre. Pero tratalo como <b>repaso de bajo costo</b> y confirmá el programa vigente de tu curso antes de dedicarle horas.
+</div>
+
+<h3>El método, en diez pasos</h3>
+<div class="formula">
+  <b>1.</b> Dejá la ecuación como y'' + p·y' + q·y = f(x).<br>
+  <b>2.</b> Ecuación característica: <b>r² + pr + q = 0</b>. Resolvela exactamente y anotá las raíces aparte.<br>
+  <b>3.</b> Armá y<sub>h</sub>: &nbsp;raíces reales distintas → C₁e<sup>r₁x</sup> + C₂e<sup>r₂x</sup> &nbsp;·&nbsp; raíz doble → (C₁ + C₂x)e<sup>rx</sup> &nbsp;·&nbsp; complejas α ± βi → e<sup>αx</sup>(C₁cos βx + C₂sen βx)<br>
+  <b>4.</b> Si f = 0, saltá al paso 8.<br>
+  <b>5.</b> Elegí la forma de y<sub>p</sub> según f, con el factor x<sup>s</sup> de resonancia.<br>
+  <b>6.</b> <b>Chequeo de resonancia</b> (5 segundos, siempre): el exponente crítico de f es a + βi. ¿Es raíz de la característica? Si sí, s = su multiplicidad.<br>
+  <b>7.</b> Derivá y<sub>p</sub> dos veces, reemplazá e igualá coeficientes.<br>
+  <b>8.</b> General: <b>y = y<sub>h</sub> + y<sub>p</sub></b>. Recién <b>ahora</b> derivá, con y<sub>p</sub> incluida.<br>
+  <b>9.</b> Imponé las condiciones iniciales sobre la general completa.<br>
+  <b>10.</b> Escribí la respuesta como función explícita.
+</div>
+
+<table class="tbl">
+  <tr><th>Si f es…</th><th>Proponés y<sub>p</sub> =</th><th>s = multiplicidad de…</th></tr>
+  <tr><td>P<sub>n</sub>(x) (polinomio)</td><td>x<sup>s</sup>·Q<sub>n</sub>(x)</td><td><b>0</b> como raíz</td></tr>
+  <tr><td>P<sub>n</sub>(x)·e<sup>ax</sup></td><td>x<sup>s</sup>·Q<sub>n</sub>(x)·e<sup>ax</sup></td><td><b>a</b> como raíz</td></tr>
+  <tr><td>e<sup>ax</sup>(P·cos βx + Q·sen βx)</td><td>x<sup>s</sup>·e<sup>ax</sup>(A·cos βx + B·sen βx)</td><td><b>a + βi</b> como raíz</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Los dos ejercicios reales no homogéneos tienen resonancia. Los dos.</div>
+<b>y'' + 9y = 5cos(3x):</b> el exponente crítico es 3i, y las raíces de r² + 9 = 0 son ±3i → <b>resonancia</b>, s = 1.<br>
+<b>y'' − 5y' + 6y = 2xe<sup>2x</sup>:</b> el exponente crítico es 2, y las raíces de r² − 5r + 6 son 2 y 3 → <b>resonancia</b>, s = 1.<br><br>
+No es casualidad: la cátedra usa la resonancia como el filtro del ejercicio. Chequeala <b>siempre</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Resonancia pura · p14e3 · Segundo recuperatorio 14/XII/22 (real)</div>
+  <b>Enunciado:</b> Hallar la solución de la ecuación diferencial y'' + 9y = 5cos(3x) tal que y(0) = 1, y'(0) = 0.<br><br>
+  <b>1.</b> Característica: r² + 9 = 0 → r = <b>±3i</b> → y<sub>h</sub> = C₁cos(3x) + C₂sen(3x).<br>
+  <b>2.</b> Exponente crítico de f = 5cos(3x): <b>3i</b>. ¿Es raíz? <b>Sí</b> → resonancia, s = 1.<br>
+  <b>3.</b> Propongo y<sub>p</sub> = x(A·cos 3x + B·sen 3x) — con el factor x, y con <b>coseno y seno juntos</b> aunque f no tenga seno.<br>
+  <b>4.</b> Derivando dos veces y reemplazando: y<sub>p</sub>'' + 9y<sub>p</sub> = −6A·sen 3x + 6B·cos 3x. Igualando a 5cos(3x): 6B = 5 → B = 5/6, y −6A = 0 → A = 0.<br>
+  <b>5.</b> General: y = C₁cos 3x + C₂sen 3x + (5/6)x·sen 3x. Con y(0) = 1 → C₁ = 1. Derivando e imponiendo y'(0) = 0 → 3C₂ + 0 = 0 → C₂ = 0.<br>
+  <b>Resultado:</b> <b>y(x) = cos(3x) + (5/6)·x·sen(3x)</b>.<br>
+  <b>Dónde se cae la gente:</b> propone y<sub>p</sub> = A·cos 3x + B·sen 3x sin el factor x. Al reemplazar, el operador la manda a cero y queda <b>0 = 5cos(3x)</b>: el alumno cree que erró una cuenta y pierde 20 minutos rehaciendo lo mismo. El segundo error es recortar la propuesta a y<sub>p</sub> = A·x·cos 3x "porque f no tiene seno": la familia tiene que ser <b>cerrada bajo derivación</b>.
+</div>
+
+<h3>Trampas del tipo</h3>
+<div class="trap"><div class="tr-t">Recortar la propuesta porque f "no tiene ese término"</div>
+cos y sen van <b>siempre juntos</b>; un polinomio va <b>completo</b> hasta el grado 0 (grado 1 → Ax + B, no sólo Ax). Al derivar aparecen funciones que no estaban en f, y si no las incluiste el sistema queda incompatible.
+</div>
+<div class="trap"><div class="tr-t">Confundir √Δ con Δ negativo</div>
+Con Δ = −64, escribir √Δ = 8 y sacar raíces reales 7 y −1. Toda la solución cambia de familia (exponenciales en vez de oscilación amortiguada) y el ejercicio vale cero. Escribí explícitamente √(−64) = 8i en el renglón, y verificá con r₁ + r₂ = −p y r₁·r₂ = q.
+</div>
+<div class="trap"><div class="tr-t">Imponer las condiciones iniciales sobre y<sub>h</sub> en vez de sobre y<sub>h</sub> + y<sub>p</sub></div>
+Calculan y<sub>p</sub>, vuelven a la homogénea y ajustan C₁, C₂ ahí. El resultado no cumple ni la ecuación ni las condiciones. Escribí la general completa en un renglón aparte, subrayala, y <b>derivá esa</b>.
+</div>
+<div class="trap"><div class="tr-t">Responder un par de números donde piden un conjunto</div>
+En el ejercicio que pide "las condiciones iniciales para que lím<sub>t→∞</sub> y(t) = 0", la respuesta es una <b>recta entera</b> de condiciones (y'(0) = −3y(0)), no un punto. Dar un ejemplo suelto es responder una fracción del ejercicio.
+</div>
+
+<div class="key"><div class="ky-t">Chequeo final que detecta los tres errores de una</div>
+Reemplazá <b>tu</b> solución en la ecuación original: el miembro izquierdo tiene que dar <b>exactamente</b> f(x). Después evaluá y(0) e y'(0).<br>
+· Si te olvidaste el factor x de resonancia, el término no homogéneo da 0 ≠ f(x).<br>
+· Si te comiste un signo en la resolvente, no vas a poder cancelar.<br>
+· Si te equivocaste en el sistema de C₁, C₂, las condiciones iniciales no dan.
+</div>
+
+<div class="reveal-wrap" data-rv="10" data-subject="fiuba-algebra-lineal"></div>
+<div class="quiz-wrap" data-qz="10" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 11 · UNIDAD 4 ============ -->
+<details id="fal-s11">
+<summary><span class="num">11</span> Unidad 4 · Autovalores, diagonalización y DVS (2º parcial) <span class="sec-score" id="ss-fiuba-algebra-lineal-11"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Qué es esta sección y qué no</div>
+La Unidad 4 (autovalores, diagonalización de simétricas, DVS) es del <b>segundo parcial</b>, y en el material de la cátedra <b>no hay exámenes reales de esa parte</b>: los 21 parciales relevados son todos del primero. Por eso acá no vas a encontrar frecuencias ni enunciados verbatim: sería inventarlos.<br><br>
+Lo que sí hay es la teoría y los métodos, sacados de las notas de la cátedra (Mancilla Aguilar) y del apunte oficial de la facultad (Pustilnik–Muszkats, capítulos 4, 5 y 6), que sí cubren el tema completo.
+</div>
+
+<h3>Autovalores y autovectores</h3>
+<div class="formula">
+  λ es autovalor de A ⟺ <b>det(A − λI) = 0</b> &nbsp;·&nbsp; el autoespacio es E<sub>λ</sub> = Nu(A − λI)<br>
+  <b>m<sub>a</sub>(λ)</b> = multiplicidad algebraica (como raíz del polinomio característico)<br>
+  <b>m<sub>g</sub>(λ)</b> = dim E<sub>λ</sub> = multiplicidad geométrica &nbsp;·&nbsp; siempre <b>1 ≤ m<sub>g</sub> ≤ m<sub>a</sub></b><br><br>
+  <b>Criterio de diagonalización:</b> A es diagonalizable ⟺ m<sub>g</sub>(λ) = m<sub>a</sub>(λ) para <b>todo</b> autovalor<br>
+  Entonces A = PDP<sup>−1</sup>, con las columnas de P los autovectores y D los autovalores <b>en el mismo orden</b>.
+</div>
+<div class="key"><div class="ky-t">Atajos que ahorran cuentas</div>
+<b>traza(A) = Σλ<sub>i</sub></b> y <b>det(A) = Πλ<sub>i</sub></b> (con multiplicidad): sirven para verificar los autovalores sin rehacer el polinomio.<br>
+Si A tiene n autovalores <b>distintos</b>, es diagonalizable (sin necesidad de calcular multiplicidades geométricas).<br>
+<b>A<sup>n</sup> = PD<sup>n</sup>P<sup>−1</sup></b>, y D<sup>n</sup> es elevar la diagonal: así se calculan potencias grandes.
+</div>
+
+<h3>Matrices simétricas: el teorema espectral</h3>
+<div class="formula">
+  Si A ∈ ℝ<sup>n×n</sup> es <b>simétrica</b>, entonces:<br>
+  · todos sus autovalores son <b>reales</b>;<br>
+  · autovectores de autovalores <b>distintos</b> son <b>ortogonales</b> entre sí;<br>
+  · A es <b>siempre</b> diagonalizable, y además <b>ortogonalmente</b>: <b>A = QDQ<sup>T</sup></b> con Q ortogonal (Q<sup>−1</sup> = Q<sup>T</sup>).
+</div>
+<p>El método: hallás los autoespacios, aplicás <b>Gram-Schmidt dentro de cada autoespacio</b> de dimensión ≥ 2 (entre autoespacios distintos ya son ortogonales, gratis), y <b>normalizás</b> todo. Ese último paso es el que convierte P en Q y el que más se olvida.</p>
+
+<h3>Formas cuadráticas y conjuntos de nivel</h3>
+<div class="formula">
+  Q(x) = x<sup>T</sup>Ax con A <b>simétrica</b> (los términos cruzados se reparten mitad y mitad: el coeficiente de x<sub>i</sub>x<sub>j</sub> va como a<sub>ij</sub> = a<sub>ji</sub> = coef/2).<br>
+  Cambiando a la base de autovectores: <b>Q = λ₁y₁² + … + λ<sub>n</sub>y<sub>n</sub>²</b> (ejes principales, sin términos cruzados).<br><br>
+  <b>Signo:</b> definida positiva ⟺ todos λ<sub>i</sub> &gt; 0 &nbsp;·&nbsp; definida negativa ⟺ todos &lt; 0 &nbsp;·&nbsp; indefinida ⟺ hay de los dos signos<br>
+  <b>Optimización con ‖x‖ = 1:</b> el máximo de Q es <b>λ<sub>máx</sub></b> y el mínimo <b>λ<sub>mín</sub></b>, alcanzados en los autovectores unitarios correspondientes.
+</div>
+<p>Los conjuntos de nivel Q(x) = k se identifican mirando los signos de los autovalores: en ℝ², dos positivos dan una <b>elipse</b>, signos opuestos una <b>hipérbola</b>; en ℝ³, elipsoide, hiperboloide de una o dos hojas, etc.</p>
+
+<h3>Descomposición en valores singulares (DVS)</h3>
+<div class="formula">
+  Para <b>cualquier</b> A ∈ ℝ<sup>m×n</sup> (no hace falta que sea cuadrada ni diagonalizable):<br>
+  <b>A = U Σ V<sup>T</sup></b>, con U ∈ ℝ<sup>m×m</sup> y V ∈ ℝ<sup>n×n</sup> ortogonales y Σ ∈ ℝ<sup>m×n</sup> "diagonal".<br><br>
+  <b>Construcción:</b><br>
+  · A<sup>T</sup>A es simétrica y semidefinida positiva → autovalores λ<sub>i</sub> ≥ 0.<br>
+  · <b>valores singulares σ<sub>i</sub> = √λ<sub>i</sub></b>, ordenados de mayor a menor.<br>
+  · Las columnas de <b>V</b> son los autovectores ortonormales de A<sup>T</sup>A.<br>
+  · Las columnas de <b>U</b> salen de u<sub>i</sub> = (1/σ<sub>i</sub>)·A v<sub>i</sub> para σ<sub>i</sub> ≠ 0, completando a base ortonormal.<br><br>
+  <b>rg(A) = cantidad de σ<sub>i</sub> no nulos</b>
+</div>
+<div class="key"><div class="ky-t">La DVS y los cuatro subespacios fundamentales</div>
+Con r = rg(A): las primeras <b>r</b> columnas de U son base ortonormal de <b>col(A)</b>; las restantes, de <b>Nul(A<sup>T</sup>)</b>. Las primeras r columnas de V son base ortonormal de <b>fil(A)</b>; las restantes, de <b>Nul(A)</b>.<br><br>
+Eso conecta directo con la sección 9: la solución de <b>norma mínima</b> de cuadrados mínimos vive en fil(A), y se obtiene con la <b>seudoinversa de Moore-Penrose</b> A<sup>+</sup> = VΣ<sup>+</sup>U<sup>T</sup>.
+</div>
+
+<h3>Trampas de la unidad</h3>
+<div class="trap"><div class="tr-t">Confundir multiplicidad algebraica con geométrica</div>
+Siempre vale 1 ≤ m<sub>g</sub> ≤ m<sub>a</sub>, y la diagonalización falla <b>exactamente</b> cuando alguna es estrictamente menor. Un autovalor simple (m<sub>a</sub> = 1) nunca da problema; los sospechosos son los repetidos.
+</div>
+<div class="trap"><div class="tr-t">Olvidar normalizar en la diagonalización ortogonal</div>
+Con A simétrica, los autovectores de autovalores distintos ya salen ortogonales <b>gratis</b> — pero no unitarios. Sin normalizar, Q no es ortogonal y Q<sup>−1</sup> ≠ Q<sup>T</sup>. Y dentro de un autoespacio de dimensión ≥ 2 hay que aplicar Gram-Schmidt: ahí la ortogonalidad <b>no</b> es automática.
+</div>
+<div class="trap"><div class="tr-t">Armar la matriz de una forma cuadrática sin repartir los cruzados</div>
+En Q = 2x₁² + 6x₁x₂ + x₂², la matriz es [[2, 3],[3, 1]], no [[2, 6],[0, 1]]. El coeficiente cruzado va <b>dividido por 2</b> en las dos posiciones simétricas. Con la matriz mal, todos los autovalores salen mal.
+</div>
+<div class="trap"><div class="tr-t">Confundir autovalores con valores singulares</div>
+Los σ<sub>i</sub> son las raíces de los autovalores de <b>A<sup>T</sup>A</b>, no de A. Son siempre <b>reales y ≥ 0</b>, aunque A ni siquiera sea cuadrada y aunque sus autovalores sean complejos o negativos.
+</div>
+<div class="trap"><div class="tr-t">Desordenar P y D</div>
+La columna i de P tiene que ser un autovector del autovalor que está en la posición (i,i) de D. Si reordenás una, reordená la otra. Chequeo: verificá <b>AP = PD</b> columna por columna, que es más rápido que calcular P<sup>−1</sup>.
+</div>
+
+<div class="quiz-wrap" data-qz="11" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 12 · MIX INTEGRADOR ============ -->
+<details id="fal-s12">
+<summary><span class="num">12</span> Mix integrador · Reconocer el tipo y plan del día <span class="sec-score" id="ss-fiuba-algebra-lineal-12"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en 10 segundos</h3>
+<table class="tbl">
+  <tr><th>Primera frase del enunciado</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"S₁ ∩ S₂", "S₁ + S₂", "⊕", "una base de V que contenga…"</td><td>Subespacios (§3)</td><td>Pasar todo a ecuaciones (intersecar) o todo a generadores (sumar)</td></tr>
+  <tr><td>"la matriz de cambio de coordenadas de B₁ en B₂"</td><td>Cambio de base (§4)</td><td>Escribir [v]<sub>B₂</sub> = M[v]<sub>B₁</sub> y calcular [v]<sub>B₁</sub> primero</td></tr>
+  <tr><td>"[T]<sub>B</sub><sup>C</sup>", "núcleo", "imagen", "preimagen"</td><td>Transformación lineal (§5)</td><td>Paso 0: qué base es dominio, qué base codominio, y rg(A)</td></tr>
+  <tr><td>"proyección sobre el plano … en la dirección de …", "Π∘Π = Π", "Σ∘Σ = I"</td><td>Proyección/simetría (§6)</td><td>Verificar f(d) ≠ 0 y escribir γ = f(x)/f(d)</td></tr>
+  <tr><td>"distancia del vector … al subespacio", "el más cercano", "área"</td><td>Producto interno (§7)</td><td>Resolver Aw = n si S viene por ecuación; Gram si viene por generadores</td></tr>
+  <tr><td>"todos los x tales que P<sub>S</sub>(x) = v cuya distancia … es k"</td><td>Fibra (§8)</td><td>x = v + w con w ∈ S<sup>⊥</sup>. <b>Subrayar la preposición</b></td></tr>
+  <tr><td>"por mínimos cuadrados", "ajustar mediante una recta", "de norma mínima"</td><td>Cuadrados mínimos (§9)</td><td>A<sup>T</sup>A x̂ = A<sup>T</sup>b, y mirar si las columnas son independientes</td></tr>
+  <tr><td>"y'' + … = …", "y(0) = …, y'(0) = …"</td><td>Ec. diferencial (§10)</td><td>Polinomio característico y chequeo de resonancia</td></tr>
+</table>
+
+<h3>Los seis errores más caros del parcial</h3>
+<div class="trap"><div class="tr-t">1 — Entregar coordenadas en vez de vectores</div>
+El error más frecuente de todo el examen: la cuenta está bien y la respuesta está mal. Si piden un polinomio, la respuesta tiene x; si piden una matriz, tiene corchetes 2×2. Aparece en §4 y §5.
+</div>
+<div class="trap"><div class="tr-t">2 — Confundir "distancia al origen" con "distancia al subespacio"</div>
+Arruina el ejercicio entero aunque todo el resto esté impecable. Subrayá la preposición <b>antes</b> de escribir la primera línea, y aplicá Pitágoras <b>sólo</b> si dice "al origen". §8.
+</div>
+<div class="trap"><div class="tr-t">3 — Usar la ortogonalidad visual con un producto interno no canónico</div>
+Con ⟨x,y⟩ = y<sup>T</sup>Ax, el complemento ortogonal de {x : n<sup>T</sup>x = 0} es gen{<b>A<sup>−1</sup>n</b>}, no gen{n}. Y una proyección oblicua no se calcula con la normal. §6 y §7.
+</div>
+<div class="trap"><div class="tr-t">4 — Confundir preimagen de un vector con preimagen de un subespacio</div>
+T<sup>−1</sup>(gen{w}) necesita el parámetro α en el lado derecho, y da una dimensión más. Control: la preimagen de un subespacio <b>contiene al 0</b>. §5.
+</div>
+<div class="trap"><div class="tr-t">5 — Olvidar el núcleo (o los dos signos)</div>
+En los 20 ejercicios de TL la matriz tiene rango deficiente: la preimagen <b>nunca</b> es un punto solo. Y en la fibra de la proyección, t = ±‖w‖/‖n‖: <b>los dos signos van</b>. §5 y §8.
+</div>
+<div class="trap"><div class="tr-t">6 — Suponer que la dimensión se conserva</div>
+Una proyección puede aplastar un plano en una recta y un triángulo en un segmento. Una simetría nunca (es inversible). Recalculá siempre la dimensión de la imagen y declará las degeneraciones. §6.
+</div>
+
+<h3>Plan del día del parcial</h3>
+<div class="key"><div class="ky-t">Las 3 horas, repartidas</div>
+<b>Minuto 0–5.</b> Barré los 5 ejercicios y escribí al lado de cada uno de qué tipo es. Con el esqueleto de la sección 1 ya sabés qué esperar en cada posición.<br><br>
+<b>Minuto 5–10.</b> Escribí la hoja de fórmulas de memoria en una hoja aparte: teorema de la dimensión, Grassmann, [T]<sub>B</sub><sup>C</sup>[v]<sub>B</sub> = [T(v)]<sub>C</sub>, proyección con base ortogonal, Pitágoras, ecuación normal.<br><br>
+<b>Minuto 10–145.</b> Resolvé empezando por el que reconocés más rápido, no por el Ej 1. En cada uno: <b>Paso 0</b> (dimensiones y rango) antes de calcular nada — te dice qué forma tiene que tener la respuesta.<br><br>
+<b>Minuto 145–180.</b> <b>Verificación, sin excepción.</b> En este parcial casi todo se chequea en 30 segundos y un error de cuenta arrastra el ejercicio entero.
+</div>
+
+<h3>Las verificaciones de 30 segundos, todas juntas</h3>
+<table class="tbl">
+  <tr><th>Si hallaste…</th><th>Verificá que…</th></tr>
+  <tr><td>Una base del núcleo</td><td>Aplicándole T dé <b>0</b></td></tr>
+  <tr><td>Una preimagen</td><td>Aplicándole T dé <b>el vector pedido</b> (recorriendo el diagrama de ida, desde cero)</td></tr>
+  <tr><td>Una proyección P<sub>S</sub>(v)</td><td>El residuo v − P<sub>S</sub>(v) sea ortogonal a <b>cada generador</b> de S, con el PI del enunciado</td></tr>
+  <tr><td>La fibra x = v + w</td><td>Recalculada, <b>la magnitud que pidió el enunciado</b> dé exactamente k</td></tr>
+  <tr><td>Una proyección oblicua Π(x)</td><td>Cada imagen <b>anule la ecuación del plano</b>, y Π(d) = 0</td></tr>
+  <tr><td>Una simetría Σ(x)</td><td>Σ(d) = <b>−d</b> (si da 0, te comiste el factor 2)</td></tr>
+  <tr><td>Una base B para una matriz diagonal pedida</td><td>A·b<sub>i</sub> = λ<sub>i</sub>·b<sub>i</sub> con el λ<sub>i</sub> <b>de la posición i</b>, y det ≠ 0</td></tr>
+  <tr><td>Una solución de cuadrados mínimos de norma mínima</td><td>Sea <b>ortogonal a cada generador de Nul(A)</b></td></tr>
+  <tr><td>Una solución de ecuación diferencial</td><td>Reemplazada dé <b>exactamente</b> f(x), y cumpla y(0) e y'(0)</td></tr>
+  <tr><td>Un cambio de base</td><td>Aplicado a b₁ dé <b>la primera columna de M</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Si te queda poco tiempo, priorizá así</div>
+<b>1.</b> Transformaciones lineales (§5) — 95% de los parciales, y el método es siempre el mismo diagrama.<br>
+<b>2.</b> Proyecciones y simetrías (§6) — 89%, y toda la sección es una sola fórmula: γ = f(x)/f(d).<br>
+<b>3.</b> Producto interno (§7) y la fibra (§8) — juntos son el 41% de los ejercicios del examen.<br>
+<b>4.</b> Subespacios (§3) — 79%, pero es el que más cuentas pide.<br>
+<b>5.</b> Cuadrados mínimos (§9) — barato de sostener (tres fórmulas), aunque no aparece en 2024.<br>
+<b>6.</b> Cambio de base (§4) y ecuaciones diferenciales (§10) — cortos, dejalos para el final.
+</div>
+
+<div class="quiz-wrap" data-qz="12" data-subject="fiuba-algebra-lineal"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal">↑ Volver al índice</a>
+</div>
+</details>
