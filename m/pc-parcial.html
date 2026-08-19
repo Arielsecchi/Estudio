@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC · Primer Parcial · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="pc-parcial"] {
+    --bg: #e8edf3; --text: #1a202c; --text-muted: #6b7280;
+    --surface: #ffffff; --surface-2: #d9e1ec; --surface-3: #c4cfdf;
+    --border: #cdd5e0; --border-2: #b5c0cf;
+    --accent: #0f766e; --accent-hover: #115e59; --gold: #ca8a04;
+    --ex-bg: #fef9c3; --ex-border: #fde047; --ex-title: #854d0e;
+    --ok-bg: #d1fae5; --ok-text: #065f46; --ok-border: #10b981;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #d9e1ec; --summary-hover: #c4cfdf; --num-text: #ffffff;
+    --shadow: rgba(15, 118, 110, 0.08);
+  }
+  [data-theme="dark"][data-subject="pc-parcial"] {
+    --bg: #0b1a1a; --text: #e2e8f0; --text-muted: #94a3b8;
+    --surface: #142626; --surface-2: #1e3636; --surface-3: #284545;
+    --border: #284545; --border-2: #355454;
+    --accent: #5eead4; --accent-hover: #99f6e4; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1e3636; --summary-hover: #284545; --num-text: #0b1a1a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== PC · PRIMER PARCIAL ======================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-pc-parcial">
+  <header>
+    <h1>PC · Guía Primer Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Balbiano · Guía intensiva basada en parciales reales 2024–2025</div>
+  </header>
+<nav class="toc" id="toc-pc-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#pcp-s1">Estrategia general del parcial</a></li>
+    <li><a href="#pcp-s2">Python básico · tipos, operadores y expresiones</a></li>
+    <li><a href="#pcp-s3">Condicionales · if / elif / else</a></li>
+    <li><a href="#pcp-s4">Ciclos · for y while</a></li>
+    <li><a href="#pcp-s5">Listas y tuplas</a></li>
+    <li><a href="#pcp-s6">Strings · slicing, métodos y recorridos</a></li>
+    <li><a href="#pcp-s7">Funciones · definición, parámetros y return</a></li>
+  </ol>
+  <div class="score" id="global-score-pc-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="pcp-s1">
+<summary><span class="num">1</span> Estrategia general del parcial <span class="sec-score" id="ss-pc-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Balbiano</h3>
+<p>El parcial de Pensamiento Computacional tiene <b>9 o 10 preguntas de opción múltiple</b> con <b>una sola respuesta correcta</b>. La duración es de <b>1:30 h</b>.</p>
+<p>Las preguntas 1–5 (o 1–7) valen <b>1 punto cada una</b>. Las últimas 4 (o 3) valen <b>2 puntos o 0</b> (sin puntos intermedios). La nota se calcula según una escala fija: de 13 puntos máximos posibles a nota del 1 al 10.</p>
+
+<table class="tbl">
+  <tr><th>Puntos acumulados</th><th>1–2</th><th>3–4</th><th>5–6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr>
+  <tr><td><b>Nota</b></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Estrategia de puntaje</div>
+Con 7 puntos (nota 4) alcanzás la aprobación directa. Para eso necesitás acertar <b>todas las preguntas de 1 punto</b> (5–7) + al menos 1 de 2 puntos. Priorizá las preguntas simples antes de las complejas.
+</div>
+
+<h3>Los tipos de preguntas del parcial 21/4/2025</h3>
+<p>Cada tema (1 a 8) repite la misma estructura de 9 ejercicios. Los tipos que aparecen:</p>
+<table class="tbl">
+  <tr><th>Ejercicio</th><th>Tipo de pregunta</th><th>Qué piden</th></tr>
+  <tr><td>1, 4, 7</td><td><b>Encontrar el programa correcto</b></td><td>¿Cuál programa muestra/hace exactamente X?</td></tr>
+  <tr><td>2</td><td><b>Trazar expresión aritmética</b></td><td>¿Qué muestra <code>print(...)</code>? (con precedencia, <code>**</code>, <code>//</code>)</td></tr>
+  <tr><td>3</td><td><b>Lista resultante</b></td><td>¿Con qué contenido queda la lista al final?</td></tr>
+  <tr><td>5</td><td><b>Función fun()</b></td><td>¿Qué devuelve la función con el texto dado?</td></tr>
+  <tr><td>6</td><td><b>Trazar bucle anidado</b></td><td>¿Qué muestra por pantalla un programa con dos for/while?</td></tr>
+  <tr><td>8</td><td><b>Elegir función correcta</b></td><td>¿Cuál <code>def</code> hace que el programa muestre X?</td></tr>
+  <tr><td>9</td><td><b>Equivalencia de condiciones</b></td><td>¿Cuál condición es equivalente a la dada (probando con valores)?</td></tr>
+</table>
+
+<h3>Las 3 preguntas que te tenés que hacer antes de cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tipo de ejercicio es?</h4>
+<p>Mirá la primera oración. Las palabras clave te dicen todo:</p>
+<ul>
+  <li><b>"¿Qué muestra el siguiente programa?"</b> → Trazá la ejecución línea a línea (Ej 2 y 6).</li>
+  <li><b>"¿Cuál de los siguientes programas muestra X?"</b> → Probá cada opción A/B/C/D con los valores dados; descartá las que tiren error o resultado distinto (Ej 1, 4, 7).</li>
+  <li><b>"¿Con qué contenido acabará la lista?"</b> → Simulá el bucle paso a paso en papel (Ej 3).</li>
+  <li><b>"¿Qué devuelve la función fun?"</b> → Trazá el for/while interno y mirá <b>qué tipo</b> devuelve el <code>return</code> (Ej 5).</li>
+  <li><b>"¿Cuál es la versión correcta de la función?"</b> → Chequeá nombre, cantidad y orden de parámetros, y que el <code>return</code> devuelva lo correcto (Ej 8).</li>
+  <li><b>"¿Cuál condición es candidata a ser equivalente?"</b> → Probá con los valores que da el enunciado: la equivalente da el mismo V/F que la original en todos los casos (Ej 9).</li>
+</ul>
+
+<h4>Pregunta 2 — ¿Cuáles son los valores iniciales?</h4>
+<p>Antes de trazar, anotá en un margen todos los valores iniciales de las variables. Nunca trates de tener los valores "en la cabeza": escribilos.</p>
+
+<h4>Pregunta 3 — ¿Hay trampa de precedencia o de tipo?</h4>
+<ul>
+  <li>¿Hay <b>potencia</b> (<span class="m">**</span>)? Se evalúa <b>antes</b> que <code>*</code> y <code>/</code>.</li>
+  <li>¿Hay división entera (<span class="m">//</span>) o módulo (<span class="m">%</span>)? Mismo nivel que <code>*</code>.</li>
+  <li>¿Hay <span class="m">int(num) == num</span>? Es la forma de detectar si un float es entero.</li>
+  <li>¿El índice de lista es negativo? <span class="m">lista[-1]</span> es el último elemento.</li>
+</ul>
+
+<div class="key"><div class="ky-t">La regla de oro</div>
+<b>Nunca confíes en tu intuición para código Python.</b> Siempre simulá línea a línea en papel. El 80% de los errores en parciales se produce por "ya sé qué hace" sin verificar.
+</div>
+
+<h3>Orden de precedencia de operadores Python</h3>
+<div class="formula">
+  1. <b>**</b> (potencia) — mayor precedencia<br>
+  2. <b>* / // %</b> (multiplicación, divisiones, módulo)<br>
+  3. <b>+ -</b> (suma y resta)<br>
+  4. <b>Comparaciones:</b> == != &lt; &gt; &lt;= &gt;=<br>
+  5. <b>not</b><br>
+  6. <b>and</b><br>
+  7. <b>or</b> — menor precedencia
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de precedencia · Parcial 21/4/2025 Tema 1 — Ejercicio 2</div>
+  <pre>a=1; b=0; c=2.5; d=-2
+print((a+d**2)/(c-b))</pre>
+  Paso a paso:<br>
+  1. <span class="m">d**2 = (-2)**2 = 4</span> (la potencia se evalúa primero)<br>
+  2. <span class="m">a + 4 = 1 + 4 = 5</span><br>
+  3. <span class="m">c - b = 2.5 - 0 = 2.5</span><br>
+  4. <span class="m">5 / 2.5 = 2.0</span><br>
+  Resultado: <b>2.0</b> (opción C)
+</div>
+
+<div class="trap"><div class="tr-t">Trampa clásica: precedencia de **</div>
+La potencia <span class="m">**</span> se evalúa <b>antes</b> que <code>*</code>, <code>/</code>, <code>+</code>, <code>-</code>. Sin paréntesis, <span class="m">d**2</span> se calcula primero y recién después se hace la suma <span class="m">a+d**2</span>. Otra trampa frecuente: <span class="m">x**0 = 1</span> para cualquier <span class="m">x</span>.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · PYTHON BÁSICO ============ -->
+<details id="pcp-s2">
+<summary><span class="num">2</span> Python básico · tipos, operadores y expresiones <span class="sec-score" id="ss-pc-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Tipos de datos fundamentales</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Ejemplo</th><th>Descripción</th></tr>
+  <tr><td><span class="m">int</span></td><td><span class="m">3, -10, 0</span></td><td>Número entero</td></tr>
+  <tr><td><span class="m">float</span></td><td><span class="m">2.5, 3.14, -0.5</span></td><td>Número con decimales</td></tr>
+  <tr><td><span class="m">str</span></td><td><span class="m">'hola', "mundo"</span></td><td>Cadena de texto</td></tr>
+  <tr><td><span class="m">bool</span></td><td><span class="m">True, False</span></td><td>Verdadero o falso</td></tr>
+</table>
+
+<h3>Operadores aritméticos</h3>
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th><th>Resultado</th></tr>
+  <tr><td><span class="m">+</span></td><td>suma</td><td><span class="m">5+3</span></td><td>8</td></tr>
+  <tr><td><span class="m">-</span></td><td>resta</td><td><span class="m">5-3</span></td><td>2</td></tr>
+  <tr><td><span class="m">*</span></td><td>multiplicación</td><td><span class="m">5*3</span></td><td>15</td></tr>
+  <tr><td><span class="m">/</span></td><td>división (siempre float)</td><td><span class="m">7/2</span></td><td>3.5</td></tr>
+  <tr><td><span class="m">//</span></td><td>cociente entero</td><td><span class="m">7//2</span></td><td>3</td></tr>
+  <tr><td><span class="m">%</span></td><td>resto de la división</td><td><span class="m">7%2</span></td><td>1</td></tr>
+  <tr><td><span class="m">**</span></td><td>potencia</td><td><span class="m">2**3</span></td><td>8</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">int() vs float()</div>
+<span class="m">int(num)</span> trunca hacia cero: <span class="m">int(3.9) → 3</span>, <span class="m">int(-3.9) → -3</span>.<br>
+El truco <span class="m">num == int(num)</span> detecta si un float es en realidad entero: <span class="m">3.0 == int(3.0) → True</span>, <span class="m">3.5 == int(3.5) → False</span>.
+</div>
+
+<h3>El operador * con strings y listas</h3>
+<p>En Python el operador <span class="m">*</span> aplicado a una string o lista con un entero <b>repite</b>:</p>
+<pre>'hola' * 2  →  'holahola'
+'*' * 5     →  '*****'
+[0] * 3     →  [0, 0, 0]
+[1, 2] * 2  →  [1, 2, 1, 2]</pre>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de tracing · Parcial 21/4/2025 Tema 7</div>
+  <pre>a=0; b=1; c=2; d=-2
+cant = d - b*b + c*2/b + 4
+print('&' * int(cant))</pre>
+  Paso a paso:<br>
+  1. <span class="m">b*b = 1*1 = 1</span><br>
+  2. <span class="m">c*2/b = 2*2/1 = 4.0</span><br>
+  3. <span class="m">cant = -2 - 1 + 4.0 + 4 = 5.0</span><br>
+  4. <span class="m">int(5.0) = 5</span><br>
+  5. <span class="m">'&' * 5 = '&&&&&'</span><br>
+  Resultado: <b>&amp;&amp;&amp;&amp;&amp;</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de tracing · Parcial 21/4/2025 Tema 4 — Ejercicio 2</div>
+  <pre>a=0; b=1; c=2; d=-2
+cant = d*d + b**(2+c)*a
+print('0' * cant)</pre>
+  Paso a paso:<br>
+  1. <span class="m">d*d = (-2)*(-2) = 4</span><br>
+  2. <span class="m">2+c = 2+2 = 4</span><br>
+  3. <span class="m">b**4 = 1**4 = 1</span><br>
+  4. <span class="m">1*a = 1*0 = 0</span> (el <span class="m">*a</span> aplasta toda esa parte)<br>
+  5. <span class="m">cant = 4 + 0 = 4</span><br>
+  6. <span class="m">'0'*4 = '0000'</span><br>
+  Resultado: <b>0000</b> (opción D)
+</div>
+
+<h3>Contar cuántas condiciones se evalúan</h3>
+<p>Este tipo de pregunta aparece siempre. La lógica es:</p>
+<ul>
+  <li>Si la primera condición de un <code>if</code> es <b>verdadera</b> y usa <span class="m">or</span>, Python <b>no evalúa</b> la segunda (cortocircuito).</li>
+  <li>Si la primera condición de un <code>if</code> es <b>falsa</b> y usa <span class="m">and</span>, Python <b>no evalúa</b> la segunda (cortocircuito).</li>
+  <li>Una vez que entra a un <code>if</code>, los <code>elif</code> que siguen <b>no se evalúan</b>.</li>
+  <li>Un <code>else</code> no es una condición evaluada (es el caso "restante"), así que <b>no suma</b> al conteo.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo conceptual: contar condiciones evaluadas</div>
+  <pre>a=10; ok=True
+if a==1 and ok:      # evalúa a==1 (False) → cortocircuito: ok NO se evalúa
+  ...
+elif a>1:            # se evalúa (True) → entra
+  print('Segundo')
+else:                # no se llega
+  ...</pre>
+  Total de condiciones evaluadas: <b>2</b> (<span class="m">a==1</span> y <span class="m">a>1</span>). El <code>else</code> no cuenta. El <span class="m">ok</span> no se evalúa por cortocircuito.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa: if encadenados vs if/elif</div>
+<b>Varios <code>if</code> seguidos</b> son independientes: se evalúa cada uno sí o sí.<br>
+<b><code>elif</code></b> solo se evalúa si el bloque anterior fue falso.<br>
+Esta diferencia genera muchos errores en el conteo de condiciones.
+</div>
+
+<h3>Leer datos del usuario: input()</h3>
+<p>La función <span class="m">input()</span> lee lo que el usuario escribe por teclado. Regla clave: <b><span class="m">input()</span> SIEMPRE devuelve un <span class="m">str</span></b> (una string), aunque el usuario escriba un número.</p>
+<pre>nombre = input('Tu nombre: ')   # si tipea Ana  → nombre = 'Ana'  (str)
+edad   = input('Tu edad: ')     # si tipea 30   → edad   = '30'   (str, NO 30)</pre>
+<p>Por eso, para hacer cuentas hay que <b>convertir</b> la entrada con <span class="m">int()</span> o <span class="m">float()</span>:</p>
+<pre>n = int(input('Un entero: '))     # tipea 7    → n = 7      (int)
+p = float(input('Un decimal: '))  # tipea 2.5  → p = 2.5    (float)</pre>
+
+<div class="trap"><div class="tr-t">Trampa clásica: olvidar la conversión</div>
+Si hacés <span class="m">edad = input(...)</span> y luego <span class="m">edad * 2</span>, como <span class="m">edad</span> es la string <span class="m">'30'</span>, el resultado es <span class="m">'3030'</span> (repite la string), <b>no</b> <span class="m">60</span>. Para sumar/multiplicar como número necesitás <span class="m">int(input(...))</span> o <span class="m">float(input(...))</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Patrón leer-y-procesar</div>
+  <pre>n = int(input('Numero: '))   # usuario escribe 7
+resultado = n * 3 + 1
+print(resultado)</pre>
+  Paso a paso:<br>
+  1. <span class="m">input()</span> devuelve <span class="m">'7'</span> (str)<br>
+  2. <span class="m">int('7') = 7</span> (ahora es int)<br>
+  3. <span class="m">7 * 3 + 1 = 22</span><br>
+  Resultado: <b>22</b>
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · CONDICIONALES ============ -->
+<details id="pcp-s3">
+<summary><span class="num">3</span> Condicionales · if / elif / else <span class="sec-score" id="ss-pc-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Estructura básica</h3>
+<pre>if condicion1:
+    # se ejecuta si condicion1 es True
+elif condicion2:
+    # se ejecuta si condicion1 fue False y condicion2 es True
+else:
+    # se ejecuta si ninguna condición anterior fue True</pre>
+
+<div class="key"><div class="ky-t">Regla de oro de condicionales</div>
+Una vez que Python encuentra un bloque cuya condición es <b>True</b>, ejecuta ese bloque y <b>salta todo el resto</b> del if/elif/else. Los bloques que siguen no se evalúan.
+</div>
+
+<h3>Operadores de comparación y lógicos</h3>
+<table class="tbl">
+  <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
+  <tr><td><span class="m">==</span></td><td>igual</td><td><span class="m">a == 5</span></td></tr>
+  <tr><td><span class="m">!=</span></td><td>distinto</td><td><span class="m">a != 5</span></td></tr>
+  <tr><td><span class="m">&lt;, &gt;, &lt;=, &gt;=</span></td><td>comparación</td><td><span class="m">a &lt; 10</span></td></tr>
+  <tr><td><span class="m">in</span></td><td>pertenencia</td><td><span class="m">x in ('a','b','c')</span></td></tr>
+  <tr><td><span class="m">not in</span></td><td>no pertenencia</td><td><span class="m">x not in lista</span></td></tr>
+  <tr><td><span class="m">and</span></td><td>Y lógico</td><td><span class="m">a&gt;0 and b&gt;0</span></td></tr>
+  <tr><td><span class="m">or</span></td><td>O lógico</td><td><span class="m">a==1 or b==1</span></td></tr>
+  <tr><td><span class="m">not</span></td><td>negación</td><td><span class="m">not (a==1)</span></td></tr>
+</table>
+
+<h3>El operador <span class="m">in</span> con range()</h3>
+<p><span class="m">a in range(1, 8, 2)</span> es equivalente a <span class="m">a in (1, 3, 5, 7)</span>. Esto aparece en preguntas de equivalencia de condiciones.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de tracing · Parcial 21/4/2025 Tema 7 — Ejercicio 1</div>
+  <pre>producto='birome'; unidad='caja'; precio=60
+if producto in ('block A4','etiqueta'):
+    ...
+elif producto in ('plasticola','hoja','birome'):
+    if unidad in ('ciento','docena','bolsa'):
+        print('barato')
+    else:
+        print('caro')</pre>
+  Tracing:<br>
+  1. <span class="m">producto='birome'</span>. ¿Está en <span class="m">('block A4','etiqueta')</span>? No → sigue.<br>
+  2. ¿Está en <span class="m">('plasticola','hoja','birome')</span>? Sí → entra.<br>
+  3. ¿<span class="m">unidad='caja'</span> está en <span class="m">('ciento','docena','bolsa')</span>? No → else.<br>
+  4. <b>Muestra: "caro"</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de equivalencia de condiciones · Parcial 21/4/2025 Tema 4 — Ejercicio 9</div>
+  <p>¿Cuál condición es candidata a ser equivalente a la siguiente?</p>
+  <pre>(num in sel) and (num!=int(num) or num&gt;0 or num%3==0)</pre>
+  <p>Probar con: <span class="m">sel=[2,21,-1,56]</span>, <span class="m">num=22</span> y <span class="m">num=21</span>.</p>
+  <p>Original con num=22 (no está en sel): <span class="m">False and ... = False</span>.<br>
+     Original con num=21 (está en sel): <span class="m">True and (False or True or True) = True</span>.</p>
+  <p>La candidata correcta (opción A del parcial) es:</p>
+  <pre>((num&gt;=1 or not(int(num)==num) or
+  (num%3!=1 and num%3!=2)) and (num in sel))</pre>
+  <p>Verificación: con num=22 → <span class="m">(... ) and False = False</span> ✓; con num=21 → <span class="m">(True or ...) and True = True</span> ✓. Las tablas de verdad coinciden.</p>
+</div>
+
+<h3>Condicionales anidados: conteo de condiciones paso a paso</h3>
+<p>Para contar condiciones evaluadas con valores dados, seguí este método:</p>
+<ol>
+  <li>Copiá el programa en papel con los valores iniciales.</li>
+  <li>Evaluá la primera condición. Anotá si es True o False.</li>
+  <li>Si es True: marcá las líneas que se ejecutan, tachá los elif/else siguientes al mismo nivel.</li>
+  <li>Si es False: pasá al siguiente elif (que sí se evalúa). Sumás 1 al contador.</li>
+  <li>Los <code>else</code> sin condición no suman al contador.</li>
+  <li>Repetí para todos los bloques anidados.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">Trampa: cortocircuito con and/or</div>
+<b>and:</b> si la primera parte es False, la segunda NO se evalúa. No suma al contador.<br>
+<b>or:</b> si la primera parte es True, la segunda NO se evalúa. No suma al contador.<br>
+Esto puede hacer diferencia entre opciones que parecen similares.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · CICLOS ============ -->
+<details id="pcp-s4">
+<summary><span class="num">4</span> Ciclos · for y while <span class="sec-score" id="ss-pc-parcial-4"></span></summary>
+<div class="content">
+
+<h3>El ciclo for</h3>
+<pre>for variable in secuencia:
+    # cuerpo del bucle</pre>
+<p>El cuerpo se ejecuta <b>una vez por cada elemento</b> de la secuencia. La secuencia puede ser una lista, una string, un range, una tupla.</p>
+
+<h3>range() — la función más importante del parcial</h3>
+<table class="tbl">
+  <tr><th>Llamada</th><th>Genera</th><th>Iteraciones</th></tr>
+  <tr><td><span class="m">range(5)</span></td><td>0, 1, 2, 3, 4</td><td>5</td></tr>
+  <tr><td><span class="m">range(2, 7)</span></td><td>2, 3, 4, 5, 6</td><td>5</td></tr>
+  <tr><td><span class="m">range(1, 15, 5)</span></td><td>1, 6, 11</td><td>3</td></tr>
+  <tr><td><span class="m">range(9, 5, -1)</span></td><td>9, 8, 7, 6</td><td>4</td></tr>
+  <tr><td><span class="m">range(9, 5, -3)</span></td><td>9, 6</td><td>2</td></tr>
+  <tr><td><span class="m">range(1, 10, -4)</span></td><td>(vacío)</td><td>0</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">range() con paso negativo</div>
+Para que <span class="m">range(inicio, fin, paso)</span> genere elementos, se necesita que <span class="m">inicio &gt; fin</span> cuando el paso es negativo. Si <span class="m">inicio &lt;= fin</span> con paso negativo, el range está vacío y el bucle no itera.
+</div>
+
+<h3>El ciclo while</h3>
+<pre>while condicion:
+    # cuerpo del bucle
+    # (la condición se reevalúa antes de cada iteración)</pre>
+<p>El cuerpo se ejecuta <b>mientras la condición sea True</b>. Cuidado con el bucle infinito: siempre tiene que haber algo dentro del bucle que modifique la condición.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: tracing de for anidado · Parcial 21/4/2025 Tema 7 — Ejercicio 6</div>
+  <pre>impares='13579'
+for i in range(len(impares)):
+    linea=''
+    for j in range(len(impares)*2):
+        if j%2!=0:
+            linea+=impares[j//2]
+        else:
+            linea+=' '
+    print(linea)</pre>
+  Tracing:<br>
+  • <span class="m">len(impares)=5</span>, así que el for externo itera 5 veces (<span class="m">i=0..4</span>).<br>
+  • El for interno itera 10 veces (<span class="m">j=0..9</span>) y arma <span class="m">linea</span>.<br>
+  • <span class="m">j</span> par → agrega ' '; <span class="m">j</span> impar → agrega <span class="m">impares[j//2]</span>.<br>
+  • <span class="m">j=0</span>: ' '; <span class="m">j=1</span>: '1'; <span class="m">j=2</span>: ' '; <span class="m">j=3</span>: '3'; <span class="m">j=5</span>: '5'; <span class="m">j=7</span>: '7'; <span class="m">j=9</span>: '9'.<br>
+  • <span class="m">linea = ' 1 3 5 7 9'</span>, y se imprime 5 veces (una por cada <span class="m">i</span>).<br>
+  Salida (opción B): 5 líneas iguales con <b>" 1 3 5 7 9"</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: for con slicing que modifica la string · Parcial 21/4/2025 Tema 5 — Ejercicio 6</div>
+  <pre>digitos='123456'
+izq=''
+for i in range(len(digitos)):
+    print(izq+digitos)
+    digitos=digitos[1:]
+    izq+=' '</pre>
+  Clave: <span class="m">range(len(digitos))</span> se evalúa <b>una sola vez</b> al inicio del for. Aunque <span class="m">digitos</span> se acorte adentro, el for itera 6 veces.<br>
+  • <span class="m">i=0</span>: imprime <span class="m">''+'123456'</span> → <b>"123456"</b>; después <span class="m">digitos='23456'</span>, <span class="m">izq=' '</span>.<br>
+  • <span class="m">i=1</span>: imprime <span class="m">' 23456'</span>; después <span class="m">digitos='3456'</span>, <span class="m">izq='  '</span>.<br>
+  • <span class="m">i=2</span>: imprime <span class="m">'  3456'</span>.<br>
+  • <span class="m">i=3</span>: imprime <span class="m">'   456'</span>.<br>
+  • <span class="m">i=4</span>: imprime <span class="m">'    56'</span>.<br>
+  • <span class="m">i=5</span>: imprime <span class="m">'     6'</span>.<br>
+  Salida (opción B): efecto de "escalera" con 6 líneas.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: for con range desde 1 hasta len-1 · Parcial 21/4/2025 Tema 4 — Ejercicio 6</div>
+  <pre>cartel='desde'
+print(cartel.upper())
+izq=' '
+for i in range(1,len(cartel)-1):
+    print(izq+cartel[i])
+    izq+=' '
+print(cartel.upper())</pre>
+  Tracing:<br>
+  • Antes del for: imprime <span class="m">'DESDE'</span>.<br>
+  • <span class="m">range(1, 5-1) = range(1, 4)</span>, así que <span class="m">i=1,2,3</span>.<br>
+  • <span class="m">i=1</span>: imprime <span class="m">' '+cartel[1]</span> → <b>" e"</b>; <span class="m">izq='  '</span>.<br>
+  • <span class="m">i=2</span>: imprime <span class="m">'  '+cartel[2]</span> → <b>"  s"</b>.<br>
+  • <span class="m">i=3</span>: imprime <span class="m">'   '+cartel[3]</span> → <b>"   d"</b>.<br>
+  • Después del for: imprime <span class="m">'DESDE'</span>.<br>
+  Salida (opción C): <b>DESDE / &nbsp;e / &nbsp;&nbsp;s / &nbsp;&nbsp;&nbsp;d / DESDE</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa: reasignar la variable de control en el for</div>
+<pre>for i in range(1,15,5):
+    i=0  # ¡esto NO afecta al rango!</pre>
+Aunque reasignes <span class="m">i</span> dentro del for, el siguiente paso del range asigna el nuevo valor. El bucle sigue iterando normalmente (3 veces en este caso).
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · LISTAS Y TUPLAS ============ -->
+<details id="pcp-s5">
+<summary><span class="num">5</span> Listas y tuplas <span class="sec-score" id="ss-pc-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Lista: colección mutable de elementos</h3>
+<pre>numeros = [4, 3, 1, 2]
+numeros[0]   →  4        # primer elemento (índice 0)
+numeros[-1]  →  2        # último elemento
+numeros[1:3] →  [3, 1]  # slicing: posiciones 1 y 2 (3 no entra)</pre>
+
+<h3>Índices negativos</h3>
+<p>Un índice negativo cuenta desde el final de la lista:</p>
+<pre>a = [10, 20, 30, 40]
+a[-1] →  40   # último
+a[-2] →  30   # penúltimo
+a[-(len(a))] →  a[0] → 10  # primer elemento</pre>
+
+<h3>Métodos de lista más usados en parciales</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
+  <tr><td><span class="m">append(x)</span></td><td>Agrega x al final</td><td><span class="m">a.append(5)</span></td></tr>
+  <tr><td><span class="m">extend(lista)</span></td><td>Agrega todos los elementos de lista al final</td><td><span class="m">a.extend([6,7])</span></td></tr>
+  <tr><td><span class="m">remove(x)</span></td><td>Elimina la primera ocurrencia de x</td><td><span class="m">a.remove(3)</span></td></tr>
+  <tr><td><span class="m">sort()</span></td><td>Ordena la lista de menor a mayor (modifica la original)</td><td><span class="m">a.sort()</span></td></tr>
+  <tr><td><span class="m">reverse()</span></td><td>Invierte el orden de la lista (modifica la original)</td><td><span class="m">a.reverse()</span></td></tr>
+  <tr><td><span class="m">copy()</span></td><td>Genera una copia independiente</td><td><span class="m">b=a.copy()</span></td></tr>
+  <tr><td><span class="m">count(x)</span></td><td>Cuenta cuántas veces aparece x</td><td><span class="m">a.count(1)</span></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">+ concatena, no modifica</div>
+<span class="m">a + b</span> genera una <b>nueva lista</b>. No modifica <span class="m">a</span> ni <span class="m">b</span>.<br>
+<span class="m">a.extend(b)</span> sí modifica <span class="m">a</span>.<br>
+Esta diferencia es clave en los ejercicios de "¿cuál NO deja la lista así?".
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: lista con índice negativo · Parcial 21/4/2025 Tema 7</div>
+  <pre>indicador=[1,2,3,4,5,6]
+numeros=[1,2,3,4,5,6]
+final=[0]*6          # [0,0,0,0,0,0]
+for i in range(len(numeros)):
+    final[-(indicador[i])] = numeros[i]</pre>
+  Iteraciones:<br>
+  i=0: <span class="m">final[-1]=1</span> → [0,0,0,0,0,1]<br>
+  i=1: <span class="m">final[-2]=2</span> → [0,0,0,0,2,1]<br>
+  i=2: <span class="m">final[-3]=3</span> → [0,0,0,3,2,1]<br>
+  i=3: <span class="m">final[-4]=4</span> → [0,0,4,3,2,1]<br>
+  i=4: <span class="m">final[-5]=5</span> → [0,5,4,3,2,1]<br>
+  i=5: <span class="m">final[-6]=6</span> → [6,5,4,3,2,1]<br>
+  Resultado: <b>[6,5,4,3,2,1]</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: lista resultante con <span class="m">indicador[i]-1</span> · Parcial 21/4/2025 Tema 4 — Ejercicio 3</div>
+  <pre>indicador=[7,5,1,3,2,4,6]
+numeros=[1,2,3,4,5,6,7]
+final=[0]*7
+for i in range(len(numeros)):
+    final[indicador[i]-1]=numeros[i]</pre>
+  Iteraciones (recordá que <span class="m">indicador[i]-1</span> da el índice positivo donde guardar):<br>
+  i=0: <span class="m">final[7-1]=final[6]=1</span> → [0,0,0,0,0,0,1]<br>
+  i=1: <span class="m">final[5-1]=final[4]=2</span> → [0,0,0,0,2,0,1]<br>
+  i=2: <span class="m">final[1-1]=final[0]=3</span> → [3,0,0,0,2,0,1]<br>
+  i=3: <span class="m">final[3-1]=final[2]=4</span> → [3,0,4,0,2,0,1]<br>
+  i=4: <span class="m">final[2-1]=final[1]=5</span> → [3,5,4,0,2,0,1]<br>
+  i=5: <span class="m">final[4-1]=final[3]=6</span> → [3,5,4,6,2,0,1]<br>
+  i=6: <span class="m">final[6-1]=final[5]=7</span> → [3,5,4,6,2,7,1]<br>
+  Resultado (opción B): <b>[3, 5, 4, 6, 2, 7, 1]</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: integrar dos listas con extend + sort · Parcial 21/4/2025 Tema 6 — Ejercicio 4</div>
+  <pre>impares=[15,7,11,3]
+pares=[22,14]
+numeros=[]
+numeros.extend(impares)
+numeros.extend(pares)
+numeros.sort()</pre>
+  Paso a paso:<br>
+  1. Después del primer <span class="m">extend</span>: <span class="m">numeros=[15,7,11,3]</span>.<br>
+  2. Después del segundo: <span class="m">numeros=[15,7,11,3,22,14]</span>.<br>
+  3. <span class="m">sort()</span> ordena ascendente: <b>[3, 7, 11, 14, 15, 22]</b>.<br>
+  Es la opción C del parcial. Las opciones que parecen razonables pero fallan suelen usar <span class="m">numeros=impares</span> (asignación, no copia) o sumar listas de a una con un for, dejando <span class="m">numeros</span> mal armado.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: sort + reverse para ordenar descendente · Parcial 21/4/2025</div>
+  <pre>numeros=[-3.36,10,2,0.25,-3]
+enteros=[]
+fraccionarios=[]
+for num in numeros:
+    if num==int(num):    # ¿es entero?
+        enteros.append(num)
+    else:
+        fraccionarios.append(num)
+enteros.sort()
+enteros.reverse()
+fraccionarios.sort()
+fraccionarios.reverse()</pre>
+  Después del for: enteros=[10,2,-3], fraccionarios=[-3.36,0.25]<br>
+  Después de sort+reverse: enteros=[10,2,-3], fraccionarios=[0.25,-3.36]<br>
+  Resultado: enteros <b>[10,2,-3]</b> y fraccionarios <b>[0.25,-3.36]</b>
+</div>
+
+<h3>Tuplas</h3>
+<p>Las tuplas son como listas pero <b>inmutables</b> (no se pueden modificar). Se crean con paréntesis:</p>
+<pre>t = (1, 2, 3)
+t[0]  →  1     # acceso igual que lista
+t[-1] →  3     # índice negativo igual que lista</pre>
+<p>En los parciales las tuplas aparecen principalmente como secuencias en <code>for</code> y como argumentos del operador <span class="m">in</span>.</p>
+
+<div class="quiz-wrap" data-qz="5" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · STRINGS ============ -->
+<details id="pcp-s6">
+<summary><span class="num">6</span> Strings · slicing, métodos y recorridos <span class="sec-score" id="ss-pc-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Acceso a caracteres y slicing</h3>
+<pre>pal = 'GEMELO'
+pal[0]    →  'G'     # primer carácter (índice 0)
+pal[-1]   →  'O'     # último carácter
+pal[2:]   →  'MELO'  # desde posición 2 hasta el final
+pal[:3]   →  'GEM'   # desde el inicio hasta posición 2 (3 no entra)
+pal[1:4]  →  'EME'   # posiciones 1, 2, 3
+pal[::-1] →  'OLEMEG' # invertir la string</pre>
+
+<div class="key"><div class="ky-t">Slicing: el "hasta" nunca entra</div>
+En <span class="m">s[a:b]</span>, el índice <span class="m">b</span> <b>no está incluido</b>. <span class="m">'hola'[1:3]</span> da <span class="m">'ol'</span>, no <span class="m">'ola'</span>. Acordate: el índice de fin siempre queda afuera.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: concatenación con índice negativo y .upper() · Parcial 21/4/2025 Tema 4 — Ejercicio 7</div>
+  <p>El programa debe mostrar: <b>Siempre la vocal: A está varias veces en ANACONDA</b></p>
+  <pre>palabra='anaconda'
+txt='la vocal: '
+frase='Siempre '
+frase=frase+txt+palabra[-1].upper()
+frase=frase+' está varias veces en '
+frase=frase+palabra.upper()
+print(frase)</pre>
+  Tracing:<br>
+  1. <span class="m">palabra[-1] = 'a'</span> (último carácter); <span class="m">.upper() = 'A'</span>.<br>
+  2. Tras la primera concatenación: <span class="m">frase = 'Siempre la vocal: A'</span>.<br>
+  3. Tras la segunda: <span class="m">frase = 'Siempre la vocal: A está varias veces en '</span>.<br>
+  4. <span class="m">palabra.upper() = 'ANACONDA'</span>; tras la tercera: <span class="m">frase = 'Siempre la vocal: A está varias veces en ANACONDA'</span>.<br>
+  Es la opción B del parcial.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: concatenación con slicing y .upper() · Parcial 21/4/2025 Tema 1 — Ejercicio 7</div>
+  <p>El programa debe mostrar: <b>Agustín, LA PLACA BACTERIANA DENTAL SE QUITA CON: PLAKOUT</b></p>
+  <pre>mens='LA PLACA DENTAL SE QUITA CON'
+nom='Agustín'
+tipo='bacteriana'
+producto='plakout'
+textoMens=nom+', '+mens[:8]+' '+tipo.upper()
+textoMens=textoMens+mens[8:]
+textoMens=textoMens+': '+producto.upper()
+print(textoMens)</pre>
+  Tracing:<br>
+  1. <span class="m">mens[:8] = 'LA PLACA'</span> (los primeros 8 caracteres; el 8 no entra).<br>
+  2. <span class="m">mens[8:] = ' DENTAL SE QUITA CON'</span> (todo lo demás, empezando por el espacio).<br>
+  3. <span class="m">tipo.upper() = 'BACTERIANA'</span>; <span class="m">producto.upper() = 'PLAKOUT'</span>.<br>
+  4. Después de la primera línea: <span class="m">'Agustín, LA PLACA BACTERIANA'</span>.<br>
+  5. Después de la segunda: <span class="m">'Agustín, LA PLACA BACTERIANA DENTAL SE QUITA CON'</span>.<br>
+  6. Después de la tercera: <span class="m">'Agustín, LA PLACA BACTERIANA DENTAL SE QUITA CON: PLAKOUT'</span>.<br>
+  Es la opción B del parcial.
+</div>
+
+<h3>Métodos de string más usados en parciales</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
+  <tr><td><span class="m">upper()</span></td><td>Convierte a mayúsculas</td><td><span class="m">'hola'.upper() → 'HOLA'</span></td></tr>
+  <tr><td><span class="m">lower()</span></td><td>Convierte a minúsculas</td><td><span class="m">'HOLA'.lower() → 'hola'</span></td></tr>
+  <tr><td><span class="m">replace(a,b)</span></td><td>Reemplaza todas las ocurrencias de a por b</td><td><span class="m">'hola'.replace('o','0') → 'h0la'</span></td></tr>
+  <tr><td><span class="m">split()</span></td><td>Parte la string por espacios en blancos → lista</td><td><span class="m">'a b c'.split() → ['a','b','c']</span></td></tr>
+  <tr><td><span class="m">join(lista)</span></td><td>Une una lista con el separador dado → string</td><td><span class="m">' '.join(['a','b']) → 'a b'</span></td></tr>
+  <tr><td><span class="m">count(s)</span></td><td>Cuenta cuántas veces aparece s</td><td><span class="m">'banana'.count('a') → 3</span></td></tr>
+  <tr><td><span class="m">len(s)</span></td><td>Longitud de la string</td><td><span class="m">len('hola') → 4</span></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Trampa: replace() devuelve una nueva string</div>
+<pre>frase = 'hola mundo'
+frase.replace('hola','chau')  # ← ¡NO modifica frase!
+print(frase)  # sigue siendo 'hola mundo'
+
+frase = frase.replace('hola','chau')  # ← esto SÍ funciona
+print(frase)  # ahora es 'chau mundo'</pre>
+En los parciales aparecen opciones con <span class="m">frase.replace(...)</span> sin reasignar: esas opciones son incorrectas.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: replace + upper · Parcial 21/4/2025 Tema 7</div>
+  El objetivo es obtener: <b>LAS ABEJAS VAALAN Y LAS OVEJAS BALAN</b><br>
+  <pre>frase='Las abejas vuelan y las ovejas balan'
+animal1='abeja'; animal2='oveja'
+frase=frase.replace(animal1,'ABEJA')
+frase=frase.replace(animal2,'OVEJA')
+for voc in 'eiou':
+    frase=frase.replace(voc,'A')
+print(frase.upper())</pre>
+  Paso 1: <span class="m">replace('abeja','ABEJA')</span> → "Las ABEJA<b>s</b> vuelan y las ovejas balan" (la 's' final queda minúscula porque <span class="m">replace</span> solo coincide con 'abeja', no con 'abejas').<br>
+  Paso 2: <span class="m">replace('oveja','OVEJA')</span> → "Las ABEJAs vuelan y las OVEJAs balan".<br>
+  Paso 3: el for recorre <span class="m">'eiou'</span>. Solo afecta minúsculas (las MAYÚSCULAS de ABEJAS/OVEJAS no se tocan):<br>
+  &nbsp;&nbsp;• <span class="m">'e'→'A'</span>: 'vuelan' → 'vuAlan'.<br>
+  &nbsp;&nbsp;• <span class="m">'i'→'A'</span>: no hay 'i' en la frase.<br>
+  &nbsp;&nbsp;• <span class="m">'o'→'A'</span>: no hay 'o' minúscula.<br>
+  &nbsp;&nbsp;• <span class="m">'u'→'A'</span>: 'vuAlan' → 'vAAlan'.<br>
+  &nbsp;&nbsp;Resultado tras el for: "Las ABEJAs vAAlan y las OVEJAs balan".<br>
+  Paso 4: <span class="m">.upper()</span> convierte todo a mayúsculas → <b>"LAS ABEJAS VAALAN Y LAS OVEJAS BALAN"</b> ✓
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: split() y join() para editar palabras · Parcial 21/4/2025</div>
+  <pre>def edita(t, palabras):
+    t=t.lower()
+    lista=t.split()
+    for i in range(len(lista)):
+        if lista[i] in palabras:
+            lista[i]=lista[i].upper()
+    return ' '.join(lista)
+
+txt='argumentar caos en cualquier situación no es compromiso'
+resalta=['compromiso','caos']
+print(edita(txt, resalta))</pre>
+  1. <span class="m">t.lower()</span> → minúsculas (ya está).<br>
+  2. <span class="m">split()</span> → lista de palabras.<br>
+  3. Para cada palabra: si está en <span class="m">resalta</span>, la pone en mayúsculas.<br>
+  4. <span class="m">join()</span> vuelve a armar la frase.<br>
+  Resultado: <b>argumentar CAOS en cualquier situación no es COMPROMISO</b>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: bucle sobre string con count() · Parcial 21/4/2025</div>
+  <pre>def fun(t):
+    vocales='AEIOUÁÉÍÓÚÜ'
+    repetidas=''
+    for letra in t:
+        if letra in vocales and t.count(letra)>0:
+            if letra not in repetidas:
+                repetidas+=letra
+    return repetidas.lower()
+txt='Estaba LA RANA cantando debajo del AGUA'
+print(fun(txt))</pre>
+  La condición <span class="m">t.count(letra)>0</span> es siempre True si la letra está en t (y si pasó el primer <span class="m">in vocales</span>). Entonces la función recorre todas las letras y agrega al resultado las vocales mayúsculas que aparecen por primera vez.<br>
+  Vocales mayúsculas en el texto (en orden de aparición): E, A, U → devuelve <b>'eau'</b>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · FUNCIONES ============ -->
+<details id="pcp-s7">
+<summary><span class="num">7</span> Funciones · definición, parámetros y return <span class="sec-score" id="ss-pc-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Estructura básica de una función</h3>
+<pre>def nombre_funcion(parametro1, parametro2):
+    # cuerpo de la función
+    resultado = parametro1 + parametro2
+    return resultado</pre>
+<p>Para <b>llamar</b> a la función y usar su resultado:</p>
+<pre>valor = nombre_funcion(3, 5)   # valor = 8
+print(nombre_funcion(10, 2))   # imprime 12</pre>
+
+<div class="key"><div class="ky-t">Los 3 componentes clave</div>
+1. <b>Parámetros</b>: variables que recibe la función al ser llamada.<br>
+2. <b>Cuerpo</b>: las instrucciones que ejecuta.<br>
+3. <b>return</b>: el valor que devuelve. Sin <code>return</code> la función devuelve <span class="m">None</span>.
+</div>
+
+<h3>Tipo de pregunta: "¿cuál función es adecuada?"</h3>
+<p>El parcial te muestra un programa que llama a una función con ciertos argumentos y una salida esperada. Tenés que encontrar la definición correcta. Estrategia:</p>
+<ol>
+  <li>Mirá cómo se llama la función: <span class="m">producto(lista[i], factor[i])</span> → recibe <b>2 parámetros</b>.</li>
+  <li>Mirá la salida esperada y deducí qué operación hace: si da 3, 0, 6 con (1,3), (0,6), (3,2) → es multiplicación.</li>
+  <li>Eliminá opciones con número de parámetros incorrecto.</li>
+  <li>Verificá que el <code>return</code> devuelva lo correcto.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: función fun que devuelve un bool · Parcial 21/4/2025 Tema 1 — Ejercicio 5</div>
+  <pre>def fun(t):
+    vocales='AEIOUÁÉÍÓÚÜ'
+    t=t.upper()
+    cont=0
+    for letra in t:
+        if letra in vocales:
+            cont+=1
+    return cont&gt;6
+
+txt='Una oruga NEGRA en un PAJAR'
+print(fun(txt))</pre>
+  Tracing:<br>
+  1. <span class="m">t = 'UNA ORUGA NEGRA EN UN PAJAR'</span> (todo en mayúsculas).<br>
+  2. Cuenta vocales (A, E, I, O, U y acentuadas): U, A, O, U, A, E, A, E, U, A, A → 11.<br>
+  3. <span class="m">return 11 &gt; 6 → True</span>.<br>
+  Salida: <b>True</b> (opción C). Patrón clave: la función <b>cuenta y compara</b>; el <code>return</code> ya devuelve un booleano sin <code>if/else</code>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: elegir función edita correcta · Parcial 21/4/2025 Tema 4 — Ejercicio 8</div>
+  <p>El programa debe mostrar: <b>HASTA&lt;ESP&gt;LA&lt;ESP&gt;VISTA&lt;ESP&gt;BABY&lt;ESP&gt;&lt;ESP&gt;&lt;ESP&gt;</b></p>
+  <pre>txt='hasta la vista baby!!!'
+print(edita(txt,',- .!?'))</pre>
+  La opción correcta (B) es:
+  <pre>def edita(t, carEsp):
+    lista=list(t)
+    for i in range(len(lista)):
+        if lista[i] in carEsp:
+            lista[i]='&lt;esp&gt;'
+    t=''.join(lista)
+    return t.upper()</pre>
+  Estrategia para descartar las otras:<br>
+  • <b>Cantidad de parámetros</b>: <code>edita</code> se llama con 2 argumentos. Las opciones con <span class="m">def edita(carEsp)</span> o <span class="m">def edita(t)</span> están mal.<br>
+  • <b>Orden de parámetros</b>: si la opción dice <span class="m">def edita(carEsp, t)</span> los argumentos se asignan al revés: pruebas mentalmente que <span class="m">list(t)</span> daría error o resultado distinto.<br>
+  • <b>Return</b>: el texto final está en MAYÚSCULAS, así que la función necesita <span class="m">.upper()</span> en el return.<br>
+  • <b>Substitución vacía</b>: una opción usa <span class="m">lista[i]=''</span>, que elimina los caracteres en vez de reemplazarlos por <span class="m">&lt;esp&gt;</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Trampas en las opciones de función</div>
+Las opciones incorrectas suelen tener:<br>
+• Número incorrecto de parámetros (0, 1 en lugar de 2).<br>
+• Usar variables no definidas dentro de la función (<span class="m">n2*n2</span> cuando debería ser <span class="m">n1*n2</span>).<br>
+• <code>return</code> que devuelve la variable equivocada (devuelve <span class="m">n2</span> en lugar del resultado).<br>
+• Sin <code>return</code> (la función devuelve None).
+</div>
+
+<h3>Alcance de variables (scope)</h3>
+<p>Las variables definidas <b>dentro</b> de una función solo existen dentro de ella. Las variables definidas <b>fuera</b> (globales) pueden leerse dentro pero no modificarse sin <span class="m">global</span>.</p>
+
+<h3>Ejemplo integrador: función + strings + listas</h3>
+<div class="example">
+  <div class="ex-t">Patrón de función que devuelve lista filtrada</div>
+  <pre>def solo_pares(numeros):
+    resultado = []
+    for n in numeros:
+        if n % 2 == 0:
+            resultado.append(n)
+    return resultado
+
+datos = [1, 4, 7, 8, 3, 6]
+print(solo_pares(datos))  # [4, 8, 6]</pre>
+  Este patrón —crear lista vacía, recorrer con for, agregar con append, retornar— es el más frecuente en las funciones del parcial.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="pc-parcial"></div>
+<a class="back" href="#subject-pc-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'pc-parcial';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS PC 1° PARCIAL ============
+registerExercises('pc-parcial', '1', [
+  {st: 'El parcial de PC tiene preguntas de opción múltiple. Las últimas 3–4 preguntas valen:', opts: ['1 punto cada una', '2 puntos o 0 (sin término medio)', '3 puntos', 'Depende del tema'], c: 1, ex: 'Las primeras 5–7 preguntas valen 1 punto cada una si son correctas. Las últimas 3–4 valen 2 puntos o 0: NO hay puntaje parcial (no podés sacar 1 punto por una "media respuesta"). ▸ Por qué las otras están mal: "1 punto cada una" describe las primeras, no las últimas; "3 puntos" no aparece en la escala de Balbiano; "depende del tema" es falso, depende de la POSICIÓN en el examen. Estrategia: asegurate las simples (5–7 puntos) antes de meterte en las grandes.'},
+  {st: '¿Cuántos puntos necesitás para obtener nota 4 (aprobado)?', opts: ['4 puntos', '7 puntos', '10 puntos', '13 puntos'], c: 1, ex: 'Tabla oficial Balbiano: 7 puntos → nota 4 (aprobado mínimo). 10 puntos → 7. 13 puntos → 10 (todo perfecto). ▸ Por qué las otras están mal: "4 puntos" da nota 2 (desaprobado); "10 puntos" ya es nota 7; "13 puntos" es la nota máxima 10. Truco: 7 puntos = todas las preguntas de 1 punto (5–7) + UNA de 2 puntos. Con eso ya aprobás.'},
+  {st: '¿Cuál es el resultado de a=3; b=0; c=2.5; print((a + b*c - c**b) * c)?', opts: ['5.0', '7.5', '0.0', '2.5'], c: 0, ex: 'Hay que respetar la precedencia: ** primero, luego * y /, después + y -. ▸ Paso 1: c**b = 2.5**0 = 1.0 (cualquier número a la 0 es 1). ▸ Paso 2: b*c = 0*2.5 = 0. ▸ Paso 3: dentro del paréntesis: a + 0 − 1.0 = 3 − 1.0 = 2.0 (queda float porque hay un float). ▸ Paso 4: 2.0 * 2.5 = 5.0. ▸ Por qué las otras están mal: "7.5" sale si no calculás c**b y dejás (3+0)·2.5=7.5; "0.0" sale si multiplicás todo por b=0 mal; "2.5" sale si te olvidás de multiplicar por c al final.'},
+  {st: '¿Qué hace el operador ** en Python?', opts: ['División entera', 'Módulo (resto)', 'Potencia', 'Multiplicación doble'], c: 2, ex: '** es POTENCIA: 2**3 = 8 (2 elevado a 3), 4**2 = 16, 5**0 = 1. Tiene la precedencia más alta entre los operadores aritméticos (se evalúa antes que *, /, +, −). ▸ Por qué las otras están mal: "división entera" es // (doble barra); "módulo/resto" es % (porcentaje); "multiplicación doble" no existe en Python.'},
+  {st: 'El operador // en Python calcula:', opts: ['División normal (float)', 'La raíz cuadrada', 'El cociente entero (sin decimales)', 'El resto de la división'], c: 2, ex: '// es la DIVISIÓN ENTERA: 7//2 = 3 (no 3.5), trunca hacia el infinito negativo (por eso −7//2 = −4, no −3). ▸ Por qué las otras están mal: "división normal" es solo / (devuelve float siempre); "raíz cuadrada" no es un operador, es math.sqrt() o **0.5; "resto de la división" es % (7%2 = 1).'},
+  {st: 'Con a=10 y ok=True, en el código: if a==1 and ok: ... elif a>1: print("OK"). ¿Cuántas condiciones se evalúan?', opts: ['1', '2', '3', '4'], c: 1, ex: '▸ Paso 1: se evalúa a==1 → 10==1 → False (1ª condición evaluada). ▸ Paso 2: como el primer operando del "and" es False, Python NO evalúa ok (cortocircuito de "and"). ok queda sin evaluar. ▸ Paso 3: como el if dio False, pasa al elif y evalúa a>1 → 10>1 → True (2ª condición evaluada). Total: 2 condiciones. ▸ Por qué las otras están mal: "1" supondría que solo se evalúa la del if; "3" supondría que también se evalúa ok (pero el cortocircuito lo evita); "4" no tiene sentido (solo hay 3 condiciones en total).'}
+]);
+
+registerExercises('pc-parcial', '2', [
+  {st: '¿Cuál es el resultado de a=0; b=1; c=2; d=-2; cant=d-b*b+c*2/b+4; print(int(cant))?', opts: ['3', '4', '5', '6'], c: 2, ex: 'Respeto precedencia: * y / antes que + y −. ▸ Paso 1: b*b = 1*1 = 1. ▸ Paso 2: c*2/b = 2*2/1 = 4/1 = 4.0 (la / siempre da float). ▸ Paso 3: cant = d − 1 + 4.0 + 4 = −2 − 1 + 4.0 + 4 = 5.0. ▸ Paso 4: int(5.0) = 5 (trunca el .0). ▸ Por qué las otras están mal: "3" sale si haces d-b*b+c*2/b sin el +4 final; "4" sale si te olvidás del −1 (b*b); "6" sale si sumás mal alguna parte.'},
+  {st: 'El truco "num == int(num)" sirve para:', opts: ['Convertir un número a entero', 'Detectar si un float es en realidad un número entero (ej. 3.0 vs 3.5)', 'Calcular el valor absoluto', 'Redondear hacia arriba'], c: 1, ex: 'int() trunca la parte decimal. Si num=3.0, int(3.0)=3, y la comparación 3.0==3 es True (Python compara numéricamente). Si num=3.5, int(3.5)=3, pero 3.5==3 es False. Así detectás si el float "es realmente un entero disfrazado" o si tiene parte decimal. ▸ Por qué las otras están mal: "convertir a entero" es lo que hace int(num) solo, sin la comparación; "valor absoluto" es abs(num); "redondear hacia arriba" es math.ceil(num).'},
+  {st: '"hola"*3 en Python produce:', opts: ['Error de tipo', '"hola3"', '"holaholahola"', '"h o l a 3"'], c: 2, ex: 'El operador * con una string y un entero REPITE la string. "hola"*3 concatena "hola" tres veces seguidas → "holaholahola". Funciona igual con listas: [0]*3 = [0,0,0]. ▸ Por qué las otras están mal: "error" sería si multiplicaras dos strings ("hola"*"hola" sí da error); "hola3" sería con + ("hola"+"3"); "h o l a 3" no es una operación válida en Python.'},
+  {st: 'Si varios if están encadenados (sin elif), ¿cuántos se evalúan con a=5?', opts: ['Solo el primero que sea True', 'Solo 1', 'Todos, sin excepción', 'Ninguno si el primero es False'], c: 2, ex: 'Cada if INDEPENDIENTE (sin elif) se evalúa SIEMPRE, sin importar lo que pasó antes. Si tenés 3 ifs separados, se evalúan los 3. ▸ Por qué las otras están mal: "solo el primero que sea True" describe el comportamiento de if/elif/elif (con elif sí hay cortocircuito); "solo 1" es lo mismo, no aplica a ifs sueltos; "ninguno si el primero es False" es lo opuesto a la realidad. ESTA es la trampa clásica del parcial: confundir "if + if + if" (todos se evalúan) con "if + elif + elif" (al primero True se cortan los demás).'},
+  {st: '¿Cuál es la diferencia entre / y // en Python?', opts: ['No hay diferencia', '/ da float, // da el cociente entero', '// da float, / da entero', '/ es potencia, // es raíz'], c: 1, ex: '/ siempre devuelve float (incluso si la división es exacta: 6/2 = 3.0). // devuelve el cociente entero, truncando hacia el infinito negativo: 7//2 = 3, −7//2 = −4. ▸ Por qué las otras están mal: "no hay diferencia" es falso; "// da float, / da entero" es invertido; "/ es potencia, // es raíz" no existe (potencia es **, raíz es **0.5).'},
+  {st: 'Esta es una pregunta clásica de "equivalencia de condiciones": te dan 4 expresiones booleanas (NO son ifs, son condiciones que dan True o False) y tenés que detectar cuál da un resultado distinto a las otras tres con los mismos valores. Si a=2, b=False, c=3, ¿cuál NO es equivalente?', opts: ['(1) a in range(1,8,2) or b or c>a', '(2) a in range(1,8,2) and b and c>a', '(3) (a>0 and a&lt;8 and a%2!=0) or a&lt;c', '(4) a&lt;c or a in (1,3,5,7)'], c: 1, ex: 'CLAVE: range(1,8,2) NO incluye todos los enteros entre 1 y 8. El "2" final es el PASO. Genera: 1, 3, 5, 7 (arranca en 1, suma 2, no llega a 8). Por eso a=2 NO está en range(1,8,2). Ahora evalúo cada una con a=2, b=False, c=3: ▸ (1) False or False or (3>2)=True → TRUE. ▸ (2) False and False and True → FALSE (el "and" cortocircuita en False). ▸ (3) a%2=0 → a%2!=0 es False → (T and T and F)=False; a&lt;c=2&lt;3=True → False or True → TRUE. ▸ (4) (2&lt;3)=True or (2 in (1,3,5,7))=False → TRUE. Resultado: (1), (3), (4) dan True; (2) da False. La (2) es la diferente. ▸ Truco: cuando hay "and" entre términos y uno es False, todo el "and" se hace False; cuando hay "or" entre términos y uno es True, todo el "or" se hace True.'},
+  {st: 'El usuario corre edad = input("Edad: ") y escribe 30. Después se ejecuta print(edad * 2). ¿De qué tipo es edad y qué imprime?', opts: ['int, y muestra 60', 'str, y muestra "3030"', 'int, y muestra "3030"', 'str, y muestra 60'], c: 1, ex: 'REGLA DE ORO: input() SIEMPRE devuelve un str (una string), aunque el usuario escriba un número. ▸ Paso 1: edad = "30" (string, no el número 30). ▸ Paso 2: "30" * 2 → el operador * con una string repite, así que da "3030" (no la cuenta 30*2=60). ▸ Por qué las otras están mal: "int, muestra 60" supone que input() convierte solo (no lo hace); "int, muestra 3030" mezcla mal el tipo; "str, muestra 60" es imposible (con una string, * repite, no suma). Para obtener 60 necesitarías edad = int(input(...)) y recién ahí edad*2 = 60.'},
+  {st: 'Con el código n = int(input()) (el usuario escribe 7) y luego resultado = n * 3 + 1; print(resultado). ¿Qué muestra?', opts: ['"7331"', '21', '22', 'Error de tipo'], c: 2, ex: 'El patrón leer-y-procesar: ▸ Paso 1: input() devuelve "7" (str). ▸ Paso 2: int("7") = 7 (ahora es int, por eso podés hacer cuentas). ▸ Paso 3: 7 * 3 = 21. ▸ Paso 4: 21 + 1 = 22. ▸ Por qué las otras están mal: "7331" sería si n quedara como string "7" y se repitiera/concatenara (pero int() ya lo convirtió); "21" se olvida del +1 final; "Error de tipo" no aplica porque int() convirtió la string a número antes de operar.'}
+]);
+
+registerExercises('pc-parcial', '3', [
+  {st: 'Con producto="birome", unidad="caja", precio=60, en el código: if producto in ("block A4","etiqueta"): ... elif producto in ("plasticola","hoja","birome"): if unidad in ("ciento","docena","bolsa"): print("barato") else: print("caro"). ¿Qué muestra?', opts: ['"barato"', '"caro"', 'Nada', 'Error'], c: 1, ex: '▸ Paso 1: ¿"birome" está en ("block A4","etiqueta")? NO → no entra al primer if. ▸ Paso 2: ¿"birome" está en ("plasticola","hoja","birome")? SÍ → entra al elif. ▸ Paso 3: dentro del elif, ¿"caja" está en ("ciento","docena","bolsa")? NO → va al else → imprime "caro". ▸ Por qué las otras están mal: "barato" sería si unidad fuera "ciento", "docena" o "bolsa"; "Nada" sería si producto no estuviera en ninguna tupla; "Error" no aplica porque la sintaxis es válida.'},
+  {st: '¿Qué hace el operador "in" con una tupla? Por ejemplo: animal in ("sapo","caballo","cacatúa")', opts: ['Solo funciona con listas, no con tuplas', 'Verifica si animal es igual a alguno de los elementos de la tupla (devuelve True/False)', 'Cuenta cuántos elementos hay', 'Concatena animal con la tupla'], c: 1, ex: '"in" verifica PERTENENCIA y devuelve True si el elemento aparece, False si no. Funciona con listas, tuplas, strings y ranges. Ej: "sapo" in ("sapo","caballo","cacatúa") → True; "rana" in (...) → False. ▸ Por qué las otras están mal: funciona con TODAS las secuencias, no solo con listas; "contar" sería .count() o len(); "concatenar" sería con +.'},
+  {st: 'En una cadena if/elif/elif/else, si la primera condición es True:', opts: ['Se evalúan todas las condiciones siguientes', 'Se ejecuta el bloque del if y se saltan todos los elif y else', 'Se ejecuta el if y luego el else', 'Se ejecuta solo el else'], c: 1, ex: 'En if/elif/else, apenas Python encuentra una condición True, ejecuta SU bloque y salta TODO el resto (no evalúa los elif siguientes ni el else). Esto se llama "estructura excluyente". ▸ Por qué las otras están mal: "evaluar todas" describe ifs separados (sin elif); "ejecutar if y luego else" es imposible en una misma cadena (son excluyentes); "solo else" pasaría si todas las condiciones fueran False.'},
+  {st: 'Con a=2, b=False, ¿cómo evalúa la condición "a>0 and b"?', opts: ['True', 'False y NO evalúa b (cortocircuito)', 'False y SÍ evalúa b (no hay cortocircuito)', 'Error'], c: 2, ex: 'El "and" SOLO cortocircuita cuando el operando IZQUIERDO es False (porque ya garantiza False). Acá a>0 = 2>0 = True, así que Python TIENE que evaluar b para saber el resultado. b=False → True and False → False. SÍ evaluó b. ▸ Por qué las otras están mal: "True" es imposible si b=False (porque True and False = False); "NO evalúa b" describiría el caso a&lt;0 and b (donde el cortocircuito sí actúa); "Error" no aplica. REGLA DE ORO: "and" cortocircuita en False; "or" cortocircuita en True.'},
+  {st: 'Con a=2, b=True, ¿cómo evalúa la condición "a>0 or b"?', opts: ['True y SÍ evalúa b', 'True y NO evalúa b (cortocircuito)', 'False', 'Error'], c: 1, ex: 'El "or" cortocircuita cuando el operando IZQUIERDO es True (porque ya garantiza True). Acá a>0=True, así que Python NO necesita evaluar b → resultado: True, sin tocar b. ▸ Por qué las otras están mal: "SÍ evalúa b" sería si a>0 fuera False (entonces sí debería ver b); "False" no es posible porque al menos una parte es True; "Error" no aplica.'},
+  {st: 'Con animal="cacatúa", el código: if animal in ("sapo","caballo","cacatúa"): print("X") if animal in ("guacamayo","pitón"): print("Y"). ¿Cuántas condiciones se evalúan?', opts: ['1', '2', '3', '0'], c: 1, ex: 'Son DOS if INDEPENDIENTES (no hay elif), por lo tanto AMBOS se evalúan SIEMPRE, sin importar el resultado del primero. ▸ Paso 1: 1ª condición → animal in ("sapo","caballo","cacatúa") → True → imprime "X". ▸ Paso 2: 2ª condición → animal in ("guacamayo","pitón") → False → no imprime "Y". Total: 2 condiciones evaluadas. ▸ Por qué las otras están mal: "1" supondría cortocircuito (no aplica entre ifs separados); "3" no tiene sentido (solo hay 2 ifs); "0" supondría que ningún if se evalúa.'}
+]);
+
+registerExercises('pc-parcial', '4', [
+  {st: '¿Cuántas veces itera "for i in range(1, 15, 5)"?', opts: ['2', '3', '4', '14'], c: 1, ex: 'range(inicio, fin, paso) genera valores desde "inicio" sumando "paso" mientras sean MENORES que "fin" (no incluye el fin). ▸ Genera: 1 (start), 1+5=6, 6+5=11. El siguiente sería 11+5=16, pero 16 ≥ 15 → corta. Lista: [1, 6, 11] → 3 valores. ▸ Por qué las otras están mal: "2" se obtendría si confundieras y empezaras desde 0; "4" si incluyeras el 16 erróneamente; "14" si pensaras que recorre del 1 al 14 de a 1 (ignorando el paso).'},
+  {st: '¿Cuántas veces itera "for i in range(1, 10, -4)"?', opts: ['0 (no itera)', '2', '3', '10'], c: 0, ex: 'Con paso negativo, range necesita inicio > fin para producir valores. Acá inicio=1 y fin=10, así que 1 NO es mayor que 10 → range vacío → el bucle no itera ninguna vez. ▸ Por qué las otras están mal: "2", "3", "10" supondrían que el rango produce valores cuando en realidad está vacío. Para iterar con paso negativo necesitarías por ej. range(10, 1, -4) → 10, 6, 2 (3 iteraciones).'},
+  {st: 'En el código "for i in range(3): i=0", ¿cuántas veces itera el bucle?', opts: ['1 (se queda en 0)', '3', 'Infinito', '0'], c: 1, ex: 'Reasignar i DENTRO del cuerpo del for NO afecta al iterador. range(3) ya generó internamente la secuencia [0,1,2]; en cada iteración Python le asigna a i el siguiente valor del range, ignorando lo que vos hayas escrito. El cuerpo se ejecuta 3 veces aunque al final de cada iteración i valga 0. ▸ Por qué las otras están mal: "1" supondría que el for chequea i; "infinito" no aplica porque el range tiene tamaño fijo; "0" requiere range vacío.'},
+  {st: 'Con i=100, el while: while i>0: i-=70. ¿Cuántas veces itera?', opts: ['1', '2', '3', 'Infinito'], c: 1, ex: '▸ Iteración 1: i=100, 100>0 True → i = 100−70 = 30. ▸ Iteración 2: i=30, 30>0 True → i = 30−70 = −40. ▸ Chequeo siguiente: i=−40, −40>0 False → SALE. Total: 2 iteraciones (las dos en las que el cuerpo se ejecutó). ▸ Por qué las otras están mal: "1" si te quedaras solo con la primera vuelta; "3" si contaras la verificación final como iteración; "infinito" no aplica porque i se va achicando.'},
+  {st: '¿Qué muestra el código: for i in range(3): for j in (2,1): print("a"*j)?', opts: ['"aa","aaa","aa","aaa","aa","aaa"', '"aa","a","aa","a","aa","a"', '"a","a","a"', '"aaa","aa"'], c: 1, ex: 'For externo itera 3 veces (i=0,1,2). Para CADA i, el for interno itera sobre la tupla (2, 1): primero j=2 → "a"*2 = "aa"; después j=1 → "a"*1 = "a". Total: 3 × 2 = 6 prints, en orden aa/a/aa/a/aa/a. ▸ Por qué las otras están mal: "aa,aaa,..." multiplica por (2,3) en lugar de (2,1); "a,a,a" sería si solo el for interno corriera con j=1; "aaa,aa" sería con (3,2) y solo una iteración.'},
+  {st: '¿Cuántas veces imprime "a" el código: for letra in "sabana": if letra=="a": i=1; while i&lt;2: print("a"); i+=2?', opts: ['1', '2', '3', '7'], c: 2, ex: '"sabana" tiene 6 letras: s, a, b, a, n, a. La "a" aparece 3 veces (en posiciones 1, 3, 5). Cada vez que letra=="a": ▸ i=1; while 1&lt;2 True → print "a"; i = 1+2 = 3; while 3&lt;2 False → sale del while (1 print por cada "a"). Total: 3 letras "a" × 1 print = 3 impresiones. ▸ Por qué las otras están mal: "1" si solo procesaras la primera "a"; "2" si te olvidaras de una; "7" si confundieras letras totales o repetidas.'}
+]);
+
+registerExercises('pc-parcial', '5', [
+  {st: 'Si a=[10,20,30,40], ¿qué devuelve a[-2]?', opts: ['10', '20', '30', '40'], c: 2, ex: 'Los índices negativos cuentan desde el FINAL: a[-1] es el último, a[-2] el penúltimo, etc. ▸ a[-1] = 40 (último), a[-2] = 30 (penúltimo), a[-3] = 20, a[-4] = 10 (primero). Por lo tanto a[-2] = 30. ▸ Por qué las otras están mal: "10" es a[0] o a[-4]; "20" es a[1] o a[-3]; "40" es a[3] o a[-1].'},
+  {st: 'Con a=[0,3,1] y b=[3,6,11,0], el código: c=[]; for num in a: c.append(b[num]*2). ¿Cuál es c?', opts: ['[0,3,1]', '[3,6,11]', '[6,0,12]', '[0,6,2]'], c: 2, ex: 'Recorré a y para cada num, agregás b[num]*2 a c. ▸ num=0: b[0]=3, 3*2=6. ▸ num=3: b[3]=0 (último de b), 0*2=0. ▸ num=1: b[1]=6, 6*2=12. Resultado: c = [6, 0, 12]. ▸ Por qué las otras están mal: "[0,3,1]" es a sin tocar; "[3,6,11]" es b sin multiplicar; "[0,6,2]" sería si multiplicaras a por 2 sin usar b como índice.'},
+  {st: '¿Cuál es la diferencia entre a.extend(b) y a+b?', opts: ['No hay diferencia', 'extend() modifica a en su lugar; + genera una nueva lista sin modificar a ni b', '+ modifica a; extend() genera una nueva lista', 'extend() solo funciona con listas de números'], c: 1, ex: 'a.extend(b) MUTA la lista a, agregándole los elementos de b al final (a queda más larga, b igual). a+b crea una NUEVA lista con la concatenación, sin tocar a ni b. ▸ Ej: a=[1,2], b=[3]. Después de a.extend(b): a=[1,2,3], b=[3]. Después de c=a+b: a=[1,2], b=[3], c=[1,2,3]. ▸ Por qué las otras están mal: "no hay diferencia" es falso; "+ modifica a" es lo opuesto al comportamiento real (+ no muta); extend() funciona con cualquier iterable, no solo listas de números.'},
+  {st: 'Con numeros=[-3.36,10,2,0.25,-3]: separás en lista de enteros y de floats, y a cada una le aplicás sort()+reverse(). ¿Cuál queda como lista de enteros?', opts: ['[-3,2,10]', '[10,2,-3]', '[2,10,-3]', '[-3.36,0.25]'], c: 1, ex: 'Enteros (donde num==int(num)): de [-3.36, 10, 2, 0.25, -3] son 10, 2, -3 (los que no tienen decimal). ▸ sort() ordena ascendente: [-3, 2, 10]. ▸ reverse() invierte: [10, 2, -3]. ▸ Por qué las otras están mal: "[-3,2,10]" es solo después de sort() sin el reverse(); "[2,10,-3]" no corresponde a ningún paso; "[-3.36,0.25]" es la lista de FLOATS, no de enteros.'},
+  {st: 'El método list.remove(x) hace:', opts: ['Elimina todos los elementos iguales a x', 'Elimina solo la PRIMERA ocurrencia de x', 'Elimina el elemento en la posición x', 'Elimina el último elemento'], c: 1, ex: 'remove(x) busca de izquierda a derecha y elimina la PRIMERA aparición de x. Si x no está, lanza ValueError. ▸ Ej: a=[1,2,3,2]; a.remove(2) → a=[1,3,2] (queda el segundo 2). ▸ Por qué las otras están mal: "todos los iguales" requeriría un loop; "elimento en posición x" es a.pop(x) o del a[x]; "último elemento" es a.pop() sin argumento.'},
+  {st: '[0]*6 en Python produce:', opts: ['Error', '[0,0,0,0,0,0]', '[6]', 'Una lista con el número 06'], c: 1, ex: 'El operador * con una lista y un entero REPITE la lista n veces. [0]*6 = [0,0,0,0,0,0] (lista con 6 ceros). Es la forma idiomática de inicializar listas de tamaño fijo. ▸ Por qué las otras están mal: "Error" no, esta es una operación válida; "[6]" es una lista con un solo 6; "[06]" no es sintaxis Python (los números no llevan ceros a la izquierda).'}
+]);
+
+registerExercises('pc-parcial', '6', [
+  {st: 'Si pal="GEMELO", ¿qué devuelve pal[2:]?', opts: ['"GE"', '"MELO"', '"EMELO"', '"GEMELO"'], c: 1, ex: 'Slicing pal[a:b] toma desde la posición a (inclusive) hasta b (exclusive). pal[2:] sin b toma desde 2 hasta el final. ▸ Posiciones de "GEMELO": G=0, E=1, M=2, E=3, L=4, O=5. ▸ Desde la 2 al final: M, E, L, O → "MELO". ▸ Por qué las otras están mal: "GE" es pal[:2] (las primeras 2); "EMELO" tomaría desde la 1 (pal[1:]); "GEMELO" sería pal[:] o pal entero.'},
+  {st: 'Si nom1="juan", ¿qué devuelve nom1[::-1]?', opts: ['"juan"', '"nauj"', '"j"', 'Error'], c: 1, ex: '[::-1] es el truco para INVERTIR una string (paso negativo en el slicing). Lee la string de atrás para adelante. "juan" → "nauj". ▸ Por qué las otras están mal: "juan" sería [::1] o [:]; "j" sería [0] o [:1]; "Error" no, es sintaxis válida. Truco: el formato [inicio:fin:paso] con paso=-1 invierte; con paso=2 saltea de a uno.'},
+  {st: 'Con frase="hola mundo": ejecuto frase.replace("hola","chau"). Después de esa línea, ¿cuánto vale frase?', opts: ['"chau mundo"', '"hola mundo" (no cambió)', '"chau"', 'Error'], c: 1, ex: 'Las strings en Python son INMUTABLES. replace() devuelve una NUEVA string con el cambio aplicado, pero NO modifica la original. Para que frase cambie tenés que reasignarla: frase = frase.replace("hola","chau"). Sin la asignación, frase sigue siendo "hola mundo". ▸ Por qué las otras están mal: "chau mundo" sería el resultado SI hubieras hecho frase = frase.replace(...); "chau" no, replace cambia la palabra pero conserva el resto; "Error" no aplica. Esta es una trampa MUY frecuente del parcial.'},
+  {st: '"hola qué tal".split() devuelve:', opts: ['"hola,qué,tal"', '["hola","qué","tal"]', '("hola","qué","tal")', 'Error'], c: 1, ex: 'split() sin argumento divide por espacios en blanco (espacios, tabs, saltos de línea) y devuelve una LISTA de strings. ▸ "hola qué tal".split() → ["hola", "qué", "tal"]. ▸ Por qué las otras están mal: "hola,qué,tal" es una string, no una lista; ("hola","qué","tal") es una tupla (no, split devuelve lista); "Error" no, es sintaxis válida.'},
+  {st: '" ".join(["hola","mundo"]) devuelve:', opts: ['["hola","mundo"]', '"hola mundo"', '"hola,mundo"', '"holaMundo"'], c: 1, ex: 'join() une los elementos de una lista usando como separador la string que está antes del punto. " ".join(...) une con un espacio → "hola mundo". Es la operación INVERSA de split(). ▸ Por qué las otras están mal: ["hola","mundo"] es la lista original (join SIEMPRE devuelve string); "hola,mundo" sería con ",".join(...); "holaMundo" sería con "".join(...) (sin separador).'},
+  {st: 'Con pal1="Hola", nom1="juan", nom2="Elena": texto = pal1 + nom1[::-1] + " y " + nom2[:3]. ¿Cuánto vale texto?', opts: ['"Holanauj y Ele"', '"Holajuan y Ele"', '"Hola y Elena"', '"holanauj y ele"'], c: 0, ex: '▸ pal1 = "Hola". ▸ nom1[::-1] invierte "juan" → "nauj". ▸ " y " es texto literal. ▸ nom2[:3] toma posiciones 0,1,2 de "Elena" → "Ele". ▸ Concatenación: "Hola" + "nauj" + " y " + "Ele" = "Holanauj y Ele". ▸ Por qué las otras están mal: "Holajuan y Ele" sería sin invertir nom1; "Hola y Elena" sería sin slices; "holanauj y ele" sería todo en minúscula (.lower() no se aplicó).'}
+]);
+
+registerExercises('pc-parcial', '7', [
+  {st: 'Con lista=[1,0,3] y factor=[3,6,2], la función producto(n1,n2) debe dar las salidas 3 / 0 / 6 (una por cada par). ¿Cuál definición es correcta?', opts: ['def producto(n1): return n1*n1', 'def producto(n1,n2): return n1*n2', 'def producto(): return n1*n2', 'def producto(n1,n2): return n2'], c: 1, ex: 'La función se llama con 2 argumentos producto(lista[i], factor[i]) → necesita 2 parámetros. ▸ Verifico: producto(1,3) = 1*3 = 3 ✓; producto(0,6) = 0*6 = 0 ✓; producto(3,2) = 3*2 = 6 ✓. La operación es multiplicación. ▸ Por qué las otras están mal: "def producto(n1)" tiene 1 parámetro (no acepta 2 args); "def producto():" sin parámetros usaría n1, n2 globales (UnboundLocalError); "return n2" devolvería 3,6,2 (no 3,0,6).'},
+  {st: '¿Qué devuelve una función si no tiene instrucción "return" (o tiene return sin valor)?', opts: ['0', 'Error', 'None', 'La última variable que usó'], c: 2, ex: 'En Python, las funciones SIEMPRE devuelven algo. Si no escribís return (o lo escribís solo, sin valor), Python devuelve None implícitamente. Hacer print(funcion_sin_return()) imprimiría "None". ▸ Por qué las otras están mal: "0" es un valor numérico, no es lo que retorna por defecto; "Error" no, no es un error sino comportamiento normal; "última variable" no, las variables locales se destruyen al salir.'},
+  {st: 'Con term1=[5,0,3] y term2=[3,6,2], la función calcula(n1,n2) debe dar las salidas 8 / 6 / 5. ¿Qué operación hace?', opts: ['Multiplicación: n1*n2', 'Suma: n1+n2', 'Resta: n1-n2', 'División: n1/n2'], c: 1, ex: 'Llama calcula(term2[i], term1[i]). ▸ calcula(3,5) = 8 → 3+5=8 ✓; calcula(6,0) = 6 → 6+0=6 ✓; calcula(2,3) = 5 → 2+3=5 ✓. Operación: SUMA. ▸ Por qué las otras están mal: multiplicación daría 15/0/6 (no 8/6/5); resta daría -2/6/-1; división daría 0.6/inf/0.66.'},
+  {st: 'Una variable definida dentro de una función (variable local):', opts: ['Es accesible desde cualquier parte del programa', 'Solo existe dentro de la función; fuera no existe', 'Reemplaza a una variable global del mismo nombre permanentemente', 'No puede tener el mismo nombre que una variable global'], c: 1, ex: 'Las variables locales viven solo durante la ejecución de la función. Apenas la función termina, desaparecen. Si intentás usarlas afuera → NameError. ▸ Por qué las otras están mal: "accesible desde cualquier parte" describe variables GLOBALES; "reemplaza a la global permanentemente" es falso (la global no se toca, salvo con la palabra "global"); "no puede tener el mismo nombre" es falso (sí puede, y la local tiene prioridad dentro de la función — esto se llama "shadowing").'},
+  {st: 'El patrón "crear lista vacía → recorrer con for → agregar con append → retornar la lista" sirve principalmente para:', opts: ['Solo ordenar listas', 'Filtrar o transformar elementos y devolver una nueva lista', 'Invertir una lista', 'Contar elementos'], c: 1, ex: 'Es el patrón estrella del parcial: resultado=[]; for x in entrada: if condicion: resultado.append(transformar(x)); return resultado. Permite filtrar (qué cumplen X), mapear (transformar uno a uno) o ambos. ▸ Por qué las otras están mal: "ordenar" se hace con sort()/sorted() (no necesita el patrón); "invertir" con [::-1] o reverse(); "contar" con len() o count() (no necesita lista nueva).'},
+  {st: 'def fun(t): vocales="AEIOU"; rep=""; for letra in t: if letra in vocales and letra not in rep: rep+=letra; return rep.lower(). Con t="ESTUDIO", ¿qué devuelve?', opts: ['"euio"', '"estudio"', '"ESTUDIO"', '"eee"'], c: 0, ex: 'Recorre "ESTUDIO" letra por letra y va guardando las vocales NO REPETIDAS en mayúscula, después devuelve todo en minúscula. ▸ E: en "AEIOU" y no en "" → rep="E". ▸ S: no es vocal → skip. ▸ T: no es vocal → skip. ▸ U: en vocales y no en "E" → rep="EU". ▸ D: no es vocal → skip. ▸ I: en vocales y no en "EU" → rep="EUI". ▸ O: en vocales y no en "EUI" → rep="EUIO". ▸ return "EUIO".lower() = "euio". ▸ Por qué las otras están mal: "estudio" sería t.lower() entera (no filtra); "ESTUDIO" es t sin tocar; "eee" repite E sin avanzar (la condición "not in rep" lo evita).'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

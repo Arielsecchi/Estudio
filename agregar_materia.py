@@ -18,7 +18,8 @@ Formatos soportados:
   - .zip               -> descomprime y procesa cada archivo adentro
 
 Requiere la variable de entorno ANTHROPIC_API_KEY (o un archivo .env con la clave).
-Despues de correrlo, ejecutar `python3 build.py` para regenerar index.html.
+Despues de correrlo, ejecutar `python3 build.py` para regenerar el sitio
+(index.html mas una pagina por materia en m/).
 """
 
 import base64

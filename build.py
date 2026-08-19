@@ -1,11 +1,24 @@
 #!/usr/bin/env python3
 """
-Construye index.html juntando las piezas del proyecto.
+Construye el sitio juntando las piezas del proyecto.
+
+Genera una pagina por materia en m/<slug>.html, mas un index.html liviano con
+la portada y el drawer. Antes era un unico index.html con las 34 materias
+adentro: 10 MB que el navegador bajaba entero para leer una sola guia.
 
 Uso:
-    python build.py                 # genera ./index.html
-    python build.py --check         # compara contra index.html existente sin escribir
-    python build.py -o otro.html    # escribe en otra ruta
+    python build.py                 # genera index.html y m/*.html
+    python build.py --check         # compara contra lo que ya esta en disco
+
+Placeholders extra del template, ademas de los <!-- BUILD: ... -->:
+    {{BASE}}    prefijo de rutas a assets/ ('' en el index, '../' en m/)
+    {{TITULO}}  el <title> de la pagina
+
+Cada pagina declara en su <script>:
+    window.M_BASE     donde viven las paginas de materia, visto desde ahi
+    window.M_SUBJECT  el slug de la materia (solo en las paginas de materia)
+switchSubject() usa esas dos para navegar cuando la materia pedida no vive en
+la pagina actual.
 
 Estructura esperada:
     template.html                           -- esqueleto con placeholders
@@ -21,10 +34,10 @@ Estructura esperada:
             ejercicios.js                   -- registerExercises('slug', ...)
 
 Placeholders en el template:
-    <!-- BUILD: CSS -->                     -- todas las reglas de CSS
-    <!-- BUILD: DRAWER -->                  -- <li> del menú lateral
-    <!-- BUILD: SECCIONES DE MATERIAS -->   -- los <section class="subject">
-    // BUILD: JS                            -- app.js + todos los registerExercises
+    <!-- BUILD: CSS -->                     -- base.css + el tema de la materia
+    <!-- BUILD: DRAWER -->                  -- <li> del menú lateral (siempre completo)
+    <!-- BUILD: SECCIONES DE MATERIAS -->   -- la <section class="subject"> de la materia
+    // BUILD: JS                            -- prelude + app.js + sus registerExercises
 """
 import argparse
 import json
@@ -65,8 +78,15 @@ def cargar_materias() -> list[dict]:
 
 
 def construir_css(materias: list[dict]) -> str:
-    """Concatena base.css + todos los theme.css de las materias."""
+    """base.css + los theme.css de las materias que se pasen.
+
+    Cada pagina de materia lleva solo su propio tema; el index no lleva ninguno
+    y usa los valores de :root.
+    """
     base = leer(ROOT / 'assets' / 'base.css').rstrip()
+
+    if not materias:
+        return base
 
     # base.css contiene :root y [data-theme="dark"] al inicio, y después los estilos globales.
     # Inyectamos los themes de las materias entre medio.
@@ -184,6 +204,59 @@ def construir_drawer(materias: list[dict]) -> str:
     return '\n'.join(bloques)
 
 
+def construir_landing(materias: list[dict]) -> str:
+    """Portada del index: las materias agrupadas por categoria, como enlaces.
+
+    No repite el drawer: es el mismo listado pero visible sin abrir el menu, y
+    cada enlace lleva a la pagina de esa materia.
+    """
+    hijas_por_madre: dict[str, list[dict]] = {}
+    for m in materias:
+        if m.get('parent'):
+            hijas_por_madre.setdefault(m['parent'], []).append(m)
+
+    grupos: dict[str, list[dict]] = {}
+    orden_cats: list[str] = []
+    for m in materias:
+        if m.get('parent'):
+            continue
+        cat = m.get('categoria') or 'Otras'
+        if cat not in grupos:
+            grupos[cat] = []
+            orden_cats.append(cat)
+        grupos[cat].append(m)
+
+    partes = [
+        '  <header>',
+        '    <h1>Guías de estudio</h1>',
+        f'    <div class="sub">{len(materias)} guías · elegí una materia para empezar. '
+        'También podés cambiar de materia en cualquier momento desde ☰</div>',
+        '  </header>',
+        '<nav class="toc">',
+    ]
+    for cat in orden_cats:
+        partes.append(f'  <h2>{cat}</h2>')
+        partes.append('  <ul>')
+        for m in grupos[cat]:
+            partes.append(
+                f'    <li><a href="m/{m["slug"]}.html">{m["nombre"]}</a> '
+                f'<span class="muted">— {m["subtitulo_drawer"]}</span></li>'
+            )
+            for h in hijas_por_madre.get(m['slug'], []):
+                partes.append(
+                    f'    <li style="margin-left:18px"><a href="m/{h["slug"]}.html">{h["nombre"]}</a> '
+                    f'<span class="muted">— {h["subtitulo_drawer"]}</span></li>'
+                )
+        partes.append('  </ul>')
+    partes.append('</nav>')
+
+    return (
+        '<section class="subject active" id="subject-__index">\n'
+        + '\n'.join(partes)
+        + '\n</section>'
+    )
+
+
 def construir_secciones(materias: list[dict]) -> str:
     """Pega las <section class="subject"> de cada materia con sus comentarios."""
     bloques = []
@@ -216,8 +289,8 @@ def construir_secciones(materias: list[dict]) -> str:
     return '\n\n'.join(bloques)
 
 
-def construir_js(materias: list[dict]) -> str:
-    """app.js + todos los registerExercises."""
+def construir_js(materias: list[dict], prelude: str = '') -> str:
+    """prelude + app.js + los registerExercises de las materias que se pasen."""
     app = leer(ROOT / 'assets' / 'app.js').rstrip()
 
     # Los registerExercises van entre los helpers (const F, const M) y el INIT.
@@ -243,24 +316,39 @@ def construir_js(materias: list[dict]) -> str:
             f'{ejercicios}'
         )
 
-    return (
-        antes_init
-        + '\n\n'
-        + '\n\n\n'.join(bloques)
-        + '\n\n\n'
-        + desde_init
-    )
+    cuerpo = ('\n\n' + '\n\n\n'.join(bloques) + '\n\n\n') if bloques else '\n\n'
+    return prelude + antes_init + cuerpo + desde_init
 
 
-def construir_html(materias: list[dict]) -> str:
-    """Ensambla el HTML completo desde template.html y las piezas."""
+def construir_html(todas: list[dict], activa: dict | None = None) -> str:
+    """Ensambla una pagina.
+
+    `activa` None construye el index (portada + drawer, sin contenido de materias).
+    `activa` con una materia construye m/<slug>.html: solo esa materia, con su
+    tema y sus ejercicios. El drawer es siempre el completo, para poder saltar.
+    """
     template = leer(ROOT / 'template.html')
 
+    if activa is None:
+        base = ''
+        titulo = 'Guías de estudio · Ariel'
+        prelude = "window.M_BASE = 'm/';\n\n"
+        css = construir_css([])
+        secciones = construir_landing(todas)
+        js = construir_js([], prelude)
+    else:
+        base = '../'
+        titulo = f'{activa["nombre"]} · Guías'
+        prelude = f"window.M_BASE = '';\nwindow.M_SUBJECT = '{activa['slug']}';\n\n"
+        css = construir_css([activa])
+        secciones = construir_secciones([activa])
+        js = construir_js([activa], prelude)
+
     reemplazos = {
-        '<!-- BUILD: CSS -->': construir_css(materias),
-        '<!-- BUILD: DRAWER -->': construir_drawer(materias),
-        '<!-- BUILD: SECCIONES DE MATERIAS -->': construir_secciones(materias),
-        '// BUILD: JS': construir_js(materias),
+        '<!-- BUILD: CSS -->': css,
+        '<!-- BUILD: DRAWER -->': construir_drawer(todas),
+        '<!-- BUILD: SECCIONES DE MATERIAS -->': secciones,
+        '// BUILD: JS': js,
     }
 
     resultado = template
@@ -269,44 +357,56 @@ def construir_html(materias: list[dict]) -> str:
             sys.exit(f'ERROR: placeholder no encontrado en template.html: {marker}')
         resultado = resultado.replace(marker, contenido)
 
+    for token, valor in (('{{BASE}}', base), ('{{TITULO}}', titulo)):
+        if token not in resultado:
+            sys.exit(f'ERROR: token no encontrado en template.html: {token}')
+        resultado = resultado.replace(token, valor)
+
     return resultado
 
 
+def paginas(materias: list[dict]) -> list[tuple[Path, str]]:
+    """Devuelve [(ruta, html)] de todo el sitio: el index y una pagina por materia."""
+    salida = [(ROOT / 'index.html', construir_html(materias))]
+    for m in materias:
+        salida.append((ROOT / 'm' / f'{m["slug"]}.html', construir_html(materias, m)))
+    return salida
+
+
 def main():
-    ap = argparse.ArgumentParser(description='Build del index.html de Guías UBA XXI')
-    ap.add_argument('-o', '--output', default='index.html', help='ruta de salida')
-    ap.add_argument('--check', action='store_true', help='compara con la salida existente sin escribir')
+    ap = argparse.ArgumentParser(description='Build del sitio de Guías UBA XXI')
+    ap.add_argument('--check', action='store_true', help='compara con lo generado sin escribir')
     args = ap.parse_args()
 
     materias = cargar_materias()
     print(f'→ {len(materias)} materias: {", ".join(m["slug"] for m in materias)}')
 
-    html = construir_html(materias)
-
-    out_path = ROOT / args.output
+    todas = paginas(materias)
 
     if args.check:
-        if not out_path.exists():
-            sys.exit(f'ERROR: {out_path} no existe, no puedo comparar')
-        actual = out_path.read_text(encoding='utf-8')
-        if actual == html:
-            print(f'✓ {args.output} coincide exactamente con el build')
-            return
-        # Si difieren, mostrar las primeras diferencias
-        import difflib
-        diff = list(difflib.unified_diff(
-            actual.splitlines(keepends=True)[:10000],
-            html.splitlines(keepends=True)[:10000],
-            fromfile=str(out_path),
-            tofile='build',
-            n=2,
-        ))
-        print(f'✗ {args.output} DIFIERE del build ({len(diff)} líneas de diff)')
-        print(''.join(diff[:80]))
-        sys.exit(1)
+        difieren = []
+        for ruta, html in todas:
+            rel = ruta.relative_to(ROOT)
+            if not ruta.exists() or ruta.read_text(encoding='utf-8') != html:
+                difieren.append(str(rel))
+        if difieren:
+            print(f'✗ {len(difieren)} páginas difieren del build:')
+            for r in difieren[:20]:
+                print(f'   {r}')
+            sys.exit(1)
+        print(f'✓ las {len(todas)} páginas coinciden con el build')
+        return
 
-    out_path.write_text(html, encoding='utf-8')
-    print(f'✓ {args.output} generado ({len(html)} chars)')
+    (ROOT / 'm').mkdir(exist_ok=True)
+    total = 0
+    for ruta, html in todas:
+        ruta.write_text(html, encoding='utf-8')
+        total += len(html)
+    index_size = len(todas[0][1])
+    mayor = max(todas[1:], key=lambda p: len(p[1])) if len(todas) > 1 else todas[0]
+    print(f'✓ {len(todas)} páginas generadas · {total/1e6:.1f} MB en total')
+    print(f'   index.html: {index_size/1024:.0f} KB')
+    print(f'   la más pesada: {mayor[0].name} {len(mayor[1])/1e6:.1f} MB')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,2914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC · Segundo Parcial · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="pc-segundo-parcial"] {
+    --bg: #e6eef3; --text: #1a202c; --text-muted: #6b7280;
+    --surface: #ffffff; --surface-2: #d6e4ec; --surface-3: #bfd4e0;
+    --border: #cad8e2; --border-2: #aec5d3;
+    --accent: #0891b2; --accent-hover: #0e7490; --gold: #ca8a04;
+    --ex-bg: #fef9c3; --ex-border: #fde047; --ex-title: #854d0e;
+    --ok-bg: #d1fae5; --ok-text: #065f46; --ok-border: #10b981;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #d6e4ec; --summary-hover: #bfd4e0; --num-text: #ffffff;
+    --shadow: rgba(8, 145, 178, 0.08);
+  }
+  [data-theme="dark"][data-subject="pc-segundo-parcial"] {
+    --bg: #08191f; --text: #e2e8f0; --text-muted: #94a3b8;
+    --surface: #11242c; --surface-2: #1b3540; --surface-3: #254653;
+    --border: #254653; --border-2: #336074;
+    --accent: #67e8f9; --accent-hover: #a5f3fc; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #ef4444;
+    --summary-bg: #1b3540; --summary-hover: #254653; --num-text: #08191f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== PC · SEGUNDO PARCIAL ======================= -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-pc-segundo-parcial">
+  <header>
+    <h1>Pensamiento Computacional · Guía Segundo Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Balbiano · Guía intensiva basada en parciales reales · 2° Parcial (08/06)</div>
+  </header>
+<nav class="toc" id="toc-pc-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#pcp2-s1">Estrategia general y sintaxis clave</a></li>
+    <li><a href="#pcp2-s2">TIPO 1 · Diccionarios</a></li>
+    <li><a href="#pcp2-s3">TIPO 2 · map() y filter()</a></li>
+    <li><a href="#pcp2-s4">TIPO 3 · Archivos de texto</a></li>
+    <li><a href="#pcp2-s5">TIPO 4 · try/except y validación</a></li>
+    <li><a href="#pcp2-s6">TIPO 5 · Pandas (DataFrames)</a></li>
+    <li><a href="#pcp2-s7">TIPO 6 · Matplotlib (gráficos)</a></li>
+    <li><a href="#pcp2-s8">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-pc-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="pcp2-s1">
+<summary><span class="num">1</span> Estrategia general y sintaxis clave <span class="sec-score" id="ss-pc-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<h3>Cómo es el 2° parcial de PC</h3>
+<p>El 2° parcial es <b>100% de opción múltiple</b> (una sola respuesta correcta por pregunta, que se vuelca en una grilla). Tiene entre <b>9 y 13 preguntas</b>, en Python 3 (entorno Colab). <b>Nunca</b> se escribe código desde cero: siempre es uno de estos dos formatos.</p>
+
+<table class="tbl">
+  <tr><th>Formato de pregunta</th><th>Qué te piden</th></tr>
+  <tr><td><b>"¿Qué imprime / qué devuelve / cómo queda el archivo?"</b></td><td>Trazar la ejecución mentalmente y elegir la salida correcta</td></tr>
+  <tr><td><b>"¿Cuál de estas 4 versiones es la correcta?"</b></td><td>Comparar 4 fragmentos casi iguales y detectar el que funciona</td></tr>
+</table>
+
+<p>Esto te da una ventaja enorme: <b>el examen ya es opción múltiple igual que estos quizzes</b>. Practicar trazando código es exactamente lo que vas a hacer el día del parcial.</p>
+
+<h3>Los 6 temas que entran (unidades 4–6)</h3>
+<table class="tbl">
+  <tr><th>Si la pregunta tiene...</th><th>Es...</th></tr>
+  <tr><td><code>{clave: valor}</code>, <code>d[k]</code>, <code>.get()</code>, <code>.items()</code></td><td><b>TIPO 1</b> — Diccionarios</td></tr>
+  <tr><td><code>map(</code>, <code>filter(</code>, <code>list(map(...))</code></td><td><b>TIPO 2</b> — map / filter</td></tr>
+  <tr><td><code>open(</code>, <code>readlines()</code>, <code>write()</code>, modos <code>'r'/'w'/'a'</code></td><td><b>TIPO 3</b> — Archivos</td></tr>
+  <tr><td><code>try:</code> / <code>except:</code>, validar <code>input()</code></td><td><b>TIPO 4</b> — Errores y validación</td></tr>
+  <tr><td><code>df[...]</code>, <code>groupby</code>, <code>.mean()</code>, DataFrame</td><td><b>TIPO 5</b> — Pandas</td></tr>
+  <tr><td><code>plt.</code>, <code>ax.bar</code>, <code>subplots</code>, gráfico</td><td><b>TIPO 6</b> — Matplotlib</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El tema que MÁS se toma</div>
+<b>map() y filter()</b> aparecen en TODOS los parciales, normalmente 2 a 4 veces. Si dominás ese tema solo, ya tenés varios puntos asegurados. La segunda estrella son los <b>diccionarios</b> (sobre todo el patrón "clave → lista de datos").
+</div>
+
+<div class="trap"><div class="tr-t">Lo que NO entra (no pierdas tiempo)</div>
+En este parcial <b>no hay recursión</b>, ni algoritmos de ordenamiento/búsqueda para programar a mano. Las "matrices" que aparecen son en realidad <b>listas dentro de un diccionario</b> (clave → <code>[dato1, dato2, ...]</code>), no matrices NxM.
+</div>
+
+<h3>Cómo trazar código sin equivocarte</h3>
+<ol>
+  <li><b>Llevá el estado de cada variable</b> en un papel: anotá qué vale cada una después de cada línea.</li>
+  <li><b>Mirá la indentación:</b> en Python define qué está adentro de un <code>for</code>, <code>if</code> o <code>def</code>. Un <code>return</code> mal indentado cambia todo.</li>
+  <li><b>map/filter:</b> aplicá la función mentalmente a cada elemento y anotá el resultado.</li>
+  <li><b>Acordate:</b> <code>range(n)</code> va de 0 a n−1; <code>input()</code> siempre devuelve <code>str</code>; <code>'w'</code> borra el archivo.</li>
+</ol>
+
+<h3>Mini-recordatorio de sintaxis (lo que más se olvida)</h3>
+<div class="formula">
+  <b>Diccionario:</b> d = {clave: valor} &nbsp;·&nbsp; d[clave] &nbsp;·&nbsp; clave in d &nbsp;·&nbsp; d.items()<br>
+  <b>map/filter:</b> list(map(func, secuencia)) &nbsp;·&nbsp; list(filter(func, secuencia))<br>
+  <b>Archivo:</b> open(ruta, 'r'/'w'/'a') &nbsp;·&nbsp; .readlines() &nbsp;·&nbsp; .write(texto) &nbsp;·&nbsp; .close()<br>
+  <b>Error:</b> try: … except ValueError: …<br>
+  <b>Pandas:</b> df[df['col'] &gt; x] &nbsp;·&nbsp; df.groupby('col')['otra'].mean()<br>
+  <b>Gráfico:</b> fig, ax = plt.subplots() &nbsp;·&nbsp; ax.bar(categorías, valores)
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · DICCIONARIOS ============ -->
+<details id="pcp2-s2">
+<summary><span class="num">2</span> TIPO 1 · Diccionarios <span class="sec-score" id="ss-pc-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un diccionario?</h3>
+<p>Un <b>diccionario</b> guarda pares <b>clave → valor</b>. A diferencia de una lista (que se accede por posición 0, 1, 2…), un diccionario se accede por su <b>clave</b>.</p>
+
+<pre class="code-block">persona = {"nombre": "Ana", "edad": 25}
+persona["nombre"]      # "Ana"
+persona["edad"]        # 25</pre>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Sintaxis</th><th>Qué hace</th></tr>
+  <tr><td>Acceder</td><td><code>d[clave]</code></td><td>Devuelve el valor. <b>KeyError</b> si la clave no existe</td></tr>
+  <tr><td>Acceder seguro</td><td><code>d.get(clave, default)</code></td><td>Devuelve el valor, o <code>default</code> si no está (no falla)</td></tr>
+  <tr><td>¿Existe la clave?</td><td><code>clave in d</code></td><td><code>True</code>/<code>False</code></td></tr>
+  <tr><td>Agregar / modificar</td><td><code>d[clave] = valor</code></td><td>Crea la clave o pisa su valor</td></tr>
+  <tr><td>Recorrer claves</td><td><code>for k in d:</code></td><td>Itera sobre las claves</td></tr>
+  <tr><td>Recorrer pares</td><td><code>for k, v in d.items():</code></td><td>Itera clave y valor a la vez</td></tr>
+</table>
+
+<h3>El patrón estrella: clave → lista de datos</h3>
+<p>El 90% de los ejercicios de diccionarios del parcial usan un diccionario donde <b>cada valor es una lista</b>. Por ejemplo, DNI → [nombre, apellido, aula]:</p>
+
+<pre class="code-block">datos = {41234225: ['Juan', 'Aguirre', 301]}
+datos[41234225]        # ['Juan', 'Aguirre', 301]
+datos[41234225][2]     # 301  (índice 2 del valor, que es una lista)
+datos[41234225][0]     # 'Juan'</pre>
+
+<p>Para acceder a un dato puntual encadenás <b>dos accesos</b>: primero la clave (te da la lista), después el índice dentro de la lista.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 1007) — Completá la línea faltante</div>
+  <p>Por cada botón la clave es el código y los datos son <code>[color, precio unitario, tamaño]</code>. Hay que incrementar 10% el precio. ¿Cuál es la línea faltante?</p>
+  <pre class="code-block">botones = {'MET 002': ['plata', 350.0, 1], 'MET 001': ['dorado', 475.6, 1.5],
+           'ACR 102': ['rojo', 210, 0.8], 'PVC 233 ': ['azul', 650, 2]}
+boton = input('Cgo botón: ').upper()
+if boton in botones:
+    ……………           # línea a completar
+    precio = round(botones[boton][1], 2)
+    print('El nuevo precio unitario de', boton,
+          'con 10% de aumento es $', precio)</pre>
+  <p>Para el ingreso <code>met002</code> la salida debe ser: <code>El nuevo precio unitario de MET 002 con 10% de aumento es $ 385.0</code></p>
+  <p><b>La línea correcta es</b> <code>botones[boton][1] *= 1.1</code>: <code>botones[boton]</code> es la lista <code>['plata', 350.0, 1]</code>; el índice <code>[1]</code> es el precio (350.0); <code>*= 1.1</code> lo modifica adentro de la lista → 385.0. <b>Las otras opciones del parcial:</b> <code>botones[boton] = 1</code> pisa toda la lista por el número 1; <code>boton = 350*10/100+350</code> no toca el diccionario; <code>botones[boton][2] -= 1</code> cambia el tamaño, no el precio.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Camejo · 2023 · T8 · Ej 0208) — Validar usuario con diccionario</div>
+  <p>El diccionario es <code>mail → [password, usuario]</code>: cada clave es un mail y su valor es la lista <code>[password, usuario]</code>. El programa insiste hasta que el login sea correcto:</p>
+  <pre class="code-block">users = {'info@usina.com.ar': ['X25fc230', 'joanaBur'],
+         'iro@hotmail.com':   ['Irma1211', 'rojas_27'],
+         'ergo@gmail.com':    ['joacoS01', 'infoGENERAL']}
+
+while not ingreso(users):
+    print('Datos de Acceso Erróneos')</pre>
+  <p>La versión correcta de <code>ingreso()</code> (entre las 4 que daba el parcial) es:</p>
+  <pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ')
+    resp = False
+    for datos in usr:                 # datos = cada clave (un mail)
+        if usr[datos] == [passw, usuario]:
+            resp = True
+    return resp</pre>
+  <p><b>Por qué:</b> al recorrer <code>for datos in usr</code>, <code>datos</code> es cada mail y <code>usr[datos]</code> es su lista <code>[password, usuario]</code>. Comparar <code>usr[datos] == [passw, usuario]</code> exige que coincidan los <b>dos</b> datos. <b>Trampa:</b> comparar solo <code>usr[datos][0]</code> validaría únicamente el password; y <code>usuario in usr</code> chequea si es una clave (un mail), no los datos de acceso. <b>(Es la versión completa del ejercicio 2.3 del quiz.)</b></p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• <code>KeyError</code>: acceder a una clave que no existe (usá <code>.get()</code> o <code>in</code> antes).<br>
+• Confundir clave <code>int</code> con <code>str</code>: <code>{0: 'a'}</code> se accede con <code>d[0]</code>, no <code>d['0']</code>.<br>
+• Pisar toda la lista (<code>d[k] = x</code>) cuando querías modificar un solo dato (<code>d[k][i] = x</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · MAP Y FILTER ============ -->
+<details id="pcp2-s3">
+<summary><span class="num">3</span> TIPO 2 · map() y filter() <span class="sec-score" id="ss-pc-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<h3>El tema más tomado del parcial</h3>
+<p>Las dos son <b>funciones de orden superior</b>: reciben <b>una función</b> y <b>una secuencia</b>, y aplican esa función a cada elemento. La diferencia es qué hacen con el resultado.</p>
+
+<div class="formula">
+  <b>map(func, secuencia)</b> → TRANSFORMA cada elemento. Devuelve la MISMA cantidad de elementos.<br>
+  <b>filter(func, secuencia)</b> → SELECCIONA. La func debe devolver <b>True/False</b>; deja solo los que dan True.
+</div>
+
+<p><b>Importante:</b> las dos devuelven un "iterador", no una lista. Para ver el resultado hay que envolverlas en <code>list(...)</code>.</p>
+
+<pre class="code-block">def doble(x):
+    return x * 2
+
+def es_par(x):
+    return x % 2 == 0
+
+list(map(doble, [1, 2, 3]))        # [2, 4, 6]   -> transforma cada uno
+list(filter(es_par, [1, 2, 3, 4])) # [2, 4]      -> deja los pares</pre>
+
+<div class="key"><div class="ky-t">La diferencia, en una frase</div>
+<b>map</b> cambia los elementos (misma cantidad de salida). <b>filter</b> elige cuáles pasan (devuelve los originales que cumplen la condición). El orden de los argumentos es SIEMPRE <code>(función, secuencia)</code>.
+</div>
+
+<h3>Se combinan: primero filtrar, después transformar</h3>
+<pre class="code-block">list(map(doble, filter(es_par, [1, 2, 3, 4])))
+# filter deja [2, 4]; map los duplica -> [4, 8]</pre>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0307) — filter con condición</div>
+  <pre class="code-block">def mes31(m):
+    de30dias = (4, 6, 9, 11)
+    return m not in de30dias and m != 2
+
+meses = [1, 5, 6, 2, 7]
+print(list(filter(mes31, meses)))</pre>
+  <p><b>Salida:</b> <code>[1, 5, 7]</code></p>
+  <p><b>Por qué:</b> <code>filter</code> deja los <code>m</code> que dan <code>True</code>. El 6 está en <code>de30dias</code> → False (sale). El 2 lo excluye <code>m != 2</code> → False (sale). Quedan 1, 5 y 7.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Camejo · 2023 · T8 · Ej 0108) — Precedencia and/or dentro del filter</div>
+  <pre class="code-block">def organiza(n):
+    if n % 3 == 0 and n % 2 == 0 or n &lt; 100:
+        return True
+    return False
+
+a = [15, -150, 150, 66]
+print(list(filter(organiza, a)))</pre>
+  <p><b>Salida:</b> <code>[15, -150, 150, 66]</code> (todos)</p>
+  <p><b>Por qué:</b> <code>and</code> tiene más prioridad que <code>or</code>, así que la condición es <code>(n%3==0 and n%2==0) or (n&lt;100)</code>. 15, −150 y 66 son <code>&lt; 100</code> → True. 150 es múltiplo de 3 y de 2 → True. Pasan todos.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2025 · T1 · Ej 9) — filter + map encadenados</div>
+  <pre class="code-block">def edita(txt):
+    return txt.upper()
+def patron(txt):
+    return ('á' in txt) or ('ó' in txt)
+
+ciudades = ['anillaco', 'san javier', 'la dársena', 'fiambalá']
+mostrar = list(filter(patron, ciudades))
+salida = list(map(edita, mostrar))
+print(salida)</pre>
+  <p><b>Salida:</b> <code>['LA DÁRSENA', 'FIAMBALÁ']</code></p>
+  <p><b>Por qué:</b> <code>filter</code> deja las que tienen á u ó ("la dársena", "fiambalá"); después <code>map(edita)</code> las pasa a mayúsculas. <b>Primero seleccionar, después transformar.</b></p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos (los distractores del parcial)</div>
+• Invertir los argumentos: <code>map(secuencia, func)</code> ❌ — va <code>map(func, secuencia)</code>.<br>
+• Usar <code>filter</code> con una función que NO devuelve booleano.<br>
+• Olvidar el <code>list(...)</code> y creer que imprime la lista (imprime <code>&lt;map object&gt;</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · ARCHIVOS ============ -->
+<details id="pcp2-s4">
+<summary><span class="num">4</span> TIPO 3 · Archivos de texto <span class="sec-score" id="ss-pc-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Abrir, leer, escribir, cerrar</h3>
+<p>Trabajar con un archivo es siempre: <b>abrir</b> (con un modo) → <b>leer o escribir</b> → <b>cerrar</b>.</p>
+
+<table class="tbl">
+  <tr><th>Modo</th><th>Qué hace</th></tr>
+  <tr><td><code>'r'</code> (read)</td><td>Lee. <b>Falla</b> (<code>FileNotFoundError</code>) si el archivo no existe</td></tr>
+  <tr><td><code>'w'</code> (write)</td><td><b>Borra todo</b> el contenido previo y escribe de cero (crea el archivo si no existe)</td></tr>
+  <tr><td><code>'a'</code> (append)</td><td>Conserva lo que hay y <b>agrega al final</b></td></tr>
+  <tr><td><code>'r+'</code></td><td>Lee y escribe</td></tr>
+</table>
+
+<table class="tbl">
+  <tr><th>Método</th><th>Qué hace</th></tr>
+  <tr><td><code>.readlines()</code></td><td>Devuelve una <b>lista</b> con todas las líneas (cada una termina en <code>\n</code>)</td></tr>
+  <tr><td><code>.readline()</code></td><td>Lee <b>una sola</b> línea (útil para saltear un título)</td></tr>
+  <tr><td><code>.write(texto)</code></td><td>Escribe un string. <b>NO agrega <code>\n</code></b> solo: lo ponés vos</td></tr>
+  <tr><td><code>.writelines(lista)</code></td><td>Escribe una lista de strings (cada uno debe traer su <code>\n</code>)</td></tr>
+</table>
+
+<h3>El patrón típico: leer, procesar línea por línea, escribir otro</h3>
+<pre class="code-block">arch = open('contactos.txt', 'r')
+lineas = arch.readlines()
+arch.close()
+
+invitados = []
+for amigo in lineas:
+    amigo = amigo.strip('\n')        # saca el salto de línea
+    campos = amigo.split(',')        # separa por coma -> lista
+    if campos[3].lower() == 'trabajo':
+        invitados.append(campos[0] + ',' + campos[2] + '\n')
+
+arch2 = open('invitados.txt', 'w')
+arch2.writelines(invitados)
+arch2.close()</pre>
+
+<p>Las dos herramientas clave para procesar cada línea: <code>.strip('\n')</code> (quita el salto de línea) y <code>.split(',')</code> (parte la línea en una lista de campos).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0407) — Filtrar y escribir otro archivo</div>
+  <p><code>contactos.txt</code> tiene una línea por contacto con el formato <code>nombre,apellido,mail,categoría</code>. Hay que dejar en <code>invitados.txt</code> solo los de categoría "trabajo", escribiendo <code>nombre,mail</code>:</p>
+  <pre class="code-block">arch = open('contactos.txt', 'r+')
+lista = arch.readlines()
+arch.close()
+
+invitados = []
+for amigo in lista:
+    amigo = amigo.strip('\n')        # saca el salto de línea
+    a = amigo.split(',')             # separa por coma -> lista de campos
+    if a[3].lower() == 'trabajo':    # la categoría es el 4° campo
+        invitados.append(a[0] + ',' + a[2] + '\n')
+
+arch = open('invitados.txt', 'w')
+arch.writelines(invitados)
+arch.close()</pre>
+  <p><b>invitados.txt</b> queda con: <code>AnaEmilia,anitapaz@yahoo.como.ar</code>, <code>Rodo,rgarcia04@gmail.com</code> y <code>Ema,derbita34@gmail.com</code> (los tres con "trabajo"; el <code>.lower()</code> hace que entre también "TRABAJO"). <b>Claves:</b> <code>strip('\n')</code> saca el salto, <code>split(',')</code> parte en campos, y al escribir se agrega el <code>\n</code> a mano.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• Usar <code>'w'</code> cuando querías conservar lo anterior (borra todo). Para agregar, usá <code>'a'</code>.<br>
+• Olvidar el <code>\n</code> al hacer <code>write</code> (queda todo pegado en una línea).<br>
+• No hacer <code>.strip('\n')</code> y arrastrar el salto de línea en las comparaciones.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · TRY/EXCEPT ============ -->
+<details id="pcp2-s5">
+<summary><span class="num">5</span> TIPO 4 · try/except y validación <span class="sec-score" id="ss-pc-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Capturar errores en vez de que el programa explote</h3>
+<p>El bloque <code>try/except</code> intenta ejecutar algo; si surge un error, en vez de cortar el programa, salta al <code>except</code> y sigue.</p>
+
+<pre class="code-block">try:
+    n = int(input("Número: "))   # esto puede fallar si escriben texto
+    print(10 / n)                 # esto puede fallar si n = 0
+except ValueError:
+    print("No es un número entero")
+except ZeroDivisionError:
+    print("No se puede dividir por cero")</pre>
+
+<table class="tbl">
+  <tr><th>Excepción</th><th>Cuándo salta</th></tr>
+  <tr><td><code>ValueError</code></td><td><code>int("hola")</code> — convertir algo que no es número</td></tr>
+  <tr><td><code>ZeroDivisionError</code></td><td>Dividir por 0</td></tr>
+  <tr><td><code>FileNotFoundError</code></td><td>Abrir en modo <code>'r'</code> un archivo inexistente</td></tr>
+  <tr><td><code>KeyError</code></td><td>Acceder a una clave que no está en el diccionario</td></tr>
+  <tr><td><code>IndexError</code></td><td>Acceder a un índice fuera de la lista</td></tr>
+</table>
+
+<h3>El esqueleto clásico: validar input con while + try</h3>
+<pre class="code-block">sigue = True
+while sigue:
+    try:
+        n = int(input("Ingresá un par positivo: "))
+        if n &gt; 0 and n % 2 == 0:
+            sigue = False            # dato válido -> corta el while
+        else:
+            print("No es par positivo")
+    except ValueError:
+        print("Debe ser un entero")
+print(n)</pre>
+
+<div class="key"><div class="ky-t">Por qué esta versión es la correcta (y los distractores no)</div>
+• El <code>while</code> <b>insiste</b> hasta tener un dato válido.<br>
+• <code>sigue = True</code> al inicio → entra al ciclo (si fuera <code>False</code>, no entraría nunca).<br>
+• <code>sigue = False</code> <b>solo</b> cuando el dato cumple la condición.<br>
+• El <code>try</code> envuelve únicamente lo que puede fallar (el <code>int()</code>).
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• Inicializar la bandera al revés (<code>sigue = False</code>) → el <code>while</code> nunca arranca.<br>
+• Poner el <code>try</code> sin <code>while</code> → no insiste, falla un dato y sigue de largo.<br>
+• Inventar excepciones que no existen (<code>IndexOutOfRangeError</code> no es de Python; es <code>IndexError</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · PANDAS ============ -->
+<details id="pcp2-s6">
+<summary><span class="num">6</span> TIPO 5 · Pandas (DataFrames) <span class="sec-score" id="ss-pc-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<h3>El DataFrame: una tabla con filas y columnas</h3>
+<p>Pandas trabaja con <b>DataFrames</b> (tablas). Lo que se toma en el parcial es: <b>filtrar filas</b>, <b>agrupar y promediar</b>, y operaciones simples (<code>.sum()</code>, <code>.mean()</code>).</p>
+
+<table class="tbl">
+  <tr><th>Operación</th><th>Sintaxis</th><th>Qué devuelve</th></tr>
+  <tr><td>Una columna</td><td><code>df['col']</code></td><td>La columna (Series)</td></tr>
+  <tr><td>Varias columnas</td><td><code>df[['col1', 'col2']]</code></td><td>Sub-tabla (corchete <b>doble</b>)</td></tr>
+  <tr><td>Filtrar filas</td><td><code>df[df['edad'] &gt; 18]</code></td><td>Las filas que cumplen</td></tr>
+  <tr><td>Filtro con 2 condiciones</td><td><code>df[(df['a'] &gt; 1) &amp; (df['b'] != 'C')]</code></td><td>Usar <code>&amp;</code> <code>|</code> y <b>paréntesis</b></td></tr>
+  <tr><td>Sumar / promediar</td><td><code>df['col'].sum()</code> · <code>.mean()</code></td><td>Un número</td></tr>
+  <tr><td>Agrupar y resumir</td><td><code>df.groupby('mes')['mm'].mean()</code> · <code>.max()</code> · <code>.min()</code></td><td>Un valor por grupo</td></tr>
+  <tr><td>Ordenar</td><td><code>df.sort_values('apellido')</code></td><td>La tabla ordenada por esa columna</td></tr>
+  <tr><td>Contar repetidos</td><td><code>df['col'].value_counts()</code></td><td>Cuántas veces aparece cada valor</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La trampa #1 de pandas: <code>&amp;</code> no <code>and</code></div>
+Para combinar condiciones de filtro se usa <code>&amp;</code> (y), <code>|</code> (o), <code>~</code> (no), <b>con paréntesis obligatorios</b> en cada condición. <code>and</code>/<code>or</code> de Python NO funcionan acá.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0707) — Filtro con dos condiciones</div>
+  <pre class="code-block">vue1 = vue[(vue['fila'] &lt; 20) &amp; (vue['asiento'] != 'C')]</pre>
+  <p>Deja las filas con <code>fila &lt; 20</code> <b>Y</b> <code>asiento</code> distinto de <code>'C'</code>. Una fila con asiento C se descarta; una con fila 23 también. <b>Clave:</b> los paréntesis y el <code>&amp;</code> son obligatorios.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Camejo · 2023 · T8 · Ej 0508) — groupby + mean</div>
+  <pre class="code-block">lluvias.groupby('mes')['mm'].mean()</pre>
+  <p>Agrupa las filas por <code>mes</code> y promedia la columna <code>mm</code> de cada grupo. Si abril tiene 65 y 96 → promedio 80.5; si marzo tiene 120 y 115 → 117.5; etc. Devuelve un valor por mes. <b>Distractor típico:</b> confundirlo con <code>head(4)</code> o con un filtro.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · MATPLOTLIB ============ -->
+<details id="pcp2-s7">
+<summary><span class="num">7</span> TIPO 6 · Matplotlib (gráficos) <span class="sec-score" id="ss-pc-segundo-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Las DOS formas de graficar (las dos se toman)</h3>
+<p>Hay dos APIs y el parcial usa ambas. Conviene reconocer las dos.</p>
+
+<h4>Forma pyplot (la directa)</h4>
+<pre class="code-block">import matplotlib.pyplot as plt
+plt.bar(['A', 'B', 'C'], [10, 20, 15])
+plt.title("Ventas")
+plt.show()</pre>
+
+<h4>Forma orientada a objetos (la que toman los parciales nuevos)</h4>
+<pre class="code-block">fig, ax = plt.subplots()
+ax.bar(jugadores, alturas)       # bar(categorías, valores)
+ax.set_title("Plantel")
+ax.set_xlabel("Jugador")
+ax.set_ylabel("Altura (cm)")
+ax.set_ylim(0, 200)
+ax.grid(axis='y')
+plt.show()</pre>
+
+<table class="tbl">
+  <tr><th>Función</th><th>Qué dibuja</th></tr>
+  <tr><td><code>ax.bar(cat, val)</code></td><td>Barras verticales</td></tr>
+  <tr><td><code>ax.barh(cat, val)</code></td><td>Barras horizontales</td></tr>
+  <tr><td><code>ax.plot(x, y)</code></td><td>Línea</td></tr>
+  <tr><td><code>ax.scatter(x, y)</code></td><td>Puntos (dispersión)</td></tr>
+  <tr><td><code>ax.set_title / set_xlabel / set_ylabel</code></td><td>Títulos y etiquetas</td></tr>
+</table>
+
+<h3>Grilla de subgráficos</h3>
+<pre class="code-block">fig, ax = plt.subplots(nrows=3, ncols=3)
+ax[1, 1].plot(x, y)    # fila 1, columna 1 = el del centro
+ax[2, 2].bar(x, y)     # esquina inferior derecha</pre>
+<p>Con una grilla, <code>ax</code> se indexa <code>ax[fila, columna]</code> (ambas empiezan en 0).</p>
+
+<div class="trap"><div class="tr-t">Errores típicos del bloque</div>
+• Invertir los argumentos de <code>bar</code>: va <code>ax.bar(categorías, valores)</code>, no al revés.<br>
+• Leer mal la posición en la grilla: <code>ax[fila, columna]</code> empezando en 0 (el del medio de una 3×3 es <code>ax[1,1]</code>).
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 · MIX INTEGRADOR ============ -->
+<details id="pcp2-s8">
+<summary><span class="num">8</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-pc-segundo-parcial-8"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en menos de 15 segundos</h3>
+<table class="tbl">
+  <tr><th>Si la pregunta muestra...</th><th>Tipo</th><th>Qué hacer</th></tr>
+  <tr><td><code>list(map(...))</code> o <code>list(filter(...))</code></td><td>map/filter</td><td>Aplicar la función a cada elemento; filter deja los True</td></tr>
+  <tr><td><code>d[clave]</code>, <code>d[k][i]</code></td><td>Diccionarios</td><td>Encadenar clave + índice de la lista</td></tr>
+  <tr><td><code>open(...)</code>, <code>.readlines()</code>, <code>.write()</code></td><td>Archivos</td><td>Ver el modo; procesar con strip/split</td></tr>
+  <tr><td><code>try:</code> / <code>except:</code></td><td>Validación</td><td>Ver bandera del while y qué excepción captura</td></tr>
+  <tr><td><code>df[...]</code>, <code>groupby</code></td><td>Pandas</td><td>Filtro con &amp; y paréntesis; groupby agrupa</td></tr>
+  <tr><td><code>ax.bar</code>, <code>subplots</code></td><td>Matplotlib</td><td>bar(categorías, valores); ax[fila, col]</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+<div class="trap"><div class="tr-t">Error 1 — Orden de argumentos en map/filter</div>
+Es <code>map(función, secuencia)</code>, nunca <code>map(secuencia, función)</code>. Y <code>filter</code> necesita una función que devuelva True/False.
+</div>
+<div class="trap"><div class="tr-t">Error 2 — <code>'w'</code> borra el archivo</div>
+Abrir en modo <code>'w'</code> borra todo el contenido anterior. Si querías conservar y agregar, era <code>'a'</code>.
+</div>
+<div class="trap"><div class="tr-t">Error 3 — <code>and</code> en lugar de <code>&amp;</code> en pandas</div>
+Los filtros de pandas usan <code>&amp;</code>, <code>|</code>, <code>~</code> con paréntesis. <code>and</code>/<code>or</code> de Python tiran error ahí.
+</div>
+<div class="trap"><div class="tr-t">Error 4 — Pisar la lista de un diccionario</div>
+<code>d[k] = x</code> reemplaza TODO el valor; para tocar un dato puntual era <code>d[k][i] = x</code>.
+</div>
+
+<h3>Práctica integradora — combinaciones típicas</h3>
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T7 · Ej 0607) — try/except con diccionario</div>
+  <p>Devolver el titular de una patente sin que el programa aborte si la patente no está (ej. <code>jdd003</code>):</p>
+  <pre class="code-block">titulares = {'AG 234 FF': 'Andreoli, Julieta', 'AC 217 DR': 'Vargas, Ulises',
+             'KDF 876': 'Fiquet, Paulo', 'LBD 976': 'Carassa, Emilia'}
+pat = input('Patente: ')
+print('El titular de', pat, quien(titulares, pat))</pre>
+  <p>La versión correcta de <code>quien()</code> (entre las 4 del parcial) es:</p>
+  <pre class="code-block">def quien(titulares, pat):
+    try:
+        cartel = 'es ' + titulares[pat.upper()]
+    except:
+        cartel = ' es desconocido'
+    return cartel</pre>
+  <p><b>Por qué:</b> el acceso <code>titulares[pat.upper()]</code> (que da <code>KeyError</code> si la patente no existe) va DENTRO del <code>try</code>; si falla, el <code>except</code> arma "es desconocido". <b>Trampa:</b> si el acceso al diccionario estuviera fuera del try, el programa se cortaría igual.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial 2024 · T4 · Ej 1004) — for + diccionario + replace</div>
+  <p>Traducir los caracteres del texto que están definidos en el diccionario <code>traductor</code>. ¿Cuál es la línea faltante?</p>
+  <pre class="code-block">txt = 'Me picaron MAS mosquitos QUE EN EL VERANO'
+traductor = {'e':')', 'o':'%', 'a':'*', 'i':'/', 'u':'@', 'm':'&amp;', ' ':'+-'}
+for letra in txt:
+    if letra in traductor:
+        ……………           # línea a completar
+print(txt)</pre>
+  <p>La línea correcta es <code>txt = txt.replace(letra, traductor[letra])</code>: reemplaza en TODO el texto cada carácter por su traducción. <b>Trampa:</b> <code>letra = traductor[letra]</code> cambia una variable suelta pero no toca <code>txt</code>; y hay que reasignar <code>txt =</code> porque <code>replace</code> devuelve un texto nuevo (no modifica el original).</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé la pregunta y clasificá el tema en 15 segundos.<br>
+2. En map/filter: aplicá la función a cada elemento en un papel.<br>
+3. En archivos: fijate el modo (<code>'w'</code> borra) y dónde se concatena cada dato.<br>
+4. En diccionarios: ¿la clave es int o str? ¿el valor es lista (encadenar índice)?<br>
+5. En pandas: filtros con <code>&amp;</code> y paréntesis; <code>groupby</code> agrupa.<br>
+6. Si dudás entre dos opciones, descartá la que tenga un error de sintaxis evidente (argumentos invertidos, <code>and</code> en pandas, excepción inexistente).
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="pc-segundo-parcial"></div>
+<a class="back" href="#subject-pc-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'pc-segundo-parcial';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS PC 2° PARCIAL ============
+// Ejercicios PC · 2° Parcial — TRANSCRIPTOS TAL CUAL de parciales reales (cátedra Camejo/Balbiano, 2023-2025).
+// Cada ejercicio indica su origen (año · tema · ejercicio). La opción correcta es la marcada con X en el parcial original.
+// En los ejercicios "¿cuál versión funciona?", las 4 versiones se muestran como bloques en el enunciado
+// y las opciones son las etiquetas (1/2/3/4 o A/B/C/D), igual que se marca en la matriz de respuestas.
+
+registerExercises('pc-segundo-parcial', '1', [
+  {st: '¿Cómo es el 2° parcial de PC (cátedra Camejo/Balbiano)?', opts: ['Hay que escribir programas completos desde cero', 'Son entre 9 y 13 preguntas de opción múltiple, una sola correcta, que se vuelcan en una matriz', 'Es un examen oral', 'Es un único ejercicio largo de programación'], c: 1, ex: 'Según los parciales 2023–2025: es 100% opción múltiple, entre 9 y 13 preguntas (2025: 9 · 2024: 10 · 2023: 11 a 13), cada una con UNA sola respuesta correcta que se marca con una X en una matriz de opciones. "Sólo se considerarán las respuestas anotadas en la matriz". ▸ Por qué las otras: nunca se programa desde cero ni es oral; son varias preguntas, no una.'},
+  {st: 'En el parcial, cada pregunta tiene uno de DOS formatos posibles. ¿Cuáles son?', opts: ['Verdadero/Falso y desarrollo', 'O predecís la salida de un programa, o elegís cuál de 4 versiones de un código cumple lo pedido', 'Multiple choice y completar huecos', 'Solo armar tablas de verdad'], c: 1, ex: 'Los dos formatos reales: (1) "¿Qué imprime / qué contiene / cómo queda el archivo?" → trazás la ejecución y elegís la salida correcta; (2) "¿Cuál de estas 4 versiones funciona?" → comparás 4 fragmentos casi iguales y detectás el que cumple. ▸ Por eso practicar trazando código es exactamente lo que vas a hacer el día del parcial.'},
+  {st: 'En el parcial 2025 (9 preguntas), ¿cómo se reparte el puntaje?', opts: ['Todas las preguntas valen lo mismo', 'Las preguntas 1 a 5 valen 1 punto cada una; las 6 a 9 valen 2 puntos (o 0)', 'Solo cuentan las últimas 4', 'Cada pregunta vale 2 puntos'], c: 1, ex: 'Del encabezado real 2025: "Las preguntas de la 1 a la 5 inclusive permiten acumular 1 punto; de la 6 a la 9 cada una acumula 2 puntos o 0". Las últimas (2 puntos) son las más integradoras: predicción de salida con map/filter, elegir la estructura de datos correcta y pandas. ▸ Conviene asegurar las primeras y no dejar sin responder las de 2 puntos.'}
+]);
+
+registerExercises('pc-segundo-parcial', '2', [
+  {st: `¿Cuál de los siguientes diccionarios tiene todas sus claves numéricas (tipo int, float o complex)?`, opts: [`<code>{'1':2, '23':5, '0':13}</code>`, `<code>{1:'uno', 2:'dos', True:'V', False:'F'}</code>`, `<code>{0:'3', 2:66, 5:3.45, 1:[-2,5]}</code>`, `<code>{('1','0'):2, ('3','5'):44}</code>`], c: 2, ex: `La consigna pide claves de tipo int/float/complex. En la opción C las claves son 0, 2, 5 y 1: todas enteras (lo que esté del lado del VALOR —incluso una lista— no importa). ▸ Opción A: las claves '1', '23' y '0' van entre comillas → son strings. ▸ Opción B (la trampa): True y False son bool; aunque bool es subtipo de int, el parcial no la da por válida porque pide int/float/complex, y además 1 y True son la MISMA clave (colisionan). ▸ Opción D: las claves son tuplas, no números. ▸ <i>(Parcial real 2025 · T1 · E1)</i>`},
+  {st: `¿Cuál de los siguientes diccionarios tiene todas sus claves numéricas (tipo int, float o complex)?`, opts: [`<code>a = True</code> &nbsp; <code>{a:'verano', True:False, 1.25:'invierno'}</code>`, `<code>a = 1</code> &nbsp; <code>{True:a, 1:'uno', 4:'cuatro'}</code>`, `<code>a = str(True)</code> &nbsp; <code>{a[0]:0, 2:66, 5:3.45, a:[-2,5]}</code>`, `<code>a = int(True)</code> &nbsp; <code>{2:('1','0'), a:('3','5')}</code>`], c: 3, ex: `Hay que resolver primero cuánto vale <code>a</code>. ▸ Opción D: <code>a = int(True)</code> vale 1, así que las claves son 2 y 1: ambas enteras (los valores son tuplas, no importa). ✓ ▸ Opción A: <code>a = True</code> → claves True (bool) y 1.25; además a y True colisionan. ▸ Opción B: claves True (bool), 1 y 4; True y 1 colisionan. ▸ Opción C: <code>a = str(True)</code> es 'True', entonces a[0] es 'T' y a es 'True' → claves string. ▸ <i>(Parcial real 2025 · T5 · E1)</i>`},
+  {st: `¿Cuál versión de la función <code>ingreso()</code> valida correctamente los datos de acceso a una cuenta de mail? Deben coincidir usuario y password.
+<pre class="code-block"># users contiene  mail: [password, usuario]
+users = {'info@usina.com.ar': ['X25fc230', 'joanaBur'],
+         'iro@hotmail.com':   ['Irma1211', 'rojas_27'],
+         'ergo@gmail.com':    ['joacoS01', 'infoGENERAL']}
+
+while not ingreso(users):
+    print('Datos de Acceso Erróneos')</pre>
+<b>Opción 1</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ').lower()
+    resp = False
+    for datos in usr:
+        if usr[datos][0] == usuario:
+            resp = True
+    return resp</pre>
+<b>Opción 2</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ')
+    resp = False
+    for datos in usr:
+        if usr[datos] == [passw, usuario]:
+            resp = True
+    return resp</pre>
+<b>Opción 3</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ')
+    passw = input('Password: ')
+    return usuario in usr or passw in usr</pre>
+<b>Opción 4</b>
+<pre class="code-block">def ingreso(usr):
+    usuario = input('Usuario: ').lower()
+    passw = input('Password: ').lower()
+    return usuario in usr and passw in usr</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `Cada clave (un mail) guarda la lista <code>[password, usuario]</code>. Al recorrer <code>for datos in usr</code>, <code>datos</code> es cada mail (la clave) y <code>usr[datos]</code> es su lista <code>[password, usuario]</code>. La Opción 2 compara <code>usr[datos] == [passw, usuario]</code>: exige que coincidan los DOS datos, en ese orden. ▸ Opción 1: compara <code>usr[datos][0]</code> (el password guardado) contra <code>usuario</code> (lo tipeado como usuario) → mezcla los campos y valida uno solo; encima hace <code>.lower()</code> al password. ▸ Opciones 3 y 4: <code>usuario in usr</code> / <code>passw in usr</code> preguntan si ese texto es una CLAVE (un mail) del diccionario, no los datos de acceso. ▸ <i>(Parcial real 2023 · T8 · Ej. 0208)</i>`},
+  {st: `Para que <code>estructura[0] = 'primero'</code> se ejecute SIN error, <code>estructura</code> puede ser:`, opts: [`Una lista vacía <code>[]</code>`, `Una tupla de dos elementos`, `Un diccionario`, `La cadena nula <code>''</code>`], c: 2, ex: `En un diccionario, <code>d[0] = 'primero'</code> CREA la clave 0 (o la pisa) — siempre funciona. ▸ La lista vacía da <code>IndexError</code> (no hay posición 0 para asignar). ▸ La tupla es inmutable (<code>TypeError</code>). ▸ El string es inmutable (<code>TypeError</code>). ▸ <i>(Parcial real 2024 · T7 · Ej 0507)</i>`},
+  {st: `¿Qué <b>NO</b> debería ser <code>estructura</code> para que <code>dato = estructura[0][1]</code> se ejecute sin problemas?`, opts: [`Una lista de strings`, `Una lista de tuplas`, `Una tupla de strings`, `Una string`], c: 3, ex: `<code>estructura[0][1]</code> necesita que <code>estructura[0]</code> sea indexable con <code>[1]</code>. ▸ Lista de strings: <code>estructura[0]</code> es un string y <code>[1]</code> es su 2° carácter (anda). ▸ Lista de tuplas / tupla de strings: <code>estructura[0]</code> es una tupla o string, <code>[1]</code> anda. ▸ Una string sola: <code>estructura[0]</code> es UN carácter y <code>[1]</code> se va de rango → <code>IndexError</code>. Por eso "una string" es la que NO sirve. ▸ <i>(Parcial real 2024 · T4 · Ej 0504)</i>`},
+  {st: `¿Qué contiene <code>conteo</code> al terminar? (patrón clásico: contar repeticiones con un diccionario acumulador y <code>.get(clave, 0)</code>)
+<pre class="code-block">votos = ['Ana', 'Luis', 'Ana', 'Eva', 'Luis', 'Ana']
+conteo = {}
+for v in votos:
+    conteo[v] = conteo.get(v, 0) + 1
+print(conteo)</pre>`, opts: [`<code>{'Ana': 3, 'Luis': 2, 'Eva': 1}</code>`, `<code>{'Ana': 1, 'Luis': 1, 'Eva': 1}</code>`, `<code>{'Ana': 0, 'Luis': 0, 'Eva': 0}</code>`, `<code>KeyError</code> la primera vez (la clave no existe)`], c: 0, ex: `<code>conteo.get(v, 0)</code> devuelve el valor actual de la clave <code>v</code> o <code>0</code> si todavía NO existe (por eso NO da KeyError). En cada vuelta suma 1: la 1ª vez crea la clave en 1, las siguientes la incrementan. Ana aparece 3 veces, Luis 2, Eva 1 → <code>{'Ana': 3, 'Luis': 2, 'Eva': 1}</code>. ▸ Opción B sería si pisaras el valor con 1 en vez de acumular. ▸ Opción C nunca suma. ▸ Opción D es justo lo que evita el <code>.get</code> con default. ▸ <i>(Patrón de conteo de votos/palabras, frecuente en parciales de la cátedra)</i>`},
+  {st: `¿Qué contiene <code>agrup</code> al terminar? (acumular en LISTAS con <code>.get(clave, [])</code>, agrupando frutas por color)
+<pre class="code-block">frutas = [('roja','manzana'), ('verde','pera'), ('roja','frutilla'),
+          ('verde','kiwi'), ('roja','cereza')]
+agrup = {}
+for color, fruta in frutas:
+    agrup[color] = agrup.get(color, []) + [fruta]
+print(agrup)</pre>`, opts: [`<code>{'roja': 'cereza', 'verde': 'kiwi'}</code>`, `<code>{'roja': ['manzana', 'frutilla', 'cereza'], 'verde': ['pera', 'kiwi']}</code>`, `<code>{'roja': 3, 'verde': 2}</code>`, `<code>{'roja': ['manzana'], 'verde': ['pera']}</code>`], c: 1, ex: `<code>agrup.get(color, [])</code> trae la lista que ya está en esa clave, o una lista vacía <code>[]</code> si es la 1ª vez; luego <code>+ [fruta]</code> le agrega la fruta nueva y reasigna. Así cada color ACUMULA todas sus frutas en el orden en que aparecen: roja→[manzana, frutilla, cereza], verde→[pera, kiwi] → Opción B. ▸ A pisaría con la última fruta (sin lista). ▸ C contaría en vez de guardar. ▸ D sólo guardaría la primera. ▸ <i>(Patrón clave→lista con <code>.get</code>, variante de agrupar registros)</i>`}
+]);
+
+registerExercises('pc-segundo-parcial', '3', [
+  {st: `¿Qué contiene <code>b</code>?
+<pre class="code-block">def organiza(n):
+    if n % 3 == 0 and n % 2 == 0 or n &lt; 100:
+        return True
+    else:
+        return False
+
+a = [15, -150, 150, 66]
+b = list(filter(organiza, a))</pre>`, opts: [`<code>[15, -150, 150, 66]</code>`, `<code>[-150, 66]</code>`, `<code>[15, 66]</code>`, `<code>[]</code>`], c: 0, ex: `Por precedencia, <code>and</code> se evalúa ANTES que <code>or</code>, así que la condición es <code>(n%3==0 and n%2==0) or (n &lt; 100)</code>. ▸ 15: es &lt; 100 → True. ▸ -150: &lt; 100 → True. ▸ 150: múltiplo de 3 y de 2 → True (no necesita el &lt; 100). ▸ 66: &lt; 100 → True. Pasan los cuatro. ▸ La trampa es creer que 150 (que no es &lt; 100) queda afuera, pero sí es múltiplo de 6. ▸ <i>(Parcial real 2023 · T8 · Ej. 0108)</i>`},
+  {st: `Dado el programa, ¿cuál debería ser la línea faltante para que la salida sea <code>['ASA', 'UTO', 'ANCO', 'ARTEL', 'EMÁFORO']</code>?
+<pre class="code-block">def edita1(pal):
+    return pal[1:].upper()
+def edita2(pal):
+    return pal[0].upper()
+def edita3(pal):
+    return len(pal) &gt; 5
+
+palabras = ['casa', 'auto', 'banco', 'cartel', 'semáforo']
+............................   # línea de código faltante
+print(nuevaLista)</pre>`, opts: [`<code>nuevaLista = list(map(palabras, edita2))</code>`, `<code>nuevaLista.append(map(edita1, palabras))</code>`, `<code>nuevaLista = list(map(edita1, palabras))</code>`, `<code>nuevaLista = list(map(edita3, palabras))</code>`], c: 2, ex: `La salida saca la 1ª letra de cada palabra y la pasa a mayúsculas: eso es <code>edita1</code> (<code>pal[1:].upper()</code>). <code>map</code> la aplica a cada palabra y <code>list()</code> la materializa. ▸ Opción A: invierte los argumentos (es <code>map(función, secuencia)</code>, no al revés). ▸ Opción B: usa <code>.append</code> sobre una lista que todavía no existe y no convierte con <code>list()</code>. ▸ Opción D: usa <code>edita3</code>, que devuelve True/False (largo &gt; 5), no transforma el texto. ▸ <i>(Parcial real 2025 · T1 · E7)</i>`},
+  {st: `¿Cuál es la salida del siguiente programa?
+<pre class="code-block">def edita(txt):
+    return txt.upper()
+def patron(txt):
+    return ('á' in txt) or ('ó' in txt)
+
+ciudades = ['anillaco', 'san javier', 'la dársena', 'fiambalá']
+mostrar = list(filter(patron, ciudades))
+salida = list(map(edita, mostrar))
+print(salida)</pre>`, opts: [`<code>['anillaco', 'san javier', 'la dársena', 'fiambalá']</code>`, `<code>['ANILLACO', 'SAN JAVIER']</code>`, `<code>[]</code>`, `<code>['LA DÁRSENA', 'FIAMBALÁ']</code>`], c: 3, ex: `Primero <code>filter(patron, ...)</code> deja las que tienen 'á' u 'ó': "la dársena" y "fiambalá" (las otras no tienen esas tildes). Después <code>map(edita, ...)</code> las pasa a mayúsculas → <code>['LA DÁRSENA', 'FIAMBALÁ']</code>. ▸ Lógica clave: primero SELECCIONAR (filter), después TRANSFORMAR (map). ▸ Opción B son las que NO tienen á/ó; A no aplica el map; C implicaría que ninguna tiene á/ó. ▸ <i>(Parcial real 2025 · T1 · E9)</i>`},
+  {st: `Dado el programa, ¿cuál debería ser la línea faltante para que la salida sea <code>[(36, 0), (14007, 1), (33, 1), (20, 0)]</code>?
+<pre class="code-block">def calc1(num):
+    return num % 2 != 0
+def calc2(num):
+    return num * 2
+def calc3(num):
+    return (num, num % 2)
+
+numeros = [36, 14007, 33, 20]
+............................   # línea de código faltante
+print(nuevaLista)</pre>`, opts: [`<code>nuevaLista.sort(map(numeros, calc3))</code>`, `<code>nuevaLista = list(map(calc3, numeros))</code>`, `<code>nuevaLista = list(map(calc2, numeros))</code>`, `<code>nuevaLista.append(map(calc1, numeros))</code>`], c: 1, ex: `La salida son tuplas <code>(num, num%2)</code> — el número y su resto al dividir por 2 (0 si es par, 1 si es impar): eso es <code>calc3</code>. <code>map(calc3, numeros)</code> las genera y <code>list()</code> las muestra. ▸ Opción A usa <code>.sort</code> con argumentos inválidos. ▸ Opción C usa <code>calc2</code> (num*2) → daría [72, 28014, 66, 40]. ▸ Opción D usa <code>calc1</code> (True/False) y <code>.append</code> sobre una lista inexistente. ▸ <i>(Parcial real 2025 · T5 · E7)</i>`},
+  {st: `¿Cuál es la salida del siguiente programa?
+<pre class="code-block">def edita(txt):
+    return txt[2:].lower()
+def patron(txt):
+    cant = 0
+    for voc in 'aeiou':
+        if voc in txt:
+            cant += 1
+    return cant &gt; 1
+
+frutas = ['CIRUELA', 'FRUTILLA', 'MANZANA', 'NARANJA']
+salida = list(map(edita, frutas))
+mostrar = list(filter(patron, salida))
+print(mostrar)</pre>`, opts: [`<code>['ciruela', 'frutilla', 'naranja']</code>`, `<code>['MANZANA', 'NARANJA']</code>`, `<code>['manzan', 'naranj']</code>`, `<code>['ruela', 'utilla']</code>`], c: 3, ex: `OJO al orden. PRIMERO <code>map(edita)</code> sobre TODAS: saca las 2 primeras letras y pasa a minúscula → 'CIRUELA'→'ruela', 'FRUTILLA'→'utilla', 'MANZANA'→'nzana', 'NARANJA'→'ranja'. DESPUÉS <code>filter(patron)</code> deja las que tienen MÁS DE UNA vocal distinta: 'ruela' (u,e,a) y 'utilla' (u,i,a) sí; 'nzana' y 'ranja' solo tienen 'a'. Resultado: <code>['ruela', 'utilla']</code>. ▸ B no transforma (mayúsculas); A y C no aplican bien edita o filter. ▸ <i>(Parcial real 2025 · T5 · E9)</i>`},
+  {st: `¿Cuál es la salida del siguiente programa?<pre class="code-block">def nomMes(mes):
+    meses = {1:'enero', 2:'febrero', 3:'marzo', 4:'abril', 5:'mayo', 6:'junio',
+             7:'julio', 8:'agosto', 9:'septiembre', 10:'octubre', 11:'noviembre', 12:'diciembre'}
+    return meses[mes].upper()
+
+meses = [10, 5, 2, 6, 7, 9]
+nombres = list(map(nomMes, meses))
+print(nombres)</pre>`, opts: [`<code>['JUNIO']</code>`, `<code>[0, 0, 0, 0, 0, 0]</code>`, `<code>[9, 7, 6, 2, 5, 10]</code>`, `<code>['OCTUBRE', 'MAYO', 'FEBRERO', 'JUNIO', 'JULIO', 'SEPTIEMBRE']</code>`], c: 3, ex: `<code>map(nomMes, meses)</code> aplica nomMes a cada número de <code>[10, 5, 2, 6, 7, 9]</code>: busca el nombre en el diccionario y lo pasa a mayúsculas. 10→OCTUBRE, 5→MAYO, 2→FEBRERO, 6→JUNIO, 7→JULIO, 9→SEPTIEMBRE. ▸ map devuelve la MISMA cantidad de elementos (transforma, no filtra). ▸ <i>(Parcial real 2024 · T4 · Ej 0204)</i>`}
+]);
+
+registerExercises('pc-segundo-parcial', '4', [
+  {st: `Dado el archivo <code>carreras.txt</code> (alumnos anotados por carrera), ¿con cuál conjunto de modos de apertura funciona el programa? Al finalizar deben quedar 3 archivos nuevos (quimica-alumnos.txt, industrial-alumnos.txt, civil-alumnos.txt), cada uno con sus alumnos.
+<pre class="code-block">def abre(archivo, modo):
+    nombre = open(archivo, modo)
+    return nombre
+
+alumnos = abre('carreras.txt', …)        # modo 1?
+tit = alumnos.readline()
+tit = tit.strip('\\n').lower()
+archivo = tit + '-alumnos.txt'
+lista = abre(archivo, …)                  # modo 2?
+for lin in alumnos:
+    if ',' in lin:
+        lista.write(lin)
+    else:
+        lista.close()
+        tit = lin.strip('\\n').lower()
+        archivo = tit + '-alumnos.txt'
+        lista = abre(archivo, …)          # modo 3?
+alumnos.close()
+lista.close()</pre>`, opts: [`<code>modo 1 'r' · modo 2 'w' · modo 3 'r'</code>`, `<code>modo 1 'a' · modo 2 'r' · modo 3 'r'</code>`, `<code>modo 1 'r' · modo 2 'w' · modo 3 'w'</code>`, `<code>modo 1 'w' · modo 2 'w' · modo 3 'w'</code>`], c: 2, ex: `<code>alumnos</code> (carreras.txt) sólo se LEE (readline + for) → modo <code>'r'</code>. <code>lista</code> se ESCRIBE (write) y se reabre para cada carrera → <code>'w'</code> en ambos casos. Por eso C: r, w, w. ▸ A pone <code>'r'</code> en el modo 3 (no podría escribir). ▸ B abre el de lectura como <code>'a'</code> y los de escritura como <code>'r'</code>. ▸ D abre carreras.txt en <code>'w'</code> → lo BORRARÍA antes de poder leerlo. ▸ <i>(Parcial real 2025 · T1 · E4)</i>`},
+  {st: `Dados <code>vtas-suc1.txt</code> y <code>vtas-suc2.txt</code> (ventas mensuales), ¿con cuál conjunto de modos funciona? Al final debe quedar <code>vtas-semestre.txt</code> con el total, y <code>vtas-suc1.txt</code> debe tener agregadas al final las líneas de <code>vtas-suc2.txt</code>.
+<pre class="code-block">total = 0
+suc1 = open('vtas-suc1.txt', …)          # modo 1?
+todas = suc1.readlines()
+suc1.close()
+for elem in todas:
+    lin = elem.strip('\\n').split(',')
+    total += float(lin[1])
+suc2 = open('vtas-suc2.txt', …)          # modo 2?
+todas = suc2.readlines()
+suc2.close()
+for elem in todas:
+    lin = elem.strip('\\n').split(',')
+    total += float(lin[1])
+linea = 'Total ventas semestre suc 1 y 2: $' + str(total)
+semestre = open('vtas-semestre.txt', …)  # modo 3?
+semestre.write(linea)
+semestre.close()
+suc1 = open('vtas-suc1.txt', …)          # modo 4?
+for elem in todas:
+    suc1.write(elem)
+suc1.close()</pre>`, opts: [`<code>modo 1 'r' · modo 2 'r' · modo 3 'w' · modo 4 'a'</code>`, `<code>modo 1 'a' · modo 2 'a' · modo 3 'w' · modo 4 'w'</code>`, `<code>modo 1 'r' · modo 2 'r+' · modo 3 'r' · modo 4 'r'</code>`, `<code>modo 1 'w' · modo 2 'r' · modo 3 'a' · modo 4 'w'</code>`], c: 0, ex: `suc1 y suc2 se LEEN (readlines) → <code>'r'</code> y <code>'r'</code>. vtas-semestre.txt se crea para escribir → <code>'w'</code>. suc1 se reabre para AGREGAR al final (sin borrar) las líneas de suc2 → <code>'a'</code>. Por eso A: r, r, w, a. ▸ El modo 4 debe ser <code>'a'</code>: con <code>'w'</code> (D) borraría suc1 en vez de agregar. ▸ C abre todo en lectura (no podría escribir). ▸ B abre los de lectura en <code>'a'</code>. ▸ <i>(Parcial real 2025 · T5 · E4)</i>`},
+  {st: `¿Cuál versión de <code>abreParaLeer()</code> evita que el programa se interrumpa si el archivo no existe (y, sólo si no existe, lo crea)?
+<pre class="code-block">datos = abreParaLeer('uno.txt')
+...
+datos.close()</pre>
+<b>Opción 1</b>
+<pre class="code-block">def abreParaLeer(arch):
+    a = open(arch, 'r')
+    try:
+        return a
+    except FileNotFoundError:
+        a = open(arch, 'w')
+        a.close()
+        a = open(arch, 'r')
+        return a</pre>
+<b>Opción 2</b>
+<pre class="code-block">def abreParaLeer(arch):
+    try:
+        a = open(arch, 'r')
+        return a
+    except FileNotFoundError:
+        print('No existe', arch)</pre>
+<b>Opción 3</b>
+<pre class="code-block">def abreParaLeer(arch):
+    a = open(arch, 'w')
+    try:
+        a = open(arch)
+        return a
+    except:
+        a = open(arch, 'w')
+        a.close()
+        a = open(arch, 'r')
+        return a</pre>
+<b>Opción 4</b>
+<pre class="code-block">def abreParaLeer(arch):
+    try:
+        a = open(arch, 'r')
+        return a
+    except FileNotFoundError:
+        a = open(arch, 'w')
+        a.close()
+        a = open(arch, 'r')
+        return a</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 3, ex: `El <code>open(arch, 'r')</code> que puede fallar tiene que estar DENTRO del <code>try</code>. La Opción 4 intenta abrir en 'r'; si salta <code>FileNotFoundError</code>, crea el archivo con 'w', lo cierra y lo reabre en 'r' para devolverlo. ▸ Opción 1: el open('r') está FUERA del try → si no existe, explota antes de entrar al try. ▸ Opción 2: maneja el error pero NO crea el archivo (devuelve None → <code>datos.close()</code> falla). ▸ Opción 3: abre primero en 'w' (¡borra/crea el archivo siempre!), desvirtuando el "sólo si no existe". ▸ <i>(Parcial real 2023 · T8 · Ej. 0308)</i>`},
+  {st: `¿Cuál versión de <code>guarda()</code> genera <code>personal.txt</code> con EXACTAMENTE este contenido?
+<pre class="code-block">pa,ANA PAZ
+ai,INÉS ALZA
+os,SERGIO ORTIZ</pre>
+<pre class="code-block">nombres = {'ana':'paz', 'inés':'alza', 'sergio':'ortiz'}
+guarda(nombres, 'personal.txt')</pre>
+<b>Opción 1</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'a', encoding='utf-8')
+    for nom in dicci:
+        inicio = dicci[nom][0].upper() + nom[0] + ','
+        dat.write(inicio + '\\n' + nom + ' ' + dicci[nom])
+    dat.close()</pre>
+<b>Opción 2</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'W', encoding='utf-8')
+    for nom in dicci:
+        inicio = nom[0] + dicci[nom][1].upper() + ','
+        fin = nom + ' ' + dicci[nom].upper() + '\\n'
+        dat.write(inicio + '\\n' + fin)
+    arch.close()</pre>
+<b>Opción 3</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'w', encoding='utf-8')
+    lineas = []
+    for nom in dicci:
+        inicio = dicci[nom][0] + nom[0] + ','
+        fin = nom.upper() + ' ' + dicci[nom].upper()
+        lineas.append(inicio + fin + '\\n')
+    dat.writelines(lineas)
+    dat.close()</pre>
+<b>Opción 4</b>
+<pre class="code-block">def guarda(dicci, arch):
+    dat = open(arch, 'r', encoding='utf-8')
+    lineas = []
+    for nom in dicci:
+        inicio = nom[1] + nom[0] + ','
+        fin = nom.upper() + ' ' + nom[1].upper() + '\\n'
+        lineas.append(inicio + fin)
+    dat.writelines(lineas)
+    arch.close()</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `Para 'ana':'paz' la línea debe ser <code>pa,ANA PAZ</code>: el inicio es <code>dicci[nom][0] + nom[0] + ','</code> = 'p' + 'a' + ',' = 'pa,', y el fin es <code>nom.upper() + ' ' + dicci[nom].upper()</code> = 'ANA PAZ'. La Opción 3 arma justo eso, abre en 'w' y usa writelines. ▸ Opción 1: pone <code>dicci[nom][0].upper()</code> ('P') y mete un <code>\\n</code> en el medio. ▸ Opción 2: usa modo <code>'W'</code> (mayúscula → modo inválido, ValueError) y hace <code>arch.close()</code> (arch es el nombre, no el archivo). ▸ Opción 4: abre en <code>'r'</code> (lectura → no puede escribir) y usa <code>nom[1]</code> en vez de los datos del diccionario. ▸ <i>(Parcial real 2023 · T8 · Ej. 0408)</i>`},
+  {st: `¿Cuál es la estructura de <code>archivo.txt</code> para que el programa imprima la salida indicada?
+<pre class="code-block">archivo = open("archivo.txt", "r")
+lineas = archivo.readlines()
+archivo.close()
+for linea in lineas:
+    campos = linea.split(";")
+    nombre = tuple(campos[0].split(","))
+    direccion = tuple(campos[1].split(","))
+    print(f"Nombre: {nombre[0]} {nombre[1]}")
+    print(f"Dirección: {direccion[0]} {direccion[1]}")</pre>
+<pre class="code-block">Nombre: Luis Huergo
+Dirección: Paseo Colón 850
+Nombre: Elisa Bachofen
+Dirección: Las Heras 2214</pre>`, opts: [`<code>nombre apellido;calle altura;código postal localidad</code>`, `<code>nombre,apellido;calle,altura;código postal,localidad</code>`, `<code>nombre;apellido,calle;altura,código postal;localidad</code>`, `<code>nombre,apellido,calle,altura,código postal,localidad</code>`], c: 1, ex: `La línea se parte PRIMERO por <code>;</code> (campos) y cada campo por <code>,</code> (split anidado). <code>campos[0].split(",")</code> debe dar (nombre, apellido) → "Luis,Huergo"; <code>campos[1].split(",")</code> → (calle, altura) → "Paseo Colón,850". Entonces cada línea es <code>nombre,apellido;calle,altura;…</code> → opción 2. ▸ La 1 separa todo con espacios (el split(",") no dividiría nada). ▸ La 3 mezcla ; y , al revés. ▸ La 4 usa solo comas (no habría ';' para separar los campos). ▸ <i>(Parcial real 2023 · T8 · Ej. 0908)</i>`},
+  {st: `¿Cómo queda el archivo <code>instrucciones.txt</code> luego de ejecutar el programa? (receta.txt contiene una lista de "Ingredientes", la palabra "Preparación", y debajo los pasos: cremar manteca con azúcar, integrar las yemas, saborizar, incorporar secos, estirar masa, cortar discos, hornear.)
+<pre class="code-block">def leer(arch):
+    receta = open(arch, 'r', encoding='utf-8')
+    lineas = receta.readlines()
+    receta.close()
+    pasos = []
+    i = 0
+    bandera = True
+    while i &lt; len(lineas) and bandera:
+        if 'Preparación' in lineas[i]:
+            bandera = False
+        i += 1
+    while i &lt; len(lineas):
+        pasos.append(lineas[i])
+        i += 1
+    return pasos
+
+def guarda(lista, arch):
+    datos = open(arch, 'w', encoding='utf-8')
+    for i in range(len(lista)):
+        desc = lista[i].strip('\\n').capitalize()
+        datos.write(str(i+1) + ' - ' + desc + '\\n')
+    datos.close()
+
+pasos = leer('receta.txt')
+guarda(pasos, 'instrucciones.txt')</pre>
+<b>Opción 1</b>: la lista de ingredientes tal cual.
+<b>Opción 2</b>: los pasos EN MAYÚSCULAS, sin numerar.
+<b>Opción 3</b>:
+<pre class="code-block">1 - Cremar manteca con azúcar
+2 - Integrar las yemas
+3 - Saborizar
+4 - Incorporar secos
+5 - Estirar masa
+6 - Cortar discos
+7 - Hornear</pre>
+<b>Opción 4</b>: todos los pasos pegados en una sola línea.`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `<code>leer()</code> saltea todo hasta encontrar 'Preparación' (con la bandera) y devuelve SÓLO los pasos siguientes. <code>guarda()</code> los numera (<code>str(i+1) + ' - '</code>) y los <code>.capitalize()</code> (primera letra en mayúscula). Resultado: "1 - Cremar manteca con azúcar", etc. → Opción 3. ▸ Opción 1 son los ingredientes (justo lo que leer descarta). ▸ Opción 2 usa MAYÚSCULAS completas (<code>.capitalize()</code> sólo pone la 1ª) y sin numerar. ▸ Opción 4 no separa por líneas (faltaría el <code>\\n</code>). ▸ <i>(Parcial real 2023 · T8 · Ej. 1008)</i>`}
+]);
+
+registerExercises('pc-segundo-parcial', '5', [
+  {st: `¿Cuál programa realiza un ingreso validado de un número PAR? (no acepta impares · no debe fallar si se ingresa algo que no es entero · debe insistir hasta lograrlo)
+<b>Opción 1</b>
+<pre class="code-block">for i in range(3):
+    numPar = int(input('Ingresá un número par: '))
+    if numPar &lt; 0 or numPar % 2 != 0:
+        print('No es par')
+print(numPar)</pre>
+<b>Opción 2</b>
+<pre class="code-block">pide = True
+while pide:
+    try:
+        numPar = int(input('Ingresá un número par: '))
+        if numPar &gt; 0 and numPar % 2 == 0:
+            pide = False
+        else:
+            print('No es par')
+    except ValueError:
+        print('Debe ser número entero')
+print(numPar)</pre>
+<b>Opción 3</b>
+<pre class="code-block">pide = False
+while pide:
+    try:
+        numPar = int(input('Ingresá un número par: '))
+        if numPar &lt; 0 or numPar % 2 != 0:
+            pide = False
+        else:
+            print('No es par')
+    except ValueError:
+        print('Debe ser número entero')
+print(numPar)</pre>
+<b>Opción 4</b>
+<pre class="code-block">try:
+    numPar = int(input('Ingresá un número par: '))
+except:
+    print('No es un número')
+if numPar &gt; 0 and numPar % 2 == 0:
+    print(numPar)</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `Hacen falta tres cosas: (1) un bucle que INSISTA (while), (2) un try/except ValueError para no fallar con texto, (3) cortar SÓLO cuando el dato es válido. La Opción 2 cumple las tres: <code>while pide</code> con <code>pide = True</code>, try/except, y <code>pide = False</code> sólo si es par. ▸ Opción 1: usa <code>for</code> (3 intentos fijos) y sin try (un texto rompe el <code>int()</code>). ▸ Opción 3: arranca con <code>pide = False</code> → el while NO entra nunca. ▸ Opción 4: no tiene bucle (no insiste) y, si el int falla, igual usa <code>numPar</code> después. ▸ <i>(Parcial real 2025 · T1 · E5)</i>`},
+  {st: `¿Cuál programa realiza un ingreso validado de un número en el intervalo cerrado [1, 15]? (debe ser ≥ 1 y ≤ 15 · no debe fallar con texto · debe insistir)
+<b>Opción 1</b>
+<pre class="code-block">sigue = True
+while sigue:
+    try:
+        num = float(input('Número entre 1 y 15: '))
+        if num &lt;= 15 and num &gt;= 1:
+            sigue = False
+        else:
+            print('No está en el intervalo válido')
+    except ValueError:
+        print('Debe ser un número')
+print(num)</pre>
+<b>Opción 2</b>
+<pre class="code-block">while True:
+    try:
+        num = float(input('Número entre 1 y 15: '))
+    except ValueError:
+        print('Debe ser un número')
+if num &gt;= 1 and num &lt;= 15:
+    print(num)</pre>
+<b>Opción 3</b>
+<pre class="code-block">sigue = True
+while not sigue:
+    try:
+        num = float(input('Número entre 1 y 15: '))
+        if num &lt;= 15 and num &gt;= 1:
+            print(num)
+        else:
+            print('No está en el intervalo válido')
+        sigue = False
+    except ValueError:
+        print('Debe ser un número')
+print(num)</pre>
+<b>Opción 4</b>
+<pre class="code-block">num = float(input('Número entre 1 y 15: '))
+try:
+    if num &gt; 15 and num &lt; 1:
+        print(num)
+    else:
+        print('No está en el intervalo válido')
+except ValueError:
+    print('Debe ser un número')</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 0, ex: `La Opción 1 insiste con <code>while sigue</code> (arranca en True), captura <code>ValueError</code>, y corta (<code>sigue = False</code>) sólo cuando <code>1 &lt;= num &lt;= 15</code>. ▸ Opción 2: <code>while True</code> sin forma de cortar y valida FUERA del bucle → bucle infinito. ▸ Opción 3: arranca con <code>while not sigue</code> y sigue=True → no entra nunca. ▸ Opción 4: no tiene bucle (no insiste), pone el try DESPUÉS del input (el <code>float()</code> que puede fallar queda afuera) y la condición <code>num &gt; 15 and num &lt; 1</code> es imposible. ▸ <i>(Parcial real 2025 · T5 · E5)</i>`},
+  {st: `Con estos ingresos del usuario — <code>s</code>, <code>S</code>, <code>SIPI</code>, <code>DALE</code>, <code>si</code>, <code>sisi</code> — ¿qué contendrá <code>nombres</code> al finalizar?
+<pre class="code-block">nombres = ['julio', 'ana', 'inés', 'juan', 'lía']
+sigue = True
+respSi = ('s', 'si', 'sipi', 'sisi', 'oki', 'dale')
+while sigue:
+    opc = input('Saca? (si/no) ')
+    if opc.lower() in respSi:
+        try:
+            elimina = nombres.pop()
+        except IndexError:
+            sigue = False
+    else:
+        sigue = False</pre>`, opts: [`<code>[]</code> (lista vacía)`, `<code>['julio', 'ana', 'inés', 'juan', 'lía']</code>`, `<code>['juan', 'lía']</code>`, `<code>['julio']</code>`], c: 0, ex: `Las 6 respuestas (s, S, SIPI, DALE, si, sisi) están todas en <code>respSi</code> gracias al <code>.lower()</code>, así que cada una hace un <code>pop()</code> (saca el último). La lista tiene 5 elementos: los primeros 5 pop la vacían y el 6° pop sobre lista vacía lanza <code>IndexError</code>, que el except captura cortando el ciclo. Queda <code>[]</code>. ▸ Si alguna respuesta hubiera sido "no", cortaría antes (else). ▸ Las demás opciones implican menos pops de los que ocurren. ▸ <i>(Parcial real 2023 · T8 · Ej. 0708)</i>`},
+  {st: `¿Cuál de los siguientes códigos valida que se ingrese un nombre SIN tilde, insistiendo hasta lograrlo? (Válidos: lucas, Pedro, JUAN · Inválidos: Úrsula, Inés, 9ema). Nota: <code>isalpha()</code> da True si el texto tiene sólo letras.
+<b>Opción 1</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    marca = False
+    for letra in n.lower():
+        if letra in voc:
+            marca = True
+    return True
+nom = input('Nombre sin acentos: ')
+while tilde(nom) or not nom.isalpha():
+    nom = input('Nombre sin acentos: ')</pre>
+<b>Opción 2</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    for letra in voc:
+        if letra in n.lower():
+            marca = True
+        else:
+            marca = False
+    return marca
+nom = input('Nombre sin acentos: ')
+while tilde(nom) or not nom.isalpha():
+    nom = input('Nombre sin acentos: ')</pre>
+<b>Opción 3</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    n = n.upper()
+    marca = False
+    for letra in voc:
+        if letra in n:
+            marca = True
+    return marca
+nom = input('Nombre sin acentos: ')
+while not (tilde(nom) == False and nom.isalpha()):
+    nom = input('Nombre sin acentos: ')</pre>
+<b>Opción 4</b>
+<pre class="code-block">def tilde(n):
+    voc = 'ÁÉÍÓÚ'
+    marca = False
+    for letra in n.upper():
+        if letra in voc:
+            marca = True
+    return marca
+nom = input('Nombre sin acentos: ')
+if nom.isalpha() or tilde(nom):
+    print('Válido')
+else:
+    print('Inválido')</pre>`, opts: [`Opción 1`, `Opción 2`, `Opción 3`, `Opción 4`], c: 2, ex: `La 3 es la única correcta: <code>tilde()</code> pasa el nombre a mayúsculas y devuelve True si hay alguna vocal acentuada (sin pisar la marca), y el <code>while</code> insiste mientras NO se cumpla (no tiene tilde Y es alfabético). ▸ Opción 1: <code>tilde</code> tiene <code>return True</code> fijo → rechaza todo siempre. ▸ Opción 2: pisa <code>marca</code> en cada vuelta del for, así que sólo cuenta la última vocal. ▸ Opción 4: no tiene bucle (no insiste) y la condición <code>isalpha() or tilde()</code> está mal armada. ▸ <i>(Parcial real 2024 · T4 · Ej 0104)</i>`}
+]);
+
+registerExercises('pc-segundo-parcial', '6', [
+  {st: `Dado el DataFrame <code>resfrios</code>:
+<pre class="code-block">       mes  humedad  cantidad
+0    enero       60         2
+1  febrero       75        23
+2    marzo       79        32
+3    abril       68        31
+4     mayo       62        45
+5    junio       55        61</pre>
+¿Cuál instrucción produce esta salida?
+<pre class="code-block">       mes  humedad  cantidad
+0    enero       60         2
+1  febrero       75        23
+3    abril       68        31</pre>`, opts: [`<code>resfrios.tail(3)</code>`, `<code>resfrios[['cantidad','mes']]</code>`, `<code>resfrios.loc[resfrios.index[[1,3,5]]]</code>`, `<code>resfrios[resfrios['cantidad']&lt;32]</code>`], c: 3, ex: `La salida son las filas 0, 1 y 3: las que tienen <code>cantidad</code> menor a 32 (2, 23 y 31). Eso es el filtro booleano <code>resfrios[resfrios['cantidad']&lt;32]</code>. ▸ <code>tail(3)</code> da las ÚLTIMAS 3 filas (3, 4, 5). ▸ <code>resfrios[['cantidad','mes']]</code> selecciona columnas, no filtra filas. ▸ <code>loc[...[1,3,5]]</code> tomaría las filas 1, 3 y 5. ▸ <i>(Parcial real 2025 · T1 · E3)</i>`},
+  {st: `Dado el DataFrame <code>resfrios</code> (columna humedad = 60, 75, 79, 68, 62, 55), ¿qué salida produce <code>print(resfrios['humedad'].sum())</code>?`, opts: [`<code>75</code>`, `<code>399</code>`, `El DataFrame completo`, `<code>6</code>`], c: 1, ex: `<code>.sum()</code> de una columna devuelve UN número: la suma de todos sus valores. 60+75+79+68+62+55 = 399. ▸ 75 es un solo valor. ▸ No devuelve el DataFrame. ▸ 6 sería la cantidad de filas (<code>.count()</code>). ▸ <i>(Parcial real 2025 · T1 · E6)</i>`},
+  {st: `Dado el DataFrame <code>menu</code>:
+<pre class="code-block">         día      plato  calorías
+0      lunes      guiso     750.0
+1     martes      pasta       NaN
+2  miércoles  milanesas     560.0
+3     jueves     pastel       NaN
+4    viernes      guiso     800.0
+5     sábado      asado     750.0</pre>
+¿Cuál instrucción produce esta salida?
+<pre class="code-block">       día  plato  calorías
+0    lunes  guiso     750.0
+4  viernes  guiso     800.0</pre>`, opts: [`<code>menu[(~menu['calorías'].isnull()) &amp; (menu['plato']=='guiso')]</code>`, `<code>menu.sort_values(by=['día','calorías'])</code>`, `<code>menu[(menu['plato']&gt;'p') &amp; (menu['plato']&lt;'q')]</code>`, `<code>menu[['calorías','plato']]</code>`], c: 0, ex: `La salida son las filas de 'guiso' que ADEMÁS tienen calorías (no NaN): filas 0 y 4. El filtro combina dos condiciones con <code>&amp;</code> y paréntesis: <code>~isnull()</code> (no nulo) Y <code>plato=='guiso'</code>. ▸ <code>sort_values</code> ordena, no filtra. ▸ La opción C filtra platos entre 'p' y 'q' (comparando strings), no 'guiso'. ▸ La D selecciona columnas. ▸ <i>(Parcial real 2025 · T5 · E3)</i>`},
+  {st: `Dado el DataFrame <code>menu</code> (mismo de arriba; pasta y pastel tienen calorías NaN), ¿qué salida produce <code>print(menu[(menu['calorías'].isnull())])</code>?
+<b>Opción A</b>: una columna suelta de calorías.
+<b>Opción B</b>:
+<pre class="code-block">      día  plato  calorías
+0   lunes  guiso     750.0
+1  martes  pasta       NaN</pre>
+<b>Opción C</b>:
+<pre class="code-block">      día   plato  calorías
+1  martes   pasta       NaN
+3  jueves  pastel       NaN</pre>
+<b>Opción D</b>: las filas 0, 4 y 5 (las que SÍ tienen calorías).`, opts: ['Opción A', 'Opción B', 'Opción C', 'Opción D'], c: 2, ex: `<code>.isnull()</code> marca True donde calorías es NaN: filas 1 (pasta) y 3 (pastel). <code>menu[...]</code> deja esas filas completas → Opción C. ▸ Las opciones B y D incluyen filas con calorías (que justamente NO son nulas). ▸ La A no es una tabla de filas. ▸ Para quedarte con las que NO son nulas usarías <code>~menu['calorías'].isnull()</code>. ▸ <i>(Parcial real 2025 · T5 · E6)</i>`},
+  {st: `Dado el DataFrame <code>lluvias</code> (columnas localidad, mes, mm; abril tiene 65 y 96; marzo tiene 120 y 115; julio 30; octubre 72; enero 110), ¿qué instrucción produce esta salida?
+<pre class="code-block">mes
+abril       80.5
+enero      110.0
+julio       30.0
+marzo      117.5
+octubre     72.0</pre>`, opts: [`<code>lluvias.describe()</code>`, `<code>lluvias.groupby('mes')['mm'].mean()</code>`, `<code>lluvias.loc[1:3, ['mes','mm']]</code>`, `<code>lluvias.head(4)</code>`], c: 1, ex: `La salida agrupa por mes y promedia mm: abril (65 y 96 → 80.5), marzo (120 y 115 → 117.5), etc. Eso es <code>groupby('mes')['mm'].mean()</code> (devuelve un valor por mes, ordenado por mes). ▸ <code>describe()</code> da estadísticas (count, mean, std…) de las columnas numéricas. ▸ <code>.loc[1:3]</code> toma filas por índice. ▸ <code>head(4)</code> da las primeras 4 filas. ▸ <i>(Parcial real 2023 · T8 · Ej. 0508)</i>`},
+  {st: `Para el DataFrame <code>vue</code> (columnas nombre, dni, fila, asiento, tarifa), ¿qué operación produce esta salida?<pre class="code-block">asiento
+A     6
+C    22
+D    11
+F    14</pre>`, opts: [`<code>vue[vue['tarifa'].isnull()]</code>`, `<code>vue.loc[:, ['dni', 'tarifa']]</code>`, `<code>vue.groupby('asiento')['fila'].max()</code>`, `<code>vue.iloc[2:]</code>`], c: 2, ex: `La salida agrupa por <code>asiento</code> y devuelve el MÁXIMO de <code>fila</code> de cada grupo: <code>vue.groupby('asiento')['fila'].max()</code> (A→6, C→22, D→11, F→14). ▸ <code>isnull()</code> filtra filas con nulos. ▸ <code>loc[:, [...]]</code> selecciona columnas. ▸ <code>iloc[2:]</code> toma filas por posición. ▸ <i>(Parcial real 2024 · T4 · Ej 0904)</i>`},
+  {st: `Dado el DataFrame <code>verduleria</code>:<pre class="code-block">    producto  Stock Unidad  Precio   Hoja
+0     Tomate    1.0  cajón    3100  False
+1    Lechuga    NaN   None    4150   True
+2   Espinaca    NaN  atado    1250   True
+3    Cebolla    2.0  bolsa    4150  False
+4       Papa    5.0  bolsa     970  False</pre>¿Qué muestra <code>print(verduleria.groupby('Unidad')['Precio'].max())</code>?
+<b>Opción A</b>: el DataFrame completo, las 5 filas de productos.
+<b>Opción B</b>: una tabla con las columnas Precio y Producto.
+<b>Opción C</b><pre class="code-block">Unidad
+atado    1250
+bolsa    4150
+cajón    3100</pre>
+<b>Opción D</b>: solo las filas de Lechuga y Cebolla.`, opts: [`Opción A`, `Opción B`, `Opción C`, `Opción D`], c: 2, ex: `<code>groupby('Unidad')</code> junta las filas por unidad y <code>['Precio'].max()</code> toma el precio MÁXIMO de cada grupo: atado→1250, bolsa→(4150 y 970)→4150, cajón→3100. El grupo None/NaN se descarta. Da la Opción C. ▸ Las otras no agrupan: muestran el DataFrame entero o filas sueltas. ▸ <i>(Ejemplo oficial de la cátedra 2025 · T1 · Ej 8)</i>`},
+  {st: `Dado el DataFrame <code>resfrios</code> con <code>humedad = [60, 75, 79, 68, 60, 60]</code> y <code>cantidad = [2, 23, 32, 31, 45, 61]</code>, ¿qué muestra <code>print(resfrios['humedad'].value_counts())</code>?
+<b>Opción A</b>: el DataFrame completo ordenado.
+<b>Opción B</b>: una tabla con cantidad y mes.
+<b>Opción C</b><pre class="code-block">humedad
+60    108
+68     31
+75     23
+79     32</pre>
+<b>Opción D</b><pre class="code-block">humedad
+60    3
+75    1
+79    1
+68    1</pre>`, opts: [`Opción A`, `Opción B`, `Opción C`, `Opción D`], c: 3, ex: `<code>value_counts()</code> cuenta CUÁNTAS VECES aparece cada valor de la columna: el 60 aparece 3 veces; el 75, el 79 y el 68 una vez cada uno → Opción D (ordenado de mayor a menor frecuencia). ▸ La Opción C suma la <code>cantidad</code> por cada humedad (60: 2+45+61 = 108), no cuenta repeticiones. ▸ A y B muestran tablas que value_counts no produce. ▸ <i>(Ejemplo oficial de la cátedra 2025 · T4 · Ej 6)</i>`},
+  {st: `Para el DataFrame <code>alumnos</code>:<pre class="code-block">  apellido  nota  ejer realizados  año carrera  prom gral
+0   Giunta    10              35            1       8.75
+1    Terra     2               5            2       7.00
+2   Kempes    10              18            2       6.25
+3  Ardiles     6              27            1       9.00</pre>¿Qué instrucción produce esta salida (las filas ordenadas alfabéticamente por apellido)?<pre class="code-block">  apellido  nota  ejer realizados  año carrera  prom gral
+3  Ardiles     6              27            1       9.00
+0   Giunta    10              35            1       8.75
+2   Kempes    10              18            2       6.25
+1    Terra     2               5            2       7.00</pre>`, opts: [`<code>alumnos.sort_values('apellido')</code>`, `<code>alumnos.tail(2)</code>`, `<code>alumnos.groupby('año carrera')['nota'].min()</code>`, `<code>alumnos[['prom gral','nota','apellido']]</code>`], c: 0, ex: `<code>sort_values('apellido')</code> reordena TODAS las filas según la columna apellido en orden alfabético (Ardiles, Giunta, Kempes, Terra), conservando todas las columnas. ▸ <code>tail(2)</code> da las últimas 2 filas. ▸ <code>groupby(...).min()</code> agrupa y resume (no devuelve la tabla entera). ▸ <code>alumnos[[...]]</code> selecciona columnas. ▸ <i>(Ejemplo oficial de la cátedra 2024 · T1 · Ej 1)</i>`}
+]);
+
+registerExercises('pc-segundo-parcial', '7', [
+  {st: `¿Cuál instrucción genera este gráfico de barras?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 215" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="barras verticales de altura por jugador">
+<text x="185" y="14" font-size="12" text-anchor="middle" fill="currentColor">Altura por jugador (m)</text>
+<line x1="42" y1="20" x2="42" y2="180" stroke="currentColor"/>
+<line x1="42" y1="180" x2="345" y2="180" stroke="currentColor"/>
+<rect x="50" y="34" width="40" height="146" fill="#0891b2"/>
+<rect x="110" y="55" width="40" height="125" fill="#0891b2"/>
+<rect x="170" y="20" width="40" height="160" fill="#0891b2"/>
+<rect x="230" y="42" width="40" height="138" fill="#0891b2"/>
+<rect x="290" y="45" width="40" height="135" fill="#0891b2"/>
+<text x="70" y="194" font-size="11" text-anchor="middle" fill="currentColor">Juan</text>
+<text x="130" y="194" font-size="11" text-anchor="middle" fill="currentColor">Mauro</text>
+<text x="190" y="194" font-size="11" text-anchor="middle" fill="currentColor">Sebas</text>
+<text x="250" y="194" font-size="11" text-anchor="middle" fill="currentColor">Nacho</text>
+<text x="310" y="194" font-size="11" text-anchor="middle" fill="currentColor">Aldo</text>
+</svg></div>
+Los datos son <code>altura = [1.83, 1.56, 2.00, 1.72, 1.69]</code> y <code>jugadores = ['Juan', 'Mauro', 'Sebas', 'Nacho', 'Aldo']</code> (jugadores en el eje x, altura como valor).`, opts: [`<code>ax.scatter(altura, jugadores)</code>`, `<code>ax.barh(jugadores)</code>`, `<code>ax.set_title(altura)</code>`, `<code>ax.bar(jugadores, altura)</code>`], c: 3, ex: `Un gráfico de barras verticales con categorías en x y valores en y es <code>ax.bar(categorías, valores)</code> = <code>ax.bar(jugadores, altura)</code>. ▸ <code>scatter</code> dibuja puntos y además invierte los ejes. ▸ <code>barh</code> es horizontal y le falta el argumento de valores. ▸ <code>set_title</code> pone un título, no dibuja barras. ▸ <i>(Parcial real 2025 · T1 · E2)</i>`},
+  {st: `¿Cuál instrucción genera este gráfico de línea?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 215" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="grafico de linea del precio del dolar por mes">
+<text x="185" y="14" font-size="12" text-anchor="middle" fill="currentColor">Precio del dólar por mes ($)</text>
+<line x1="45" y1="20" x2="45" y2="180" stroke="currentColor"/>
+<line x1="45" y1="180" x2="345" y2="180" stroke="currentColor"/>
+<polyline points="55,169 125,165 195,154 265,139 335,40" fill="none" stroke="#0891b2" stroke-width="2.5"/>
+<circle cx="55" cy="169" r="3" fill="#0891b2"/>
+<circle cx="125" cy="165" r="3" fill="#0891b2"/>
+<circle cx="195" cy="154" r="3" fill="#0891b2"/>
+<circle cx="265" cy="139" r="3" fill="#0891b2"/>
+<circle cx="335" cy="40" r="3" fill="#0891b2"/>
+<text x="55" y="194" font-size="11" text-anchor="middle" fill="currentColor">dic</text>
+<text x="125" y="194" font-size="11" text-anchor="middle" fill="currentColor">ene</text>
+<text x="195" y="194" font-size="11" text-anchor="middle" fill="currentColor">feb</text>
+<text x="265" y="194" font-size="11" text-anchor="middle" fill="currentColor">mar</text>
+<text x="335" y="194" font-size="11" text-anchor="middle" fill="currentColor">abr</text>
+</svg></div>
+Los datos son <code>precioDol = [1195, 1200, 1215, 1235, 1370]</code> y <code>meses = ['diciembre', 'enero', 'febrero', 'marzo', 'abril']</code>.`, opts: [`<code>ax.plot(meses, precioDol)</code>`, `<code>plt.set_label(x, 'Precio final Dólar en $')</code>`, `<code>ax.scatter(precioDol)</code>`, `<code>ax.bar(precioDol)</code>`], c: 0, ex: `Una línea que une los puntos (x, y) es <code>ax.plot(meses, precioDol)</code>. ▸ <code>set_label</code> no es una función válida de pyplot. ▸ <code>scatter</code> dibuja puntos sueltos y le falta un argumento. ▸ <code>bar</code> son barras y también le falta un argumento. ▸ <i>(Parcial real 2025 · T5 · E2)</i>`},
+  {st: `¿Cuál opción describe correctamente el gráfico que produce este código?
+<pre class="code-block">x = [0, 1, 2, 3, 4]
+x_lineal = [0, 2, 4, 6, 8]
+x_bar = [0, 2, 1, 6, 3]
+fig, ax = plt.subplots(nrows=3, ncols=3)
+ax[1, 1].plot(x, x_lineal)
+ax[2, 2].bar(x, x_bar)
+plt.show()</pre>`, opts: [`Se hará una grilla de 9 gráficos. En el centro hay un gráfico de línea y en la esquina inferior derecha, uno de barras.`, `Se hará una grilla de 9 gráficos. En la esquina superior izquierda hay una línea y en el centro, uno de barras.`, `Se hará una grilla de 9 gráficos con dos gráficos, uno de línea y uno de barras, ambos en el centro.`, `Ninguna de las opciones describe lo que ocurre.`], c: 0, ex: `<code>subplots(nrows=3, ncols=3)</code> crea una grilla 3×3 (9 ejes). Se indexa <code>ax[fila, columna]</code> empezando en 0. <code>ax[1,1]</code> es el del CENTRO → línea (plot). <code>ax[2,2]</code> es la esquina inferior derecha → barras (bar). Por eso la opción 1. ▸ La superior izquierda sería <code>ax[0,0]</code>; el centro es <code>ax[1,1]</code> (eso descarta la 2 y la 3). ▸ <i>(Parcial real 2023 · T1 · Ej. 0901)</i>`},
+  {st: `¿Cuál opción describe correctamente el gráfico que produce este código?<pre class="code-block">x = [0, 1, 2, 3, 4, 5]
+x_cubica = [0, 1, 8, 27, 64, 125]
+x_bar = [2, 3, 1, 6, 2, 1]
+fig, ax = plt.subplots(nrows=4, ncols=5)
+ax[0, 4].plot(x, x_cubica)
+ax[2, 3].bar(x, x_bar)
+plt.show()</pre>`, opts: [`Una grilla de 20 gráficos con DOS de línea: uno en la 1ª fila y 4ª columna, y otro en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con una línea y unas barras: la línea en la 1ª fila y 5ª columna, las barras en la 3ª fila y 4ª columna.`, `Una grilla de 20 gráficos con la línea en la 1ª fila y 4ª columna, y las barras en la 2ª fila y 3ª columna.`, `Ninguna de las opciones describe lo que ocurre.`], c: 1, ex: `<code>subplots(nrows=4, ncols=5)</code> crea una grilla de 4×5 = 20 ejes, indexados <code>ax[fila, columna]</code> desde 0. <code>ax[0, 4]</code> = 1ª fila (índice 0), 5ª columna (índice 4) → línea (plot). <code>ax[2, 3]</code> = 3ª fila (índice 2), 4ª columna (índice 3) → barras (bar). Eso es la opción 2. ▸ <i>(Parcial real 2023 · Camejo · Ej 0902)</i>`},
+  {st: `¿Cuál instrucción genera este gráfico con matplotlib?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 215" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="barras horizontales de precio por producto">
+<text x="200" y="14" font-size="12" text-anchor="middle" fill="currentColor">Precio por producto ($)</text>
+<line x1="78" y1="20" x2="78" y2="185" stroke="currentColor"/>
+<rect x="78" y="28" width="118" height="22" fill="#0891b2"/>
+<rect x="78" y="60" width="67" height="22" fill="#0891b2"/>
+<rect x="78" y="92" width="69" height="22" fill="#0891b2"/>
+<rect x="78" y="124" width="250" height="22" fill="#0891b2"/>
+<rect x="78" y="156" width="44" height="22" fill="#0891b2"/>
+<text x="73" y="43" font-size="11" text-anchor="end" fill="currentColor">chocolate</text>
+<text x="73" y="75" font-size="11" text-anchor="end" fill="currentColor">manteca</text>
+<text x="73" y="107" font-size="11" text-anchor="end" fill="currentColor">azúcar</text>
+<text x="73" y="139" font-size="11" text-anchor="end" fill="currentColor">huevo</text>
+<text x="73" y="171" font-size="11" text-anchor="end" fill="currentColor">harina</text>
+</svg></div>
+Los datos son <code>precio = [3400, 1915, 2000, 7200, 1270]</code> y <code>productos = ['chocolate', 'manteca', 'azúcar', 'huevo', 'harina']</code>.`, opts: [`<code>ax.bar(precio)</code>`, `<code>ax.set_ylabel('Precio en $')</code>`, `<code>ax.barh(productos, precio)</code>`, `<code>ax.plot(productos, precio)</code>`], c: 2, ex: `El gráfico son barras HORIZONTALES (la más larga es "huevo", 7200) → <code>ax.barh(categorías, valores)</code> = <code>ax.barh(productos, precio)</code>. ▸ <code>ax.bar(precio)</code> son barras verticales y además le falta un argumento. ▸ <code>set_ylabel</code> pone una etiqueta, no dibuja. ▸ <code>ax.plot</code> dibujaría una línea, no barras. ▸ Clave: <code>bar</code> = vertical, <code>barh</code> = horizontal. ▸ <i>(Ejemplo oficial de la cátedra 2025 · T4 · Ej 2)</i>`},
+  {st: `Mirá la figura. ¿Cuál de estas líneas de código <b>NO</b> se corresponde con el gráfico?
+<div style="background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;padding:8px;margin:10px 0;max-width:360px">
+<svg viewBox="0 0 360 225" style="width:100%;height:auto;color:var(--text)" role="img" aria-label="grafico de linea de ventas con titulo eje y y referencia">
+<text x="195" y="15" font-size="12" text-anchor="middle" fill="currentColor">Gráfico de ventas</text>
+<text x="14" y="120" font-size="11" text-anchor="middle" fill="currentColor" transform="rotate(-90 14 120)">Ventas ($)</text>
+<line x1="50" y1="28" x2="50" y2="190" stroke="currentColor"/>
+<line x1="50" y1="190" x2="345" y2="190" stroke="currentColor"/>
+<polyline points="60,175 120,150 180,158 240,98 300,72 335,58" fill="none" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="255" y="30" width="80" height="20" fill="none" stroke="currentColor" stroke-width="0.5"/>
+<line x1="262" y1="40" x2="282" y2="40" stroke="#0891b2" stroke-width="2.5"/>
+<text x="288" y="44" font-size="11" fill="currentColor">Ventas</text>
+</svg></div>`, opts: [`<code>ax.set_ylabel('Ventas ($)')</code>`, `<code>ax.set_title('Gráfico de ventas')</code>`, `<code>ax.plot(x, y, label='Ventas ($)')</code>`, `<code>ax.plot(x, y, label='Ventas')</code>`], c: 2, ex: `Hay que comparar cada texto con lo que muestra la figura. ▸ El título dice "Gráfico de ventas" → la opción 2 (<code>set_title</code>) coincide. ▸ El eje y dice "Ventas ($)" → la opción 1 (<code>set_ylabel</code>) coincide. ▸ La REFERENCIA (el recuadro arriba a la derecha) dice "Ventas" → la opción 4 (<code>label='Ventas'</code>) coincide; pero la opción 3 usa <code>label='Ventas ($)'</code>, que NO coincide con la referencia. Por eso la 3 es la que NO se corresponde. ▸ Truco: leé el título, las etiquetas de los ejes y la referencia, y buscá el texto distinto. ▸ <i>(Parcial real 2023 · T8 · Ej 0808)</i>`}
+]);
+
+registerExercises('pc-segundo-parcial', '8', [
+  {st: `Dado el programa, ¿cuál opción de la estructura <code>estaciones</code> produce la salida indicada?
+<pre class="code-block">estaciones = ...   # ??
+primSemes = [0, 10000, 25000, 67500, 48000, 33000, 29000]
+print('Ventas Colección Sweaters Invierno 2025')
+for i in range(1, len(primSemes)):
+    print(estaciones[i][0], '$', primSemes[i],
+          estaciones[i][1].upper())</pre>
+<pre class="code-block">Ventas Colección Sweaters Invierno 2025
+enero $ 10000 VERANO
+febrero $ 25000 VERANO
+marzo $ 67500 VERANO-OTOÑO
+abril $ 48000 OTOÑO
+mayo $ 33000 OTOÑO
+junio $ 29000 OTOÑO-INVIERNO</pre>
+<b>Opción 1</b>
+<pre class="code-block">estaciones = ['enero','verano','febrero','verano','marzo',
+              'verano-otoño','abril','otoño','mayo','otoño',
+              'junio','otoño-invierno']</pre>
+<b>Opción 2</b>
+<pre class="code-block">estaciones = {1:['enero','verano'], 2:['febrero','verano'],
+              3:['marzo','verano-otoño'], 4:['abril','otoño'],
+              5:['mayo','otoño'], 6:['junio','otoño-invierno']}</pre>
+<b>Opción 3</b>
+<pre class="code-block">estaciones = {'enero':'verano', 'febrero':'verano',
+              'marzo':'verano-otoño', 'abril':'otoño',
+              'mayo':'otoño', 'junio':'otoño-invierno'}</pre>
+<b>Opción 4</b>
+<pre class="code-block">estaciones = {'0':['enero','verano'], '1':['febrero','verano'],
+              '2':['marzo','verano-otoño'], '3':['abril','otoño'],
+              '4':['mayo','otoño'], '5':['junio','otoño-invierno']}</pre>`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 1, ex: `El código usa <code>estaciones[i]</code> con <code>i</code> entero de 1 a 6, y de cada uno toma <code>[0]</code> (mes) y <code>[1]</code> (estación). Necesita un diccionario con claves ENTERAS 1..6, cada una con una lista <code>[mes, estación]</code>: eso es la Opción 2. ▸ Opción 1 es una lista plana: <code>estaciones[1]</code> sería 'verano' y <code>'verano'[0]</code> daría 'v'. ▸ Opción 3 usa los meses como clave (<code>estaciones[1]</code> → KeyError). ▸ Opción 4 tiene claves string '0'..'5' (<code>estaciones[1]</code> con el int 1 → KeyError, y arranca en '0'). ▸ <i>(Parcial real 2025 · T1 · E8)</i>`},
+  {st: `Dado el programa, ¿cuál opción de la estructura <code>flores</code> produce la salida indicada (al ingresar "lilium")?
+<pre class="code-block">flores = ...   # ??
+proveedores = ['', 'Don Pedro', 'Cartagena Rosas', 'Escobar II',
+               'El Brocal', 'Vivero Sarrundis']
+tipo = input('Qué tipo de flor necesita? ')
+print('Lista de Proveedores de', tipo)
+for clave in flores:
+    if tipo.lower() in flores[clave]:
+        print(proveedores[clave])</pre>
+<pre class="code-block">Qué tipo de flor necesita? lilium
+Lista de Proveedores de lilium
+Vivero Sarrundis
+Don Pedro
+Escobar II</pre>
+<b>Opción 1</b>: diccionario con claves en MAYÚSCULAS ('DON PEDRO': [...], 'EL BROCAL': [...], …).
+<b>Opción 2</b>: una lista plana con todas las flores.
+<b>Opción 3</b>
+<pre class="code-block">flores = {2:['rosa monocolor','rosa bicolor','rosa rococó','gerbera'],
+          5:['gerbera','jazmín','lilium','margarita natural'],
+          1:['lilium','lisianto','gisófila','rosa rococó'],
+          4:['rosa bicolor','clavel bicolor'],
+          3:['lilium','margarita natural','margarita teñida']}</pre>
+<b>Opción 4</b>: diccionario con claves de 2 letras ('CR': [...], 'VS': [...], …).`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `El código hace <code>proveedores[clave]</code>, así que la clave tiene que ser un ENTERO (índice de la lista proveedores). Por cada clave cuya lista contenga 'lilium' imprime <code>proveedores[clave]</code>. Sólo la Opción 3 usa claves enteras (2,5,1,4,3): recorriéndolas en ese orden, las que tienen 'lilium' son la 5 → proveedores[5]='Vivero Sarrundis', la 1 → 'Don Pedro' y la 3 → 'Escobar II'. ▸ Opciones 1 y 4 usan strings como clave → <code>proveedores[clave]</code> da TypeError. ▸ Opción 2 es una lista plana, no un diccionario clave→lista. ▸ <i>(Parcial real 2025 · T5 · E8)</i>`},
+  {st: `Dado el DataFrame <code>cobertura</code>:
+<pre class="code-block">      región     provincia  sucursales
+0       cuyo      san juan           3
+1    litoral      santa fé           0
+2       cuyo       mendoza           5
+3  patagonia        chubut           2
+4       cuyo      san luis           1
+5      pampa  buenos aires           8</pre>
+¿Qué se muestra al ejecutar estas instrucciones?
+<pre class="code-block">cobertura['región'] = cobertura['región'].map({'cuyo':'centro', 'pampa':'centro'})
+cobertura[(cobertura['región'].isnull() == False)]</pre>
+<b>Opción 1</b>: solo columnas región y sucursales, con 'cuyo' y 'pampa' sin cambiar.
+<b>Opción 2</b>: una sola fila (la 5).
+<b>Opción 3</b>
+<pre class="code-block">      región     provincia  sucursales
+0     centro      san juan           3
+2     centro       mendoza           5
+4     centro      san luis           1
+5     centro  buenos aires           8</pre>
+<b>Opción 4</b>: las 6 filas (incluyendo litoral y patagonia), solo columnas región y provincia.`, opts: ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'], c: 2, ex: `<code>.map({...})</code> reemplaza cada valor por el del diccionario: 'cuyo'→'centro', 'pampa'→'centro', y los que NO son claves ('litoral', 'patagonia') quedan como <code>NaN</code>. Después <code>isnull() == False</code> deja las filas NO nulas: las 0, 2, 4 y 5, con todas sus columnas y región='centro' → Opción 3. ▸ Opción 1 no aplica el map y descarta una columna. ▸ Opción 2 deja una sola fila. ▸ Opción 4 no filtra los nulos y pierde la columna sucursales. ▸ <i>(Parcial real 2023 · T8 · Ej. 1108)</i>`}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

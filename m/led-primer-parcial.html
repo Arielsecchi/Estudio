@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LED · Primer Parcial · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="led-primer-parcial"] {
+    --bg: #ecf6f8; --text: #0c2a35; --text-muted: #5a7480;
+    --surface: #ffffff; --surface-2: #d8ecf0; --surface-3: #bedde2;
+    --border: #c9e0e5; --border-2: #a8cdd4;
+    --accent: #0e7490; --accent-hover: #155e75; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #d8ecf0; --summary-hover: #bedde2; --num-text: #ffffff;
+    --shadow: rgba(14, 116, 144, 0.08);
+  }
+  [data-theme="dark"][data-subject="led-primer-parcial"] {
+    --bg: #08171c; --text: #d2eaf0; --text-muted: #8fb0b8;
+    --surface: #122229; --surface-2: #1c303a; --surface-3: #264251;
+    --border: #264251; --border-2: #355a6c;
+    --accent: #67e8f9; --accent-hover: #a5f3fc; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1c303a; --summary-hover: #264251; --num-text: #08171c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== LED · PRIMER PARCIAL ======================= -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-led-primer-parcial">
+  <header>
+    <h1>LED · Guía Primer Parcial</h1>
+    <div class="sub">UTN FRBA · Cátedra Ing. Piñeiro · Guía reconstruida sobre 9 modelos reales (temas 01–09, 2023–2024)</div>
+  </header>
+<nav class="toc" id="toc-led-primer-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#ledp-s1">Estrategia general y temas que entran</a></li>
+    <li><a href="#ledp-s2">Ejercicio 1 · Lógica, razonamientos y cuantificadores</a></li>
+    <li><a href="#ledp-s3">Ejercicio 2 · Conjuntos e inducción completa</a></li>
+    <li><a href="#ledp-s4">Ejercicio 3 · Combinatoria y binomio de Newton</a></li>
+    <li><a href="#ledp-s5">Ejercicio 4 · Aritmética entera y divisibilidad</a></li>
+    <li><a href="#ledp-s6">Ejercicio 5 · Relaciones binarias y de equivalencia</a></li>
+    <li><a href="#ledp-s7">Modelos reales completos (temas 01 y 07)</a></li>
+  </ol>
+  <div class="score" id="global-score-led-primer-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="ledp-s1">
+<summary><span class="num">1</span> Estrategia general y temas que entran <span class="sec-score" id="ss-led-primer-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Piñeiro</h3>
+<p>El primer parcial de LED es de <b>5 ejercicios de desarrollo</b> y dura <b>1 hora y media a 2 horas</b>. En todos los temas la consigna es la misma: <b>justificar todo</b> — sin justificación no se otorga puntaje, aunque la respuesta sea correcta.</p>
+<p>El <b>criterio para aprobar cambió según la fecha</b> (lo dice el encabezado de cada parcial real):</p>
+<table class="tbl">
+  <tr><th>Encabezado real</th><th>Aparece en</th><th>Qué significa</th></tr>
+  <tr><td><b>"60% correctamente resuelto y justificado"</b></td><td>Temas 01–06 (jul–sep 2023)</td><td>Necesitás resolver bien el equivalente a 3 de 5 ejercicios.</td></tr>
+  <tr><td><b>"3 ejercicios completos bien"</b></td><td>Temas 08–09 (feb 2024)</td><td>Mismo espíritu: 3 de 5 completos.</td></tr>
+  <tr><td><b>"6 ejercicios correctos"</b></td><td>Tema 07 (dic 2023)</td><td>Es la variante <b>multiple choice de 11 ítems</b>: hay que acertar 6.</td></tr>
+</table>
+
+<h3>Los 9 modelos reales en los que se basa esta guía</h3>
+<table class="tbl">
+  <tr><th>Tema</th><th>Fecha</th><th>Formato</th></tr>
+  <tr><td>01 · 02 · 03 · 04</td><td>12/07/2023</td><td>5 ejercicios de desarrollo</td></tr>
+  <tr><td>05 · 06</td><td>13/09/2023</td><td>5 ejercicios (el Ej 1 trae ítems de opción múltiple)</td></tr>
+  <tr><td><b>07</b></td><td>15/12/2023</td><td><b>Multiple choice de 11 preguntas</b></td></tr>
+  <tr><td>08 · 09</td><td>19/02/2024</td><td>5 ejercicios de desarrollo (1½ h)</td></tr>
+</table>
+
+<h3>Cada ejercicio cubre un bloque temático fijo</h3>
+<p>En los 8 parciales de desarrollo el orden de los temas <b>no cambia</b>: podés preparar cinco "machetes" mentales separados, uno por bloque.</p>
+<table class="tbl">
+  <tr><th>Ejercicio</th><th>Tema</th><th>Aparece en</th></tr>
+  <tr><td><b>1</b></td><td>Lógica proposicional y de predicados, razonamientos, cuantificadores</td><td>100% de los parciales</td></tr>
+  <tr><td><b>2</b></td><td>Conjuntos (igualdad/inclusión/cardinales) + inducción completa</td><td>100%</td></tr>
+  <tr><td><b>3</b></td><td>Combinatoria + binomio de Newton</td><td>100%</td></tr>
+  <tr><td><b>4</b></td><td>Aritmética entera: división entera, MCD/MCM por Euclides, combinación lineal, V/F de divisibilidad</td><td>100%</td></tr>
+  <tr><td><b>5</b></td><td>Relaciones binarias: propiedades, equivalencia, clases y conjunto cociente</td><td>100%</td></tr>
+</table>
+<p>El tema 07 (multiple choice) mezcla los 5 bloques en 11 preguntas sueltas.</p>
+
+<h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tipo de demostración me pide?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>"Pruebe la validez del razonamiento por método demostrativo"</td><td>Reglas de inferencia (MP, MT, SD, SH, PU, GE, etc.)</td></tr>
+  <tr><td>"Demuestre por inducción / inducción completa"</td><td>Caso base (n=1) + paso inductivo (HI ⇒ TI)</td></tr>
+  <tr><td>"Demuestre que A ⊆ B" o "A = B"</td><td>Doble inclusión + álgebra de conjuntos</td></tr>
+  <tr><td>"Halle MCD y escríbalo como combinación lineal"</td><td>Algoritmo de Euclides + vuelta atrás (Euclides extendido)</td></tr>
+  <tr><td>"Halle clases y conjunto cociente"</td><td>Demostrar equivalencia + clasificar elementos</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Tengo todos los datos?</h4>
+<p>En lógica: ¿están definidos el conjunto universal y las funciones proposicionales? Si no, <b>definílos vos</b> (el tema 01 lo pide explícitamente). En aritmética: ¿qué relación entre divisor, cociente y resto te da el enunciado? En relaciones: ¿la condición ya está factorizada o tenés que llevarla a forma canónica primero?</p>
+
+<h4>Pregunta 3 — ¿Hay un V/F escondido?</h4>
+<p>Casi todos los parciales tienen al menos un ítem de "Verdadero o Falso, justifique". Refutar = un <b>contraejemplo numérico concreto</b>. Demostrar = aplicación de definición o propiedad. <b>Nunca afirmes V/F sin justificar</b>: te dan 0 igual aunque aciertes.</p>
+
+<h4>Pregunta 4 — ¿Estoy aplicando la definición correcta?</h4>
+<p>Las trampas más típicas son:<br>
+• Confundir <b>incluido</b> (⊆) con <b>pertenece</b> (∈).<br>
+• En relaciones: confundir <b>antisimétrica</b> con <b>asimétrica</b>, o asumir que algo es de equivalencia sin probar reflexividad.<br>
+• En aritmética: confundir MCD con MCM.<br>
+• En combinatoria: contar con repetición cuando no la hay (o al revés), u olvidar el "al menos uno".</p>
+
+<h3>Símbolos que vas a usar siempre</h3>
+<div class="formula">
+  Lógica: ∀ (todo), ∃ (existe), ∧ (y), ∨ (o), ¬ (no), → (implica), ↔ (sí y solo sí)<br>
+  Conjuntos: ∈ (pertenece), ⊆ (incluido), ∪ (unión), ∩ (intersección), ∅ (vacío), A<sup>c</sup> (complemento), P(A) (partes)<br>
+  Aritmética: a | b (a divide a b), MCD(a,b), MCM(a,b), a ≡ b (n) (a congruente con b mód n)<br>
+  Relaciones: R, S, R∘S (composición), [a]<sub>R</sub> (clase), A/R (cociente)
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+<b>"Justificá cada paso"</b> es literal. No basta con dar la respuesta correcta: hay que escribir el razonamiento. Si dudás entre escribir "evidente" o detallar, siempre detallá. La cátedra premia el procedimiento aunque el resultado final tenga un error de cuentas.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · LOGICA ============ -->
+<details id="ledp-s2">
+<summary><span class="num">2</span> Ejercicio 1 · Lógica, razonamientos y cuantificadores <span class="sec-score" id="ss-led-primer-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ejercicio 1 casi siempre tiene dos ítems. Los formatos vistos en los 9 modelos:</p>
+<ul>
+  <li><b>(a)</b> Tabla de verdad / tautología, contradicción o contingencia / valor de verdad de proposiciones (incluso con cuantificadores) / clasificar recíproca-contraria-contrarrecíproca.</li>
+  <li><b>(b)</b> Validez de un razonamiento por <b>método demostrativo</b> con reglas de inferencia (proposicional o con predicados).</li>
+</ul>
+
+<h3>Reglas de inferencia que tenés que tener de memoria</h3>
+<table class="tbl">
+  <tr><th>Nombre</th><th>Forma</th></tr>
+  <tr><td><b>Modus Ponens (MP)</b></td><td>p → q ; p ⊢ q</td></tr>
+  <tr><td><b>Modus Tollens (MT)</b></td><td>p → q ; ¬q ⊢ ¬p</td></tr>
+  <tr><td><b>Silogismo Hipotético (SH)</b></td><td>p → q ; q → r ⊢ p → r</td></tr>
+  <tr><td><b>Silogismo Disyuntivo (SD)</b></td><td>p ∨ q ; ¬p ⊢ q</td></tr>
+  <tr><td><b>Simplificación</b></td><td>p ∧ q ⊢ p (o q)</td></tr>
+  <tr><td><b>Adición</b></td><td>p ⊢ p ∨ q</td></tr>
+  <tr><td><b>Conjunción</b></td><td>p ; q ⊢ p ∧ q</td></tr>
+  <tr><td><b>Particularización Universal (PU)</b></td><td>∀x: p(x) ⊢ p(a)</td></tr>
+  <tr><td><b>Generalización Universal (GU)</b></td><td>p(a) con a arbitrario ⊢ ∀x: p(x)</td></tr>
+  <tr><td><b>Generalización Existencial (GE)</b></td><td>p(a) ⊢ ∃x: p(x)</td></tr>
+</table>
+
+<h3>Equivalencias que reemplazan demostraciones largas</h3>
+<div class="formula">
+  Implicación: <b>p → q ≡ ¬p ∨ q ≡ ¬q → ¬p</b> (contrarrecíproca)<br>
+  Bicondicional: <b>p ↔ q ≡ (p → q) ∧ (q → p)</b><br>
+  De Morgan: <b>¬(p ∨ q) ≡ ¬p ∧ ¬q ; ¬(p ∧ q) ≡ ¬p ∨ ¬q</b><br>
+  Negación de cuantificadores: <b>¬∀x: p(x) ≡ ∃x: ¬p(x) ; ¬∃x: p(x) ≡ ∀x: ¬p(x)</b><br>
+  Negación del condicional: <b>¬(p → q) ≡ p ∧ ¬q</b>
+</div>
+
+<h3>Cómo demostrar la validez de un razonamiento</h3>
+<ol>
+  <li><b>Numerá las premisas</b>: P1, P2, P3...</li>
+  <li><b>Identificá la conclusión</b> a la que tenés que llegar.</li>
+  <li><b>Aplicá reglas paso a paso</b>: cada línea cita la regla y de qué premisas/líneas la deducís.</li>
+  <li><b>Si la conclusión es un condicional</b> (p → q), suponé p como premisa adicional y demostrá q (método del condicional).</li>
+  <li><b>Si te trabás</b>, demostrá por absurdo: negá la conclusión y derivá una contradicción.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 02, Ej 1a) — demostración directa numerada</div>
+  <p>Probar la validez de: <b>(p ∧ q) → r ; ¬r ∨ t ; ¬t ∧ q ⊢ ¬p</b>. Escribí una línea por paso citando la regla:</p>
+  <table class="tbl">
+    <tr><th>#</th><th>Fórmula</th><th>Justificación</th></tr>
+    <tr><td>1</td><td>(p ∧ q) → r</td><td>Premisa</td></tr>
+    <tr><td>2</td><td>¬r ∨ t</td><td>Premisa</td></tr>
+    <tr><td>3</td><td>¬t ∧ q</td><td>Premisa</td></tr>
+    <tr><td>4</td><td>¬t</td><td>Simplificación de 3</td></tr>
+    <tr><td>5</td><td>q</td><td>Simplificación de 3</td></tr>
+    <tr><td>6</td><td>¬r</td><td>SD entre 2 y 4 (de ¬r ∨ t y ¬t)</td></tr>
+    <tr><td>7</td><td>¬(p ∧ q)</td><td>MT entre 1 y 6</td></tr>
+    <tr><td>8</td><td>¬p ∨ ¬q</td><td>De Morgan en 7</td></tr>
+    <tr><td>9</td><td>¬p</td><td>SD entre 8 y 5 (de ¬p ∨ ¬q y q)</td></tr>
+  </table>
+  <p>La línea 9 es la conclusión, por lo tanto el razonamiento es <b>válido</b>.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 01, Ej 1) — razonamiento con cuantificadores (definir U y predicados)</div>
+  <p>"Todos los aspirantes trajeron DNI o cédula. Los aspirantes que trajeron cédula presentaron el apto médico. Sofía no presentó el apto médico. Por lo tanto, al menos un aspirante trajo DNI."</p>
+  <p><b>(a) Simbolización.</b> Universal U = {aspirantes}; D(x): "x trajo DNI"; C(x): "x trajo cédula"; M(x): "x presentó el apto médico"; constante s = Sofía.<br>
+  P1: ∀x: D(x) ∨ C(x) · P2: ∀x: C(x) → M(x) · P3: ¬M(s) · Conclusión: ∃x: D(x).</p>
+  <p><b>(b) Demostración.</b><br>
+  4. D(s) ∨ C(s) — PU en P1<br>
+  5. C(s) → M(s) — PU en P2<br>
+  6. ¬C(s) — MT entre 5 y P3 (de C(s)→M(s) y ¬M(s))<br>
+  7. D(s) — SD entre 4 y 6<br>
+  8. ∃x: D(x) — Generalización Existencial en 7. ✓ <b>Válido</b> (Sofía es el testigo que trajo DNI).</p>
+</div>
+
+<h3>Cuantificadores: el ítem que más se repite</h3>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 07 ít. 5 / Tema 08 Ej 1): si ∀x: ∃y: p(x,y) es Verdadera...</div>
+  <p>¿Qué se deduce <b>necesariamente</b>? La premisa dice: "para cada x existe <i>algún</i> y" (la y puede depender de x).</p>
+  <ul>
+    <li><b>∃x: ∃y: p(x,y)</b> → <b>SÍ se deduce</b> (tomando un x del universo no vacío). Es la opción correcta del tema 07.</li>
+    <li><b>∃y: ∀x: p(x,y)</b> → más fuerte: un mismo y para todo x. <b>NO se deduce</b>. Contraejemplo: en ℤ, p(x,y): "x+y=0".</li>
+    <li><b>∀x: ∀y: p(x,y)</b> → más fuerte aún. <b>NO se deduce</b>.</li>
+    <li><b>∀x: ∃y: ¬p(x,y)</b> → no tiene relación con la premisa. <b>NO se deduce</b>.</li>
+  </ul>
+</div>
+
+<h3>Tautología, contradicción, contingencia</h3>
+<p>Hacé la tabla de verdad: siempre <b>V</b> → tautología; siempre <b>F</b> → contradicción; mezcla de <b>V y F</b> → contingencia. Ojo con la trampa: que el enunciado diga "es una tautología" no significa que lo sea.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 03, Ej 1a): ¿{p → [q ∨ (r ∧ q)]} → (r ∧ t) es tautología?</div>
+  <p>Primero simplifico el antecedente: q ∨ (r ∧ q) ≡ q (absorción), así que el antecedente es p → q.<br>
+  Tomo p = F, q = F, r = F, t = F: antecedente (p→q) = V, consecuente (r∧t) = F → la fórmula da <b>V → F = F</b>.<br>
+  <b>Conclusión: NO es tautología</b> (es una contingencia). Basta ese contraejemplo para justificarlo.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 02, Ej 1b): negación de un cuantificador</div>
+  <p>¿Es Verdadero que ¬{∀x: [p(x) → q(x)]} es equivalente a ∃x: [p(x) ∧ ¬q(x)]?<br>
+  ¬∀x:[p(x)→q(x)] ≡ ∃x: ¬[p(x)→q(x)] ≡ ∃x: [p(x) ∧ ¬q(x)] (negación del condicional). <b>Es Verdadero.</b></p>
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · CONJUNTOS E INDUCCION ============ -->
+<details id="ledp-s3">
+<summary><span class="num">3</span> Ejercicio 2 · Conjuntos e inducción completa <span class="sec-score" id="ss-led-primer-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ejercicio 2 mezcla dos temas independientes en sus dos ítems:</p>
+<ul>
+  <li><b>(a)</b> Demostración de igualdad/inclusión de conjuntos, o un problema de cardinales con inclusión-exclusión.</li>
+  <li><b>(b)</b> Demostración por <b>inducción completa</b>: divisibilidad, sumatoria o inecuación.</li>
+</ul>
+
+<h3>Demostraciones con conjuntos: las 3 técnicas</h3>
+
+<h4>Técnica 1 — Doble inclusión (la más segura)</h4>
+<p>Para probar <b>A = B</b>: tomá x ∈ A arbitrario y deducí x ∈ B; después al revés (B ⊆ A). Para <b>A ⊆ B</b> alcanza la primera mitad.</p>
+
+<h4>Técnica 2 — Álgebra de conjuntos</h4>
+<p>Reescribí ambos lados con las leyes hasta que coincidan.</p>
+<div class="formula">
+  De Morgan: (A ∪ B)<sup>c</sup> = A<sup>c</sup> ∩ B<sup>c</sup> ; (A ∩ B)<sup>c</sup> = A<sup>c</sup> ∪ B<sup>c</sup><br>
+  Distributiva: A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)<br>
+  Diferencia: A − B = A ∩ B<sup>c</sup><br>
+  Complemento: B ∪ B<sup>c</sup> = U ; A ∩ U = A
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 01, Ej 2b): (A ∩ B) ∪ (A − B) = A</div>
+  <p>(A ∩ B) ∪ (A − B) = (A ∩ B) ∪ (A ∩ B<sup>c</sup>) = A ∩ (B ∪ B<sup>c</sup>) = A ∩ U = <b>A</b>. (definición de diferencia + distributiva + complemento + neutro.)</p>
+</div>
+<p>Otras igualdades que cayeron tal cual: <b>A ∩ B = ∅ ⟺ A ⊆ B<sup>c</sup></b> (Tema 02), <b>A − (B ∪ C) = (A − B) − C</b> (Tema 06), <b>A ⊆ B ∧ B ∩ C = ∅ ⇒ A ∩ C = ∅</b> (Tema 03).</p>
+
+<h4>Técnica 3 — Cardinalidad (inclusión-exclusión)</h4>
+<div class="formula">
+  |A ∪ B| = |A| + |B| − |A ∩ B|<br>
+  |A ∪ B ∪ C| = |A| + |B| + |C| − |A ∩ B| − |A ∩ C| − |B ∩ C| + |A ∩ B ∩ C|
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 04, Ej 2a): hallar |B − C|</div>
+  <p>Datos: |A∩B∩C| = 3, |A−B| = 11, |A∪B| = 33, |A∪B∪C| = 35, |C−A| = 6. Dibujá el Venn de 8 regiones y deducí paso a paso:</p>
+  <p>• "Sólo C" = |A∪B∪C| − |A∪B| = 35 − 33 = <b>2</b>.<br>
+  • "B∩C sólo" = |C−A| − "sólo C" = 6 − 2 = <b>4</b>.<br>
+  • |A∪B| reúne todo menos "sólo C": (|A−B|) + (|B−C|) + "B∩C sólo" + |A∩B∩C| = 33 → 11 + |B−C| + 4 + 3 = 33.<br>
+  • Por lo tanto <b>|B − C| = 15</b>.</p>
+</div>
+
+<h3>Inducción completa: los 3 pasos siempre iguales</h3>
+<div class="formula">
+  <b>Caso base:</b> verificás que la propiedad vale para n = 1 (o n₀).<br>
+  <b>Hipótesis inductiva (HI):</b> suponés que vale para n = h.<br>
+  <b>Tesis inductiva (TI):</b> probás que vale para n = h+1 usando la HI.
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 03, Ej 2b): 5<sup>2n</sup> − 7 es múltiplo de 6</div>
+  <p><b>Base (n=1):</b> 5² − 7 = 18 = 6·3 ✓.<br>
+  <b>HI:</b> 5<sup>2h</sup> − 7 = 6k.<br>
+  <b>TI:</b> 5<sup>2(h+1)</sup> − 7 = 25·5<sup>2h</sup> − 7 = 25·(6k + 7) − 7 = 150k + 168 = 6·(25k + 28). ✓ múltiplo de 6.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 05, Ej 2a): 11<sup>n+1</sup> + 12<sup>2n−1</sup> es divisible por 133</div>
+  <p><b>Base (n=1):</b> 11² + 12¹ = 121 + 12 = 133 ✓.<br>
+  <b>HI:</b> 11<sup>h+1</sup> + 12<sup>2h−1</sup> = 133k.<br>
+  <b>TI:</b> 11<sup>h+2</sup> + 12<sup>2h+1</sup> = 11·11<sup>h+1</sup> + 144·12<sup>2h−1</sup> = 11·11<sup>h+1</sup> + (11 + 133)·12<sup>2h−1</sup><br>
+  = 11·(11<sup>h+1</sup> + 12<sup>2h−1</sup>) + 133·12<sup>2h−1</sup> = 11·133k + 133·12<sup>2h−1</sup> = 133·(11k + 12<sup>2h−1</sup>). ✓</p>
+</div>
+
+<h3>Trucos para inducción según el tipo</h3>
+<table class="tbl">
+  <tr><th>Tipo de propiedad</th><th>Truco al pasar de h a h+1</th><th>Visto en</th></tr>
+  <tr><td><b>Sumatoria</b></td><td>Sumá el término (h+1) a ambos lados de la HI.</td><td>T01: ∑5<sup>i−1</sup> ; T02: ∑1/(i(i+1)) = n/(n+1)</td></tr>
+  <tr><td><b>Divisibilidad</b></td><td>Reescribí la base de la potencia y sumá/restá para hacer aparecer la HI.</td><td>T03, T04 (5 | 2<sup>3n+1</sup>+3<sup>n+1</sup>), T05, T06 (4 | n²(n+1)²), T08 (8 | 3ⁿ+7ⁿ−2)</td></tr>
+  <tr><td><b>Inecuación</b></td><td>Multiplicá la HI por la base y acotá.</td><td>—</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="3" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · COMBINATORIA ============ -->
+<details id="ledp-s4">
+<summary><span class="num">4</span> Ejercicio 3 · Combinatoria y binomio de Newton <span class="sec-score" id="ss-led-primer-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>Dos ítems casi siempre: <b>(a)</b> problema de conteo (con o sin restricciones) y <b>(b)</b> binomio de Newton (un término particular, un grado o un coeficiente). Algunos temas (07, 09) traen además sumatorias para reindexar.</p>
+
+<h3>Decisión: ¿qué fórmula uso?</h3>
+<table class="tbl">
+  <tr><th>Si en el problema...</th><th>Fórmula</th></tr>
+  <tr><td>Importa el orden y NO se repiten</td><td><b>Variaciones</b>: V<sub>n,k</sub> = n!/(n−k)!</td></tr>
+  <tr><td>Importa el orden y SÍ se repiten</td><td><b>Variaciones con repetición</b>: n<sup>k</sup></td></tr>
+  <tr><td>NO importa el orden y NO se repiten</td><td><b>Combinaciones</b>: C<sub>n,k</sub> = n!/[k!(n−k)!]</td></tr>
+  <tr><td>NO importa el orden y SÍ se repiten</td><td><b>Combinaciones con repetición</b>: C'<sub>n,k</sub> = C<sub>n+k−1, k</sub></td></tr>
+  <tr><td>Permutar n elementos distintos</td><td><b>Permutaciones</b>: P<sub>n</sub> = n!</td></tr>
+  <tr><td>Permutar con elementos repetidos</td><td><b>P. con repetición</b>: n! / (a! · b! · ...)</td></tr>
+</table>
+
+<h3>Heurística para identificar el caso</h3>
+<ol>
+  <li><b>"Sucesión", "fila", "ordenamiento"</b> → el orden importa.</li>
+  <li><b>"Comité", "selección", "subconjunto", "elegir"</b> → el orden no importa.</li>
+  <li><b>"Idénticos", "iguales", "indistinguibles"</b> → con repetición o permutación con repetición.</li>
+  <li><b>"Por lo menos uno"</b> → asigná 1 a cada uno y repartí el resto con repetición (o calculá el total y restá lo prohibido).</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 01, Ej 3a): cinco dados, cuatro iguales y uno distinto</div>
+  <p>Como es una <b>sucesión</b> (d1,…,d5), importa la posición. Decisiones independientes:<br>
+  • valor que se repite 4 veces: 6 · posición del dado distinto: 5 · valor del distinto (≠ del repetido): 5.<br>
+  Total = 6 · 5 · 5 = <b>150</b> sucesiones.</p>
+</div>
+
+<h3>Distribución de objetos idénticos: el modelo de barras</h3>
+<p>Repartir <b>k objetos idénticos</b> entre <b>n personas</b> sin restricción: <b>C<sub>n+k−1, k</sub></b>. Si cada persona debe recibir <b>al menos uno</b>: asigná 1 a cada una y repartí los k−n restantes → <b>C<sub>k−1, n−1</sub></b>.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 01, Ej 3b): 25 paquetes idénticos entre 12 familias, cada una al menos uno</div>
+  <p>Asigno 1 a cada familia → quedan 25 − 12 = 13 libres entre 12.<br>
+  Soluciones = C<sub>13+12−1, 13</sub> = C<sub>24, 13</sub> = C<sub>24, 11</sub> = <b>2.496.144</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 08, Ej 3a): 3 tipos de golosina, cada chico al menos una de cada tipo</div>
+  <p>15 caramelos, 12 chocolatines y 10 galletitas (idénticos dentro de cada tipo) entre 8 chicos, con al menos una de cada tipo. Los tres repartos son <b>independientes</b>, así que se multiplican:<br>
+  C<sub>14,7</sub> · C<sub>11,7</sub> · C<sub>9,7</sub> = 3432 · 330 · 36 = <b>40.772.160</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 04, Ej 3a): la carta de Luis en su sobre</div>
+  <p>7 cartas en 7 sobres al azar; cuento las formas en que la de Luis cae en el suyo: fijo esa carta (1 forma) y permuto las otras 6: 6! = <b>720</b>.</p>
+</div>
+
+<h3>Binomio de Newton</h3>
+<div class="formula">
+  (a + b)<sup>n</sup> = ∑<sub>k=0..n</sub> C<sub>n,k</sub> · a<sup>n−k</sup> · b<sup>k</sup><br>
+  Término T<sub>k+1</sub> = C<sub>n,k</sub> · a<sup>n−k</sup> · b<sup>k</sup>  (¡el k arranca en 0!)
+</div>
+<h4>Receta para "halle el término que..."</h4>
+<ol>
+  <li>Identificá <b>a</b> y <b>b</b>.</li>
+  <li>Escribí el término genérico T<sub>k+1</sub> y juntá las potencias de la variable.</li>
+  <li>Igualá el exponente pedido a la condición y despejá k.</li>
+  <li>Reemplazá k para el coeficiente y el término concreto.</li>
+</ol>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 02, Ej 3b): exponente de a múltiplo de 3 en (2a² + 3(b/a)³)¹⁴</div>
+  <p>T<sub>k+1</sub> = C<sub>14,k</sub>·(2a²)<sup>14−k</sup>·(3b³/a³)<sup>k</sup> ⇒ exponente de a: 2(14−k) − 3k = 28 − 5k.<br>
+  28 − 5k ≡ 0 (3) ⟺ 1 + k ≡ 0 (3) ⟺ k ≡ 2 (3). Con k ∈ {0,…,14}: k ∈ {2, 5, 8, 11, 14} → <b>5 términos</b>.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 08, Ej 3b): que el 4º término de (x³ + 2/x)ⁿ sea de grado 3</div>
+  <p>T<sub>k+1</sub> = C<sub>n,k</sub>·(x³)<sup>n−k</sup>·(2/x)<sup>k</sup> = C<sub>n,k</sub>·2<sup>k</sup>·x<sup>3n−4k</sup>. El 4º término es k = 3: exponente 3n − 12 = 3 ⇒ <b>n = 5</b>.<br>
+  Entonces T₄ = C<sub>5,3</sub>·2³·x³ = 10·8·x³ = <b>80x³</b>.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · ARITMETICA ============ -->
+<details id="ledp-s5">
+<summary><span class="num">5</span> Ejercicio 4 · Aritmética entera y divisibilidad <span class="sec-score" id="ss-led-primer-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>Combina dos tipos de ítem: <b>(a)</b> cálculo concreto (MCD/MCM por Euclides + combinación lineal, o resto de una expresión a partir de la división entera) y <b>(b)</b> demostrar/refutar una propiedad de divisibilidad.</p>
+
+<h3>Algoritmo de Euclides + combinación lineal</h3>
+<p>Para hallar MCD(a,b) hacés divisiones sucesivas hasta resto 0; el último resto NO nulo es el MCD. Para la <b>combinación lineal</b> (Bézout) vas hacia atrás despejando el resto de cada línea.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 01, Ej 4a): MCD(7850, 2340) y combinación lineal</div>
+  <p><b>Euclides:</b><br>
+  7850 = 2340·3 + 830 · 2340 = 830·2 + 680 · 830 = 680·1 + 150 · 680 = 150·4 + 80 · 150 = 80·1 + 70 · 80 = 70·1 + 10 · 70 = 10·7 + 0 → <b>MCD = 10</b>.</p>
+  <p><b>Hacia atrás:</b> 10 = 80 − 70 = 2·80 − 150 = 2·680 − 9·150 = 11·680 − 9·830 = 11·2340 − 31·830 = <b>(−31)·7850 + 104·2340</b>.<br>
+  Verificación: −31·7850 = −243350 ; 104·2340 = 243360 ; suma = 10 ✓.</p>
+</div>
+<p>Otros cálculos reales: MCD(168,300) = 12 = 9·168 − 5·300 (T04) · MCD(2450, −1092) = 14 = 37·2450 − 83·1092 (T09) · MCM(895,210) = 37590 con MCD 5 = (−19)·895 + 81·210 (T02) · MCD(115,133) = 1 = (−37)·115 + 32·133 (T03).</p>
+
+<h3>Propiedades clave de divisibilidad</h3>
+<div class="formula">
+  • <b>a | b ∧ a | c ⇒ a | (αb + βc)</b> ∀α,β ∈ ℤ (combinación lineal)<br>
+  • <b>MCD(a,b) = 1 ∧ a | bc ⇒ a | c</b> (Lema de Euclides)<br>
+  • <b>MCD(a,b) = d ⇒ ∃ s,t ∈ ℤ : as + bt = d</b> (Bézout)<br>
+  • <b>MCD(a,b) = 1 ⟺ ∃ s,t ∈ ℤ : as + bt = 1</b><br>
+  • <b>a · b = MCD(a,b) · MCM(a,b)</b>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 02, Ej 4a): (2a+1)² y 4a(a+1) son coprimos</div>
+  <p>Truco: 4a(a+1) = 4a² + 4a = (2a+1)² − 1. Llamando x = (2a+1)², el otro número es x − 1.<br>
+  Son <b>enteros consecutivos</b>, y dos consecutivos siempre son coprimos: MCD(x, x−1) = 1. ∎</p>
+</div>
+
+<h3>División entera: el truco para los restos</h3>
+<p>Si te dan la división entera (dividendo = divisor·cociente + resto, con 0 ≤ resto &lt; divisor) y piden el resto de una expresión, escribí cada variable según su división, sustituí, agrupá los múltiplos del módulo aparte y lo que queda es el resto.</p>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 05 / Tema 08, Ej 4): resto de (b − 2c − 18) por 10</div>
+  <p>b = 10q + 7 (cociente 10, resto 7) ; c = 5k + 3.<br>
+  b − 2c − 18 = (10q+7) − 2(5k+3) − 18 = 10(q − k) − 17 = 10(q − k − 2) + 3 ⇒ resto = <b>3</b>.</p>
+  <p>Variante (Tema 06, Ej 4a): b = 21q+8, c = 7k+4, resto de (b − 3c − 19) por 21 → 21(q−k) − 23 = 21(q−k−2) + 19 ⇒ resto = <b>19</b>.</p>
+</div>
+
+<h3>V/F de divisibilidad: demostrar o refutar</h3>
+<table class="tbl">
+  <tr><th>Afirmación real</th><th>Veredicto y justificación</th></tr>
+  <tr><td>(T04) c | (a−b) ⇒ c | a ∨ c | b</td><td><b>FALSO</b>. Contraejemplo: c=5, a=8, b=3: 5 | (8−3)=5 ✓, pero 5∤8 y 5∤3.</td></tr>
+  <tr><td>(T04) a | b ∧ a | c ⇒ a | (b−c)</td><td><b>VERDADERO</b> (combinación lineal: b−c es combinación de b y c).</td></tr>
+  <tr><td>(T06) a=4n+1, b=6n−1 ⇒ MCD(a,b)=1 ∨ MCD(a,b)=5</td><td><b>VERDADERO</b>: d | (3a − 2b) = 5, así que d | 5 ⇒ d ∈ {1, 5}.</td></tr>
+  <tr><td>(T05) ∃s,t: 3 = as + bt ⇒ MCD(a,b)=1 ∨ MCD(a,b)=3</td><td><b>VERDADERO</b>: d = MCD(a,b) divide a as+bt = 3, y los divisores positivos de 3 son 1 y 3.</td></tr>
+  <tr><td>(T07 ít. 9) ¿cuál es coprimo ∀n? (3n,n+4) · (5−2n,n−2) · (n+1,n+4) · (3n−2,2n+1)</td><td><b>(5−2n, n−2)=1</b>: 1·(5−2n) + 2·(n−2) = 1, así que el MCD divide a 1.</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="5" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · RELACIONES ============ -->
+<details id="ledp-s6">
+<summary><span class="num">6</span> Ejercicio 5 · Relaciones binarias y de equivalencia <span class="sec-score" id="ss-led-primer-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales</h3>
+<p>El Ejercicio 5 mezcla: <b>(a)</b> demostrar/analizar las propiedades de una relación (y si es de equivalencia, hallar clases y conjunto cociente) y, en varios temas, <b>(b)</b> una propiedad general sobre unión/intersección/composición de relaciones.</p>
+
+<h3>Las 4 propiedades</h3>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>Definición</th><th>Cómo verificar</th></tr>
+  <tr><td><b>Reflexiva</b></td><td>∀a ∈ A: a R a</td><td>¿la condición se cumple poniendo y = x, para todo x?</td></tr>
+  <tr><td><b>Simétrica</b></td><td>a R b ⇒ b R a</td><td>¿la condición queda igual al intercambiar x e y?</td></tr>
+  <tr><td><b>Antisimétrica</b></td><td>a R b ∧ b R a ⇒ a = b</td><td>¿tener la condición en los dos sentidos obliga a la igualdad?</td></tr>
+  <tr><td><b>Transitiva</b></td><td>a R b ∧ b R c ⇒ a R c</td><td>encadená las dos condiciones y mirá si llegás a a R c.</td></tr>
+</table>
+<div class="formula">
+  <b>R es de equivalencia ⟺ reflexiva, simétrica y transitiva.</b><br>
+  <b>R es de orden parcial ⟺ reflexiva, antisimétrica y transitiva.</b>
+</div>
+<div class="key"><div class="ky-t">Trampa que cae siempre</div>
+Antes de "hallar clases", <b>probá que es de equivalencia</b>. En el Tema 04, R: "x R y ⟺ MCD(x,y)=1" en ℕ <b>no</b> es de equivalencia (falla reflexividad: MCD(2,2)=2≠1, y transitividad). En el Tema 01, S: "x=y ∨ x−y=1" no es simétrica (1 R 0 pero 0 R̸ 1).
+</div>
+
+<h3>Clases de equivalencia y conjunto cociente</h3>
+<p>Si R es de equivalencia en A, la <b>clase</b> de a es [a] = {x ∈ A : x R a}. El <b>conjunto cociente</b> A/R es el conjunto de todas las clases distintas (un representante por clase; las clases <b>parten</b> A).</p>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 05, Ej 5a): x R y ⟺ x·y² − x²·y − y + x = 0</div>
+  <p><b>Factorizo:</b> xy² − x²y − y + x = xy(y − x) − (y − x) = (y − x)(xy − 1) = 0 ⟺ <b>x = y ∨ xy = 1</b>.<br>
+  Reflexiva (x=x), simétrica (xy=1 es simétrico) y transitiva → es de equivalencia. Gráfico: la recta y = x unida a la hipérbola xy = 1.<br>
+  <b>Clases:</b> [a] = {a, 1/a} para a ≠ 0; [0] = {0}; [1] = {1}; [−1] = {−1}.</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 03, Ej 5): x S y ⟺ |x² − 2| = |y² − 2| y el conjunto cociente</div>
+  <p>Es de equivalencia (tiene la forma f(x) = f(y)). Las clases salen de |x²−2| = |a²−2| ⟺ x² = a² ó x² + a² = 4:</p>
+  <p>[1] = {−√3, −1, 1, √3} · [0] = {−2, 0, 2} · [5] = {−5, 5} · [√2] = {−√2, √2}.</p>
+  <p><b>¿Qué conjunto puede ser el cociente?</b> Hace falta exactamente un representante por clase. Para x ≥ √2, |x²−2| = x²−2 es creciente (clases distintas) y toda clase tiene un representante √(2+c) ≥ √2. Por eso el cociente es <b>P₃ = {[x] / x ≥ √2}</b>. (P₁ y P₂ repiten clases; P₄ deja afuera la clase de 1.)</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ejemplo real (Tema 04, Ej 5a): x R y ⟺ f(x) = f(y), con f(x) = x² − 5x</div>
+  <p>f(x) = f(y) ⟺ x² − 5x = y² − 5y ⟺ (x − y)(x + y − 5) = 0 ⟺ x = y ∨ x + y = 5.<br>
+  <b>Clases:</b> [a] = {a, 5 − a} (dos elementos), salvo [5/2] = {5/2}. <b>Cociente:</b> ℝ/R = {[a] : a ≤ 5/2}.</p>
+</div>
+
+<h3>Matriz de la relación (cuando A es finito)</h3>
+<table class="tbl">
+  <tr><th>Propiedad</th><th>En la matriz</th></tr>
+  <tr><td>Reflexiva</td><td>Toda la diagonal en 1.</td></tr>
+  <tr><td>Simétrica</td><td>M = M<sup>t</sup>.</td></tr>
+  <tr><td>Antisimétrica</td><td>M y M<sup>t</sup> no comparten 1 fuera de la diagonal.</td></tr>
+  <tr><td>Transitiva</td><td>Todo 1 de M·M aparece también en M.</td></tr>
+</table>
+<p>Dato del Tema 07 (ít. 6): una matriz 7×7 de equivalencia tiene tantos 1 como la suma de los cuadrados de los tamaños de las clases; por eso 49 unos (relación universal, una sola clase) es posible, pero 5, 28 o 32 unos no.</p>
+
+<h3>Unión, intersección y composición de relaciones</h3>
+<table class="tbl">
+  <tr><th>Afirmación real</th><th>Veredicto</th></tr>
+  <tr><td>(T05) R y T simétricas ⇒ R ∪ T simétrica</td><td><b>V</b> (la simetría se hereda en cada rama).</td></tr>
+  <tr><td>(T06) R y T transitivas ⇒ R ∩ T transitiva</td><td><b>V</b> (si (a,b),(b,c) ∈ R∩T, están en R y en T, y cada una da (a,c)).</td></tr>
+  <tr><td>(T09) R y T transitivas ⇒ R ∪ T transitiva</td><td><b>F</b>. Contraejemplo: R = {(1,2)}, T = {(2,3)}; R∪T no tiene (1,3).</td></tr>
+  <tr><td>(T09) R y T antisimétricas ⇒ R ∪ T antisimétrica</td><td><b>F</b>. Contraejemplo: R = {(1,2)}, T = {(2,1)}; en R∪T están (1,2) y (2,1) con 1 ≠ 2.</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="6" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · MODELOS REALES ============ -->
+<details id="ledp-s7">
+<summary><span class="num">7</span> Modelos reales completos (temas 01 y 07) <span class="sec-score" id="ss-led-primer-parcial-7"></span></summary>
+<div class="content">
+
+<h3>Para que no te sorprenda la presentación</h3>
+<p>Acá tenés un parcial de desarrollo completo (Tema 01) y la variante multiple choice (Tema 07), tal como aparecen en el examen real. Los ejercicios del quiz de esta unidad son las 11 preguntas verbatim del Tema 07.</p>
+
+<div class="example">
+  <div class="ex-t">Modelo de desarrollo completo — 1er Parcial, Tema 01 (12/07/2023)</div>
+  <p><b>Ej 1.</b> "Todos los aspirantes trajeron DNI o cédula. Los que trajeron cédula presentaron el apto médico. Sofía no presentó el apto médico. ⊢ Al menos un aspirante trajo DNI." (a) Definí U y predicados; (b) probá la validez. → <i>Válido: ∀x(D∨C); ∀x(C→M); ¬M(s) ⊢ por PU, MT, SD y GE: ∃x D(x).</i></p>
+  <p><b>Ej 2.</b> (a) Inducción: ∑<sub>i=1..n</sub> 5<sup>i−1</sup> = (5ⁿ − 1)/4. (b) Probar (A ∩ B) ∪ (A − B) = A. → <i>Base 1=1; paso: (5ʰ−1)/4 + 5ʰ = (5ʰ⁺¹−1)/4. Conjuntos: A ∩ (B ∪ Bᶜ) = A.</i></p>
+  <p><b>Ej 3.</b> (a) Cinco dados, sucesión con 4 iguales y 1 distinto → <b>150</b>. (b) 25 paquetes idénticos entre 12 familias, al menos uno → C<sub>24,11</sub> = <b>2.496.144</b>.</p>
+  <p><b>Ej 4.</b> (a) MCD(7850, 2340) = <b>10</b> = (−31)·7850 + 104·2340. (b) Buscar A, B con mismo resto mód 7 y resto de A mód 8 (no nulo) doble que el de B → por ejemplo <b>A = 50, B = 1</b> (ambos ≡ 1 mód 7; 50 ≡ 2 y 1 ≡ 1 mód 8, y 2 = 2·1).</p>
+  <p><b>Ej 5.</b> En ℤ: x R y ⟺ (−1)<sup>x+y</sup> = 1 ; x S y ⟺ x = y ∨ x − y = 1. → <i>R es de equivalencia (x+y par ⟺ misma paridad): 2 clases [pares] y [impares], cociente ℤ/R = {pares, impares}. S no es de equivalencia (no es simétrica).</i></p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Modelo multiple choice — 1er Parcial, Tema 07 (15/12/2023). Aprobar = 6 de 11.</div>
+  <p>Respuestas correctas (resolvé primero el quiz de abajo y después verificá): <b>1</b>·c (3⁹) · <b>2</b>·b (11!/8) · <b>3</b>·c (n!) · <b>4</b>·d (ninguna) · <b>5</b>·c (∃x∃y) · <b>6</b>·d (49 unos) · <b>7</b>·b (simétrica) · <b>8</b>·b (6 clases) · <b>9</b>·b ((5−2n,n−2)=1) · <b>10</b>·c · <b>11</b>·b (19 toman mate).</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 5 ejercicios en 5 minutos e identificá qué tipo de demostración pide cada ítem.<br>
+2. Empezá por los que dominás (las V/F suelen ser rápidas si tenés los contraejemplos preparados).<br>
+3. <b>Inducción</b>: escribí "Caso base", "HI" y "TI" como subtítulos explícitos.<br>
+4. <b>Razonamientos</b>: numerá las premisas y citá la regla de inferencia en cada paso.<br>
+5. <b>Aritmética</b>: hacé Euclides en columna y la vuelta atrás en otra columna; al final verificá la combinación lineal.<br>
+6. <b>Relaciones</b>: probá las 4 propiedades en orden antes de hablar de clases.<br>
+7. Justificá TODO: sin justificación no hay puntaje.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="led-primer-parcial"></div>
+<a class="back" href="#subject-led-primer-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'led-primer-parcial';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS LED 1° PARCIAL ============
+registerExercises('led-primer-parcial', '1', [
+  {st: 'El primer parcial de desarrollo de LED tiene...', opts: ['3 ejercicios', '4 ejercicios', '5 ejercicios (uno por bloque temático)', '11 ejercicios'], c: 2, ex: 'Los 8 parciales de desarrollo (temas 01–06, 08, 09) tienen <b>5 ejercicios</b>, uno por bloque: Ej1 lógica, Ej2 conjuntos+inducción, Ej3 combinatoria+binomio, Ej4 aritmética, Ej5 relaciones. ▸ Las otras: 3 y 4 se quedan cortas; 11 ítems es el formato del <b>tema 07</b>, que es la variante multiple choice (otra cosa).'},
+  {st: 'En los temas 01 a 06 el encabezado dice que para aprobar hay que tener...', opts: ['Los 5 ejercicios perfectos', 'Un 60% correctamente resuelto Y JUSTIFICADO', 'Solo 1 ejercicio bien', 'La mitad de cada ejercicio'], c: 1, ex: 'El encabezado real (jul–sep 2023) dice <b>"PARA APROBAR ES NECESARIO TENER UN 60% CORRECTAMENTE RESUELTO Y JUSTIFICADO"</b> (equivale a 3 de 5). En feb 2024 (temas 08–09) lo escriben como "3 ejercicios completos bien". ▸ No hace falta el 100%; y nunca alcanza con "1 ejercicio".'},
+  {st: 'El tema 07 (15/12/2023) es la variante multiple choice. Para aprobarlo hay que tener...', opts: ['3 de 5', '6 ejercicios correctos (de 11)', '60% de un ejercicio', '11 correctos'], c: 1, ex: 'El tema 07 tiene <b>11 preguntas de opción múltiple</b> y su encabezado dice "PARA APROBAR ES NECESARIO TENER 6 EJERCICIOS CORRECTOS". ▸ El "3 de 5" y el "60%" son de los parciales de desarrollo, no de este; "11 correctos" sería el 100%, no se exige.'},
+  {st: 'El bloque temático fijo del Ejercicio 4 es:', opts: ['Lógica y razonamientos', 'Conjuntos e inducción', 'Combinatoria y binomio', 'Aritmética entera y divisibilidad'], c: 3, ex: 'En los 8 parciales de desarrollo el orden no cambia: Ej1 lógica, Ej2 conjuntos+inducción, Ej3 combinatoria+binomio, <b>Ej4 aritmética entera</b> (división entera, MCD/MCM por Euclides, combinación lineal, V/F de divisibilidad) y Ej5 relaciones. ▸ Las otras opciones son los Ej1, Ej2 y Ej3.'},
+  {st: 'En LED, "Indique V o F y justifique" significa que:', opts: ['Solo te piden marcar V o F', 'Acertar V/F sin demostrar te da la mitad', 'Sin justificación NO cuenta, aunque aciertes V o F', 'Podés justificar sin decidir V o F'], c: 2, ex: 'La cátedra evalúa la <b>justificación</b>, no la respuesta: acertar V/F sin demostrar = 0. ▸ Cada V lleva DEMOSTRACIÓN; cada F lleva CONTRAEJEMPLO numérico concreto. ▸ Por eso conviene tener contraejemplos preparados (ej.: MCD(n, 2n+1) = 1 siempre).'},
+  {st: 'Si la consigna pide probar la validez de un razonamiento "por método demostrativo", tenés que:', opts: ['Hacer la tabla de verdad de todo', 'Aplicar reglas de inferencia paso a paso (MP, MT, SD, SH...)', 'Dibujar un diagrama de Venn', 'Calcular cardinales'], c: 1, ex: '"Método demostrativo" = numerar las premisas y aplicar <b>reglas de inferencia</b> hasta llegar a la conclusión, citando en cada línea la regla y de qué premisas sale. ▸ La tabla de verdad no sirve para predicados con cuantificadores; el Venn es para conjuntos; los cardinales son del Ej2.'},
+]);
+
+registerExercises('led-primer-parcial', '2', [
+  {st: 'La negación de "∀x: ∃y: p(x,y)" es:', opts: ['∀x: ∀y: ¬p(x,y)', '∃x: ∀y: ¬p(x,y)', '∃x: ∃y: ¬p(x,y)', '∀x: ∃y: ¬p(x,y)'], c: 1, ex: 'Al negar, cada ∀ se vuelve ∃, cada ∃ se vuelve ∀ y se niega la proposición interna: ¬(∀x: ∃y: p) ≡ ∃x: ∀y: ¬p(x,y). ▸ (A) no cambia el ∀; (C) no cambia el ∃; (D) no toca ningún cuantificador.'},
+  {st: '(Tema 05, ít. 1.1) La proposición ¬(p ∨ q) ∧ q es:', opts: ['Tautología', 'Contradicción', 'Contingencia', 'Depende de q'], c: 1, ex: '¬(p∨q) ∧ q ≡ (¬p ∧ ¬q) ∧ q ≡ ¬p ∧ (q ∧ ¬q) ≡ ¬p ∧ F ≡ <b>F</b> para toda valuación → <b>contradicción</b>. ▸ Nunca da V, así que no es tautología ni contingencia.'},
+  {st: '(Tema 05, ít. 1.2) "Si estudio, apruebo. Si apruebo, me pongo feliz. Estoy feliz. Por lo tanto, estudio y apruebo." Este razonamiento es:', opts: ['Categórico y válido', 'Categórico e inválido', 'No categórico y válido', 'No categórico e inválido'], c: 3, ex: 'Es <b>no categórico</b> (las premisas no son todas categóricas: hay condicionales) e <b>inválido</b>: afirmar "estoy feliz" y concluir "estudio" es la falacia de <b>afirmación del consecuente</b>. ▸ Contraejemplo: estoy feliz por otra razón sin haber estudiado. Las premisas pueden ser V y la conclusión F.'},
+  {st: '(Tema 06, ít. 1.1) Si p: "la suma de dos enteros siempre es un entero", la proposición q: "si la suma de dos números es entera, entonces los dos números lo son" es:', opts: ['La recíproca de p', 'La contraria de p', 'La contrarrecíproca de p', 'Equivalente a p'], c: 0, ex: 'p tiene forma "si a, b son enteros → a+b es entero". q invierte hipótesis y conclusión: "si a+b es entero → a, b son enteros" = la <b>recíproca</b>. ▸ La recíproca NO es equivalente (de hecho q es falsa: 0,5 + 0,5 = 1). La contraria niega ambas; la contrarrecíproca niega e invierte.'},
+  {st: '(Tema 06, ít. 1.2) "Todos los pasajeros llevaron DNI y subieron su equipaje" se simboliza:', opts: ['∀x: [p(x) ∧ d(x) ∧ e(x)]', '∀x: [p(x) → (d(x) ∧ e(x))]', '∀x: [(p(x) ∧ d(x)) → e(x)]', '∃x: [p(x) → (d(x) ∧ e(x))]'], c: 1, ex: 'Un "todos los P cumplen Q" se escribe con <b>condicional</b>: ∀x: [p(x) → (d(x) ∧ e(x))], siendo p(x) "x es pasajero". ▸ (A) con ∧ diría que TODO x es pasajero y llevó todo (falso); (C) cambia el significado; (D) usa ∃.'},
+  {st: '(Tema 07, ít. 4) "Todos los archivos personales están dañados. Algunos archivos dañados tienen contraseña." Entonces necesariamente:', opts: ['"Algunos archivos personales tienen contraseña"', '"Algún archivo con contraseña es personal"', '"Algún archivo personal no tiene contraseña"', 'Ninguna de las anteriores'], c: 3, ex: 'Personales ⊆ Dañados, y "algunos dañados tienen contraseña", pero esos dañados-con-contraseña podrían NO ser personales. ▸ No se sigue (A) ni (B). (C) tampoco se deduce. La respuesta es <b>(D) ninguna</b>.'},
+  {st: '(Tema 07, ít. 5 / Tema 08, Ej 1) Si ∀x: ∃y: p(x,y) es Verdadera, ¿qué se deduce con seguridad (universo no vacío)?', opts: ['∀x: ∀y: p(x,y)', '∃y: ∀x: p(x,y)', '∃x: ∃y: p(x,y)', 'Nada con seguridad'], c: 2, ex: 'Tomando un x cualquiera del universo existe algún y, luego <b>∃x: ∃y: p(x,y)</b>. ▸ (A) "todos los pares" es más fuerte; (B) exige UN mismo y para todo x (más fuerte, contraejemplo p: x+y=0 en ℤ); por eso (D) es falsa: algo sí se deduce.'},
+  {st: '(Tema 09, Ej 1) "Algunos A son B. Todos los B son C." Entonces necesariamente:', opts: ['Algunos A son C', 'Todos los A son C', 'Algún A no es C', 'Ninguna de las anteriores'], c: 0, ex: 'Hay al menos un elemento que es A y B; como todo B es C, ese elemento también es C → <b>algunos A son C</b>. ▸ "Todos los A son C" no se deduce (puede haber A que no son B); "algún A no es C" tampoco; por eso (A) es la correcta.'},
+]);
+
+registerExercises('led-primer-parcial', '3', [
+  {st: 'Para demostrar A = B por doble inclusión hay que probar:', opts: ['Solo A ⊆ B', 'Solo B ⊆ A', 'A ⊆ B Y B ⊆ A', 'A ∩ B = ∅'], c: 2, ex: 'A = B ⟺ (A ⊆ B) Y (B ⊆ A). Tomás x ∈ A arbitrario y probás x ∈ B; después al revés. ▸ Una sola inclusión no garantiza la igualdad; A ∩ B = ∅ es otra cosa.'},
+  {st: 'En el paso inductivo de una demostración por inducción, partís de:', opts: ['La tesis para n+1 y derivás el caso base', 'La hipótesis (vale para h) y demostrás que vale para h+1', 'Solo el caso base', 'Una conjetura válida para todo n'], c: 1, ex: 'Inducción: <b>Caso base</b> (n=1) + <b>paso inductivo</b>: suponés la HI (vale para h) y a partir de ella demostrás la TI (vale para h+1). ▸ (A) está invertido; (C) el caso base solo no prueba para todo n; (D) no podés "asumir" lo que querés probar.'},
+  {st: '(Tema 03, Ej 2b) Para probar por inducción que 5²ⁿ − 7 es múltiplo de 6, en el paso h → h+1 conviene:', opts: ['Sumar 7 a ambos lados', 'Multiplicar la HI por 25 y reescribir', 'Restar la HI a la tesis', 'Sumar (h+1)² a la HI'], c: 1, ex: 'Como 5²⁽ʰ⁺¹⁾ = 25·5²ʰ, la tesis 25·5²ʰ − 7 se reescribe usando la HI (5²ʰ − 7 = 6k): 25(6k+7) − 7 = 150k + 168 = 6(25k + 28). ▸ La clave es <b>multiplicar la HI por 25</b>; las otras no factorizan el 6.'},
+  {st: '(Tema 04, Ej 2a) Con |A∩B∩C|=3, |A−B|=11, |A∪B|=33, |A∪B∪C|=35 y |C−A|=6, el valor de |B−C| es:', opts: ['6', '15', '19', '11'], c: 1, ex: '"Sólo C" = |A∪B∪C| − |A∪B| = 35 − 33 = 2. "B∩C sólo" = |C−A| − sóloC = 6 − 2 = 4. En |A∪B| = |A−B| + |B−C| + "B∩C sólo" + |A∩B∩C|: 33 = 11 + |B−C| + 4 + 3 ⇒ <b>|B−C| = 15</b>. ▸ Se resuelve solo con sumas y restas en el Venn.'},
+  {st: '(Tema 07, ít. 11) De 50 personas, 28 toman café o mate. Los que toman café y NO mate son 9. ¿Cuántas toman mate?', opts: ['13', '19', '22', '41'], c: 1, ex: '|café ∪ mate| = (solo café) + (toman mate) ⇒ 28 = 9 + |mate| ⇒ <b>|mate| = 19</b>. ▸ 13, 22 y 41 no surgen de la relación entre la unión y el "solo café".'},
+  {st: '(Tema 09, Ej 2) ¿Cuántas de estas son equivalentes a S = ∑(i=h..2h+1) i²?  (1) ∑(i=h+1..2h) i² + (2h+1)² + h²  ·  (2) ∑(i=h..2h+2) i² − (2h+2)²  ·  (3) ∑(i=h..2h) i² + (2h+1)²', opts: ['Ninguna', 'Solo una', 'Solo dos', 'Las tres'], c: 3, ex: 'Las <b>tres</b> son iguales a S. (1) saca y vuelve a sumar los extremos i=h e i=2h+1; (2) agrega y resta el término 2h+2; (3) agrega el faltante i=2h+1. ▸ Verificable en h=3: S = 9+16+25+36+49 = 135 (i de 3 a 7), y las tres opciones dan 135.'},
+  {st: '|A ∪ B| = |A| + |B| − |A ∩ B|. Si |A|=10, |B|=15 y |A∪B|=20, entonces |A∩B| es:', opts: ['25', '5', '0', '10'], c: 1, ex: 'Despejo: |A∩B| = 10 + 15 − 20 = <b>5</b>. ▸ 25 sería sin restar la unión; 0 daría |A∪B|=25; 10 no sale de la cuenta.'},
+]);
+
+registerExercises('led-primer-parcial', '4', [
+  {st: '(Tema 07, ít. 1) Con A = {1,…,9} (9 elementos) y B = {x,y,z} (3 elementos), la cantidad de funciones de A en B es:', opts: ['C(9,3)', '9³', '3⁹', 'C(11,3)'], c: 2, ex: 'Cada uno de los 9 elementos de A se asigna a uno de los 3 de B → 3 · 3 · … (9 veces) = <b>3⁹</b> = 19683. ▸ 9³ invierte los roles; las combinaciones no aplican (una función ordena el dominio).'},
+  {st: '(Tema 07, ít. 2) La cantidad de anagramas de la palabra FELICIDADES es:', opts: ['11! − 2!·3', '11! / 8', '8!·2!·2!·2!', '11!'], c: 1, ex: 'FELICIDADES tiene 11 letras con E, I y D repetidas dos veces cada una. Permutaciones con repetición: 11! / (2!·2!·2!) = <b>11! / 8</b> = 4.989.600. ▸ 11! cuenta como si todas fueran distintas (sobrecuenta); las otras no corresponden.'},
+  {st: '(Tema 07, ít. 3) La expresión (n+1)! − (n−1)!·n² es equivalente a:', opts: ['n²', '2n²', 'n!', '2n!'], c: 2, ex: '(n+1)! = (n+1)·n·(n−1)! y n²·(n−1)! comparten (n−1)!: sacando factor común (n−1)![(n+1)n − n²] = (n−1)!·n = <b>n!</b>. ▸ Las potencias n² y 2n² ignoran el factorial.'},
+  {st: '(Tema 01, Ej 3a) Se lanzan 5 dados y se anota la sucesión (d1,…,d5). ¿Cuántas tienen cuatro números iguales y uno distinto?', opts: ['6·5·5 = 150', '6⁵', 'C(6,2)', '5! = 120'], c: 0, ex: 'Decisiones independientes: valor que se repite (6) · posición del distinto (5) · valor del distinto, ≠ del repetido (5) = <b>150</b>. ▸ 6⁵ cuenta todas las tiradas; C(6,2) ignora las posiciones; 5! no aplica.'},
+  {st: '(Tema 01, Ej 3b) Repartir 25 paquetes idénticos entre 12 familias, cada una al menos uno:', opts: ['12²⁵', 'C(24, 11)', 'P(12)', 'V(12, 25)'], c: 1, ex: 'Asigno 1 a cada familia (quedan 13) y reparto con repetición: C(13+12−1, 13) = C(24,13) = <b>C(24,11)</b> = 2.496.144. ▸ 12²⁵ y V(12,25) suponen orden/repetición libre; P(12) permuta 12 elementos.'},
+  {st: '(Tema 02, Ej 3a) Colgar 15 camisas, 8 vestidos y 7 camperas (todos distintos) con las camisas todas juntas y los vestidos también:', opts: ['30!', '9! · 15! · 8!', '15! · 8! · 7!', 'C(30, 3)'], c: 1, ex: 'Trato "camisas" y "vestidos" como dos bloques: quedan 9 unidades (2 bloques + 7 camperas) que se ordenan en 9!; dentro del bloque de camisas hay 15! órdenes y dentro del de vestidos 8!. Total = <b>9! · 15! · 8!</b>. ▸ 30! ignora que los bloques van juntos.'},
+  {st: '(Tema 02, Ej 3b) ¿Cuántos términos del desarrollo de (2a² + 3(b/a)³)¹⁴ tienen el exponente de "a" múltiplo de 3?', opts: ['3 términos', '5 términos', '7 términos', '15 términos'], c: 1, ex: 'El exponente de a en T(k+1) es 2(14−k) − 3k = 28 − 5k. Es múltiplo de 3 ⟺ k ≡ 2 (3), o sea k ∈ {2,5,8,11,14} → <b>5 términos</b>. ▸ Hay 15 términos en total, pero solo 5 cumplen.'},
+  {st: '(Tema 09, Ej 3b) Elegir 5 libros de 15 (9 novelas, 6 de suspenso) con al menos 3 de suspenso:', opts: ['C(15, 5)', 'C(6,3)·C(9,2) + C(6,4)·C(9,1) + C(6,5)·C(9,0)', 'C(6, 5)', 'C(9,3)·C(6,2)'], c: 1, ex: '"Al menos 3 de suspenso" = 3, 4 o 5 de suspenso (casos disjuntos): 20·36 + 15·9 + 6·1 = 720 + 135 + 6 = <b>861</b>. ▸ C(15,5)=3003 es sin condición; las otras cubren un solo caso o cuentan novelas.'},
+  {st: '(Tema 08, Ej 3b) ¿Para qué n el 4º término de (x³ + 2/x)ⁿ es de grado 3?', opts: ['n = 3', 'n = 4', 'n = 5', 'n = 6'], c: 2, ex: 'El término genérico es C(n,k)·2ᵏ·x^(3n−4k); el 4º es k=3, con exponente 3n − 12. Igualo a 3: 3n − 12 = 3 ⇒ <b>n = 5</b> (y el término es C(5,3)·2³·x³ = 80x³).'},
+]);
+
+registerExercises('led-primer-parcial', '5', [
+  {st: '(Tema 01, Ej 4a) MCD(7850, 2340) por el algoritmo de Euclides es:', opts: ['10', '20', '30', '50'], c: 0, ex: 'Divisiones sucesivas: 7850=2340·3+830 · 2340=830·2+680 · 830=680+150 · 680=150·4+80 · 150=80+70 · 80=70+10 · 70=10·7+0 → <b>MCD = 10</b>. Combinación lineal: 10 = (−31)·7850 + 104·2340. ▸ 20, 30, 50 son múltiplos de 10 pero no el MCD.'},
+  {st: 'Si MCD(a,b) = d, el teorema de Bézout afirma que:', opts: ['a·b = d', 'Existen s, t ∈ ℤ tales que a·s + b·t = d', 'a + b = d', 'd = MCM(a,b)'], c: 1, ex: 'Bézout: el MCD se escribe como <b>combinación lineal entera</b> de a y b (los s, t salen de la vuelta atrás del algoritmo de Euclides). ▸ a·b = MCD·MCM (no = d); a+b no se relaciona con el MCD.'},
+  {st: 'Si en la división entera de b por q el cociente es 10 y el resto es 7, entonces:', opts: ['b = 10q − 7', 'b = 10q + 7 con q > 7', 'b = 7q + 10', 'b = 10/q + 7'], c: 1, ex: 'División entera: dividendo = divisor·cociente + resto, con 0 ≤ resto < divisor. Acá b = q·10 + 7 = <b>10q + 7</b>, y como el resto 7 debe ser menor que el divisor q, hace falta <b>q > 7</b>. ▸ Las demás invierten signos o roles.'},
+  {st: '(Tema 05 / Tema 08, Ej 4) Si b = 10q + 7 y c = 5k + 3, el resto de (b − 2c − 18) al dividir por 10 es:', opts: ['1', '3', '5', '7'], c: 1, ex: 'b − 2c − 18 = (10q+7) − (10k+6) − 18 = 10(q−k) − 17 = 10(q−k−2) + 3 ⇒ resto = <b>3</b>. ▸ El truco es agrupar los múltiplos de 10 y dejar el resto entre 0 y 9.'},
+  {st: '(Tema 04, Ej 4a) ¿Es verdadera, ∀a,b,c ∈ ℤ, la afirmación "c | (a − b) ⇒ c | a ∨ c | b"?', opts: ['Verdadera siempre', 'Falsa: contraejemplo c=5, a=8, b=3', 'Verdadera solo si c es primo', 'Verdadera solo si a, b > 0'], c: 1, ex: '<b>Falsa.</b> Contraejemplo: c=5, a=8, b=3: 5 | (8−3) = 5 ✓, pero 5 ∤ 8 y 5 ∤ 3. ▸ (En cambio "a|b ∧ a|c ⇒ a|(b−c)" SÍ es verdadera, por combinación lineal.)'},
+  {st: '(Tema 06, Ej 4b) Si a = 4n+1 y b = 6n−1 con n ∈ ℤ, ¿qué se puede afirmar de MCD(a, b)?', opts: ['Siempre es 1', 'Es 1 o 5 (porque divide a 5)', 'Siempre es 5', 'Puede ser cualquier número'], c: 1, ex: 'Si d = MCD(a,b), entonces d | (3a − 2b) = 3(4n+1) − 2(6n−1) = 5. Como d | 5, resulta d ∈ {1, 5}. ▸ Por eso "MCD = 1 ∨ MCD = 5" es <b>verdadero</b>; no siempre es 1 ni siempre 5.'},
+  {st: '(Tema 07, ít. 9) ¿Cuál de estas es verdadera para todo n ∈ ℕ?', opts: ['(3n, n+4) = 1', '(5−2n, n−2) = 1', '(n+1, n+4) = 1', '(3n−2, 2n+1) = 1'], c: 1, ex: 'Para (5−2n, n−2): 1·(5−2n) + 2·(n−2) = 1, así que el MCD divide a 1 → es 1 ∀n. ▸ (3n,n+4) falla en n=4 (da 4); (n+1,n+4) divide a 3 (falla en n=2: da 3); (3n−2,2n+1) divide a 7 (falla en n=3: da 7).'},
+  {st: '(Tema 02, Ej 4a) ¿Por qué x = (2a+1)² e y = 4a(a+1) son coprimos para todo a ∈ ℤ?', opts: ['Porque x es par e y impar', 'Porque y = x − 1, y dos enteros consecutivos son coprimos', 'Porque ambos son primos', 'Porque MCD(x,y) = 2'], c: 1, ex: '4a(a+1) = 4a²+4a = (2a+1)² − 1, así que y = x − 1. Dos <b>enteros consecutivos</b> siempre tienen MCD 1: MCD(x, x−1) = 1. ▸ x es impar (no par); no son primos en general; el MCD es 1, no 2.'},
+]);
+
+registerExercises('led-primer-parcial', '6', [
+  {st: 'Una relación R es de equivalencia si y solo si es:', opts: ['Reflexiva, simétrica y transitiva', 'Reflexiva, antisimétrica y transitiva', 'Simétrica y transitiva', 'Reflexiva, simétrica y asimétrica'], c: 0, ex: 'Equivalencia = <b>reflexiva + simétrica + transitiva</b>. ▸ Reflexiva+antisimétrica+transitiva es orden parcial; sin reflexividad falta una propiedad; "asimétrica" es incompatible con "simétrica".'},
+  {st: '(Tema 05, Ej 5a) La relación x R y ⟺ x·y² − x²·y − y + x = 0 equivale a:', opts: ['x = y únicamente', 'x = y ∨ x·y = 1', 'x + y = 0', 'x² = y²'], c: 1, ex: 'Factorizo: xy² − x²y − y + x = xy(y−x) − (y−x) = (y−x)(xy−1) = 0 ⟺ <b>x = y ∨ xy = 1</b>. Es de equivalencia; sus clases son [a] = {a, 1/a} (con [0] = {0}). ▸ Las otras pierden una de las dos ramas.'},
+  {st: '(Tema 04, Ej 5a) Con f(x) = x² − 5x y x R y ⟺ f(x) = f(y), la clase de un a genérico es:', opts: ['{a}', '{a, 5 − a}', '{a, −a}', '{a, 5a}'], c: 1, ex: 'f(x)=f(y) ⟺ x²−5x = y²−5y ⟺ (x−y)(x+y−5) = 0 ⟺ x=y ∨ x+y=5. Clase [a] = <b>{a, 5 − a}</b> (dos elementos), salvo [5/2] que tiene uno solo. ▸ "−a" y "5a" no salen de la factorización.'},
+  {st: '(Tema 04, Ej 5b) La relación en ℕ "x R y ⟺ MCD(x, y) = 1":', opts: ['Es de equivalencia', 'No es reflexiva (p. ej. MCD(2,2)=2≠1)', 'Es de orden', 'Es antisimétrica'], c: 1, ex: 'Falla la reflexividad: MCD(a,a)=a, que es 1 solo si a=1 → no es reflexiva. Tampoco es transitiva: MCD(2,3)=1 y MCD(3,4)=1 pero MCD(2,4)=2. ▸ Es simétrica, pero no de equivalencia ni de orden.'},
+  {st: '(Tema 07, ít. 6) Una matriz 7×7 que representa una relación de EQUIVALENCIA puede tener:', opts: ['5 unos y 44 ceros', '28 unos y 21 ceros', '32 unos y 17 ceros', '49 unos'], c: 3, ex: 'La cantidad de unos es la suma de los cuadrados de los tamaños de las clases (dentro de cada clase, todos los pares están relacionados). Una sola clase de 7 → 7² = <b>49 unos</b> (relación universal). ▸ 5 es menos que los 7 de la diagonal (imposible); 28 y 32 no se obtienen con ninguna partición de 7.'},
+  {st: '(Tema 07, ít. 7) En P(A), la relación X R Y ⟺ X ∩ Y ≠ ∅ es:', opts: ['Reflexiva', 'Simétrica', 'Antisimétrica', 'Transitiva'], c: 1, ex: 'Es <b>simétrica</b> (X∩Y ≠ ∅ ⟺ Y∩X ≠ ∅). ▸ No es reflexiva: ∅ ∩ ∅ = ∅, así que ∅ no se relaciona consigo mismo. No es antisimétrica ni transitiva (X={1}, Y={1,2}, Z={2}: X∩Y≠∅, Y∩Z≠∅, pero X∩Z=∅).'},
+  {st: '(Tema 07, ít. 8) Para la equivalencia en ℤ×ℤ "(x,y) R (z,t) ⟺ 2 | (x+z) ∧ 3 | (y−t)", el conjunto cociente tiene:', opts: ['3 clases', '6 clases', 'Infinitas clases', '2 clases'], c: 1, ex: 'La primera coordenada se agrupa por paridad (2 clases) y la segunda por resto módulo 3 (3 clases): 2 · 3 = <b>6 clases</b>. ▸ Es finito porque ambas condiciones son congruencias.'},
+  {st: '(Tema 09, Ej 5a) "Si R y T son transitivas, entonces R ∪ T es transitiva." Esto es:', opts: ['Verdadero', 'Falso: contraejemplo R={(1,2)}, T={(2,3)}', 'Verdadero solo si son finitas', 'Verdadero solo si R ⊆ T'], c: 1, ex: '<b>Falso.</b> R={(1,2)} y T={(2,3)} son transitivas (vacuosamente), pero R∪T={(1,2),(2,3)} no tiene (1,3). ▸ La intersección de transitivas sí es transitiva (Tema 06), pero la unión no.'},
+  {st: '(Tema 03, Ej 5) Para x S y ⟺ |x²−2| = |y²−2|, ¿cuál conjunto sirve como conjunto cociente?', opts: ['P₁ = {[x]/x ≥ 1}', 'P₂ = {[x]/x ≥ 0}', 'P₃ = {[x]/x ≥ √2}', 'P₄ = {[x]/x ≥ 2}'], c: 2, ex: 'Hace falta exactamente un representante por clase. Para x ≥ √2, |x²−2| = x²−2 es creciente (clases distintas) y toda clase tiene un representante √(2+c) ≥ √2 → <b>P₃</b>. ▸ P₁ y P₂ repiten clases; P₄ deja afuera la clase de 1 (cuyos elementos son ≤ √3 < 2).'},
+]);
+
+registerExercises('led-primer-parcial', '7', [
+  {st: '(Tema 07 · ít. 1) Dados A = {1,2,3,4,5,6,7,8,9} y B = {x,y,z}, la cantidad de funciones de A en B es:', opts: ['C(9,3)', '9³', '3⁹', 'C(11,3)'], c: 2, ex: 'Cada uno de los 9 elementos del dominio elige una de las 3 imágenes → <b>3⁹</b> = 19683. ▸ 9³ invierte dominio y codominio; las combinaciones no describen funciones.'},
+  {st: '(Tema 07 · ít. 2) La cantidad de anagramas de FELICIDADES es:', opts: ['11! − 2!·3', '11! / 8', '8!·2!·2!·2!', '11!'], c: 1, ex: '11 letras con E, I y D repetidas (×2 cada una): 11! / (2!·2!·2!) = <b>11!/8</b> = 4.989.600. ▸ 11! sobrecuenta tratando iguales como distintas.'},
+  {st: '(Tema 07 · ít. 3) La expresión (n+1)! − (n−1)!·n² es equivalente a:', opts: ['n²', '2n²', 'n!', '2n!'], c: 2, ex: '(n+1)! = (n+1)n(n−1)!; factor común (n−1)!: (n−1)![(n+1)n − n²] = (n−1)!·n = <b>n!</b>.'},
+  {st: '(Tema 07 · ít. 4) "Todos los archivos personales están dañados. Algunos archivos dañados tienen contraseña." Entonces necesariamente:', opts: ['Algunos archivos personales tienen contraseña', 'Algún archivo con contraseña es personal', 'Algún archivo personal no tiene contraseña', 'Ninguna de las anteriores'], c: 3, ex: 'Personales ⊆ Dañados, pero los dañados-con-contraseña podrían no ser personales → no se deduce ninguna de (a), (b), (c). Correcta: <b>(d)</b>.'},
+  {st: '(Tema 07 · ít. 5) Sabiendo que r: ∀x: ∃y: p(x,y) es Verdadera, también lo es:', opts: ['∀x: ∀y: p(x,y)', '∃y: ∀x: p(x,y)', '∃x: ∃y: p(x,y)', '∀x: ∃y: ¬p(x,y)'], c: 2, ex: 'De "para todo x existe y" se sigue, en universo no vacío, <b>∃x: ∃y: p(x,y)</b>. ▸ (a) y (b) son más fuertes; (d) no tiene relación.'},
+  {st: '(Tema 07 · ít. 6) Una matriz de 7×7 que representa una relación de EQUIVALENCIA puede tener:', opts: ['5 unos y 44 ceros', '28 unos y 21 ceros', '32 unos y 17 ceros', '49 unos'], c: 3, ex: 'Cantidad de unos = suma de cuadrados de los tamaños de clase. Una clase de 7 → <b>49 unos</b> (relación universal). ▸ Ninguna partición de 7 da 5, 28 ni 32 unos (con la diagonal obligatoria de 7).'},
+  {st: '(Tema 07 · ít. 7) La relación en P(A) dada por X R Y ⟺ X ∩ Y ≠ ∅ es:', opts: ['Reflexiva', 'Simétrica', 'Antisimétrica', 'Transitiva'], c: 1, ex: '<b>Simétrica</b>. No reflexiva (∅∩∅=∅); no antisimétrica; no transitiva ({1}, {1,2}, {2}).'},
+  {st: '(Tema 07 · ít. 8) Para la equivalencia en ℤ×ℤ "(x,y) R (z,t) ⟺ 2|(x+z) ∧ 3|(y−t)", el conjunto cociente está formado por:', opts: ['3 clases de equivalencia', '6 clases de equivalencia', '∞ (infinitas) clases', 'n.a.'], c: 1, ex: 'Paridad de la 1ª coordenada (2 opciones) × resto módulo 3 de la 2ª (3 opciones) = <b>6 clases</b>.'},
+  {st: '(Tema 07 · ít. 9) De las siguientes es verdadera ∀n ∈ ℕ:', opts: ['(3n, n+4) = 1', '(5−2n, n−2) = 1', '(n+1, n+4) = 1', '(3n−2, 2n+1) = 1'], c: 1, ex: '1·(5−2n) + 2·(n−2) = 1 ⇒ el MCD divide a 1 ⇒ es <b>(5−2n, n−2) = 1</b>. ▸ Las otras dividen a 4, 3 y 7 respectivamente (fallan para algún n).'},
+  {st: '(Tema 07 · ít. 10) Es equivalente a ∑(i=h+1..2(h+1)) 3ⁱ la opción:', opts: ['∑(i=h+1..2h) 3ⁱ + 3^{2(h+1)}', '∑(i=h..2h) 3ⁱ + 3^{2h+1} + 3^{2h+2}', '∑(i=h..2h+1) 3ⁱ + 3^{2(h+1)} − 3ʰ', 'n.a.'], c: 2, ex: 'La suma va de h+1 a 2h+2. La opción (c): ∑(h..2h+1) agrega 3ʰ de más y le falta 3^{2h+2}; al sumar 3^{2(h+1)} y restar 3ʰ queda exactamente la original. ▸ (a) pierde 3^{2h+1}; (b) agrega 3ʰ de más.'},
+  {st: '(Tema 07 · ít. 11) De 50 personas, 28 toman café o mate. Los que toman café y no mate son 9. La cantidad que toman mate es:', opts: ['13', '19', '22', '41'], c: 1, ex: '|café ∪ mate| = (solo café) + (toman mate): 28 = 9 + |mate| ⇒ <b>19</b>.'},
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

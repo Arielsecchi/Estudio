@@ -1,0 +1,3175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Álgebra A · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="algebra"] {
+    --bg: #eef2f7; --text: #1f2937; --text-muted: #64748b;
+    --surface: #ffffff; --surface-2: #dbe5f0; --surface-3: #c5d3e3;
+    --border: #d5dfe9; --border-2: #bfcadb;
+    --accent: #1e3a8a; --accent-hover: #2c4eaa; --gold: #d97706;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #dbe5f0; --summary-hover: #c5d3e3; --num-text: #ffffff;
+    --shadow: rgba(30, 58, 138, 0.08);
+  }
+  [data-theme="dark"][data-subject="algebra"] {
+    --bg: #0f1623; --text: #e2e8f0; --text-muted: #94a3b8;
+    --surface: #1a2332; --surface-2: #243041; --surface-3: #2e3c4f;
+    --border: #2e3c4f; --border-2: #3a4a5e;
+    --accent: #93c5fd; --accent-hover: #bfdbfe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #ef4444;
+    --summary-bg: #243041; --summary-hover: #2e3c4f; --num-text: #0f1623;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== ÁLGEBRA A ================================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-algebra">
+  <header>
+    <h1>Álgebra A</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · Parciales 22/04 (1°) y 10/06 (2°)</div>
+  </header>
+<nav class="toc" id="toc-algebra">
+  <h2>Índice</h2>
+  <ol>
+    <li class="partial-sep">Primer parcial (22/04)</li>
+    <li><a href="#alg-s1">Vectores</a></li>
+    <li><a href="#alg-s2">Rectas y planos</a></li>
+    <li><a href="#alg-s3">Subespacios vectoriales</a></li>
+    <li><a href="#alg-s4">Cónicas</a></li>
+    <li class="partial-sep">Segundo parcial (10/06)</li>
+    <li><a href="#alg-s5">Sistemas, matrices, determinantes</a></li>
+    <li><a href="#alg-s6">Transformaciones lineales</a></li>
+    <li><a href="#alg-s7">Números complejos</a></li>
+    <li><a href="#alg-s8">Polinomios</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra">Puntaje global: 0 / 0</div>
+</nav>
+
+<div class="partial-header">Primer parcial <span class="date">Unidades 1–4</span></div>
+
+<!-- ============ SECCIÓN 1 · VECTORES ============ -->
+<details id="alg-s1">
+<summary><span class="num">1</span> Vectores <span class="sec-score" id="ss-algebra-1"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un vector?</h3>
+<p>Un <b>vector</b> es una lista ordenada de números. En la práctica, lo usamos para dos cosas:</p>
+<ul>
+  <li><b>Representar puntos:</b> el vector <span class="m">(3, 2)</span> puede ser el punto del plano con coordenadas x = 3, y = 2.</li>
+  <li><b>Representar desplazamientos:</b> el vector <span class="m">(3, 2)</span> también puede significar "moverse 3 a la derecha y 2 arriba". En este caso se suele dibujar como una flecha con cola en el origen y punta en (3, 2).</li>
+</ul>
+<p>Los vectores viven en espacios llamados <span class="m">ℝ<sup>n</sup></span>:</p>
+<ul>
+  <li><span class="m">ℝ²</span>: pares ordenados (x, y), como los puntos del plano.</li>
+  <li><span class="m">ℝ³</span>: ternas (x, y, z), como los puntos del espacio 3D.</li>
+  <li><span class="m">ℝ⁴, ℝ⁵, ...</span>: no los podemos "dibujar" pero las reglas son las mismas.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Notación</div>
+Vectores se escriben con flecha arriba o en negrita: <span class="m">v⃗</span>, <b>v</b>. En esta guía usamos letra simple <span class="vec">v</span>. Las <b>componentes</b> del vector se escriben como subíndices: <span class="m">v = (v<sub>1</sub>, v<sub>2</sub>, v<sub>3</sub>)</span>.
+</div>
+
+<h3>Operaciones básicas: suma y producto por escalar</h3>
+<p>Son las dos operaciones más importantes. Ambas funcionan <b>componente a componente</b>:</p>
+<div class="formula">
+<b>Suma:</b> <span class="vec">v</span> + <span class="vec">w</span> = (v<sub>1</sub>+w<sub>1</sub>, v<sub>2</sub>+w<sub>2</sub>, ..., v<sub>n</sub>+w<sub>n</sub>)<br><br>
+<b>Producto por escalar:</b> k·<span class="vec">v</span> = (k·v<sub>1</sub>, k·v<sub>2</sub>, ..., k·v<sub>n</sub>)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo concreto</div>
+  Con <span class="m">v = (2, −1, 3)</span> y <span class="m">w = (1, 4, 0)</span>:<br>
+  • <span class="m">v + w = (2+1, −1+4, 3+0) = (3, 3, 3)</span><br>
+  • <span class="m">3·v = (6, −3, 9)</span><br>
+  • <span class="m">v − w = v + (−1)·w = (2−1, −1−4, 3−0) = (1, −5, 3)</span>
+</div>
+
+<p><b>Intuición geométrica:</b> sumar vectores es "encadenar flechas" (ponés la cola de una donde termina la otra). Multiplicar por un escalar es estirar o encoger el vector: si k &gt; 0 apunta en el mismo sentido, si k &lt; 0 apunta al revés.</p>
+
+<h3>Vector nulo y vector opuesto</h3>
+<ul>
+  <li>El <b>vector nulo</b> es <span class="m">0 = (0, 0, ..., 0)</span>. Es el "origen" de <span class="m">ℝ<sup>n</sup></span>.</li>
+  <li>El <b>opuesto</b> de <span class="m">v</span> es <span class="m">−v = (−v<sub>1</sub>, ..., −v<sub>n</sub>)</span>. Cumple <span class="m">v + (−v) = 0</span>.</li>
+</ul>
+
+<h3>Norma (módulo o longitud) de un vector</h3>
+<p>La <b>norma</b> <span class="m">‖v‖</span> mide qué tan "largo" es el vector (la longitud de la flecha). Se calcula usando el teorema de Pitágoras generalizado:</p>
+<div class="formula">
+‖<span class="vec">v</span>‖ = √(v<sub>1</sub>² + v<sub>2</sub>² + ... + v<sub>n</sub>²)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Para <span class="m">v = (3, 4)</span>: ‖v‖ = √(9 + 16) = √25 = <b>5</b>.<br>
+  Para <span class="m">w = (1, 2, −2)</span>: ‖w‖ = √(1 + 4 + 4) = √9 = <b>3</b>.
+</div>
+
+<div class="key"><div class="ky-t">Propiedades clave de la norma</div>
+• <span class="m">‖v‖ ≥ 0</span> siempre, y <span class="m">‖v‖ = 0 ⟺ v = 0</span>.<br>
+• <span class="m">‖k·v‖ = |k|·‖v‖</span> (el valor absoluto del escalar, no olvides).<br>
+• <span class="m">‖v‖² = v · v</span> (relación con el producto escalar — ver abajo).
+</div>
+
+<h3>Vectores unitarios y versor asociado</h3>
+<p>Un vector es <b>unitario</b> si <span class="m">‖v‖ = 1</span>. Dado cualquier <span class="m">v ≠ 0</span>, el <b>versor asociado</b> (vector unitario en la misma dirección) es:</p>
+<div class="formula">
+v̂ = <span class="frac"><span>v</span><span>‖v‖</span></span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Versor de <span class="m">v = (3, 4)</span>: como ‖v‖ = 5, v̂ = (3/5, 4/5). Chequeás: √(9/25 + 16/25) = √(25/25) = 1. ✓
+</div>
+
+<h3>Producto escalar (o producto punto)</h3>
+<p>El <b>producto escalar</b> entre dos vectores da un <b>número</b> (no un vector). Tiene dos formas equivalentes:</p>
+<div class="formula">
+<b>Por componentes:</b> <span class="vec">v</span> · <span class="vec">w</span> = v<sub>1</sub>w<sub>1</sub> + v<sub>2</sub>w<sub>2</sub> + ... + v<sub>n</sub>w<sub>n</sub><br><br>
+<b>Geométrica:</b> <span class="vec">v</span> · <span class="vec">w</span> = ‖<span class="vec">v</span>‖ · ‖<span class="vec">w</span>‖ · cos(θ)
+</div>
+<p>donde <span class="m">θ</span> es el ángulo entre los dos vectores. La primera fórmula es para calcular, la segunda para entender qué significa.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">v = (2, −3, 4)</span>, <span class="m">w = (1, 2, 1)</span>.<br>
+  <span class="m">v · w = 2·1 + (−3)·2 + 4·1 = 2 − 6 + 4 = 0</span>.<br>
+  ¡El producto dio cero! Eso significa que el coseno del ángulo es 0, o sea que el ángulo es 90°: son ortogonales.
+</div>
+
+<h3>Ortogonalidad (perpendicularidad) · <b>muy frecuente en parciales</b></h3>
+<div class="formula">
+<span class="vec">v</span> y <span class="vec">w</span> son <b>ortogonales</b> &nbsp;⟺&nbsp; <span class="vec">v</span> · <span class="vec">w</span> = 0
+</div>
+<p>La idea: si el coseno del ángulo es cero, el ángulo es de 90°. Es la traducción algebraica de "perpendicular".</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio tipo parcial resuelto</div>
+  Hallar <span class="m">p</span> y <span class="m">q</span> tales que <span class="m">(2, −3, 4)</span> sea ortogonal a <span class="m">(p, 6, q)</span> <b>y también</b> a <span class="m">(−2, 5, −p)</span>.<br><br>
+  <b>Planteamos dos condiciones</b> (una por cada ortogonalidad):<br>
+  • <span class="m">(2, −3, 4) · (p, 6, q) = 0</span> → <span class="m">2p − 18 + 4q = 0</span><br>
+  • <span class="m">(2, −3, 4) · (−2, 5, −p) = 0</span> → <span class="m">−4 − 15 − 4p = 0</span><br><br>
+  De la segunda: <span class="m">−19 − 4p = 0 → p = −19/4</span>.<br>
+  Reemplazo en la primera: <span class="m">2·(−19/4) + 4q = 18 → −19/2 + 4q = 18 → 4q = 55/2 → q = 55/8</span>.
+</div>
+
+<h3>Paralelismo</h3>
+<div class="formula">
+<span class="vec">v</span> y <span class="vec">w</span> son <b>paralelos</b> &nbsp;⟺&nbsp; existe k ∈ ℝ, k ≠ 0, tal que <span class="vec">w</span> = k·<span class="vec">v</span>
+</div>
+<p>Es decir, uno es múltiplo escalar del otro. Apuntan en la misma dirección (si k &gt; 0) o en dirección opuesta (si k &lt; 0).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  ¿<span class="m">(2, 4, 6)</span> es paralelo a <span class="m">(1, 2, 3)</span>? Sí: <span class="m">(2, 4, 6) = 2·(1, 2, 3)</span>, con k = 2.<br><br>
+  ¿<span class="m">(1, 2)</span> es paralelo a <span class="m">(2, 3)</span>? Si hubiera k con <span class="m">(2, 3) = k·(1, 2)</span>, de la primera componente k = 2, pero entonces la segunda daría 4, no 3. <b>No son paralelos</b>.
+</div>
+
+<h3>Problema: vector paralelo con norma dada</h3>
+<p>Problema muy típico de parcial: dado un vector <span class="m">v</span>, hallar otro vector <span class="m">w</span> que sea paralelo a <span class="m">v</span> y con norma específica <span class="m">n</span>.</p>
+
+<div class="key"><div class="ky-t">Método paso a paso</div>
+1. Escribís <span class="m">w = k·v</span> (por ser paralelo).<br>
+2. Calculás <span class="m">‖w‖ = |k|·‖v‖</span>.<br>
+3. Imponés <span class="m">|k|·‖v‖ = n</span>.<br>
+4. Despejás <span class="m">|k| = n/‖v‖</span>, entonces <span class="m">k = ±n/‖v‖</span>.<br>
+5. <b>Hay dos soluciones</b>, una por cada sentido.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  Hallar <span class="m">w</span> paralelo a <span class="m">v = (2/7, −2/7, 1/7)</span> con norma 15.<br><br>
+  ‖v‖ = √(4/49 + 4/49 + 1/49) = √(9/49) = 3/7.<br>
+  |k| = 15 / (3/7) = 15 · 7/3 = 35. Entonces k = ±35.<br>
+  • Con k = 35: w = (10, −10, 5).<br>
+  • Con k = −35: w = (−10, 10, −5).
+</div>
+
+<h3>Producto vectorial (solo en ℝ³)</h3>
+<p>El <b>producto vectorial</b> <span class="m">v × w</span> es una operación que solo existe en ℝ³ y devuelve un <b>vector</b>, no un número.</p>
+<div class="formula">
+<span class="vec">v</span> × <span class="vec">w</span> = (v<sub>2</sub>w<sub>3</sub> − v<sub>3</sub>w<sub>2</sub>, &nbsp; v<sub>3</sub>w<sub>1</sub> − v<sub>1</sub>w<sub>3</sub>, &nbsp; v<sub>1</sub>w<sub>2</sub> − v<sub>2</sub>w<sub>1</sub>)
+</div>
+
+<div class="key"><div class="ky-t">Propiedades importantes</div>
+• <span class="m">v × w</span> es <b>ortogonal</b> tanto a <span class="m">v</span> como a <span class="m">w</span>. Muy útil para encontrar normales a un plano.<br>
+• <span class="m">‖v × w‖</span> es el <b>área del paralelogramo</b> que forman.<br>
+• Si <span class="m">v</span> y <span class="m">w</span> son paralelos: <span class="m">v × w = 0</span>.<br>
+• No es conmutativo: <span class="m">v × w = −(w × v)</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Con <span class="m">u = (1, 0, 1)</span> y <span class="m">v = (0, 2, 0)</span>:<br>
+  u × v = (0·0 − 1·2, &nbsp; 1·0 − 1·0, &nbsp; 1·2 − 0·0) = <b>(−2, 0, 2)</b>.<br>
+  Podés chequear: u · (u×v) = 1·(−2) + 0 + 1·2 = 0. ✓ (ortogonal a u)
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos en este tema</div>
+• Confundir producto escalar (da número) con producto vectorial (da vector).<br>
+• Intentar hacer producto vectorial en ℝ² o ℝ⁴: <b>no existe</b>, solo en ℝ³.<br>
+• Olvidar el valor absoluto en ‖kv‖ = |k|·‖v‖. Si k = −3, ‖kv‖ = 3·‖v‖, no −3·‖v‖ (la norma nunca es negativa).
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 2 · RECTAS Y PLANOS ============ -->
+<details id="alg-s2">
+<summary><span class="num">2</span> Rectas y planos <span class="sec-score" id="ss-algebra-2"></span></summary>
+<div class="content">
+
+<h3>¿Qué describe una recta?</h3>
+<p>Una recta es el conjunto de todos los puntos que están en una línea. Para describirla con precisión necesitás dos cosas:</p>
+<ul>
+  <li>Un <b>punto</b> <span class="vec">P</span> por el que pasa.</li>
+  <li>Una <b>dirección</b> <span class="vec">d</span> (un vector que indica hacia dónde va).</li>
+</ul>
+
+<h3>Ecuación paramétrica de la recta</h3>
+<div class="formula">
+L: (x, y, z) = λ·<span class="vec">d</span> + <span class="vec">P</span>, &nbsp;&nbsp; λ ∈ ℝ
+</div>
+<p>Interpretación: "parto del punto <span class="vec">P</span> y me muevo una cantidad <span class="m">λ</span> en la dirección <span class="vec">d</span>". Cuando <span class="m">λ</span> recorre todos los reales, obtengo todos los puntos de la recta.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Recta que pasa por <span class="m">(1, 2, 3)</span> con dirección <span class="m">(1, 0, −1)</span>:<br>
+  <span class="m">L: (x, y, z) = λ·(1, 0, −1) + (1, 2, 3)</span>.<br><br>
+  Algunos puntos de L:<br>
+  • λ = 0 → (1, 2, 3) (el punto base).<br>
+  • λ = 1 → (2, 2, 2).<br>
+  • λ = −1 → (0, 2, 4).
+</div>
+
+<div class="key"><div class="ky-t">Idea clave</div>
+Un mismo punto puede dar lugar a <b>infinitas ecuaciones paramétricas</b> equivalentes: cualquier múltiplo no nulo de la dirección sirve, y cualquier punto de la recta sirve como base.
+</div>
+
+<h3>Recta que pasa por dos puntos</h3>
+<p>Si te dan <b>dos puntos</b> <span class="vec">A</span> y <span class="vec">B</span>:</p>
+<ol>
+  <li>La dirección es <span class="m">d = B − A</span> (el vector que va de A a B).</li>
+  <li>Usás cualquiera de los dos como base: <span class="m">L: (x,y,z) = λ·(B − A) + A</span>.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Recta por <span class="m">A = (1, 0, 2)</span> y <span class="m">B = (3, 1, 0)</span>.<br>
+  Dirección: B − A = (2, 1, −2).<br>
+  Ecuación: <span class="m">L: (x, y, z) = λ·(2, 1, −2) + (1, 0, 2)</span>.
+</div>
+
+<h3>¿Qué describe un plano?</h3>
+<p>Un plano es una "lámina infinita y plana" en el espacio. Para describirlo necesitás:</p>
+<ul>
+  <li>Un <b>punto</b> <span class="vec">P</span> que pertenece al plano.</li>
+  <li><b>Dos direcciones</b> <span class="vec">u</span>, <span class="vec">v</span> paralelas al plano (y que no sean paralelas entre sí).</li>
+</ul>
+<p>Alternativamente, podés describir el plano con un punto y un <b>vector normal</b> (perpendicular al plano).</p>
+
+<h3>Ecuación paramétrica del plano</h3>
+<div class="formula">
+π: (x, y, z) = α·<span class="vec">u</span> + β·<span class="vec">v</span> + <span class="vec">P</span>, &nbsp;&nbsp; α, β ∈ ℝ
+</div>
+<p>Con dos parámetros en lugar de uno, porque un plano es bidimensional.</p>
+
+<h3>Ecuación implícita (o normal) del plano · <b>muy usada</b></h3>
+<div class="formula">
+π: a·x + b·y + c·z = d
+</div>
+<p>Los coeficientes <span class="m">(a, b, c)</span> son el <b>vector normal</b> al plano (perpendicular). El valor <span class="m">d</span> lo obtenés reemplazando un punto conocido.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: armar la ecuación implícita</div>
+  Plano que pasa por <span class="m">P = (1, 0, 2)</span> con vector normal <span class="m">n = (2, −1, 3)</span>.<br>
+  Forma: <span class="m">2x − y + 3z = d</span>.<br>
+  Reemplazo P: <span class="m">2·1 − 0 + 3·2 = 8</span>, entonces d = 8.<br>
+  Ecuación: <span class="m">2x − y + 3z = 8</span>.
+</div>
+
+<h3>Obtener la normal a un plano</h3>
+<p>Si conocés <b>dos vectores</b> <span class="vec">u</span>, <span class="vec">v</span> del plano, el <b>producto vectorial</b> te da la normal:</p>
+<div class="formula">
+<span class="vec">n</span> = <span class="vec">u</span> × <span class="vec">v</span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: plano por 3 puntos</div>
+  Plano por <span class="m">A = (1, 0, 0)</span>, <span class="m">B = (0, 1, 0)</span>, <span class="m">C = (0, 0, 1)</span>.<br>
+  Dos vectores del plano: <span class="m">u = B − A = (−1, 1, 0)</span>, <span class="m">v = C − A = (−1, 0, 1)</span>.<br>
+  Normal: <span class="m">n = u × v = (1·1 − 0·0, 0·(−1) − (−1)·1, (−1)·0 − 1·(−1)) = (1, 1, 1)</span>.<br>
+  Ecuación: <span class="m">x + y + z = d</span>. Con A: 1 + 0 + 0 = 1 → d = 1.<br>
+  Resultado: <span class="m">x + y + z = 1</span>.
+</div>
+
+<h3>¿Un punto está en la recta o el plano?</h3>
+<p><b>Recta:</b> intentás encontrar un valor de <span class="m">λ</span> que dé el punto. Si existe, sí está. Si no, no.</p>
+<p><b>Plano:</b> reemplazás las coordenadas del punto en la ecuación implícita. Si se cumple, pertenece.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  ¿<span class="m">(3, 1, 0)</span> está en <span class="m">L: (x,y,z) = λ(2, 1, −2) + (1, 0, 2)</span>?<br>
+  De la primera coordenada: <span class="m">3 = 2λ + 1 → λ = 1</span>.<br>
+  Chequeo con λ = 1 en las otras: y = 1·1 + 0 = 1 ✓, z = 1·(−2) + 2 = 0 ✓.<br>
+  Sí, está.<br><br>
+  ¿<span class="m">(1, 0, 3)</span> está en el plano <span class="m">x − 2y + z = 4</span>?<br>
+  Reemplazo: 1 − 0 + 3 = 4 ✓. Sí pertenece.
+</div>
+
+<h3>Posición relativa entre dos rectas · <b>muy frecuente</b></h3>
+<p>Dadas dos rectas en ℝ³, puede pasar que:</p>
+<table class="tbl">
+  <tr><th>Caso</th><th>Cómo detectarlo</th></tr>
+  <tr><td><b>Coincidentes</b> (iguales)</td><td>Direcciones paralelas y además un punto de L<sub>1</sub> está en L<sub>2</sub></td></tr>
+  <tr><td><b>Paralelas distintas</b></td><td>Direcciones paralelas pero un punto de L<sub>1</sub> NO está en L<sub>2</sub></td></tr>
+  <tr><td><b>Se cortan</b> (incidentes)</td><td>Direcciones NO paralelas y tienen un punto en común</td></tr>
+  <tr><td><b>Alabeadas</b></td><td>Direcciones NO paralelas y NO tienen punto en común (solo en ℝ³)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Algoritmo paso a paso</div>
+1. Mirá las direcciones: ¿son paralelas (una múltiplo de la otra)?<br>
+&nbsp;&nbsp;&nbsp;• <b>Sí</b> → chequeá si un punto de L<sub>1</sub> está en L<sub>2</sub>. Si sí, coincidentes; si no, paralelas distintas.<br>
+&nbsp;&nbsp;&nbsp;• <b>No</b> → resolvé el sistema para ver si tienen intersección. Si sí, se cortan; si no, alabeadas.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  <span class="m">L<sub>1</sub>: (x,y,z) = α(1, 0, −1) + (−1, 2, 3)</span><br>
+  <span class="m">L<sub>2</sub>: (x,y,z) = β(0, 2, 2) + (1, 0, 1)</span><br><br>
+  Direcciones (1,0,−1) y (0,2,2). No son múltiplos (la primera tiene primera componente no nula y la segunda tiene la primera nula). <b>No paralelas.</b><br><br>
+  Chequeo intersección: igualo componente a componente.<br>
+  • <span class="m">α + (−1) = 1</span> → α = 2<br>
+  • <span class="m">0 + 2 = 2β + 0</span> → β = 1<br>
+  • <span class="m">−α + 3 = 2β + 1</span> → −2 + 3 = 2 + 1 → 1 = 3. <b>Contradicción.</b><br><br>
+  Como el sistema no tiene solución y las direcciones no son paralelas: <b>alabeadas</b>.
+</div>
+
+<h3>Distancia punto-recta (en ℝ²)</h3>
+<p>Si la recta está en forma implícita <span class="m">ax + by + c = 0</span> y el punto es <span class="m">P = (x<sub>0</sub>, y<sub>0</sub>)</span>:</p>
+<div class="formula">
+d(P, L) = <span class="frac"><span>|a·x<sub>0</sub> + b·y<sub>0</sub> + c|</span><span>√(a² + b²)</span></span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Distancia de <span class="m">(1, 2)</span> a la recta <span class="m">3x + 4y − 5 = 0</span>:<br>
+  d = |3·1 + 4·2 − 5| / √(9 + 16) = |3 + 8 − 5| / 5 = <b>6/5</b>.
+</div>
+
+<h3>Distancia punto-plano (en ℝ³)</h3>
+<p>Mismo formato pero con tres variables. Para plano <span class="m">ax + by + cz + d = 0</span> y punto <span class="m">(x<sub>0</sub>, y<sub>0</sub>, z<sub>0</sub>)</span>:</p>
+<div class="formula">
+d(P, π) = <span class="frac"><span>|a·x<sub>0</sub> + b·y<sub>0</sub> + c·z<sub>0</sub> + d|</span><span>√(a² + b² + c²)</span></span>
+</div>
+
+<h3>Proyecciones y simetrías · <b>muy frecuente en parciales</b></h3>
+<p>Esta sección cubre la <b>sección 2.6 del libro de Escayola</b> (págs. 72–78). Aparece en todos los primeros parciales — al menos un ejercicio sobre proyección o simétrico, en muchos casos los dos.</p>
+
+<h4>Proyección ortogonal de un vector sobre otro</h4>
+<p>"Proyectar" <span class="vec">v</span> sobre <span class="vec">u</span> es la sombra perpendicular que <span class="vec">v</span> arroja sobre la dirección de <span class="vec">u</span>.</p>
+<div class="formula">
+proy<sub><span class="vec">u</span></sub>(<span class="vec">v</span>) = <span class="frac"><span><span class="vec">v</span> · <span class="vec">u</span></span><span><span class="vec">u</span> · <span class="vec">u</span></span></span> · <span class="vec">u</span> &nbsp;&nbsp;=&nbsp;&nbsp; <span class="frac"><span><span class="vec">v</span> · <span class="vec">u</span></span><span>‖<span class="vec">u</span>‖²</span></span> · <span class="vec">u</span>
+</div>
+<p>Resultado: un vector <b>paralelo a <span class="vec">u</span></b> cuya magnitud es la "sombra" de <span class="vec">v</span> sobre <span class="vec">u</span>. Si <span class="vec">v</span> y <span class="vec">u</span> son ortogonales, la proyección es el vector cero.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · proy. de vector</div>
+  Proyectar <span class="m">v = (3, 4)</span> sobre <span class="m">u = (1, 0)</span>.<br>
+  v · u = 3·1 + 4·0 = 3. ‖u‖² = 1.<br>
+  proy<sub>u</sub>(v) = (3/1)·(1, 0) = <b>(3, 0)</b>. (Es la "componente x" de v.)
+</div>
+
+<h4>Proyección ortogonal de un PUNTO sobre una RECTA · receta paso a paso</h4>
+<p>Esta es la versión que aparece <b>en todos los primeros parciales</b>. Te dan un punto P y una recta L: X = λ·<span class="vec">d</span> + <span class="vec">P</span><sub>0</sub>; tenés que encontrar el punto A ∈ L tal que P − A ⊥ <span class="vec">d</span>.</p>
+
+<div class="key"><div class="ky-t">Algoritmo (1 minuto)</div>
+1. Escribís A genérico de la recta: <span class="m">A = λ·<span class="vec">d</span> + <span class="vec">P</span><sub>0</sub></span>.<br>
+2. Calculás el vector <span class="m">P − A</span> (en función de λ).<br>
+3. Imponés <span class="m">(P − A) · <span class="vec">d</span> = 0</span>.<br>
+4. Despejás λ.<br>
+5. Reemplazás λ en A para obtener las coordenadas del proyectado.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · proy. punto sobre recta (Práctica 2, ej. 34c)</div>
+  Proyectar <span class="m">P = (1, 0, 2)</span> sobre <span class="m">L: X = λ(2, −1, 0)</span>.<br>
+  A = (2λ, −λ, 0). P − A = (1 − 2λ, λ, 2).<br>
+  (P − A) · (2, −1, 0) = 2(1 − 2λ) − λ + 0 = 2 − 4λ − λ = 2 − 5λ = 0 → λ = 2/5.<br>
+  A = (4/5, −2/5, 0). <b>Esa es la proyección.</b>
+</div>
+
+<h4>Proyección ortogonal de un punto sobre un PLANO · receta</h4>
+<p>Si te dan P y un plano π: ax + by + cz = d, el proyectado A = "pie de la perpendicular" se halla así:</p>
+
+<div class="key"><div class="ky-t">Algoritmo</div>
+1. Tomá la <b>recta normal al plano</b> que pasa por P: dirección <span class="vec">n</span> = (a, b, c).<br>
+&nbsp;&nbsp; <span class="m">L: X = t·(a, b, c) + P</span>.<br>
+2. Buscá la intersección de L con π: reemplazás (x, y, z) genérico de L en la ecuación del plano y despejás t.<br>
+3. Reemplazás t en L para obtener A.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · proy. punto sobre plano (Práctica 2, ej. 34d)</div>
+  Proyectar <span class="m">P = (−1, 1, 0)</span> sobre <span class="m">π: 2x − 3z = 0</span>.<br>
+  Normal: <b>n</b> = (2, 0, −3). Recta: X = t(2, 0, −3) + (−1, 1, 0) = (2t − 1, 1, −3t).<br>
+  Reemplazo en π: 2(2t − 1) − 3(−3t) = 0 → 4t − 2 + 9t = 0 → 13t = 2 → t = 2/13.<br>
+  A = (4/13 − 1, 1, −6/13) = <b>(−9/13, 1, −6/13)</b>.
+</div>
+
+<h4>Caracterización geométrica (la "trampa" del parcial)</h4>
+<div class="key"><div class="ky-t">Cuando A es la proyección...</div>
+Si <span class="m">A</span> es la <b>proyección ortogonal de P sobre una recta L con dirección <span class="vec">d</span></b>, entonces:<br>
+&nbsp;&nbsp;&nbsp;• <span class="m">A ∈ L</span> (necesariamente está en la recta).<br>
+&nbsp;&nbsp;&nbsp;• <span class="m">(P − A) · <span class="vec">d</span> = 0</span> (perpendicular a la dirección).<br>
+Para un plano: <span class="m">A ∈ π</span> y P − A es <b>paralelo</b> a la normal (o sea, P − A es múltiplo del vector normal).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo tipo parcial (T2 Álgebra A · 2024)</div>
+  Si <span class="m">A = (2, 6)</span> es la proyección ortogonal de <span class="m">B = (4, −1)</span> sobre <span class="m">L: (x,y) = λ(2/k², 1) + (2, 6)</span>, hallar k.<br><br>
+  B − A = (2, −7). Por la caracterización: <span class="m">(B − A) · <span class="vec">d</span> = 0</span>.<br>
+  (2)·(2/k²) + (−7)·1 = 0 → 4/k² = 7 → k² = 4/7 → k = ±2/√7.<br>
+  A ∈ L se cumple directo: como el punto base de L es el propio A = (2, 6), basta tomar λ = 0. La condición que determina k es la perpendicularidad.
+</div>
+
+<div class="trap"><div class="tr-t">Error frecuente · al revés</div>
+La proyección es <b>de un punto sobre la recta/plano</b>, no al revés. Si pide "proyección de B sobre L", el resultado es un punto <b>de L</b>. Y si te dan A como proyección, <b>A debe pertenecer a L</b>: chequealo siempre.
+</div>
+
+<h3>Simétrico respecto a un punto, recta o plano</h3>
+<p>El simétrico es el "reflejo": el espejo está en el punto, recta o plano dado.</p>
+
+<h4>Simétrico respecto a un punto Q</h4>
+<p>El simétrico P' de P respecto a Q es tal que <b>Q es el punto medio entre P y P'</b>:</p>
+<div class="formula">
+P' = 2Q − P
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 2, ej. 28b)</div>
+  Simétrico de <span class="m">(2, −4)</span> respecto a <span class="m">(−1, 1)</span>:<br>
+  P' = 2·(−1, 1) − (2, −4) = (−2 − 2, 2 + 4) = <b>(−4, 6)</b>.
+</div>
+
+<h4>Simétrico respecto a una recta L (o plano π) · receta</h4>
+<p>Estrategia universal: <b>el simétrico es A' = 2A − P, donde A es la proyección de P sobre L (o π)</b>.</p>
+
+<div class="key"><div class="ky-t">Receta del simétrico</div>
+1. Hallá A = proyección ortogonal de P sobre L (o sobre π).<br>
+2. P' = <span class="m">2A − P</span>. (A es el punto medio entre P y P'.)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 2, ej. 32b)</div>
+  Simétrico de <span class="m">(0, 0, 0)</span> respecto a <span class="m">L: X = λ(1, 1, 0) + (0, −1, 2)</span>.<br>
+  Paso 1: proyección de O = (0,0,0) sobre L. A = (λ, λ − 1, 2). O − A = (−λ, 1 − λ, −2).<br>
+  (O − A) · (1, 1, 0) = −λ + (1 − λ) = 1 − 2λ = 0 → λ = 1/2.<br>
+  A = (1/2, −1/2, 2).<br>
+  Paso 2: P' = 2A − O = <b>(1, −1, 4)</b>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo · simétrico respecto a plano (Práctica 2, ej. 32c)</div>
+  Simétrico de <span class="m">P = (−1, 1, 2)</span> respecto a <span class="m">π: 2x + y − 3z = 2</span>.<br>
+  Recta normal: X = t(2, 1, −3) + (−1, 1, 2) = (2t − 1, t + 1, −3t + 2).<br>
+  En π: 2(2t − 1) + (t + 1) − 3(−3t + 2) = 2 → 4t − 2 + t + 1 + 9t − 6 = 2 → 14t − 7 = 2 → t = 9/14.<br>
+  A = (4/7, 23/14, −13/14).<br>
+  P' = 2A − P = (8/7 + 1, 23/7 − 1, −13/7 − 2) = <b>(15/7, 16/7, −27/7)</b>.
+</div>
+
+<h4>Simétrico respecto a los ejes coordenados (atajo)</h4>
+<table class="tbl">
+  <tr><th>Eje espejo</th><th>P = (x, y) → P'</th></tr>
+  <tr><td>Eje x</td><td>(x, −y)</td></tr>
+  <tr><td>Eje y</td><td>(−x, y)</td></tr>
+  <tr><td>Origen</td><td>(−x, −y)</td></tr>
+  <tr><td>Recta y = x</td><td>(y, x)</td></tr>
+</table>
+
+<h4>Aplicación · halle un punto Q tal que el simétrico de P respecto a Q es P'</h4>
+<p>De la fórmula P' = 2Q − P, se despeja: <span class="m">Q = (P + P') / 2</span>. Q es el punto medio.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo (Práctica 2, ej. 29b)</div>
+  El simétrico de <span class="m">(3, −1, 1)</span> respecto a Q es <span class="m">(0, 0, 0)</span>.<br>
+  Q = (P + P')/2 = ((3, −1, 1) + (0, 0, 0))/2 = <b>(3/2, −1/2, 1/2)</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 3 · SUBESPACIOS ============ -->
+<details id="alg-s3">
+<summary><span class="num">3</span> Subespacios vectoriales <span class="sec-score" id="ss-algebra-3"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un subespacio?</h3>
+<p>Un <b>subespacio vectorial</b> de <span class="m">ℝ<sup>n</sup></span> es un subconjunto <span class="m">S</span> que se comporta "bien" con la suma y el producto por escalar: si hacés operaciones entre vectores de <span class="m">S</span>, el resultado sigue en <span class="m">S</span>.</p>
+
+<p><b>Intuitivamente, en ℝ³ los subespacios son:</b></p>
+<ul>
+  <li>Solo el origen <span class="m">{(0, 0, 0)}</span> (dimensión 0).</li>
+  <li>Cualquier <b>recta que pase por el origen</b> (dimensión 1).</li>
+  <li>Cualquier <b>plano que pase por el origen</b> (dimensión 2).</li>
+  <li>Todo <span class="m">ℝ³</span> (dimensión 3).</li>
+</ul>
+<p>Una recta que NO pasa por el origen, por ejemplo, <b>no es</b> subespacio.</p>
+
+<h3>Definición formal</h3>
+<p><span class="m">S ⊆ ℝ<sup>n</sup></span> es subespacio si cumple 3 condiciones:</p>
+<ol>
+  <li><b>El cero está:</b> <span class="m">0 ∈ S</span>.</li>
+  <li><b>Cerrado por suma:</b> si <span class="m">u, v ∈ S</span>, entonces <span class="m">u + v ∈ S</span>.</li>
+  <li><b>Cerrado por producto por escalar:</b> si <span class="m">u ∈ S</span> y <span class="m">k ∈ ℝ</span>, entonces <span class="m">k·u ∈ S</span>.</li>
+</ol>
+
+<div class="key"><div class="ky-t">Test ultra rápido</div>
+Si el vector nulo no está en S, <b>ya no es subespacio</b>. Ahorrás chequeos.<br>
+Por ejemplo: <span class="m">S = {(x, y) : x + y = 1}</span> no es subespacio porque (0, 0) no cumple 0 + 0 = 1.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: chequear si es subespacio</div>
+  <span class="m">S = {(x, y, z) ∈ ℝ³ : x + y − z = 0}</span>.<br><br>
+  <b>1) ¿Está el cero?</b> 0 + 0 − 0 = 0 ✓<br>
+  <b>2) ¿Cerrado por suma?</b> Sean u = (u<sub>1</sub>, u<sub>2</sub>, u<sub>3</sub>) y v = (v<sub>1</sub>, v<sub>2</sub>, v<sub>3</sub>) con u<sub>1</sub>+u<sub>2</sub>−u<sub>3</sub> = 0 y v<sub>1</sub>+v<sub>2</sub>−v<sub>3</sub> = 0.<br>
+  u + v = (u<sub>1</sub>+v<sub>1</sub>, u<sub>2</sub>+v<sub>2</sub>, u<sub>3</sub>+v<sub>3</sub>). Chequeo: (u<sub>1</sub>+v<sub>1</sub>) + (u<sub>2</sub>+v<sub>2</sub>) − (u<sub>3</sub>+v<sub>3</sub>) = (u<sub>1</sub>+u<sub>2</sub>−u<sub>3</sub>) + (v<sub>1</sub>+v<sub>2</sub>−v<sub>3</sub>) = 0 + 0 = 0. ✓<br>
+  <b>3) ¿Cerrado por escalar?</b> k·u = (ku<sub>1</sub>, ku<sub>2</sub>, ku<sub>3</sub>). Chequeo: ku<sub>1</sub>+ku<sub>2</sub>−ku<sub>3</sub> = k(u<sub>1</sub>+u<sub>2</sub>−u<sub>3</sub>) = k·0 = 0. ✓<br><br>
+  <b>Sí es subespacio.</b> (Geométricamente, es el plano que pasa por el origen con normal (1, 1, −1).)
+</div>
+
+<h3>Combinación lineal</h3>
+<p>Una <b>combinación lineal</b> de los vectores <span class="m">v<sub>1</sub>, v<sub>2</sub>, ..., v<sub>k</sub></span> es cualquier expresión de la forma:</p>
+<div class="formula">
+α<sub>1</sub>·<span class="vec">v</span><sub>1</sub> + α<sub>2</sub>·<span class="vec">v</span><sub>2</sub> + ... + α<sub>k</sub>·<span class="vec">v</span><sub>k</sub>
+</div>
+<p>donde los <span class="m">α<sub>i</sub></span> son números reales cualesquiera.</p>
+
+<h3>Problema: ¿un vector es combinación lineal de otros?</h3>
+<div class="key"><div class="ky-t">Método</div>
+1. Planteás una combinación general: <span class="m">α·v<sub>1</sub> + β·v<sub>2</sub> + ... = v</span>.<br>
+2. Eso se convierte en un sistema de ecuaciones (una por componente).<br>
+3. Si el sistema tiene solución, <b>sí</b> es combinación lineal.<br>
+4. Si no tiene solución, <b>no</b> lo es.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  ¿Es <span class="m">(2, 0, 4)</span> combinación lineal de <span class="m">v<sub>1</sub> = (1, −1, 2)</span> y <span class="m">v<sub>2</sub> = (1, 1, 2)</span>?<br><br>
+  Planteo: <span class="m">α·(1,−1,2) + β·(1,1,2) = (2,0,4)</span>.<br>
+  Componente a componente:<br>
+  • <span class="m">α + β = 2</span><br>
+  • <span class="m">−α + β = 0</span> → β = α<br>
+  • <span class="m">2α + 2β = 4</span> → α + β = 2 (redundante con la primera)<br><br>
+  Sustituyendo β = α en α + β = 2: <b>α = β = 1</b>.<br>
+  Entonces <span class="m">(2, 0, 4) = 1·(1,−1,2) + 1·(1,1,2)</span>. Sí es CL.
+</div>
+
+<h3>Subespacio generado</h3>
+<p>Dado un conjunto de vectores <span class="m">{v<sub>1</sub>, ..., v<sub>k</sub>}</span>, el <b>subespacio generado</b> por ellos —notado <span class="m">&lt;v<sub>1</sub>, ..., v<sub>k</sub>&gt;</span>— es el conjunto de <b>todas</b> sus combinaciones lineales. Siempre es subespacio.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">&lt;(1, 0, 0), (0, 1, 0)&gt;</span> = todas las combinaciones <span class="m">α(1,0,0) + β(0,1,0) = (α, β, 0)</span>. Geométricamente, es el plano xy (los vectores con tercera componente 0).
+</div>
+
+<h3>Independencia y dependencia lineal</h3>
+<p>Los vectores <span class="m">{v<sub>1</sub>, ..., v<sub>k</sub>}</span> son:</p>
+<ul>
+  <li><b>Linealmente independientes (L.I.)</b> si la <b>única</b> combinación que da el vector nulo es la trivial (todos los coeficientes cero):<br>
+  <span class="m">α<sub>1</sub>v<sub>1</sub> + ... + α<sub>k</sub>v<sub>k</sub> = 0 ⟹ α<sub>1</sub> = ... = α<sub>k</sub> = 0</span>.</li>
+  <li><b>Linealmente dependientes (L.D.)</b> si existe alguna combinación no trivial que da cero. Equivalentemente: alguno de los vectores es combinación lineal de los otros.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Criterios rápidos</div>
+• Dos vectores son L.I. ⟺ ninguno es múltiplo del otro.<br>
+• Si hay un vector nulo en el conjunto, es L.D.<br>
+• Si hay dos vectores iguales, es L.D.<br>
+• Si tenés más vectores que la dimensión del espacio, son L.D. obligatoriamente (ej.: 4 vectores en ℝ³ son L.D. siempre).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: ¿son L.I.?</div>
+  <span class="m">{(1, 1, 0), (1, 0, 1), (0, 1, 1)}</span>.<br><br>
+  Planteo: <span class="m">α(1,1,0) + β(1,0,1) + γ(0,1,1) = (0,0,0)</span>.<br>
+  • α + β = 0<br>
+  • α + γ = 0<br>
+  • β + γ = 0<br><br>
+  De las dos primeras: β = −α y γ = −α. De la tercera: β + γ = −2α = 0 → α = 0. Entonces β = γ = 0.<br>
+  <b>Única solución: la trivial.</b> Son L.I.
+</div>
+
+<h3>Base y dimensión · <b>muy frecuente en parciales</b></h3>
+<p>Una <b>base</b> de un subespacio S es un conjunto de vectores que:</p>
+<ol>
+  <li>Son <b>linealmente independientes</b>.</li>
+  <li><b>Generan</b> S (cualquier vector de S es combinación lineal de ellos).</li>
+</ol>
+<p>La <b>dimensión</b> de S es la cantidad de vectores de cualquier base de S (todas las bases tienen la misma cantidad).</p>
+
+<div class="key"><div class="ky-t">Datos que hay que saber</div>
+• <span class="m">dim(ℝ<sup>n</sup>) = n</span>.<br>
+• Recta por el origen: dimensión 1.<br>
+• Plano por el origen: dimensión 2.<br>
+• Si <span class="m">S ⊆ ℝ<sup>n</sup></span> está definido por <span class="m">m</span> ecuaciones lineales <b>independientes</b>, entonces <span class="m">dim(S) = n − m</span>.<br>
+• Una base de <span class="m">ℝ<sup>n</sup></span> muy usada: la <b>base canónica</b> <span class="m">{e<sub>1</sub>, e<sub>2</sub>, ..., e<sub>n</sub>}</span> donde <span class="m">e<sub>i</sub></span> tiene un 1 en la posición i y ceros en el resto.
+</div>
+
+<h3>Subespacios dados por ecuaciones</h3>
+<p>Formato muy típico: <span class="m">S = {(x<sub>1</sub>, ..., x<sub>n</sub>) ∈ ℝ<sup>n</sup> : condición(es)}</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de parcial</div>
+  <span class="m">S = {(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub>) ∈ ℝ⁴ : x<sub>1</sub> − x<sub>4</sub> = 0}</span>.<br><br>
+  <b>Dimensión:</b> una ecuación en ℝ⁴ → <span class="m">dim(S) = 4 − 1 = 3</span>.<br><br>
+  <b>Base:</b> despejo x<sub>1</sub> = x<sub>4</sub>. Entonces los vectores son de la forma (x<sub>4</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub>) con x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub> libres. Una base:<br>
+  • Con x<sub>4</sub> = 1, x<sub>2</sub> = 0, x<sub>3</sub> = 0: (1, 0, 0, 1)<br>
+  • Con x<sub>4</sub> = 0, x<sub>2</sub> = 1, x<sub>3</sub> = 0: (0, 1, 0, 0)<br>
+  • Con x<sub>4</sub> = 0, x<sub>2</sub> = 0, x<sub>3</sub> = 1: (0, 0, 1, 0)<br><br>
+  <b>Chequeo de pertenencia:</b> ¿(3, 2, 1, 4) ∈ S? → 3 − 4 = −1 ≠ 0. <b>No pertenece.</b>
+</div>
+
+<h3>¿Cómo extender un conjunto L.I. a una base?</h3>
+<p>Si tenés vectores L.I. en <span class="m">ℝ<sup>n</sup></span> pero te faltan para formar una base, podés agregar vectores canónicos hasta llenar.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Extender <span class="m">{(1, 2, 0)}</span> a una base de ℝ³.<br>
+  Como tengo 1 vector y necesito 3, agrego dos. Pruebo con (0, 1, 0) y (0, 0, 1): el conjunto es L.I. (los vectores canónicos son obviamente L.I. y el primero no está generado por ellos). Base: <span class="m">{(1, 2, 0), (0, 1, 0), (0, 0, 1)}</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Pensar que "vector nulo está en el subespacio" alcanza para ser subespacio. Las tres condiciones son necesarias.<br>
+• Confundir "generar" con "ser base". Los vectores pueden generar y ser L.D. (entonces no son base).<br>
+• En ecuaciones con parámetros, olvidar analizar cuándo las ecuaciones son independientes vs redundantes.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 4 · CÓNICAS ============ -->
+<details id="alg-s4">
+<summary><span class="num">4</span> Cónicas <span class="sec-score" id="ss-algebra-4"></span></summary>
+<div class="content">
+
+<h3>¿Qué son las cónicas?</h3>
+<p>Las <b>cónicas</b> son curvas que se obtienen al cortar un cono con un plano. Según el ángulo del corte se obtienen:</p>
+<ul>
+  <li><b>Circunferencia</b>: corte horizontal.</li>
+  <li><b>Elipse</b>: corte inclinado.</li>
+  <li><b>Parábola</b>: corte paralelo a un lado del cono.</li>
+  <li><b>Hipérbola</b>: corte que atraviesa ambas partes del cono.</li>
+</ul>
+<p>También se pueden definir de forma puramente geométrica como <b>lugares geométricos</b> (conjunto de puntos que cumplen una condición).</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Circunferencia</h3>
+<p><b>Definición geométrica:</b> conjunto de puntos del plano que están a distancia constante (llamada <b>radio</b>, r) de un punto fijo (llamado <b>centro</b>, (h, k)).</p>
+
+<h4>Ecuación canónica</h4>
+<div class="formula">
+(x − h)² + (y − k)² = r²
+</div>
+<p>Sale directo de imponer que la distancia entre (x, y) y (h, k) sea r.</p>
+
+<h4>Ecuación general</h4>
+<div class="formula">
+x² + y² + Dx + Ey + F = 0
+</div>
+<p>Para pasar de general a canónica (y así identificar centro y radio), se <b>completan cuadrados</b>.</p>
+
+<div class="key"><div class="ky-t">Método: completar cuadrados</div>
+Para <span class="m">x² + Dx</span>, sumamos y restamos <span class="m">(D/2)²</span>:<br>
+<span class="m">x² + Dx = (x + D/2)² − (D/2)²</span><br>
+Se hace lo mismo con las y.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo completo</div>
+  <span class="m">x² + y² − 6x + 2y = 0</span>.<br><br>
+  Agrupo: <span class="m">(x² − 6x) + (y² + 2y) = 0</span>.<br>
+  Completo en x: <span class="m">x² − 6x = (x − 3)² − 9</span>.<br>
+  Completo en y: <span class="m">y² + 2y = (y + 1)² − 1</span>.<br>
+  Sustituyo: <span class="m">(x − 3)² − 9 + (y + 1)² − 1 = 0</span>.<br>
+  Paso los números al otro lado: <span class="m">(x − 3)² + (y + 1)² = 10</span>.<br><br>
+  <b>Centro: (3, −1). Radio: √10.</b>
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Elipse</h3>
+<p><b>Definición geométrica:</b> conjunto de puntos cuya <b>suma</b> de distancias a dos puntos fijos (los <b>focos</b>, F<sub>1</sub> y F<sub>2</sub>) es constante.</p>
+
+<h4>Ecuación canónica (centrada en (h, k))</h4>
+<div class="formula">
+<b>Elipse horizontal (eje mayor en x):</b> &nbsp; <span class="frac"><span>(x − h)²</span><span>a²</span></span> + <span class="frac"><span>(y − k)²</span><span>b²</span></span> = 1, &nbsp; con a &gt; b<br><br>
+<b>Elipse vertical (eje mayor en y):</b> &nbsp; <span class="frac"><span>(x − h)²</span><span>b²</span></span> + <span class="frac"><span>(y − k)²</span><span>a²</span></span> = 1, &nbsp; con a &gt; b
+</div>
+
+<h4>Elementos importantes</h4>
+<ul>
+  <li><b>Centro:</b> (h, k).</li>
+  <li><b>Semieje mayor:</b> a (el más grande, va en la dirección del eje mayor).</li>
+  <li><b>Semieje menor:</b> b.</li>
+  <li><b>Distancia del centro al foco:</b> c, con <span class="m">c² = a² − b²</span> (la a es la grande).</li>
+  <li><b>Focos:</b> ubicados a distancia c del centro sobre el eje mayor.</li>
+  <li><b>Vértices:</b> extremos del eje mayor, a distancia a del centro.</li>
+  <li><b>Excentricidad:</b> <span class="m">e = c/a</span>, siempre entre 0 y 1. Si e = 0, es circunferencia (a = b).</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">x²/25 + y²/9 = 1</span>.<br>
+  <b>a² = 25</b> (mayor, va con la x), <b>b² = 9</b>. Entonces a = 5, b = 3.<br>
+  Es <b>horizontal</b> (el denominador grande está con la x).<br>
+  <span class="m">c² = 25 − 9 = 16 → c = 4</span>.<br>
+  Centro: (0, 0). Focos: (±4, 0). Vértices: (±5, 0).
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Hipérbola · <b>muy frecuente en parciales</b></h3>
+<p><b>Definición geométrica:</b> conjunto de puntos cuya <b>diferencia</b> (en valor absoluto) de distancias a dos focos es constante.</p>
+
+<h4>Ecuación canónica</h4>
+<div class="formula">
+<b>Horizontal (abre izq/der):</b> &nbsp; <span class="frac"><span>(x − h)²</span><span>a²</span></span> − <span class="frac"><span>(y − k)²</span><span>b²</span></span> = 1<br><br>
+<b>Vertical (abre arriba/abajo):</b> &nbsp; <span class="frac"><span>(y − k)²</span><span>a²</span></span> − <span class="frac"><span>(x − h)²</span><span>b²</span></span> = 1
+</div>
+<p>La diferencia con la elipse es el signo <b>menos</b>. Y ahora el "primero" (el término positivo) es el que dice la orientación.</p>
+
+<h4>Elementos importantes</h4>
+<ul>
+  <li><b>Centro:</b> (h, k).</li>
+  <li><b>Distancia al foco:</b> <span class="m">c² = a² + b²</span> (ojo, es suma en la hipérbola, resta en la elipse).</li>
+  <li><b>Vértices:</b> a distancia a del centro en el eje de apertura.</li>
+  <li><b>Asíntotas:</b> rectas a las que se acerca la hipérbola pero no toca. Para la hipérbola horizontal:</li>
+</ul>
+<div class="formula">
+<b>Asíntotas (horizontal):</b> y − k = ±<span class="frac"><span>b</span><span>a</span></span>·(x − h)<br><br>
+<b>Asíntotas (vertical):</b> y − k = ±<span class="frac"><span>a</span><span>b</span></span>·(x − h)
+</div>
+
+<div class="key"><div class="ky-t">Truco clave</div>
+El <b>centro</b> de la hipérbola es el punto donde se cruzan las asíntotas. Muy útil para hallar el centro sin tener la ecuación canónica explícita.
+</div>
+
+<h4>Comparación elipse vs hipérbola · <b>tabla integradora</b></h4>
+<table class="tbl">
+  <tr><th></th><th>Elipse</th><th>Hipérbola</th></tr>
+  <tr><td><b>Definición</b></td><td>Suma de distancias a focos = cte</td><td>Diferencia de distancias a focos = cte (en valor absoluto)</td></tr>
+  <tr><td><b>Signo</b></td><td>+ entre términos</td><td>− entre términos</td></tr>
+  <tr><td><b>Relación c</b></td><td>c² = a² − b² (con a &gt; b, c &lt; a)</td><td>c² = a² + b² (c &gt; a)</td></tr>
+  <tr><td><b>Focos</b></td><td>DENTRO de la curva</td><td>FUERA de las ramas</td></tr>
+  <tr><td><b>Excentricidad e = c/a</b></td><td>0 ≤ e &lt; 1 (e=0 → circunferencia)</td><td>e &gt; 1</td></tr>
+  <tr><td><b>Asíntotas</b></td><td>NO tiene</td><td>SÍ (y se cruzan en el centro)</td></tr>
+  <tr><td><b>Vértices</b></td><td>4 (extremos de ambos ejes)</td><td>2 (sobre eje real)</td></tr>
+</table>
+<div class="trap"><div class="tr-t">Error frecuente</div>
+Confundir <span class="m">c² = a² − b²</span> (elipse) con <span class="m">c² = a² + b²</span> (hipérbola). Mnemotecnia: en la elipse los focos están <b>adentro</b> (más cerca → distancia menor que a → resta); en la hipérbola están <b>afuera</b> (más lejos → distancia mayor que a → suma).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: hallar centro por asíntotas</div>
+  Asíntotas: <span class="m">y = 2x + 1</span> y <span class="m">y = −2x + 5</span>.<br>
+  Igualo: 2x + 1 = −2x + 5 → 4x = 4 → x = 1. Entonces y = 2(1) + 1 = 3.<br>
+  <b>Centro de la hipérbola: (1, 3).</b>
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Parábola · <b>muy frecuente en parciales</b></h3>
+<p><b>Definición geométrica:</b> conjunto de puntos que están a igual distancia de un punto fijo (<b>foco</b>) y una recta fija (<b>directriz</b>).</p>
+
+<h4>Elementos</h4>
+<ul>
+  <li><b>Vértice:</b> V = (h, k). Punto medio entre foco y directriz.</li>
+  <li><b>Foco:</b> F.</li>
+  <li><b>Directriz:</b> recta perpendicular al eje de simetría.</li>
+  <li><b>Parámetro p:</b> distancia del vértice al foco (= distancia del vértice a la directriz).</li>
+  <li><b>Distancia foco–directriz:</b> siempre es <span class="m">2·|p|</span>.</li>
+</ul>
+
+<h4>Ecuación canónica</h4>
+<div class="formula">
+<b>Vertical</b> (abre arriba o abajo): &nbsp; (x − h)² = 4p·(y − k)<br><br>
+<b>Horizontal</b> (abre izquierda o derecha): &nbsp; (y − k)² = 4p·(x − h)
+</div>
+
+<div class="key"><div class="ky-t">Signo de p</div>
+• <b>Vertical con p &gt; 0:</b> abre hacia arriba (foco arriba del vértice).<br>
+• <b>Vertical con p &lt; 0:</b> abre hacia abajo (foco abajo del vértice).<br>
+• <b>Horizontal con p &gt; 0:</b> abre hacia la derecha.<br>
+• <b>Horizontal con p &lt; 0:</b> abre hacia la izquierda.<br><br>
+Regla rápida: el foco está adentro de la parábola. Si el foco está a la derecha del vértice, p &gt; 0 horizontal. Etc.
+</div>
+
+<h3>Armar parábola conociendo foco y directriz · <b>ejercicio clásico</b></h3>
+<div class="key"><div class="ky-t">Método paso a paso</div>
+1. Mirá si la directriz es horizontal (y = cte) → parábola <b>vertical</b>; o vertical (x = cte) → parábola <b>horizontal</b>.<br>
+2. El <b>vértice</b> está en el punto medio entre el foco y la directriz, sobre la línea perpendicular a la directriz que pasa por el foco.<br>
+3. Calculá p: su magnitud es la distancia vértice↔foco. Su signo lo decide la posición del foco respecto del vértice.<br>
+4. Armá la ecuación con la fórmula correspondiente.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  Foco <span class="m">(2, −1,5)</span>, directriz <span class="m">y = −0,5</span>. Armar la ecuación.<br><br>
+  Directriz horizontal → parábola <b>vertical</b>.<br>
+  Vértice: misma x que el foco (2), y = promedio entre −1,5 y −0,5 → y = −1. <b>Vértice: (2, −1).</b><br>
+  Distancia vértice↔foco = |−1 − (−1,5)| = 0,5. Como el foco (−1,5) está <b>abajo</b> del vértice (−1), p es negativo. <b>p = −1/2.</b><br>
+  Ecuación: <span class="m">(x − 2)² = 4·(−1/2)·(y + 1) = −2(y + 1)</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Confundir <span class="m">4p</span> con <span class="m">p</span>. La fórmula usa <span class="m">4p</span>, no <span class="m">p</span>. Si la distancia foco-directriz es 2, entonces p = ±1 y 4p = ±4.<br>
+• No fijarse en el signo de p: determina el sentido en que "abre" la parábola.<br>
+• En elipse usar <span class="m">c² = a² + b²</span> (eso es para la hipérbola). En elipse es <span class="m">c² = a² − b²</span>.<br>
+• Confundir semieje mayor con menor: <b>siempre a &gt; b</b> por convención, y el denominador más grande marca la orientación.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<div class="partial-header">Segundo parcial <span class="date">Unidades 5–8</span></div>
+
+<!-- ============ SECCIÓN 5 · SISTEMAS Y MATRICES ============ -->
+<details id="alg-s5">
+<summary><span class="num">5</span> Sistemas, matrices, determinantes <span class="sec-score" id="ss-algebra-5"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un sistema lineal?</h3>
+<p>Un <b>sistema lineal</b> es un conjunto de ecuaciones donde las incógnitas aparecen solo con exponente 1 (sin potencias, ni raíces, ni multiplicadas entre sí).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de sistema</div>
+  <span class="m">2x + y − z = 3</span><br>
+  <span class="m">x − y + 2z = 1</span><br>
+  <span class="m">3x + 0y + z = 5</span><br><br>
+  Las incógnitas son x, y, z. Resolver significa encontrar los valores que hacen cumplir todas las ecuaciones a la vez.
+</div>
+
+<h3>Matrices: la forma compacta</h3>
+<p>Un sistema lineal se puede escribir de forma matricial como <span class="m">A·x = b</span>:</p>
+<div class="formula">
+A = matriz de coeficientes<br>
+x = vector de incógnitas<br>
+b = vector de términos independientes
+</div>
+
+<p>Para el ejemplo anterior:</p>
+<div class="formula">
+A = <span class="mat"><span class="br"><table><tr><td>2</td><td>1</td><td>−1</td></tr><tr><td>1</td><td>−1</td><td>2</td></tr><tr><td>3</td><td>0</td><td>1</td></tr></table></span></span>, &nbsp;&nbsp; x = <span class="mat"><span class="br"><table><tr><td>x</td></tr><tr><td>y</td></tr><tr><td>z</td></tr></table></span></span>, &nbsp;&nbsp; b = <span class="mat"><span class="br"><table><tr><td>3</td></tr><tr><td>1</td></tr><tr><td>5</td></tr></table></span></span>
+</div>
+
+<h3>Sistemas homogéneos vs no homogéneos</h3>
+<ul>
+  <li><b>Homogéneo:</b> <span class="m">A·x = 0</span> (términos independientes todos cero). <b>Siempre</b> tiene al menos la solución trivial <span class="m">x = 0</span>.</li>
+  <li><b>No homogéneo:</b> <span class="m">A·x = b</span> con b ≠ 0. Puede tener solución, no tener, o tener infinitas.</li>
+</ul>
+
+<h3>Clasificación de sistemas · <b>muy frecuente</b></h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Cantidad de soluciones</th><th>Condición</th></tr>
+  <tr><td><b>S.C.D.</b> (compatible determinado)</td><td>Única</td><td>rg(A) = rg(A|b) = n</td></tr>
+  <tr><td><b>S.C.I.</b> (compatible indeterminado)</td><td>Infinitas</td><td>rg(A) = rg(A|b) &lt; n</td></tr>
+  <tr><td><b>S.I.</b> (incompatible)</td><td>Ninguna</td><td>rg(A) &lt; rg(A|b)</td></tr>
+</table>
+<p>donde <span class="m">n</span> es el número de incógnitas y "rango" es la cantidad de filas no nulas en la matriz escalonada.</p>
+
+<h3>Método de eliminación de Gauss · <b>principal método del curso</b></h3>
+<p>El método para resolver sistemas consiste en "limpiar" la matriz ampliada <span class="m">(A|b)</span> usando <b>operaciones por filas</b>, sin cambiar las soluciones.</p>
+
+<div class="key"><div class="ky-t">Operaciones permitidas por filas</div>
+1. <b>Intercambiar</b> dos filas.<br>
+2. <b>Multiplicar</b> una fila por un escalar no nulo.<br>
+3. <b>Sumar</b> a una fila un múltiplo de otra.
+</div>
+
+<p>El objetivo es llegar a la forma <b>escalonada</b>, donde cada fila empieza con más ceros que la anterior, y después se resuelve "de abajo hacia arriba" (sustitución hacia atrás).</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto completo</div>
+  Resolver: <span class="m">x + y = 3; 2x − y = 0</span>.<br><br>
+  Matriz ampliada: <span class="mat"><span class="br"><table><tr><td>1</td><td>1</td><td>|</td><td>3</td></tr><tr><td>2</td><td>−1</td><td>|</td><td>0</td></tr></table></span></span><br><br>
+  F<sub>2</sub> ← F<sub>2</sub> − 2·F<sub>1</sub>: <span class="mat"><span class="br"><table><tr><td>1</td><td>1</td><td>|</td><td>3</td></tr><tr><td>0</td><td>−3</td><td>|</td><td>−6</td></tr></table></span></span><br><br>
+  De la segunda fila: <span class="m">−3y = −6 → y = 2</span>.<br>
+  Sustitución hacia atrás en la primera: <span class="m">x + 2 = 3 → x = 1</span>.<br>
+  <b>Solución: (1, 2).</b>
+</div>
+
+<h3>Sistemas con parámetros · <b>clásico de parcial</b></h3>
+<p>A veces el sistema depende de un parámetro (k, a, m...) y hay que discutir para qué valores es SCD, SCI o SI. La idea es escalonar como siempre y ver qué pasa según el valor del parámetro.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Operaciones con matrices</h3>
+
+<h4>Suma y producto por escalar</h4>
+<p>Igual que con vectores, componente a componente. Solo se pueden sumar matrices del <b>mismo tamaño</b>.</p>
+
+<h4>Producto de matrices</h4>
+<p>Para calcular <span class="m">A·B</span>, la cantidad de columnas de A debe coincidir con la cantidad de filas de B.</p>
+<div class="formula">
+(A·B)<sub>ij</sub> = Σ<sub>k</sub> A<sub>ik</sub> · B<sub>kj</sub><br><br>
+"Fila i de A por columna j de B" (producto escalar)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table></span></span> · <span class="mat"><span class="br"><table><tr><td>5</td><td>6</td></tr><tr><td>7</td><td>8</td></tr></table></span></span> = <span class="mat"><span class="br"><table><tr><td>1·5+2·7</td><td>1·6+2·8</td></tr><tr><td>3·5+4·7</td><td>3·6+4·8</td></tr></table></span></span> = <span class="mat"><span class="br"><table><tr><td>19</td><td>22</td></tr><tr><td>43</td><td>50</td></tr></table></span></span>
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado: NO conmutativo</div>
+En general <span class="m">A·B ≠ B·A</span>. Incluso puede pasar que <span class="m">A·B</span> exista pero <span class="m">B·A</span> no (si las dimensiones no lo permiten).
+</div>
+
+<h4>Matriz identidad y traspuesta</h4>
+<ul>
+  <li><b>Identidad</b> <span class="m">I<sub>n</sub></span>: matriz n×n con 1 en la diagonal y 0 en el resto. Cumple <span class="m">I·A = A·I = A</span> (cuando las dimensiones permiten).</li>
+  <li><b>Traspuesta</b> <span class="m">A<sup>T</sup></span>: se obtiene intercambiando filas por columnas. Si A es m×n, A<sup>T</sup> es n×m.</li>
+</ul>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Determinante · <b>muy frecuente en parciales</b></h3>
+<p>El <b>determinante</b> es un número que se asigna a cada matriz cuadrada. Da información sobre si la matriz es inversible, sobre el volumen del "paralelepípedo" que generan sus columnas, y sobre la clasificación del sistema asociado.</p>
+
+<h4>Fórmula para 2×2</h4>
+<div class="formula">
+det <span class="mat"><span class="br"><table><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table></span></span> = a·d − b·c
+</div>
+
+<h4>Fórmula para 3×3 (regla de Sarrus)</h4>
+<p>Para matriz <span class="m">[[a<sub>11</sub>, a<sub>12</sub>, a<sub>13</sub>], [a<sub>21</sub>, a<sub>22</sub>, a<sub>23</sub>], [a<sub>31</sub>, a<sub>32</sub>, a<sub>33</sub>]]</span>:</p>
+<div class="formula">
+det = a<sub>11</sub>a<sub>22</sub>a<sub>33</sub> + a<sub>12</sub>a<sub>23</sub>a<sub>31</sub> + a<sub>13</sub>a<sub>21</sub>a<sub>32</sub><br>
+&nbsp;&nbsp;&nbsp;&nbsp; − a<sub>13</sub>a<sub>22</sub>a<sub>31</sub> − a<sub>11</sub>a<sub>23</sub>a<sub>32</sub> − a<sub>12</sub>a<sub>21</sub>a<sub>33</sub>
+</div>
+<p>Truco visual de Sarrus: copiás las dos primeras columnas a la derecha, y hacés tres diagonales descendentes (suman) y tres ascendentes (restan).</p>
+
+<h4>Desarrollo por cofactores (general)</h4>
+<p>Se puede calcular "desarrollando" por una fila o columna. Para una 3×3 por la primera fila:</p>
+<div class="formula">
+det = a<sub>11</sub>·M<sub>11</sub> − a<sub>12</sub>·M<sub>12</sub> + a<sub>13</sub>·M<sub>13</sub>
+</div>
+<p>donde <span class="m">M<sub>ij</sub></span> es el determinante de la submatriz 2×2 que queda al tachar la fila i y la columna j.</p>
+
+<h3>Propiedades del determinante · <b>se preguntan mucho</b></h3>
+<div class="key"><div class="ky-t">Propiedades clave</div>
+• <span class="m">det(A·B) = det(A)·det(B)</span><br>
+• <span class="m">det(A<sup>T</sup>) = det(A)</span><br>
+• <span class="m">det(k·A) = k<sup>n</sup>·det(A)</span> (A es n×n)<br>
+• <span class="m">det(A<sup>−1</sup>) = 1/det(A)</span><br>
+• Fila o columna nula → det = 0<br>
+• Dos filas (o columnas) proporcionales → det = 0<br>
+• Intercambiar dos filas → det cambia de signo<br>
+• Sumar a una fila un múltiplo de otra → det no cambia (útil para simplificar cálculo)
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Matriz inversa</h3>
+<p>Una matriz cuadrada <span class="m">A</span> es <b>inversible</b> si existe <span class="m">A<sup>−1</sup></span> tal que <span class="m">A·A<sup>−1</sup> = A<sup>−1</sup>·A = I</span>.</p>
+
+<div class="key"><div class="ky-t">Criterio fundamental</div>
+A es inversible &nbsp;⟺&nbsp; det(A) ≠ 0<br>
+Equivalente: el sistema A·x = 0 tiene solo la solución trivial.
+</div>
+
+<h4>Fórmula para 2×2</h4>
+<div class="formula">
+Si A = <span class="mat"><span class="br"><table><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></table></span></span> y det(A) = ad − bc ≠ 0, entonces<br><br>
+A<sup>−1</sup> = <span class="frac"><span>1</span><span>det(A)</span></span> · <span class="mat"><span class="br"><table><tr><td>d</td><td>−b</td></tr><tr><td>−c</td><td>a</td></tr></table></span></span>
+</div>
+
+<h4>Aplicación: resolver sistemas</h4>
+<p>Si <span class="m">A</span> es inversible, el sistema <span class="m">A·x = b</span> tiene <b>única solución</b>:</p>
+<div class="formula">
+x = A<sup>−1</sup>·b
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 6 · TL ============ -->
+<details id="alg-s6">
+<summary><span class="num">6</span> Transformaciones lineales <span class="sec-score" id="ss-algebra-6"></span></summary>
+<div class="content">
+
+<h3>¿Qué es una transformación lineal?</h3>
+<p>Una <b>transformación lineal</b> es una función <span class="m">T: ℝ<sup>n</sup> → ℝ<sup>m</sup></span> (del espacio de salida al de llegada) que <b>respeta las dos operaciones</b>: suma y producto por escalar.</p>
+
+<div class="formula">
+T es lineal ⟺ para todos los u, v y todo k:<br>
+1) T(u + v) = T(u) + T(v)<br>
+2) T(k·u) = k·T(u)
+</div>
+
+<p>La idea: "lo que T hace conmuta con las operaciones lineales".</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo que SÍ es TL</div>
+  <span class="m">T(x, y) = (x + y, 2x)</span> de ℝ² en ℝ².<br>
+  Chequeo: T(u+v) = T(u<sub>1</sub>+v<sub>1</sub>, u<sub>2</sub>+v<sub>2</sub>) = (u<sub>1</sub>+v<sub>1</sub>+u<sub>2</sub>+v<sub>2</sub>, 2u<sub>1</sub>+2v<sub>1</sub>) = T(u)+T(v). ✓<br>
+  Similar para el escalar.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo que NO es TL</div>
+  <span class="m">T(x, y) = (x + 1, y)</span>.<br>
+  Chequeo fallo rápido: T(0, 0) = (1, 0) ≠ (0, 0). <b>Toda TL cumple T(0) = 0</b>. Falla.
+</div>
+
+<h3>Representación matricial</h3>
+<p>Todo TL <span class="m">T: ℝ<sup>n</sup> → ℝ<sup>m</sup></span> se puede escribir como <span class="m">T(x) = A·x</span>, donde A es una matriz m×n llamada <b>matriz canónica</b> de T.</p>
+
+<div class="key"><div class="ky-t">¿Cómo obtener la matriz canónica?</div>
+Las <b>columnas</b> de A son las imágenes de los vectores canónicos: <span class="m">A = [T(e<sub>1</sub>) | T(e<sub>2</sub>) | ... | T(e<sub>n</sub>)]</span>.<br><br>
+donde <span class="m">e<sub>i</sub></span> es el vector con 1 en posición i y 0 en el resto.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: construir matriz canónica</div>
+  <span class="m">T(x, y, z) = (x + 2y, y − z)</span>.<br><br>
+  T(e<sub>1</sub>) = T(1, 0, 0) = (1, 0)<br>
+  T(e<sub>2</sub>) = T(0, 1, 0) = (2, 1)<br>
+  T(e<sub>3</sub>) = T(0, 0, 1) = (0, −1)<br><br>
+  Matriz canónica: <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>−1</td></tr></table></span></span>
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Núcleo e imagen · <b>MUY frecuente en parciales</b></h3>
+
+<h4>Núcleo (kernel)</h4>
+<div class="formula">
+Nu(T) = {x ∈ ℝ<sup>n</sup> : T(x) = 0}
+</div>
+<p>Son los vectores que <b>se aplastan al cero</b>. Siempre es un subespacio del dominio.</p>
+
+<h4>Imagen</h4>
+<div class="formula">
+Im(T) = {T(x) : x ∈ ℝ<sup>n</sup>} = todos los valores alcanzables
+</div>
+<p>Es un subespacio del codominio.</p>
+
+<h3>Teorema de las dimensiones · <b>fundamental</b></h3>
+<div class="formula">
+dim(Nu(T)) + dim(Im(T)) = dim(dominio) = n
+</div>
+<p>Es el teorema más usado para resolver ejercicios sobre TL. Si conocés una de las dimensiones, sabés la otra.</p>
+
+<h3>Cómo calcular el núcleo</h3>
+<ol>
+  <li>Planteás <span class="m">T(x) = 0</span>, o sea <span class="m">A·x = 0</span>.</li>
+  <li>Resolvés el sistema homogéneo (por Gauss).</li>
+  <li>Las soluciones forman un subespacio: el núcleo.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto</div>
+  <span class="m">T(x, y, z) = (x + y, y − z)</span>. Hallar Nu(T).<br><br>
+  Resuelvo T(x, y, z) = (0, 0):<br>
+  • x + y = 0 → y = −x<br>
+  • y − z = 0 → z = y = −x<br><br>
+  Soluciones: (x, −x, −x) = x·(1, −1, −1). Entonces <b>Nu(T) = &lt;(1, −1, −1)&gt;</b>, dim = 1.<br>
+  Por el teorema: dim(Im) = 3 − 1 = 2. Como Im ⊆ ℝ², y tiene dim 2, Im(T) = ℝ².
+</div>
+
+<h3>Cómo calcular la imagen</h3>
+<p>La imagen es el subespacio generado por las <b>columnas</b> de la matriz canónica. Para hallar una base, eliminás las columnas que son combinación lineal de las anteriores.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Matriz canónica: <span class="mat"><span class="br"><table><tr><td>1</td><td>2</td><td>0</td></tr><tr><td>0</td><td>1</td><td>−1</td></tr></table></span></span><br>
+  Columnas: (1,0), (2,1), (0,−1). Las dos primeras son L.I. La tercera es −1·(2,1) + 2·(1,0) = (0,−1), así que es combinación. Base de Im: {(1,0), (2,1)}.<br>
+  dim(Im) = 2. Como Im ⊆ ℝ² y dim = 2: Im(T) = ℝ².
+</div>
+
+<h3>Inyectividad, sobreyectividad, biyectividad</h3>
+<div class="key"><div class="ky-t">Caracterizaciones</div>
+• T <b>inyectiva</b> (cada salida tiene a lo sumo una entrada) ⟺ Nu(T) = {0} ⟺ dim(Nu) = 0.<br>
+• T <b>sobreyectiva</b> (alcanza todo el codominio) ⟺ Im(T) = ℝ<sup>m</sup> ⟺ dim(Im) = m.<br>
+• T <b>biyectiva</b> (inyectiva y sobreyectiva) ⟺ es inversible.
+</div>
+
+<div class="key"><div class="ky-t">Detalle importante (cuando dim dominio = dim codominio)</div>
+Si n = m, entonces inyectividad ⟺ sobreyectividad ⟺ biyectividad. Son equivalentes. O sea que chequeás una y ya tenés las otras.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Composición de TL</h3>
+<p>Si <span class="m">T: ℝ<sup>n</sup> → ℝ<sup>m</sup></span> y <span class="m">S: ℝ<sup>m</sup> → ℝ<sup>p</sup></span> son TL, entonces <span class="m">S ∘ T</span> también es TL. Su matriz canónica es <b>el producto de las matrices</b>:</p>
+<div class="formula">
+Matriz de (S ∘ T) = (Matriz de S) · (Matriz de T)
+</div>
+<p>Atención al orden: primero se aplica T, después S, pero la matriz que aplica primero va <b>a la derecha</b> en el producto.</p>
+
+<h3>TL inversa</h3>
+<p>Si T es biyectiva, tiene inversa <span class="m">T<sup>−1</sup></span>, cuya matriz canónica es la inversa de la matriz canónica de T.</p>
+
+<h3>TL con parámetros · <b>clásico de parcial</b></h3>
+<p>Tipo de ejercicio: te dan una TL con un parámetro (a, k, etc.) y te piden analizar para qué valores tiene cierta propiedad (núcleo de dimensión X, imagen = ℝⁿ, etc.). El método: armar la matriz canónica y estudiarla según el parámetro.</p>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 7 · COMPLEJOS ============ -->
+<details id="alg-s7">
+<summary><span class="num">7</span> Números complejos <span class="sec-score" id="ss-algebra-7"></span></summary>
+<div class="content">
+
+<h3>¿Qué son los números complejos?</h3>
+<p>Los números reales no alcanzan para resolver ciertas ecuaciones: por ejemplo, <span class="m">x² = −1</span> no tiene solución real (ningún cuadrado real es negativo). Se inventa el número <span class="m">i</span> (unidad imaginaria) con la propiedad:</p>
+<div class="formula">
+i² = −1
+</div>
+<p>Un <b>número complejo</b> es cualquier expresión de la forma <span class="m">z = a + bi</span>, con <span class="m">a, b ∈ ℝ</span>.</p>
+<ul>
+  <li><span class="m">a</span> es la <b>parte real</b> (Re(z)).</li>
+  <li><span class="m">b</span> es la <b>parte imaginaria</b> (Im(z)).</li>
+</ul>
+
+<h3>El plano complejo</h3>
+<p>Cada número complejo <span class="m">z = a + bi</span> se puede representar como un punto <span class="m">(a, b)</span> del plano. El eje x se llama <b>eje real</b> y el eje y <b>eje imaginario</b>.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Tres formas de escribir un complejo</h3>
+
+<h4>1. Forma binómica: <span class="m">z = a + bi</span></h4>
+<p>La más directa. Útil para sumas y restas.</p>
+
+<h4>2. Forma polar: <span class="m">z = r·(cos θ + i·sen θ)</span></h4>
+<p>Describe z por:</p>
+<ul>
+  <li><b>Módulo</b> r = |z| = √(a² + b²) (distancia al origen).</li>
+  <li><b>Argumento</b> θ = arg(z) (ángulo desde el eje real positivo, medido en sentido antihorario).</li>
+</ul>
+
+<h4>3. Forma exponencial: <span class="m">z = r·e<sup>iθ</sup></span></h4>
+<p>Es una notación compacta de la polar. Por la <b>fórmula de Euler</b>: <span class="m">e<sup>iθ</sup> = cos θ + i sen θ</span>.</p>
+
+<h3>Conversión entre formas</h3>
+<div class="formula">
+<b>De binómica a polar:</b><br>
+r = √(a² + b²) &nbsp;&nbsp; θ = arctan(b/a) (corrigiendo según el cuadrante)<br><br>
+<b>De polar a binómica:</b><br>
+a = r·cos θ &nbsp;&nbsp; b = r·sen θ
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">z = 1 + i</span>. Módulo: r = √(1 + 1) = √2. Argumento: arctan(1/1) = π/4 (primer cuadrante).<br>
+  Forma polar: <span class="m">z = √2·(cos π/4 + i sen π/4)</span>. Exponencial: <span class="m">z = √2·e<sup>iπ/4</sup></span>.
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado con el cuadrante</div>
+La función arctan devuelve valores en (−π/2, π/2). Si el complejo está en el 2do o 3er cuadrante, hay que sumar π. Lo más seguro es ubicar el complejo en el plano y pensar geométricamente qué ángulo le corresponde.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Operaciones básicas</h3>
+
+<h4>Suma y resta (en binómica)</h4>
+<div class="formula">
+(a + bi) + (c + di) = (a + c) + (b + d)·i<br>
+(a + bi) − (c + di) = (a − c) + (b − d)·i
+</div>
+
+<h4>Producto (en binómica)</h4>
+<div class="formula">
+(a + bi)·(c + di) = (ac − bd) + (ad + bc)·i
+</div>
+<p>(Se expande como un binomio y se usa <span class="m">i² = −1</span>.)</p>
+
+<h4>Producto y cociente (en polar/exponencial) · <b>más fácil</b></h4>
+<div class="formula">
+z<sub>1</sub>·z<sub>2</sub> = r<sub>1</sub>r<sub>2</sub>·e<sup>i(θ<sub>1</sub>+θ<sub>2</sub>)</sup><br><br>
+z<sub>1</sub>/z<sub>2</sub> = (r<sub>1</sub>/r<sub>2</sub>)·e<sup>i(θ<sub>1</sub>−θ<sub>2</sub>)</sup>
+</div>
+<p>Regla: <b>módulos se multiplican/dividen, argumentos se suman/restan</b>.</p>
+
+<h4>Conjugado</h4>
+<p>El <b>conjugado</b> de <span class="m">z = a + bi</span> es <span class="m">z̄ = a − bi</span> (cambia el signo de la parte imaginaria).</p>
+<div class="key"><div class="ky-t">Propiedades del conjugado</div>
+• <span class="m">z·z̄ = a² + b² = |z|²</span> (útil para hacer divisiones: multiplicás arriba y abajo por el conjugado del denominador)<br>
+• <span class="m">z + z̄ = 2·Re(z)</span><br>
+• <span class="m">z − z̄ = 2i·Im(z)</span><br>
+• arg(z̄) = −arg(z)
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Fórmula de De Moivre (potencias) · <b>muy frecuente</b></h3>
+<p>Para elevar un complejo a una potencia <span class="m">n</span>, lo más cómodo es pasar a forma polar:</p>
+<div class="formula">
+z<sup>n</sup> = r<sup>n</sup>·(cos(nθ) + i·sen(nθ)) = r<sup>n</sup>·e<sup>inθ</sup>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Calcular <span class="m">(1 + i)⁸</span>.<br>
+  r = √2, θ = π/4. Entonces (1+i)⁸ = (√2)⁸·e<sup>i·8π/4</sup> = 16·e<sup>i·2π</sup> = 16·1 = <b>16</b>.
+</div>
+
+<h3>Raíces enésimas de un complejo</h3>
+<p>La ecuación <span class="m">z<sup>n</sup> = w</span> (con w ≠ 0) tiene <b>exactamente n soluciones complejas</b> distintas. Se obtienen por la fórmula:</p>
+<div class="formula">
+z<sub>k</sub> = r<sup>1/n</sup>·e<sup>i(θ + 2kπ)/n</sup>, &nbsp; k = 0, 1, 2, ..., n−1
+</div>
+<p>donde <span class="m">r = |w|</span> y <span class="m">θ = arg(w)</span>.</p>
+
+<div class="key"><div class="ky-t">Geometría de las raíces enésimas</div>
+Las n soluciones están en una <b>circunferencia</b> de radio <span class="m">r<sup>1/n</sup></span>, formando un <b>polígono regular</b> de n lados (equiespaciadas por ángulo 2π/n).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo resuelto de parcial</div>
+  Resolver <span class="m">z³ = (1 − i)(1 − 2i)³</span>.<br><br>
+  <b>Paso 1:</b> pasar el lado derecho a polar. Lo calculás factor por factor:<br>
+  • <span class="m">(1 − i)</span>: módulo √2, argumento −π/4 (cuarto cuadrante).<br>
+  • <span class="m">(1 − 2i)³</span>: primero módulo/argumento de (1−2i), después lo elevás al cubo.<br><br>
+  <b>Paso 2:</b> multiplicar los factores (módulos × módulos, argumentos suman).<br><br>
+  <b>Paso 3:</b> aplicar la fórmula de raíces: sacás raíz cúbica al módulo y dividís el argumento entre 3 (y le sumás 2kπ/3 para obtener las otras).<br><br>
+  Obtenés 3 soluciones distintas, ubicadas en un triángulo equilátero en el plano complejo.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Ecuaciones con |z| y z̄ · <b>clásico de Escayola</b></h3>
+<p>Tipo: "Si <span class="m">|z| ≠ 0</span> y <span class="m">z² + z̄·|z| = 0</span>, hallar z".</p>
+
+<div class="key"><div class="ky-t">Método</div>
+1. Escribí <span class="m">z = a + bi</span> y <span class="m">z̄ = a − bi</span>.<br>
+2. Reemplazá <span class="m">|z|² = a² + b²</span> donde aparezca.<br>
+3. Separá parte real e imaginaria: te queda un sistema de dos ecuaciones reales.<br>
+4. Resolvé.
+</div>
+
+<div class="trap"><div class="tr-t">Cuidado con la convención del argumento</div>
+"Menor argumento" puede significar distintas cosas según el problema: el mínimo en [0, 2π) o en (−π, π]. Leé el enunciado con cuidado.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ SECCIÓN 8 · POLINOMIOS ============ -->
+<details id="alg-s8">
+<summary><span class="num">8</span> Polinomios <span class="sec-score" id="ss-algebra-8"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un polinomio?</h3>
+<p>Un <b>polinomio</b> en la variable x es una expresión de la forma:</p>
+<div class="formula">
+P(x) = a<sub>n</sub>x<sup>n</sup> + a<sub>n−1</sub>x<sup>n−1</sup> + ... + a<sub>1</sub>x + a<sub>0</sub>
+</div>
+<p>donde los <span class="m">a<sub>i</sub></span> son números (llamados <b>coeficientes</b>) y <span class="m">n</span> es un entero no negativo. Si <span class="m">a<sub>n</sub> ≠ 0</span>, decimos que el <b>grado</b> de P es n y <span class="m">a<sub>n</sub></span> es el <b>coeficiente principal</b>.</p>
+
+<h3>Conjuntos de polinomios</h3>
+<ul>
+  <li><span class="m">ℝ[x]</span>: polinomios con coeficientes reales.</li>
+  <li><span class="m">ℚ[x]</span>: polinomios con coeficientes racionales.</li>
+  <li><span class="m">ℂ[x]</span>: polinomios con coeficientes complejos.</li>
+</ul>
+<p>En los parciales de Álgebra A se trabaja mucho con <span class="m">ℚ[x]</span> y <span class="m">ℝ[x]</span>. La elección afecta qué raíces se "permiten" como raíces del polinomio en el sentido de sus factores con coeficientes de ese tipo.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>División de polinomios · <b>muy frecuente</b></h3>
+<p>Análoga a la división entera: dividir <span class="m">P(x)</span> entre <span class="m">Q(x)</span> da un <b>cociente</b> C(x) y un <b>resto</b> R(x) con:</p>
+<div class="formula">
+P(x) = Q(x)·C(x) + R(x), &nbsp; con gr(R) &lt; gr(Q)
+</div>
+<p>El resto debe tener grado menor que el divisor.</p>
+
+<h4>Método clásico (a lo "Ruffini" generalizado)</h4>
+<ol>
+  <li>Ordenás ambos polinomios por grado decreciente.</li>
+  <li>Completás con coeficientes 0 los términos faltantes.</li>
+  <li>Dividís el término de mayor grado del dividendo por el de mayor grado del divisor: eso da el primer término del cociente.</li>
+  <li>Multiplicás ese término por todo el divisor y lo restás al dividendo.</li>
+  <li>Repetís con el nuevo polinomio hasta que el grado sea menor que el del divisor.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Dividir <span class="m">P(x) = x³ + 2x² − x + 3</span> entre <span class="m">Q(x) = x + 1</span>.<br><br>
+  Paso 1: x³ / x = x². Multiplico: x²·(x+1) = x³ + x². Resto: (x³+2x²−x+3) − (x³+x²) = x² − x + 3.<br>
+  Paso 2: x² / x = x. Multiplico: x·(x+1) = x² + x. Resto: (x²−x+3) − (x²+x) = −2x + 3.<br>
+  Paso 3: −2x / x = −2. Multiplico: −2·(x+1) = −2x − 2. Resto: (−2x+3) − (−2x−2) = 5.<br><br>
+  <b>Cociente: x² + x − 2. Resto: 5.</b>
+</div>
+
+<h3>Teorema del resto · <b>clave</b></h3>
+<div class="formula">
+El resto de dividir P(x) entre (x − a) es P(a)
+</div>
+<p>Es una consecuencia directa: si evaluás <span class="m">P(a) = Q(a)·C(a) + R</span>, como <span class="m">Q(a) = 0</span>, queda <span class="m">P(a) = R</span>.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  El resto de dividir <span class="m">P(x) = x³ − 2x + 5</span> entre <span class="m">x − 1</span> es <span class="m">P(1) = 1 − 2 + 5 = 4</span>. Sin hacer la división.
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Raíces de un polinomio</h3>
+<p>Una <b>raíz</b> de <span class="m">P(x)</span> es un valor <span class="m">a</span> tal que <span class="m">P(a) = 0</span>. Equivalentemente:</p>
+<div class="formula">
+a es raíz de P ⟺ (x − a) divide a P(x) ⟺ P(a) = 0
+</div>
+
+<h3>Multiplicidad de una raíz</h3>
+<p>Una raíz <span class="m">a</span> tiene <b>multiplicidad k</b> si <span class="m">(x − a)<sup>k</sup></span> divide a P(x) pero <span class="m">(x − a)<sup>k+1</sup></span> no. Por ejemplo, en <span class="m">P(x) = (x − 2)²·(x + 1)</span>, la raíz 2 tiene multiplicidad 2 (doble) y −1 multiplicidad 1 (simple).</p>
+
+<h3>Teorema fundamental del álgebra</h3>
+<div class="key"><div class="ky-t">Enunciado</div>
+Todo polinomio de grado n con coeficientes complejos (no constante) tiene <b>exactamente n raíces</b> en ℂ (contadas con multiplicidad).
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Propiedades de las raíces según el "cuerpo"</h3>
+
+<h4>En ℝ[x]: raíces complejas vienen en pares conjugados</h4>
+<div class="formula">
+Si P ∈ ℝ[x] y z = a + bi es raíz, entonces z̄ = a − bi también lo es
+</div>
+<p>Además, si z tiene multiplicidad k, z̄ también.</p>
+
+<h4>En ℚ[x]: raíces con radicales vienen de a pares también</h4>
+<div class="formula">
+Si P ∈ ℚ[x] y a + b√n es raíz (con √n irracional),<br>
+entonces a − b√n también es raíz
+</div>
+
+<p>Por ejemplo: si <span class="m">√5</span> es raíz de un polinomio de ℚ[x], también lo es <span class="m">−√5</span>.</p>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Factorización</h3>
+<p>Si conocés todas las raíces de P con sus multiplicidades, podés factorizarlo:</p>
+<div class="formula">
+P(x) = a<sub>n</sub>·(x − r<sub>1</sub>)<sup>m<sub>1</sub></sup>·(x − r<sub>2</sub>)<sup>m<sub>2</sub></sup>·...·(x − r<sub>k</sub>)<sup>m<sub>k</sub></sup>
+</div>
+<p>donde <span class="m">a<sub>n</sub></span> es el coeficiente principal y <span class="m">m<sub>i</sub></span> es la multiplicidad de la raíz <span class="m">r<sub>i</sub></span>.</p>
+
+<h3>Factorización en ℝ[x]</h3>
+<p>En ℝ[x], un polinomio siempre se factoriza como producto de:</p>
+<ul>
+  <li><b>Factores lineales</b> <span class="m">(x − a)</span> para raíces reales.</li>
+  <li><b>Factores cuadráticos irreducibles</b> <span class="m">(x² + px + q)</span> con <span class="m">p² − 4q &lt; 0</span> para pares de raíces complejas conjugadas.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  <span class="m">P(x) = x⁴ − 1</span> en ℝ[x].<br>
+  Diferencia de cuadrados: (x² − 1)(x² + 1). Factorizás más: (x−1)(x+1)(x² + 1).<br>
+  El factor x² + 1 es <b>irreducible en ℝ[x]</b> (no tiene raíces reales), pero se factoriza en ℂ[x] como (x − i)(x + i).
+</div>
+
+<hr style="margin:20px 0; border:none; border-top:1px dashed var(--border-2)">
+
+<h3>Construir polinomio con raíces dadas · <b>ejercicio clásico de parcial</b></h3>
+<p>Tipo típico: "Construí un polinomio de ℚ[x] (o ℝ[x]) de <b>grado mínimo</b> con ciertas raíces y un valor numérico dado".</p>
+
+<div class="key"><div class="ky-t">Método</div>
+1. Para cada raíz dada, determiná todas las <b>raíces obligatorias</b> (conjugadas en ℝ[x], radicales en ℚ[x], y tené en cuenta multiplicidades).<br>
+2. Armá el polinomio como producto de los factores correspondientes. El grado mínimo es la suma de multiplicidades.<br>
+3. Ese polinomio tiene un coeficiente principal libre <span class="m">k</span>.<br>
+4. Usá el valor numérico dado para despejar <span class="m">k</span>.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo completo</div>
+  Hallar <span class="m">P ∈ ℚ[x]</span> de grado mínimo tal que:<br>
+  • <span class="m">P(√5) = 0</span> (√5 es raíz).<br>
+  • <span class="m">i</span> es raíz doble.<br>
+  • <span class="m">P(−2) = −75</span>.<br><br>
+  <b>Raíces obligatorias:</b><br>
+  • En ℚ[x], √5 raíz ⟹ −√5 también. Factor: <span class="m">(x − √5)(x + √5) = x² − 5</span>.<br>
+  • ℚ[x] ⊆ ℝ[x], así que i raíz doble ⟹ −i raíz doble. Factor: <span class="m">(x − i)²(x + i)² = (x² + 1)²</span>.<br><br>
+  Grado mínimo: 2 + 4 = <b>6</b>.<br>
+  Forma: <span class="m">P(x) = k·(x² − 5)·(x² + 1)²</span>.<br><br>
+  <b>Imponer P(−2) = −75:</b><br>
+  P(−2) = k·((−2)² − 5)·((−2)² + 1)² = k·(−1)·(25) = −25k.<br>
+  −25k = −75 ⟹ k = 3.<br><br>
+  <b>P(x) = 3(x² − 5)(x² + 1)².</b>
+</div>
+
+<div class="trap"><div class="tr-t">Errores frecuentes</div>
+• Olvidar que las raíces vienen de a pares (conjugada en ℝ[x], o ±√n en ℚ[x]): esto aumenta el grado mínimo.<br>
+• Ignorar la multiplicidad: si i es raíz <b>doble</b>, el factor es <span class="m">(x² + 1)<b>²</b></span>, no (x² + 1).<br>
+• No chequear que el polinomio final tenga coeficientes en el cuerpo correcto. En ℚ[x] no pueden aparecer √2, π, etc. Los factores deben "esconder" los irracionales multiplicándolos entre sí.
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="algebra"></div>
+<a class="back" href="#subject-algebra">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'algebra';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS ÁLGEBRA ============
+// ============ UNIDAD 1 · VECTORES ============
+registerExercises('algebra', '1', [
+  {st: 'Hallar '+M('p, q')+' tal que '+M('(2, −3, 4)')+' sea ortogonal a '+M('(p, 6, q)')+' y a '+M('(−2, 5, −p)')+'.', opts: [M('p = −19/4, q = 55/8'), M('p = 19/4, q = 55/3'), M('p = 0, q = 9/2'), M('p = 1, q = 4')], c: 0, ex: 'Ortogonalidad ⟺ producto escalar = 0. Tengo dos condiciones: ▸ <b>Ec. 1:</b> (2,−3,4)·(p,6,q) = 2p − 18 + 4q = 0 → 2p + 4q = 18 → p + 2q = 9. ▸ <b>Ec. 2:</b> (2,−3,4)·(−2,5,−p) = −4 − 15 − 4p = −19 − 4p = 0 → p = −19/4. ▸ Sustituyo p en Ec. 1: −19/4 + 2q = 9 → 2q = 9 + 19/4 = 36/4 + 19/4 = 55/4 → q = 55/8. ▸ <b>Verificación:</b> (2,−3,4)·(−19/4, 6, 55/8) = −19/2 − 18 + 55/2 = 36/2 − 18 = 18 − 18 = 0 ✓. ▸ <b>Por qué las otras están mal:</b> (B) p=19/4 da −19−4(19/4) = −19−19 = −38 ≠ 0 en Ec. 2; (C) p=0 da −19 ≠ 0 en Ec. 2; (D) p=1 da −23 ≠ 0 en Ec. 2.'},
+  {st: 'Indica TODOS los vectores de '+M('ℝ³')+' de norma '+M('15')+' paralelos a '+M('v = (2/7, −2/7, 1/7)')+'.', opts: [M('Solo (10, −10, 5)'), M('Solo (−10, 10, −5)'), M('(10, −10, 5) y (−10, 10, −5) (los dos sentidos)'), M('(70, −70, 35) y (−70, 70, −35)')], c: 2, ex: 'Por paralelismo, w = k·v con k ∈ ℝ. ▸ <b>Norma de v:</b> ‖v‖² = (2/7)² + (−2/7)² + (1/7)² = 4/49 + 4/49 + 1/49 = 9/49 → ‖v‖ = 3/7. ▸ <b>Imponer ‖w‖ = 15:</b> |k|·(3/7) = 15 → |k| = 35 → k = ±35. ▸ <b>Para k = 35:</b> w = 35·(2/7, −2/7, 1/7) = (10, −10, 5). ▸ <b>Para k = −35:</b> w = (−10, 10, −5). ▸ <b>Hay DOS soluciones</b> (los dos sentidos opuestos sobre la misma recta dirección). ▸ <b>Por qué las otras están mal:</b> (A) (B) son cada una solo una de las dos soluciones (incompleto); (D) ‖(70,−70,35)‖ = √(4900+4900+1225) = √11025 = 105 ≠ 15.'},
+  {st: '¿Para qué valor de '+M('k')+' los vectores '+M('(k, 2, 1)')+' y '+M('(3, k, −3)')+' son ortogonales?', opts: [M('k = 0'), M('k = −3'), M('k = 3/5'), M('k = 1')], c: 2, ex: 'Ortogonales ⟺ producto escalar = 0. ▸ (k,2,1)·(3,k,−3) = 3k + 2k + (−3) = 5k − 3 = 0 → <b>k = 3/5</b>. ▸ <b>Verificación:</b> 5(3/5) − 3 = 3 − 3 = 0 ✓. ▸ <b>Por qué las otras están mal:</b> con k=0 → 0+0−3 = −3 ≠ 0; con k=−3 → −15−3 = −18 ≠ 0; con k=1 → 5−3 = 2 ≠ 0. <b>Truco:</b> ortogonalidad SIEMPRE se traduce a una ecuación lineal o cuadrática en k que se despeja directamente.'},
+  {st: 'La norma del vector '+M('(1, 2, −2)')+' es:', opts: [M('1'), M('3'), M('5'), M('9')], c: 1, ex: 'Fórmula: ‖v‖ = √(v₁² + v₂² + v₃²). ▸ ‖(1,2,−2)‖ = √(1² + 2² + (−2)²) = √(1 + 4 + 4) = √9 = <b>3</b>. ▸ <b>Por qué las otras están mal:</b> (A) "1" es solo la primera componente (no la norma); (C) "5" suma 1²+4 = 5 (olvida la última componente al cuadrado); (D) "9" es ‖v‖² (la norma elevada al cuadrado, sin la raíz). <b>Recordá:</b> el signo NO importa porque se eleva al cuadrado.'},
+  {st: 'Sea L: (x,y) = λ(1, 2). La proyección ortogonal del punto '+M('B = (3, 1)')+' sobre L es:', opts: [M('A = (1, 2)'), M('A = (3, 1)'), M('A = (2, 4)'), M('A = (0, 0)')], c: 0, ex: 'Algoritmo de proyección ortogonal sobre recta paramétrica. ▸ <b>Paso 1:</b> A es punto genérico de L → A = λ(1,2) = (λ, 2λ). ▸ <b>Paso 2:</b> vector B−A = (3−λ, 1−2λ). ▸ <b>Paso 3:</b> imponer perpendicularidad (B−A)·d = 0 con d=(1,2): 1·(3−λ) + 2·(1−2λ) = 3 − λ + 2 − 4λ = 5 − 5λ = 0 → λ = 1. ▸ <b>Paso 4:</b> reemplazar λ=1 en A → <b>A = (1, 2)</b>. ▸ <b>Verificación:</b> A está en L (λ=1 ✓), B−A = (2,−1), (2,−1)·(1,2) = 2−2 = 0 ✓. ▸ <b>Por qué las otras están mal:</b> (B) A=B mismo (no proyectó); (C) λ=2 da A=(2,4), pero B−A=(1,−3), (1,−3)·(1,2)=1−6=−5≠0; (D) λ=0 da A=O, pero B−O=B, B·d=3+2=5≠0.'},
+  {st: '¿Cuál es el área del paralelogramo formado por '+M('u = (1, 0, 1)')+' y '+M('v = (0, 2, 0)')+'?', opts: [M('2'), M('2√2'), M('√5'), M('1')], c: 1, ex: 'Área = ‖u × v‖. ▸ <b>Producto vectorial:</b> u × v = | î  ĵ  k̂ |, fila 1: (1,0,1), fila 2: (0,2,0). Componentes: ▸ î: (0·0 − 1·2) = −2. ▸ ĵ: −(1·0 − 1·0) = 0. ▸ k̂: (1·2 − 0·0) = 2. ▸ u × v = (−2, 0, 2). ▸ <b>Norma:</b> ‖(−2,0,2)‖ = √(4 + 0 + 4) = √8 = <b>2√2</b>. ▸ <b>Por qué las otras están mal:</b> (A) "2" sería ‖v‖ solo (sin u); (C) "√5" no surge de los datos; (D) "1" no aplica. <b>Truco:</b> u·v (escalar) da número (relacionado con ángulo); u×v (vectorial) da vector perpendicular cuya norma es el área.'},
+  {st: 'Si '+M('u = (1, 2, 3)')+' y '+M('v = (4, −1, 0)')+', ¿cuál es el coseno del ángulo entre ellos?', opts: [M('cos α = 2/(√14·√17)'), M('cos α = 0'), M('cos α = 1'), M('cos α = −1/2')], c: 0, ex: 'Fórmula: cos α = (u·v)/(‖u‖·‖v‖). ▸ <b>Producto escalar:</b> u·v = 1·4 + 2·(−1) + 3·0 = 4 − 2 + 0 = 2. ▸ <b>Normas:</b> ‖u‖ = √(1+4+9) = √14; ‖v‖ = √(16+1+0) = √17. ▸ <b>Resultado:</b> cos α = 2/(√14·√17) = 2/√238 ≈ 0,130. Ángulo agudo (cos > 0). ▸ <b>Por qué las otras están mal:</b> (B) "0" sería ortogonalidad (u·v = 0, pero acá u·v = 2 ≠ 0); (C) "1" sería paralelos en mismo sentido (no es el caso); (D) "−1/2" da ángulo de 120° (no es el caso).'}
+]);
+
+// ============ UNIDAD 2 · RECTAS Y PLANOS ============
+registerExercises('algebra', '2', [
+  {st: 'Posición relativa de '+M('L<sub>1</sub>: (x,y,z) = α(1,0,−1) + (−1,2,3)')+' y '+M('L<sub>2</sub>: (x,y,z) = β(0,2,2) + (1,0,1)')+'.', opts: ['Paralelas', 'Coincidentes', 'Se cortan en un punto', 'Alabeadas'], c: 3, ex: 'Algoritmo posición relativa en ℝ³. ▸ <b>Paso 1: ¿Direcciones paralelas?</b> d₁=(1,0,−1) vs d₂=(0,2,2). Si fueran múltiplos, existiría λ con (1,0,−1)=λ(0,2,2). De la 1ª coord: 1=0·λ=0 imposible. <b>NO son paralelas.</b> ▸ <b>Paso 2: ¿Se intersecan?</b> Igualar: α(1,0,−1)+(−1,2,3) = β(0,2,2)+(1,0,1). Sistema: x: α−1 = 1 → α=2. y: 2 = 2β → β=1. z: −α+3 = 2β+1 → −2+3 = 3 → 1 = 3 <b>contradicción</b>. ▸ <b>Conclusión:</b> direcciones no paralelas + sin intersección = <b>ALABEADAS</b> (caso exclusivo de ℝ³). ▸ <b>Por qué las otras están mal:</b> (A) (B) requieren direcciones múltiplos; (C) requiere sistema compatible.'},
+  {st: 'Una ecuación del plano que pasa por '+M('(1, 0, 2)')+' con normal '+M('n = (2, −1, 3)')+' es:', opts: [M('2x − y + 3z = 8'), M('2x − y + 3z = 0'), M('x − 2y + z = 1'), M('2x − y + 3z = 5')], c: 0, ex: 'Plano con normal n=(a,b,c) → ecuación ax + by + cz = d. ▸ <b>Forma:</b> 2x − y + 3z = d. ▸ <b>Determinar d:</b> reemplazo el punto (1,0,2): 2·1 − 0 + 3·2 = 2 + 6 = 8 → d = 8. ▸ <b>Resultado:</b> 2x − y + 3z = 8. ▸ <b>Verificación:</b> el punto (1,0,2) cumple 2−0+6=8 ✓. ▸ <b>Por qué las otras están mal:</b> (B) 2x−y+3z=0 pasaría por el origen, pero (0,0,0) no es nuestro punto; (C) usa normal (1,−2,1), distinta de la pedida; (D) "5" no surge de reemplazar.'},
+  {st: 'La distancia del punto '+M('(1, 2)')+' a la recta '+M('3x + 4y − 5 = 0')+' es:', opts: [M('6/5'), M('1'), M('6'), M('1/5')], c: 0, ex: 'Fórmula: d(P, L) = |a·x₀ + b·y₀ + c| / √(a² + b²) donde la recta es ax+by+c=0. ▸ <b>Numerador:</b> |3·1 + 4·2 + (−5)| = |3 + 8 − 5| = |6| = 6. ▸ <b>Denominador:</b> √(3² + 4²) = √(9+16) = √25 = 5. ▸ <b>Distancia:</b> 6/5 = 1,2. ▸ <b>Por qué las otras están mal:</b> (B) "1" se obtiene si olvidás el valor absoluto y usás 5/5; (C) "6" se obtiene si olvidás dividir por la norma del vector normal; (D) "1/5" invierte numerador y denominador. <b>Recordatorio:</b> el (a,b) del numerador es la NORMAL a la recta, por eso √(a²+b²) en el denominador.'},
+  {st: 'La proyección ortogonal de '+M('v = (3, 4)')+' sobre '+M('u = (1, 0)')+' es:', opts: [M('(3, 0)'), M('(0, 4)'), M('(3, 4)'), M('(1, 0)')], c: 0, ex: 'Fórmula: proy<sub>u</sub>(v) = (v·u / ‖u‖²)·u. ▸ <b>Producto escalar:</b> v·u = 3·1 + 4·0 = 3. ▸ <b>Norma al cuadrado:</b> ‖u‖² = 1² + 0² = 1. ▸ <b>Resultado:</b> (3/1)·(1, 0) = <b>(3, 0)</b>. Es la "sombra" de v sobre el eje x. ▸ <b>Verificación:</b> el resultado es paralelo a u (multiplicado por escalar 3) ✓ y v − (3,0) = (0,4) que es ortogonal a u (producto escalar 0) ✓. ▸ <b>Por qué las otras están mal:</b> (B) sería proyección sobre eje y (la "sombra" sobre el eje vertical); (C) v sin proyectar; (D) solo u sin escalar.'},
+  {st: 'Si A es la proyección ortogonal de B sobre L: X = λd, ¿qué dos condiciones debe cumplir A?', opts: ['Solo (B−A)·d = 0', 'Solo A ∈ L', 'A ∈ L (existe λ tal que A = λd) Y (B−A)·d = 0', 'No hay condiciones específicas'], c: 2, ex: 'La proyección de B sobre L es el ÚNICO punto A∈L que minimiza ‖B−A‖. ▸ <b>Geométricamente:</b> el segmento BA debe ser perpendicular a la dirección de L. ▸ <b>Las DOS condiciones son necesarias:</b> (1) A∈L (sino no es proyección sobre L sino sobre una paralela); (2) (B−A)⊥d (sino no minimiza distancia). ▸ <b>Por qué las otras están mal:</b> (A) si (B−A)·d=0 pero A∉L → cumple perpendicularidad pero no es proyección sobre L; (B) si A∈L pero (B−A) no es perpendicular → no minimiza; (D) sí hay condiciones precisas (las dos).'},
+  {st: 'Para hallar la proyección ortogonal de '+M('P = (1, 0, 2)')+' sobre L: X = λ(2, −1, 0), ¿qué hacés?', opts: ['Calcular ‖P‖', 'Escribir A = (2λ, −λ, 0) y plantear (P−A)·(2,−1,0) = 0', 'Resolver el sistema P = λ·d', 'Producto vectorial de P con d'], c: 1, ex: 'Algoritmo del parcial Escayola: ▸ A genérico de L → A = λ(2,−1,0) = (2λ, −λ, 0). ▸ P − A = (1−2λ, λ, 2). ▸ Imponer (P−A)·d = 0 con d=(2,−1,0): 2(1−2λ) + (−1)·λ + 0·2 = 2 − 4λ − λ = 2 − 5λ = 0 → λ = 2/5. ▸ <b>Resultado:</b> A = (4/5, −2/5, 0). ▸ <b>Por qué las otras están mal:</b> (A) ‖P‖ es solo la norma de P, no útil para proyección; (C) "P = λd" implicaría P∈L (no se cumple porque P no es múltiplo de d); (D) producto vectorial da un vector perpendicular pero no localiza el punto sobre L.'},
+  {st: 'Para hallar la proyección ortogonal de P sobre el plano π: 2x − 3z = 0, ¿qué recta auxiliar usás?', opts: ['La recta paralela a π por P', 'La recta normal al plano por P, con dirección (2, 0, −3)', 'La recta y = x', 'No hace falta recta auxiliar'], c: 1, ex: 'La proyección de P sobre el plano π = "pie de la perpendicular" desde P. ▸ <b>Receta:</b> (1) Recta normal a π por P: dirección = vector normal n del plano (se lee de los coeficientes). Para 2x−3z=0 → n=(2,0,−3). (2) Buscar intersección de la recta con π. (3) Ese punto es la proyección. ▸ <b>Por qué las otras están mal:</b> (A) recta paralela a π no toca π (a menos que P∈π); (C) "y=x" arbitraria, sin relación con π; (D) sí hace falta para construir la perpendicular.'},
+  {st: 'El simétrico de P = (2, −4) respecto al punto Q = (−1, 1) es:', opts: [M('(−4, 6)'), M('(0, −2)'), M('(−1, −3)'), M('(3, −5)')], c: 0, ex: 'Fórmula del simétrico respecto a un punto: <b>P\' = 2Q − P</b>. ▸ <b>Justificación:</b> Q debe ser el punto medio entre P y P\' → Q = (P+P\')/2 → despejando P\' = 2Q − P. ▸ <b>Cálculo:</b> P\' = 2·(−1, 1) − (2, −4) = (−2, 2) − (2, −4) = (−2−2, 2−(−4)) = <b>(−4, 6)</b>. ▸ <b>Verificación:</b> punto medio = ((2+(−4))/2, (−4+6)/2) = (−1, 1) = Q ✓. ▸ <b>Por qué las otras están mal:</b> (B) (0,−2) es el promedio sin doblarlo; (C) (−1,−3) no surge; (D) (3,−5) sería con error de signo en la fórmula.'},
+  {st: 'Si el simétrico de P respecto a Q es P\', ¿cómo hallás Q?', opts: [M('Q = P − P\''), M('Q = (P + P\') / 2 (Q es el punto medio)'), M('Q = 2P − P\''), M('Q = P · P\'')], c: 1, ex: 'De la fórmula P\' = 2Q − P, despejo Q: P\' + P = 2Q → Q = (P+P\')/2. <b>Q es el punto medio</b> entre P y P\'. ▸ <b>Coordenada por coordenada:</b> Q = ((Pₓ+P\'ₓ)/2, (Pᵧ+P\'ᵧ)/2). ▸ <b>Por qué las otras están mal:</b> (A) "P−P\'" da un VECTOR (dirección), no un punto; (C) "2P−P\'" sería el simétrico de P\' respecto a P (al revés); (D) "P·P\'" es producto escalar (un número), no un punto.'},
+  {st: 'Para hallar el simétrico de P respecto a una recta L, la receta es:', opts: ['P\' = 2P − L', 'Hallar A = proy. ortogonal de P sobre L y luego P\' = 2A − P', 'Reflejar coordenada por coordenada', 'P\' = P + d (donde d es la dirección de L)'], c: 1, ex: 'Receta universal de simétrico respecto a recta o plano: ▸ <b>Paso 1:</b> A = proyección ortogonal de P sobre L (algoritmo clásico de proyección). ▸ <b>Paso 2:</b> P\' = 2A − P (porque A debe ser punto medio entre P y P\'). ▸ <b>Por qué las otras están mal:</b> (A) "L" es una recta (conjunto de puntos), no un punto; restar L no tiene sentido; (C) reflejar coord-por-coord solo funciona para EJES coordenados, no para una recta cualquiera; (D) sumar d desplaza a P en la dirección de L (lo "mueve a lo largo"), no lo refleja.'},
+  {st: 'El simétrico de (3, −1) respecto al eje x es:', opts: [M('(3, 1)'), M('(−3, −1)'), M('(−3, 1)'), M('(1, 3)')], c: 0, ex: 'Atajo para simétricos respecto a ejes coordenados: ▸ Eje x → cambia signo de y: (x, y) → (x, −y). ▸ Eje y → cambia signo de x: (x, y) → (−x, y). ▸ Origen → cambia ambos signos: (x, y) → (−x, −y). ▸ Recta y=x → intercambia coordenadas: (x, y) → (y, x). ▸ <b>Aplicación:</b> (3, −1) respecto a eje x → (3, −(−1)) = <b>(3, 1)</b>. ▸ <b>Por qué las otras están mal:</b> (B) (−3,−1) sería respecto al eje y; (C) (−3,1) sería respecto al origen; (D) (1,3) sería respecto a la recta y=x.'},
+  {st: 'Para verificar que A es la proyección ortogonal de P sobre L, ¿qué tenés que comprobar?', opts: ['Hallar λ que da A = λd + P₀ (que A ∈ L) Y (P−A)·d = 0', 'Solo (P−A)·d = 0', 'Solo ‖P − A‖ = mínimo', 'Solo A·d = 0'], c: 0, ex: 'Una proyección debe cumplir DOS condiciones simultáneamente: ▸ (1) <b>A ∈ L:</b> existe un λ tal que A = λd + P₀ (la proyección está sobre L). ▸ (2) <b>(P−A)·d = 0:</b> el vector P−A es perpendicular a la dirección de L. ▸ <b>Por qué las otras están mal:</b> (B) sin verificar A∈L podrías acertar dirección pero no estar SOBRE L; (C) "norma mínima" es CONSECUENCIA de (1) y (2), no se verifica directamente sin medir todas las distancias (ineficiente); (D) "A·d = 0" significaría que A es perpendicular a d, lo cual no tiene relación con la proyección.'}
+]);
+
+// ============ UNIDAD 3 · SUBESPACIOS ============
+registerExercises('algebra', '3', [
+  {st: 'Considerá '+M('S = {(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub>) ∈ ℝ⁴ : x<sub>1</sub> − x<sub>4</sub> = 0}')+'. ¿Cuál es su dimensión?', opts: [M('1'), M('2'), M('3'), M('4')], c: 2, ex: 'Regla: dim(S) = dim(espacio total) − cantidad de ecuaciones LINEALMENTE INDEPENDIENTES. ▸ <b>Aquí:</b> dim(ℝ⁴) = 4, hay 1 ecuación independiente: x₁ = x₄. dim(S) = 4 − 1 = <b>3</b>. ▸ <b>Verificación con base:</b> las variables libres son x₂, x₃ y una entre x₁/x₄ (digamos x₄ libre, x₁ = x₄). Vectores: (1,0,0,1), (0,1,0,0), (0,0,1,0). Tres vectores L.I. en S → dim S = 3. ▸ <b>Por qué las otras están mal:</b> (A) "1" sería con 3 ecuaciones independientes; (B) "2" con 2 ecuaciones; (D) "4" implicaría S = ℝ⁴ (sin restricción).'},
+  {st: '¿'+M('(2, 0, 4)')+' es combinación lineal de '+M('(1, −1, 2)')+' y '+M('(1, 1, 2)')+'?', opts: ['Sí, con coeficientes (1, 1)', 'Sí, con coeficientes (2, 0)', 'No', 'Sí, pero con infinitas combinaciones'], c: 0, ex: 'Planteo α(1,−1,2) + β(1,1,2) = (2,0,4). ▸ <b>Sistema:</b> α + β = 2 (1ª); −α + β = 0 (2ª); 2α + 2β = 4 (3ª). ▸ <b>De la 2ª:</b> α = β. ▸ <b>En la 1ª:</b> 2α = 2 → α = β = 1. ▸ <b>Verifico la 3ª:</b> 2·1 + 2·1 = 4 ✓. ▸ <b>Resultado:</b> (2,0,4) = 1·(1,−1,2) + 1·(1,1,2). Coeficientes (1, 1). ▸ <b>Por qué las otras están mal:</b> (B) (2,0) → 2(1,−1,2)+0 = (2,−2,4) ≠ (2,0,4); (C) sí es combinación (mostrado arriba); (D) los dos vectores generadores son L.I. (no múltiplos), por lo tanto la combinación, si existe, es ÚNICA.'},
+  {st: '¿Cuál de los siguientes vectores pertenece a '+M('S = {(x,y,z) ∈ ℝ³ : x + y − z = 0}')+'?', opts: [M('(1, 2, 3)'), M('(1, 1, 1)'), M('(2, 0, 0)'), M('(1, −1, 1)')], c: 0, ex: 'Para que un vector pertenezca a S, debe satisfacer la ecuación x+y−z=0. ▸ <b>Test cada opción:</b> ▸ (1,2,3): 1+2−3 = 0 ✓ <b>PERTENECE</b>. ▸ (1,1,1): 1+1−1 = 1 ≠ 0 ✗. ▸ (2,0,0): 2+0−0 = 2 ≠ 0 ✗. ▸ (1,−1,1): 1+(−1)−1 = −1 ≠ 0 ✗. ▸ <b>Por qué las otras están mal:</b> (B) (C) (D) no satisfacen la ecuación de S.'},
+  {st: '¿'+M('{(1, 1, 0), (1, 0, 1), (0, 1, 1)}')+' es L.I.?', opts: ['Sí', 'No, porque el tercero es suma de los otros dos', 'No, porque el primero es suma de los otros dos', 'Depende del cuerpo'], c: 0, ex: 'Test de independencia: planteo α(1,1,0) + β(1,0,1) + γ(0,1,1) = (0,0,0). ▸ <b>Sistema:</b> α+β = 0 (1ª); α+γ = 0 (2ª); β+γ = 0 (3ª). ▸ <b>De la 1ª:</b> β = −α. <b>De la 2ª:</b> γ = −α. <b>En la 3ª:</b> −α + (−α) = −2α = 0 → α = 0 → β = γ = 0. ▸ <b>Solución única (la trivial)</b> → L.I. ▸ <b>Por qué las otras están mal:</b> (B) (C) afirman dependencias incorrectas. Verificación: (0,1,1) ≠ (1,1,0)+(1,0,1) = (2,1,1); (1,1,0) ≠ (1,0,1)+(0,1,1) = (1,1,2). (D) sobre ℝ y ℂ el resultado es el mismo (no depende del cuerpo).'},
+  {st: 'Si '+M('dim(S) = 2')+' en '+M('ℝ³')+' y '+M('{v<sub>1</sub>, v<sub>2</sub>}')+' es base de S, entonces '+M('{v<sub>1</sub>, v<sub>2</sub>, w}')+' con '+M('w ∉ S')+' es:', opts: ['Una base de ℝ³', 'L.D.', 'Una base de S', 'Genera solo S'], c: 0, ex: '▸ v₁, v₂ son L.I. (por ser base de S). ▸ Como w ∉ S, w no es combinación lineal de v₁ y v₂ (sino estaría en S). ▸ Por lo tanto los TRES vectores son L.I. ▸ Tres vectores L.I. en ℝ³ (que tiene dim 3) forman una <b>BASE de ℝ³</b>. ▸ <b>Por qué las otras están mal:</b> (B) "L.D." requeriría que w fuera comb. lineal de v₁,v₂, pero w∉S contradice eso; (C) base de S necesita exactamente 2 vectores (no 3); (D) generan TODO ℝ³ (no solo S), porque w "saca" del subespacio.'},
+  {st: 'El subespacio generado por '+M('(1, 2)')+' y '+M('(2, 4)')+' tiene dimensión:', opts: [M('0'), M('1'), M('2'), M('3')], c: 1, ex: '▸ <b>¿Son L.I. (1,2) y (2,4)?</b> Verifico si son múltiplos: (2,4) = 2·(1,2). ✓ → <b>SÍ son múltiplos → L.D.</b> ▸ Solo uno de ellos aporta dimensión (el otro es redundante). ▸ <b>Dim(span) = 1</b> (es una recta por el origen, dirección (1,2)). ▸ <b>Por qué las otras están mal:</b> (A) "0" implicaría que ambos son nulos (no es el caso); (C) "2" implicaría L.I. (pero son múltiplos); (D) "3" es imposible en ℝ² o con solo 2 vectores generadores.'},
+  {st: '¿Cuál es una base del subespacio '+M('S = {(x,y,z) ∈ ℝ³ : x − 2y + z = 0}')+'?', opts: [M('{(2, 1, 0), (−1, 0, 1)}'), M('{(1, 0, 0), (0, 1, 0), (0, 0, 1)}'), M('{(1, −2, 1)}'), M('{(1, 1, 1)}')], c: 0, ex: 'S es el plano x−2y+z=0 (dim S = 3−1 = 2). Necesito 2 vectores L.I. que cumplan la ecuación. ▸ <b>Test (2,1,0):</b> 2−2·1+0 = 0 ✓. ▸ <b>Test (−1,0,1):</b> −1−0+1 = 0 ✓. ▸ <b>¿Son L.I.?</b> No son múltiplos (la 1ª coord es 2 vs −1, distinta proporción que la 2ª 1 vs 0) → L.I. ✓. ▸ <b>Es base.</b> ▸ <b>Por qué las otras están mal:</b> (B) base de ℝ³ (3 vectores, demasiados para un plano); (C) (1,−2,1) es la NORMAL al plano (el vector normal NO pertenece al plano, satisface 1+4+1=6≠0); (D) (1,1,1): 1−2+1 = 0 ✓ pertenece, pero solo un vector → dim 1 (insuficiente para una base de S).'}
+]);
+
+// ============ UNIDAD 4 · CÓNICAS ============
+registerExercises('algebra', '4', [
+  {st: 'El centro y radio de la circunferencia '+M('x² + y² − 6x + 2y = 0')+' son:', opts: [M('Centro (3, −1), radio √10'), M('Centro (−3, 1), radio √10'), M('Centro (3, −1), radio 10'), M('Centro (6, −2), radio 4')], c: 0, ex: 'Completar cuadrados para llevar a forma canónica (x−h)² + (y−k)² = r². ▸ <b>En x:</b> x²−6x = (x−3)² − 9. ▸ <b>En y:</b> y²+2y = (y+1)² − 1. ▸ <b>Sustituyo:</b> (x−3)² − 9 + (y+1)² − 1 = 0 → (x−3)² + (y+1)² = 10. ▸ <b>Centro:</b> (h, k) = <b>(3, −1)</b>. <b>Radio:</b> r = √10. ▸ <b>Por qué las otras están mal:</b> (B) signos invertidos en h y k (al "pasar al otro lado" se cambia signo correctamente, pero la opción los invierte mal); (C) "radio 10" sería r² (no r); (D) (6,−2) duplica los coeficientes lineales mal.'},
+  {st: 'La ecuación de la parábola con foco '+M('(2, −1.5)')+' y directriz '+M('y = −0.5')+' es:', opts: [M('(x−2)² = −2(y+1)'), M('(x−2)² = 2(y+1)'), M('(y+1)² = −2(x−2)'), M('(x−2)² = −2(y−1)')], c: 0, ex: 'Análisis geométrico: ▸ <b>Directriz horizontal</b> (y=cte) → la parábola tiene EJE VERTICAL → ecuación tipo (x−h)² = 4p(y−k). ▸ <b>Vértice:</b> punto medio entre foco y la perpendicular desde foco a directriz. x_vért = x_foco = 2 (la perpendicular es vertical). y_vért = (y_foco + y_dir)/2 = (−1,5 + (−0,5))/2 = −1. <b>Vértice: (2, −1)</b>. ▸ <b>Distancia vértice-foco:</b> |y_foco − y_vért| = |−1,5−(−1)| = 0,5. Como el foco (y=−1,5) está DEBAJO del vértice (y=−1), la parábola abre hacia abajo → 4p es negativo. 4p = −2 (con |4p| = 4·0,5 = 2). ▸ <b>Ecuación:</b> (x−2)² = −2(y−(−1)) = <b>−2(y+1)</b>. ▸ <b>Por qué las otras están mal:</b> (B) signo positivo abriría hacia arriba (contradice foco abajo); (C) (y−k)²= ... abre horizontalmente; (D) (y−1) tiene k=1 (centro mal posicionado).'},
+  {st: 'El centro de la hipérbola con asíntotas '+M('y = 2x + 1')+' e '+M('y = −2x + 5')+' está en:', opts: [M('(1, 3)'), M('(−1, 3)'), M('(0, 3)'), M('(2, 1)')], c: 0, ex: 'Las asíntotas de una hipérbola se intersecan EN el centro. ▸ <b>Igualar las dos asíntotas:</b> 2x + 1 = −2x + 5 → 4x = 4 → x = 1. ▸ <b>Sustituyo en cualquier asíntota:</b> y = 2·1 + 1 = 3. ▸ <b>Centro: (1, 3)</b>. ▸ <b>Verificación:</b> ¿(1,3) en la 2ª? y = −2·1 + 5 = 3 ✓. ▸ <b>Por qué las otras están mal:</b> (B) en y=2x+1 con x=−1: y = −1 ≠ 3; (C) en y=2·0+1 = 1 ≠ 3; (D) (2,1) no satisface ni 2·2+1=5 ni −2·2+5=1 (la 2ª sí pero la 1ª no, y el centro debe satisfacer ambas).'},
+  {st: 'Para la elipse '+M('x²/25 + y²/9 = 1')+', los focos están en:', opts: [M('(±4, 0)'), M('(0, ±4)'), M('(±3, 0)'), M('(±5, 0)')], c: 0, ex: 'Análisis de elipse x²/a² + y²/b² = 1: ▸ <b>Identifico semiejes:</b> a² = 25 (denominador de x), b² = 9 (denominador de y). Como a² > b² → eje mayor a lo largo del EJE X (horizontal). ▸ <b>Relación pitagórica de la elipse:</b> c² = a² − b² = 25 − 9 = 16 → c = 4. ▸ <b>Focos sobre el eje mayor (eje x), simétricos al origen:</b> <b>(±4, 0)</b>. ▸ <b>Por qué las otras están mal:</b> (B) (0,±4) sería para elipse vertical (a² en y); (C) (±3,0) usa b en lugar de c (b es semieje menor, no la distancia focal); (D) (±5,0) usa a (los VÉRTICES del eje mayor, no los focos).'},
+  {st: '¿'+M('(0, 4)')+' está sobre la circunferencia '+M('x² + (y−1)² = 9')+'?', opts: ['Sí, porque da exactamente 9', 'No, porque da 10', 'No, porque da 5', 'Solo si el radio fuera 4'], c: 0, ex: 'Reemplazo (x,y) = (0, 4) en la ecuación: ▸ x² + (y−1)² = 0² + (4−1)² = 0 + 3² = 0 + 9 = <b>9</b>. ▸ Como el resultado coincide con r² = 9, el punto <b>SÍ pertenece</b> a la circunferencia. ▸ <b>Verificación geométrica:</b> centro (0,1), radio 3. Distancia de (0,4) al centro: √(0² + 3²) = 3 = r ✓. ▸ <b>Por qué las otras están mal:</b> (B) "10" se obtendría con (1,4): 1+9=10 (afuera); (C) "5" con (1,3): 1+4=5 (adentro); (D) el radio actual sí es 3 (=√9), y (0,4) sí está sobre él.'},
+  {st: 'La distancia del centro al foco de '+M('(x−1)²/4 + (y+2)²/1 = 1')+' es:', opts: [M('√3'), M('1'), M('2'), M('√5')], c: 0, ex: 'Análisis: ▸ <b>Identifico semiejes:</b> a² = 4 (en x), b² = 1 (en y). Como a² > b², es elipse con eje mayor horizontal. Centro (1, −2). ▸ <b>Relación de la ELIPSE:</b> c² = a² − b² = 4 − 1 = 3 → c = <b>√3</b>. ▸ Distancia centro-foco = c = √3. ▸ <b>Por qué las otras están mal:</b> (B) "1" es b (semieje menor); (C) "2" es a (semieje mayor); (D) "√5" sería c² = a²+b² (eso es la fórmula de la HIPÉRBOLA, no la elipse). <b>Truco crítico:</b> en elipse c² = a²−b² (con c < a, focos DENTRO); en hipérbola c² = a²+b² (con c > a, focos FUERA).'},
+  {st: 'La hipérbola '+M('(x−2)²/9 − (y+1)²/16 = 1')+' tiene focos en:', opts: [M('(2±5, −1)'), M('(2±3, −1)'), M('(2, −1±5)'), M('(2±√7, −1)')], c: 0, ex: 'Hipérbola horizontal con centro (2, −1). ▸ <b>Semiejes:</b> a² = 9 → a = 3 (semieje real, sobre eje x); b² = 16 → b = 4 (semieje conjugado). ▸ <b>Relación pitagórica de hipérbola:</b> c² = a² + b² = 9 + 16 = 25 → c = 5. ▸ <b>Focos:</b> sobre el eje real (paralelo al eje x por el centro), a distancia c del centro. <b>F = (2±5, −1)</b> = (7, −1) y (−3, −1). ▸ <b>Por qué las otras están mal:</b> (B) usa a en lugar de c (esos serían los VÉRTICES, no focos); (C) (2, −1±5) sería para hipérbola vertical; (D) "√7" sería c²=a²−b² (eso es de elipse, y aquí daría 9−16=−7 imposible).'}
+]);
+
+// ============ UNIDAD 5 · SISTEMAS, MATRICES, DETERMINANTES ============
+registerExercises('algebra', '5', [
+  {st: 'El determinante de '+M('A = [[2, 1], [3, 4]]')+' es:', opts: [M('5'), M('11'), M('−5'), M('8')], c: 0, ex: 'Fórmula determinante 2×2: det = a·d − b·c (diagonal principal menos diagonal secundaria). ▸ <b>Para A = [[2,1],[3,4]]:</b> det = 2·4 − 1·3 = 8 − 3 = <b>5</b>. ▸ <b>Por qué las otras están mal:</b> (B) "11" = 8+3 (sumando en lugar de restando); (C) "−5" cambia el signo del resultado correcto; (D) "8" es solo 2·4 (olvida restar 1·3).'},
+  {st: 'Si '+M('det(A) = 3')+' y '+M('A')+' es una matriz '+M('3×3')+', entonces '+M('det(2A)')+' vale:', opts: [M('6'), M('12'), M('24'), M('3')], c: 2, ex: 'Propiedad: <b>det(kA) = kⁿ · det(A)</b> donde n es el orden de la matriz cuadrada. ▸ <b>Aplico:</b> det(2A) = 2³ · det(A) = 8 · 3 = <b>24</b>. ▸ <b>Justificación:</b> al multiplicar TODA la matriz por k, cada una de las n FILAS queda multiplicada por k. Cada factor k aporta un k al determinante (linealidad por filas) → kⁿ total. ▸ <b>Por qué las otras están mal:</b> (A) "6" = 2·det(A) (mal: solo multiplicarías 1 fila por 2); (B) "12" = 4·det(A) = 2²·det(A) (sería para matriz 2×2); (D) "3" sin tocar k (olvida la propiedad).'},
+  {st: 'Si '+M('det(A) = 5')+' y '+M('det(B) = 2')+', entonces '+M('det(A·B)')+' vale:', opts: [M('7'), M('10'), M('2/5'), M('25')], c: 1, ex: 'Propiedad multiplicativa del determinante: <b>det(A·B) = det(A) · det(B)</b>. ▸ <b>Cálculo:</b> det(AB) = 5 · 2 = <b>10</b>. ▸ <b>Importante:</b> esto requiere que A y B sean cuadradas del mismo orden. ▸ <b>Por qué las otras están mal:</b> (A) "7" = 5+2 (suma en lugar de multiplicar); (C) "2/5" divide; (D) "25" = 5² (det(A·A), no det(A·B)).'},
+  {st: 'Un sistema homogéneo Ax = 0 con matriz '+M('A')+' de '+M('n×n')+' tiene solución NO trivial ⟺:', opts: [M('det(A) ≠ 0'), M('det(A) = 0'), M('A es inversible'), M('rg(A) = n')], c: 1, ex: 'Sistema homogéneo Ax=0 SIEMPRE tiene la solución trivial x=0. Tiene OTRA solución (no trivial) cuando A NO es inversible. ▸ <b>Equivalencias:</b> A no inversible ⟺ det(A) = 0 ⟺ rg(A) < n ⟺ columnas L.D. ⟺ ker(A) ≠ {0}. ▸ <b>Por qué las otras están mal:</b> (A) det≠0 → A inversible → solo solución trivial; (C) "A inversible" ⟺ det≠0 (lo OPUESTO a lo buscado); (D) rg=n equivale a det≠0 (también lo opuesto).'},
+  {st: 'Clasificar el sistema: '+M('x + y = 1; 2x + 2y = 2; x − y = 3')+'.', opts: ['Compatible determinado (única solución)', 'Compatible indeterminado (infinitas)', 'Incompatible (sin solución)', 'Depende de los datos'], c: 0, ex: 'Análisis: ▸ <b>Detectar redundancia:</b> Ec. 2 (2x+2y=2) es exactamente 2× la Ec. 1 (x+y=1). No aporta información nueva. ▸ <b>Sistema efectivo:</b> 2 ecuaciones independientes con 2 incógnitas: x+y=1 y x−y=3. ▸ <b>Resolución:</b> Sumando: 2x = 4 → x = 2. Restando 1ª−2ª: 2y = −2 → y = −1. ▸ <b>Solución única (2, −1)</b> → <b>COMPATIBLE DETERMINADO</b>. ▸ <b>Por qué las otras están mal:</b> (B) indeterminado requiere más incógnitas que ecuaciones independientes; (C) incompatible requiere contradicción explícita (como 0 = 1); (D) está completamente determinado.'},
+  {st: 'La inversa de '+M('A = [[1, 2], [3, 5]]')+' existe? Justificar.', opts: ['Siempre, sin verificar', 'Nunca, es singular', 'Sí, porque det(A) = −1 ≠ 0', 'Solo si trabajamos en ℂ'], c: 2, ex: 'Una matriz cuadrada es inversible ⟺ det ≠ 0. ▸ <b>Cálculo del determinante:</b> det(A) = 1·5 − 2·3 = 5 − 6 = <b>−1</b>. ▸ Como −1 ≠ 0 → A <b>SÍ es inversible</b>. ▸ <b>Inversa explícita (2×2):</b> A⁻¹ = (1/det)·[[d,−b],[−c,a]] = (1/(−1))·[[5,−2],[−3,1]] = [[−5,2],[3,−1]]. ▸ <b>Por qué las otras están mal:</b> (A) hay que VERIFICAR el determinante (no es automático para todas las matrices); (B) det = −1 ≠ 0, NO es singular; (D) el cálculo es real, no requiere ℂ.'},
+  {st: 'Resolver el sistema '+M('2x + y = 5; x − y = 1')+'.', opts: [M('(x, y) = (2, 1)'), M('(x, y) = (1, 2)'), M('(x, y) = (3, −1)'), M('No tiene solución')], c: 0, ex: 'Sumar las dos ecuaciones para eliminar y: ▸ (2x+y) + (x−y) = 5 + 1 → 3x = 6 → <b>x = 2</b>. ▸ Sustituyo en la 2ª: 2 − y = 1 → y = 1. ▸ <b>Solución: (2, 1)</b>. ▸ <b>Verificación en 1ª:</b> 2·2 + 1 = 5 ✓. ▸ <b>Por qué las otras están mal:</b> (B) (1,2) en 1ª: 2+2 = 4 ≠ 5; (C) (3,−1) en 1ª: 6−1 = 5 ✓ pero en 2ª: 3−(−1) = 4 ≠ 1; (D) tiene solución única (las rectas no son paralelas).'},
+  {st: 'Discutir según '+M('k')+' el sistema '+M('kx + y = 1; x + ky = 1')+'. ¿Para qué valor de k es INCOMPATIBLE (SI)?', opts: [M('k = 1'), M('k = −1'), M('k = 0'), M('Nunca es incompatible')], c: 1, ex: 'El determinante de la matriz de coeficientes manda la discusión. ▸ <b>det:</b> | k 1 ; 1 k | = k² − 1 = (k−1)(k+1). ▸ <b>Si k ≠ 1 y k ≠ −1:</b> det ≠ 0 → <b>SCD</b> (única solución). ▸ <b>Si k = 1:</b> las dos ecuaciones son x+y=1 y x+y=1 (idénticas) → <b>SCI</b> (infinitas). ▸ <b>Si k = −1:</b> queda −x+y=1 y x−y=1; sumando: 0 = 2 (contradicción) → <b>SI (incompatible)</b>. ▸ <b>Respuesta: k = −1</b>. ▸ <b>Por qué las otras están mal:</b> (A) k=1 da SCI, no SI; (C) k=0 da det=−1≠0 → SCD; (D) sí hay un valor (k=−1) que lo vuelve incompatible.'},
+  {st: 'Escalonando, discutí según '+M('k')+' el sistema 3×3 '+M('x + y + z = 1; 2x + y + 3z = 4; x + y + kz = 2')+'. La clasificación es:', opts: [M('SCD si k ≠ 1; SI (incompatible) si k = 1'), M('SCD para todo k'), M('SCI si k = 1; SCD si k ≠ 1'), M('SI para todo k')], c: 0, ex: 'Escalono la matriz ampliada usando la 1ª fila como pivote. ▸ <b>F₂ ← F₂ − 2F₁:</b> (2−2, 1−2, 3−2 | 4−2) = (0, −1, 1 | 2) → −y + z = 2. ▸ <b>F₃ ← F₃ − F₁:</b> (0, 0, k−1 | 1) → (k−1)z = 1. ▸ <b>Caso k ≠ 1:</b> de la 3ª fila z = 1/(k−1); el escalonamiento tiene 3 pivotes (rango 3 = nº incógnitas) → <b>SCD</b>. ▸ <b>Caso k = 1:</b> la 3ª fila queda 0·z = 1 → <b>0 = 1, contradicción → SI (incompatible)</b>. ▸ <b>Por qué las otras están mal:</b> (B) ignora que k=1 rompe la consistencia; (C) k=1 NO da infinitas: el término independiente 1 ≠ 0 hace la fila incompatible (sería SCI solo si quedara 0=0); (D) para k≠1 sí hay solución única.'}
+]);
+
+// ============ UNIDAD 6 · TRANSFORMACIONES LINEALES ============
+registerExercises('algebra', '6', [
+  {st: 'Si '+M('T : ℝ³ → ℝ²')+' está dada por '+M('T(x,y,z) = (x+y, y−z)')+', entonces '+M('T(1, 2, 3)')+' vale:', opts: [M('(3, −1)'), M('(1, 2)'), M('(3, 1)'), M('(3, 2)')], c: 0, ex: 'Aplicar la fórmula de T: ▸ 1ª componente: x + y = 1 + 2 = 3. ▸ 2ª componente: y − z = 2 − 3 = −1. ▸ <b>T(1,2,3) = (3, −1)</b>. ▸ <b>Por qué las otras están mal:</b> (B) (1,2) son las dos primeras coordenadas del INPUT (sin aplicar T); (C) (3,1) sería con z=1 (no z=3); (D) (3,2) sería sin restar z en la 2ª.'},
+  {st: 'Para la T del ejercicio anterior (T: ℝ³→ℝ², T(x,y,z) = (x+y, y−z)), '+M('dim(Im(T))')+' vale:', opts: [M('0'), M('1'), M('2'), M('3')], c: 2, ex: 'La imagen es el espacio columna de la matriz canónica. ▸ <b>Calcular T en base canónica:</b> T(e₁) = T(1,0,0) = (1, 0). T(e₂) = T(0,1,0) = (1, 1). T(e₃) = T(0,0,1) = (0, −1). ▸ <b>Matriz canónica</b> (columnas = T(e_i)): A = [[1, 1, 0], [0, 1, −1]]. ▸ <b>Imagen = espacio columna en ℝ²:</b> generado por (1,0), (1,1), (0,−1). Las dos primeras son L.I. (no múltiplos), entonces generan ℝ² → <b>dim(Im) = 2</b>. ▸ <b>Por qué las otras están mal:</b> (A) "0" sería T = 0; (B) "1" implicaría imagen recta; (D) "3" imposible: Im ⊆ codominio ℝ² (dim ≤ 2).'},
+  {st: 'Para la misma T (T: ℝ³→ℝ²), '+M('dim(Nu(T))')+' vale:', opts: [M('0'), M('1'), M('2'), M('3')], c: 1, ex: 'Teorema de la dimensión: <b>dim(dom) = dim(Nu(T)) + dim(Im(T))</b>. ▸ <b>Aquí:</b> dim(dom) = 3 (ℝ³), dim(Im) = 2 (calculado antes). ▸ 3 = dim(Nu) + 2 → <b>dim(Nu) = 1</b>. ▸ <b>Verificación directa:</b> resolver T(x,y,z)=(0,0): x+y=0 e y−z=0 → x=−y, z=y. Núcleo: {y(−1,1,1) : y∈ℝ} → recta de dim 1. ✓ ▸ <b>Por qué las otras están mal:</b> (A) "0" implicaría T inyectiva, pero ℝ³→ℝ² nunca es inyectiva (la dim cae); (C) (D) demasiado grandes.'},
+  {st: 'Si '+M('T : ℝⁿ → ℝⁿ')+' es inyectiva, entonces también es:', opts: ['No se puede saber', 'Sobreyectiva (en dim iguales son equivalentes)', 'No sobreyectiva', 'La identidad'], c: 1, ex: 'Teorema fundamental: en transformaciones lineales con <b>dim(dominio) = dim(codominio)</b>, las propiedades inyectividad ⟺ sobreyectividad ⟺ biyectividad son equivalentes. ▸ <b>Justificación:</b> T inyectiva ⟹ dim(Nu) = 0 (núcleo trivial) ⟹ dim(Im) = n − 0 = n = dim(codom) ⟹ Im = codom ⟹ sobreyectiva. ▸ <b>Por qué las otras están mal:</b> (A) sí se puede saber por teorema; (C) opuesto al teorema; (D) inyectiva no implica identidad (ej: T(x)=2x es inyectiva pero no es id).'},
+  {st: 'La matriz canónica de '+M('T(x, y) = (2x − y, x + 3y)')+' es:', opts: [M('[[2, −1], [1, 3]]'), M('[[2, 1], [−1, 3]]'), M('[[1, −1], [2, 3]]'), M('[[2, 3], [−1, 1]]')], c: 0, ex: 'Las columnas de la matriz canónica son las imágenes de la base canónica. ▸ <b>T(e₁) = T(1,0):</b> 1ª comp: 2·1−0 = 2. 2ª comp: 1+3·0 = 1. → T(e₁) = (2, 1). ▸ <b>T(e₂) = T(0,1):</b> 1ª comp: 0−1 = −1. 2ª comp: 0+3 = 3. → T(e₂) = (−1, 3). ▸ <b>Matriz</b> (columnas = T(e₁), T(e₂)): [[2, −1], [1, 3]]. ▸ <b>Verificación:</b> A·(1,0)ᵀ = (2,1)ᵀ ✓; A·(0,1)ᵀ = (−1,3)ᵀ ✓. ▸ <b>Por qué las otras están mal:</b> (B) es la TRASPUESTA de la correcta; (C) (D) intercambian componentes incorrectamente.'},
+  {st: 'Si '+M('T(x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>, x<sub>4</sub>) = (−x<sub>2</sub> + x<sub>3</sub>, 5x<sub>2</sub>, 0)')+', entonces '+M('dim(Im(T))')+' vale:', opts: [M('0'), M('1'), M('2'), M('3')], c: 2, ex: 'Calcular columnas de la matriz canónica (T(e_i)): ▸ T(e₁) = T(1,0,0,0) = (0, 0, 0). ▸ T(e₂) = T(0,1,0,0) = (−1, 5, 0). ▸ T(e₃) = T(0,0,1,0) = (1, 0, 0). ▸ T(e₄) = T(0,0,0,1) = (0, 0, 0). ▸ <b>Columnas no nulas:</b> (−1,5,0) y (1,0,0). ¿Son L.I.? La 2ª coord es 5 vs 0 (no múltiplos) → SÍ L.I. ▸ <b>dim(Im) = 2</b>. ▸ <b>Por qué las otras están mal:</b> (A) "0" ignora las columnas no nulas; (B) "1" supondría que c₂ y c₃ son colineales (no lo son); (D) "3" requeriría 3 columnas L.I., pero la 3ª coord siempre es 0 (Im ⊂ {z=0}).'},
+  {st: 'Si '+M('T : ℝ² → ℝ²')+' satisface '+M('T(1,0) = (3,−1)')+' y '+M('T(0,1) = (2,4)')+', ¿cuánto vale '+M('T(2,3)')+'?', opts: [M('(12, 10)'), M('(5, 3)'), M('(6, −2)'), M('(8, 6)')], c: 0, ex: 'Linealidad: T(2,3) = T(2·(1,0) + 3·(0,1)) = 2·T(1,0) + 3·T(0,1). ▸ <b>Cálculo:</b> 2·(3,−1) + 3·(2,4) = (6,−2) + (6,12) = <b>(12, 10)</b>. ▸ <b>Verificación con matriz canónica:</b> A = [[3,2],[−1,4]] (columnas son T(e_i)). A·(2,3)ᵀ = (3·2+2·3, −1·2+4·3)ᵀ = (12, 10)ᵀ ✓. ▸ <b>Por qué las otras están mal:</b> (B) (5,3) suma directamente las imágenes (sin escalar por (2,3)); (C) (6,−2) es solo 2·T(e₁); (D) (8,6) usa coeficientes equivocados.'}
+]);
+
+// ============ UNIDAD 7 · COMPLEJOS ============
+registerExercises('algebra', '7', [
+  {st: 'El conjugado de '+M('z = 3 − 2i')+' es:', opts: [M('3 + 2i'), M('−3 + 2i'), M('−3 − 2i'), M('3 − 2i')], c: 0, ex: 'El conjugado de a+bi es a−bi: <b>cambia signo SOLO de la parte imaginaria</b>. ▸ z = 3 − 2i → z̄ = 3 + 2i (la parte imaginaria −2i se vuelve +2i). ▸ <b>Propiedad útil:</b> z·z̄ = |z|² (siempre real positivo). Verificación: (3−2i)(3+2i) = 9 − (2i)² = 9+4 = 13 = |z|². ▸ <b>Por qué las otras están mal:</b> (B) (−3+2i) cambia ambos signos (eso sería −z̄); (C) (−3−2i) niega todo (eso es −z); (D) (3−2i) es z mismo sin tocar.'},
+  {st: 'El módulo de '+M('z = 1 + i')+' es:', opts: [M('1'), M('√2'), M('2'), M('0')], c: 1, ex: 'Fórmula: |z| = √(a² + b²) donde z = a + bi. ▸ <b>Para z = 1 + i:</b> |z| = √(1² + 1²) = √2 ≈ 1,414. ▸ <b>Interpretación geométrica:</b> distancia de z al origen en el plano complejo. (1,1) está a √2 del origen. ▸ <b>Por qué las otras están mal:</b> (A) "1" es Re(z) o Im(z) (no la norma); (C) "2" es |z|² (sin la raíz); (D) "0" solo si z=0 (acá z=1+i ≠ 0).'},
+  {st: 'El argumento principal de '+M('z = 1 + i')+' (en (−π, π]) es:', opts: [M('0'), M('π/4'), M('π/2'), M('π')], c: 1, ex: '▸ <b>Análisis del cuadrante:</b> Re(z) = 1 > 0, Im(z) = 1 > 0 → primer cuadrante. ▸ <b>Cálculo:</b> arg(z) = arctan(b/a) = arctan(1/1) = arctan(1) = <b>π/4</b> (45°). ▸ <b>Verificación:</b> z = √2·(cos(π/4) + i·sen(π/4)) = √2·(√2/2 + i·√2/2) = 1+i ✓. ▸ <b>Por qué las otras están mal:</b> (A) "0" es para z real positivo (eje x positivo); (C) "π/2" para imaginario puro positivo (eje y positivo); (D) "π" para z real negativo (eje x negativo).'},
+  {st: '¿Cuánto vale '+M('(1 + i)²')+'?', opts: [M('0'), M('2'), M('2i'), M('−1 + 2i')], c: 2, ex: 'Aplicar (a+b)² = a² + 2ab + b² con a=1 y b=i. ▸ <b>Cálculo:</b> (1+i)² = 1² + 2·1·i + i² = 1 + 2i + (−1) = <b>2i</b>. ▸ <b>Truco crítico:</b> i² = −1 SIEMPRE. ▸ <b>Verificación con módulo y argumento:</b> |1+i|=√2 → |(1+i)²| = 2. arg(1+i)=π/4 → arg((1+i)²) = π/2. (1+i)² = 2(cos(π/2)+i·sen(π/2)) = 2·(0+i) = 2i ✓. ▸ <b>Por qué las otras están mal:</b> (A) "0" sería si i² cancelara también el 2i (no lo hace); (B) "2" trata i² como 1 (mal); (D) "−1+2i" usa i² = −1 mal en otro lugar (resultado: 1+2i−1 = 2i, no −1+2i).'},
+  {st: '¿Cuántas soluciones tiene '+M('z³ = 8')+' en '+M('ℂ')+'?', opts: [M('1'), M('2'), M('3'), M('Infinitas')], c: 2, ex: 'Teorema fundamental: <b>zⁿ = w (con w ≠ 0) tiene EXACTAMENTE n raíces complejas distintas</b>, equiespaciadas en una circunferencia de radio |w|^(1/n). ▸ <b>Para z³ = 8:</b> exactamente 3 raíces. ▸ <b>Cálculo explícito:</b> 8 = 8·e^(i·0). Raíces: z_k = 2·e^(i·(0+2πk)/3), k=0,1,2 → z₀ = 2 (real), z₁ = 2·e^(i·2π/3) = −1 + i√3, z₂ = 2·e^(i·4π/3) = −1 − i√3. ▸ <b>Por qué las otras están mal:</b> (A) "1" solo cuenta la raíz real (incompleto en ℂ); (B) "2" no aplica; (D) "infinitas" no, son siempre exactamente n.'},
+  {st: 'Si '+M('|z|² = z·z̄ = 4')+' y la parte real de z es 0, entonces z vale:', opts: [M('±2'), M('±2i'), M('2 + 2i'), M('4i')], c: 1, ex: 'Datos: |z|² = 4 y Re(z) = 0. ▸ Si z = a + bi, entonces |z|² = a² + b². ▸ <b>Como Re(z) = a = 0:</b> 0 + b² = 4 → b² = 4 → b = ±2. ▸ <b>z = 0 + bi = ±2i</b>. ▸ <b>Verificación:</b> z=2i → z̄=−2i → z·z̄ = (2i)(−2i) = −4i² = 4 ✓. ▸ <b>Por qué las otras están mal:</b> (A) (±2) son reales (Re(z)=±2 ≠ 0, contradice); (C) (2+2i) tiene Re=2 ≠ 0; (D) (4i) tiene |z|²=16 ≠ 4.'},
+  {st: 'Si '+M('z = 2(cos(π/3) + i·sen(π/3))')+' (forma polar), ¿cuál es '+M('z²')+'?', opts: [M('z² = 4(cos(2π/3) + i·sen(2π/3))'), M('z² = 4(cos(π/3) + i·sen(π/3))'), M('z² = 2(cos(2π/3) + i·sen(2π/3))'), M('z² = 4i')], c: 0, ex: 'Teorema de De Moivre: para z = r(cos θ + i·sen θ), <b>zⁿ = rⁿ·(cos(nθ) + i·sen(nθ))</b>. ▸ <b>Para n=2, r=2, θ=π/3:</b> z² = 2²·(cos(2·π/3) + i·sen(2·π/3)) = <b>4·(cos(2π/3) + i·sen(2π/3))</b>. ▸ <b>En forma binómica:</b> 4·(−1/2 + i·√3/2) = −2 + 2√3 i. ▸ <b>Por qué las otras están mal:</b> (B) eleva el módulo pero olvida duplicar el argumento; (C) duplica el argumento pero deja el módulo en 2 (no en 4=r²); (D) "4i" sería para z=√2(cos(π/4)+i·sen(π/4)) (otro caso).'}
+]);
+
+// ============ UNIDAD 8 · POLINOMIOS ============
+registerExercises('algebra', '8', [
+  {st: 'El resto de dividir '+M('P(x) = x³ − 2x + 5')+' entre '+M('x − 1')+' es:', opts: [M('0'), M('4'), M('−2'), M('5')], c: 1, ex: 'Teorema del resto: <b>el resto de dividir P(x) entre (x−a) es P(a)</b>. ▸ <b>Aquí a = 1:</b> R = P(1) = 1³ − 2·1 + 5 = 1 − 2 + 5 = <b>4</b>. ▸ <b>Por qué las otras están mal:</b> (A) "0" sería si 1 fuera raíz (entonces (x−1) | P), pero P(1) = 4 ≠ 0; (C) "−2" es el coeficiente lineal, no surge del cálculo; (D) "5" es P(0) (el término independiente), no P(1).'},
+  {st: 'Si '+M('a = 2')+' es raíz de '+M('P(x)')+', entonces '+M('P(x)')+' es divisible por:', opts: [M('x + 2'), M('x − 2'), M('x² + 2'), M('2x')], c: 1, ex: 'Teorema del factor: <b>a es raíz de P ⟺ (x − a) divide a P</b>. ▸ <b>Aquí raíz a = 2:</b> el factor es <b>(x − 2)</b>. ▸ <b>Verificación:</b> si (x−2) | P, entonces P(x) = (x−2)·Q(x) para algún Q. Evaluando en x=2: P(2) = 0·Q(2) = 0 → 2 es raíz. ✓ ▸ <b>Por qué las otras están mal:</b> (A) (x+2) significaría raíz −2 (no 2); (C) (x²+2) no tiene raíces reales; (D) "2x" no tiene la forma estándar (x−a).'},
+  {st: 'Si '+M('P ∈ ℝ[x]')+' y '+M('2 + 3i')+' es raíz, ¿qué otra raíz tiene seguro?', opts: [M('2 − 3i'), M('−2 + 3i'), M('−2 − 3i'), M('3 + 2i')], c: 0, ex: 'Teorema clave: <b>en P ∈ ℝ[x] (coeficientes reales), si una raíz es compleja a+bi, entonces su CONJUGADA a−bi también es raíz</b>. ▸ <b>Justificación:</b> P(z̄) = P̄(z) (al conjugar una expresión con coef. reales). Si P(z)=0, entonces P̄(z)=0 → P(z̄)=0. ▸ <b>Para 2+3i, la conjugada es 2−3i</b>. ▸ <b>Por qué las otras están mal:</b> (B) (−2+3i) cambia signo de Re; (C) (−2−3i) niega todo; (D) (3+2i) intercambia Re e Im. <b>Recordá:</b> en ℝ[x] las raíces no reales SIEMPRE vienen en pares conjugados (por eso un polinomio real de grado impar tiene al menos una raíz real).'},
+  {st: 'Un polinomio '+M('P ∈ ℝ[x]')+' de grado mínimo con raíces '+M('3')+' e '+M('i')+' tiene grado:', opts: [M('2'), M('3'), M('4'), M('5')], c: 1, ex: 'En ℝ[x], si i es raíz, entonces −i (conjugada) también lo es. Necesitamos contar todos los factores: ▸ <b>Para 3 (real):</b> factor (x−3), grado 1. ▸ <b>Para {i, −i} (par conjugado):</b> factor (x−i)(x+i) = x² − i² = x² + 1, grado 2 (con coeficientes reales ✓). ▸ <b>Total grado mínimo:</b> 1 + 2 = <b>3</b>. ▸ <b>Ejemplo concreto:</b> P(x) = (x−3)(x²+1) = x³ − 3x² + x − 3. ▸ <b>Por qué las otras están mal:</b> (A) "2" olvida que i obliga a −i (no podés tener un polinomio real solo con (x−i) porque sus coef. no serían reales); (C) (D) tendrían factores extra que no hace falta.'},
+  {st: 'Un polinomio '+M('P ∈ ℚ[x]')+' de grado mínimo con raíces '+M('√2')+' y '+M('1')+' tiene grado:', opts: [M('2'), M('3'), M('4'), M('5')], c: 1, ex: 'En ℚ[x] (coeficientes racionales), si √2 es raíz (irracional cuadrático), entonces −√2 (su "conjugado en ℚ") también lo es. ▸ <b>Para {√2, −√2}:</b> factor (x−√2)(x+√2) = x² − 2, grado 2 (con coef. racionales ✓). ▸ <b>Para 1 (racional):</b> factor (x−1), grado 1. ▸ <b>Total grado mínimo:</b> 2 + 1 = <b>3</b>. ▸ <b>Por qué las otras están mal:</b> (A) "2" si solo (x−√2)(x−1), pero ese polinomio tendría coef. con √2 (no racional). En ℚ[x] necesitás (x²−2). (C) (D) tienen factores extra innecesarios.'},
+  {st: 'Sea '+M('P ∈ ℚ[x]')+' de grado mínimo con '+M('P(√5) = 0')+', '+M('i')+' raíz doble, y '+M('P(−2) = −75')+'. Entonces '+M('P(x)')+' es:', opts: [M('3(x² − 5)(x² + 1)²'), M('(x² − 5)(x² + 1)²'), M('−3(x − √5)(x² + 1)²'), M('3(x − √5)(x + √5)(x − i)(x + i)')], c: 0, ex: 'En ℚ[x] (raíces irracionales/imaginarias necesitan sus pares con misma multiplicidad). ▸ <b>√5 raíz simple → −√5 también:</b> factor (x−√5)(x+√5) = x² − 5. ▸ <b>i raíz DOBLE → −i raíz doble:</b> factor (x−i)²(x+i)² = ((x−i)(x+i))² = (x²+1)². ▸ <b>Grado mínimo:</b> 2 + 4 = 6. ▸ <b>Forma:</b> P(x) = k·(x²−5)(x²+1)². ▸ <b>Imponer condición P(−2) = −75:</b> P(−2) = k·((−2)²−5)·((−2)²+1)² = k·(4−5)·(4+1)² = k·(−1)·25 = −25k. ▸ <b>Despejar:</b> −25k = −75 → k = 3. ▸ <b>Resultado:</b> <b>P(x) = 3(x²−5)(x²+1)²</b>. ▸ <b>Por qué las otras están mal:</b> (B) le falta el k=3 (no satisface P(−2)=−75); (C) (x−√5) suelto NO está en ℚ[x] (porque √5 ∉ ℚ); (D) factores con i NO están en ℚ[x] (i ∉ ℚ).'},
+  {st: 'Factorizar el polinomio '+M('P(x) = x³ − 6x² + 11x − 6')+' en '+M('ℝ[x]')+' sabiendo que tiene raíz x = 1.', opts: [M('(x − 1)(x − 2)(x − 3)'), M('(x − 1)(x² − 5x + 6)'), M('(x − 1)²(x − 6)'), M('(x − 1)(x + 2)(x + 3)')], c: 0, ex: 'Si x=1 es raíz, P es divisible por (x−1). ▸ <b>División polinómica</b> (Ruffini con 1): coef [1, −6, 11, −6] → bajar 1, multiplicar y sumar: 1, 1−6+1·1=−5, 11+(−5)·1=6, −6+6·1=0 (resto). Cociente: x²−5x+6. ▸ <b>Factorizar el cociente:</b> x²−5x+6 = (x−2)(x−3) (suma de raíces 5, producto 6). ▸ <b>Resultado:</b> <b>P(x) = (x−1)(x−2)(x−3)</b>. Tres raíces: 1, 2, 3. ▸ <b>Verificación:</b> P(2) = 8−24+22−6 = 0 ✓. P(3) = 27−54+33−6 = 0 ✓. ▸ <b>Por qué las otras están mal:</b> (B) está incompleto (no factoriza el cociente); (C) (D) son factorizaciones incorrectas (verificalo evaluando).'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

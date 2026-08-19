@@ -1,0 +1,2354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Álgebra · Primer Parcial · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="algebra-parcial"] {
+    --bg: #eef2f7; --text: #1f2937; --text-muted: #64748b;
+    --surface: #ffffff; --surface-2: #dbe5f0; --surface-3: #c5d3e3;
+    --border: #d5dfe9; --border-2: #bfcadb;
+    --accent: #1e3a8a; --accent-hover: #2c4eaa; --gold: #d97706;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #dbe5f0; --summary-hover: #c5d3e3; --num-text: #ffffff;
+    --shadow: rgba(30, 58, 138, 0.08);
+  }
+  [data-theme="dark"][data-subject="algebra-parcial"] {
+    --bg: #0f1623; --text: #e2e8f0; --text-muted: #94a3b8;
+    --surface: #1a2332; --surface-2: #243041; --surface-3: #2e3c4f;
+    --border: #2e3c4f; --border-2: #3a4a5e;
+    --accent: #93c5fd; --accent-hover: #bfdbfe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #ef4444;
+    --summary-bg: #243041; --summary-hover: #2e3c4f; --num-text: #0f1623;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== ÁLGEBRA · PRIMER PARCIAL =================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-algebra-parcial">
+  <header>
+    <h1>Álgebra · Guía Primer Parcial</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · Guía intensiva basada en 9 parciales (18/09/2024)</div>
+  </header>
+<nav class="toc" id="toc-algebra-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#alp-s1">Estrategia general y fórmulas clave</a></li>
+    <li><a href="#alp-s2">TIPO 1 · Vectores en R³</a></li>
+    <li><a href="#alp-s3">TIPO 2 · Rectas y planos</a></li>
+    <li><a href="#alp-s4">TIPO 3 · Subespacios vectoriales y bases</a></li>
+    <li><a href="#alp-s5">TIPO 4 · Cónicas</a></li>
+    <li><a href="#alp-s6">Mix integrador · Ejercicios de repaso</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA GENERAL ============ -->
+<details id="alp-s1">
+<summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-algebra-parcial-1"></span></summary>
+<div class="content">
+
+<h3>La estructura del parcial Escayola</h3>
+<p>El parcial siempre tiene <b>8 ejercicios</b> de opción múltiple, cada uno vale <b>1,25 puntos</b> (total 10 puntos). Todos son de respuesta única. No hay desarrollo obligatorio: elegís la opción correcta.</p>
+<p>Los 8 ejercicios cubren <b>5 sesiones temáticas</b>: vectores (sesión 1), rectas y planos (sesión 3), subespacios y bases (sesión 4), cónicas (sesión 5). <b>Sesión 2 no entra al 1° parcial</b>.</p>
+
+<h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
+
+<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<table class="tbl">
+  <tr><th>Si ves...</th><th>Es...</th></tr>
+  <tr><td>Norma, ángulo, producto escalar, paralelo, módulo</td><td><b>TIPO 1</b> — Vectores</td></tr>
+  <tr><td>Recta + plano, distancia, simétrico, posición relativa</td><td><b>TIPO 2</b> — Rectas y planos</td></tr>
+  <tr><td>Subespacio S, base, generadores, L.I./L.D., determinante</td><td><b>TIPO 3</b> — Subespacios</td></tr>
+  <tr><td>Elipse, hipérbola, parábola, circunferencia, completar cuadrados</td><td><b>TIPO 4</b> — Cónicas</td></tr>
+</table>
+
+<h4>Pregunta 2 — ¿Qué fórmula dispara?</h4>
+<ul>
+  <li><b>Producto escalar</b>: <span class="m">v · w = ‖v‖·‖w‖·cos(α)</span></li>
+  <li><b>Norma</b>: <span class="m">‖v‖ = √(v₁² + v₂² + v₃²)</span></li>
+  <li><b>Paralelo</b>: <span class="m">w = k·v</span> para algún <span class="m">k ≠ 0</span></li>
+  <li><b>Distancia punto–plano</b>: recta normal al plano, buscar intersección, medir</li>
+  <li><b>Base</b>: determinante ≠ 0 ↔ L.I. ↔ genera R³</li>
+  <li><b>Cónicas</b>: completar cuadrados para llevar a forma canónica</li>
+</ul>
+
+<h4>Pregunta 3 — ¿Tengo todos los datos?</h4>
+<p>En vectores: fijate si te dan norma, ángulo o coordenadas. En cónicas: identificá los coeficientes antes de completar cuadrados. En subespacios: verificá qué vectores hay que reemplazar en qué ecuación.</p>
+
+<h4>Pregunta 4 — ¿Puedo descartar opciones rápido?</h4>
+<p>El parcial tiene 4 opciones. En muchos ejercicios, 2 de las 4 tienen una característica obvia incorrecta. Por ejemplo, en "posición relativa de rectas": si los vectores directores son múltiplos → no son paralelas en ningún otro sentido. Eso elimina 2 opciones en 10 segundos.</p>
+
+<h3>Fórmulas imprescindibles</h3>
+
+<div class="formula">
+  Producto escalar: <b>v · w = v₁w₁ + v₂w₂ + v₃w₃ = ‖v‖·‖w‖·cos(α)</b><br>
+  Norma: <b>‖v‖ = √(v₁² + v₂² + v₃²)</b><br>
+  Punto medio entre A y B: <b>M = ((A+B)/2)</b> (coordenada a coordenada)<br>
+  Vector AB: <b>AB = B − A</b><br>
+  Versor (vector unitario): <b>v̂ = v / ‖v‖</b>
+</div>
+
+<div class="formula">
+  Determinante 3×3 (regla de Sarrus o cofactores):<br>
+  Si det(M) = 0 → L.D. (no es base, no genera R³)<br>
+  Si det(M) ≠ 0 → L.I. (es base, genera R³)
+</div>
+
+<div class="formula">
+  Distancia de A al plano ax+by+cz=d:<br>
+  <b>d = |ax₀ + by₀ + cz₀ − d| / √(a²+b²+c²)</b><br>
+  (O via recta normal: más segura si no recordás la fórmula directa)
+</div>
+
+<div class="formula">
+  Cónicas canónicas:<br>
+  Circunferencia: (x−h)² + (y−k)² = r²<br>
+  Elipse: (x−h)²/a² + (y−k)²/b² = 1 (a > b > 0)<br>
+  Hipérbola (eje x): (x−h)²/a² − (y−k)²/b² = 1<br>
+  Hipérbola (eje y): (y−k)²/a² − (x−h)²/b² = 1<br>
+  Parábola (abre →): (y−k)² = 4p(x−h), p > 0<br>
+  Parábola (abre ←): (y−k)² = −4p(x−h), p > 0
+</div>
+
+<div class="key"><div class="ky-t">Regla de oro del parcial</div>
+Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre la misma: <b>reemplazá en la ecuación/condición del enunciado, calculá y despejá el parámetro.</b> No intentes "adivinar": sustituí.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · VECTORES ============ -->
+<details id="alp-s2">
+<summary><span class="num">2</span> TIPO 1 · Vectores en R³ <span class="sec-score" id="ss-algebra-parcial-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2–3 ejercicios)</h3>
+<p>Los ejercicios de vectores son los más directos. La clave es saber qué fórmula aplicar y no confundir módulo con coordenadas.</p>
+
+<h3>Subtipo A: Producto escalar y ángulo</h3>
+<p>La fórmula clave une dos definiciones del producto escalar:</p>
+<div class="formula">
+  v · w = v₁w₁ + v₂w₂ + v₃w₃ = ‖v‖·‖w‖·cos(α)
+</div>
+<p>Si te dan coordenadas → calculás el producto por componentes. Si te dan normas y ángulo → usás la forma geométrica.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Producto escalar con parámetro</div>
+  <p>Dados <span class="vec">a</span> = (k, −k, k) y <span class="vec">b</span> = (0, 0, −k) con k ∈ R, hallá cos(α).</p>
+  <p><b>Paso 1 (producto escalar por componentes):</b></p>
+  <div class="formula">a · b = k·0 + (−k)·0 + k·(−k) = −k²</div>
+  <p><b>Paso 2 (normas):</b></p>
+  <div class="formula">
+    ‖a‖ = √(k² + k² + k²) = k√3 (tomamos k > 0)<br>
+    ‖b‖ = √(0 + 0 + k²) = |k|
+  </div>
+  <p><b>Paso 3 (despejás cos α):</b></p>
+  <div class="formula">cos(α) = −k² / (k√3 · k) = −k²/(k²√3) = <b>−1/√3</b></div>
+  <p>Respuesta: opción A) −1/√3.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Producto escalar con normas y ángulo</div>
+  <p><span class="vec">v</span> tiene norma √5, <span class="vec">w</span> tiene norma 8, ángulo = 2π/3. Calculá v · w.</p>
+  <div class="formula">v · w = √5 · 8 · cos(2π/3) = 8√5 · (−1/2) = <b>−4√5</b></div>
+</div>
+
+<h3>Subtipo B: Vector paralelo de norma dada</h3>
+<p>Si pedido que <span class="vec">w</span> es paralelo a <span class="vec">v</span> y tiene norma r, la receta es:</p>
+<ol>
+  <li>Escribís <span class="m">w = k·v</span>.</li>
+  <li>Imponés <span class="m">‖w‖ = ‖k·v‖ = |k|·‖v‖ = r</span>.</li>
+  <li>Obtenés dos valores de k (positivo y negativo).</li>
+  <li>El enunciado te dice cuál usar (coordenada negativa, etc.).</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Vector paralelo de norma dada</div>
+  <p>Hallá <span class="vec">w</span> de norma 6√5 paralelo a <span class="vec">v</span> = (−2/9, 4/9, −5/9).</p>
+  <p><b>Paso 1:</b> <span class="m">w = k·(−2/9, 4/9, −5/9)</span>.</p>
+  <p><b>Paso 2:</b> <span class="m">‖v‖ = √((2/9)² + (4/9)² + (5/9)²) = √(4+16+25)/9 = √45/9 = 3√5/9 = √5/3</span>.</p>
+  <p><b>Paso 3:</b> <span class="m">|k|·√5/3 = 6√5 → |k| = 18 → k = ±18</span>.</p>
+  <p>Para k = −18: <span class="m">w = −18·(−2/9, 4/9, −5/9) = (4, −8, 10)</span>. Respuesta: D).</p>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa frecuente — El versor</div>
+Si te dicen que <span class="vec">v</span> es "paralelo al versor î" significa que solo tiene componente en x. Si es paralelo a î y tiene norma 7 → <span class="m">v = (7, 0, 0)</span> o <span class="m">v = (−7, 0, 0)</span>. El enunciado te dice cuál.
+</div>
+
+<h3>Subtipo C: Punto medio y vector entre puntos</h3>
+<p>Si te dan que M es el punto medio entre los extremos de <span class="vec">v</span> y <span class="vec">u</span>:</p>
+<div class="formula">M = (v + u) / 2 ↔ v + u = 2M</div>
+<p>Entonces: <span class="m">u = 2M − v</span> (coordenada a coordenada).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Punto medio</div>
+  <p><span class="vec">v</span> = (−7, 0, 0) y M = (15/2, 17/4, −1/10). Hallá <span class="vec">u</span>.</p>
+  <div class="formula">
+    ux = 2·(15/2) − (−7) = 15 + 7 = 22<br>
+    uy = 2·(17/4) − 0 = 17/2<br>
+    uz = 2·(−1/10) − 0 = −1/5
+  </div>
+  <p>Respuesta: <span class="vec">u</span> = (22, 17/2, −1/5). Opción B).</p>
+</div>
+
+<h3>Subtipo D: Dilatación + traslación</h3>
+<p>Te dan <span class="m">β·u + t = w</span> con β desconocido, u y t y w conocidos. Despejás β resolviendo coordinada a coordenada.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Dilatación con parámetro</div>
+  <p>β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). Hallá β.</p>
+  <p>Coordenada x: <span class="m">3β/11 − 10 = −7 → 3β/11 = 3 → β = 11</span>. Verificás con y y z. Respuesta: C) 11.</p>
+</div>
+
+<h3>Subtipo E: Vectores AB y CD con igual módulo (parámetro)</h3>
+<p>Calculás <span class="m">AB = B − A</span> y <span class="m">CD = D − C</span>, luego imponés <span class="m">‖AB‖ = ‖CD‖</span>. Sale una ecuación cuadrática en el parámetro.</p>
+
+<div class="key"><div class="ky-t">Resultado típico</div>
+La ecuación cuadrática que sale tiene la forma <span class="m">m² = cte</span>, entonces la solución es <span class="m">|m| = √cte</span>, lo que da dos valores. La opción correcta escribe "|m| = ..." (no solo un valor positivo).
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · RECTAS Y PLANOS ============ -->
+<details id="alp-s3">
+<summary><span class="num">3</span> TIPO 2 · Rectas y planos <span class="sec-score" id="ss-algebra-parcial-3"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2 ejercicios)</h3>
+<p>Los temas son: distancia de punto a plano, distancia de punto a recta, posición relativa de dos rectas, posición relativa de recta y plano, simétrico respecto de un plano y posición relativa de dos planos.</p>
+
+<h3>Formas de escribir rectas y planos</h3>
+<div class="formula">
+  Recta paramétrica: X = t·d + P, t ∈ R (d = vector director, P = punto)<br>
+  Plano implícito: ax + by + cz = d (n = (a, b, c) es el vector normal)<br>
+  Plano paramétrico: X = s·u + t·v + P, s, t ∈ R
+</div>
+
+<div class="key"><div class="ky-t">Vector normal del plano</div>
+Si el plano se da en forma paramétrica con vectores u y v, el vector normal n = u × v (producto vectorial). Pero en los parciales casi siempre te dan la forma implícita directamente o piden posición relativa.
+</div>
+
+<h3>Subtipo A: Distancia de punto a plano</h3>
+<p>Hay dos métodos equivalentes:</p>
+<ul>
+  <li><b>Fórmula directa:</b> d = |ax₀ + by₀ + cz₀ − d| / √(a²+b²+c²)</li>
+  <li><b>Via recta normal:</b> escribís la recta normal al plano que pasa por A, calculás su intersección con el plano (punto B), medís ‖AB‖.</li>
+</ul>
+<p>El parcial siempre evalúa el método via recta normal (más explícito).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Distancia A al plano</div>
+  <p>A = (−1, 2, 3), Π: 2x + y − z + 1 = 0. Hallá la distancia.</p>
+  <p><b>Recta normal al plano por A:</b> <span class="m">X = t·(2, 1, −1) + (−1, 2, 3)</span>.</p>
+  <p>Punto genérico de la recta: <span class="m">(2t−1, t+2, −t+3)</span>.</p>
+  <p><b>Intersección con el plano:</b> <span class="m">2(2t−1) + (t+2) − (−t+3) + 1 = 0 → 6t − 2 = 0 → t = 1/3</span>.</p>
+  <p>Punto B: <span class="m">(2/3−1, 1/3+2, −1/3+3) = (−1/3, 7/3, 8/3)</span>.</p>
+  <div class="formula">
+    ‖AB‖ = ‖(−1/3−(−1), 7/3−2, 8/3−3)‖ = ‖(2/3, 1/3, −1/3)‖<br>
+    = √(4/9 + 1/9 + 1/9) = √(6/9) = √6/3
+  </div>
+  <p>Respuesta: √6/3.</p>
+</div>
+
+<h3>Subtipo B: Distancia de punto a recta</h3>
+<p>Método: escribís el plano que contiene al punto A y es normal a la recta, encontrás la intersección B entre la recta y ese plano, calculás ‖AB‖.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio resuelto — Distancia punto a recta</div>
+  <p>A = (4, 0, 3). Recta r: X = t(1, 2, 2) + (1, 0, 0). Hallá la distancia de A a r.</p>
+  <p><b>Plano normal a r por A:</b> vector normal = director de r = (1, 2, 2), pasa por A = (4, 0, 3):</p>
+  <div class="formula">1(x−4) + 2(y−0) + 2(z−3) = 0 → x + 2y + 2z = 10</div>
+  <p><b>Punto genérico de r:</b> <span class="m">(t+1, 2t, 2t)</span>. Lo reemplazo en el plano:</p>
+  <div class="formula">(t+1) + 2(2t) + 2(2t) = 10 → 9t + 1 = 10 → t = 1</div>
+  <p>Pie de la perpendicular B = (1+1, 2, 2) = (2, 2, 2).</p>
+  <div class="formula">
+    ‖AB‖ = ‖(2−4, 2−0, 2−3)‖ = ‖(−2, 2, −1)‖<br>
+    = √(4 + 4 + 1) = √9 = 3
+  </div>
+  <p>Respuesta: <b>la distancia es 3</b>.</p>
+  <div class="key"><div class="ky-t">Verificación rápida</div>
+  Atajo (fórmula con producto vectorial): d = ‖AP × d‖ / ‖d‖, con P = (1,0,0) un punto de r y d = (1,2,2).
+  AP = P − A = (−3, 0, −3); AP × d = (0·2−(−3)·2, (−3)·1−(−3)·2, (−3)·2−0·1) = (6, 3, −6), ‖·‖ = √81 = 9.
+  ‖d‖ = √9 = 3 → d = 9/3 = 3 ✓. Los parciales dan números lindos: si te sale algo feo, revisá la operatoria.
+  </div>
+</div>
+
+<h3>Subtipo C: Posición relativa de dos rectas</h3>
+<p>En R³ las cuatro posiciones posibles son: <b>paralelas</b>, <b>coincidentes</b>, <b>concurrentes</b> (se cortan en un punto) y <b>alabeadas</b> (no se cortan ni son paralelas). La perpendicularidad (d₁·d₂ = 0) es una propiedad <i>extra</i>: tanto las concurrentes como las alabeadas pueden ser perpendiculares.</p>
+
+<table class="tbl">
+  <tr><th>Condición</th><th>Conclusión</th></tr>
+  <tr><td>Vectores directores son múltiplos (d₁ ‖ d₂)</td><td>Paralelas o coincidentes</td></tr>
+  <tr><td>Paralelas Y el punto de una pertenece a la otra</td><td>Coincidentes</td></tr>
+  <tr><td>No múltiplos Y tienen intersección</td><td>Concurrentes (se cortan en un punto)</td></tr>
+  <tr><td>No múltiplos Y sin intersección</td><td>Alabeadas (no se cortan)</td></tr>
+  <tr><td>d₁ · d₂ = 0 (perpendiculares)</td><td>Propiedad extra: concurrentes-ortogonales si se cortan, alabeadas-perpendiculares si no</td></tr>
+</table>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Posición relativa de rectas</div>
+  <p>r₁: X = k(−4/3, 0, −3) + (−1, 2, 3). r₂: X = t(1/2, 2/7, −2/9) + (−2, −5, 6).</p>
+  <p><b>1) ¿Paralelas?</b> ¿Es (−4/3, 0, −3) = λ·(1/2, 2/7, −2/9)? Por la 2° coord: 0 = λ·2/7 → λ = 0. No. → NO paralelas.</p>
+  <p><b>2) ¿Producto escalar = 0?</b> <span class="m">(−4/3)(1/2) + 0·(2/7) + (−3)(−2/9) = −2/3 + 0 + 2/3 = 0</span>. Sí.</p>
+  <p><b>3) ¿Se intersecan?</b> Planteamos el sistema de 3 ecuaciones con k y t. En este caso la intersección es vacía.</p>
+  <p>→ <b>Alabeadas perpendiculares</b>: no son paralelas, no se cortan, pero sus direcciones forman 90° (d₁·d₂ = 0). Si el sistema hubiera tenido solución, serían concurrentes-ortogonales.</p>
+</div>
+
+<h3>Subtipo D: Posición relativa de recta y plano</h3>
+<p>Reemplazás el punto genérico de la recta en la ecuación del plano. Si sale una ecuación con solución única en t → cortan en un punto. Si sale 0=0 → la recta está contenida. Si sale 0 = c ≠ 0 → paralelos.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Recta y plano</div>
+  <p>Recta: X = α(3, 6, 9) + (4, 2, −1). Plano: −x + y − z = 1.</p>
+  <p>Punto genérico: (3α+4, 6α+2, 9α−1). En el plano:</p>
+  <div class="formula">−(3α+4) + (6α+2) − (9α−1) = 1 → −6α − 1 = 1 → α = −1/3</div>
+  <p>Sale un único α → la recta corta al plano en un punto: evaluando → (3, 0, −4).</p>
+</div>
+
+<h3>Subtipo E: Simétrico de un punto respecto de un plano</h3>
+<p>Receta en 3 pasos:</p>
+<ol>
+  <li>Escribís la recta normal al plano que pasa por A.</li>
+  <li>Hallás el pie B = intersección entre la recta y el plano.</li>
+  <li>A' = 2B − A (coordenada a coordenada). B es el punto medio entre A y su simétrico.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Simétrico respecto de plano</div>
+  <p>A = (7, −10, −1). Plano: 2x − 3y + z = 1.</p>
+  <p><b>Recta normal por A:</b> X = t(2, −3, 1) + (7, −10, −1). Punto: (2t+7, −3t−10, t−1).</p>
+  <p><b>En el plano:</b> 2(2t+7) − 3(−3t−10) + (t−1) = 1 → 14t + 43 = 1 → t = −3.</p>
+  <p>Punto B: (1, −1, −4).</p>
+  <div class="formula">A' = 2B − A = (2·1−7, 2·(−1)−(−10), 2·(−4)−(−1)) = (−5, 8, −7)</div>
+</div>
+
+<h3>Subtipo F: Posición relativa de dos planos</h3>
+<p>Si los normales son paralelos → paralelos o coincidentes. Si no → intersecan en una recta. Verificar perpendicularidad con producto escalar de normales.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Posición relativa de planos</div>
+  <p>π₁ paramétrico: X = s(1,1,0) + t(2,0,2) + (1,1,1). π₂: x + z = 1 + y.</p>
+  <p>Normal a π₂: n₂ = (1, −1, 1). Para π₁: n₁ = (1,1,0) × (2,0,2) = (2, −2, −2) = 2(1,−1,−1).</p>
+  <p>n₁ · n₂ = 1·1 + (−1)(−1) + (−1)·1 = 1 + 1 − 1 = 1 ≠ 0 → No perpendiculares.</p>
+  <p>¿Paralelos? n₁ = λ·n₂ → (1,−1,−1) = λ(1,−1,1) → la 3° componente da λ=−1 pero la 1° da λ=1. Contradicción → NO paralelos → su intersección es una recta.</p>
+  <p>Respuesta: B) La intersección es una recta y no son perpendiculares.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · SUBESPACIOS ============ -->
+<details id="alp-s4">
+<summary><span class="num">4</span> TIPO 3 · Subespacios vectoriales y bases <span class="sec-score" id="ss-algebra-parcial-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2 ejercicios)</h3>
+<p>Los dos ejercicios de subespacios son predecibles: uno pide <b>base o generadores de un subespacio</b>, y otro pide <b>para qué k el conjunto no es base de R³</b>.</p>
+
+<h3>Conceptos clave</h3>
+
+<div class="formula">
+  Un conjunto {v₁, v₂, v₃} en R³ es base de R³<br>
+  ↔ los vectores son L.I.<br>
+  ↔ det([v₁ | v₂ | v₃]) ≠ 0<br>
+  ↔ el conjunto genera R³
+</div>
+
+<div class="key"><div class="ky-t">Subespacio S definido por ecuaciones</div>
+Si S = {x ∈ Rⁿ : ec₁(x) = 0, ec₂(x) = 0}, los vectores de un conjunto generador de S deben satisfacer TODAS las ecuaciones. La base tiene dimensión = n − (número de ecuaciones independientes).
+</div>
+
+<h3>Subtipo A: Para qué k el conjunto no es base de R³</h3>
+<p>Receta directa:</p>
+<ol>
+  <li>Formá la matriz con los vectores como filas.</li>
+  <li>Calculá el determinante en función de k.</li>
+  <li>Igualá a 0 (condición para que NO sea base).</li>
+  <li>Resolvés la ecuación cuadrática en k.</li>
+  <li>El enunciado te pide k con alguna restricción (k ∈ Z&gt;0, k ∈ Z&lt;0, etc.).</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales Tema 3 y 1) — Cuándo no es base</div>
+  <p>Conjunto {(1, 0, −1), (−1, k, 0), (0, −2, k+1)}. Hallá k ∈ Z&gt;0 para que NO sea base.</p>
+  <div class="formula">
+    det = 1·(k(k+1) − 0·(−2)) − 0·(−(k+1)−0) + (−1)·(2−0)<br>
+    = k(k+1) − (−2) = k² + k + 2 − 2 ... <br>
+    Expandiendo: k² + k − 2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1
+  </div>
+  <p>Como k ∈ Z&gt;0 → k = 1. Respuesta: B).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Cuándo no es generador de R³</div>
+  <p>A = {(0,−2,−1), (k,1,0), (−8,0,k+3)}. Hallá k para que NO sea generador de R³.</p>
+  <p>det = 0·(k+3) − (−2)·(k(k+3)−0) + (−1)·(0−(−8))<br>
+  = 0 + 2k(k+3) − 8 = 2k² + 6k − 8 = 0 → k² + 3k − 4 = 0 → (k+4)(k−1) = 0</p>
+  <p>No generador para k ∈ {1, −4}. Generador para k ∈ R \ {1, −4}. Respuesta: C).</p>
+</div>
+
+<h3>Subtipo B: Hallar parámetros del subespacio para que un conjunto sea su base</h3>
+<p>Te dan S con parámetros n y m, y te dan un conjunto A = {v₁, v₂} que supuestamente es base de S. Receta:</p>
+<ol>
+  <li>Reemplazás las coordenadas de v₁ en la primera ecuación de S (obtenés una ecuación en n o m).</li>
+  <li>Reemplazás las coordenadas de v₂ en la segunda ecuación de S (obtenés otra ecuación).</li>
+  <li>Resolvés el sistema.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">Error frecuente</div>
+No mezcles: v₁ va en la ecuación que le "corresponde" (la que tiene el parámetro que aparece en sus coordenadas). El parcial siempre elige v₁ y v₂ para que cada uno resuelva una ecuación distinta.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Parámetros del subespacio</div>
+  <p>S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : nx₁ + 2x₂ = 0 ∧ x₂ + mx₃ − x₄ = 0}.<br>
+  Base de S: {(−2,1,0,1), (0,0,1,3)}. Hallá n y m.</p>
+  <p>Reemplazando (−2,1,0,1) en nx₁ + 2x₂ = 0: <span class="m">−2n + 2 = 0 → n = 1</span>.</p>
+  <p>Reemplazando (0,0,1,3) en x₂ + mx₃ − x₄ = 0: <span class="m">0 + m − 3 = 0 → m = 3</span>.</p>
+  <p>Respuesta: D) n = 1 y m = 3.</p>
+</div>
+
+<h3>Subtipo C: Generadores de un subespacio dado</h3>
+<p>Te dan S = {x ∈ R⁴ : condición} y 4 opciones de conjuntos. Tenés que identificar cuál genera S.</p>
+<p>Estrategia: para cada opción, verificás que todos sus vectores satisfacen la condición de S, y que el conjunto tiene suficiente dimensión.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Generadores de S</div>
+  <p>S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : x₁ + x₄ = 0}.</p>
+  <p>Opción C: {(1,0,0,−1), (0,1,0,0), (0,0,1,0)}.</p>
+  <p>Verificación: 1+(−1)=0 ✓, 0+0=0 ✓, 0+0=0 ✓. Los 3 son L.I. (det ≠ 0) y generan S (dim S = 3).</p>
+  <p>Combinación lineal: a(1,0,0,−1) + b(0,1,0,0) + c(0,0,1,0) = (a,b,c,−a). Reemplazando en S: a+(−a) = 0 ✓.</p>
+</div>
+
+<h3>Subtipo D: Combinación lineal</h3>
+<p>Te dan vectores v₁, v₂ y te preguntan cuál de las opciones es combinación lineal de ellos. Tenés que verificar si existe α, β tal que α·v₁ + β·v₂ = w (sistema de 3 ecuaciones con 2 incógnitas).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Combinación lineal</div>
+  <p>¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?</p>
+  <p>Probamos la opción A) (−1,0,3): <span class="m">α(1,2,−1) + β(−1,−1,2) = (−1,0,3)</span>.</p>
+  <div class="formula">
+    α − β = −1<br>
+    2α − β = 0<br>
+    −α + 2β = 3
+  </div>
+  <p>De las primeras dos: α = 1, β = 2. Verificamos: −1 + 2·2 = 3 ✓. Respuesta: A).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · CÓNICAS ============ -->
+<details id="alp-s5">
+<summary><span class="num">5</span> TIPO 4 · Cónicas <span class="sec-score" id="ss-algebra-parcial-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en el 100% de los parciales (2 ejercicios)</h3>
+<p>Las cónicas son la parte más "algebraica" del parcial. Siempre involucran <b>completar cuadrados</b> para llevar la ecuación a forma canónica, y luego leer los datos geométricos.</p>
+
+<h3>Repaso de formas canónicas</h3>
+
+<table class="tbl">
+  <tr><th>Cónica</th><th>Forma canónica (centro C = (h, k))</th><th>Datos</th></tr>
+  <tr><td>Circunferencia</td><td>(x−h)² + (y−k)² = r²</td><td>radio r, centro C</td></tr>
+  <tr><td>Elipse (eje x)</td><td>(x−h)²/a² + (y−k)²/b² = 1, a &gt; b</td><td>focos en (h±c, k), c² = a²−b²</td></tr>
+  <tr><td>Elipse (eje y)</td><td>(x−h)²/b² + (y−k)²/a² = 1, a &gt; b</td><td>focos en (h, k±c), c² = a²−b²</td></tr>
+  <tr><td>Hipérbola (eje x)</td><td>(x−h)²/a² − (y−k)²/b² = 1</td><td>focos en (h±c, k), c² = a²+b²</td></tr>
+  <tr><td>Hipérbola (eje y)</td><td>(y−k)²/a² − (x−h)²/b² = 1</td><td>focos en (h, k±c), c² = a²+b²</td></tr>
+  <tr><td>Parábola (→)</td><td>(y−k)² = 4p(x−h)</td><td>foco (h+p, k), directriz x = h−p</td></tr>
+  <tr><td>Parábola (←)</td><td>(y−k)² = −4p(x−h)</td><td>foco (h−p, k), directriz x = h+p</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Excentricidad</div>
+Para hipérbola e = c/a (siempre &gt; 1). Para elipse e = c/a (siempre &lt; 1). Para circunferencia e = 0.
+Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canónica.
+</div>
+
+<h3>Subtipo A: Hallar el parámetro para que sea una cónica con centro dado</h3>
+<p>Completás cuadrados en función del parámetro y leés el centro de la forma canónica.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Elipse con centro dado</div>
+  <p>144x² − 24kx + 16y² = 63. Centro = (−0,75; 0). Hallá k.</p>
+  <p><b>Completar cuadrados en x:</b></p>
+  <div class="formula">
+    144(x² − kx/6) + 16y² = 63<br>
+    144(x − k/12)² − 144·k²/144 + 16y² = 63<br>
+    144(x − k/12)² + 16y² = 63 + k²/1
+  </div>
+  <p>Centro x: k/12 = −0,75 → k = −9. Respuesta: C).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Elipse con centro dado</div>
+  <p>36y² + 4x² − 2ky = 27. Centro = (0; 0,5). Hallá k.</p>
+  <p>Completar cuadrados en y: 36(y² − ky/18) + 4x² = 27 → 36(y − k/36)² + 4x² = 27 + k²/36.</p>
+  <p>Centro y: k/36 = 0,5 → k = 18. Respuesta: A).</p>
+</div>
+
+<h3>Subtipo B: Identificar cónica con excentricidad y focos</h3>
+<p>Con los focos hallás el centro (punto medio) y c (distancia centro-foco). Con la excentricidad e = c/a despejás a. Luego obtenés b² según la cónica. <b>Cuidado con el signo</b>, es lo que más se confunde:</p>
+<div class="formula">
+  Elipse: c² = a² − b² → b² = a² − c² (a &gt; c, focos dentro)<br>
+  Hipérbola: c² = a² + b² → b² = c² − a² (c &gt; a, focos fuera)
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Hipérbola con excentricidad</div>
+  <p>Hipérbola H con excentricidad 2,25, focos F₁ = (0,−8) y F₂ = (0,10).</p>
+  <p><b>Centro:</b> punto medio = (0, 1). <b>c:</b> distancia centro-foco = 9.</p>
+  <p><b>a:</b> e = c/a → 2,25 = 9/a → a = 4. <b>Vértices:</b> (0, 1±4) = (0, 5) y (0, −3).</p>
+  <p><b>b²:</b> c² = a² + b² → 81 = 16 + b² → b² = 65.</p>
+  <p><b>Ecuación canónica:</b> <span class="m">(y−1)²/16 − x²/65 = 1</span>.</p>
+  <p>Para verificar si un punto pertenece: reemplazás sus coordenadas y verificás si = 1.</p>
+</div>
+
+<h3>Subtipo C: Identificar cónica y completar cuadrados</h3>
+<p>Te dan una ecuación general ax² + bxy + cy² + ... = d y tenés que clasificarla y hallar sus elementos (centro, excentricidad, etc.).</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Completar cuadrados hipérbola</div>
+  <p>C = {3x² − y² − 6x − 30y − 546 = 0}. Hallá centro y excentricidad.</p>
+  <p><b>En x:</b> 3(x² − 2x) = 3(x−1)² − 3.</p>
+  <p><b>En y:</b> −(y² + 30y) = −(y+15)² + 225.</p>
+  <div class="formula">
+    3(x−1)² − 3 − (y+15)² + 225 − 546 = 0<br>
+    3(x−1)² − (y+15)² = 324<br>
+    (x−1)²/108 − (y+15)²/324 = 1
+  </div>
+  <p>Hipérbola con centro (1, −15), a² = 108, b² = 324. c² = 108 + 324 = 432. e = c/a = √432/√108 = 2.</p>
+  <p>Respuesta: C) e = 2; (1, −15).</p>
+</div>
+
+<h3>Subtipo D: Parábola — foco y directriz</h3>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Parábola</div>
+  <p>y² − 8x + 3 = 6y. Hallá foco y directriz.</p>
+  <p>Reordenamos: y² − 6y = 8x − 3.</p>
+  <p>Completar cuadrados en y: (y−3)² − 9 = 8x − 3 → (y−3)² = 8x + 6 = 8(x + 3/4).</p>
+  <p>Forma canónica: <span class="m">(y−3)² = 8(x + 0,75)</span>. Vértice = (−0,75; 3), 4p = 8 → p = 2.</p>
+  <p>Foco: (−0,75 + 2; 3) = (1,25; 3). Directriz: x = −0,75 − 2 = −2,75.</p>
+  <p>Respuesta: A).</p>
+</div>
+
+<h3>Subtipo E: Intersección de dos cónicas</h3>
+<p>Identificás cada cónica (circunferencia, elipse...), las graficás esquemáticamente y verificás si se intersecan.</p>
+
+<div class="example">
+  <div class="ex-t">Ejercicio real (Parciales múltiples) — Intersección</div>
+  <p>M = {(x+4)² + (y+3)² = 9} → circunferencia, centro (−4, −3), radio 3.</p>
+  <p>N = {3x² + y² + 6y = −6} → 3x² + (y+3)² = 3 → x²/1 + (y+3)²/3 = 1 → elipse, centro (0, −3).</p>
+  <p>La circunferencia tiene centro (−4, −3) y radio 3. El punto más cercano al centro de la elipse a través del radio es (−4+3, −3) = (−1, −3). ¿Pertenece a la elipse? 1/1 + 0/3 = 1 ✓.</p>
+  <p>→ Se intersecan en exactamente un punto (−1, −3). Respuesta: C).</p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · MIX INTEGRADOR ============ -->
+<details id="alp-s6">
+<summary><span class="num">6</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-algebra-parcial-6"></span></summary>
+<div class="content">
+
+<h3>Reconocer el tipo en menos de 30 segundos</h3>
+<p>En el parcial real, el tiempo es escaso. Entrenate en reconocer los tipos con solo leer el primer renglón del enunciado.</p>
+
+<table class="tbl">
+  <tr><th>Primera palabra/frase del enunciado</th><th>Tipo</th><th>Primera acción</th></tr>
+  <tr><td>"Considerá los vectores v y w. v tiene norma..."</td><td>Vectores</td><td>Anotar normas y ángulo, usar v·w = ‖v‖‖w‖cos(α)</td></tr>
+  <tr><td>"Al vector u se le aplica una dilatación β..."</td><td>Vectores</td><td>Escribir β·u + t = w, despejar β coord a coord</td></tr>
+  <tr><td>"Considerá los puntos A, B, C, D en R³..."</td><td>Vectores</td><td>Calcular vectores AB = B−A y CD = D−C</td></tr>
+  <tr><td>"Elegí la opción que indica la distancia del punto A al plano..."</td><td>Rectas/planos</td><td>Recta normal al plano por A, intersección, medir</td></tr>
+  <tr><td>"Considerá la recta r₁ y r₂..."</td><td>Rectas/planos</td><td>¿Directores múltiplos? ¿Producto escalar = 0?</td></tr>
+  <tr><td>"Considerá el subespacio S..."</td><td>Subespacios</td><td>Leer la condición de S, reemplazar vectores</td></tr>
+  <tr><td>"Elegí la opción que muestra las coordenadas del punto simétrico..."</td><td>Rectas/planos</td><td>Recta normal al plano por A, pie B, A' = 2B−A</td></tr>
+  <tr><td>"Indicá el valor que debe tomar k para que ... corresponda a la ecuación de una elipse/hipérbola..."</td><td>Cónicas</td><td>Completar cuadrados, leer centro, igualar</td></tr>
+</table>
+
+<h3>Los 4 errores más caros del parcial</h3>
+
+<div class="trap"><div class="tr-t">Error 1 — Confundir la fórmula del simétrico</div>
+El pie B es el punto medio entre A y A'. Por tanto A' = 2B − A (NO A' = B − A). Este error cuesta 1,25 puntos directos.
+</div>
+
+<div class="trap"><div class="tr-t">Error 2 — Mezclar fórmulas de elipse e hipérbola</div>
+Elipse: c² = a²−b² (c &lt; a). Hipérbola: c² = a²+b² (c &gt; a). En la hipérbola b puede ser mayor o menor que a. En la elipse, a es siempre el semieje mayor.
+</div>
+
+<div class="trap"><div class="tr-t">Error 3 — No verificar la restricción en el parámetro</div>
+Cuando te piden "k ∈ Z&gt;0" o "k ∈ Z&lt;0", primero calculás ambas raíces del polinomio y después filtrás según la restricción. Si no leés la restricción, elegís la opción incorrecta aunque el polinomio esté bien.
+</div>
+
+<div class="trap"><div class="tr-t">Error 4 — Plantear el sistema al revés en subespacios</div>
+En "parámetros del subespacio": v₁ va en la ecuación donde sus coordenadas dan información directa (el vector que anula el término con parámetro). El parcial diseña los vectores para que cada uno resuelva una ecuación distinta.
+</div>
+
+<h3>Práctica integradora — 5 ejercicios variados</h3>
+
+<div class="example">
+  <div class="ex-t">Integrador 1 — Vectores: ángulo</div>
+  <p>v = (k, −k, k), w = (0, 0, −k), k > 0. ¿Cuánto vale cos del ángulo entre v y w?</p>
+  <p>v·w = −k². ‖v‖ = k√3, ‖w‖ = k. cos(α) = −k²/(k√3·k) = −1/√3.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 2 — Planos: posición relativa</div>
+  <p>Plano π₁ paramétrico y plano π₂ implícito. Primero calculás el normal de π₁ (producto vectorial), luego verificás si son paralelos o perpendiculares comparando con el normal de π₂.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 3 — Subespacios: no base</div>
+  <p>{(1,0,2), (0,−2,−k), (1/2, −k−1, 0)}. k ∈ Z&lt;0 para que NO sea base.</p>
+  <div class="formula">
+    det = 1·(−2·0 − (−k)·(−k−1)) − 0·... + 2·(0·(−k−1)−(−2)·(1/2))<br>
+    = 1·(−k²−k) + 2·1 = −k²−k+2 = 0<br>
+    k² + k − 2 = 0 → k = 1 o k = −2
+  </div>
+  <p>k ∈ Z&lt;0 → k = −2. Respuesta C).</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 4 — Cónicas: hipérbola desde ecuación general</div>
+  <p>3x² − y² − 6x − 30y − 546 = 0. Completar cuadrados: (x−1)²/108 − (y+15)²/324 = 1. Centro (1, −15), e = 2.</p>
+</div>
+
+<div class="example">
+  <div class="ex-t">Integrador 5 — Recta y plano: posición relativa</div>
+  <p>Recta X = α(3,6,9) + (4,2,−1), plano −x+y−z = 1. Reemplazás el punto genérico: −6α − 1 = 1 → α = −1/3. Único α → se cortan en un punto (3, 0, −4).</p>
+</div>
+
+<div class="key"><div class="ky-t">Estrategia final para el día del parcial</div>
+1. Leé los 8 ejercicios en 2 minutos: identificá el tipo de cada uno.<br>
+2. Empezá por los que más dominás.<br>
+3. En vectores y rectas: siempre dibujá un esquema aunque sea tosco.<br>
+4. En cónicas: completar cuadrados antes de tocar las opciones.<br>
+5. En subespacios: reemplazá directamente, no trates de "ver" la respuesta.<br>
+6. Con 5 minutos de sobra, releé las opciones que no elegiste.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra-parcial"></div>
+<a class="back" href="#subject-algebra-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'algebra-parcial';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS ÁLGEBRA 1° PARCIAL ============
+registerExercises('algebra-parcial', '1', [
+  {st: 'El parcial Escayola tiene 8 ejercicios de opción múltiple. ¿Cuánto vale cada uno?', opts: ['1 punto', '1,25 puntos', '1,5 puntos', '2 puntos'], c: 1, ex: 'Total = 10 puntos repartidos en 8 ejercicios → 10/8 = 1,25 puntos cada uno. NO hay ejercicios que valgan más que otros (todos por igual). ▸ Por qué las otras están mal: "1 punto" (×8 = 8) no llega a 10; "1,5" (×8 = 12) excede; "2 puntos" (×8 = 16) duplica el total.'},
+  {st: 'Si en el enunciado ves "norma", "ángulo entre vectores" y "producto escalar", el tema es:', opts: ['Subespacios', 'Cónicas', 'Vectores', 'Rectas y planos'], c: 2, ex: 'Norma, ángulo y producto escalar son conceptos básicos de la sesión 1 (Vectores). La fórmula clave es v·w = ‖v‖·‖w‖·cos(α). ▸ Por qué las otras están mal: Subespacios (sesión 4) habla de bases, L.I., dim; Cónicas (sesión 5) usa "foco, directriz, excentricidad"; Rectas y planos (sesión 3) usa "intersección, ecuación, posición relativa".'},
+  {st: 'Si el enunciado pide "la ecuación de la recta directriz y las coordenadas del foco", el tema es:', opts: ['Vectores', 'Rectas y planos', 'Subespacios', 'Cónicas (parábola)'], c: 3, ex: 'Foco y directriz son elementos exclusivos de la PARÁBOLA (cónicas, sesión 5). Forma canónica: (y−k)² = 4p(x−h). ▸ Por qué las otras están mal: Vectores no tiene "directriz"; Rectas y planos habla de planos por puntos, no de focos; Subespacios trabaja con álgebra abstracta sin geometría focal.'},
+  {st: 'La estrategia cuando un ejercicio tiene un parámetro k desconocido es:', opts: ['Probar las 4 opciones', 'Adivinar por descarte', 'Reemplazar k en la condición del enunciado y despejar', 'No se puede resolver sin más datos'], c: 2, ex: 'Receta universal del parcial Escayola: identificá la CONDICIÓN del enunciado (centro dado, det=0, ortogonalidad, etc.), reemplazá la expresión con k, y despejá k. ▸ Por qué las otras están mal: "probar opciones" pierde tiempo y no enseña nada; "adivinar por descarte" ya implica resolver implícitamente; "no se puede resolver" es falso, siempre hay condición.'},
+  {st: 'La fórmula de distancia de un punto A = (x₀, y₀, z₀) al plano ax+by+cz = d es:', opts: ['‖A‖ / √(a²+b²+c²)', '|ax₀+by₀+cz₀−d| / √(a²+b²+c²)', '|ax₀+by₀+cz₀| / √(a²+b²+c²)', '|ax₀+by₀+cz₀+d| / ‖A‖'], c: 1, ex: 'Fórmula directa: numerador = valor absoluto de "evaluar A en la ecuación llevada a 0" (es decir, ax₀+by₀+cz₀−d); denominador = norma del vector normal (raíz de a²+b²+c²). ▸ Por qué las otras están mal: (A) usa ‖A‖ (norma del punto) — incorrecto; (C) le falta el −d; (D) divide por ‖A‖ en lugar del normal. Truco: si el plano es ax+by+cz+d=0, en numerador queda |ax₀+by₀+cz₀+d|.'},
+  {st: 'Para reconocer si un conjunto de 3 vectores en R³ es base, el test definitivo es:', opts: ['Verificar que ningún vector es nulo', 'Calcular el determinante de la matriz formada por los vectores', 'Ver si los vectores suman cero', 'Verificar que tienen distintas normas'], c: 1, ex: 'Tres vectores en R³ son base ⟺ son L.I. ⟺ det(matriz) ≠ 0. La matriz se arma poniendo los 3 vectores como filas (o columnas, da igual). ▸ Por qué las otras están mal: (A) "ninguno nulo" es necesario pero no suficiente (3 vectores no nulos pueden ser L.D.); (C) "suman cero" es trivialmente ningún criterio (no implica L.D.); (D) "distintas normas" no tiene relación con L.I.'}
+]);
+
+registerExercises('algebra-parcial', '2', [
+  {st: 'v tiene norma √5, w tiene norma 8 y el ángulo entre ellos es 2π/3. ¿Cuánto vale v·w?', opts: ['−4√5', '4√5', '−4√3', '8√5'], c: 0, ex: 'Fórmula: v·w = ‖v‖·‖w‖·cos(α). ▸ cos(2π/3) = cos(120°) = −1/2 (segundo cuadrante, coseno negativo). ▸ v·w = √5·8·(−1/2) = −4√5. ▸ Por qué las otras están mal: (B) signo positivo (olvidan el cuadrante); (C) usa √3 en lugar de √5; (D) sin el cos.'},
+  {st: 'v = (k, −k, k), w = (0, 0, −k) con k > 0. cos(ángulo entre v y w) vale:', opts: ['−1/3', '1/3', '−1/√3', '1/√3'], c: 2, ex: '▸ v·w = k·0 + (−k)·0 + k·(−k) = −k². ▸ ‖v‖ = √(k²+k²+k²) = k√3 (porque k>0). ▸ ‖w‖ = √(k²) = k. ▸ cos(α) = (v·w)/(‖v‖·‖w‖) = −k² / (k√3·k) = −1/√3. ▸ Por qué las otras están mal: (A) (B) ±1/3 = (1/√3)² mal aplicado; (D) signo positivo (cosc no puede ser positivo si v·w<0).'},
+  {st: 'w es paralelo a v = (5/7, −1/7, −2/7) y tiene norma 3√30. ¿Cuántas soluciones posibles tiene w?', opts: ['Solo una (k > 0)', 'Dos (k positivo y k negativo)', 'Infinitas', 'Ninguna'], c: 1, ex: 'w = k·v por paralelismo. ‖v‖² = 25/49+1/49+4/49 = 30/49 → ‖v‖ = √30/7. ▸ ‖w‖ = |k|·‖v‖ = |k|·√30/7 = 3√30 → |k| = 21 → k = ±21. ▸ Hay 2 vectores: w₁ = 21v y w₂ = −21v. ▸ Por qué las otras están mal: "solo una" supone k>0 sin justificación; "infinitas" requeriría norma sin restringir; "ninguna" es absurdo, sí existe.'},
+  {st: 'β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). ¿Cuánto vale β?', opts: ['−11', '1/11', '11', '−1/11'], c: 2, ex: 'Igualo coordenada por coordenada y resuelvo cualquiera (todas deben dar lo mismo). ▸ X: 3β/11 − 10 = −7 → 3β/11 = 3 → β = 11. ▸ Verifico Y: −β/11 + 9 = 8 → −β/11 = −1 → β = 11 ✓. ▸ Verifico Z: 2β/11 + 1 = 3 → 2β/11 = 2 → β = 11 ✓. Las tres dan β = 11. ▸ Por qué las otras están mal: (A) (D) signos invertidos; (B) confunde β/11 con β.'},
+  {st: 'A = (−1/3, 2/3, 1/3), B = (0, 4/3, −7/3), C = (1, m, −m), D = (1, 0, −m). Si ‖AB‖ = ‖CD‖, ¿qué valor toma m?', opts: ['m = 23/3', 'Cualquier m ∈ ℝ', '|m| = √(23/3) (es decir m = ±√(23/3))', 'No hay solución'], c: 2, ex: '▸ AB = B − A = (1/3, 2/3, −8/3). ‖AB‖² = 1/9 + 4/9 + 64/9 = 69/9 = 23/3. ▸ CD = D − C = (1−1, 0−m, −m−(−m)) = (0, −m, 0). ‖CD‖² = m². ▸ Iguales: m² = 23/3 → m = ±√(23/3). Hay DOS soluciones (positiva y negativa). ▸ Por qué las otras están mal: (A) m=23/3 sería m² (sin la raíz); (B) "cualquier m" es falso, hay restricción; (D) sí hay solución.'},
+  {st: 'v es paralelo al versor î (= (1,0,0)), tiene norma 7 y una coordenada negativa. ¿Cuáles son sus coordenadas?', opts: ['(7, 0, 0)', '(0, −7, 0)', '(−7, 0, 0)', '(0, 0, −7)'], c: 2, ex: 'v paralelo a î = (1,0,0) significa v = (a, 0, 0) (las otras coordenadas deben ser 0). ▸ ‖v‖ = |a| = 7 → a = ±7. ▸ Coordenada negativa → a = −7. ▸ v = (−7, 0, 0). ▸ Por qué las otras están mal: (A) (7,0,0) tiene coord positiva; (B) (0,−7,0) es paralelo a ĵ, no a î; (D) (0,0,−7) es paralelo a k̂.'},
+  {st: 'Si v = (−7, 0, 0) y M = (15/2, 17/4, −1/10) es el punto medio entre los extremos de los vectores v y u (interpretados como puntos), ¿cuánto vale u?', opts: ['(−22, −17/2, 1/5)', '(22, 17/2, −1/5)', '(4, 17/2, −1/5)', '(22, −17/2, 1/5)'], c: 1, ex: 'Si M = (v+u)/2 → u = 2M − v. ▸ X: 2·(15/2) − (−7) = 15 + 7 = 22. ▸ Y: 2·(17/4) − 0 = 17/2. ▸ Z: 2·(−1/10) − 0 = −1/5. ▸ u = (22, 17/2, −1/5). ▸ Por qué las otras están mal: (A) signos invertidos en todo; (C) en X usa 11−7=4 (mal); (D) signo de Y mal.'}
+]);
+
+registerExercises('algebra-parcial', '3', [
+  {st: 'Para hallar la distancia del punto A al plano Π, el método del parcial es:', opts: ['Evaluar A en la ecuación del plano directamente', 'Escribir la recta normal al plano por A, hallar intersección B con Π, medir ‖AB‖', 'Calcular el producto escalar de A con el normal del plano', 'Sumar las coordenadas de A'], c: 1, ex: 'Algoritmo: (1) recta normal a Π por A → dirección = vector normal del plano = (a,b,c); (2) parametrizo X = t(a,b,c)+A; (3) reemplazo en la ecuación del plano y despejo t; (4) hallo B (pie de la perpendicular); (5) d = ‖A−B‖. ▸ Por qué las otras están mal: (A) "evaluar directamente" da un número, pero NO la distancia (falta dividir por norma del normal); (C) producto escalar A·n no tiene sentido geométrico; (D) "sumar coordenadas" es absurdo.'},
+  {st: 'A = (−1, 2, 3), Π: 2x+y−z+1 = 0. La distancia de A a Π es:', opts: ['√6', '√6/3', '6/√3', '0'], c: 1, ex: 'Fórmula directa: |2(−1)+1·2−1·3+1|/√(4+1+1) = |−2+2−3+1|/√6 = |−2|/√6 = 2/√6 = 2√6/6 = √6/3. ▸ Verificación con recta normal: X = t(2,1,−1)+(−1,2,3) → en Π: 2(2t−1)+(t+2)−(−t+3)+1 = 6t−2 = 0 → t=1/3. Distancia: |t|·‖n‖ = (1/3)·√6 = √6/3 ✓ (coincide con la fórmula directa). ▸ Por qué las otras están mal: (A) √6 sin dividir; (C) 6/√3 = 2√3 (no aplica); (D) 0 implicaría que A está en Π (no se cumple).'},
+  {st: 'Dos rectas tienen vectores directores d₁ = (−4/3, 0, −3) y d₂ = (1/2, 2/7, −2/9). d₁·d₂ vale:', opts: ['0 (= −2/3 + 0 + 2/3)', '1', '−1', '2/3'], c: 0, ex: '▸ (−4/3)·(1/2) = −4/6 = −2/3. ▸ 0·(2/7) = 0. ▸ (−3)·(−2/9) = 6/9 = 2/3. ▸ Suma: −2/3 + 0 + 2/3 = 0. ▸ Como el producto escalar = 0, las direcciones son perpendiculares. Si las rectas además se intersecan, son ortogonales-secantes; si no se cruzan, son alabeadas-perpendiculares. ▸ Por qué las otras están mal: (B) (C) (D) son cálculos parciales mal sumados.'},
+  {st: 'Si dos rectas en R³ tienen vectores directores que NO son múltiplos y su intersección es vacía, son:', opts: ['Paralelas', 'Coincidentes', 'Alabeadas (no se cortan ni son paralelas)', 'Concurrentes (se cortan en un punto)'], c: 2, ex: 'En R³ existen 4 posiciones relativas: paralelas (mismas direcciones, sin punto común), coincidentes (mismas direcciones, infinitos puntos), concurrentes/se cortan (direcciones distintas, un punto), alabeadas (direcciones distintas, ningún punto). ▸ Direcciones no múltiplos = no paralelas/coincidentes. ▸ Intersección vacía = no concurrentes. ▸ Solo queda: ALABEADAS. ▸ Por qué las otras están mal: paralelas/coincidentes requerirían direcciones múltiplos; concurrentes requeriría intersección no vacía. Nota: las alabeadas pueden ser ortogonales si además d₁·d₂=0, pero no es obligatorio.'},
+  {st: 'Recta X = α(3,6,9) + (4,2,−1), plano −x+y−z = 1. La posición relativa es:', opts: ['La recta está contenida en el plano', 'La recta y el plano son paralelos', 'La recta y el plano son ortogonales', 'La recta y el plano se cortan en un único punto'], c: 3, ex: 'Reemplazo el punto genérico (3α+4, 6α+2, 9α−1) en la ecuación del plano: −(3α+4) + (6α+2) − (9α−1) = 1 → −3α−4 + 6α+2 − 9α+1 = 1 → −6α − 1 = 1 → α = −1/3. ▸ Como hay UN solo valor de α, hay UN punto de intersección. ▸ Por qué las otras están mal: (A) "contenida" requeriría que el sistema sea identidad para todo α (no es); (B) "paralelos" requeriría sistema sin solución; (C) "ortogonales" requeriría dirección recta paralela al normal del plano: (3,6,9) vs (−1,1,−1) — no son múltiplos.'},
+  {st: 'A = (7,−10,−1). Plano: 2x−3y+z=1. El simétrico de A respecto del plano es:', opts: ['(2,−3,1)', '(5,−8,7)', '(1,−1,−4)', '(−5,8,−7)'], c: 3, ex: 'Receta: B = proyección de A sobre el plano (pie de la normal); A\' = 2B − A. ▸ Recta normal: X = t(2,−3,1) + (7,−10,−1) → punto genérico (2t+7, −3t−10, t−1). ▸ En plano: 2(2t+7) − 3(−3t−10) + (t−1) = 1 → 4t+14+9t+30+t−1 = 1 → 14t+43 = 1 → t = −3. ▸ B = (1, −1, −4). ▸ A\' = 2B − A = (2·1−7, 2·(−1)−(−10), 2·(−4)−(−1)) = (−5, 8, −7). ▸ Por qué las otras están mal: (A) (2,−3,1) es el vector normal; (B) (5,−8,7) puede ser un cálculo intermedio mal; (C) (1,−1,−4) es B (pie de la normal), NO el simétrico.'},
+  {st: 'Para el plano paramétrico π₁: X = s(1,1,0)+t(2,0,2)+(1,1,1) y el plano π₂: x+z=1+y, la posición relativa es:', opts: ['Son perpendiculares', 'La intersección es una recta y NO son perpendiculares', 'Son paralelos', 'Son coincidentes'], c: 1, ex: 'Hallar normales: n₁ = (1,1,0)×(2,0,2) = (1·2−0·0, 0·2−1·2, 1·0−1·2) = (2,−2,−2). n₂: π₂ es x−y+z=1 → n₂=(1,−1,1). ▸ ¿n₁ y n₂ paralelos? n₁=2(1,−1,−1). Compará (1,−1,−1) con (1,−1,1): la 3ª da −1 vs 1, NO múltiplos → planos NO paralelos. ▸ Como no son paralelos, su intersección es una RECTA. ¿Son perpendiculares? Eso requiere n₁·n₂ = 0. n₁·n₂ = 2·1+(−2)·(−1)+(−2)·1 = 2+2−2 = 2 ≠ 0 → NO perpendiculares. ▸ Por qué las otras están mal: (A) "perpendiculares" requiere n₁·n₂=0; (C) "paralelos" requiere n₁ y n₂ múltiplos; (D) "coincidentes" requiere paralelos + un punto en común.'},
+  {st: 'A = (6,4,2). Recta r: X = t(2,1,2)+(1,0,0). La distancia de A a r es:', opts: ['√5', '3', '5', '9'], c: 1, ex: 'Método del plano normal: (1) plano que pasa por A con normal = director de r (2,1,2): 2(x−6)+1(y−4)+2(z−2)=0 → 2x+y+2z=20. (2) Punto genérico de r: (2t+1, t, 2t). En el plano: 2(2t+1)+t+2(2t)=20 → 9t+2=20 → t=2. (3) Pie B=(5,2,4). (4) AB = B−A = (−1,−2,2), ‖AB‖=√(1+4+4)=√9=3. ▸ Atajo: d=‖AP×d‖/‖d‖ con P=(1,0,0): AP=(−5,−4,−2), AP×(2,1,2)=(−6,6,3), ‖·‖=9, ‖d‖=3 → 9/3=3 ✓. ▸ Por qué las otras están mal: (A) √5 sale de olvidar una coordenada; (C) 5 ignora dividir por ‖d‖ en el atajo; (D) 9 es ‖AB‖² (sin la raíz) o el numerador del atajo sin dividir.'}
+]);
+
+registerExercises('algebra-parcial', '4', [
+  {st: '{(1,0,−1),(−1,k,0),(0,−2,k+1)} no es base de R³ para k ∈ ℤ>0. ¿Cuál es ese k?', opts: ['−2', '1', '2', '−1'], c: 1, ex: 'NO es base ⟺ det = 0. Determinante de la matriz [[1,0,−1],[−1,k,0],[0,−2,k+1]]: ▸ Expansión por 1ª fila: 1·(k(k+1)−0·(−2)) − 0 + (−1)·((−1)(−2)−k·0) = (k²+k) − 2 = k²+k−2. ▸ Iguálo a 0: k²+k−2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1. ▸ Restricción: k entero positivo → k = 1. ▸ Por qué las otras están mal: (A) k=−2 también anula el det pero NO es positivo; (C) k=2 → 4+2−2=4≠0 (sí es base); (D) k=−1 → 1−1−2=−2≠0.'},
+  {st: 'S = {(x₁,x₂,x₃,x₄) ∈ ℝ⁴: 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Una base de S es {(1,2,−4,0),(0,0,−3,1)}. ¿Cuáles son n y m?', opts: ['n=−3, m=−3', 'n=3, m=−3', 'n=−3, m=3', 'n=3, m=3'], c: 2, ex: 'Cada vector de la base debe satisfacer AMBAS ecuaciones de S. ▸ (1,2,−4,0) en eq1: 6·1+n·2 = 6+2n = 0 → n = −3. ▸ (1,2,−4,0) en eq2: 2·2+(−4)+m·0 = 0 → 0=0 ✓ (no aporta info de m). ▸ (0,0,−3,1) en eq1: 0+0=0 ✓. ▸ (0,0,−3,1) en eq2: 0+(−3)+m·1 = 0 → m = 3. ▸ n = −3, m = 3. ▸ Por qué las otras están mal: (A) (B) tienen n=3 (no satisface eq1 con primer vector); (D) m=3 con n=3 inconsistente.'},
+  {st: 'A = {(0,−2,−1),(k,1,0),(−8,0,k+3)}. Para que A sea generador de ℝ³, k debe ser:', opts: ['k ∈ {1,−4}', 'k ∈ ℝ \\ {−1,4}', 'k ∈ ℝ \\ {1,−4}', 'k ∈ ∅'], c: 2, ex: 'Generador de ℝ³ ⟺ los 3 vectores son L.I. ⟺ det ≠ 0. ▸ det de [[0,−2,−1],[k,1,0],[−8,0,k+3]]: expansión por 1ª fila → 0 − (−2)·(k(k+3) − 0·(−8)) + (−1)·(k·0 − 1·(−8)) = 2(k²+3k) − 8 = 2k²+6k−8 = 2(k²+3k−4) = 2(k+4)(k−1). ▸ det = 0 ⟺ k = −4 o k = 1. ▸ Para SER generador: k ∉ {−4, 1} → k ∈ ℝ \\ {1,−4}. ▸ Por qué las otras están mal: (A) {1,−4} son los valores que NO sirven (lo opuesto); (B) {−1,4} son signos cambiados; (D) ∅ implicaría que nunca es generador.'},
+  {st: 'S = {(x₁,x₂,x₃,x₄) ∈ ℝ⁴: x₁+x₄=0}. dim(S)=3. ¿Cuál conjunto es generador (base) de S?', opts: ['{(1,0,0,−1),(0,1,0,0),(1,0,0,1)}', '{(1,1,0,−1),(0,1,0,0),(1,0,0,−1)}', '{(1,0,0,−1),(0,1,0,0),(0,0,1,0)}', '{(0,1,0,0),(1,0,−1,0),(1,0,0,−1)}'], c: 2, ex: 'Necesito 3 vectores L.I. todos en S. Verifico opción C: ▸ (1,0,0,−1): 1+(−1)=0 ✓. ▸ (0,1,0,0): 0+0=0 ✓. ▸ (0,0,1,0): 0+0=0 ✓. Todos en S. Son L.I. (la matriz tiene 3 filas L.I. obviamente) → BASE de S. ▸ Por qué las otras están mal: (A) (1,0,0,1) tiene 1+1=2≠0 → NO está en S; (B) (1,0,0,−1) = (1,1,0,−1) − (0,1,0,0) → L.D., no genera; (D) (1,0,−1,0) tiene 1+0=1≠0 → NO está en S.'},
+  {st: '¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?', opts: ['(−1,0,3)', '(0,1,−1)', '(2,3,3)', '(0,−1,1)'], c: 0, ex: 'Verifico (−1,0,3): α(1,2,−1) + β(−1,−1,2) = (α−β, 2α−β, −α+2β) = (−1, 0, 3). ▸ De α−β=−1 y 2α−β=0: restando → α=1, sub en 1ª → β=2. ▸ Verifico 3ª: −1+4=3 ✓. Sí es combinación lineal con coef (1,2). ▸ Por qué las otras están mal: (B) sistema queda inconsistente (α=1,β=1 dan 3ª: 1≠−1); (C) (α=1,β=−1 dan 3ª: −3≠3); (D) sistema inconsistente.'},
+  {st: '{(1,0,2),(0,−2,−k),(1/2,−k−1,0)}. Para que NO sea base con k ∈ ℤ negativo, ¿cuál k?', opts: ['2', '1', '−2', '−1'], c: 2, ex: 'NO es base ⟺ det=0. ▸ det = 1·((−2)·0 − (−k)·(−k−1)) − 0 + 2·(0·(−k−1) − (−2)·(1/2)) = 1·(0 − k(k+1)) + 2·(0 + 1) = −k²−k+2. ▸ −k²−k+2 = 0 → k²+k−2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1. ▸ Restricción: k entero negativo → k = −2. ▸ Por qué las otras están mal: (A) 2 da k²+k−2=4 (sí es base); (B) 1 anula el det pero es positivo; (D) −1 da 1−1−2=−2 (sí es base).'},
+  {st: 'S = {x ∈ ℝ⁴: 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Base: {(1,2,−4,0),(0,0,−3,1)}. (Pregunta de chequeo) Si n=−3 y m=3, ¿el sistema queda consistente?', opts: ['No, hay contradicción en alguna ecuación', 'Sí: ambos vectores satisfacen eq1 y eq2 con esos valores', 'Solo el primer vector satisface', 'Solo el segundo vector satisface'], c: 1, ex: 'Verifico ambas ecuaciones para los 2 vectores. ▸ (1,2,−4,0): eq1=6+(−3)·2=0 ✓; eq2=2·2+(−4)+3·0=0 ✓. ▸ (0,0,−3,1): eq1=0+0=0 ✓; eq2=0+(−3)+3·1=0 ✓. CONSISTENTE: la base es válida con n=−3, m=3. ▸ Por qué las otras están mal: requiere verificar las 4 condiciones; cualquier "no" o "solo uno" es falso porque las 4 se cumplen.'}
+]);
+
+registerExercises('algebra-parcial', '5', [
+  {st: 'En la hipérbola (x−h)²/a² − (y−k)²/b² = 1, ¿cuál es la relación entre a, b y c (semidistancia focal)?', opts: ['c² = a² − b²', 'c² = a² + b²', 'a² = b² + c²', 'b² = a² + c²'], c: 1, ex: 'En la HIPÉRBOLA siempre c² = a² + b² (con c > a). Es la relación pitagórica entre los semiejes y la semidistancia focal. ▸ ALERTA: en la ELIPSE es al revés: c² = a² − b² (con c < a, ya que a es semieje mayor). ▸ Por qué las otras están mal: (A) c² = a² − b² es de la elipse; (C) (D) son re-arreglos incorrectos. Truco mnemotécnico: en elipse el "−" es porque a es más grande que c; en hipérbola el "+" es porque c es más grande que a (los focos están más allá de los vértices).'},
+  {st: '144x² − 24kx + 16y² = 63 es una elipse con centro (−0,75; 0). ¿Cuánto vale k?', opts: ['9', '−18', '−9', '0,5'], c: 2, ex: 'Completar cuadrados en x. ▸ 144x²−24kx = 144(x² − k/6 · x) = 144·((x − k/12)² − k²/144) = 144(x−k/12)² − k². ▸ Ecuación: 144(x−k/12)² + 16y² = 63 + k². ▸ Centro = (k/12, 0). Igualar k/12 = −0,75 → k = −9. ▸ Por qué las otras están mal: (A) k=9 daría centro (0,75; 0) (signo opuesto); (B) k=−18 daría centro (−1,5; 0); (D) k=0,5 muy alejado.'},
+  {st: 'Hipérbola H con excentricidad e=1,8 y focos F₁=(0,−8), F₂=(0,10). El centro de H es:', opts: ['(0,0)', '(0,1)', '(0,2)', '(0,−1)'], c: 1, ex: 'El centro de una hipérbola es el PUNTO MEDIO entre sus dos focos. ▸ Centro = ((0+0)/2, (−8+10)/2) = (0, 1). ▸ Por qué las otras están mal: (A) (0,0) no es punto medio; (C) (0,2) está más cerca de F₂; (D) (0,−1) está más cerca de F₁. Truco: como ambas X son 0, el centro tiene X=0; el Y es el promedio.'},
+  {st: 'Misma hipérbola H (e=1,8, focos en eje y, centro (0,1)). Sabiendo que c=9, los vértices de H son:', opts: ['(0,±5)', '(0,1±5) = (0,6) y (0,−4)', '(0,±9)', '(0,1±9) = (0,10) y (0,−8)'], c: 1, ex: '▸ e = c/a → 1,8 = 9/a → a = 5. ▸ Centro (0,1), eje vertical (focos en y), así que vértices están a distancia a del centro a lo largo del eje y: V = (0, 1±5) = (0, 6) y (0, −4). ▸ Por qué las otras están mal: (A) (0,±5) ignora el desplazamiento del centro (asume (0,0)); (C) (0,±9) usa c en lugar de a (los vértices se ubican con a, no c); (D) (0,10) y (0,−8) son los focos.'},
+  {st: '3x² − y² − 6x − 30y − 546 = 0. Completando cuadrados, la forma canónica es:', opts: ['(x−1)²/108 − (y+15)²/324 = 1', '(x+1)²/108 − (y−15)²/324 = 1', '(y+15)²/324 − (x−1)²/108 = 1', '(x−1)²/324 − (y+15)²/108 = 1'], c: 0, ex: '▸ Agrupo y completo. 3(x²−2x) − (y²+30y) = 546. 3((x−1)²−1) − ((y+15)²−225) = 546. 3(x−1)² − (y+15)² = 546 + 3 − 225 = 324. ▸ Divido por 324: (x−1)²/108 − (y+15)²/324 = 1. ▸ Es hipérbola horizontal (positivo el x). ▸ Por qué las otras están mal: (B) signos invertidos en el centro; (C) intercambia x e y → es hipérbola vertical (positivo el y); (D) intercambia 108 y 324.'},
+  {st: 'y² − 8x + 3 = 6y. La directriz de la parábola es:', opts: ['x = −2,75', 'y = −2,75', 'x = 1,25', 'y = 1,25'], c: 0, ex: '▸ Reordeno: y² − 6y = 8x − 3. ▸ Completar cuadrados: (y−3)² − 9 = 8x − 3 → (y−3)² = 8x + 6 = 8(x + 3/4). ▸ Forma canónica: (y−k)² = 4p(x−h) → vértice (−3/4, 3), 4p=8, p=2. Abre hacia la derecha (p>0). ▸ Directriz: x = h − p = −0,75 − 2 = −2,75 (vertical, a la izquierda del vértice). ▸ Por qué las otras están mal: (B) (D) "y=" es directriz horizontal (parábola horizontal tiene directriz vertical); (C) x=1,25 estaría a la derecha del foco.'},
+  {st: 'M = {(x+4)²+(y+3)²=9}, N = {3x²+y²+6y=−6}. ¿Cuántos puntos tienen en común?', opts: ['Ninguno', 'Exactamente dos', 'Exactamente uno', 'Más de dos'], c: 2, ex: '▸ M: circunferencia centro (−4,−3), radio 3. ▸ N: 3x² + (y+3)² − 9 = −6 → 3x² + (y+3)² = 3 → x² + (y+3)²/3 = 1. ELIPSE centro (0,−3), semiejes √1=1 (en x) y √3 (en y). ▸ Ambas centradas en y=−3 (misma altura). Distancia entre centros = 4. ▸ Punto más cercano de M a N: (−1,−3) (frontera derecha de M). ¿Está en N? 1 + 0 = 1 ✓. ¿Otro punto en común? Las dos curvas son tangentes en (−1,−3). ▸ Por qué las otras están mal: (A) "ninguno" implicaría que no hay tangencia; (B) "dos" requeriría que se crucen en dos puntos; (D) "más de dos" implicaría coincidencia.'}
+]);
+
+registerExercises('algebra-parcial', '6', [
+  {st: 'El simétrico A\' de A respecto del plano se calcula como:', opts: ['A\' = B − A (B = pie de la normal)', 'A\' = 2B − A (B = pie de la normal)', 'A\' = B/2', 'A\' = A − 2B'], c: 1, ex: 'B es el punto medio entre A y su simétrico A\' (porque B es el pie de la perpendicular y A\' es la reflexión). ▸ Como B = (A + A\')/2, despejando: A\' = 2B − A. ▸ Por qué las otras están mal: (A) B−A es un vector dirección, no un punto; (C) B/2 carece de sentido geométrico; (D) A−2B daría algo distinto. ESTE es el error más caro del parcial: confundir A\'=2B−A con A\'=B−A.'},
+  {st: 'En una elipse, la relación entre a (semieje mayor), b (semieje menor) y c (semidistancia focal) es:', opts: ['c² = a² + b²', 'c² = a² − b²', 'a² = b² − c²', 'b² = a² + c²'], c: 1, ex: 'Elipse: c² = a² − b² con a > b > 0 y c < a. Los focos están dentro de la elipse, más cerca del centro que los vértices del eje mayor. ▸ Por qué las otras están mal: (A) c² = a² + b² es de la HIPÉRBOLA, no la elipse; (C) (D) son re-arreglos invertidos. ▸ Truco: en elipse, c < a (focos dentro); en hipérbola, c > a (focos fuera).'},
+  {st: 'Para verificar si un conjunto {v₁, v₂} es base de un subespacio S de ℝ⁴ con dim 2, hay que:', opts: ['Solo verificar que v₁ y v₂ pertenecen a S', 'Verificar que v₁, v₂ ∈ S Y que son L.I.', 'Verificar que v₁ + v₂ ∈ S', 'Calcular el determinante de la matriz 2×4'], c: 1, ex: 'Una base debe (1) generar el subespacio, (2) ser L.I. ▸ Para 2 vectores en S de dim 2: si son L.I. → automáticamente generan S (cantidad correcta de L.I.). Por eso bastan dos chequeos: pertenencia + L.I. ▸ Por qué las otras están mal: (A) "solo pertenecen" no garantiza que sean L.I. (podrían ser uno múltiplo del otro); (C) v₁+v₂ ∈ S es trivialmente cierto si ambos están en S; (D) det 2×4 no existe (no es matriz cuadrada).'},
+  {st: 'Recta r₁ con director (4/7, 0, 4) y r₂ con director (1/2, 1/8, −1/14). Calculás el producto escalar de los directores:', opts: ['(4/7)(1/2) + 0·(1/8) + 4·(−1/14) = 2/7 + 0 − 2/7 = 0', '(4/7)(1/2) + 4·(−1/14) = 1', '0 + 1/8 + 4/14 = 1', 'No se puede calcular'], c: 0, ex: '▸ (4/7)·(1/2) = 4/14 = 2/7. ▸ 0·(1/8) = 0. ▸ 4·(−1/14) = −4/14 = −2/7. ▸ Suma: 2/7 + 0 − 2/7 = 0. ▸ Producto escalar nulo → direcciones perpendiculares. Si las rectas no se cortan → alabeadas perpendiculares; si se cortan → ortogonales-secantes. ▸ Por qué las otras están mal: (B) saltea el término 0; (C) confunde 1/8 con 0; (D) sí se puede calcular.'},
+  {st: 'Para la parábola (y−k)² = 4p(x−h) con p > 0, el foco está en:', opts: ['(h−p, k)', '(h+p, k)', '(h, k+p)', '(h, k−p)'], c: 1, ex: 'La parábola (y−k)² = 4p(x−h) abre HORIZONTALMENTE. Si p > 0 → abre hacia la derecha. ▸ El foco está p unidades hacia el lado de apertura desde el vértice (h, k): foco = (h+p, k). La directriz (al lado opuesto): x = h − p. ▸ Por qué las otras están mal: (A) (h−p, k) es la directriz, no el foco; (C) (D) (h, k±p) son focos de parábolas verticales, no horizontales.'},
+  {st: '¿Cuál de estos pasos del cálculo del simétrico está en el orden correcto?', opts: ['Calcular A\', luego buscar B, luego la recta normal', 'Recta normal por A → pie B → A\' = 2B − A', 'Proyectar A sobre el plano → calcular ‖A‖', 'Calcular el normal, luego igualar a A, luego A\'=2A−normal'], c: 1, ex: 'Algoritmo correcto: (1) escribís la recta normal a Π por A, (2) hallás B = intersección recta-plano (pie de la normal), (3) A\' = 2B − A. ▸ Por qué las otras están mal: (A) invertido (no podés calcular A\' antes de saber B); (C) ‖A‖ no sirve; (D) "2A−normal" no tiene sentido (normal es vector dirección, A es punto).'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

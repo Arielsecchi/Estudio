@@ -1,0 +1,3043 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="fisica"] {
+    --bg: #f1ecf7; --text: #201832; --text-muted: #6b5f80;
+    --surface: #ffffff; --surface-2: #e4dbf0; --surface-3: #d3c5e5;
+    --border: #d8cee5; --border-2: #c3b5d5;
+    --accent: #4c1d95; --accent-hover: #6d28d9; --gold: #d97706;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #e4dbf0; --summary-hover: #d3c5e5; --num-text: #ffffff;
+    --shadow: rgba(76, 29, 149, 0.08);
+  }
+  [data-theme="dark"][data-subject="fisica"] {
+    --bg: #120b1f; --text: #ebe2f5; --text-muted: #a395bb;
+    --surface: #1d1530; --surface-2: #2a2042; --surface-3: #362a55;
+    --border: #362a55; --border-2: #453768;
+    --accent: #c4b5fd; --accent-hover: #ddd6fe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #2a2042; --summary-hover: #362a55; --num-text: #120b1f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA ===================================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica">
+  <header>
+    <h1>Física</h1>
+    <div class="sub">UBA XXI · Cátedra Torti · Parciales 23/04 (1°) y 11/06 (2°)</div>
+  </header>
+<nav class="toc" id="toc-fisica">
+  <h2>Índice</h2>
+  <ol>
+    <li class="partial-sep">Primer parcial (23/04)</li>
+    <li><a href="#fi-s0">Unidad Inicial: La Medición</a></li>
+    <li><a href="#fi-s1">Unidad 1: Magnitudes Físicas (vectores)</a></li>
+    <li><a href="#fi-s2">Unidad 2: Estática</a></li>
+    <li><a href="#fi-s3">Unidad 3: Hidrostática</a></li>
+    <li><a href="#fi-s4">Unidad 4: Cinemática en una dimensión</a></li>
+    <li class="partial-sep">Segundo parcial (11/06)</li>
+    <li><a href="#fi-s5">Unidad 5: Cinemática en dos dimensiones</a></li>
+    <li><a href="#fi-s6">Unidad 6: Dinámica</a></li>
+    <li><a href="#fi-s7">Unidad 7: Trabajo y Energía</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<div class="partial-header">Primer parcial <span class="date">Unidades Inicial–4</span></div>
+
+<!-- ============ UNIDAD INICIAL · LA MEDICIÓN ============ -->
+<details id="fi-s0">
+<summary><span class="num">0</span> Unidad Inicial: La Medición <span class="sec-score" id="ss-fisica-0"></span></summary>
+<div class="content">
+
+<h3>¿Qué es la Física?</h3>
+<p>La <b>Física</b> es la ciencia que estudia la naturaleza desde un punto de vista cuantitativo. Su método es: observar, modelar, predecir, medir y verificar. Cada concepto físico (velocidad, fuerza, energía, presión) corresponde a una <b>magnitud</b> que se puede <b>medir</b>.</p>
+
+<h3>¿Qué es medir?</h3>
+<p>Medir una magnitud física es <b>compararla con un patrón</b> que se toma como unidad. Si digo "esta mesa mide 1,80 m", estoy diciendo que su longitud es <b>1,80 veces</b> la unidad "metro".</p>
+
+<p>Toda medición tiene <b>dos partes inseparables</b>: el <b>número</b> y la <b>unidad</b>. Escribir solo "1,80" sin unidad es no decir nada: ¿metros, centímetros, pies, leguas?</p>
+
+<div class="key"><div class="ky-t">Pequeñas decisiones que importan</div>
+• En matemática se usa coma decimal: <b>1,80</b>. En programación y en muchos textos, punto: <b>1.80</b>. Lo mismo significa.<br>
+• Las unidades nunca van entre paréntesis cuando acompañan a un número: "5 m" ✓, "5 (m)" ✗.<br>
+• Hay un espacio entre el número y la unidad: "5 m" ✓, "5m" ✗ (excepción: símbolos de grado, °C).
+</div>
+
+<h3>El Sistema Internacional (SI)</h3>
+<p>Para que todos midan en lo mismo, en 1960 se acordó el <b>Sistema Internacional de Unidades (SI)</b>. Define <b>siete unidades fundamentales</b>:</p>
+
+<table class="tbl">
+  <tr><th>Magnitud</th><th>Unidad</th><th>Símbolo</th><th>Para qué se usa</th></tr>
+  <tr><td>Longitud</td><td>metro</td><td>m</td><td>Distancias, tamaños</td></tr>
+  <tr><td>Masa</td><td>kilogramo</td><td>kg</td><td>Cantidad de materia</td></tr>
+  <tr><td>Tiempo</td><td>segundo</td><td>s</td><td>Duraciones</td></tr>
+  <tr><td>Corriente eléctrica</td><td>ampere</td><td>A</td><td>Electricidad</td></tr>
+  <tr><td>Temperatura</td><td>kelvin</td><td>K</td><td>Calor</td></tr>
+  <tr><td>Cantidad de sustancia</td><td>mol</td><td>mol</td><td>Química</td></tr>
+  <tr><td>Intensidad luminosa</td><td>candela</td><td>cd</td><td>Luz</td></tr>
+</table>
+
+<p>Todas las demás magnitudes (velocidad, fuerza, presión, energía...) se construyen como <b>combinaciones</b> de las siete fundamentales. Esas combinaciones se llaman <b>unidades derivadas</b>:</p>
+
+<table class="tbl">
+  <tr><th>Magnitud</th><th>Unidad SI</th><th>Equivalente fundamental</th></tr>
+  <tr><td>Velocidad</td><td>m/s</td><td>m · s⁻¹</td></tr>
+  <tr><td>Aceleración</td><td>m/s²</td><td>m · s⁻²</td></tr>
+  <tr><td>Fuerza</td><td>Newton (N)</td><td>kg · m / s²</td></tr>
+  <tr><td>Presión</td><td>Pascal (Pa)</td><td>N/m² = kg / (m·s²)</td></tr>
+  <tr><td>Energía / trabajo</td><td>Joule (J)</td><td>N · m = kg · m²/s²</td></tr>
+  <tr><td>Potencia</td><td>Watt (W)</td><td>J/s</td></tr>
+</table>
+
+<h3>Prefijos: múltiplos y submúltiplos</h3>
+<p>En lugar de escribir números muy grandes (10.000.000 m) o muy chicos (0,000003 m), el SI usa <b>prefijos</b> que multiplican la unidad por potencias de 10. Te ahorran ceros y son universales.</p>
+
+<table class="tbl">
+  <tr><th>Prefijo</th><th>Símbolo</th><th>Factor</th><th>Ejemplo</th></tr>
+  <tr><td>tera</td><td>T</td><td class="c">10¹²</td><td>1 TB = 10¹² bytes</td></tr>
+  <tr><td>giga</td><td>G</td><td class="c">10⁹</td><td>2,5 GHz = 2,5·10⁹ Hz</td></tr>
+  <tr><td>mega</td><td>M</td><td class="c">10⁶</td><td>1 MW = 10⁶ W</td></tr>
+  <tr><td>kilo</td><td>k</td><td class="c">10³</td><td>5 km = 5000 m</td></tr>
+  <tr><td>hecto</td><td>h</td><td class="c">10²</td><td>1 hL = 100 L</td></tr>
+  <tr><td>deca</td><td>da</td><td class="c">10¹</td><td>1 dam = 10 m</td></tr>
+  <tr><td>(unidad)</td><td>—</td><td class="c">10⁰</td><td>1 m</td></tr>
+  <tr><td>deci</td><td>d</td><td class="c">10⁻¹</td><td>1 dm = 0,1 m</td></tr>
+  <tr><td>centi</td><td>c</td><td class="c">10⁻²</td><td>2 cm = 0,02 m</td></tr>
+  <tr><td>mili</td><td>m</td><td class="c">10⁻³</td><td>250 mg = 0,25 g</td></tr>
+  <tr><td>micro</td><td>μ</td><td class="c">10⁻⁶</td><td>3 μm = 3·10⁻⁶ m</td></tr>
+  <tr><td>nano</td><td>n</td><td class="c">10⁻⁹</td><td>1 ns = 10⁻⁹ s</td></tr>
+  <tr><td>pico</td><td>p</td><td class="c">10⁻¹²</td><td>1 pF = 10⁻¹² F</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">¡Mayúscula importa!</div>
+• <b>"M"</b> mayúscula = mega (10⁶). <b>"m"</b> minúscula = mili (10⁻³). Confundirlos cambia el resultado por 9 órdenes de magnitud.<br>
+• <b>"k"</b> es kilo y siempre va minúscula (en SI). "K" mayúscula es Kelvin.
+</div>
+
+<h3>Conversión de unidades · paso a paso</h3>
+<p>El método más confiable es el <b>factor de conversión</b>: multiplicás por una <b>fracción que vale 1</b> (numerador y denominador equivalentes), eligiéndola para que las unidades que no querés se cancelen.</p>
+
+<div class="example">
+  <div class="ex-t">Pasar 72 km/h a m/s</div>
+  Necesitamos convertir km → m y h → s. Usamos dos factores:<br>
+  <span class="m">72 km/h × (1000 m / 1 km) × (1 h / 3600 s) = 72 × 1000 / 3600 m/s = 20 m/s</span>
+</div>
+
+<div class="example">
+  <div class="ex-t">Pasar 250 g/cm³ a kg/m³</div>
+  <span class="m">250 (g/cm³) × (1 kg / 1000 g) × (10⁶ cm³ / 1 m³) = 250 × 10³ kg/m³ = 2,5 × 10⁵ kg/m³</span><br>
+  Recordá: 1 m³ = (100 cm)³ = 10⁶ cm³.
+</div>
+
+<div class="key"><div class="ky-t">Atajos para conversiones frecuentes</div>
+• km/h → m/s: <b>dividís por 3,6</b>. (72 / 3,6 = 20)<br>
+• m/s → km/h: <b>multiplicás por 3,6</b>.<br>
+• g/cm³ → kg/m³: <b>multiplicás por 1000</b>. (1 g/cm³ = 1000 kg/m³)<br>
+• kg/m³ → g/cm³: <b>dividís por 1000</b>.
+</div>
+
+<h3>Notación científica</h3>
+<p>Cualquier número se puede escribir como <span class="m">a × 10<sup>n</sup></span>, con <b>1 ≤ |a| &lt; 10</b> y <b>n entero</b>. Sirve para escribir números muy grandes o muy chicos sin contar ceros.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplos</div>
+  • 384.000.000 m = 3,84 × 10⁸ m (distancia Tierra–Luna)<br>
+  • 0,00000091 = 9,1 × 10⁻⁷<br>
+  • 6,02 × 10²³ (número de Avogadro: cantidad de moléculas en 1 mol)<br>
+  • 9,11 × 10⁻³¹ kg (masa del electrón)
+</div>
+
+<h4>Operar con notación científica</h4>
+<ul>
+  <li><b>Multiplicación:</b> <span class="m">(2 × 10³) × (4 × 10⁵) = 8 × 10⁸</span> (multiplicás los <i>a</i>, sumás los exponentes).</li>
+  <li><b>División:</b> <span class="m">(6 × 10⁵) / (3 × 10²) = 2 × 10³</span> (dividís los <i>a</i>, restás los exponentes).</li>
+  <li><b>Suma/resta:</b> tenés que llevar ambos números al <b>mismo exponente</b> primero. <span class="m">2,5 × 10³ + 4 × 10² = 2,5 × 10³ + 0,4 × 10³ = 2,9 × 10³</span>.</li>
+  <li><b>Potencia:</b> <span class="m">(2 × 10³)² = 4 × 10⁶</span>.</li>
+</ul>
+
+<h3>Cifras significativas</h3>
+<p>Las <b>cifras significativas</b> de una medición son los dígitos que tienen significado, incluido el último que es <b>incierto</b> (el que se "estima" o redondea).</p>
+
+<h4>Reglas para contarlas</h4>
+<ul>
+  <li>Todos los dígitos distintos de cero <b>son</b> significativos.</li>
+  <li>Los ceros <b>entre</b> dígitos no nulos son significativos: 1,008 tiene 4 cifras.</li>
+  <li>Los ceros <b>a la izquierda</b> NO son significativos: 0,0052 tiene 2 cifras.</li>
+  <li>Los ceros <b>a la derecha del punto decimal</b> SÍ son significativos: 2,50 tiene 3 cifras (el 0 indica precisión).</li>
+  <li>Los ceros <b>finales en enteros</b> son ambiguos: 100 puede tener 1, 2 o 3 cifras. Por eso, en física se usa notación científica para evitar la duda: 1,00 × 10² claramente tiene 3 cifras.</li>
+</ul>
+
+<h4>Operar con cifras significativas</h4>
+<div class="trap"><div class="tr-t">Reglas al combinar mediciones</div>
+• En <b>sumas y restas</b>: el resultado se conserva con tantos <b>decimales</b> como el dato con menos decimales.<br>
+&nbsp;&nbsp;Ejemplo: 12,1 + 3,45 = 15,55 → se redondea a <b>15,6</b> (un decimal, como el 12,1).<br>
+• En <b>productos y cocientes</b>: se conserva con tantas <b>cifras significativas</b> como el dato con menos cifras.<br>
+&nbsp;&nbsp;Ejemplo: 4,52 × 3,1 = 14,012 → se redondea a <b>14</b> (2 cifras, como el 3,1).
+</div>
+
+<h3>Orden de magnitud</h3>
+<p>El <b>orden de magnitud</b> de un número es la potencia de 10 más cercana. Sirve para tener una idea rápida del tamaño y para comparar:</p>
+
+<table class="tbl">
+  <tr><th>Cosa</th><th>Tamaño aproximado</th><th>Orden</th></tr>
+  <tr><td>Diámetro de un átomo</td><td>10⁻¹⁰ m</td><td>−10</td></tr>
+  <tr><td>Una bacteria</td><td>10⁻⁶ m</td><td>−6</td></tr>
+  <tr><td>Una persona</td><td>10⁰ m (1,7 m)</td><td>0</td></tr>
+  <tr><td>Una ciudad</td><td>10⁴ m (10 km)</td><td>4</td></tr>
+  <tr><td>La Tierra (radio)</td><td>10⁷ m</td><td>7</td></tr>
+  <tr><td>Distancia Tierra–Sol</td><td>10¹¹ m</td><td>11</td></tr>
+  <tr><td>Una galaxia</td><td>10²¹ m</td><td>21</td></tr>
+</table>
+
+<h3>Análisis dimensional · validación de fórmulas</h3>
+<p>Una fórmula física tiene que ser <b>dimensionalmente consistente</b>: ambos lados de la igualdad deben tener las mismas unidades. Si no, está mal. Es la primera verificación que tenés que hacer siempre.</p>
+
+<p>La notación: usamos corchetes [X] para "las dimensiones de X". Por ejemplo, [v] = m/s, [a] = m/s², [F] = kg·m/s² = N.</p>
+
+<div class="example">
+  <div class="ex-t">¿Es correcta v = a · t?</div>
+  [v] = m/s. <br>
+  [a · t] = (m/s²) · s = m/s. ✓ <br>
+  Las dimensiones cuadran. La fórmula es dimensionalmente correcta.
+</div>
+
+<div class="example">
+  <div class="ex-t">¿Es correcta x = ½ · a · t² ?</div>
+  [x] = m. <br>
+  [a · t²] = (m/s²) · s² = m. ✓ <br>
+  El ½ no tiene unidades (es un número puro). Cuadra.
+</div>
+
+<div class="key"><div class="ky-t">Tip Torti: "el resultado raro"</div>
+Si en un examen te queda un resultado con unidades raras (un peso en segundos, una velocidad en metros, una presión en metros), seguro la metiste en algún paso. Volvé a chequear dimensiones.<br><br>
+También funciona al revés: si no recordás una fórmula pero sabés las unidades de cada cosa, podés <b>reconstruirla</b>. Si necesitás una velocidad y tenés distancia y tiempo, sabés que va dividido (m/s).
+</div>
+
+<div class="quiz-wrap" data-qz="0" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 1 · MAGNITUDES FÍSICAS / VECTORES ============ -->
+<details id="fi-s1">
+<summary><span class="num">1</span> Magnitudes Físicas (vectores) <span class="sec-score" id="ss-fisica-1"></span></summary>
+<div class="content">
+
+<h3>Escalares vs. vectores</h3>
+<p>Hay dos tipos de magnitudes físicas:</p>
+<ul>
+  <li><b>Escalares:</b> quedan completamente descritas por un <b>número y una unidad</b>. Ejemplos: masa (5 kg), temperatura (20 °C), tiempo (3 s), volumen (10 L), energía.</li>
+  <li><b>Vectoriales:</b> además del módulo, necesitan <b>dirección y sentido</b>. Ejemplos: velocidad, fuerza, desplazamiento, aceleración, momento.</li>
+</ul>
+
+<p>Ejemplo: si te digo "el viento sopla a 30 km/h", todavía falta info: ¿desde dónde? La velocidad del viento es vectorial. En cambio, la temperatura no necesita "dirección".</p>
+
+<h3>Anatomía de un vector</h3>
+<p>Un vector tiene <b>cuatro elementos</b>:</p>
+<ol>
+  <li><b>Módulo</b> (longitud, magnitud): un número con unidades. Siempre &ge; 0 (el único vector con módulo 0 es el vector nulo).</li>
+  <li><b>Dirección</b>: la recta que lo contiene.</li>
+  <li><b>Sentido</b>: hacia dónde apunta (sobre la dirección hay dos posibles).</li>
+  <li><b>Punto de aplicación</b>: dónde "empieza".</li>
+</ol>
+
+<p>Se escribe <span class="vec">A⃗</span> con flechita arriba, o con negrita <b>A</b>. El módulo se escribe |<span class="vec">A⃗</span>| o simplemente A (sin flecha).</p>
+
+<h3>Representación gráfica</h3>
+<p>Se dibuja como una <b>flecha</b>: la longitud (a escala) representa el módulo, la flecha indica el sentido. Por convención, los vectores se dibujan partiendo del origen del sistema de coordenadas, y se mide el ángulo respecto del eje x positivo en sentido <b>antihorario</b>.</p>
+
+<h3>Suma de vectores</h3>
+<p>Hay tres formas equivalentes de sumar vectores. Aprendelas todas y elegí la que más te convenga en cada problema.</p>
+
+<h4>Método del paralelogramo</h4>
+<p>Con los dos vectores partiendo del mismo origen, se trazan paralelas y se forma un paralelogramo. La <b>diagonal</b> que sale del origen es la suma <span class="vec">A⃗</span> + <span class="vec">B⃗</span>.</p>
+
+<h4>Método de la poligonal (cabeza-cola)</h4>
+<p>Pegás el origen del segundo vector en el final del primero. La suma va desde el origen del primero hasta el final del segundo. Útil para sumar varios vectores en cadena.</p>
+
+<h4>Método algebraico (componentes)</h4>
+<p>Es el más usado en problemas. Lo vemos abajo.</p>
+
+<h3>Componentes cartesianas</h3>
+<p>Todo vector en el plano se puede <b>descomponer</b> en sus componentes x e y, que son las "sombras" del vector sobre cada eje:</p>
+
+<div class="formula">
+A<sub>x</sub> = |A⃗| · cos(θ)<br>
+A<sub>y</sub> = |A⃗| · sen(θ)
+</div>
+
+<p>donde θ es el ángulo que forma el vector con el <b>eje x positivo</b>, medido en sentido <b>antihorario</b>.</p>
+
+<p>Y al revés, si conocés las componentes, podés calcular módulo y ángulo:</p>
+
+<div class="formula">
+|A⃗| = √(A<sub>x</sub>² + A<sub>y</sub>²)<br>
+tan(θ) = A<sub>y</sub> / A<sub>x</sub>
+</div>
+
+<div class="trap"><div class="tr-t">Ojo con el cuadrante</div>
+La calculadora con arctan devuelve ángulos entre −90° y +90°. Si el vector está en el <b>2° o 3° cuadrante</b>, hay que <b>sumar 180°</b> al ángulo que da la calculadora. Por eso siempre conviene <b>dibujar el vector</b> antes de operar para saber en qué cuadrante está.
+</div>
+
+<div class="example">
+  <div class="ex-t">Componentes de un vector</div>
+  Una fuerza de 50 N forma 30° con la horizontal. Sus componentes son:<br>
+  F<sub>x</sub> = 50 · cos(30°) = 50 · 0,866 ≈ 43,3 N<br>
+  F<sub>y</sub> = 50 · sen(30°) = 50 · 0,5 = 25 N
+</div>
+
+<div class="example">
+  <div class="ex-t">De componentes a módulo y ángulo</div>
+  Un vector tiene F<sub>x</sub> = 4 N, F<sub>y</sub> = 3 N. <br>
+  Módulo: |F⃗| = √(16+9) = √25 = 5 N. <br>
+  Ángulo: tan(θ) = 3/4 → θ = arctan(0,75) ≈ 36,87°.
+</div>
+
+<h3>Versores (vectores unitarios)</h3>
+<p>Un <b>versor</b> es un vector de módulo 1, indica solo dirección y sentido. Los más importantes son los del sistema cartesiano:</p>
+<ul>
+  <li><b>î</b> = (1, 0): apunta en el eje x positivo.</li>
+  <li><b>ĵ</b> = (0, 1): apunta en el eje y positivo.</li>
+  <li><b>k̂</b> = (0, 0, 1): apunta en el eje z positivo (sólo en 3D).</li>
+</ul>
+
+<p>Un vector se puede expresar como combinación lineal: <span class="vec">A⃗</span> = A<sub>x</sub> î + A<sub>y</sub> ĵ.</p>
+
+<h3>Suma por componentes</h3>
+<p>Es la forma más rápida de sumar. Si <span class="vec">A⃗</span> = (A<sub>x</sub>, A<sub>y</sub>) y <span class="vec">B⃗</span> = (B<sub>x</sub>, B<sub>y</sub>):</p>
+
+<div class="formula">
+<span class="vec">A⃗</span> + <span class="vec">B⃗</span> = (A<sub>x</sub> + B<sub>x</sub>, A<sub>y</sub> + B<sub>y</sub>)<br>
+<span class="vec">A⃗</span> − <span class="vec">B⃗</span> = (A<sub>x</sub> − B<sub>x</sub>, A<sub>y</sub> − B<sub>y</sub>)<br>
+k · <span class="vec">A⃗</span> = (k · A<sub>x</sub>, k · A<sub>y</sub>)
+</div>
+
+<div class="example">
+  <div class="ex-t">Suma con descomposición previa</div>
+  <span class="vec">F<sub>1</sub></span> = 10 N a 60° del eje x. <span class="vec">F<sub>2</sub></span> = 8 N a 150°.<br>
+  Componentes:<br>
+  • F<sub>1x</sub> = 10·cos(60°) = 5 ; F<sub>1y</sub> = 10·sen(60°) ≈ 8,66<br>
+  • F<sub>2x</sub> = 8·cos(150°) ≈ −6,93 ; F<sub>2y</sub> = 8·sen(150°) = 4<br>
+  Suma:<br>
+  • R<sub>x</sub> = 5 − 6,93 = −1,93 ; R<sub>y</sub> = 8,66 + 4 = 12,66<br>
+  Módulo: |R⃗| = √(1,93² + 12,66²) ≈ 12,8 N
+</div>
+
+<h3>Producto escalar (o "punto")</h3>
+<p>Da un <b>número</b> (escalar), no un vector. Tiene dos definiciones equivalentes:</p>
+
+<div class="formula">
+<span class="vec">A⃗</span> · <span class="vec">B⃗</span> = |A⃗| · |B⃗| · cos(θ) &nbsp;&nbsp; (geométrica)<br>
+<span class="vec">A⃗</span> · <span class="vec">B⃗</span> = A<sub>x</sub>·B<sub>x</sub> + A<sub>y</sub>·B<sub>y</sub> &nbsp;&nbsp; (por componentes)
+</div>
+
+<p>donde θ es el ángulo entre los dos vectores. La primera fórmula es para entender qué significa; la segunda, para calcular.</p>
+
+<div class="key"><div class="ky-t">Usos del producto escalar</div>
+• Cuando es <b>cero</b>: los vectores son <b>perpendiculares</b> (ortogonales). cos(90°) = 0.<br>
+• Sirve para calcular el <b>ángulo</b> entre dos vectores: cos(θ) = (<span class="vec">A⃗</span>·<span class="vec">B⃗</span>) / (|A⃗|·|B⃗|).<br>
+• En física, el <b>trabajo</b> es un producto escalar: W = <span class="vec">F⃗</span>·<span class="vec">d⃗</span>. Eso explica por qué una fuerza perpendicular al movimiento no hace trabajo.
+</div>
+
+<h3>Producto vectorial (o "cruz")</h3>
+<p>Da un <b>vector perpendicular</b> a los dos originales. Su dirección se obtiene con la <b>regla de la mano derecha</b> (apuntás los dedos en la dirección de A, los doblás hacia B; el pulgar te indica el sentido de A × B).</p>
+
+<div class="formula">
+|<span class="vec">A⃗</span> × <span class="vec">B⃗</span>| = |A⃗| · |B⃗| · sen(θ)
+</div>
+
+<p>En componentes (para vectores en el plano xy, el resultado va en el eje z):</p>
+
+<div class="formula">
+<span class="vec">A⃗</span> × <span class="vec">B⃗</span> = (A<sub>x</sub>·B<sub>y</sub> − A<sub>y</sub>·B<sub>x</sub>) k̂
+</div>
+
+<div class="key"><div class="ky-t">Propiedades clave</div>
+• <b>NO es conmutativo:</b> <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = −(<span class="vec">B⃗</span> × <span class="vec">A⃗</span>). El orden importa.<br>
+• Si los vectores son <b>paralelos</b>, el producto vectorial es el <b>vector nulo</b>. sen(0°) = 0.<br>
+• En física aparece en el <b>momento de una fuerza</b>: <span class="vec">τ⃗</span> = <span class="vec">r⃗</span> × <span class="vec">F⃗</span>.
+</div>
+
+<h3>Ejemplo integrador</h3>
+<div class="example">
+  <div class="ex-t">Cuentas completas</div>
+  Dados <span class="vec">A⃗</span> = 3î + 4ĵ y <span class="vec">B⃗</span> = −2î + 5ĵ:<br><br>
+  • |<span class="vec">A⃗</span>| = √(9+16) = 5<br>
+  • |<span class="vec">B⃗</span>| = √(4+25) = √29 ≈ 5,39<br>
+  • <span class="vec">A⃗</span> + <span class="vec">B⃗</span> = 1î + 9ĵ ; |suma| = √(1+81) ≈ 9,06<br>
+  • <span class="vec">A⃗</span> − <span class="vec">B⃗</span> = 5î − ĵ<br>
+  • <span class="vec">A⃗</span> · <span class="vec">B⃗</span> = 3·(−2) + 4·5 = −6 + 20 = 14<br>
+  • <span class="vec">A⃗</span> × <span class="vec">B⃗</span> = (3·5 − 4·(−2)) k̂ = (15 + 8) k̂ = 23 k̂<br>
+  • Ángulo entre ellos: cos(θ) = 14/(5·5,39) ≈ 0,52 → θ ≈ 58,5°
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · ESTÁTICA ============ -->
+<details id="fi-s2">
+<summary><span class="num">2</span> Estática <span class="sec-score" id="ss-fisica-2"></span></summary>
+<div class="content">
+
+<h3>¿De qué trata la estática?</h3>
+<p>La <b>estática</b> estudia los cuerpos que están en <b>equilibrio</b>: en reposo o moviéndose con velocidad constante en línea recta. La aceleración es cero, no hay rotación.</p>
+
+<p>En la práctica, casi todos los problemas de estática son situaciones de "cosas que están quietas": una caja apoyada, un cuerpo colgado de cuerdas, una viga sostenida por dos apoyos, un cartel en una pared, un puente.</p>
+
+<h3>Fuerza</h3>
+<p>La <b>fuerza</b> es una magnitud vectorial que describe la <b>interacción</b> entre dos cuerpos. Una fuerza puede empujar, tirar, sostener o frenar a un cuerpo. Su unidad en el SI es el <b>Newton</b>:</p>
+
+<div class="formula">
+1 N = 1 kg · m/s²
+</div>
+
+<p>Como referencia: 1 N es aproximadamente lo que pesa una manzana de 100 g.</p>
+
+<h3>Peso</h3>
+<p>El <b>peso</b> de un cuerpo es la fuerza con la que la Tierra lo atrae hacia su centro. Es siempre vertical y hacia abajo:</p>
+
+<div class="formula">
+P = m · g
+</div>
+
+<p>donde <b>g</b> es la aceleración de la gravedad. En la superficie terrestre <b>g ≈ 9,80 m/s²</b> (a veces se aproxima a 10 m/s²).</p>
+
+<div class="trap"><div class="tr-t">Masa ≠ peso</div>
+• <b>Masa</b>: cuánta materia tiene un cuerpo. No cambia (siempre 70 kg).<br>
+• <b>Peso</b>: con cuánta fuerza la Tierra (o el planeta) lo atrae. Depende de g. En la Luna pesarías ~6 veces menos pero tu masa es la misma.<br><br>
+En la vida cotidiana usamos "peso" como sinónimo de masa, pero en física <b>no son lo mismo</b>: peso = m · g.
+</div>
+
+<h3>Equilibrio · primera condición</h3>
+<p>Para que un <b>punto material</b> (o el centro de masa de un cuerpo extenso) esté en equilibrio, la suma vectorial de todas las fuerzas que actúan sobre él debe ser <b>cero</b>:</p>
+
+<div class="formula">
+Σ <span class="vec">F⃗</span> = 0<br>
+⟺ Σ F<sub>x</sub> = 0 &nbsp;y&nbsp; Σ F<sub>y</sub> = 0
+</div>
+
+<p>En palabras: las fuerzas se "compensan" y la resultante es nula.</p>
+
+<h3>Diagrama de cuerpo libre (DCL)</h3>
+<p>El <b>DCL</b> es el primer paso de todo problema. Sin él, no sabés qué fuerzas tenés. Es un dibujo que muestra <b>solo el cuerpo aislado y todas las fuerzas que actúan sobre él</b>.</p>
+
+<div class="key"><div class="ky-t">Pasos para hacer un DCL</div>
+1. <b>Aislar el cuerpo</b>: dibujarlo solo, sin lo que lo rodea.<br>
+2. <b>Identificar interacciones</b>: ¿qué le hacen los otros cuerpos? Cada interacción es una fuerza:
+<ul>
+  <li>La Tierra → peso (siempre).</li>
+  <li>La superficie de apoyo → normal.</li>
+  <li>Una cuerda → tensión.</li>
+  <li>Un resorte → fuerza elástica.</li>
+  <li>Otro cuerpo en contacto → empuje, rozamiento.</li>
+</ul>
+3. <b>Dibujar cada fuerza</b> como flecha desde el cuerpo, en su dirección y sentido.<br>
+4. <b>Elegir un sistema de ejes</b> (x, y) y descomponer cada fuerza.<br>
+5. <b>Plantear las ecuaciones</b>: ΣF<sub>x</sub> = 0, ΣF<sub>y</sub> = 0 para equilibrio.
+</div>
+
+<div class="trap"><div class="tr-t">Lo que NO va en el DCL</div>
+• Las fuerzas que el cuerpo hace <b>sobre otros</b>: por la 3° ley, hay un par acción-reacción, pero esa "otra" fuerza actúa sobre OTRO cuerpo. Solo van las que actúan sobre el cuerpo que aislaste.<br>
+• La velocidad o la aceleración. Esas no son fuerzas.
+</div>
+
+<h3>Vínculos y reacciones</h3>
+<p>Los <b>vínculos</b> son los elementos que sostienen al cuerpo: apoyos, cuerdas, bisagras. Cada vínculo ejerce una <b>reacción de vínculo</b> sobre el cuerpo. Tipos comunes:</p>
+
+<table class="tbl">
+  <tr><th>Vínculo</th><th>Tipo de reacción</th><th>Características</th></tr>
+  <tr><td>Apoyo simple</td><td>Normal (N)</td><td>Perpendicular a la superficie</td></tr>
+  <tr><td>Cuerda / tensor</td><td>Tensión (T)</td><td>Tira a lo largo de la cuerda, hacia afuera del cuerpo</td></tr>
+  <tr><td>Articulación / perno</td><td>Reacción con dos componentes</td><td>R<sub>x</sub> y R<sub>y</sub> (la articulación restringe traslación pero no rotación)</td></tr>
+  <tr><td>Resorte</td><td>Fuerza elástica</td><td>F = k·x, hacia la posición de equilibrio</td></tr>
+  <tr><td>Empotramiento</td><td>Reacción + momento</td><td>Restringe todo movimiento; aparece un momento de reacción</td></tr>
+</table>
+
+<h3>Momento (torque) de una fuerza</h3>
+<p>El <b>momento</b> mide la capacidad de una fuerza para producir un <b>giro</b> alrededor de un eje (o un punto). Depende de la fuerza, la distancia al eje y el ángulo:</p>
+
+<div class="formula">
+M = F · d · sen(α)
+</div>
+
+<p>donde <b>d</b> es la distancia del punto de aplicación al eje (también llamado <b>brazo</b>), y <b>α</b> es el ángulo entre la fuerza y el vector posición (<span class="vec">r⃗</span>). Si la fuerza es <b>perpendicular</b> al brazo (lo más común): <b>M = F · d</b>.</p>
+
+<p>Unidad: <b>N·m</b>. Y el <b>signo</b>: por convención, positivo si tiende a girar antihorario, negativo si horario (o al revés — lo importante es elegir una y ser consistente).</p>
+
+<h3>Equilibrio extenso · segunda condición</h3>
+<p>Para un <b>cuerpo extenso</b> (no es un punto), la primera condición no alcanza: el cuerpo podría estar acelerando angularmente aunque la suma de fuerzas sea cero (un par puro). Hay que pedir además que la <b>suma de momentos</b> respecto de cualquier punto sea cero:</p>
+
+<div class="formula">
+Σ <span class="vec">F⃗</span> = 0 &nbsp;Y&nbsp; Σ M = 0
+</div>
+
+<div class="key"><div class="ky-t">Cómo elegir el punto inteligentemente</div>
+Aunque "cualquier punto" funciona, elegirlo bien simplifica muchísimo:<br>
+• Poné el punto donde actúa una fuerza desconocida: así su momento es 0 (brazo nulo) y sale de la ecuación.<br>
+• Típicamente se elige <b>el punto de apoyo</b> donde actúan las reacciones de vínculo.
+</div>
+
+<h3>Centro de gravedad</h3>
+<p>En un cuerpo extenso, el peso se "aplica" en el <b>centro de gravedad (CG)</b>. Para cuerpos <b>homogéneos y simétricos</b>, el CG coincide con el centro geométrico.</p>
+
+<table class="tbl">
+  <tr><th>Cuerpo</th><th>Centro de gravedad</th></tr>
+  <tr><td>Varilla uniforme</td><td>El centro de la varilla (mitad)</td></tr>
+  <tr><td>Tabla rectangular</td><td>El centro geométrico (intersección de diagonales)</td></tr>
+  <tr><td>Disco / esfera</td><td>El centro geométrico</td></tr>
+  <tr><td>Triángulo</td><td>El baricentro (a 1/3 desde cada base)</td></tr>
+</table>
+
+<h3>Máquinas simples: la palanca</h3>
+<p>Una <b>palanca</b> es una barra rígida que gira alrededor de un punto de apoyo (fulcro). Está en equilibrio cuando los momentos a ambos lados son iguales:</p>
+
+<div class="formula">
+F<sub>1</sub> · d<sub>1</sub> = F<sub>2</sub> · d<sub>2</sub>
+</div>
+
+<p>Esto explica el <b>subibaja</b>: si un chico pesa la mitad, tiene que sentarse al doble de distancia del centro que el otro. La palanca <b>amplifica fuerza a costa de distancia</b>: con poca fuerza pero recorriendo mucho, levantás algo pesado a poca distancia.</p>
+
+<div class="example">
+  <div class="ex-t">Estrategia general · problemas de estática</div>
+  1. Hacer el DCL del cuerpo aislado.<br>
+  2. Identificar tipo de cuerpo: ¿puntual o extenso?<br>
+  3. Elegir sistema de ejes; descomponer todas las fuerzas.<br>
+  4. Plantear Σ F<sub>x</sub> = 0 y Σ F<sub>y</sub> = 0.<br>
+  5. Si es extenso, plantear Σ M = 0 eligiendo un buen pivote.<br>
+  6. Resolver el sistema de ecuaciones.<br>
+  7. Verificar dimensiones y razonabilidad del resultado.
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo: viga apoyada en dos puntos</div>
+  Una viga homogénea de 100 kg y 4 m de largo está apoyada en sus dos extremos A (izquierda) y B (derecha). En el centro hay una carga adicional de 50 kg. ¿Cuánto vale cada reacción?<br><br>
+  El peso de la viga (100·g = 980 N) se aplica en el centro. El peso de la carga (50·g = 490 N) también está en el centro.<br>
+  Total hacia abajo en el centro: 1470 N.<br><br>
+  Por simetría: R<sub>A</sub> = R<sub>B</sub> = 735 N cada una.<br><br>
+  Verificación con momentos respecto de A:<br>
+  Σ M = 0: −1470 · 2 + R<sub>B</sub> · 4 = 0 → R<sub>B</sub> = 735 N ✓
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · HIDROSTÁTICA ============ -->
+<details id="fi-s3">
+<summary><span class="num">3</span> Hidrostática <span class="sec-score" id="ss-fisica-3"></span></summary>
+<div class="content">
+
+<h3>Fluidos</h3>
+<p>Un <b>fluido</b> es una sustancia que puede fluir: <b>líquidos y gases</b>. Lo distingue de un sólido: el fluido <b>no tiene forma propia</b>, adopta la del recipiente. La <b>hidrostática</b> estudia los fluidos <b>en reposo</b>.</p>
+
+<p>Para simplificar, en esta materia usamos el modelo de <b>fluido ideal</b>:</p>
+<ul>
+  <li><b>Incompresible</b>: la densidad no cambia con la presión (los líquidos son cuasi-incompresibles; los gases NO, pero los aproximamos).</li>
+  <li><b>Sin viscosidad</b>: no hay rozamiento interno.</li>
+  <li><b>En equilibrio</b>: en reposo, sin movimiento.</li>
+</ul>
+
+<h3>Densidad</h3>
+<p>La <b>densidad</b> (<b>δ</b> o ρ) mide cuánta masa hay en cada volumen:</p>
+
+<div class="formula">
+δ = m / V
+</div>
+
+<p>Unidad SI: kg/m³. También muy usada: g/cm³.</p>
+<p><b>Conversión:</b> 1 g/cm³ = 1000 kg/m³.</p>
+
+<div class="key"><div class="ky-t">Densidades de referencia (¡memorizá las primeras!)</div>
+• Agua: 1,00 × 10³ kg/m³ = 1,00 g/cm³ (la referencia)<br>
+• Hielo: 0,92 × 10³ kg/m³ (¡menor que el agua!)<br>
+• Aire (al nivel del mar): 1,29 kg/m³<br>
+• Agua de mar: 1,03 × 10³ kg/m³<br>
+• Aceite: ~0,9 × 10³ kg/m³<br>
+• Aluminio: 2,70 × 10³ kg/m³<br>
+• Hierro/acero: 7,80 × 10³ kg/m³<br>
+• Plomo: 11,3 × 10³ kg/m³<br>
+• Mercurio: 13,6 × 10³ kg/m³ (líquido pero muy denso)<br>
+• Oro: 19,3 × 10³ kg/m³
+</div>
+
+<h3>Peso específico</h3>
+<p>El <b>peso específico</b> (ρ<sub>e</sub>) es peso por unidad de volumen:</p>
+<div class="formula">
+ρ<sub>e</sub> = δ · g &nbsp;&nbsp; [N/m³]
+</div>
+
+<h3>Presión</h3>
+<p>La <b>presión</b> es la fuerza que un fluido (o cualquier cosa) ejerce <b>por unidad de área</b>:</p>
+
+<div class="formula">
+p = F / A
+</div>
+
+<p>Unidad SI: <b>Pascal (Pa)</b> = N/m².</p>
+
+<p>Una presión muy importante en física es la <b>presión atmosférica</b>:</p>
+
+<div class="formula">
+1 atm = 1,013 × 10⁵ Pa ≈ 760 mmHg ≈ 1013 hPa
+</div>
+
+<h3>Teorema fundamental de la hidrostática</h3>
+<p>Dentro de un fluido en reposo, la presión <b>aumenta con la profundidad</b>. Si <b>p<sub>0</sub></b> es la presión en la superficie (típicamente la atmosférica si el fluido está abierto), entonces a una profundidad h:</p>
+
+<div class="formula">
+p = p<sub>0</sub> + δ · g · h
+</div>
+
+<div class="key"><div class="ky-t">Tres consecuencias importantes</div>
+1. Todos los puntos a <b>igual profundidad</b> en el mismo fluido tienen la <b>misma presión</b> (vasos comunicantes).<br>
+2. La presión <b>NO depende de la forma</b> del recipiente, sólo de la profundidad.<br>
+3. Una columna de <b>10 m de agua</b> genera aproximadamente <b>1 atm</b> de presión adicional.
+</div>
+
+<h3>Presión absoluta vs. manométrica</h3>
+<ul>
+  <li><b>Presión absoluta</b>: la total, incluyendo la atmosférica.</li>
+  <li><b>Presión manométrica</b>: la que se lee en un manómetro, es decir, la diferencia respecto de la atmósfera. p<sub>man</sub> = p<sub>abs</sub> − p<sub>atm</sub>.</li>
+</ul>
+
+<p>Cuando inflás una rueda a "32 psi", esa es presión manométrica. La absoluta serían 32 + 14,7 = 46,7 psi.</p>
+
+<h3>Principio de Pascal</h3>
+<p>La presión aplicada a un fluido <b>encerrado</b> se <b>transmite por igual</b> a todos los puntos del fluido y a las paredes del recipiente.</p>
+
+<p><b>Aplicación clásica: prensa hidráulica</b>. Si en un cilindro chico de área A<sub>1</sub> aplicás una fuerza F<sub>1</sub>, en otro grande de área A<sub>2</sub> obtenés F<sub>2</sub>:</p>
+
+<div class="formula">
+F<sub>1</sub> / A<sub>1</sub> = F<sub>2</sub> / A<sub>2</sub>
+</div>
+
+<p>Si A<sub>2</sub> es 100 veces mayor que A<sub>1</sub>, F<sub>2</sub> es 100 veces mayor que F<sub>1</sub>. Así, con poco esfuerzo se levantan autos en un taller.</p>
+
+<div class="example">
+  <div class="ex-t">Ejemplo de prensa</div>
+  En un gato hidráulico, el pistón pequeño tiene área A<sub>1</sub> = 5 cm² y aplicamos F<sub>1</sub> = 100 N. El pistón grande tiene A<sub>2</sub> = 200 cm². ¿Cuánto peso puede levantar?<br><br>
+  F<sub>2</sub> = F<sub>1</sub> · A<sub>2</sub>/A<sub>1</sub> = 100 · 200/5 = <b>4000 N</b><br>
+  Es decir, con un esfuerzo de 100 N (10 kg) levantás 400 kg.
+</div>
+
+<h3>Experiencia de Torricelli y barómetro</h3>
+<p>Torricelli midió por primera vez la presión atmosférica invirtiendo un tubo lleno de mercurio en una cubeta. El mercurio bajó hasta que la columna restante equilibró la presión atmosférica:</p>
+
+<div class="formula">
+p<sub>atm</sub> = δ<sub>Hg</sub> · g · h &nbsp;→&nbsp; h ≈ 760 mm de Hg
+</div>
+
+<p>Si hubiera usado agua, la columna sería de unos <b>10 m</b> de altura (porque la densidad del agua es ~13,6 veces menor). Por eso los barómetros usan mercurio: se construyen más chicos.</p>
+
+<h3>Principio de Arquímedes</h3>
+<p>Es un teorema <b>fundamental</b> en hidrostática.</p>
+
+<div class="formula">
+Todo cuerpo sumergido (total o parcialmente) en un fluido recibe un EMPUJE vertical hacia ARRIBA igual al peso del fluido desalojado.<br><br>
+E = δ<sub>fluido</sub> · V<sub>desalojado</sub> · g
+</div>
+
+<p>Notar que el empuje depende del fluido y del volumen desalojado, NO del cuerpo en sí (ni de su masa, ni de su material). Lo único que importa es cuánto fluido "desplaza" al meterse adentro.</p>
+
+<h3>Las tres situaciones de flotación</h3>
+<p>Comparando densidad del cuerpo con densidad del fluido:</p>
+
+<table class="tbl">
+  <tr><th>Caso</th><th>Comportamiento</th></tr>
+  <tr><td>δ<sub>cuerpo</sub> &lt; δ<sub>fluido</sub></td><td><b>Flota</b>: solo una parte queda sumergida (la justa para que E iguale al peso)</td></tr>
+  <tr><td>δ<sub>cuerpo</sub> = δ<sub>fluido</sub></td><td><b>Equilibrio</b>: queda flotando sumergido a cualquier profundidad</td></tr>
+  <tr><td>δ<sub>cuerpo</sub> &gt; δ<sub>fluido</sub></td><td><b>Se hunde</b>: el peso supera al empuje y va al fondo</td></tr>
+</table>
+
+<p>El hielo flota en el agua porque su densidad (0,92 g/cm³) es menor. Un trozo de plomo (11,3 g/cm³) se hunde en el agua, pero <b>flotaría en mercurio</b> (13,6 g/cm³).</p>
+
+<h3>Peso aparente</h3>
+<p>Cuando pesás un objeto sumergido (con una balanza tipo dinamómetro), la balanza lee menos: el empuje "lo ayuda" a sostenerse. El <b>peso aparente</b> es:</p>
+
+<div class="formula">
+P<sub>aparente</sub> = P<sub>real</sub> − E
+</div>
+
+<p>Esta diferencia se usa para <b>medir densidades</b> de objetos: pesás en aire, pesás sumergido en agua, calculás el empuje y de ahí el volumen y la densidad.</p>
+
+<div class="example">
+  <div class="ex-t">Calcular densidad por peso aparente</div>
+  Una pieza de metal pesa 90,0 g en aire y 75,0 g sumergida en agua.<br><br>
+  La diferencia (15,0 g equivalentes en empuje) corresponde al volumen de agua desalojada. Como δ<sub>agua</sub> = 1 g/cm³, ese empuje implica V = 15 cm³.<br><br>
+  Densidad del metal: δ = m/V = 90,0/15,0 = <b>6,00 g/cm³</b><br>
+  (Probablemente un acero al carbono o una aleación parecida.)
+</div>
+
+<div class="key"><div class="ky-t">¿Por qué un barco de acero flota?</div>
+La densidad del acero (7,8 g/cm³) es mucho mayor que la del agua. Si fuera un bloque macizo, se hundiría. Pero un <b>barco</b> tiene mucho aire adentro: la densidad <b>media</b> (acero + aire) es menor que la del agua. Por eso flota. Por eso también cuando un barco tiene una vía de agua y se llena, su densidad media supera a la del agua y se hunde.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · CINEMÁTICA 1D ============ -->
+<details id="fi-s4">
+<summary><span class="num">4</span> Cinemática en una dimensión <span class="sec-score" id="ss-fisica-4"></span></summary>
+<div class="content">
+
+<h3>¿Qué es la cinemática?</h3>
+<p>La <b>cinemática</b> estudia el <b>movimiento</b> (cómo se mueven los cuerpos) sin preocuparse de las causas. En cinemática no aparecen las fuerzas — eso es la dinámica. Acá solo describimos: posición, velocidad, aceleración.</p>
+
+<p>En 1 dimensión (1D), el movimiento ocurre a lo largo de una recta. Modelamos al cuerpo como un <b>punto material</b> o <b>partícula</b>: despreciamos su tamaño y forma.</p>
+
+<h3>Conceptos básicos</h3>
+
+<h4>Posición</h4>
+<p>La <b>posición</b> <span class="m">x(t)</span> indica dónde está la partícula en cada instante. Depende del <b>sistema de referencia</b> que elijas (el origen y el sentido del eje x positivo).</p>
+
+<h4>Desplazamiento</h4>
+<p>El <b>desplazamiento</b> es el cambio de posición:</p>
+<div class="formula">
+Δx = x<sub>f</sub> − x<sub>i</sub>
+</div>
+<p>Es vectorial (tiene signo). Puede ser positivo o negativo.</p>
+
+<h4>Trayectoria</h4>
+<p>La <b>trayectoria</b> es el camino real seguido. En 1D, una recta o un segmento.</p>
+
+<h4>Distancia recorrida</h4>
+<p>La <b>distancia recorrida</b> es la longitud de la trayectoria. Siempre <b>positiva</b>.</p>
+
+<div class="trap"><div class="tr-t">Desplazamiento ≠ distancia</div>
+Si salís de tu casa, caminás 100 m hacia el este y volvés:<br>
+• <b>Distancia recorrida</b>: 200 m (positivo siempre).<br>
+• <b>Desplazamiento</b>: 0 m (estás en el mismo lugar).<br><br>
+Confundirlos es uno de los errores más típicos.
+</div>
+
+<h3>Velocidad</h3>
+
+<h4>Velocidad media</h4>
+<p>Cambio de posición sobre tiempo transcurrido:</p>
+<div class="formula">
+v<sub>m</sub> = Δx / Δt = (x<sub>f</sub> − x<sub>i</sub>) / (t<sub>f</sub> − t<sub>i</sub>)
+</div>
+<p>Es vectorial (tiene signo según el sentido del movimiento).</p>
+
+<h4>Rapidez media</h4>
+<p>Distancia recorrida sobre tiempo. Es <b>escalar, siempre positiva</b>. NO es lo mismo que velocidad media. Si volvés al punto de partida, tu velocidad media es 0 pero tu rapidez media no.</p>
+
+<h4>Velocidad instantánea</h4>
+<p>Es la velocidad en un momento puntual: el límite de la velocidad media cuando Δt → 0. Matemáticamente, es la derivada de la posición.</p>
+
+<h3>Aceleración</h3>
+
+<h4>Aceleración media</h4>
+<div class="formula">
+a<sub>m</sub> = Δv / Δt
+</div>
+<p>Cambio de velocidad por unidad de tiempo. Unidad: m/s².</p>
+
+<h4>Aceleración instantánea</h4>
+<p>La aceleración en un momento puntual. Derivada de la velocidad.</p>
+
+<div class="key"><div class="ky-t">Signos de la aceleración</div>
+• <b>a y v del mismo signo</b>: el cuerpo <b>acelera</b> (aumenta su rapidez).<br>
+• <b>a y v de signos opuestos</b>: el cuerpo <b>frena</b> (disminuye su rapidez).<br><br>
+Por ejemplo, un auto con velocidad +10 m/s y aceleración −2 m/s² está frenando. Si la velocidad fuera −10 m/s y a = −2 m/s², estaría acelerando hacia atrás (la magnitud de la rapidez crece).
+</div>
+
+<h3>Movimiento Rectilíneo Uniforme (MRU)</h3>
+<p>El más simple: la <b>velocidad es constante</b>. La aceleración es cero.</p>
+
+<div class="formula">
+x(t) = x<sub>0</sub> + v · t
+</div>
+
+<p>donde <b>x<sub>0</sub></b> es la posición en t = 0 y <b>v</b> es la velocidad constante.</p>
+
+<p><b>Gráficos:</b></p>
+<ul>
+  <li>x(t) es una <b>recta</b> (con pendiente igual a v).</li>
+  <li>v(t) es una <b>horizontal</b> a la altura v.</li>
+</ul>
+
+<h3>Movimiento Rectilíneo Uniformemente Variado (MRUV)</h3>
+<p>La <b>aceleración es constante</b>. La velocidad cambia linealmente con el tiempo.</p>
+
+<p><b>Ecuaciones horarias:</b></p>
+<div class="formula">
+v(t) = v<sub>0</sub> + a · t<br>
+x(t) = x<sub>0</sub> + v<sub>0</sub> · t + ½ · a · t²
+</div>
+
+<p>Una ecuación <b>"sin tiempo"</b> muy útil para cuando no te interesa el t (Torricelli):</p>
+
+<div class="formula">
+v² = v<sub>0</sub>² + 2 · a · Δx
+</div>
+
+<p><b>Gráficos:</b></p>
+<ul>
+  <li>x(t) es una <b>parábola</b>.</li>
+  <li>v(t) es una <b>recta</b> (pendiente igual a a).</li>
+  <li>a(t) es una <b>horizontal</b>.</li>
+</ul>
+
+<h3>Caída libre y tiro vertical</h3>
+<p>Casos particulares de MRUV donde la única aceleración es la gravedad (despreciando rozamiento del aire). Tomamos el eje <b>y</b> hacia arriba positivo, entonces:</p>
+
+<div class="formula">
+a = −g = −9,80 m/s² (hacia abajo)
+</div>
+
+<p>Las ecuaciones se vuelven:</p>
+<div class="formula">
+y(t) = y<sub>0</sub> + v<sub>0</sub> · t − ½ · g · t²<br>
+v(t) = v<sub>0</sub> − g · t
+</div>
+
+<h4>Caída libre</h4>
+<p>Se suelta el cuerpo desde reposo: <b>v<sub>0</sub> = 0</b>. Cae con aceleración g.</p>
+
+<h4>Tiro vertical hacia arriba</h4>
+<p>Se lanza con v<sub>0</sub> &gt; 0. Sube, llega a una altura máxima, y vuelve a caer.</p>
+
+<div class="key"><div class="ky-t">Simetría del tiro vertical</div>
+• En el <b>punto más alto</b>, la velocidad es <b>cero</b> (no es que se "queda quieto", está cambiando de sentido).<br>
+• La aceleración sigue siendo <b>−g</b> en todo el recorrido (incluso en el punto más alto).<br>
+• El tiempo de subida es <b>igual</b> al tiempo de bajada (al mismo nivel).<br>
+• La rapidez al volver al nivel inicial es la <b>misma</b> que la del lanzamiento, con sentido opuesto.
+</div>
+
+<div class="example">
+  <div class="ex-t">Cuánto tarda en caer una piedra desde 20 m</div>
+  Datos: y<sub>0</sub> = 20 m, v<sub>0</sub> = 0, g = 10 m/s² (aproximación).<br>
+  La piedra toca el suelo cuando y = 0:<br>
+  0 = 20 − ½ · 10 · t² → t² = 4 → t = 2 s.<br>
+  Velocidad al chocar: v = 0 − 10 · 2 = −20 m/s (negativo = hacia abajo).
+</div>
+
+<h3>Interpretación gráfica · clave para el parcial</h3>
+<table class="tbl">
+  <tr><th>Gráfico</th><th>Pendiente</th><th>Área bajo la curva</th></tr>
+  <tr><td>x(t)</td><td>velocidad</td><td>—</td></tr>
+  <tr><td>v(t)</td><td>aceleración</td><td>desplazamiento Δx</td></tr>
+  <tr><td>a(t)</td><td>—</td><td>cambio de velocidad Δv</td></tr>
+</table>
+
+<p>Saber leer estos gráficos vale tanto como saber calcular: en el parcial te dan un v(t) y te preguntan cuánto se desplazó (= área bajo el gráfico). Si v(t) es una recta, el área es un trapecio o triángulo (no hace falta integral).</p>
+
+<h3>Problemas de encuentro</h3>
+<p>Dos móviles se encuentran cuando están en la <b>misma posición al mismo tiempo</b>. Estrategia:</p>
+<ol>
+  <li>Plantear las ecuaciones x<sub>A</sub>(t) y x<sub>B</sub>(t) con el mismo origen.</li>
+  <li>Igualar: x<sub>A</sub>(t) = x<sub>B</sub>(t).</li>
+  <li>Despejar t.</li>
+  <li>Reemplazar t en alguna ecuación para hallar la posición de encuentro.</li>
+</ol>
+
+<div class="example">
+  <div class="ex-t">Estrategia general · cinemática 1D</div>
+  1. Dibujá la situación. Elegí sistema de referencia (eje + origen + sentido positivo).<br>
+  2. Anotá los datos con sus signos según ese sistema.<br>
+  3. Identificá el tipo de movimiento (MRU, MRUV, caída libre).<br>
+  4. Escribí las ecuaciones horarias.<br>
+  5. Usá las condiciones del problema (en el punto más alto v=0, cuando llega al suelo y=0, etc.) para despejar lo que te piden.<br>
+  6. Verificá: ¿el resultado tiene sentido? ¿unidades correctas?
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<div class="partial-header">Segundo parcial <span class="date">Unidades 5–7 (integrador)</span></div>
+
+<!-- ============ UNIDAD 5 · CINEMÁTICA 2D ============ -->
+<details id="fi-s5">
+<summary><span class="num">5</span> Cinemática en dos dimensiones <span class="sec-score" id="ss-fisica-5"></span></summary>
+<div class="content">
+
+<h3>Movimiento en el plano</h3>
+<p>Ahora el movimiento ocurre en un plano. La posición se describe con un <b>vector posición</b>: <span class="vec">r⃗</span>(t) = x(t) î + y(t) ĵ. Desplazamiento, velocidad y aceleración también son vectores.</p>
+
+<div class="formula">
+<span class="vec">v⃗</span>(t) = v<sub>x</sub>(t) î + v<sub>y</sub>(t) ĵ<br>
+<span class="vec">a⃗</span>(t) = a<sub>x</sub>(t) î + a<sub>y</sub>(t) ĵ
+</div>
+
+<h3>El principio de independencia de los movimientos</h3>
+<div class="key"><div class="ky-t">La idea clave</div>
+El movimiento en cada eje es <b>independiente</b>. Lo que pasa en x no afecta a lo que pasa en y. Esto permite resolver cualquier movimiento 2D como <b>dos problemas 1D separados</b>: uno en x y otro en y, conectados solo por el tiempo.
+</div>
+
+<h3>Tiro oblicuo</h3>
+<p>Un proyectil se lanza con velocidad inicial <span class="vec">v<sub>0</sub>⃗</span> formando un ángulo α con la horizontal. Las componentes son:</p>
+
+<div class="formula">
+v<sub>0x</sub> = v<sub>0</sub> · cos(α) &nbsp;(constante durante el vuelo, no hay fuerza horizontal)<br>
+v<sub>0y</sub> = v<sub>0</sub> · sen(α)
+</div>
+
+<p>La única fuerza es la gravedad: a<sub>x</sub> = 0, a<sub>y</sub> = −g.</p>
+
+<p><b>Ecuaciones horarias:</b></p>
+<div class="formula">
+x(t) = x<sub>0</sub> + v<sub>0x</sub> · t<br>
+y(t) = y<sub>0</sub> + v<sub>0y</sub> · t − ½ · g · t²<br>
+v<sub>x</sub>(t) = v<sub>0x</sub><br>
+v<sub>y</sub>(t) = v<sub>0y</sub> − g · t
+</div>
+
+<p>El movimiento en x es <b>MRU</b>; el movimiento en y es <b>caída libre con velocidad inicial</b>. La trayectoria resultante es una <b>parábola</b>.</p>
+
+<div class="key"><div class="ky-t">Datos útiles del tiro oblicuo (lanzado y recibido a igual altura)</div>
+• <b>Altura máxima</b>: h<sub>max</sub> = v<sub>0</sub>² · sen²(α) / (2g)<br>
+• <b>Tiempo de vuelo</b>: t<sub>vuelo</sub> = 2 · v<sub>0</sub> · sen(α) / g<br>
+• <b>Alcance horizontal</b>: R = v<sub>0</sub>² · sen(2α) / g<br>
+• <b>Alcance máximo</b> (a igual altura): se da con <b>α = 45°</b>.<br>
+• <b>En la altura máxima</b>: v<sub>y</sub> = 0, pero v<sub>x</sub> sigue siendo la inicial (no se detiene la velocidad horizontal).
+</div>
+
+<div class="example">
+  <div class="ex-t">Ejemplo</div>
+  Un proyectil se lanza con v<sub>0</sub> = 30 m/s a 60° con la horizontal. ¿Altura máxima y alcance?<br><br>
+  Componentes: v<sub>0x</sub> = 30·cos(60°) = 15 m/s ; v<sub>0y</sub> = 30·sen(60°) ≈ 26 m/s.<br>
+  En la altura máxima v<sub>y</sub> = 0:<br>
+  0 = 26 − 10·t → t = 2,6 s (subida).<br>
+  Altura máxima: h = 26·2,6 − ½·10·2,6² = 67,6 − 33,8 = 33,8 m.<br>
+  Tiempo total de vuelo: 5,2 s. Alcance: x = 15·5,2 = 78 m.
+</div>
+
+<h3>Coordenadas intrínsecas</h3>
+<p>En una trayectoria curva, conviene descomponer la aceleración en dos direcciones <b>naturales</b> al movimiento:</p>
+<ul>
+  <li><b>Aceleración tangencial</b> a<sub>t</sub>: tangente a la trayectoria. <b>Cambia la rapidez</b>. a<sub>t</sub> = dv/dt.</li>
+  <li><b>Aceleración normal</b> (centrípeta) a<sub>n</sub>: perpendicular a la trayectoria, hacia el centro de curvatura. <b>Cambia la dirección</b>. a<sub>n</sub> = v²/R, donde R es el radio de curvatura.</li>
+</ul>
+
+<div class="formula">
+|<span class="vec">a⃗</span>| = √(a<sub>t</sub>² + a<sub>n</sub>²)
+</div>
+
+<div class="key"><div class="ky-t">Los dos efectos de una aceleración</div>
+Una aceleración cambia la velocidad (que es vectorial). Hay dos formas de cambiarla:<br>
+• Cambiar el <b>módulo</b> (rapidez) → es la componente tangencial.<br>
+• Cambiar la <b>dirección</b> → es la componente normal.<br>
+Por eso una partícula puede tener aceleración aunque su rapidez sea constante, si la dirección cambia (movimiento circular uniforme).
+</div>
+
+<h3>Movimiento circular uniforme (MCU)</h3>
+<p>La partícula recorre una circunferencia de radio R con <b>rapidez constante</b>. La rapidez no cambia, pero <b>la velocidad sí</b> (cambia de dirección continuamente). Por eso hay aceleración: la <b>centrípeta</b>.</p>
+
+<div class="formula">
+a<sub>c</sub> = v² / R = ω² · R
+</div>
+
+<p>siempre apuntando <b>hacia el centro</b> de la circunferencia.</p>
+
+<h3>Variables angulares</h3>
+<table class="tbl">
+  <tr><th>Variable</th><th>Definición</th><th>Unidad</th></tr>
+  <tr><td>Posición angular θ</td><td>Ángulo barrido desde la posición inicial</td><td>rad</td></tr>
+  <tr><td>Velocidad angular ω</td><td>ω = dθ/dt</td><td>rad/s</td></tr>
+  <tr><td>Período T</td><td>Tiempo de una vuelta completa</td><td>s</td></tr>
+  <tr><td>Frecuencia f</td><td>Vueltas por segundo: f = 1/T</td><td>Hz</td></tr>
+</table>
+
+<div class="formula">
+ω = 2π / T = 2π · f<br>
+v = ω · R
+</div>
+
+<h3>Movimiento relativo</h3>
+<p>La velocidad <b>depende del sistema de referencia</b>. Lo que es 0 m/s en un sistema puede ser 60 km/h en otro. Si quiero la velocidad de un cuerpo respecto de un sistema, la calculo como suma de velocidades intermedias:</p>
+
+<div class="formula">
+<span class="vec">v⃗</span><sub>A/C</sub> = <span class="vec">v⃗</span><sub>A/B</sub> + <span class="vec">v⃗</span><sub>B/C</sub>
+</div>
+
+<p>Léase: "velocidad de A respecto de C = velocidad de A respecto de B + velocidad de B respecto de C". Es <b>suma vectorial</b>.</p>
+
+<div class="example">
+  <div class="ex-t">Bote cruzando un río</div>
+  Un bote navega a 4 m/s respecto del agua, perpendicular a la corriente. La corriente del río tiene 3 m/s. ¿Cuál es la velocidad del bote respecto de la orilla?<br><br>
+  v⃗<sub>bote/orilla</sub> = v⃗<sub>bote/agua</sub> + v⃗<sub>agua/orilla</sub><br>
+  Como son perpendiculares: |v⃗<sub>bote/orilla</sub>| = √(16 + 9) = 5 m/s.<br>
+  El bote cruza pero también es arrastrado río abajo.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · DINÁMICA ============ -->
+<details id="fi-s6">
+<summary><span class="num">6</span> Dinámica <span class="sec-score" id="ss-fisica-6"></span></summary>
+<div class="content">
+
+<h3>¿Qué es la dinámica?</h3>
+<p>La dinámica explica <b>por qué</b> se mueven los cuerpos. Conecta las <b>fuerzas</b> con el <b>movimiento</b>. Quien la formuló: <b>Isaac Newton</b>, con sus tres leyes.</p>
+
+<h3>Primera Ley de Newton (principio de inercia)</h3>
+<p>Todo cuerpo permanece en reposo o en MRU (velocidad constante en línea recta) <b>si no actúa sobre él ninguna fuerza neta</b>:</p>
+
+<div class="formula">
+Si Σ <span class="vec">F⃗</span> = 0 → <span class="vec">v⃗</span> = constante
+</div>
+
+<p>Lectura inversa: si un cuerpo tiene velocidad constante, <b>la suma de fuerzas sobre él es cero</b>. Esto incluye el caso particular del reposo (v = 0).</p>
+
+<p>Los sistemas de referencia donde esta ley vale se llaman <b>inerciales</b>. La Tierra es <b>aproximadamente</b> inercial para problemas comunes.</p>
+
+<h3>Segunda Ley de Newton</h3>
+<p>La fuerza neta sobre un cuerpo es igual al producto de su masa por su aceleración:</p>
+
+<div class="formula">
+Σ <span class="vec">F⃗</span> = m · <span class="vec">a⃗</span>
+</div>
+
+<p>Tres consecuencias importantes:</p>
+<ul>
+  <li>La <b>dirección</b> de la aceleración coincide con la dirección de la fuerza neta.</li>
+  <li>A igual fuerza, mayor masa → menor aceleración (más "inercia").</li>
+  <li>Si la fuerza neta es cero, no hay aceleración (1° ley).</li>
+</ul>
+
+<div class="key"><div class="ky-t">La fórmula más importante</div>
+Casi todos los problemas de dinámica se resuelven con esta ley. Se aplica <b>en cada eje por separado</b>:<br>
+Σ F<sub>x</sub> = m · a<sub>x</sub><br>
+Σ F<sub>y</sub> = m · a<sub>y</sub><br><br>
+Si el cuerpo no se mueve en uno de los ejes (típico: y), la aceleración en ese eje es 0 y queda Σ F<sub>y</sub> = 0 (que es la condición de equilibrio).
+</div>
+
+<h3>Tercera Ley de Newton (acción y reacción)</h3>
+<p>Si el cuerpo A ejerce una fuerza sobre B, entonces B ejerce sobre A una fuerza de <b>igual módulo y dirección, sentido opuesto</b>.</p>
+
+<div class="trap"><div class="tr-t">El par acción-reacción NO se cancela</div>
+Las fuerzas del par actúan sobre <b>cuerpos distintos</b>. La fuerza que la Tierra hace sobre vos (tu peso) y la que vos hacés sobre la Tierra son un par; pero en el DCL <b>tuyo</b> sólo va el peso. La otra fuerza actúa sobre la Tierra, no sobre vos.<br><br>
+Confusión clásica: pensar que peso y normal son par acción-reacción. <b>NO lo son</b>: ambas fuerzas actúan sobre el mismo cuerpo (vos), por eso se compensan numéricamente cuando estás en equilibrio. Pero no son un par: el peso lo hace la Tierra; la normal la hace el piso.
+</div>
+
+<h3>Tipos de fuerzas comunes</h3>
+
+<h4>Peso</h4>
+<p>P = m · g. Vertical, hacia abajo. Aplicado en el CG. Lo que la Tierra te tira.</p>
+
+<h4>Fuerza normal (N)</h4>
+<p>La que ejerce una superficie sobre un cuerpo apoyado. Es <b>perpendicular a la superficie</b>. Su módulo NO siempre vale el peso: se calcula a partir de las ecuaciones según el caso.</p>
+
+<h4>Tensión (T)</h4>
+<p>Fuerza que transmite una cuerda <b>ideal</b> (sin masa, inextensible). Va a lo largo de la cuerda, <b>tirando hacia afuera del cuerpo</b>. En cuerdas ideales, la tensión es la misma en toda la cuerda. Las cuerdas SOLO tiran (nunca empujan).</p>
+
+<h4>Rozamiento (f<sub>r</sub>)</h4>
+<p>Fuerza tangente a la superficie, que se opone al movimiento (o a la tendencia al movimiento). Dos tipos:</p>
+
+<table class="tbl">
+  <tr><th>Tipo</th><th>Fórmula</th><th>Cuándo</th></tr>
+  <tr><td>Estático</td><td>f<sub>s</sub> ≤ μ<sub>s</sub> · N</td><td>El cuerpo aún no se mueve. Vale lo necesario para mantenerlo, hasta un máximo.</td></tr>
+  <tr><td>Dinámico</td><td>f<sub>d</sub> = μ<sub>d</sub> · N</td><td>El cuerpo ya se mueve. Es constante (mientras N lo sea).</td></tr>
+</table>
+
+<p>Típicamente <b>μ<sub>s</sub> &gt; μ<sub>d</sub></b>: por eso cuesta más arrancar que mantener en movimiento.</p>
+
+<h4>Fuerza elástica (ley de Hooke)</h4>
+<p>Un resorte estirado (o comprimido) una distancia x desde su equilibrio ejerce:</p>
+
+<div class="formula">
+F<sub>elast</sub> = −k · x
+</div>
+
+<p>donde <b>k</b> es la constante elástica del resorte (N/m). El signo "−" indica que la fuerza siempre apunta <b>hacia la posición de equilibrio</b> (es <b>restauradora</b>).</p>
+
+<h3>Receta general para problemas de dinámica</h3>
+<ol>
+  <li>Identificá los cuerpos.</li>
+  <li>Hacé el <b>DCL</b> de cada cuerpo.</li>
+  <li>Elegí un sistema de coordenadas (a veces conviene uno rotado, especialmente para planos inclinados).</li>
+  <li>Descomponé todas las fuerzas en componentes.</li>
+  <li>Escribí <b>Σ F<sub>x</sub> = m · a<sub>x</sub></b> y <b>Σ F<sub>y</sub> = m · a<sub>y</sub></b> para cada cuerpo.</li>
+  <li>Usá los <b>vínculos</b> (cuerdas inextensibles → misma aceleración entre cuerpos unidos; poleas ideales → misma tensión a ambos lados).</li>
+  <li>Resolvé el sistema de ecuaciones.</li>
+  <li>Verificá: ¿el sentido del resultado es lógico? ¿unidades correctas?</li>
+</ol>
+
+<h3>Ejemplo clásico: cuerpo en plano inclinado</h3>
+<div class="example">
+  <div class="ex-t">Bloque sobre un plano inclinado</div>
+  Bloque de masa m sobre un plano de inclinación α, sin rozamiento. ¿Aceleración?<br><br>
+  <b>DCL:</b> peso (vertical hacia abajo) y normal (perpendicular al plano).<br><br>
+  <b>Eje rotado:</b> conviene poner el eje x a lo largo del plano (sentido de descenso) y el y perpendicular al plano. Así, la normal queda en el eje y; el peso se descompone:<br>
+  • P<sub>x</sub> = m·g·sen(α) (a lo largo del plano, hacia abajo)<br>
+  • P<sub>y</sub> = m·g·cos(α) (perpendicular al plano)<br><br>
+  <b>Ecuaciones:</b><br>
+  • Eje y: N − m·g·cos(α) = 0 → N = m·g·cos(α)<br>
+  • Eje x: m·g·sen(α) = m·a → <b>a = g·sen(α)</b><br><br>
+  La aceleración no depende de la masa. Plano más inclinado → mayor aceleración. Si α = 90° (plano vertical), a = g (caída libre).
+</div>
+
+<h3>Movimiento circular (dinámica)</h3>
+<p>En un movimiento circular, la fuerza neta en dirección radial (hacia el centro) produce la aceleración centrípeta:</p>
+
+<div class="formula">
+Σ F<sub>radial</sub> = m · v² / R
+</div>
+
+<p>Casos clásicos:</p>
+<ul>
+  <li><b>Auto en una curva plana</b>: el rozamiento es la única fuerza radial. Sin rozamiento → no hay curva.</li>
+  <li><b>Curva con peralte</b>: la curva inclinada permite que la componente horizontal de la normal aporte la fuerza centrípeta.</li>
+  <li><b>Péndulo cónico</b>: hilo describe un cono. La componente horizontal de la tensión es la centrípeta.</li>
+  <li><b>Looping</b> (vuelta de campana): en el punto más alto, peso y normal apuntan hacia el centro.</li>
+</ul>
+
+<h3>Movimiento Armónico Simple (MAS)</h3>
+<p>Sistema con una fuerza restauradora proporcional a la posición. Lo más típico: <b>masa en un resorte</b>.</p>
+
+<p>Frecuencia angular:</p>
+<div class="formula">
+ω = √(k/m), &nbsp;&nbsp; T = 2π · √(m/k)
+</div>
+
+<p>Para un <b>péndulo simple</b> (para pequeñas oscilaciones, ángulos chicos):</p>
+
+<div class="formula">
+T = 2π · √(L/g)
+</div>
+
+<p>donde L es la longitud del péndulo. <b>NO depende de la masa</b>. Galileo lo descubrió mirando lámparas oscilando en una catedral.</p>
+
+<h3>Sistemas no inerciales y fuerzas ficticias</h3>
+<p>En un sistema con aceleración (un auto frenando, un ascensor que arranca), las leyes de Newton no valen directamente. Para poder usarlas, se agrega una <b>fuerza ficticia</b>:</p>
+
+<div class="formula">
+<span class="vec">F⃗</span><sub>ficticia</sub> = −m · <span class="vec">a⃗</span><sub>sistema</sub>
+</div>
+
+<p>Ejemplos:</p>
+<ul>
+  <li><b>Fuerza centrífuga</b>: la que sentís hacia afuera en una curva (vista desde el auto).</li>
+  <li><b>Fuerza de arrastre al frenar</b>: el auto frena y vos te tirás hacia adelante (en realidad seguís con la velocidad anterior por inercia, pero relativo al auto parece una fuerza).</li>
+</ul>
+
+<p>Son "reales" en cuanto a sus efectos en ese sistema, pero <b>vistas desde un sistema inercial no existen</b>.</p>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · TRABAJO Y ENERGÍA ============ -->
+<details id="fi-s7">
+<summary><span class="num">7</span> Trabajo y Energía <span class="sec-score" id="ss-fisica-7"></span></summary>
+<div class="content">
+
+<h3>¿Por qué energía?</h3>
+<p>La energía es una de las ideas más profundas de la física. Permite resolver problemas <b>sin pasar por las fuerzas</b>: si conocés posiciones y velocidades inicial y final, podés saber el resultado sin importar qué pasa en el medio. La conservación de la energía es una de las leyes más generales de la física.</p>
+
+<h3>Trabajo de una fuerza constante</h3>
+<p>El <b>trabajo</b> mide la <b>transferencia de energía</b> que produce una fuerza al mover un cuerpo. Para una fuerza constante <span class="vec">F⃗</span> que produce un desplazamiento <span class="vec">Δr⃗</span>:</p>
+
+<div class="formula">
+W = <span class="vec">F⃗</span> · <span class="vec">Δr⃗</span> = F · |Δr⃗| · cos(θ)
+</div>
+
+<p>donde θ es el ángulo entre la fuerza y el desplazamiento. Es un <b>producto escalar</b>. Unidad: <b>Joule (J)</b> = N·m.</p>
+
+<div class="key"><div class="ky-t">Signos del trabajo</div>
+• <b>F a favor del movimiento</b> (θ &lt; 90°): W &gt; 0 (la fuerza <b>entrega</b> energía).<br>
+• <b>F perpendicular al movimiento</b> (θ = 90°): W = 0. La normal nunca hace trabajo en superficies horizontales (ni en planos inclinados, porque siempre es perpendicular al desplazamiento).<br>
+• <b>F en contra del movimiento</b> (θ &gt; 90°): W &lt; 0 (la fuerza <b>quita</b> energía). El rozamiento dinámico siempre hace trabajo negativo.
+</div>
+
+<h3>Potencia</h3>
+<p>Velocidad con la que se hace trabajo:</p>
+<div class="formula">
+P = W / Δt
+</div>
+<p>Unidad: <b>Watt (W)</b> = J/s.</p>
+<p>Para fuerza y velocidad constantes:</p>
+<div class="formula">
+P = F · v · cos(θ)
+</div>
+<p>Como referencia, 1 caballo de fuerza (HP) ≈ 746 W. Una bombilla LED son ~10 W.</p>
+
+<h3>Energía cinética</h3>
+<p>Es la energía que tiene un cuerpo por estar <b>en movimiento</b>:</p>
+
+<div class="formula">
+E<sub>c</sub> = ½ · m · v²
+</div>
+
+<p>Siempre <b>positiva o nula</b>. Es escalar. Unidad: J.</p>
+
+<p>Notar que crece con el cuadrado de la velocidad: si duplicás la velocidad, la energía cinética se cuadruplica. Por eso un choque a 80 km/h es 4 veces más violento que uno a 40, no 2 veces.</p>
+
+<h3>Teorema del trabajo y la energía cinética</h3>
+<p>El trabajo neto (de todas las fuerzas) sobre un cuerpo es igual a la <b>variación</b> de su energía cinética:</p>
+
+<div class="formula">
+W<sub>neto</sub> = ΔE<sub>c</sub> = E<sub>c,f</sub> − E<sub>c,i</sub>
+</div>
+
+<p>Es una herramienta potente: si conocés el trabajo neto, conocés el cambio de velocidad (y viceversa).</p>
+
+<h3>Fuerzas conservativas y no conservativas</h3>
+<p>Una fuerza es <b>conservativa</b> si el trabajo que hace <b>NO depende del camino</b>, sólo de las posiciones inicial y final. Equivalentemente, si el trabajo en un camino cerrado es cero.</p>
+
+<table class="tbl">
+  <tr><th>Conservativas</th><th>No conservativas</th></tr>
+  <tr><td>Peso (gravedad)</td><td>Rozamiento</td></tr>
+  <tr><td>Fuerza elástica</td><td>Fuerzas aplicadas externamente</td></tr>
+  <tr><td>Gravitatoria</td><td>Tensiones que dependen del trayecto</td></tr>
+</table>
+
+<p>A cada fuerza conservativa le corresponde una <b>energía potencial</b>.</p>
+
+<h3>Energía potencial gravitatoria</h3>
+<p>Para alturas cerca de la superficie terrestre:</p>
+
+<div class="formula">
+E<sub>pg</sub> = m · g · h
+</div>
+
+<p>donde h es la altura respecto de una <b>referencia que elegís vos</b> (típicamente el suelo, pero puede ser cualquier otra altura — solo importan las diferencias).</p>
+
+<h3>Energía potencial elástica</h3>
+<p>De un resorte estirado o comprimido una distancia x:</p>
+
+<div class="formula">
+E<sub>pe</sub> = ½ · k · x²
+</div>
+
+<h3>Energía mecánica</h3>
+<p>La suma de la cinética y todas las potenciales:</p>
+
+<div class="formula">
+E<sub>m</sub> = E<sub>c</sub> + E<sub>pg</sub> + E<sub>pe</sub>
+</div>
+
+<h3>Conservación de la energía mecánica</h3>
+<p>Si <b>sólo actúan fuerzas conservativas</b> (sin rozamiento ni otras fuerzas no conservativas que hagan trabajo), la energía mecánica <b>se conserva</b>:</p>
+
+<div class="formula">
+E<sub>m,i</sub> = E<sub>m,f</sub>
+</div>
+
+<div class="example">
+  <div class="ex-t">Caída sin rozamiento</div>
+  Un objeto se suelta desde una altura h. ¿Velocidad al llegar al suelo?<br><br>
+  Energía inicial (en h, en reposo): E<sub>i</sub> = m·g·h.<br>
+  Energía final (en el suelo, en movimiento): E<sub>f</sub> = ½·m·v².<br>
+  Conservación: m·g·h = ½·m·v² → <b>v = √(2·g·h)</b><br><br>
+  No depende de la masa: una pluma y una piedra (sin aire) caen iguales.
+</div>
+
+<h3>Caso con fuerzas no conservativas</h3>
+<p>Si hay rozamiento u otras fuerzas no conservativas, la energía mecánica NO se conserva. La parte que se "pierde" se convierte en otras formas de energía (calor, sonido, deformación). El balance es:</p>
+
+<div class="formula">
+W<sub>no conservativas</sub> = ΔE<sub>m</sub> = E<sub>m,f</sub> − E<sub>m,i</sub>
+</div>
+
+<p>Si el rozamiento es la única no conservativa, su trabajo es negativo, y la energía mecánica disminuye:</p>
+
+<div class="formula">
+W<sub>roz</sub> = E<sub>m,f</sub> − E<sub>m,i</sub> &nbsp;&nbsp; (W<sub>roz</sub> &lt; 0)
+</div>
+
+<div class="example">
+  <div class="ex-t">Bajada con rozamiento</div>
+  Un cuerpo de 2 kg baja un plano inclinado de 5 m de altura. Al final tiene v = 8 m/s. ¿Trabajo del rozamiento?<br><br>
+  E<sub>m,i</sub> = 2 · 10 · 5 = 100 J.<br>
+  E<sub>m,f</sub> = ½ · 2 · 64 = 64 J.<br>
+  W<sub>roz</sub> = 64 − 100 = <b>−36 J</b> (negativo, como tenía que ser).
+</div>
+
+<div class="key"><div class="ky-t">¿Cuándo usar energía vs Newton?</div>
+<b>Energía es ideal cuando:</b><br>
+• Conocés las posiciones y velocidades inicial y final (pero no los detalles del recorrido).<br>
+• Hay cambios de altura o deformaciones de resortes.<br>
+• Querés la rapidez sin calcular tiempos.<br>
+• El recorrido es complicado (un montañita rusa) y solo te interesa el resultado neto.<br><br>
+<b>Newton es mejor cuando:</b><br>
+• Necesitás la aceleración en cada instante.<br>
+• El problema tiene vínculos complejos.<br>
+• Te piden fuerzas individuales.<br>
+• Necesitás la velocidad o aceleración instantánea.
+</div>
+
+<h3>Estrategia general · problemas de energía</h3>
+<ol>
+  <li>Identificá los estados inicial y final.</li>
+  <li>Elegí una referencia para la energía potencial gravitatoria.</li>
+  <li>Calculá E<sub>m,i</sub> y E<sub>m,f</sub>.</li>
+  <li>Identificá las fuerzas no conservativas que hacen trabajo.</li>
+  <li>Aplicá: W<sub>NC</sub> = E<sub>m,f</sub> − E<sub>m,i</sub>.</li>
+  <li>Despejá lo que te piden.</li>
+</ol>
+
+<div class="quiz-wrap" data-qz="7" data-subject="fisica"></div>
+<a class="back" href="#subject-fisica">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'fisica';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS FÍSICA ============
+// UNIDAD INICIAL: LA MEDICIÓN
+registerExercises('fisica', '0', [
+  {st: '¿Cuántos metros hay en 2,5 km?', opts: ['25 m', '250 m', '2500 m', '25000 m'], c: 2, ex: '1 km = 10³ m = 1000 m. ▸ 2,5 km = 2,5 · 1000 = 2500 m. ▸ Por qué las otras están mal: (A) (B) corren la coma mal; (D) multiplica por 10⁴.'},
+  {st: 'Pasar 90 km/h a m/s.', opts: ['9 m/s', '15 m/s', '25 m/s', '324 m/s'], c: 2, ex: 'Conversión: km/h → m/s se DIVIDE por 3,6 (= 3600s/1000m). ▸ 90/3,6 = 25. Verificación: 90·1000/3600 = 90000/3600 = 25 m/s. ▸ Por qué las otras están mal: (A) divide por 10; (B) por 6; (D) multiplica por 3,6 en vez de dividir.'},
+  {st: '¿Cuántas cifras significativas tiene el número 0,00405?', opts: ['2', '3', '5', '6'], c: 1, ex: 'Reglas: ceros a la izquierda NO son significativos; ceros entre dígitos SÍ. ▸ Cifras significativas: 4, 0 (entre 4 y 5), 5 → 3 cifras. ▸ Por qué las otras están mal: (A) cuenta 4 y 5 sin el 0 del medio; (C) (D) cuentan los ceros de la izquierda.'},
+  {st: '¿Cuál es el resultado de 12,4 + 0,356 respetando cifras decimales?', opts: ['12,756', '12,76', '12,8', '13'], c: 2, ex: 'Regla de suma/resta: el resultado tiene tantos decimales como el dato MENOS preciso. ▸ 12,4 (1 decimal) + 0,356 (3 decimales) → resultado con 1 decimal. ▸ 12,756 → 12,8. ▸ Por qué las otras están mal: (A) (B) más decimales que 12,4; (D) entero (cero decimales) ya redondea de más.'},
+  {st: 'Expresar 384.000.000 en notación científica.', opts: [M('38,4 · 10⁷'), M('3,84 · 10⁸'), M('0,384 · 10⁹'), M('3,84 · 10⁶')], c: 1, ex: 'Notación científica: a · 10ⁿ con 1 ≤ |a| &lt; 10. ▸ 384.000.000: corro la coma 8 lugares hacia la izquierda → 3,84 · 10⁸. ▸ Por qué las otras están mal: (A) "38,4" no cumple a&lt;10; (C) "0,384" no cumple a≥1; (D) "10⁶" la coma corrida solo 6 lugares.'},
+  {st: 'Verificar la ecuación v = a·t dimensionalmente. ¿Es consistente?', opts: ['Sí, ambos lados son m/s', 'No, a·t da m/s²', 'Sí, ambos lados son m/s²', 'No, v es escalar y a·t es vector'], c: 0, ex: '[v] = m/s. [a·t] = (m/s²)·s = m/s. ▸ Coinciden → CONSISTENTE. ▸ Por qué las otras están mal: (B) confunde unidades de a con a·t; (C) v no tiene unidades de aceleración; (D) ambos pueden ser vectoriales.'},
+  {st: '¿Cuál de las siguientes NO es una unidad fundamental del SI?', opts: ['kg', 'm', 's', 'N'], c: 3, ex: 'El Newton es DERIVADA: N = kg·m/s². Las 7 fundamentales del SI son: m, kg, s, A, K, mol, cd. ▸ Por qué las otras están mal: (A) (B) (C) son fundamentales (kg masa, m longitud, s tiempo).'},
+  {st: 'El orden de magnitud de 4,8 · 10⁵ es:', opts: [M('10⁴'), M('10⁵'), M('10⁶'), M('5')], c: 1, ex: 'Orden de magnitud = potencia de 10 más cercana al número. ▸ Como 4,8 &lt; 5, el redondeo va hacia abajo → 10⁵ (no 10⁶). ▸ Por qué las otras están mal: (A) "10⁴" sería para 0,1 a 0,5; (C) "10⁶" sería si 4,8 ≥ 5; (D) "5" es solo el coeficiente.'}
+]);
+
+// UNIDAD 1: VECTORES
+registerExercises('fisica', '1', [
+  {st: 'Si '+M('A⃗ = 3î + 4ĵ')+', ¿cuál es su módulo?', opts: ['3', '4', '5', '7'], c: 2, ex: '|A⃗| = √(Aₓ² + Aᵧ²) = √(9+16) = √25 = 5. ▸ Triángulo 3-4-5 (Pitágoras clásico). ▸ Por qué las otras están mal: (A) (B) son las componentes; (D) "7" sería 3+4 sin Pitágoras.'},
+  {st: 'Dados '+M('A⃗ = (2, 3)')+' y '+M('B⃗ = (−1, 4)')+', calcular '+M('A⃗ + B⃗')+'.', opts: [M('(1, 7)'), M('(3, −1)'), M('(1, 12)'), M('(−2, 12)')], c: 0, ex: 'Suma componente a componente: (2+(−1), 3+4) = (1, 7). ▸ Por qué las otras están mal: (B) hace resta; (C) (D) multiplica componentes.'},
+  {st: 'Un vector de módulo 10 forma 30° con el eje x. ¿Cuál es su componente x?', opts: ['5', '5√3 ≈ 8,66', '10', '10/√3'], c: 1, ex: 'Aₓ = |A⃗|·cos(θ). ▸ Aₓ = 10·cos(30°) = 10·(√3/2) = 5√3 ≈ 8,66. ▸ Por qué las otras están mal: (A) "5" sería con sen (componente y); (C) "10" es el módulo; (D) "10/√3" no surge.'},
+  {st: 'Calcular '+M('A⃗ · B⃗')+' con '+M('A⃗ = 2î + 3ĵ')+' y '+M('B⃗ = 4î − ĵ')+'.', opts: ['5', '8', '11', '14'], c: 0, ex: 'Producto escalar: A·B = Aₓ·Bₓ + Aᵧ·Bᵧ = 2·4 + 3·(−1) = 8 − 3 = 5. ▸ Por qué las otras están mal: (B) "8" es solo Aₓ·Bₓ; (C) (D) confunden suma con multiplicación.'},
+  {st: '¿Cuándo dos vectores son perpendiculares?', opts: ['Cuando tienen el mismo módulo', 'Cuando su producto escalar es cero', 'Cuando su suma es cero', 'Cuando su producto vectorial es cero'], c: 1, ex: 'A⃗·B⃗ = |A||B|cos(θ). Si θ=90° → cos=0 → producto escalar 0. ▸ Por qué las otras están mal: (A) módulo no se relaciona; (C) suma cero implica opuestos (paralelos en sentidos opuestos); (D) producto vectorial cero implica PARALELOS.'},
+  {st: 'Si '+M('A⃗ = 3î + 4ĵ')+' y '+M('B⃗ = 2î − ĵ')+', ¿cuánto vale '+M('A⃗ × B⃗')+'?', opts: [M('(−11) k̂'), M('11 k̂'), M('2 k̂'), M('10 k̂')], c: 0, ex: 'Producto vectorial 2D: Aₓ·Bᵧ − Aᵧ·Bₓ = 3·(−1) − 4·2 = −3 − 8 = −11. Apunta en −k̂. ▸ Por qué las otras están mal: (B) signo invertido; (C) (D) cálculos parciales.'},
+  {st: 'El ángulo entre '+M('A⃗ = (1, 0)')+' y '+M('B⃗ = (1, 1)')+' es:', opts: ['0°', '30°', '45°', '60°'], c: 2, ex: 'cos(θ) = (A·B)/(|A||B|) = 1/(1·√2) = 1/√2 → θ = 45°. ▸ Por qué las otras están mal: (A) θ=0 → mismos vectores; (B) (D) cosenos no coinciden.'},
+  {st: 'Un vector tiene componente y = 13 m y forma 32° con el eje +y (sentido antihorario). ¿Cuál es su componente x?', opts: ['−8,12 m', '8,12 m', '11,0 m', '15,3 m'], c: 0, ex: 'Antihorario desde +y → hacia −x. ▸ Aᵧ = |A|·cos(32°) = 13 → |A| = 13/cos(32°) ≈ 15,3 m. Aₓ = −|A|·sen(32°) ≈ −15,3·0,53 ≈ −8,12 m. ▸ Por qué las otras están mal: (B) signo positivo (no respeta el cuadrante); (C) (D) cálculos parciales.'},
+  {st: 'Dos fuerzas de 100 N y 80 N actúan en direcciones opuestas. ¿Cuál es la fuerza resultante?', opts: ['20 N en el sentido de la de 80 N', '20 N en el sentido de la de 100 N', '180 N', '0 N'], c: 1, ex: 'Direcciones opuestas → restar módulos. 100 − 80 = 20 N en sentido de la mayor (100 N). ▸ Por qué las otras están mal: (A) sentido invertido; (C) suma como si fueran paralelas; (D) cero solo si fueran iguales.'}
+]);
+
+// UNIDAD 2: ESTÁTICA
+registerExercises('fisica', '2', [
+  {st: 'Un niño de 21,0 kg se sienta a 2,00 m del centro de un subibaja. ¿A qué distancia del centro debe sentarse, del otro lado, su padre de 105 kg para equilibrar?', opts: ['0,20 m', '0,40 m', '0,80 m', '10,0 m'], c: 1, ex: 'Equilibrio de momentos: m₁·d₁ = m₂·d₂. ▸ 21·2 = 105·d → d = 42/105 = 0,40 m. ▸ Intuición: padre 5× más pesado → 1/5 de distancia. ▸ Por qué las otras están mal: cálculos parciales o invertidos.'},
+  {st: '¿Cuál es la condición para que un cuerpo extenso esté en equilibrio?', opts: ['Solo Σ F = 0', 'Solo Σ M = 0', 'Σ F = 0 Y Σ M = 0', 'Σ F = ma'], c: 2, ex: 'Cuerpo extenso necesita AMBAS: ▸ ΣF=0 (equilibrio traslacional, no se mueve). ▸ ΣM=0 (equilibrio rotacional, no rota). ▸ Por qué las otras están mal: (A) (B) condiciones individuales (insuficientes); (D) implica aceleración (no equilibrio).'},
+  {st: '¿Qué es la "normal" en un DCL?', opts: ['La fuerza gravitatoria', 'La reacción de la superficie, perpendicular a ella', 'La fuerza de rozamiento', 'Siempre es igual al peso'], c: 1, ex: 'Normal: reacción perpendicular a la superficie de apoyo. ▸ Por qué las otras están mal: (A) "gravitatoria" es el peso; (C) "rozamiento" es paralelo a la superficie; (D) "siempre igual al peso" es FALSO (depende del DCL: en planos inclinados, otras fuerzas, etc.).'},
+  {st: 'Una lámpara de peso P está sostenida por dos cuerdas simétricas con tensión P cada una. ¿Cuáles son los ángulos α y β con la horizontal?', opts: ['45° y 45°', '37° y 53°', '30° y 60°', '30° y 30°'], c: 3, ex: 'Por simetría α=β. Equilibrio vertical: 2T·sen(α) = P. Como T=P: 2P·sen(α) = P → sen(α) = 1/2 → α = 30°. Ambos 30°. ▸ Por qué las otras están mal: (A) sería con T = P/√2; (B) (C) asimétricos.'},
+  {st: 'En una palanca en equilibrio, si DUPLICÁS la fuerza en un extremo sin cambiar su distancia, ¿qué pasa con el otro extremo?', opts: ['Se duplica su fuerza (manteniendo d)', 'La distancia debe duplicarse', 'Nada cambia', 'La fuerza debe reducirse a la mitad'], c: 0, ex: 'F₁·d₁ = F₂·d₂. Si duplicás F₁ y dejás d₁: 2F₁·d₁ = F₂\'·d₂. Para mantener igualdad, F₂\' = 2F₂ (o d₂ duplica si F₂ no cambia). ▸ Por qué las otras están mal: (D) es lo opuesto.'},
+  {st: 'Un cable vertical sostiene un peso P. ¿Cuál es la tensión del cable?', opts: ['0', 'P/2', 'P', '2P'], c: 2, ex: 'Equilibrio: T − P = 0 → T = P. ▸ Por qué las otras están mal: (A) cero implicaría sin tensión (cuerda floja); (B) (D) no surgen.'},
+  {st: 'Un auto tiene 53% de su peso sobre las ruedas delanteras y 47% sobre las traseras, con 2,46 m entre ejes. ¿A qué distancia del eje TRASERO está el centro de gravedad?', opts: ['1,16 m', '1,30 m', '1,50 m', '2,46 m'], c: 1, ex: 'Momentos respecto al eje trasero: 0,530·P·2,46 = P·x → x = 0,530·2,46 = 1,30 m. ▸ Por qué las otras están mal: (A) usa el 47% mal; (C) (D) sin cálculo.'},
+  {st: 'El momento de una fuerza depende de:', opts: ['Solo de la magnitud de la fuerza', 'Solo de la distancia al eje', 'De la fuerza, la distancia al eje y el ángulo entre ambos', 'Solo del ángulo'], c: 2, ex: 'M = F·d·sen(α). ▸ Si F paralela al brazo (α=0°) → torque cero. Perpendicular (α=90°) → torque máximo. ▸ Por qué las otras están mal: (A) (B) (D) factores parciales.'},
+  {st: '¿Dónde conviene plantear la ecuación de momentos en un problema de estática?', opts: ['En el centro del cuerpo', 'En cualquier punto, pero conviene donde haya una fuerza desconocida', 'Siempre en el piso', 'Siempre en el punto más alto'], c: 1, ex: 'La elección es libre. Estratégicamente: si elegís el punto donde actúa una fuerza desconocida, su momento es 0 (brazo cero) y NO aparece en la ecuación. Simplifica mucho. ▸ Por qué las otras están mal: (A) (C) (D) opciones rígidas, no estratégicas.'}
+]);
+
+// UNIDAD 3: HIDROSTÁTICA
+registerExercises('fisica', '3', [
+  {st: 'Una varilla cilíndrica de acero mide 85,8 cm de longitud y 2,85 cm de diámetro. ¿Cuál es su peso? (δ_acero = 7,80·10³ kg/m³)', opts: ['4,2 N', '41,8 N', '418 N', '4180 N'], c: 1, ex: 'V = π·r²·L = π·(0,01425)²·(0,858) ≈ 5,47·10⁻⁴ m³. m = δ·V ≈ 7800·5,47·10⁻⁴ ≈ 4,27 kg. P = m·g ≈ 4,27·9,8 ≈ 41,8 N. ▸ Por qué las otras están mal: (A) (C) (D) órdenes de magnitud incorrectos.'},
+  {st: '¿Cuál es la unidad SI de la presión?', opts: ['Newton (N)', 'Pascal (Pa)', 'kg/m³', 'atm'], c: 1, ex: 'Pa = N/m². 1 atm = 1,013·10⁵ Pa. ▸ Por qué las otras están mal: (A) N es fuerza; (C) "kg/m³" es densidad; (D) atm no es SI.'},
+  {st: '¿Cómo varía la presión con la profundidad en un fluido?', opts: ['Constante', 'Aumenta linealmente', 'Aumenta con el cuadrado', 'Disminuye'], c: 1, ex: 'Teorema fundamental: p = p₀ + δ·g·h. Lineal en h. ▸ Por qué las otras están mal: (A) cambia con h; (C) sería δgh²; (D) aumenta, no disminuye.'},
+  {st: 'Un objeto tiene densidad mayor que la del agua. Si lo tirás al agua:', opts: ['Flota en la superficie', 'Queda en el medio', 'Se hunde hasta el fondo', 'Flota con la mitad sumergida'], c: 2, ex: 'δ_cuerpo &gt; δ_agua → empuje &lt; peso → SE HUNDE. ▸ Por qué las otras están mal: requieren densidades específicas (igual o menor).'},
+  {st: 'Un cubo de 8,50 cm de lado tiene masa de 0,650 kg. ¿Flota en agua? (δ_agua = 1,00·10³ kg/m³)', opts: ['Sí, porque δ &lt; 1000', 'No, porque δ &gt; 1000', 'Sí, siempre flota', 'Depende de la temperatura'], c: 1, ex: 'V = (0,085)³ ≈ 6,14·10⁻⁴ m³. δ = m/V ≈ 1059 kg/m³ &gt; 1000 → SE HUNDE. ▸ Por qué las otras están mal: (A) δ es mayor; (C) sin verificar densidad; (D) la temperatura aquí no cambia significativamente.'},
+  {st: 'Una pieza de metal pesa 90 g en aire y 75 g sumergida en agua. ¿Cuál es su densidad? (δ_agua = 1 g/cm³)', opts: ['1,2 g/cm³', '6,0 g/cm³', '15 g/cm³', '90 g/cm³'], c: 1, ex: 'Empuje = peso aire − peso sumergido = 90 − 75 = 15 g (corresponde a V de agua desalojado). V = 15 cm³. δ = m/V = 90/15 = 6,0 g/cm³. ▸ Por qué las otras están mal: (A) (C) (D) cálculos parciales.'},
+  {st: 'El principio de Pascal dice que la presión aplicada a un fluido encerrado:', opts: ['Se transmite solo hacia abajo', 'Se transmite por igual en todas direcciones', 'Se disipa con la distancia', 'Solo aumenta la temperatura'], c: 1, ex: 'Pascal: presión se transmite EN TODAS DIRECCIONES sin disminuir. Base de prensas hidráulicas. ▸ Por qué las otras están mal: confunden el principio.'},
+  {st: 'En una prensa hidráulica, el émbolo pequeño tiene área A y el grande 6A. ¿Qué F necesitás en el pequeño para sostener 600 N en el grande?', opts: ['100 N', '600 N', '1200 N', '3600 N'], c: 0, ex: 'Pascal: F/A = 600/(6A) → F = 100 N. ▸ Multiplicador de fuerza: factor 6. ▸ Por qué las otras están mal: (B) ignora el factor de multiplicación; (C) (D) inverten o exageran.'},
+  {st: '¿Por qué se usa mercurio en barómetros (no agua)?', opts: ['Es más barato', 'Su densidad es mucho mayor → columna corta', 'Es transparente', 'Por razones históricas'], c: 1, ex: 'p_atm = δ·g·h. Con Hg (13,6 g/cm³): h ≈ 76 cm. Con agua (1 g/cm³): h ≈ 10 m. ▸ Por qué las otras están mal: (A) Hg es caro; (C) Hg no es transparente; (D) razón física, no histórica.'}
+]);
+
+// UNIDAD 4: CINEMÁTICA 1D
+registerExercises('fisica', '4', [
+  {st: '¿Cuál es la diferencia entre velocidad y rapidez?', opts: ['Son lo mismo', 'Velocidad es vectorial (dirección y sentido); rapidez es escalar (módulo)', 'Rapidez es vectorial; velocidad escalar', 'Rapidez es la derivada de velocidad'], c: 1, ex: 'Velocidad = vector (módulo + dirección). Rapidez = solo módulo. ▸ 60 km/h al N tiene misma rapidez que 60 km/h al S, pero distinta velocidad. ▸ Por qué las otras están mal: (A) son distintas; (C) invertido; (D) la derivada de velocidad es ACELERACIÓN.'},
+  {st: 'En MRUV con aceleración constante a, ¿cuál es la ecuación horaria de POSICIÓN?', opts: [M('x(t) = x₀ + v·t'), M('x(t) = x₀ + v₀·t + ½·a·t²'), M('x(t) = x₀ + a·t²'), M('x(t) = v₀ + a·t')], c: 1, ex: 'MRUV: posición es CUADRÁTICA en t. ▸ x(t) = x₀ + v₀·t + ½·a·t². ▸ Por qué las otras están mal: (A) MRU (sin aceleración); (C) le falta ½ y v₀·t; (D) es la ecuación de VELOCIDAD.'},
+  {st: 'Un antílope con aceleración constante tarda 7,00 s en pasar 70,0 m, con rapidez final 15,0 m/s. ¿Rapidez inicial?', opts: ['3,0 m/s', '5,0 m/s', '10,0 m/s', '12,5 m/s'], c: 1, ex: 'v_media = Δx/Δt = 70/7 = 10 m/s. En MRUV: v_media = (v_i + v_f)/2 → (v_i + 15)/2 = 10 → v_i = 5 m/s. ▸ Por qué las otras están mal: (C) "10" es v_media; (A) (D) no surgen.'},
+  {st: 'Con los datos del ejercicio anterior, ¿qué aceleración lleva el antílope?', opts: ['0,71 m/s²', '1,43 m/s²', '2,14 m/s²', '4,29 m/s²'], c: 1, ex: 'a = (v_f − v_i)/Δt = (15 − 5)/7 = 10/7 ≈ 1,43 m/s². ▸ Por qué las otras están mal: (A) "0,71" sería 5/7; (C) "2,14" sería 15/7; (D) "4,29" no surge.'},
+  {st: 'Un malabarista lanza un cuchillo hacia arriba con v₀ = 8,20 m/s. ¿Cuánto tarda en volver a su mano?', opts: ['0,84 s', '1,67 s', '2,50 s', '8,20 s'], c: 1, ex: 'Tiempo de vuelo = 2·tiempo de subida. ▸ En punto alto v=0: 0 = 8,2 − 9,8·t_sub → t_sub ≈ 0,837 s. ▸ Total: ≈ 1,67 s. ▸ Por qué las otras están mal: (A) solo el tiempo de subida; (C) (D) órdenes equivocados.'},
+  {st: 'En Marte (g = 3,71 m/s²), una pelota golpeada hacia arriba vuelve al mismo nivel 8,50 s después. ¿Rapidez inicial?', opts: ['7,9 m/s', '15,8 m/s', '31,5 m/s', '63,0 m/s'], c: 1, ex: 't_subida = 8,50/2 = 4,25 s. v₀ = g·t_sub = 3,71·4,25 ≈ 15,8 m/s. ▸ Por qué las otras están mal: (A) usa todo el tiempo dividido por 2; (C) (D) sin dividir t.'},
+  {st: 'Una roca cae 1,75 s desde el reposo en la Tierra. La misma caída tarda 18,6 s en Encélado (luna). ¿Cuál es g en Encélado?', opts: ['0,087 m/s²', '0,87 m/s²', '1,05 m/s²', '9,80 m/s²'], c: 0, ex: 'h fija. Tierra: h = ½·9,8·1,75² ≈ 15 m. Encélado: 15 = ½·g·18,6² → g ≈ 30/345,96 ≈ 0,087 m/s². ▸ Por qué las otras están mal: (B) (C) órdenes equivocados; (D) "9,80" es g de la Tierra.'},
+  {st: 'En el gráfico v(t) de un movimiento, ¿qué representa el ÁREA bajo la curva?', opts: ['La aceleración', 'La velocidad media', 'El desplazamiento Δx', 'La posición inicial'], c: 2, ex: 'Geometría: ∫v dt = Δx. ▸ Por qué las otras están mal: (A) "aceleración" es la PENDIENTE de v(t), no el área; (B) v_media es Δx/Δt; (D) x₀ es solo un valor.'},
+  {st: 'Un cohete parte del suelo con v₀ = 50 m/s y acelera 2 m/s² hacia arriba, hasta apagarse a 150 m. ¿Rapidez al apagarse?', opts: ['50 m/s', '54 m/s', '56 m/s', '70 m/s'], c: 2, ex: 'Ecuación sin tiempo: v² = v₀² + 2·a·Δx = 2500 + 600 = 3100 → v ≈ 55,7 ≈ 56 m/s. ▸ Por qué las otras están mal: (A) sin acelerar; (B) (D) cálculos parciales.'}
+]);
+
+// UNIDAD 5: CINEMÁTICA 2D
+registerExercises('fisica', '5', [
+  {st: 'En tiro oblicuo (sin rozamiento), ¿qué pasa con la componente HORIZONTAL de la velocidad durante el vuelo?', opts: ['Aumenta', 'Permanece constante', 'Disminuye', 'Varía con t²'], c: 1, ex: 'Única fuerza: gravedad (vertical). NO hay fuerza horizontal → vₓ = v₀·cos(α) constante. ▸ Por qué las otras están mal: (A) (C) (D) implican fuerza horizontal (no existe sin rozamiento).'},
+  {st: 'Un proyectil se lanza a 20 m/s formando 30° con horizontal. ¿Velocidad inicial en x?', opts: ['10 m/s', '17,3 m/s', '20 m/s', '10√3/2 m/s'], c: 1, ex: 'vₓ₀ = v₀·cos(30°) = 20·(√3/2) = 10√3 ≈ 17,3 m/s. ▸ Por qué las otras están mal: (A) "10" es vᵧ₀ (con sen 30°=1/2); (C) v₀ módulo total; (D) cálculo equivocado.'},
+  {st: '¿Con qué ángulo se obtiene el alcance MÁXIMO en tiro oblicuo (igual altura)?', opts: ['30°', '45°', '60°', '90°'], c: 1, ex: 'R = v₀²·sen(2α)/g. Máximo cuando sen(2α)=1 → 2α=90° → α=45°. ▸ Por qué las otras están mal: (A) (C) son menores; (D) sería tiro vertical (R=0).'},
+  {st: 'En el punto más alto de un tiro oblicuo, la velocidad es:', opts: ['Cero', 'Igual a la inicial', 'Solo horizontal (vₓ inicial)', 'Solo vertical'], c: 2, ex: 'En la cumbre: vᵧ=0 (por eso es la cumbre), vₓ sigue siendo v₀·cos(α). Velocidad horizontal. ▸ Por qué las otras están mal: (A) cero solo en lanzamiento vertical; (B) cambia durante el vuelo; (D) sería tiro vertical.'},
+  {st: 'Un auto en MCU a 20 m/s en curva de radio 40 m. Aceleración centrípeta:', opts: ['0,5 m/s²', '2 m/s²', '10 m/s²', '800 m/s²'], c: 2, ex: 'a_c = v²/R = 400/40 = 10 m/s². ▸ Por qué las otras están mal: (A) (B) cálculos parciales; (D) "800" es v² (sin dividir).'},
+  {st: '¿Qué significa que un movimiento circular sea "uniforme"?', opts: ['La aceleración es cero', 'La RAPIDEZ (módulo) es constante', 'El vector velocidad es constante', 'No hay fuerza'], c: 1, ex: 'MCU: rapidez constante, pero velocidad CAMBIA dirección → hay aceleración (centrípeta). ▸ Por qué las otras están mal: (A) "aceleración cero" implicaría MRU; (C) velocidad como vector cambia constantemente; (D) sí hay fuerza centrípeta.'},
+  {st: 'Si un cuerpo da 2 vueltas por segundo, su período T es:', opts: ['0,5 s', '1 s', '2 s', '4π s'], c: 0, ex: 'f = 2 Hz. T = 1/f = 1/2 = 0,5 s. ▸ Por qué las otras están mal: confusiones entre T y f.'},
+  {st: 'Relación entre velocidad lineal v, angular ω y radio R en circular:', opts: [M('v = ω/R'), M('v = ω·R'), M('v = R/ω'), M('v = ω + R')], c: 1, ex: 'v = ω·R. ▸ Intuición: a más radio, más rápido recorrés a igual ω. ▸ Por qué las otras están mal: invierten o confunden la relación.'}
+]);
+
+// UNIDAD 6: DINÁMICA
+registerExercises('fisica', '6', [
+  {st: '¿Qué dice la 2ª ley de Newton?', opts: [M('F = m·v'), M('ΣF⃗ = m·a⃗'), M('F = m·g'), M('F·d = m·a')], c: 1, ex: 'Fuerza neta = masa × aceleración (vectorial). ▸ Por qué las otras están mal: (A) m·v es momento lineal; (C) m·g es peso (caso particular); (D) F·d es trabajo (otra ley).'},
+  {st: 'Un cuerpo de 5 kg con fuerza neta de 20 N. Aceleración:', opts: ['0,25 m/s²', '4 m/s²', '15 m/s²', '100 m/s²'], c: 1, ex: 'a = F/m = 20/5 = 4 m/s². ▸ Por qué las otras están mal: (A) invierte; (C) suma; (D) multiplica.'},
+  {st: '¿En qué situación se aplica la 1ª ley de Newton?', opts: ['Solo en reposo', 'Solo en movimiento', 'Cuando ΣF=0: reposo o MRU (equivalentes)', 'Cuando hay aceleración'], c: 2, ex: 'Inercia: si ΣF=0 → reposo o MRU se mantienen. ▸ Por qué las otras están mal: (A) (B) son casos particulares; (D) implica ΣF≠0 (2ª ley).'},
+  {st: 'Las fuerzas del par acción-reacción actúan:', opts: ['Sobre el mismo cuerpo', 'Sobre cuerpos DISTINTOS y son opuestas', 'Sobre el mismo cuerpo en la misma dirección', 'Solo cuando hay movimiento'], c: 1, ex: '3ª ley: A→B con F implica B→A con −F. ▸ Sobre cuerpos DIFERENTES → nunca se cancelan en el DCL del mismo cuerpo. ▸ Por qué las otras están mal: confunden 3ª ley con anulación.'},
+  {st: '¿Cuál es la fuerza normal sobre un cuerpo de 10 kg en mesa horizontal? (g=9,8)', opts: ['0', '10 N', '98 N', '980 N'], c: 2, ex: 'En vertical: N − P = 0 → N = P = m·g = 98 N. ▸ Por qué las otras están mal: (A) cuerpo apoyado tiene N&gt;0; (B) sin g; (D) confunde con kg·g·g.'},
+  {st: '¿Cuál de estas afirmaciones sobre el rozamiento es correcta?', opts: ['El rozamiento estático máximo siempre vale μ·N', 'El dinámico siempre &gt; estático', 'Dinámico vale μd·N mientras se mueve', 'El rozamiento no depende de N'], c: 2, ex: 'f_d = μ_d·N (cinético, con la fórmula). ▸ Estático puede valer entre 0 y μ_s·N (se ajusta). Generalmente μ_s &gt; μ_d. ▸ Por qué las otras están mal: (A) "máximo" no es "siempre"; (B) invertido; (D) sí depende.'},
+  {st: 'Resorte k=200 N/m se estira 5 cm. ¿Fuerza?', opts: ['0,4 N', '10 N', '40 N', '1000 N'], c: 1, ex: 'Ley de Hooke: |F| = k·x = 200·0,05 = 10 N. ▸ Por qué las otras están mal: cálculos con unidades equivocadas (cm en vez de m).'},
+  {st: 'Péndulo simple de 1 m. Período aproximado: (g=9,8)', opts: ['0,5 s', '1 s', '2 s', '2π s'], c: 2, ex: 'T = 2π·√(L/g) = 2π·√(1/9,8) ≈ 2π·0,32 ≈ 2,0 s. NO depende de la masa. ▸ Por qué las otras están mal: (A) (B) (D) cálculos equivocados.'},
+  {st: 'En un auto en curva, ¿qué fuerza produce la aceleración centrípeta?', opts: ['El peso', 'La fuerza centrífuga', 'El rozamiento de los neumáticos con el piso', 'La normal'], c: 2, ex: 'En curva plana: rozamiento estático lateral apunta al centro → produce a_c. ▸ Por qué las otras están mal: (A) peso es vertical; (B) "centrífuga" es ficticia (no existe en sistema inercial); (D) normal es vertical también.'},
+  {st: 'Un bloque baja por un plano inclinado SIN rozamiento, con inclinación de 30° (g=10). ¿Cuál es su aceleración?', opts: ['2,5 m/s²', '5 m/s²', '8,7 m/s²', '10 m/s²'], c: 1, ex: 'Eje x a lo largo del plano: la única componente del peso en ese eje es m·g·sen(α). ▸ m·g·sen(α) = m·a → a = g·sen(α) = 10·sen(30°) = 10·0,5 = 5 m/s². NO depende de la masa. ▸ Por qué las otras están mal: (A) la mitad de lo que da; (C) usa cos(30°)≈0,87 (componente perpendicular, no la del movimiento); (D) sería plano vertical (α=90°, caída libre).'}
+]);
+
+// UNIDAD 7: TRABAJO Y ENERGÍA
+registerExercises('fisica', '7', [
+  {st: '¿Cuánto trabajo hace una fuerza PERPENDICULAR al desplazamiento?', opts: ['El máximo', 'La mitad', 'Cero', 'Depende de la velocidad'], c: 2, ex: 'W = F·d·cos(θ). θ=90° → cos=0 → W=0. ▸ Ej: la normal NUNCA hace trabajo (perpendicular al movimiento). ▸ Por qué las otras están mal: el trabajo máx es con θ=0; resto no aplica.'},
+  {st: 'Una F de 50 N empuja una caja 10 m en la misma dirección. Trabajo:', opts: ['5 J', '50 J', '500 J', '5000 J'], c: 2, ex: 'W = F·d·cos(0°) = 50·10·1 = 500 J. ▸ Por qué las otras están mal: cálculos con factores equivocados.'},
+  {st: 'Un cuerpo de 2 kg a 5 m/s. Energía cinética:', opts: ['5 J', '10 J', '25 J', '50 J'], c: 2, ex: 'E_c = ½·m·v² = ½·2·25 = 25 J. ▸ Por qué las otras están mal: (A) sin v²; (B) sin ½; (D) sin ½ con v² mal.'},
+  {st: 'Si DUPLICÁS la velocidad de un cuerpo, su energía cinética:', opts: ['Se duplica', 'Se cuadruplica', 'Se mantiene', 'Se reduce a la mitad'], c: 1, ex: 'E_c ∝ v². v→2v ⟹ (2v)²=4v² → ENERGÍA × 4. ▸ Por eso colisión a 100 km/h es 4× más destructiva que a 50 km/h. ▸ Por qué las otras están mal: linealidad equivocada.'},
+  {st: 'El teorema del trabajo y energía cinética dice:', opts: [M('W_neto = m·g·h'), M('W_neto = ΔE_c'), M('W_neto = E_c + E_p'), M('W_neto = F·d')], c: 1, ex: 'W_neto = E_cf − E_ci = ΔE_c. ▸ Por qué las otras están mal: (A) trabajo del peso específico; (C) suma errónea; (D) definición de W (no teorema).'},
+  {st: 'Un cuerpo de 3 kg a 10 m de altura. Ep gravitatoria respecto del suelo: (g=9,8)', opts: ['30 J', '98 J', '294 J', '2940 J'], c: 2, ex: 'E_pg = m·g·h = 3·9,8·10 = 294 J. ▸ Por qué las otras están mal: cálculos parciales o desplazamientos de coma.'},
+  {st: '¿Cuál de estas fuerzas es CONSERVATIVA?', opts: ['Rozamiento', 'Tensión', 'Peso (gravedad)', 'Normal'], c: 2, ex: 'Conservativa: el trabajo depende solo del cambio de POSICIÓN, no del CAMINO. Peso y elástica son conservativas. ▸ Por qué las otras están mal: (A) rozamiento depende del camino; (B) (D) no son conservativas en el sentido estricto.'},
+  {st: 'Se suelta una piedra desde 20 m sin rozamiento. ¿Velocidad al llegar al suelo? (g=9,8)', opts: ['9,8 m/s', '14 m/s', '19,8 m/s', '392 m/s'], c: 2, ex: 'Conservación de energía: m·g·h = ½·m·v² → v = √(2·g·h) = √(2·9,8·20) = √392 ≈ 19,8 m/s. NO depende de la masa. ▸ Por qué las otras están mal: (A) sin elevar al cuadrado; (B) √200; (D) "392" es v² sin raíz.'},
+  {st: 'Si hay rozamiento, la energía mecánica:', opts: ['Se conserva', 'Aumenta', 'Disminuye (se transforma en calor)', 'Cambia de dirección'], c: 2, ex: 'Rozamiento es no conservativo → "consume" energía mecánica → calor en la superficie de contacto. ▸ Por qué las otras están mal: (A) sí se conserva si NO hay rozamiento; (B) la energía no aumenta; (D) "dirección" no aplica a energía (escalar).'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

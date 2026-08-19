@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inglés Técnico II · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="ingles-tecnico-ii"] {
+    --bg: #eef2ec; --text: #1c2820; --text-muted: #5e6f5e;
+    --surface: #f3f7ed; --surface-2: #dde6d8; --surface-3: #c8d4c1;
+    --border: #cbd6c4; --border-2: #b3bfac;
+    --accent: #1e4d3a; --accent-hover: #2c6a51; --gold: #b8913a;
+    --ex-bg: #ebf2dd; --ex-border: #c2cfa0; --ex-title: #1e4d3a;
+    --ok-bg: #d8e8c8; --ok-text: #1f4020; --ok-border: #4a7a3a;
+    --ko-bg: #efd5cf; --ko-text: #5a1810; --ko-border: #9a3028;
+    --summary-bg: #dde6d8; --summary-hover: #c8d4c1; --num-text: #f2f5e8;
+    --shadow: rgba(30, 77, 58, 0.08);
+  }
+  [data-theme="dark"][data-subject="ingles-tecnico-ii"] {
+    --bg: #131814; --text: #d8e2d4; --text-muted: #7e8c7c;
+    --surface: #1c241e; --surface-2: #283128; --surface-3: #344036;
+    --border: #2c372d; --border-2: #3e4a3e;
+    --accent: #8ad0a5; --accent-hover: #a8e2c0; --gold: #d4a854;
+    --ex-bg: #232a18; --ex-border: #404a20; --ex-title: #c8d088;
+    --ok-bg: #1a2a1a; --ok-text: #a8d088; --ok-border: #4a7a3a;
+    --ko-bg: #2a1715; --ko-text: #f0a090; --ko-border: #9a4030;
+    --summary-bg: #283128; --summary-hover: #344036; --num-text: #131814;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== INGLÉS TÉCNICO II ========================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-ingles-tecnico-ii">
+  <header>
+    <h1>Inglés Técnico II</h1>
+    <div class="sub">UTN FRBA · Cátedra Güelpa · Z3043 · 1°c 2026 · Parciales 15/05 (1°) y 26/06 (2°)</div>
+  </header>
+<nav class="toc" id="toc-ingles-tecnico-ii">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#it2-s1">Estructura del paper académico (research article)</a></li>
+    <li><a href="#it2-s2">El abstract: definición, tipos y partes</a></li>
+    <li><a href="#it2-s3">Movimientos retóricos del abstract</a></li>
+    <li><a href="#it2-s4">El Gap (vacío de conocimiento)</a></li>
+    <li><a href="#it2-s5">Estrategias de lecto-comprensión en inglés técnico</a></li>
+    <li><a href="#it2-s6">Verb tenses y vocabulario en abstracts</a></li>
+    <li><a href="#it2-s7">Análisis de textos auténticos de ingeniería</a></li>
+    <li><a href="#it2-s8">Examen parcial: estrategia y modalidad de cursada</a></li>
+    <li><a href="#it2-s9">Grupos nominales: lectura de derecha a izquierda</a></li>
+    <li><a href="#it2-s10">Texto nuevo AV · <i>AI in Education: A Review</i> (Chen et al., 2020)</a></li>
+    <li><a href="#it2-s11">Texto nuevo AV · <i>Mechatronic Systems</i> (Stegmaier et al., 2024)</a></li>
+    <li><a href="#it2-s12">Texto nuevo AV · <i>Foraging Bumblebees</i> (Montgomery et al., 2019)</a></li>
+  </ol>
+  <div class="score" id="global-score-ingles-tecnico-ii">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRUCTURA DEL PAPER ============ -->
+<details id="it2-s1">
+<summary><span class="num">1</span> Estructura del paper académico (research article) <span class="sec-score" id="ss-ingles-tecnico-ii-1"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un paper de investigación?</h3>
+<p>Un <b>paper académico</b> (research article, conference paper) es un texto escrito por investigadores para comunicar los resultados de un trabajo original a la comunidad científica. Tiene una estructura <b>convencional</b> que el lector espera encontrar: cada sección cumple una función específica.</p>
+
+<h3>Las 8 partes del paper</h3>
+<table class="tbl">
+  <tr><th>Sección</th><th>Función</th><th>Qué responde</th></tr>
+  <tr><td class="c"><b>Title</b> (Título)</td><td>Refleja la temática a tratar de manera clara y simple</td><td>¿De qué trata?</td></tr>
+  <tr><td class="c"><b>Author / Affiliation</b></td><td>Nombre del autor, institución a la que pertenece, organización que financia, contacto</td><td>¿Quién lo escribe?</td></tr>
+  <tr><td class="c"><b>Abstract / Resumen</b></td><td>Resume de manera <b>clara y concisa</b> el contenido del artículo. Es el "cuerpo en miniatura" del paper</td><td>¿Qué encontraré si lo leo?</td></tr>
+  <tr><td class="c"><b>Introduction</b></td><td>Describe los antecedentes y presenta el marco teórico. Detalla el propósito y los objetivos. Plantea el <b>gap</b></td><td>¿Por qué importa?</td></tr>
+  <tr><td class="c"><b>Methodology</b> (Métodos)</td><td>Menciona el método utilizado para lograr el propósito (reseña sistemática, estudio de caso, encuestas, experimentos)</td><td>¿Cómo lo hicieron?</td></tr>
+  <tr><td class="c"><b>Results</b> (Resultados)</td><td>Detalla los resultados obtenidos. Presenta tablas y gráficos</td><td>¿Qué encontraron?</td></tr>
+  <tr><td class="c"><b>Discussion / Conclusion</b></td><td>Presentación y análisis del alcance de la investigación y sus limitaciones</td><td>¿Qué significan los resultados?</td></tr>
+  <tr><td class="c"><b>References</b></td><td>Menciona trabajos previos consultados y citas utilizadas</td><td>¿Sobre qué se apoya?</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El esquema IMRAD</div>
+La estructura medular se conoce como <b>IMRAD</b>: <b>I</b>ntroduction, <b>M</b>ethods, <b>R</b>esults, <b>A</b>nd <b>D</b>iscussion. Es la forma estándar más extendida en ciencias e ingeniería desde mediados del siglo XX. Title + Author + Abstract preceden al IMRAD; References lo cierra.
+</div>
+
+<h3>El abstract es lo más leído</h3>
+<p>Aunque ocupa pocas líneas (típicamente 150–300 palabras), el <b>abstract es la parte más leída</b> del paper: muchos lectores deciden si vale la pena leer el resto a partir de él. Por eso el examen de IT2 enfatiza su lectura, comprensión y reconocimiento.</p>
+
+<h3>Lectura por bloques: dónde encontrar qué</h3>
+<ul>
+  <li>Si querés saber <b>qué se investigó y por qué</b> → leé <b>Title + Abstract + Introduction</b>.</li>
+  <li>Si querés saber <b>cómo se hizo</b> → leé <b>Methodology</b>.</li>
+  <li>Si querés saber <b>qué encontraron</b> → leé <b>Results + Conclusion</b>.</li>
+  <li>Si querés ampliar bibliografía → leé <b>References</b>.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo aplicado</div>
+  En el texto "Internet of Things for a Smart and Ubiquitous eHealth System" (Chatterjee &amp; Armentano, 2015): el <b>title</b> describe el tema (IoT + eHealth); los <b>autores</b> son del Departamento de Computación (Calcutta) y de la Universidad Favaloro (Buenos Aires); el <b>abstract</b> resume; la <b>introducción</b> presenta IoT y la motivación; los <b>methods</b> describen el sistema propuesto; los <b>results</b> y la <b>discussion</b> evalúan; las <b>references</b> citan los trabajos previos.
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Confundir <b>abstract</b> con <b>introduction</b>. El abstract es el resumen completo (incluye también métodos y resultados); la intro solo presenta el contexto y el problema.<br>
+• Saltearse el abstract. Es la sección que <b>condensa todo</b> y la más útil para evaluar rápido si el paper sirve.<br>
+• Pensar que las references son decorativas. Son la base sobre la que se apoya el paper y permiten rastrear el "estado del arte".
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · ABSTRACT DEFINICION Y PARTES ============ -->
+<details id="it2-s2">
+<summary><span class="num">2</span> El abstract: definición, tipos y partes <span class="sec-score" id="ss-ingles-tecnico-ii-2"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un abstract?</h3>
+<p>El <b>abstract</b> (resumen) es el resumen breve, claro y conciso del contenido completo del paper. Aparece al inicio, antes de la introducción, y suele tener <b>150–300 palabras</b>. Es <b>autocontenido</b>: el lector debe poder entenderlo sin haber leído nada más del paper.</p>
+
+<h3>Tipos de abstract</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Características</th></tr>
+  <tr><td class="c"><b>Estructurado</b></td><td>Se divide en secciones explícitas con subtítulos: <i>Background, Objective, Methods, Results, Conclusions</i>. Frecuente en revistas médicas y de ingeniería biomédica.</td></tr>
+  <tr><td class="c"><b>No estructurado</b> (corrido)</td><td>Es un único párrafo continuo, sin subtítulos, donde los movimientos retóricos se identifican por las marcas lingüísticas. Es el más común en ingeniería.</td></tr>
+  <tr><td class="c"><b>Indicativo / descriptivo</b></td><td>Solo describe el contenido del paper sin dar resultados detallados (más cualitativo). Más raro.</td></tr>
+  <tr><td class="c"><b>Informativo</b></td><td>Incluye datos cuantitativos y conclusiones. Es el estándar moderno.</td></tr>
+</table>
+
+<h3>Partes típicas de un abstract</h3>
+<p>Aunque las cantidades y nombres varían según autor/disciplina, suelen aparecer estas partes en este orden aproximado:</p>
+<ol>
+  <li><b>Background / Marco teórico:</b> contexto general; "qué se sabe".</li>
+  <li><b>Antecedentes:</b> trabajos previos relacionados.</li>
+  <li><b>Encuadre:</b> ubicación específica del estudio dentro del campo.</li>
+  <li><b>Hypothesis / Hipótesis:</b> lo que el autor supone (no siempre explícita).</li>
+  <li><b>Gap / Vacío de conocimiento:</b> lo que falta saber → razón de la investigación.</li>
+  <li><b>Purpose / Objective:</b> propósito y objetivo concreto.</li>
+  <li><b>Methods / Metodología:</b> cómo lo hicieron.</li>
+  <li><b>Results / Resultados:</b> qué encontraron.</li>
+  <li><b>Conclusions:</b> qué significa lo encontrado.</li>
+  <li><b>Keywords / Palabras clave:</b> 4–8 términos para indexación.</li>
+</ol>
+
+<div class="key"><div class="ky-t">Las "Keywords" no son parte del cuerpo del abstract</div>
+Aparecen <b>debajo</b> del abstract como una lista. Sirven para que motores de búsqueda y bases de datos (Scopus, Google Scholar) indexen el paper. Ejemplo del texto Banking Insurance: <i>"Keywords: expert system, information management, management, dashboard, data"</i>.
+</div>
+
+<h3>Ejemplo: abstract de "Positive energies?" (Bauwens &amp; Devine-Wright, 2018)</h3>
+<p>"<i>It has been suggested that participation in community energy initiatives may play an important role in enabling a transition towards renewable energy (RE) deployment by fostering positive attitudes toward renewables.</i>" → <b>Background</b>.</p>
+<p>"<i>Yet, little is known about how members of community energy initiatives differ from non-members in terms of energy attitudes...</i>" → <b>Gap</b>.</p>
+<p>"<i>This article empirically analyzes the relations between community energy membership and attitudes toward RE...</i>" → <b>Objective</b>.</p>
+<p>"<i>Based on statistical analyses of a large-scale quantitative dataset from an original survey (N=3,963)...</i>" → <b>Methods</b>.</p>
+<p>"<i>Results show that members have significantly more positive attitudes...</i>" → <b>Results</b>.</p>
+<p>"<i>The findings suggest a novel perspective on the benefits of community energy membership...</i>" → <b>Conclusions</b>.</p>
+
+<h3>Diferencia abstract vs introducción</h3>
+<table class="tbl">
+  <tr><th></th><th>Abstract</th><th>Introduction</th></tr>
+  <tr><td class="c"><b>Largo</b></td><td>150–300 palabras</td><td>1–3 páginas (más largo)</td></tr>
+  <tr><td class="c"><b>Contenido</b></td><td>Todo el paper resumido (incluye <b>resultados y conclusiones</b>)</td><td>Solo contexto, problema, gap, objetivos. <b>Sin resultados</b></td></tr>
+  <tr><td class="c"><b>Función</b></td><td>Decidir si vale la pena leer el paper</td><td>Justificar por qué importa el estudio</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Confundir un abstract no estructurado con uno breve sin partes. <b>Aunque sea un párrafo único, contiene los movimientos retóricos</b>; hay que identificarlos por las marcas lingüísticas.<br>
+• Pensar que las keywords son resumen. Son <b>etiquetas para indexación</b>, no parte del texto narrativo.<br>
+• Olvidar que el abstract <b>incluye los resultados</b>: no anticipa "se mostrará" sino que dice "se mostró".
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · MOVIMIENTOS RETORICOS ============ -->
+<details id="it2-s3">
+<summary><span class="num">3</span> Movimientos retóricos del abstract <span class="sec-score" id="ss-ingles-tecnico-ii-3"></span></summary>
+<div class="content">
+
+<h3>¿Qué son los movimientos retóricos?</h3>
+<p>Los <b>movimientos retóricos</b> (rhetorical moves) son las funciones comunicativas que el autor cumple dentro del abstract. Cada movimiento tiene un propósito específico y se reconoce por el lenguaje que usa. No siempre todos están explícitos, pero al menos: <b>contexto, gap, objetivo, métodos, resultados y conclusiones</b> deben estar.</p>
+
+<h3>Los 6 movimientos retóricos clave</h3>
+
+<table class="tbl">
+  <tr><th>Movimiento</th><th>Definición</th><th>Marcas lingüísticas típicas</th></tr>
+  <tr><td class="c"><b>Marco teórico</b></td><td>Fundamentación teórica dentro de la cual se enmarca la investigación. Resume conocimientos existentes en el área.</td><td>"In the field of...", "Recent studies show...", "It is well known that..."</td></tr>
+  <tr><td class="c"><b>Antecedentes</b></td><td>Trabajos previos directamente relacionados con el objeto de estudio. Reflejan los avances y el estado actual del conocimiento.</td><td>"Previous research", "Earlier studies", "[Author] (2020) found...", "Several authors have shown..."</td></tr>
+  <tr><td class="c"><b>Encuadre</b></td><td>Ubicación de la investigación en un determinado campo de estudio; a veces a través de referencias a investigaciones previas.</td><td>"In this article...", "This study focuses on...", "Within the context of..."</td></tr>
+  <tr><td class="c"><b>Propósito</b></td><td>La <b>aspiración</b>, el "para qué" se desarrolla la investigación.</td><td>"The aim of this paper is...", "This study seeks to..."</td></tr>
+  <tr><td class="c"><b>Objetivo</b></td><td>La <b>meta concreta</b> que se desea alcanzar.</td><td>"The objective is to...", "We aim to determine...", "This paper analyzes..."</td></tr>
+  <tr><td class="c"><b>Hipótesis</b></td><td>Lo que el autor supone que va a comprobar (no siempre explícita).</td><td>"We hypothesize that...", "It is expected that...", "We assume..."</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Propósito vs Objetivo: NO son sinónimos</div>
+<b>Propósito</b> = el "<b>para qué</b>" más amplio, la aspiración, el sentido último ("para mejorar la salud pública"). <b>Objetivo</b> = la <b>meta concreta y medible</b> ("evaluar la eficacia del fármaco X en N pacientes"). Un paper puede tener un único propósito y varios objetivos específicos que lo concretan.
+</div>
+
+<h3>Movimientos descriptivos del trabajo</h3>
+<table class="tbl">
+  <tr><th>Movimiento</th><th>Qué responde</th><th>Marcas típicas</th></tr>
+  <tr><td class="c"><b>Methods</b></td><td>¿Cómo se hizo? Diseño, muestra, instrumentos, análisis.</td><td>"Based on...", "We conducted...", "Using statistical analysis...", "A survey of N=..."</td></tr>
+  <tr><td class="c"><b>Results</b></td><td>¿Qué se encontró? Datos concretos.</td><td>"Results show that...", "We found...", "The data indicate..."</td></tr>
+  <tr><td class="c"><b>Conclusions</b></td><td>¿Qué significa? Implicaciones, recomendaciones.</td><td>"The findings suggest...", "We conclude that...", "These results imply..."</td></tr>
+</table>
+
+<h3>Análisis de movimientos en un abstract real</h3>
+<div class="example">
+  <div class="ex-t">Abstract de "Consumers Attitude and Behavior Towards Domestic Waste Recycling" (extracto)</div>
+  <p><i>"Following the industrial revolution, large quantities of waste have been increasingly generated across the globe..."</i> → <b>Marco teórico/Background</b>.</p>
+  <p><i>"In general, consumers' participation in recycling domestic waste is essential in any waste management system."</i> → <b>Encuadre</b>.</p>
+  <p><i>"However, little research has been conducted on consumer attitudes in developing countries..."</i> → <b>Gap</b>.</p>
+  <p><i>"The purpose of this study is to investigate consumer attitudes..."</i> → <b>Propósito</b>.</p>
+  <p><i>"This paper aims to identify the main barriers to recycling participation in the United Arab Emirates."</i> → <b>Objetivo</b> (más específico).</p>
+  <p><i>"A survey was distributed to N=... households..."</i> → <b>Methods</b>.</p>
+  <p><i>"Results indicate that..."</i> → <b>Results</b>.</p>
+  <p><i>"These findings suggest that policy interventions should focus on..."</i> → <b>Conclusions</b>.</p>
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Equiparar propósito con objetivo. <b>Propósito = aspiración general; objetivo = meta concreta</b>. En un mismo paper pueden coexistir.<br>
+• Confundir antecedentes con marco teórico. <b>Marco teórico</b> es el cuerpo conceptual; <b>antecedentes</b> son los trabajos previos puntuales que reportan resultados.<br>
+• Pensar que la hipótesis está siempre explícita. En ciencias sociales y de ingeniería suele estar implícita en el "Aim/Objective". Solo en disciplinas más experimentales aparece formalmente.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · GAP ============ -->
+<details id="it2-s4">
+<summary><span class="num">4</span> El Gap (vacío de conocimiento) <span class="sec-score" id="ss-ingles-tecnico-ii-4"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un Gap?</h3>
+<p>El <b>gap</b> es <b>lo que se desconoce hasta el momento</b> en un área de investigación: el <b>vacío de conocimiento</b> que el autor intentará cubrir con su trabajo. En palabras de la cátedra:</p>
+
+<div class="key"><div class="ky-t">Definición operativa</div>
+"El vacío de investigación se concibe como la <b>declaración de una necesidad de investigación</b> en un ámbito para convencer al lector de la importancia de su realización." — Apunte E. Güelpa.<br><br>
+En inglés: "A gap is something that remains to be done or learned in an area of research; it's a gap in the knowledge of the scientists in the field. Every research project must, in some way, address a gap."
+</div>
+
+<h3>¿Por qué es importante el Gap?</h3>
+<p>Sin gap, no hay novedad ni aporte. Toda investigación seria tiene que <b>cerrar algún hueco</b> del conocimiento existente. Identificar el gap permite al lector evaluar:</p>
+<ul>
+  <li>Si el paper aporta algo realmente nuevo.</li>
+  <li>Si la investigación está justificada.</li>
+  <li>El <b>valor científico</b> del trabajo.</li>
+</ul>
+
+<h3>Tipos de gap</h3>
+<ul>
+  <li><b>Gap de comprensión:</b> falta de entendimiento sobre cómo funciona algo en una situación particular.</li>
+  <li><b>Gap metodológico:</b> introducir un método nuevo que necesita ser probado.</li>
+  <li><b>Gap empírico:</b> estudiar un nuevo organismo, sistema o parte de un proceso.</li>
+  <li><b>Gap geográfico/poblacional:</b> aplicar un estudio existente a otra región o grupo.</li>
+  <li><b>Vacío bibliográfico:</b> falta de bibliografía sobre un tema; suele acompañar al gap pero no son lo mismo.</li>
+</ul>
+
+<p><b>Un mismo paper puede atacar múltiples gaps.</b> En ese caso, deben identificarse todos claramente.</p>
+
+<h3>¿Cómo encontrar el Gap en un texto en inglés?</h3>
+<p>Hay <b>frases clave</b> que indican casi siempre la presencia de un gap. <b>Estas son las más usuales en el examen de IT2:</b></p>
+
+<table class="tbl">
+  <tr><th>Frase en inglés</th><th>Traducción</th></tr>
+  <tr><td><b>...has/have not been...</b> (studied/reported/elucidated/clarified)</td><td>...no ha sido (estudiado/reportado/aclarado)</td></tr>
+  <tr><td><b>...is required/needed...</b></td><td>...se requiere/necesita</td></tr>
+  <tr><td><b>The key question is/remains...</b></td><td>La cuestión clave es/sigue siendo...</td></tr>
+  <tr><td><b>It is important to address...</b></td><td>Es importante abordar...</td></tr>
+  <tr><td><b>Little is known about...</b></td><td>Poco se sabe sobre...</td></tr>
+  <tr><td><b>However / Yet...</b> (al inicio de oración tras describir lo conocido)</td><td>Sin embargo / No obstante...</td></tr>
+  <tr><td><b>...remains unclear / unexplored...</b></td><td>...sigue siendo poco claro / no explorado</td></tr>
+  <tr><td><b>To date, few studies...</b></td><td>Hasta la fecha, pocos estudios...</td></tr>
+  <tr><td><b>There is a lack of...</b></td><td>Hay una falta de...</td></tr>
+  <tr><td><b>Despite [research], [aspect] has not been investigated...</b></td><td>A pesar de [la investigación], [aspecto] no ha sido investigado...</td></tr>
+</table>
+
+<h3>Ejemplo concreto (Hosaka, Itao &amp; Kuroda, 1995)</h3>
+<div class="example">
+  <div class="ex-t">Identificación del gap</div>
+  "<i>The relationship between the four damping factors, i.e. internal friction, support loss, airflow force in free space, and squeeze force, <b>has not yet been clarified</b>, so it is not obvious which one is dominant in actual microsystems.</i>"<br><br>
+  La frase <b>"has not yet been clarified"</b> = "no ha sido aclarado aún" indica el gap: la relación entre los 4 factores de damping no está clara, y el paper viene a aclararla.
+</div>
+
+<h3>¿Dónde encontrarlo?</h3>
+<p>El gap puede aparecer en distintas secciones:</p>
+<ul>
+  <li>En el <b>abstract</b> (forma compacta, una o dos oraciones).</li>
+  <li>En la <b>introducción</b> (forma extensa, párrafo dedicado).</li>
+  <li>En la sección de <b>objetivos / propuesta de la investigación</b>.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Vacío bibliográfico vs vacío de conocimiento</div>
+El término <b>vacío bibliográfico</b> se usa con la misma intención que <b>vacío de conocimiento</b>. Cuando hay un vacío en la investigación, suele haber también un vacío bibliográfico. Las formulaciones lingüísticas del texto ayudan a identificar cuál de los dos (o ambos) está siendo evaluado.
+</div>
+
+<h3>Tiempo verbal típico del gap: el present perfect</h3>
+<p>La construcción <i>has/have + not + past participle</i> es la marca canónica del gap, porque el inglés usa el present perfect para indicar acciones que <b>no han ocurrido hasta ahora</b> y que conectan pasado con presente. Ejemplos:</p>
+<ul>
+  <li><i>This phenomenon <b>has not been investigated</b> in tropical climates.</i></li>
+  <li><i>The effect of variable X on Y <b>has not been clarified</b>.</i></li>
+  <li><i>No previous study <b>has reported</b> on this issue.</i></li>
+</ul>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Confundir gap con conclusión. El gap dice <b>"esto NO se sabe"</b>; la conclusión dice <b>"esto encontramos"</b>.<br>
+• Buscar el gap solo en una palabra. Suele ser una <b>oración entera</b>: la frase clave (has not been...) más el complemento que describe qué falta.<br>
+• Ignorar las marcas lingüísticas. El examen de IT2 evalúa precisamente la capacidad de identificar el gap por sus marcas en inglés. <b>Memorizar las frases clave es esencial</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · LECTO COMPRENSION ============ -->
+<details id="it2-s5">
+<summary><span class="num">5</span> Estrategias de lecto-comprensión en inglés técnico <span class="sec-score" id="ss-ingles-tecnico-ii-5"></span></summary>
+<div class="content">
+
+<h3>El objetivo no es traducir: es comprender</h3>
+<p>En IT2 lo que se evalúa es la <b>lecto-comprensión</b>, no la traducción literal. Esto significa: <b>captar la idea principal</b>, identificar las partes clave (gap, objetivo, conclusiones), entender vocabulario técnico por contexto. <b>No</b> hace falta traducir cada palabra.</p>
+
+<h3>Skimming y scanning: dos estrategias clave</h3>
+<table class="tbl">
+  <tr><th>Estrategia</th><th>Cuándo usarla</th><th>Cómo</th></tr>
+  <tr><td class="c"><b>Skimming</b></td><td>Para captar la <b>idea general</b> rápidamente</td><td>Leer título, abstract, headings, primera oración de cada párrafo, conclusión. Saltearse el detalle.</td></tr>
+  <tr><td class="c"><b>Scanning</b></td><td>Para encontrar <b>información puntual</b> (un número, un nombre, una fecha)</td><td>Recorrer el texto buscando solo la palabra clave; ignorar el resto.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Estrategia de orden de lectura recomendado</div>
+Para un paper desconocido, en este orden:
+<ol>
+  <li><b>Title:</b> ¿de qué trata?</li>
+  <li><b>Keywords:</b> términos centrales.</li>
+  <li><b>Abstract entero:</b> resumen completo (gap, objetivo, métodos, resultados, conclusión).</li>
+  <li><b>Headings:</b> mapa del paper.</li>
+  <li><b>Conclusion / Discussion:</b> qué encontraron y qué implica.</li>
+  <li><b>Introduction:</b> contexto y gap más extenso.</li>
+  <li><b>Methods + Results:</b> solo si necesitás detalle técnico.</li>
+</ol>
+</div>
+
+<h3>Cognados: tu mejor amigo</h3>
+<p>Los <b>cognados</b> son palabras que se parecen entre inglés y español por compartir raíz latina/griega. En textos técnicos hay <b>muchísimos</b>:</p>
+<table class="tbl">
+  <tr><th>Inglés</th><th>Español</th><th>Inglés</th><th>Español</th></tr>
+  <tr><td>analyze</td><td>analizar</td><td>method</td><td>método</td></tr>
+  <tr><td>structure</td><td>estructura</td><td>technology</td><td>tecnología</td></tr>
+  <tr><td>system</td><td>sistema</td><td>investigate</td><td>investigar</td></tr>
+  <tr><td>implement</td><td>implementar</td><td>conclusion</td><td>conclusión</td></tr>
+  <tr><td>process</td><td>proceso</td><td>application</td><td>aplicación</td></tr>
+  <tr><td>research</td><td>investigación</td><td>data</td><td>datos</td></tr>
+</table>
+
+<h3>False friends: cuidado</h3>
+<p>Los <b>falsos amigos</b> se parecen pero significan otra cosa:</p>
+<table class="tbl">
+  <tr><th>Inglés</th><th>NO significa</th><th>Significa</th></tr>
+  <tr><td><b>actual / actually</b></td><td>actual / actualmente</td><td>real / en realidad</td></tr>
+  <tr><td><b>library</b></td><td>librería (tienda)</td><td>biblioteca</td></tr>
+  <tr><td><b>support</b></td><td>soportar (aguantar)</td><td>apoyar / mantener</td></tr>
+  <tr><td><b>realize</b></td><td>realizar</td><td>darse cuenta</td></tr>
+  <tr><td><b>sensible</b></td><td>sensible</td><td>sensato / razonable</td></tr>
+  <tr><td><b>eventually</b></td><td>eventualmente</td><td>finalmente / a la larga</td></tr>
+  <tr><td><b>argument</b></td><td>argumento (trama)</td><td>discusión / razón</td></tr>
+  <tr><td><b>topic</b></td><td>tópico</td><td>tema</td></tr>
+</table>
+
+<h3>Marcadores discursivos clave</h3>
+<p>Las palabras que conectan ideas. Reconocerlas acelera la comprensión:</p>
+<ul>
+  <li><b>Adición:</b> <i>moreover, furthermore, in addition, also</i> (además).</li>
+  <li><b>Contraste:</b> <i>however, nevertheless, on the other hand, yet, despite</i> (sin embargo).</li>
+  <li><b>Causa:</b> <i>because, since, due to, as</i> (porque, debido a).</li>
+  <li><b>Consecuencia:</b> <i>therefore, thus, hence, consequently, so</i> (por lo tanto).</li>
+  <li><b>Ejemplo:</b> <i>for example, for instance, e.g.</i> (por ejemplo).</li>
+  <li><b>Énfasis:</b> <i>indeed, in fact, particularly</i> (de hecho).</li>
+  <li><b>Tiempo:</b> <i>previously, currently, recently, finally</i> (previamente, recientemente).</li>
+</ul>
+
+<div class="key"><div class="ky-t">Pista: la palabra que precede al gap suele ser de contraste</div>
+Frases como <b>"However, ..."</b>, <b>"Yet, ..."</b>, <b>"Despite this research, ..."</b> casi siempre introducen el <b>gap</b>: el autor dice "esto se sabe... PERO falta saber esto otro". Por eso al leer un abstract, el "however" es señal de "ojo, viene el gap".
+</div>
+
+<h3>Leer en bloque, no palabra por palabra</h3>
+<p>El cerebro lee mejor en <b>chunks</b> (frases nominales o verbales). Acostumbrate a procesar bloques como:</p>
+<ul>
+  <li><i>"the relationship between ... and ..."</i> (la relación entre... y...)</li>
+  <li><i>"a large-scale quantitative study"</i> (un estudio cuantitativo a gran escala)</li>
+  <li><i>"results show that ..."</i> (los resultados muestran que...)</li>
+</ul>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Detenerse en cada palabra desconocida. Si no es clave para la idea, <b>seguí adelante</b>: el contexto suele aclararla más adelante.<br>
+• Traducir literalmente. El inglés tiene estructuras (passive voice, nominalización) que no funcionan en español traducido palabra por palabra.<br>
+• Caer en falsos amigos. <b>"Actually" no es "actualmente"</b>: es "en realidad".
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 · VERB TENSES Y VOCABULARIO ============ -->
+<details id="it2-s6">
+<summary><span class="num">6</span> Verb tenses y vocabulario en abstracts <span class="sec-score" id="ss-ingles-tecnico-ii-6"></span></summary>
+<div class="content">
+
+<h3>¿Por qué importan los tiempos verbales?</h3>
+<p>En un abstract, cada movimiento retórico tiene un tiempo verbal preferido. <b>Reconocer el tiempo verbal te dice qué movimiento estás leyendo</b>. Es una pista poderosa para identificar las partes.</p>
+
+<h3>Tabla de tiempos verbales por movimiento</h3>
+<table class="tbl">
+  <tr><th>Movimiento</th><th>Tiempo verbal típico</th><th>Por qué</th><th>Ejemplo</th></tr>
+  <tr><td class="c"><b>Background / Marco teórico</b></td><td><b>Presente simple</b></td><td>Verdades generales del campo, lo que se sabe hoy</td><td><i>"Recycling <b>is</b> considered the most successful strategy..."</i></td></tr>
+  <tr><td class="c"><b>Antecedentes</b></td><td><b>Present perfect</b> o pasado simple</td><td>Investigaciones que llegan hasta el presente o que ya concluyeron</td><td><i>"Several studies <b>have shown</b> that..."</i></td></tr>
+  <tr><td class="c"><b>Gap</b></td><td><b>Present perfect en negativo</b></td><td>"No ha sido + participio": describe lo que aún no se ha hecho</td><td><i>"This relationship <b>has not been clarified</b>..."</i></td></tr>
+  <tr><td class="c"><b>Propósito / Objetivo</b></td><td><b>Presente simple</b> (con verbos como aim, seek, analyze)</td><td>Acción del paper en curso</td><td><i>"This study <b>analyzes</b>...", "We <b>aim</b> to..."</i></td></tr>
+  <tr><td class="c"><b>Methods</b></td><td><b>Pasado simple</b> (a veces presente con voz pasiva)</td><td>Lo que ya se hizo en la investigación</td><td><i>"A survey <b>was conducted</b> with N=3963..."</i></td></tr>
+  <tr><td class="c"><b>Results</b></td><td><b>Pasado simple</b> o presente</td><td>Lo que se encontró</td><td><i>"Results <b>show</b> that members <b>had</b> more positive attitudes..."</i></td></tr>
+  <tr><td class="c"><b>Conclusions / Implications</b></td><td><b>Presente simple</b>, modal verbs (may, can, should)</td><td>Generalizaciones e implicaciones</td><td><i>"The findings <b>suggest</b> that policy interventions <b>should</b>..."</i></td></tr>
+</table>
+
+<h3>El present perfect: la marca del gap</h3>
+<p>Construcción: <i>has/have (not) + past participle</i>. Conecta pasado con presente. Significa: "hasta ahora, esto ha (o no ha) ocurrido". Ejemplos:</p>
+<ul>
+  <li><i>"Many studies <b>have investigated</b> X..."</i> = "Muchos estudios han investigado X..." (antecedentes).</li>
+  <li><i>"X <b>has not been investigated</b> in tropical climates..."</i> = "X no ha sido investigado en climas tropicales..." (gap).</li>
+  <li><i>"Little research <b>has been conducted</b> on Y..."</i> = "Poca investigación se ha hecho sobre Y..." (gap).</li>
+</ul>
+
+<h3>Voz pasiva: típica de Methods y Results</h3>
+<p>El inglés científico usa voz pasiva muy frecuentemente porque pone el foco en <b>lo hecho</b>, no en <b>quién lo hizo</b>:</p>
+<ul>
+  <li><i>"A survey <b>was conducted</b>..."</i> en lugar de <i>"We conducted a survey"</i>.</li>
+  <li><i>"Data <b>were analyzed</b> using SPSS..."</i> en lugar de <i>"We analyzed data using SPSS"</i>.</li>
+  <li><i>"Results <b>are presented</b> in Table 1..."</i> en lugar de <i>"We present results in Table 1"</i>.</li>
+</ul>
+
+<h3>Modal verbs: para conclusiones e implicaciones</h3>
+<table class="tbl">
+  <tr><th>Modal</th><th>Usos típicos en conclusion</th><th>Ejemplo</th></tr>
+  <tr><td class="c"><b>may / might</b></td><td>Posibilidad moderada</td><td><i>"This <b>may</b> contribute to..."</i></td></tr>
+  <tr><td class="c"><b>can / could</b></td><td>Capacidad o posibilidad</td><td><i>"This approach <b>can</b> improve..."</i></td></tr>
+  <tr><td class="c"><b>should</b></td><td>Recomendación</td><td><i>"Future studies <b>should</b> address..."</i></td></tr>
+  <tr><td class="c"><b>must / will</b></td><td>Necesidad / certeza alta</td><td><i>"Companies <b>must</b> invest in soft skills..."</i></td></tr>
+</table>
+
+<h3>Vocabulario académico recurrente</h3>
+<p>Los abstracts y papers comparten un repertorio léxico específico. Conocerlo acelera mucho la lectura:</p>
+
+<table class="tbl">
+  <tr><th>Categoría</th><th>Verbos / sustantivos típicos</th></tr>
+  <tr><td class="c"><b>Investigar</b></td><td><i>investigate, examine, analyze, explore, address, study, assess, evaluate</i></td></tr>
+  <tr><td class="c"><b>Mostrar / sugerir</b></td><td><i>show, demonstrate, suggest, indicate, reveal, point out, highlight</i></td></tr>
+  <tr><td class="c"><b>Encontrar</b></td><td><i>find, identify, observe, detect</i></td></tr>
+  <tr><td class="c"><b>Concluir</b></td><td><i>conclude, summarize, conclude that, the findings imply</i></td></tr>
+  <tr><td class="c"><b>Aporte</b></td><td><i>contribution, finding, novel approach, key insight, framework</i></td></tr>
+  <tr><td class="c"><b>Carencia (gap)</b></td><td><i>lack of, gap, little is known, has not been, remains unclear</i></td></tr>
+  <tr><td class="c"><b>Implicaciones</b></td><td><i>implications, applications, recommendations, future research</i></td></tr>
+</table>
+
+<h3>Phrasal verbs y sustantivaciones frecuentes</h3>
+<ul>
+  <li><i><b>To carry out</b></i> = realizar (a study).</li>
+  <li><i><b>To deal with</b></i> = abordar / tratar (an issue).</li>
+  <li><i><b>To rely on</b></i> = depender de.</li>
+  <li><i><b>The implementation of...</b></i> = la implementación de... (sustantivación frecuente).</li>
+  <li><i><b>The analysis of...</b></i> = el análisis de...</li>
+  <li><i><b>The assessment of...</b></i> = la evaluación de...</li>
+</ul>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Traducir <i>"has been"</i> como "fue" (presente perfecto pasivo). Es <b>"ha sido"</b> y conecta con el presente — clave para identificar gap.<br>
+• Confundir <i>can</i> con <i>could</i>. <b>Can</b> indica capacidad real; <b>could</b> es más hipotético o cortés.<br>
+• No reconocer la pasiva. <i>"Was conducted"</i> = "se realizó / fue realizado", muy típico en Methods.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 · ANALISIS DE TEXTOS ============ -->
+<details id="it2-s7">
+<summary><span class="num">7</span> Análisis de textos auténticos de ingeniería <span class="sec-score" id="ss-ingles-tecnico-ii-7"></span></summary>
+<div class="content">
+
+<h3>Los primeros 4 textos del aula virtual</h3>
+<p>La cátedra trabaja con varios textos auténticos. Acá repasamos los <b>primeros 4</b> (tema, vocabulario clave y estructura). Los <b>tres textos nuevos</b> que la cátedra sumó para el 2° tramo (los que numera del 6 al 8) se analizan a fondo —uno por uno— en las <a href="#it2-s10"><b>Unidades 10, 11 y 12</b></a>.</p>
+
+<h3>Texto 1: "Empowering Innovation in Banking Insurance: Expert System for Information Management"</h3>
+<p><b>Autores:</b> Rojas Serrano, Mora-Aguilar, Pacheco-Pumaleque (Universidad César Vallejo, Perú, 2024). <b>Tema:</b> sistema experto para gestión de información en bancos y seguros, con dashboard analítico.</p>
+<ul>
+  <li><b>Vocabulario clave:</b> expert system, information management, dashboard, data, banking insurance, decision-making, software tool, process automation.</li>
+  <li><b>Tipo de paper:</b> "Software Tool Article" (tipo común en F1000Research).</li>
+  <li><b>Gap probable:</b> sistemas previos no integran información de manera automatizada en este sector.</li>
+</ul>
+
+<h3>Texto 2: "The Importance of Soft Skills in the Workplace"</h3>
+<p><b>Autor:</b> Harsh Bhati (Kids Club School, Rajasthan, India, 2022). <b>Tema:</b> revisión sobre habilidades blandas (soft skills) en el ambiente laboral; comparación con hard skills; rol en RRHH y reclutamiento.</p>
+<ul>
+  <li><b>Vocabulario clave:</b> soft skills, hard skills, HR (human resources), recruitment, communication skills, personality traits, social skills, workplace, employability.</li>
+  <li><b>Tipo de paper:</b> "Review Article" — sintetiza investigación previa más que aportar datos nuevos.</li>
+  <li><b>Argumento central:</b> los empleadores valoran cada vez más las soft skills (comunicación, trabajo en equipo, actitud positiva) tanto o más que las hard skills técnicas.</li>
+</ul>
+
+<div class="key"><div class="ky-t">Definición clave</div>
+<i>Soft skills: "the cluster of personality traits, social graces, facility with language, personal habits, friendliness, and optimism that mark each of us to varying degrees."</i> (Centre for Career Opportunities at Purdue University, citado por Jungsun K., 2011).<br><br>
+A diferencia de las <b>hard skills</b> (técnicas, medibles, tangibles), las soft skills son <b>contextuales y demostrables según situaciones</b>.
+</div>
+
+<h3>Texto 3: "Internet of Things for a Smart and Ubiquitous eHealth System"</h3>
+<p><b>Autores:</b> Parag Chatterjee (St. Xavier's College, Kolkata) &amp; Ricardo L. Armentano (Universidad Favaloro, Buenos Aires; 2015). <b>Tema:</b> aplicación de Internet of Things (IoT) a un sistema de salud electrónica (eHealth).</p>
+<ul>
+  <li><b>Vocabulario clave:</b> Internet of Things (IoT), eHealth, ubiquitous, M2M (machine-to-machine), connected devices, embedded devices, smart cities, intelligent automation.</li>
+  <li><b>Cifra emblemática:</b> "the number of connected devices is expected to touch <b>50 billion by 2020</b>" (Cisco IBSG).</li>
+  <li><b>Tipo de paper:</b> "Conference Paper" (presentado en CICN 2015).</li>
+</ul>
+
+<h3>Texto 4: "Consumers Attitude and Behavior Towards Domestic Waste Recycling in Developing Countries: A Case Study"</h3>
+<p><b>Autores:</b> Bendak &amp; Attili (University of Sharjah, UAE, 2017). <b>Tema:</b> actitudes de consumidores hacia el reciclado domiciliario en países en desarrollo (UAE como caso de estudio).</p>
+<ul>
+  <li><b>Vocabulario clave:</b> recycling, domestic waste, waste management, post-purchased waste, salvaged materials, raw materials, pollution, recyclables, separation at source.</li>
+  <li><b>Argumento central:</b> separar reciclables en origen es más eficiente y económico que separar después en centros de recolección. Las actitudes del consumidor son clave.</li>
+  <li><b>Tipo de paper:</b> case study en una revista de management de residuos (Adv Recycling Waste Manag).</li>
+</ul>
+
+<h3>Patrón común: todos los abstracts tienen gap</h3>
+<div class="example">
+  <div class="ex-t">Estructura compartida</div>
+  Cada uno de los 4 textos sigue el patrón:
+  <ol>
+    <li>Background técnico del campo (IoT, soft skills, recycling, expert systems).</li>
+    <li>Lo que ya se sabe (antecedentes).</li>
+    <li><b>Gap:</b> lo que falta investigar (en países en desarrollo, en banking, en eHealth ubicuo, en workplace moderno).</li>
+    <li>Objetivo de este paper.</li>
+    <li>Métodos.</li>
+    <li>Resultados.</li>
+    <li>Conclusiones e implicaciones.</li>
+  </ol>
+</div>
+
+<h3>Diferencias por disciplina</h3>
+<table class="tbl">
+  <tr><th>Texto</th><th>Disciplina</th><th>Tipo de evidencia</th></tr>
+  <tr><td class="c">Banking Expert System</td><td>Software engineering</td><td>Diseño y desarrollo de software, casos de uso</td></tr>
+  <tr><td class="c">Soft Skills</td><td>Recursos humanos / sociales</td><td>Revisión bibliográfica, no datos primarios</td></tr>
+  <tr><td class="c">IoT eHealth</td><td>Ingeniería en computación</td><td>Diseño arquitectónico, propuesta tecnológica</td></tr>
+  <tr><td class="c">Recycling UAE</td><td>Ingeniería industrial / management</td><td>Encuesta empírica con datos cuantitativos</td></tr>
+</table>
+
+<h3>Cómo abordar un texto desconocido en el examen</h3>
+<ol>
+  <li>Mirar el <b>título</b>: identificar el tema general (1 minuto).</li>
+  <li>Localizar y leer el <b>abstract entero</b> (3–5 minutos).</li>
+  <li>Marcar las partes del abstract: gap, objetivo, métodos, resultados, conclusión.</li>
+  <li>Leer la <b>conclusión</b> del paper si está pedida.</li>
+  <li>Responder consignas de comprensión: las respuestas suelen estar literalmente en el texto.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Tratar de traducir todo el texto. <b>No alcanza el tiempo</b>. Aplicá skimming + scanning.<br>
+• Suponer respuestas. Las consignas de comprensión piden información <b>explícita en el texto</b>; nada de inferir más allá.<br>
+• Saltearse el abstract para "ahorrar tiempo". <b>Mal pasaje</b>: el abstract es el atajo más eficiente.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 · EXAMEN Y CURSADA ============ -->
+<details id="it2-s8">
+<summary><span class="num">8</span> Examen parcial: estrategia y modalidad de cursada <span class="sec-score" id="ss-ingles-tecnico-ii-8"></span></summary>
+<div class="content">
+
+<h3>Modalidad del examen parcial</h3>
+<p>Según los <b>lineamientos de cátedra</b>:</p>
+<div class="key"><div class="ky-t">Qué incluye el parcial</div>
+"Los parciales consistirán en la <b>lectura de un texto auténtico en inglés, no trabajado previamente</b>, y responder consignas de comprensión lectora. Escritura de un resumen (abstract) en inglés, reconocimiento de sus partes, reconocimiento en el texto, etc."<br><br>
+Es decir: <b>NO viene un texto que se vio en clase</b>. Por eso los textos del AV (IoT, Soft Skills, etc.) son ejemplos para entrenar, pero en el parcial puede tocar otro texto similar.
+</div>
+
+<h3>Tipos de consignas que aparecen</h3>
+<ul>
+  <li><b>Lectura comprensiva:</b> "What is the gap addressed by the authors?", "What method did they use?", "What did they find?"</li>
+  <li><b>Reconocimiento de partes del abstract:</b> identificar gap, propósito, objetivo, métodos, resultados y conclusión dentro del abstract dado.</li>
+  <li><b>Identificación de movimientos retóricos:</b> marcar marco teórico, antecedentes, encuadre.</li>
+  <li><b>Reconocer el gap en el texto:</b> citar la frase exacta y traducirla.</li>
+  <li><b>Vocabulario:</b> dar el significado en español de términos técnicos por contexto.</li>
+  <li><b>Escritura/redacción de un abstract</b> a partir de un texto extenso.</li>
+</ul>
+
+<h3>Estrategia recomendada para el parcial</h3>
+<ol>
+  <li><b>Primer pase (skimming, ~5 min):</b> leer título, abstract y conclusión para tener panorama.</li>
+  <li><b>Segundo pase (lectura activa):</b> con las consignas a la vista, hacer scanning para encontrar respuestas.</li>
+  <li><b>Marcar el texto:</b> subrayar palabras clave, marcar el "however/yet" que precede al gap, anotar qué párrafo es Methods/Results.</li>
+  <li><b>Responder consignas:</b> primero las que tenés más claras; dejar las dudosas para el final.</li>
+  <li><b>Verificar:</b> si pide cita literal, copiar tal cual; si pide traducción, no traducir palabra por palabra sino la idea.</li>
+</ol>
+
+<h3>Datos de la cursada (Z3043 IT2 1°c 2026)</h3>
+<table class="tbl">
+  <tr><th>Dato</th><th>Detalle</th></tr>
+  <tr><td class="c"><b>Profesora</b></td><td>Elisa Güelpa (sin ayudante)</td></tr>
+  <tr><td class="c"><b>Día y horario</b></td><td>Viernes 19:00 – 22:15 hs</td></tr>
+  <tr><td class="c"><b>Cuatrimestre</b></td><td>Inicio: 25 de marzo · Fin: 11 de julio</td></tr>
+  <tr><td class="c"><b>1° Parcial</b></td><td><b>15/05/2026</b> (presencial)</td></tr>
+  <tr><td class="c"><b>2° Parcial</b></td><td><b>26/06/2026</b> (presencial)</td></tr>
+  <tr><td class="c"><b>1° Recuperatorio</b></td><td><b>03/07/2026</b></td></tr>
+  <tr><td class="c"><b>Modalidad</b></td><td>Híbrida: VS (zoom), VA (asincrónico AV) y P (presencial)</td></tr>
+  <tr><td class="c"><b>Sede presencial</b></td><td>Campus calle Mozart (UTN FRBA)</td></tr>
+  <tr><td class="c"><b>Zoom ID</b></td><td>980 6805 2083 · Código: 050551</td></tr>
+  <tr><td class="c"><b>Contacto</b></td><td>eog2674@yahoo.com.ar / eguelpa@frba.utn.edu.ar</td></tr>
+</table>
+
+<h3>Régimen de aprobación</h3>
+<table class="tbl">
+  <tr><th></th><th>Promoción directa (sin final)</th><th>Aprobación con final</th></tr>
+  <tr><td class="c"><b>Asistencia</b></td><td>≥ 75%</td><td>≥ 75%</td></tr>
+  <tr><td class="c"><b>TPs</b></td><td>Aprobados</td><td>Aprobados</td></tr>
+  <tr><td class="c"><b>Parciales</b></td><td>≥ 6 con posibilidad de recuperatorio</td><td>Promedio ≥ 6</td></tr>
+  <tr><td class="c"><b>Último parcial</b></td><td>≥ 8</td><td>—</td></tr>
+  <tr><td class="c"><b>Calificación final</b></td><td>≥ 8</td><td>+ examen final</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Sistema de "Rewards"</div>
+La cátedra premia con puntos extra:
+<ul>
+  <li><b>Spontaneous Rewards:</b> se obtienen en clase o en tareas; se sortean. Pueden valer desde centésimos a quedar exceptuado de tareas/foros.</li>
+  <li><b>Final Reward:</b> equivale a <b>1 punto entero</b>. Se obtiene si se hicieron <b>todas las actividades cargadas en el AV</b> en la sección "Actividades para obtener la final reward", <b>antes del 2° parcial</b>.</li>
+</ul>
+</div>
+
+<h3>Materiales obligatorios</h3>
+<ul>
+  <li>Textos cargados en el Aula Virtual + textos buscados.</li>
+  <li>Apuntes teóricos (en AV o en fotocopiadora).</li>
+  <li>Diccionario bilingüe — <b>en los parciales solo se admite diccionario de papel</b>, no online.</li>
+</ul>
+
+<h3>Foro "Clase Anterior"</h3>
+<p>Para ausentes o quienes llegaron tarde. Quien sea seleccionado debe volcar los datos de la clase siguiendo el ejemplo dado por la profesora en el foro fecha 27/03/26.</p>
+
+<div class="example">
+  <div class="ex-t">Tip clave</div>
+  La profesora destaca que "el aula es el mejor lugar para equivocarnos y poder corregir y aprender". Aprovechar las clases sincrónicas para preguntar es la forma más eficiente de cubrir dudas antes del parcial.
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos en el parcial</div>
+• Querer traducir todo. El parcial mide <b>comprensión</b>, no traducción literal.<br>
+• No identificar el gap en el abstract. Es una de las consignas más frecuentes y más facilmente perdibles si no se conocen las marcas lingüísticas (has not been..., is required..., yet little is known...).<br>
+• Llevar diccionario en el celular. <b>Solo papel</b>: el celular no se admite en el parcial.<br>
+• Confundir propósito con objetivo. Son distintos y suele preguntarse identificar uno u otro.
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 9 · GRUPOS NOMINALES ============ -->
+<details id="it2-s9">
+<summary><span class="num">9</span> Grupos nominales: lectura de derecha a izquierda <span class="sec-score" id="ss-ingles-tecnico-ii-9"></span></summary>
+<div class="content">
+
+<h3>¿Qué es un grupo nominal (noun phrase)?</h3>
+<p>Un <b>grupo nominal</b> (noun phrase) es una cadena de palabras que funciona como un solo sustantivo. En inglés técnico estas cadenas son largas y densas: varios sustantivos y adjetivos se apilan <b>antes</b> del núcleo. Esa premodificación es una de las mayores dificultades para el lector hispanohablante, porque en español el orden es casi siempre el inverso.</p>
+
+<div class="key"><div class="ky-t">La regla de oro: leer de derecha a izquierda</div>
+El <b>núcleo</b> (head noun) de un grupo nominal en inglés es <b>la última palabra</b>. Todo lo que está a su izquierda lo modifica. Para traducir, se arranca por el final y se avanza hacia atrás. <br><br>
+<i>waste management system</i> → núcleo = <b>system</b> → "un <b>sistema</b> de gestión de residuos" (system ← management ← waste).
+</div>
+
+<h3>Cómo desarmar la cadena, paso a paso</h3>
+<ol>
+  <li><b>Identificá el núcleo:</b> normalmente el último sustantivo de la cadena.</li>
+  <li><b>Leé hacia atrás:</b> cada palabra a la izquierda precisa o restringe al núcleo.</li>
+  <li><b>Reconstruí en español</b> usando "de", "para" o un adjetivo, según corresponda.</li>
+</ol>
+
+<table class="tbl">
+  <tr><th>Grupo nominal (inglés)</th><th>Núcleo</th><th>Traducción (de derecha a izquierda)</th></tr>
+  <tr><td><i>waste management system</i></td><td>system</td><td>sistema de gestión de residuos</td></tr>
+  <tr><td><i>a large-scale quantitative dataset</i></td><td>dataset</td><td>un conjunto de datos cuantitativo a gran escala</td></tr>
+  <tr><td><i>machine-to-machine connected devices</i></td><td>devices</td><td>dispositivos conectados de máquina a máquina</td></tr>
+  <tr><td><i>community energy membership</i></td><td>membership</td><td>la pertenencia a una iniciativa de energía comunitaria</td></tr>
+  <tr><td><i>information management software tool</i></td><td>tool</td><td>una herramienta de software para gestión de información</td></tr>
+  <tr><td><i>renewable energy deployment</i></td><td>deployment</td><td>el despliegue de energía renovable</td></tr>
+</table>
+
+<h3>Tipos de premodificadores</h3>
+<p>A la izquierda del núcleo pueden aparecer, en este orden aproximado:</p>
+<ul>
+  <li><b>Determinante:</b> <i>a, the, this, several</i>.</li>
+  <li><b>Adjetivos:</b> <i>large-scale, quantitative, positive</i>.</li>
+  <li><b>Sustantivos usados como adjetivo (noun + noun):</b> <i>waste</i> management, <i>energy</i> membership. El sustantivo modificador va en <b>singular</b> aunque el sentido sea plural: <i>waste management</i> = gestión de residuo<b>s</b>.</li>
+</ul>
+
+<div class="example">
+  <div class="ex-t">Ejemplo del texto "Positive energies?" (Bauwens &amp; Devine-Wright)</div>
+  <i>"...a transition towards renewable energy deployment by fostering positive attitudes toward renewables."</i><br><br>
+  <b>renewable energy deployment</b> → núcleo <b>deployment</b> (despliegue) ← <b>energy</b> (de energía) ← <b>renewable</b> (renovable) = "el despliegue de energía renovable". <br>
+  <b>positive attitudes</b> → núcleo <b>attitudes</b> ← <b>positive</b> = "actitudes positivas".
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos</div>
+• Traducir <b>de izquierda a derecha</b> palabra por palabra. <i>"waste management system"</i> NO es "residuo gestión sistema": el núcleo va primero en español.<br>
+• Tomar el primer sustantivo como núcleo. En inglés el núcleo es <b>el último</b>; los anteriores son modificadores.<br>
+• Pluralizar el sustantivo modificador. Se escribe <i>a two-year study</i> (no <i>two-years</i>): el modificador va en singular.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 10 · TEXTO NUEVO: AI IN EDUCATION ============ -->
+<details id="it2-s10">
+<summary><span class="num">10</span> Texto nuevo AV: <i>AI in Education: A Review</i> (Chen et al., 2020) <span class="sec-score" id="ss-ingles-tecnico-ii-10"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Tres textos auténticos nuevos para el 2° tramo</div>
+La cátedra sumó <b>tres papers nuevos</b> (los que numera del 6 al 8) como material de práctica de cara al <b>2° parcial (26/06)</b>. Las Unidades 10, 11 y 12 los desmenuzan uno por uno con el mismo método que usás en el examen: ubicar las partes, reconocer el gap, extraer vocabulario y grupos nominales. <b>Dato importante:</b> los tres archivos vienen <b>sin el texto del abstract</b> (van del título "ABSTRACT" directo a las keywords). Eso no es un error tuyo: en estas copias el resumen fue removido. Es ideal para entrenar la consigna de <b>escribir/reconstruir el abstract</b> a partir de la introducción y la conclusión.
+</div>
+
+<h3>Ficha del texto</h3>
+<table class="tbl">
+  <tr><th>Dato</th><th>Detalle</th></tr>
+  <tr><td class="c"><b>Título</b></td><td><i>Artificial Intelligence in Education: A Review</i></td></tr>
+  <tr><td class="c"><b>Autores</b></td><td>Lijia Chen; Pingping Chen (autor de contacto · <i>Member, IEEE</i>) y Zhijian Lin (<i>Member, IEEE</i>)</td></tr>
+  <tr><td class="c"><b>Filiación</b></td><td>Yango University y Fuzhou University (Fuzhou, China)</td></tr>
+  <tr><td class="c"><b>Publicación</b></td><td><i>IEEE Access</i>, Volume 8, 2020 · DOI 10.1109/ACCESS.2020.2988510</td></tr>
+  <tr><td class="c"><b>Index terms</b></td><td><i>Education, artificial intelligence, learner</i> (el PDF imprime "leaner": es un typo por "learner")</td></tr>
+  <tr><td class="c"><b>Tipo de paper</b></td><td><b>Review Article</b> (revisión bibliográfica): sintetiza estudios previos, no genera datos primarios</td></tr>
+</table>
+
+<h3>Sin abstract: ¿dónde está cada movimiento?</h3>
+<p>Como este texto no trae abstract, los movimientos retóricos hay que rastrearlos en la <b>introducción</b> (secciones "Purpose of the study" y "Review strategy") y en la <b>conclusión</b>. En un <b>review</b>, el "gap" no es un experimento faltante sino un <b>vacío de síntesis</b>: faltaba un trabajo que reúna y evalúe de conjunto el impacto de la IA en la educación.</p>
+<table class="tbl">
+  <tr><th>Movimiento</th><th>Frase del texto (verbatim)</th></tr>
+  <tr><td class="c"><b>Background</b></td><td><i>"Computer and information communication technologies have over the years continued to evolve, leading to the development of artificial intelligence."</i></td></tr>
+  <tr><td class="c"><b>Propósito / Objetivo</b></td><td><i>"This study seeks to assess how the use of AI, in its different forms, in education, has impacted or affected different aspects of education."</i></td></tr>
+  <tr><td class="c"><b>Methods</b></td><td><i>"A qualitative research study, leveraging literature review as a research design and method was used."</i> (revisión sistemática/semisistemática de datos secundarios; bases EBSCOhost, ProQuest, Web of Science, Google Scholar; revistas con H-Index ≥ 20)</td></tr>
+  <tr><td class="c"><b>Conclusions</b></td><td><i>"Overall, AI has had a major impact on education, particularly, on administration, instruction, and learning areas of the education sector or within the context of individual learning institutions."</i></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El gap de un review = vacío de síntesis / bibliográfico</div>
+Ojo: en un review casi nunca vas a encontrar la marca clásica <i>"has not been clarified"</i>. El vacío que cubre es <b>reunir y evaluar</b> lo disperso. Acá el "para qué" (<i>"This study seeks to assess..."</i>) es la bisagra que reemplaza al objetivo experimental. Esto contrasta con los textos 7 y 8, donde el gap sí aparece con marcas lingüísticas explícitas.
+</div>
+
+<h3>Propuesta de abstract reconstruido</h3>
+<div class="example">
+  <div class="ex-t">Abstract armado por nosotros a partir de intro + conclusión (no es el original)</div>
+  <i>"Artificial intelligence has emerged from decades of development in computing and information technologies <b>(background)</b>. This study assesses how AI, in its different forms, has impacted education <b>(objective)</b>. Using a qualitative literature review of secondary sources indexed in major databases <b>(methods)</b>, the paper analyzes the effects of AI on administration, instruction and learning <b>(scope)</b>. The findings show that AI —through intelligent tutoring systems, chatbots, robots and personalized learning— has had a major impact on the education sector <b>(conclusion)</b>."</i>
+</div>
+
+<h3>Vocabulario clave del texto</h3>
+<table class="tbl">
+  <tr><th>Inglés</th><th>Español</th><th>Inglés</th><th>Español</th></tr>
+  <tr><td>intelligent tutoring system</td><td>sistema tutor inteligente</td><td>machine learning</td><td>aprendizaje automático</td></tr>
+  <tr><td>deep learning</td><td>aprendizaje profundo</td><td>data mining</td><td>minería de datos</td></tr>
+  <tr><td>natural language interaction</td><td>interacción en lenguaje natural</td><td>neural network</td><td>red neuronal</td></tr>
+  <tr><td>chatbot</td><td>chatbot / agente conversacional</td><td>cobot</td><td>robot colaborativo</td></tr>
+  <tr><td>personalized / adaptive learning</td><td>aprendizaje personalizado / adaptativo</td><td>literature review</td><td>revisión bibliográfica</td></tr>
+</table>
+
+<h3>Grupos nominales del texto (lectura de derecha a izquierda)</h3>
+<table class="tbl">
+  <tr><th>Grupo nominal (inglés)</th><th>Núcleo</th><th>Traducción</th></tr>
+  <tr><td><i>semi-systematic literature review</i></td><td>review</td><td>una revisión bibliográfica semisistemática</td></tr>
+  <tr><td><i>computer aided instruction and learning</i></td><td>instruction and learning</td><td>instrucción y aprendizaje asistidos por computadora</td></tr>
+  <tr><td><i>evidence-based decision-making</i></td><td>decision-making</td><td>la toma de decisiones basada en evidencia</td></tr>
+  <tr><td><i>author level measure of scientific productivity</i></td><td>measure</td><td>una medida —a nivel de autor— de la productividad científica</td></tr>
+</table>
+
+<h3>Falsos amigos y verbos típicos en este texto</h3>
+<ul>
+  <li><i><b>to leverage</b></i> = <b>aprovechar</b> (no "apalancar"): <i>"leveraging technology"</i> = aprovechando la tecnología.</li>
+  <li><i><b>to assess</b></i> = <b>evaluar / valorar</b> (no "asesorar"): es el verbo central del objetivo.</li>
+  <li><i><b>to foster</b></i> = <b>fomentar / propiciar</b>.</li>
+  <li>Tiempo verbal del antecedente/impacto: present perfect — <i>"AI <b>has been</b> extensively adopted"</i> = "ha sido adoptada ampliamente".</li>
+</ul>
+
+<div class="trap"><div class="tr-t">Errores típicos con este texto</div>
+• Buscar un gap con <i>"has not been..."</i> y no encontrarlo. En un <b>review</b> el vacío es de síntesis: identificá el "para qué" (<i>"This study seeks to assess..."</i>).<br>
+• Creer que falta el abstract por error. <b>Esta copia no lo trae</b>: la consigna se vuelve "reconstruirlo" desde intro + conclusión.<br>
+• Traducir <i>"leveraging"</i> como "apalancando". Es <b>aprovechando</b>.
+</div>
+
+<div class="quiz-wrap" data-qz="10" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 11 · TEXTO NUEVO: MECHATRONIC SYSTEMS ============ -->
+<details id="it2-s11">
+<summary><span class="num">11</span> Texto nuevo AV: <i>Mechatronic Systems</i> (Stegmaier et al., 2024) <span class="sec-score" id="ss-ingles-tecnico-ii-11"></span></summary>
+<div class="content">
+
+<h3>Ficha del texto</h3>
+<table class="tbl">
+  <tr><th>Dato</th><th>Detalle</th></tr>
+  <tr><td class="c"><b>Título</b></td><td><i>Automated Configuration of Optimized Customer Specific Mechatronic Systems Using Behavior Models</i></td></tr>
+  <tr><td class="c"><b>Autores</b></td><td>Valentin Stegmaier y Tobias Eberhardt (contribución igual), Walter Schaaf, Nasser Jazdi, Michael Weyrich, Alexander Verl</td></tr>
+  <tr><td class="c"><b>Filiación</b></td><td>University of Stuttgart (GSaME e institutos de automatización y control) + J. Schmalz GmbH (Alemania)</td></tr>
+  <tr><td class="c"><b>Publicación</b></td><td><i>Procedia CIRP</i> 126 (2024) 146–151 · 17th CIRP Conference on Intelligent Computation in Manufacturing Engineering (CIRP ICME '23) · DOI 10.1016/j.procir.2024.08.315</td></tr>
+  <tr><td class="c"><b>Keywords</b></td><td><i>Digital Twin; Behavior model; Optimization; Variant diversity; Automated product configuration</i> (estas sí están en el PDF)</td></tr>
+  <tr><td class="c"><b>Tipo de paper</b></td><td><b>Conference Paper</b> (ingeniería de manufactura / automatización industrial)</td></tr>
+</table>
+
+<h3>El gap, con marcas lingüísticas explícitas</h3>
+<p>Acá el vacío sí aparece claro, en la sección <b>"State of the art"</b>. El autor describe lo que ya existe y marca el límite con <i>"but"</i>:</p>
+<div class="example">
+  <div class="ex-t">Gap (verbatim)</div>
+  <i>"There are some approaches to simulation-based optimization of systems in literature, <b>but their focus is on entire production systems and not on subsystems of component manufacturers</b>. For this reason, the modeling depth of these approaches is rather low."</i><br><br>
+  Es decir: existen métodos de optimización, <b>pero</b> apuntan a sistemas de producción enteros y <b>no</b> a los subsistemas de los fabricantes de componentes. Ese "no se hizo para X" es el gap.
+</div>
+
+<div class="key"><div class="ky-t">Aim / Objetivo (verbatim)</div>
+<i>"This paper aims to address this issue by coupling automated behavior model creation with optimization algorithms based on system-relevant Key-Performance-Indicators (KPIs) to enable an automated design process for optimized systems."</i><br><br>
+La fórmula <i>"This paper aims to address this issue by + gerundio"</i> es una marca canónica del objetivo. Fijate el patrón: primero el problema (<i>"it remains time-consuming"</i>), después <i>"aims to address this issue"</i>.
+</div>
+
+<h3>Movimientos en el resto del texto</h3>
+<table class="tbl">
+  <tr><th>Movimiento</th><th>Frase del texto (verbatim)</th></tr>
+  <tr><td class="c"><b>Background</b></td><td><i>"The product portfolio of typical automation component manufacturers has grown steadily in recent years."</i></td></tr>
+  <tr><td class="c"><b>Methods</b></td><td><i>"...a total of 7,200 possible system configurations are examined."</i> (Digital Twin + modelos de comportamiento + algoritmo Simulated Annealing)</td></tr>
+  <tr><td class="c"><b>Results</b></td><td>Brute-force ~7 días (óptimo, costo 0.0717) vs Simulated Annealing ~5,25 h, 218 config., costo 0.1001 → <i>"the computation time is almost 97% less"</i></td></tr>
+  <tr><td class="c"><b>Conclusions</b></td><td><i>"Automated creation of behavior models is essential for automated configuration of mechatronic systems."</i></td></tr>
+</table>
+
+<h3>Caso aplicado: sistemas de agarre por vacío</h3>
+<p>El método se ilustra con <b>vacuum gripping systems</b> (sistemas de agarre por vacío) compuestos por <i>vacuum generators, hoses y suction cups</i> (generadores de vacío, mangueras y ventosas), usados por ejemplo para manipular paneles solares. Se optimiza una <b>cost function</b> ponderada con cuatro KPIs: <i>acquisition cost, energy consumption, holding force, evacuation time</i>.</p>
+
+<h3>Vocabulario clave del texto</h3>
+<table class="tbl">
+  <tr><th>Inglés</th><th>Español</th><th>Inglés</th><th>Español</th></tr>
+  <tr><td>Digital Twin (DT)</td><td>gemelo digital</td><td>behavior model</td><td>modelo de comportamiento</td></tr>
+  <tr><td>Key-Performance-Indicator (KPI)</td><td>indicador clave de desempeño</td><td>cost function</td><td>función de costo</td></tr>
+  <tr><td>Simulated Annealing</td><td>recocido simulado (algoritmo)</td><td>brute-force approach</td><td>enfoque de fuerza bruta</td></tr>
+  <tr><td>vacuum gripping system</td><td>sistema de agarre por vacío</td><td>component manufacturer</td><td>fabricante de componentes</td></tr>
+</table>
+
+<h3>Grupos nominales del texto (lectura de derecha a izquierda)</h3>
+<table class="tbl">
+  <tr><th>Grupo nominal (inglés)</th><th>Núcleo</th><th>Traducción</th></tr>
+  <tr><td><i>customer specific mechatronic systems</i></td><td>systems</td><td>sistemas mecatrónicos específicos para el cliente</td></tr>
+  <tr><td><i>automated behavior model creation method</i></td><td>method</td><td>un método de creación automatizada de modelos de comportamiento</td></tr>
+  <tr><td><i>vacuum gripping system</i></td><td>system</td><td>un sistema de agarre por vacío</td></tr>
+  <tr><td><i>simulation-based optimization</i></td><td>optimization</td><td>optimización basada en simulación</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Falso amigo a marcar: <i>to realize</i></div>
+En este paper aparece <i>"This method is <b>realized</b> in section 4"</i> y <i>"their <b>realization</b>"</i>. Acá <b>realize = implementar / concretar / llevar a cabo</b> (un método), no "darse cuenta" ni "realizar" a secas. El contexto técnico manda. También <i>"component <b>libraries</b>"</i> = <b>bibliotecas</b> de componentes (no "librerías").
+</div>
+
+<div class="trap"><div class="tr-t">Errores típicos con este texto</div>
+• No ver el gap por estar en "State of the art" y no en el abstract (que falta). La pista es el <b>"but their focus is on... and not on..."</b>.<br>
+• Traducir <i>"realized"</i> como "se dio cuenta". Es <b>"se implementó"</b>.<br>
+• Confundir los números de resultados: <b>menor</b> costo = mejor; brute-force da el óptimo pero tarda 7 días; SimA logra casi lo mismo con 97% menos de cómputo.
+</div>
+
+<div class="quiz-wrap" data-qz="11" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 12 · TEXTO NUEVO: FORAGING BUMBLEBEES ============ -->
+<details id="it2-s12">
+<summary><span class="num">12</span> Texto nuevo AV: <i>Foraging Bumblebees</i> (Montgomery et al., 2019) <span class="sec-score" id="ss-ingles-tecnico-ii-12"></span></summary>
+<div class="content">
+
+<h3>Ficha del texto</h3>
+<table class="tbl">
+  <tr><th>Dato</th><th>Detalle</th></tr>
+  <tr><td class="c"><b>Título</b></td><td><i>Measurement of electric charges on foraging bumblebees (Bombus terrestris)</i></td></tr>
+  <tr><td class="c"><b>Autores</b></td><td>C Montgomery, K Koh y D Robert</td></tr>
+  <tr><td class="c"><b>Filiación</b></td><td>School of Biological Sciences, University of Bristol (Reino Unido)</td></tr>
+  <tr><td class="c"><b>Publicación</b></td><td><i>Journal of Physics: Conference Series</i> 1322 (2019) 012002 · Electrostatics 2019 and Dielectrics 2019 · IOP Publishing · DOI 10.1088/1742-6596/1322/1/012002</td></tr>
+  <tr><td class="c"><b>Tipo de paper</b></td><td><b>Conference Paper</b> (Open Access) · cruce de física (electrostática) y biología (polinización)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El mejor ejemplo de gap del corpus: el autor lo nombra</div>
+Este texto es oro para entrenar el reconocimiento del gap, porque <b>lo dice con todas las letras</b>:<br><br>
+<i>"Recent models of pollen transfer were developed based on laboratory data, <b>as no data currently exist on the electric charge of bumblebees foraging in the field</b>. In this paper, <b>we address this gap</b> by measuring the electric charges carried by foraging bumblebees at a field site, using a novel non-contact induction ring technique."</i><br><br>
+Dos marcas en una: <b>"no data currently exist on..."</b> (no existen datos sobre...) y la frase explícita <b>"we address this gap"</b> (abordamos este vacío). Después viene el objetivo: probar si la carga depende del clima y si los modelos de polinización necesitan ajustarse para abejas en condiciones de campo.
+</div>
+
+<h3>Movimientos retóricos (sin abstract, en intro + conclusión)</h3>
+<table class="tbl">
+  <tr><th>Movimiento</th><th>Frase del texto (verbatim)</th></tr>
+  <tr><td class="c"><b>Background</b></td><td><i>"Electrostatics has been shown to facilitate pollen transfer between plant and pollinator during pollination."</i> (present perfect pasivo → conocimiento previo)</td></tr>
+  <tr><td class="c"><b>Gap</b></td><td><i>"...as no data currently exist on the electric charge of bumblebees foraging in the field."</i></td></tr>
+  <tr><td class="c"><b>Objetivo</b></td><td><i>"In this paper, we address this gap by measuring the electric charges carried by foraging bumblebees at a field site..."</i></td></tr>
+  <tr><td class="c"><b>Methods</b></td><td><i>"The RCS was calibrated using a Faraday pail..."</i> (anillo sensor de carga + picoamperímetro + MATLAB; modelo en R)</td></tr>
+  <tr><td class="c"><b>Results</b></td><td>Carga media en el campo 116 ± 159 pC vs laboratorio 32 ± 35 pC; la humedad reduce la carga (decaimiento exponencial); con lluvia la carga baja significativamente</td></tr>
+  <tr><td class="c"><b>Conclusions</b></td><td><i>"...models of pollen transfer based on indoor bee charge measurements may underestimate the role of Coulomb forces in pollen transfer under fair weather conditions."</i></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El "However" que anuncia el matiz en la conclusión</div>
+<i>"The electric charges... were found to be mostly positive and similar in magnitude to the charges measured on bees in laboratory experiments. <b>However</b>, outdoor bees have a much greater range of charges and this charge is largely affected by the local humidity."</i> → el <b>"However"</b> introduce el contraste/matiz clave: coinciden en magnitud, <b>pero</b> en el campo la variabilidad es mucho mayor.
+</div>
+
+<h3>Vocabulario clave del texto</h3>
+<table class="tbl">
+  <tr><th>Inglés</th><th>Español</th><th>Inglés</th><th>Español</th></tr>
+  <tr><td>foraging bumblebee</td><td>abejorro forrajeando (buscando alimento)</td><td>pollen transfer</td><td>transferencia de polen</td></tr>
+  <tr><td>electric charge</td><td>carga eléctrica</td><td>relative humidity (RH)</td><td>humedad relativa</td></tr>
+  <tr><td>pollinator</td><td>polinizador</td><td>Coulomb forces</td><td>fuerzas de Coulomb</td></tr>
+  <tr><td>Faraday pail</td><td>jaula/balde de Faraday</td><td>field site</td><td>sitio de campo (a la intemperie)</td></tr>
+</table>
+
+<h3>Grupos nominales del texto (lectura de derecha a izquierda)</h3>
+<table class="tbl">
+  <tr><th>Grupo nominal (inglés)</th><th>Núcleo</th><th>Traducción</th></tr>
+  <tr><td><i>non-contact induction ring technique</i></td><td>technique</td><td>una técnica de anillo de inducción sin contacto</td></tr>
+  <tr><td><i>ring charge sensor</i></td><td>sensor</td><td>un sensor de carga de anillo</td></tr>
+  <tr><td><i>pollen transfer models</i></td><td>models</td><td>modelos de transferencia de polen</td></tr>
+  <tr><td><i>indoor bee charge measurements</i></td><td>measurements</td><td>mediciones de carga de abejas en interior</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Errores típicos con este texto</div>
+• Traducir <i>"field"</i> siempre como "campo de estudio". Acá <i>"in the field"</i> / <i>"field site"</i> = <b>a la intemperie, en condiciones reales</b> (no en laboratorio).<br>
+• Traducir <i>"foraging"</i> como un nombre propio. Es <b>forrajeando / buscando alimento</b>.<br>
+• Pasar por alto el <i>"we address this gap"</i>: es la confirmación literal del vacío. Si te piden el gap, esa oración es la respuesta.
+</div>
+
+<div class="quiz-wrap" data-qz="12" data-subject="ingles-tecnico-ii"></div>
+<a class="back" href="#subject-ingles-tecnico-ii">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'ingles-tecnico-ii';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS INGLÉS TÉCNICO II ============
+registerExercises('ingles-tecnico-ii', '1', [
+  {st: 'Las 8 partes de un paper académico, en orden, son:', opts: ['Title, Abstract, Methods, Results, Conclusions, References, Author, Discussion', 'Title, Author/Affiliation, Abstract, Introduction, Methodology, Results, Discussion, References', 'Author, Title, Methods, Discussion, Abstract, Introduction, Results, References', 'Abstract, Title, Author, References, Introduction, Results, Methods, Conclusions'], c: 1, ex: 'El orden estándar es: Title → Author/Affiliation → Abstract → Introduction → Methodology → Results → Discussion/Conclusion → References. Las 4 secciones medulares (Intro, Methods, Results, Discussion) forman el esquema IMRAD.'},
+  {st: 'IMRAD significa:', opts: ['International Method of Research And Discussion', 'Introduction, Methods, Results And Discussion', 'Investigation, Methodology, Results And Data', 'Introduction, Material, Reference And Data'], c: 1, ex: 'IMRAD = Introduction, Methods, Results, And Discussion. Es la estructura medular del paper científico, estándar en ingeniería y ciencias desde mediados del siglo XX. Title + Abstract + Author la preceden; References la cierra.'},
+  {st: '¿Cuál es la sección que más se lee de un paper?', opts: ['Title', 'Abstract', 'Methods', 'References'], c: 1, ex: 'El abstract (típicamente 150–300 palabras) es lo más leído. Los lectores deciden a partir de él si vale la pena leer el resto del paper. Por eso el examen de IT2 enfatiza su lectura, comprensión y reconocimiento.'},
+  {st: 'Si querés saber rápido qué aporta un paper, deberías leer:', opts: ['Métodos completos', 'Title + Abstract + Conclusion', 'Solamente las references', 'Tablas y gráficos primero'], c: 1, ex: 'Title te dice de qué trata, Abstract resume todo (incluye gap, métodos, resultados, conclusión) y Conclusion expande las implicaciones. Es la lectura más eficiente para evaluar un paper sin leerlo entero.'},
+  {st: 'La sección "References" en un paper:', opts: ['Es decorativa', 'Es la lista de trabajos previos consultados y citas utilizadas; permite rastrear el estado del arte', 'Solo aparece en papers de matemática', 'Es lo mismo que el Abstract'], c: 1, ex: 'Las References muestran sobre qué bibliografía se apoya el paper. Son fundamentales para evaluar la solidez del trabajo y para que un lector pueda seguir profundizando en el tema. No son decorativas.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '2', [
+  {st: 'El abstract de un paper académico es:', opts: ['La conclusión final', 'Un resumen autocontenido de 150–300 palabras que sintetiza todo el paper, incluyendo métodos y resultados', 'La introducción', 'Una lista de palabras clave'], c: 1, ex: 'El abstract es el resumen completo del paper. Es autocontenido (debe entenderse sin leer el resto). Incluye background, gap, objetivo, métodos, resultados y conclusiones. Suele tener 150–300 palabras.'},
+  {st: 'Las "Keywords" en un paper:', opts: ['Son parte del cuerpo narrativo del abstract', 'Son etiquetas (4–8 términos) que aparecen debajo del abstract para indexación en bases de datos', 'Son lo mismo que las references', 'Son las hipótesis del autor'], c: 1, ex: 'Las keywords son una lista de términos para indexación en Scopus, Google Scholar, etc. Aparecen debajo del abstract pero NO forman parte del texto narrativo. Ejemplo: "Keywords: expert system, information management, dashboard, data".'},
+  {st: 'Un abstract estructurado se diferencia de uno no estructurado en que:', opts: ['Tiene más palabras', 'Incluye subtítulos explícitos (Background, Methods, Results, Conclusions)', 'No tiene gap', 'Es más corto'], c: 1, ex: 'El estructurado divide el abstract en subsecciones con títulos visibles (común en revistas médicas). El no estructurado es un párrafo único continuo donde los movimientos retóricos se identifican por las marcas lingüísticas. Es el más común en ingeniería.'},
+  {st: 'Diferencia clave entre abstract e introducción:', opts: ['Son sinónimos', 'El abstract incluye resultados y conclusiones; la introducción solo presenta el contexto y el problema', 'La introducción es más corta', 'El abstract va al final'], c: 1, ex: 'Abstract: resumen completo (150–300 palabras), incluye qué encontraron y qué concluyeron. Introducción: 1–3 páginas, presenta el contexto, el problema y el gap, pero NO da resultados. El abstract responde "¿qué encontraré si lo leo?"; la intro, "¿por qué importa?".'},
+  {st: 'En un abstract no estructurado:', opts: ['No hay movimientos retóricos', 'Los movimientos están presentes pero sin subtítulos; se reconocen por las marcas lingüísticas (verbos, conectores, tiempos verbales)', 'No se puede identificar el gap', 'Solo hay metodología'], c: 1, ex: 'Aunque sea un párrafo único, el abstract no estructurado contiene los mismos movimientos retóricos que el estructurado. Hay que identificarlos por pistas: tiempos verbales, conectores ("However", "Yet"), frases típicas ("has not been...", "Results show...").'},
+  {st: '¿Cuál de estas oraciones pertenece típicamente a las CONCLUSIONS de un abstract?', opts: ['"This phenomenon has not been studied in tropical climates."', '"The findings suggest a novel perspective on the benefits of community energy membership."', '"A survey was conducted with N=3963."', '"Recycling is considered the most successful strategy to deal with waste."'], c: 1, ex: 'La conclusión usa verbos como "suggest, imply, conclude" y modal verbs (may, can, should). La opción 1 es gap (has not been); la 3 es methods (was conducted, pasado simple pasivo); la 4 es background (presente simple, hecho general).'}
+]);
+
+registerExercises('ingles-tecnico-ii', '3', [
+  {st: 'El "marco teórico" en un abstract es:', opts: ['Los trabajos previos puntuales', 'La fundamentación teórica dentro de la cual se enmarca la investigación; resume conocimientos existentes en el área', 'La hipótesis del autor', 'La conclusión'], c: 1, ex: 'El marco teórico es el cuerpo conceptual general que sirve como sustento de la investigación. Se distingue de los antecedentes, que son trabajos previos puntuales con resultados concretos.'},
+  {st: 'La diferencia entre PROPÓSITO y OBJETIVO en un abstract es:', opts: ['Son sinónimos', 'Propósito = aspiración o "para qué" amplio; Objetivo = meta concreta y medible', 'El propósito es para papers cualitativos y el objetivo para cuantitativos', 'El objetivo va antes y el propósito después'], c: 1, ex: 'Propósito: el "para qué" más amplio ("para mejorar la salud pública"). Objetivo: meta concreta ("evaluar la eficacia del fármaco X en N pacientes"). Un paper puede tener un propósito y varios objetivos específicos que lo concretan.'},
+  {st: 'En el abstract aparece la frase: "Several studies have shown that soft skills improve employability." Este movimiento retórico es:', opts: ['Gap', 'Antecedentes', 'Conclusión', 'Métodos'], c: 1, ex: 'La frase "Several studies have shown..." es un antecedente: refiere a investigaciones previas que ya reportaron resultados. Su tiempo verbal típico es present perfect ("have shown") o pasado simple. No describe un vacío sino un conocimiento ya establecido.'},
+  {st: 'Lectura: "It has been suggested that participation in community energy initiatives may foster positive attitudes." Este movimiento es:', opts: ['Gap', 'Marco teórico / background', 'Conclusión', 'Hipótesis del autor'], c: 1, ex: 'Es background o marco teórico: presenta una afirmación general aceptada en el campo ("it has been suggested..."). Reconocer marco teórico vs gap es clave: marco teórico afirma lo que se sabe; gap señala lo que falta saber.'},
+  {st: 'En "This article empirically analyzes the relations between community energy membership and attitudes toward RE", el movimiento retórico es:', opts: ['Marco teórico', 'Encuadre + objetivo concreto del paper', 'Resultados', 'Hipótesis'], c: 1, ex: '"This article analyzes..." ubica el paper dentro del campo (encuadre) y declara su objetivo concreto. El verbo principal en presente simple ("analyzes") es típico de propósito/objetivo del paper actual.'},
+  {st: 'Si un abstract dice "We hypothesize that variable X is correlated with Y", esto es:', opts: ['Marco teórico', 'Hipótesis', 'Resultados', 'Antecedentes'], c: 1, ex: 'La hipótesis es lo que el autor supone que va a comprobar. Marcas típicas: "We hypothesize that...", "It is expected that...", "We assume...". En ingeniería suele estar implícita en el objetivo, pero en ciencias experimentales aparece formalmente.'},
+  {st: 'El "encuadre" en un abstract sirve para:', opts: ['Concluir', 'Ubicar la investigación en un determinado campo de estudio, a veces a través de referencias a investigaciones previas', 'Mostrar resultados', 'Definir términos'], c: 1, ex: 'El encuadre posiciona el paper. Suele aparecer con frases como "This study focuses on...", "Within the context of...", "In this paper, we address...". Distingue al paper concreto del campo más general (marco teórico).'}
+]);
+
+registerExercises('ingles-tecnico-ii', '4', [
+  {st: 'El "gap" en una investigación es:', opts: ['La hipótesis del autor', 'El vacío de conocimiento; lo que se desconoce hasta el momento y la investigación intentará cubrir', 'Los resultados', 'La conclusión'], c: 1, ex: 'El gap es la declaración de una necesidad de investigación: lo que aún no se sabe en el campo. Toda investigación seria debe abordar al menos un gap, sino no aporta nada nuevo. Es lo que justifica que el paper exista.'},
+  {st: '¿Cuál de estas frases en inglés indica casi siempre un gap?', opts: ['"Results show that..."', '"Has not been clarified..."', '"The aim of this paper is..."', '"In conclusion..."'], c: 1, ex: 'Frases típicas de gap (en present perfect negativo): "has/have not been studied/reported/clarified/elucidated", "is required/needed", "the key question is/remains", "it is important to address", "little is known about", "yet, ...".'},
+  {st: 'La construcción gramatical canónica del gap en inglés es:', opts: ['Past simple negativo', 'Present perfect negativo (has/have + not + past participle)', 'Future simple', 'Present continuous'], c: 1, ex: 'El gap usa present perfect en negativo porque conecta pasado con presente: "no ha sido + participio". Ejemplo: "This phenomenon has not been investigated in tropical climates" = "este fenómeno no ha sido investigado en climas tropicales (hasta ahora)".'},
+  {st: 'En el abstract aparece "Yet, little is known about how members differ from non-members." Esto es:', opts: ['Marco teórico', 'Antecedentes', 'Gap', 'Conclusión'], c: 2, ex: '"Yet" introduce un contraste; "little is known about" es marca canónica de gap (poco se sabe sobre...). El autor dice "esto SE sabe... PERO esto NO se sabe", y eso último es justamente el gap que viene a cubrir.'},
+  {st: '"The relationship between the four damping factors has not yet been clarified" expresa:', opts: ['Un resultado positivo', 'Un gap (la relación no ha sido aclarada aún → es lo que el paper viene a aclarar)', 'Una hipótesis', 'Un antecedente'], c: 1, ex: 'Frase clásica de Hosaka, Itao & Kuroda (1995): "has not yet been clarified" = "no ha sido aclarado aún". Es la marca lingüística del gap. El paper viene precisamente a aclarar esa relación.'},
+  {st: 'Un mismo paper puede tener:', opts: ['Solo un gap', 'Múltiples gaps; en ese caso deben identificarse todos claramente', 'Ningún gap si es un review', 'Solo gap si es paper experimental'], c: 1, ex: 'Un paper puede atacar varios gaps simultáneamente: por ejemplo, gap metodológico (nuevo método) + gap empírico (en una nueva población) + gap geográfico (en una nueva región). Si los hay, deben identificarse cada uno.'},
+  {st: '¿Dónde NO suele aparecer el gap en un paper?', opts: ['En el abstract', 'En la introducción', 'En la sección de objetivos', 'En la sección de references'], c: 3, ex: 'El gap aparece en el abstract (forma compacta), en la introducción (forma extensa, párrafo dedicado) y en la sección de objetivos/propuesta. Las references son la lista bibliográfica: no contienen gap, solo citas.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '5', [
+  {st: 'El "skimming" como estrategia de lectura sirve para:', opts: ['Buscar un dato puntual (un número, un nombre)', 'Captar la idea general del texto rápidamente', 'Memorizar vocabulario', 'Traducir palabra por palabra'], c: 1, ex: 'Skimming = mirar por encima para captar el panorama general. Lo opuesto es el scanning, que busca información puntual (un número, una fecha). Ambas estrategias son complementarias y se usan juntas en lectura técnica.'},
+  {st: 'El "scanning" sirve para:', opts: ['Captar la idea general', 'Encontrar información puntual barriendo el texto en busca de palabras clave', 'Traducir el texto', 'Memorizar el abstract'], c: 1, ex: 'Scanning = "barrer" el texto buscando una palabra o dato específico (un número, un nombre, una fecha). No se lee todo: el ojo se desliza buscando solo la palabra clave. Es muy útil para responder consignas puntuales del parcial.'},
+  {st: '¿Cuál es un FALSO AMIGO (false friend) en inglés?', opts: ['"Method" significa "método"', '"Actually" NO significa "actualmente", significa "en realidad"', '"Conclusion" significa "conclusión"', '"Process" significa "proceso"'], c: 1, ex: 'Falsos amigos confunden por el parecido pero significan otra cosa: "actually" = "en realidad" (no "actualmente"); "library" = "biblioteca" (no "librería"); "realize" = "darse cuenta" (no "realizar"); "sensible" = "sensato" (no "sensible"); "eventually" = "finalmente" (no "eventualmente").'},
+  {st: '"Library" en inglés significa:', opts: ['Librería (negocio que vende libros)', 'Biblioteca', 'Lectura', 'Librar'], c: 1, ex: '"Library" = biblioteca. La librería en español (negocio que vende libros) en inglés es "bookstore" o "bookshop". Es uno de los falsos amigos clásicos.'},
+  {st: 'El conector "However" al inicio de una oración suele preceder a:', opts: ['Una confirmación de lo dicho', 'Un contraste, frecuentemente introduciendo el gap', 'Una conclusión final', 'Un agradecimiento'], c: 1, ex: '"However" (sin embargo) introduce contraste. En abstracts es señal típica de que viene el gap: el autor describe lo que se sabe y luego "However, ... has not been studied / little is known...". Pista clave para detectar gap.'},
+  {st: 'La estrategia recomendada para leer un paper desconocido en orden es:', opts: ['Leer todo de principio a fin', 'Title → Abstract → Headings → Conclusion → Introduction → Methods/Results si hace falta', 'Solo references', 'De atrás hacia adelante'], c: 1, ex: 'Estrategia eficiente: title (¿de qué trata?) → keywords → abstract entero (resumen) → headings (mapa) → conclusion (qué encontraron) → introduction (contexto extendido) → methods/results solo si necesitás detalle técnico. No hace falta leer linealmente.'},
+  {st: 'En lecto-comprensión, ¿qué hacer al toparse con una palabra desconocida?', opts: ['Detenerse y buscar en diccionario inmediatamente', 'Saltarla si no es clave para la idea, o intentar deducirla por contexto', 'Traducirla literalmente', 'Suponer que es clave'], c: 1, ex: 'Si la palabra no es clave para la idea principal, seguir adelante: el contexto suele aclararla más tarde. Solo detenerse a buscar si es central para entender la idea. Detenerse en cada palabra rompe el flujo y pierde tiempo.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '6', [
+  {st: 'El tiempo verbal típico para describir el GAP es:', opts: ['Past simple', 'Present perfect en negativo (has/have not been + past participle)', 'Future simple', 'Present continuous'], c: 1, ex: 'Present perfect negativo conecta pasado y presente: "ha sido (o no ha sido) hecho". El gap dice "esto NO ha sido + participio" hasta ahora. Ejemplo: "X has not been investigated in this context".'},
+  {st: 'Para describir METHODS en un abstract, el tiempo verbal típico es:', opts: ['Past simple, frecuentemente en voz pasiva', 'Future simple', 'Present continuous', 'Present perfect'], c: 0, ex: 'Methods describe lo ya hecho: pasado simple, frecuentemente con voz pasiva ("a survey was conducted", "data were analyzed"). La pasiva pone foco en lo hecho, no en quién lo hizo (estilo científico estándar).'},
+  {st: 'En "Recycling is considered the most successful strategy to deal with waste", el tiempo verbal indica:', opts: ['Resultado del estudio', 'Background o marco teórico (verdad general del campo, en presente simple)', 'Gap', 'Methods'], c: 1, ex: 'Presente simple = verdades generales o conocimiento aceptado del campo. Es típico de marco teórico/background. Si fuera un resultado del paper actual, usaría pasado simple ("Results showed that...") o present perfect.'},
+  {st: 'En "A survey was conducted with N=3963 households", la estructura gramatical es:', opts: ['Present simple activo', 'Past simple en voz pasiva', 'Present perfect', 'Future simple'], c: 1, ex: 'Past simple pasivo: "was conducted" (subject + was/were + past participle). Estilo típico de Methods. Equivale a "se realizó una encuesta" o "una encuesta fue realizada". Foco en la acción, no en quién la hizo.'},
+  {st: 'Los modal verbs (may, can, should) en un abstract aparecen típicamente en:', opts: ['Methods', 'Conclusions / Implications, para hablar de posibilidad o recomendación', 'Background', 'Results'], c: 1, ex: 'Modal verbs en conclusión: "may" (posibilidad: "this may contribute to..."), "can" (capacidad: "this approach can improve..."), "should" (recomendación: "future studies should address..."), "must" (necesidad). Suavizan o matizan las afirmaciones finales.'},
+  {st: 'Reconocer "have shown" en un abstract sugiere que estás leyendo:', opts: ['Methods', 'Antecedentes (estudios previos que ya mostraron algo)', 'Conclusiones', 'Hipótesis'], c: 1, ex: 'Present perfect "have shown / have demonstrated / have found" indica que se trata de antecedentes: estudios previos que reportaron resultados. La frase "Several studies have shown..." es marca canónica de antecedentes.'},
+  {st: '"The findings suggest that policy interventions should focus on..." es un ejemplo de:', opts: ['Methods', 'Gap', 'Conclusion / implications', 'Background'], c: 2, ex: 'Verbos como "suggest", "imply" + modal "should" son típicos de conclusiones e implicaciones. El autor sugiere qué deberían hacer otros (policymakers, futuros investigadores) a partir de los resultados encontrados.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '7', [
+  {st: 'El texto "Internet of Things for a Smart and Ubiquitous eHealth System" trata sobre:', opts: ['Reciclaje de residuos en países en desarrollo', 'Aplicación de IoT (Internet of Things) a un sistema de salud electrónica ubicua', 'Habilidades blandas en RRHH', 'Sistemas expertos para banca'], c: 1, ex: 'Es un paper de Chatterjee y Armentano (2015, IEEE CICN). Define IoT, su rol en eHealth y la "ubicuidad" (sistemas accesibles en cualquier momento y lugar). Cifra emblemática: "50 billion connected devices by 2020" (Cisco IBSG).'},
+  {st: 'El texto "Soft Skills in the Workplace" sostiene que:', opts: ['Las hard skills son más importantes que las soft skills', 'Las soft skills son cada vez más valoradas por empleadores junto a las hard skills', 'Las soft skills no son enseñables', 'Solo importa la experiencia técnica'], c: 1, ex: 'El autor (Bhati, 2022) cita que los empleadores valoran a quien es comunicativo, ético, con actitud positiva, capaz de trabajar en equipo. Las soft skills se aprenden mediante entrenamiento. Son tan o más importantes que las hard skills en muchos puestos.'},
+  {st: 'En el texto "Soft Skills", la definición tomada de Purdue dice que las soft skills son:', opts: ['Habilidades técnicas medibles', '"the cluster of personality traits, social graces, facility with language, personal habits, friendliness, and optimism"', 'Lo mismo que las hard skills', 'Habilidades exclusivas de gerentes'], c: 1, ex: 'Centre for Career Opportunities at Purdue University: "the cluster of personality traits, social graces, facility with language, personal habits, friendliness, and optimism that mark each of us to varying degrees" (citado por Jungsun K., 2011).'},
+  {st: 'El texto "Empowering Innovation in Banking Insurance" propone:', opts: ['Una crítica al sistema bancario', 'Un expert system para gestión de información en banking insurance, con dashboard analítico', 'Un nuevo método de marketing', 'Una reforma legal del sistema asegurador'], c: 1, ex: 'Paper de Rojas Serrano et al. (2024, F1000Research). Es un "Software Tool Article": presenta una herramienta concreta. Vocabulario: expert system, information management, dashboard, decision-making, software tool. Propone integrar la información del sector banking insurance.'},
+  {st: 'El texto "Consumers Attitude...Recycling" estudia:', opts: ['Reciclaje en países desarrollados de Europa', 'Actitudes y comportamiento de consumidores hacia el reciclado domiciliario en países en desarrollo (caso UAE)', 'Métodos de incineración de residuos', 'Política ambiental global'], c: 1, ex: 'Bendak & Attili (2017, University of Sharjah, UAE). El argumento central: separar reciclables en origen (en el hogar) es más eficiente que separar después en centros de recolección. Estudio empírico con datos de UAE como caso de país en desarrollo.'},
+  {st: 'Todos los textos del aula virtual comparten:', opts: ['El mismo idioma materno del autor', 'La estructura del abstract con los movimientos retóricos clásicos (background, gap, objetivo, métodos, resultados, conclusión)', 'La misma disciplina', 'El mismo año'], c: 1, ex: 'Aunque tratan temas distintos (IoT, soft skills, banking, recycling) y son de disciplinas diversas, los 4 abstracts comparten la estructura clásica: background → gap → objetivo → métodos → resultados → conclusión. Eso es lo que el examen evalúa.'},
+  {st: 'Para responder consignas de comprensión en un texto desconocido del parcial:', opts: ['Inferir y suponer', 'Responder con información explícita en el texto, citando o parafraseando con precisión', 'Buscar en Google', 'Traducir todo el paper'], c: 1, ex: 'Las consignas piden información explícita. Las respuestas suelen estar literalmente en el texto (en el abstract, intro o conclusión). Hay que ubicar la frase, citarla o parafrasearla. No suponer ni inferir más allá de lo que el texto dice.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '8', [
+  {st: 'El parcial de Inglés Técnico II consiste en:', opts: ['Traducir un texto extenso al español palabra por palabra', 'Lectura de un texto auténtico en inglés NO trabajado previamente, consignas de comprensión y reconocimiento/escritura del abstract', 'Examen oral en inglés', 'Solo vocabulario de memoria'], c: 1, ex: 'Según los lineamientos: "lectura de un texto auténtico en inglés, no trabajado previamente, y responder consignas de comprensión lectora. Escritura de un resumen (abstract) en inglés, reconocimiento de sus partes, reconocimiento en el texto". El texto del parcial NO es uno visto en clase.'},
+  {st: 'En el parcial de Cátedra Güelpa, ¿qué tipo de diccionario se admite?', opts: ['Solo online', 'Solo de papel (no online ni celular)', 'Cualquier tipo', 'Ninguno'], c: 1, ex: 'En los exámenes parciales solo se admite diccionario bilingüe de PAPEL. El celular no se admite. Conviene tener uno preparado: por ejemplo, Larousse o Oxford bilingüe. Para el día a día sí se puede usar online.'},
+  {st: 'La fecha del 1° parcial 2026 es:', opts: ['08/05/2026', '15/05/2026', '22/05/2026', '26/06/2026'], c: 1, ex: 'Lineamientos cátedra: 1° Parcial 15/05/2026, 2° Parcial 26/06/2026, 1° Recuperatorio 03/07/2026. Cursada Viernes 19:00-22:15 hs en sede Campus Mozart (UTN FRBA).'},
+  {st: 'Para promocionar la materia (sin examen final), se necesita:', opts: ['60% asistencia y promedio 5', '75% asistencia, ambos parciales aprobados (≥6 con recup), último parcial ≥8 y nota final ≥8', 'Aprobar solo un parcial', 'Solo asistencia'], c: 1, ex: 'Promoción directa requiere: 75% asistencia, TPs aprobados, parciales ≥6 (con recuperatorio posible), último parcial ≥8, calificación final ≥8. Si no se llega a estos números pero se aprueban con ≥6 promedio, queda regular para final.'},
+  {st: 'La "Final Reward" del sistema de premios:', opts: ['Es un descuento en la matrícula', 'Equivale a 1 punto entero y se obtiene completando todas las actividades de la sección "Actividades para obtener la Final Reward" antes del 2° parcial', 'Es solo simbólica', 'Se obtiene asistiendo a todas las clases'], c: 1, ex: 'La Final Reward = 1 punto entero. Se obtiene si se completan TODAS las actividades cargadas en la sección "Actividades para obtener la Final Reward" del aula virtual, antes del 2° parcial. Hay también "Spontaneous Rewards" en clase, que se sortean.'},
+  {st: 'La estrategia recomendada al recibir el texto del parcial es:', opts: ['Empezar a traducir desde la primera línea', 'Skimming inicial (título, abstract, conclusión) → leer consignas → scanning para responderlas → marcar el texto', 'Leer linealmente sin saltar', 'Traducir todo el abstract literalmente'], c: 1, ex: 'Plan eficiente: 1) skimming (~5 min): título, abstract, conclusión; 2) leer consignas; 3) scanning para encontrar respuestas; 4) marcar gap, objetivo, métodos, resultados; 5) responder primero las claras y dejar dudas para el final. NO traducir todo: no alcanza el tiempo.'},
+  {st: 'Una de las consignas frecuentes del parcial es:', opts: ['Recitar las references', 'Identificar el gap del abstract y citarlo en inglés con su traducción', 'Reescribir el paper completo', 'Resolver una ecuación'], c: 1, ex: 'Identificar el gap es una de las consignas estrella. Por eso conocer las marcas lingüísticas ("has not been studied", "is required", "yet little is known", "the key question remains") es esencial. Suele pedirse cita literal + traducción.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '9', [
+  {st: 'En el grupo nominal "waste management system", ¿cuál es el núcleo (head noun)?', opts: ['waste', 'management', 'system', 'no tiene núcleo'], c: 2, ex: 'En inglés el núcleo de un grupo nominal es SIEMPRE la última palabra: "system". Todo lo que está a su izquierda lo modifica. Se traduce de derecha a izquierda: "sistema (system) de gestión (management) de residuos (waste)".'},
+  {st: 'La traducción correcta de "renewable energy deployment" es:', opts: ['renovable energía despliegue', 'el despliegue de energía renovable', 'desplegar energías renovablemente', 'la energía del despliegue renovable'], c: 1, ex: 'Se lee de derecha a izquierda: núcleo "deployment" (despliegue) ← "energy" (de energía) ← "renewable" (renovable) = "el despliegue de energía renovable". Traducir de izquierda a derecha palabra por palabra es el error típico.'},
+  {st: 'En "machine-to-machine connected devices", el núcleo y su traducción son:', opts: ['machine; máquinas conectadas', 'connected; las conexiones de la máquina', 'devices; dispositivos conectados de máquina a máquina', 'to; hacia los dispositivos'], c: 2, ex: 'El núcleo es la última palabra: "devices" (dispositivos). Hacia atrás: "connected" (conectados) y "machine-to-machine" (de máquina a máquina). Resultado: "dispositivos conectados de máquina a máquina".'},
+  {st: '¿Por qué "a two-year study" lleva "year" en singular y no "years"?', opts: ['Es un error del autor', 'Porque el sustantivo que modifica a otro (premodificador) va en singular, aunque el sentido sea plural', 'Porque "study" es incontable', 'Porque "two" exige singular siempre'], c: 1, ex: 'Cuando un sustantivo funciona como adjetivo (premodificador) va en singular: "a two-year study" (un estudio de dos años), "a 20-page report". El plural se reserva para el núcleo. Es una regla clave de los grupos nominales en inglés técnico.'},
+  {st: 'Para traducir un grupo nominal largo del inglés al español, la estrategia es:', opts: ['Traducir de izquierda a derecha palabra por palabra', 'Identificar el núcleo (última palabra) y leer hacia atrás', 'Buscar solo el primer sustantivo', 'Ignorar los adjetivos'], c: 1, ex: 'La regla de oro: el núcleo es la última palabra de la cadena; se empieza por ahí y se avanza hacia la izquierda, agregando "de/para" o adjetivos según corresponda. "information management software tool" = "una herramienta de software para gestión de información".'}
+]);
+
+registerExercises('ingles-tecnico-ii', '10', [
+  {st: 'El texto "Artificial Intelligence in Education: A Review" (Chen et al., 2020) es, por su tipo:', opts: ['Un paper experimental con datos primarios', 'Un Review Article: sintetiza estudios previos, no genera datos nuevos', 'Un software tool article', 'Un case study'], c: 1, ex: 'Es un Review Article publicado en IEEE Access (vol. 8, 2020). Usa una revisión bibliográfica cualitativa (datos secundarios), con análisis temático y de contenido. No produce datos primarios: reúne y evalúa lo ya investigado sobre el impacto de la IA en la educación.'},
+  {st: 'En este texto, ¿cuál es la oración que cumple la función de objetivo/propósito?', opts: ['"AI has had a major impact on education."', '"This study seeks to assess how the use of AI, in its different forms, in education, has impacted or affected different aspects of education."', '"A qualitative research study was used."', '"Computer technologies have continued to evolve."'], c: 1, ex: 'El verbo en presente simple "seeks to assess" (busca evaluar) marca el propósito del paper. Se enfoca en tres áreas: teaching/instruction, learning y administration/management. La primera opción es la conclusión; la tercera, métodos.'},
+  {st: '¿Por qué en este review NO aparece la marca clásica de gap "has not been clarified"?', opts: ['Porque no tiene gap', 'Porque en un review el vacío es de síntesis (bibliográfico): faltaba un trabajo que reúna y evalúe de conjunto el impacto de la IA en educación', 'Porque el gap está en las references', 'Porque es un error del autor'], c: 1, ex: 'En un review el "gap" no es un experimento faltante sino la falta de una síntesis. La bisagra que reemplaza al objetivo experimental es el "para qué" ("This study seeks to assess..."). Contrasta con los textos de mecatrónica y abejorros, donde el gap sí tiene marcas lingüísticas explícitas.'},
+  {st: 'Una particularidad de la copia de este texto cargada en el AV es que:', opts: ['No tiene título', 'No trae el texto del abstract (va del encabezado "ABSTRACT" directo a las "INDEX TERMS")', 'Está en español', 'No tiene conclusión'], c: 1, ex: 'El abstract fue removido en esta copia. Lejos de ser un problema, es ideal para practicar la consigna de "escribir/reconstruir un abstract": se arma rastreando los movimientos retóricos en la introducción ("Purpose of the study") y la conclusión.'},
+  {st: 'En la frase "...leveraging technology", el verbo "to leverage" significa:', opts: ['Apalancar (finanzas)', 'Aprovechar / sacar provecho de', 'Levantar', 'Liberar'], c: 1, ex: '"To leverage" = aprovechar, sacar provecho. "Leveraging technology" = aprovechando la tecnología. Es un falso amigo frecuente en textos técnicos: no se traduce literalmente como "apalancar".'},
+  {st: '¿Cuáles de estas aplicaciones de IA en educación menciona el texto?', opts: ['Solo planillas de cálculo', 'Sistemas tutores inteligentes, chatbots, cobots/robots humanoides y aprendizaje personalizado/adaptativo', 'Únicamente impresoras 3D', 'Solo redes sociales'], c: 1, ex: 'El paper recorre intelligent tutoring systems, machine learning, deep learning, data mining, natural language interaction, chatbots, cobots y humanoid robots, y el aprendizaje personalizado/adaptativo, en las áreas de administración, instrucción y aprendizaje.'},
+  {st: 'El tiempo verbal de "AI has been extensively adopted and used in the education sector" indica:', opts: ['Un hecho futuro', 'Present perfect pasivo: una acción que llega hasta el presente (antecedente/impacto acumulado)', 'Methods en pasado simple', 'Una hipótesis'], c: 1, ex: '"has been adopted/used" es present perfect en voz pasiva: conecta el pasado con el presente ("ha sido adoptada y usada"). Marca un proceso acumulado que sigue vigente, típico al describir el estado del arte o el impacto.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '11', [
+  {st: 'En "Automated Configuration of... Mechatronic Systems" (Stegmaier et al., 2024), el gap se enuncia en la sección "State of the art" así:', opts: ['"This paper presents an approach..."', '"There are some approaches to simulation-based optimization... but their focus is on entire production systems and not on subsystems of component manufacturers."', '"The product portfolio has grown steadily."', '"A total of 7,200 configurations are examined."'], c: 1, ex: 'El "but... and not on..." marca el vacío: ya existen métodos de optimización, PERO apuntan a sistemas de producción enteros y NO a los subsistemas de los fabricantes de componentes. Por eso "the modeling depth of these approaches is rather low".'},
+  {st: 'La oración de objetivo "This paper aims to address this issue by coupling automated behavior model creation with optimization algorithms..." sigue el patrón:', opts: ['Background en presente', 'Aim/objetivo: "This paper aims to address... by + gerundio"', 'Resultado en pasado', 'Conclusión con modal'], c: 1, ex: 'La fórmula "This paper aims to address this issue by + gerundio" es marca canónica del objetivo. El patrón completo es: primero el problema ("it remains time-consuming") y luego "aims to address this issue by coupling...".'},
+  {st: 'Comparando los métodos, el texto reporta que el Simulated Annealing (SimA):', opts: ['Es peor que el diseño manual', 'Encuentra una configuración casi tan buena como la óptima (brute-force) pero con ~97% menos tiempo de cómputo', 'Tarda 7 días', 'No converge nunca'], c: 1, ex: 'El brute-force halla el óptimo (costo 0.0717) pero tarda ~7 días (7200 configuraciones). El SimA logra un costo similar (0.1001) en ~5,25 h con 218 configuraciones: "the computation time is almost 97% less". Menor costo = mejor configuración.'},
+  {st: 'En "This method is realized in section 4", la palabra "realized" significa:', opts: ['Se dio cuenta', 'Se implementa / se concreta / se lleva a la práctica', 'Se realiza un sueño', 'Se da por terminado'], c: 1, ex: 'Falso amigo clásico de ingeniería: "to realize" un método = implementarlo, concretarlo. No es "darse cuenta". Lo mismo con "component libraries" = bibliotecas de componentes (no "librerías").'},
+  {st: 'En el grupo nominal "vacuum gripping system", el núcleo (head noun) es:', opts: ['vacuum', 'gripping', 'system', 'no tiene'], c: 2, ex: 'El núcleo es la última palabra: "system". Leyendo de derecha a izquierda: system (sistema) ← gripping (de agarre) ← vacuum (por vacío) = "un sistema de agarre por vacío".'},
+  {st: 'El caso de aplicación usado para ilustrar el método es:', opts: ['Impresión 3D', 'Sistemas de agarre por vacío (vacuum generators, hoses y suction cups), p. ej. para manipular paneles solares', 'Soldadura láser', 'Diseño de chips'], c: 1, ex: 'Se aplica a vacuum gripping systems formados por generadores de vacío, mangueras (hoses) y ventosas (suction cups). Se optimiza una cost function ponderada con cuatro KPIs: acquisition cost, energy consumption, holding force y evacuation time.'}
+]);
+
+registerExercises('ingles-tecnico-ii', '12', [
+  {st: 'En "Measurement of electric charges on foraging bumblebees" (Montgomery et al., 2019), el gap se reconoce porque el autor:', opts: ['No lo menciona', 'Lo nombra explícitamente: "as no data currently exist on the electric charge of bumblebees foraging in the field... we address this gap"', 'Solo lo sugiere en las references', 'Lo pone en el título'], c: 1, ex: 'Es el ejemplo más claro del corpus: dos marcas juntas, "no data currently exist on..." (no existen datos sobre...) y la frase literal "we address this gap" (abordamos este vacío). Si te piden el gap, esa oración es la respuesta.'},
+  {st: 'En este texto, "in the field" / "field site" debe entenderse como:', opts: ['El campo de estudio / la disciplina', 'A la intemperie, en condiciones reales (por oposición al laboratorio)', 'Un campo magnético', 'Un sembradío específico'], c: 1, ex: 'Acá "field" se opone a "laboratory": las mediciones se hacen con abejas volando libres a la intemperie, no en condiciones controladas de laboratorio. Es un falso amigo contextual: no es "campo de estudio".'},
+  {st: 'El tiempo verbal de "Electrostatics has been shown to facilitate pollen transfer" señala:', opts: ['Un resultado del propio paper', 'Present perfect pasivo: conocimiento previo establecido (background/antecedente)', 'Una hipótesis a futuro', 'Métodos'], c: 1, ex: '"has been shown" es present perfect en voz pasiva: "se ha demostrado". Presenta conocimiento ya establecido en el campo (background). Distinto de los resultados del paper, que van en pasado simple ("charges were nearly always positive").'},
+  {st: 'Según los resultados, las cargas de las abejas en el campo, comparadas con las de laboratorio:', opts: ['Son mucho menores siempre', 'Son mayoritariamente positivas y de magnitud similar, pero con un rango mucho mayor, y disminuyen con la humedad', 'Son siempre negativas', 'No se pudieron medir'], c: 1, ex: 'Carga media en el campo 116 ± 159 pC vs 32 ± 35 pC en laboratorio: similar magnitud pero mucho mayor variabilidad. La humedad relativa reduce la carga (decaimiento exponencial) y con lluvia la carga baja significativamente.'},
+  {st: 'El "However" en la conclusión ("...similar in magnitude... However, outdoor bees have a much greater range of charges...") sirve para:', opts: ['Confirmar lo anterior', 'Introducir un contraste/matiz: coinciden en magnitud, pero en el campo la variabilidad es mucho mayor', 'Cerrar las references', 'Anunciar los métodos'], c: 1, ex: 'El conector de contraste "However" matiza: las cargas de campo y laboratorio coinciden en magnitud, PERO las de campo tienen un rango mucho mayor y dependen de la humedad. Reconocer estos conectores es clave para seguir el hilo del argumento.'},
+  {st: 'La implicación final del paper es que los modelos de polinización basados en mediciones de laboratorio:', opts: ['Son inservibles', 'Pueden subestimar el rol de las fuerzas de Coulomb en días cálidos y secos, cuando las cargas de las abejas al aire libre superan a las de laboratorio', 'Sobreestiman siempre la carga', 'Deben descartarse'], c: 1, ex: '"models of pollen transfer based on indoor bee charge measurements may underestimate the role of Coulomb forces... under fair weather conditions". El modal "may" matiza la afirmación: en días buenos, las cargas reales (más altas) harían que los modelos de laboratorio queden cortos.'},
+  {st: 'En el grupo nominal "non-contact induction ring technique", el núcleo y su traducción son:', opts: ['contact; el contacto', 'technique; una técnica de anillo de inducción sin contacto', 'ring; el anillo', 'induction; la inducción'], c: 1, ex: 'El núcleo es la última palabra: "technique". Hacia atrás: ring (de anillo) ← induction (de inducción) ← non-contact (sin contacto) = "una técnica de anillo de inducción sin contacto". Cadena nominal densa, típica del inglés técnico.'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

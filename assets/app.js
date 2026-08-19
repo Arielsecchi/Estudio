@@ -66,8 +66,17 @@ function closeDrawer(){
 }
 
 function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
   document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
-  document.getElementById('subject-' + subject).classList.add('active');
+  seccion.classList.add('active');
   document.documentElement.setAttribute('data-subject', subject);
   document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
     it.classList.toggle('active', it.getAttribute('data-target') === subject);
@@ -308,10 +317,13 @@ function revealAns(subject, unit, idx){
   restoreCatState();
   restoreSubState();
 
-  // Materia guardada (default: la primera)
-  let savedSubject = null;
-  try { savedSubject = localStorage.getItem('uba-subject'); } catch(e) {}
-  switchSubject(savedSubject || 'analisis');
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
 })();
 
 // Navegación del índice: abre details al hacer click

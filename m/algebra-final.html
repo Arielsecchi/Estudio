@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Álgebra · Final · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="algebra-final"] {
+    --bg: #eef0f9; --text: #1e2233; --text-muted: #5b6478;
+    --surface: #ffffff; --surface-2: #dee2f3; --surface-3: #cad0ec;
+    --border: #d6dbf0; --border-2: #bcc4e6;
+    --accent: #3730a3; --accent-hover: #4f46c4; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #dee2f3; --summary-hover: #cad0ec; --num-text: #ffffff;
+    --shadow: rgba(55, 48, 163, 0.08);
+  }
+  [data-theme="dark"][data-subject="algebra-final"] {
+    --bg: #0e1020; --text: #e3e5f2; --text-muted: #969cb6;
+    --surface: #181a2e; --surface-2: #23263e; --surface-3: #2f3350;
+    --border: #2f3350; --border-2: #3d4163;
+    --accent: #a5b4fc; --accent-hover: #c7d2fe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #ef4444;
+    --summary-bg: #23263e; --summary-hover: #2f3350; --num-text: #0e1020;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+          <div class="info">
+            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+            <div class="d">Palacios · Guía completa (4 unidades + parcial real)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+          <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+          <div class="info">
+            <div class="t" style="color:#9d2449">Anatomía e Histología · FIUBA</div>
+            <div class="d">Iurman · Guía completa (citología → sistemas)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+          <div class="ic" style="background:#1b5e20;color:#fff">AP</div>
+          <div class="info">
+            <div class="t" style="color:#1b5e20">Algoritmos y Programación I · FIUBA</div>
+            <div class="d">Azcurra · Guía completa de C (9 guías de la cátedra)</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+          <div class="ic" style="background:#b45309;color:#fff">IE</div>
+          <div class="info">
+            <div class="t" style="color:#b45309">Intro Ing. Electrónica · FIUBA</div>
+            <div class="d">Veiga · Guía completa (9 exámenes reales)</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== ÁLGEBRA · FINAL ============================ -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-algebra-final">
+  <header>
+    <h1>Álgebra · Guía de Final</h1>
+    <div class="sub">UBA XXI · Cátedra Escayola · 28 finales reales resueltos (2024–2026) · con teoría de Álgebra A</div>
+  </header>
+<nav class="toc" id="toc-algebra-final">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#algfin-s1">Estrategia general y qué temas entran</a></li>
+    <li><a href="#algfin-s2">Vectores (ℝ², ℝ³)</a></li>
+    <li><a href="#algfin-s3">Rectas y planos</a></li>
+    <li><a href="#algfin-s4">Números complejos</a></li>
+    <li><a href="#algfin-s5">Cónicas</a></li>
+    <li><a href="#algfin-s6">Transformaciones lineales</a></li>
+    <li><a href="#algfin-s7">Polinomios</a></li>
+    <li><a href="#algfin-s8">Subespacios y dependencia lineal</a></li>
+    <li><a href="#algfin-s9">Sistemas, matrices y determinantes</a></li>
+  </ol>
+  <div class="score" id="global-score-algebra-final">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · ESTRATEGIA ============ -->
+<details id="algfin-s1">
+<summary><span class="num">1</span> Estrategia general y qué temas entran <span class="sec-score" id="ss-algebra-final-1"></span></summary>
+<div class="content">
+
+<h3>Cómo es el final</h3>
+<p>El final de Álgebra A son <b>8 ejercicios</b> (1,25 puntos cada uno), cada uno de un tema distinto. Aproximadamente la mitad son <b>multiple choice</b> (elegís A, B, C o D) y la otra mitad piden un <b>resultado numérico exacto</b>. Esta guía está armada sobre <b>28 finales reales resueltos</b> (Julio, Diciembre y Febrero de 2024, 2025 y 2026): 224 ejercicios, y usa la <b>teoría de la materia Álgebra A</b> para explicar cada uno.</p>
+
+<h3>Qué temas entran y cuánto pesan</h3>
+<p><b>Siete temas aparecen en casi todos los finales</b> (uno por examen) y un octavo lugar rota entre tres temas emparentados.</p>
+<table class="tbl">
+  <tr><th>Tema</th><th>Frecuencia (en 28 finales)</th><th>Peso</th></tr>
+  <tr><td><b>Rectas y planos</b></td><td>30 (~1,1 por final)</td><td>Fijo — fundamental</td></tr>
+  <tr><td><b>Vectores</b></td><td>28 (~1)</td><td>Fijo</td></tr>
+  <tr><td><b>Números complejos</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Cónicas</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Transformaciones lineales</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Polinomios</b></td><td>28</td><td>Fijo</td></tr>
+  <tr><td><b>Subespacios</b></td><td>26 (~0,9)</td><td>Fijo</td></tr>
+  <tr><td><b>Determinantes / Matrices / Sistemas</b></td><td>12 / 8 / 8 (≈ 1, rotando)</td><td>El "8º ejercicio"</td></tr>
+</table>
+<p>Los siete fijos valen un ejercicio garantizado cada uno: <b>ninguno es más importante que otro</b>. Del octavo rotativo, <b>determinantes</b> es el más frecuente.</p>
+
+<h3>Cómo está organizada esta guía</h3>
+<p>Cada tema tiene: la <b>teoría</b> clave (de Álgebra A), una tabla con los <b>sub-tipos</b> que caen, <b>un ejemplo real resuelto de cada sub-tipo</b> (paso a paso, con la opción correcta si era multiple choice, o el proceso y la respuesta si era numérico), y abajo dos prácticas: los <b>multiple choice</b> reales para autoevaluarte y los ejercicios de <b>respuesta numérica</b> con botón para <b>revelar la respuesta</b>.</p>
+
+<table class="tbl">
+  <tr><th>Cuando el ejercicio pide...</th><th>El atajo es...</th></tr>
+  <tr><td>parámetro para que "no sea isomorfismo / no inversible / no compatible determinado"</td><td><b>det = 0</b> y despejar (la matriz pierde rango).</td></tr>
+  <tr><td>cuadrante o argumento de z = (a+bi)ⁿ</td><td><b>De Moivre:</b> arg(zⁿ)=n·arg(z); reducir a [0,2π).</td></tr>
+  <tr><td>"indicá la única afirmación verdadera/falsa"</td><td><b>Verificar cada opción A–D</b> con su definición.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Regla de oro en multiple choice</div>
+<b>Calculá primero, mirá las opciones después.</b> Casi todos los MC se resuelven hallando el valor y recién después buscando la opción que coincide. Las opciones suelen ser trampas típicas: el recíproco, el signo cambiado o un resultado intermedio. En los de respuesta numérica no hay red: revisá las cuentas.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 ============ -->
+<details id="algfin-s2">
+<summary><span class="num">2</span> Vectores (ℝ², ℝ³) <span class="sec-score" id="ss-algebra-final-2"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3><p>Casi siempre te dan vectores con condiciones (opuesto, múltiplo, perpendicular, ángulo) y un parámetro a despejar, o piden la única afirmación verdadera/falsa.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Vectores)</b><br>
+ Norma: ‖v⃗‖ = √(v₁² + v₂² + …) &nbsp;·&nbsp; ‖λ·v⃗‖ = |λ|·‖v⃗‖<br>
+ Producto escalar: u⃗·v⃗ = u₁v₁+u₂v₂+… = ‖u⃗‖‖v⃗‖·cos θ &nbsp;⟹&nbsp; <b>u⃗ ⊥ v⃗ ⟺ u⃗·v⃗ = 0</b><br>
+ Producto vectorial (ℝ³): u⃗×v⃗ es ⊥ a u⃗ y a v⃗; &nbsp; <b>u⃗ ∥ v⃗ ⟺ u⃗×v⃗ = 0⃗</b><br>
+ 3 vectores de ℝ³ son linealmente independientes ⟺ el determinante que forman ≠ 0</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Cómo se reconoce</th><th>Método</th></tr>
+<tr><td><b>Norma de una combinación lineal</b></td><td>"w⃗ opuesto de v⃗, u⃗=½v⃗ … ‖4(w⃗+u⃗)−2v⃗‖ = k‖−8v⃗‖"</td><td>Sustituí cada vector, reducí a un múltiplo de v⃗ y usá ‖λv⃗‖=|λ|‖v⃗‖. Igualá y despejá.</td></tr>
+<tr><td><b>Producto escalar / ortogonalidad con parámetro</b></td><td>"v⃗ ⊥ (w⃗+…)", ángulo dado</td><td>Imponé el producto escalar = 0 y usá u⃗·v⃗=‖u⃗‖‖v⃗‖cos θ; queda una ecuación.</td></tr>
+<tr><td><b>Producto vectorial</b></td><td>vector ⊥ a dos a la vez, paralelismo</td><td>El ⊥ a dos vectores es u⃗×v⃗; para paralelos u⃗×v⃗=0⃗.</td></tr>
+<tr><td><b>Independencia / dependencia lineal</b></td><td>"para qué m los 3 vectores son LD"</td><td>Determinante de los 3 vectores = 0 (LD) o ≠ 0 (LI).</td></tr>
+<tr><td><b>Ángulo entre vectores</b></td><td>"ángulo con los semiejes", cos θ</td><td>cos θ = (u⃗·v⃗)/(‖u⃗‖‖v⃗‖).</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Norma de una combinación lineal · <span class='muted'>respuesta numérica · Final Dic 2025 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Considerá dos vectores v⃗, w⃗ ∈ ℝ² tales que v⃗ = (3; 4), el ángulo entre v⃗ y w⃗ es π/3, y v⃗ es ortogonal a [w⃗ + (1; −3)]. Calculá el valor exacto de ‖w⃗‖.</p>
+  <p><b>Resolución.</b> Imponé v⃗·[w⃗+(1;−3)]=0 y desarrollá: v⃗·w⃗ + v⃗·(1;−3)=0. Usá v⃗·w⃗=‖v⃗‖‖w⃗‖cos(π/3)=5·‖w⃗‖·(1/2) y v⃗·(1;−3)=−9; despejá (5/2)‖w⃗‖−9=0 ⇒ ‖w⃗‖=18/5.</p>
+  <p><b>Respuesta:</b> ‖w⃗‖ = 18/5</p>
+</div>
+<div class="example">
+  <div class="ex-t">Producto escalar / ortogonalidad con parámetro · <span class='muted'>respuesta numérica · Final Dic 2025 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Considerá dos vectores v⃗, w⃗ ∈ ℝ² tales que v⃗ = (3; 4), el ángulo entre v⃗ y w⃗ es π/3, y v⃗ es ortogonal a [w⃗ + (1; −3)]. Calculá el valor exacto de ‖w⃗‖.</p>
+  <p><b>Resolución.</b> De v⃗·[w⃗+(1;−3)]=0 ⇒ v⃗·w⃗ + v⃗·(1;−3)=0. Con v⃗·w⃗=‖v⃗‖‖w⃗‖cos(π/3)=5·‖w⃗‖·(1/2) y v⃗·(1;−3)=3−12=−9: (5/2)‖w⃗‖−9=0 ⇒ ‖w⃗‖=18/5.</p>
+  <p><b>Respuesta:</b> (ver resolución)</p>
+</div>
+<div class="example">
+  <div class="ex-t">Producto vectorial · <span class='muted'>opción múltiple · Final Dic 2025 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Considerá tres vectores u⃗, v⃗, w⃗ ∈ ℝ³ tales que u⃗ = (3; 0; −4), v⃗ = ‖u⃗‖·(−2/5)·u⃗, y w⃗ = v⃗ × (1; −1; 1). Indicá cuál es la única afirmación falsa respecto de estos vectores.</p>
+  <p><b>Opciones:</b> <b>A)</b> w⃗ = (8; −14; 6) &nbsp;·&nbsp; <b>B)</b> u⃗, v⃗ son paralelos. &nbsp;·&nbsp; <b>C)</b> w⃗ es ortogonal a u⃗ y a v⃗. &nbsp;·&nbsp; <b>D)</b> w⃗ = (8; 14; 6)</p>
+  <p><b>Resolución.</b> ‖u⃗‖ = √(9+16) = 5, así v⃗ = 5·(−2/5)·(3;0;−4) = (−6;0;8). Entonces w⃗ = (−6;0;8)×(1;−1;1) = (8;14;6), que coincide con D (verdadera). A) escribe (8;−14;6), con el signo de la 2ª coordenada cambiado: es la falsa.</p>
+  <p><b>Respuesta:</b> w⃗ = (8; −14; 6) <span class='muted'>(opción A)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Independencia / dependencia lineal con parámetro · <span class='muted'>respuesta numérica · Final Jul 2024 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Indicá el valor de m ∈ ℝ para el cual el conjunto {(4, 1, 3); (7, m, 8); (−2, 6, 4)} resulta linealmente dependiente.</p>
+  <p><b>Resolución.</b> Tres vectores de ℝ³ son LD ⟺ el determinante de la matriz que forman es 0. Armá det con columnas/filas y resolvé en m; sale m=5. (Equivale a que el sistema homogéneo tenga solución no trivial.)</p>
+  <p><b>Respuesta:</b> 5</p>
+</div>
+<div class="example">
+  <div class="ex-t">Ángulo entre vectores · <span class='muted'>respuesta numérica · Final Feb 2026 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Considerá dos vectores v⃗ y w⃗ ∈ ℝ³ tales que ‖v⃗‖ = 1, el ángulo que forman v⃗ y w⃗ es π/3, v⃗ es ortogonal a (w⃗ − 4v⃗) y w⃗ = (k; k−8; 0). Determiná el valor positivo de k ∈ ℝ para que se cumpla todo lo mencionado.</p>
+  <p><b>Resolución.</b> De v⃗·(w⃗−4v⃗)=0 sale v⃗·w⃗ = 4‖v⃗‖² = 4. Pero v⃗·w⃗ = ‖v⃗‖‖w⃗‖cos(π/3) = ‖w⃗‖·(1/2). Igualando: ‖w⃗‖ = 8. Entonces k² + (k−8)² = 64 ⇒ 2k² − 16k = 0 ⇒ k=0 o k=8; el positivo es k=8.</p>
+  <p><b>Respuesta:</b> (ver resolución)</p>
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="2" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 ============ -->
+<details id="algfin-s3">
+<summary><span class="num">3</span> Rectas y planos <span class="sec-score" id="ss-algebra-final-3"></span></summary>
+<div class="content">
+
+<h3>El tema más frecuente (≈ 1,1 por final)</h3><p>Distancias, simétricos, posiciones relativas y ángulos, siempre en ℝ³.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Rectas y planos)</b><br>
+ Plano ax+by+cz=d ⟹ normal n⃗=(a,b,c). Recta: P + t·d⃗.<br>
+ <b>Distancia punto–plano:</b> d(A,π) = |a·x₀+b·y₀+c·z₀ − d| / √(a²+b²+c²)<br>
+ <b>Simétrico de P respecto de π:</b> hallá el pie Q (perpendicular por P) y P′ = 2Q − P<br>
+ <b>Ángulo entre planos</b> = ángulo entre normales: cos α = |n⃗₁·n⃗₂|/(‖n⃗₁‖‖n⃗₂‖)<br>
+ <b>Recta ∥ plano ⟺</b> director ⊥ normal (producto escalar 0)</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Distancia de un punto a un plano</b></td><td>Fórmula directa con la normal; no hace falta proyectar.</td></tr>
+<tr><td><b>Punto simétrico respecto de un plano</b></td><td>Recta normal por el punto → pie Q → P′ = 2Q − P.</td></tr>
+<tr><td><b>Posición relativa de dos rectas</b></td><td>Directores: paralelos→‖; si no, ¿se cortan? No → alabeadas. Ortogonales ⟺ producto escalar 0.</td></tr>
+<tr><td><b>Ángulo entre dos planos</b></td><td>Ángulo de las normales; se toma el agudo.</td></tr>
+<tr><td><b>Paralelismo recta–plano</b></td><td>Director ⊥ normal del plano.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Distancia de un punto a un plano · <span class='muted'>respuesta numérica · Final Dic 2024 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Calculá la distancia entre el plano π de ecuación 12x + 9z = −3 − 36y y el punto de coordenadas A = (6 ; 11 ; 4).</p>
+  <p><b>Resolución.</b> Reescribí el plano como 12x + 36y + 9z + 3 = 0 (normal n=(12;36;9)=3·(4;12;3), ‖(4,12,3)‖=13) y aplicá la fórmula distancia = |12·6 + 36·11 + 9·4 + 3| / ‖(12,36,9)‖ = |72+396+36+3| / 39 = 507/39 = 13.</p>
+  <p><b>Respuesta:</b> 13</p>
+</div>
+<div class="example">
+  <div class="ex-t">Punto simétrico respecto de un plano · <span class='muted'>respuesta numérica · Final Feb 2024 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Si M es el punto simétrico de B = (1; 2; 3) respecto del plano π : x − 3y − 2z + 25 = 0, calculá la segunda coordenada del punto M.</p>
+  <p><b>Resolución.</b> Recta por B con dirección el normal del plano (1;−3;−2): (x;y;z)=(1;2;3)+k(1;−3;−2). Intersecá con π para hallar el pie Q (es el punto medio de B y M), y obtené M = 2Q − B. La 2ª coordenada de M es 2·5 − 2 = 8.</p>
+  <p><b>Respuesta:</b> 8</p>
+</div>
+<div class="example">
+  <div class="ex-t">Posición relativa de dos rectas · <span class='muted'>opción múltiple · Final Feb 2025 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Considerá las rectas de ecuación L1 = {(x; y; z) ∈ ℝ³ : x + 2y = 1, z = 3} y L2 = {(x; y; z) ∈ ℝ³ : (x; y; z) = k(1/3; 2/3; 0), k ∈ ℝ}. Elegí la única afirmación que resulta verdadera.</p>
+  <p><b>Opciones:</b> <b>A)</b> Las rectas son paralelas. &nbsp;·&nbsp; <b>B)</b> Las rectas son ortogonales y alabeadas. &nbsp;·&nbsp; <b>C)</b> Las rectas son coincidentes. &nbsp;·&nbsp; <b>D)</b> Las rectas son ortogonales y su intersección no es vacía.</p>
+  <p><b>Resolución.</b> Sacá los vectores directores: L1 tiene dirección (−2; 1; 0) y L2 tiene (1/3; 2/3; 0). Producto escalar = 0 → ortogonales. Buscá intersección y aparece un absurdo (L1 vive en z=3, L2 en z=0) → no se cortan, son alabeadas.</p>
+  <p><b>Respuesta:</b> Las rectas son ortogonales y alabeadas. <span class='muted'>(opción B)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Ángulo entre dos planos · <span class='muted'>respuesta numérica · Final Jul 2025 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Calculá de manera exacta la amplitud del ángulo que forman los planos de ecuación: π₁: −2x − 2y − z = 9 y π₂: 2y + 2z = −5.</p>
+  <p><b>Resolución.</b> El ángulo entre planos es el de sus normales N⃗₁ = (−2;−2;−1) y N⃗₂ = (0;2;2). cos(α) = (N⃗₁·N⃗₂)/(‖N⃗₁‖‖N⃗₂‖) = (−6)/(3·2√2) = −1/√2 ⇒ α = 3π/4; se toma el suplemento agudo π/4.</p>
+  <p><b>Respuesta:</b> π/4</p>
+</div>
+<div class="example">
+  <div class="ex-t">Paralelismo recta–plano · <span class='muted'>opción múltiple · Final Dic 2025 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Calculá el valor de k ∈ ℝ para que el plano de ℝ³ definido por π: −2x + ky + z = 1 resulte paralelo a la recta de ecuación L: { x − y = 0 ; x + y − 2z = 4 }.</p>
+  <p><b>Opciones:</b> <b>A)</b> k = 1 &nbsp;·&nbsp; <b>B)</b> k = −1 &nbsp;·&nbsp; <b>C)</b> k = 2 &nbsp;·&nbsp; <b>D)</b> k = 0</p>
+  <p><b>Resolución.</b> El director de L se obtiene como producto vectorial de las normales de los dos planos: (1;−1;0)×(1;1;−2) = (2;2;2). El plano es paralelo a L cuando su normal (−2;k;1) es ortogonal al director: (2;2;2)·(−2;k;1)=0 ⟹ −4+2k+2=0 ⟹ k=1.</p>
+  <p><b>Respuesta:</b> k = 1 <span class='muted'>(opción A)</span></p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="3" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 ============ -->
+<details id="algfin-s4">
+<summary><span class="num">4</span> Números complejos <span class="sec-score" id="ss-algebra-final-4"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3><p>Casi todo sale más rápido pasando a <b>forma polar</b> y usando De Moivre.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Números complejos)</b><br>
+ z = a+bi; |z|=√(a²+b²); arg(z)=arctan(b/a) (según cuadrante); conjugado z̄=a−bi, z·z̄=|z|².<br>
+ Polar: z = |z|·(cos θ + i·sen θ) = |z|·e^{iθ}.<br>
+ <b>De Moivre:</b> zⁿ = |z|ⁿ·(cos nθ + i·sen nθ). En un producto: módulos se multiplican, argumentos se suman.<br>
+ <b>Raíces n-ésimas</b> de w: módulo ⁿ√|w| y argumentos (arg w + 2kπ)/n, k=0,…,n−1.</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Cuadrante / argumento de una potencia</b></td><td>arg(zⁿ)=n·arg(z), reducí a [0,2π) y mirá el cuadrante.</td></tr>
+<tr><td><b>Forma polar de un producto / potencia</b></td><td>De Moivre: módulos ×, argumentos +.</td></tr>
+<tr><td><b>Ecuación con módulo y argumento</b></td><td>Pasás a polar, resolvés módulo y argumento (a veces el de menor argumento).</td></tr>
+<tr><td><b>Raíces cúbicas z³ = w</b></td><td>Despejás z³, factorizás (z−r)(z²+…); las no reales dan la parte imaginaria pedida.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Cuadrante / argumento de una potencia · <span class='muted'>opción múltiple · Final Feb 2026 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Elegí la opción que muestra el argumento θ y módulo del complejo z = (1 + i)⁸(1 − √3 i)⁵.</p>
+  <p><b>Opciones:</b> <b>A)</b> θ = π/4 y |z| = 512 &nbsp;·&nbsp; <b>B)</b> θ = π/3 y |z| = 16 &nbsp;·&nbsp; <b>C)</b> θ = π/4 y |z| = 16 &nbsp;·&nbsp; <b>D)</b> θ = π/3 y |z| = 512</p>
+  <p><b>Resolución.</b> En polar: (1+i)=√2∠(π/4) ⇒ (1+i)⁸=16∠0; (1−√3i)=2∠(−π/3) ⇒ elevado a 5 = 32∠(−5π/3)=32∠(π/3). Producto: módulo 16·32=512, argumento 0+π/3=π/3.</p>
+  <p><b>Respuesta:</b> θ = π/3 y |z| = 512 <span class='muted'>(opción D)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Forma polar de un producto / potencia · <span class='muted'>opción múltiple · Final Feb 2026 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Elegí la opción que muestra el argumento θ y módulo del complejo z = (1 + i)⁸ · (1 − √3 i)⁵.</p>
+  <p><b>Opciones:</b> <b>A)</b> θ = π/4 y |z| = 512 &nbsp;·&nbsp; <b>B)</b> θ = π/3 y |z| = 16 &nbsp;·&nbsp; <b>C)</b> θ = π/4 y |z| = 16 &nbsp;·&nbsp; <b>D)</b> θ = π/3 y |z| = 512</p>
+  <p><b>Resolución.</b> Pasá cada factor a polar. 1+i = √2·(cos π/4 + i sin π/4) ⇒ (1+i)⁸ tiene módulo (√2)⁸=16 y arg 8·π/4=2π≡0. 1−√3i = 2·(cos 5π/3 + i sin 5π/3) ⇒ ()⁵ tiene módulo 2⁵=32 y arg 25π/3≡π/3. Multiplicá módulos (16·32=512) y sumá argumentos (0+π/3=π/3).</p>
+  <p><b>Respuesta:</b> θ = π/3 y |z| = 512 <span class='muted'>(opción D)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Ecuación con módulo y argumento → menor argumento · <span class='muted'>respuesta numérica · Final Feb 2024 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Si z ∈ ℂ \ {0} que cumple que z⁸ − i·z⁷ = 0, calculá z.</p>
+  <p><b>Resolución.</b> Factorizar: z⁸ − i·z⁷ = z⁷(z − i) = 0. Como z ≠ 0, debe ser z − i = 0, es decir z = i.</p>
+  <p><b>Respuesta:</b> i</p>
+</div>
+<div class="example">
+  <div class="ex-t">Raíces cúbicas z³ = w · <span class='muted'>opción múltiple · Final Feb 2025 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Si z ∈ ℂ \ {0} calculá de manera exacta el módulo de la parte imaginaria de las soluciones no reales de z³(2 − 2i)⁻¹ = 2 + 2i.</p>
+  <p><b>Opciones:</b> <b>A)</b> √3 &nbsp;·&nbsp; <b>B)</b> 3 &nbsp;·&nbsp; <b>C)</b> 2√3 &nbsp;·&nbsp; <b>D)</b> √3/2</p>
+  <p><b>Resolución.</b> Despejá z³=(2+2i)(2−2i)=4+4=8. Resolvé z³−8=0 ⟹ (z−2)(z²+2z+4)=0 ⟹ z=−1±√3 i (no reales). La parte imaginaria es ±√3, cuyo módulo es √3.</p>
+  <p><b>Respuesta:</b> √3 <span class='muted'>(opción A)</span></p>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="4" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 ============ -->
+<details id="algfin-s5">
+<summary><span class="num">5</span> Cónicas <span class="sec-score" id="ss-algebra-final-5"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3><p>El 90% se resuelve <b>completando cuadrados</b> para llegar a la forma canónica.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Cónicas)</b><br>
+ Circunferencia: (x−h)²+(y−k)²=r².<br>
+ Elipse: (x−h)²/a² + (y−k)²/b² = 1; c²=|a²−b²| (focos sobre el eje mayor); excentricidad e=c/a.<br>
+ Hipérbola: (x−h)²/a² − (y−k)²/b² = 1; c²=a²+b²; asíntotas y−k=±(b/a)(x−h); e=c/a.<br>
+ Parábola: (x−h)²=4p(y−k) (eje vertical), vértice (h,k). <b>Técnica clave: completar cuadrados.</b></div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Elipse: parámetro desde un foco</b></td><td>Completá cuadrados, identificá el eje focal y usá c²=a²−b².</td></tr>
+<tr><td><b>Hipérbola: asíntotas / excentricidad</b></td><td>Forma canónica; asíntotas pendiente ±b/a; e=c/a. "Misma excentricidad" = misma relación.</td></tr>
+<tr><td><b>Parábola: vértice</b></td><td>Completá cuadrados en la variable al cuadrado.</td></tr>
+<tr><td><b>Circunferencia: radio</b></td><td>Completá cuadrados; con un diámetro, centro = punto medio, r = mitad de la cuerda.</td></tr>
+<tr><td><b>Intersección de cónicas</b></td><td>Igualá/restá ecuaciones (dos circunferencias → eje radical) y contá puntos.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Elipse: hallar parámetro desde un foco · <span class='muted'>opción múltiple · Final Dic 2024 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Una elipse tiene ecuación kx² + y² − 18y = 0 con k ∈ ℝ − {0} y uno de sus focos es F₁ = (0, 9 + √(324/5)). Determiná el valor de k.</p>
+  <p><b>Opciones:</b> <b>A)</b> 5 &nbsp;·&nbsp; <b>B)</b> 1/5 &nbsp;·&nbsp; <b>C)</b> 9 &nbsp;·&nbsp; <b>D)</b> 81/5</p>
+  <p><b>Resolución.</b> Completá cuadrados: kx² + (y−9)² = 81, o sea (y−9)²/81 + x²/(81/k) = 1, con eje mayor vertical (el foco está sobre y). Entonces c² = 81 − 81/k = 324/5; despejá: 81/k = 81 − 324/5 = 81/5 ⇒ k = 5.</p>
+  <p><b>Respuesta:</b> 5 <span class='muted'>(opción A)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Hipérbola: asíntotas / excentricidad · <span class='muted'>opción múltiple · Final Feb 2024 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Elegí la única opción que muestra las ecuaciones de las asíntotas de la hipérbola: −4x² + 16y² + 4x + 32y − 49 = 0</p>
+  <p><b>Opciones:</b> <b>A)</b> 2x − 4y = −5; −2x − 4y = −3 &nbsp;·&nbsp; <b>B)</b> 2x − 4y = −5; 2x + 4y = 5 &nbsp;·&nbsp; <b>C)</b> 2x − 4y = 5; −2x − 4y = 3 &nbsp;·&nbsp; <b>D)</b> −2x + 4y = −3; 2x − 4y = 3</p>
+  <p><b>Resolución.</b> Completá cuadrados: queda (y+1)²/4 − (x−0,5)²/16 = 1, centro (0,5; −1), pendientes ±(a/b)=±2/4=±1/2. Las asíntotas y+1=±½(x−0,5) reordenadas dan 2x−4y=5 y −2x−4y=3.</p>
+  <p><b>Respuesta:</b> 2x − 4y = 5; −2x − 4y = 3 <span class='muted'>(opción C)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Parábola: vértice · <span class='muted'>opción múltiple · Final Feb 2026 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Considerá C la ecuación de la curva x² − 3x + 3,5y + 14,5 = 0 y elegí la única opción que contiene una afirmación verdadera.</p>
+  <p><b>Opciones:</b> <b>A)</b> El punto (5; −7) no pertenece a C. &nbsp;·&nbsp; <b>B)</b> El vértice de C es el punto de coordenadas (3/2; 7/2). &nbsp;·&nbsp; <b>C)</b> El punto medio entre (3/2; −35/8) y (3/2; −21/8) pertenece a C. &nbsp;·&nbsp; <b>D)</b> C tiene todos sus puntos en el primer y segundo cuadrante.</p>
+  <p><b>Resolución.</b> Completar cuadrados: (x − 3/2)² = −(7/2)(y + 7/2), parábola de eje vertical con vértice (3/2; −7/2). Eso descarta B (vértice tiene y=−7/2, no 7/2) y D (abre hacia abajo). (5;−7) sí verifica → descarta A. El punto medio de los dos puntos dados es (3/2; −7/2) = vértice ∈ C → C verdadera.</p>
+  <p><b>Respuesta:</b> El punto medio entre (3/2; −35/8) y (3/2; −21/8) pertenece a C. <span class='muted'>(opción C)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Circunferencia: radio · <span class='muted'>opción múltiple · Final Jul 2025 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Considerá V al vértice de la parábola x² + 4x − 20y + 64 = 0, y C al centro de la hipérbola (x−3)²/7 − (y−4)²/18 = 1. Determiná el valor exacto del radio de la circunferencia con centro en C que pasa por V.</p>
+  <p><b>Opciones:</b> <b>A)</b> √26 &nbsp;·&nbsp; <b>B)</b> 26 &nbsp;·&nbsp; <b>C)</b> √34 &nbsp;·&nbsp; <b>D)</b> 5</p>
+  <p><b>Resolución.</b> Completar cuadrados en la parábola: (x+2)²=20(y−3) ⇒ V=(−2;3). El centro de la hipérbola se lee directo: C=(3;4). El radio es la distancia V–C: √[(3−(−2))²+(4−3)²]=√(25+1)=√26.</p>
+  <p><b>Respuesta:</b> √26 <span class='muted'>(opción A)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Intersección de cónicas · <span class='muted'>opción múltiple · Final Feb 2025 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Indicá cuál de las cónicas propuestas tiene exactamente dos puntos en común con la elipse E de centro C = (8, 4), semieje mayor 10 y focos F₁ = (8, 12); F₂ = (8, −4).</p>
+  <p><b>Opciones:</b> <b>A)</b> Parábola con vértice V = (0, 0) que pasa por P = (−2, −8) y Q = (−2, 8) &nbsp;·&nbsp; <b>B)</b> 4x² − 64x − y = −260 &nbsp;·&nbsp; <b>C)</b> (x − 8)² = (y − 4)² + 64 &nbsp;·&nbsp; <b>D)</b> (x − 8)² + (y − 4)² = 64</p>
+  <p><b>Resolución.</b> Hallá E: centro (8,4), focos verticales c=8, a=10 ⇒ b²=100−64=36 ⇒ (x−8)²/36 + (y−4)²/100 = 1 (semieje menor 6, x∈[2,14]). Opción B se reescribe y=4(x−8)²+4, o sea la parábola (x−8)²=(1/4)(y−4) con vértice en el centro (8,4) abriendo hacia arriba: la corta en exactamente 2 puntos. A (parábola en el origen, no llega a la elipse) ⇒ 0; C (hipérbola) ⇒ 0; D (circunferencia r=8 concéntrica) ⇒ 4. Opción B.</p>
+  <p><b>Respuesta:</b> 4x² − 64x − y = −260 <span class='muted'>(opción B)</span></p>
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="5" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 ============ -->
+<details id="algfin-s6">
+<summary><span class="num">6</span> Transformaciones lineales <span class="sec-score" id="ss-algebra-final-6"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3><p>Se trabaja casi siempre con la <b>matriz asociada</b> de la TL.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Transformaciones lineales)</b><br>
+ Núcleo Nu(T)={x: T(x)=0⃗}; Imagen Im(T). <b>Teorema de la dimensión:</b> dim Nu(T) + dim Im(T) = dim(dominio).<br>
+ Monomorfismo ⟺ Nu(T)={0⃗}; Epimorfismo ⟺ Im(T)=codominio; <b>Isomorfismo ⟺ ambas ⟺ (cuadrada) det M ≠ 0.</b><br>
+ Composición: M_{T₂∘T₁} = M_{T₂}·M_{T₁}. Rotación R(θ) = [cos θ &nbsp;−sen θ; &nbsp;sen θ &nbsp;cos θ]. |det M| = factor de volumen.</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Composición que NO es isomorfismo</b></td><td>Matriz producto M_{T₂}·M_{T₁}; poné det = 0 y despejá.</td></tr>
+<tr><td><b>Preimagen T⁻¹(S)</b></td><td>Pedís T(x) ∈ S: reemplazás T(x) en las ecuaciones de S y resolvés en x.</td></tr>
+<tr><td><b>Núcleo, imagen y clasificación</b></td><td>Núcleo = soluciones de M·x=0; teorema de la dimensión; mono/epi/iso.</td></tr>
+<tr><td><b>Rotación en ℝ²</b></td><td>Aplicás la matriz de rotación al punto.</td></tr>
+<tr><td><b>Volumen de la imagen</b></td><td>Factor = |det(M)|.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Composición que NO es isomorfismo (det=0) · <span class='muted'>opción múltiple · Final Feb 2025 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Considerá las transformaciones lineales T₁ : ℝ³ → ℝ² y T₂ : ℝ² → ℝ³ con T₁(x₁, x₂, x₃) = (x₁, x₁ − 2x₂); T₂(x₁, x₂) = (−x₁, 0, x₁ + x₂). Indicá la única afirmación correcta.</p>
+  <p><b>Opciones:</b> <b>A)</b> T₁ es monomorfismo y T₂ epimorfismo. &nbsp;·&nbsp; <b>B)</b> La dimensión del núcleo de T₁ es 2 y la dimensión del núcleo de T₂ es 0. &nbsp;·&nbsp; <b>C)</b> T₁ es epimorfismo pero no isomorfismo. &nbsp;·&nbsp; <b>D)</b> T₁ y T₂ tienen como núcleo un subespacio de igual dimensión.</p>
+  <p><b>Resolución.</b> Calculá los núcleos: Nu(T₁)=⟨(0,0,1)⟩ (dim 1), Nu(T₂)={(0,0)} (dim 0). Por teorema de la dimensión dim Im(T₁)=3−1=2=dim ℝ², así que T₁ es epimorfismo; como no es inyectiva, no es isomorfismo.</p>
+  <p><b>Respuesta:</b> T₁ es epimorfismo pero no isomorfismo. <span class='muted'>(opción C)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Preimagen T⁻¹(S) · <span class='muted'>opción múltiple · Final Jul 2024 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Considerá T : ℝ² → ℝ³ una transformación lineal cuya expresión es: T(x, y) = ((x−y)/2, x/2, −y/2) y sea el subespacio S = {X ∈ ℝ³ : x − y = 0; z = 0}. Indicá la única opción que muestra la preimagen de S por T, es decir, T⁻¹(S).</p>
+  <p><b>Opciones:</b> <b>A)</b> ⟨(0, −2)⟩ &nbsp;·&nbsp; <b>B)</b> ⟨(2, 0)⟩ &nbsp;·&nbsp; <b>C)</b> ⟨(2, −2)⟩ &nbsp;·&nbsp; <b>D)</b> ∅</p>
+  <p><b>Resolución.</b> Escribí S=⟨(1,1,0)⟩ y buscá (x,y) con T(x,y)=a(1,1,0): de −y/2=0 ⇒ y=0; de x/2=a ⇒ x=2a; (x−y)/2=a se cumple. Así (x,y)=(2a,0) ⇒ T⁻¹(S)=⟨(2,0)⟩.</p>
+  <p><b>Respuesta:</b> ⟨(2, 0)⟩ <span class='muted'>(opción B)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Núcleo, imagen y clasificación · <span class='muted'>respuesta numérica · Final Jul 2025 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Indicá el valor de k ∈ ℝ de modo que se cumpla que al aplicar una rotación en sentido contrario a las agujas del reloj de ángulo π/4 a (−√2; −√2) se obtiene como imagen (0; k).</p>
+  <p><b>Resolución.</b> Aplicá la matriz de rotación [√2/2 −√2/2; √2/2 √2/2] a (−√2; −√2): primera componente √2/2·(−√2) − √2/2·(−√2) = 0; segunda √2/2·(−√2) + √2/2·(−√2) = −2 ⇒ k = −2.</p>
+  <p><b>Respuesta:</b> −2</p>
+</div>
+<div class="example">
+  <div class="ex-t">Rotación en ℝ² · <span class='muted'>respuesta numérica · Final Jul 2025 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Indicá el valor de k ∈ ℝ de modo que se cumpla que al aplicar una rotación en sentido contrario a las agujas del reloj de ángulo π/4 a (−√2; −√2) se obtiene como imagen (0; k).</p>
+  <p><b>Resolución.</b> Aplicar la matriz de rotación R(π/4) = [√2/2 −√2/2; √2/2 √2/2] al vector (−√2; −√2). La primera componente da 0 y la segunda da k; el resultado es (0; −2), por lo que k = −2.</p>
+  <p><b>Respuesta:</b> (ver resolución)</p>
+</div>
+<div class="example">
+  <div class="ex-t">Volumen de la imagen · <span class='muted'>respuesta numérica · Final Feb 2024 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Siendo T la transformación lineal T : R³ → R³ cuya fórmula es: T(x; y; z) = (−3x + 2y + z; y + 2z; −4x + y − z), calculá el volumen de la imagen por T del cubo unitario S. (Respuesta numérica)</p>
+  <p><b>Resolución.</b> El volumen de la imagen del cubo unitario por T es |det(M_T)|. Con M_T = [−3 2 1; 0 1 2; −4 1 −1], det = −3, así que el volumen es |−3| = 3.</p>
+  <p><b>Respuesta:</b> 3</p>
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="6" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 7 ============ -->
+<details id="algfin-s7">
+<summary><span class="num">7</span> Polinomios <span class="sec-score" id="ss-algebra-final-7"></span></summary>
+<div class="content">
+
+<h3>Aparece en todos los finales (1 ejercicio)</h3><p>La clave casi siempre: en ℝ[x] las <b>raíces complejas vienen de a pares conjugados</b>.</p>
+
+<div class="formula"><b>Teoría (Polinomios)</b><br>
+ <b>Teorema del resto:</b> el resto de dividir P(x) por (x−a) es P(a). a es raíz ⟺ (x−a) | P.<br>
+ En ℝ[x]: si z=a+bi es raíz, su conjugada z̄=a−bi también lo es.<br>
+ <b>Vieta:</b> para aₙxⁿ+…+a₀, suma de raíces = −aₙ₋₁/aₙ; producto = (−1)ⁿ·a₀/aₙ.<br>
+ <b>Gauss:</b> toda raíz racional p/q cumple p | a₀ y q | aₙ.</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Grado mínimo en ℝ[x] + suma de raíces</b></td><td>Si una raíz es z, también z̄. Sumá las raíces <b>distintas</b>; z+z̄=2·Re(z).</td></tr>
+<tr><td><b>Suma / producto de raíces (Vieta)</b></td><td>Leés los coeficientes; no hace falta hallar las raíces.</td></tr>
+<tr><td><b>Teorema del resto</b></td><td>Evaluás P(a); para comparar restos de P y Q, evaluás en el mismo a.</td></tr>
+<tr><td><b>Factorización en ℂ[x] dada una raíz</b></td><td>Dividís por (x−z) (y (x−z̄) si es real) y factorizás el resto.</td></tr>
+<tr><td><b>Teorema de Gauss</b></td><td>Probás los candidatos racionales p/q.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Polinomio de grado mínimo + suma de raíces · <span class='muted'>respuesta numérica · Final Dic 2024 · Tema 1</span></div>
+  <p><b>Enunciado.</b> A(x) ∈ ℝ[x] es un polinomio de grado mínimo que tiene como raíces a z₁, z₂ y z₃. Si (2 + 2i)·z₁ = −7 − 7i ; z₂ = (3 − i)² y z₃ = −10 es raíz doble, calculá el valor exacto de la suma de todas las raíces distintas de A(x). [Respuesta: 5/2]</p>
+  <p><b>Resolución.</b> Despejá z₁=(−7−7i)/(2+2i)=−7/2 (real). z₂=(3−i)²=8−6i; como A∈ℝ[x], su conjugada z̄₂=8+6i también es raíz. La suma de raíces DISTINTAS es −7/2 + (8−6i) + (8+6i) + (−10) = −7/2 + 6 = 5/2.</p>
+  <p><b>Respuesta:</b> 5/2</p>
+</div>
+<div class="example">
+  <div class="ex-t">Teorema del resto · <span class='muted'>opción múltiple · Final Feb 2024 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Dados los polinomios P(x) = 3x⁴ + 6bx − 1, Q(x) = x³ + (2b − 4)x² con b ∈ ℝ. Indicá cuál es la única opción que muestra una afirmación verdadera.</p>
+  <p><b>Opciones:</b> <b>A)</b> El resto de dividir a P por (x − 3) es igual al resto de dividir a Q por (x − 3) para todo valor de b. &nbsp;·&nbsp; <b>B)</b> El resto de dividir a P por (x − 3) es igual al resto de dividir a Q por (x − 3) solo para un valor de b. &nbsp;·&nbsp; <b>C)</b> El resto de dividir a P por (x + 3) es igual al resto de dividir a Q por (x + 3) para todo valor de b. &nbsp;·&nbsp; <b>D)</b> El resto de dividir a P por (x + 3) es igual al resto de dividir a Q por (x + 3) solo para un valor de b.</p>
+  <p><b>Resolución.</b> Teorema del Resto: el resto de dividir por (x−x₀) es evaluar en x₀. Calculá P(3),Q(3),P(−3),Q(−3) y mirá si la igualdad vale para todo b (resta no depende de b) o para un único b (resta lineal en b con coef ≠0).</p>
+  <p><b>Respuesta:</b> El resto de dividir a P por (x + 3) es igual al resto de dividir a Q por (x + 3) solo para un valor de b. <span class='muted'>(opción D)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Factorización en ℂ[x] dada una raíz · <span class='muted'>opción múltiple · Final Jul 2024 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Considerá el polinomio P(x) = x⁵ + 5x³ − 8x² + k, √5·i es raíz de P(x). Indicá la única opción que muestra la expresión factorizada en C[x] de P(x).</p>
+  <p><b>Opciones:</b> <b>A)</b> P(x) = (x − √5·i)(x + √5·i)(x³ − 8) &nbsp;·&nbsp; <b>B)</b> P(x) = (x − 2)(x + √5·i)(x − √5·i)(x + 1 + √3·i)(x + 1 − √3·i) &nbsp;·&nbsp; <b>C)</b> P(x) = (x − 2)(x + √5·i)(x − √5·i)(x − 1 + √3·i)(x − 1 − √3·i) &nbsp;·&nbsp; <b>D)</b> P(x) = (x + √5·i)(x − √5·i)(x − 2)(x² + 2x + 4)</p>
+  <p><b>Resolución.</b> Como √5·i es raíz, también lo es −√5·i, así (x²+5) | P. Imponer P(√5·i)=0 da k=−40 y P(x)=(x²+5)(x³−8). Factorizar x³−8=(x−2)(x²+2x+4) y las raíces de x²+2x+4 son −1±√3·i. Resultado: (x−2)(x−√5·i)(x+√5·i)(x+1+√3·i)(x+1−√3·i).</p>
+  <p><b>Respuesta:</b> P(x) = (x − 2)(x + √5·i)(x − √5·i)(x + 1 + √3·i)(x + 1 − √3·i) <span class='muted'>(opción B)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Teorema de Gauss · <span class='muted'>respuesta numérica · Final Feb 2024 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Se tiene el polinomio P(x) = 2x⁴ + 7x³ + 5x² − 9x − 5. Indicá el valor que se obtiene al sumar todas las raíces de P.</p>
+  <p><b>Resolución.</b> Atajo directo por Vieta: la suma de todas las raíces de aₙxⁿ+…+a₀ es −aₙ₋₁/aₙ = −7/2, sin necesidad de hallar las raíces. (El PDF las halla: x=1, x=−1/2, y −2±i; suma = 1 − 1/2 − 2 − i − 2 + i = −7/2.)</p>
+  <p><b>Respuesta:</b> −7/2</p>
+</div>
+<div class="example">
+  <div class="ex-t">Suma / producto de raíces (Vieta) · <span class='muted'>opción múltiple · Final Dic 2024 · Tema 3</span></div>
+  <p><b>Enunciado.</b> A(x) ∈ ℝ[x] es un polinomio de grado mínimo que tiene como raíces a z₁, z₂ y z₃. Si (2 + 2i)·z₁ = −7 − 7i ; z₂ = (3 − i)² y z₃ = −10 es raíz doble, calculá el valor exacto de la suma de todas las raíces distintas de A(x). (Respuesta numérica)</p>
+  <p><b>Opciones:</b> <b>A)</b> 5/2 &nbsp;·&nbsp; <b>B)</b> −5/2 &nbsp;·&nbsp; <b>C)</b> 5 &nbsp;·&nbsp; <b>D)</b> 29/2</p>
+  <p><b>Resolución.</b> Despejá z₁ = (−7−7i)/(2+2i) = −7/2. Calculá z₂ = (3−i)² = 8−6i; como A(x) es real, su conjugada 8+6i también es raíz. Las raíces DISTINTAS son −7/2, 8−6i, 8+6i, −10; sumalas.</p>
+  <p><b>Respuesta:</b> 5/2 <span class='muted'>(opción A)</span></p>
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="7" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 8 ============ -->
+<details id="algfin-s8">
+<summary><span class="num">8</span> Subespacios y dependencia lineal <span class="sec-score" id="ss-algebra-final-8"></span></summary>
+<div class="content">
+
+<h3>Aparece en casi todos los finales (1 ejercicio)</h3><p>Un subespacio viene <b>por ecuaciones</b> (S={x:…}) o <b>por generadores</b> (T=⟨v₁,v₂⟩); hay que moverse entre las dos formas.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Subespacios)</b><br>
+ x ∈ ⟨v₁,…,vₖ⟩ ⟺ x es combinación lineal de los generadores.<br>
+ Por ecuaciones: dim S = n − (nº de ecuaciones independientes). Por generadores: dim = nº de generadores L.I.<br>
+ <b>T ⊆ S ⟺</b> cada generador de T cumple las ecuaciones de S.<br>
+ n vectores de ℝⁿ son L.I. ⟺ el determinante que forman ≠ 0.</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Pertenencia a S (ecuaciones) vs T (generadores)</b></td><td>S: cumple las ecuaciones. T: es combinación lineal de los generadores. Verificás cada opción.</td></tr>
+<tr><td><b>Inclusión T ⊆ S (hallar parámetro)</b></td><td>Cada generador de T cumple las ecuaciones de S → ecuación en el parámetro.</td></tr>
+<tr><td><b>Dimensión de un subespacio generado</b></td><td>dim = nº de generadores L.I. (descartás los dependientes).</td></tr>
+<tr><td><b>Dependencia lineal de 3 vectores</b></td><td>Son LD ⟺ determinante = 0; despejás el parámetro.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Pertenencia a S (ecuaciones) vs T (generadores) · <span class='muted'>opción múltiple · Final Dic 2024 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Considerá los subespacios S = {(x₁,x₂,x₃,x₄,x₅) ∈ ℝ⁵ : x₁ + x₃ − x₅ = 0; −2x₁ + 2x₅ = 0} y T = ⟨(−5,5,0,5,−5); (1,0,0,1,0)⟩. Indicá cuál es la única afirmación cierta.</p>
+  <p><b>Opciones:</b> <b>A)</b> v⃗ = (1,−1,0,−1,1) pertenece a S y no pertenece a T. &nbsp;·&nbsp; <b>B)</b> w⃗ = (0,−1,0,−2,1) no pertenece a S y no pertenece a T. &nbsp;·&nbsp; <b>C)</b> v⃗ = (1,−1,0,−1,1) pertenece a T y no pertenece a S. &nbsp;·&nbsp; <b>D)</b> w⃗ = (0,−1,0,−2,1) pertenece a T y no pertenece a S.</p>
+  <p><b>Resolución.</b> Para S verificá las dos ecuaciones; para T resolvé si el vector es combinación lineal de los dos generadores. v⃗ cumple S y es múltiplo de (−5,5,0,5,−5) (así que está en ambos, descartando A y C). w⃗ falla la 1ª ecuación de S pero sí es combinación lineal en T.</p>
+  <p><b>Respuesta:</b> w⃗ = (0,−1,0,−2,1) pertenece a T y no pertenece a S. <span class='muted'>(opción D)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Inclusión T ⊆ S (hallar parámetro) · <span class='muted'>opción múltiple · Final Jul 2024 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Indicá el valor de m ∈ ℝ para el cual el conjunto {(3, 4, −4); (9, 4, m); (1, 1, −3)} resulta linealmente dependiente.</p>
+  <p><b>Opciones:</b> <b>A)</b> −52 &nbsp;·&nbsp; <b>B)</b> 52 &nbsp;·&nbsp; <b>C)</b> 0 &nbsp;·&nbsp; <b>D)</b> −4</p>
+  <p><b>Resolución.</b> El conjunto es LD cuando el determinante de la matriz de los tres vectores es 0. Planteando el sistema homogéneo a(3,4,−4)+b(9,4,m)+c(1,1,−3)=0 con solución no trivial, se obtiene m=−52.</p>
+  <p><b>Respuesta:</b> −52 <span class='muted'>(opción A)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Dimensión de un subespacio generado · <span class='muted'>opción múltiple · Final Feb 2024 · Tema 2</span></div>
+  <p><b>Enunciado.</b> Para el subespacio S = {(x₁; x₂; x₃) ∈ R³ / x₁ + 2x₂ = 0}, elegí la opción que muestra el valor de la dimensión de S.</p>
+  <p><b>Opciones:</b> <b>A)</b> 0 &nbsp;·&nbsp; <b>B)</b> 1 &nbsp;·&nbsp; <b>C)</b> 2 &nbsp;·&nbsp; <b>D)</b> 3</p>
+  <p><b>Resolución.</b> Una sola ecuación lineal homogénea independiente en R³ quita 1 grado de libertad: dim = 3 − 1 = 2. Base: {(−2;1;0),(0;0;1)}.</p>
+  <p><b>Respuesta:</b> 2 <span class='muted'>(opción C)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Dependencia lineal de 3 vectores · <span class='muted'>respuesta numérica · Final Jul 2024 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Indicá el valor de m ∈ R para el cual el conjunto {(4, 1, 3); (7, m, 8); (−2, 6, 4)} resulta linealmente dependiente.</p>
+  <p><b>Resolución.</b> Tres vectores de R³ son LD si el determinante de la matriz que forman es 0. det[[4,1,3];[7,m,8];[−2,6,4]] = 22m−110 = 0 → m = 5.</p>
+  <p><b>Respuesta:</b> 5</p>
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="8" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 9 ============ -->
+<details id="algfin-s9">
+<summary><span class="num">9</span> Sistemas, matrices y determinantes <span class="sec-score" id="ss-algebra-final-9"></span></summary>
+<div class="content">
+
+<h3>El "8º ejercicio" rotativo</h3><p>Un final trae uno de estos tres (determinantes es el más frecuente). Los tres se apoyan en el <b>determinante</b> y en la matriz inversa.</p>
+
+<div class="formula"><b>Teoría (Álgebra A · Sistemas, matrices, determinantes)</b><br>
+ det 2×2 = ad−bc; det 3×3 por Sarrus o cofactores.<br>
+ Propiedades: det(λA)=λⁿ·det(A); det(A·B)=det(A)·det(B); det(A⁻¹)=1/det(A); det(Aᵗ)=det(A).<br>
+ <b>A inversible ⟺ det(A) ≠ 0.</b> Sistema cuadrado A·X=B: <b>det ≠ 0 ⟺ compatible determinado</b>; det=0 ⟺ indeterminado o incompatible (hay que analizar).<br>
+ Ecuación matricial: despejás con A⁻¹ cuidando el lado (p. ej. A·B=A²+3A ⟹ B=A+3I).</div>
+
+<h3>Los sub-tipos que caen</h3>
+<table class="tbl"><tr><th>Sub-tipo</th><th>Método / atajo</th></tr>
+<tr><td><b>Parámetro para que NO sea inversible</b></td><td>det(M)=0 y despejás.</td></tr>
+<tr><td><b>Propiedades del determinante</b></td><td>Usás det(λA), det(AB), det(A⁻¹) para despejar un det.</td></tr>
+<tr><td><b>det(A²+AB) = det(A)·det(A+B)</b></td><td>Factorizás A: A²+AB=A(A+B).</td></tr>
+<tr><td><b>Ecuación matricial</b></td><td>Despejás con la inversa.</td></tr>
+<tr><td><b>Sistema con parámetro</b></td><td>det≠0 ⟺ SCD; si det=0 analizás cada caso.</td></tr></table>
+
+<h3>Un ejemplo resuelto de cada sub-tipo</h3>
+<div class="example">
+  <div class="ex-t">Sistema con parámetro (incompatible / indeterminado) · <span class='muted'>opción múltiple · Final Dic 2025 · Tema 4</span></div>
+  <p><b>Enunciado.</b> Considerá las matrices A = [1 3 5; 0 k−3 1; 3 k−1 0], X = [x; y; z] y B ∈ ℝ^(3×1). Determiná para qué valores de k ∈ ℝ el sistema A·X = B resulta compatible determinado.</p>
+  <p><b>Opciones:</b> <b>A)</b> {−1; 1; 3} &nbsp;·&nbsp; <b>B)</b> ℝ \ {−1; 1; 3} &nbsp;·&nbsp; <b>C)</b> {1; 3} &nbsp;·&nbsp; <b>D)</b> ℝ \ {1; 3}</p>
+  <p><b>Resolución.</b> Sistema cuadrado: es compatible determinado ⟺ det(A) ≠ 0. Acá det(A) = k³−3k²−k+3, que se anula en k = 1, −1, 3; por lo tanto sirven todos los k salvo esos tres.</p>
+  <p><b>Respuesta:</b> ℝ \ {−1; 1; 3} <span class='muted'>(opción B)</span></p>
+</div>
+<div class="example">
+  <div class="ex-t">Ecuación matricial / coeficiente de un producto · <span class='muted'>respuesta numérica · Final Feb 2025 · Tema 3</span></div>
+  <p><b>Enunciado.</b> Considerá la matriz A = [1 -2 1; -1 1 2; 1 -2 3]. Calculá las coordenadas de la matriz B de manera tal que se verifique la siguiente igualdad: A·B = A² + 3·A.</p>
+  <p><b>Resolución.</b> Como A es inversible, multiplicá por A⁻¹ a izquierda: A⁻¹·A·B = A⁻¹·(A² + 3A) = A + 3I. Entonces B = A + 3·I (sumá 3 a la diagonal de A).</p>
+  <p><b>Respuesta:</b> B = [4 −2 1; −1 4 2; 1 −2 6]</p>
+</div>
+<div class="example">
+  <div class="ex-t">Parámetro para que la matriz NO sea inversible · <span class='muted'>respuesta numérica · Final Feb 2024 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Sea k ∈ ℝ y la matriz A = [3 −2 0; −1 3k −1; 1 k 2]. Indicá el valor exacto de k de modo que la matriz A no resulte inversible.</p>
+  <p><b>Resolución.</b> A no inversible ⟺ det(A)=0. Desarrollá el determinante en función de k; queda lineal 21k−2 y se anula en k=2/21.</p>
+  <p><b>Respuesta:</b> k = 2/21</p>
+</div>
+<div class="example">
+  <div class="ex-t">det(A²+AB)=det(A)·det(A+B) / propiedades · <span class='muted'>respuesta numérica · Final Dic 2025 · Tema 1</span></div>
+  <p><b>Enunciado.</b> Considerá las matrices A, B ∈ ℝ^{3×3} tales que A = [2 0 1; 3 2 4; 4 1 7] y det((1/3)·A·B⁻¹) = 10. Calculá el valor exacto de det(B).</p>
+  <p><b>Resolución.</b> Usá det((1/3)A·B⁻¹)=(1/3)³·det(A)·det(B)⁻¹. Calculá det(A)=15 y reemplazá: (1/27)·15·(1/det B)=10 ⇒ det(B)=15/(27·10)=1/18.</p>
+  <p><b>Respuesta:</b> det(B) = 1/18</p>
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="algebra-final"></div>
+<div class="reveal-wrap" data-rv="9" data-subject="algebra-final"></div>
+<a class="back" href="#subject-algebra-final">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'algebra-final';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS ÁLGEBRA FINAL ============
+registerExercises('algebra-final', '1', [
+  {st: 'El final de Álgebra A (Escayola) consta de:', opts: ['5 ejercicios de desarrollo', '8 ejercicios (cada uno de un tema distinto)', '10 preguntas teóricas', '3 problemas largos'], c: 1, ex: 'El final son <b>8 ejercicios</b>, cada uno de 1,25 puntos, que cubren temas distintos del programa. ▸ En cada examen se repiten casi siempre: vectores, rectas y planos, números complejos, cónicas, transformaciones lineales, polinomios y subespacios; el 8º rota entre sistemas, matrices y determinantes.'},
+  {st: 'En cuanto al formato, los 8 ejercicios del final:', opts: ['Son todos a desarrollar', 'Son todos multiple choice', 'Mezclan multiple choice (4 opciones A–D) con ejercicios de respuesta numérica', 'Son verdadero/falso'], c: 2, ex: 'Aproximadamente la mitad son <b>multiple choice</b> (elegís A, B, C o D) y la otra mitad piden un <b>resultado numérico</b> exacto. ▸ En los MC conviene calcular el valor y recién después mirar las opciones; en los numéricos no hay red de opciones, así que cuidá las cuentas.'},
+  {st: 'Cuando un ejercicio pide el parámetro para que "T no sea isomorfismo", "la matriz no sea inversible" o "el sistema no sea compatible determinado", el atajo es:', opts: ['Calcular autovalores', 'Anular el determinante de la matriz asociada (det = 0)', 'Hacer Gauss-Jordan completo', 'Calcular la norma'], c: 1, ex: 'Las tres situaciones son la misma cosa: la matriz pierde rango. ▸ Planteás <b>det = 0</b> y despejás el parámetro. Para isomorfismo: T es iso ⟺ su matriz es inversible ⟺ det ≠ 0. Para sistemas cuadrados: det ≠ 0 ⟺ compatible determinado.'},
+  {st: 'En los ejercicios que dicen "indicá la única afirmación verdadera/falsa" (subespacios, rectas, vectores), conviene:', opts: ['Elegir siempre la opción más larga', 'Verificar cada opción A–D una por una con la definición', 'Adivinar por descarte de signos', 'Resolver el sistema completo siempre'], c: 1, ex: 'No hay un cálculo único: hay que <b>chequear cada afirmación</b> con la definición correspondiente (pertenece al subespacio ⇄ cumple las ecuaciones o es combinación lineal de los generadores; planos perpendiculares ⇄ normales con producto escalar 0; etc.). Tres serán falsas y una verdadera.'},
+  {st: 'Para ubicar un complejo z = (a+bi)ⁿ en su cuadrante (sin calcular la potencia entera):', opts: ['Calculás (a+bi)ⁿ desarrollando el binomio', 'Pasás a forma polar: el argumento de z es n·arg(a+bi), y reducís a [0, 2π)', 'Mirás solo el signo de a', 'Usás el módulo'], c: 1, ex: 'Por <b>De Moivre</b>, arg(zⁿ) = n·arg(z) (el módulo no cambia el cuadrante). Calculás arg(a+bi)=arctan(b/a), lo multiplicás por n, reducís a una vuelta y mirás en qué cuadrante cae. ▸ Es mucho más rápido que elevar a la n.'},
+  {st: '¿Qué tema NO forma parte del final de Álgebra A?', opts: ['Números complejos', 'Transformaciones lineales', 'Lógica proposicional y tablas de verdad', 'Cónicas'], c: 2, ex: 'La lógica proposicional no entra en Álgebra A (es de otra materia). ▸ El final cubre: vectores, rectas y planos, complejos, cónicas, transformaciones lineales, polinomios, subespacios y el bloque sistemas/matrices/determinantes.'},
+]);
+
+registerExercises('algebra-final', '2', [{"st": "Considerá los vectores de ℝ², v⃗ = (√2; √2), w⃗, u⃗ y k un número real. Se sabe que w⃗ es el opuesto de v⃗ y que u⃗ = (1/2)·v⃗. Indicá el valor que debe tomar k para que se verifique la siguiente igualdad: ‖4·(w⃗ + u⃗) − 2·v⃗‖ + ‖v⃗‖ = k·‖−8·v⃗‖.", "opts": ["1/2", "8/5", "5/8", "1/8"], "c": 2, "ex": "(Final Dic 2024·T1) Calculá w⃗=−v⃗=(−√2;−√2) y u⃗=(√2/2;√2/2). Entonces 4·(w⃗+u⃗)−2·v⃗=(−4√2;−4√2) con norma 8; ‖v⃗‖=2 y ‖−8v⃗‖=16. Resolvé 8+2=k·16, da k=10/16=5/8. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá los vectores de ℝ²: v = (√2/2 ; √2/2), w, u y k un número real. Se sabe que w es el opuesto de v y que u = (1/2)·v. Indicá el valor que debe tomar k para que se verifique la siguiente igualdad: ‖2·(w + u) − v‖ + 2‖v‖ = k·‖−16·v‖.", "opts": ["1/12", "6", "12", "1/4"], "c": 3, "ex": "(Final Dic 2024·T2) Sustituí w = −v y u = (1/2)v: w+u = −(1/2)v, entonces 2(w+u) = −v y 2(w+u)−v = −2v. El lado izquierdo da 2‖v‖+2‖v‖ = 4‖v‖, y el derecho 16k‖v‖. Igualando, k = 4/16 = 1/4. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá los vectores de ℝ², v⃗ = (√2; √2), w⃗, u⃗ y k un número real. Se sabe que w⃗ es el opuesto de v⃗ y que u⃗ = ½·v⃗. Indicá el valor que debe tomar k para que se verifique la siguiente igualdad: ‖4·(w⃗ + u⃗) − 2·v⃗‖ + ‖v⃗‖ = k·‖−8·v⃗‖.", "opts": ["1/2", "8/5", "5/8", "1/8"], "c": 2, "ex": "(Final Dic 2024·T3) Sustituí w⃗=−v⃗ y u⃗=½v⃗: 4(w⃗+u⃗)−2v⃗ = 4(−½v⃗)−2v⃗ = −4v⃗, cuya norma es 4‖v⃗‖. Como ‖v⃗‖=2, LHS=8+2=10 y ‖−8v⃗‖=16; despejá k=10/16. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá tres vectores u⃗, v⃗, w⃗ ∈ ℝ³ tales que u⃗ = (3; 0; −4), v⃗ = ‖u⃗‖ · (−2/5) · u⃗, y w⃗ = v⃗ × (1; −1; 1). Indicá cuál es la única afirmación falsa respecto de estos vectores.", "opts": ["w⃗ = (8; −14; 6)", "u⃗, v⃗ son paralelos.", "w⃗ es ortogonal a u⃗ y a v⃗.", "w⃗ = (8; 14; 6)"], "c": 0, "ex": "(Final Dic 2025·T2) Como v⃗ es múltiplo escalar de u⃗ son paralelos (B verdadera), y w⃗ = v⃗ × (...) es perpendicular a v⃗ y por ende a su paralelo u⃗ (C verdadera). Calculando ‖u⃗‖=5, v⃗=(−6;0;8) y w⃗ = v⃗×(1;−1;1) = (8;14;6); la falsa es la que cambia el signo del componente y. ▸ <b>Opción correcta: A)</b>"}, {"st": "⃗u es un vector unitario de R² ubicado en el tercer cuadrante, que forma un ángulo de π/6 con el vector ⃗v = (−4; 0). Si llamamos α al ángulo determinado por los vectores ⃗u y ⃗w = (2; −2), elegí la única opción que muestra el valor de α.", "opts": ["7π/6", "7π/12", "5π/12", "3π/4"], "c": 1, "ex": "(Final Feb 2024·T2) Ubicá las direcciones por ángulo absoluto: ⃗u en 3er cuadrante a π/6 del semieje −x está a 7π/6 (210°); ⃗w=(2;−2) está a −π/4 (315°). El ángulo entre ellos es la diferencia: 315°−210° = 105° = 7π/12. ▸ <b>Opción correcta: B)</b>"}, {"st": "⃗u es un vector unitario de ℝ² ubicado en el tercer cuadrante, que forma un ángulo de π/6 con el vector ⃗v = (−4; 0). Si llamamos α al ángulo determinado por los vectores ⃗u y ⃗w = (2; −2), elegí la única opción que muestra el valor de α.", "opts": ["7π/6", "7π/12", "5π/12", "3π/4"], "c": 1, "ex": "(Final Feb 2024·T4) ⃗v=(−4;0) apunta al semieje x negativo y ⃗w=(2;−2) forma π/4 con el semieje x positivo. Como ⃗u está en el tercer cuadrante, los tres ángulos llenan el semiplano inferior: π/6 + α + π/4 = π, de donde α = π − 5π/12 = 7π/12. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá A y B dos puntos de ℝ³: A = (1; 1; 3) y B, cuya primera componente es negativa, pertenece al plano z = 1. Además, se verifica que d(A, B) = 4 y el vector AB es perpendicular al vector v = (1; 1; 1). Calculá de manera exacta las coordenadas del punto B.", "opts": ["B = (2 − √5; 2 + √5; 1)", "B = (2 + √5; 2 − √5; 1)", "B = (2 − √5; 2 + √5; 3)", "B = (−1; 5; 1)"], "c": 0, "ex": "(Final Feb 2025·T1) Poné B=(x;y;1) por el plano; d=4 da (x−1)²+(y−1)²=12 y AB·v=0 da x+y=4. Reemplazá x=4−y, resolvé y²−4y−1=0 → y=2±√5, y elegí la raíz que deja x=2−√5 (primera componente negativa). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá A y B dos puntos de ℝ³. A = (1; 1; 4) y B, cuya primera componente es negativa, pertenece al plano z = 2. Además, se verifica que d(A, B) = 5 y el vector AB⃗ es perpendicular al vector v⃗ = (1; −1; 1). Calculá de manera exacta las coordenadas del punto B.", "opts": ["B = (2 − √(19/2); −√(19/2); 2)", "B = (2 + √(19/2); √(19/2); 2)", "B = (−√(19/2); 2 − √(19/2); 2)", "B = (2 − √(19/2); √(19/2); 2)"], "c": 0, "ex": "(Final Feb 2025·T2) Poné B=(x;y;2). De d(A,B)=5: (x−1)²+(y−1)²+(2−4)²=25 ⟹ (x−1)²+(y−1)²=21. De AB⃗·v⃗=0: x−y=2. Sustituyendo x=y+2 queda 2y²=19, y=±√(19/2); con x negativa (x=2−√(19/2)) elegís y=−√(19/2). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá tres vectores ∈ ℝ³ tales que: v = (−1; 3; −4), w = (0; 1; −2), u que es simultáneamente perpendicular a ambos, y ‖u‖ + v·w = 17. Elegí la única opción que muestra las componentes de u.", "opts": ["(−2; 2; −1)", "(−2; −2; −1)", "(4; 4; 2)", "(−4; 4; −2)"], "c": 2, "ex": "(Final Feb 2026·T2) El perpendicular a ambos es v×w = (−2; −2; −1) (norma 3). De ‖u‖ + v·w = 17 con v·w = (−1)(0)+3·1+(−4)(−2) = 11 sale ‖u‖ = 6, así que u = ±2·(−2;−2;−1); el múltiplo que da las componentes de una opción es −2·(−2;−2;−1) = (4;4;2). ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá v⃗₁ y v⃗₂ dos vectores de ℝ² que cumplen las siguientes condiciones: v⃗₁ se encuentra en el cuarto cuadrante y es ortogonal a v⃗₂, la norma de v⃗₂ es 3√2 y tiene sus coordenadas positivas, v⃗₁ tiene sus coordenadas tales que ‖v⃗₁‖ = 5 y v⃗₁ · (2; 0) = 8. Calculá el producto escalar entre los vectores v⃗₂ y (4; 2).", "opts": ["8√2", "12√2", "6√2", "24√2"], "c": 1, "ex": "(Final Jul 2024·T2) De v⃗₁·(2;0)=8 sale x₁=4; con ‖v⃗₁‖=5 y 4º cuadrante, x₂=−3, o sea v⃗₁=(4;−3). Ortogonalidad 4y₁−3y₂=0 más ‖v⃗₂‖²=18 con coords positivas da v⃗₂=(9√2/5; 12√2/5); entonces v⃗₂·(4;2)=36√2/5+24√2/5=12√2. ▸ <b>Opción correcta: B)</b>"}, {"st": "Dados v⃗ y w⃗ dos vectores de ℝ³ tales que v⃗ = (0; 2; 4) y w⃗ = (−2; 2; 0). Elegí la opción que muestra el valor de m ∈ ℤ para que se cumpla que los vectores z⃗₁ = v⃗ − w⃗ y z⃗₂ = m·w⃗ − v⃗ sean ortogonales.", "opts": ["1/4", "4", "−4", "16"], "c": 2, "ex": "(Final Jul 2025·T1) Calculá z⃗₁ = v⃗ − w⃗ = (2; 0; 4) y z⃗₂ = m·w⃗ − v⃗ = (−2m; 2m−2; −4), imponé z⃗₁·z⃗₂ = 0: −4m − 16 = 0 ⇒ m = −4. ▸ <b>Opción correcta: C)</b>"}, {"st": "Dados v⃗ y w⃗ dos vectores de ℝ³ tales que v⃗ = (2; 0; 4) y w⃗ = (2; −2; 0). Elegí la opción que muestra el valor de m ∈ ℤ para que se cumpla que los vectores z⃗₁ = v⃗ − w⃗ y z⃗₂ = m·w⃗ − v⃗ sean ortogonales.", "opts": ["1/4", "−4", "4", "16"], "c": 1, "ex": "(Final Jul 2025·T2) Calculá z⃗₁ = v⃗ − w⃗ = (0;2;4) y z⃗₂ = m·w⃗ − v⃗ = (2m−2; −2m; −4). Imponé z⃗₁·z⃗₂ = 0: 0·(2m−2) + 2·(−2m) + 4·(−4) = −4m − 16 = 0 ⇒ m = −4. ▸ <b>Opción correcta: B)</b>"}]);
+
+registerReveals('algebra-final', '2', [{"st": "Considerá dos vectores v⃗, w⃗ ∈ ℝ² tales que v⃗ = (3; 4), el ángulo entre v⃗ y w⃗ es π/3, y v⃗ es ortogonal a [w⃗ + (1; −3)]. Calculá el valor exacto de ‖w⃗‖.", "ans": "‖w⃗‖ = 18/5", "sol": "(Final Dic 2025·T1) Imponé v⃗·[w⃗+(1;−3)]=0 y desarrollá: v⃗·w⃗ + v⃗·(1;−3)=0. Usá v⃗·w⃗=‖v⃗‖‖w⃗‖cos(π/3)=5·‖w⃗‖·(1/2) y v⃗·(1;−3)=−9; despejá (5/2)‖w⃗‖−9=0 ⇒ ‖w⃗‖=18/5."}, {"st": "Sean v⃗₁ y v⃗₂ dos vectores de ℝ² que cumplen las siguientes condiciones: v⃗₁ tiene sus coordenadas iguales y positivas, la norma de v⃗₁ es 4√2, v⃗₂ tiene sus coordenadas positivas tal que ‖v⃗₂‖ = 5 y v⃗₂ · (4; 0) = 12. Calculá el producto escalar entre los vectores v⃗₁ y v⃗₂.", "ans": "28", "sol": "(Final Feb 2024·T1) De coordenadas iguales positivas y norma 4√2 sale v⃗₁=(4;4). De v⃗₂·(4;0)=12 sale vx=3; con ‖v⃗₂‖=5 sale vy=4 (3-4-5). Luego v⃗₁·v⃗₂=4·3+4·4=28."}, {"st": "Considerá dos vectores v⃗ y w⃗ ∈ ℝ³ tales que ‖v⃗‖ = 1, el ángulo que forman v⃗ y w⃗ es π/3, v⃗ es ortogonal a (w⃗ − 4v⃗) y w⃗ = (k; k−8; 0). Determiná el valor positivo de k ∈ ℝ para que se cumpla todo lo mencionado.", "ans": "k = 8", "sol": "(Final Feb 2026·T1) De v⃗·(w⃗−4v⃗)=0 sale v⃗·w⃗ = 4‖v⃗‖² = 4. Como v⃗·w⃗ = ‖v⃗‖‖w⃗‖cos(π/3) = ‖w⃗‖·(1/2), entonces ‖w⃗‖ = 8. Igualar k²+(k−8)²+0² = 64 → 2k²−16k = 0 → k = 8 (el positivo)."}, {"st": "Considerá v⃗₁ y v⃗₂ dos vectores de R² que cumplen las siguientes condiciones: v⃗₂ se encuentra en el cuarto cuadrante y es ortogonal a v⃗₁, la norma de v⃗₁ es 3√2 y tiene sus coordenadas positivas, v⃗₂ tiene sus coordenadas tales que ‖v⃗₂‖ = 5 y v⃗₂ · (2; 0) = 8. Si v⃗₁ = (x₁; x₂), calculá 2x₁ + x₂.", "ans": "6√2", "sol": "(Final Jul 2024·T1) De v⃗₂·(2;0)=8 se obtiene 2y₁=8 → y₁=4; con ‖v⃗₂‖=5 y 4to cuadrante, y₂=−3, o sea v⃗₂=(4;−3). Por ortogonalidad 4x₁−3x₂=0 (x₁=3t, x₂=4t) y ‖v⃗₁‖=3√2 → 25t²=18 → t=3√2/5, dando v⃗₁=(9√2/5; 12√2/5) y 2x₁+x₂=6√2."}, {"st": "Indicá el valor de m ∈ ℝ para el cual el conjunto {(4, 1, 3); (7, m, 8); (−2, 6, 4)} resulta linealmente dependiente.", "ans": "5", "sol": "(Final Jul 2024·T3) Tres vectores de ℝ³ son LD ⟺ el determinante de la matriz que forman es 0. Armá det con columnas/filas y resolvé en m; sale m=5. (Equivale a que el sistema homogéneo tenga solución no trivial.)"}, {"st": "Considerá v⃗₁ y v⃗₂ dos vectores de ℝ² que cumplen las siguientes condiciones: v⃗₂ se encuentra en el cuarto cuadrante y es ortogonal a v⃗₁, la norma de v⃗₁ es 3√2 y tiene sus coordenadas positivas, v⃗₂ tiene sus coordenadas tales que ‖v⃗₂‖ = 5 y v⃗₂ · (2; 0) = 8. Si v⃗₁ = (x₁; x₂), calculá 2x₁ + x₂.", "ans": "2x₁ + x₂ = 6√2", "sol": "(Final Jul 2024·T3) De v⃗₂·(2;0)=8 → 2y₁=8 → y₁=4; de ‖v⃗₂‖=5 → y₂²=9 → y₂=−3 (4° cuadrante). Ortogonalidad: 4x₁−3x₂=0; con ‖v⃗₁‖²=18 resolvé el sistema (coords positivas): v⃗₁=(9√2/5; 12√2/5). Luego 2x₁+x₂ = 18√2/5 + 12√2/5 = 6√2."}, {"st": "Indicá el valor de m ∈ ℝ para el cual el conjunto {(3, 4, −4); (9, 4, m); (1, 1, −3)} resulta linealmente dependiente.", "ans": "−52", "sol": "(Final Jul 2024·T4) Tres vectores de ℝ³ son LD ⇔ el determinante de la matriz que forman es 0. Armá det[3 4 −4; 9 4 m; 1 1 −3] = m + 52 = 0 ⇒ m = −52."}]);
+
+registerExercises('algebra-final', '3', [{"st": "Calculá la distancia entre el plano π de ecuación −8x − 6y − 24z = 2 y el punto de coordenadas A = (6; 4; 11). (Respuesta numérica)", "opts": ["13", "26", "338", "√26"], "c": 0, "ex": "(Final Dic 2024·T3) Aplicá la fórmula d = |a·x₀ + b·y₀ + c·z₀ − d| / √(a²+b²+c²) con el punto y el plano dados (no hace falta hallar la proyección B). ▸ <b>Opción correcta: A)</b>"}, {"st": "Calculá la distancia entre el plano π de ecuación 12x + 9z = −3 − 36y y el punto de coordenadas A = (6 ; 11 ; 4).", "opts": ["13", "11", "26", "39"], "c": 0, "ex": "(Final Dic 2024·T4) Reescribí el plano como 12x + 36y + 9z + 3 = 0 y aplicá la fórmula distancia = |12·6 + 36·11 + 9·4 + 3| / √(12² + 36² + 9²) = 507/39 = 13. (Alternativamente, proyectá A sobre π por la recta normal y medí ‖A−B‖.). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá las ecuaciones de los planos π₁: 2x + (1/2)y + 5z = −4 y π₂: x − 4y = 1, y los puntos A = (−1; 2; 1) y B = (5; 3; −1). Indicá cuál es la única afirmación que resulta verdadera.", "opts": ["B es el punto de intersección entre ambos planos.", "π₁ y π₂ son planos perpendiculares.", "La recta determinada por los puntos A y B es paralela al plano π₂.", "El punto A pertenece al plano π₁."], "c": 1, "ex": "(Final Dic 2025·T1) Tomá las normales N₁=(2; 1/2; 5) y N₂=(1; −4; 0); dos planos son perpendiculares si N₁·N₂=0. Acá N₁·N₂=2·1+(1/2)·(−4)+5·0=2−2+0=0, así que B es verdadera (descartás A y D probando que los puntos no verifican las ecuaciones, y C porque BA·N₂≠0). ▸ <b>Opción correcta: B)</b>"}, {"st": "Calculá el valor de k ∈ ℝ para que el plano de ℝ³ definido por π: −2x + ky + z = 1 resulte paralelo a la recta de ecuación L: { x − y = 0 ; x + y − 2z = 4 }.", "opts": ["k = 1", "k = −1", "k = 2", "k = 0"], "c": 0, "ex": "(Final Dic 2025·T2) El director de L se obtiene como producto vectorial de las normales de los dos planos: (1;−1;0)×(1;1;−2) = (2;2;2). El plano es paralelo a L cuando su normal (−2;k;1) es ortogonal al director: (2;2;2)·(−2;k;1)=0 ⟹ −4+2k+2=0 ⟹ k=1. ▸ <b>Opción correcta: A)</b>"}, {"st": "Sean en ℝ³ el punto P = (2; −1; 1) y el plano de ecuación π: x − 3y − 2z + 4 = 0. Elegí la única opción que muestra la distancia entre el punto y el plano.", "opts": ["14/√4", "√14 / 2", "√14 / 4", "√(14/2)"], "c": 1, "ex": "(Final Feb 2024·T1) Fórmula d = |a·x₀+b·y₀+c·z₀+d| / √(a²+b²+c²). Numerador |2+3−2+4|=7; denominador √(1+9+4)=√14; d=7/√14=√14/2. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá las rectas de ecuación L1 = {(x; y; z) ∈ ℝ³ : x + 2y = 1, z = 3} y L2 = {(x; y; z) ∈ ℝ³ : (x; y; z) = k(1/3; 2/3; 0), k ∈ ℝ}. Elegí la única afirmación que resulta verdadera.", "opts": ["Las rectas son paralelas.", "Las rectas son ortogonales y alabeadas.", "Las rectas son coincidentes.", "Las rectas son ortogonales y su intersección no es vacía."], "c": 1, "ex": "(Final Feb 2025·T1) Sacá los vectores directores: L1 tiene dirección (−2; 1; 0) y L2 tiene (1/3; 2/3; 0). Producto escalar = 0 → ortogonales. Buscá intersección y aparece un absurdo (L1 vive en z=3, L2 en z=0) → no se cortan, son alabeadas. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá las rectas de ecuación L₁ = {(x; y; z) ∈ ℝ³ : y + 2x = 1, z = 4} y L₂ = {(x; y; z) ∈ ℝ³ : (x; y; z) = k·(−2/3; −1/3; 0), k ∈ ℝ}. Elegí la única afirmación que resulta verdadera.", "opts": ["Las rectas son coincidentes.", "Las rectas son ortogonales y su intersección no es vacía.", "Las rectas son paralelas.", "Las rectas son ortogonales y alabeadas."], "c": 3, "ex": "(Final Feb 2025·T2) Director de L₁: (1; −2; 0) (de y=1−2x, z=4). Director de L₂: (−2/3; −1/3; 0). Producto escalar = −2/3 + 2/3 + 0 = 0 ⟹ ortogonales. Al intentar intersecar, L₂ tiene z=0 pero L₁ tiene z=4: imposible ⟹ no se cortan ⟹ alabeadas. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá las rectas de ecuación L₁ = {(x; y; z) ∈ ℝ³ : x + 2y = 1, z = 3} y L₂ = {(x; y; z) ∈ ℝ³ : (x; y; z) = k·(1/3; 2/3; 0), k ∈ ℝ}. Elegí la única afirmación que resulta verdadera.", "opts": ["Las rectas son paralelas.", "Las rectas son ortogonales y alabeadas.", "Las rectas son coincidentes.", "Las rectas son ortogonales y su intersección no es vacía."], "c": 1, "ex": "(Final Feb 2025·T3) Director de L₂: (1/3; 2/3; 0); director de L₁: (−2; 1; 0). Producto escalar = −2/3 + 2/3 + 0 = 0 ⇒ ortogonales. L₁ vive en z=3 y L₂ en z=0, así que no se cortan ⇒ alabeadas (no coplanares). ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá en ℝ³ el punto P = (1; −1; −1) y Π el plano de ecuación π: x − y − 2z + 4 = 0. Elegí la única opción que muestra la distancia entre el punto P y el simétrico de P.", "opts": ["2·√131/3", "2·√96/3", "√96/3", "√131/3"], "c": 1, "ex": "(Final Feb 2026·T1) La distancia entre P y su simétrico respecto del plano es 2·d(P,π). Con d(P,π) = |1−(−1)−2(−1)+4| / √(1²+1²+2²) = |8|/√6 = 8/√6 = √96/3, el doble es 2·√96/3. ▸ <b>Opción correcta: B)</b>"}, {"st": "Si R es el punto simétrico de P = (1; 2; −1) respecto del plano π: x − y − 2z + 4 = 0, calculá de manera exacta la distancia del origen de coordenadas al punto R.", "opts": ["√174/3", "√174", "√174/9", "174/3"], "c": 0, "ex": "(Final Feb 2026·T2) Recta por P con dirección la normal (1;−1;−2): (1+k, 2−k, −1−2k). Se interseca con π para hallar el pie Q=(1/6; 17/6; 2/3); como Q es punto medio de P y R, R=2Q−P=(−2/3; 11/3; 7/3) y ‖R‖=√174/3. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el plano π de ecuación 2x + 3y − z = 1 y el punto A = (−3; −7; 0). Si A′ es el simétrico de A respecto del plano π, elegí la opción que muestra la distancia de A hasta A′.", "opts": ["2√14", "√14", "4√14", "(1/2)√14"], "c": 2, "ex": "(Final Jul 2024·T1) La distancia A↔A′ es el doble de la distancia de A al plano. d(A,π)=|2(−3)+3(−7)−0−1|/√(2²+3²+(−1)²)=28/√14=2√14, así que d(A,A′)=2·(2√14)=4√14. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá el plano π de ecuación 3x + 2y − z = 9 y el punto A = (5; 4; 0). Si A′ es el simétrico de A respecto del plano π, elegí la opción que muestra la distancia de A hasta A′.", "opts": ["0,5√14", "√14", "4√14", "2√14"], "c": 3, "ex": "(Final Jul 2024·T2) La distancia de A a A′ es el doble de la distancia de A al plano. d(A,π)=|3·5+2·4−0−9|/√(3²+2²+1²)=|14|/√14=√14, así que la distancia pedida es 2√14. ▸ <b>Opción correcta: D)</b>"}, {"st": "Calculá de manera exacta la amplitud del ángulo que forman los planos de ecuación: π₁: −2x − 2y − z = 9 y π₂: 2y + 2z = −5.", "opts": ["π/4", "π/3", "π/2", "3π/4"], "c": 0, "ex": "(Final Jul 2025·T4) El ángulo entre planos es el de sus normales N⃗₁=(−2;−2;−1), N⃗₂=(0;2;2): cos α = (N⃗₁·N⃗₂)/(‖N⃗₁‖‖N⃗₂‖) = (−6)/(3·2√2) = −1/√2 ⇒ α=3π/4; el ángulo (agudo) entre los planos es su suplemento, π/4. ▸ <b>Opción correcta: A)</b>"}]);
+
+registerReveals('algebra-final', '3', [{"st": "Calculá la distancia entre el plano π de ecuación −8x − 6y − 24z = 2 y el punto de coordenadas A = (6; 4; 11).", "ans": "13", "sol": "(Final Dic 2024·T1) Usá la fórmula de distancia punto-plano d=|−8·6−6·4−24·11−2|/√(8²+6²+24²)=|−48−24−264−2|/√676=338/26=13. (El PDF lo hace proyectando A sobre π por la recta normal y midiendo ‖A−B‖, mismo resultado.)"}, {"st": "Calculá la distancia entre el plano π de ecuación 12x + 9z = −3 − 36y y el punto de coordenadas A = (6 ; 11 ; 4).", "ans": "13", "sol": "(Final Dic 2024·T2) Reescribí el plano como 12x + 36y + 9z + 3 = 0 (normal n=(12;36;9)=3·(4;12;3), ‖(4,12,3)‖=13) y aplicá la fórmula distancia = |12·6 + 36·11 + 9·4 + 3| / ‖(12,36,9)‖ = |72+396+36+3| / 39 = 507/39 = 13."}, {"st": "Si M es el punto simétrico de B = (1; 2; 3) respecto del plano π : x − 3y − 2z + 25 = 0, calculá la segunda coordenada del punto M. (Respuesta numérica)", "ans": "8", "sol": "(Final Feb 2024·T2) Recta L por B con dirección la normal (1;−3;−2); intersectá con el plano para hallar el pie Q (Q=(0;5;5)); el simétrico es M = 2Q − B = (−1;8;7). La 2da coordenada es 8."}, {"st": "Si M es el punto simétrico de B = (1; 2; 3) respecto del plano π : x − 3y − 2z + 25 = 0, calculá la segunda coordenada del punto M.", "ans": "8", "sol": "(Final Feb 2024·T4) Recta por B con dirección el normal del plano (1;−3;−2): (x;y;z)=(1;2;3)+k(1;−3;−2). Intersecá con π para hallar el pie Q (es el punto medio de B y M), y obtené M = 2Q − B. La 2ª coordenada de M es 2·5 − 2 = 8."}, {"st": "Considerá A y B dos puntos de ℝ³: A = (1; 1; 3) y B, cuya primera componente es negativa, pertenece al plano z = 1. Además, se verifica que d(A, B) = 4 y el vector AB⃗ es perpendicular al vector v⃗ = (1; 1; 1). Calculá de manera exacta las coordenadas del punto B.", "ans": "B = (2 − √5; 2 + √5; 1)", "sol": "(Final Feb 2025·T3) Poné B = (x; y; 1). Distancia: (x−1)²+(y−1)²+4 = 16 ⇒ (x−1)²+(y−1)²=12. Perpendicularidad: (1;1;1)·(x−1; y−1; −2)=0 ⇒ x+y=4. Resolvé el sistema y elegí la solución con x&lt;0... (en este caso x = 2−√5 &lt; 0)."}, {"st": "Considerá A y B dos puntos de ℝ³. A = (1; 1; 4) y B, cuya primera componente es negativa, pertenece al plano z = 2. Además, se verifica que d(A, B) = 5 y el vector AB es perpendicular al vector v = (1; −1; 1). Calculá de manera exacta las coordenadas del punto B.", "ans": "B = (2 − √(19/2); −√(19/2); 2)", "sol": "(Final Feb 2025·T4) Poné B=(x;y;2). Distancia: (x−1)²+(y−1)²+(2−4)²=25 ⇒ (x−1)²+(y−1)²=21. Perpendicularidad AB·v=0 con AB=(x−1;y−1;−2): (x−1)−(y−1)−2=0 ⇒ x−y=2. Sustituí x=y+2: (y+1)²+(y−1)²=21 ⇒ 2y²=19 ⇒ y=±√(19/2). Primera componente x negativa ⇒ y=−√(19/2), x=2−√(19/2)."}, {"st": "Si R es el punto simétrico de P = (1; 2; −1) respecto del plano π: x − y − 2z + 4 = 0, calculá de manera exacta la distancia del origen de coordenadas al punto R.", "ans": "√174 / 3", "sol": "(Final Feb 2026·T4) Recta L por P con dirección normal (1;−1;−2): (1;2;−1)+k(1;−1;−2). Sustituyendo en π: 5+6k=0 ⇒ k=−5/6, da el pie Q=(1/6; 17/6; 2/3). R es el simétrico: R=2Q−P=(−2/3; 11/3; 7/3). La distancia al origen es ‖R‖=√((−2/3)²+(11/3)²+(7/3)²)=√(174/9)=√174/3."}, {"st": "Calculá de manera exacta la amplitud del ángulo que forman los planos de ecuación: π₁: 4x + 4y + 2z = 7 y π₂: −2x − 2z + 1 = 0.", "ans": "π/4", "sol": "(Final Jul 2025·T1) Tomá los normales N⃗₁ = (4; 4; 2) y N⃗₂ = (−2; 0; −2); cos α = (N⃗₁·N⃗₂)/(‖N⃗₁‖‖N⃗₂‖) = −16/(6·2√2) da α = 3π/4, y el ángulo entre planos es su suplemento: π/4."}, {"st": "Calculá de manera exacta la amplitud del ángulo que forman los planos de ecuación: π₁: −2x − 2y − z = 9 y π₂: 2y + 2z = −5.", "ans": "π/4", "sol": "(Final Jul 2025·T2) El ángulo entre planos es el de sus normales N⃗₁ = (−2;−2;−1) y N⃗₂ = (0;2;2). cos(α) = (N⃗₁·N⃗₂)/(‖N⃗₁‖‖N⃗₂‖) = (−6)/(3·2√2) = −1/√2 ⇒ α = 3π/4; se toma el suplemento agudo π/4."}]);
+
+registerExercises('algebra-final', '4', [{"st": "Si z = (2 + 3i)⁶, elegí la opción que corresponde a un número complejo que se ubique en el mismo cuadrante en que se encuentra z.", "opts": ["cos(π/5) + i·sen(π/5)", "2·e^(i·4π/3)", "−√2/2 + i·√2/2", "1 − √3·i"], "c": 3, "ex": "(Final Dic 2024·T1) El argumento de z es 6·arctan(3/2) ≈ 6·56.31° ≈ 337.9° → 4º cuadrante. Ubicá cada opción: A) 1er cuad (π/5≈36°); B) 3er cuad (4π/3=240°); C) 2º cuad (135°); D) arg(1−√3i)=−60°=300° → 4º cuadrante, coincide con z. ▸ <b>Opción correcta: D)</b>"}, {"st": "Si z = (3 + 2i)⁸, elegí la opción que corresponde a un número complejo que se ubique en el mismo cuadrante en que se encuentra z.", "opts": ["cos(π/6) + i·sen(π/6)", "3·e^(i·7π/6)", "−1/2 + i·(√3/2)", "1 − √3·i"], "c": 1, "ex": "(Final Dic 2024·T2) El argumento de 3+2i es α = arctan(2/3) ≈ 33,7°; multiplicado por 8 (potencia) da ≈ 269,5°, ángulo del tercer cuadrante (entre 180° y 270°). Buscá la opción cuyo argumento esté en el tercer cuadrante: A está en el 1º (π/6), C en el 2º (−1/2 + i√3/2), D en el 4º (1−√3i tiene arg 5π/3). Solo B, con argumento 7π/6 (entre π y 3π/2), está en el tercer cuadrante. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá los complejos u = −1 + i  y  v = −1/2 + (√3/2)i. Elegí la única opción que muestra la forma polar del complejo w = (ū)⁵ · v⁷.", "opts": ["4√2 (cos π/6 + i sin π/6)", "4√2 (cos π/4 + i sin π/4)", "(cos 2π/3 + i sin 2π/3)", "4√2 (cos 11π/12 + i sin 11π/12)"], "c": 3, "ex": "(Final Dic 2025·T2) Conjugar y pasar a polar: ū = −1 − i tiene módulo √2 y argumento 5π/4, luego ū⁵ = (√2)⁵·(5·5π/4) = 4√2 con argumento π/4. v tiene módulo 1 y argumento 2π/3, luego v⁷ tiene módulo 1 y argumento 2π/3. El producto: módulo 4√2 y argumento π/4 + 2π/3 = 11π/12. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá los complejos u = −1 + i y v = −1/2 + (√3/2)i. Elegí la única opción que muestra la forma polar del complejo w = (ū)^5 · v^7.", "opts": ["4√2 (cos(π/6) + i sin(π/6))", "4√2 (cos(π/4) + i sin(π/4))", "cos(2π/3) + i sin(2π/3)", "4√2 (cos(11π/12) + i sin(11π/12))"], "c": 3, "ex": "(Final Dic 2025·T4) ū = −1−i tiene |ū|=√2 y arg = −3π/4 (o 5π/4); (ū)^5 = 4√2·(cos π/4 + i sin π/4). v tiene módulo 1 y arg 2π/3, v^7 = cos 2π/3 + i sin 2π/3. El producto: módulo 4√2 y argumento π/4 + 2π/3 = 3π/12 + 8π/12 = 11π/12. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá los z ≠ 0 que verifican la ecuación (−z)⁵ + 3iz = 0. Elegí la única opción que muestra el argumento y el módulo de z si se encuentra en el tercer cuadrante.", "opts": ["θ = 9π/8 y |z| = ⁴√3", "θ = 11π/8 y |z| = 3", "θ = 9π/8 y |z| = √3", "θ = 11π/8 y |z| = 3"], "c": 0, "ex": "(Final Feb 2024·T2) Con z≠0, (−z)⁵+3iz=0 ⇒ −z⁵+3iz=0 ⇒ z⁴ = 3i. Módulo: |z|=³√… no, |z|=(3)^{1/4}=⁴√3. Argumentos: (π/2+2kπ)/4; la raíz del 3er cuadrante tiene θ = 9π/8. ▸ <b>Opción correcta: A)</b>"}, {"st": "Si z ∈ ℂ \\ {0} calculá de manera exacta el módulo de la parte imaginaria de las soluciones no reales de z³ = (−8 − 8i)/(1 + i).", "opts": ["√3", "3", "2√3", "1"], "c": 0, "ex": "(Final Feb 2025·T1) Simplificá el segundo miembro: (−8−8i)/(1+i)=−8(1+i)/(1+i)=−8. Resolvé z³+8=0 ⇒ (z+2)(z²−2z+4)=0. Las raíces no reales salen de z²−2z+4=0 ⇒ z=1±√3 i, cuya parte imaginaria tiene módulo √3. ▸ <b>Opción correcta: A)</b>"}, {"st": "Si z ∈ ℂ \\ {0} calculá de manera exacta el módulo de la parte imaginaria de las soluciones no reales de z³(2 − 2i)⁻¹ = 2 + 2i.", "opts": ["√3", "3", "2√3", "√3/2"], "c": 0, "ex": "(Final Feb 2025·T2) Despejá z³=(2+2i)(2−2i)=4+4=8. Resolvé z³−8=0 ⟹ (z−2)(z²+2z+4)=0 ⟹ z=−1±√3 i (no reales). La parte imaginaria es ±√3, cuyo módulo es √3. ▸ <b>Opción correcta: A)</b>"}, {"st": "Elegí la opción que muestra el argumento θ y módulo del complejo z = (1 + i)⁸(1 − √3 i)⁵.", "opts": ["θ = π/4 y |z| = 512", "θ = π/3 y |z| = 16", "θ = π/4 y |z| = 16", "θ = π/3 y |z| = 512"], "c": 3, "ex": "(Final Feb 2026·T2) En polar: (1+i)=√2∠(π/4) ⇒ (1+i)⁸=16∠0; (1−√3i)=2∠(−π/3) ⇒ elevado a 5 = 32∠(−5π/3)=32∠(π/3). Producto: módulo 16·32=512, argumento 0+π/3=π/3. ▸ <b>Opción correcta: D)</b>"}, {"st": "De todos los z ∈ ℂ \\ {0} solución de −2z⁵ = z̄³(4 + 4i)|z|, calculá de manera exacta y escribí en su forma polar aquel que tenga el menor argumento.", "opts": ["z = 2√2 ( cos(3π/32) + i·sen(3π/32) )", "z = 2√2 ( cos(5π/4) + i·sen(5π/4) )", "z = 2√2 ( cos(π/32) + i·sen(π/32) )", "z = √2 ( cos(3π/32) + i·sen(3π/32) )"], "c": 0, "ex": "(Final Jul 2024·T2) Con z=|z|(cosα+i senα): z⁵ aporta 5α, z̄³ aporta −3α; (4+4i)/(−2)=−2−2i=2√2·cis(5π/4). Igualando módulos: |z|⁵=2√2|z|⁴ ⇒ |z|=2√2; argumentos: −5α=3α+5π/4+2kπ ⇒ α=(−5π/4−2kπ)/8. El menor argumento positivo (k=7) da α=3π/32, luego z=2√2(cos(3π/32)+i sen(3π/32)). ▸ <b>Opción correcta: A)</b>"}, {"st": "Elegí la opción que ofrece la mejor aproximación a los centésimos del argumento de (1 + 3i)⁷.", "opts": ["1,25", "71,56", "2,47", "2,60"], "c": 2, "ex": "(Final Jul 2025·T1) arg(1 + 3i) = arctan(3) ≈ 1,2490 rad. Por De Moivre arg((1+3i)⁷) = 7·1,2490 ≈ 8,743; reducí restando 2π ≈ 6,2832 ⇒ ≈ 2,47. ▸ <b>Opción correcta: C)</b>"}, {"st": "Elegí la opción que ofrece la mejor aproximación a los centésimos del argumento de (3 + i)⁵.", "opts": ["1,61", "18,43", "0,32", "1,69"], "c": 0, "ex": "(Final Jul 2025·T2) El argumento de 3 + i es α = arctg(1/3) ≈ 0,32175 rad. Por De Moivre, arg((3+i)⁵) = 5·arg(3+i) = 5·arctg(1/3) ≈ 1,61 rad. ▸ <b>Opción correcta: A)</b>"}]);
+
+registerReveals('algebra-final', '4', [{"st": "Calculá de manera exacta el módulo del complejo (2 + 3i)⁴/(−5i) + (2 − 3i)²·(1 − i).", "ans": "7√509/5", "sol": "(Final Dic 2025·T1) Calculá (2+3i)⁴=−119−120i y dividí por −5i ⇒ 24−(119/5)i. Por otro lado (2−3i)²=−5−12i y ·(1−i)=−17−7i. Sumá: 7−(154/5)i. El módulo es √(7²+(154/5)²)=√(49+23716/25)=√(24941/25)=7√509/5."}, {"st": "Calculá de manera exacta el módulo del complejo (2 + 3i)^4 / (−5i) + (2 − 3i)^2 · (1 − i).", "ans": "7√509/5", "sol": "(Final Dic 2025·T3) Operá: (2+3i)^4=−119−120i, dividido por −5i da 24−(119/5)i; (2−3i)^2=−5−12i, por (1−i) da −17−7i. Sumá: 7−(154/5)i. Módulo = √(7² + (154/5)²) = √(24941/25) = 7√509/5."}, {"st": "Sea z ∈ ℂ \\ {0} que cumple que z⁸ − i·z⁷ = 0, calculá z.", "ans": "i", "sol": "(Final Feb 2024·T1) Sacá factor común z⁷: z⁷(z − i)=0. Como z≠0, z⁷≠0, entonces z − i = 0 ⇒ z = i."}, {"st": "Si z ∈ ℂ \\ {0} que cumple que z⁸ − i·z⁷ = 0, calculá z.", "ans": "i", "sol": "(Final Feb 2024·T3) Factorizar: z⁸ − i·z⁷ = z⁷(z − i) = 0. Como z ≠ 0, debe ser z − i = 0, es decir z = i."}, {"st": "Si z ∈ ℂ \\ {0} calculá de manera exacta el módulo de la parte imaginaria de las soluciones no reales de z³ = (−8 − 8i)/(1 + i).", "ans": "√3", "sol": "(Final Feb 2025·T3) Simplificá (−8−8i)/(1+i) = −8(1+i)/(1+i) = −8. Resolvé z³+8=0 ⇒ (z+2)(z²−2z+4)=0; las raíces no reales son z = 1 ± √3·i, cuyo |Im| = √3."}, {"st": "Si z ∈ ℂ \\ {0} calculá de manera exacta el módulo de la parte imaginaria de las soluciones no reales de z³(2 − 2i)⁻¹ = 2 + 2i.", "ans": "√3", "sol": "(Final Feb 2025·T4) Despejá z³ = (2+2i)(2−2i) = 4 − 4i² = 8. Resolvé z³ − 8 = 0 ⇒ (z−2)(z²+2z+4)=0. Las no reales: z = (−2±√(4−16))/2 = −1 ± √3·i. La parte imaginaria es ±√3, su módulo √3."}, {"st": "Considerá z ∈ ℂ que verifica la ecuación (4iz)³ + 64z = 0. Calculá de manera exacta z¹⁴ para los complejos no nulos que son solución de dicha ecuación.", "ans": "z¹⁴ = i", "sol": "(Final Feb 2026·T1) (4iz)³ = 64i³z³ = −64i·z³, así que −64i·z³ + 64z = 0. Con z ≠ 0: z³/z = 1/i → z² = 1/i = −i. Entonces z¹⁴ = (z²)⁷ = (−i)⁷ = i."}, {"st": "De todos los z ∈ C \\ {0} solución de: z⁴ = z²(−2 − 2i)·|z|. Calculá de manera exacta y escribí en su forma polar aquel que tenga el menor argumento.", "ans": "z = 2√2·(cos(π/8) + i·sen(π/8))", "sol": "(Final Jul 2024·T1) Escribir todo en forma polar. Módulos: |z|⁴=2√2·|z|³ → |z|=2√2. Argumentos: −4α=2α+5π/4+2kπ → α=−(5π/4+2kπ)/6. Recorriendo k se obtienen 6 raíces; la de menor argumento (en [0,2π)) es α=π/8, dando z=2√2(cos(π/8)+i·sen(π/8))."}, {"st": "De todos los z ∈ ℂ\\{0} solución de: z⁴ = z²·(−2−2i)·|z|, calculá de manera exacta y escribí en su forma polar aquel que tenga el menor argumento.", "ans": "z = 2√2·(cos(π/8) + i·sen(π/8))", "sol": "(Final Jul 2024·T3) Pasá todo a forma polar: z⁴ tiene argumento 4α, el lado derecho z²·(−2−2i)·|z| tiene argumento 2α+5π/4. De módulos: |z|⁴=2√2·|z|³ → |z|=2√2. De argumentos: 4α=2α+5π/4+2kπ → 2α=5π/4+2kπ; el menor argumento positivo da α=π/8."}, {"st": "De todos los z ∈ ℂ∖{0} solución de −2z⁵ = z³(4+4i)|z|, calculá de manera exacta y escribí en su forma polar aquel que tenga el menor argumento.", "ans": "z = 2√2·(cos(3π/32) + i·sen(3π/32))", "sol": "(Final Jul 2024·T4) Escribí z=|z|(cosα+i·senα). Dividiendo 4+4i por −2 queda −2−2i = 2√2·(cos(5π/4)+i·sen(5π/4)). Igualando módulos: |z|=2√2; igualando argumentos según el desarrollo: −8α = 5π/4 + 2kπ ⇒ α = −5π/32 − kπ/4. El menor argumento positivo se da en k=7: α=3π/32."}]);
+
+registerExercises('algebra-final', '5', [{"st": "Una elipse tiene ecuación x² + k·y² − 16x = 0 con k ∈ ℝ − {0} y uno de sus focos es F₁ = (8 + √(128/3), 0). Determiná el valor de k. (Respuesta numérica)", "opts": ["3", "1/3", "2", "128/3"], "c": 0, "ex": "(Final Dic 2024·T3) Completá cuadrados: (x−8)²/64 + y²/(64/k) = 1, centro (8,0), eje focal x (a²=64). El foco da c=√(128/3), y c²=a²−b²=64−64/k=128/3; despejá k. ▸ <b>Opción correcta: A)</b>"}, {"st": "Una elipse tiene ecuación kx² + y² − 18y = 0 con k ∈ ℝ − {0} y uno de sus focos es F₁ = (0, 9 + √(324/5)). Determiná el valor de k.", "opts": ["5", "1/5", "9", "81/5"], "c": 0, "ex": "(Final Dic 2024·T4) Completá cuadrados: kx² + (y−9)² = 81, o sea (y−9)²/81 + x²/(81/k) = 1, con eje mayor vertical (el foco está sobre y). Entonces c² = 81 − 81/k = 324/5; despejá: 81/k = 81 − 324/5 = 81/5 ⇒ k = 5. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá la elipse E de focos F₁ = (−7; 9) y F₂ = (−7; 1) y excentricidad e = 8/10. Elegí la única opción que resulta verdadera.", "opts": ["El punto (−11; 5) pertenece a E.", "E interseca al eje y en dos puntos.", "El eje focal es una recta horizontal.", "E corta al eje x en un solo punto."], "c": 3, "ex": "(Final Dic 2025·T1) Centro = punto medio de los focos = (−7; 5); como los focos comparten x=−7 el eje focal es vertical (descartás C). Distancia focal 2c=8 ⇒ c=4; de e=c/a=8/10 sale a=5 y b²=a²−c²=9 ⇒ b=3. Ecuación: (x+7)²/9 + (y−5)²/25 = 1. Poniendo y=0 queda (x+7)²/9=0 ⇒ un único punto (−7;0): D verdadera. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá la hipérbola H de focos F₁ = (8; 1) y F₂ = (−2; 1) y excentricidad e = 10/6. Escribí la ecuación de una asíntota de H con pendiente positiva.", "opts": ["y − 1 = (4/3)(x − 3)", "y − 1 = (3/4)(x − 3)", "y − 1 = (4/3)(x + 3)", "y = (4/3)x − 3"], "c": 0, "ex": "(Final Dic 2025·T2) Centro = punto medio de los focos = (3;1); c = distancia centro-foco = 5. De e=c/a=10/6 sale a=3, y con c²=a²+b² sale b=4. La asíntota de pendiente positiva tiene pendiente b/a=4/3 y pasa por el centro: y−1=(4/3)(x−3). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá la hipérbola H de focos F₁ = (8; 1) y F₂ = (−2; 1) y excentricidad e = 10/6. Escribí la ecuación de una asíntota de H con pendiente positiva.", "opts": ["y − 1 = (4/3)(x − 3)", "y − 1 = (3/4)(x − 3)", "y = (4/3)x − 3", "y − 1 = −(4/3)(x − 3)"], "c": 0, "ex": "(Final Dic 2025·T4) Centro = punto medio de los focos = (3; 1); c = semidistancia entre focos = 5. De e = c/a = 10/6 ⟹ a = 3; b = √(c²−a²) = √(25−9) = 4. Pendiente positiva de asíntota = b/a = 4/3; pasa por el centro: y − 1 = (4/3)(x − 3). ▸ <b>Opción correcta: A)</b>"}, {"st": "Elegí la única opción que muestra las ecuaciones de las asíntotas de la hipérbola: −4x² + 16y² + 4x + 32y − 49 = 0", "opts": ["2x − 4y = −5; −2x − 4y = −3", "2x − 4y = −5; 2x + 4y = 5", "2x − 4y = 5; −2x − 4y = 3", "−2x + 4y = −3; 2x − 4y = 3"], "c": 2, "ex": "(Final Feb 2024·T1) Completá cuadrados: queda (y+1)²/4 − (x−0,5)²/16 = 1, centro (0,5; −1), pendientes ±(a/b)=±2/4=±1/2. Las asíntotas y+1=±½(x−0,5) reordenadas dan 2x−4y=5 y −2x−4y=3. ▸ <b>Opción correcta: C)</b>"}, {"st": "Indicá cuál de las cónicas propuestas tiene exactamente dos puntos en común con la elipse E de centro C = (−2, 8), semieje mayor 5 y focos F1 = (−2, 4), F2 = (−2, 12).", "opts": ["(x + 2)² = (y − 8)² + 16", "Parábola con vértice V = (0, 0) que pasa por P = (4, −2) y Q = (−4, −2)", "(x + 2)² + (y − 8)² = 16", "5x² + 20x − 3y = −44"], "c": 3, "ex": "(Final Feb 2025·T1) Armá la elipse: c=4 (focos a distancia 4), a=5 ⇒ b²=9 ⇒ (x+2)²/9+(y−8)²/25=1 (eje mayor vertical, semieje menor 3). A es una hipérbola que no la toca; B parábola con foco en y negativo, no la toca; C circunferencia r=4 centrada en C que la corta en 4 puntos; D es la parábola (x+2)²=(3/5)(y−8) con vértice en C que la toca en exactamente 2 puntos. ▸ <b>Opción correcta: D)</b>"}, {"st": "Indicá cuál de las cónicas propuestas tiene exactamente dos puntos en común con la elipse E de centro C = (8, 4), semieje mayor 10 y focos F₁ = (8, 12); F₂ = (8, −4).", "opts": ["Parábola con vértice V = (0, 0) que pasa por P = (−2, −8) y Q = (−2, 8)", "4x² − 64x − y = −260", "(x − 8)² = (y − 4)² + 64", "(x − 8)² + (y − 4)² = 64"], "c": 1, "ex": "(Final Feb 2025·T2) E es (x−8)²/36 + (y−4)²/100 = 1 (semiejes 6 y 10). La opción B se reescribe como parábola (x−8)² = ¼(y−4) con vértice en (8,4)=centro de E: una parábola que abre con vértice en el centro corta la elipse en exactamente 2 puntos. Las demás dan 0 o 4 puntos. ▸ <b>Opción correcta: B)</b>"}, {"st": "Indicá cuál de las cónicas propuestas tiene exactamente dos puntos en común con la elipse E de centro C = (−2, 8), semieje mayor 5 y focos F₁ = (−2, 4), F₂ = (−2, 12).", "opts": ["(x + 2)² = (y − 8)² + 16", "Parábola con vértice V = (0, 0) que pasa por P = (4, −2) y Q = (−4, −2)", "(x + 2)² + (y − 8)² = 16", "5x² + 20x − 3y = −44"], "c": 3, "ex": "(Final Feb 2025·T3) E: c=4 (focos verticales), a=5 ⇒ b²=9; E: (x+2)²/9 + (y−8)²/25 = 1 (semieje menor 3). A es hipérbola (no corta), C es circunferencia r=4 (corta en 4), B es parábola con vértice fuera. D se reescribe (x+2)²=(3/5)(y−8): parábola con vértice en el centro de E que la corta exactamente en 2 puntos. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá C la ecuación de la curva x² − 3x + 3,5y + 14,5 = 0 y elegí la única opción que contiene una afirmación verdadera.", "opts": ["El punto (5; −7) no pertenece a C.", "El vértice de C es el punto de coordenadas (3/2; 7/2).", "El punto medio entre (3/2; −35/8) y (3/2; −21/8) pertenece a C.", "C tiene todos sus puntos en el primer y segundo cuadrante."], "c": 2, "ex": "(Final Feb 2026·T1) Completar cuadrados: (x − 3/2)² = −(7/2)(y + 7/2), parábola de eje vertical con vértice (3/2; −7/2). Eso descarta B (vértice tiene y=−7/2, no 7/2) y D (abre hacia abajo). (5;−7) sí verifica → descarta A. El punto medio de los dos puntos dados es (3/2; −7/2) = vértice ∈ C → C verdadera. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá las ecuaciones de las circunferencias C₁: x² + y² − 8x − 2y + 7 = 0, C₂: x² + y² − 3x − 7y + 12 = 0. Escribí las coordenadas de los dos puntos de intersección entre estas curvas.", "opts": ["(1; 2) y (3; 4)", "(1; 2) y (4; 3)", "(2; 1) y (4; 3)", "(−1; 2) y (3; −4)"], "c": 0, "ex": "(Final Feb 2026·T2) Restá las dos ecuaciones para eliminar los términos cuadráticos: −5x+5y−5=0 ⇒ x=y−1 (eje radical). Sustituí en C₁: (y−1)²+y²−8(y−1)−2y+7=0 ⇒ y=2 o y=4, y con x=y−1 da (1;2) y (3;4). ▸ <b>Opción correcta: A)</b>"}, {"st": "La hipérbola H es de la forma x²/450 − y²/k = 1, con k ∈ R − {0} y sus focos son F₁ = (−25, 0) y F₂ = (25, 0). Indicá la única opción que muestra una hipérbola que tiene la misma excentricidad que H.", "opts": ["(x−2)²/18 − (y+3)²/7 = 1", "7(x + 5)² + 18(y − 1)² = 126", "x²/7 − y²/18 = 1", "1 + (x−2)²/450 = (y−10)²/175"], "c": 0, "ex": "(Final Jul 2024·T1) Para H: a²=450, c=25 → e=c/a=25/√450=5/(3√2)≈1,179. En la opción A: a²=18, b²=7, c²=25, c=5 → e=5/√18=5/(3√2), igual excentricidad. (En C e=5/√7≈1,89; no coincide.). ▸ <b>Opción correcta: A)</b>"}, {"st": "La hipérbola H es de la forma y²/153 − x²/k = 1 con k ∈ ℝ − {0} y sus focos son F₁ = (0, −17) y F₂ = (0, 17). Indicá la única opción que muestra una hipérbola que tiene la misma excentricidad que H.", "opts": ["1 − (y−2)²/136 = (x−10)²/153", "(y+5)²/612 − (x−1)²/544 = 1", "(x+5)²/153 − (y−1)²/289 = 1", "x²/136 − y²/153 = 1"], "c": 1, "ex": "(Final Jul 2024·T2) En H: a=√153, c=17, e=17/√153=(17/3)·(1/√17)·3... → e=17/√153. Buscar la opción con eje y, a²=612, b²=544 ⇒ c²=1156 ⇒ c=34, e=34/√612=17/√153 (misma e). Solo B) tiene la forma correcta (eje y) y la misma excentricidad. ▸ <b>Opción correcta: B)</b>"}, {"st": "La hipérbola H es de la forma x²/450 − y²/k = 1, con k ∈ ℝ − {0} y sus focos son F₁ = (−25, 0) y F₂ = (25, 0). Indicá la única opción que muestra una hipérbola que tiene la misma excentricidad que H.", "opts": ["(x−2)²/18 − (y+3)²/7 = 1", "7(x + 5)² + 18(y − 1)² = 126", "x²/7 − y²/18 = 1", "1 + (x−2)²/450 = (y−10)²/175"], "c": 0, "ex": "(Final Jul 2024·T3) Para H: a²=450, c=25 (de los focos), e=c/a=25/√450=5√2/6. Buscá la opción con a²=18, b²=7 → c²=a²+b²=25, c=5, e=5/√18=5√2/6. Coincide solo A (B es elipse, C tiene a²=7→e≠, D es vertical con otra e). ▸ <b>Opción correcta: A)</b>"}, {"st": "La hipérbola H es de la forma y²/153 − x²/k = 1 con k ∈ ℝ − {0} y sus focos son F₁ = (0; −17) y F₂ = (0; 17). Indicá la única opción que muestra una hipérbola que tiene la misma excentricidad que H.", "opts": ["1 − (y−2)²/136 = (x−10)²/153", "(y+5)²/612 − (x−1)²/544 = 1", "(x+5)²/153 − (y−1)²/289 = 1", "x²/136 − y²/153 = 1"], "c": 1, "ex": "(Final Jul 2024·T4) Para H: a²=153, c=17 ⇒ e=17/√153. En la opción B (hipérbola vertical) c²=612+544=1156 ⇒ c=34, a²=612, e=34/√612; comparando e²: 1156/612 = 289/153 = 17²/153 ⇒ misma excentricidad. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá V al vértice de la parábola x² + 4x − 20y + 64 = 0, y C al centro de la hipérbola (x−3)²/7 − (y−4)²/18 = 1. Determiná el valor exacto del radio de la circunferencia con centro en C que pasa por V.", "opts": ["√26", "26", "√34", "5"], "c": 0, "ex": "(Final Jul 2025·T4) Completar cuadrados en la parábola: (x+2)²=20(y−3) ⇒ V=(−2;3). El centro de la hipérbola se lee directo: C=(3;4). El radio es la distancia V–C: √[(3−(−2))²+(4−3)²]=√(25+1)=√26. ▸ <b>Opción correcta: A)</b>"}]);
+
+registerReveals('algebra-final', '5', [{"st": "Una elipse tiene ecuación x² + ky² − 16x = 0 con k ∈ ℝ − {0} y uno de sus focos es F₁ = (8 + √(128/3), 0). Determiná el valor de k.", "ans": "k = 3", "sol": "(Final Dic 2024·T1) Completá cuadrados: (x−8)²/64 + y²/(64/k) = 1, centro (8,0). El foco da c=√(128/3), c²=128/3. Con a²=64 y b²=64/k: c²=a²−b² → 128/3 = 64 − 64/k → 64/k = 64/3 → k=3."}, {"st": "Una elipse tiene ecuación kx² + y² − 18y = 0 con k ∈ ℝ − {0} y uno de sus focos es F₁ = (0, 9 + √(324/5)). Determiná el valor de k.", "ans": "5", "sol": "(Final Dic 2024·T2) Completá cuadrados: kx² + (y−9)² = 81, es decir x²/(81/k) + (y−9)²/81 = 1. El foco está sobre el eje vertical (x=0), así que a²=81, b²=81/k y c² = a²−b² = 81 − 81/k = 324/5. Despejando: 81/k = 81 − 324/5 = 81/5, luego k = 5."}, {"st": "Los puntos A = (−1/2; 2) y B = (−4; −5/2) determinan una cuerda de cierta circunferencia. Si el punto medio entre A y B es el centro de la misma, calculá de manera exacta la longitud del radio de dicha circunferencia. (Respuesta exacta)", "ans": "√(65/8)", "sol": "(Final Feb 2024·T2) Si el punto medio es el centro, la cuerda es un diámetro: el radio es la mitad de la distancia A–B, o equivalentemente la distancia del centro (−9/4;−1/4) a A. Da √(65/8)."}, {"st": "Considerá las ecuaciones de las circunferencias C₁: x² + y² − 8x − 2y + 7 = 0 y C₂: x² + y² − 3x − 7y + 12 = 0. Escribí las coordenadas de los dos puntos de intersección entre estas curvas.", "ans": "(1; 2) y (3; 4)", "sol": "(Final Feb 2026·T4) Restá las dos ecuaciones para eliminar x²+y²: −5x+5y−5=0 ⇒ x=y−1 (eje radical). Sustituí en C₁: (y−1)²+y²−8(y−1)−2y+7=0 ⇒ 2y²−12y+16=0 ⇒ y=2 o y=4. Con x=y−1 obtenés (1;2) y (3;4)."}, {"st": "Considerá V el vértice de la parábola y² − 6y − 8x + 41 = 0 y C el centro de la hipérbola (x + 2)²/12 − (y − 5)²/14 = 1. Determiná el valor exacto del radio de la circunferencia con centro en C que pasa por V.", "ans": "√40", "sol": "(Final Jul 2025·T1) Completá cuadrados: (y − 3)² = 8(x − 4) ⇒ V = (4; 3); de la hipérbola C = (−2; 5). El radio es dist(C, V) = √((4+2)² + (3−5)²) = √(36 + 4) = √40."}, {"st": "Considerá V al vértice de la parábola x² + 4x − 20y + 64 = 0, y C al centro de la hipérbola (x − 3)²/7 − (y − 4)²/18 = 1. Determiná el valor exacto del radio de la circunferencia con centro en C que pasa por V.", "ans": "√26", "sol": "(Final Jul 2025·T2) Completá cuadrados en la parábola: (x+2)² = 20(y−3) ⇒ V = (−2; 3). De la hipérbola, C = (3; 4). El radio es la distancia V–C: r = √[(3−(−2))² + (4−3)²] = √(25+1) = √26."}]);
+
+registerExercises('algebra-final', '6', [{"st": "Considerá las transformaciones lineales T₁ y T₂ cuyas matrices asociadas son: M_T₁ = [1 −3; 2 1; 1 1] y M_T₂ = [2 −6 3; 1 0 p] con p ∈ ℝ. Indicá el valor de p para que la transformación lineal T₂ ∘ T₁ no sea isomorfismo. (Respuesta numérica)", "opts": ["−15", "15", "0", "−3"], "c": 0, "ex": "(Final Dic 2024·T3) Calculá M_{T₂∘T₁} = M_T₂ · M_T₁ (matriz 2×2). T₂∘T₁ no es isomorfismo cuando esa matriz no es inversible, es decir det = 0; despejá p. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá las transformaciones lineales T₁ y T₂ cuyas matrices asociadas son: M_T₁ = [1 −3; 2 1; 1 1] (matriz 3×2) y M_T₂ = [p 0 1; 1 −2 6] (matriz 2×3) con p ∈ ℝ. Indicá el valor de p para que la transformación lineal T₂ ∘ T₁ no sea isomorfismo.", "opts": ["1/5", "1", "5", "−1/5"], "c": 0, "ex": "(Final Dic 2024·T4) La composición tiene matriz M_T₂·M_T₁ (2×2). No es isomorfismo cuando esa matriz no es inversible, es decir det=0. Calculá el producto = [p+1 −3p+1; 3 1] y resolvé det = (p+1)−3(−3p+1) = 10p−2 = 0. ▸ <b>Opción correcta: A)</b>"}, {"st": "T: ℝ² → ℝ² es una transformación lineal que resulta de componer una homotecia de factor 1/2, seguida de una rotación en sentido antihorario de ángulo π/4. Elegí la opción que muestra el resultado de T(1; −1).", "opts": ["(0; 0)", "(−√2/2; 0)", "(0; √2/2)", "(√2/2; 0)"], "c": 3, "ex": "(Final Dic 2025·T1) Aplicá primero la homotecia: (1;−1)→(1/2;−1/2). Luego la rotación de π/4, matriz [√2/2 −√2/2; √2/2 √2/2]. Componente x: √2/2·(1/2)−√2/2·(−1/2)=√2/2; componente y: √2/2·(1/2)+√2/2·(−1/2)=0 ⇒ (√2/2; 0). ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá la transformación lineal g: ℝ³ → ℝ³ cuya matriz asociada es M = [ −k 5 1 ; 1 2k−4 1 ; 1 5 4 ]. Calculá el único valor de k ∈ ℕ para el cual g no resulta un isomorfismo.", "opts": ["k = 2", "k = 3", "k = 1", "k = 6"], "c": 0, "ex": "(Final Dic 2025·T2) g es isomorfismo ⟺ M es inversible ⟺ det(M) ≠ 0. Se calcula det(M) = −8k² + 19k − 6, cuyas raíces son k = 3/8 y k = 2. El único valor natural que anula el determinante (y por tanto rompe el isomorfismo) es k = 2. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá la transformación lineal g: ℝ³ → ℝ³ cuya matriz asociada es M = [−k 5 1; 1 2k−4 1; 1 5 4]. Calculá el único valor de k ∈ ℕ para el cual g no resulta un isomorfismo.", "opts": ["k = 2", "k = 1", "k = 3", "k = 6"], "c": 0, "ex": "(Final Dic 2025·T4) g es isomorfismo ⟺ M inversible ⟺ det(M) ≠ 0. Acá det(M) = −8k²+19k−6; la única raíz natural es k = 2 (en k=2: −32+38−6 = 0). ▸ <b>Opción correcta: A)</b>"}, {"st": "Teniendo en cuenta que T: ℝ² → ℝ² es una transformación lineal que resulta de componer un deslizamiento cortante (shear) de factor 2 en la dirección x, seguido de una rotación en sentido antihorario de ángulo π/6, elegí la opción que muestra el resultado de T(1; 2).", "opts": ["( (5/2)√3 + 1 ; 5/2 + √3 )", "( (5/2)√3 − 1 ; 5/2 + √3 )", "( (5/2)√3 − 1 ; 5/2 − √3 )", "( (5/2)√3 − 1 ; −5/2 + √3 )"], "c": 1, "ex": "(Final Feb 2024·T1) Matriz total Mₜ = R(π/6)·Shear = [√3/2 −1/2; 1/2 √3/2]·[1 2; 0 1]. Aplicá Mₜ a (1;2): primero shear (1;2)→(1+2·2;2)=(5;2), luego rotá. ▸ <b>Opción correcta: B)</b>"}, {"st": "Teniendo en cuenta que T : ℝ² → ℝ² es una transformación lineal que resulta de componer un deslizamiento cortante de factor 2 en la dirección x, seguido de una rotación en sentido antihorario de ángulo π/6, elegí la opción que muestra el resultado de T(1; 2).", "opts": ["(5/2·√3 + 1 ; 5/2 + √3)", "(5/2·√3 − 1 ; 5/2 + √3)", "(5/2·√3 − 1 ; 5/2 − √3)", "(5/2·√3 − 1 ; −5/2 + √3)"], "c": 1, "ex": "(Final Feb 2024·T3) Aplicar primero el corte: (1;2) → (1+2·2 ; 2) = (5;2). Luego rotar 30°: x' = cos30·5 − sen30·2 = 5√3/2 − 1 ; y' = sen30·5 + cos30·2 = 5/2 + √3. Da (5√3/2 − 1 ; 5/2 + √3). ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá las transformaciones lineales T1 : ℝ³ → ℝ² y T2 : ℝ² → ℝ³ con T1(x1, x2, x3) = (x1, x1 − 2x2); T2(x1, x2) = (−x1, 0, x1 + x2). Indicá la única afirmación correcta.", "opts": ["T1 es monomorfismo y T2 epimorfismo.", "La dimensión del núcleo de T1 es 2 y la dimensión del núcleo de T2 es 0.", "T1 es epimorfismo pero no isomorfismo.", "T1 y T2 tienen como núcleo un subespacio de igual dimensión."], "c": 2, "ex": "(Final Feb 2025·T1) Núcleo de T1: x1=0 y x1−2x2=0 ⇒ x1=x2=0, x3 libre ⇒ Nu(T1)=⟨(0,0,1)⟩, dim 1, Im(T1) dim 2 ⇒ epimorfismo (llega a ℝ²) pero no inyectiva ⇒ no isomorfismo. Núcleo de T2={(0,0)} dim 0. Comparando dimensiones descartás A, B, D. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá las transformaciones lineales T₁ : ℝ³ → ℝ² y T₂ : ℝ² → ℝ³ con T₁(x₁, x₂, x₃) = (x₁, x₁ − 2x₂); T₂(x₁, x₂) = (−x₁, 0, x₁ + x₂). Indicá la única afirmación correcta.", "opts": ["T₁ es monomorfismo y T₂ epimorfismo.", "T₂ es monomorfismo pero no isomorfismo.", "La dimensión del núcleo de T₂ es 1 y la de T₁ es 2.", "T₁ y T₂ tienen como núcleo un subespacio de igual dimensión."], "c": 1, "ex": "(Final Feb 2025·T2) Nu(T₁): x₁=0, x₁−2x₂=0 ⟹ x₁=x₂=0, libre x₃ ⟹ Nu(T₁)=⟨(0,0,1)⟩, dim 1. Nu(T₂): −x₁=0, x₁+x₂=0 ⟹ (0,0), dim 0 ⟹ T₂ monomorfismo; por dimensión dim Im(T₂)=2&lt;3 ⟹ no epimorfismo ⟹ no isomorfismo. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá las transformaciones lineales T₁ : ℝ³ → ℝ² y T₂ : ℝ² → ℝ³ con T₁(x₁, x₂, x₃) = (x₁, x₁ − 2x₂); T₂(x₁, x₂) = (−x₁, 0, x₁ + x₂). Indicá la única afirmación correcta.", "opts": ["T₁ es monomorfismo y T₂ epimorfismo.", "La dimensión del núcleo de T₁ es 2 y la dimensión del núcleo de T₂ es 0.", "T₁ es epimorfismo pero no isomorfismo.", "T₁ y T₂ tienen como núcleo un subespacio de igual dimensión."], "c": 2, "ex": "(Final Feb 2025·T3) Calculá los núcleos: Nu(T₁)=⟨(0,0,1)⟩ (dim 1), Nu(T₂)={(0,0)} (dim 0). Por teorema de la dimensión dim Im(T₁)=3−1=2=dim ℝ², así que T₁ es epimorfismo; como no es inyectiva, no es isomorfismo. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá una transformación lineal T: ℝ³ → ℝ³ tal que la matriz asociada a su inversa es [ −17 −3 25 ; −20 1 32 ; 14 6 −18 ]. Elegí la opción que corresponde al resultado de T(1; 2; −1).", "opts": ["(103/44; 1; −63/44)", "(−103/44; 1; −63/44)", "(−103/44; 1; 63/44)", "(103/44; 1; 63/44)"], "c": 1, "ex": "(Final Feb 2026·T1) Si M es la matriz de T⁻¹, entonces T(v) = M⁻¹v, equivalente a buscar el vector x con M·x = v. Atajo: probar cada opción multiplicando M por ella; la que da (1; 2; −1) es la respuesta. M·(−103/44; 1; −63/44) = (1; 2; −1). ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá la transformación lineal T: ℝ² → ℝ² que cumple T(x₁; x₂) = (x₁ + 2x₂; −x₁ + x₂). Calculá la dimensión de la imagen T⁻¹ ∘ Tᵗ.", "opts": ["0", "1", "2", "No está definida."], "c": 2, "ex": "(Final Feb 2026·T2) Matriz de T = [1 2; −1 1]; Tᵗ=[1 −1; 2 1] y T⁻¹=(1/3)[1 −2; 1 1]. La composición T⁻¹∘Tᵗ = [−1 −1; 1 0] tiene determinante 1≠0 ⇒ es inversible ⇒ dim de la imagen = 2. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá T : R² → R³ una transformación lineal cuya expresión es: T(x, y) = ((x−y)/2 , 2x , −y/2) y sea el subespacio S = {X ∈ R³ : x − z = 0; y = 0}. Indicá la única opción que muestra la preimagen de S por T, es decir, T⁻¹(S).", "opts": ["⟨(0, −2)⟩", "⟨(−2, −2)⟩", "∅", "⟨(1, 0, 1)⟩"], "c": 0, "ex": "(Final Jul 2024·T1) De las ecuaciones de S sale S=⟨(1,0,1)⟩. Buscar (x,y) con T(x,y)=a(1,0,1): (x−y)/2=a, 2x=0, −y/2=a → x=0, y=−2a, o sea (x,y)=(0,−2a)=a(0,−2). Luego T⁻¹(S)=⟨(0,−2)⟩. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá T : ℝ² → ℝ³ una transformación lineal cuya expresión es: T(x, y) = ( (x−y)/2 , x/2 , −y/2 ) y sea el subespacio S = {X ∈ ℝ³ : x − y = 0; z = 0}. Indicá la única opción que muestra la preimagen de S por T, es decir, T⁻¹(S).", "opts": ["⟨(0, −2)⟩", "⟨(2, 0)⟩", "⟨(2, −2)⟩", "∅"], "c": 1, "ex": "(Final Jul 2024·T2) S=⟨(1,1,0)⟩. Pedir T(x,y)=a(1,1,0): (x−y)/2=a, x/2=a, −y/2=0 ⇒ y=0, x=2a. Entonces T⁻¹(S)={(2a,0)}=⟨(2,0)⟩. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá T: ℝ² → ℝ³ una transformación lineal cuya expresión es: T(x, y) = ((x−y)/2, 2x, −y/2) y sea el subespacio S = {X ∈ ℝ³ : x − z = 0; y = 0}. Indicá la única opción que muestra la preimagen de S por T, es decir, T⁻¹(S).", "opts": ["⟨(0, −2)⟩", "⟨(−2, −2)⟩", "∅", "⟨(1, 0, 1)⟩"], "c": 0, "ex": "(Final Jul 2024·T3) Escribí S = ⟨(1,0,1)⟩ (de x=z, y=0). Pedí T(x,y)=a(1,0,1): (x−y)/2=a, 2x=0, −y/2=a. De 2x=0 → x=0; entonces −y/2=a y −y/2=a son consistentes, queda (x,y)=(0,−2a) ⟹ T⁻¹(S)=⟨(0,−2)⟩. ▸ <b>Opción correcta: A)</b>"}, {"st": "Indicá el valor de k ∈ ℝ de modo que se cumpla que al aplicar una rotación en sentido contrario a las agujas del reloj de ángulo π/4 a (−3√2; √2) se obtiene como imagen (k; −2).", "opts": ["k = −4", "k = 4", "k = −2", "k = 2"], "c": 0, "ex": "(Final Jul 2025·T4) Aplicar la matriz de rotación R(π/4)=[√2/2 −√2/2; √2/2 √2/2] al vector (−3√2; √2). Primera componente: (√2/2)(−3√2) − (√2/2)(√2) = −3 − 1 = −4; segunda: −3 + 1 = −2. Coincide con (k;−2) ⇒ k=−4. ▸ <b>Opción correcta: A)</b>"}]);
+
+registerReveals('algebra-final', '6', [{"st": "Considerá las transformaciones lineales T₁ y T₂ cuyas matrices asociadas son: M_T₁ = [1 −3; 2 1; 1 1] y M_T₂ = [2 −6 3; 1 0 p] con p ∈ ℝ. Indicá el valor de p para que la transformación lineal T₂ ∘ T₁ no sea isomorfismo.", "ans": "p = −15", "sol": "(Final Dic 2024·T1) Multiplicá M_T₂·M_T₁ (2×3 por 3×2) = [−7 −9; p+1 p−3]. Para que no sea isomorfismo el det debe ser 0: (−7)(p−3) − (−9)(p+1) = 2p+30 = 0 → p = −15."}, {"st": "Considerá las transformaciones lineales T₁ y T₂ cuyas matrices asociadas son: M_T₁ = [1 −3 ; 2 1 ; 1 1] (3×2) y M_T₂ = [p 0 1 ; 1 −2 6] (2×3) con p ∈ ℝ. Indicá el valor de p para que la transformación lineal T₂ ∘ T₁ no sea isomorfismo.", "ans": "1/5", "sol": "(Final Dic 2024·T2) La matriz de T₂∘T₁ es M_T₂·M_T₁ (2×2): [p+1  −3p+1 ; 3  1]. No es isomorfismo cuando el determinante es 0: (p+1)·1 − (−3p+1)·3 = p+1+9p−3 = 10p−2 = 0 ⇒ p = 1/5."}, {"st": "Siendo T la transformación lineal T : R³ → R³ cuya fórmula es: T(x; y; z) = (−3x + 2y + z; y + 2z; −4x + y − z), calculá el volumen de la imagen por T del cubo unitario S. (Respuesta numérica)", "ans": "3", "sol": "(Final Feb 2024·T2) El volumen de la imagen del cubo unitario por T es |det(M_T)|. Con M_T = [−3 2 1; 0 1 2; −4 1 −1], det = −3, así que el volumen es |−3| = 3."}, {"st": "Siendo T la transformación lineal T : ℝ³ → ℝ³ cuya fórmula es: T(x; y; z) = (−3x + 2y + z; y + 2z; −4x + y − z), calculá el volumen de la imagen por T del cubo unitario S.", "ans": "3", "sol": "(Final Feb 2024·T4) El volumen de la imagen del cubo unitario es |det(M_T)|. Armá la matriz asociada por filas con los coeficientes de T y calculá su determinante; el volumen es su valor absoluto."}, {"st": "Considerá la transformación lineal T: ℝ² → ℝ² que cumple T(x₁; x₂) = (x₁ + 2x₂; −x₁ + x₂). Calculá la dimensión de la imagen T⁻¹ ∘ Tᵗ.", "ans": "2", "sol": "(Final Feb 2026·T4) Matriz de T = [1 2; −1 1]. Tᵗ = [1 −1; 2 1] y T⁻¹ = (1/3)[1 −2; 1 1]. El producto T⁻¹·Tᵗ = [−1 −1; 1 0] tiene filas L.I. (det = 1 ≠ 0), así que es inversible ⇒ dim de la imagen = 2."}, {"st": "Indicá el valor de k ∈ ℝ de modo que se cumpla que al aplicar una rotación en sentido contrario a las agujas del reloj de ángulo π/4 a (−√2; −√2) se obtiene como imagen (0; k).", "ans": "−2", "sol": "(Final Jul 2025·T1) Aplicá la matriz de rotación [√2/2 −√2/2; √2/2 √2/2] a (−√2; −√2): primera componente √2/2·(−√2) − √2/2·(−√2) = 0; segunda √2/2·(−√2) + √2/2·(−√2) = −2 ⇒ k = −2."}, {"st": "Indicá el valor de k ∈ ℝ de modo que se cumpla que al aplicar una rotación en sentido contrario a las agujas del reloj de ángulo π/4 a (−3√2; √2) se obtiene como imagen (k; −2).", "ans": "−4", "sol": "(Final Jul 2025·T2) Aplicá la matriz de rotación R(π/4) = [√2/2 −√2/2; √2/2 √2/2] a (−3√2; √2): primera componente = (√2/2)(−3√2) − (√2/2)(√2) = −3 − 1 = −4. Segunda = −3+1 = −2. Por lo tanto k = −4."}]);
+
+registerExercises('algebra-final', '7', [{"st": "A(x) ∈ ℝ[x] es un polinomio de grado mínimo que tiene como raíces a z₁, z₂ y z₃. Si (2 + 2i)·z₁ = −7 − 7i ; z₂ = (3 − i)² y z₃ = −10 es raíz doble, calculá el valor exacto de la suma de todas las raíces distintas de A(x). (Respuesta numérica)", "opts": ["5/2", "−5/2", "5", "29/2"], "c": 0, "ex": "(Final Dic 2024·T3) Despejá z₁ = (−7−7i)/(2+2i) = −7/2. Calculá z₂ = (3−i)² = 8−6i; como A(x) es real, su conjugada 8+6i también es raíz. Las raíces DISTINTAS son −7/2, 8−6i, 8+6i, −10; sumalas. ▸ <b>Opción correcta: A)</b>"}, {"st": "B(x) ∈ ℝ[x] es un polinomio de grado mínimo que tiene como raíces a z₁, z₂ y z₃. Si (5 + 5i)·z₁ = −3 − 3i y z₂ = (4 − i)², z₃ = −9 es raíz doble, calculá el valor exacto de la suma de todas las raíces distintas de B(x).", "opts": ["102/5", "21", "108/5", "99/5"], "c": 0, "ex": "(Final Dic 2024·T4) Despejá z₁ = (−3−3i)/(5+5i) = −3/5. Calculá z₂ = (4−i)² = 15−8i; como B(x) es real, su conjugada 15+8i también es raíz. z₃=−9 (raíz doble, pero cuenta una vez como raíz distinta). Sumá las raíces distintas: −3/5 + (15−8i) + (15+8i) + (−9). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el polinomio P(x) = x⁵ − 4x³ − 8x² + 32. Indicá cuál de las siguientes afirmaciones es la correcta.", "opts": ["P no tiene raíces dobles.", "P tiene una raíz con módulo 13.", "P tiene una raíz triple.", "P tiene una raíz con parte imaginaria igual a −√3."], "c": 3, "ex": "(Final Dic 2025·T1) Factorizá P(x)=(x−2)²(x+2)(x−(−1+√3i))(x−(−1−√3i)). Las raíces complejas −1±√3i tienen parte imaginaria ±√3, así que una vale −√3 ⇒ D verdadera. A es falsa (2 es raíz doble), B falsa (todas las raíces tienen módulo 2) y C falsa (no hay raíz triple). ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá los polinomios P(x) = 6x·(x + 1)  y  Q(x) = −6 + 5·(x − x³/5). Indicá el valor que debe tomar a ∈ ℝ para que se cumpla que P(a) = Q(a).", "opts": ["a = −6", "a = 6", "a = −1", "a = 1"], "c": 0, "ex": "(Final Dic 2025·T2) Plantear P(a)=Q(a): 6a²+6a = −6 + 5a − a³, que reordenado da a³ + 6a² + a + 6 = 0. Factorizando por agrupación a²(a+6)+(a+6)=(a+6)(a²+1)=0; como a²+1&gt;0 en ℝ, la única raíz real es a = −6 (el teorema de Gauss da candidatos divisores de 6). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el polinomio P(x) = x^5 − 4x^3 − 8x^2 + 32. Indicá cuál de las siguientes afirmaciones es la correcta.", "opts": ["P no tiene raíces dobles.", "P tiene una raíz con módulo 13.", "P tiene una raíz triple.", "P tiene una raíz con parte imaginaria igual a −√3."], "c": 3, "ex": "(Final Dic 2025·T3) Factorizá P(x) = (x−2)²(x+2)(x−(−1+√3 i))(x−(−1−√3 i)). Las raíces son 2 (doble), −2 y −1±√3 i. Una de las raíces complejas tiene parte imaginaria −√3, así que D es verdadera (y A, B, C falsas: 2 es doble, todas las raíces tienen módulo 2, no hay raíz triple). ▸ <b>Opción correcta: D)</b>"}, {"st": "Dados los polinomios P(x) = 3x⁴ + 6bx − 1, Q(x) = x³ + (2b − 4)x² con b ∈ ℝ. Indicá cuál es la única opción que muestra una afirmación verdadera.", "opts": ["El resto de dividir a P por (x − 3) es igual al resto de dividir a Q por (x − 3) para todo valor de b.", "El resto de dividir a P por (x − 3) es igual al resto de dividir a Q por (x − 3) solo para un valor de b.", "El resto de dividir a P por (x + 3) es igual al resto de dividir a Q por (x + 3) para todo valor de b.", "El resto de dividir a P por (x + 3) es igual al resto de dividir a Q por (x + 3) solo para un valor de b."], "c": 3, "ex": "(Final Feb 2024·T1) Teorema del Resto: el resto de dividir por (x−x₀) es evaluar en x₀. Calculá P(3),Q(3),P(−3),Q(−3) y mirá si la igualdad vale para todo b (resta no depende de b) o para un único b (resta lineal en b con coef ≠0). ▸ <b>Opción correcta: D)</b>"}, {"st": "P(x) ∈ ℝ[x] es un polinomio mónico de grado mínimo, z1, z2 y z3 son raíces de P(x). Si (5 + 5i)·z1 = −3 − 3i y z2 = (4 − i)²; z3 = −9 es raíz doble, indicá la única opción que muestra una posible expresión factorizada en ℂ[x] de P(x).", "opts": ["P(x) = (x − 3/5)(x − 15 + 8i)(x − 15 − 8i)(x − 9)²", "P(x) = (x + 3/5)(x − 15 − 8i)(x − 4 + i)²(x + 9)", "P(x) = (x + 3/5)(x − 15 + 8i)(x − 15 − 8i)(x + 9)²", "P(x) = (x − 3/5)(x + 15 + 8i)(x + 15 − 8i)(x − 9)²"], "c": 2, "ex": "(Final Feb 2025·T1) Despejá cada raíz: z1=(−3−3i)/(5+5i)=−3/5 (real). z2=(4−i)²=15−8i, y como P∈ℝ[x] su conjugada 15+8i también es raíz. z3=−9 doble. Factores: (x+3/5)(x−(15−8i))(x−(15+8i))(x+9)². ▸ <b>Opción correcta: C)</b>"}, {"st": "Q(x) ∈ ℝ[x] es un polinomio mónico de grado mínimo; z₁, z₂ y z₃ son raíces de Q(x). Si z₁ = −10 es raíz doble, z₂ = (3 − i)² y (2 + 2i)·z₃ = −7 − 7i, indicá la única opción que muestra una posible expresión factorizada en ℂ[x] de Q(x).", "opts": ["Q(x) = (x + 3,5)(x − 8 + 6i)(x + 10)", "Q(x) = (x − 7/2)(x + 8 + 6i)(x + 8 − 6i)(x − 10)²", "Q(x) = (x − 2 − 2i)(x + 7 + 7i)(x − 3 + i)²(x + 10)²", "Q(x) = (x + 7/2)(x + 10)²(x − 8 + 6i)(x − 8 − 6i)"], "c": 3, "ex": "(Final Feb 2025·T2) z₂=(3−i)²=8−6i, y como Q∈ℝ[x] su conjugada 8+6i también es raíz. z₃=(−7−7i)/(2+2i)=−7/2 (real). z₁=−10 doble. Mónico de grado mínimo: Q=(x+10)²(x−(8−6i))(x−(8+6i))(x+7/2). ▸ <b>Opción correcta: D)</b>"}, {"st": "P(x) ∈ ℝ[x] es un polinomio mónico de grado mínimo; z₁, z₂ y z₃ son raíces de P(x). Si (5 + 5i)·z₁ = −3 − 3i y z₂ = (4 − i)²; z₃ = −9 es raíz doble, indicá la única opción que muestra una posible expresión factorizada en ℂ[x] de P(x).", "opts": ["P(x) = (x − 3/5)(x − 15 + 8i)(x − 15 − 8i)(x − 9)²", "P(x) = (x + 3/5)(x − 15 − 8i)(x − 4 + i)²(x + 9)", "P(x) = (x + 3/5)(x − 15 + 8i)(x − 15 − 8i)(x + 9)²", "P(x) = (x − 3/5)(x + 15 + 8i)(x + 15 − 8i)(x − 9)²"], "c": 2, "ex": "(Final Feb 2025·T3) z₁ = (−3−3i)/(5+5i) = −3/5 (raíz real). z₂ = (4−i)² = 15−8i, y como P es real su conjugada 15+8i también es raíz. z₃ = −9 doble. Mónico: P(x) = (x+3/5)(x−(15−8i))(x−(15+8i))(x+9)². ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá P(x), Q(x) y T(x) polinomios con coeficientes reales. Se sabe que P es mónico, de grado 2 y tiene a −√8 como raíz doble. De Q, se conoce que es mónico, de grado 3 y cumple que Q(1) = Q(−1) = Q(0) = 0. Y T(x) = P(x) − x·Q(x) − 4√2 x. Indicá cuál de las siguientes opciones muestra el conjunto de raíces de T.", "opts": ["{−√2, √2, −2, 2}", "{2, −2, √2 i, −√2 i}", "{2i, −2i, √2 i, −√2 i}", "{−2, 4}"], "c": 1, "ex": "(Final Feb 2026·T1) P(x) = (x + √8)², Q(x) = x(x−1)(x+1). Armar T(x) = (x+√8)² − x²(x−1)(x+1) − 4√2 x = −x⁴ + 2x² + 8. Resolviendo en x²: x² = 4 o x² = −2, de donde x = ±2 (reales) y x = ±√2 i (imaginarias). ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá k ∈ ℝ y P un polinomio de grado 4. Al dividir a P(x) por x² + 6x + 1 se obtiene cociente x² + k y resto −x + 5. Al dividir a P por x + i se obtiene resto 5. Averiguá el valor exacto de k.", "opts": ["7/6", "6/7", "−7/6", "5"], "c": 0, "ex": "(Final Feb 2026·T2) Reconstruí P(x)=(x²+6x+1)(x²+k)+(−x+5). Por el teorema del resto, dividir por (x+i) con resto 5 significa P(−i)=5. Evaluá: ((−i)²+6(−i)+1)((−i)²+k)+(i+5)=5 ⇒ 5+(7−6k)i=5 ⇒ 7−6k=0 ⇒ k=7/6. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el polinomio P(x) = x⁵ + 5x³ − 8x² + k, √5·i es raíz de P(x). Indicá la única opción que muestra la expresión factorizada en C[x] de P(x).", "opts": ["P(x) = (x − √5·i)(x + √5·i)(x³ − 8)", "P(x) = (x − 2)(x + √5·i)(x − √5·i)(x + 1 + √3·i)(x + 1 − √3·i)", "P(x) = (x − 2)(x + √5·i)(x − √5·i)(x − 1 + √3·i)(x − 1 − √3·i)", "P(x) = (x + √5·i)(x − √5·i)(x − 2)(x² + 2x + 4)"], "c": 1, "ex": "(Final Jul 2024·T1) Como √5·i es raíz, también lo es −√5·i, así (x²+5) | P. Imponer P(√5·i)=0 da k=−40 y P(x)=(x²+5)(x³−8). Factorizar x³−8=(x−2)(x²+2x+4) y las raíces de x²+2x+4 son −1±√3·i. Resultado: (x−2)(x−√5·i)(x+√5·i)(x+1+√3·i)(x+1−√3·i). ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá el polinomio Q(x) = x⁵ + 7x³ − 64x² + k, una raíz de Q(x) es √7·i. Indicá la única opción que muestra la expresión factorizada en ℂ[x] de Q(x).", "opts": ["Q(x) = (x − 4)(x + √7·i)(x − √7·i)(x + 2 + 2√3·i)(x + 2 − 2√3·i)", "Q(x) = (x − √7·i)(x + √7·i)(x³ − 64)", "Q(x) = (x − 4)(x + √7·i)(x − √7·i)(x − 2 + 2√3·i)(x − 2 − 2√3·i)", "Q(x) = (x + √7·i)(x − √7·i)(x − 4)(x² + 4x + 16)"], "c": 0, "ex": "(Final Jul 2024·T2) Como √7·i es raíz, también −√7·i, y (x²+7) divide a Q. De ahí k=−448 y Q(x)=(x²+7)(x³−64). Las raíces de x³−64 son 4 y −2±2√3·i, así que la factorización lineal en ℂ es (x−4)(x+√7·i)(x−√7·i)(x+2+2√3·i)(x+2−2√3·i). ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el polinomio P(x) = x⁵ + 5x³ − 8x² + k, √5·i es raíz de P(x). Indicá la única opción que muestra la expresión factorizada en ℂ[x] de P(x).", "opts": ["P(x) = (x − √5·i)(x + √5·i)(x³ − 8)", "P(x) = (x − 2)(x + √5·i)(x − √5·i)(x + 1 + √3·i)(x + 1 − √3·i)", "P(x) = (x − 2)(x + √5·i)(x − √5·i)(x − 1 + √3·i)(x − 1 − √3·i)", "P(x) = (x + √5·i)(x − √5·i)(x − 2)(x² + 2x + 4)"], "c": 1, "ex": "(Final Jul 2024·T3) Si √5·i es raíz, también −√5·i, así (x²+5) | P. Usando esto hallá k=−40 y P(x)=(x²+5)(x³−8). Factorizá x³−8=(x−2)(x²+2x+4); las raíces de x²+2x+4 son −1±√3·i. Esa es la factorización completa en ℂ[x]. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá el polinomio B(x) = x⁵ + 5x³ − 8x² + k, del cual se sabe que B(√5 i) = 0. Calculá el valor exacto de la suma de todas las raíces de B(x).", "opts": ["0", "2", "8", "−40"], "c": 0, "ex": "(Final Jul 2025·T4) Por relaciones de Vieta, la suma de las raíces es −(coef. de x⁴)/(coef. de x⁵). Como no hay término x⁴, la suma es 0 — sin necesidad de calcular k. (Con el dato B(√5 i)=0 sale k=−40 y B(x)=(x²+5)(x³−8).). ▸ <b>Opción correcta: A)</b>"}]);
+
+registerReveals('algebra-final', '7', [{"st": "A(x) ∈ ℝ[x] es un polinomio de grado mínimo que tiene como raíces a z₁, z₂ y z₃. Si (2 + 2i)·z₁ = −7 − 7i ; z₂ = (3 − i)² y z₃ = −10 es raíz doble, calculá el valor exacto de la suma de todas las raíces distintas de A(x).", "ans": "5/2", "sol": "(Final Dic 2024·T1) Despejá z₁=(−7−7i)/(2+2i)=−7/2 (real). z₂=(3−i)²=8−6i; como A∈ℝ[x], su conjugada z̄₂=8+6i también es raíz. La suma de raíces DISTINTAS es −7/2 + (8−6i) + (8+6i) + (−10) = −7/2 + 6 = 5/2."}, {"st": "B(x) ∈ ℝ[x] es un polinomio de grado mínimo que tiene como raíces a z₁, z₂ y z₃. Si (5 + 5i)·z₁ = −3 − 3i y z₂ = (4 − i)² ; z₃ = −9 es raíz doble, calculá el valor exacto de la suma de todas las raíces distintas de B(x).", "ans": "102/5", "sol": "(Final Dic 2024·T2) De la primera igualdad z₁ = (−3−3i)/(5+5i) = −3/5 (real). De z₂ = (4−i)² = 16 − 8i + i² = 15 − 8i; como B(x) es real, su conjugada z̄₂ = 15 + 8i también es raíz. Las raíces distintas son −3/5, 15−8i, 15+8i y −9 (la multiplicidad doble de z₃ no se suma dos veces). Suma = −3/5 + (15−8i) + (15+8i) + (−9) = −3/5 + 21 = 102/5."}, {"st": "Se tiene el polinomio P(x) = 2x⁴ + 7x³ + 5x² − 9x − 5. Indicá el valor que se obtiene al sumar todas las raíces de P. (Respuesta numérica)", "ans": "−7/2", "sol": "(Final Feb 2024·T2) Atajo directo: la suma de todas las raíces de un polinomio es −(coef. de x³)/(coef. principal) = −7/2. (También: raíces 1, −1/2, −2−i, −2+i suman −7/2.)"}, {"st": "Se tiene el polinomio P(x) = 2x⁴ + 7x³ + 5x² − 9x − 5. Indicá el valor que se obtiene al sumar todas las raíces de P.", "ans": "−7/2", "sol": "(Final Feb 2024·T4) Atajo directo por Vieta: la suma de todas las raíces de aₙxⁿ+…+a₀ es −aₙ₋₁/aₙ = −7/2, sin necesidad de hallar las raíces. (El PDF las halla: x=1, x=−1/2, y −2±i; suma = 1 − 1/2 − 2 − i − 2 + i = −7/2.)"}, {"st": "Considerá k ∈ ℝ y P un polinomio de grado 4. Al dividir a P(x) por x² + 6x + 1 se obtiene cociente x² + k y resto −x + 5. Al dividir a P por x + i se obtiene resto 5. Averiguá el valor exacto de k.", "ans": "k = 7/6", "sol": "(Final Feb 2026·T4) Reconstruí P(x) = (x²+6x+1)(x²+k) + (−x+5). Por el Teorema del resto, dividir por x+i da resto P(−i)=5. Evaluá: ((−i)²+6(−i)+1)((−i)²+k)+(i+5) = (−6i)(k−1)+i+5 = 5 + (7−6k)i. Igualá a 5 ⇒ parte imaginaria 7−6k=0 ⇒ k = 7/6."}, {"st": "Considerá el polinomio A(x) = x⁵ + 7x³ − 64x² + k, del cual se sabe que A(√7·i) = 0. Calculá el valor exacto de la suma de todas las raíces de A(x).", "ans": "0", "sol": "(Final Jul 2025·T1) Como √7·i es raíz, (x² + 7) divide a A(x); resulta k = −448 y A(x) = (x² + 7)(x³ − 64). Por Vieta, la suma de raíces es −(coef. de x⁴)/(coef. de x⁵) = −0/1 = 0."}, {"st": "Considerá el polinomio B(x) = x⁵ + 5x³ − 8x² + k, del cual se sabe que B(√5·i) = 0. Calculá el valor exacto de la suma de todas las raíces de B(x).", "ans": "0", "sol": "(Final Jul 2025·T2) Como B(√5·i)=0 se despeja k = −40, y B(x) = (x²+5)(x³−8). La suma de las raíces es −(coef. de x⁴)/(coef. de x⁵); como no hay término en x⁴, la suma es 0 (sin necesidad de hallar las raíces)."}]);
+
+registerExercises('algebra-final', '8', [{"st": "Considerá los subespacios S = {(x₁, x₂, x₃, x₄, x₅) ∈ ℝ⁵ : x₁ + x₃ − x₅ = 0; −2x₁ + 2x₅ = 0} y T = ⟨(−5, 5, 0, 5, −5); (1, 0, 0, 1, 0)⟩. Indicá cuál es la única afirmación cierta.", "opts": ["v⃗ = (1, −1, 0, −1, 1) pertenece a S y no pertenece a T.", "w⃗ = (0, −1, 0, −2, 1) no pertenece a S y no pertenece a T.", "v⃗ = (1, −1, 0, −1, 1) pertenece a T y no pertenece a S.", "w⃗ = (0, −1, 0, −2, 1) pertenece a T y no pertenece a S."], "c": 3, "ex": "(Final Dic 2024·T1) Probá cada vector en las 2 ecuaciones de S y como combinación lineal de los generadores de T. v⃗ cumple S y es múltiplo de (−1,1,0,1,−1) (=−1/5 del 1er generador), está en ambos. w⃗ no cumple x₁+x₃−x₅=0 (0+0−1=−1≠0) → no está en S; pero w⃗=−1·(1,0,0,1,0)+0... en realidad w⃗ es comb. lineal de T → solo D queda cierta. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá los subespacios S = {(x₁, x₂, x₃, x₄, x₅) ∈ ℝ⁵ : x₁ + x₃ − x₅ = 0 ; 2x₁ + 2x₂ = 0} y T = ⟨(3, −3, 0, −3, −3) ; (2, −2, 0, 2, −4)⟩. Indicá cuál es la única afirmación cierta.", "opts": ["v = (1, −1, 0, −5, 1) pertenece a S y no pertenece a T.", "w = (0, −1, 0, −1, 0) pertenece a S y no pertenece a T.", "v = (1, −1, 0, −5, 1) pertenece a T y pertenece a S.", "w = (0, −1, 0, −1, 0) pertenece a T y no pertenece a S."], "c": 2, "ex": "(Final Dic 2024·T2) Chequeá las ecuaciones de S en v=(1,−1,0,−5,1): x₁+x₃−x₅=1+0−1=0 ✓ y 2x₁+2x₂=2−2=0 ✓, así que v∈S. Para T buscá a,b con a(3,−3,0,−3,−3)+b(2,−2,0,2,−4)=v: a=1, b=−1 (1·3−1·2=1, −3−(−2)·… verificar las 5 coords) → v∈T. Esto descarta A. w no cumple x₁+x₃−x₅=0 (0+0−0=0 sí, pero 2x₁+2x₂=0−2=−2≠0), entonces w∉S, lo que descarta B y D. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá los subespacios S = {(x₁; x₂; x₃) ∈ ℝ³ : −3x₁ + 6x₃ = 0} y T = ⟨ (−7; −8; 14), (−8/5; 8/5; 16/5) ⟩. Indicá cuál de las siguientes afirmaciones es la única correcta.", "opts": ["El vector v⃗ = (−3; 0; 6) pertenece a S pero no a T.", "El vector v⃗ = (−3; 0; 6) pertenece a T pero no a S.", "El vector v⃗ = (−3; 0; 6) pertenece a S ∩ T.", "El vector v⃗ = (−3; 0; 6) no pertenece a T ni a S."], "c": 1, "ex": "(Final Dic 2025·T2) Chequear primero si v⃗ ∈ S sustituyendo en la ecuación: −3(−3)+6(6)=45≠0, así que v⃗ ∉ S (descarta A y C). Luego ver si v⃗ es combinación de los generadores de T: (−3;0;6) = (1/5)(−7;−8;14) + 1·(−8/5;8/5;16/5), que tiene solución, así v⃗ ∈ T. ▸ <b>Opción correcta: B)</b>"}, {"st": "Para el subespacio S = {(x₁; x₂; x₃) ∈ R³ / x₁ + 2x₂ = 0}, elegí la opción que muestra el valor de la dimensión de S.", "opts": ["0", "1", "2", "3"], "c": 2, "ex": "(Final Feb 2024·T2) Una sola ecuación lineal homogénea independiente en R³ quita 1 grado de libertad: dim = 3 − 1 = 2. Base: {(−2;1;0),(0;0;1)}. ▸ <b>Opción correcta: C)</b>"}, {"st": "Para el subespacio S = {(x₁; x₂; x₃) ∈ ℝ³ / x₁ + 2x₂ = 0}, elegí la opción que muestra el valor de la dimensión de S.", "opts": ["0", "1", "2", "3"], "c": 2, "ex": "(Final Feb 2024·T4) Una sola ecuación lineal homogénea independiente en ℝ³ define un plano por el origen: dim = n − (nº de ecuaciones independientes) = 3 − 1 = 2. (Base: {(−2;1;0),(0;0;1)}.). ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá el subespacio S = {(x, y, z) ∈ ℝ³ : ax − 4y − a²z = 0} donde a ∈ ℝ y otro subespacio T = ⟨(5, 0, −1); (1, 5, −1)⟩. Sabiendo que T está contenido en S, indicá cuál es el único valor de a para que se cumpla esta condición.", "opts": ["a = −5", "a = 5", "a = 4", "a = −4"], "c": 0, "ex": "(Final Feb 2025·T1) Si T⊆S, los dos generadores deben satisfacer la ecuación de S. Meté (5,0,−1): 5a+a²=0; meté (1,5,−1): a−20+a²=0. El a común a ambas es a=−5. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el subespacio S = {(x, y, z) ∈ ℝ³ : 6x − 3ay − a²z = 0} donde a ∈ ℝ y otro subespacio T = ⟨(−9, 1, −1); (0, 3, −1)⟩. Sabiendo que T está contenido en S, indicá cuál es el único valor de a para que se cumpla esta condición.", "opts": ["a = 9", "a = 0", "a = 3", "a = −9"], "c": 0, "ex": "(Final Feb 2025·T2) T⊆S exige que ambos generadores cumplan la ecuación de S. Con (−9,1,−1): −54−3a+a²=0. Con (0,3,−1): −9a+a²=0 ⟹ a(a−9)=0 ⟹ a=0 o a=9. La primera ecuación a²−3a−54=0 da a=9 o a=−6; el valor común es a=9. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá los subespacios R = ⟨(−4; 0; 1; 2); (0; 1; 0; 0); (−12; 3; 3; −6)⟩, S = {(x₁; x₂) ∈ ℝ² : −x₁ = x₂} y T = ⟨(−1; 1; −2); (−7; 1; 0); (6; −3; 5); (−2; −1; 3)⟩. Indicá cuál de las opciones contiene una afirmación verdadera.", "opts": ["Una base de R resulta una base de ℝ³.", "La dimensión de S es igual a la dimensión de R.", "R tiene la misma dimensión que T.", "La dimensión de R es mayor que la dimensión de T."], "c": 3, "ex": "(Final Feb 2026·T2) Calculá dimensiones: los 3 generadores de R en ℝ⁴ son L.I. ⇒ dim(R)=3; S es una recta ⇒ dim(S)=1; en T los generadores se reducen a 2 L.I. ⇒ dim(T)=2. Entonces dim(R)=3 &gt; dim(T)=2 (D verdadera); A es falsa porque R⊂ℝ⁴, no ℝ³. ▸ <b>Opción correcta: D)</b>"}, {"st": "Indicá el valor de m ∈ ℝ para el cual el conjunto {(3, 4, −4); (9, 4, m); (1, 1, −3)} resulta linealmente dependiente.", "opts": ["−52", "52", "0", "−4"], "c": 0, "ex": "(Final Jul 2024·T2) El conjunto es LD cuando el determinante de la matriz de los tres vectores es 0. Planteando el sistema homogéneo a(3,4,−4)+b(9,4,m)+c(1,1,−3)=0 con solución no trivial, se obtiene m=−52. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá el subespacio S = ⟨(5; 5; −1; 0); (10; 13; −2; 0); (0; 3; 0; 0); v⃗⟩. Indicá la única afirmación que resulta verdadera.", "opts": ["La dimensión de S es 3 para todo v⃗.", "La dimensión de S es 3 si v⃗ = (0; 1; 0; 0).", "La dimensión de S es 2 si v⃗ = (0; 1; 0; 0).", "La dimensión de S es 4 para todo v⃗ que no sea nulo."], "c": 2, "ex": "(Final Jul 2025·T1) Notá que (10; 13; −2; 0) = 2·(5; 5; −1; 0) + (0; 3; 0; 0), así que sobra un generador: quedan dos vectores L.I. Como (0; 1; 0; 0) = (1/3)·(0; 3; 0; 0) es combinación de ellos, no agrega dimensión ⇒ dim S = 2. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá el subespacio S = ⟨(4; 1; −1; 0); (8; −3; −2; 0); (0; 5; 0; 0); v⃗⟩. Indicá la única afirmación que resulta verdadera.", "opts": ["La dimensión de S es 3 para todo v⃗.", "La dimensión de S es 2 si v⃗ = (0; 1; 0; 0).", "La dimensión de S es 3 si v⃗ = (0; 1; 0; 0).", "La dimensión de S es 4 para todo v⃗ que no sea nulo."], "c": 1, "ex": "(Final Jul 2025·T2) Como (8;−3;−2;0) = 2·(4;1;−1;0) − (0;5;0;0), los tres primeros generadores tienen rango 2: S = ⟨(4;1;−1;0); (0;5;0;0); v⃗⟩. Si v⃗ = (0;1;0;0) = (1/5)·(0;5;0;0) es combinación lineal, así que dim S = 2. ▸ <b>Opción correcta: B)</b>"}]);
+
+registerReveals('algebra-final', '8', [{"st": "Considerá los subespacios: S = ⟨(1; 1; 0; 6), (0; 0; 4; 2), (1; 1; −8; 2)⟩ y T = ⟨(1; 4; 1; 0), (−m; 1; 0; 4m), (7m; 35; −14; −52)⟩, y averiguá el valor que debe tomar m ∈ ℝ para que se cumpla que dim(S) = dim(T).", "ans": "m = −1/7", "sol": "(Final Dic 2025·T1) Calculá dim(S): (1;1;−8;2)=(1;1;0;6)+(−2)(0;0;4;2), así que S=⟨(1;1;0;6),(0;0;4;2)⟩ y dim(S)=2. Para que dim(T)=2 forzá que un generador sea combinación de los otros: planteá (1;4;1;0)=a(−m;1;0;4m)+b(7m;35;−14;−52) y despejá ⇒ m=−1/7."}, {"st": "Para los subespacios: S = ⟨(1; 1; 0; −1); (−1; 0; 1; 1)⟩ y T = ⟨(0; p; 1; p + q)⟩, ¿cuánto debe valer q para que se cumpla T ⊆ S?", "ans": "−1", "sol": "(Final Feb 2024·T1) Sumá los generadores de S: (1;1;0;−1)+(−1;0;1;1)=(0;1;1;0). Igualando al generador de T: (0;p;1;p+q)=(0;1;1;0) ⇒ p=1 y p+q=0 ⇒ q=−1."}, {"st": "Considerá el subespacio S = {(x, y, z) ∈ ℝ³ : ax − 4y − a²z = 0} donde a ∈ ℝ y otro subespacio T = ⟨(5, 0, −1); (1, 5, −1)⟩. Sabiendo que T está contenido en S, indicá cuál es el único valor de a para que se cumpla esta condición.", "ans": "a = −5", "sol": "(Final Feb 2025·T3) Si T ⊆ S, cada generador satisface la ecuación de S. Sustituí (5,0,−1): 5a + a² = 0 ⇒ a=0 o a=−5. Sustituí (1,5,−1): a − 20 + a² = 0 ⇒ a=4 o a=−5. El valor común a ambas es a = −5."}, {"st": "Considerá el subespacio S = {(x, y, z) ∈ ℝ³ : 6x − 3ay − a²z = 0} donde a ∈ ℝ y otro subespacio T = ⟨(−9, 1, −1); (0, 3, −1)⟩. Sabiendo que T está contenido en S, indicá cuál el único valor de a para que se cumpla esta condición.", "ans": "a = 9", "sol": "(Final Feb 2025·T4) Si T⊆S, los generadores cumplen la ecuación de S. Con (−9,1,−1): 6(−9)−3a(1)−a²(−1)=0 ⇒ −54−3a+a²=0. Con (0,3,−1): 6·0−3a·3−a²(−1)=0 ⇒ −9a+a²=0 ⇒ a(a−9)=0 ⇒ a=0 o a=9. El valor común que satisface ambas (a²−3a−54=(a−9)(a+6)=0 ⇒ a=9 o a=−6) es a=9."}, {"st": "Indicá todos los valores de k ∈ ℝ para los cuales el conjunto {(7k; 1; 0); (13; 3; −4); (8; −3; k+4)} resulta linealmente independiente.", "ans": "ℝ ∖ {7/3, −12/7}", "sol": "(Final Feb 2026·T1) Armar la matriz con los tres vectores como filas y calcular su determinante: da 21k²−13k−84. El conjunto es L.I. salvo donde el determinante se anula. Resolver 21k²−13k−84=0 → k = 7/3 y k = −12/7. Respuesta: ℝ ∖ {7/3, −12/7}."}, {"st": "Indicá el valor de m ∈ R para el cual el conjunto {(4, 1, 3); (7, m, 8); (−2, 6, 4)} resulta linealmente dependiente.", "ans": "5", "sol": "(Final Jul 2024·T1) Tres vectores de R³ son LD si el determinante de la matriz que forman es 0. det[[4,1,3];[7,m,8];[−2,6,4]] = 22m−110 = 0 → m = 5."}]);
+
+registerExercises('algebra-final', '9', [{"st": "Considerá el siguiente sistema de ecuaciones: { 3x + y + mz = 1 ; x − y + 2z = −2 ; 5x + (m+1)y + 2z = 4 }. Elegí la opción que indica el valor de m ∈ ℝ de manera tal que el sistema sea compatible indeterminado.", "opts": ["−4", "4", "2", "−2"], "c": 2, "ex": "(Final Dic 2024·T1) Anulá el determinante de la matriz de coeficientes (condición necesaria): se obtiene |m|=2, descartando A y B. Probá compatibilidad: con m=−2 el sistema es incompatible; con m=2 es compatible indeterminado. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá el siguiente sistema de ecuaciones: { x + y + 2z = 2 ; −x + my + 2z = 0 ; 3x + mz = 4 }. Elegí la opción que indica el valor de m ∈ ℝ de manera tal que el sistema sea incompatible.", "opts": ["−2", "−3", "2", "3"], "c": 3, "ex": "(Final Dic 2024·T2) El determinante de la matriz de coeficientes se anula para m=2 y m=3 (descarta A y C). Analizando cada caso: m=2 da sistema compatible indeterminado (infinitas soluciones), m=3 da sistema incompatible. Por eso la respuesta es m=3. ▸ <b>Opción correcta: D)</b>"}, {"st": "Considerá las matrices A = [1 3 5; 0 k−3 1; 3 k−1 0 ... ] (matriz 3×3 con parámetro k), X = (x; y; z) y B ∈ ℝ³ˣ¹. Determiná para qué valores de k ∈ ℝ el sistema A·X = B resulta compatible determinado.", "opts": ["{−1; 1; 3}", "ℝ \\ {−1; 1; 3}", "{1; 3}", "ℝ \\ {1; 3}"], "c": 1, "ex": "(Final Dic 2025·T2) Un sistema cuadrado es compatible determinado ⟺ det(A) ≠ 0. Aquí det(A) = k³ − 3k² − k + 3 = (k−1)(k+1)(k−3), que se anula en k = −1, 1, 3. Por lo tanto el SCD se da para todo k salvo esos tres: ℝ\\{−1;1;3}. ▸ <b>Opción correcta: B)</b>"}, {"st": "Considerá las matrices A = [1 3 5; 0 k−3 1; 3 k−1 0], X = [x; y; z] y B ∈ ℝ^(3×1). Determiná para qué valores de k ∈ ℝ el sistema A·X = B resulta compatible determinado.", "opts": ["{−1; 1; 3}", "ℝ \\ {−1; 1; 3}", "{1; 3}", "ℝ \\ {1; 3}"], "c": 1, "ex": "(Final Dic 2025·T4) Sistema cuadrado: es compatible determinado ⟺ det(A) ≠ 0. Acá det(A) = k³−3k²−k+3, que se anula en k = 1, −1, 3; por lo tanto sirven todos los k salvo esos tres. ▸ <b>Opción correcta: B)</b>"}, {"st": "Consideremos las matrices: A = [3 −2 −1; 9 2 −1] (2×3); B = [0 −2 0; 3 −4 1; 1 −1 2] (3×3) y C = B². La matriz D = A · C − 2A. Indicá la opción que muestra el valor del coeficiente d₁₂ de la matriz D.", "opts": ["−10", "93", "10", "−93"], "c": 2, "ex": "(Final Feb 2024·T2) Calculá C = B², luego D = A·C − 2A. El coeficiente d₁₂ es la fila 1 de A por la columna 2 de C menos 2·(A₁₂). Resulta D = [−1 10 −3; −93 86 −23], así que d₁₂ = 10. ▸ <b>Opción correcta: C)</b>"}, {"st": "Consideremos las matrices: A = [3 −2 −1; 9 2 −1] (matriz 2×3); B = [0 −2 0; 3 −4 1; 1 −1 2] y C = B². La matriz D = A·C − 2A. Indicá la opción que muestra el valor del coeficiente d₁₂ de la matriz D.", "opts": ["−10", "93", "10", "−93"], "c": 2, "ex": "(Final Feb 2024·T4) Solo necesitás d₁₂, así que no calcules toda D: computá C = B² una vez, luego d₁₂ = (fila 1 de A)·(columna 2 de C) − 2·a₁₂. La columna 2 de C es (8;9;0), entonces (3,−2,−1)·(8,9,0) = 6, y 6 − 2·(−2) = 10. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá la matriz A = [1 −2 1; −1 1 2; 1 −2 3]. Calculá las coordenadas de la matriz B de manera tal que se verifique la siguiente igualdad: A · B = A² + 3 · A.", "opts": ["B = [4 −2 1; −1 4 2; 1 −2 6]", "B = [1 −2 1; −1 1 2; 1 −2 3]", "B = [2 −4 2; −2 2 4; 2 −4 6]", "B = [4 −2 1; −1 4 2; 1 −2 3]"], "c": 0, "ex": "(Final Feb 2025·T1) Multiplicá a izquierda por A⁻¹: A·B=A²+3A ⇒ B=A⁻¹(A·A+3A)=A+3I. Sumá 3 en la diagonal de A: B = A + 3I. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá la matriz A = [2 3 −3; 4 −1 2; −1 2 −1]. Calculá las coordenadas de la matriz B de manera tal que se verifique la siguiente igualdad: A · B = 4 · A + A².", "opts": ["B = [6 3 −3; 4 3 2; −1 2 3]", "B = [2 3 −3; 4 −1 2; −1 2 −1]", "B = [4 0 0; 0 4 0; 0 0 4]", "B = [10 3 −3; 4 3 2; −1 2 3]"], "c": 0, "ex": "(Final Feb 2025·T2) Multiplicá por A⁻¹ a izquierda: A·B=4A+A² ⟹ B=A⁻¹(4A+A²)=4A⁻¹A+A⁻¹A·A=4I+A. Sumás 4 a la diagonal de A: B=4I+A. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá las matrices A, B ∈ ℝ³ˣ³ tales que A = [1 2 −1; 0 1 3; 4 0 −1] y B = [4 −4 k; −10 0 0; −1 −5 k]. Elegí la única opción que muestra para qué valores de k ∈ ℝ se verifica A² + B = Aᵗ.", "opts": ["2", "−2", "Para ningún valor de k.", "2 y −2"], "c": 2, "ex": "(Final Feb 2026·T2) Calculá A²=[−3 4 6; 12 1 0; 0 8 −3] y Aᵗ=[1 0 4; 2 1 0; −1 3 −1]. En A²+B=Aᵗ, las entradas con k dan dos condiciones incompatibles: k+6=4 (⇒k=−2) y k−3=−1 (⇒k=2). No hay un k que cumpla ambas ⇒ ningún valor. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá las matrices A = [k 1 −1; 0 2 0; k −1 0] y B = [−1 −2 1; −1 1 −2; 2 −1 1]. Calculá el valor de k ∈ ℝ − {0} de manera tal que el determinante de A² + AB sea nulo.", "opts": ["−4", "4", "0", "−2"], "c": 0, "ex": "(Final Jul 2024·T2) det(A²+AB)=det(A(A+B))=det(A)·det(A+B). Se calcula det(A)=2k y det(A+B)=k+4, luego (2k)(k+4)=0 ⇒ k=0 o k=−4; como k≠0, k=−4. ▸ <b>Opción correcta: A)</b>"}, {"st": "Considerá la matriz B = [0 0 (2−k); (4−k) 3 −3; 4 −k 2]. Elegí la opción que muestra todos los valores de k ∈ ℝ de manera tal que la matriz no sea invertible.", "opts": ["k ≠ 6, k ≠ −2, k ≠ 2", "k = 6, k = 2", "k = 6, |k| = 2", "k = −6, k = −2"], "c": 2, "ex": "(Final Jul 2025·T1) No invertible ⇔ det(B) = 0. Desarrollando det(B) = −k³ + 6k² + 4k − 24 y factorizando por Ruffini, se anula en k = 2, k = −2, k = 6; eso equivale a k = 6 y |k| = 2. ▸ <b>Opción correcta: C)</b>"}, {"st": "Considerá la matriz B = [1−k 3 2; 0 2+k 1; 0 −1 2−k]. Elegí la opción que muestra todos los valores de k ∈ ℝ de manera tal que la matriz no sea invertible.", "opts": ["k ≠ 1, k ≠ −√5, k ≠ √5", "k = −1, k = √5", "k = −1, |k| = √5", "k = 1, |k| = √5"], "c": 3, "ex": "(Final Jul 2025·T2) La matriz no es invertible cuando det(B) = 0. Desarrollando por la primera columna: det(B) = (1−k)·[(2+k)(2−k)+1] = (1−k)(5−k²). Las raíces son k = 1 y k² = 5 ⇒ k = ±√5, es decir k = 1, |k| = √5. ▸ <b>Opción correcta: D)</b>"}]);
+
+registerReveals('algebra-final', '9', [{"st": "Considerá las matrices A, B ∈ ℝ^{3×3} tales que A = [2 0 1; 3 2 4; 4 1 7] y det((1/3)·A·B⁻¹) = 10. Calculá el valor exacto de det(B).", "ans": "det(B) = 1/18", "sol": "(Final Dic 2025·T1) Usá det((1/3)A·B⁻¹)=(1/3)³·det(A)·det(B)⁻¹. Calculá det(A)=15 y reemplazá: (1/27)·15·(1/det B)=10 ⇒ det(B)=15/(27·10)=1/18."}, {"st": "Considerá las matrices A, B ∈ ℝ^(3×3) tales que A = [2 0 1; 3 2 4; 4 1 7] y det((1/3)·A·B^(-1)) = 10. Calculá el valor exacto de det(B).", "ans": "det(B) = 1/18", "sol": "(Final Dic 2025·T3) Usá det((1/3)·A·B^(-1)) = (1/3)^3·det(A)·det(B)^(-1). Con det(A)=15: (1/27)·15·(1/det B)=10 ⇒ det(B)=(1/27·15)/10 = 1/18."}, {"st": "Sea k ∈ ℝ y la matriz A = [3 −2 0; −1 3k −1; 1 k 2]. Indicá el valor exacto de k de modo que la matriz A no resulte inversible.", "ans": "k = 2/21", "sol": "(Final Feb 2024·T1) A no inversible ⟺ det(A)=0. Desarrollá el determinante en función de k; queda lineal 21k−2 y se anula en k=2/21."}, {"st": "Considerá la matriz A = [1 -2 1; -1 1 2; 1 -2 3]. Calculá las coordenadas de la matriz B de manera tal que se verifique la siguiente igualdad: A·B = A² + 3·A.", "ans": "B = [4 −2 1; −1 4 2; 1 −2 6]", "sol": "(Final Feb 2025·T3) Como A es inversible, multiplicá por A⁻¹ a izquierda: A⁻¹·A·B = A⁻¹·(A² + 3A) = A + 3I. Entonces B = A + 3·I (sumá 3 a la diagonal de A)."}, {"st": "Considerá la matriz A = [2 3 −3; 4 −1 2; −1 2 −1]. Calculá las coordenadas de la matriz B de manera tal que se verifique la siguiente igualdad: A · B = 4 · A + A².", "ans": "B = [6 3 −3; 4 3 2; −1 2 3]", "sol": "(Final Feb 2025·T4) Como A es inversible, multiplicá por A⁻¹ a izquierda: A⁻¹(A·B)=A⁻¹(4A+A²) ⇒ B = 4·A⁻¹A + A⁻¹A·A = 4I + A. Atajo: B = 4I + A, es decir sumarle 4 a la diagonal de A. Da [6 3 −3; 4 3 2; −1 2 3]."}, {"st": "Considerá el sistema de ecuaciones lineales S = { x − 2w = 1 ; y + kz + w = 1 ; ky + z + w = 1 ; x − ky − kz − 3kw = −1 }. Determiná el valor exacto de la suma de todos los k ∈ ℝ para los cuales el sistema no es compatible determinado.", "ans": "1/3", "sol": "(Final Feb 2026·T1) Con igual número de ecuaciones que de incógnitas, es compatible determinado ⟺ det ≠ 0. La matriz [1 0 0 −2; 0 1 k 1; 0 k 1 1; 1 −k −k −3k] tiene determinante 3k³ − 4k² − k + 2. Anularlo da k = 1 y k = −2/3; la suma de los valores distintos es 1 − 2/3 = 1/3."}, {"st": "Considera el sistema de ecuaciones lineales S = { x − 2w = 1 ; y + kz + w = 1 ; ky + z + w = 1 ; x − ky − kz − 3kw = −1 }. Determiná el valor exacto de la suma de todos los k ∈ ℝ para los cuales el sistema NO es compatible determinado.", "ans": "1/3", "sol": "(Final Feb 2026·T3) Sistema cuadrado (4 ecuaciones, 4 incógnitas): es compatible determinado sii det(A) ≠ 0. Calculás el determinante de la matriz de coeficientes [[1,0,0,−2],[0,1,k,1],[0,k,1,1],[1,−k,−k,−3k]] = 3k³ − 4k² − k + 2, lo igualás a 0, obtenés k=1 y k=−2/3, y sumás: 1 + (−2/3) = 1/3."}, {"st": "Considerá las matrices A = [k −1 0; 0 2 0; k 1 −1] y B = [−1 3 2; 4 −1 1; 1 −2 −3]. Calculá el valor de k ∈ R − {0} de manera tal que el determinante de AB + A² sea nulo.", "ans": "9", "sol": "(Final Jul 2024·T1) Factorizar: AB+A² = A(A+B), así det(AB+A²)=det(A)·det(A+B)=(−2k)(−3k+27). Anular: (−2k)(−3k+27)=0 → k=0 o k=9; como k≠0, k=9."}, {"st": "Considerá las matrices A = [k −1 0; 0 2 0; k 1 −1] y B = [−1 3 2; 4 −1 1; 1 −2 −3]. Calculá el valor de k ∈ ℝ − {0} de manera tal que el determinante de AB + A² sea nulo.", "ans": "9", "sol": "(Final Jul 2024·T3) Factorizá AB + A² = A(A+B), así det(AB+A²)=det(A)·det(A+B). Calculá det(A)=−2k y det(A+B)=−3k+27; igualá el producto a 0 y descartá k=0, queda k=9."}, {"st": "Considerá las matrices A = [k 1 −1; 0 2 0; k −1 0] y B = [−1 −2 1; −1 1 −2; 2 −1 1]. Calculá el valor de k ∈ ℝ − {0} de manera tal que el determinante de A² + AB sea nulo.", "ans": "−4", "sol": "(Final Jul 2024·T4) Factorizá A²+AB = A(A+B), así det(A²+AB)=det(A)·det(A+B). Con det(A)=2k y det(A+B)=k+4, planteá 2k(k+4)=0 y descartá k=0; queda k=−4."}]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>
