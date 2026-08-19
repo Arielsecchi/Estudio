@@ -1,0 +1,504 @@
+<header>
+    <h1>Introducción a la Ing. Electrónica · Guía completa</h1>
+    <div class="sub">FIUBA · 86.02 · Cátedra Veiga · Bioingeniería · Basada en <b>9 exámenes reales</b>: 4 parciales (2018–2021) y los 5 coloquios integradores de 2022, con sus 29 problemas resueltos</div>
+  </header>
+<nav class="toc" id="toc-fiuba-electronica">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fie-s1">Estrategia · El esqueleto del parcial y qué cae</a></li>
+    <li><a href="#fie-s2">Continua · Ohm, Kirchhoff, equivalentes y divisores</a></li>
+    <li><a href="#fie-s3">Superposición, Thévenin y máxima transferencia</a></li>
+    <li><a href="#fie-s4">Multímetros y valor eficaz · El tema de esta cátedra</a></li>
+    <li><a href="#fie-s5">Circuito RC · Respuesta temporal</a></li>
+    <li><a href="#fie-s6">Respuesta en frecuencia · Filtros y Bode</a></li>
+    <li><a href="#fie-s7">Los 4 parciales reales resueltos</a></li>
+    <li><a href="#fie-s8">Los 5 coloquios · "parecen iguales, pero…"</a></li>
+    <li><a href="#fie-s9">Mix integrador · Reconocer el tipo y plan del día</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-electronica">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · ESTRATEGIA ============ -->
+<details id="fie-s1">
+<summary><span class="num">1</span> Estrategia · El esqueleto del parcial y qué cae <span class="sec-score" id="ss-fiuba-electronica-1"></span></summary>
+<div class="content">
+
+<h3>El formato</h3>
+<p>Evaluación parcial de <b>desarrollo</b>, con <b>3 problemas</b> (los parciales de 2018 y 2019 tenían 4). Se resuelve <b>cada ejercicio en hojas separadas</b>, y el enunciado lo dice con todas las letras:</p>
+<div class="key"><div class="ky-t">La consigna que casi nadie toma en serio</div>
+<b>"Indique todos los razonamientos e hipótesis a los que recurre."</b><br><br>
+Y en el pie: <i>"las condiciones que se crean no especificadas deben establecerse explícitamente antes de hacer los cálculos"</i>, <i>"si sobran datos o son incompatibles, justificar cuáles se usan"</i>, <i>"expresar correctamente unidades e incertidumbres"</i>. Todo eso <b>afecta la calificación</b>, y además avisa que <b>un error conceptual puede invalidar toda la respuesta</b>.<br><br>
+Traducido: no alcanza con el número. Hay que escribir "supongo el voltímetro ideal", "supongo régimen permanente alcanzado", "adopto R<sub>L</sub> fija".
+</div>
+
+<h3>De dónde sale esta guía</h3>
+<p>De <b>9 exámenes reales</b> con <b>29 problemas</b>: los parciales de 2018, 2019, 2020 y 2021, y los <b>5 coloquios integradores</b> del 2do cuatrimestre de 2022 que venían dentro de un zip llamado <i>"DESAFÍO — parecen iguales, pero…"</i>. Los circuitos son dibujos: se leyeron de las imágenes originales y están descriptos en texto en cada problema.</p>
+
+<h3>El hallazgo: hay tres temas y están en TODOS los exámenes</h3>
+<table class="tbl">
+  <tr><th>Tema</th><th>Problemas</th><th>Exámenes en que aparece</th></tr>
+  <tr><td><b>Medición: valor medio vs. eficaz y multímetros</b></td><td>9 de 29</td><td><b>9/9 · 100%</b></td></tr>
+  <tr><td><b>Circuito RC · respuesta temporal (τ)</b></td><td>9 de 29</td><td><b>9/9 · 100%</b></td></tr>
+  <tr><td><b>Respuesta en frecuencia · filtros</b></td><td>8 de 29</td><td><b>9/9 · 100%</b></td></tr>
+  <tr><td>Teoremas: Thévenin, superposición, máxima transferencia</td><td>3 de 29</td><td>3/9 · 33%</td></tr>
+</table>
+<div class="key"><div class="ky-t">Y en los coloquios el esqueleto es literal</div>
+Los <b>5 coloquios</b> tienen exactamente la misma estructura, problema por problema:<br><br>
+<b>Problema 1</b> → medición con multímetro (valor medio vs. True-RMS)<br>
+<b>Problema 2</b> → el mismo circuito con un capacitor: respuesta temporal, τ<br>
+<b>Problema 3</b> → el mismo circuito con excitación senoidal: frecuencia de corte y Bode<br><br>
+Los parciales mezclan más, pero los tres temas están igual. <b>Si dominás medición, RC y frecuencia, dominás el examen.</b>
+</div>
+
+<div class="trap"><div class="tr-t">El tema que más pesa es el menos "eléctrico" de los tres</div>
+<b>Medición</b> —qué indica realmente un multímetro— es el sello de esta cátedra y aparece en los 9 exámenes. No es un tema de circuitos sino de <b>instrumentos</b>: valor medio contra valor eficaz, factor de forma, acoplamiento en AC, incertidumbre del display.<br><br>
+Es también donde más se pierde, porque el error no se nota: la cuenta "da" un número perfectamente razonable que está mal.
+</div>
+
+<h3>La hoja que escribís apenas te dan el enunciado</h3>
+<div class="formula">
+  <b>Continua</b><br>
+  V = I·R &nbsp;·&nbsp; P = V·I = I²R = V²/R<br>
+  Serie: R<sub>eq</sub> = ΣR<sub>i</sub> &nbsp;·&nbsp; Paralelo: 1/R<sub>eq</sub> = Σ(1/R<sub>i</sub>) &nbsp;·&nbsp; dos en paralelo: R₁R₂/(R₁+R₂)<br>
+  Divisor de tensión: V<sub>x</sub> = V·R<sub>x</sub>/ΣR &nbsp;·&nbsp; Divisor de corriente: I<sub>x</sub> = I·(R<sub>eq</sub>/R<sub>x</sub>)
+</div>
+<div class="formula">
+  <b>Teoremas</b><br>
+  Superposición: apagar fuentes → <b>V a cortocircuito, I a circuito abierto</b><br>
+  Thévenin: V<sub>Th</sub> = tensión a circuito abierto &nbsp;·&nbsp; R<sub>Th</sub> = resistencia vista con las fuentes apagadas<br>
+  Máxima transferencia: <b>R<sub>L</sub> = R<sub>Th</sub></b>, y ahí P<sub>máx</sub> = V<sub>Th</sub>²/(4R<sub>Th</sub>)
+</div>
+<div class="formula">
+  <b>Señales</b><br>
+  V<sub>medio</sub> = (1/T)∫v dt &nbsp;·&nbsp; V<sub>ef</sub> = √[(1/T)∫v² dt] &nbsp;·&nbsp; VMA = (1/T)∫|v| dt<br>
+  <b>V<sub>ef</sub>² = V<sub>medio</sub>² + V<sub>ef,AC</sub>²</b> &nbsp;(descomposición continua + alterna)<br>
+  Factor de forma F = V<sub>ef</sub>/VMA &nbsp;·&nbsp; <b>senoidal: F = 1,1107</b>
+</div>
+<div class="formula">
+  <b>RC</b><br>
+  <b>τ = R<sub>eq</sub>·C</b>, con R<sub>eq</sub> la resistencia <b>vista por el capacitor</b> (Thévenin desde sus bornes)<br>
+  v(t) = v(∞) + [v(0<sup>+</sup>) − v(∞)]·e<sup>−t/τ</sup> &nbsp;·&nbsp; a 1τ: 63% &nbsp;·&nbsp; a 5τ: prácticamente el 100%<br>
+  <b>f<sub>c</sub> = 1/(2πRC)</b> &nbsp;·&nbsp; X<sub>C</sub> = 1/(ωC) &nbsp;·&nbsp; pendiente asintótica: <b>20 dB/década</b>
+</div>
+
+<h3>Reconocer el tipo en 10 segundos</h3>
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Es…</th><th>Primera acción</th></tr>
+  <tr><td>"multímetro de valor medio / True-RMS", "qué indica el display", "en modo DC y AC"</td><td><b>Medición</b> (§4)</td><td>Calcular V<sub>medio</sub>, VMA y V<sub>ef</sub> de la señal</td></tr>
+  <tr><td>"se cierra la llave en t = 0", "se desconecta la fuente", "grafique la tensión en el capacitor"</td><td><b>RC temporal</b> (§5)</td><td>Thévenin desde los bornes del capacitor → τ</td></tr>
+  <tr><td>"V = V₀·sen(ωt)", "frecuencia de corte", "grafique en Bode"</td><td><b>Frecuencia</b> (§6)</td><td>Ver quién queda en serie con C: pasa-altos o pasa-bajos</td></tr>
+  <tr><td>"máxima potencia", "equivalente del sistema", "en vacío y con carga"</td><td><b>Teoremas</b> (§3)</td><td>V<sub>Th</sub> y R<sub>Th</sub>, y después adaptar</td></tr>
+  <tr><td>"puente de Wheatstone", "voltímetro ideal", "cuánto vale R₂"</td><td><b>Continua</b> (§2)</td><td>Dos divisores de tensión y la diferencia</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · CONTINUA ============ -->
+<details id="fie-s2">
+<summary><span class="num">2</span> Continua · Ohm, Kirchhoff, equivalentes y divisores <span class="sec-score" id="ss-fiuba-electronica-2"></span></summary>
+<div class="content">
+
+<p>No es un tema que se pregunte solo, pero es el <b>sustrato de todo lo demás</b>: reducir una red, aplicar un divisor y plantear un nodo son los pasos intermedios de casi todos los problemas de los otros temas.</p>
+
+<div class="formula">
+  <b>Ley de Ohm:</b> V = I·R<br>
+  <b>Potencia:</b> P = V·I = I²·R = V²/R &nbsp;(las tres son la misma; elegí la que use los datos que tenés)<br>
+  <b>LKC (nodos):</b> Σ corrientes que entran = Σ corrientes que salen<br>
+  <b>LKT (mallas):</b> Σ caídas de tensión en una malla cerrada = 0
+</div>
+
+<h3>Equivalentes y divisores</h3>
+<div class="formula">
+  <b>Serie:</b> R<sub>eq</sub> = R₁ + R₂ + … &nbsp;(misma corriente por todas)<br>
+  <b>Paralelo:</b> 1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + … &nbsp;·&nbsp; para dos: <b>R<sub>eq</sub> = R₁R₂/(R₁+R₂)</b><br><br>
+  <b>Divisor de tensión</b> (elementos en <b>serie</b>): &nbsp; V<sub>x</sub> = V<sub>total</sub> · R<sub>x</sub> / ΣR<br>
+  <b>Divisor de corriente</b> (elementos en <b>paralelo</b>): &nbsp; I<sub>x</sub> = I<sub>total</sub> · R<sub>eq</sub> / R<sub>x</sub>
+</div>
+<div class="trap"><div class="tr-t">Aplicar el divisor de tensión donde hay carga</div>
+El divisor vale <b>sólo si por las dos resistencias circula la misma corriente</b>. Si colgás una carga (o un voltímetro no ideal) del punto medio, parte de la corriente se va por ahí y el divisor <b>deja de valer</b>.<br><br>
+Solución: primero calculá el paralelo de la resistencia inferior con la carga, y recién ahí aplicá el divisor con ese equivalente.
+</div>
+
+<h3>El truco del cortocircuito, que esta cátedra usa mucho</h3>
+<div class="key"><div class="ky-t">Una resistencia en 0 Ω no es "una resistencia chica": cambia la topología</div>
+Un cortocircuito <b>funde dos nodos en uno</b> y puede desacoplar mallas enteras. Cualquier elemento en paralelo con un cortocircuito queda <b>anulado</b> (toda la corriente se va por el corto).<br><br>
+Esto es exactamente lo que hacen los 5 coloquios integradores (§8): cada versión pone el corto en una resistencia distinta, y con eso cambian la resistencia equivalente, la constante de tiempo y hasta el tipo de filtro. <b>Antes de calcular nada, redibujá el circuito con el corto aplicado.</b>
+</div>
+
+<h3>Puente de Wheatstone</h3>
+<p>Aparece en dos parciales reales. Son <b>dos divisores de tensión en paralelo</b>, y lo que se mide es la <b>diferencia</b> entre sus puntos medios:</p>
+<div class="formula">
+  V<sub>B</sub> = V₁·[ R₂/(R₁+R₂) − R₄/(R₃+R₄) ]<br><br>
+  <b>Puente equilibrado</b> (V<sub>B</sub> = 0) ⟺ &nbsp; R₁·R₄ = R₂·R₃ &nbsp; ⟺ &nbsp; R₁/R₂ = R₃/R₄
+</div>
+<p>Si el voltímetro se supone <b>ideal</b> (resistencia infinita), no circula corriente por la rama del medio y cada mitad es un divisor limpio. Ésa es la hipótesis que hay que declarar.</p>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · TEOREMAS ============ -->
+<details id="fie-s3">
+<summary><span class="num">3</span> Superposición, Thévenin y máxima transferencia <span class="sec-score" id="ss-fiuba-electronica-3"></span></summary>
+<div class="content">
+
+<h3>Superposición</h3>
+<div class="formula">
+  <b>1.</b> Dejás <b>una sola fuente encendida</b> y apagás las demás.<br>
+  <b>2.</b> <b>Apagar</b> significa: fuente de <b>tensión → cortocircuito</b> &nbsp;·&nbsp; fuente de <b>corriente → circuito abierto</b>.<br>
+  <b>3.</b> Calculás la contribución de esa fuente.<br>
+  <b>4.</b> Repetís con cada fuente y <b>sumás</b> las contribuciones (con su signo).
+</div>
+<div class="trap"><div class="tr-t">Apagar mal las fuentes</div>
+Es el error más caro del método y es fácil de recordar al revés. Pensalo así: una fuente de tensión ideal <b>apagada</b> impone 0 V entre sus bornes, y eso es un <b>cortocircuito</b>. Una de corriente apagada impone 0 A, y eso es un <b>circuito abierto</b>.<br><br>
+Y una advertencia: la superposición vale para <b>tensiones y corrientes</b>, <b>nunca para potencias</b> (la potencia es cuadrática, no lineal).
+</div>
+
+<h3>Thévenin</h3>
+<div class="formula">
+  <b>V<sub>Th</sub></b> = tensión <b>a circuito abierto</b> entre los bornes de interés.<br>
+  <b>R<sub>Th</sub></b> = resistencia vista desde esos bornes con <b>todas las fuentes apagadas</b>.<br><br>
+  Alternativa cuando hay fuentes dependientes: R<sub>Th</sub> = V<sub>circuito abierto</sub> / I<sub>cortocircuito</sub>
+</div>
+<div class="key"><div class="ky-t">Thévenin experimental · el problema del parcial 2018</div>
+Si medís en <b>vacío</b> y con una <b>carga conocida</b>, el equivalente sale de dos ecuaciones:<br><br>
+V<sub>Th</sub> = V<sub>vacío</sub> &nbsp;·&nbsp; I = V<sub>carga</sub>/R<sub>L</sub> &nbsp;·&nbsp; <b>R<sub>Th</sub> = (V<sub>vacío</sub> − V<sub>carga</sub>) / I</b><br><br>
+Forma cerrada: &nbsp;R<sub>Th</sub> = R<sub>L</sub>·(V<sub>vacío</sub>/V<sub>carga</sub> − 1)<br><br>
+<b>Hipótesis obligatoria:</b> el voltímetro es ideal. Si no, la medición "en vacío" no sería la tensión a circuito abierto.
+</div>
+
+<h3>Máxima transferencia de potencia</h3>
+<div class="formula">
+  Con la fuente fija (V<sub>Th</sub>, R<sub>Th</sub>) y la <b>carga libre</b>:<br>
+  <b>R<sub>L</sub> = R<sub>Th</sub></b> &nbsp;→&nbsp; <b>P<sub>máx</sub> = V<sub>Th</sub>² / (4·R<sub>Th</sub>)</b>
+</div>
+<div class="trap"><div class="tr-t">El teorema NO es simétrico · esto lo pregunta el parcial 2018</div>
+El teorema dice <b>adaptar la carga a una fuente dada</b>. Si te dan la <b>carga fija</b> y preguntan qué R<sub>Th</sub> maximiza la potencia sobre ella, la respuesta <b>no</b> es R<sub>Th</sub> = R<sub>L</sub>.<br><br>
+Derivando P<sub>L</sub> = V<sub>Th</sub>²R<sub>L</sub>/(R<sub>Th</sub>+R<sub>L</sub>)² respecto de <b>R<sub>Th</sub></b>, la derivada es siempre <b>negativa</b>: la función es monótona decreciente y el máximo está en el extremo, <b>R<sub>Th</sub> = 0</b> (fuente ideal). Ahí P = V<sub>Th</sub>²/R<sub>L</sub>.<br><br>
+En el parcial 2018 eso da <b>0,32 W</b>; contestar "R<sub>Th</sub> = R<sub>L</sub> = 800 Ω" da 0,08 W, <b>cuatro veces menos</b>. Y la señal de alarma está a la vista: si tu "óptimo" da menos potencia que otra opción, no era el óptimo.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · MEDICIÓN ============ -->
+<details id="fie-s4">
+<summary><span class="num">4</span> Multímetros y valor eficaz · El tema de esta cátedra <span class="sec-score" id="ss-fiuba-electronica-4"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Está en los 9 exámenes. Si estudiás una sola cosa, es ésta.</div>
+Y no es un tema de circuitos: es de <b>instrumentos</b>. La pregunta no es "cuánto vale la tensión" sino <b>"qué número muestra el display"</b>, que puede ser otro.
+</div>
+
+<h3>Las tres magnitudes de una señal periódica</h3>
+<div class="formula">
+  <b>Valor medio</b> (componente continua): &nbsp; V<sub>DC</sub> = (1/T)·∫<sub>0</sub><sup>T</sup> v(t) dt<br>
+  <b>Valor eficaz</b> (RMS): &nbsp; V<sub>ef</sub> = √[ (1/T)·∫<sub>0</sub><sup>T</sup> v(t)² dt ]<br>
+  <b>Valor medio de módulo</b> (VMA): &nbsp; |v|<sub>medio</sub> = (1/T)·∫<sub>0</sub><sup>T</sup> |v(t)| dt<br><br>
+  <b>Descomposición:</b> &nbsp; <b>V<sub>ef</sub>² = V<sub>DC</sub>² + V<sub>ef,AC</sub>²</b><br>
+  <b>Factor de forma:</b> &nbsp; F = V<sub>ef</sub> / |v|<sub>medio</sub> &nbsp;·&nbsp; <b>senoidal: F = 1,1107</b>
+</div>
+
+<h3>Valor medio y eficaz por forma de onda</h3>
+<table class="tbl">
+  <tr><th>Forma de onda</th><th>V<sub>DC</sub></th><th>V<sub>ef</sub></th><th>V<sub>AC</sub></th><th>|v|<sub>medio</sub></th><th>F</th></tr>
+  <tr><td>Continua pura V₀</td><td>V₀</td><td>V₀</td><td>0</td><td>V₀</td><td>1</td></tr>
+  <tr><td><b>Senoidal ±V<sub>p</sub></b></td><td>0</td><td><b>0,707·V<sub>p</sub></b></td><td>0,707·V<sub>p</sub></td><td>0,637·V<sub>p</sub></td><td><b>1,1107</b></td></tr>
+  <tr><td>Senoidal con offset V₀</td><td>V₀</td><td>√(V₀² + V<sub>p</sub>²/2)</td><td>0,707·V<sub>p</sub></td><td>—</td><td>—</td></tr>
+  <tr><td>Rectificada onda completa</td><td>0,637·V<sub>p</sub></td><td>0,707·V<sub>p</sub></td><td>0,308·V<sub>p</sub></td><td>0,637·V<sub>p</sub></td><td>1,1107</td></tr>
+  <tr><td>Rectificada media onda</td><td>0,318·V<sub>p</sub></td><td>0,500·V<sub>p</sub></td><td>0,386·V<sub>p</sub></td><td>0,318·V<sub>p</sub></td><td>1,571</td></tr>
+  <tr><td><b>Cuadrada simétrica ±V<sub>p</sub></b></td><td>0</td><td><b>V<sub>p</sub></b></td><td>V<sub>p</sub></td><td>V<sub>p</sub></td><td><b>1,000</b></td></tr>
+  <tr><td><b>Rectangular 0/V<sub>p</sub>, ciclo D</b></td><td><b>D·V<sub>p</sub></b></td><td><b>V<sub>p</sub>·√D</b></td><td>V<sub>p</sub>·√(D(1−D))</td><td>D·V<sub>p</sub></td><td>1/√D</td></tr>
+  <tr><td>Triangular simétrica ±V<sub>p</sub></td><td>0</td><td>0,577·V<sub>p</sub></td><td>0,577·V<sub>p</sub></td><td>0,500·V<sub>p</sub></td><td>1,1547</td></tr>
+  <tr><td>Diente de sierra 0→V<sub>p</sub></td><td>0,500·V<sub>p</sub></td><td>0,577·V<sub>p</sub></td><td>0,289·V<sub>p</sub></td><td>0,500·V<sub>p</sub></td><td>1,1547</td></tr>
+  <tr><td>Cuadrada modificada (±V<sub>p</sub> una fracción δ de T)</td><td>0</td><td>V<sub>p</sub>·√δ</td><td>V<sub>p</sub>·√δ</td><td>V<sub>p</sub>·δ</td><td>1/√δ</td></tr>
+</table>
+
+<h3>Qué lee cada instrumento</h3>
+<table class="tbl">
+  <tr><th>Instrumento</th><th>Modo DC</th><th>Modo AC</th><th>¿Cuándo es válido?</th></tr>
+  <tr><td><b>De valor medio</b> (promedio calibrado en RMS)</td><td>V<sub>DC</sub></td><td><b>1,1107 · |v − V<sub>DC</sub>|<sub>medio</sub></b></td><td><b>Sólo senoidal pura</b></td></tr>
+  <tr><td><b>True-RMS</b> acoplado en alterna</td><td>V<sub>DC</sub></td><td>V<sub>AC</sub> = √(V<sub>ef</sub>² − V<sub>DC</sub>²)</td><td>Cualquier forma (dentro del ancho de banda)</td></tr>
+  <tr><td><b>True-RMS AC+DC</b></td><td>V<sub>DC</sub></td><td>V<sub>ef</sub> total</td><td>Cualquier forma</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Por qué el de valor medio se equivoca</div>
+Internamente <b>rectifica y promedia</b> —o sea, mide |v|<sub>medio</sub>— y después multiplica por <b>1,1107</b>, que es el factor de forma de <b>la senoidal</b>. Con cualquier otra forma de onda, ese factor es el equivocado.<br><br>
+<b>Error = 1,1107 / F<sub>real</sub> − 1.</b> Con una cuadrada simétrica (F = 1) lee <b>11,1% de más</b>; con una rectangular de D = 0,2 lee <b>11,1% de menos</b>; con una cuadrada modificada de δ = 0,5, <b>21,4% de menos</b>.
+</div>
+
+<h3>Error del multímetro de valor medio, por forma de onda</h3>
+<table class="tbl">
+  <tr><th>Forma de onda medida en AC</th><th>Lectura / valor verdadero</th><th>Error</th></tr>
+  <tr><td>Senoidal</td><td>1,000</td><td>0% (es su calibración)</td></tr>
+  <tr><td>Cuadrada simétrica</td><td>1,111</td><td><b>+11,1%</b> (lee de más)</td></tr>
+  <tr><td>Triangular simétrica</td><td>0,962</td><td>−3,8%</td></tr>
+  <tr><td>Rectangular D = 0,25</td><td>0,962</td><td>−3,8%</td></tr>
+  <tr><td>Rectangular D = 0,2</td><td>0,889</td><td><b>−11,1%</b></td></tr>
+  <tr><td>Cuadrada modificada δ = 0,5</td><td>0,786</td><td><b>−21,4%</b></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">En modo AC el instrumento NO ve la continua</div>
+El modo AC está <b>acoplado en alterna</b>: bloquea la componente continua. Por eso lo que promedia no es |v|, sino <b>|v − V<sub>DC</sub>|</b>.<br><br>
+Es una distinción que cambia el número: para una rectangular 0/5 V con D = 0,2, el |v|<sub>medio</sub> es 1,000 V, pero el de la señal <b>ya sin su continua</b> es 1,600 V. Usar el primero da una lectura mal por casi el doble.
+</div>
+
+<h3>Incertidumbre del display</h3>
+<div class="formula">
+  Especificación típica: <b>±(a% de la lectura + n dígitos)</b><br>
+  <b>1 dígito</b> = la resolución de la <b>escala elegida</b> (no de la lectura)<br><br>
+  Δ = a%·lectura + n·(1 dgt) &nbsp;·&nbsp; y el resultado se escribe <b>(valor ± Δ)</b> con las cifras coherentes
+</div>
+<table class="tbl">
+  <tr><th>Dígitos</th><th>Cuentas</th><th>Escala</th><th>1 dgt</th><th>Lectura máxima</th></tr>
+  <tr><td>3½</td><td>1999</td><td>2 V</td><td>1 mV</td><td>1,999 V</td></tr>
+  <tr><td>3½</td><td>1999</td><td>20 V</td><td>10 mV</td><td>19,99 V</td></tr>
+  <tr><td>3½</td><td>1999</td><td>200 V</td><td>100 mV</td><td>199,9 V</td></tr>
+  <tr><td>3¾</td><td>3999</td><td>4 V</td><td>1 mV</td><td>3,999 V</td></tr>
+  <tr><td>3¾</td><td>3999</td><td>40 V</td><td>10 mV</td><td>39,99 V</td></tr>
+</table>
+<div class="key"><div class="ky-t">El paso que se olvida: elegir la escala</div>
+Antes de calcular la incertidumbre hay que decidir <b>en qué escala mide</b>: la <b>más chica que contenga la lectura</b>. Con 3½ dígitos y una lectura de 2,40 V no entra en la escala de 2 V (máximo 1,999), así que va la de 20 V, donde 1 dgt = 10 mV.<br><br>
+Elegir mal la escala cambia la incertidumbre por un factor 10 — y es un error que el número final no delata.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · RC TEMPORAL ============ -->
+<details id="fie-s5">
+<summary><span class="num">5</span> Circuito RC · Respuesta temporal <span class="sec-score" id="ss-fiuba-electronica-5"></span></summary>
+<div class="content">
+
+<p>Está en los 9 exámenes, y en los coloquios es <b>siempre el problema 2</b>. Aparece como "se cierra la llave en t = 0", "se desconecta la fuente" o "reemplace la fuente de continua por un capacitor".</p>
+
+<div class="key"><div class="ky-t">Las dos leyes que resuelven todo</div>
+<b>1.</b> La tensión en un capacitor <b>no puede saltar</b>: v<sub>C</sub>(0<sup>+</sup>) = v<sub>C</sub>(0<sup>−</sup>). La corriente sí salta.<br>
+<b>2.</b> En <b>régimen permanente</b> con continua, el capacitor no conduce: se comporta como un <b>circuito abierto</b>.<br><br>
+Con esas dos, cualquier transitorio de primer orden sale con la fórmula general.
+</div>
+
+<div class="formula">
+  <b>v(t) = v(∞) + [ v(0<sup>+</sup>) − v(∞) ] · e<sup>−t/τ</sup></b><br><br>
+  <b>τ = R<sub>eq</sub> · C</b>, con R<sub>eq</sub> = <b>Thévenin visto desde los bornes del capacitor</b>
+</div>
+
+<h3>El método, en cinco pasos</h3>
+<div class="formula">
+  <b>1.</b> Estado <b>antes</b> del cambio (t = 0<sup>−</sup>): con continua y régimen permanente, C = circuito abierto → hallás v<sub>C</sub>(0<sup>−</sup>).<br>
+  <b>2.</b> Por continuidad: <b>v<sub>C</sub>(0<sup>+</sup>) = v<sub>C</sub>(0<sup>−</sup>)</b>.<br>
+  <b>3.</b> Estado <b>final</b> (t → ∞): otra vez C = circuito abierto, con el circuito ya conmutado → v<sub>C</sub>(∞).<br>
+  <b>4.</b> <b>τ</b>: sacás el capacitor, apagás las fuentes, y calculás la resistencia que se ve <b>desde sus dos bornes</b>.<br>
+  <b>5.</b> Armás la exponencial y, si piden la corriente: i<sub>C</sub> = C·dv<sub>C</sub>/dt.
+</div>
+
+<div class="trap"><div class="tr-t">El error número uno: calcular τ con la resistencia equivocada</div>
+τ <b>no</b> es "R por C" con cualquier R del circuito: es con la <b>resistencia de Thévenin vista por el capacitor</b>, con las fuentes apagadas.<br><br>
+En los coloquios esto es exactamente lo que cambia entre versiones: con R₃ en corto queda R₁∥R₂ = 2 MΩ (τ = 94 µs), con R₁ en corto queda R₃ = 4 MΩ (τ = 188 µs), y sin cortos queda (R₁∥R₂) + R₃ = 6 MΩ (τ = 282 µs). <b>El mismo dibujo, tres constantes de tiempo distintas.</b>
+</div>
+
+<h3>Los valores que hay que saber de memoria</h3>
+<table class="tbl">
+  <tr><th>Tiempo</th><th>Fracción del cambio total completada</th></tr>
+  <tr><td>1τ</td><td><b>63,2%</b></td></tr>
+  <tr><td>2τ</td><td>86,5%</td></tr>
+  <tr><td>3τ</td><td>95,0%</td></tr>
+  <tr><td><b>5τ</b></td><td><b>99,3%</b> — se considera régimen permanente</td></tr>
+</table>
+
+<h3>Respuesta a una onda cuadrada</h3>
+<div class="key"><div class="ky-t">Comparar τ con el semiperíodo decide todo</div>
+<b>Si 5τ ≪ T<sub>on</sub></b>: el capacitor <b>alcanza</b> a cargarse por completo en cada tramo. La tensión son mesetas planas y la corriente son <b>pinchos exponenciales</b> en cada flanco, nulos entre medio. Es el caso de los coloquios (τ ≈ 100–280 µs contra tramos de 4 y 16 ms).<br><br>
+<b>Si 5τ ≫ T<sub>on</sub></b>: no llega ni cerca; la tensión es casi una rampa (integrador).<br><br>
+Antes de graficar, hacé esa comparación: te dice qué forma tiene el dibujo.
+</div>
+<div class="trap"><div class="tr-t">Olvidar que la corriente SÍ salta</div>
+En cada flanco de la señal, la corriente del capacitor da un <b>salto instantáneo</b> de amplitud ΔV/R<sub>eq</sub> y después decae exponencialmente. Dibujar la corriente como una exponencial continua, sin el salto, es el error de gráfico más frecuente.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · FRECUENCIA ============ -->
+<details id="fie-s6">
+<summary><span class="num">6</span> Respuesta en frecuencia · Filtros y Bode <span class="sec-score" id="ss-fiuba-electronica-6"></span></summary>
+<div class="content">
+
+<p>En los coloquios es <b>siempre el problema 3</b>, y con el mismo circuito del problema 2 pero con excitación senoidal. Suele venir en dos partes: hallar f<sub>c</sub> y graficar Bode, y después <b>elegir un capacitor</b> para separar una señal útil de una interferencia.</p>
+
+<div class="formula">
+  <b>Reactancia capacitiva:</b> X<sub>C</sub> = 1/(ωC) = 1/(2πfC) &nbsp;→&nbsp; baja con la frecuencia<br>
+  <b>Frecuencia de corte:</b> <b>f<sub>c</sub> = 1/(2πR<sub>eq</sub>C) = 1/(2πτ)</b><br>
+  En f<sub>c</sub>: la ganancia cae <b>3 dB</b> respecto de la meseta, y el desfasaje es <b>45°</b><br>
+  Pendiente asintótica fuera de la banda: <b>20 dB/década</b> (filtro de primer orden)
+</div>
+
+<div class="key"><div class="ky-t">Pasa-altos o pasa-bajos: mirá dónde se toma la salida</div>
+<b>Salida sobre la RESISTENCIA</b> → <b>pasa-altos</b>. A baja frecuencia X<sub>C</sub> es enorme, cae casi todo en el capacitor y a la resistencia no le llega nada.<br>
+<b>Salida sobre el CAPACITOR</b> → <b>pasa-bajos</b>. A alta frecuencia X<sub>C</sub> tiende a 0 y el capacitor "cortocircuita" la salida.<br><br>
+Regla de bolsillo: mirá el circuito en los dos extremos, reemplazando el capacitor por un <b>circuito abierto</b> (f → 0) y por un <b>cortocircuito</b> (f → ∞), y fijate qué le llega a la salida en cada caso.
+</div>
+
+<div class="trap"><div class="tr-t">El mismo dibujo puede ser pasa-bajos o pasa-altos según dónde esté el corto</div>
+Pasa literalmente en los coloquios: el coloquio 1 (con R₃ en corto) da un <b>pasa-bajos</b> con f<sub>c</sub> = 1,69 kHz, y el coloquio 3 (con R₁ en corto) da un <b>pasa-altos</b> con f<sub>c</sub> = 847 Hz — <b>con el mismo esquema</b>.<br><br>
+Por eso no alcanza con reconocer el dibujo: hay que aplicar el corto y volver a mirar quién queda en serie con el capacitor.
+</div>
+
+<h3>Bode asintótico, en tres trazos</h3>
+<div class="formula">
+  <b>1.</b> Meseta: la ganancia de la banda de paso (puede no ser 1: si hay un divisor resistivo, es menor).<br>
+  <b>2.</b> Quiebre en <b>f<sub>c</sub></b>, donde la curva real pasa <b>3 dB por debajo</b> de la meseta.<br>
+  <b>3.</b> Asíntota de <b>±20 dB/década</b> fuera de la banda.
+</div>
+<div class="trap"><div class="tr-t">Asumir que la meseta vale 1 (0 dB)</div>
+Si antes del filtro hay un <b>divisor resistivo</b>, la meseta ya arranca atenuada. En un coloquio real la meseta vale <b>0,5 (−6 dB)</b>, así que en f<sub>c</sub> la ganancia no es −3 dB sino <b>−9 dB</b>. Calculá primero la ganancia de continua (o de alta frecuencia, según el tipo) y recién después aplicá el −3 dB <b>relativo a esa meseta</b>.
+</div>
+
+<h3>Elegir el capacitor para separar dos señales</h3>
+<div class="key"><div class="ky-t">El criterio: poner f<sub>c</sub> entre las dos frecuencias</div>
+El problema típico es: señal útil de <b>1 kHz</b>, interferencia de <b>50 Hz</b>, y tres capacitores a elección (1 pF, 1 nF, 1 µF).<br><br>
+<b>1.</b> Decidí qué filtro necesitás: si querés quedarte con 1 kHz y matar 50 Hz, es un <b>pasa-altos</b>.<br>
+<b>2.</b> f<sub>c</sub> tiene que quedar <b>entre</b> las dos, y bien separada de ambas (idealmente cerca de la media geométrica: √(50·1000) ≈ 224 Hz).<br>
+<b>3.</b> Despejá C = 1/(2πR<sub>eq</sub>f<sub>c</sub>) y elegí el valor disponible <b>más cercano</b>.<br>
+<b>4.</b> <b>Verificá la elección</b>: calculá la atenuación en 50 Hz y en 1 kHz con el C elegido, y mostrá que efectivamente separa.<br><br>
+El paso 4 es el que la cátedra premia: elegir sin verificar deja el ejercicio a mitad de camino.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · LOS 4 PARCIALES ============ -->
+<details id="fie-s7">
+<summary><span class="num">7</span> Los 4 parciales reales resueltos <span class="sec-score" id="ss-fiuba-electronica-7"></span></summary>
+<div class="content">
+
+<table class="tbl">
+  <tr><th>Parcial</th><th>Fecha</th><th>Problemas</th><th>Temas</th></tr>
+  <tr><td>1er cuatrimestre 2018</td><td>31-05-2018</td><td>4</td><td>Thévenin experimental y máxima transferencia · multímetro de valor medio · frecuencia de corte · RC</td></tr>
+  <tr><td>2do cuatrimestre 2019</td><td>—</td><td>4</td><td>RC con llave · excitación senoidal · voltímetro ideal en un puente · comparación de instrumentos</td></tr>
+  <tr><td>2do cuatrimestre 2020</td><td>—</td><td>3</td><td>Forma de onda y multímetro · RC con llave · potencia media con senoidal</td></tr>
+  <tr><td>2do cuatrimestre 2021</td><td>20-12-2021 (2da oportunidad)</td><td>3</td><td>UPS con onda cuadrada modificada · puente de Wheatstone · RC y respuesta en frecuencia</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cómo usar esta sección</div>
+Cada problema viene con su <b>enunciado textual</b>, la <b>descripción del circuito</b> (los originales son dibujos: acá están descriptos para que puedas reconstruirlos), la resolución paso a paso con unidades, y el error concreto en que se cae.<br><br>
+Resolvelos <b>antes</b> de mirar la solución. Y acordate de la consigna del examen: escribí las hipótesis.
+</div>
+
+<div class="trap"><div class="tr-t">Los enunciados a veces tienen datos de más o incompatibles</div>
+El pie de los parciales lo anticipa: <i>"si sobran datos o son incompatibles, justificar cuáles se usan"</i>. No es una fórmula de cortesía — en uno de los coloquios el problema 3 es <b>literalmente incompatible</b> con el valor de resistencia que fija el problema 1, y detectarlo y decirlo <b>es parte de la respuesta correcta</b>.
+</div>
+
+<div class="reveal-wrap" data-rv="7" data-subject="fiuba-electronica"></div>
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 8 · LOS COLOQUIOS ============ -->
+<details id="fie-s8">
+<summary><span class="num">8</span> Los 5 coloquios · "parecen iguales, pero…" <span class="sec-score" id="ss-fiuba-electronica-8"></span></summary>
+<div class="content">
+
+<p>Los 5 coloquios integradores del 2do cuatrimestre de 2022 venían en un archivo llamado <i>"Secuencia de exámenes para reforzar conocimientos (DESAFÍO — parecen iguales, pero…)"</i>. El nombre no es una broma: <b>son el mismo circuito y las mismas tres consignas</b>, y lo que cambia parece un detalle.</p>
+
+<div class="key"><div class="ky-t">El esqueleto, idéntico en los cinco</div>
+<b>Problema 1</b> — Medición: qué indica un multímetro de valor medio y uno True-RMS, en DC y en AC, con su incertidumbre.<br>
+<b>Problema 2</b> — Se reemplaza la fuente de continua por un capacitor C = 47 pF: graficar tensión y corriente, hallar τ.<br>
+<b>Problema 3</b> — Mismo circuito con excitación senoidal: frecuencia de corte, Bode, y elegir un capacitor para separar 1 kHz de 50 Hz.
+</div>
+
+<h3>Qué cambia realmente entre las cinco versiones</h3>
+<table class="tbl">
+  <tr><th></th><th>Resistencia en corto</th><th>Señal</th><th>Ciclo</th><th>R vista por C</th><th>τ</th><th>f<sub>c</sub></th><th>Filtro</th></tr>
+  <tr><td><b>Coloquio 1</b></td><td><b>R₃ = 0</b></td><td>−8 / +2 V</td><td>20%</td><td>R₁∥R₂ = 2 MΩ</td><td><b>94 µs</b></td><td><b>1,69 kHz</b></td><td><b>pasa-bajos</b></td></tr>
+  <tr><td><b>Coloquio 2</b></td><td><b>R₂ = 0</b> (sólo en el problema 1)</td><td>−10 / +10 V</td><td>20%</td><td>(R₁∥R₂)+R₃ = 6 MΩ</td><td><b>282 µs</b></td><td><b>564 Hz</b></td><td>pasa-altos</td></tr>
+  <tr><td><b>Coloquio 3</b></td><td><b>R₁ = 0</b></td><td>−10 / +5 V</td><td><b>80%</b></td><td>R₃ = 4 MΩ</td><td><b>188 µs</b></td><td><b>847 Hz</b></td><td>pasa-altos</td></tr>
+  <tr><td><b>Coloquio 4</b></td><td><b>R₁ = 0</b></td><td>−10 / +5 V</td><td><b>80%</b></td><td>R₃ = 4 MΩ</td><td><b>188 µs</b></td><td>—</td><td>enunciado incompatible</td></tr>
+  <tr><td><b>Coloquio 5</b></td><td><b>ninguna</b></td><td>−10 / +5 V</td><td>20%</td><td>(R₁∥R₂)+R₃ = 6 MΩ</td><td><b>282 µs</b></td><td><b>564 Hz</b></td><td>pasa-altos con cero</td></tr>
+</table>
+<p>Con R₁ = R₂ = R₃ = 4 MΩ y C = 47 pF en todos los casos.</p>
+
+<div class="key"><div class="ky-t">La lección del desafío, en una línea</div>
+<b>Cambiar cuál resistencia está en cortocircuito cambia la resistencia equivalente vista por el capacitor</b>, y con ella cambian la constante de tiempo, la frecuencia de corte <b>y hasta el tipo de filtro</b>.<br><br>
+2 MΩ, 4 MΩ o 6 MΩ. τ de 94, 188 o 282 µs. f<sub>c</sub> de 1,69 kHz, 847 Hz o 564 Hz. Pasa-bajos o pasa-altos. <b>Todo con el mismo dibujo.</b><br><br>
+Por eso el ejercicio no se resuelve reconociendo la figura: se resuelve <b>redibujando el circuito con el corto aplicado</b> y recalculando desde cero. Ése es exactamente el reflejo que la cátedra quiere instalar.
+</div>
+
+<div class="trap"><div class="tr-t">Y todavía cambian dos cosas más, que no están en el circuito</div>
+<b>El ciclo de trabajo</b> — 20% en los coloquios 1, 2 y 5; <b>80%</b> en el 3 y el 4. Como V<sub>DC</sub> = D·V<sub>p</sub> y V<sub>ef</sub> = V<sub>p</sub>·√D, cambiar D cambia todas las lecturas del problema 1.<br><br>
+<b>Los dígitos del multímetro</b> — 3½ (1999 cuentas) en unos, 3¾ (3999 cuentas) en otros. Eso cambia la <b>escala</b> que hay que elegir y con ella la incertidumbre.<br><br>
+Si copiás el resultado de otro coloquio "porque es el mismo ejercicio", te llevás los dos errores juntos.
+</div>
+
+<div class="key"><div class="ky-t">Cómo entrenar con esta serie</div>
+Es la mejor herramienta de estudio del material y conviene usarla en este orden:<br><br>
+<b>1.</b> Resolvé el coloquio 5 (el que no tiene ningún corto): es el caso general.<br>
+<b>2.</b> Después el 3, que pone R₁ en corto. Fijate qué cambia y por qué.<br>
+<b>3.</b> Después el 1, que pone R₃ en corto — y da vuelta el tipo de filtro.<br>
+<b>4.</b> El 2, que tiene la trampa de que el corto vale <b>sólo en el problema 1</b>.<br>
+<b>5.</b> El 4, que está para que descubras que el problema 3 no cierra.<br><br>
+Si podés predecir τ y f<sub>c</sub> de cada versión <b>antes</b> de hacer la cuenta, entendiste el tema.
+</div>
+
+<div class="reveal-wrap" data-rv="8" data-subject="fiuba-electronica"></div>
+<div class="quiz-wrap" data-qz="8" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 9 · MIX ============ -->
+<details id="fie-s9">
+<summary><span class="num">9</span> Mix integrador · Reconocer el tipo y plan del día <span class="sec-score" id="ss-fiuba-electronica-9"></span></summary>
+<div class="content">
+
+<h3>Los errores que más cuestan</h3>
+<table class="tbl">
+  <tr><th>#</th><th>Error</th><th>Qué produce</th></tr>
+  <tr><td>1</td><td>Calcular τ con una R que no es la <b>vista por el capacitor</b></td><td>Todo el transitorio y la f<sub>c</sub> quedan mal</td></tr>
+  <tr><td>2</td><td>Usar el multímetro de valor medio como si fuera True-RMS</td><td>Hasta <b>21% de error</b> según la forma de onda</td></tr>
+  <tr><td>3</td><td>Olvidar que el modo AC <b>bloquea la continua</b></td><td>Se promedia |v| en vez de |v − V<sub>DC</sub>|</td></tr>
+  <tr><td>4</td><td>Apagar mal las fuentes (V a abierto, I a corto)</td><td>Superposición y R<sub>Th</sub> equivocadas</td></tr>
+  <tr><td>5</td><td>Aplicar máxima transferencia al revés (carga fija)</td><td>4 veces menos potencia que el óptimo real</td></tr>
+  <tr><td>6</td><td>Aplicar divisor de tensión con una carga colgada</td><td>Tensión sobreestimada</td></tr>
+  <tr><td>7</td><td>Perder un factor 1000 entre kΩ y MΩ, o µF y pF</td><td>τ y f<sub>c</sub> con tres órdenes de error</td></tr>
+  <tr><td>8</td><td>Suponer que la meseta de Bode vale 0 dB</td><td>El −3 dB se calcula desde el nivel equivocado</td></tr>
+  <tr><td>9</td><td>Elegir mal la escala del instrumento</td><td>Incertidumbre errada por un factor 10</td></tr>
+  <tr><td>10</td><td>No declarar las hipótesis</td><td>Puntos perdidos aunque el número esté bien</td></tr>
+</table>
+
+<h3>Las verificaciones de 30 segundos</h3>
+<table class="tbl">
+  <tr><th>Si calculaste…</th><th>Verificá que…</th></tr>
+  <tr><td>R<sub>Th</sub></td><td>Esté entre la menor y la mayor resistencia del circuito (salvo casos con fuentes dependientes)</td></tr>
+  <tr><td>τ</td><td>Las unidades cierren: MΩ × pF = µs &nbsp;·&nbsp; kΩ × nF = µs</td></tr>
+  <tr><td>V<sub>ef</sub></td><td>Sea <b>mayor</b> que |V<sub>DC</sub>| (por V<sub>ef</sub>² = V<sub>DC</sub>² + V<sub>AC</sub>²) y menor que V<sub>pico</sub></td></tr>
+  <tr><td>f<sub>c</sub></td><td>Coincida con 1/(2πτ) usando el τ del problema anterior, si es el mismo circuito</td></tr>
+  <tr><td>Una potencia máxima</td><td>Sea efectivamente <b>mayor</b> que la de cualquier otro valor que pruebes</td></tr>
+  <tr><td>Una lectura de multímetro</td><td>El de valor medio y el True-RMS <b>no</b> den lo mismo (salvo con senoidal pura)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Plan del examen</div>
+<b>Primero.</b> Leé los 3 problemas y etiquetá cada uno: medición, RC o frecuencia. Con el esqueleto de la sección 1 ya sabés qué esperar.<br><br>
+<b>Segundo.</b> En cada problema, <b>redibujá el circuito</b> aplicando los cortocircuitos y las llaves en la posición que corresponda. No trabajes sobre el dibujo original.<br><br>
+<b>Tercero.</b> Escribí las <b>hipótesis</b> antes de calcular: voltímetro ideal, régimen permanente alcanzado, carga fija. El enunciado lo pide explícitamente y lo califica.<br><br>
+<b>Cuarto.</b> Cuentas con <b>unidades en cada paso</b>, no sólo en el resultado. El error de factor 1000 se caza así.<br><br>
+<b>Quinto.</b> Respuestas <b>breves y explícitas</b>, con unidad e incertidumbre cuando corresponda. El pie del examen pide justamente eso.
+</div>
+
+<div class="quiz-wrap" data-qz="9" data-subject="fiuba-electronica"></div>
+<a class="back" href="#subject-fiuba-electronica">↑ Volver al índice</a>
+</div>
+</details>
