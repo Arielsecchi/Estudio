@@ -1,0 +1,892 @@
+<header>
+    <h1>Algoritmos y Programación I · Guía completa</h1>
+    <div class="sub">FIUBA · Cátedra Azcurra · Lenguaje C · Teoría de las 11 unidades y las <b>9 guías de ejercicios de la cátedra</b> resueltas paso a paso</div>
+  </header>
+<nav class="toc" id="toc-fiuba-algoritmos">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fap-s1">Estrategia y convención de código (que se corrige)</a></li>
+    <li><a href="#fap-s2">Fundamentos de C · Tipos, operadores, entrada y salida</a></li>
+    <li><a href="#fap-s3">Control de flujo · Condicionales y ciclos</a></li>
+    <li><a href="#fap-s4">Funciones y programación modular</a></li>
+    <li><a href="#fap-s5">Arreglos · Vectores y matrices</a></li>
+    <li><a href="#fap-s6">Cadenas de caracteres</a></li>
+    <li><a href="#fap-s7">Structs</a></li>
+    <li><a href="#fap-s8">Archivos binarios y de texto</a></li>
+    <li><a href="#fap-s9">Punteros y memoria dinámica</a></li>
+    <li><a href="#fap-s10">Recursividad</a></li>
+    <li><a href="#fap-s11">Ordenamiento y búsqueda</a></li>
+    <li><a href="#fap-s12">Mix integrador · Los errores que más cuestan</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-algoritmos">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · ESTRATEGIA Y CONVENCIÓN ============ -->
+<details id="fap-s1">
+<summary><span class="num">1</span> Estrategia y convención de código (que se corrige) <span class="sec-score" id="ss-fiuba-algoritmos-1"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">De dónde sale esta guía, y qué NO tiene</div>
+De las clases teóricas de la cátedra (Lic. Gustavo Bianchi) y de las <b>9 guías de ejercicios</b> de la Cátedra Azcurra, las más nuevas etiquetadas <i>Guía 2024_v2</i> y <i>2025_v1</i>.<br><br>
+<b>No hay parciales reales en el material de la cátedra</b>, así que esta guía <b>no</b> los simula: se construye sobre las guías de ejercicios, que son el material con el que efectivamente se entrena y se evalúa. Cualquier "parcial modelo" que vieras acá sería inventado, y preferimos no hacerlo.
+</div>
+
+<h3>La convención de código es normativa, no una sugerencia</h3>
+<p>La cátedra publica un documento de <b>estilo de codificación en C</b> y corrige con él. Es la forma más barata de perder puntos: el algoritmo puede estar perfecto y el código mal presentado.</p>
+<table class="tbl">
+  <tr><th>Regla</th><th>Cómo va</th></tr>
+  <tr><td>Nombres de variables y funciones</td><td><b>snake_case</b> y descriptivos: <code>valor_hora</code>, no <code>vh</code></td></tr>
+  <tr><td>Constantes</td><td><code>#define</code> en <b>MAYÚSCULAS</b> con guión bajo, <b>sin</b> <code>=</code> y <b>sin</b> <code>;</code></td></tr>
+  <tr><td>Llaves de <b>función</b></td><td>En la <b>primera columna</b>, en su propio renglón</td></tr>
+  <tr><td>Llaves de <b>bloque</b> (if, for, while)</td><td>Al <b>final del renglón</b> de la sentencia</td></tr>
+  <tr><td>Indentación</td><td><b>4 espacios</b></td></tr>
+  <tr><td>Espacios</td><td>Después de <code>if</code>/<code>for</code>/<code>while</code>/<code>switch</code>/<code>case</code>/<code>do</code>, y alrededor de los operadores binarios</td></tr>
+  <tr><td>Pre/post incremento</td><td><b>Sin</b> espacios: <code>a++</code>, <code>++a</code></td></tr>
+  <tr><td>Llaves en <code>if</code>/<code>else</code></td><td>Si <b>una</b> rama tiene más de una sentencia, van llaves en <b>todas</b> las ramas</td></tr>
+</table>
+
+<pre class="code-block">/* Esqueleto mínimo, con el estilo de la cátedra */
+#include &lt;stdio.h&gt;
+
+#define MAX_TEMP 50        /* constante: MAYÚSCULAS, sin = y sin ; */
+
+int main()
+{
+    int contador_pares = 0;        /* snake_case, indentación de 4 espacios */
+
+    printf("Pares: %d\n", contador_pares);
+    return 0;
+}</pre>
+
+<pre class="code-block">/* Definición de función: las llaves van en la PRIMERA columna */
+float promediar(int nota_1, int nota_2)
+{
+    return (float)(nota_1 + nota_2) / 2;    /* el casteo fuerza la división real */
+}
+
+/* Bloque dentro de una función: la llave va al final del renglón */
+if (condicion) {
+    incrementar();
+    accion();
+} else {
+    decrementar();
+}</pre>
+
+<h3>Las 11 unidades y cómo dependen entre sí</h3>
+<table class="tbl">
+  <tr><th>Unidad</th><th>Necesita antes…</th><th>Guía de la cátedra</th></tr>
+  <tr><td>Fundamentos y control de flujo</td><td>—</td><td>Ejercicios Básicos de C</td></tr>
+  <tr><td>Funciones y modular</td><td>Control de flujo</td><td>Funciones · Programación Modular</td></tr>
+  <tr><td>Arreglos</td><td>Funciones (para pasarlos como parámetro)</td><td>Arreglos [Vectores y Matrices]</td></tr>
+  <tr><td>Cadenas</td><td>Arreglos</td><td>Manejo de Cadenas</td></tr>
+  <tr><td>Structs</td><td>Arreglos</td><td>Struct</td></tr>
+  <tr><td>Archivos</td><td>Structs</td><td>Archivos</td></tr>
+  <tr><td>Punteros y memoria dinámica</td><td>Funciones y arreglos</td><td>Memoria Dinámica</td></tr>
+  <tr><td>Recursividad</td><td>Funciones</td><td>Recursividad</td></tr>
+  <tr><td>Ordenamiento y búsqueda</td><td>Arreglos</td><td>(dentro de Arreglos)</td></tr>
+</table>
+<div class="key"><div class="ky-t">La dependencia que importa</div>
+<b>Punteros</b> es la unidad bisagra: sin entenderla no se puede pasar un parámetro por referencia (unidad 4), ni entender por qué un arreglo "se modifica solo" al pasarlo a una función (unidad 5), ni manejar archivos ni memoria dinámica. Si algo se te está haciendo difícil más adelante, casi siempre el agujero está acá.
+</div>
+
+<h3>Cómo estudiar esta materia</h3>
+<div class="key"><div class="ky-t">Programar, no leer</div>
+Es una materia de <b>hacer</b>. Leer soluciones da una falsa sensación de dominio: el código ajeno siempre se entiende. La prueba real es escribirlo desde cero con la hoja en blanco.<br><br>
+Método: leé la consigna, <b>cerrá la guía</b>, escribilo, y recién ahí compará. Lo que no te salió sin mirar es exactamente lo que todavía no sabés.
+</div>
+<div class="key"><div class="ky-t">Trazá a mano antes de compilar</div>
+Las preguntas de "¿qué imprime este programa?" no se resuelven ejecutando: se resuelven siguiendo el valor de cada variable renglón por renglón, en papel. Hacelo aunque tengas el compilador al lado — es la habilidad que se evalúa.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · FUNDAMENTOS ============ -->
+<details id="fap-s2">
+<summary><span class="num">2</span> Fundamentos de C · Tipos, operadores, entrada y salida <span class="sec-score" id="ss-fiuba-algoritmos-2"></span></summary>
+<div class="content">
+
+<h3>Especificadores de formato · la tabla que se usa todo el tiempo</h3>
+<table class="tbl">
+  <tr><th>Especificador</th><th>Qué representa</th><th>Tipo</th></tr>
+  <tr><td><code>%d</code> ó <code>%i</code></td><td>Entero con signo, base 10</td><td><code>int</code></td></tr>
+  <tr><td><code>%u</code></td><td>Entero sin signo</td><td><code>unsigned int</code></td></tr>
+  <tr><td><code>%f</code></td><td>Coma flotante, precisión simple</td><td><code>float</code></td></tr>
+  <tr><td><code>%lf</code></td><td>Coma flotante, doble precisión</td><td><code>double</code></td></tr>
+  <tr><td><code>%c</code></td><td>Un carácter</td><td><code>char</code></td></tr>
+  <tr><td><code>%s</code></td><td>Cadena terminada en <code>'\0'</code></td><td><code>char[]</code></td></tr>
+  <tr><td><code>%lu</code></td><td>Entero largo sin signo (y <code>sizeof</code>)</td><td><code>unsigned long</code></td></tr>
+  <tr><td><code>%x</code> / <code>%X</code></td><td>Hexadecimal, minúsculas / mayúsculas</td><td><code>int</code></td></tr>
+  <tr><td><code>%e</code></td><td>Notación científica</td><td><code>float</code> / <code>double</code></td></tr>
+</table>
+<div class="trap"><div class="tr-t">El único caso donde printf y scanf NO usan lo mismo</div>
+Para un <code>double</code>: en <code>printf</code> podés usar <code>%f</code> o <code>%lf</code>, pero en <b><code>scanf</code> es obligatorio <code>%lf</code></b>. Si leés un <code>double</code> con <code>%f</code>, escribís sólo la mitad de la variable y el valor queda basura.
+</div>
+
+<h3>Modificadores de ancho y precisión</h3>
+<table class="tbl">
+  <tr><th>Formato</th><th>Qué hace</th></tr>
+  <tr><td><code>%8.2f</code></td><td>8 posiciones de ancho total, 2 decimales</td></tr>
+  <tr><td><code>%07i</code></td><td>7 dígitos mínimo, rellena con <b>ceros</b> a la izquierda</td></tr>
+  <tr><td><code>%-20s</code></td><td>20 de ancho, justificado a la <b>izquierda</b></td></tr>
+  <tr><td><code>%.5s</code></td><td>Sólo los primeros 5 caracteres</td></tr>
+</table>
+
+<h3>Entrada y salida</h3>
+<pre class="code-block">/* scanf necesita la DIRECCIÓN de la variable: por eso el & */
+int edad;
+float sueldo;
+
+printf("Ingrese edad: ");
+scanf("%d", &amp;edad);        /* %d o %i para int */
+scanf("%f", &amp;sueldo);      /* %f para float; para double va %lf */</pre>
+<div class="trap"><div class="tr-t">Olvidar el <code>&amp;</code> en scanf</div>
+<code>scanf("%d", edad)</code> le pasa el <b>valor</b> de <code>edad</code> como si fuera una dirección de memoria. El programa compila (con warning) y al ejecutarse escribe en una dirección arbitraria: <b>violación de segmento</b> o, peor, pisado silencioso de otra variable.<br><br>
+La única excepción: con <code>%s</code> sobre un arreglo <b>no</b> va <code>&amp;</code>, porque el nombre del arreglo ya <i>es</i> la dirección.
+</div>
+<div class="trap"><div class="tr-t">El Enter que queda en el buffer</div>
+Después de un <code>scanf("%d", &amp;n)</code>, el <code>\n</code> del Enter queda sin consumir. Si el siguiente <code>scanf</code> es <code>%c</code>, se come ese <code>\n</code> y parece que "no esperó". Solución: <code>scanf(" %c", &amp;letra)</code> — el <b>espacio antes del %c</b> descarta los blancos pendientes.
+</div>
+
+<h3>Tipos numéricos · tamaño y rango (gcc 64 bits)</h3>
+<table class="tbl">
+  <tr><th>Tipo</th><th>Bytes</th><th>Rango</th></tr>
+  <tr><td><code>char</code></td><td>1</td><td>−128 a 127</td></tr>
+  <tr><td><code>short</code></td><td>2</td><td>−32 768 a 32 767</td></tr>
+  <tr><td><code>int</code></td><td>4</td><td>−2 147 483 648 a 2 147 483 647</td></tr>
+  <tr><td><code>unsigned int</code></td><td>4</td><td>0 a 4 294 967 295</td></tr>
+  <tr><td><code>long</code></td><td>8</td><td>≈ ±9,2 · 10<sup>18</sup></td></tr>
+  <tr><td><code>float</code></td><td>4</td><td>≈ 1,17·10<sup>−38</sup> a 3,40·10<sup>38</sup></td></tr>
+  <tr><td><code>double</code></td><td>8</td><td>≈ 2,22·10<sup>−308</sup> a 1,79·10<sup>308</sup></td></tr>
+</table>
+<p>Los tamaños <b>dependen del compilador</b>: el apunte de la cátedra aclara que <code>int</code> puede ser de 2 <b>o</b> 4 bytes. Si necesitás el valor real, <code>sizeof(int)</code> (que se imprime con <code>%lu</code>).</p>
+
+<h3>Operadores</h3>
+<table class="tbl">
+  <tr><th>Categoría</th><th>Operadores</th><th>Detalle</th></tr>
+  <tr><td>Aritméticos</td><td><code>+ - * / %</code></td><td><code>%</code> <b>sólo entre enteros</b>; <code>/</code> entre enteros <b>trunca</b></td></tr>
+  <tr><td>Relacionales</td><td><code>&gt; &lt; == != &gt;= &lt;=</code></td><td><code>==</code> compara, <code>=</code> asigna</td></tr>
+  <tr><td>Lógicos</td><td><code>&amp;&amp;</code> (y) &nbsp;<code>||</code> (o) &nbsp;<code>!</code> (no)</td><td>Evaluación por <b>cortocircuito</b></td></tr>
+  <tr><td>Incremento</td><td><code>++a  --a  a++  a--</code></td><td>Prefijo modifica <b>antes</b> de usar; sufijo, <b>después</b></td></tr>
+  <tr><td>Asignación</td><td><code>= += -=</code></td><td><code>c -= 2</code> equivale a <code>c = c - 2</code></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La división entera es el error silencioso número uno</div>
+<code>5 / 2</code> da <b>2</b>, no 2.5, porque los dos operandos son <code>int</code>. Y guardar el resultado en un <code>float</code> <b>no lo arregla</b>: la cuenta ya se hizo mal antes de asignar.<br><br>
+Se arregla de dos formas: escribiendo una constante con punto (<code>5.0 / 2</code>) o casteando (<code>(float)a / b</code>). El casteo va sobre <b>un operando</b>, no sobre el resultado: <code>(float)(a / b)</code> sigue dando 2.
+</div>
+
+<h3>Pre y post incremento · lo que realmente pasa</h3>
+<pre class="code-block">int a = 5;
+printf("%d", a++);    /* imprime 5, y DESPUÉS a pasa a valer 6 */
+printf("%d", ++a);    /* a pasa a valer 7, y ENTONCES imprime 7 */</pre>
+<div class="key"><div class="ky-t">La regla en una línea</div>
+La diferencia está en <b>qué valor devuelve la expresión</b>, no en qué queda en la variable: en los dos casos la variable termina incrementada. <code>a++</code> devuelve el valor <b>viejo</b>; <code>++a</code> devuelve el <b>nuevo</b>.
+</div>
+
+<h3>Booleanos</h3>
+<pre class="code-block">#include &lt;stdbool.h&gt;      /* hace falta incluirlo: bool no es nativo de C */
+
+bool continuar = true;
+int a = 3, b = 5;
+bool x = a &lt; b;          /* una comparación devuelve un booleano: x queda en true */</pre>
+<p>Sin <code>stdbool.h</code>, la alternativa que muestra la cátedra es un enumerado: <code>typedef enum {false, true} bool;</code></p>
+
+<h3>Error de compilación vs. error de ejecución</h3>
+<table class="tbl">
+  <tr><th>De compilación</th><th>De ejecución (runtime)</th></tr>
+  <tr><td>Lo detecta el compilador: el programa <b>no llega a generarse</b></td><td>El programa compila y <b>falla al correr</b></td></tr>
+  <tr><td>Falta un <code>;</code>, tipo mal escrito, variable no declarada, paréntesis sin cerrar</td><td>División por cero, índice fuera de rango, puntero nulo, archivo inexistente</td></tr>
+  <tr><td>Se arregla leyendo el mensaje del compilador</td><td>Se arregla <b>validando</b> los datos antes de usarlos</td></tr>
+</table>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · CONTROL DE FLUJO ============ -->
+<details id="fap-s3">
+<summary><span class="num">3</span> Control de flujo · Condicionales y ciclos <span class="sec-score" id="ss-fiuba-algoritmos-3"></span></summary>
+<div class="content">
+
+<h3>Elegir entre <code>if</code> encadenado y <code>switch</code></h3>
+<div class="key"><div class="ky-t">El criterio es qué comparás</div>
+<b>Rangos</b> (<code>nota &gt;= 7</code>, <code>x &lt; 0</code>) → <code>if / else if / else</code>.<br>
+<b>Valores discretos</b> de un <code>int</code> o un <code>char</code> (mes 1..12, opción de menú) → <code>switch</code>.
+</div>
+<pre class="code-block">switch (mes) {
+    case 1:
+        printf("Enero");
+        break;              /* sin el break, cae en cascada al siguiente case */
+    case 2:
+        printf("Febrero");
+        break;
+    default:
+        printf("Inexistente");
+}</pre>
+<div class="trap"><div class="tr-t">El <code>break</code> olvidado</div>
+Sin <code>break</code>, la ejecución <b>sigue</b> hacia los <code>case</code> siguientes (<i>fall-through</i>) y se imprimen varios mensajes. La única caída legítima es apilar <code>case</code> sin código entre ellos, cuando varios valores comparten la misma acción.
+</div>
+<div class="key"><div class="ky-t">Chequeo que detecta los dos errores clásicos</div>
+Probá los bordes: el mínimo válido, el máximo válido, uno menos y uno más. Cada corrida tiene que imprimir <b>exactamente un</b> mensaje.<br>
+· Imprime <b>dos</b> → te falta un <code>else</code> o un <code>break</code>.<br>
+· No imprime <b>ninguno</b> → te falta el <code>default</code> o el <code>else</code> final.
+</div>
+
+<h3>Los tres ciclos</h3>
+<table class="tbl">
+  <tr><th></th><th><code>for</code></th><th><code>while</code></th><th><code>do..while</code></th></tr>
+  <tr><td>Cuándo</td><td>Se conoce la cantidad de repeticiones</td><td>No se sabe cuándo termina</td><td>Igual que <code>while</code>, pero debe correr <b>al menos una vez</b></td></tr>
+  <tr><td>Condición</td><td>Al principio</td><td>Al principio</td><td>Al <b>final</b></td></tr>
+  <tr><td>Mínimo de ejecuciones</td><td>0</td><td>0</td><td><b>1</b></td></tr>
+  <tr><td><code>;</code> tras la llave</td><td>No</td><td>No</td><td><b>Sí, obligatorio</b></td></tr>
+  <tr><td>Caso típico</td><td>Recorrer 1..N, recorrer un vector</td><td>Leer hasta que ingresen 0</td><td><b>Validar</b> un dato ingresado</td></tr>
+</table>
+
+<h3>Validación de un dato · el molde del <code>do-while</code></h3>
+<pre class="code-block">do {
+    printf("Ingrese la altura (mayor a 0): ");
+    scanf("%f", &amp;altura);
+    if (altura &lt;= 0) {
+        printf("ERROR: la altura debe ser mayor a 0.\n");
+    }
+} while (altura &lt;= 0);      /* la condición es la del dato INVÁLIDO */</pre>
+<div class="key"><div class="ky-t">La verificación de una línea</div>
+<b>Negá la condición del <code>while</code>: te tiene que quedar exactamente la definición de "dato correcto" del enunciado.</b> Si negás <code>altura &lt;= 0</code> te queda <code>altura &gt; 0</code> ✔.<br><br>
+Cuando el ciclo termina, la variable ya tiene un valor válido garantizado: de ahí en adelante no hace falta volver a chequear.
+</div>
+
+<h3>Serie con centinela · el molde completo</h3>
+<pre class="code-block">suma = 0;
+cantidad = 0;
+
+printf("Ingrese un valor (0 para terminar): ");   /* LECTURA ANTICIPADA */
+scanf("%d", &amp;dato);
+
+while (dato != 0) {
+    if (cantidad == 0) {          /* el primer dato inicializa mayor y menor */
+        mayor = dato;
+        menor = dato;
+    } else if (dato &gt; mayor) {
+        mayor = dato;
+    } else if (dato &lt; menor) {
+        menor = dato;
+    }
+    suma = suma + dato;
+    cantidad++;
+
+    printf("Ingrese un valor (0 para terminar): ");   /* VOLVER A LEER */
+    scanf("%d", &amp;dato);
+}
+
+if (cantidad == 0) {
+    printf("No se ingresaron datos.\n");             /* evita dividir por cero */
+} else {
+    printf("Promedio: %.2f\n", (float)suma / cantidad);
+}</pre>
+
+<div class="trap"><div class="tr-t">Inicializar <code>mayor</code> y <code>menor</code> en 0</div>
+Es el error más caro de este molde. Si la serie es <code>−4, −9</code>, el mínimo te va a dar <b>0</b>, que ni siquiera está entre los datos. <b>Inicializá con el primer dato</b>, no con 0.<br><br>
+Prueba obligatoria: corré con una serie de <b>todos negativos</b>. Si el mínimo da 0, tenés este bug.
+</div>
+<div class="trap"><div class="tr-t">Olvidar la segunda lectura</div>
+Si la última línea del cuerpo del <code>while</code> no vuelve a pedir el dato, la condición nunca cambia: <b>ciclo infinito</b>. La lectura aparece <b>dos veces</b> en el molde y las dos son necesarias.
+</div>
+<div class="trap"><div class="tr-t">Dividir sin chequear que haya datos</div>
+Si el usuario ingresa el centinela de entrada, <code>cantidad</code> vale 0 y el promedio es una <b>división por cero</b>. El <code>if (cantidad == 0)</code> del final no es un adorno.
+</div>
+
+<h3>Ciclos anidados · dibujos y tablas</h3>
+<pre class="code-block">/* Triángulo de asteriscos: la fila i tiene i asteriscos */
+for (fila = 1; fila &lt;= n; fila++) {
+    for (columna = 1; columna &lt;= fila; columna++) {   /* depende de la fila */
+        printf("*");
+    }
+    printf("\n");        /* el salto va en el ciclo EXTERNO, después del interno */
+}</pre>
+<div class="key"><div class="ky-t">Chequeo de ciclos</div>
+Calculá a mano cuántas iteraciones hacen <code>n = 1</code> y <code>n = 2</code> y compará con tu código. El error clásico —una iteración de más o de menos— se ve ahí y en ningún otro lado.<br><br>
+Molde: <code>for (i = 1; i &lt;= n; i++)</code> cuando el enunciado dice "los n primeros"; <code>for (i = 0; i &lt; n; i++)</code> cuando pensás en <b>posiciones</b> de un arreglo.
+</div>
+
+<h3>Descomponer un número en dígitos</h3>
+<pre class="code-block">resto = numero;                   /* copia: el ciclo destruye la variable */
+while (resto &gt; 0) {
+    digito = resto % 10;          /* último dígito */
+    /* ... procesar el dígito ... */
+    resto = resto / 10;           /* lo descarta. SIN esto: ciclo infinito */
+}</pre>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · FUNCIONES Y MODULAR ============ -->
+<details id="fap-s4">
+<summary><span class="num">4</span> Funciones y programación modular <span class="sec-score" id="ss-fiuba-algoritmos-4"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Ésta es la unidad bisagra de la materia</div>
+Todo lo que viene después (arreglos, cadenas, structs, archivos, memoria dinámica) se apoya en entender <b>pasaje por valor vs. por referencia</b>. Si algo se te complica más adelante, el agujero casi siempre está acá.
+</div>
+
+<h3>Las tres partes de una función</h3>
+<pre class="code-block">#include &lt;stdio.h&gt;
+
+float promediar(int nota_1, int nota_2);      /* 1. PROTOTIPO: antes del main */
+
+int main()
+{
+    printf("%.2f\n", promediar(7, 10));       /* 3. LLAMADA */
+    return 0;
+}
+
+float promediar(int nota_1, int nota_2)       /* 2. DEFINICIÓN */
+{
+    return (float)(nota_1 + nota_2) / 2;
+}</pre>
+
+<h3>Por valor vs. por referencia · la tabla que hay que tener grabada</h3>
+<table class="tbl">
+  <tr><th></th><th>Por valor</th><th>Por referencia</th></tr>
+  <tr><td>Qué se entrega</td><td>Una <b>copia</b> del valor</td><td>La <b>dirección</b> de memoria</td></tr>
+  <tr><td>Memoria</td><td>Actual y formal usan <b>distintas</b> posiciones</td><td>Usan la <b>misma</b> posición</td></tr>
+  <tr><td>Declaración</td><td><code>void f(int n)</code></td><td><code>void f(int *n)</code></td></tr>
+  <tr><td>Llamada</td><td><code>f(num);</code></td><td><code>f(&amp;num);</code></td></tr>
+  <tr><td>Uso adentro</td><td><code>n = n + 1;</code></td><td><code>*n = *n + 1;</code></td></tr>
+  <tr><td>El actual se modifica</td><td><b>NO</b></td><td><b>SÍ</b></td></tr>
+  <tr><td>Para qué</td><td>Entradas que la función sólo lee</td><td><b>Salidas</b>: devolver más de un valor</td></tr>
+  <tr><td>Arreglos</td><td colspan="2">Siempre por referencia, y <b>sin</b> escribir <code>&amp;</code> ni <code>*</code></td></tr>
+</table>
+
+<pre class="code-block">/* Por valor: NO funciona para modificar */
+void duplicar_mal(int n)
+{
+    n = n * 2;              /* toca la copia local; num afuera no cambia */
+}
+
+/* Por referencia: SÍ funciona */
+void duplicar_bien(int *n)
+{
+    *n = *n * 2;            /* el * desreferencia: escribe en la variable original */
+}
+
+int main()
+{
+    int num = 5;
+    duplicar_mal(num);      /* num sigue valiendo 5 */
+    duplicar_bien(&amp;num);    /* ahora num vale 10 */
+    return 0;
+}</pre>
+
+<div class="trap"><div class="tr-t">El bug invisible: esperar que una función modifique un parámetro por valor</div>
+No hay error de compilación ni crash: el programa simplemente <b>no hace nada</b>, y eso es lo que lo vuelve difícil de encontrar. Si una función tiene que <b>devolver</b> algo y ya usás el <code>return</code> para otra cosa, ese parámetro va por referencia.
+</div>
+<div class="trap"><div class="tr-t">Poner <code>&amp;</code> cuando el parámetro YA es un puntero</div>
+Dentro de <code>void leer(int *a)</code>, escribir <code>scanf("%d", &amp;a)</code> pasa la dirección <b>del puntero</b>, no la de la variable original. <code>scanf</code> pisa el puntero con el número leído y el próximo <code>*a</code> apunta a cualquier lado.<br><br>
+Adentro de esa función va <code>scanf("%d", a)</code> — <b>sin</b> <code>&amp;</code>, porque <code>a</code> ya es la dirección.
+</div>
+
+<h3>Programación modular</h3>
+<div class="key"><div class="ky-t">Una función, una responsabilidad</div>
+El molde que espera la cátedra: una función que <b>lee</b>, una que <b>calcula</b> y una que <b>muestra</b>. El <code>main</code> queda como coordinador y se lee de un vistazo.<br><br>
+Señal de que una función hace de más: si al nombrarla tenés que usar un "y" (<code>leer_y_validar_y_mostrar</code>), son tres funciones.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · ARREGLOS ============ -->
+<details id="fap-s5">
+<summary><span class="num">5</span> Arreglos · Vectores y matrices <span class="sec-score" id="ss-fiuba-algoritmos-5"></span></summary>
+<div class="content">
+
+<table class="tbl">
+  <tr><th></th><th>Vector</th><th>Matriz</th></tr>
+  <tr><td>Declaración</td><td><code>int v[6];</code></td><td><code>int m[6][7];</code></td></tr>
+  <tr><td>Con <code>typedef</code></td><td><code>typedef float t_vec[30];</code></td><td><code>typedef int t_mat[5][7];</code></td></tr>
+  <tr><td>Acceso</td><td><code>v[posicion]</code></td><td><code>m[fila][columna]</code></td></tr>
+  <tr><td>Primer elemento</td><td><code>v[0]</code></td><td><code>m[0][0]</code></td></tr>
+  <tr><td>Último elemento</td><td><code>v[N-1]</code></td><td><code>m[N-1][M-1]</code></td></tr>
+  <tr><td>Cantidad</td><td><code>N</code></td><td><code>N * M</code></td></tr>
+</table>
+
+<pre class="code-block">/* Recorrido de un vector: SIEMPRE i &lt; n, nunca i &lt;= n */
+for (i = 0; i &lt; n; i++) {
+    scanf("%d", &amp;vec[i]);      /* ojo: acá el & SÍ va, porque vec[i] es un int */
+}
+
+/* Matriz: el ciclo externo recorre filas, el interno columnas */
+for (fila = 0; fila &lt; FILAS; fila++) {
+    for (columna = 0; columna &lt; COLUMNAS; columna++) {
+        printf("%4d", mat[fila][columna]);
+    }
+    printf("\n");
+}
+
+/* Diagonal principal: fila == columna, un solo ciclo */
+for (i = 0; i &lt; N; i++) {
+    suma = suma + mat[i][i];
+}</pre>
+
+<div class="trap"><div class="tr-t">El off-by-one: <code>&lt;=</code> en vez de <code>&lt;</code></div>
+<code>for (i = 0; i &lt;= n; i++)</code> toca <code>vec[n]</code>, que <b>ya no pertenece al arreglo</b>. C no controla los índices: en ejecución se escribe encima de lo que esté al lado en la pila — muchas veces la propia <code>i</code>, lo que genera un <b>ciclo infinito</b>.<br><br>
+El último índice válido de un arreglo de N elementos es <b>N−1</b>.
+</div>
+<div class="trap"><div class="tr-t">Un arreglo NO se copia ni se compara con <code>=</code> y <code>==</code></div>
+<code>v1 = v2</code> ni siquiera compila. <code>if (v1 == v2)</code> sí compila, pero compara <b>direcciones</b>: da falso aunque los contenidos sean idénticos.<br><br>
+Hay que copiar y comparar <b>elemento por elemento</b> con un <code>for</code>.
+</div>
+<div class="key"><div class="ky-t">Por qué los arreglos "se modifican solos"</div>
+El nombre de un arreglo <b>ya es</b> la dirección de su primer elemento. Por eso al pasarlo a una función siempre va por referencia, sin <code>&amp;</code> ni <code>*</code>, y la función puede modificarlo.<br><br>
+Consecuencia: la función <b>no sabe cuántos elementos tiene</b>. Por eso el tamaño se pasa siempre como un parámetro aparte.
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · CADENAS ============ -->
+<details id="fap-s6">
+<summary><span class="num">6</span> Cadenas de caracteres <span class="sec-score" id="ss-fiuba-algoritmos-6"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Una cadena es un arreglo de char que termina en <code>'\0'</code></div>
+Para guardar <b>N caracteres útiles</b> hay que declarar <code>char cad[N+1]</code>. El lugar extra es para el terminador, y no es opcional: es lo que le dice a <code>printf</code>, <code>strlen</code> y todas las funciones de <code>string.h</code> dónde termina.
+</div>
+<div class="trap"><div class="tr-t">Declarar sin lugar para el terminador</div>
+<code>char cad[4] = "hola"</code> no deja espacio para el <code>'\0'</code>. En ejecución, <code>printf("%s", cad)</code> y <code>strlen(cad)</code> <b>siguen leyendo memoria</b> más allá del arreglo hasta encontrar un byte cero: imprime basura pegada al texto y devuelve una longitud enorme.
+</div>
+
+<h3><code>fgets</code> vs. <code>scanf</code> · la cátedra recomienda <code>fgets</code></h3>
+<table class="tbl">
+  <tr><th></th><th><code>fgets(cad, TAM, stdin)</code></th><th><code>scanf("%s", cad)</code></th></tr>
+  <tr><td>Hasta dónde lee</td><td>Hasta <code>TAM-1</code> caracteres o el ENTER</td><td>Hasta el <b>primer espacio</b>, tab o ENTER</td></tr>
+  <tr><td>¿Frases con espacios?</td><td><b>Sí</b>, la línea entera</td><td><b>No</b>: de "Juan Perez" guarda sólo "Juan"</td></tr>
+  <tr><td>Control de tamaño</td><td><b>Sí</b>, nunca escribe más de <code>TAM</code></td><td><b>No</b>: si el texto es más largo, <b>desborda</b></td></tr>
+  <tr><td>Qué deja en la cadena</td><td>El <code>'\n'</code> final <b>queda adentro</b></td><td>Sólo la palabra</td></tr>
+  <tr><td>Qué deja en el buffer</td><td>Nada (consume el ENTER)</td><td>El <code>'\n'</code>: hay que limpiar</td></tr>
+</table>
+
+<pre class="code-block">char nombre[31];
+
+fgets(nombre, 31, stdin);
+nombre[strcspn(nombre, "\n")] = '\0';   /* saca el ENTER que fgets dejó adentro */</pre>
+<div class="trap"><div class="tr-t">Olvidar sacar el <code>'\n'</code> que deja <code>fgets</code></div>
+Si el usuario escribe <code>Juan</code> y ENTER, la cadena queda <code>"Juan\n"</code>: <code>strlen</code> devuelve <b>5</b> y <code>strcmp(nombre, "Juan")</code> da distinto de 0, así que <b>toda comparación falla siempre</b>. La línea del <code>strcspn</code> va inmediatamente después del <code>fgets</code>.
+</div>
+<div class="trap"><div class="tr-t">Mezclar <code>scanf</code> con <code>fgets</code> sin limpiar el buffer</div>
+<code>scanf("%d", &amp;edad)</code> deja el <code>'\n'</code> pendiente; el <code>fgets</code> siguiente lo lee de inmediato, devuelve una cadena <b>vacía</b> y el programa pasa de largo la carga del nombre sin esperar al usuario.
+</div>
+
+<h3>Funciones de <code>string.h</code></h3>
+<table class="tbl">
+  <tr><th>Función</th><th>Qué hace</th><th>Qué devuelve</th></tr>
+  <tr><td><code>strlen(s)</code></td><td>Longitud</td><td>Caracteres <b>sin</b> contar el <code>'\0'</code></td></tr>
+  <tr><td><code>strcpy(dest, src)</code></td><td>Copia (es el "=" de las cadenas)</td><td>Puntero a <code>dest</code></td></tr>
+  <tr><td><code>strcat(dest, src)</code></td><td>Concatena al final de <code>dest</code></td><td>Puntero a <code>dest</code></td></tr>
+  <tr><td><code>strcmp(s1, s2)</code></td><td>Compara</td><td><b>0 si son IGUALES</b>; &lt;0 o &gt;0 si no</td></tr>
+  <tr><td><code>strstr(a, b)</code></td><td>Busca <code>b</code> dentro de <code>a</code></td><td>Puntero a la 1ª ocurrencia, o <code>NULL</code></td></tr>
+  <tr><td><code>strcspn(s1, s2)</code></td><td>Tramo inicial de <code>s1</code> sin caracteres de <code>s2</code></td><td>Posición del primer carácter de <code>s2</code></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Leer <code>strcmp</code> al revés · el error más frecuente de la unidad</div>
+<code>if (strcmp(a, b))</code> entra al <code>if</code> cuando las cadenas son <b>DISTINTAS</b>, porque <code>strcmp</code> devuelve <b>0 justo cuando son iguales</b> — y 0 es falso.<br><br>
+La lógica queda invertida <b>sin ningún aviso del compilador</b>. Escribí siempre la comparación explícita: <code>if (strcmp(a, b) == 0)</code>.
+</div>
+<div class="trap"><div class="tr-t"><code>strcat</code> sobre un destino chico</div>
+<code>char dest[10] = "Hola mundo"</code> ya está lleno; <code>strcat(dest, " C")</code> escribe más allá del arreglo. No hay control de tamaño en ejecución: se corrompe la memoria vecina y el programa falla <b>más adelante</b>, en un lugar que no tiene nada que ver.
+</div>
+
+<div class="reveal-wrap" data-rv="6" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · STRUCTS ============ -->
+<details id="fap-s7">
+<summary><span class="num">7</span> Structs <span class="sec-score" id="ss-fiuba-algoritmos-7"></span></summary>
+<div class="content">
+
+<p>Un <code>struct</code> agrupa datos <b>de tipos distintos</b> bajo un mismo nombre. Es lo que permite tratar "un alumno" como una sola cosa en lugar de tres arreglos paralelos.</p>
+
+<pre class="code-block">/* Definición con typedef: la forma que usa la cátedra */
+typedef struct {
+    char nombre[31];
+    int padron;
+    float promedio;
+} t_alumno;
+
+int main()
+{
+    t_alumno alumno;                    /* una variable del tipo */
+    t_alumno curso[MAX_ALUMNOS];        /* un arreglo de structs */
+
+    alumno.padron = 105432;             /* acceso con punto */
+    strcpy(alumno.nombre, "Ariel");     /* la cadena se copia, no se asigna */
+
+    curso[0].promedio = 8.5;            /* primero el índice, después el campo */
+    return 0;
+}</pre>
+
+<div class="key"><div class="ky-t">Las dos formas de acceder a un campo</div>
+<code>variable.campo</code> — cuando tenés la <b>variable</b>.<br>
+<code>puntero-&gt;campo</code> — cuando tenés un <b>puntero</b> al struct. Es la forma corta de <code>(*puntero).campo</code>.<br><br>
+Si te aparece un error raro con paréntesis y asteriscos, casi siempre es que corresponde <code>-&gt;</code> y escribiste <code>.</code>, o al revés.
+</div>
+
+<div class="trap"><div class="tr-t">Asignar una cadena de un struct con <code>=</code></div>
+<code>alumno.nombre = "Ariel"</code> <b>no compila</b>: el campo es un arreglo. Va <code>strcpy(alumno.nombre, "Ariel")</code>.<br><br>
+En cambio, <b>el struct completo sí se asigna</b> con <code>=</code>: <code>a2 = a1</code> copia todos los campos, incluidas las cadenas. Es la excepción que confunde.
+</div>
+<div class="trap"><div class="tr-t">Structs por valor: se copia todo</div>
+Pasar un struct grande por valor a una función copia <b>cada byte</b>, y los cambios adentro no se ven afuera. Si la función tiene que modificarlo —o si el struct es grande— pasalo por referencia: <code>void cargar(t_alumno *a)</code>, y adentro <code>a-&gt;padron = ...</code>.
+</div>
+
+<div class="reveal-wrap" data-rv="7" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 8 · ARCHIVOS ============ -->
+<details id="fap-s8">
+<summary><span class="num">8</span> Archivos binarios y de texto <span class="sec-score" id="ss-fiuba-algoritmos-8"></span></summary>
+<div class="content">
+
+<h3>Modos de <code>fopen</code> · la tabla que evita perder un archivo</h3>
+<table class="tbl">
+  <tr><th>Modo</th><th>Permite</th><th>Si NO existe</th><th>Si YA existe</th></tr>
+  <tr><td><code>"r"</code></td><td>Sólo lectura</td><td>devuelve <code>NULL</code></td><td>lo abre, no lo toca</td></tr>
+  <tr><td><code>"w"</code></td><td>Sólo escritura</td><td>lo crea</td><td><b>lo trunca a cero: se pierde todo</b></td></tr>
+  <tr><td><code>"a"</code></td><td>Agregar al final</td><td>lo crea</td><td>conserva; escribe al final</td></tr>
+  <tr><td><code>"r+"</code></td><td>Lectura y escritura</td><td>devuelve <code>NULL</code></td><td>conserva el contenido</td></tr>
+  <tr><td><code>"w+"</code></td><td>Lectura y escritura</td><td>lo crea</td><td><b>lo trunca a cero</b></td></tr>
+  <tr><td>sufijo <code>b</code></td><td colspan="3"><code>"rb"</code>, <code>"wb"</code>, <code>"ab"</code>, <code>"r+b"</code>: archivo <b>binario</b>, sin traducción de fin de línea</td></tr>
+</table>
+<div class="trap"><div class="tr-t">Abrir con <code>"w"</code> lo que querías leer</div>
+Es destructivo e inmediato: <code>"w"</code> <b>trunca el archivo a cero</b> apenas lo abre. Si querías agregar, es <code>"a"</code>; si querías leer y escribir sin perder nada, <code>"r+"</code>.
+</div>
+
+<h3>Texto vs. binario</h3>
+<table class="tbl">
+  <tr><th></th><th>Texto</th><th>Binario</th></tr>
+  <tr><td>Contenido</td><td>Sólo caracteres</td><td>La representación interna, tal como está en memoria</td></tr>
+  <tr><td>¿Se lee con un editor?</td><td>Sí</td><td>No</td></tr>
+  <tr><td>Funciones</td><td><code>fprintf</code>/<code>fscanf</code>, <code>fputs</code>/<code>fgets</code>, <code>fputc</code>/<code>fgetc</code></td><td><code>fwrite</code>/<code>fread</code></td></tr>
+  <tr><td>Grabar un struct</td><td>Campo por campo</td><td>Una sola llamada: <code>fwrite(&amp;reg, sizeof(reg), 1, f)</code></td></tr>
+  <tr><td>Tamaño de registro</td><td>Variable</td><td><b>Fijo</b> = <code>sizeof(struct)</code> → habilita <b>acceso directo</b></td></tr>
+  <tr><td>Conviene para</td><td><code>.csv</code>, logs, listados editables a mano</td><td>Muchos registros iguales, velocidad, acceso por posición</td></tr>
+</table>
+
+<h3>El patrón correcto de lectura hasta fin de archivo</h3>
+<pre class="code-block">FILE *arch;
+t_producto reg;
+
+arch = fopen("productos.dat", "rb");
+if (arch == NULL) {                       /* SIEMPRE verificar */
+    printf("ERROR: no se pudo abrir el archivo.\n");
+    return 1;
+}
+
+while (fread(&amp;reg, sizeof(t_producto), 1, arch) == 1) {   /* la condición ES la lectura */
+    printf("%d - %s\n", reg.codigo, reg.descripcion);
+}
+
+fclose(arch);</pre>
+
+<div class="trap"><div class="tr-t">El bug clásico: <code>while (!feof(arch))</code> procesa un registro de más</div>
+<code>feof()</code> <b>no predice</b> el fin de archivo: se enciende <b>después</b> de que una lectura ya falló. Con el molde<br><br>
+<code>while (!feof(arch)) { fread(...); procesar(reg); }</code><br><br>
+la última vuelta lee <b>nada</b> (la lectura falla), pero igual procesa <code>reg</code>, que todavía tiene el <b>registro anterior</b>. Resultado: el último registro aparece <b>duplicado</b>.<br><br>
+<b>La solución es poner la lectura en la condición</b>, como en el código de arriba: <code>while (fread(...) == 1)</code>. El mismo razonamiento vale para texto: <code>while (fgets(linea, TAM, arch) != NULL)</code> y <code>while (fscanf(arch, "%d", &amp;n) == 1)</code>.
+</div>
+<div class="trap"><div class="tr-t">No verificar que <code>fopen</code> haya funcionado</div>
+Si el archivo no existe, <code>fopen</code> devuelve <code>NULL</code> y la primera operación sobre ese puntero es una <b>violación de segmento</b>. El <code>if (arch == NULL)</code> es obligatorio, siempre.
+</div>
+<div class="trap"><div class="tr-t">Olvidar <code>fclose</code></div>
+Lo escrito queda en un buffer intermedio y puede <b>no llegar nunca al disco</b> si el programa termina sin cerrar. Es un bug que sólo aparece a veces, que es lo peor que puede pasarte.
+</div>
+
+<h3>Posicionamiento (acceso directo)</h3>
+<pre class="code-block">fseek(arch, n * sizeof(t_producto), SEEK_SET);  /* ir al registro n (0-based) */
+ftell(arch);                                     /* posición actual en bytes */
+rewind(arch);                                    /* volver al principio */</pre>
+<p>Esto sólo es práctico en archivos <b>binarios</b>, porque todos los registros miden lo mismo: la posición del registro <i>n</i> se calcula con una multiplicación. En un archivo de texto los renglones tienen largo variable y no hay forma de saltar directo.</p>
+
+<div class="reveal-wrap" data-rv="8" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="8" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 9 · PUNTEROS Y MEMORIA DINÁMICA ============ -->
+<details id="fap-s9">
+<summary><span class="num">9</span> Punteros y memoria dinámica <span class="sec-score" id="ss-fiuba-algoritmos-9"></span></summary>
+<div class="content">
+
+<h3>Los operadores, de una vez por todas</h3>
+<table class="tbl">
+  <tr><th>Escritura</th><th>Significado</th></tr>
+  <tr><td><code>int *p;</code></td><td>Declara <code>p</code> como <b>puntero a int</b></td></tr>
+  <tr><td><code>&amp;x</code></td><td><b>Dirección</b> de la variable <code>x</code></td></tr>
+  <tr><td><code>*p</code></td><td><b>Contenido</b> de la dirección apuntada (desreferenciar)</td></tr>
+  <tr><td><code>p[i]</code></td><td>Elemento <i>i</i> del bloque apuntado</td></tr>
+  <tr><td><code>*(p + i)</code></td><td><b>Idéntico</b> a <code>p[i]</code></td></tr>
+  <tr><td><code>p++</code></td><td>Avanza <code>sizeof(tipo)</code> bytes, no 1</td></tr>
+  <tr><td><code>pe-&gt;campo</code></td><td>Campo del struct apuntado (forma corta de <code>(*pe).campo</code>)</td></tr>
+  <tr><td><code>int **pp;</code></td><td>Puntero a puntero → matriz dinámica</td></tr>
+</table>
+<div class="key"><div class="ky-t">El asterisco significa dos cosas distintas</div>
+En la <b>declaración</b> (<code>int *p;</code>) el <code>*</code> dice "esto es un puntero".<br>
+En el <b>uso</b> (<code>*p = 8;</code>) el <code>*</code> dice "andá a la dirección y escribí ahí".<br><br>
+Es la misma tecla con dos significados, y confundirlos es la fuente número uno de errores de esta unidad.
+</div>
+
+<h3>Dónde vive cada cosa</h3>
+<table class="tbl">
+  <tr><th>Segmento</th><th>Qué guarda</th><th>Quién lo gestiona</th></tr>
+  <tr><td>Text / Code</td><td>El código máquina. Sólo lectura</td><td>Compilador</td></tr>
+  <tr><td>Data / BSS</td><td>Globales y estáticas (BSS: las <b>sin inicializar</b>, arrancan en cero)</td><td>Compilador</td></tr>
+  <tr><td><b>Stack</b></td><td>Locales y parámetros de cada función (LIFO)</td><td>SO / compilador</td></tr>
+  <tr><td><b>Heap</b></td><td>Lo pedido con <code>malloc</code>/<code>calloc</code>/<code>realloc</code></td><td><b>El programador</b></td></tr>
+</table>
+<p>El stack crece hacia <b>abajo</b> y el heap hacia <b>arriba</b>. Que el heap lo gestione el programador es exactamente por qué hay que llamar a <code>free</code>.</p>
+
+<h3>Las cuatro funciones</h3>
+<table class="tbl">
+  <tr><th></th><th><code>malloc</code></th><th><code>calloc</code></th><th><code>realloc</code></th><th><code>free</code></th></tr>
+  <tr><td>Parámetros</td><td>Bytes totales</td><td>Cantidad + bytes por elemento</td><td>Puntero + nuevo tamaño</td><td>Puntero</td></tr>
+  <tr><td>Inicializa</td><td><b>No</b> (queda basura)</td><td><b>Sí</b>, todo a cero</td><td>Conserva lo viejo; lo nuevo, basura</td><td>—</td></tr>
+  <tr><td>Devuelve</td><td>Puntero, o <code>NULL</code></td><td>Puntero, o <code>NULL</code></td><td>Puntero <b>nuevo</b>, o <code>NULL</code></td><td>Nada</td></tr>
+  <tr><td>Uso</td><td><code>malloc(n * sizeof(int))</code></td><td><code>calloc(n, sizeof(int))</code></td><td><code>realloc(v, 2*n*sizeof(int))</code></td><td><code>free(v)</code></td></tr>
+</table>
+
+<pre class="code-block">int *vec;
+int n = 10;
+
+vec = (int *) malloc(n * sizeof(int));
+if (vec == NULL) {                       /* SIEMPRE verificar */
+    printf("ERROR: sin memoria.\n");
+    return 1;
+}
+
+for (i = 0; i &lt; n; i++) {
+    vec[i] = 0;                          /* se usa igual que un arreglo común */
+}
+
+free(vec);                               /* devolver la memoria */
+vec = NULL;                              /* evita el uso después de liberar */</pre>
+
+<div class="trap"><div class="tr-t">Perder el puntero original al hacer <code>realloc</code></div>
+<code>v = realloc(v, n);</code> parece inocente, pero si <code>realloc</code> <b>falla</b> devuelve <code>NULL</code> y ya perdiste la dirección del bloque viejo: fuga de memoria garantizada y datos irrecuperables.<br><br>
+Lo correcto es usar un puntero auxiliar: <code>aux = realloc(v, n); if (aux != NULL) v = aux;</code>
+</div>
+<div class="trap"><div class="tr-t">Usar la memoria después de <code>free</code></div>
+Liberar <b>no borra</b> el contenido ni pone el puntero en <code>NULL</code>: queda un <i>dangling pointer</i> que sigue apuntando a memoria que ya no es tuya. Escribir ahí corrompe el heap y el programa falla <b>mucho después</b>, en otro lado. Por eso el <code>vec = NULL;</code> del ejemplo.
+</div>
+<div class="trap"><div class="tr-t">Fugas: pedir y no liberar</div>
+Cada <code>malloc</code> necesita su <code>free</code>. En un programa chico no se nota; en un ciclo, el consumo crece hasta agotar la memoria. <b>Valgrind</b> es la herramienta que la cátedra enseña para detectarlas.
+</div>
+<div class="trap"><div class="tr-t">No verificar que <code>malloc</code> devolvió memoria</div>
+Si devuelve <code>NULL</code> y no lo chequeás, el primer <code>vec[0] = ...</code> es una escritura en la dirección nula: violación de segmento inmediata.
+</div>
+
+<h3>Matriz dinámica · doble puntero</h3>
+<pre class="code-block">int **mat;
+int i;
+
+mat = (int **) malloc(filas * sizeof(int *));      /* vector de punteros a fila */
+for (i = 0; i &lt; filas; i++) {
+    mat[i] = (int *) malloc(cols * sizeof(int));   /* cada fila, por separado */
+}
+
+/* se usa como una matriz común: mat[i][j] */
+
+for (i = 0; i &lt; filas; i++) {
+    free(mat[i]);         /* primero cada fila... */
+}
+free(mat);                /* ...y recién después el vector de punteros */</pre>
+<div class="key"><div class="ky-t">El orden de liberación es al revés del de reserva</div>
+Si liberás <code>mat</code> primero, perdés las direcciones de las filas y ya no las podés liberar: fuga garantizada. <b>Se reserva de afuera hacia adentro y se libera de adentro hacia afuera.</b>
+</div>
+
+<div class="reveal-wrap" data-rv="9" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="9" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 10 · RECURSIVIDAD ============ -->
+<details id="fap-s10">
+<summary><span class="num">10</span> Recursividad <span class="sec-score" id="ss-fiuba-algoritmos-10"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Toda función recursiva tiene exactamente dos partes</div>
+<b>Caso base</b> — la condición que corta, sin volver a llamarse. Va <b>primero</b>.<br>
+<b>Caso recursivo</b> — se llama a sí misma con un argumento <b>más chico</b>, que se acerca al caso base.<br><br>
+Si falta el caso base, o si el argumento no se achica, la pila de llamadas crece hasta reventar: <b>stack overflow</b>.
+</div>
+
+<pre class="code-block">long factorial(int n)
+{
+    if (n &lt;= 1) {           /* CASO BASE */
+        return 1;
+    }
+    return n * factorial(n - 1);      /* CASO RECURSIVO: n-1 se acerca a 1 */
+}</pre>
+
+<pre class="code-block">/* Fibonacci: dos llamadas por nivel, y por eso es exponencial */
+int fibonacci(int n)
+{
+    if (n == 0) {
+        return 0;
+    }
+    if (n == 1) {
+        return 1;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}</pre>
+
+<h3>La pila de llamadas</h3>
+<p>Cada llamada apila un juego nuevo de variables locales y parámetros en el <b>stack</b>. Nada se resuelve hasta llegar al caso base: recién ahí se empieza a <b>desapilar</b> y a devolver valores hacia arriba. Por eso <code>factorial(5)</code> no calcula nada hasta llegar a <code>factorial(1)</code>.</p>
+
+<div class="trap"><div class="tr-t">Caso base que no atrapa todos los casos</div>
+<code>if (n == 0)</code> como único caso base falla con negativos: <code>n</code> se aleja del cero para siempre. Usar <code>if (n &lt;= 0)</code> o validar la entrada antes de llamar.<br><br>
+Ojo con el razonamiento inverso: si el caso base es <code>if (n &lt; 10)</code>, <b>todo negativo lo cumple</b> y la función devuelve el negativo de una — no hay recursión infinita, pero el resultado no tiene sentido. Validar sigue siendo la solución.
+</div>
+<div class="trap"><div class="tr-t">Recursión que no reduce</div>
+El argumento de la llamada recursiva tiene que estar <b>estrictamente más cerca</b> del caso base. <code>f(n)</code> llamando a <code>f(n)</code>, o a <code>f(n / 1)</code>, no reduce nada.
+</div>
+<div class="trap"><div class="tr-t">Fibonacci recursivo es exponencial</div>
+Cada llamada dispara dos más: <code>fibonacci(40)</code> hace <b>cientos de millones</b> de llamadas y tarda una eternidad. Recursivo se escribe en tres líneas y es elegante, pero para valores grandes la versión iterativa es la única viable. Es un buen ejemplo de que "más corto" no es "mejor".
+</div>
+
+<div class="reveal-wrap" data-rv="10" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="10" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 11 · ORDENAMIENTO Y BÚSQUEDA ============ -->
+<details id="fap-s11">
+<summary><span class="num">11</span> Ordenamiento y búsqueda <span class="sec-score" id="ss-fiuba-algoritmos-11"></span></summary>
+<div class="content">
+
+<h3>Los tres métodos de ordenamiento</h3>
+<table class="tbl">
+  <tr><th>Método</th><th>Idea</th><th>Mejor caso</th><th>Intercambios</th><th>Costo</th></tr>
+  <tr><td><b>Burbujeo</b></td><td>Compara adyacentes en pasadas sucesivas</td><td>n(n−1)/2 — <b>no se entera</b> de que ya está ordenado</td><td>Hasta n(n−1)/2</td><td>O(n²)</td></tr>
+  <tr><td><b>Burbujeo optimizado</b></td><td>Corta si una pasada no tuvo intercambios</td><td><b>n−1</b> (vector ya ordenado)</td><td>Hasta n(n−1)/2</td><td>O(n²), mejor caso <b>O(n)</b></td></tr>
+  <tr><td><b>Selección</b></td><td>Busca el mínimo del tramo y lo lleva al frente</td><td>n(n−1)/2 — siempre las mismas</td><td><b>Exactamente n−1</b></td><td>O(n²)</td></tr>
+  <tr><td><b>Inserción</b></td><td>Inserta cada elemento entre los ya ordenados</td><td><b>n−1</b> (vector ya ordenado)</td><td>Hasta n(n−1)/2 desplazamientos</td><td>O(n²)</td></tr>
+</table>
+<div class="key"><div class="ky-t">Cuál elegir, según lo que te pregunten</div>
+<b>Menos intercambios</b> → <b>selección</b> (exactamente n−1, sin importar los datos). Sirve cuando mover un elemento es caro.<br>
+<b>Vector casi ordenado</b> → <b>inserción</b> o <b>burbujeo optimizado</b>: los dos bajan a O(n) en ese caso.<br>
+<b>Burbujeo sin optimizar</b> es el peor de los tres: hace todas las pasadas aunque el vector ya esté ordenado.
+</div>
+
+<h3>Búsqueda lineal vs. binaria</h3>
+<table class="tbl">
+  <tr><th></th><th>Lineal (secuencial)</th><th>Binaria (dicotómica)</th></tr>
+  <tr><td>Requisito</td><td>Ninguno</td><td>El vector tiene que estar <b>ORDENADO</b></td></tr>
+  <tr><td>Idea</td><td>Recorre desde el principio</td><td>Compara con el <b>medio</b> y descarta la mitad</td></tr>
+  <tr><td>Peor caso</td><td>n comparaciones</td><td><b>log₂(n)</b> comparaciones</td></tr>
+  <tr><td>Con n = 1.000.000</td><td>Hasta 1.000.000</td><td><b>~20</b></td></tr>
+</table>
+
+<pre class="code-block">int busqueda_binaria(int vec[], int n, int buscado)
+{
+    int izq = 0, der = n - 1, medio;
+
+    while (izq &lt;= der) {
+        medio = (izq + der) / 2;
+        if (vec[medio] == buscado) {
+            return medio;               /* encontrado: devuelve la posición */
+        }
+        if (vec[medio] &lt; buscado) {
+            izq = medio + 1;            /* descarta la mitad izquierda */
+        } else {
+            der = medio - 1;            /* descarta la mitad derecha */
+        }
+    }
+    return -1;                          /* no está */
+}</pre>
+<div class="trap"><div class="tr-t">Búsqueda binaria sobre un vector desordenado</div>
+No da error: da un resultado <b>incorrecto</b>, y encima a veces acierta por casualidad, que es lo que lo vuelve difícil de detectar. El requisito de estar ordenado no es una recomendación.
+</div>
+<div class="trap"><div class="tr-t">Los <code>±1</code> de la binaria</div>
+<code>izq = medio + 1</code> y <code>der = medio − 1</code>: si escribís <code>izq = medio</code> el ciclo <b>nunca termina</b> cuando quedan dos elementos. Y la condición es <code>izq &lt;= der</code>, no <code>&lt;</code>: con <code>&lt;</code> te perdés el caso de un solo elemento.
+</div>
+
+<div class="reveal-wrap" data-rv="11" data-subject="fiuba-algoritmos"></div>
+<div class="quiz-wrap" data-qz="11" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 12 · MIX INTEGRADOR ============ -->
+<details id="fap-s12">
+<summary><span class="num">12</span> Mix integrador · Los errores que más cuestan <span class="sec-score" id="ss-fiuba-algoritmos-12"></span></summary>
+<div class="content">
+
+<h3>Los diez errores que se cobran en esta materia</h3>
+<table class="tbl">
+  <tr><th>#</th><th>Error</th><th>Qué pasa al ejecutar</th></tr>
+  <tr><td>1</td><td><code>=</code> en vez de <code>==</code> en una condición</td><td>Compila con warning. <code>if (x = 5)</code> <b>asigna</b> y da siempre verdadero</td></tr>
+  <tr><td>2</td><td>Olvidar el <code>&amp;</code> en <code>scanf</code></td><td>Escribe en una dirección arbitraria: segfault o corrupción silenciosa</td></tr>
+  <tr><td>3</td><td>División entera donde querías real</td><td><code>5/2</code> da 2. El resultado sale mal sin ningún aviso</td></tr>
+  <tr><td>4</td><td><code>i &lt;= n</code> al recorrer un arreglo</td><td>Toca <code>vec[n]</code>, fuera del arreglo. A veces ciclo infinito</td></tr>
+  <tr><td>5</td><td>Cadena sin lugar para el <code>'\0'</code></td><td><code>printf</code> y <code>strlen</code> siguen leyendo basura</td></tr>
+  <tr><td>6</td><td><code>strcmp(a,b)</code> sin <code>== 0</code></td><td>La lógica queda <b>invertida</b>: entra cuando son distintas</td></tr>
+  <tr><td>7</td><td><code>while (!feof(f))</code></td><td>Procesa el <b>último registro dos veces</b></td></tr>
+  <tr><td>8</td><td>No verificar <code>fopen</code> ni <code>malloc</code></td><td>Violación de segmento en la primera operación</td></tr>
+  <tr><td>9</td><td><code>malloc</code> sin <code>free</code></td><td>Fuga de memoria: no se nota hasta que se agota</td></tr>
+  <tr><td>10</td><td>Falta el <code>break</code> en un <code>switch</code></td><td>Cae en cascada e imprime varios mensajes</td></tr>
+</table>
+
+<h3>Traducir el enunciado a la herramienta</h3>
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Usás…</th></tr>
+  <tr><td>"repetir N veces", "los N primeros"</td><td><code>for</code></td></tr>
+  <tr><td>"hasta que ingrese 0", "mientras haya datos"</td><td><code>while</code> con lectura anticipada</td></tr>
+  <tr><td>"validar que el dato sea…"</td><td><code>do-while</code> con la condición del dato <b>inválido</b></td></tr>
+  <tr><td>"la función debe devolver dos valores"</td><td>Parámetros <b>por referencia</b> (punteros)</td></tr>
+  <tr><td>"la cantidad se conoce recién al ejecutar"</td><td><code>malloc</code> (memoria dinámica)</td></tr>
+  <tr><td>"datos de distinto tipo de una misma entidad"</td><td><code>struct</code></td></tr>
+  <tr><td>"guardar para la próxima ejecución"</td><td>Archivo</td></tr>
+  <tr><td>"muchos registros iguales, acceso por posición"</td><td>Archivo <b>binario</b> con <code>fwrite</code>/<code>fread</code></td></tr>
+  <tr><td>"que se pueda abrir con el Bloc de notas"</td><td>Archivo de <b>texto</b></td></tr>
+  <tr><td>"definido en términos de sí mismo"</td><td>Recursividad</td></tr>
+  <tr><td>"buscar en un vector ordenado"</td><td>Búsqueda <b>binaria</b></td></tr>
+</table>
+
+<h3>Checklist antes de entregar</h3>
+<div class="key"><div class="ky-t">Cinco chequeos de un minuto</div>
+<b>1.</b> ¿Cada <code>scanf</code> de variable simple tiene su <code>&amp;</code>? ¿Y los <code>%s</code> <b>no</b> lo tienen?<br>
+<b>2.</b> ¿Cada ciclo sobre un arreglo usa <code>&lt; n</code> y no <code>&lt;= n</code>?<br>
+<b>3.</b> ¿Cada <code>fopen</code> y cada <code>malloc</code> están verificados contra <code>NULL</code>?<br>
+<b>4.</b> ¿Cada <code>malloc</code> tiene su <code>free</code>, y cada <code>fopen</code> su <code>fclose</code>?<br>
+<b>5.</b> ¿Corriste mentalmente el caso borde? (arreglo vacío, n = 0, cadena vacía, archivo inexistente)
+</div>
+<div class="key"><div class="ky-t">Y el chequeo de estilo, que también se corrige</div>
+snake_case · constantes con <code>#define</code> en mayúsculas · llaves de función en la primera columna · llaves de bloque al final del renglón · 4 espacios de indentación · llaves en <b>todas</b> las ramas si una las necesita.
+</div>
+
+<div class="quiz-wrap" data-qz="12" data-subject="fiuba-algoritmos"></div>
+<a class="back" href="#subject-fiuba-algoritmos">↑ Volver al índice</a>
+</div>
+</details>
