@@ -404,12 +404,30 @@ def main():
         difieren = []
         for ruta, html in todas:
             rel = ruta.relative_to(ROOT)
-            if not ruta.exists() or ruta.read_text(encoding='utf-8') != html:
-                difieren.append(str(rel))
+            if not ruta.exists():
+                difieren.append((str(rel), 'no existe', ''))
+                continue
+            actual = ruta.read_text(encoding='utf-8')
+            if actual == html:
+                continue
+            # Mostrar el primer caracter distinto: sin esto, un fallo en CI no
+            # dice nada y hay que adivinar.
+            corte = next(
+                (i for i, (a, b) in enumerate(zip(actual, html)) if a != b),
+                min(len(actual), len(html)),
+            )
+            detalle = f'difiere en el caracter {corte} de {len(actual)} (el build tiene {len(html)})'
+            contexto = (
+                f'\n        en disco: {actual[max(0, corte - 50):corte + 50]!r}'
+                f'\n        el build: {html[max(0, corte - 50):corte + 50]!r}'
+            )
+            difieren.append((str(rel), detalle, contexto))
         if difieren:
             print(f'✗ {len(difieren)} páginas difieren del build:')
-            for r in difieren[:20]:
-                print(f'   {r}')
+            for r, detalle, contexto in difieren[:5]:
+                print(f'   {r}: {detalle}{contexto}')
+            if len(difieren) > 5:
+                print(f'   … y {len(difieren) - 5} más')
             sys.exit(1)
         print(f'✓ las {len(todas)} páginas coinciden con el build')
         return
