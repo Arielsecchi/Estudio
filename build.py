@@ -41,6 +41,7 @@ Placeholders en el template:
 """
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -204,6 +205,22 @@ def construir_drawer(materias: list[dict]) -> str:
     return '\n'.join(bloques)
 
 
+FUENTE_RELATIVA = re.compile(r'\b(src|href)=(\\?["\'])(?!https?:|//|/|\#|\.\./|data:|mailto:|javascript:)([^"\'\\]+)')
+
+
+def reapuntar(texto: str, prefijo: str) -> str:
+    """Antepone `prefijo` a las rutas relativas de src/href.
+
+    Las paginas de materia viven en m/, un nivel mas abajo que assets/ y que
+    materias/<slug>/img/, de donde salen las figuras. Sin esto, las imagenes
+    quedan colgadas. Contempla las comillas escapadas, porque varias figuras
+    estan dentro de strings de ejercicios.js.
+    """
+    if not prefijo:
+        return texto
+    return FUENTE_RELATIVA.sub(lambda m: f'{m.group(1)}={m.group(2)}{prefijo}{m.group(3)}', texto)
+
+
 def construir_landing(materias: list[dict]) -> str:
     """Portada del index: las materias agrupadas por categoria, como enlaces.
 
@@ -341,8 +358,8 @@ def construir_html(todas: list[dict], activa: dict | None = None) -> str:
         titulo = f'{activa["nombre"]} · Guías'
         prelude = f"window.M_BASE = '';\nwindow.M_SUBJECT = '{activa['slug']}';\n\n"
         css = construir_css([activa])
-        secciones = construir_secciones([activa])
-        js = construir_js([activa], prelude)
+        secciones = reapuntar(construir_secciones([activa]), base)
+        js = reapuntar(construir_js([activa], prelude), base)
 
     reemplazos = {
         '<!-- BUILD: CSS -->': css,
