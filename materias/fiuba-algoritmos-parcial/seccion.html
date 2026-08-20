@@ -1,0 +1,2271 @@
+<header>
+    <h1>Algoritmos y Programación I · Parcial e integrador</h1>
+    <div class="sub">FIUBA · TB021 / TA130 — Cátedra Azcurra · Lenguaje C · Guía de examen construida sobre <b>las 12 consignas de tarea reales del campus</b>, incluidas las dos que la cátedra llama <b>"Ejercicio Tipo Parcial"</b>. Todo resuelto, compilado y ejecutado, más un simulacro de parcial y uno de integrador</div>
+  </header>
+<nav class="toc" id="toc-fiuba-algoritmos-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fapp-s1">Qué se sabe del examen y qué no</a></li>
+    <li><a href="#fapp-s2">El formato de entrega y la auditoría de estilo</a></li>
+    <li><a href="#fapp-s3">Los dos "Tipo Parcial", resueltos a fondo</a></li>
+    <li><a href="#fapp-s4">Las otras 10 consignas del campus</a></li>
+    <li><a href="#fapp-s5">Los siete patrones que se repiten</a></li>
+    <li><a href="#fapp-s6">Simulacro de parcial</a></li>
+    <li><a href="#fapp-s7">Simulacro de integrador</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-algoritmos-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · QUÉ SE SABE DEL EXAMEN Y QUÉ NO ============ -->
+<details id="fapp-s1">
+<summary><span class="num">1</span> Qué se sabe del examen y qué no <span class="sec-score" id="ss-fiuba-algoritmos-parcial-1"></span></summary>
+<div class="content">
+
+<p>Esta guía cuelga de la <b>madre</b> (<i>Algoritmos y Programación I · Guía completa</i>), donde están la teoría de C y las 9 guías de ejercicios de la cátedra resueltas. Acá no se repite nada de eso: acá se trabaja sobre <b>lo que la cátedra evalúa</b>. Y lo primero es decir con qué material contamos, porque cambia todo lo demás.</p>
+
+<div class="key"><div class="ky-t">No hay corpus de parciales. Punto.</div>
+<b>La cátedra Azcurra no publica enunciados de parcial.</b> Revisamos el campus completo el <b>19/8/2026</b>. La sección "Notas" tiene siete archivos con nombres que parecen exámenes —<i>"Parcial 1er Cuat 2026"</i>, <i>"Primer Recuperatorio 1er Cuat 2026"</i>, cuatro <i>"Integrador del …"</i>— y <b>ninguno es un examen</b>: abrimos el del parcial y es una <b>planilla de calificaciones exportada de Excel</b>, con padrones y notas.<br><br>
+Consecuencia: esta guía <b>no puede decirte qué tema cae en qué posición</b>. No existe la estadística. Cualquier guía que te lo diga se lo está inventando, y cualquier "parcial de Azcurra" que circule por grupos <b>no salió del campus</b>.
+</div>
+
+<h3>Lo que sí hay, y es más de lo que parece</h3>
+
+<p>El campus tiene <b>12 tareas entregables</b>. Las contamos una por una y las clasificamos por si traen o no el enunciado escrito:</p>
+
+<table class="tbl">
+  <tr><th>#</th><th>Tarea del campus</th><th>Sección del campus</th><th>Apertura</th><th>¿Trae enunciado?</th></tr>
+  <tr><td>1</td><td>Actividad - Ejercicio Struct Librería</td><td>Entregas Ejercicios</td><td>27/5/2026 19:00</td><td><b>Sí</b>, completo</td></tr>
+  <tr><td>2</td><td>Actividad - Ejercicio Struct Alumno</td><td>Entregas Ejercicios</td><td>27/5/2026 19:00</td><td><b>No.</b> Sólo el nombre del archivo a entregar</td></tr>
+  <tr><td>3</td><td><b>Actividad - Ejercicio Tipo Parcial 02</b></td><td>Entregas Ejercicios</td><td>4/5/2026 21:00</td><td><b>Sí</b>, completo</td></tr>
+  <tr><td>4</td><td><b>Actividad - Ejercicio Tipo Parcial 03</b></td><td>Entregas Ejercicios</td><td>4/5/2026 21:00</td><td><b>Sí</b>, completo</td></tr>
+  <tr><td>5</td><td>Ejercicio General - Formato timestamp</td><td>Actividades · Funciones</td><td>15/4/2026 20:30</td><td><b>Sí</b>, con ejemplo numérico</td></tr>
+  <tr><td>6</td><td>Ejercicio General - Cociente con restas sucesivas</td><td>Actividades · Funciones</td><td>15/4/2026 17:40</td><td><b>Sí</b>, con tres ejemplos</td></tr>
+  <tr><td>7</td><td>Ejercicio General - Función para calcular el factorial</td><td>Actividades · Funciones</td><td>15/4/2026 17:40</td><td><b>Sí</b>, completo</td></tr>
+  <tr><td>8</td><td>Recorriendo tu nombre y apellido</td><td>Actividades · Cadenas</td><td>6/5/2026 17:20</td><td><b>Sí</b>, completo</td></tr>
+  <tr><td>9</td><td>Mostrando palabras en orden</td><td>Actividades · Cadenas</td><td>6/5/2026 18:20</td><td><b>Sí</b>, completo</td></tr>
+  <tr><td>10</td><td>Ejercicio 3 Archivos - Cargar Alumnos (GB)</td><td>Actividades · Structs / Archivos</td><td>3/6/2026 18:13</td><td><b>Sí</b>, con el struct dado</td></tr>
+  <tr><td>11</td><td>Ejercicio Recursividad</td><td>Actividades · Memoria / Recursividad / TDA</td><td>29/5/2024 17:15</td><td><b>No.</b> Sólo el texto administrativo</td></tr>
+  <tr><td>12</td><td>Ejercicio TDA Número Complejo</td><td>Actividades · Memoria / Recursividad / TDA</td><td>12/6/2024 17:30</td><td><b>No.</b> El cuerpo del enunciado es la letra <span class="code">E</span> y nada más</td></tr>
+</table>
+
+<p><b>9 de las 12 traen enunciado completo y 3 no.</b> Las tres sin enunciado son justamente las de los temas del final del programa: struct alumno, recursividad y TDA. En esta guía están resueltas igual, pero <b>marcadas</b>: donde el enunciado es nuestro y no de la cátedra, lo vas a leer dicho con todas las letras.</p>
+
+<h3>La deducción que más te sirve: la fecha de apertura ordena los temas</h3>
+
+<p>Fijate en la columna de apertura de la tabla de arriba. Las tareas salen en un orden que sigue el programa, y las dos <b>"Tipo Parcial" se abrieron el 4 de mayo</b>: después de las de funciones (15 de abril), a la par de las de cadenas (6 de mayo), y <b>tres semanas antes</b> de las de struct (27 de mayo) y de archivos (3 de junio).</p>
+
+<div class="key"><div class="ky-t">Lo que eso implica sobre el reparto parcial / integrador</div>
+Los dos ejercicios que la cátedra bautizó "Tipo Parcial" son de <b>vectores</b> (intercalar en un vector ordenado) y de <b>funciones con parámetros de salida</b> (dígitos pares de un entero). Ninguno usa struct, ni archivos, ni recursividad, ni memoria dinámica. Y salieron <b>antes</b> de que esos temas se dictaran.<br><br>
+La lectura razonable —y la decimos como lo que es, una <b>inferencia sobre las fechas</b>, no una afirmación de la cátedra— es que el <b>parcial</b> se juega en <b>tipos de datos, estructuras de control, funciones, arreglos y cadenas</b>, y que <b>struct, archivos, recursividad, TDA y memoria dinámica</b> son territorio del <b>integrador</b>. Por eso esta guía tiene dos simulacros distintos y no uno.
+</div>
+
+<h3>El régimen, deducido de los nombres de las planillas</h3>
+
+<table class="tbl">
+  <tr><th>Archivo publicado en "Notas"</th><th>Qué prueba</th></tr>
+  <tr><td>Parcial 1er Cuat 2026</td><td>Hay <b>un</b> parcial por cuatrimestre</td></tr>
+  <tr><td>Primer Recuperatorio 1er Cuat 2026</td><td>Hay un primer recuperatorio</td></tr>
+  <tr><td>Segundo Recuperatorio 1er Cuat 2026</td><td>Y hay un <b>segundo</b> recuperatorio</td></tr>
+  <tr><td>Integrador del 01-07-2026<br>Integrador del 29-07-2026<br>Integrador del 05-08-2026<br>Integrador del 14-08-2026</td><td><b>Cuatro integradores</b> en el mismo período, con fecha propia. La separación entre ellos es de <b>4 semanas, 1 semana y 9 días</b>: no es un cronograma parejo, es una <b>ventana de fechas</b> que se va abriendo</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cuatro fechas de integrador en seis semanas no es casualidad</div>
+Del 1 de julio al 14 de agosto hay <b>cuatro planillas de integrador</b>. Eso no se parece a "un examen final de la cursada": se parece a una <b>instancia que se rinde varias veces hasta pasarla</b>, con llamados cada una o dos semanas. Si tu integrador no salió el 1/7, el 29/7 hay otro. Lo que <b>no</b> podemos afirmar es cuántas veces podés presentarte: eso no está publicado.
+</div>
+
+<div class="trap"><div class="tr-t">Lo que NO sabemos, y no vamos a inventar</div>
+No está publicado en el campus, así que <b>no lo vas a leer acá</b>: la nota de corte, si hay promoción sin final, cuánto pesa el integrador frente al parcial, si el examen se rinde en papel o en máquina con compilador, cuánto dura, y si podés llevar material. <b>Preguntalo en la primera clase y anotalo</b>, porque cada una de esas respuestas cambia cómo se estudia. En particular: si es <b>en papel</b>, tenés que poder escribir C sin autocompletado ni compilador que te avise; si es <b>en máquina</b>, lo que decide es la velocidad de compilar-probar-corregir.
+</div>
+
+<h3>El dato de tiempo que sí está publicado, y es el más accionable de todos</h3>
+
+<p>Cinco de las tareas del campus tienen <b>hora de apertura y de cierre en el mismo día</b>. Esa ventana es lo que la cátedra considera que dura escribir, compilar y entregar un ejercicio de ese tipo:</p>
+
+<table class="tbl">
+  <tr><th>Tarea</th><th>Apertura</th><th>Cierre</th><th>Ventana</th></tr>
+  <tr><td>Función para calcular el factorial</td><td>17:40</td><td>18:05</td><td><b>25 min</b></td></tr>
+  <tr><td>Recorriendo tu nombre y apellido</td><td>17:20</td><td>17:45</td><td><b>25 min</b></td></tr>
+  <tr><td>Mostrando palabras en orden</td><td>18:20</td><td>18:45</td><td><b>25 min</b></td></tr>
+  <tr><td>Ejercicio 3 Archivos - Cargar Alumnos</td><td>18:13</td><td>18:40</td><td><b>27 min</b></td></tr>
+  <tr><td>Formato timestamp</td><td>20:30</td><td>21:15</td><td><b>45 min</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">25 minutos por ejercicio: ése es el reloj contra el que hay que entrenar</div>
+Tres de las cinco ventanas son de <b>exactamente 25 minutos</b>, y una cuarta de 27. Ése es el presupuesto real: en 25 minutos hay que <b>leer el enunciado, escribir la función, escribir el main que la invoca, compilar, probar y entregar</b>. No hay tiempo para diseñar desde cero. Por eso la sección 5 de esta guía existe: si reconocés el patrón en los primeros treinta segundos, los 25 minutos alcanzan; si tenés que pensarlo, no.<br><br>
+Los simulacros de las secciones 6 y 7 están cronometrados con este número: <b>25 minutos por ejercicio</b>.
+</div>
+
+<h3>El plan de preparación, en cuatro bloques</h3>
+
+<table class="tbl">
+  <tr><th>Bloque</th><th>Qué hacés</th><th>Con qué de esta guía</th><th>Cuánto</th></tr>
+  <tr><td><b>1 · Estilo</b></td><td>Auditar un archivo propio contra la convención y dejar de perder puntos gratis</td><td>Sección 2</td><td>1 hora, una sola vez</td></tr>
+  <tr><td><b>2 · Los dos "Tipo Parcial"</b></td><td>Resolverlos <b>a mano, en papel, sin mirar</b>, y recién después comparar</td><td>Sección 3</td><td>2 horas</td></tr>
+  <tr><td><b>3 · Las otras 10</b></td><td>Una por día, cronometrada a 25 minutos, compilando de verdad</td><td>Sección 4</td><td>10 días de 25 min</td></tr>
+  <tr><td><b>4 · Patrones y simulacros</b></td><td>Leer los siete patrones, y después los dos simulacros a reloj</td><td>Secciones 5, 6 y 7</td><td>4 horas</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">El error de método que arruina esta materia</div>
+<b>Leer código no es programar.</b> Esta guía trae todos los programas resueltos y compilados, y ésa es exactamente la trampa: leer la solución de "intercalar en un vector ordenado" y sentir que lo entendiste dura hasta que estás con la hoja en blanco. La regla es una sola y no es negociable: <b>escribí el programa antes de mirar la solución</b>, aunque salga mal, aunque no compile. El valor de esta guía está en el <b>diff</b> entre lo tuyo y lo de acá, no en el texto de acá.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · EL FORMATO DE ENTREGA Y LA AUDITORÍA DE ESTILO ============ -->
+<details id="fapp-s2">
+<summary><span class="num">2</span> El formato de entrega y la auditoría de estilo <span class="sec-score" id="ss-fiuba-algoritmos-parcial-2"></span></summary>
+<div class="content">
+
+<p>La madre explica <b>qué dice</b> la convención de código de la cátedra, regla por regla. Esta sección hace otra cosa: la convierte en un <b>procedimiento de tres minutos</b> que corrés sobre tu archivo antes de subirlo. Porque lo que se pierde acá no se pierde por no saber programar, se pierde por no releer.</p>
+
+<h3>Cómo se entrega: dos mecanismos distintos y no se mezclan</h3>
+
+<table class="tbl">
+  <tr><th>Mecanismo</th><th>Qué tareas</th><th>Qué se sube</th></tr>
+  <tr><td><b>Archivo .c con nombre obligatorio</b></td><td>Las cuatro de "Entregas Ejercicios": Struct Librería, Struct Alumno, Tipo Parcial 02 y Tipo Parcial 03</td><td>El archivo, con el nombre exacto que pide la consigna</td></tr>
+  <tr><td><b>Caja de texto del campus</b></td><td>Las de "Actividades en Clase": timestamp, cociente, factorial, nombre y apellido, palabras en orden, archivos, recursividad, TDA</td><td>Copiar y pegar el código en la caja. Textual de la cátedra: <i>"copia y pega lo que hayas hecho en la caja de texto de esta actividad y efectuá la entrega de la misma"</i></td></tr>
+</table>
+
+<p>Los cuatro nombres de archivo, textuales del campus, con el ejemplo que da la propia cátedra:</p>
+
+<table class="tbl">
+  <tr><th>Tarea</th><th>Nombre obligatorio</th><th>Ejemplo de la cátedra</th></tr>
+  <tr><td>Struct Librería</td><td><span class="code">struct-libreria-&lt;tu_padron&gt;.c</span></td><td><span class="code">struct-libreria-101203.c</span></td></tr>
+  <tr><td>Struct Alumno</td><td><span class="code">struct-alumno-&lt;tu_padron&gt;.c</span></td><td><span class="code">struct-alumno-101203.c</span></td></tr>
+  <tr><td>Tipo Parcial 02</td><td><span class="code">actividad-02-&lt;tu_padron&gt;.c</span></td><td><span class="code">actividad-02-101203.c</span></td></tr>
+  <tr><td>Tipo Parcial 03</td><td><span class="code">actividad-03-&lt;tu_padron&gt;.c</span></td><td><span class="code">actividad-03-101203.c</span></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Tres formas de perder la entrega sin escribir una línea de código mala</div>
+<b>1 · El nombre.</b> La cátedra aclara en cada consigna <i>"la extensión debe ser .c"</i>. Subir <span class="code">main.c</span>, <span class="code">tp.c</span>, <span class="code">actividad02.c</span> (sin guión) o un <span class="code">.cpp</span> es incumplir la consigna. Y el patrón es <b>guiones, minúsculas, sin tildes</b>: <span class="code">struct-libreria</span>, no <span class="code">struct_librería</span>.<br><br>
+<b>2 · Los dos intentos.</b> El campus lo dice textual: <i>"Este es el intento 1 (2 intentos permitidos)"</i>. Si quemás los dos subiendo código que no compila, no hay tercero. <b>Compilá antes de subir, siempre.</b><br><br>
+<b>3 · El archivo que además hay que adjuntar.</b> En "Ejercicio 3 Archivos - Cargar Alumnos" la cátedra pide dos cosas: el código <b>y</b> el <span class="code">alumnos.dat</span> generado, <i>"con al menos 5 alumnos"</i>. Entregar sólo el código es media entrega.
+</div>
+
+<h3>El compilador no corrige estilo. Y el mal estilo esconde bugs.</h3>
+
+<p>Éste es el argumento que convence más que cualquier regla. El programa de abajo calcula el promedio de cinco notas. Compila. Corre. Y está mal, dos veces: mal escrito <b>y</b> mal calculado — y lo segundo es difícil de ver justamente porque lo primero.</p>
+
+<div class="example"><div class="ex-t">Antes · viola casi todas las reglas de la cátedra</div>
+<pre class="code-block">#include &lt;stdio.h&gt;
+#define maxNotas 5
+int CalcularPromedio(float V[],int N){
+float s=0;int i;
+for(i=0;i&lt;N;i++){s=s+V[i];}
+return s/N;}
+int main(){
+float V[maxNotas]={8,6,10,4,9};
+int P;
+P=CalcularPromedio(V,maxNotas);
+printf("Promedio: %d\n",P);
+return 0;}</pre>
+</div>
+
+<p>Lo que dice el compilador al compilarlo (MSVC, con <span class="code">/W3</span>) y lo que imprime al correrlo:</p>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">estilo_mal.c(6): warning C4244: 'return': conversion de 'float' a 'int'; posible perdida de datos
+Promedio: 7</pre>
+</div>
+
+<p>El promedio de 8, 6, 10, 4 y 9 es <b>7,4</b>, no 7. La función está declarada <span class="code">int</span> y devuelve una expresión <span class="code">float</span>: el resultado se trunca. Ahora la misma función escrita con la convención:</p>
+
+<div class="example"><div class="ex-t">Después · misma lógica, convención de la cátedra</div>
+<pre class="code-block">/*
+ * Promedio de un vector de notas.
+ * Version escrita con la convencion de la catedra.
+ */
+
+#include &lt;stdio.h&gt;
+
+#define MAX_NOTAS 5
+
+/* Devuelve el promedio de las primeras cantidad notas del vector. */
+float calcular_promedio(const float notas[], int cantidad)
+{
+    float suma = 0;
+    int i;
+
+    if (cantidad == 0)
+        return 0;
+
+    for (i = 0; i &lt; cantidad; i++)
+        suma = suma + notas[i];
+
+    return suma / cantidad;
+}
+
+int main(void)
+{
+    float notas[MAX_NOTAS] = {8, 6, 10, 4, 9};
+    float promedio;
+
+    promedio = calcular_promedio(notas, MAX_NOTAS);
+    printf("Promedio: %.2f\n", promedio);
+    return 0;
+}</pre>
+</div>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">Promedio: 7.40</pre>
+</div>
+
+<div class="key"><div class="ky-t">Por qué el estilo encontró el bug</div>
+El paso que destapó el error no fue estético: fue <b>escribir el tipo de retorno pensando qué devuelve la función</b>. Cuando la función se llama <span class="code">calcular_promedio</span> y el prototipo está en su propia línea con un comentario arriba que dice qué devuelve, "int" chirría. Cuando se llama <span class="code">CalcularPromedio</span> y está apretada en la misma línea que la llave, no chirría nada.<br><br>
+Lo mismo con <span class="code">%d</span> contra <span class="code">%.2f</span>: la variable <span class="code">P</span> no te sugiere nada, la variable <span class="code">promedio</span> sí. <b>El estilo de la cátedra no es decoración: es el mecanismo por el cual los errores se vuelven visibles.</b> Los cinco propósitos que declara el documento terminan justamente en ése: <i>"simplificar la detección de errores"</i>.
+</div>
+
+<h3>La auditoría de tres minutos, punto por punto</h3>
+
+<p>Esto se corre <b>siempre</b>, con el archivo terminado, antes de subir. Doce controles, en el orden en que conviene hacerlos:</p>
+
+<table class="tbl">
+  <tr><th>#</th><th>Control</th><th>Qué mirar concretamente</th></tr>
+  <tr><td>1</td><td><b>Compila sin warnings</b></td><td>No alcanza con "compila". Un <span class="code">C4244</span> o un "función no declarada" es un bug esperando. Con gcc: <span class="code">gcc -Wall -g archivo.c -o archivo.exe</span></td></tr>
+  <tr><td>2</td><td><b>Nombre del archivo</b></td><td>Coincide carácter por carácter con el ejemplo de la consigna, con <b>tu</b> padrón y extensión <span class="code">.c</span></td></tr>
+  <tr><td>3</td><td><b>Constantes en MAYÚSCULA_CON_GUIÓN</b></td><td>Buscá todos los <span class="code">#define</span>. Y buscá los números sueltos: si el <span class="code">100</span> aparece en tres lugares, tenía que ser una constante</td></tr>
+  <tr><td>4</td><td><b>Identificadores en snake_case</b></td><td>Ningún <span class="code">cantAlumnos</span>, ningún <span class="code">CalcularPromedio</span>. Todo minúscula con guión bajo</td></tr>
+  <tr><td>5</td><td><b>Nombres que describen</b></td><td>Nada de <span class="code">a</span>, <span class="code">x1</span>, <span class="code">aux2</span>, <span class="code">V</span>. Excepción única: <span class="code">i</span>, <span class="code">j</span> como índices de <span class="code">for</span></td></tr>
+  <tr><td>6</td><td><b>Llaves de función en la primera columna</b></td><td>La llave de apertura de <b>cada función</b> va sola, en su renglón, contra el margen. Y sólo las de función</td></tr>
+  <tr><td>7</td><td><b>Llaves de control al final del renglón</b></td><td><span class="code">if (…) {</span>, <span class="code">while (…) {</span>, <span class="code">} else {</span>, <span class="code">} while (…);</span></td></tr>
+  <tr><td>8</td><td><b>Llaves en las dos ramas o en ninguna</b></td><td>Si el <span class="code">if</span> lleva llaves porque tiene dos sentencias, el <span class="code">else</span> las lleva aunque tenga una sola</td></tr>
+  <tr><td>9</td><td><b>Espacios</b></td><td>Después de <span class="code">if switch case for do while</span>. A cada lado de <span class="code">= + - &lt; &gt; * / % || &amp;&amp; ^ &lt;= &gt;= == !=</span>. <b>Nunca</b> en <span class="code">++a a-- --i</span></td></tr>
+  <tr><td>10</td><td><b>Indentación uniforme</b></td><td>Cuatro espacios, y <b>el mismo criterio en todo el archivo</b>. Mezclar tabs y espacios se ve horrible en la caja de texto del campus, que no respeta tu configuración de editor</td></tr>
+  <tr><td>11</td><td><b>Comentarios donde hacen falta</b></td><td>Un bloque <span class="code">/* … */</span> arriba del archivo diciendo qué resuelve, y una línea arriba de cada función diciendo <b>qué devuelve y qué modifica por parámetro</b>. No comentar lo obvio</td></tr>
+  <tr><td>12</td><td><b>El programa que invoca</b></td><td>Varias consignas piden explícitamente <i>"escribir un programa que invoque dicha función"</i>. Entregar la función sola es media entrega. Y el <span class="code">main</span> tiene que probar los <b>casos borde</b>, no un caso feliz</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Los tres controles que más veces fallan, en este orden</div>
+<b>El 12.</b> Es el más caro y el más olvidado: la consigna del Tipo Parcial 02 termina con <i>"Escribir un programa que invoque dicha función"</i> y mucha gente entrega sólo la función. <br><br>
+<b>El 6.</b> La regla de las llaves tiene <b>dos casos</b> y el de las funciones es el especial. Casi todo el mundo pone todas las llaves al final del renglón, que es el estilo K&amp;R puro; la cátedra adoptó el del kernel de Linux, donde la función es la excepción.<br><br>
+<b>El 3.</b> El número mágico repetido. Si escribiste <span class="code">for (i = 0; i &lt; 100; i++)</span> en vez de <span class="code">i &lt; MAX_LIBROS</span>, además de violar la convención te estás preparando para un bug el día que cambies el tamaño.
+</div>
+
+<div class="key"><div class="ky-t">Un detalle del compilador que te puede voltear la entrega</div>
+<b>MSVC no acepta arreglos de tamaño variable.</b> Escribir <span class="code">int vector[n];</span> con <span class="code">n</span> leído por teclado compila con gcc (es C99) y <b>no compila con MSVC</b>. Lo probamos:
+<pre class="code-block">vla.c(10): error C2057: se esperaba una expresion constante
+vla.c(10): error C2466: no se puede asignar una matriz de tamano constante 0
+vla.c(10): error C2133: 'vector': tamano desconocido</pre>
+Si el tamaño no se conoce al compilar, la respuesta de esta materia es <b>memoria dinámica</b>: <span class="code">malloc</span>. Y si tu ejercicio no necesita tamaño variable, declarás el arreglo con la constante <span class="code">MAX</span> y llevás el <b>máximo lógico</b> aparte, que es exactamente lo que hace la cátedra en el Tipo Parcial 02.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fiuba-algoritmos-parcial"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · LOS DOS TIPO PARCIAL ============ -->
+<details id="fapp-s3">
+<summary><span class="num">3</span> Los dos "Tipo Parcial", resueltos a fondo <span class="sec-score" id="ss-fiuba-algoritmos-parcial-3"></span></summary>
+<div class="content">
+
+<p>Estas dos consignas son <b>lo más parecido a un enunciado de parcial que la cátedra publica</b>, y lo dice ella: se llaman literalmente <i>"Actividad - Ejercicio Tipo Parcial 02"</i> y <i>"Ejercicio Tipo Parcial 03"</i>. Van transcriptas <b>textuales</b>, con la ortografía original, y resueltas hasta el fondo.</p>
+
+<div class="key"><div class="ky-t">Lo que las dos tienen en común, y es la marca de la cátedra</div>
+Ninguna de las dos pide sólo un resultado: las dos imponen <b>cómo</b> hay que conseguirlo. La 02 dice <i>"recorriendo una sola vez el vector y sin utilizar un arreglo auxiliar"</i>; la 03 dice <i>"no se pueden utilizar arreglos"</i>. Un programa que da el resultado correcto violando la restricción <b>no resuelve el ejercicio</b>. Antes de escribir una línea: <b>subrayá la restricción</b>.
+</div>
+
+<h3>Tipo Parcial 02 · el enunciado, textual</h3>
+
+<div class="example"><div class="ex-t">Actividad - Ejercicio Tipo Parcial 02 · campus, apertura 4/5/2026 21:00</div>
+<p><b>ENUNCIADO EJERCICIO: Inserción de elemento en vector</b></p>
+<p>Dadas las siguientes declaraciones de constantes y tipos:</p>
+<pre class="code-block">#define MAX 100
+typedef int t_vector[MAX]</pre>
+<p>Desarrollar una funcion en lenguaje C que reciba tres parámetros, un vector del tipo t_vector ya cargado con datos que se encuentran en ORDEN ASCENDENTE, su máximo lógico y un número entero que debe ser intercalado en el vector, de modo que siga ordenado.</p>
+<p>Se espera que la funcion devuelva al módulo invocante true si pudo realizar lo solicitado y false si no pudo hacerlo. Tanto el vector como el máximo lógico actualizados deben devolverse sobre los parámetros recibidos.</p>
+<p>Se solicita resolver lo solicitado recorriendo una sola vez el vector y sin utilizar un arreglo auxiliar. Esccribir un programa que invoque dicha funcion.</p>
+<p><span class="muted">Entrega: <span class="code">actividad-02-&lt;tu_padron&gt;.c</span></span></p>
+</div>
+
+<h4>Paso 0 · desarmar el enunciado en obligaciones</h4>
+
+<table class="tbl">
+  <tr><th>Frase del enunciado</th><th>Qué obliga en el código</th></tr>
+  <tr><td>"reciba tres parámetros"</td><td>La firma tiene exactamente tres: vector, máximo lógico, valor</td></tr>
+  <tr><td>"un vector del tipo <span class="code">t_vector</span>"</td><td>El parámetro se declara <span class="code">t_vector vec</span>, no <span class="code">int vec[]</span> a mano. Usá el <span class="code">typedef</span> que te dieron</td></tr>
+  <tr><td>"ya cargado … en ORDEN ASCENDENTE"</td><td><b>No hay que ordenar nada.</b> Es una precondición, y es lo que habilita cortar el recorrido</td></tr>
+  <tr><td>"devuelva … true … y false"</td><td>El tipo de retorno es <span class="code">bool</span> ▸ hace falta <span class="code">#include &lt;stdbool.h&gt;</span></td></tr>
+  <tr><td>"el máximo lógico actualizado … sobre los parámetros"</td><td>Va por <b>puntero</b>: <span class="code">int *max_logico</span>. El vector no necesita puntero: un arreglo ya se pasa por referencia</td></tr>
+  <tr><td>"recorriendo una sola vez"</td><td>Cada posición del vector se toca <b>a lo sumo una vez</b>. Buscar la posición y después correr son <b>dos</b> recorridos</td></tr>
+  <tr><td>"sin utilizar un arreglo auxiliar"</td><td>Nada de copiar a un segundo vector. Variables sueltas sí, obviamente</td></tr>
+  <tr><td>"Esccribir un programa que invoque dicha funcion"</td><td>El <span class="code">main</span> es parte de la entrega, no un agregado optativo</td></tr>
+</table>
+
+<h4>Paso 1 · ¿cuándo devuelve false?</h4>
+
+<p>El enunciado no lo dice, y hay que deducirlo: la función <b>no puede</b> intercalar cuando <b>no hay lugar</b>, o sea cuando el máximo lógico ya llegó a <span class="code">MAX</span>. Ése es el único caso real. Y ojo con el otro detalle: si devuelve <span class="code">false</span>, el vector y el máximo lógico tienen que quedar <b>como estaban</b>. No se toca nada.</p>
+
+<h4>Paso 2 · por qué la restricción cambia el algoritmo</h4>
+
+<p>La solución que sale sola es en <b>dos pasadas</b>:</p>
+
+<pre class="code-block">/* NO cumple la consigna: son dos recorridos */
+pos = 0;
+while (pos &lt; *max_logico &amp;&amp; vec[pos] &lt;= valor)   /* pasada 1: buscar */
+    ++pos;
+for (i = *max_logico - 1; i &gt;= pos; --i)          /* pasada 2: correr */
+    vec[i + 1] = vec[i];
+vec[pos] = valor;</pre>
+
+<p>Funciona perfecto y está prohibida. Y no se arregla yendo hacia adelante corriendo sobre la marcha: si vas de izquierda a derecha y escribís <span class="code">vec[i + 1] = vec[i]</span>, <b>pisás el elemento que todavía no leíste</b>.</p>
+
+<div class="key"><div class="ky-t">La idea: recorrer de atrás hacia adelante</div>
+Si arrancás por el <b>final</b>, el lugar hacia donde corrés (<span class="code">i + 1</span>) es una posición que <b>ya visitaste</b>, o la posición libre del final. Nunca pisás nada pendiente. Y en la misma visita hacés las dos cosas: <b>comparás</b> (¿este elemento va después del nuevo?) y si la respuesta es sí, lo <b>corrés</b>. Buscar y correr dejan de ser dos etapas y pasan a ser <b>una</b>.<br><br>
+Cuando el <span class="code">while</span> termina, <span class="code">i</span> quedó parado en el último elemento que <b>no</b> hay que mover, y el hueco está en <span class="code">i + 1</span>. Por eso la asignación es <span class="code">vec[i + 1] = valor</span> y no <span class="code">vec[i] = valor</span>.
+</div>
+
+<h4>Paso 3 · el programa completo</h4>
+
+<pre class="code-block">/*
+ * Actividad - Ejercicio Tipo Parcial 02 (catedra Azcurra)
+ * Intercalar un entero en un vector ordenado ascendente,
+ * recorriendolo UNA SOLA VEZ y SIN arreglo auxiliar.
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX 100
+
+typedef int t_vector[MAX];
+
+/*
+ * Devuelve true si pudo intercalar y false si no.
+ * El vector y el maximo logico actualizados vuelven por parametro.
+ * Recorre el vector de atras hacia adelante una sola vez: en la misma
+ * visita compara el elemento con el valor y lo corre un lugar.
+ */
+bool intercalar(t_vector vec, int *max_logico, int valor)
+{
+    int i;
+
+    if (*max_logico &lt; 0 || *max_logico &gt;= MAX)
+        return false;
+
+    i = *max_logico - 1;
+    while (i &gt;= 0 &amp;&amp; vec[i] &gt; valor) {
+        vec[i + 1] = vec[i];
+        --i;
+    }
+    vec[i + 1] = valor;
+    ++(*max_logico);
+    return true;
+}
+
+void mostrar_vector(t_vector vec, int max_logico)
+{
+    int i;
+
+    printf("[");
+    for (i = 0; i &lt; max_logico; i++) {
+        printf("%d", vec[i]);
+        if (i &lt; max_logico - 1)
+            printf(", ");
+    }
+    printf("]  (max logico = %d)\n", max_logico);
+}
+
+int main(void)
+{
+    t_vector vec = {2, 5, 8, 13, 21};
+    t_vector lleno;
+    int max_logico = 5;
+    int max_lleno = MAX;
+    int i;
+
+    printf("Vector inicial:  ");
+    mostrar_vector(vec, max_logico);
+
+    printf("\nIntercalo 10 (va al medio):  %s\n", intercalar(vec, &amp;max_logico, 10) ? "true" : "false");
+    mostrar_vector(vec, max_logico);
+
+    printf("\nIntercalo 1 (va al principio):  %s\n", intercalar(vec, &amp;max_logico, 1) ? "true" : "false");
+    mostrar_vector(vec, max_logico);
+
+    printf("\nIntercalo 34 (va al final):  %s\n", intercalar(vec, &amp;max_logico, 34) ? "true" : "false");
+    mostrar_vector(vec, max_logico);
+
+    printf("\nIntercalo 8 (valor repetido):  %s\n", intercalar(vec, &amp;max_logico, 8) ? "true" : "false");
+    mostrar_vector(vec, max_logico);
+
+    for (i = 0; i &lt; MAX; i++)
+        lleno[i] = i;
+    printf("\nVector con max logico = MAX = %d. Intercalo 7:  %s\n",
+           max_lleno, intercalar(lleno, &amp;max_lleno, 7) ? "true" : "false");
+    printf("Max logico despues del intento fallido: %d\n", max_lleno);
+
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">Vector inicial:  [2, 5, 8, 13, 21]  (max logico = 5)
+
+Intercalo 10 (va al medio):  true
+[2, 5, 8, 10, 13, 21]  (max logico = 6)
+
+Intercalo 1 (va al principio):  true
+[1, 2, 5, 8, 10, 13, 21]  (max logico = 7)
+
+Intercalo 34 (va al final):  true
+[1, 2, 5, 8, 10, 13, 21, 34]  (max logico = 8)
+
+Intercalo 8 (valor repetido):  true
+[1, 2, 5, 8, 8, 10, 13, 21, 34]  (max logico = 9)
+
+Vector con max logico = MAX = 100. Intercalo 7:  false
+Max logico despues del intento fallido: 100</pre>
+</div>
+
+<h4>Paso 4 · la traza, posición por posición</h4>
+
+<p>Intercalar el <b>10</b> en <span class="code">[2, 5, 8, 13, 21]</span> con máximo lógico 5:</p>
+
+<table class="tbl">
+  <tr><th>i</th><th><span class="code">vec[i]</span></th><th>¿<span class="code">vec[i] &gt; 10</span>?</th><th>Acción</th><th>Vector después</th></tr>
+  <tr><td>4</td><td>21</td><td>sí</td><td><span class="code">vec[5] = 21</span> ▸ <span class="code">--i</span></td><td>2, 5, 8, 13, 21, <b>21</b></td></tr>
+  <tr><td>3</td><td>13</td><td>sí</td><td><span class="code">vec[4] = 13</span> ▸ <span class="code">--i</span></td><td>2, 5, 8, 13, <b>13</b>, 21</td></tr>
+  <tr><td>2</td><td>8</td><td><b>no</b></td><td>corta el <span class="code">while</span></td><td>2, 5, 8, 13, 13, 21</td></tr>
+  <tr><td colspan="2">después del ciclo</td><td>—</td><td><span class="code">vec[i + 1] = vec[3] = 10</span> ▸ <span class="code">++(*max_logico)</span></td><td>2, 5, 8, <b>10</b>, 13, 21 &nbsp; (6)</td></tr>
+</table>
+
+<p>Se tocaron <b>tres</b> posiciones: la 4, la 3 y la 2. Ni una más. Y los duplicados de la columna "vector después" no son un error: son estados intermedios, el valor viejo queda hasta que alguien lo pisa.</p>
+
+<h4>Paso 5 · cuánto trabajo hace cada versión, medido</h4>
+
+<p>Instrumentamos las dos versiones para contar cuántas posiciones del vector toca cada una, sobre <span class="code">[2, 5, 8, 13, 21]</span>:</p>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">Posiciones del vector [2,5,8,13,21] que toca cada version:
+valor   una pasada   dos pasadas
+    1            5             6
+   10            3             6
+   34            1             5</pre>
+</div>
+
+<div class="key"><div class="ky-t">Leé la fila del 34</div>
+Insertar al final: la versión de una pasada hace <b>una</b> comparación (21 no es mayor que 34, corta) y termina. La de dos pasadas recorre el vector entero para descubrir que la posición es la última, y recién ahí se da cuenta de que no tiene que correr nada: <b>cinco</b> visitas para no mover nada.<br><br>
+Y en el peor caso —insertar al principio, la fila del 1— la de una pasada toca 5 y la de dos toca 6. <b>Nunca es peor, y casi siempre es mejor.</b> Ésa es la respuesta a "¿por qué te obligan a esto?": la restricción no es un capricho, es el algoritmo correcto.
+</div>
+
+<h4>Paso 6 · los cuatro detalles que se cobran</h4>
+
+<div class="trap"><div class="tr-t">Uno · el vector vacío sale gratis, si no lo arruinás con un caso especial</div>
+Con <span class="code">max_logico = 0</span>: <span class="code">i</span> arranca en <span class="code">-1</span>, el <span class="code">while</span> ni entra, y <span class="code">vec[i + 1]</span> es <span class="code">vec[0]</span>. Correcto, sin escribir un <span class="code">if</span> para eso. Si te encontrás agregando <span class="code">if (*max_logico == 0)</span>, no hace falta.
+</div>
+
+<div class="trap"><div class="tr-t">Dos · <span class="code">&gt;</span> y no <span class="code">&gt;=</span></div>
+Con <span class="code">vec[i] &gt; valor</span> el nuevo elemento queda <b>después</b> de los iguales y el ciclo corta apenas encuentra un igual. Con <span class="code">&gt;=</span> el nuevo queda antes y el ciclo corre de más todos los iguales. Las dos dejan el vector ordenado, pero <span class="code">&gt;=</span> hace trabajo de sobra. Con <span class="code">&gt;</span> la inserción es además <b>estable</b>, que es lo que querés cuando el vector es de structs.
+</div>
+
+<div class="trap"><div class="tr-t">Tres · el máximo lógico va por puntero, y el <span class="code">++</span> necesita paréntesis</div>
+<span class="code">++(*max_logico)</span> incrementa <b>el entero apuntado</b>. Sin paréntesis, <span class="code">*max_logico++</span> se lee como <span class="code">*(max_logico++)</span>: incrementa <b>el puntero</b>, lo manda a apuntar a cualquier lado, y el máximo lógico nunca cambia. Es un error que compila sin decir nada.
+</div>
+
+<div class="trap"><div class="tr-t">Cuatro · el vector no lleva <span class="code">&amp;</span> y el máximo lógico sí</div>
+En el <span class="code">main</span>: <span class="code">intercalar(vec, &amp;max_logico, 10)</span>. El arreglo se pasa solo —su nombre ya es la dirección del primer elemento— y por eso los cambios sobre <span class="code">vec</span> se ven afuera sin hacer nada. El <span class="code">int</span> no: sin el <span class="code">&amp;</span>, el compilador te avisa, pero es la línea que más veces se escribe mal por apuro.
+</div>
+
+<h3>Tipo Parcial 03 · el enunciado, textual</h3>
+
+<div class="example"><div class="ex-t">Actividad - Ejercicio Tipo Parcial 03 · campus, apertura 4/5/2026 21:00</div>
+<p><b>ENUNCIADO EJERCICIO</b></p>
+<p>Escribir una función en C que reciba como parámetro un numero entero y devuelva al modulo invocante los siguientes valores:</p>
+<ul>
+  <li>el resultado de multiplicar sus digitos pares y</li>
+  <li>la cantidad de digitos que cumplieron la condicion y fueron procesados.</li>
+</ul>
+<p>Por ejemplo: el número con el que se invoca la funcion es 25831 → los digitos pares son 2 y 8 → La funcion debe devolver los valores: 16 y 2. El 16 por el producto, y el 2 por la cantidad de dígitos.</p>
+<p><b>Nota:</b> para la resolucion de este ejercicio no se pueden utilizar arreglos.</p>
+<p><span class="muted">Entrega: <span class="code">actividad-03-&lt;tu_padron&gt;.c</span></span></p>
+</div>
+
+<h4>Paso 0 · "devuelva dos valores" quiere decir dos parámetros de salida</h4>
+
+<p>Una función de C devuelve <b>un</b> valor con <span class="code">return</span>. Si el enunciado pide dos, los dos van por <b>puntero</b>, y el <span class="code">return</span> queda libre (acá: <span class="code">void</span>). Ésa es la firma:</p>
+
+<div class="formula">void digitos_pares(int numero, int *producto, int *cantidad)</div>
+
+<h4>Paso 1 · pelar dígitos sin arreglos</h4>
+
+<p>La prohibición de arreglos descarta "guardo los dígitos en un vector y después los recorro". El mecanismo es el par <span class="code">% 10</span> / <span class="code">/ 10</span>: el resto por 10 <b>es</b> el último dígito, y la división entera por 10 lo <b>saca</b>. Se repite hasta que el número se hace 0.</p>
+
+<div class="key"><div class="ky-t">Tiene que ser <span class="code">do-while</span>, no <span class="code">while</span></div>
+Con <span class="code">while (numero &gt; 0)</span>, el número <b>0</b> no entra nunca al ciclo y la función contesta "no tiene dígitos", cuando el 0 sí tiene un dígito, y es par. Con <span class="code">do-while</span> el cuerpo se ejecuta al menos una vez y el 0 se procesa bien. Es exactamente el caso borde que un corrector prueba primero.
+</div>
+
+<h4>Paso 2 · dos decisiones que el enunciado no toma por vos</h4>
+
+<table class="tbl">
+  <tr><th>Situación</th><th>La duda</th><th>Qué hacemos y por qué</th></tr>
+  <tr><td>Algún dígito es <b>0</b> (por ejemplo 105)</td><td>¿El 0 es par?</td><td><b>Sí</b>, y <span class="code">0 % 2 == 0</span> lo confirma. Entra al producto, y el producto se hace 0. No es un bug: es aritmética. Lo que corresponde es <b>declararlo en un comentario</b> para que el corrector vea que lo pensaste</td></tr>
+  <tr><td><b>Ningún</b> dígito par (1357)</td><td>¿El producto es 1 o es 0?</td><td>Multiplicar cero factores da 1 (el neutro), pero informar "producto 1" cuando no hubo dígitos es <b>engañar al invocante</b>. Devolvemos <b>producto 0 y cantidad 0</b>, y el que decide qué mostrar es el <span class="code">main</span>, mirando la cantidad</td></tr>
+  <tr><td>El número es <b>negativo</b></td><td>¿El signo es un dígito?</td><td>No. Se trabaja con el valor absoluto. <span class="code">-25831</span> tiene los mismos dígitos que <span class="code">25831</span></td></tr>
+</table>
+
+<h4>Paso 3 · el programa completo</h4>
+
+<pre class="code-block">/*
+ * Actividad - Ejercicio Tipo Parcial 03 (catedra Azcurra)
+ * Producto de los digitos pares de un entero y cuantos se procesaron.
+ * Sin usar arreglos.
+ */
+
+#include &lt;stdio.h&gt;
+
+/*
+ * Devuelve por parametro el producto de los digitos pares de numero
+ * y la cantidad de digitos que cumplieron la condicion.
+ * El 0 es par: si aparece como digito, el producto da 0.
+ * Si no hay ningun digito par, devuelve producto 0 y cantidad 0.
+ */
+void digitos_pares(int numero, int *producto, int *cantidad)
+{
+    int digito;
+
+    *producto = 1;
+    *cantidad = 0;
+
+    if (numero &lt; 0)
+        numero = -numero;
+
+    do {
+        digito = numero % 10;
+        if (digito % 2 == 0) {
+            *producto = *producto * digito;
+            ++(*cantidad);
+        }
+        numero = numero / 10;
+    } while (numero &gt; 0);
+
+    if (*cantidad == 0)
+        *producto = 0;
+}
+
+void informar(int numero)
+{
+    int producto;
+    int cantidad;
+
+    digitos_pares(numero, &amp;producto, &amp;cantidad);
+    if (cantidad == 0)
+        printf("%12d  -&gt;  no tiene digitos pares\n", numero);
+    else
+        printf("%12d  -&gt;  producto = %d, cantidad = %d\n", numero, producto, cantidad);
+}
+
+int main(void)
+{
+    printf("  numero          resultado\n");
+    informar(25831);
+    informar(2468);
+    informar(1357);
+    informar(0);
+    informar(-25831);
+    informar(105);
+    informar(7);
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">  numero          resultado
+       25831  -&gt;  producto = 16, cantidad = 2
+        2468  -&gt;  producto = 384, cantidad = 4
+        1357  -&gt;  no tiene digitos pares
+           0  -&gt;  producto = 0, cantidad = 1
+      -25831  -&gt;  producto = 16, cantidad = 2
+         105  -&gt;  producto = 0, cantidad = 1
+           7  -&gt;  no tiene digitos pares</pre>
+</div>
+
+<p>La primera línea es <b>exactamente</b> el ejemplo del enunciado: 25831 → 16 y 2. Las otras seis son los casos borde que el enunciado no menciona y que hay que probar igual.</p>
+
+<div class="trap"><div class="tr-t">El error que hace que la función devuelva basura</div>
+Olvidarse de <b>inicializar</b> <span class="code">*producto = 1</span> y <span class="code">*cantidad = 0</span> al principio. Los punteros apuntan a variables del <span class="code">main</span> que no están inicializadas: si la función empieza multiplicando sobre lo que ya había, el resultado es un número al azar que <b>cambia entre corridas</b>. Y arrancar el producto en <b>0</b> en vez de 1 es peor todavía: todo lo que multiplique después da 0 y la salida parece "casi bien".
+</div>
+
+<div class="trap"><div class="tr-t">Dos variantes de este mismo ejercicio que hay que tener listas</div>
+El molde <span class="code">% 10</span> / <span class="code">/ 10</span> con acumulador y contador cubre media docena de enunciados. Si te cambian la condición, cambia <b>una línea</b>: <i>suma de los impares</i> (<span class="code">digito % 2 != 0</span>, acumulador arranca en 0 y suma), <i>cantidad de dígitos mayores a 5</i>, <i>el mayor dígito y cuántas veces aparece</i> (está resuelto en el simulacro de la sección 6), <i>dar vuelta el número</i> (<span class="code">invertido = invertido * 10 + digito</span>). Reconocer el molde es todo el ejercicio.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fiuba-algoritmos-parcial"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · LAS OTRAS 10 CONSIGNAS DEL CAMPUS ============ -->
+<details id="fapp-s4">
+<summary><span class="num">4</span> Las otras 10 consignas del campus <span class="sec-score" id="ss-fiuba-algoritmos-parcial-4"></span></summary>
+<div class="content">
+
+<p>Las diez tareas restantes, agrupadas por tema y en el orden en que la cátedra las abrió. Los enunciados van <b>textuales</b>; donde la cátedra <b>no publicó</b> enunciado está dicho y el enunciado es nuestro. Todos los programas fueron compilados con MSVC y corridos: las salidas son las reales.</p>
+
+<h3>Bloque A · Funciones (tres consignas, abiertas el 15/4)</h3>
+
+<h4>A1 · Ejercicio General - Formato timestamp</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual · ventana 20:30 a 21:15 (45 min)</div>
+<p>Escribir una función que dado un tiempo expresado en segundos, devuelva por parámetros el equivalente en días, horas, minutos y segundos.</p>
+<p>Utilizar esta función dentro de un programa que solicite el valor al usuario.</p>
+<p>Se debe validar que el valor ingresado sea entero positivo, de lo contrario, deberá mostrarse el mensaje: <b>"Valor ingresado inválido"</b>.</p>
+<p>Ejemplo: Valor ingresado representando una cantidad de segundos: 1234567 → Resultado: Días: 14, Horas: 6, Minutos: 56, Segundos 7</p>
+</div>
+
+<p>Cuatro salidas por parámetro, o sea cuatro punteros. Y la validación es parte de la consigna, con el mensaje <b>textual</b>: si lo escribís distinto, no cumpliste.</p>
+
+<pre class="code-block">#include &lt;stdio.h&gt;
+
+#define SEG_POR_MINUTO 60
+#define SEG_POR_HORA 3600
+#define SEG_POR_DIA 86400
+
+void descomponer(int total, int *dias, int *horas, int *minutos, int *segundos)
+{
+    *dias = total / SEG_POR_DIA;
+    total = total % SEG_POR_DIA;
+    *horas = total / SEG_POR_HORA;
+    total = total % SEG_POR_HORA;
+    *minutos = total / SEG_POR_MINUTO;
+    *segundos = total % SEG_POR_MINUTO;
+}
+
+int main(void)
+{
+    int total;
+    int dias;
+    int horas;
+    int minutos;
+    int segundos;
+    int leidos;
+
+    printf("Valor ingresado representando una cantidad de segundos: ");
+    leidos = scanf("%d", &amp;total);
+    if (leidos != 1 || total &lt;= 0) {
+        printf("\nValor ingresado invalido\n");
+        return 0;
+    }
+
+    descomponer(total, &amp;dias, &amp;horas, &amp;minutos, &amp;segundos);
+    printf("Resultado: Dias: %d, Horas: %d, Minutos: %d, Segundos %d\n",
+           dias, horas, minutos, segundos);
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real, con la entrada 1234567 del enunciado</div>
+<pre class="code-block">Valor ingresado representando una cantidad de segundos: 1234567
+Resultado: Dias: 14, Horas: 6, Minutos: 56, Segundos 7</pre>
+</div>
+
+<div class="example"><div class="ex-t">Salida real, con las entradas <span class="code">-40</span> y <span class="code">hola</span></div>
+<pre class="code-block">Valor ingresado representando una cantidad de segundos:
+Valor ingresado invalido</pre>
+</div>
+
+<div class="key"><div class="ky-t">La mitad de la validación que casi nadie escribe</div>
+<span class="code">if (total &lt;= 0)</span> atrapa el <b>−40</b>. Pero si el usuario escribe <b>hola</b>, <span class="code">scanf</span> no asigna nada, <span class="code">total</span> queda con basura y el programa sigue como si nada. La defensa es mirar <b>lo que devuelve scanf</b>: la cantidad de campos que logró leer. <span class="code">leidos != 1</span> cubre el caso no numérico, y <span class="code">total &lt;= 0</span> el caso negativo o cero. Las dos condiciones, con <span class="code">||</span>, en el mismo <span class="code">if</span>.
+</div>
+
+<div class="trap"><div class="tr-t">Restar en vez de usar el módulo</div>
+La tentación es <span class="code">*horas = (total - *dias * SEG_POR_DIA) / SEG_POR_HORA</span>. Funciona, pero se equivoca fácil y se lee mal. El patrón limpio es siempre el mismo par: <b>divido para obtener la unidad grande, tomo módulo para quedarme con el resto, y sigo</b>. Cuatro líneas, dos operadores, cero paréntesis.
+</div>
+
+<h4>A2 · Ejercicio General - Cociente con restas sucesivas</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual</div>
+<p>Escribir una función que dados a y b devuelva el cociente de la división entera, sin utilizar el operador correspondiente del lenguaje. Para esta resolución deben considerar la utilización de restas sucesivas.</p>
+<p>Ejemplo:<br>
+El cociente de la division entera entre 8 y 4 es: 2<br>
+El cociente de la division entera entre 15 y 4 es: 3<br>
+El cociente de la division entera entre 15 y 20 es: 0</p>
+</div>
+
+<pre class="code-block">#include &lt;stdio.h&gt;
+#include &lt;stdbool.h&gt;
+
+/*
+ * Devuelve por parametro el cociente de la division entera a / b
+ * calculado restando b de a hasta que no alcance.
+ * Devuelve false si b es cero (division indefinida).
+ */
+bool cociente_entero(int a, int b, int *cociente)
+{
+    int resto;
+    int signo = 1;
+
+    if (b == 0)
+        return false;
+
+    if (a &lt; 0) {
+        a = -a;
+        signo = -signo;
+    }
+    if (b &lt; 0) {
+        b = -b;
+        signo = -signo;
+    }
+
+    *cociente = 0;
+    resto = a;
+    while (resto &gt;= b) {
+        resto = resto - b;
+        ++(*cociente);
+    }
+    *cociente = *cociente * signo;
+    return true;
+}
+
+void informar(int a, int b)
+{
+    int cociente;
+
+    if (cociente_entero(a, b, &amp;cociente))
+        printf("El cociente de la division entera entre %d y %d es: %d\n", a, b, cociente);
+    else
+        printf("El cociente de la division entera entre %d y %d no esta definido\n", a, b);
+}
+
+int main(void)
+{
+    informar(8, 4);
+    informar(15, 4);
+    informar(15, 20);
+    informar(-15, 4);
+    informar(15, 0);
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">El cociente de la division entera entre 8 y 4 es: 2
+El cociente de la division entera entre 15 y 4 es: 3
+El cociente de la division entera entre 15 y 20 es: 0
+El cociente de la division entera entre -15 y 4 es: -3
+El cociente de la division entera entre 15 y 0 no esta definido</pre>
+</div>
+
+<div class="trap"><div class="tr-t">Dos casos que el enunciado no da y que cuelgan el programa</div>
+<b>b = 0.</b> Con <span class="code">while (resto &gt;= 0)</span> restando cero, el ciclo <b>no termina nunca</b>. Un ejercicio que se cuelga es un ejercicio de cero, y no hay forma de que el corrector le dé crédito parcial. La salida por bool es la más limpia: informa "no pude" sin inventar un resultado.<br><br>
+<b>a negativo.</b> Con <span class="code">a = -15</span> y <span class="code">b = 4</span>, el <span class="code">while (resto &gt;= b)</span> ni arranca y el cociente da <b>0</b>, que está mal: C trunca hacia cero y <span class="code">-15 / 4</span> es <b>−3</b>. La solución es trabajar en positivo y aplicar el signo al final, que es lo que hace el programa: dos <span class="code">if</span> antes del ciclo y una multiplicación después.
+</div>
+
+<h4>A3 · Ejercicio General - Función para calcular el factorial</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual · ventana 17:40 a 18:05 (25 min)</div>
+<p>Escribir una función que reciba un valor y calcule el factorial del mismo. <b>No debe imprimir el valor, debe solamente devolverlo.</b> Si no se puede calcular el factorial del valor recibido, la función deberá devolver 0, de lo contrario deberá devolver el valor calculado.</p>
+<p>Invocarla para los valores <b>−8, 0, 1, 5</b>; mostrando en cada caso lo que devuelve.</p>
+<p>Definición: El factorial de un entero positivo n, se define como el producto de todos los números enteros positivos desde 1 hasta n. El factorial de 0 es 1.</p>
+</div>
+
+<pre class="code-block">#include &lt;stdio.h&gt;
+
+#define MAX_FACTORIAL 20
+
+/* Devuelve n! o 0 si no se puede calcular (n negativo, o tan grande
+   que el resultado no entra en un long long). */
+long long factorial(int n)
+{
+    long long resultado = 1;
+    int i;
+
+    if (n &lt; 0 || n &gt; MAX_FACTORIAL)
+        return 0;
+
+    for (i = 2; i &lt;= n; i++)
+        resultado = resultado * i;
+
+    return resultado;
+}
+
+int main(void)
+{
+    int valores[5] = {-8, 0, 1, 5, 25};
+    int i;
+
+    for (i = 0; i &lt; 5; i++)
+        printf("factorial(%d) devuelve %lld\n", valores[i], factorial(valores[i]));
+
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">factorial(-8) devuelve 0
+factorial(0) devuelve 1
+factorial(1) devuelve 1
+factorial(5) devuelve 120
+factorial(25) devuelve 0</pre>
+</div>
+
+<div class="key"><div class="ky-t">"Si no se puede calcular" son dos casos, no uno</div>
+El obvio es <b>n negativo</b>: el factorial no está definido. El que casi nadie pone es el <b>desborde</b>: 21! ya no entra en un <span class="code">long long</span> de 64 bits, y si seguís multiplicando el resultado da un número negativo o absurdo <b>sin ningún aviso</b>. La guarda <span class="code">n &gt; MAX_FACTORIAL</span> con <span class="code">MAX_FACTORIAL 20</span> convierte un resultado silenciosamente falso en el 0 que la consigna pide.<br><br>
+Y ojo con el <span class="code">for</span>: arranca en <b>2</b>, no en 1. Multiplicar por 1 no cambia nada y para <span class="code">n = 0</span> y <span class="code">n = 1</span> el ciclo directamente no entra, así que devuelve el <span class="code">resultado = 1</span> inicial — que es justo lo que dice la definición del enunciado.
+</div>
+
+<div class="trap"><div class="tr-t">"No debe imprimir el valor, debe solamente devolverlo"</div>
+Está en negrita en el enunciado por algo. Una función que hace <span class="code">printf</span> adentro <b>no se puede reutilizar</b>: no la podés usar para calcular combinatorios ni para comparar dos factoriales. Separar el <b>cálculo</b> de la <b>presentación</b> es la idea central de la unidad de funciones, y ésta es la consigna donde la cátedra la evalúa.
+</div>
+
+<h3>Bloque B · Cadenas (dos consignas, abiertas el 6/5)</h3>
+
+<h4>B1 · Recorriendo tu nombre y apellido</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual · ventana 17:20 a 17:45 (25 min)</div>
+<p>Escribir un programa en C, que:</p>
+<ul>
+  <li>declare una cadena para almacenar como máximo 40 caracteres y como valor inicial le asigne tu nombre y apellido</li>
+  <li>recorra la cadena e imprima sólo las consonantes, una debajo de la otra</li>
+  <li>indique cuantas consonantes hay en tu nombre y apellido</li>
+</ul>
+</div>
+
+<pre class="code-block">#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_NOMBRE 40
+
+bool es_vocal(char letra)
+{
+    char minuscula = (char) tolower((unsigned char) letra);
+
+    return minuscula == 'a' || minuscula == 'e' || minuscula == 'i'
+        || minuscula == 'o' || minuscula == 'u';
+}
+
+bool es_consonante(char letra)
+{
+    return isalpha((unsigned char) letra) &amp;&amp; !es_vocal(letra);
+}
+
+/* Imprime una consonante por renglon y devuelve cuantas encontro. */
+int mostrar_consonantes(const char cadena[])
+{
+    int cantidad = 0;
+    int i;
+
+    for (i = 0; cadena[i] != '\0'; i++) {
+        if (es_consonante(cadena[i])) {
+            printf("%c\n", cadena[i]);
+            ++cantidad;
+        }
+    }
+    return cantidad;
+}
+
+int main(void)
+{
+    char nombre_apellido[MAX_NOMBRE + 1] = "Ariel Secchi";
+    int cantidad;
+
+    printf("Cadena: %s\n", nombre_apellido);
+    printf("Consonantes:\n");
+    cantidad = mostrar_consonantes(nombre_apellido);
+    printf("Cantidad de consonantes: %d\n", cantidad);
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">Cadena: Ariel Secchi
+Consonantes:
+r
+l
+S
+c
+c
+h
+Cantidad de consonantes: 6</pre>
+</div>
+
+<table class="tbl">
+  <tr><th>Decisión</th><th>Por qué</th></tr>
+  <tr><td><span class="code">char nombre[MAX_NOMBRE + 1]</span></td><td>"Como máximo 40 caracteres" son 40 <b>letras</b>. El <span class="code">'\0'</span> ocupa un lugar más y no se cuenta como carácter útil. Declarar <span class="code">char nombre[40]</span> te deja 39 letras</td></tr>
+  <tr><td>Consonante = letra que no es vocal</td><td>Definirla como "letra que no es vocal" cubre mayúsculas, minúsculas, y la <span class="code">y</span>, sin escribir una lista de 21 caracteres</td></tr>
+  <tr><td><span class="code">isalpha</span> antes de nada</td><td>Sin ese filtro, el <b>espacio</b> entre nombre y apellido cuenta como consonante, porque no es vocal. El espacio, la coma y el punto no son letras</td></tr>
+  <tr><td>El corte del <span class="code">for</span> es <span class="code">!= '\0'</span></td><td>Es el recorrido canónico de cadenas: se para en el terminador, no en un largo fijo. No hace falta <span class="code">strlen</span>, y llamarlo dentro de la condición del <span class="code">for</span> lo recalcularía en cada vuelta</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Los acentos y la ñ no son un carácter</div>
+Si tu nombre tiene tilde o <b>ñ</b>, en la codificación habitual de Windows y de Linux esa letra ocupa <b>uno o dos bytes fuera del rango ASCII</b>, y <span class="code">isalpha</span> puede contestar cualquier cosa. El conteo te va a dar mal y no vas a entender por qué. Para esta consigna: usá tu nombre <b>sin tildes</b>, y si querés puntos extra, dejá un comentario de dos líneas explicando la limitación. Que sepas dónde está el problema vale más que esconderlo.
+</div>
+
+<h4>B2 · Mostrando palabras en orden</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual · ventana 18:20 a 18:45 (25 min)</div>
+<p>Escribir un programa modular que solicite el ingreso de dos palabras y luego muestre las mismas según la longitud de cada una de ellas, mostrando primero la de menor longitud. A igualdad de longitud, mostrar primero la menor de las dos, en términos de orden alfabético. Las palabras tienen una longitud máxima de 15 caracteres.</p>
+</div>
+
+<pre class="code-block">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_PALABRA 15
+
+void pedir_palabra(const char mensaje[], char destino[])
+{
+    printf("%s", mensaje);
+    scanf("%15s", destino);
+}
+
+/* true si a debe mostrarse antes que b. */
+bool va_primera(const char a[], const char b[])
+{
+    size_t largo_a = strlen(a);
+    size_t largo_b = strlen(b);
+
+    if (largo_a != largo_b)
+        return largo_a &lt; largo_b;
+
+    return strcmp(a, b) &lt;= 0;
+}
+
+int main(void)
+{
+    char primera[MAX_PALABRA + 1];
+    char segunda[MAX_PALABRA + 1];
+
+    pedir_palabra("Ingrese la primera palabra: ", primera);
+    pedir_palabra("Ingrese la segunda palabra: ", segunda);
+
+    printf("En orden:\n");
+    if (va_primera(primera, segunda)) {
+        printf("%s\n", primera);
+        printf("%s\n", segunda);
+    } else {
+        printf("%s\n", segunda);
+        printf("%s\n", primera);
+    }
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real · entradas <span class="code">murcielago</span> y <span class="code">sol</span>, y después <span class="code">pera</span> y <span class="code">kiwi</span></div>
+<pre class="code-block">Ingrese la primera palabra: murcielago
+Ingrese la segunda palabra: sol
+En orden:
+sol
+murcielago
+
+Ingrese la primera palabra: pera
+Ingrese la segunda palabra: kiwi
+En orden:
+kiwi
+pera</pre>
+</div>
+
+<div class="key"><div class="ky-t">El criterio de desempate va en una función y no en el <span class="code">main</span></div>
+"Programa modular" es literal del enunciado. La decisión completa —primero por largo, después alfabético— entra en <b>una</b> función <span class="code">va_primera</span> que devuelve <span class="code">bool</span>, y el <span class="code">main</span> se limita a preguntar y a imprimir. Esa función es la que un corrector lee: si la lógica está desparramada en el <span class="code">main</span> con tres <span class="code">if</span> anidados, el ejercicio "anda" pero no es modular.<br><br>
+Y el orden alfabético lo da <span class="code">strcmp</span>, que devuelve <b>negativo, cero o positivo</b> — no <span class="code">true</span>/<span class="code">false</span>. Compararlo con <span class="code">&lt;= 0</span> es lo correcto; escribir <span class="code">if (strcmp(a, b))</span> es preguntar "¿son distintos?", que es otra pregunta.
+</div>
+
+<div class="trap"><div class="tr-t"><span class="code">scanf("%s")</span> sin ancho es un desbordamiento esperando</div>
+<span class="code">scanf("%s", destino)</span> escribe todo lo que le manden, sin fijarse en el tamaño del arreglo. Si el usuario tipea 40 caracteres en un <span class="code">char[16]</span>, pisa memoria ajena. La forma correcta es <b>poner el ancho en el formato</b>: <span class="code">scanf("%15s", destino)</span> para un <span class="code">char[16]</span> — el ancho es el tamaño <b>menos uno</b>, porque el <span class="code">'\0'</span> no cuenta. Y acordate de que <span class="code">%s</span> corta en el primer espacio: para leer una frase con espacios hay que usar <span class="code">fgets</span>.
+</div>
+
+<h3>Bloque C · Estructuras (dos consignas, abiertas el 27/5)</h3>
+
+<h4>C1 · Actividad - Ejercicio Struct Librería</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual · entrega <span class="code">struct-libreria-&lt;tu_padron&gt;.c</span></div>
+<p><b>Sistema de stock de una librería.</b> Una librería desea llevar el control de los libros disponibles en stock utilizando un vector de estructuras. Cada libro posee la siguiente información: Código numérico, Título, Autor, Precio, Cantidad en stock.</p>
+<p><b>1) Carga de datos.</b> Permitir ingresar hasta MAX_LIBROS libros. La carga finaliza cuando se ingresa código 0.</p>
+<p><b>2) Mostrar listado completo.</b> Mostrar todos los libros en formato de tabla.</p>
+<p><b>3) Ordenamientos.</b> Realizar los siguientes ordenamientos: a) Por título (ascendente); b) Por stock (descendente); c) Por código (ascendente).</p>
+<p><b>4) Búsqueda binaria.</b> Una vez ordenado el vector por código, realizar una búsqueda binaria para encontrar un libro a partir de su código.</p>
+<p><b>5) Informes.</b> a) Mostrar el libro más caro. b) Mostrar todos los libros con stock menor a 5. c) Calcular el valor total del inventario.</p>
+<p><b>6)</b> Cargar una nueva tabla llamada pedidos, la cual contiene para cada libro el código y el stock, con aquellos libros que tengan menos de 5 unidades de stock.</p>
+</div>
+
+<div class="key"><div class="ky-t">Es el ejercicio más largo del campus y es un test de organización, no de dificultad</div>
+Ninguna de las seis partes es difícil por separado. Lo que se evalúa es que <b>cada una sea una función</b>, que el vector y su máximo lógico viajen juntos por parámetro, y que el punto 4 dependa del 3c: la búsqueda binaria <b>exige</b> que el vector esté ordenado por código, y el enunciado lo dice ("una vez ordenado el vector por código"). Si ordenás por stock y después buscás binariamente por código, la respuesta va a estar mal sin que nada se rompa: <b>ése es el error que la consigna busca.</b>
+</div>
+
+<pre class="code-block">/*
+ * Actividad - Ejercicio Struct Libreria (catedra Azcurra)
+ * Sistema de stock de una libreria con un vector de estructuras.
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX_LIBROS 100
+#define LARGO_TITULO 40
+#define LARGO_AUTOR 30
+#define LARGO_LINEA 100
+#define STOCK_MINIMO 5
+
+typedef struct {
+    int codigo;
+    char titulo[LARGO_TITULO + 1];
+    char autor[LARGO_AUTOR + 1];
+    float precio;
+    int stock;
+} t_libro;
+
+typedef struct {
+    int codigo;
+    int stock;
+} t_pedido;
+
+/* Lee una linea completa y le saca el fin de linea. */
+void leer_linea(char destino[], int largo)
+{
+    if (fgets(destino, largo, stdin) != NULL)
+        destino[strcspn(destino, "\n")] = '\0';
+    else
+        destino[0] = '\0';
+}
+
+int leer_entero(void)
+{
+    char linea[LARGO_LINEA];
+    int valor = 0;
+
+    leer_linea(linea, LARGO_LINEA);
+    sscanf(linea, "%d", &amp;valor);
+    return valor;
+}
+
+float leer_real(void)
+{
+    char linea[LARGO_LINEA];
+    float valor = 0;
+
+    leer_linea(linea, LARGO_LINEA);
+    sscanf(linea, "%f", &amp;valor);
+    return valor;
+}
+
+/*
+ * Carga hasta MAX_LIBROS libros; la carga termina con codigo 0.
+ * El maximo logico vuelve por parametro.
+ */
+void cargar_libros(t_libro libros[], int *cantidad)
+{
+    int codigo;
+
+    *cantidad = 0;
+    printf("Codigo del libro (0 termina): ");
+    codigo = leer_entero();
+    while (codigo != 0 &amp;&amp; *cantidad &lt; MAX_LIBROS) {
+        libros[*cantidad].codigo = codigo;
+        printf("Titulo: ");
+        leer_linea(libros[*cantidad].titulo, LARGO_TITULO + 1);
+        printf("Autor: ");
+        leer_linea(libros[*cantidad].autor, LARGO_AUTOR + 1);
+        printf("Precio: ");
+        libros[*cantidad].precio = leer_real();
+        printf("Stock: ");
+        libros[*cantidad].stock = leer_entero();
+        ++(*cantidad);
+        printf("Codigo del libro (0 termina): ");
+        codigo = leer_entero();
+    }
+}
+
+void mostrar_listado(const t_libro libros[], int cantidad, const char encabezado[])
+{
+    int i;
+
+    printf("\n%s\n", encabezado);
+    printf("%-7s %-22s %-20s %10s %7s\n", "Codigo", "Titulo", "Autor", "Precio", "Stock");
+    for (i = 0; i &lt; cantidad; i++)
+        printf("%-7d %-22s %-20s %10.2f %7d\n", libros[i].codigo, libros[i].titulo,
+               libros[i].autor, libros[i].precio, libros[i].stock);
+}
+
+void intercambiar(t_libro libros[], int a, int b)
+{
+    t_libro auxiliar = libros[a];
+
+    libros[a] = libros[b];
+    libros[b] = auxiliar;
+}
+
+/* Seleccion directa por titulo ascendente. */
+void ordenar_por_titulo(t_libro libros[], int cantidad)
+{
+    int i;
+    int j;
+    int menor;
+
+    for (i = 0; i &lt; cantidad - 1; i++) {
+        menor = i;
+        for (j = i + 1; j &lt; cantidad; j++) {
+            if (strcmp(libros[j].titulo, libros[menor].titulo) &lt; 0)
+                menor = j;
+        }
+        if (menor != i)
+            intercambiar(libros, i, menor);
+    }
+}
+
+/* Seleccion directa por stock descendente. */
+void ordenar_por_stock(t_libro libros[], int cantidad)
+{
+    int i;
+    int j;
+    int mayor;
+
+    for (i = 0; i &lt; cantidad - 1; i++) {
+        mayor = i;
+        for (j = i + 1; j &lt; cantidad; j++) {
+            if (libros[j].stock &gt; libros[mayor].stock)
+                mayor = j;
+        }
+        if (mayor != i)
+            intercambiar(libros, i, mayor);
+    }
+}
+
+/* Insercion directa por codigo ascendente. */
+void ordenar_por_codigo(t_libro libros[], int cantidad)
+{
+    t_libro actual;
+    int i;
+    int j;
+
+    for (i = 1; i &lt; cantidad; i++) {
+        actual = libros[i];
+        j = i - 1;
+        while (j &gt;= 0 &amp;&amp; libros[j].codigo &gt; actual.codigo) {
+            libros[j + 1] = libros[j];
+            --j;
+        }
+        libros[j + 1] = actual;
+    }
+}
+
+/*
+ * Busqueda binaria sobre el vector YA ordenado por codigo.
+ * Devuelve la posicion, o -1 si no esta.
+ */
+int buscar_por_codigo(const t_libro libros[], int cantidad, int codigo)
+{
+    int primero = 0;
+    int ultimo = cantidad - 1;
+    int medio;
+
+    while (primero &lt;= ultimo) {
+        medio = (primero + ultimo) / 2;
+        if (libros[medio].codigo == codigo)
+            return medio;
+        if (libros[medio].codigo &lt; codigo)
+            primero = medio + 1;
+        else
+            ultimo = medio - 1;
+    }
+    return -1;
+}
+
+int posicion_mas_caro(const t_libro libros[], int cantidad)
+{
+    int i;
+    int mayor = 0;
+
+    for (i = 1; i &lt; cantidad; i++) {
+        if (libros[i].precio &gt; libros[mayor].precio)
+            mayor = i;
+    }
+    return mayor;
+}
+
+float valor_inventario(const t_libro libros[], int cantidad)
+{
+    float total = 0;
+    int i;
+
+    for (i = 0; i &lt; cantidad; i++)
+        total = total + libros[i].precio * libros[i].stock;
+
+    return total;
+}
+
+/* Arma la tabla de pedidos con los libros de stock menor a STOCK_MINIMO. */
+void armar_pedidos(const t_libro libros[], int cantidad, t_pedido pedidos[], int *cant_pedidos)
+{
+    int i;
+
+    *cant_pedidos = 0;
+    for (i = 0; i &lt; cantidad; i++) {
+        if (libros[i].stock &lt; STOCK_MINIMO) {
+            pedidos[*cant_pedidos].codigo = libros[i].codigo;
+            pedidos[*cant_pedidos].stock = libros[i].stock;
+            ++(*cant_pedidos);
+        }
+    }
+}</pre>
+
+<p>Y el <span class="code">main</span>, que es sólo el guion de las seis partes en orden:</p>
+
+<pre class="code-block">int main(void)
+{
+    t_libro libros[MAX_LIBROS];
+    t_pedido pedidos[MAX_LIBROS];
+    int cantidad;
+    int cant_pedidos;
+    int posicion;
+    int i;
+
+    cargar_libros(libros, &amp;cantidad);
+    mostrar_listado(libros, cantidad, "1) LISTADO COMPLETO (orden de carga)");
+
+    ordenar_por_titulo(libros, cantidad);
+    mostrar_listado(libros, cantidad, "2) ORDENADO POR TITULO (ascendente)");
+
+    ordenar_por_stock(libros, cantidad);
+    mostrar_listado(libros, cantidad, "3) ORDENADO POR STOCK (descendente)");
+
+    ordenar_por_codigo(libros, cantidad);
+    mostrar_listado(libros, cantidad, "4) ORDENADO POR CODIGO (ascendente)");
+
+    printf("\n5) BUSQUEDA BINARIA POR CODIGO\n");
+    buscar_e_informar(libros, cantidad);
+
+    printf("\n6) INFORMES\n");
+    posicion = posicion_mas_caro(libros, cantidad);
+    printf("a) Libro mas caro: %s, de %s, a %.2f\n", libros[posicion].titulo,
+           libros[posicion].autor, libros[posicion].precio);
+
+    printf("b) Libros con stock menor a %d:\n", STOCK_MINIMO);
+    for (i = 0; i &lt; cantidad; i++) {
+        if (libros[i].stock &lt; STOCK_MINIMO)
+            printf("   %d  %-22s stock %d\n", libros[i].codigo, libros[i].titulo, libros[i].stock);
+    }
+
+    printf("c) Valor total del inventario: %.2f\n", valor_inventario(libros, cantidad));
+
+    armar_pedidos(libros, cantidad, pedidos, &amp;cant_pedidos);
+    printf("\n7) TABLA DE PEDIDOS (%d registros)\n", cant_pedidos);
+    printf("%-7s %7s\n", "Codigo", "Stock");
+    for (i = 0; i &lt; cant_pedidos; i++)
+        printf("%-7d %7d\n", pedidos[i].codigo, pedidos[i].stock);
+
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real, con cinco libros cargados a propósito desordenados (se omiten los ecos de la carga)</div>
+<pre class="code-block">Se cargaron 5 libros.
+
+1) LISTADO COMPLETO (orden de carga)
+Codigo  Titulo                 Autor                    Precio   Stock
+104     Los siete locos        Roberto Arlt            9800.00       0
+101     Rayuela                Julio Cortazar         18500.50       3
+105     Adan Buenosayres       Leopoldo Marechal      21000.00       7
+102     El Aleph               Jorge Luis Borges      12300.00      12
+103     Ficciones              Jorge Luis Borges      11900.75       4
+
+2) ORDENADO POR TITULO (ascendente)
+Codigo  Titulo                 Autor                    Precio   Stock
+105     Adan Buenosayres       Leopoldo Marechal      21000.00       7
+102     El Aleph               Jorge Luis Borges      12300.00      12
+103     Ficciones              Jorge Luis Borges      11900.75       4
+104     Los siete locos        Roberto Arlt            9800.00       0
+101     Rayuela                Julio Cortazar         18500.50       3
+
+3) ORDENADO POR STOCK (descendente)
+Codigo  Titulo                 Autor                    Precio   Stock
+102     El Aleph               Jorge Luis Borges      12300.00      12
+105     Adan Buenosayres       Leopoldo Marechal      21000.00       7
+103     Ficciones              Jorge Luis Borges      11900.75       4
+101     Rayuela                Julio Cortazar         18500.50       3
+104     Los siete locos        Roberto Arlt            9800.00       0
+
+4) ORDENADO POR CODIGO (ascendente)
+Codigo  Titulo                 Autor                    Precio   Stock
+101     Rayuela                Julio Cortazar         18500.50       3
+102     El Aleph               Jorge Luis Borges      12300.00      12
+103     Ficciones              Jorge Luis Borges      11900.75       4
+104     Los siete locos        Roberto Arlt            9800.00       0
+105     Adan Buenosayres       Leopoldo Marechal      21000.00       7
+
+5) BUSQUEDA BINARIA POR CODIGO
+Codigo a buscar: 103
+Encontrado en la posicion 2: Ficciones, de Jorge Luis Borges
+Codigo a buscar: 777
+No hay ningun libro con codigo 777
+
+6) INFORMES
+a) Libro mas caro: Adan Buenosayres, de Leopoldo Marechal, a 21000.00
+b) Libros con stock menor a 5:
+   101  Rayuela                stock 3
+   103  Ficciones              stock 4
+   104  Los siete locos        stock 0
+c) Valor total del inventario: 397704.50
+
+7) TABLA DE PEDIDOS (3 registros)
+Codigo    Stock
+101           3
+103           4
+104           0</pre>
+</div>
+
+<p><span class="muted">Chequeo de la cuenta: 18500,50×3 + 12300×12 + 11900,75×4 + 9800×0 + 21000×7 = 55.501,50 + 147.600 + 47.603 + 0 + 147.000 = <b>397.704,50</b>.</span></p>
+
+<div class="trap"><div class="tr-t">Mezclar <span class="code">scanf</span> con <span class="code">fgets</span> es el bug número uno de este ejercicio</div>
+El título y el autor tienen <b>espacios</b>, así que hay que leerlos con <span class="code">fgets</span>. Pero <span class="code">scanf("%d", &amp;codigo)</span> deja el <b>Enter</b> en el buffer, y el <span class="code">fgets</span> siguiente se lo come y devuelve una cadena vacía: el título te queda en blanco y el programa "salta" un campo.<br><br>
+La solución de esta guía es no mezclar: <b>todo</b> se lee con <span class="code">fgets</span> línea por línea, y los números se extraen con <span class="code">sscanf</span> sobre esa línea. Tres funciones de cinco renglones (<span class="code">leer_linea</span>, <span class="code">leer_entero</span>, <span class="code">leer_real</span>) y el problema desaparece del programa entero.
+</div>
+
+<div class="trap"><div class="tr-t">El máximo lógico se pierde apenas te descuidás</div>
+Las funciones que <b>no</b> cambian la cantidad la reciben como <span class="code">int cantidad</span>. Las que <b>sí</b> —<span class="code">cargar_libros</span>, <span class="code">armar_pedidos</span>— la reciben como <span class="code">int *</span>. Y las que sólo leen llevan <span class="code">const</span> en el vector: <span class="code">const t_libro libros[]</span>. Ese <span class="code">const</span> no es adorno: si por error escribís dentro de <span class="code">mostrar_listado</span>, <b>el compilador te frena</b>.
+</div>
+
+<h4>C2 · Actividad - Ejercicio Struct Alumno</h4>
+
+<div class="trap"><div class="tr-t">La cátedra no publicó el enunciado de esta tarea</div>
+El cuerpo de la tarea en el campus dice <b>únicamente</b>: <i>"Para la entrega deben subir código de la resolución con el siguiente nombre: archivo de código: struct-alumno-&lt;tu_padron&gt;.c (la extensión debe ser .c). Ejemplo struct-alumno-101203.c"</i>. No hay consigna. Lo que sigue es <b>nuestro</b> enunciado, armado con el mismo alcance que el de Struct Librería —que sí está publicado y es la tarea gemela, abierta el mismo día y a la misma hora— aplicado a alumnos, usando el struct que la cátedra sí publica en el ejercicio de archivos. <b>Confirmá el enunciado real en clase antes de entregar.</b>
+</div>
+
+<div class="example"><div class="ex-t">Enunciado propuesto (no es de la cátedra)</div>
+<p>Sistema de notas de un curso, con un vector de estructuras. Cada alumno tiene padrón, apellido y nombre, y nota. 1) Cargar hasta MAX_ALUMNOS alumnos; la carga termina con padrón 0. 2) Listado completo en formato de tabla. 3) Ordenamientos: por apellido y nombre (ascendente), por nota (descendente) y por padrón (ascendente). 4) Búsqueda binaria por padrón sobre el vector ordenado. 5) Informes: mejor nota, listado de desaprobados (nota menor a 4) y promedio general del curso.</p>
+</div>
+
+<p>El esqueleto es <b>el mismo</b> que el de la librería: mismas funciones, mismos parámetros, mismo <span class="code">main</span>. Cambian tres cosas y sólo tres:</p>
+
+<table class="tbl">
+  <tr><th>Qué cambia</th><th>Librería</th><th>Alumno</th></tr>
+  <tr><td>El struct</td><td>código, título, autor, precio, stock</td><td><span class="code">int padron</span>, <span class="code">char ape_nom[31]</span>, <span class="code">float nota</span></td></tr>
+  <tr><td>La clave de ordenamiento alfabético</td><td><span class="code">strcmp(libros[j].titulo, …)</span></td><td><span class="code">strcmp(alumnos[j].ape_nom, …)</span></td></tr>
+  <tr><td>El informe agregado</td><td>valor del inventario: <b>suma de precio × stock</b></td><td>promedio: <b>suma de notas dividida la cantidad</b>, con guarda de división por cero</td></tr>
+</table>
+
+<p>La única función que no tiene equivalente directo es el promedio, y tiene una trampa:</p>
+
+<pre class="code-block">/* Devuelve false si no hay alumnos, para no dividir por cero. */
+bool promedio_general(const t_alumno alumnos[], int cantidad, float *promedio)
+{
+    float suma = 0;
+    int i;
+
+    if (cantidad == 0)
+        return false;
+
+    for (i = 0; i &lt; cantidad; i++)
+        suma = suma + alumnos[i].nota;
+
+    *promedio = suma / cantidad;
+    return true;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real · sólo la parte que difiere de la librería</div>
+<pre class="code-block">2) ORDENADO POR APELLIDO Y NOMBRE
+Padron   Apellido y nombre        Nota
+104711   Duarte, Sofia            9.25
+99872    Gomez, Lucia             6.75
+98120    Ledesma, Bruno           2.50
+100455   Paredes, Martin          4.00
+101203   Secchi, Ariel            8.50
+
+5) BUSQUEDA BINARIA POR PADRON
+Padron a buscar: 100455
+Encontrado en la posicion 2: Paredes, Martin, nota 4.00
+
+6) INFORMES
+a) Mejor nota: Duarte, Sofia con 9.25
+b) Desaprobados (nota menor a 4):
+   98120  Ledesma, Bruno         2.50
+c) Promedio general del curso: 6.20</pre>
+</div>
+
+<div class="trap"><div class="tr-t">La división entera que arruina el promedio</div>
+Si <span class="code">suma</span> fuera <span class="code">int</span> y <span class="code">cantidad</span> también, <span class="code">suma / cantidad</span> sería <b>división entera</b> y el promedio 6,20 saldría <b>6</b>. Acá <span class="code">suma</span> es <span class="code">float</span>, así que la división es real. Y si igual dudás, la conversión explícita es <span class="code">(float) suma / cantidad</span>: con que <b>uno</b> de los dos operandos sea real, alcanza.
+</div>
+
+<h3>Bloque D · Archivos (una consigna, abierta el 3/6)</h3>
+
+<h4>D1 · Ejercicio 3 Archivos - Cargar Alumnos (GB)</h4>
+
+<div class="example"><div class="ex-t">Enunciado textual · ventana 18:13 a 18:40 (27 min)</div>
+<p>Dada la siguiente estructura:</p>
+<pre class="code-block">typedef struct{
+int padron;
+char ape_nom[30];
+float nota;
+}t_regAlumno;</pre>
+<p>Escriba un programa modular que permita dar de alta registros de tipo t_regAlumno. El usuario debe poder continuar ingresando datos hasta que ingrese un padron igual a 0. <b>Asuma que el archivo es inexistente.</b> Deberá subir el archivo generado, con al menos 5 datos de alumnos.</p>
+<p>Además, subí el archivo generado <b>alumnos.dat</b>, con al menos 5 alumnos.</p>
+</div>
+
+<div class="key"><div class="ky-t">"Asuma que el archivo es inexistente" te está diciendo el modo de apertura</div>
+Si el archivo no existe, el modo es <span class="code">"wb"</span>: <b>w</b> de write, <b>b</b> de binario, y crea el archivo si no está. Lo que <span class="code">"wb"</span> también hace, y hay que saberlo, es <b>truncar a cero</b> si el archivo existía: se pierde todo lo anterior. Si la consigna hubiera dicho "agregue registros al archivo existente", el modo sería <span class="code">"ab"</span> (append). Y la <b>b</b> no es optativa en Windows: sin ella, el sistema traduce los bytes que valen <span class="code">0x0A</span> y el archivo binario queda corrupto.
+</div>
+
+<pre class="code-block">/*
+ * Ejercicio 3 Archivos - Cargar Alumnos (catedra Azcurra)
+ * Alta de registros t_regAlumno en alumnos.dat. La carga termina
+ * cuando se ingresa un padron igual a 0. El archivo es inexistente.
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+#define NOMBRE_ARCHIVO "alumnos.dat"
+#define LARGO_LINEA 100
+
+typedef struct {
+    int padron;
+    char ape_nom[30];
+    float nota;
+} t_regAlumno;
+
+/* (leer_linea, leer_entero y leer_real son las mismas del ejercicio de libreria) */
+
+/* Pide un alumno por teclado. Devuelve 0 si el padron ingresado es 0. */
+int pedir_alumno(t_regAlumno *alumno)
+{
+    printf("Padron (0 termina): ");
+    alumno-&gt;padron = leer_entero();
+    if (alumno-&gt;padron == 0)
+        return 0;
+
+    printf("Apellido y nombre: ");
+    leer_linea(alumno-&gt;ape_nom, sizeof(alumno-&gt;ape_nom));
+    printf("Nota: ");
+    alumno-&gt;nota = leer_real();
+    return 1;
+}
+
+/* Da de alta registros hasta padron 0. Devuelve cuantos grabo, o -1
+   si el archivo no se pudo abrir. */
+int cargar_alumnos(const char nombre_archivo[])
+{
+    FILE *archivo;
+    t_regAlumno alumno;
+    int grabados = 0;
+
+    archivo = fopen(nombre_archivo, "wb");
+    if (archivo == NULL)
+        return -1;
+
+    while (pedir_alumno(&amp;alumno)) {
+        fwrite(&amp;alumno, sizeof(t_regAlumno), 1, archivo);
+        ++grabados;
+    }
+    fclose(archivo);
+    return grabados;
+}
+
+/* Lee el archivo entero y lo lista. Devuelve cuantos leyo, o -1. */
+int listar_alumnos(const char nombre_archivo[])
+{
+    FILE *archivo;
+    t_regAlumno alumno;
+    int leidos = 0;
+
+    archivo = fopen(nombre_archivo, "rb");
+    if (archivo == NULL)
+        return -1;
+
+    printf("\n%-8s %-22s %6s\n", "Padron", "Apellido y nombre", "Nota");
+    while (fread(&amp;alumno, sizeof(t_regAlumno), 1, archivo) == 1) {
+        printf("%-8d %-22s %6.2f\n", alumno.padron, alumno.ape_nom, alumno.nota);
+        ++leidos;
+    }
+    fclose(archivo);
+    return leidos;
+}
+
+int main(void)
+{
+    int grabados;
+    int leidos;
+
+    grabados = cargar_alumnos(NOMBRE_ARCHIVO);
+    if (grabados &lt; 0) {
+        printf("No se pudo abrir %s para escritura\n", NOMBRE_ARCHIVO);
+        return 1;
+    }
+    printf("\nSe grabaron %d alumnos en %s\n", grabados, NOMBRE_ARCHIVO);
+    printf("Tamano de t_regAlumno: %d bytes. Tamano esperado del archivo: %d bytes\n",
+           (int) sizeof(t_regAlumno), (int) sizeof(t_regAlumno) * grabados);
+
+    leidos = listar_alumnos(NOMBRE_ARCHIVO);
+    if (leidos &lt; 0) {
+        printf("No se pudo abrir %s para lectura\n", NOMBRE_ARCHIVO);
+        return 1;
+    }
+    printf("\nSe leyeron %d registros del archivo\n", leidos);
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real (se omiten los ecos de la carga)</div>
+<pre class="code-block">Se grabaron 5 alumnos en alumnos.dat
+Tamano de t_regAlumno: 40 bytes. Tamano esperado del archivo: 200 bytes
+
+Padron   Apellido y nombre        Nota
+101203   Secchi, Ariel            8.50
+99872    Gomez, Lucia             6.75
+100455   Paredes, Martin          4.00
+104711   Duarte, Sofia            9.25
+98120    Ledesma, Bruno           2.50
+
+Se leyeron 5 registros del archivo</pre>
+</div>
+
+<p>Y el archivo generado en disco pesa exactamente <b>200 bytes</b>. Ese número dice algo:</p>
+
+<div class="key"><div class="ky-t">40 bytes, no 38: el <i>padding</i> del struct existe y se ve en el archivo</div>
+Sumá a mano: <span class="code">int padron</span> son 4 bytes, <span class="code">char ape_nom[30]</span> son 30, <span class="code">float nota</span> son 4. Total <b>38</b>. Pero <span class="code">sizeof(t_regAlumno)</span> devuelve <b>40</b>: el compilador mete <b>2 bytes de relleno</b> después del arreglo de 30 para que el <span class="code">float</span> arranque en una dirección múltiplo de 4.<br><br>
+Consecuencias prácticas, las dos importantes: <b>uno</b>, nunca calcules el tamaño de un registro sumando campos — usá siempre <span class="code">sizeof</span>, que es lo que hace <span class="code">fwrite</span>. <b>Dos</b>, un archivo binario escrito con un compilador puede no leerse igual con otro, porque el relleno depende del compilador y de la arquitectura. Por eso los archivos <span class="code">.dat</span> de esta materia se leen con el mismo programa que los escribió.
+</div>
+
+<div class="trap"><div class="tr-t">Las tres líneas de archivos que se olvidan y cuestan puntos</div>
+<b>Chequear el <span class="code">NULL</span>.</b> <span class="code">fopen</span> devuelve <span class="code">NULL</span> si no pudo abrir. Si no lo mirás, el <span class="code">fwrite</span> siguiente rompe el programa. Es una sola línea y es lo primero que busca un corrector.<br><br>
+<b>El <span class="code">fclose</span>.</b> Sin cerrar, lo que quedó en el buffer puede no llegar al disco: el archivo queda incompleto o vacío, y tu programa "anduvo".<br><br>
+<b>La condición de fin de lectura.</b> Se lee <span class="code">while (fread(…) == 1)</span>, comparando contra la <b>cantidad de elementos leídos</b>. Usar <span class="code">while (!feof(archivo))</span> procesa el último registro <b>dos veces</b>, porque <span class="code">feof</span> recién se prende <b>después</b> de una lectura que falló.
+</div>
+
+<h3>Bloque E · Recursividad y TDA (dos consignas, sin enunciado publicado)</h3>
+
+<div class="trap"><div class="tr-t">Estas dos tareas están vacías en el campus</div>
+<b>"Ejercicio Recursividad"</b> (abierta el 29/5/2024) sólo trae el texto administrativo de cómo entregar. <b>"Ejercicio TDA Número Complejo"</b> (abierta el 12/6/2024) tiene como cuerpo del enunciado <b>la letra "E"</b> y nada más. Los dos enunciados de abajo son <b>nuestros</b>, elegidos entre lo que la cátedra sí publica en sus guías: la Guía Recursividad tiene 15 ejercicios y de ahí salen los dos que resolvemos.
+</div>
+
+<h4>E1 · Ejercicio Recursividad (enunciado propuesto)</h4>
+
+<div class="example"><div class="ex-t">Enunciado propuesto, sobre los ejercicios 8 y 15 de la Guía Recursividad de la cátedra</div>
+<p><b>a)</b> Desarrollar una función recursiva que compruebe si un número pasado como parámetro es capicúa.</p>
+<p><b>b)</b> Implementar una función recursiva que calcule la potencia entre dos números enteros. La resolución debe basarse en el algoritmo de <b>exponenciación binaria</b>; si n = 0 el resultado debe ser 1, y también se deben admitir potencias negativas.</p>
+</div>
+
+<p>El capicúa recursivo tiene una trampa que casi nadie ve, así que van <b>las dos versiones</b>: la que sale sola y la correcta.</p>
+
+<pre class="code-block">/* Cuantos digitos tiene n. Caso base: un solo digito. */
+int cantidad_digitos(int n)
+{
+    if (n &lt; 10)
+        return 1;
+
+    return 1 + cantidad_digitos(n / 10);
+}
+
+/* 10 elevado a la exponente, para pelar el digito de la izquierda. */
+int potencia_de_diez(int exponente)
+{
+    if (exponente == 0)
+        return 1;
+
+    return 10 * potencia_de_diez(exponente - 1);
+}
+
+/*
+ * VERSION INGENUA: en cada llamada vuelve a contar los digitos.
+ * Falla con los ceros interiores. Esta aca solo para mostrar el error.
+ */
+bool es_capicua_ingenua(int n)
+{
+    int digitos;
+    int peso;
+
+    if (n &lt; 0)
+        n = -n;
+
+    digitos = cantidad_digitos(n);
+    if (digitos &lt;= 1)
+        return true;
+
+    peso = potencia_de_diez(digitos - 1);
+    if (n / peso != n % 10)
+        return false;
+
+    return es_capicua_ingenua((n % peso) / 10);
+}
+
+/*
+ * VERSION CORRECTA: la cantidad de digitos viaja como parametro, asi
+ * los ceros que quedan adelante despues de pelar un digito no se pierden.
+ */
+bool capicua_recursiva(int n, int digitos)
+{
+    int peso;
+
+    if (digitos &lt;= 1)
+        return true;
+
+    peso = potencia_de_diez(digitos - 1);
+    if (n / peso != n % 10)
+        return false;
+
+    return capicua_recursiva((n % peso) / 10, digitos - 2);
+}
+
+bool es_capicua(int n)
+{
+    if (n &lt; 0)
+        n = -n;
+
+    return capicua_recursiva(n, cantidad_digitos(n));
+}
+
+/*
+ * Exponenciacion binaria recursiva. Admite exponente 0 y negativo,
+ * por eso devuelve double.
+ */
+double potencia(double base, int exponente)
+{
+    double mitad;
+
+    if (exponente == 0)
+        return 1;
+
+    if (exponente &lt; 0)
+        return 1 / potencia(base, -exponente);
+
+    mitad = potencia(base, exponente / 2);
+    if (exponente % 2 == 0)
+        return mitad * mitad;
+
+    return mitad * mitad * base;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real</div>
+<pre class="code-block">--- Capicua recursivo ---
+   numero  version buena   version ingenua
+     1221  capicua         capicua
+    12321  capicua         capicua
+     1234  no capicua      no capicua
+        7  capicua         capicua
+        0  capicua         capicua
+     -898  capicua         capicua
+    10201  capicua         no capicua
+  1000021  no capicua      capicua
+
+--- Exponenciacion binaria recursiva ---
+2^10  = 1024
+2^0   = 1
+2^-3  = 0.125
+3^7   = 2187
+1.5^4 = 5.0625</pre>
+</div>
+
+<div class="key"><div class="ky-t">Las dos últimas filas: por qué la versión ingenua falla, y falla en los dos sentidos</div>
+<b>10201 sí es capicúa</b> y la ingenua dice que no. Después de comparar el primer 1 con el último 1, queda <span class="code">(10201 % 10000) / 10 = 201 / 10 = 20</span>. Ahí el <b>cero de adelante desapareció</b>: la función recuenta los dígitos, ve "20" con dos dígitos, compara 2 contra 0 y dice que no.<br><br>
+<b>1000021 no es capicúa</b> y la ingenua dice que sí. Compara el 1 de adelante con el 1 de atrás, y queda <span class="code">(1000021 % 1000000) / 10 = 21 / 10 = 2</span>: un solo dígito, caso base, "es capicúa". <b>Perdió cuatro ceros de una sola vez.</b><br><br>
+La solución no es parchear: es <b>pasar la cantidad de dígitos como parámetro</b> y restarle 2 en cada llamada. La cantidad de dígitos es parte del estado del problema; recalcularla desde el número es la falla de diseño.
+</div>
+
+<div class="trap"><div class="tr-t">Exponenciación binaria: el ejercicio 15 de la guía tiene tres casos base, no uno</div>
+<b>Exponente 0</b> → devuelve 1, y es el que corta la recursión. <b>Exponente negativo</b> → <span class="code">1 / potencia(base, -exponente)</span>, y por eso el tipo de retorno es <span class="code">double</span>: con <span class="code">int</span>, 2<sup>−3</sup> daría 0. <b>Exponente par o impar</b> → se calcula <b>una sola vez</b> la mitad y se la eleva al cuadrado. Escribir <span class="code">potencia(base, exponente / 2) * potencia(base, exponente / 2)</span> es el error que arruina el ejercicio: hace <b>dos</b> llamadas en vez de una, el árbol de recursión se duplica y el algoritmo deja de ser binario. Guardá la mitad en una variable.
+</div>
+
+<h4>E2 · Ejercicio TDA Número Complejo (enunciado propuesto)</h4>
+
+<div class="example"><div class="ex-t">Enunciado propuesto (la cátedra no publicó ninguno)</div>
+<p>Implementar un TDA Número Complejo. Definir el tipo, un constructor, y las operaciones de suma, resta, multiplicación, división, conjugado y módulo, más una operación de presentación. El programa principal debe usar el TDA <b>sin acceder a los campos de la estructura</b>.</p>
+</div>
+
+<div class="key"><div class="ky-t">Qué es lo que se evalúa en un TDA, y no es la aritmética</div>
+Lo que se evalúa es la <b>separación entre interfaz e implementación</b>: primero el tipo y los <b>prototipos</b> —lo único que el usuario del TDA necesita ver— y después los cuerpos. El <span class="code">main</span> tiene que poder usar el complejo sin escribir nunca <span class="code">a.real</span>: si mañana cambiás la representación a módulo y argumento, el <span class="code">main</span> no se toca. En un archivo de verdad la interfaz iría en un <span class="code">.h</span>; como la entrega es <b>un solo .c</b>, se simula con un bloque de prototipos arriba, separado con un comentario.
+</div>
+
+<pre class="code-block">/* --- Interfaz del TDA: lo unico que el usuario del TDA necesita ver --- */
+
+typedef struct {
+    double real;
+    double imaginaria;
+} t_complejo;
+
+t_complejo complejo_crear(double real, double imaginaria);
+t_complejo complejo_sumar(t_complejo a, t_complejo b);
+t_complejo complejo_restar(t_complejo a, t_complejo b);
+t_complejo complejo_multiplicar(t_complejo a, t_complejo b);
+bool complejo_dividir(t_complejo a, t_complejo b, t_complejo *resultado);
+t_complejo complejo_conjugado(t_complejo a);
+double complejo_modulo(t_complejo a);
+void complejo_mostrar(const char etiqueta[], t_complejo a);
+
+/* --- Implementacion --- */
+
+t_complejo complejo_crear(double real, double imaginaria)
+{
+    t_complejo nuevo;
+
+    nuevo.real = real;
+    nuevo.imaginaria = imaginaria;
+    return nuevo;
+}
+
+t_complejo complejo_sumar(t_complejo a, t_complejo b)
+{
+    return complejo_crear(a.real + b.real, a.imaginaria + b.imaginaria);
+}
+
+t_complejo complejo_multiplicar(t_complejo a, t_complejo b)
+{
+    double real = a.real * b.real - a.imaginaria * b.imaginaria;
+    double imaginaria = a.real * b.imaginaria + a.imaginaria * b.real;
+
+    return complejo_crear(real, imaginaria);
+}
+
+/* Devuelve false si el divisor es cero. */
+bool complejo_dividir(t_complejo a, t_complejo b, t_complejo *resultado)
+{
+    double denominador = b.real * b.real + b.imaginaria * b.imaginaria;
+
+    if (denominador == 0)
+        return false;
+
+    resultado-&gt;real = (a.real * b.real + a.imaginaria * b.imaginaria) / denominador;
+    resultado-&gt;imaginaria = (a.imaginaria * b.real - a.real * b.imaginaria) / denominador;
+    return true;
+}
+
+double complejo_modulo(t_complejo a)
+{
+    return sqrt(a.real * a.real + a.imaginaria * a.imaginaria);
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real, con a = 3 + 4i y b = 1 − 2i</div>
+<pre class="code-block">a =         3.00 + 4.00i
+b =         1.00 - 2.00i
+a + b =     4.00 + 2.00i
+a - b =     2.00 + 6.00i
+a * b =     11.00 - 2.00i
+a / b =     -1.00 + 2.00i
+conj(a) =   3.00 - 4.00i
+|a| =       5.00
+a / 0 devuelve: false</pre>
+</div>
+
+<p><span class="muted">Chequeo: (3+4i)(1−2i) = 3 − 6i + 4i + 8 = 11 − 2i. Y (3+4i)/(1−2i) = (3+4i)(1+2i)/5 = (−5+10i)/5 = −1 + 2i.</span></p>
+
+<div class="trap"><div class="tr-t">La división es la única operación que puede fallar, y por eso es la única que devuelve bool</div>
+Sumar, restar y multiplicar siempre se pueden: devuelven el complejo directamente. <b>Dividir por 0 + 0i no</b>, así que esa operación devuelve <span class="code">bool</span> y el resultado por parámetro. Es exactamente el mismo patrón que el Tipo Parcial 02 y que el cociente por restas sucesivas: <b>la operación que puede fracasar informa el éxito por retorno y el resultado por puntero</b>. Cuando en un enunciado leas "si no se puede…", ya sabés qué firma escribir.<br><br>
+Y ojo con la fórmula de la división: el conjugado del <b>denominador</b> multiplica arriba y abajo. Si te olvidás de cambiar el signo, la parte imaginaria te sale al revés y la suma y la resta siguen andando bien, así que el error pasa desapercibido hasta que alguien prueba la división.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fiuba-algoritmos-parcial"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · LOS SIETE PATRONES QUE SE REPITEN ============ -->
+<details id="fapp-s5">
+<summary><span class="num">5</span> Los siete patrones que se repiten <span class="sec-score" id="ss-fiuba-algoritmos-parcial-5"></span></summary>
+<div class="content">
+
+<p>Las 12 consignas del campus se resuelven con <b>siete estructuras de solución</b>, y las mismas siete cubren cualquier variante razonable. Con 25 minutos por ejercicio no hay tiempo de diseñar: hay tiempo de <b>reconocer</b>. Esta sección es el diccionario para reconocer.</p>
+
+<h3>La tabla de reconocimiento: qué frase del enunciado dispara qué patrón</h3>
+
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Es el patrón</th><th>Y lo primero que escribís es</th></tr>
+  <tr><td>"devuelva true si pudo y false si no", "si no se puede calcular", "informe si fue posible"</td><td><b>1 · Función que puede fallar</b></td><td>La firma: <span class="code">bool</span> de retorno, resultado por puntero</td></tr>
+  <tr><td>"devuelva los siguientes valores", "devuelva por parámetros", "dos resultados"</td><td><b>1 · variante de dos salidas</b></td><td><span class="code">void f(entrada, tipo *sal1, tipo *sal2)</span></td></tr>
+  <tr><td>"su máximo lógico", "el vector ya cargado con N elementos", "hasta MAX"</td><td><b>2 · Vector con máximo lógico</b></td><td>Los dos parámetros juntos, y el máximo por puntero si cambia</td></tr>
+  <tr><td>"recorriendo una sola vez", "sin utilizar un arreglo auxiliar", "sin usar otro vector"</td><td><b>3 · Dos índices sobre el mismo vector</b></td><td>Decidir la <b>dirección</b>: insertar va de atrás para adelante, eliminar al revés</td></tr>
+  <tr><td>"no se pueden utilizar arreglos" y el dato es un número</td><td><b>4 · Pelar dígitos</b></td><td><span class="code">do { digito = n % 10; … n = n / 10; } while (n &gt; 0);</span></td></tr>
+  <tr><td>"la carga finaliza cuando se ingresa 0", "hasta que ingrese un padron igual a 0"</td><td><b>5 · Carga con centinela</b></td><td>Leer <b>antes</b> del ciclo y <b>al final</b> del cuerpo</td></tr>
+  <tr><td>"grabe en el archivo", "asuma que el archivo es inexistente", "lea el archivo"</td><td><b>6 · Abrir, chequear, usar, cerrar</b></td><td><span class="code">if (archivo == NULL) return …;</span> antes de cualquier otra cosa</td></tr>
+  <tr><td>"una vez ordenado el vector por X, realizar una búsqueda binaria"</td><td><b>7 · Ordenar y después buscar</b></td><td>Verificar que el <b>último</b> ordenamiento sea por la clave que vas a buscar</td></tr>
+</table>
+
+<h3>Patrón 1 · La función que puede fallar</h3>
+
+<p>Aparece en el Tipo Parcial 02, en el cociente por restas sucesivas, en el factorial, en el promedio del curso y en la división de complejos. Es <b>el</b> patrón de la cátedra.</p>
+
+<div class="formula">bool operacion(entrada, tipo *resultado)</div>
+
+<table class="tbl">
+  <tr><th>Regla</th><th>Por qué</th></tr>
+  <tr><td>El <span class="code">return</span> informa <b>si se pudo</b>, no el resultado</td><td>Un valor de retorno no puede significar dos cosas. Si <span class="code">cociente_entero</span> devolviera el cociente, ¿qué devuelve cuando b es 0? Cualquier número que elijas es un cociente válido para otra entrada</td></tr>
+  <tr><td>El resultado sale por <b>puntero</b></td><td>Es la única forma de sacar un segundo valor de una función de C</td></tr>
+  <tr><td>Si devuelve <span class="code">false</span>, <b>no se toca nada</b></td><td>El invocante tiene que poder confiar en que sus variables quedaron como estaban. Es lo que hace <span class="code">intercalar</span> cuando el vector está lleno</td></tr>
+  <tr><td>El caso de falla se chequea <b>al principio</b></td><td>Salir temprano evita anidar todo el cuerpo dentro de un <span class="code">if</span> gigante</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La variante de dos salidas: el factorial es la excepción, no la regla</div>
+El factorial es el único de los doce ejercicios donde la cátedra pide devolver el error <b>como valor</b>: <i>"si no se puede calcular … deberá devolver 0"</i>. Funciona porque <b>0 no es un factorial posible</b> —todos los factoriales valen 1 o más—, así que el 0 es un valor centinela seguro. Cuando el enunciado no te regala un valor imposible, el <span class="code">bool</span> es la única salida limpia. Y cuando pide <b>dos</b> resultados y ninguno puede fallar —el Tipo Parcial 03, el timestamp— la función es <span class="code">void</span> con todos los resultados por puntero.
+</div>
+
+<h3>Patrón 2 · Vector y máximo lógico son un solo dato</h3>
+
+<p>Un arreglo en C no sabe cuántos elementos tiene <b>cargados</b>: sabe cuántos <b>caben</b>. La cantidad cargada —el <b>máximo lógico</b>— es una variable aparte que <b>viaja siempre pegada al vector</b>.</p>
+
+<table class="tbl">
+  <tr><th>Situación</th><th>Firma correcta</th></tr>
+  <tr><td>La función <b>sólo lee</b> el vector</td><td><span class="code">void mostrar(const t_libro libros[], int cantidad)</span></td></tr>
+  <tr><td>La función <b>modifica elementos</b> pero no la cantidad</td><td><span class="code">void ordenar(t_libro libros[], int cantidad)</span></td></tr>
+  <tr><td>La función <b>cambia la cantidad</b></td><td><span class="code">bool intercalar(t_vector vec, int *max_logico, int valor)</span></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">El <span class="code">sizeof</span> que no funciona dentro de la función</div>
+Adentro de <span class="code">void f(int vec[])</span>, escribir <span class="code">sizeof(vec) / sizeof(vec[0])</span> <b>no</b> te da la cantidad de elementos: el parámetro es un <b>puntero</b>, así que <span class="code">sizeof(vec)</span> son 8 bytes y la cuenta da 2. En el <span class="code">main</span>, donde el arreglo está declarado de verdad, esa cuenta sí anda — y por eso el error es tan confuso. Regla simple: <b>la cantidad se pasa siempre por parámetro</b>, sin excepción.
+</div>
+
+<h3>Patrón 3 · Dos índices sobre el mismo vector</h3>
+
+<p>Es la técnica que responde a "una sola pasada, sin arreglo auxiliar". Tiene <b>dos formas</b> y la elección depende de si el vector <b>crece</b> o <b>se achica</b>.</p>
+
+<table class="tbl">
+  <tr><th></th><th>Insertar (el vector crece)</th><th>Eliminar (el vector se achica)</th></tr>
+  <tr><td><b>Dirección</b></td><td>De atrás hacia adelante</td><td>De adelante hacia atrás</td></tr>
+  <tr><td><b>Por qué</b></td><td>Corrés hacia una posición ya visitada o libre: nunca pisás lo que falta leer</td><td>Escribís siempre <b>detrás</b> de donde leés: el índice de escritura nunca alcanza al de lectura</td></tr>
+  <tr><td><b>Núcleo</b></td><td><pre class="code-block">i = *max_logico - 1;
+while (i &gt;= 0 &amp;&amp; vec[i] &gt; valor) {
+    vec[i + 1] = vec[i];
+    --i;
+}
+vec[i + 1] = valor;</pre></td><td><pre class="code-block">escritura = 0;
+for (lectura = 0; lectura &lt; *max_logico; lectura++) {
+    if (vec[lectura] != valor) {
+        vec[escritura] = vec[lectura];
+        ++escritura;
+    }
+}
+*max_logico = escritura;</pre></td></tr>
+  <tr><td><b>Máximo lógico</b></td><td><span class="code">++(*max_logico)</span> al final</td><td><span class="code">*max_logico = escritura</span> al final</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La versión de eliminar también sirve para filtrar</div>
+Cambiá la condición <span class="code">vec[lectura] != valor</span> por cualquier otra y tenés "borrar los negativos", "dejar sólo los pares", "eliminar los repetidos consecutivos". El esqueleto —dos índices, uno que siempre avanza y otro que avanza sólo cuando el elemento se conserva— es idéntico. Está resuelto en el simulacro de la sección 6.
+</div>
+
+<h3>Patrón 4 · Pelar dígitos, sin arreglos</h3>
+
+<div class="formula">do { digito = n % 10; /* … */ n = n / 10; } while (n &gt; 0);</div>
+
+<table class="tbl">
+  <tr><th>Enunciado</th><th>Qué cambia</th></tr>
+  <tr><td>Producto de los dígitos pares</td><td>acumulador arranca en <b>1</b>, condición <span class="code">digito % 2 == 0</span>, operación <span class="code">*=</span></td></tr>
+  <tr><td>Suma de los dígitos</td><td>acumulador en <b>0</b>, sin condición, operación <span class="code">+=</span></td></tr>
+  <tr><td>Mayor dígito y cuántas veces aparece</td><td>acumulador en <b>−1</b>, se reinicia el contador cuando aparece uno mayor</td></tr>
+  <tr><td>Dar vuelta el número</td><td><span class="code">invertido = invertido * 10 + digito</span></td></tr>
+  <tr><td>Contar los dígitos</td><td>contador en 0, <span class="code">++contador</span> siempre</td></tr>
+  <tr><td>¿Es binario? (sólo ceros y unos)</td><td><span class="code">if (digito &gt; 1) return false;</span></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Tres cosas que se rompen siempre en este patrón</div>
+<b>El <span class="code">while</span> en vez del <span class="code">do-while</span></b>: el número 0 no entra al ciclo y la función miente.<br>
+<b>El negativo</b>: en C, <span class="code">-25 % 10</span> da <b>−5</b>, no 5. Pasá a positivo <b>antes</b> del ciclo.<br>
+<b>El acumulador sin inicializar</b>: si viene por puntero, hay que asignarle el valor neutro al entrar a la función, no confiar en lo que traiga.
+</div>
+
+<h3>Patrón 5 · Carga con centinela</h3>
+
+<p>Aparece en la librería (código 0), en alumnos (padrón 0), en el archivo de alumnos (padrón 0) y en el integrador (socio 0). Siempre igual, y hay <b>una sola forma correcta de escribirlo</b>:</p>
+
+<pre class="code-block">printf("Codigo (0 termina): ");
+clave = leer_entero();                      /* lectura ANTICIPADA, antes del ciclo */
+while (clave != 0 &amp;&amp; *cantidad &lt; MAX_LIBROS) {
+    /* … cargar el resto de los campos con la clave que ya leí … */
+    ++(*cantidad);
+    printf("Codigo (0 termina): ");
+    clave = leer_entero();                  /* lectura al FINAL del cuerpo */
+}</pre>
+
+<table class="tbl">
+  <tr><th>Detalle</th><th>Qué pasa si lo hacés distinto</th></tr>
+  <tr><td>La <b>lectura anticipada</b></td><td>Si leés recién dentro del ciclo, la condición evalúa una variable sin valor en la primera vuelta</td></tr>
+  <tr><td>La <b>segunda</b> condición, <span class="code">*cantidad &lt; MAX</span></td><td>Sin ella, el usuario carga más elementos que los que caben y escribís fuera del arreglo. El enunciado de la librería lo pide explícito: <i>"permitir ingresar hasta MAX_LIBROS libros"</i></td></tr>
+  <tr><td>El centinela <b>no se guarda</b></td><td>El 0 marca el fin, no es un dato. Si lo guardás, aparece un libro fantasma con código 0 en todos los listados</td></tr>
+</table>
+
+<h3>Patrón 6 · Abrir, chequear, usar, cerrar</h3>
+
+<pre class="code-block">archivo = fopen(nombre_archivo, "wb");
+if (archivo == NULL)
+    return -1;              /* o false: el invocante decide qué hacer */
+
+/* … fwrite / fread … */
+
+fclose(archivo);</pre>
+
+<table class="tbl">
+  <tr><th>Modo</th><th>Cuándo</th><th>Ojo con</th></tr>
+  <tr><td><span class="code">"wb"</span></td><td>Crear el archivo desde cero. Es el de <i>"asuma que el archivo es inexistente"</i></td><td><b>Trunca</b> si ya existía: te comés todo lo que había</td></tr>
+  <tr><td><span class="code">"rb"</span></td><td>Leer un archivo que ya existe</td><td>Devuelve <span class="code">NULL</span> si el archivo no está. Es el caso donde el chequeo salva el programa</td></tr>
+  <tr><td><span class="code">"ab"</span></td><td>Agregar registros al final sin borrar</td><td>Es el modo de "dar de alta" sobre un archivo existente</td></tr>
+  <tr><td><span class="code">"rt"</span> / <span class="code">"wt"</span></td><td>Archivos de <b>texto</b>: se escriben con <span class="code">fprintf</span> y se leen con <span class="code">fgets</span></td><td>Un <span class="code">.dat</span> binario no se abre con un editor de texto y un <span class="code">.txt</span> no se lee con <span class="code">fread</span> de structs</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La condición de fin de archivo: <span class="code">fread</span> sí, <span class="code">feof</span> no</div>
+<span class="code">while (fread(&amp;reg, sizeof(reg), 1, archivo) == 1)</span> — se corta cuando la lectura no trajo un registro completo.<br><br>
+<span class="code">while (!feof(archivo))</span> — <b>procesa el último registro dos veces</b>. <span class="code">feof</span> no adivina que el archivo terminó: recién devuelve verdadero <b>después</b> de que una lectura falló. En la última vuelta, el <span class="code">fread</span> no lee nada, el struct conserva los datos anteriores, y los imprimís de nuevo.
+</div>
+
+<h3>Patrón 7 · Ordenar y después buscar</h3>
+
+<p>La búsqueda binaria descarta la mitad de los elementos en cada paso <b>porque asume que están ordenados por la clave que busca</b>. Si esa asunción no vale, no falla: <b>miente</b>. Devuelve "no encontrado" sobre un elemento que está ahí.</p>
+
+<table class="tbl">
+  <tr><th>Búsqueda</th><th>Precondición</th><th>Costo</th><th>Cuándo usarla</th></tr>
+  <tr><td><b>Lineal</b></td><td>Ninguna</td><td>Hasta N comparaciones</td><td>Vector desordenado, o buscar por un campo que no es la clave de orden</td></tr>
+  <tr><td><b>Binaria</b></td><td>Vector <b>ordenado por la clave buscada</b></td><td>Unas 7 comparaciones para 100 elementos</td><td>Cuando el enunciado lo pide, y sólo después de ordenar por esa clave</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El orden del <span class="code">main</span> en el ejercicio de la librería no es decorativo</div>
+La consigna pide tres ordenamientos —título, stock, código— <b>y después</b> la búsqueda binaria por código. Por eso en el <span class="code">main</span> el ordenamiento <b>por código va último</b>: es el que tiene que quedar vigente cuando entra la búsqueda. Si dejás el de stock al final y buscás binariamente por código, el programa compila, corre, no avisa nada, y contesta mal. Es el bug más caro del ejercicio porque no se ve.
+</div>
+
+<div class="trap"><div class="tr-t">Los tres errores clásicos de la binaria</div>
+<b>Uno</b>: <span class="code">while (primero &lt; ultimo)</span> en vez de <span class="code">&lt;=</span>. Con un solo elemento restante el ciclo no entra y nunca lo encuentra.<br>
+<b>Dos</b>: mover los extremos a <span class="code">medio</span> en vez de a <span class="code">medio + 1</span> y <span class="code">medio - 1</span>. Ciclo infinito.<br>
+<b>Tres</b>: devolver <span class="code">0</span> cuando no encontró. <b>0 es una posición válida</b>. Se devuelve <span class="code">-1</span>, y el invocante pregunta <span class="code">if (posicion &gt;= 0)</span>.
+</div>
+
+<h3>El chequeo final, para cualquier ejercicio, en tres minutos</h3>
+
+<table class="tbl">
+  <tr><th>Pregunta</th><th>Qué mirás</th></tr>
+  <tr><td>¿Respeté la <b>restricción de método</b>?</td><td>Contá los recorridos del vector con el dedo. Buscá si declaraste un segundo arreglo</td></tr>
+  <tr><td>¿Probé el <b>caso vacío</b>?</td><td>Máximo lógico 0, cadena vacía, archivo sin registros, número 0</td></tr>
+  <tr><td>¿Probé los <b>dos extremos</b>?</td><td>Insertar antes del primero y después del último. Buscar el primero y el último. Vector lleno</td></tr>
+  <tr><td>¿Probé un <b>negativo</b>?</td><td>Si la entrada es un número, siempre</td></tr>
+  <tr><td>¿Los <b>parámetros de salida</b> están inicializados?</td><td>Primeras líneas de la función, antes de cualquier ciclo</td></tr>
+  <tr><td>¿El <span class="code">main</span> <b>invoca</b> lo que pide la consigna?</td><td>Y prueba casos borde, no un caso feliz</td></tr>
+</table>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fiuba-algoritmos-parcial"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · SIMULACRO DE PARCIAL ============ -->
+<details id="fapp-s6">
+<summary><span class="num">6</span> Simulacro de parcial <span class="sec-score" id="ss-fiuba-algoritmos-parcial-6"></span></summary>
+<div class="content">
+
+<div class="trap"><div class="tr-t">Esto no es un parcial de la cátedra</div>
+La cátedra <b>no publica parciales</b> (sección 1). Este simulacro lo armamos nosotros <b>imitando el estilo de las dos consignas que la cátedra sí llama "Tipo Parcial"</b>: tres ejercicios independientes, cada uno con una <b>restricción de método</b> explícita, cada uno pidiendo una función más el programa que la invoca. No es una predicción de qué va a tomar: es un entrenamiento con el formato correcto.
+</div>
+
+<h3>Las reglas del simulacro</h3>
+
+<table class="tbl">
+  <tr><th>Regla</th><th>Detalle</th></tr>
+  <tr><td><b>Tiempo</b></td><td><b>25 minutos por ejercicio</b>, 75 en total, cronometrados. Es la ventana real que la cátedra da en tres de sus tareas del campus</td></tr>
+  <tr><td><b>Qué entregás</b></td><td>Un <span class="code">.c</span> por ejercicio, con la función <b>y</b> el <span class="code">main</span> que la invoca y prueba casos borde</td></tr>
+  <tr><td><b>Estilo</b></td><td>Convención de la cátedra, y auditalo con los 12 puntos de la sección 2 <b>antes</b> de mirar las soluciones</td></tr>
+  <tr><td><b>Compilá</b></td><td>Si no compila, el ejercicio no cuenta. Ésa es la regla de la vida real y acá también</td></tr>
+</table>
+
+<h3>El examen</h3>
+
+<div class="example"><div class="ex-t">SIMULACRO · Ejercicio 1 · 25 minutos</div>
+<p>Dadas las siguientes declaraciones de constantes y tipos:</p>
+<pre class="code-block">#define MAX 100
+typedef int t_vector[MAX];</pre>
+<p>Desarrollar una función en lenguaje C que reciba tres parámetros: un vector del tipo <span class="code">t_vector</span> ya cargado con datos, su máximo lógico y un número entero, y que <b>elimine del vector todas las apariciones</b> de ese número, conservando el orden relativo de los elementos que quedan.</p>
+<p>Se espera que la función devuelva al módulo invocante <span class="code">true</span> si eliminó al menos un elemento y <span class="code">false</span> si no eliminó ninguno. Tanto el vector como el máximo lógico actualizados deben devolverse sobre los parámetros recibidos.</p>
+<p>Se solicita resolver lo solicitado <b>recorriendo una sola vez el vector y sin utilizar un arreglo auxiliar</b>. Escribir un programa que invoque dicha función.</p>
+</div>
+
+<div class="example"><div class="ex-t">SIMULACRO · Ejercicio 2 · 25 minutos</div>
+<p>Escribir una función en C que reciba como parámetro un número entero y devuelva al módulo invocante los siguientes valores:</p>
+<ul>
+  <li>el <b>mayor</b> de sus dígitos, y</li>
+  <li>la <b>cantidad de veces</b> que ese dígito aparece en el número.</li>
+</ul>
+<p>Por ejemplo: el número con el que se invoca la función es 919293 → el mayor dígito es 9 → la función debe devolver los valores 9 y 3.</p>
+<p><b>Nota:</b> para la resolución de este ejercicio <b>no se pueden utilizar arreglos</b>. Escribir un programa que invoque dicha función y la pruebe con al menos un número negativo y con el cero.</p>
+</div>
+
+<div class="example"><div class="ex-t">SIMULACRO · Ejercicio 3 · 25 minutos</div>
+<p>Escribir un programa modular que, dada una cadena de a lo sumo 60 caracteres cargada con una frase, devuelva por parámetro <b>la palabra más larga</b> de la frase y <b>la cantidad de palabras</b> que tiene. Las palabras están separadas por uno o más espacios, y la frase puede empezar o terminar con espacios.</p>
+<p><b>Nota:</b> no se puede utilizar <span class="code">strtok</span>, y la frase debe recorrerse <b>una sola vez</b>.</p>
+</div>
+
+<h3>Cómo corregirte</h3>
+
+<p>Antes de revelar nada, pasá tu código por esta grilla. Es la misma que usaría un corrector y la mitad de los puntos que se pierden están acá, no en el algoritmo:</p>
+
+<table class="tbl">
+  <tr><th>Control</th><th>Ej 1</th><th>Ej 2</th><th>Ej 3</th></tr>
+  <tr><td>¿La <b>restricción de método</b> se cumple?</td><td>Un solo <span class="code">for</span> sobre el vector, ningún segundo arreglo</td><td>Ningún arreglo. <span class="code">% 10</span> y <span class="code">/ 10</span></td><td>Un solo recorrido, sin <span class="code">strtok</span></td></tr>
+  <tr><td>¿La <b>firma</b> es la que pide el enunciado?</td><td><span class="code">bool</span>, máximo lógico por puntero</td><td><span class="code">void</span> con dos punteros de salida</td><td>Cadena de salida por parámetro, contador por puntero</td></tr>
+  <tr><td>¿El <b>caso vacío</b> anda?</td><td>Máximo lógico 0</td><td>El número 0</td><td>Frase de puros espacios, o vacía</td></tr>
+  <tr><td>¿El <b>caso extremo</b> anda?</td><td>Todos los elementos son el valor a eliminar</td><td>Un número negativo</td><td>Espacios al principio y al final, espacios repetidos</td></tr>
+  <tr><td>¿El <span class="code">main</span> <b>prueba</b> eso?</td><td colspan="3">No alcanza con que la función sea correcta: la consigna pide el programa que la invoca, y el programa se juzga por lo que prueba</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cómo leer tu resultado</div>
+<b>3 de 3, compilando, en 75 minutos</b> · estás listo. Pasá al integrador de la sección 7.<br>
+<b>2 de 3</b> · mirá <b>en qué</b> fallaste. Si fue en la restricción de método, volvé al patrón 3 de la sección 5. Si fue en un caso borde, el problema no es el algoritmo sino el <span class="code">main</span>: entrenate a escribir el <span class="code">main</span> con los casos borde <b>antes</b> de escribir la función.<br>
+<b>1 o 0</b> · no sigas de largo: rehacé los dos "Tipo Parcial" de la sección 3 sin mirar, y recién después volvé acá con otro cronómetro.<br><br>
+Y contá también <b>cuántos minutos te llevó el que sí salió</b>. Si un ejercicio te llevó 40, en el parcial hubieras entregado dos.
+</div>
+
+<div class="reveal-wrap" data-rv="6" data-subject="fiuba-algoritmos-parcial"></div>
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · SIMULACRO DE INTEGRADOR ============ -->
+<details id="fapp-s7">
+<summary><span class="num">7</span> Simulacro de integrador <span class="sec-score" id="ss-fiuba-algoritmos-parcial-7"></span></summary>
+<div class="content">
+
+<div class="trap"><div class="tr-t">Otra vez: esto no es un integrador de la cátedra</div>
+De los integradores sabemos <b>que existen y cuándo se rindieron</b> —cuatro planillas de notas entre el 1/7 y el 14/8 de 2026— y nada más. El enunciado de abajo es <b>nuestro</b>. Lo armamos sobre el único indicio real que hay: el <b>nombre</b>. "Integrador" quiere decir que un solo enunciado toca varias unidades a la vez, y las unidades que quedan fuera del alcance de las dos consignas "Tipo Parcial" son <b>struct, archivos, memoria dinámica y ordenamiento</b>. Esas cuatro son las que integra este ejercicio.
+</div>
+
+<h3>El enunciado</h3>
+
+<div class="example"><div class="ex-t">SIMULACRO DE INTEGRADOR · 90 minutos · Sistema de socios de un club</div>
+<p>Un club administra sus socios con la siguiente estructura:</p>
+<pre class="code-block">typedef struct {
+    int nro_socio;
+    char ape_nom[41];
+    char categoria[16];
+    float cuota;
+} t_socio;</pre>
+<p>Escribir un <b>programa modular</b> que resuelva los siguientes puntos, cada uno en su propia función:</p>
+<p><b>1)</b> Permitir dar de alta socios por teclado y grabarlos en un archivo binario llamado <span class="code">socios.dat</span>. La carga finaliza cuando se ingresa un número de socio igual a 0. Asuma que el archivo es inexistente.</p>
+<p><b>2)</b> Leer el archivo completo a un <b>vector dinámico</b>, reservando exactamente la memoria necesaria. La cantidad de registros <b>no</b> se puede pedir al usuario: hay que averiguarla a partir del archivo.</p>
+<p><b>3)</b> Ordenar el vector dinámico por cuota, en forma <b>descendente</b>.</p>
+<p><b>4)</b> Informes: a) total recaudado; b) el socio de cuota más alta; c) cuántos socios hay en cada categoría.</p>
+<p><b>5)</b> Generar un archivo de <b>texto</b> llamado <span class="code">morosos.txt</span> con los socios cuya cuota supere una constante <span class="code">CUOTA_ALTA</span>, un socio por renglón, con los campos separados por punto y coma. Mostrar por pantalla el contenido del archivo generado.</p>
+<p><b>6)</b> Liberar la memoria reservada.</p>
+</div>
+
+<h3>Qué integra cada punto, y por qué el orden es ése</h3>
+
+<table class="tbl">
+  <tr><th>Punto</th><th>Unidad</th><th>La decisión que se evalúa</th></tr>
+  <tr><td>1</td><td>Struct + archivos binarios + carga con centinela</td><td>Modo <span class="code">"wb"</span>, chequeo de <span class="code">NULL</span>, no guardar el centinela</td></tr>
+  <tr><td>2</td><td><b>Memoria dinámica</b> + archivos</td><td>Averiguar el tamaño con <span class="code">fseek</span>/<span class="code">ftell</span> y dividir por <span class="code">sizeof</span>. Reservar con <span class="code">malloc</span> y chequear que no haya devuelto <span class="code">NULL</span></td></tr>
+  <tr><td>3</td><td>Ordenamiento sobre memoria dinámica</td><td>Que el algoritmo funcione igual sobre un puntero que sobre un arreglo declarado</td></tr>
+  <tr><td>4</td><td>Recorridos con acumulador y contador</td><td>Aprovechar que el vector ya está ordenado: el de cuota más alta es <span class="code">socios[0]</span>, no hay que buscarlo</td></tr>
+  <tr><td>5</td><td>Archivos de <b>texto</b></td><td><span class="code">fprintf</span> con formato, no <span class="code">fwrite</span>. Es la diferencia entre un archivo que se abre con el Bloc de notas y uno que no</td></tr>
+  <tr><td>6</td><td>Memoria dinámica</td><td><span class="code">free</span> y poner el puntero en <span class="code">NULL</span></td></tr>
+</table>
+
+<h3>El punto 2, que es el corazón del ejercicio</h3>
+
+<p>"La cantidad de registros no se puede pedir al usuario". El archivo sabe cuánto pesa, y cada registro pesa <span class="code">sizeof(t_socio)</span>: la división da la cantidad exacta.</p>
+
+<pre class="code-block">/*
+ * Averigua cuantos registros tiene el archivo con fseek/ftell, reserva
+ * exactamente ese espacio y lo lee de una sola vez.
+ * Devuelve el puntero al vector, o NULL si algo fallo.
+ */
+t_socio *leer_a_memoria(const char nombre_archivo[], int *cantidad)
+{
+    FILE *archivo;
+    t_socio *socios;
+    long bytes;
+
+    *cantidad = 0;
+    archivo = fopen(nombre_archivo, "rb");
+    if (archivo == NULL)
+        return NULL;
+
+    fseek(archivo, 0, SEEK_END);
+    bytes = ftell(archivo);
+    rewind(archivo);
+    *cantidad = (int) (bytes / (long) sizeof(t_socio));
+    if (*cantidad == 0) {
+        fclose(archivo);
+        return NULL;
+    }
+
+    socios = (t_socio *) malloc(*cantidad * sizeof(t_socio));
+    if (socios == NULL) {
+        fclose(archivo);
+        *cantidad = 0;
+        return NULL;
+    }
+
+    if ((int) fread(socios, sizeof(t_socio), *cantidad, archivo) != *cantidad) {
+        free(socios);
+        fclose(archivo);
+        *cantidad = 0;
+        return NULL;
+    }
+    fclose(archivo);
+    return socios;
+}</pre>
+
+<table class="tbl">
+  <tr><th>Línea</th><th>Qué hace y por qué está</th></tr>
+  <tr><td><span class="code">fseek(archivo, 0, SEEK_END)</span></td><td>Mueve el cursor al final. <span class="code">SEEK_END</span> con desplazamiento 0 es "el último byte"</td></tr>
+  <tr><td><span class="code">bytes = ftell(archivo)</span></td><td>Devuelve la posición del cursor, que estando al final <b>es el tamaño en bytes</b></td></tr>
+  <tr><td><span class="code">rewind(archivo)</span></td><td><b>Vuelve el cursor al principio.</b> Sin esto, el <span class="code">fread</span> siguiente lee desde el final y no trae nada. Es la línea que más veces se olvida</td></tr>
+  <tr><td><span class="code">bytes / sizeof(t_socio)</span></td><td>La cantidad de registros. Nunca se calcula sumando los campos a mano: el <i>padding</i> del struct te haría dar mal la cuenta</td></tr>
+  <tr><td><span class="code">if (socios == NULL)</span></td><td><span class="code">malloc</span> puede fallar. Un <span class="code">malloc</span> sin chequear es una entrega incompleta</td></tr>
+  <tr><td>Un solo <span class="code">fread</span> con <span class="code">*cantidad</span></td><td>Se leen los N registros de una vez, no de a uno en un ciclo. Y se compara el retorno contra N para confirmar que se leyeron todos</td></tr>
+  <tr><td><span class="code">free</span> antes de cada <span class="code">return NULL</span></td><td>Si la lectura falla <b>después</b> del <span class="code">malloc</span>, esa memoria hay que devolverla. Salir sin liberar es una fuga</td></tr>
+</table>
+
+<h3>Los otros puntos, en su forma final</h3>
+
+<pre class="code-block">/* Punto 3: insercion directa por cuota descendente, sobre el vector dinamico. */
+void ordenar_por_cuota(t_socio *socios, int cantidad)
+{
+    t_socio actual;
+    int i;
+    int j;
+
+    for (i = 1; i &lt; cantidad; i++) {
+        actual = socios[i];
+        j = i - 1;
+        while (j &gt;= 0 &amp;&amp; socios[j].cuota &lt; actual.cuota) {
+            socios[j + 1] = socios[j];
+            --j;
+        }
+        socios[j + 1] = actual;
+    }
+}
+
+/* Punto 4a */
+float total_recaudado(const t_socio *socios, int cantidad)
+{
+    float total = 0;
+    int i;
+
+    for (i = 0; i &lt; cantidad; i++)
+        total = total + socios[i].cuota;
+
+    return total;
+}
+
+/* Punto 4c */
+int contar_categoria(const t_socio *socios, int cantidad, const char categoria[])
+{
+    int contador = 0;
+    int i;
+
+    for (i = 0; i &lt; cantidad; i++) {
+        if (strcmp(socios[i].categoria, categoria) == 0)
+            ++contador;
+    }
+    return contador;
+}
+
+/* Punto 5: archivo de TEXTO, con fprintf. */
+int grabar_cuotas_altas(const char nombre_archivo[], const t_socio *socios, int cantidad, float tope)
+{
+    FILE *archivo;
+    int grabados = 0;
+    int i;
+
+    archivo = fopen(nombre_archivo, "wt");
+    if (archivo == NULL)
+        return -1;
+
+    fprintf(archivo, "SOCIOS CON CUOTA MAYOR A %.2f\n", tope);
+    for (i = 0; i &lt; cantidad; i++) {
+        if (socios[i].cuota &gt; tope) {
+            fprintf(archivo, "%d;%s;%s;%.2f\n", socios[i].nro_socio, socios[i].ape_nom,
+                    socios[i].categoria, socios[i].cuota);
+            ++grabados;
+        }
+    }
+    fclose(archivo);
+    return grabados;
+}</pre>
+
+<p>Y el <span class="code">main</span>, que es el guion de los seis puntos con los chequeos de error en el medio:</p>
+
+<pre class="code-block">int main(void)
+{
+    t_socio *socios;
+    int cantidad;
+    int grabados;
+    int altas;
+
+    grabados = cargar_archivo(ARCHIVO_SOCIOS);
+    if (grabados &lt;= 0) {
+        printf("No se pudo generar %s\n", ARCHIVO_SOCIOS);
+        return 1;
+    }
+    printf("\n1) Se grabaron %d socios en %s (%d bytes por registro)\n",
+           grabados, ARCHIVO_SOCIOS, (int) sizeof(t_socio));
+
+    socios = leer_a_memoria(ARCHIVO_SOCIOS, &amp;cantidad);
+    if (socios == NULL) {
+        printf("No se pudo leer %s a memoria\n", ARCHIVO_SOCIOS);
+        return 1;
+    }
+    printf("2) Se reservaron %d bytes para %d registros\n",
+           (int) (cantidad * sizeof(t_socio)), cantidad);
+    mostrar_socios(socios, cantidad, "   Contenido del archivo, en el orden en que fue grabado");
+
+    ordenar_por_cuota(socios, cantidad);
+    mostrar_socios(socios, cantidad, "3) ORDENADO POR CUOTA (descendente)");
+
+    printf("\n4) INFORMES\n");
+    printf("a) Total recaudado: %.2f\n", total_recaudado(socios, cantidad));
+    printf("b) Socio de cuota mas alta: %s (%.2f)\n", socios[0].ape_nom, socios[0].cuota);
+    printf("c) Vitalicios: %d | Activos: %d | Cadetes: %d\n",
+           contar_categoria(socios, cantidad, "Vitalicio"),
+           contar_categoria(socios, cantidad, "Activo"),
+           contar_categoria(socios, cantidad, "Cadete"));
+
+    altas = grabar_cuotas_altas(ARCHIVO_MOROSOS, socios, cantidad, CUOTA_ALTA);
+    printf("\n5) Se grabaron %d socios en %s. Contenido:\n", altas, ARCHIVO_MOROSOS);
+    mostrar_archivo_texto(ARCHIVO_MOROSOS);
+
+    free(socios);
+    socios = NULL;
+    printf("\n6) Memoria liberada.\n");
+    return 0;
+}</pre>
+
+<div class="example"><div class="ex-t">Salida real, con seis socios cargados (se omiten los ecos de la carga)</div>
+<pre class="code-block">1) Se grabaron 6 socios en socios.dat (68 bytes por registro)
+2) Se reservaron 408 bytes para 6 registros
+
+   Contenido del archivo, en el orden en que fue grabado
+Nro    Apellido y nombre        Categoria         Cuota
+1001   Alvarez, Nicolas         Activo         18500.00
+1002   Benitez, Carla           Vitalicio      32000.00
+1003   Cabrera, Diego           Cadete          9500.00
+1004   Duarte, Sofia            Activo         21750.50
+1005   Escalante, Ramiro        Vitalicio      32000.00
+1006   Ferreyra, Julieta        Cadete          9500.00
+
+3) ORDENADO POR CUOTA (descendente)
+Nro    Apellido y nombre        Categoria         Cuota
+1002   Benitez, Carla           Vitalicio      32000.00
+1005   Escalante, Ramiro        Vitalicio      32000.00
+1004   Duarte, Sofia            Activo         21750.50
+1001   Alvarez, Nicolas         Activo         18500.00
+1003   Cabrera, Diego           Cadete          9500.00
+1006   Ferreyra, Julieta        Cadete          9500.00
+
+4) INFORMES
+a) Total recaudado: 123250.50
+b) Socio de cuota mas alta: Benitez, Carla (32000.00)
+c) Vitalicios: 2 | Activos: 2 | Cadetes: 2
+
+5) Se grabaron 3 socios en morosos.txt. Contenido:
+   SOCIOS CON CUOTA MAYOR A 20000.00
+   1002;Benitez, Carla;Vitalicio;32000.00
+   1005;Escalante, Ramiro;Vitalicio;32000.00
+   1004;Duarte, Sofia;Activo;21750.50
+
+6) Memoria liberada.</pre>
+</div>
+
+<div class="key"><div class="ky-t">Dos números de esa salida que valen la pena mirar dos veces</div>
+<b>68 bytes por registro.</b> Sumando campos: 4 + 41 + 16 + 4 = <b>65</b>. El compilador agrega <b>3 bytes de relleno</b> para alinear el <span class="code">float</span>. Por eso la reserva es <span class="code">6 × 68 = 408</span> y no 390: <span class="code">malloc(cantidad * sizeof(t_socio))</span> lo resuelve solo, y calcularlo a mano lo rompe.<br><br>
+<b>El empate de los 32000.</b> Benítez y Escalante tienen la misma cuota, y después de ordenar Benítez sigue primero, igual que en el archivo. La inserción directa con <span class="code">&lt;</span> estricto en la condición es <b>estable</b>: no reordena los empatados. Con <span class="code">&lt;=</span> los daría vuelta. En un informe con desempate por orden de carga, eso es una respuesta distinta.
+</div>
+
+<div class="trap"><div class="tr-t">Las cinco formas de perder puntos en un integrador aunque el programa ande</div>
+<b>1 · No chequear <span class="code">malloc</span>.</b> Devuelve <span class="code">NULL</span> cuando no hay memoria, y el programa sigue como si nada hasta que revienta.<br>
+<b>2 · No liberar.</b> <span class="code">free(socios)</span> al final, y el puntero a <span class="code">NULL</span> después, para que un uso posterior falle rápido en vez de leer basura.<br>
+<b>3 · Olvidar el <span class="code">rewind</span>.</b> Después de <span class="code">fseek</span> al final, el cursor quedó ahí. Sin volverlo al principio no leés nada, y el síntoma es "el archivo está vacío" cuando no lo está.<br>
+<b>4 · Escribir el archivo de texto con <span class="code">fwrite</span>.</b> El punto 5 pide un <span class="code">.txt</span> legible: eso es <span class="code">fprintf</span>. Volcar structs crudos con <span class="code">fwrite</span> genera un archivo con el nombre correcto y el contenido equivocado.<br>
+<b>5 · Ordenar y después buscar por otra clave.</b> El punto 4b dice "el socio de cuota más alta", y como el punto 3 ya ordenó por cuota descendente, la respuesta es <span class="code">socios[0]</span>. Volver a recorrer no está mal, pero delata que no viste la dependencia entre los puntos — y en el caso inverso, buscar binariamente por número de socio en un vector ordenado por cuota, la respuesta directamente da mal.
+</div>
+
+<div class="key"><div class="ky-t">Cómo tomarte este simulacro para que sirva</div>
+<b>90 minutos, con compilador, con los seis puntos a la vista y sin mirar el código de acá.</b> Y hacelo en este orden, que no es el del enunciado: <b>primero el punto 1</b> (la carga y el archivo), <b>después el 2</b> (leerlo a memoria), y recién ahí los demás. Los puntos 3, 4 y 5 son cortos y conocidos; los que deciden el ejercicio son el 1 y el 2, y son los que hay que tener andando antes de que se acabe la primera media hora.<br><br>
+Si al terminar te quedan minutos, gastalos en <b>probar con el archivo vacío</b>: cargá sin dar de alta a nadie (número 0 en la primera pregunta) y mirá qué hace tu programa. Ahí es donde se caen casi todas las entregas.
+</div>
+
+<div class="reveal-wrap" data-rv="7" data-subject="fiuba-algoritmos-parcial"></div>
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-algoritmos-parcial"></div>
+<a class="back" href="#subject-fiuba-algoritmos-parcial">↑ Volver al índice</a>
+</div>
+</details>
