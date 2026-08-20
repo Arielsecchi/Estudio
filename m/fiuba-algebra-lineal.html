@@ -1269,12 +1269,31 @@
         <span class="cat-name">FIUBA</span>
       </button>
       <ul class="drawer-cat-items">
-        <li class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
-          <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
-          <div class="info">
-            <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
-            <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+        <li class="drawer-item-wrap" data-parent="fiuba-algebra-lineal">
+          <div class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+            <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+            <div class="info">
+              <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+              <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
           </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-parcial" onclick="switchSubject('fiuba-algebra-lineal-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">Álgebra Lineal · Primer parcial</div>
+                <div class="d">Palacios · 1er parcial · 21/10 · 21 parciales reales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-segundo-parcial" onclick="switchSubject('fiuba-algebra-lineal-segundo-parcial')">
+              <div class="ic" style="background:#1e5f8a;color:#eff6ff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#1e5f8a">Álgebra Lineal · Segundo parcial</div>
+                <div class="d">Palacios · 2do parcial · 2/12 · unidad 4</div>
+              </div>
+            </li>
+          </ul>
         </li>
         <li class="drawer-item-wrap" data-parent="fiuba-anatomia">
           <div class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
@@ -1561,7 +1580,7 @@ Cuadrados mínimos apareció en 11 de los 19 parciales. Que no haya caído en la
 <tr><td><b>16</b></td><td><b>Miércoles 2/12 · SEGUNDO PARCIAL</b></td><td>Repaso y reescritura del segundo resumen.</td></tr>
 </table>
 
-<p><span class="muted">Aclaración de procedencia: el régimen, las fechas, las pautas del examen y los docentes salen del campus del curso 5. El reparto de temas por semana es una reconstrucción a partir de las cuatro guías de TP y de las dos fechas de parcial: la cátedra no publica cronograma de clases. Que la unidad 4 sea el corazón del segundo parcial es una inferencia razonable —los 21 exámenes del corpus son <b>primeros parciales y recuperatorios</b> (10 dicen "Primer parcial", 9 dicen "Primer/Segundo recuperatorio" y 2 no traen encabezado), y todos evalúan contenido de las unidades 1 a 3— pero no está confirmada por escrito.</span></p>
+<p><span class="muted">Aclaración de procedencia: el régimen, las fechas, las pautas del examen y los docentes salen del campus del curso 5. El reparto de temas por semana es una reconstrucción a partir de las cuatro guías de TP y de las dos fechas de parcial: la cátedra no publica cronograma de clases. Que la unidad 4 sea el corazón del segundo parcial es una inferencia razonable —los 21 exámenes del corpus son <b>primeros parciales y recuperatorios del primero</b> —el desglose exacto está en la sección 7— y todos evalúan contenido de las unidades 1 a 3— pero no está confirmada por escrito.</span></p>
 
 <h3>Las trampas del régimen</h3>
 
@@ -2803,7 +2822,7 @@ Con base no canónica, las ecuaciones normales devuelven <b>coordenadas</b>. Si 
 <div class="content">
 
 <div class="key"><div class="ky-t">Leé esto antes que nada: acá se corta la estadística</div>
-Los <b>21 parciales reales</b> que sostienen esta guía son <b>todos primeros parciales o recuperatorios del primer parcial</b>: 12 dicen "Primer parcial" (incluidos los diferidos y los (R)), 7 dicen "recuperatorio" y 2 vienen sin encabezado. Su contenido son las <b>unidades 1 a 3</b>, más un ejercicio de <b>ecuaciones diferenciales</b> que aparece en 4 de los 21. Conté las apariciones de "autovalor", "autovector", "diagonaliz", "singular", "espectro" y "seudoinversa" en la transcripción completa de los 21 exámenes: <b>cero</b>. Ni una.<br><br>
+Los <b>21 parciales reales</b> que sostienen esta guía son <b>todos primeros parciales o recuperatorios del primer parcial</b>. El desglose, contado sobre los encabezados: <b>7</b> son primeros parciales en fecha, <b>2</b> son diferidos, <b>7</b> dicen "recuperatorio" con todas las letras, <b>3</b> dicen "Primer parcial (R)" pero están fechados el 10/VII, el 31/VII y el 7/VIII de 2024 —o sea después de que terminó el cuatrimestre, en las tres fechas de recuperatorio que fija el régimen, así que son recuperatorios— y <b>2</b> vienen sin encabezado. Si contás las tres "(R)" como recuperatorios, quedan <b>9 exámenes en fecha y 10 recuperatorios</b>. Su contenido son las <b>unidades 1 a 3</b>, más un ejercicio de <b>ecuaciones diferenciales</b> que aparece en 4 de los 21. Conté las apariciones de "autovalor", "autovector", "diagonaliz", "singular", "espectro" y "seudoinversa" en la transcripción completa de los 21 exámenes: <b>cero</b>. Ni una.<br><br>
 Es decir: <b>ninguna de las frecuencias de las secciones anteriores aplica a esta unidad</b>. No sé qué porcentaje del segundo parcial es DVS ni cuál es el ejercicio 1 típico, porque no hay ni un segundo parcial en el material de la cátedra que bajé. Lo que sí sé, y es lo único que voy a afirmar acá, es que el <b>segundo parcial cubre la unidad 4</b> (más lo que la cátedra decida arrastrar de las anteriores) y que <b>la Guía 4 tiene 18 ejercicios</b>, que abajo están todos resueltos y verificados con computadora.<br><br>
 Tratá esta sección como lo que es: <b>la guía de TP, entera y con la teoría que la sostiene</b>. No como una predicción del examen.
 </div>

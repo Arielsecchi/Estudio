@@ -1,0 +1,731 @@
+<header>
+    <h1>Álgebra Lineal · Primer parcial</h1>
+    <div class="sub">FIUBA · Álgebra II (61.08 / 81.02) — Álgebra Lineal (CB002), Cátedra Palacios · Guía de examen para el <b>miércoles 21/10/2026, 9 a 12</b>: unidades 1 a 3, construida sobre <b>21 parciales reales</b> de 2021 a 2024 con sus <b>103 ejercicios</b> transcriptos y resueltos, más el esqueleto fijo que predice qué cae en cada posición</div>
+  </header>
+<nav class="toc" id="toc-fiuba-algebra-lineal-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#falp-s1">El esqueleto del parcial</a></li>
+    <li><a href="#falp-s2">Las 4 carillas: qué escribir a mano</a></li>
+    <li><a href="#falp-s3">Ej 1 · Subespacios: intersección, suma y complemento</a></li>
+    <li><a href="#falp-s4">Ej 1 alternativo · Coordenadas y cambio de base</a></li>
+    <li><a href="#falp-s5">Ej 2 · Transformaciones lineales: núcleo, imagen y preimagen</a></li>
+    <li><a href="#falp-s6">Ej 3 · Proyecciones y simetrías</a></li>
+    <li><a href="#falp-s7">Ej 4 · Producto interno: distancia, mejor aproximación, áreas</a></li>
+    <li><a href="#falp-s8">Ej 5 · Cuadrados mínimos y fibra de la proyección</a></li>
+    <li><a href="#falp-s9">Banco real · los 103 ejercicios de los 21 parciales</a></li>
+    <li><a href="#falp-s10">Simulacro · un parcial completo con su resolución</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-algebra-lineal-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · EL ESQUELETO DEL PARCIAL ============ -->
+<details id="falp-s1">
+<summary><span class="num">1</span> El esqueleto del parcial <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-1"></span></summary>
+<div class="content">
+
+<p>Esta guía no explica la materia: la <b>madre</b> (<i>Álgebra Lineal · Guía completa</i>) ya tiene la teoría con demostraciones y las cuatro guías de trabajos prácticos resueltas. Acá se hace otra cosa: se mira <b>qué toma la cátedra</b>, se convierte cada tema en un procedimiento que se ejecuta en veinte minutos, y se entrena contra los enunciados reales. Si un resultado teórico no cambia lo que vas a escribir en la hoja el 21 de octubre, no está.</p>
+
+<h3>El régimen, en siete líneas</h3>
+<table class="tbl">
+<tr><th>Qué</th><th>Cómo es</th></tr>
+<tr><td>Fecha</td><td><b>Miércoles 21/10/2026, 9:00 a 12:00.</b> El segundo parcial es el 2/12/2026, mismo horario.</td></tr>
+<tr><td>Formato</td><td><b>5 problemas</b>, todo desarrollo. Ningún múltiple choice. <b>3 horas.</b></td></tr>
+<tr><td>Aprobación</td><td><b>3 problemas resueltos correctamente.</b> No hay crédito por planteo: el problema está resuelto o no cuenta.</td></tr>
+<tr><td>Contenido</td><td><b>Unidades 1 a 3</b>: espacios vectoriales, transformaciones lineales, y espacios con producto interno.</td></tr>
+<tr><td>Material permitido</td><td>Un <b>resumen manuscrito de 4 carillas</b>, hecho a mano, <b>sin ejercicios resueltos y sin fotocopias</b>. <b>Calculadora sí, celular no.</b></td></tr>
+<tr><td>Justificación</td><td>Todo resultado <b>no visto en clase</b> hay que justificarlo teóricamente, y puede haber <b>interrogatorio oral</b> sobre lo entregado.</td></tr>
+<tr><td>Recuperatorios</td><td>Tres fechas: <b>16/12/2026, 17/2/2027 y 24/2/2027</b>. Cada una recupera <b>un</b> parcial, no los dos. Evaluación libre: <b>3/3/2027</b>.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">3 de 5 no es "60 %": es una regla de selección</div>
+No se promedia nada. Tres problemas cerrados y dos en blanco <b>aprueba</b>; cinco a medias <b>reprueba</b>. Con 180 minutos y 5 problemas tenés 36 minutos por problema, pero la jugada correcta no es repartirlos parejo: es <b>gastar 10 minutos leyendo los cinco</b>, elegir los tres que sabés cerrar del todo, y cerrarlos completos y justificados antes de tocar el cuarto. La forma más común de irse con dos y medio es empezar los cinco "para ver cuál sale".
+</div>
+
+<h3>El hallazgo: la posición del ejercicio te dice el tema</h3>
+
+<p>Se relevaron <b>21 parciales reales</b> de esta cátedra entre 2021 y 2024, con <b>103 ejercicios</b> en total. De esos 21, <b>19 tienen encabezado completo</b> (materia, cuatrimestre, fecha y la leyenda "Primer parcial" o "Primer/Segundo recuperatorio") y traen 5 ejercicios cada uno; los otros 2 vienen sin encabezado y traen 4. Sobre los 19 fechados, la posición del ejercicio predice el tema con una regularidad que no es casualidad:</p>
+
+<table class="tbl">
+<tr><th>Posición</th><th>Tema dominante</th><th>Frecuencia</th><th>Alternativa cuando no es ése</th></tr>
+<tr><td><b>Ej 1</b></td><td>Subespacios: intersección, suma, suma directa, completar base</td><td><b>15/19 = 79 %</b></td><td>Coordenadas y cambio de base, 4/19</td></tr>
+<tr><td><b>Ej 2</b></td><td>Transformación lineal dada por su matriz entre dos bases</td><td><b>18/19 = 95 %</b></td><td>Proyección/simetría, 1/19</td></tr>
+<tr><td><b>Ej 3</b></td><td>Proyecciones y simetrías en ℝ³</td><td><b>16/19 = 84 %</b></td><td>Ecuación diferencial 2/19; una TL más, 1/19</td></tr>
+<tr><td><b>Ej 4</b></td><td>Producto interno: distancia, mejor aproximación, área</td><td><b>13/19 = 68 %</b></td><td>Fibra de la proyección 5/19; cuadrados mínimos 1/19</td></tr>
+<tr><td><b>Ej 5</b></td><td>Cuadrados mínimos</td><td><b>10/19 = 53 %</b></td><td>Fibra de la proyección 6/19; producto interno 3/19</td></tr>
+</table>
+
+<p>Y el reparto por tema, sobre los 103 ejercicios:</p>
+
+<table class="tbl">
+<tr><th>Tema</th><th>Ejercicios</th><th>Dónde cae</th><th>Sección de esta guía</th></tr>
+<tr><td>Transformaciones lineales</td><td><b>20</b></td><td>Ej 2 casi siempre</td><td>5</td></tr>
+<tr><td>Producto interno (distancia, aproximación, área)</td><td><b>19</b></td><td>Ej 4, a veces Ej 5</td><td>7</td></tr>
+<tr><td>Proyecciones y simetrías</td><td><b>17</b></td><td>Ej 3</td><td>6</td></tr>
+<tr><td>Subespacios</td><td><b>16</b></td><td>Ej 1</td><td>3</td></tr>
+<tr><td>Cuadrados mínimos</td><td><b>12</b></td><td>Ej 5</td><td>8</td></tr>
+<tr><td>Fibra de la proyección ortogonal</td><td><b>11</b></td><td>Ej 4 o Ej 5</td><td>8</td></tr>
+<tr><td>Coordenadas y cambio de base</td><td><b>4</b></td><td>Ej 1 alternativo</td><td>4</td></tr>
+<tr><td>Ecuaciones diferenciales</td><td><b>4</b></td><td>Ej 3 alternativo (en los dos exámenes sin encabezado, Ej 2 y Ej 4)</td><td>1 (más abajo)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Lo que esto significa para tu orden de estudio</div>
+Cuatro temas — <b>TL, producto interno, proyecciones y subespacios</b> — suman <b>72 de los 103 ejercicios (70 %)</b>. Y como alcanza con 3 de 5, si tenés esos cuatro sólidos entrás al examen con más de lo necesario sin haber tocado cuadrados mínimos ni ecuaciones diferenciales. Ése es el orden, y no es opinable: sale del conteo.
+</div>
+
+<h3>Dos temas que se están yendo del parcial</h3>
+
+<p>Los conteos por año son el dato menos obvio de todo el relevamiento, y cambian cómo repartís las últimas dos semanas.</p>
+
+<table class="tbl">
+<tr><th>Año</th><th>Parciales relevados</th><th>Con cuadrados mínimos</th><th>Con ecuación diferencial</th></tr>
+<tr><td>2021</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>2022</td><td>5</td><td><b>5</b></td><td>1</td></tr>
+<tr><td>2023</td><td>7</td><td>5</td><td><b>0</b></td></tr>
+<tr><td>2024</td><td>6</td><td><b>0</b></td><td><b>0</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cuadrados mínimos no apareció en ninguno de los 6 parciales de 2024</div>
+En 2022 estaba en <b>5 de 5</b>. En 2023 bajó a <b>5 de 7</b>. En 2024, en las seis fechas relevadas — los tres parciales de mayo (15/V y las dos bandas del 16/V) <b>y los tres recuperatorios</b> (10/VII, 31/VII y 7/VIII) — <b>cero</b>. El lugar del Ej 5 lo ocupó su primo hermano: <i>"hallar todos los x tales que P<sub>S</sub>(x) = v cuya distancia a … sea k"</i>, la <b>fibra de la proyección ortogonal</b>.<br><br>
+Y no son temas distintos: los dos son <b>"solución particular + subespacio"</b>. El conjunto de soluciones por cuadrados mínimos es <b>x̂ + Nul(A)</b>; la fibra de la proyección es <b>v + S<sup>⊥</sup></b>. Si entendés esa estructura cubrís los dos con el mismo esfuerzo. Estudiá la fibra primero.
+</div>
+
+<div class="trap"><div class="tr-t">Que no aparezca en 2024 no es garantía de que no aparezca en 2026</div>
+Seis fechas es una muestra chica y el tema sigue en el programa. La conclusión correcta no es "no lo estudies": es "no lo estudies <b>primero</b>". Cuadrados mínimos tiene además la ventaja de que su procedimiento es corto — armar A<sup>T</sup>A x̂ = A<sup>T</sup>b y resolver — así que aprenderlo cuesta poco y cierra el flanco. Lo mismo con las ecuaciones diferenciales: <b>no aparecen en ninguno de los 13 parciales de 2023 y 2024</b>, sólo en el diferido de 2021, en el segundo recuperatorio de diciembre de 2022 y en los dos exámenes sin fechar. Si te queda poco tiempo, es lo primero que se resigna.
+</div>
+
+<h3>Cómo se reparten las tres horas</h3>
+
+<table class="tbl">
+<tr><th>Minuto</th><th>Qué hacés</th><th>Por qué</th></tr>
+<tr><td>0–10</td><td>Leés los <b>cinco</b> enunciados enteros. Al lado de cada uno anotás el tipo (subespacios / TL / proyección / PI / mínimos-fibra) y una nota: <span class="code">seguro</span>, <span class="code">creo</span> o <span class="code">ni idea</span>.</td><td>El esqueleto te da el tipo casi antes de leer. Diez minutos acá valen más que diez minutos de cuenta.</td></tr>
+<tr><td>10–100</td><td>Los <b>tres</b> marcados <span class="code">seguro</span>, uno por uno, <b>cerrados</b>: respuesta escrita con palabras, chequeo hecho, y justificado todo lo que no sea receta de clase.</td><td>Treinta minutos por ejercicio alcanza y sobra para cualquiera de los ocho tipos.</td></tr>
+<tr><td>100–120</td><td><b>Verificación</b> de los tres. Cada tipo tiene su chequeo de dos minutos (están en cada sección de esta guía). Si uno falla, lo arreglás ahora.</td><td>Un ejercicio con la cuenta mal es un ejercicio perdido entero. El chequeo cuesta el 6 % del tiempo y protege el 100 % de la nota.</td></tr>
+<tr><td>120–170</td><td>El cuarto ejercicio (<span class="code">creo</span>). Si sale, aprobás con margen.</td><td>Recién acá, con los tres asegurados.</td></tr>
+<tr><td>170–180</td><td>Prolijidad: que cada respuesta esté <b>escrita como frase</b> ("una base de S₁ ∩ S₂ es …", "la distancia es …"), no como el último renglón de una cuenta.</td><td>El enunciado pide un objeto. Entregá el objeto, con su nombre.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Las tres frases del enunciado que deciden si el ejercicio vale o no</div>
+<b>"¿Es única? Si la respuesta es negativa, construir otra."</b> — aparece en tres Ej 1 reales. Si contestás sólo el primer subespacio tenés medio ejercicio. Hay que decir <b>no es único</b> y exhibir un segundo, verificado.<br><br>
+<b>"cuya distancia <i>al origen</i> sea k"</b> contra <b>"cuya distancia <i>al subespacio S</i> sea k"</b> — cambia toda la cuenta (Pitágoras o no). Subrayá la preposición antes de escribir la primera línea.<br><br>
+<b>"Hallar <i>todos</i> los x tales que…"</b> — la respuesta es un conjunto. Si entregás un vector suelto donde hay dos o infinitos, respondiste otra pregunta.
+</div>
+
+<h3>Y si te toca la ecuación diferencial</h3>
+<p>Aparece 4 veces en los 103 ejercicios y siempre es <b>lineal de segundo orden a coeficientes constantes</b>. En las dos fechas con encabezado (16/XI/21 y 14/XII/22) cae como <b>Ej 3</b>, en el lugar de proyecciones y simetrías; los dos exámenes sin encabezado no siguen el esqueleto y ahí aparece como Ej 4 y como Ej 2. La receta completa entra en diez renglones: pasás todo a la forma y'' + p·y' + q·y = f(x) ▸ resolvés r² + p·r + q = 0 ▸ armás y<sub>h</sub> según las raíces (reales distintas: C₁e<sup>r₁x</sup> + C₂e<sup>r₂x</sup>; doble: (C₁ + C₂x)e<sup>rx</sup>; complejas α ± βi: e<sup>αx</sup>(C₁cos βx + C₂sen βx)) ▸ si f ≠ 0 proponés y<sub>p</sub> de la misma familia que f, multiplicada por x<sup>s</sup> con s = multiplicidad del <b>exponente crítico de f</b> como raíz característica ▸ derivás, igualás coeficientes ▸ y recién sobre y<sub>h</sub> + y<sub>p</sub> imponés y(0) e y'(0).</p>
+
+<div class="trap"><div class="tr-t">En las dos ecuaciones no homogéneas del corpus hay resonancia. En las dos.</div>
+<b>y'' + 9y = 5cos(3x)</b> tiene exponente crítico 3i, que es raíz de r² + 9 = 0 → hay que proponer <b>x·(A cos 3x + B sen 3x)</b>. <b>y'' − 5y' + 6y = 2xe<sup>2x</sup></b> tiene exponente crítico 2, que es raíz de r² − 5r + 6 → hay que proponer <b>x(Ax + B)e<sup>2x</sup></b>. Sin el factor x, el operador manda la propuesta a cero y el sistema queda incompatible. Si te toca una ED con f ≠ 0, <b>arrancá asumiendo resonancia</b> y después verificá. Y la propuesta va <b>completa</b>: cos y sen siempre juntos aunque f sólo tenga uno, y el polinomio hasta el grado 0.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · LAS 4 CARILLAS ============ -->
+<details id="falp-s2">
+<summary><span class="num">2</span> Las 4 carillas: qué escribir a mano <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-2"></span></summary>
+<div class="content">
+
+<p>La cátedra permite <b>un resumen manuscrito de 4 carillas</b>: hecho a mano, <b>sin ejercicios resueltos</b> y <b>sin fotocopias</b>. Eso descarta la estrategia de copiar parciales viejos: lo que entra son <b>definiciones, fórmulas y procedimientos</b>. La restricción es en realidad una ventaja, porque te obliga a escribir la única cosa que se usa bajo presión — el <i>qué hago primero</i> — en vez de teoría que ya sabés.</p>
+
+<div class="key"><div class="ky-t">La regla de admisión de cada renglón</div>
+Un renglón entra si contesta una de estas dos preguntas: <b>"¿qué hago cuando el enunciado dice X?"</b> o <b>"¿cuál era la fórmula exacta?"</b>. Todo lo demás — enunciados de teoremas que sabés de memoria, demostraciones, ejemplos — ocupa lugar y no se lee nunca. Escribilo a mano <b>una semana antes</b>, no la noche anterior: escribirlo <i>es</i> el repaso.
+</div>
+
+<h3>Carilla 1 · Subespacios y coordenadas (Ej 1)</h3>
+<ul>
+  <li><b>Traducciones de enunciado a base.</b> p ∈ ℝ<sub>n</sub>[x] con p(a) = p(b) = 0 ⟺ p = (x−a)(x−b)·q, con q de grado ≤ n−2 ▸ base {(x−a)(x−b), x(x−a)(x−b), …}. Y <b>dim ℝ<sub>n</sub>[x] = n+1</b>, escrito grande, que es el error de dimensión más común.</li>
+  <li><b>Grassmann:</b> dim(S₁ + S₂) = dim S₁ + dim S₂ − dim(S₁ ∩ S₂).</li>
+  <li><b>Receta de "base de V que contenga base de S₁∩S₂, de S₁ y de S₂":</b> base B₀ de S₁∩S₂ ▸ extender a B₀∪B₁ base de S₁ ▸ extender <b>el mismo B₀</b> a B₀∪B₂ base de S₂ ▸ B₀∪B₁∪B₂ es base de S₁+S₂ ▸ completar a V.</li>
+  <li><b>Certificado de suma directa S ⊕ T = W</b> (las cuatro cosas): S ⊆ W, T ⊆ W, S ∩ T = {0}, dim S + dim T = dim W.</li>
+  <li><b>Cómo se chequea S ∩ T = {0} de verdad:</b> se le imponen las ecuaciones de S al <b>elemento genérico</b> αu + βv de T, no a u y v por separado.</li>
+  <li><b>Condición necesaria para S₁ ⊕ T = S₂ ⊕ T = W:</b> S₁, S₂ ⊆ W y dim S₁ = dim S₂.</li>
+  <li><b>Cambio de base:</b> [v]<sub>B₂</sub> = M<sup>B₂</sup><sub>B₁</sub>·[v]<sub>B₁</sub>, y <b>columna j de M<sup>B₂</sup><sub>B₁</sub> = [b<sub>j</sub>]<sub>B₂</sub></b>. Al lado: (M<sup>B₂</sup><sub>B₁</sub>)<sup>−1</sup> = M<sup>B₁</sup><sub>B₂</sub>.</li>
+  <li><b>col(u·rᵀ) = gen{u}</b> y <b>fil(u·rᵀ) = gen{r}</b>, con el recordatorio "no metas r adentro de col".</li>
+</ul>
+
+<h3>Carilla 2 · Transformaciones lineales (Ej 2)</h3>
+<ul>
+  <li><b>El diagrama, dibujado.</b> v ∈ V →(coord. en B) [v]<sub>B</sub> →(×A) [T(v)]<sub>C</sub> →(combinar con C) T(v) ∈ W. Con la convención al lado: <b>subíndice = base del dominio, superíndice = base del codominio</b>, y [T]<sub>B</sub><sup>C</sup>·[v]<sub>B</sub> = [T(v)]<sub>C</sub>.</li>
+  <li><b>Control estructural:</b> la matriz tiene tantas <b>columnas</b> como dim(dominio) y tantas <b>filas</b> como dim(codominio). Si tu lectura contradice esto, la lectura está mal.</li>
+  <li><b>Núcleo:</b> resolver A z = 0 ▸ traducir cada z con la base del <b>dominio</b>. La base del codominio no se usa.</li>
+  <li><b>Imagen de S = gen{s₁,…}:</b> [s<sub>i</sub>]<sub>B</sub> ▸ ×A ▸ recombinar con C ▸ depurar y <b>recalcular la dimensión</b>.</li>
+  <li><b>Preimagen de un vector w:</b> [w]<sub>C</sub> ▸ resolver A z = [w]<sub>C</sub> ▸ traducir ▸ respuesta v<sub>p</sub> + Nu(T), que <b>no es subespacio</b>.</li>
+  <li><b>Preimagen de un subespacio gen{w}:</b> resolver el homogéneo <b>A z − α[w]<sub>C</sub> = 0</b> con α incógnita extra. La respuesta <b>sí es subespacio</b>, de dimensión dim(S ∩ Im T) + dim Nu(T).</li>
+  <li><b>Teorema de la dimensión:</b> dim Nu(T) + dim Im(T) = dim(dominio).</li>
+</ul>
+
+<h3>Carilla 3 · Proyecciones, simetrías y ecuación diferencial (Ej 3)</h3>
+<ul>
+  <li><b>La fórmula única de la familia geométrica.</b> Con W = {x : f(x) = 0} y L = gen{d}: <b>γ = f(x)/f(d)</b> ▸ Π(x) = x − γ·d ▸ <b>Σ(x) = x − 2γ·d</b>. Con la advertencia "f(d) ≠ 0" y "el 2 es obligatorio" en el margen.</li>
+  <li><b>Reconstruir desde Π∘Π = Π:</b> de Π(v) = u sale <b>u ∈ Im</b> (porque Π(u) = u) y <b>v − u ∈ Nu</b>.</li>
+  <li><b>Reconstruir desde Σ∘Σ = I:</b> de Σ(v) = u sale <b>v + u ∈ E₁</b> (el plano) y <b>v − u ∈ E₋₁</b> (la recta).</li>
+  <li><b>Desde la matriz A:</b> proyección ⟺ A² = A; simetría ⟺ A² = I con A ≠ ±I. Autoespacios: Nu(A − I) y Nu(A) o Nu(A + I).</li>
+  <li><b>Preimagen por una proyección:</b> Π<sup>−1</sup>(S) = (S ∩ W) ⊕ L. Para una simetría, Σ<sup>−1</sup> = Σ.</li>
+  <li><b>ED:</b> las tres formas de y<sub>h</sub> según las raíces, y la tabla de y<sub>p</sub> con el factor <b>x<sup>s</sup></b> y la definición del exponente crítico.</li>
+</ul>
+
+<h3>Carilla 4 · Producto interno, fibra y cuadrados mínimos (Ej 4 y 5)</h3>
+<ul>
+  <li><b>Con ⟨x,y⟩ = yᵀA x y S = {x : nᵀx = 0}:</b> <b>S<sup>⊥</sup> = gen{w} con A·w = n</b> (se resuelve el sistema, no se invierte A). Y entonces ⟨v,w⟩ = nᵀv y ⟨w,w⟩ = nᵀw, de donde <b>d(v,S) = |nᵀv| / √(nᵀw)</b>.</li>
+  <li><b>Con S = gen{s₁,…,s<sub>k</sub>}:</b> Gram G<sub>ij</sub> = ⟨s<sub>j</sub>, s<sub>i</sub>⟩, b<sub>i</sub> = ⟨v, s<sub>i</sub>⟩, resolver G c = b, P<sub>S</sub>(v) = Σ c<sub>i</sub>s<sub>i</sub>. Y la nota: <b>la fórmula término a término sólo vale si la base es ortogonal en ESE producto interno</b>.</li>
+  <li><b>Área del triángulo (vale en cualquier espacio):</b> con u y z los dos lados desde un vértice, <b>Área = ½·√(‖u‖²‖z‖² − ⟨u,z⟩²)</b>. Y el triángulo equilátero: Área = (√3/4)·L².</li>
+  <li><b>PI por evaluación</b> ⟨p,q⟩ = Σ p(x<sub>i</sub>)q(x<sub>i</sub>): traducir cada polinomio a su <b>lista de valores</b> y trabajar con el producto escalar canónico.</li>
+  <li><b>Fibra:</b> P<sub>S</sub>(x) = v ⟺ <b>x ∈ v + S<sup>⊥</sup></b> (con v ∈ S, que hay que verificar). Distancia al subespacio: ‖w‖ = k directo. Distancia al origen: <b>Pitágoras, ‖w‖² = k² − ‖v‖²</b>, con la discusión de los tres casos.</li>
+  <li><b>Cuadrados mínimos:</b> <b>AᵀA x̂ = Aᵀb</b>, siempre compatible; conjunto solución x̂₀ + Nul(A). La de <b>norma mínima</b> es la única que cae en fil(A) = (Nul A)<sup>⊥</sup>. Y las matrices de momentos del ajuste, recta y parábola.</li>
+  <li><b>Si A = u·vᵀ:</b> Ax = (v·x)u ▸ la ecuación normal colapsa a <b>v·x = (u·b)/(u·u)</b> ▸ norma mínima = [(u·b)/((u·u)(v·v))]·v.</li>
+</ul>
+
+<div class="trap"><div class="tr-t">Lo que NO tiene que estar en las 4 carillas</div>
+<b>Ejercicios resueltos</b> — está prohibido y además es el peor uso del espacio: en el parcial los números son otros. <b>Demostraciones</b> — si te piden justificar, se justifica con el enunciado del teorema, no copiando una demostración. <b>La definición de espacio vectorial y los ocho axiomas</b> — no se pregunta y ocupa media carilla. <b>Gram-Schmidt completo</b> — en los 103 ejercicios no hay ni uno que lo pida explícitamente; lo que sí se usa una y otra vez es "chequeá si los generadores ya son ortogonales en este producto interno".
+</div>
+
+<div class="key"><div class="ky-t">Un truco de layout que rinde</div>
+Escribí cada carilla con el <b>título del tipo de ejercicio</b> arriba ("Ej 1 · subespacios"), no con el título del tema teórico. En el examen no vas a buscar "Grassmann": vas a buscar "el 1 me pide una base que contenga otras dos, ¿cuál era el orden?". Ordenar el resumen por <b>posición del ejercicio</b> te ahorra los treinta segundos de búsqueda que, multiplicados por las diez veces que lo mirás, son cinco minutos.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · EJ 1 SUBESPACIOS ============ -->
+<details id="falp-s3">
+<summary><span class="num">3</span> Ej 1 · Subespacios: intersección, suma y complemento <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-3"></span></summary>
+<div class="content">
+
+<p><b>16 de los 103 ejercicios</b>, y <b>15 de las 19 primeras posiciones</b>. Siempre es lo mismo: dos (a veces tres) subespacios de ℝ<sup>n</sup>, ℝ<sub>n</sub>[x] o ℝ<sup>2×2</sup>, y una pregunta sobre cómo encajan entre sí. El ejercicio se juega en dos lugares: <b>escribir bien cada subespacio</b> y <b>saber en qué orden se construyen las bases</b>.</p>
+
+<h3>Paso 0 · Traducir cada subespacio a una base explícita</h3>
+
+<table class="tbl">
+<tr><th>Cómo viene en el enunciado</th><th>Qué hacés</th><th>Ejemplo real</th></tr>
+<tr><td>{p ∈ ℝ<sub>n</sub>[x] : p(a) = p(b) = 0}</td><td>p ∈ S ⟺ (x−a)(x−b) divide a p. Base: {(x−a)(x−b), x(x−a)(x−b), …} hasta grado n. <b>dim = n − 1</b>.</td><td>7/VIII/24: {p ∈ ℝ₃[x] : p(1) = p(−1) = 0} = gen{x²−1, x³−x}</td></tr>
+<tr><td>{p : p(−1) = p(1)} o {p : p(−1) = −p(1)}</td><td>Escribilo en coeficientes: la primera es a₁ + a₃ = 0; la segunda es a₀ + a₂ = 0. <b>Una sola ecuación → dim n</b>.</td><td>15/V/24 y 31/VII/24</td></tr>
+<tr><td>{p : p(0) + p'(0) + p''(0)/2! + …}</td><td>Es <b>p(1)</b> disfrazado de Taylor. La condición = 0 dice p(1) = 0.</td><td>29/X/22, Ej 1</td></tr>
+<tr><td>{X ∈ ℝ<sup>2×2</sup> : XM = MX}</td><td>Escribí X = [[p,q],[r,s]] genérica, hacé las dos multiplicaciones, igualá entrada por entrada. Sale un sistema lineal en p,q,r,s.</td><td>16/V/24 14h: con M = [[0,1],[1,1]] queda p = −r+s, q = r ▸ dim 2</td></tr>
+<tr><td>col(A) con A = u·rᵀ + u'·r'ᵀ</td><td><b>col(A) = gen{u, u'}</b> (si u, u' son LI). Las filas r, r' <b>no entran</b>.</td><td>28/X/23 Ej 1, 31/VII/24 Ej 5</td></tr>
+<tr><td>gen{v₁, v₂, v₃}</td><td>Calculá el rango <b>antes</b> de usarlos: es la cuenta que fija dim S₂ y de la que depende todo Grassmann.</td><td>En los cuatro Ej 1 con tres generadores (7/VIII/24, 31/VII/24, 10/VII/24 y 15/V/24) el rango da <b>3</b>: ninguno es redundante, y en los cuatro S₂ termina siendo un hiperplano coordenado ({a₁ = 0}, {a₀ = 0}, {x₂ = 0} y {a₁ = 0})</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">dim ℝ<sub>3</sub>[x] = 4, no 3</div>
+El subíndice es el <b>grado máximo</b>; la base es {1, x, x², x³}. Este error solo cambia todas las dimensiones del ejercicio y hace que Grassmann dé cualquier cosa. Escribilo en la carilla 1, grande.
+</div>
+
+<h3>Las cuatro formas del enunciado</h3>
+
+<table class="tbl">
+<tr><th>Forma</th><th>Qué pide textualmente</th><th>Casos</th><th>Qué se contesta</th></tr>
+<tr><td><b>A · Anidar bases</b></td><td>"Hallar una base de V que contenga una base de S₁∩S₂, una base de S₁ y una base de S₂" (o "…de S₁∩S₂ y de S₁+S₂")</td><td>7/VIII/24, 16/V/24 (las dos bandas), 10/VI/23, 28/X/23, 14/XII/22, 29/X/22</td><td>Un conjunto de vectores, con la aclaración de <b>cuál sub-conjunto es base de qué</b></td></tr>
+<tr><td><b>B · Complemento de la intersección</b></td><td>"Hallar un subespacio T tal que (S₁∩S₂) ⊕ T = V" (o = S₃)</td><td>10/VII/24, 15/V/24, 30/X/23</td><td>Un T con su base, más el <b>certificado de las cuatro condiciones</b></td></tr>
+<tr><td><b>C · Complemento simultáneo</b></td><td>"Construir un subespacio T tal que S₁ ⊕ T = S₂ ⊕ T = W. ¿Es único? Si no, construir otro."</td><td>12/VI/23, 13/VII/22, 28/V/22, y uno de los sin fecha</td><td>Un T, el certificado <b>por duplicado</b>, y un <b>segundo T</b></td></tr>
+<tr><td><b>D · Sólo la intersección</b></td><td>"Hallar una base del subespacio S₁ ∩ S₂"</td><td>31/VII/24, 16/XI/21</td><td>La base de S₁∩S₂ y su dimensión, nada más: es la forma A cortada en el primer paso</td></tr>
+</table>
+
+<h3>Forma A · el orden de construcción es el ejercicio</h3>
+
+<div class="formula">B₀ base de S₁ ∩ S₂ &nbsp;▸&nbsp; B₀ ∪ B₁ base de S₁ &nbsp;▸&nbsp; B₀ ∪ B₂ base de S₂ &nbsp;▸&nbsp; B₀ ∪ B₁ ∪ B₂ es base de S₁ + S₂ &nbsp;▸&nbsp; completar a V</div>
+
+<p>El teorema que sostiene todo es el del medio: si las dos extensiones parten del <b>mismo</b> B₀, la unión de los tres bloques es linealmente independiente y genera S₁ + S₂. Es exactamente el conteo de Grassmann: |B₀| + |B₁| + |B₂| = dim(S₁∩S₂) + (dim S₁ − dim(S₁∩S₂)) + (dim S₂ − dim(S₁∩S₂)) = dim(S₁ + S₂).</p>
+
+<div class="example"><div class="ex-t">7/VIII/24, Ej 1 — resuelto en cuatro renglones</div>
+S₁ = {p ∈ ℝ₃[x] : p(1) = p(−1) = 0} = gen{x²−1, x³−x}, dim 2 ▸ S₂ = gen{1+x², 1−x³, 2+3x²}, y el rango de esos tres da 3 ▸ un p ∈ S₂ genérico es a(1+x²) + b(1−x³) + c(2+3x²), e imponerle p(1) = p(−1) = 0 da b = 0 y a = −5c/2, o sea <b>S₁ ∩ S₂ = gen{x²−1}</b>, dim 1 ▸ Grassmann: dim(S₁+S₂) = 2 + 3 − 1 = 4 = dim ℝ₃[x].<br><br>
+Entonces B₀ = {x²−1}; lo extiendo a S₁ con x³−x; lo extiendo a S₂ con 1+x² y 1−x³. La respuesta es<br>
+<b>B = {x²−1, x³−x, 1+x², 1−x³}</b>, y hay que decir explícitamente: {x²−1} es base de S₁∩S₂, {x²−1, x³−x} de S₁, {x²−1, 1+x², 1−x³} de S₂. El determinante de las cuatro ternas de coeficientes da −2 ≠ 0, así que es base de ℝ₃[x]. <span class="muted">(Verificado con sympy.)</span>
+</div>
+
+<h3>Formas B y C · el certificado que hay que escribir</h3>
+
+<p>Para afirmar <b>S ⊕ T = W</b> no alcanza con exhibir T. Hay que escribir las cuatro cosas:</p>
+<ol>
+  <li><b>S ⊆ W</b> y <b>T ⊆ W</b> — si no, ni siquiera pueden sumar a W.</li>
+  <li><b>S ∩ T = {0}</b> — y esto se prueba sobre el <b>elemento genérico</b> de T.</li>
+  <li><b>dim S + dim T = dim W</b> — con eso y (2), Grassmann cierra S + T = W.</li>
+</ol>
+
+<div class="trap"><div class="tr-t">El error que mata la forma C: chequear los generadores en vez del genérico</div>
+Elegís T = gen{u, v} y verificás que u ∉ S y que v ∉ S. <b>Eso no prueba nada.</b> Contraejemplo real, del 13/VII/22: con S₂ = gen{[2 1 1 0]ᵀ, [1 0 1 0]ᵀ}, los canónicos e₁ y e₂ están los dos fuera de S₂, pero <b>e₁ + e₂ = [1 1 0 0]ᵀ = [2 1 1 0]ᵀ − [1 0 1 0]ᵀ ∈ S₂</b>. Con T = gen{e₁, e₂} la intersección con S₂ tiene dimensión 1 y la suma no es directa. La forma correcta: meter <b>αu + βv</b> en las ecuaciones de S y comprobar que el único par que las satisface es α = β = 0.<br><br>
+En ese mismo ejercicio, <b>T = gen{e₃, e₄} sí funciona</b> para los dos, y <b>T = gen{e₁, e₄} también</b>: ahí está el "¿es único? no" respondido.
+</div>
+
+<div class="key"><div class="ky-t">La condición necesaria de la forma C, que se chequea en treinta segundos</div>
+De S₁ ⊕ T = W y S₂ ⊕ T = W salen dim T = dim W − dim S₁ y dim T = dim W − dim S₂. Entonces <b>dim S₁ = dim S₂ es obligatorio</b>, y los dos tienen que estar <b>dentro</b> de W. En el ejercicio de los sin-fecha con W = {x ∈ ℝ⁴ : x₁ − x₂ + x₃ − x₄ = 0} hay que verificar las <b>cuatro</b> pertenencias antes de arrancar. Lo que <b>no</b> es necesario: que S₁ ∩ S₂ = {0} (en 13/VII/22 y 28/V/22 tiene dimensión 1 y el T existe igual), ni que S₁ + S₂ = W.
+</div>
+
+<div class="trap"><div class="tr-t">"El complemento" no existe: los complementos son infinitos</div>
+Si 0 &lt; dim T &lt; dim V, hay infinitos T con S ⊕ T = V. Sólo son únicos los casos triviales T = {0} y T = V. Construcción explícita de una familia infinita, por si te piden justificar la no unicidad: con {s₁,…,s<sub>k</sub>} base de S y {t₁,…,t<sub>r</sub>} base de T, definí <b>T<sub>λ</sub> = gen{t₁ + λ·s₁, t₂, …, t<sub>r</sub>}</b> para cada λ ≠ 0. Cada uno tiene dimensión r, corta a S sólo en 0, y T<sub>λ</sub> ≠ T<sub>μ</sub> si λ ≠ μ (porque si no, (λ−μ)s₁ estaría en T<sub>λ</sub> ∩ S = {0}).<br><br>
+Y ojo con el reflejo de contestar <b>S<sup>⊥</sup></b>: es <i>un</i> complemento cuando hay producto interno, pero es uno entre infinitos, depende del producto interno elegido, y en la mayoría de estos Ej 1 <b>no hay ningún producto interno dado</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Unir una base de S₁ con una base de S₂ y decir que es base de S₁+S₂</div>
+Si las bases se eligieron <b>por separado</b>, el conjunto tiene dim S₁ + dim S₂ vectores y genera un espacio de dimensión dim S₁ + dim S₂ − dim(S₁∩S₂): sobran exactamente dim(S₁∩S₂) vectores, y el conjunto es <b>linealmente dependiente</b>. La única forma de que la unión sirva es que las dos bases <b>compartan</b> una base de S₁ ∩ S₂ — que es justamente la receta de la forma A.
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · CAMBIO DE BASE ============ -->
+<details id="falp-s4">
+<summary><span class="num">4</span> Ej 1 alternativo · Coordenadas y cambio de base <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-4"></span></summary>
+<div class="content">
+
+<p><b>4 de los 103</b>, y las cuatro veces como Ej 1: es la alternativa cuando la primera posición no es subespacios (4 de las 19 fechas). Aparece en <b>2022 y 2023 solamente</b>: en las seis fechas de 2024 el Ej 1 es siempre subespacios. Pero el tema no murió — se mudó adentro del Ej 2, donde las matrices [T]<sub>B₁</sub><sup>B₂</sup> obligan a los mismos cambios de coordenadas.</p>
+
+<h3>La convención, que es todo el ejercicio</h3>
+
+<div class="formula">[v]<sub>B₂</sub> = M<sup>B₂</sup><sub>B₁</sub> · [v]<sub>B₁</sub> &nbsp;&nbsp;&nbsp;&nbsp; y &nbsp;&nbsp;&nbsp;&nbsp; columna j de M<sup>B₂</sup><sub>B₁</sub> = [b<sub>j</sub>]<sub>B₂</sub></div>
+
+<p>El <b>subíndice es de dónde salgo</b>, el <b>superíndice es adónde llego</b>. La frase del enunciado — "la matriz de cambio de coordenadas <b>de la base B₁ en la base B₂</b>" — se lee <i>de B₁ hacia B₂</i> y coincide con la notación. La segunda igualdad sale de que [b<sub>j</sub>]<sub>B₁</sub> = e<sub>j</sub>, así que M·e<sub>j</sub> = columna j. Y notá que M<sup>B₂</sup><sub>B₁</sub> = [id]<sup>B₂</sup><sub>B₁</sub>: es la matriz de la <b>identidad</b>, o sea que todo lo que sabés del Ej 2 aplica tal cual.</p>
+
+<h3>Las dos variantes</h3>
+
+<table class="tbl">
+<tr><th>Variante</th><th>Datos</th><th>Piden</th><th>Casos</th></tr>
+<tr><td><b>A · hacia adelante</b></td><td>B₁, M y un vector v</td><td>[v]<sub>B₂</sub></td><td>18/XI/23, 5/VII/23, 20/V/23</td></tr>
+<tr><td><b>B · despejar la base</b></td><td>B₁ (con un vector incógnita) y M</td><td>la base B₂ entera</td><td>19/XI/22</td></tr>
+</table>
+
+<p><b>Variante A</b>, cinco pasos: declarar el orden de coordenadas (en ℝ₂[x], escribir "uso E = {1, x, x²}" en el margen) ▸ calcular [v]<sub>B₁</sub> resolviendo v = a·b₁ + b·b₂ + c·b₃ ▸ verificar recombinando ▸ multiplicar M·[v]<sub>B₁</sub> ▸ entregar <b>el vector de coordenadas</b>, con su nombre.</p>
+
+<p><b>Variante B</b>: completar B₁ si falta un vector (te dan [p]<sub>B₁</sub> para un p conocido justamente para eso) ▸ escribir B₂ = {w₁, w₂, w₃} como incógnitas y leer las <b>columnas</b> de M: b<sub>j</sub> = M<sub>1j</sub>w₁ + M<sub>2j</sub>w₂ + M<sub>3j</sub>w₃ ▸ resolver el sistema tratando los w<sub>i</sub> como escalares ▸ verificar el determinante ≠ 0 ▸ aclarar que <b>B₂ es única</b> dados B₁ y M.</p>
+
+<div class="key"><div class="ky-t">La misma matriz en 3 de los 4 casos</div>
+M = [[3,2,1],[1,3,2],[2,1,3]], circulante, det = 18. Y B₁ siempre viene <b>escalonada</b>: {[1 1 1]ᵀ, [1 1 0]ᵀ, [1 0 0]ᵀ}, {x², x²+x, x²+x+1}. Eso significa que <b>siempre hay una ecuación con una sola incógnita</b> y las coordenadas salen por sustitución hacia atrás. Si estás triangulando una 3×3 con Gauss, te fuiste de camino: son diez minutos que no tenés.
+</div>
+
+<div class="trap"><div class="tr-t">El error rey: multiplicar M por el vector en vez de por sus coordenadas</div>
+Ves v = [6 3 1]ᵀ y hacés M·v. Sale [25 17 18]ᵀ, un número limpio que no dispara ninguna alarma, y el ejercicio vale cero (el resultado correcto del 18/XI/23 es <b>[10 13 13]ᵀ</b>). Se evita escribiendo la fórmula [v]<sub>B₂</sub> = M[v]<sub>B₁</sub> <b>antes</b> de la primera cuenta y subrayando el subíndice B₁: el objeto que se multiplica tiene que llevar ese sello.
+</div>
+
+<div class="trap"><div class="tr-t">El test de dirección, que cuesta diez segundos</div>
+Aplicá tu propia receta al <b>primer vector de B₁</b>. Como [b₁]<sub>B₁</sub> = [1 0 0]ᵀ, el resultado tiene que ser <b>exactamente la primera columna de M</b>. Si te da la primera columna de M<sup>−1</sup>, invertiste el sentido y todo el ejercicio está mal.
+</div>
+
+<div class="trap"><div class="tr-t">Los dos errores propios de ℝ₂[x]</div>
+<b>No declarar el orden.</b> Escribís p = x² + 3x + 6 a veces como (1,3,6) y a veces como (6,3,1), y terminás resolviendo el sistema con un orden y armando la terna final con el otro. En el 5/VII/23 los dos órdenes mal usados dan [15 22 23]ᵀ y [25 17 18]ᵀ; el correcto es <b>[−6 1 11]ᵀ</b>.<br><br>
+<b>Devolver el polinomio en vez del vector de coordenadas.</b> Calculás bien [p]<sub>B₂</sub> = [10 13 13]ᵀ y después "armás el polinomio" 10 + 13x + 13x², que no significa nada. En la variante A <b>B₂ nunca se conoce</b>: si estás reconstruyendo un vector es porque te inventaste una base.
+</div>
+
+<div class="trap"><div class="tr-t">"Limpiar" la B₂ obtenida en la variante B</div>
+El enunciado dice "hallar <b>una</b> base B₂" y salen fracciones (en el 19/XI/22, B₂ = {(x²+3x+2)/2, (x²+x)/2, (3x²−x)/2}). Multiplicar cada w<sub>i</sub> por 2 para sacarse los medios <b>rompe el resultado</b>: escalar w<sub>i</sub> por λ divide la <b>fila i</b> de M por λ, y ya no se cumple la M del enunciado. B₂ está unívocamente determinada por B₁ y M. Las fracciones se bancan.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · EJ 2 TRANSFORMACIONES LINEALES ============ -->
+<details id="falp-s5">
+<summary><span class="num">5</span> Ej 2 · Transformaciones lineales: núcleo, imagen y preimagen <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-5"></span></summary>
+<div class="content">
+
+<p><b>20 de los 103 ejercicios</b> y <b>18 de las 19 segundas posiciones</b>: es el tipo más seguro de todo el parcial. Y siempre viene igual: te dan T : V → W definida <b>únicamente por su matriz entre dos bases</b>, más las dos bases explícitas. Nunca te dan la fórmula de T. Todo el ejercicio es traducir entre "vector del espacio" y "vector de coordenadas".</p>
+
+<h3>El diagrama, que hay que dibujar en la hoja antes de la primera cuenta</h3>
+
+<div class="formula">v ∈ V &nbsp;──(1) coordenadas en B──▶&nbsp; [v]<sub>B</sub> &nbsp;──(2) × A──▶&nbsp; [T(v)]<sub>C</sub> &nbsp;──(3) combinar con C──▶&nbsp; T(v) ∈ W</div>
+
+<p>La matriz <b>come coordenadas en B y escupe coordenadas en C</b>. Nunca come vectores y nunca escupe vectores. Los pasos (1) y (3) son los que se saltea todo el mundo. Para la <b>preimagen</b> el diagrama se recorre al revés y el "×A" se convierte en "resolver el sistema A z = [w]<sub>C</sub>".</p>
+
+<h3>La convención de la cátedra: en los 20 casos, sin una excepción</h3>
+
+<div class="formula">[T]<sub>B</sub><sup>C</sup> · [v]<sub>B</sub> = [T(v)]<sub>C</sub> &nbsp;&nbsp;&nbsp; ▸ &nbsp;&nbsp;&nbsp; <b>subíndice = base del dominio</b>, <b>superíndice = base del codominio</b></div>
+
+<div class="key"><div class="ky-t">El control estructural que no depende de la convención</div>
+La matriz tiene tantas <b>columnas</b> como dim(dominio) y tantas <b>filas</b> como dim(codominio). En el 7/VIII/24 la matriz es 3×4: cuatro columnas = dim ℝ⁴ = dominio, tres filas = dim ℝ³ = codominio. <b>Si tu lectura de la notación contradice esto, la que está mal es tu lectura.</b> Cuando la matriz es cuadrada y los dos espacios tienen la misma dimensión el control no discrimina, y ahí hay que confiar en la convención (el enunciado siempre aclara quién es base de qué).
+</div>
+
+<h3>Paso 0 · treinta segundos que evitan el 80 % de los ceros</h3>
+<ol>
+  <li>Identificar <b>quién es el dominio</b> mirando "T : V → W" en el enunciado.</li>
+  <li>Leer la matriz con la convención, y validarla con el control de filas/columnas.</li>
+  <li><b>Calcular el rango a ojo.</b> Buscá filas repetidas o que sean suma de otras.</li>
+</ol>
+
+<div class="key"><div class="ky-t">El patrón silencioso más importante: la matriz SIEMPRE tiene rango deficiente</div>
+En los 20 casos. Las 3×3 tienen rango 2 (núcleo de dimensión 1); la 3×4 del 7/VIII/24 y el 15/V/24 tiene rango 2 (núcleo de dimensión 2); la 4×4 del 30/X/23 tiene rango 3. Consecuencia práctica: <b>la respuesta nunca es un punto solo</b>. Si te da un único vector, te equivocaste. Siempre hay un "+ gen{…}" colgando, o la imagen colapsa de dimensión. La cátedra suele poner filas dependientes evidentes: en el 7/VIII/24 Ej 3 la fila 1 es igual a la fila 3, y en el 29/X/22 la matriz es la clásica [[1,2,3],[4,5,6],[7,8,9]], con núcleo (1,−2,1).
+</div>
+
+<h3>Las cinco variantes, con su procedimiento</h3>
+
+<table class="tbl">
+<tr><th>Variante</th><th>Frecuencia</th><th>Procedimiento</th><th>La respuesta es…</th></tr>
+<tr><td><b>Preimagen de un vector</b><br><span class="muted">"preimagen de v", "conjunto solución de T(x)=b", "todos los p tales que T(p)=w", "T<sup>−1</sup>(w)"</span></td><td><b>10/20</b></td><td>[w]<sub>C</sub> ▸ resolver A z = [w]<sub>C</sub> ▸ traducir con B</td><td>v<sub>p</sub> + Nu(T). <b>No es subespacio</b> si w ≠ 0</td></tr>
+<tr><td><b>Preimagen de un subespacio</b> gen{w}</td><td>5/20</td><td>[w]<sub>C</sub> ▸ resolver el <b>homogéneo</b> A z − α[w]<sub>C</sub> = 0 con α incógnita extra ▸ traducir</td><td>Un <b>subespacio</b> de dimensión dim(S ∩ Im T) + dim Nu(T)</td></tr>
+<tr><td><b>Núcleo</b></td><td>2/20</td><td>Resolver A z = 0 ▸ traducir con B. <b>La base del codominio no se usa</b></td><td>gen{v₁,…,v<sub>k</sub>}</td></tr>
+<tr><td><b>Imagen de un subespacio</b></td><td>2/20</td><td>[s<sub>i</sub>]<sub>B</sub> ▸ ×A ▸ recombinar con C ▸ <b>depurar y recalcular la dimensión</b></td><td>gen{T(s₁), …}, con la dimensión declarada</td></tr>
+<tr><td><b>Imagen de una figura</b> (triángulo)</td><td>1/20</td><td>Transformar los tres vértices. Por linealidad, la imagen es la envolvente convexa de las imágenes</td><td>Un triángulo, <b>o un segmento si degenera</b></td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La preimagen de un subespacio NO es resolver A z = [w]<sub>C</sub></div>
+Es la variante que más gente arruina. T<sup>−1</sup>(gen{w}) = {v : T(v) ∈ gen{w}} = {v : T(v) = α·w para <b>algún</b> α}. Entonces α es una <b>incógnita más</b>, y el sistema es homogéneo en (z₁,…,z<sub>n</sub>, α). La solución general tiene dos bloques: uno con α = 0 (que es el núcleo) y otro con α = 1. Control de dimensión: si w ∈ Im(T), <b>dim T<sup>−1</sup>(S) = 1 + dim Nu(T)</b>; si w ∉ Im(T), la preimagen es exactamente el núcleo.
+</div>
+
+<h3>Los tres lugares donde se cae la gente, con casos reales</h3>
+
+<div class="trap"><div class="tr-t">1 · Entregar coordenadas en vez de vectores</div>
+7/VIII/24 Ej 2: multiplicás y te da [T(s₂)]<sub>B</sub> = (5,1,6)ᵀ. Eso <b>no es</b> la imagen: son sus coordenadas en B = {(1,1,1)ᵀ, (1,1,0)ᵀ, (1,−1,1)ᵀ}. Hay que combinar: 5(1,1,1) + 1(1,1,0) + 6(1,−1,1) = <b>(12, 0, 11)ᵀ</b>. Como en ese ejercicio el dominio es canónico y el codominio no, el reflejo de "multiplico y listo" te deja justo a un paso del final.<br><br>
+Y el espejo: 10/VII/24 Ej 2 pide el núcleo con B = {x², x+1, x+2}; el sistema da z = (1,−1,1) y la respuesta es <b>x² + 1</b>, no "el polinomio x² − x + 1" leyendo (1,−1,1) como coeficientes canónicos. La prueba de que ahí está todo el laburo: el 31/VII/24 tiene <b>las mismas coordenadas</b> (1,−1,1) en el núcleo, pero con B = {(1,−2,2),(2,2,1),(−2,1,2)} el resultado es gen{(1,1,−1)ᵀ}, una respuesta completamente distinta.
+</div>
+
+<div class="trap"><div class="tr-t">2 · Tratar la base del dominio como si fuera la canónica</div>
+15/V/24 Ej 2: es <b>la misma matriz y la misma base de llegada</b> que el 7/VIII/24, pero ahora el dominio también tiene base no canónica. Multiplicar A directamente por (2,0,1,1)ᵀ da (4,0,4)ᵀ, un vector que nunca se anula; con el cambio de coordenadas hecho, el <b>segundo</b> generador cae en el núcleo y la imagen colapsa a una recta. Contestás un plano donde hay una recta y ni te enterás.
+</div>
+
+<div class="trap"><div class="tr-t">3 · No declarar la degeneración</div>
+28/X/23 Ej 2: la imagen del triángulo <b>no es un triángulo</b>, es el segmento de matrices {s·I₂ : 0 ≤ s ≤ 3}. Después de transformar los tres vértices, calculá T(v₂) − T(v₁) y T(v₃) − T(v₁): si son paralelas o alguna es nula, la imagen es un segmento y <b>hay que decirlo</b>. Escribir "el triángulo de vértices A, B, B" es incorrecto.
+</div>
+
+<div class="key"><div class="ky-t">El chequeo final, dos minutos</div>
+Agarrá <b>un</b> elemento concreto no nulo de tu respuesta y recorré el diagrama de ida, <b>desde cero, sin reusar ninguna cuenta anterior</b>: (a) calculá vos mismo sus coordenadas en la base del dominio resolviendo v = Σ z<sub>i</sub>b<sub>i</sub>; (b) multiplicá A·z; (c) armá el vector del codominio combinando con C; (d) comparalo con lo que pedía el enunciado. Si invertiste dominio y codominio, el paso (a) ni siquiera cierra dimensionalmente; si salteaste un cambio de base, el paso (d) te da otro vector. Sumale el control dim Nu(T) + dim Im(T) = dim(dominio).
+</div>
+
+<h3>Matrices y bases que se reciclan entre fechas</h3>
+<p>Si sabés una, sabés tres. Vale la pena practicar sobre éstas:</p>
+<ul>
+  <li><b>[[1,2,1],[−2,4,6],[4,1,−3]]</b> con B = {(1,−2,2),(2,2,1),(−2,1,2)}: el 31/VII/24 pide núcleo, el 16/V/24 pide preimagen. Misma matriz, misma base, distinta pregunta.</li>
+  <li><b>[[1,1,1],[2,0,−2],[2,1,0]]</b>: 28/X/23, 5/VII/23 y 20/V/23.</li>
+  <li><b>[[1,0,1],[0,1,1],[1,0,1]]</b>: 16/V/24, 10/VI/23 y 13/VII/22.</li>
+  <li><b>[[1,0,1,1],[0,1,1,−1],[1,1,2,0]]</b> con B₂ = {(1,1,1),(1,1,0),(1,−1,1)}: 7/VIII/24 y 15/V/24.</li>
+  <li>Las bases ortogonales "de norma 3" <b>{(−1,2,2),(2,−1,2),(2,2,−1)}</b> y <b>{(1,−2,2),(2,2,1),(−2,1,2)}</b>, que aparecen en seis fechas.</li>
+</ul>
+
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · EJ 3 PROYECCIONES Y SIMETRÍAS ============ -->
+<details id="falp-s6">
+<summary><span class="num">6</span> Ej 3 · Proyecciones y simetrías <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-6"></span></summary>
+<div class="content">
+
+<p><b>17 de los 103</b>, y <b>16 veces como Ej 3</b> (la única excepción cae como Ej 2). <b>Siempre en ℝ³</b>, y siempre con la misma estructura de fondo: un <b>plano W</b> por el origen y una <b>recta L = gen{d}</b> con ℝ³ = W ⊕ L. La suma es directa pero <b>no necesariamente ortogonal</b>: por eso se llama proyección o simetría <i>oblicua</i>.</p>
+
+<p>En la base natural B = {w₁, w₂, d} — dos vectores del plano más el generador de la recta — la matriz es diagonal: <b>[Π]<sub>B</sub> = diag(1,1,0)</b> (el plano queda fijo, la recta se aplasta) y <b>[Σ]<sub>B</sub> = diag(1,1,−1)</b> (el plano queda fijo, la recta se da vuelta). Todo el ejercicio, en cualquier variante, es leer o reconstruir ese par (W, L).</p>
+
+<h3>Las dos familias</h3>
+
+<table class="tbl">
+<tr><th>Familia</th><th>Cómo te la dan</th><th>Casos</th></tr>
+<tr><td><b>A · geométrica</b></td><td>"la proyección de ℝ³ sobre el plano … en la dirección de la recta generada por …"</td><td><b>10/17</b></td></tr>
+<tr><td><b>B · algebraica</b></td><td>una matriz A ("comprobar que es proyección/simetría"), o la condición Π∘Π = Π / Σ∘Σ = I con dos datos sueltos</td><td>7/17</td></tr>
+</table>
+
+<h3>Familia A · la fórmula única</h3>
+
+<div class="formula">W = {x : f(x) = 0}, &nbsp; L = gen{d} &nbsp;&nbsp;▸&nbsp;&nbsp; <b>γ = f(x) / f(d)</b> &nbsp;&nbsp;▸&nbsp;&nbsp; Π(x) = x − γ·d &nbsp;&nbsp;|&nbsp;&nbsp; Σ(x) = x − <b>2</b>γ·d</div>
+
+<p>De dónde sale: todo x se escribe de forma única como x = w + γ·d con w ∈ W; aplicás f, usás que f(w) = 0 y la linealidad, y queda f(x) = γ·f(d). <b>Primer paso obligatorio: evaluar f(d) y comprobar que da ≠ 0</b> — si diera 0, d estaría en el plano y la transformación ni existiría. Ese número es además el denominador de todas las cuentas que vienen.</p>
+
+<div class="key"><div class="ky-t">El dato que casi nadie mira: en la mitad de los casos la dirección ES la normal</div>
+En 5 de los 10 geométricos (31/VII/24, 10/VII/24, 28/X/23, 19/XI/22 y 13/VII/22) el vector director coincide con el vector de coeficientes de la ecuación del plano: son proyecciones y simetrías <b>ortogonales disfrazadas</b>. En los otros 5 son genuinamente oblicuas y la fórmula con producto interno da mal. Como el método γ = f(x)/f(d) funciona en los dos casos, <b>usalo siempre</b> y no te fijes si es ortogonal o no.
+</div>
+
+<h3>Familia B · reconstruir el par (W, L)</h3>
+
+<table class="tbl">
+<tr><th>Dato</th><th>Qué se deduce</th><th>Por qué</th></tr>
+<tr><td>Π∘Π = Π y Π(v) = u</td><td><b>u ∈ Im(Π)</b> y queda fijo; <b>v − u ∈ Nu(Π)</b></td><td>Π(u) = Π(Π(v)) = Π(v) = u ▸ y Π(v−u) = u − u = 0</td></tr>
+<tr><td>Σ∘Σ = I y Σ(v) = u</td><td><b>v + u ∈ E₁</b> (el plano); <b>v − u ∈ E₋₁</b> (la recta); y gratis Σ(u) = v</td><td>Σ(v+u) = u+v ▸ Σ(v−u) = u−v = −(v−u)</td></tr>
+<tr><td>La matriz A explícita</td><td>proyección ⟺ <b>A² = A</b>; simetría ⟺ <b>A² = I</b> con A ≠ ±I. Después Nu(A − I), Nu(A), Nu(A + I)</td><td>Hay que hacer el producto de verdad, entrada por entrada</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">De Π(v) = u NO se deduce que v quede fijo</div>
+Es el error central de tres ejercicios reales (15/V/24, 18/XI/23 y 30/X/23) y arrastra toda la resolución. Lo que queda fijo es <b>u</b>, no v. La cuenta correcta es literalmente aplicarle Π de nuevo a la igualdad que te dieron.
+</div>
+
+<div class="trap"><div class="tr-t">La matriz diagonal pedida DICTA el orden de la base</div>
+diag(1,1,−1) → los dos del plano primero, el de la recta tercero. <b>diag(0,0,1) → primero DOS DEL NÚCLEO</b>, y recién después el generador de la imagen (10/VI/23). diag(1,0,0) → primero el de la imagen (15/V/24). Escribir la base correcta en otro orden es respuesta incorrecta: la matriz pedida no da.
+</div>
+
+<h3>Qué te pueden pedir, y qué pasa con la dimensión</h3>
+
+<table class="tbl">
+<tr><th>Piden</th><th>Cómo se hace</th><th>La trampa</th></tr>
+<tr><td><b>Imagen de un triángulo</b> (5 casos)</td><td>Transformar los tres vértices. Vale porque una TL manda combinaciones convexas en combinaciones convexas.</td><td>Puede <b>degenerar</b> en un segmento si un lado es paralelo a d. Y los vértices son <b>puntos</b>: no se los escala para "simplificar".</td></tr>
+<tr><td><b>Imagen de un subespacio</b> (7 casos)</td><td>Transformar una base y recalcular la dimensión.</td><td>Con una <b>proyección</b> la dimensión baja exactamente en dim(U ∩ Nu Π): si d cumple la ecuación de U, ya sabés que perdés una dimensión. Con una <b>simetría</b> nunca baja (Σ es inversible): si te da una recta, hay error de cuenta.</td></tr>
+<tr><td><b>Preimagen de un subespacio</b> (1 caso)</td><td><b>Π<sup>−1</sup>(S) = (S ∩ W) ⊕ L</b>. Para una simetría, Σ<sup>−1</sup> = Σ.</td><td>Es <b>más grande</b> que S y siempre contiene al núcleo: dim Π<sup>−1</sup>(S) = dim(S ∩ W) + 1. En el 28/X/23 la respuesta es un plano y mucha gente contesta la recta S.</td></tr>
+<tr><td><b>Base diagonalizante</b> (4 casos)</td><td>Autoespacios, en el orden que dicta la matriz pedida.</td><td>El orden, y "comprobar" sin multiplicar.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">"Comprobar que es una simetría" no se comprueba con det(A) = −1 ni con "A es simétrica"</div>
+Una simetría oblicua tiene matriz <b>no</b> simétrica, y hay infinitas matrices de determinante −1 que no son involutivas. Lo único que vale es hacer el producto A·A entrada por entrada y ver que da I (o A, para proyección), más aclarar que A ≠ I y A ≠ −I para descartar los casos triviales.
+</div>
+
+<div class="key"><div class="ky-t">El chequeo final</div>
+Aplicá tu fórmula a <b>d</b> y a un <b>w</b> cualquiera del plano: tiene que dar Π(d) = 0 y Π(w) = w, o Σ(d) = −d y Σ(w) = w. Si Σ(d) te da 0, te comiste el 2. Después, en el caso proyección, <b>reemplazá cada vector imagen en la ecuación del plano: tiene que dar 0</b>. Y si reconstruiste el par (W, L) desde datos sueltos, <b>recalculá los datos del enunciado</b> con tu fórmula: si Π([0,−1,1]) no te devuelve exactamente [1,1,1], el par está mal.
+</div>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · EJ 4 PRODUCTO INTERNO ============ -->
+<details id="falp-s7">
+<summary><span class="num">7</span> Ej 4 · Producto interno: distancia, mejor aproximación, áreas <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-7"></span></summary>
+<div class="content">
+
+<p><b>19 de los 103</b>, y <b>13 de las 19 cuartas posiciones</b>. Te dan un espacio euclídeo (V, ⟨·,·⟩) con un producto interno <b>explícito y casi nunca canónico</b>, un subespacio S y un vector v. Y te piden una de cinco cosas que son todas la misma: <b>proyectar sobre S</b>.</p>
+
+<table class="tbl">
+<tr><th>Qué piden</th><th>Frecuencia</th><th>Qué es en realidad</th></tr>
+<tr><td><b>Distancia</b> de un vector a un subespacio</td><td>10/19 (53 %)</td><td>‖v − P<sub>S</sub>(v)‖</td></tr>
+<tr><td><b>Mejor aproximación</b> / proyección (piden el vector, no el número)</td><td>4/19</td><td>P<sub>S</sub>(v)</td></tr>
+<tr><td><b>Área</b> de un triángulo con el PI dado</td><td>2/19</td><td>½·base·altura, con la altura = distancia a la recta del lado</td></tr>
+<tr><td><b>Lugar geométrico</b> de equidistantes (a dos puntos o a dos subespacios)</td><td>2/19</td><td>Igualar dos distancias</td></tr>
+<tr><td><b>Norma</b> de un vector con el PI deducido de datos geométricos</td><td>1/19</td><td>√⟨v,v⟩ con la Gram reconstruida</td></tr>
+</table>
+
+<h3>Paso 1 · escribir el producto interno en forma utilizable</h3>
+
+<table class="tbl">
+<tr><th>Cómo viene el PI</th><th>Casos</th><th>Qué hacés</th></tr>
+<tr><td><b>Por matriz:</b> ⟨x,y⟩ = yᵀA x en ℝⁿ (incluye los diagonales como 2x₁y₁ + x₂y₂ + 2x₃y₃)</td><td>7/19</td><td>Nada: la matriz de Gram <b>es</b> A</td></tr>
+<tr><td><b>Abstracto:</b> no te lo escriben, hay que deducirlo de datos geométricos</td><td>5/19</td><td>Paso 1'' de abajo</td></tr>
+<tr><td><b>Por evaluación:</b> ⟨p,q⟩ = Σ p(x<sub>i</sub>)q(x<sub>i</sub>) en ℝ₂[x]</td><td>4/19</td><td>Paso 1' de abajo</td></tr>
+<tr><td><b>Canónico</b> en ℝⁿ, con S dado como col(A) o por generadores</td><td>2/19</td><td>Producto escalar de siempre</td></tr>
+<tr><td><b>Integral:</b> ⟨p,q⟩ = ∫<sub>−1</sub><sup>1</sup> p·q</td><td>1/19</td><td>Integrar. No hay atajo.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Paso 1' · el atajo del PI por evaluación</div>
+Con ⟨p,q⟩ = p(x₁)q(x₁) + … + p(x<sub>n</sub>)q(x<sub>n</sub>) y n = dim V, el mapa Φ(p) = (p(x₁), …, p(x<sub>n</sub>))ᵀ es un <b>isomorfismo</b> (Vandermonde con nodos distintos) y por definición ⟨p,q⟩ = Φ(p)·Φ(q). Entonces: <b>traducí todo a la lista de valores y trabajá con el producto escalar canónico de ℝⁿ</b>. Al final volvés interpolando. Es la forma más rápida y la que menos errores da.
+</div>
+
+<div class="key"><div class="ky-t">Paso 1'' · el PI abstracto, con la única identidad que se usa</div>
+‖u ± w‖² = ‖u‖² ± 2⟨u,w⟩ + ‖w‖². Con eso, cada dato del enunciado se traduce:<br>
+<b>"base ortonormal"</b> → G = I → es el canónico en coordenadas de esa base.<br>
+<b>"‖u<sub>i</sub>‖ = 1 y ‖u<sub>i</sub>+u<sub>j</sub>‖² = 2"</b> → 2 + 2⟨u<sub>i</sub>,u<sub>j</sub>⟩ = 2 → ortonormal.<br>
+<b>"base ortogonal con ‖v₁‖ = 1 y ‖v₁+v₂‖ = √5"</b> → 1 + ‖v₂‖² = 5 → ‖v₂‖ = 2 → G = diag(1,4).<br>
+<b>"triángulo equilátero de lado L y área A"</b> → de A = (√3/4)L² sacás L², y con vértices 0, a, b queda ‖a‖² = ‖b‖² = L² y <b>⟨a,b⟩ = L²/2</b> (porque ‖b−a‖² = 2L² − 2⟨a,b⟩ = L²). Eso te da la Gram <b>en la base {a,b}</b>: G' = L²·[[1, ½],[½, 1]]. Si te preguntan por vectores canónicos, escribilos en la base {a,b} y usá G' — no despejes la Gram canónica, son tres incógnitas y sale feo.
+</div>
+
+<h3>Paso 2 · elegir la ruta según cómo viene S</h3>
+
+<p><b>Ruta S<sup>⊥</sup> (S dado por ecuación: 6 de los 19, más el de equidistancia entre dos subespacios; es la más rápida).</b> Con S = {x ∈ ℝⁿ : nᵀx = 0} y ⟨x,y⟩ = yᵀA x:</p>
+<div class="formula">S<sup>⊥</sup> = gen{w} con <b>A·w = n</b> &nbsp;&nbsp;▸&nbsp;&nbsp; ⟨v,w⟩ = nᵀv &nbsp;&nbsp;y&nbsp;&nbsp; ⟨w,w⟩ = nᵀw &nbsp;&nbsp;▸&nbsp;&nbsp; <b>d(v,S) = |nᵀv| / √(nᵀw)</b></div>
+<p>La primera igualdad sale de que w ∈ S<sup>⊥</sup> ⟺ sᵀA w = 0 para todo s ∈ S ⟺ A·w es <i>canónicamente</i> ortogonal a S ⟺ A·w ∈ gen{n}. Fijate el regalo: el numerador es <b>la ecuación de S evaluada en v</b>. Si además piden la proyección, P<sub>S</sub>(v) = v − (⟨v,w⟩/⟨w,w⟩)·w; y si piden la matriz en base canónica, P<sub>S<sup>⊥</sup></sub> = (1/(nᵀw))·w·nᵀ y P<sub>S</sub> = I − P<sub>S<sup>⊥</sup></sub>.</p>
+
+<p><b>Ruta Gram (S dado por generadores: 8 de los 19; en los 4 restantes ni siquiera hay un subespacio sobre el que proyectar — piden una norma, un área o una mediatriz).</b> Con base {s₁,…,s<sub>k</sub>} de S: armás (G<sub>S</sub>)<sub>ij</sub> = ⟨s<sub>j</sub>, s<sub>i</sub>⟩ y b<sub>i</sub> = ⟨v, s<sub>i</sub>⟩ (todo con el PI del enunciado), resolvés G<sub>S</sub>·c = b, y P<sub>S</sub>(v) = c₁s₁ + … + c<sub>k</sub>s<sub>k</sub>. <b>Si la base ya es ortogonal en ese PI</b> — chequealo primero, es una cuenta — G<sub>S</sub> es diagonal y se parte en términos independientes: P<sub>S</sub>(v) = Σ (⟨v,s<sub>i</sub>⟩/⟨s<sub>i</sub>,s<sub>i</sub>⟩)·s<sub>i</sub>. En estos parciales los generadores están elegidos ortogonales casi siempre.</p>
+
+<h3>Las variantes que parecen otra cosa</h3>
+
+<div class="key"><div class="ky-t">Área de un triángulo, la fórmula que vale en cualquier espacio</div>
+Con u = P₂ − P₁ y z = P₃ − P₁ los dos lados desde un mismo vértice:
+<div class="formula">Área = ½·‖u‖·d(z, gen{u}) = <b>½·√( ‖u‖²·‖z‖² − ⟨u,z⟩² )</b></div>
+Es la raíz del determinante de Gram. Si ⟨u,z⟩ = 0 queda ½‖u‖‖z‖. El primer paso siempre es <b>restar el vértice común</b>: en el 28/X/23 los tres vértices son 6, 2x(x+1)+6 y 3x(x−1)+6, y el "+6" se cancela justo ahí.
+</div>
+
+<p><b>Equidistantes a dos puntos P y Q:</b> ‖x−P‖² = ‖x−Q‖². Al desarrollar se cancelan los ‖x‖² y queda <b>una ecuación lineal</b>: 2⟨x, Q−P⟩ = ‖Q‖² − ‖P‖². Es el hiperplano mediatriz, perpendicular a Q−P <b>en el sentido del PI dado</b>. <b>Equidistantes a dos subespacios de la misma dimensión:</b> calculás las dos distancias por la ruta S<sup>⊥</sup> y las igualás; como hay valores absolutos salen <b>dos</b> planos bisectores.</p>
+
+<p><b>"Hallar v₁ ∈ S y v₂ ∈ S<sup>⊥</sup> con v₁ + v₂ = v":</b> es la descomposición ortogonal, v₁ = P<sub>S</sub>(v) y v₂ = v − v₁. Es única porque V = S ⊕ S<sup>⊥</sup>.</p>
+
+<h3>Las trampas, con el número que cambia en cada una</h3>
+
+<div class="trap"><div class="tr-t">Escribir S<sup>⊥</sup> = gen{n} con producto interno no canónico</div>
+Es <b>el</b> error del tipo. Con ⟨x,y⟩ = yᵀA x y S = {x : nᵀx = 0}, lo correcto es S<sup>⊥</sup> = gen{A<sup>−1</sup>n}, que se calcula <b>resolviendo el sistema A·w = n</b>, no invirtiendo A y nunca multiplicando A·n. En el ejercicio sin fecha con A = [[2,−1,1],[−1,2,0],[1,0,1]] la normal canónica es [2,1,2]ᵀ pero el generador de S<sup>⊥</sup> es <b>[1,1,1]ᵀ</b>, y la distancia pasa de 11/3 a <b>11/√5</b>. Regla: nunca escribas un vector como "ortogonal a" sin haber calculado sᵀA w = 0 con la matriz del enunciado.
+</div>
+
+<div class="trap"><div class="tr-t">Proyectar término a término sobre una base que no es ortogonal</div>
+P<sub>S</sub>(v) = Σ (⟨v,s<sub>i</sub>⟩/⟨s<sub>i</sub>,s<sub>i</sub>⟩)s<sub>i</sub> <b>sólo</b> vale si ⟨s<sub>i</sub>,s<sub>j</sub>⟩ = 0 para i ≠ j <i>en el PI dado</i>. En el 19/XI/22 los generadores 1−2x y 3+6x tienen producto interno −2 ≠ 0 con la integral, y quien no lo chequea entrega otro polinomio. Antes de proyectar, calculá el producto cruzado: si da 0 seguís, si no resolvés G·c = b.
+</div>
+
+<div class="trap"><div class="tr-t">Leer el PI por evaluación como si fuera el de los coeficientes</div>
+Con ⟨p,q⟩ = p(−1)q(−1) + p(0)q(0) + p(1)q(1), identificar p = a₀+a₁x+a₂x² con (a₀,a₁,a₂) y hacer producto escalar es usar <b>otro</b> producto interno (que también existe y también aparece, en el 7/VIII/24 Ej 5). En el 28/X/23 eso cambia el área de <b>12</b> a 6. Apenas leés "p(x₁)q(x₁) + …", pasá cada polinomio a su terna de <b>valores</b> y no vuelvas a mirar los coeficientes hasta el final.
+</div>
+
+<div class="trap"><div class="tr-t">Manipular normas como si fueran lineales</div>
+De ‖v₁+v₂‖ = √5 con ‖v₁‖ = 1 concluir ‖v₂‖ = √5 − 1. Falso: hay que elevar al cuadrado, ‖v₁+v₂‖² = ‖v₁‖² + 2⟨v₁,v₂⟩ + ‖v₂‖², y recién ahí usar la ortogonalidad para matar el cruzado. Da <b>‖v₂‖ = 2</b>, no 1,24. En cualquier dato con ‖u ± w‖, el primer movimiento mecánico es elevar al cuadrado.
+</div>
+
+<div class="trap"><div class="tr-t">Contestar la mediatriz canónica en los problemas de equidistancia</div>
+En el 31/VII/24, con A = diag(2,1,2), la respuesta canónica x₁+x₂+x₃ = 9 es incorrecta: la correcta es <b>2x₁+x₂+2x₃ = 15</b>. Los coeficientes del plano son los de <b>A(Q−P)</b>, no los de Q−P. Chequeo de dos segundos: el punto medio (P+Q)/2 tiene que satisfacer tu ecuación.
+</div>
+
+<div class="trap"><div class="tr-t">Usar ½‖u × z‖ fuera de ℝ³ canónico</div>
+El producto vectorial no existe en ℝ₂[x] ni en un V abstracto, y la "altura visual" no es la del PI. La fórmula universal es la del determinante de Gram. (En ℝ³ <b>con el canónico</b> el atajo sí vale, y también d = |v·w|/‖w‖ con w = s₁ × s₂.)
+</div>
+
+<div class="key"><div class="ky-t">El chequeo final, y el atajo que te ahorra el ejercicio entero</div>
+<b>Chequeo:</b> calculá el residuo r = v − P<sub>S</sub>(v) y verificá ⟨r, s<sub>i</sub>⟩ = 0 para <b>cada</b> generador de S, <b>con el producto interno del enunciado</b> (con matriz, eso es s<sub>i</sub>ᵀA r = 0). Segundo chequeo gratis: Pitágoras, ‖v‖² = ‖P<sub>S</sub>(v)‖² + ‖r‖².<br><br>
+<b>Atajo:</b> apenas obtenés el generador w de S<sup>⊥</sup>, <b>compará con v</b>. Si son proporcionales, v ∈ S<sup>⊥</sup> y la distancia es simplemente ‖v‖. Pasa en el 7/VIII/24 y en el 16/V/24 (9h): la respuesta es <b>√2</b> y sale en dos renglones.
+</div>
+
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 8 · EJ 5 CUADRADOS MÍNIMOS Y FIBRA ============ -->
+<details id="falp-s8">
+<summary><span class="num">8</span> Ej 5 · Cuadrados mínimos y fibra de la proyección <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-8"></span></summary>
+<div class="content">
+
+<p>Los dos ocupan el mismo lugar del examen y son <b>la misma estructura algebraica</b>: solución particular más subespacio. Cuadrados mínimos son <b>12 de los 103</b>; la fibra de la proyección son <b>11</b>. Y la fibra es la que está creciendo: en las seis fechas de 2024 aparece <b>cinco</b> veces (cuatro como Ej 5 y una como Ej 4) y cuadrados mínimos ninguna.</p>
+
+<div class="formula">soluciones por cuadrados mínimos = <b>x̂₀ + Nul(A)</b> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; fibra de la proyección = <b>v + S<sup>⊥</sup></b></div>
+
+<h3>Parte 1 · La fibra de la proyección ortogonal</h3>
+
+<p>Te dan (V, ⟨·,·⟩), un subespacio S, la proyección ortogonal P<sub>S</sub>, un vector v, y casi siempre un número k. Piden todos los x con P<sub>S</sub>(x) = v, recortados por una condición de distancia.</p>
+
+<table class="tbl">
+<tr><th>Variante</th><th>Casos</th><th>La ecuación que hay que escribir</th></tr>
+<tr><td><b>Distancia AL ORIGEN</b> = k</td><td>6/11 (55 %)</td><td>Pitágoras: <b>‖w‖² = k² − ‖v‖²</b> (porque v ⊥ w)</td></tr>
+<tr><td><b>Distancia AL SUBESPACIO S</b> = k</td><td>3/11</td><td><b>‖w‖ = k</b> directo, porque d(x,S) = ‖x − P<sub>S</sub>(x)‖ = ‖w‖. Acá ‖v‖ <b>no interviene</b></td></tr>
+<tr><td><b>Sin condición</b> (fibra completa)</td><td>2/11</td><td>La respuesta es el subespacio afín v + S<sup>⊥</sup> entero</td></tr>
+</table>
+
+<p><b>El procedimiento, siete pasos:</b> fijar el PI ▸ escribir S con base explícita ▸ <b>verificar v ∈ S</b> ▸ calcular S<sup>⊥</sup> ▸ parametrizar x = v + t·n ▸ traducir la condición de distancia ▸ despejar t con <b>los dos signos</b>.</p>
+
+<div class="key"><div class="ky-t">Por qué P<sub>S</sub>(x) = v ⟺ x ∈ v + S<sup>⊥</sup></div>
+Ida: P<sub>S</sub>(v + w) = P<sub>S</sub>(v) + P<sub>S</sub>(w) = v + 0 = v, para todo w ∈ S<sup>⊥</sup>. Vuelta: si P<sub>S</sub>(x) = v, entonces x − v = x − P<sub>S</sub>(x) ∈ S<sup>⊥</sup> por definición de proyección ortogonal. Es toda la teoría del tipo, y es lo que evita armar la matriz de proyección y perder cuarenta minutos en un sistema indeterminado.
+</div>
+
+<div class="key"><div class="ky-t">En los 9 ejercicios con condición de distancia, la respuesta son EXACTAMENTE dos vectores</div>
+Nunca uno, nunca infinitos. En 10 de los 11 casos dim S<sup>⊥</sup> = 1, así que la fibra es una recta y la esfera la corta en dos puntos simétricos respecto de v. El único con dim S<sup>⊥</sup> = 2 (15/V/24, en ℝ<sup>2×2</sup>) es justamente el que <b>no</b> tiene condición de distancia — porque ahí daría una circunferencia entera.
+</div>
+
+<div class="trap"><div class="tr-t">Confundir "al origen" con "al subespacio"</div>
+Es la trampa central. Si el enunciado dice <b>al origen</b> y vos ponés ‖w‖ = k, tu respuesta queda a distancia √(k² + ‖v‖²) del origen en vez de k. Si dice <b>al subespacio</b> y aplicás Pitágoras, queda a √(k² − ‖v‖²) de S. El ejercicio se pierde entero aunque el resto esté impecable. <b>Subrayá la preposición antes de escribir la primera línea.</b> Verificación: en el 20/V/23 la respuesta correcta tiene ‖x‖ = 3√2 pero d(x,S) = 3; en el 28/X/23 tiene d(x,S) = 4 pero ‖x‖ = 5. Si tus dos números coinciden con k, confundiste algo.
+</div>
+
+<div class="trap"><div class="tr-t">Los otros cuatro errores del tipo</div>
+<b>No verificar v ∈ S.</b> Si v ∉ S el conjunto es <b>vacío</b>, porque la imagen de P<sub>S</sub> es S. Sólo un enunciado lo pide explícitamente ("comprobar que v pertenece a S"); en los otros diez hay que hacerlo igual.<br><br>
+<b>Perder un signo.</b> De t² = α escribís t = √α. Van los dos.<br><br>
+<b>Confundir |t| con ‖w‖.</b> Como ‖t·n‖ = |t|·‖n‖ y en los once ejercicios del tipo ‖n‖ vale 3, 7, √2, √3 o 2√2, escribí siempre la ecuación completa <b>t²‖n‖² = ‖w‖²</b>, con ‖n‖² calculado en un renglón aparte.<br><br>
+<b>No discutir el caso sin solución.</b> En la variante "al origen": si k² &gt; ‖v‖² hay dos soluciones; si k² = ‖v‖² hay una sola (x = v); si k² &lt; ‖v‖² <b>no hay ninguna</b>. Geométricamente: v es el punto de la fibra más cercano al origen.
+</div>
+
+<h3>Parte 2 · Cuadrados mínimos</h3>
+
+<div class="formula">x̂ minimiza ‖b − Ax‖ &nbsp;⟺&nbsp; b − Ax̂ ⊥ col(A) &nbsp;⟺&nbsp; <b>AᵀA x̂ = Aᵀb</b></div>
+
+<p>Esa ecuación normal es <b>siempre compatible</b>, tenga o no solución el sistema original, porque Aᵀb ∈ col(Aᵀ) = col(AᵀA). Su conjunto solución es x̂₀ + Nul(A): única si las columnas de A son LI, infinitas si no.</p>
+
+<table class="tbl">
+<tr><th>Variante</th><th>Casos</th><th>Cómo se ataca</th></tr>
+<tr><td><b>Ajuste de datos</b> (tabla + recta o parábola)</td><td>4/12</td><td>A tiene <b>una fila por dato y una columna por coeficiente incógnita</b>. Recta: fila i = [x<sub>i</sub>, 1]. Parábola: [x<sub>i</sub>², x<sub>i</sub>, 1]. AᵀA es la matriz de momentos.</td></tr>
+<tr><td><b>Columnas LD</b> (A explícita de rango 1 o 2)</td><td>6/12</td><td>Detectar la dependencia ▸ calcular Nul(A) ▸ resolver la normal ▸ escribir el conjunto</td></tr>
+<tr><td><b>Inversa</b> (te dan la proyección o el x̂)</td><td>2/12</td><td>Traducir la hipótesis a una de las tres caracterizaciones equivalentes</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La firma de la cátedra: A es un producto externo</div>
+En 5 de los 8 casos de las dos últimas variantes, A = <b>u·vᵀ</b> (rango 1), a veces escrita así de entrada y a veces disfrazada de tabla: [[1,2,3],[2,4,6],[3,6,9]] es (1,2,3)ᵀ(1,2,3); [[1,1,1],[1,1,1],[2,2,2]] es (1,1,2)ᵀ(1,1,1); [[3,4,5],[3,4,5],[3,4,5]] es (1,1,1)ᵀ(3,4,5). Reconocerlo colapsa el ejercicio:
+<div class="formula">Ax = (v·x)·u &nbsp;▸&nbsp; col(A) = gen{u}, fil(A) = gen{v}, Nul(A) = v<sup>⊥</sup> &nbsp;▸&nbsp; la normal se reduce a <b>v·x = (u·b)/(u·u)</b></div>
+y la de norma mínima es <b>x<sub>min</sub> = [(u·b)/((u·u)(v·v))]·v</b>. Ojo con el orden: u·vᵀ ≠ v·uᵀ, y confundirlos intercambia col(A) con fil(A).
+</div>
+
+<div class="key"><div class="ky-t">Norma mínima: por qué es la que cae en fil(A)</div>
+ℝⁿ = fil(A) ⊕ Nul(A) y esos dos subespacios son <b>ortogonales</b> (fil(A) = col(Aᵀ) = (Nul A)<sup>⊥</sup>, porque Ax = 0 dice justamente que x es ortogonal a todas las filas). Escribí cualquier solución como x = x<sub>F</sub> + x<sub>N</sub>. Como todas las soluciones difieren en un elemento de Nul(A), <b>todas tienen la misma x<sub>F</sub></b>: lo único que varía es x<sub>N</sub>. Por Pitágoras ‖x‖² = ‖x<sub>F</sub>‖² + ‖x<sub>N</sub>‖² ≥ ‖x<sub>F</sub>‖², con igualdad sólo si x<sub>N</sub> = 0.<br><br>
+Cómo calcularla: tomás la solución general x<sub>p</sub> + t·n y exigís <b>(x<sub>p</sub> + t·n)·n = 0</b> para cada generador n del núcleo.
+</div>
+
+<div class="trap"><div class="tr-t">Los cinco errores que se cobran</div>
+<b>Resolver Ax = b en vez de AᵀA x = Aᵀb.</b> El sistema original es incompatible: por eso te piden "por cuadrados mínimos". En el 10/VI/23, leer la primera fila y escribir x₁+2x₂+3x₃ = 2 da (1/7)(1,2,3) en vez de <b>(3/49)(1,2,3)</b>: misma dirección, escala equivocada.<br><br>
+<b>Creer que AᵀA es siempre inversible.</b> Sólo si las columnas de A son LI. Cuando es singular, la normal <b>sigue siendo compatible</b>, con infinitas soluciones. Escribir "no tiene solución" es el error opuesto y también cuesta el ejercicio.<br><br>
+<b>Confundir la de norma mínima con la solución particular.</b> Poner t = 0 y entregar ese vector. En el 12/VI/23 eso da [6/7, 0, 2/3]ᵀ, que no es ortogonal al núcleo ([6/7,0,2/3]·[−2,1,0] = −12/7 ≠ 0). La correcta es <b>[6/35, 12/35, 2/3]ᵀ</b>. Chequeo de diez segundos: producto escalar con cada generador del núcleo, tiene que dar 0. Y <b>"norma mínima" no es "norma 1"</b>: no la normalices.<br><br>
+<b>Aplicar el atajo de datos simétricos cuando Σx ≠ 0.</b> Con x<sub>i</sub> simétricos (Σx = Σx³ = 0) la AᵀA queda diagonal y los coeficientes salen sueltos: a = Σxy/Σx², b = Σy/n. Con x = −1,0,1,2 (5/VII/23) <b>no</b>: Σx = 2, hay término cruzado, y arrastrar la fórmula da −11/6 y 1 contra los correctos <b>−13/5 y 23/10</b>.<br><br>
+<b>Mezclar fil(A) con col(A).</b> El <b>residuo</b> b − Ax̂ vive en (col A)<sup>⊥</sup> = Nul(Aᵀ) ⊆ ℝ<sup>m</sup>; la solución de <b>norma mínima</b> vive en fil(A) = (Nul A)<sup>⊥</sup> ⊆ ℝⁿ. Test dimensional: si A es 4×3, las soluciones están en ℝ³ y los residuos en ℝ⁴.
+</div>
+
+<div class="key"><div class="ky-t">El chequeo final</div>
+Calculá el residuo r = b − Ax̂ y verificá <b>Aᵀr = 0</b>, es decir que r sea ortogonal a cada <b>columna</b> de A. En el ajuste de datos esto se lee gratis sobre la tabla: los residuos r<sub>i</sub> = y<sub>i</sub> − ŷ(x<sub>i</sub>) tienen que cumplir <b>Σ r<sub>i</sub> = 0</b> y <b>Σ x<sub>i</sub>·r<sub>i</sub> = 0</b> (y además Σ x<sub>i</sub>²·r<sub>i</sub> = 0 en la parábola). Si da distinto de cero, el error está en AᵀA o en Aᵀb, no en el despeje.
+</div>
+
+<div class="quiz-wrap" data-qz="8" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 9 · BANCO REAL ============ -->
+<details id="falp-s9">
+<summary><span class="num">9</span> Banco real · los 103 ejercicios de los 21 parciales <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-9"></span></summary>
+<div class="content">
+
+<p>Los <b>103 ejercicios</b> de los <b>21 parciales</b> relevados, transcriptos <b>verbatim</b> y resueltos. Cada uno lleva su referencia — fecha del examen y número de ejercicio — para que puedas reconstruir cualquier fecha completa. Están agrupados por tipo, no por examen: el objetivo es que hagas seis seguidos del mismo tipo y le agarres el mecanismo, no que simules una fecha (para eso está la sección 10).</p>
+
+<table class="tbl">
+<tr><th>Bloque</th><th>Tipo</th><th>Ejercicios</th><th>Posición del banco</th></tr>
+<tr><td>A</td><td>Subespacios</td><td>16</td><td>1 – 16</td></tr>
+<tr><td>F</td><td>Coordenadas y cambio de base</td><td>4</td><td>17 – 20</td></tr>
+<tr><td>B</td><td>Transformaciones lineales</td><td>20</td><td>21 – 40</td></tr>
+<tr><td>E</td><td>Proyecciones y simetrías</td><td>17</td><td>41 – 57</td></tr>
+<tr><td>C</td><td>Producto interno</td><td>19</td><td>58 – 76</td></tr>
+<tr><td>D</td><td>Fibra de la proyección ortogonal</td><td>11</td><td>77 – 87</td></tr>
+<tr><td>G</td><td>Cuadrados mínimos</td><td>12</td><td>88 – 99</td></tr>
+<tr><td>H</td><td>Ecuaciones diferenciales</td><td>4</td><td>100 – 103</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cómo usarlo para que sirva</div>
+<b>Escribí la respuesta antes de revelarla.</b> Leer la solución y pensar "ah, claro" no transfiere nada: el examen no te va a pedir reconocer una resolución, te va a pedir producirla. <b>Cronometrá 30 minutos</b> por ejercicio, que es el presupuesto real del parcial. Y cuando falles, anotá <b>en qué paso</b> fallaste: si es siempre el paso de traducir coordenadas a vectores, el problema no es el tipo de ejercicio, es ese paso.
+</div>
+
+<div class="trap"><div class="tr-t">Dos ejercicios del corpus tienen partes ilegibles en el original</div>
+El <b>30/X/23 Ej 3</b> tiene dos números sobrescritos a mano sobre el impreso; están marcados en la transcripción, y la resolución muestra cómo <b>se reconstruyen desde las hipótesis</b>: la idempotencia deja sólo dos lecturas posibles, y una de ellas exige un valor negativo donde el original tiene dígitos sueltos. El <b>5/VII/23 Ej 1</b> tiene un tramo tapado por una mancha, y también se reconstruye — por el hecho de que B₁ tiene que ser base. Son dos buenos ejercicios de justificación, que es exactamente lo que la cátedra dice que puede preguntar en el oral.
+</div>
+
+<div class="reveal-wrap" data-rv="9" data-subject="fiuba-algebra-lineal-parcial"></div>
+<div class="quiz-wrap" data-qz="9" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 10 · SIMULACRO ============ -->
+<details id="falp-s10">
+<summary><span class="num">10</span> Simulacro · un parcial completo con su resolución <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-10"></span></summary>
+<div class="content">
+
+<p>Cinco problemas nuevos — no están en ninguna fecha real — armados con el <b>esqueleto exacto</b> del parcial: subespacios en el 1, transformación lineal en el 2, proyección en el 3, producto interno en el 4 y fibra de la proyección en el 5. Los números están elegidos como los elige la cátedra: enteros chicos, matrices de rango deficiente, resultados que cierran. <b>Todas las cuentas fueron verificadas con sympy.</b></p>
+
+<div class="code-block">ÁLGEBRA II (61.08 – 81.02) - ÁLGEBRA LINEAL (CB002)
+Primer parcial — Duración: 3 horas.
+
+Apellido y Nombres: ........................  Legajo: ..........  Curso: ..........
+
+1. En ℝ₃[x] se consideran los subespacios S₁ y S₂ definidos por
+      S₁ = {p ∈ ℝ₃[x] : p(0) = p(2) = 0},
+      S₂ = {p ∈ ℝ₃[x] : p(2) = p(−2) = 0}.
+   Hallar una base de ℝ₃[x] que contenga una base de S₁ ∩ S₂ y una base de S₁ + S₂.
+
+2. Sea T : ℝ³ → ℝ³ la transformación lineal definida por
+      [T]_B^E = [[1,0,1],[2,1,3],[1,1,2]],
+   donde E es la base canónica de ℝ³ y B es la base de ℝ³ definida por
+      B = { [1 −2 2]ᵀ, [2 2 1]ᵀ, [−2 1 2]ᵀ }.
+   Hallar la preimagen por T del vector v = [2 5 3]ᵀ.
+
+3. Sea Π la proyección de ℝ³ sobre el plano {x ∈ ℝ³ : x₁ + 2x₂ − x₃ = 0} en la
+   dirección de la recta generada por [1 1 0]ᵀ. Hallar la imagen por Π del
+   subespacio U = {x ∈ ℝ³ : x₁ − x₂ + x₃ = 0}.
+
+4. Se considera el espacio euclídeo (ℝ³, ⟨·,·⟩) con el producto interno definido por
+      ⟨x,y⟩ = yᵀ [[2,1,0],[1,2,0],[0,0,1]] x.
+   Calcular la distancia del vector [1 1 3]ᵀ al subespacio S = {x ∈ ℝ³ : x₁ + x₂ + x₃ = 0}.
+
+5. En ℝ³ con el producto interno canónico se considera el subespacio
+      S = {x ∈ ℝ³ : x₁ − 2x₂ + 2x₃ = 0}.
+   Sea P_S : ℝ³ → ℝ³ la proyección ortogonal de ℝ³ sobre S. Hallar todos los x ∈ ℝ³
+   tales que P_S(x) = [2 2 1]ᵀ cuya distancia al origen sea igual a 3√2.</div>
+
+<div class="key"><div class="ky-t">Cómo tomártelo</div>
+<b>Tres horas, reloj a la vista, hoja en blanco, sólo tus 4 carillas.</b> Y respetá el protocolo de la sección 1: diez minutos leyendo los cinco y clasificándolos antes de escribir una cuenta. Al terminar, aplicá el chequeo de cada tipo <b>antes</b> de revelar las soluciones — la mitad del valor del simulacro está en descubrir vos mismo cuál de los cinco te salió mal.
+</div>
+
+<div class="key"><div class="ky-t">Cómo leer tu resultado</div>
+<b>4 o 5 bien</b> · estás. Repasá sólo el que falló y andá al banco real de la sección 9 a hacer tres más de ese tipo.<br>
+<b>3 bien</b> · aprobás, pero sin margen: cualquier variante que no hayas visto te deja en 2. Elegí el tipo que más veces cae (TL, 20 de 103) y hacé seis seguidos del banco.<br>
+<b>2 o menos</b> · el problema no es de práctica sino de método. Volvé a la sección del tipo que fallaste, leé el procedimiento paso por paso, y recién después volvé al banco.<br><br>
+Y mirá <b>en qué paso</b> fallaste, no sólo cuántos. Si los errores son todos del último paso — traducir coordenadas a vectores, poner los dos signos, declarar la degeneración — el contenido lo tenés y lo que falta es el <b>chequeo final</b>, que son dos minutos por ejercicio.
+</div>
+
+<div class="reveal-wrap" data-rv="10" data-subject="fiuba-algebra-lineal-parcial"></div>
+<div class="quiz-wrap" data-qz="10" data-subject="fiuba-algebra-lineal-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-parcial">↑ Volver al índice</a>
+</div>
+</details>

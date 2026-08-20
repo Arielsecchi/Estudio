@@ -1,0 +1,1045 @@
+<header>
+    <h1>Álgebra Lineal · Segundo parcial</h1>
+    <div class="sub">FIUBA · Álgebra II (61.08 / 81.02) — Álgebra Lineal (CB002) · Cátedra Palacios · Guía de examen para el <b>miércoles 2 de diciembre de 2026</b>, 9 a 12: unidad 4 completa, construida sobre <b>14 segundos parciales reales</b> (10 del régimen actual) con sus 50 ejercicios transcriptos y resueltos, más un simulacro calibrado por frecuencia</div>
+  </header>
+<nav class="toc" id="toc-fiuba-algebra-lineal-segundo-parcial">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fals-s1">Qué entra, qué se sabe y de dónde sale</a></li>
+    <li><a href="#fals-s2">Las 4 carillas para este parcial</a></li>
+    <li><a href="#fals-s3">El ejercicio 1: diagonalización con parámetro</a></li>
+    <li><a href="#fals-s4">Ecuaciones matriciales p(A) = B y espectros de polinomios</a></li>
+    <li><a href="#fals-s5">La matriz simétrica que hay que construir</a></li>
+    <li><a href="#fals-s6">Evolución en el tiempo: potencias, límites y ecuaciones diferenciales</a></li>
+    <li><a href="#fals-s7">Formas cuadráticas, isometrías y Rayleigh</a></li>
+    <li><a href="#fals-s8">DVS, seudoinversa y cuadrados mínimos: el bloque del final</a></li>
+    <li><a href="#fals-s9">Banco real · los 50 ejercicios de los 10 parciales, resueltos</a></li>
+    <li><a href="#fals-s10">Simulacro · un segundo parcial completo</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-algebra-lineal-segundo-parcial">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · QUÉ ENTRA, QUÉ SE SABE Y DE DÓNDE SALE ============ -->
+<details id="fals-s1">
+<summary><span class="num">1</span> Qué entra, qué se sabe y de dónde sale <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-1"></span></summary>
+<div class="content">
+
+<p>Esta guía no explica la materia: la <b>madre</b> (<i>Álgebra Lineal · Guía completa de la materia</i>) ya tiene la unidad 4 entera con sus demostraciones y los 18 ejercicios de la Guía 4 resueltos. Acá se hace otra cosa: se recorta al <b>segundo parcial del 2/12/2026</b>, se lo mide contra los exámenes que se consiguieron, y se entrena la ejecución rápida de los moldes que efectivamente aparecen.</p>
+
+<div class="key"><div class="ky-t">Lo primero, para que sepas exactamente qué estás leyendo</div>
+La guía madre se escribió con <b>21 parciales reales de esta cátedra, y los 21 son primeros parciales</b>. Por eso ahí dice, con razón, que no se puede predecir el formato del segundo. <b>Esta guía cambia ese diagnóstico</b>, porque después se consiguieron <b>14 segundos parciales</b> más: 10 del régimen actual (2024–2025) y 4 del régimen anterior (2016–2018).<br><br>
+<b>Pero no salieron del campus ni de material que la cátedra publique.</b> Salieron de Drives públicos de estudiantes enlazados desde un repositorio de GitHub. Son <b>fotos del papel del examen</b>, con los casilleros de Apellido / Legajo / Curso y los datos personales tachados, subidas junto con la resolución manuscrita de un ayudante. En 10 de los 14 la fecha viene impresa por la cátedra en el propio enunciado; en 4 la foto está recortada arriba y la fecha sale del nombre del archivo en el Drive (26/06/24, el tercer turno del 4/XII/24, el 07/07/25 y el 16/VI/2018 del régimen viejo). En la sección 9 está el detalle examen por examen, con la confiabilidad de cada uno.
+</div>
+
+<h3>1.1 · El régimen, en seis renglones</h3>
+
+<table class="tbl">
+<tr><th>Qué</th><th>Cómo es</th></tr>
+<tr><td>Composición</td><td><b>5 problemas</b>, todo desarrollo. Ningún múltiple choice.</td></tr>
+<tr><td>Aprobación</td><td><b>3 problemas resueltos correctamente</b>. No se promedia: o el problema está cerrado o no cuenta.</td></tr>
+<tr><td>Duración</td><td><b>3 horas</b> (9:00 a 12:00), en el curso de inscripción. No hay fechas diferidas.</td></tr>
+<tr><td>Permitido</td><td><b>Resumen manuscrito de máximo 4 carillas</b>, hecho a mano por vos, <b>sin ejercicios resueltos</b> ni fotocopias. <b>Calculadora sí.</b></td></tr>
+<tr><td>Prohibido</td><td>Celulares y relojes inteligentes. Si se comprueba el uso, <b>sumario académico</b>.</td></tr>
+<tr><td>La cláusula que decide</td><td>Todo procedimiento o resultado teórico <b>no visto en clase</b> hay que <b>justificarlo teóricamente</b> para que sea considerado, con posible <b>interrogatorio oral</b>.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">3 sobre 5 en 3 horas: 36 minutos por problema y una única estrategia sensata</div>
+Tres bien y dos en blanco <b>aprueba</b>; cinco a medias <b>reprueba</b>. Los primeros cinco minutos se gastan leyendo los cinco enunciados y decidiendo cuáles tres cerrás <b>completos</b>. Y en este parcial esa decisión es más fácil que en el primero, porque los moldes se repiten: si reconocés "diagonalización con parámetro", "construir la simétrica" y "ajuste por cuadrados mínimos", ya tenés tus tres candidatos en 8 de cada 10 exámenes reales.
+</div>
+
+<h3>1.2 · Las fechas, contadas hacia atrás desde el 2/12</h3>
+
+<table class="tbl">
+<tr><th>Instancia</th><th>Fecha</th><th>Qué implica</th></tr>
+<tr><td><b>Segundo parcial</b></td><td>Miércoles <b>2 de diciembre de 2026</b>, 9 a 12</td><td>Seis semanas después del primero (21/10). Es la última clase útil del cuatrimestre.</td></tr>
+<tr><td>1.º recuperatorio</td><td>Miércoles <b>16 de diciembre de 2026</b></td><td>Sólo dos semanas después. Recuperás <b>uno</b> de los dos parciales, no los dos.</td></tr>
+<tr><td>2.º recuperatorio</td><td>Miércoles <b>17 de febrero de 2027</b></td><td>Dos meses de verano en el medio, sin tocar el tema.</td></tr>
+<tr><td>3.º recuperatorio</td><td>Miércoles <b>24 de febrero de 2027</b></td><td>Última bala.</td></tr>
+<tr><td>Evaluación libre</td><td>Miércoles <b>3 de marzo de 2027</b></td><td>Una sola por cuatrimestre.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Plan de seis semanas, del 21/10 al 2/12</div>
+<b>Semana 1 (21–28/10)</b> · Autovalores, autovectores, polinomio característico, m(λ) contra μ(λ) y el criterio de diagonalizabilidad. Ejercicios 4.1 a 4.3 de la Guía 4 y adicionales 1 a 8. Cerrás la semana pudiendo hacer <b>cualquier</b> "hallar a tal que A diagonaliza" en menos de 20 minutos. Sección 3 de acá.<br>
+<b>Semana 2 (28/10–4/11)</b> · Ecuaciones matriciales p(A) = B, espectros de polinomios en A, potencias A<sup>k</sup>x<sub>0</sub>. Guía 4.4, 4.5, 4.8 y adicionales 9 a 12. Secciones 4 y 6.<br>
+<b>Semana 3 (4–11/11)</b> · Teorema espectral, matrices ortogonales y el ejercicio de construir la simétrica. Guía 4.6, 4.7, 4.9 y <b>4.10 entero</b>. Sección 5. <b>Es la semana más rentable de las seis</b>: 9 de los 10 parciales tienen un ejercicio de acá.<br>
+<b>Semana 4 (11–18/11)</b> · DVS: construcción de U, Σ y V, los cuatro subespacios, imagen de la esfera. Guía 4.11, 4.12, 4.14, 4.16, 4.17, 4.18. Sección 8.<br>
+<b>Semana 5 (18–25/11)</b> · Seudoinversa y cuadrados mínimos, incluido el <b>ajuste de recta y parábola</b> que la Guía 4 no trae y que cae en 4 de los 10 exámenes. Guía 4.13, 4.15 y el capítulo 3 del apunte oficial. Sección 8.<br>
+<b>Semana 6 (25/11–2/12)</b> · Simulacro cronometrado de la sección 10, en 3 horas y sin mirar nada, y <b>escritura definitiva de las 4 carillas</b> (sección 2). Repaso de las trampas de cada sección. No aprendas temas nuevos esta semana.
+</div>
+
+<h3>1.3 · El temario, y qué peso tiene cada tema en los exámenes reales</h3>
+
+<p>Conté los <b>50 ejercicios</b> de los 10 segundos parciales del régimen actual (2024–2025), asignándole a cada uno un único molde. Es la única estadística de esta guía y es chica: <b>10 exámenes, no 100</b>. Tomala como orden de prioridades, no como pronóstico.</p>
+
+<table class="tbl">
+  <tr><th>Molde de ejercicio</th><th>Veces en 50</th><th>En cuántos de los 10 exámenes</th><th>Sección</th></tr>
+  <tr><td><b>Construir una matriz simétrica</b> a partir de condiciones (espectral al revés)</td><td><b>9</b></td><td><b>9 de 10</b></td><td>5</td></tr>
+  <tr><td><b>Hallar a ∈ ℝ tal que A es diagonalizable</b></td><td><b>7</b></td><td>7 de 10</td><td>3</td></tr>
+  <tr><td><b>Hallar A<sup>†</sup></b>, la seudoinversa de Moore-Penrose</td><td>5</td><td>5 de 10</td><td>8</td></tr>
+  <tr><td><b>Ajustar datos por cuadrados mínimos</b> (recta o parábola)</td><td>4</td><td>4 de 10</td><td>8</td></tr>
+  <tr><td>Ecuación matricial <b>p(A) = B</b>, hallar A ∈ ℝ<sup>2×2</sup></td><td>4</td><td>4 de 10</td><td>4</td></tr>
+  <tr><td><b>Potencias A<sup>k</sup>x<sub>0</sub></b> ("la partícula que recibe impactos")</td><td>4</td><td>4 de 10</td><td>6</td></tr>
+  <tr><td><b>Hallar una DVS</b> de una matriz dada, o hallar A a partir de datos de su DVS</td><td>4</td><td>4 de 10</td><td>8</td></tr>
+  <tr><td>Cuadrados mínimos <b>generales</b> (todas las soluciones, o la de norma mínima)</td><td>3</td><td>3 de 10</td><td>8</td></tr>
+  <tr><td><b>Imagen de la esfera unitaria</b> o máx<sub>‖x‖=1</sub>‖Ax‖</td><td>3</td><td>3 de 10</td><td>8</td></tr>
+  <tr><td><b>lím<sub>k→∞</sub> A<sup>k</sup>x</b></td><td>2</td><td>2 de 10</td><td>6</td></tr>
+  <tr><td>Comprobar que U es ortogonal y <b>caracterizar la isometría</b></td><td>2</td><td>2 de 10</td><td>7</td></tr>
+  <tr><td><b>σ(p(A))</b> a partir de datos del espectro</td><td>2</td><td>2 de 10</td><td>4</td></tr>
+  <tr><td>Diagonalizar sin parámetro (hallar P y Λ)</td><td>1</td><td>1 de 10</td><td>3</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Lo que más manda no es el tema: es la posición</div>
+<b>Ejercicio 1:</b> en <b>8 de los 10</b> es diagonalización (7 con parámetro, 1 sin). Los otros dos son un ajuste por cuadrados mínimos y una ecuación matricial.<br>
+<b>Ejercicio 5:</b> en <b>10 de los 10</b> es DVS, seudoinversa, cuadrados mínimos o imagen de la esfera. Sin ninguna excepción.<br>
+<b>Los del medio (2, 3, 4):</b> ahí viven la simétrica, la partícula, la ecuación matricial y la DVS.<br><br>
+Traducido a estrategia: <b>el examen empieza en autovalores y termina en valores singulares</b>. Si sabés hacer el 1 y el 5 y encima podés construir la simétrica, tenés tus tres.
+</div>
+
+<div class="trap"><div class="tr-t">Tres cosas que NO aparecen en ninguno de los 10 parciales del régimen actual</div>
+<b>1 · Formas cuadráticas escritas como q(x) = x<sup>T</sup>Ax con pedido de clasificarlas.</b> Cero apariciones. Aparecen en el régimen viejo (2017, 2018) y el apunte oficial les dedica el capítulo 5 entero, pero en los diez recientes no están. Lo que sí está, disfrazado, es <b>Rayleigh</b>: máx<sub>‖x‖=1</sub>‖Ax‖ es exactamente eso.<br>
+<b>2 · Ecuaciones diferenciales.</b> Cero apariciones en los 10 segundos parciales. En cambio aparecen en <b>4 de los 21 primeros parciales</b> de la guía madre. Es decir: <b>en esta cátedra las ecuaciones diferenciales caen en el primer parcial, no en el segundo.</b> Igual van en la sección 6 en versión corta, porque cuestan quince minutos y el apunte oficial las cubre.<br>
+<b>3 · Cónicas y cuádricas con término lineal</b> (rotación más traslación de ejes). Cero. Sólo aparecen en el parcial mutilado de 1996, con un programa que ya no es este.
+</div>
+
+<h3>1.4 · Qué se arrastra de las unidades 1 a 3</h3>
+
+<p>El parcial es de la unidad 4, pero la unidad 4 <b>usa</b> las anteriores todo el tiempo y esos pasos también hay que saber hacerlos rápido. Lo que efectivamente aparece dentro de los ejercicios reales:</p>
+
+<table class="tbl">
+  <tr><th>De dónde viene</th><th>Qué se usa</th><th>Dónde aparece</th></tr>
+  <tr><td>Unidad 1</td><td>Resolver sistemas homogéneos, rango, nul y col, dimensión</td><td>En cada cálculo de autoespacio. Literalmente en los 50.</td></tr>
+  <tr><td>Unidad 2</td><td>Matriz de una transformación en base canónica; matriz de una proyección ortogonal</td><td>31/VII/24 ej 4 (proyección sobre un plano); todos los "T(x) = Ax"</td></tr>
+  <tr><td>Unidad 3</td><td>Producto interno canónico, norma, ortogonalidad, Gram-Schmidt, P<sub>S</sub> = I − P<sub>S⊥</sub></td><td>Todo el ejercicio de la simétrica y toda la construcción de la DVS</td></tr>
+  <tr><td>Unidad 3</td><td>Ecuaciones normales A<sup>T</sup>Ax = A<sup>T</sup>b</td><td>Los cuatro ajustes de recta y parábola</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · LAS 4 CARILLAS PARA ESTE PARCIAL ============ -->
+<details id="fals-s2">
+<summary><span class="num">2</span> Las 4 carillas para este parcial <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-2"></span></summary>
+<div class="content">
+
+<p>El resumen es <b>manuscrito, de hasta 4 carillas, sin ejercicios resueltos y sin fotocopias</b>. La tentación es llenarlo de fórmulas. Es un error: las fórmulas cortas las reconstruís en el papel. Lo que no se reconstruye bajo presión son los <b>enunciados largos que hay que citar textualmente para justificar</b>, y los <b>algoritmos con orden fijo</b> donde saltarte un paso invalida el resultado.</p>
+
+<div class="key"><div class="ky-t">La regla que define qué va y qué no</div>
+"Todo procedimiento o resultado teórico que no haya sido visto en clase y que sea utilizado en la resolución del parcial deberá ser justificado teóricamente para que sea considerado. De ser necesario, se realizará un interrogatorio oral."<br><br>
+Entonces el criterio es uno solo: <b>¿esto lo voy a <i>citar</i> o lo voy a <i>usar</i>?</b> Lo que citás va textual (teorema espectral, criterio de diagonalizabilidad, caracterización de ortogonales, Rayleigh). Lo que usás va como esqueleto de dos renglones. Y escribilo <b>una semana antes</b>, no la noche anterior: escribirlo <i>es</i> el repaso.
+</div>
+
+<h3>2.1 · Carilla 1 · Autovalores y diagonalización</h3>
+
+<table class="tbl">
+  <tr><th>Qué escribís</th><th>Por qué</th></tr>
+  <tr><td>Las 8 definiciones con el vocabulario exacto de la Guía 4: autovalor, autovector, σ(A), S<sub>λ</sub> = nul(A − λI), μ(λ) = dim S<sub>λ</sub>, χ<sub>A</sub>(x) = <b>det(A − xI)</b>, m(λ), semejanza</td><td>Es el vocabulario del enunciado. Y esa convención de signo es la de la cátedra: para n impar el coeficiente principal de χ sale <b>−1</b>.</td></tr>
+  <tr><td><b>Criterio de diagonalizabilidad, las 4 equivalencias</b>, y abajo la versión práctica: "χ<sub>A</sub> factoriza completamente en ℝ <b>y</b> m(λ) = μ(λ) para cada λ"</td><td>Es el enunciado que citás en el ejercicio 1 de 8 de cada 10 exámenes.</td></tr>
+  <tr><td>1 ≤ μ(λ) ≤ m(λ) &nbsp;·&nbsp; <b>μ(λ) = n − rango(A − λI)</b> &nbsp;·&nbsp; n autovalores distintos ⟹ diagonaliza</td><td>Las tres líneas que convierten el criterio en una cuenta de rangos.</td></tr>
+  <tr><td>tr(A) = Σλ<sub>i</sub> &nbsp;·&nbsp; det(A) = Πλ<sub>i</sub> &nbsp;·&nbsp; A inversible ⟺ 0 ∉ σ(A)</td><td>Motor de <b>todos</b> los "hallar A tal que…".</td></tr>
+  <tr><td>Si Av = λv entonces <b>p(A)v = p(λ)v</b>; y si A diagonaliza, σ(p(A)) = p(σ(A)) exactamente</td><td>Resuelve los σ(p(A)) y las ecuaciones matriciales enteras.</td></tr>
+  <tr><td>Qué conserva la semejanza: χ, σ, m, μ, tr, det, rango. Qué <b>no</b>: autovectores, simetría, ortogonalidad</td><td>Seis palabras. Aparece en las preguntas de justificar.</td></tr>
+</table>
+
+<h3>2.2 · Carilla 2 · Simétricas, ortogonales y el teorema espectral</h3>
+
+<table class="tbl">
+  <tr><th>Qué escribís</th><th>Por qué</th></tr>
+  <tr><td><b>Teorema espectral completo, los 5 puntos</b>, más la recíproca. Y la línea final: A simétrica ⟺ ℝ<sup>n</sup> tiene b.o.n. de autovectores de A ⟺ A = UΛU<sup>T</sup> con U ortogonal</td><td>Es <b>el</b> teorema del parcial. Se cita en 9 de los 10 exámenes.</td></tr>
+  <tr><td>Las <b>8 caracterizaciones de matriz ortogonal</b>, con la de isometría (‖Ux‖ = ‖x‖) subrayada</td><td>La citás para justificar que un cambio de variable no cambia la norma, que es el paso central de la DVS.</td></tr>
+  <tr><td><b>Descomposición espectral:</b> A = Σ<sub>λ</sub> λ·P<sub>S<sub>λ</sub></sub> &nbsp;·&nbsp; P<sub>gen{v}</sub> = vv<sup>T</sup>/‖v‖<sup>2</sup> &nbsp;·&nbsp; P<sub>plano de normal n</sub> = I − nn<sup>T</sup>/‖n‖<sup>2</sup> &nbsp;·&nbsp; P<sub>S⊥</sub> = I − P<sub>S</sub></td><td>Cuatro renglones que <b>construyen</b> la matriz simétrica del ejercicio de 9 de 10. Sin esto, ese ejercicio se hace resolviendo sistemas a mano.</td></tr>
+  <tr><td>El chequeo: <b>si dos autovectores dados no son ortogonales, son del mismo autovalor</b></td><td>Sin esa observación, tres de los nueve ejercicios de simétrica no arrancan.</td></tr>
+  <tr><td>Gram-Schmidt sólo <b>dentro</b> de un autoespacio, nunca entre autoespacios distintos</td><td>Es la trampa que hace que U deje de diagonalizar.</td></tr>
+</table>
+
+<h3>2.3 · Carilla 3 · DVS y seudoinversa</h3>
+
+<table class="tbl">
+  <tr><th>Qué escribís</th><th>Por qué</th></tr>
+  <tr><td>Los <b>7 pasos de la construcción</b>, en orden: (1) autovalores de A<sup>T</sup>A de mayor a menor · (2) b.o.n. {v<sub>i</sub>} de autovectores · (3) σ<sub>i</sub> = √λ<sub>i</sub> · (4) u<sub>i</sub> = Av<sub>i</sub>/σ<sub>i</sub> para i ≤ r · (5) completar a b.o.n. de ℝ<sup>m</sup> con nul(A<sup>T</sup>) · (6) armar U, Σ, V · (7) A = UΣV<sup>T</sup></td><td>Algoritmo de orden fijo. Saltearse "de mayor a menor" invalida la DVS.</td></tr>
+  <tr><td>Tamaños: A ∈ ℝ<sup>m×n</sup> ⟹ U ∈ ℝ<sup>m×m</sup>, Σ ∈ ℝ<sup>m×n</sup>, V ∈ ℝ<sup>n×n</sup>. Y "diagonalizá la más chica entre A<sup>T</sup>A y AA<sup>T</sup>"</td><td>Ahorra la mitad de la cuenta, y el error de tamaño es el más común.</td></tr>
+  <tr><td>Tabla de los <b>cuatro subespacios</b>: fil(A) = v<sub>1..r</sub>, nul(A) = v<sub>r+1..n</sub>, col(A) = u<sub>1..r</sub>, nul(A<sup>T</sup>) = u<sub>r+1..m</sub>, con sus proyecciones V<sub>r</sub>V<sub>r</sub><sup>T</sup> y U<sub>r</sub>U<sub>r</sub><sup>T</sup></td><td>Es media resolución de cualquier ejercicio de cuadrados mínimos.</td></tr>
+  <tr><td>A<sup>†</sup> = V<sub>r</sub>D<sup>−1</sup>U<sub>r</sub><sup>T</sup> = Σ(1/σ<sub>i</sub>)v<sub>i</sub>u<sub>i</sub><sup>T</sup> &nbsp;·&nbsp; A<sup>†</sup>A = P<sub>fil</sub> &nbsp;·&nbsp; AA<sup>†</sup> = P<sub>col</sub> &nbsp;·&nbsp; <b>x* = A<sup>†</sup>b es la solución por c.m. de norma mínima</b> &nbsp;·&nbsp; todas: x* + nul(A)</td><td>Cinco renglones que resuelven el ejercicio 5 de 10 de cada 10 exámenes.</td></tr>
+  <tr><td>Reconocer una DVS ya hecha: A = Σ c<sub>i</sub>a<sub>i</sub>b<sub>i</sub><sup>T</sup> ⟹ σ<sub>i</sub> = c<sub>i</sub>‖a<sub>i</sub>‖‖b<sub>i</sub>‖, <b>previa verificación de que {a<sub>i</sub>} y {b<sub>i</sub>} sean ortogonales</b></td><td>Aparece en cinco parciales reales (los ejercicios 5 del 27/VI/24 9hs, del 26/06/24 y de los tres turnos del 4/XII/24). Y en uno de ellos los vectores <b>no</b> son ortogonales: hay que darse cuenta y decirlo.</td></tr>
+  <tr><td>Tabla de la imagen de la esfera por rango: r = n = m = 2 → elipse (el borde) · r = n = m = 3 → elipsoide · r &lt; n → elipse o elipsoide <b>lleno</b> · r = 1 → segmento de extremos ±σ<sub>1</sub>u<sub>1</sub></td><td>Es la respuesta literal de tres parciales reales y es puro recuerdo.</td></tr>
+</table>
+
+<h3>2.4 · Carilla 4 · Cuadrados mínimos, Rayleigh y ajuste de datos</h3>
+
+<table class="tbl">
+  <tr><th>Qué escribís</th><th>Por qué</th></tr>
+  <tr><td><b>Ecuaciones normales A<sup>T</sup>Ax = A<sup>T</sup>b</b>, y "si rango(A) = n entonces x̂ = (A<sup>T</sup>A)<sup>−1</sup>A<sup>T</sup>b = A<sup>†</sup>b, única"</td><td>Los cuatro ajustes de recta y parábola salen con esto y nada más.</td></tr>
+  <tr><td>El <b>armado de la matriz de diseño</b>: recta y = mx + b ⟹ columnas [x<sub>i</sub> | 1]; parábola y = ax<sup>2</sup> + bx + c ⟹ columnas [x<sub>i</sub><sup>2</sup> | x<sub>i</sub> | 1]. La incógnita son los <b>coeficientes</b>, no los datos</td><td>Es el paso donde se pierde el ejercicio, y <b>no está en la Guía 4</b>: está en el capítulo 3 del apunte oficial.</td></tr>
+  <tr><td>Cuándo <b>no</b> sirve (A<sup>T</sup>A)<sup>−1</sup>A<sup>T</sup>: si nul(A) ≠ {0}. Ahí hay infinitas soluciones y hay que ir por la seudoinversa</td><td>Distingue los dos tipos de ejercicio de cuadrados mínimos que toman.</td></tr>
+  <tr><td><b>Rayleigh:</b> con ‖x‖ = 1 y A simétrica, λ<sub>mín</sub> ≤ x<sup>T</sup>Ax ≤ λ<sub>máx</sub>, alcanzados en los autovectores unitarios. Y su consecuencia: <b>máx<sub>‖x‖=1</sub>‖Ax‖ = σ<sub>1</sub></b> (en ±v<sub>1</sub>) y <b>mín = σ<sub>n</sub></b> (en ±v<sub>n</sub>)</td><td>Es lo que piden tres exámenes, escrito con otras palabras. Y es la única forma de acotar x<sup>T</sup>Mx.</td></tr>
+  <tr><td>Clasificación de formas cuadráticas por los signos de σ(A), en cinco renglones</td><td>Barato de escribir. No cae en los 10 recientes; sí en el régimen viejo.</td></tr>
+  <tr><td>Sistemas X′ = AX con A diagonalizable: X(t) = Σ C<sub>i</sub>e<sup>λ<sub>i</sub>t</sup>v<sub>i</sub></td><td>Un renglón. Muy poco probable en este parcial, pero cuesta un renglón.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Lo que NO debe ocupar lugar en las 4 carillas</div>
+<b>Las demostraciones escritas palabra por palabra.</b> Ocupan carillas enteras y no las vas a copiar. Anotá el <b>esqueleto</b>: "espectral: ⟨Av,v⟩ por los dos lados ⟹ λ real; λ⟨v,w⟩ = μ⟨v,w⟩ ⟹ ortogonales", y reconstruí en el papel.<br>
+<b>Matrices de ejemplo.</b> Es lo más parecido a "ejercicios resueltos" y por eso mismo es lo primero que te pueden objetar.<br>
+<b>Las tablas de datos de los ajustes.</b> Los números del examen van a ser otros.<br>
+<b>Cómo se resuelve un sistema lineal.</b> Eso ya lo sabés; si no, el resumen no te salva.
+</div>
+
+<div class="key"><div class="ky-t">Un truco de organización que rinde</div>
+Titulá cada bloque por <b>lo que te pide el enunciado</b>, no por el tema teórico: "me piden hallar a para que diagonalice", "me piden una simétrica con estas condiciones", "me piden A<sup>†</sup>". En el examen no vas a buscar "teorema espectral": vas a buscar "¿cuál era la fórmula de la proyección sobre el plano?". Ordenar el resumen por <b>pregunta</b> te ahorra treinta segundos cada vez que lo mirás.
+</div>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · EL EJERCICIO 1: DIAGONALIZACIÓN CON PARÁMETRO ============ -->
+<details id="fals-s3">
+<summary><span class="num">3</span> El ejercicio 1: diagonalización con parámetro <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-3"></span></summary>
+<div class="content">
+
+<p>De los 10 segundos parciales del régimen actual, <b>8 abren con diagonalización</b>, y 7 de esos ocho traen un <b>parámetro a</b> y piden lo mismo: <i>"hallar todos los a ∈ ℝ tales que A es diagonalizable"</i> (dos de esos siete lo dicen con una vuelta de más: el 26/06/24 agrega "y tiene un autovalor doble" y el 4/XII/24 14hs pide además P y Λ). Es el ejercicio más previsible del examen y el más barato de automatizar.</p>
+
+<div class="key"><div class="ky-t">El molde, que es siempre el mismo</div>
+Te dan A ∈ ℝ<sup>3×3</sup> con un parámetro a que aparece en <b>dos lugares distintos</b>: dentro de un autovalor (típicamente como a<sup>2</sup>, a<sup>2</sup>−5a, a<sup>2</sup>−1) y en una entrada suelta que <b>controla el rango</b> de A − λI. La matriz está armada para que el determinante salga factorizado casi solo: siempre hay una fila o una columna con dos ceros.<br><br>
+<b>Y la respuesta casi nunca es un valor: es un complemento.</b> "Diagonalizable ⟺ a ≠ 2 y a ≠ 3", "⟺ a ≠ ±1", "⟺ a ≠ ±√6". Si te da un único valor, releé: probablemente el enunciado pide además que <b>tenga un autovalor doble</b>, y ahí sí la respuesta es un valor.
+</div>
+
+<h3>3.1 · El procedimiento, en cinco pasos y sin pensar</h3>
+
+<ol>
+  <li><b>χ<sub>A</sub>(x) = det(A − xI), desarrollando por la fila o columna con más ceros.</b> Nunca hagas Sarrus con un parámetro adentro: te comés un término. En los 7 casos reales el desarrollo por cofactores da el polinomio <b>ya factorizado</b>.</li>
+  <li><b>Listá los autovalores.</b> Vas a tener dos números fijos y una expresión en a, o un número fijo repetido y una expresión.</li>
+  <li><b>Casos.</b> Igualá la expresión en a a cada número fijo: cada igualdad es un caso "hay autovalor múltiple". Todo lo que no cae en ningún caso es "tres autovalores distintos ⟹ diagonaliza, sin más cuentas". <b>Esa mitad también hay que escribirla.</b></li>
+  <li><b>En cada caso de autovalor múltiple, calculá el rango de A − λI con el valor de a ya sustituido.</b> μ(λ) = 3 − rango. Comparalo con m(λ).</li>
+  <li><b>Escribí la respuesta como una condición sobre a</b> y justificá citando el criterio: "diagonalizable ⟺ χ factoriza completamente en ℝ y m(λ) = μ(λ) para todo λ".</li>
+</ol>
+
+<div class="trap"><div class="tr-t">El paso 4 es el ejercicio entero, y ahí el parámetro te tiende la trampa</div>
+Sustituí <b>primero</b> el valor de a y <b>después</b> calculá el rango. Al revés te perdés la cancelación. El caso testigo es el <b>26/06/2024 ej 1</b>, que es literalmente el 4.2 de la Guía 4: A = [[−2,0,0],[4,9,<b>a+3</b>],[5,0,a<sup>2</sup>]], con autovalores −2, 9 y a<sup>2</sup>. Hay autovalor doble si a = ±3, y en los dos casos el doble es 9. Pero:<br>
+▸ <b>a = 3:</b> A − 9I = [[−11,0,0],[4,0,<b>6</b>],[5,0,0]] tiene rango 2 ⟹ μ(9) = 1 ≠ 2. <b>No diagonaliza.</b><br>
+▸ <b>a = −3:</b> la entrada a+3 <b>se anula</b>, A − 9I = [[−11,0,0],[4,0,0],[5,0,0]] tiene rango <b>1</b> ⟹ μ(9) = 2. <b>Diagonaliza.</b><br>
+La respuesta es <b>a = −3, y es el único</b>. Si calculás el rango "en general" antes de sustituir, te llevás los dos.
+</div>
+
+<h3>3.2 · Los siete enunciados reales, uno al lado del otro</h3>
+
+<table class="tbl">
+  <tr><th>Fecha</th><th>Matriz</th><th>χ<sub>A</sub>(x)</th><th>Respuesta</th></tr>
+  <tr><td>27/VI/24 14hs</td><td>[[1,−1,0],[0,a<sup>2</sup>,0],[0,−1,1]]</td><td>−(x−1)<sup>2</sup>(x−a<sup>2</sup>)</td><td><b>a ≠ 1 y a ≠ −1</b></td></tr>
+  <tr><td>26/06/24</td><td>[[−2,0,0],[4,9,a+3],[5,0,a<sup>2</sup>]]</td><td>−(x+2)(x−9)(x−a<sup>2</sup>)</td><td><b>a = −3</b> <span class="muted">(pide además autovalor doble)</span></td></tr>
+  <tr><td>10/VII/24 (R)</td><td>[[−6,6,0],[0,a<sup>2</sup>−5a,0],[0,6,−6]]</td><td>−(x+6)<sup>2</sup>(x−a<sup>2</sup>+5a)</td><td><b>a ≠ 2 y a ≠ 3</b></td></tr>
+  <tr><td>31/VII/24 (R)</td><td>[[5,−6,0],[0,a<sup>2</sup>−1,0],[0,−6,5]]</td><td>−(x−5)<sup>2</sup>(x−a<sup>2</sup>+1)</td><td><b>a ≠ √6 y a ≠ −√6</b></td></tr>
+  <tr><td>4/XII/24 14hs</td><td>[[3,a,0],[0,3,0],[2,−4,1]]</td><td>−(x−3)<sup>2</sup>(x−1)</td><td><b>a = 0</b> <span class="muted">(el parámetro no está en χ)</span></td></tr>
+  <tr><td>4/XII/24 17hs</td><td>[[1,0,0],[a,1,a],[0,1,a]]</td><td>−x(x−1)(x−1−a)</td><td><b>a ≠ −1</b></td></tr>
+  <tr><td>4/XII/24 3.<sup>er</sup> turno</td><td>[[1,a,0],[0,a,0],[0,0,−1]]</td><td>−(x−1)(x+1)(x−a)</td><td><b>a ≠ 1</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La estructura que se repite en tres de los siete</div>
+Mirá las matrices del 27/VI, el 10/VII y el 31/VII: son <b>la misma matriz</b> con los números cambiados. Todas tienen la forma [[c, d, 0],[0, f(a), 0],[0, d, c]], con la segunda columna llevándose todo el parámetro. En las tres:<br>
+▸ χ = −(x − c)<sup>2</sup>(x − f(a)), con c <b>siempre doble</b>.<br>
+▸ A − cI tiene sus tres filas proporcionales a [0,1,0], así que <b>rango(A − cI) = 1 y μ(c) = 2 para cualquier a</b>. Eso no falla nunca.<br>
+▸ Entonces lo único que puede romper la diagonalización es que <b>f(a) = c</b>, porque ahí m(c) sube a 3 mientras μ(c) sigue en 2.<br><br>
+<b>Respuesta de las tres: los a tales que f(a) ≠ c.</b> Es un renglón de cuenta. 27/VI: a<sup>2</sup> ≠ 1 ⟹ a ≠ ±1. 10/VII: a<sup>2</sup>−5a ≠ −6 ⟹ a ≠ 2, 3. 31/VII: a<sup>2</sup>−1 ≠ 5 ⟹ a ≠ ±√6.
+</div>
+
+<div class="trap"><div class="tr-t">Los dos casos que rompen el molde y hay que reconocer</div>
+<b>4/XII/24 14hs:</b> el parámetro <b>no aparece en el polinomio característico</b>. χ = −(x−3)<sup>2</sup>(x−1) sin importar a, porque a está en la posición (1,2) de una matriz triangular por bloques. El parámetro juega sólo en el rango: A − 3I = [[0,a,0],[0,0,0],[2,−4,−2]] tiene rango 2 si a ≠ 0 y rango 1 si a = 0. <b>Respuesta: a = 0.</b> ▸ Ese examen además pide P y Λ: con a = 0, S<sub>3</sub> = {x : 2x<sub>1</sub> − 4x<sub>2</sub> − 2x<sub>3</sub> = 0} = gen{[1,0,1]<sup>T</sup>, [0,1,−2]<sup>T</sup>} y S<sub>1</sub> = gen{[0,0,1]<sup>T</sup>}, así que P = [[1,0,0],[0,1,0],[1,−2,1]] y Λ = diag(3,3,1).<br><br>
+<b>4/XII/24 17hs:</b> el autovalor múltiple depende de <i>qué</i> valor toma a. Si a = 0 el doble es 1; si a = −1 el doble es 0. Son <b>dos casos distintos</b> y hay que hacer los dos: con a = 0 sale μ(1) = 2 y diagonaliza; con a = −1 sale μ(0) = 1 &lt; 2 y no. <b>Respuesta: a ≠ −1.</b> Contestar "a ≠ 0 y a ≠ −1" es el error de no chequear el caso a = 0.
+</div>
+
+<h3>3.3 · El único que pide diagonalizar de verdad</h3>
+
+<div class="example"><div class="ex-t">7/VIII/24 ej 1 · sin parámetro, con P y Λ</div>
+<i>Sea A = [[4,2,2],[0,6,2],[0,2,6]]. Hallar, si existen, P ∈ ℝ<sup>3×3</sup> no singular y Λ ∈ ℝ<sup>3×3</sup> diagonal tales que A = PΛP<sup>−1</sup>.</i><br><br>
+<b>▸</b> Desarrollando por la primera columna: χ(x) = (4−x)·det([[6−x,2],[2,6−x]]) = (4−x)[(6−x)<sup>2</sup> − 4] = (4−x)(4−x)(8−x) = <b>−(x−4)<sup>2</sup>(x−8)</b>.<br>
+<b>▸ λ = 4:</b> A − 4I = [[0,2,2],[0,2,2],[0,2,2]], las tres filas iguales ⟹ rango 1 ⟹ <b>μ(4) = 2 = m(4)</b>. S<sub>4</sub> = {x : x<sub>2</sub> + x<sub>3</sub> = 0} = gen{[1,0,0]<sup>T</sup>, [0,1,−1]<sup>T</sup>}.<br>
+<b>▸ λ = 8:</b> A − 8I = [[−4,2,2],[0,−2,2],[0,2,−2]] ⟹ x<sub>2</sub> = x<sub>3</sub> y 4x<sub>1</sub> = 4x<sub>2</sub> ⟹ S<sub>8</sub> = gen{[1,1,1]<sup>T</sup>}.<br>
+<b>▸ Diagonaliza.</b> P = [[1,0,1],[0,1,1],[0,−1,1]] y Λ = diag(4,4,8). Verificación: AP = PΛ, columna por columna.<br>
+<span class="muted">Notá que A no es simétrica y aun así diagonaliza: el espectral da una condición suficiente, no necesaria.</span>
+</div>
+
+<h3>3.4 · Las tres formas de perder este ejercicio teniéndolo</h3>
+
+<div class="trap"><div class="tr-t">1 · Confundir m(λ) con μ(λ)</div>
+m es la del <b>polinomio</b> (cuántas veces aparece la raíz); μ es la del <b>núcleo</b> (dim S<sub>λ</sub> = n − rango(A − λI)). Siempre μ ≤ m. Escribir "el autovalor es doble, así que hay dos autovectores independientes" es exactamente el error que el ejercicio está diseñado para cobrar.
+</div>
+<div class="trap"><div class="tr-t">2 · Entregar sólo la mitad de la respuesta</div>
+La respuesta completa tiene dos partes: "si a no es ninguno de estos valores hay tres autovalores distintos y <b>por lo tanto diagonaliza</b>" (que hay que decirlo, citando el corolario) y "si a es este valor, calculo el rango". Entregar sólo la segunda deja el ejercicio incompleto, y en un examen de 3 sobre 5 incompleto es cero.
+</div>
+<div class="trap"><div class="tr-t">3 · Escribir A = P<sup>−1</sup>ΛP, o desordenar Λ</div>
+La fórmula de la cátedra es <b>A = PΛP<sup>−1</sup></b> con P la matriz cuyas <b>columnas</b> son los autovectores, y el orden de Λ tiene que coincidir con el orden de las columnas de P: si la columna 2 de P es autovector de −2, el lugar (2,2) de Λ es −2. Verificá con <b>AP = PΛ</b>, que es una multiplicación y no requiere invertir nada.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · ECUACIONES MATRICIALES ============ -->
+<details id="fals-s4">
+<summary><span class="num">4</span> Ecuaciones matriciales p(A) = B y espectros de polinomios <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-4"></span></summary>
+<div class="content">
+
+<p>Seis de los cincuenta ejercicios reales viven de un solo hecho: <b>si Av = λv entonces p(A)v = p(λ)v</b>. Cuatro son "hallar A ∈ ℝ<sup>2×2</sup> tal que p(A) = B" y dos son "hallar σ(p(A))" a partir de datos del espectro. Los seis se resuelven con el mismo diagrama.</p>
+
+<div class="key"><div class="ky-t">El hecho, y por qué convierte un problema matricial en uno escalar</div>
+Si p es un polinomio y Av = λv, entonces <b>p(A)v = p(λ)v</b>: <i>mismo autovector, autovalor transformado</i>. ▸ Y si A es diagonalizable, σ(p(A)) = {p(λ) : λ ∈ σ(A)} <b>exactamente</b>, porque la base de autovectores de A diagonaliza también a p(A).<br><br>
+Al revés, que es como lo toman: si p(A) = B, entonces <b>B y A comparten autovectores</b>, y cada autovalor de B da una <b>ecuación escalar</b> p(λ) = (autovalor de B) cuyas raíces son los candidatos para el autovalor de A en ese mismo autovector. La condición extra del enunciado (traza, determinante, inversibilidad) es la que elige entre los candidatos.
+</div>
+
+<h3>4.1 · El algoritmo para "hallar A tal que p(A) = B"</h3>
+
+<ol>
+  <li><b>Diagonalizá B</b> (siempre es 2×2 y siempre sale). Anotá sus dos autovalores β<sub>1</sub>, β<sub>2</sub> y sus autovectores w<sub>1</sub>, w<sub>2</sub>.</li>
+  <li><b>Resolvé p(λ) = β<sub>1</sub></b> y <b>p(λ) = β<sub>2</sub></b>. Cada una es una cuadrática y te da dos candidatos. Total: cuatro combinaciones posibles para σ(A).</li>
+  <li><b>Aplicá la condición extra</b> (traza(A) = t, det(A) = d, A inversible, A singular) para descartar. Casi siempre queda exactamente una combinación; si quedan dos, <b>el ejercicio no tiene solución única y hay que decirlo</b>.</li>
+  <li><b>Reconstruí A por descomposición espectral</b>: A = λ<sub>1</sub>P<sub>gen{w<sub>1</sub>}</sub> + λ<sub>2</sub>P<sub>gen{w<sub>2</sub>}</sub>, con P<sub>gen{w}</sub> = ww<sup>T</sup>/‖w‖<sup>2</sup> si los w son ortogonales, o A = PΛP<sup>−1</sup> si no lo son.</li>
+  <li><b>Verificá</b> haciendo la cuenta p(A) y comparando con B. Son matrices 2×2: cuesta un minuto y cierra el ejercicio.</li>
+</ol>
+
+<div class="key"><div class="ky-t">Por qué el paso 4 sale con proyecciones y no con P<sup>−1</sup></div>
+En los cuatro ejercicios reales <b>B es simétrica</b>, así que sus autovectores son ortogonales y A también sale simétrica. Ahí P<sub>gen{w}</sub> = ww<sup>T</sup>/‖w‖<sup>2</sup> y no hay que invertir nada. ▸ Y si un autovalor de A da 0, ese sumando desaparece entero: A = λ<sub>1</sub>w<sub>1</sub>w<sub>1</sub><sup>T</sup>/‖w<sub>1</sub>‖<sup>2</sup> y listo.
+</div>
+
+<div class="example"><div class="ex-t">Hecho completo · 27/VI/24 9hs, ejercicio 1</div>
+<i>Hallar A ∈ ℝ<sup>2×2</sup> tal que traza(A) = 2 y A<sup>2</sup> − 6A + 8I = [[4,4],[4,4]].</i><br><br>
+<b>1.</b> B = [[4,4],[4,4]] tiene traza 8 y determinante 0 ⟹ σ(B) = {0, 8}. ▸ B − 0·I tiene filas iguales, así que w para β = 0 es <b>[1,−1]<sup>T</sup></b>; para β = 8, <b>[1,1]<sup>T</sup></b>. Son ortogonales (B es simétrica).<br>
+<b>2.</b> p(λ) = λ<sup>2</sup> − 6λ + 8 = (λ−2)(λ−4). ▸ p(λ) = 0 ⟹ λ ∈ {2, 4}. ▸ p(λ) = 8 ⟹ λ<sup>2</sup> − 6λ = 0 ⟹ λ ∈ {0, 6}.<br>
+<b>3.</b> Las cuatro combinaciones y sus trazas: {2,0} → 2 ✓ · {2,6} → 8 · {4,0} → 4 · {4,6} → 10. ▸ La única con traza 2 es <b>λ = 2 sobre [1,−1]<sup>T</sup> y λ = 0 sobre [1,1]<sup>T</sup></b>.<br>
+<b>4.</b> A = 2·([1,−1]<sup>T</sup>[1,−1])/2 + 0 = <b>[[1,−1],[−1,1]]</b>.<br>
+<b>5.</b> A<sup>2</sup> = [[2,−2],[−2,2]], y A<sup>2</sup> − 6A + 8I = [[2−6+8, −2+6],[−2+6, 2−6+8]] = [[4,4],[4,4]] ✓, con traza(A) = 2 ✓.
+</div>
+
+<div class="trap"><div class="tr-t">La misma matriz A aparece en dos exámenes distintos, con otro disfraz</div>
+El <b>31/VII/24 ejercicio 2</b> pide: traza(A) = 2 y A<sup>2</sup> − 6A = [[−4,4],[4,−4]]. Es la <b>misma A</b>: [[1,−1],[−1,1]]. ▸ La diferencia es que ahí el enunciado dice "hallar, <b>si existe</b>", lo cual es una invitación a que digas que no existe. Existe. ▸ Moraleja doble: el "si existe" no significa que no exista, y estos enunciados se reciclan entre turnos.
+</div>
+
+<h3>4.2 · La condición extra y qué descarta cada una</h3>
+
+<table class="tbl">
+  <tr><th>Condición del enunciado</th><th>Qué descarta</th><th>Dónde aparece</th></tr>
+  <tr><td>traza(A) = t</td><td>Suma λ<sub>1</sub> + λ<sub>2</sub>: descarta tres de las cuatro combinaciones</td><td>27/VI/24 9hs, 31/VII/24</td></tr>
+  <tr><td>det(A) = d</td><td>Producto λ<sub>1</sub>λ<sub>2</sub></td><td>Guía 4.5(a), adicional 12</td></tr>
+  <tr><td><b>A no inversible</b></td><td>Obliga a que <b>0 ∈ σ(A)</b>, o sea que uno de los candidatos sea 0</td><td>4/XII/24 14hs ej 3</td></tr>
+  <tr><td><b>A inversible</b></td><td>Prohíbe el candidato 0</td><td>4/XII/24 3.<sup>er</sup> turno ej 3, adicional 11</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Cuando la condición no alcanza, la respuesta correcta es "hay más de una"</div>
+En el <b>4/XII/24 14hs ej 3</b> ("hallar A <b>no inversible</b> tal que A<sup>2</sup> + 2A + 3I = (1/10)[[33,−9],[−9,57]]") queda: σ(B) = {3, 6} con autovectores [3,1]<sup>T</sup> y [1,−3]<sup>T</sup>. ▸ p(λ) = 3 ⟹ λ ∈ {0, −2}; p(λ) = 6 ⟹ λ ∈ {1, −3}. ▸ "No inversible" fuerza λ = 0 sobre [3,1]<sup>T</sup>, pero el otro autovalor puede ser <b>1 o −3</b>: las dos dan matrices no inversibles que cumplen todo. ▸ Con λ = 1: A = (1/10)[[1,−3],[−3,9]]. Con λ = −3: A = (−3/10)[[1,−3],[−3,9]]. ▸ El enunciado dice "hallar <b>una</b>", así que entregás una y <b>aclarás que no es única</b>. Esa aclaración es parte de la justificación teórica que piden.
+</div>
+
+<h3>4.3 · Los dos ejercicios de "hallar σ(p(A))"</h3>
+
+<div class="example"><div class="ex-t">27/VI/24 14hs ej 2 y 7/VIII/24 ej 2 · el mismo enunciado con distinta traza</div>
+<i>Sea A ∈ ℝ<sup>2×2</sup> diagonalizable tal que σ(A<sup>2</sup> − 6A) = {0, −8}.</i> ▸ p(λ) = λ<sup>2</sup> − 6λ. ▸ p(λ) = 0 ⟹ λ ∈ {0, 6}. ▸ p(λ) = −8 ⟹ λ<sup>2</sup> − 6λ + 8 = 0 ⟹ λ ∈ {2, 4}. ▸ Como σ(A<sup>2</sup>−6A) tiene <b>dos elementos distintos</b> y A es 2×2, A tiene <b>dos autovalores distintos</b>: uno del primer par y uno del segundo.<br><br>
+<b>Con traza(A) = 2</b> (27/VI): las sumas posibles son 0+2 = 2 ✓, 0+4 = 4, 6+2 = 8, 6+4 = 10. ▸ σ(A) = {0, 2} ⟹ <b>σ(A<sup>3</sup>) = {0, 8}</b>.<br>
+<b>Con traza(A) = 8</b> (7/VIII): la única suma que da 8 es 6+2. ▸ σ(A) = {2, 6} ⟹ <b>σ(A<sup>2</sup>) = {4, 36}</b>.<br><br>
+<span class="muted">La hipótesis "diagonalizable" está para que puedas afirmar σ(p(A)) = p(σ(A)) sin agujeros, y para descartar el caso de un único autovalor doble. Citala.</span>
+</div>
+
+<div class="trap"><div class="tr-t">No confundas "σ(p(A)) tiene dos elementos" con "p es inyectiva"</div>
+Nada impide que dos autovalores distintos de A vayan al mismo valor por p. Lo que sí sabés es que <b>cada elemento de σ(p(A)) viene de al menos un elemento de σ(A)</b>, y que la cantidad de autovalores distintos de A es a lo sumo n. Con n = 2 y dos valores distintos en σ(p(A)), la asignación es forzada: uno por rama.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · LA MATRIZ SIMÉTRICA QUE HAY QUE CONSTRUIR ============ -->
+<details id="fals-s5">
+<summary><span class="num">5</span> La matriz simétrica que hay que construir <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-5"></span></summary>
+<div class="content">
+
+<p><b>Este es el ejercicio del parcial.</b> Aparece en <b>9 de los 10</b> exámenes del régimen actual, siempre con la misma fórmula: <i>"Hallar una matriz simétrica A ∈ ℝ<sup>3×3</sup> que posea las siguientes propiedades"</i> (o su variante <i>"…tal que…"</i>), seguida de dos a cuatro condiciones. Nunca lo ponen en la posición 1 ni en la 5: vive en el 2, el 3 o el 4.</p>
+
+<div class="key"><div class="ky-t">Todo el ejercicio es el teorema espectral leído al revés</div>
+Una matriz simétrica <b>es</b> su lista de autovalores más la lista de autoespacios ortogonales entre sí. Así que "hallar A" nunca significa resolver un sistema de 9 incógnitas: significa <b>encontrar los tres autovalores y los tres autoespacios</b>, y después escribir
+<div class="formula">A = λ<sub>1</sub>P<sub>S<sub>1</sub></sub> + λ<sub>2</sub>P<sub>S<sub>2</sub></sub> + ⋯ &nbsp;&nbsp;con&nbsp;&nbsp; P<sub>gen{v}</sub> = vv<sup>T</sup>/‖v‖<sup>2</sup> &nbsp;·&nbsp; P<sub>plano de normal n</sub> = I − nn<sup>T</sup>/‖n‖<sup>2</sup></div>
+Con esas dos fórmulas y una suma, los nueve ejercicios reales salen en menos de veinte minutos cada uno.
+</div>
+
+<h3>5.1 · El diccionario: cada condición del enunciado dice una sola cosa</h3>
+
+<table class="tbl">
+  <tr><th>Lo que dice el enunciado</th><th>Lo que significa</th></tr>
+  <tr><td>"el plano {x : n<sub>1</sub>x<sub>1</sub> + n<sub>2</sub>x<sub>2</sub> + n<sub>3</sub>x<sub>3</sub> = 0} es un autoespacio de A"</td><td>Ese plano es S<sub>α</sub> para algún α, y por el espectral <b>gen{n} = S<sub>β</sub></b> con β ≠ α. Ya tenés la geometría entera: sólo faltan dos números.</td></tr>
+  <tr><td>"rango(A − cI) = 1"</td><td>μ(c) = 3 − 1 = <b>2</b>: c es el autovalor del <b>plano</b>.</td></tr>
+  <tr><td>"rango(A) = 2"</td><td>μ(0) = 1: <b>0 es autovalor simple</b>.</td></tr>
+  <tr><td>"traza(A) = t"</td><td>λ<sub>1</sub> + λ<sub>2</sub> + λ<sub>3</sub> = t, contando multiplicidades. <b>Si el plano vale α, escribís 2α + β = t.</b></td></tr>
+  <tr><td>"det(A) = d"</td><td>λ<sub>1</sub>λ<sub>2</sub>λ<sub>3</sub> = d. Con el plano doble: <b>α<sup>2</sup>β = d</b>.</td></tr>
+  <tr><td>"A<sup>3</sup> − 4A<sup>2</sup> es singular" / "det(A<sup>3</sup> + 3A<sup>2</sup>) = 0"</td><td>Factorizá: A<sup>2</sup>(A − 4I) singular ⟺ <b>0 ∈ σ(A) o 4 ∈ σ(A)</b>. Es una <i>disyunción</i>, y la otra condición elige.</td></tr>
+  <tr><td>"σ(A) ⊂ (0, +∞)" / "⊂ (−∞, 0)"</td><td>Justamente lo que mata una de las dos ramas de la disyunción anterior. Nunca está de adorno.</td></tr>
+  <tr><td>"v y w son autovectores de A"</td><td><b>Calculá ⟨v,w⟩ antes de nada.</b> Ver la trampa de abajo.</td></tr>
+  <tr><td>"A v = μv" con v explícito</td><td>v es autovector con autovalor μ. Si el enunciado escribe A[0,0,1]<sup>T</sup> = [0,0,2]<sup>T</sup>, eso es μ = 2 sobre e<sub>3</sub>.</td></tr>
+  <tr><td>"{v, w} ⊂ Nul(A<sup>−1</sup> − 2I)"</td><td>A<sup>−1</sup>v = 2v ⟹ <b>Av = ½v</b>. Los autovalores de A<sup>−1</sup> son los recíprocos, con los mismos autovectores.</td></tr>
+  <tr><td>"Av ∈ {x : x<sub>1</sub> − x<sub>2</sub> = 0}"</td><td>Ubicá el subespacio invariante donde vive v y cortalo con ese plano: casi siempre la intersección es <b>gen{v}</b>, y entonces v es autovector.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">El chequeo de ortogonalidad que hay que hacer SIEMPRE, y en primer lugar</div>
+Cuando te dan dos autovectores de una matriz <b>simétrica</b>, calculá su producto interno <b>antes</b> de hacer cualquier otra cosa:<br>
+▸ Si da <b>0</b>, pueden ser de autovalores distintos y el problema es "tres rectas ortogonales".<br>
+▸ Si <b>no</b> da 0, <b>tienen que ser del mismo autovalor</b>, porque el teorema espectral prohíbe lo contrario. Ese autovalor es al menos doble y su autoespacio es <b>el plano que generan</b>.<br><br>
+Los tres casos reales: <b>10/VII/24 ej 3</b> con [1,1,1]<sup>T</sup> y [1,0,1]<sup>T</sup> (producto = 2 ≠ 0); <b>4/XII/24 14hs ej 2</b> con [1,2,1]<sup>T</sup> y [1,1,0]<sup>T</sup> (producto = 3 ≠ 0); <b>07/07/25 ej 3</b> con [1,1,1]<sup>T</sup> y [1,2,1]<sup>T</sup> (producto = 4 ≠ 0). ▸ <b>En los tres el producto es distinto de cero</b>, o sea que en los tres el autovalor es doble. Sin esa observación, ninguno de los tres arranca.<br><br>
+Y el atajo que sigue: el <b>tercer</b> autoespacio es la recta generada por el <b>producto vectorial</b> de los dos autovectores dados. En 10/VII: [1,1,1] × [1,0,1] = [1,0,−1].
+</div>
+
+<h3>5.2 · El procedimiento, en cuatro pasos</h3>
+
+<ol>
+  <li><b>Armá la geometría.</b> Identificá los autoespacios: o bien un plano y su recta normal, o bien tres rectas ortogonales. Verificá la ortogonalidad; si no da, revisá el paso anterior.</li>
+  <li><b>Poné incógnitas a los autovalores</b>: α para el plano (que cuenta <b>dos veces</b> en traza y determinante) y β para la recta.</li>
+  <li><b>Traducí las condiciones numéricas a ecuaciones en α y β</b> con el diccionario de arriba, y resolvelas. Descartá las soluciones que violen las condiciones de signo o de rango.</li>
+  <li><b>Ensamblá con la descomposición espectral</b>: A = α(I − nn<sup>T</sup>/‖n‖<sup>2</sup>) + β·nn<sup>T</sup>/‖n‖<sup>2</sup>, que se simplifica a
+  <div class="formula">A = αI + (β − α)·nn<sup>T</sup>/‖n‖<sup>2</sup></div>
+  y verificá con traza y determinante, que ya sabés cuánto tienen que dar.</li>
+</ol>
+
+<div class="key"><div class="ky-t">La forma cerrada que conviene tener memorizada</div>
+<b>Si el autoespacio doble es el plano de normal n y el simple es gen{n}:</b>
+<div class="formula">A = αI + (β − α)·nn<sup>T</sup>/‖n‖<sup>2</sup></div>
+Con n de norma entera (los enunciados eligen [2,−1,2], [1,−1,1], [1,2,2], todos redondos), esto es una matriz por un escalar más una matriz de rango 1. ▸ Chequeo instantáneo: <b>traza(A) = 2α + β</b> y <b>det(A) = α<sup>2</sup>β</b>, sin hacer ninguna cuenta.
+</div>
+
+<div class="example"><div class="ex-t">Hecho completo · 27/VI/24 9hs, ejercicio 4</div>
+<i>Hallar una matriz simétrica A ∈ ℝ<sup>3×3</sup> tal que σ(A) ⊂ (0, +∞), rango(A − 2I) = 1, A<sup>3</sup> − 4A<sup>2</sup> es singular y el plano {x ∈ ℝ<sup>3</sup> : 2x<sub>1</sub> − x<sub>2</sub> + 2x<sub>3</sub> = 0} es un autoespacio de A.</i><br><br>
+<b>1 · Geometría.</b> n = [2,−1,2]<sup>T</sup>, ‖n‖ = 3. El plano es un autoespacio; por el espectral, gen{n} también lo es.<br>
+<b>2 · Quién es quién.</b> rango(A − 2I) = 1 ⟹ μ(2) = 2 ⟹ el autovalor <b>2 va en el plano</b> (α = 2) y el otro en gen{n}.<br>
+<b>3 · El otro autovalor.</b> A<sup>3</sup> − 4A<sup>2</sup> = A<sup>2</sup>(A − 4I) singular ⟹ det(A)<sup>2</sup>·det(A − 4I) = 0 ⟹ <b>0 ∈ σ(A) o 4 ∈ σ(A)</b>. ▸ σ(A) ⊂ (0,+∞) mata el 0. ▸ Y 4 ≠ 2, así que 4 no puede ser el del plano: <b>β = 4</b>.<br>
+<b>4 · Ensamblado.</b> nn<sup>T</sup> = [[4,−2,4],[−2,1,−2],[4,−2,4]] y ‖n‖<sup>2</sup> = 9.
+<div class="formula">A = 2I + (4−2)·nn<sup>T</sup>/9 = 2I + (2/9)[[4,−2,4],[−2,1,−2],[4,−2,4]] = (1/9)[[26,−4,8],[−4,20,−4],[8,−4,26]]</div>
+<b>Verificación:</b> traza = 2·2 + 4 = 8, y (26+20+26)/9 = 72/9 = 8 ✓. det = 2<sup>2</sup>·4 = 16 ✓. A[2,−1,2]<sup>T</sup> = 4[2,−1,2]<sup>T</sup> ✓. Y σ(A) = {2, 4} ⊂ (0,+∞) ✓.
+</div>
+
+<div class="example"><div class="ex-t">El gemelo con el signo dado vuelta · 26/06/24, ejercicio 4</div>
+<i>… σ(A) ⊂ (−∞, 0), rango(A + 2I) = 1, det(A<sup>3</sup> + 3A<sup>2</sup>) = 0, mismo plano.</i><br><br>
+rango(A + 2I) = 1 ⟹ α = <b>−2</b> en el plano. ▸ A<sup>2</sup>(A + 3I) singular ⟹ 0 ∈ σ(A) o −3 ∈ σ(A); el 0 muere por el signo ⟹ <b>β = −3</b>.
+<div class="formula">A = −2I + (−3+2)·nn<sup>T</sup>/9 = −2I − (1/9)[[4,−2,4],[−2,1,−2],[4,−2,4]] = (1/9)[[−22,2,−4],[2,−19,2],[−4,2,−22]]</div>
+traza = −7 = 2(−2) + (−3) ✓ · det = (−2)<sup>2</sup>(−3) = −12 ✓. ▸ <b>Es el mismo ejercicio con los signos invertidos.</b> Los dos son variantes del 4.10(e) de la Guía 4.
+</div>
+
+<h3>5.3 · Cuando la respuesta no es única (y hay que decirlo)</h3>
+
+<div class="example"><div class="ex-t">27/VI/24 14hs ej 3 y 7/VIII/24 ej 3 · el mismo enunciado, dos trazas</div>
+<i>Hallar A simétrica con traza(A) = t, rango(A) = 2, A[0,0,1]<sup>T</sup> = [0,0,2]<sup>T</sup> y A[1,1,0]<sup>T</sup> ∈ {x : x<sub>1</sub> − x<sub>2</sub> = 0}.</i> Con t = 1 en junio y t = 3 en agosto. Es el <b>4.10(d) de la Guía 4</b> con la traza cambiada.<br><br>
+<b>▸</b> A e<sub>3</sub> = 2e<sub>3</sub>: <b>λ = 2 sobre gen{e<sub>3</sub>}</b>. ▸ rango(A) = 2 ⟹ <b>0 ∈ σ(A)</b>, simple. ▸ traza: 2 + 0 + λ<sub>3</sub> = t ⟹ λ<sub>3</sub> = t − 2 (o sea <b>−1</b> en junio, <b>1</b> en agosto).<br>
+<b>▸</b> Los otros dos autoespacios son ⊥ a e<sub>3</sub>, o sea que viven en el plano x<sub>3</sub> = 0, que por lo tanto es <b>invariante</b>. ▸ v = [1,1,0]<sup>T</sup> está en ese plano, así que Av también. ▸ {x : x<sub>1</sub> = x<sub>2</sub>} ∩ {x<sub>3</sub> = 0} = <b>gen{[1,1,0]<sup>T</sup>}</b>, y entonces Av ∈ gen{v}: <b>v es autovector</b>, de 0 o de t−2. El tercero es [1,−1,0]<sup>T</sup>.<br>
+<b>▸ Las dos opciones son válidas.</b> Con t = 1: A = 2e<sub>3</sub>e<sub>3</sub><sup>T</sup> − P<sub>gen{[1,−1,0]}</sub> = [[−½,½,0],[½,−½,0],[0,0,2]], o bien A = 2e<sub>3</sub>e<sub>3</sub><sup>T</sup> − P<sub>gen{[1,1,0]}</sub> = [[−½,−½,0],[−½,−½,0],[0,0,2]]. Las dos tienen traza 1, rango 2 y mandan [1,1,0]<sup>T</sup> adentro de {x<sub>1</sub> = x<sub>2</sub>} (la primera lo manda al 0, que también está en el plano).<br>
+<b>▸</b> El enunciado pide "una", así que entregás una <b>y decís que hay dos</b>.
+</div>
+
+<div class="trap"><div class="tr-t">"Hallar una" no es "hallar la"</div>
+Los <b>nueve</b> ejercicios reales piden <b>"una"</b> matriz simétrica, no "la" (ocho con la palabra <i>hallar</i> y el del 07/07/25 con <i>encontrar</i>). La cátedra pregunta explícitamente "¿A es única? ¿Por qué?" en el 4.10 de la Guía. ▸ Regla: si después de usar todas las condiciones te quedan grados de libertad (elegir qué autovalor va en qué autoespacio, o una base de un autoespacio de dimensión 2), <b>hay más de una y conviene escribirlo</b>. Si las condiciones fijan los tres autovalores y los tres autoespacios, es única.<br><br>
+El caso extremo es el <b>4/XII/24 3.<sup>er</sup> turno ej 2</b>: plano {x<sub>1</sub>−x<sub>2</sub>+x<sub>3</sub> = 0} autoespacio, traza 12, det 54. ▸ 2α + β = 12 y α<sup>2</sup>β = 54 ⟹ α<sup>2</sup>(12 − 2α) = 54 ⟹ α<sup>3</sup> − 6α<sup>2</sup> + 27 = 0 ⟹ <b>(α − 3)(α<sup>2</sup> − 3α − 9) = 0</b>. ▸ La raíz limpia es α = 3, β = 6, que da A = [[4,−1,1],[−1,4,−1],[1,−1,4]]. Las otras dos, α = (3 ± 3√5)/2, <b>también son soluciones reales válidas</b>. Entregá la limpia y mencioná que la cúbica tiene tres raíces.
+</div>
+
+<h3>5.4 · La familia [[4,−1,1],[−1,4,−1],[1,−1,4]]</h3>
+
+<p>Esa matriz aparece <b>tres veces</b> en los 10 exámenes, con tres enunciados distintos que apuntan al mismo objeto: plano {x<sub>1</sub> − x<sub>2</sub> + x<sub>3</sub> = 0} con λ = 3 doble, y gen{[1,−1,1]<sup>T</sup>} con λ = 6.</p>
+
+<table class="tbl">
+  <tr><th>Examen</th><th>Cómo lo pide</th><th>Cómo se llega</th></tr>
+  <tr><td>4/XII/24 14hs ej 2</td><td>[1,2,1]<sup>T</sup> y [1,1,0]<sup>T</sup> autovectores, 3 ∈ σ(A), det(A) = 54</td><td>Producto interno = 3 ≠ 0 ⟹ mismo autovalor ⟹ el plano que generan es el autoespacio, con normal [1,−1,1]<sup>T</sup>. α<sup>2</sup>β = 54 con α = 3 ⟹ β = 6. <span class="muted">Tampoco es única: si el 3 fuera el autovalor simple, α<sup>2</sup>·3 = 54 da α = ±3√2, que también cumple. Entregá la limpia y decilo.</span></td></tr>
+  <tr><td>4/XII/24 17hs ej 2</td><td>rango(A − 3I) = 1, det(A) = 54, el plano {x<sub>1</sub>−x<sub>2</sub>+x<sub>3</sub> = 0} es autoespacio</td><td>Directo: α = 3, 9β = 54 ⟹ β = 6.</td></tr>
+  <tr><td>4/XII/24 3.<sup>er</sup> turno ej 2</td><td>mismo plano autoespacio, traza 12, det 54</td><td>Vía la cúbica de arriba.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Y la otra familia, la del 10/VII/24</div>
+<i>[1,1,1]<sup>T</sup> y [1,0,1]<sup>T</sup> son autovectores de A, 3 ∈ σ(A) y det(A) = −9.</i> ▸ ⟨[1,1,1],[1,0,1]⟩ = 2 ≠ 0 ⟹ mismo autovalor α, y el autoespacio es el plano que generan, de normal [1,1,1] × [1,0,1] = <b>[1,0,−1]<sup>T</sup></b>, o sea {x<sub>1</sub> − x<sub>3</sub> = 0}. ▸ α<sup>2</sup>β = −9 con 3 ∈ σ(A): si α = 3 ⟹ β = −1 ✓; si β = 3 ⟹ α<sup>2</sup> = −3, imposible. ▸ Entonces
+<div class="formula">A = 3I + (−1−3)·[1,0,−1][1,0,−1]<sup>T</sup>/2 = 3I − 2[[1,0,−1],[0,0,0],[−1,0,1]] = [[1,0,2],[0,3,0],[2,0,1]]</div>
+traza 5 = 3+3−1 ✓ · det −9 ✓ · A[1,1,1]<sup>T</sup> = [3,3,3]<sup>T</sup> ✓.
+</div>
+
+<h3>5.5 · Las trampas de esta sección</h3>
+
+<div class="trap"><div class="tr-t">Aplicar Gram-Schmidt entre autoespacios distintos</div>
+Los autoespacios de una simétrica <b>ya son ortogonales entre sí</b>. Gram-Schmidt se usa sólo <b>dentro</b> de un autoespacio de dimensión ≥ 2 cuando la base que salió del sistema no es ortogonal. Ortogonalizar de más te da vectores que ya no son autovectores.
+</div>
+<div class="trap"><div class="tr-t">Olvidar el cuadrado en det(A) = α²β</div>
+Si el autovalor del plano es α, en la traza va <b>2α</b> y en el determinante va <b>α<sup>2</sup></b>, porque μ(α) = 2. Es el error aritmético más frecuente de este ejercicio y se detecta solo: verificá la matriz final calculándole la traza.
+</div>
+<div class="trap"><div class="tr-t">No normalizar cuando escribís A = UΛU<sup>T</sup></div>
+Para A = PΛP<sup>−1</sup> con P de autovectores cualesquiera no hace falta normalizar. Para A = UΛU<sup>T</sup> con U ortogonal, las columnas <b>tienen que ser unitarias</b>. Si el ejercicio pide "diagonalización ortogonal", dividir por la norma no es opcional. ▸ La fórmula de proyección vv<sup>T</sup>/‖v‖<sup>2</sup> se encarga sola de eso, y es la razón por la que conviene usarla en vez de armar U.
+</div>
+<div class="trap"><div class="tr-t">Leer "rango(A) = 2" como "A tiene dos autovalores"</div>
+rango(A) = 2 dice que <b>dim nul(A) = 1</b>, o sea que <b>0 es autovalor con μ(0) = 1</b>. No dice nada sobre cuántos autovalores distintos hay ni sobre los otros dos.
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · EVOLUCIÓN EN EL TIEMPO ============ -->
+<details id="fals-s6">
+<summary><span class="num">6</span> Evolución en el tiempo: potencias, límites y ecuaciones diferenciales <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-6"></span></summary>
+<div class="content">
+
+<p>Seis de los cincuenta ejercicios preguntan qué pasa cuando aplicás A muchas veces: cuatro piden <b>A<sup>k</sup>x<sub>0</sub></b> para un k grande y dos piden <b>lím<sub>k→∞</sub> A<sup>k</sup>x</b>. Los dos moldes salen del mismo renglón de la Guía 4, y ninguno requiere calcular una potencia de matriz.</p>
+
+<div class="key"><div class="ky-t">El renglón que resuelve los seis</div>
+Si {v<sub>1</sub>,…,v<sub>n</sub>} es base de autovectores de A con autovalores λ<sub>1</sub>,…,λ<sub>n</sub>, entonces
+<div class="formula">A<sup>k</sup>( Σ<sub>j</sub> c<sub>j</sub>v<sub>j</sub> ) = Σ<sub>j</sub> c<sub>j</sub> λ<sub>j</sub><sup>k</sup> v<sub>j</sub></div>
+O sea: <b>escribís x<sub>0</sub> en la base de autovectores y elevás los autovalores</b>. Nunca multipliques matrices. ▸ El único trabajo del ejercicio es hallar los c<sub>j</sub>, y en los cuatro casos reales la base <b>es ortogonal</b> (porque A es simétrica o es una rotación), así que c<sub>j</sub> = ⟨x<sub>0</sub>, v<sub>j</sub>⟩/‖v<sub>j</sub>‖<sup>2</sup> sin resolver ningún sistema.
+</div>
+
+<h3>6.1 · "La partícula que recibe impactos"</h3>
+
+<p>El enunciado es siempre el mismo cuento: una partícula está en x<sub>0</sub>, cada segundo (o minuto, o diez segundos) un impacto la manda de x a Ax, calcular dónde está después de N unidades de tiempo. Es <b>A<sup>N</sup>x<sub>0</sub></b> disfrazado. Y en dos de los cuatro casos, el disfraz esconde una simplificación grande.</p>
+
+<div class="example"><div class="ex-t">10/VII/24 ej 2 · el caso base</div>
+<i>x<sub>0</sub> = [0,1,2]<sup>T</sup>, A = [[3/2,0,−1/2],[0,1,0],[−1/2,0,3/2]], calcular la posición a los 30 segundos.</i><br><br>
+<b>▸</b> A es simétrica. El bloque [[3/2,−1/2],[−1/2,3/2]] tiene autovalores 1 (en [1,1]) y 2 (en [1,−1]), más el 1 de e<sub>2</sub>: <b>S<sub>1</sub> = gen{[1,0,1]<sup>T</sup>, [0,1,0]<sup>T</sup>}, S<sub>2</sub> = gen{[1,0,−1]<sup>T</sup>}</b>.<br>
+<b>▸</b> x<sub>0</sub> = [0,1,2]<sup>T</sup> = 1·[1,0,1]<sup>T</sup> + 1·[0,1,0]<sup>T</sup> + (−1)·[1,0,−1]<sup>T</sup>. <span class="muted">(Chequeo: [1,0,1]+[0,1,0]−[1,0,−1] = [0,1,2] ✓)</span><br>
+<b>▸</b> A<sup>30</sup>x<sub>0</sub> = 1<sup>30</sup>[1,0,1]<sup>T</sup> + 1<sup>30</sup>[0,1,0]<sup>T</sup> + (−1)·2<sup>30</sup>[1,0,−1]<sup>T</sup> = <b>[1 − 2<sup>30</sup>, 1, 1 + 2<sup>30</sup>]<sup>T</sup></b>.<br>
+Con la calculadora: 2<sup>30</sup> = 1 073 741 824, o sea [−1 073 741 823, 1, 1 073 741 825]<sup>T</sup>. <b>Dejalo expresado en potencias</b>: es más corto y menos propenso a error.
+</div>
+
+<div class="example"><div class="ex-t">4/XII/24 17hs ej 3 · el caso donde una componente se anula sola</div>
+<i>x<sub>0</sub> = [0,3,6]<sup>T</sup>. A ∈ ℝ<sup>3×3</sup> simétrica con nul(A − I) = gen{[−1,2,2]<sup>T</sup>} y A[2,−1,2]<sup>T</sup> = [−2,1,−2]<sup>T</sup>. Posición a los 25 segundos.</i><br><br>
+<b>▸ Traducción.</b> λ = 1 sobre [−1,2,2]<sup>T</sup>, y A[2,−1,2]<sup>T</sup> = −[2,−1,2]<sup>T</sup> ⟹ λ = −1 sobre [2,−1,2]<sup>T</sup>.<br>
+<b>▸ El tercer autovector no hace falta.</b> Los vectores [−1,2,2], [2,−1,2] y [2,2,−1] son <b>ortogonales dos a dos y todos de norma 3</b> (verificalo: es la terna que la cátedra usa una y otra vez). Descomponemos x<sub>0</sub> en esa base ortogonal:
+<div class="formula">c<sub>1</sub> = ⟨x<sub>0</sub>,[−1,2,2]⟩/9 = (0+6+12)/9 = 2 &nbsp;·&nbsp; c<sub>2</sub> = (0−3+12)/9 = 1 &nbsp;·&nbsp; c<sub>3</sub> = (0+6−6)/9 = <b>0</b></div>
+<b>▸</b> Como c<sub>3</sub> = 0, el autovalor desconocido <b>no interviene</b>. A<sup>25</sup>x<sub>0</sub> = 2·1<sup>25</sup>[−1,2,2]<sup>T</sup> + 1·(−1)<sup>25</sup>[2,−1,2]<sup>T</sup> = [−2,4,4]<sup>T</sup> + [−2,1,−2]<sup>T</sup> = <b>[−4,5,2]<sup>T</sup></b>.<br>
+<span class="muted">Si te frenaste porque "falta un dato", el dato no falta: sobra. Descomponé primero y fijate qué coeficientes son cero.</span>
+</div>
+
+<div class="example"><div class="ex-t">31/VII/24 ej 3 · cuando A es una rotación y no hay autovalores reales</div>
+<i>x<sub>0</sub> = [1,0,0]<sup>T</sup>, A = [[√2/2, −√2/2, 0],[√2/2, √2/2, 0],[0,0,1]], posición a los 45 minutos.</i><br><br>
+<b>▸</b> El bloque 2×2 es [[cos 45°, −sen 45°],[sen 45°, cos 45°]]: una <b>rotación de 45° en el plano x<sub>1</sub>x<sub>2</sub></b>, con el eje x<sub>3</sub> fijo. Sus autovalores son complejos, así que la técnica de autovectores <b>no aplica</b> y hay que ir por la geometría.<br>
+<b>▸</b> A<sup>45</sup> es la rotación de 45·45° = <b>2025°</b>. Y 2025 = 5·360 + 225, así que es una rotación de <b>225°</b>.<br>
+<b>▸</b> Rotar [1,0]<sup>T</sup> 225° da [cos 225°, sen 225°]<sup>T</sup> = [−√2/2, −√2/2]<sup>T</sup>. Y la tercera coordenada de x<sub>0</sub> es 0.<br>
+<b>▸ Respuesta: [−√2/2, −√2/2, 0]<sup>T</sup>.</b> ▸ <span class="muted">Verificación barata: la rotación es una isometría, así que ‖A<sup>45</sup>x<sub>0</sub>‖ tiene que valer 1. Y (1/2 + 1/2) = 1 ✓.</span>
+</div>
+
+<div class="trap"><div class="tr-t">Reconocé la rotación antes de calcular el polinomio característico</div>
+Si ves √2/2 o √3/2 o 1/2 en un bloque 2×2 con la forma [[c,−s],[s,c]] y c<sup>2</sup> + s<sup>2</sup> = 1, es una <b>rotación</b>: no tiene autovalores reales (salvo θ = 0 o 180°) y el ejercicio se hace con ángulos, no con autovectores. ▸ El módulo del ángulo total con 360° es la cuenta entera. ▸ Y este molde es primo hermano del de las <b>isometrías</b> de la sección 7: la misma matriz que acá te hace rotar 45 veces, allá te piden "caracterizarla".
+</div>
+
+<h3>6.2 · lím<sub>k→∞</sub> A<sup>k</sup>x</h3>
+
+<div class="key"><div class="ky-t">El criterio, que sale de la misma fórmula</div>
+Si x = Σ c<sub>j</sub>v<sub>j</sub>, entonces A<sup>k</sup>x = Σ c<sub>j</sub>λ<sub>j</sub><sup>k</sup>v<sub>j</sub>, y el límite existe <b>si y sólo si cada término converge</b>:
+<table class="tbl">
+  <tr><th>Autovalor</th><th>λ<sup>k</sup> hace</th><th>Qué exige del coeficiente c<sub>j</sub></th></tr>
+  <tr><td>|λ| &lt; 1</td><td>→ 0</td><td>Nada: ese término desaparece del límite</td></tr>
+  <tr><td>λ = 1</td><td>= 1 siempre</td><td>Nada: ese término <b>sobrevive entero</b> en el límite</td></tr>
+  <tr><td>λ = −1</td><td>oscila 1, −1, 1, …</td><td><b>c<sub>j</sub> = 0</b></td></tr>
+  <tr><td>|λ| &gt; 1</td><td>diverge</td><td><b>c<sub>j</sub> = 0</b></td></tr>
+</table>
+Es decir: <b>S = {x : existe lím A<sup>k</sup>x} = ⊕ de los autoespacios con |λ| &lt; 1 y λ = 1</b>, y <b>lím A<sup>k</sup>x = la componente de x en S<sub>1</sub></b>.
+</div>
+
+<div class="example"><div class="ex-t">27/VI/24 9hs ej 2 · hallar el subespacio</div>
+<i>A = (1/2)[[−4,6,−6],[0,1,0],[0,−1,2]]. Hallar una base de S = {x ∈ ℝ<sup>3</sup> : existe lím<sub>k→∞</sub> A<sup>k</sup>x}.</i><br><br>
+<b>▸</b> A = [[−2,3,−3],[0,½,0],[0,−½,1]] es triangular por bloques: χ(x) = (−2−x)(½−x)(1−x), o sea <b>σ(A) = {−2, ½, 1}</b>.<br>
+<b>▸</b> |−2| &gt; 1 ⟹ ese autoespacio <b>queda afuera</b>. |½| &lt; 1 y λ = 1 ⟹ los dos <b>quedan adentro</b>.<br>
+<b>▸ S<sub>1/2</sub>:</b> (A − ½I)x = 0 ⟹ [[−5/2, 3, −3],[0,0,0],[0,−½,½]]x = 0 ⟹ x<sub>2</sub> = x<sub>3</sub> y −(5/2)x<sub>1</sub> = 0 ⟹ <b>gen{[0,1,1]<sup>T</sup>}</b>.<br>
+<b>▸ S<sub>1</sub>:</b> (A − I)x = 0 ⟹ [[−3,3,−3],[0,−½,0],[0,−½,0]]x = 0 ⟹ x<sub>2</sub> = 0 y x<sub>1</sub> = −x<sub>3</sub> ⟹ <b>gen{[1,0,−1]<sup>T</sup>}</b>.<br>
+<b>▸ Base de S: {[0,1,1]<sup>T</sup>, [1,0,−1]<sup>T</sup>}</b>, y dim S = 2. <span class="muted">Para el registro, S<sub>−2</sub> = gen{[1,0,0]<sup>T</sup>} y es exactamente lo que queda afuera.</span>
+</div>
+
+<div class="example"><div class="ex-t">26/06/24 ej 2 · la versión inversa</div>
+<i>A = (1/4)[[4,1,−1],[0,3,1],[0,1,3]]. Hallar todas las soluciones de lím<sub>k→∞</sub> A<sup>k</sup>x = [0,6,6]<sup>T</sup>.</i><br><br>
+<b>▸</b> χ(x) = (1−x)·[(¾−x)<sup>2</sup> − 1/16] = (1−x)(1−x)(½−x), o sea <b>λ = 1 doble y λ = ½ simple</b>.<br>
+<b>▸ S<sub>1</sub>:</b> (A−I) = (1/4)[[0,1,−1],[0,−1,1],[0,1,−1]], rango 1 ⟹ μ(1) = 2, <b>S<sub>1</sub> = gen{[1,0,0]<sup>T</sup>, [0,1,1]<sup>T</sup>}</b>. ▸ <b>S<sub>1/2</sub> = gen{[1,−1,1]<sup>T</sup>}</b>.<br>
+<b>▸</b> Como |½| &lt; 1, esa componente se va a cero, y como λ = 1 en el resto, <b>lím A<sup>k</sup>x = la componente de x en S<sub>1</sub></b>.<br>
+<b>▸</b> Verificamos que el dato sea alcanzable: [0,6,6]<sup>T</sup> = 6·[0,1,1]<sup>T</sup> ∈ S<sub>1</sub> ✓.<br>
+<b>▸ Respuesta: x = [0,6,6]<sup>T</sup> + t[1,−1,1]<sup>T</sup>, t ∈ ℝ.</b> ▸ <span class="muted">Si el dato NO estuviera en S<sub>1</sub>, la respuesta correcta sería "no hay solución", y eso también hay que saber decirlo.</span>
+</div>
+
+<div class="trap"><div class="tr-t">λ = −1 no converge, y es el error que la tabla existe para evitar</div>
+Con λ = −1 la sucesión λ<sup>k</sup> oscila entre 1 y −1: <b>no tiene límite</b>. Un autoespacio de −1 va afuera de S, igual que uno con |λ| &gt; 1. ▸ Y λ = 0 va adentro sin problema (0<sup>k</sup> → 0). ▸ La condición correcta es "|λ| &lt; 1 <b>o</b> λ = 1", no "|λ| ≤ 1".
+</div>
+
+<h3>6.3 · Sistemas de ecuaciones diferenciales X′ = AX</h3>
+
+<div class="key"><div class="ky-t">Aviso honesto antes de que estudies esto</div>
+<b>En los 10 segundos parciales del régimen actual no hay ni una ecuación diferencial.</b> Cero de cincuenta ejercicios. En cambio aparecen en 4 de los 21 primeros parciales de la guía madre. ▸ El apunte oficial (Pustilnik–Muszkats) les dedica el capítulo 7 entero y la cátedra lo publica, así que <i>podría</i> caer. Pero el costo-beneficio es claro: aprendé la versión corta de abajo, que son quince minutos y un renglón en las carillas, y no le dediques una tarde. <b>La tarde va a la sección 5.</b>
+</div>
+
+<p>La versión corta es la misma idea de siempre: <b>diagonalizar desacopla</b>.</p>
+
+<div class="example"><div class="ex-t">Teorema 7.9 del apunte, con su demostración en tres renglones</div>
+Sea X′ = AX con A ∈ ℝ<sup>n×n</sup> diagonalizable, A = PΛP<sup>−1</sup>, P = [v<sub>1</sub> ⋯ v<sub>n</sub>].<br>
+▸ El cambio de variable <b>Y = P<sup>−1</sup>X</b> transforma X′ = PΛP<sup>−1</sup>X en <b>Y′ = ΛY</b>, que son n ecuaciones <b>desacopladas</b> y<sub>i</sub>′ = λ<sub>i</sub>y<sub>i</sub>, cada una con solución y<sub>i</sub> = C<sub>i</sub>e<sup>λ<sub>i</sub>t</sup>.<br>
+▸ Deshaciendo el cambio, X = PY:
+<div class="formula">X(t) = C<sub>1</sub>e<sup>λ<sub>1</sub>t</sup>v<sub>1</sub> + C<sub>2</sub>e<sup>λ<sub>2</sub>t</sup>v<sub>2</sub> + ⋯ + C<sub>n</sub>e<sup>λ<sub>n</sub>t</sup>v<sub>n</sub></div>
+▸ Y {e<sup>λ<sub>1</sub>t</sup>v<sub>1</sub>, …, e<sup>λ<sub>n</sub>t</sup>v<sub>n</sub>} es <b>base del espacio de soluciones</b>, que tiene dimensión n. ∎<br><br>
+<b>Con condición inicial X(0) = x<sub>0</sub>:</b> los C<sub>i</sub> son las coordenadas de x<sub>0</sub> en la base de autovectores. Es <b>exactamente</b> el mismo primer paso que en A<sup>k</sup>x<sub>0</sub>: cambia e<sup>λt</sup> por λ<sup>k</sup> y nada más.<br><br>
+<b>Si hay autovalores complejos λ = a ± bi</b> con autovector v = p + iq, la base real de esas dos soluciones es
+<div class="formula">e<sup>at</sup>(cos(bt)·p − sen(bt)·q) &nbsp;y&nbsp; e<sup>at</sup>(sen(bt)·p + cos(bt)·q)</div>
+<b>Si el sistema es no homogéneo</b> X′ = AX + F, la solución general es X<sub>h</sub> + X<sub>p</sub>: la del homogéneo más una particular, igual que en cualquier sistema lineal.
+</div>
+
+<div class="trap"><div class="tr-t">La analogía que conviene tener escrita, porque unifica los tres moldes</div>
+<b>A<sup>k</sup>x<sub>0</sub>:</b> descomponer x<sub>0</sub> en autovectores, multiplicar cada término por λ<sup>k</sup>.<br>
+<b>lím A<sup>k</sup>x:</b> descomponer, mirar qué λ<sup>k</sup> converge.<br>
+<b>X′ = AX, X(0) = x<sub>0</sub>:</b> descomponer x<sub>0</sub> en autovectores, multiplicar cada término por e<sup>λt</sup>.<br><br>
+Los tres son el mismo ejercicio con distinta función del autovalor. Si automatizás "descomponer x<sub>0</sub> en la base de autovectores", tenés los seis ejercicios reales de este molde y el hipotético de ecuaciones diferenciales.
+</div>
+
+<div class="reveal-wrap" data-rv="6" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · FORMAS CUADRÁTICAS, ISOMETRÍAS Y RAYLEIGH ============ -->
+<details id="fals-s7">
+<summary><span class="num">7</span> Formas cuadráticas, isometrías y Rayleigh <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-7"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Qué pesa cuánto acá, con los números adelante</div>
+<b>Isometrías:</b> 2 de los 10 exámenes tienen un "comprobar que U es ortogonal y caracterizar T(x) = Ux". Es un ejercicio de veinte minutos con una respuesta de dos renglones.<br>
+<b>Rayleigh:</b> no aparece con ese nombre en ninguno, pero es lo que sostiene los 3 ejercicios de máx<sub>‖x‖=1</sub>‖Ax‖ y la imagen de la esfera, que están en la sección 8.<br>
+<b>Formas cuadráticas q(x) = x<sup>T</sup>Ax con pedido de clasificar o graficar:</b> <b>cero</b> en los 10 recientes. Sí en el régimen viejo (2017 y 2018). Va acá en versión compacta porque cuesta media carilla y porque el apunte oficial le dedica un capítulo.
+</div>
+
+<h3>7.1 · Isometrías de ℝ<sup>2</sup>: rotación o simetría, y nada más</h3>
+
+<p>El ejercicio dice siempre lo mismo: <i>"Comprobar que la matriz U es ortogonal y caracterizar la isometría T : ℝ<sup>2</sup> → ℝ<sup>2</sup> definida por T(x) = Ux"</i>. Son dos preguntas y hay que contestar las dos.</p>
+
+<div class="key"><div class="ky-t">Los dos pasos, con el criterio que decide todo</div>
+<b>1 · Comprobar que es ortogonal.</b> La forma más rápida es verificar que las <b>columnas son una base ortonormal</b>: cada una de norma 1 y producto interno entre ellas igual a 0. Equivale a U<sup>T</sup>U = I. <span class="muted">Y para una matriz cuadrada, U<sup>T</sup>U = I ya implica UU<sup>T</sup> = I: una inversa a izquierda de una cuadrada es la inversa.</span><br><br>
+<b>2 · Calcular det(U). Ese único número decide el tipo:</b>
+<table class="tbl">
+  <tr><th>det(U)</th><th>Qué es T</th><th>Qué hay que dar además</th><th>σ(U)</th></tr>
+  <tr><td><b>+1</b></td><td><b>Rotación</b> de ángulo θ alrededor del origen</td><td>El ángulo θ, leído de U = [[cos θ, −sen θ],[sen θ, cos θ]]</td><td>Complejos (salvo θ = 0 o π)</td></tr>
+  <tr><td><b>−1</b></td><td><b>Simetría</b> (reflexión) respecto de una recta por el origen</td><td>La recta, que es <b>nul(U − I)</b> = el autoespacio de λ = 1</td><td>{1, −1}</td></tr>
+</table>
+"Caracterizar" significa exactamente eso: decir si es rotación o simetría, y dar el ángulo o el eje.
+</div>
+
+<div class="example"><div class="ex-t">27/VI/24 9hs ej 3 · det = −1, es una simetría</div>
+<i>U = (1/5)[[3,4],[4,−3]].</i><br><br>
+<b>▸ Ortogonal:</b> columnas [3,4]<sup>T</sup>/5 y [4,−3]<sup>T</sup>/5. Normas: (9+16)/25 = 1 ✓ y (16+9)/25 = 1 ✓. Producto interno: (12 − 12)/25 = 0 ✓. <b>Es ortogonal.</b><br>
+<b>▸ det(U)</b> = (1/25)(−9 − 16) = <b>−1</b> ⟹ es una <b>simetría</b>.<br>
+<b>▸ El eje:</b> U − I = (1/5)[[−2,4],[4,−8]], que tiene rango 1: −2x<sub>1</sub> + 4x<sub>2</sub> = 0 ⟹ x<sub>1</sub> = 2x<sub>2</sub>. <b>nul(U − I) = gen{[2,1]<sup>T</sup>}</b>.<br>
+<b>▸ Respuesta:</b> T es la <b>simetría respecto de la recta gen{[2,1]<sup>T</sup>}</b>, es decir la recta de ecuación x<sub>1</sub> − 2x<sub>2</sub> = 0. ▸ <span class="muted">Control: el otro autoespacio, nul(U + I) = gen{[−1,2]<sup>T</sup>}, tiene que ser perpendicular al eje, y lo es.</span>
+</div>
+
+<div class="example"><div class="ex-t">26/06/24 ej 3 · det = +1, es una rotación</div>
+<i>U = (1/2)[[√3, −1],[1, √3]].</i><br><br>
+<b>▸ Ortogonal:</b> columnas [√3,1]<sup>T</sup>/2 y [−1,√3]<sup>T</sup>/2. Normas: (3+1)/4 = 1 ✓. Producto: (−√3 + √3)/4 = 0 ✓.<br>
+<b>▸ det(U)</b> = (3 + 1)/4 = <b>+1</b> ⟹ es una <b>rotación</b>.<br>
+<b>▸ El ángulo:</b> comparando con [[cos θ, −sen θ],[sen θ, cos θ]]: cos θ = √3/2 y sen θ = 1/2 ⟹ <b>θ = 30° = π/6</b>, en sentido antihorario.<br>
+<b>▸ Respuesta:</b> T es la <b>rotación de π/6 alrededor del origen</b>. ▸ <span class="muted">σ(U) = {e<sup>±iπ/6</sup>}: no hay autovalores reales, y por eso el ejercicio NO se contesta con autovectores.</span>
+</div>
+
+<div class="trap"><div class="tr-t">det = ±1 no alcanza para afirmar que U es ortogonal</div>
+Que |det(U)| = 1 es <b>consecuencia</b> de ser ortogonal, no equivalencia. [[1,1],[0,1]] tiene det 1 y no es ortogonal. ▸ Sirve sólo para <b>descartar</b>: si det ≠ ±1, seguro que no es ortogonal. ▸ El enunciado te pide "comprobar", así que la comprobación va con U<sup>T</sup>U = I o con las columnas, no con el determinante. El determinante se calcula <b>después</b>, para clasificar.
+</div>
+
+<div class="trap"><div class="tr-t">El signo del ángulo y la posición del menos</div>
+La matriz de rotación de la cátedra es [[cos θ, <b>−sen θ</b>],[<b>sen θ</b>, cos θ]]: el menos va <b>arriba a la derecha</b>. Si te queda al revés, el ángulo es −θ (rotación horaria), no θ. Y en ℝ<sup>3</sup>, una matriz ortogonal con det = 1 es una rotación <b>alrededor del eje nul(U − I)</b>, que siempre tiene dimensión ≥ 1 en dimensión impar.
+</div>
+
+<h3>7.2 · Formas cuadráticas: la clasificación en tres renglones</h3>
+
+<p>q(x) = x<sup>T</sup>Ax con <b>A simétrica</b> (siempre se puede simetrizar: x<sup>T</sup>Mx = x<sup>T</sup>((M + M<sup>T</sup>)/2)x). Diagonalizando A = UΛU<sup>T</sup> y cambiando de variable <b>y = U<sup>T</sup>x</b> —que no cambia la norma, por ser U ortogonal— los términos cruzados desaparecen:</p>
+
+<div class="formula">q(x) = y<sup>T</sup>Λy = λ<sub>1</sub>y<sub>1</sub><sup>2</sup> + λ<sub>2</sub>y<sub>2</sub><sup>2</sup> + ⋯ + λ<sub>n</sub>y<sub>n</sub><sup>2</sup></div>
+
+<p>Ese es el <b>teorema de los ejes principales</b>, y con él la clasificación se lee en los signos de los autovalores, sin ninguna cuenta adicional:</p>
+
+<table class="tbl">
+  <tr><th>Clasificación</th><th>Condición sobre σ(A)</th><th>Conjunto de nivel q(x) = k &gt; 0 en ℝ<sup>2</sup></th></tr>
+  <tr><td>Definida positiva</td><td>todos los λ &gt; 0</td><td><b>Elipse</b> de semiejes √(k/λ<sub>i</sub>) sobre los autovectores</td></tr>
+  <tr><td>Semidefinida positiva</td><td>todos los λ ≥ 0, con algún 0</td><td>Par de rectas paralelas, o el vacío</td></tr>
+  <tr><td>Definida negativa</td><td>todos los λ &lt; 0</td><td>Vacío (para k &gt; 0)</td></tr>
+  <tr><td>Semidefinida negativa</td><td>todos los λ ≤ 0, con algún 0</td><td>Vacío (para k &gt; 0)</td></tr>
+  <tr><td>Indefinida</td><td>hay λ &gt; 0 y λ &lt; 0</td><td><b>Hipérbola</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cómo se grafica un conjunto de nivel, en cuatro pasos</div>
+<b>1.</b> Escribí A simétrica a partir de q: los coeficientes de x<sub>i</sub><sup>2</sup> van en la diagonal, y el coeficiente de x<sub>i</sub>x<sub>j</sub> se <b>parte al medio</b> entre las posiciones (i,j) y (j,i).<br>
+<b>2.</b> Diagonalizá ortogonalmente: autovalores λ<sub>i</sub> y una b.o.n. de autovectores {u<sub>i</sub>}.<br>
+<b>3.</b> Escribí q(x) = Σλ<sub>i</sub>y<sub>i</sub><sup>2</sup> = k y llevalo a forma canónica dividiendo por k.<br>
+<b>4.</b> <b>Dibujá los ejes nuevos</b> en la dirección de los u<sub>i</sub> y sobre ellos la cónica con sus semiejes. ▸ <span class="muted">Ordenar la base de modo que det(U) = 1 hace que el sistema nuevo sea el viejo <i>rotado</i>, sin reflexión. Es la convención del apunte.</span>
+</div>
+
+<div class="example"><div class="ex-t">Un caso real del régimen viejo · 6/XII/2017 ej 4</div>
+<i>Sea Q : ℝ<sup>2</sup> → ℝ la forma cuadrática Q(x) = x<sup>T</sup>(2I + 3P)x, donde P representa en base canónica la proyección sobre S = {x ∈ ℝ<sup>2</sup> : 4x<sub>1</sub> + 3x<sub>2</sub> = 0}. Graficar {x ∈ ℝ<sup>2</sup> : Q(x) ≤ 4}.</i><br><br>
+<b>▸</b> S = gen{[3,−4]<sup>T</sup>} (chequeo: 4·3 + 3·(−4) = 0 ✓), de norma 5. P = (1/25)[[9,−12],[−12,16]].<br>
+<b>▸ No hace falta calcular 2I + 3P.</b> P tiene autovalores <b>1</b> (sobre [3,−4]<sup>T</sup>, que es S) y <b>0</b> (sobre [4,3]<sup>T</sup>, que es S<sup>⊥</sup>). ▸ Entonces 2I + 3P tiene autovalores <b>2 + 3·1 = 5</b> sobre [3,−4]<sup>T</sup> y <b>2 + 3·0 = 2</b> sobre [4,3]<sup>T</sup>. <span class="muted">Es p(A)v = p(λ)v otra vez.</span><br>
+<b>▸</b> Q(x) = 5y<sub>1</sub><sup>2</sup> + 2y<sub>2</sub><sup>2</sup> con y<sub>1</sub> en la dirección [3,−4]<sup>T</sup>/5 e y<sub>2</sub> en [4,3]<sup>T</sup>/5. <b>Definida positiva</b>, así que el conjunto es acotado.<br>
+<b>▸</b> Q(x) ≤ 4 ⟺ y<sub>1</sub><sup>2</sup>/(4/5) + y<sub>2</sub><sup>2</sup>/2 ≤ 1: la <b>elipse llena</b> (con su interior) de semiejes <b>2/√5 ≈ 0,89</b> sobre [3,−4]<sup>T</sup>/5 y <b>√2 ≈ 1,41</b> sobre [4,3]<sup>T</sup>/5.<br>
+<b>▸</b> El dibujo: los ejes de la elipse son las rectas gen{[3,−4]} y gen{[4,3]}, y el eje <b>mayor</b> es el segundo, porque le corresponde el autovalor <b>menor</b>.
+</div>
+
+<div class="trap"><div class="tr-t">El semieje va con la raíz del recíproco del autovalor</div>
+En Σλ<sub>i</sub>y<sub>i</sub><sup>2</sup> = k, el semieje en la dirección i es <b>√(k/λ<sub>i</sub>)</b>. Autovalor <b>grande</b> ⟹ semieje <b>chico</b>. Es al revés que en la DVS, donde el semieje del elipsoide imagen es directamente σ<sub>i</sub>. ▸ Las dos cosas conviven en el mismo parcial, así que anotá las dos con el ejemplo al lado.
+</div>
+
+<h3>7.3 · Rayleigh: la herramienta para acotar x<sup>T</sup>Mx</h3>
+
+<div class="key"><div class="ky-t">Desigualdad de Rayleigh</div>
+Para A simétrica y ‖x‖ = 1:
+<div class="formula">λ<sub>mín</sub> ≤ x<sup>T</sup>Ax ≤ λ<sub>máx</sub></div>
+y los extremos se alcanzan en los autovectores unitarios correspondientes. ▸ <b>Demostración en dos renglones:</b> con y = U<sup>T</sup>x se tiene ‖y‖ = ‖x‖ = 1 y x<sup>T</sup>Ax = Σλ<sub>i</sub>y<sub>i</sub><sup>2</sup>, que con Σy<sub>i</sub><sup>2</sup> = 1 es un <b>promedio ponderado</b> de los λ<sub>i</sub>, y todo promedio está entre el mínimo y el máximo. ∎<br><br>
+<b>Escalado:</b> si ‖x‖ = R en vez de 1, poné x = R·x̂ con ‖x̂‖ = 1 y sale <b>R<sup>2</sup>λ<sub>mín</sub> ≤ x<sup>T</sup>Ax ≤ R<sup>2</sup>λ<sub>máx</sub></b>.<br><br>
+<b>La consecuencia que sí cae en el parcial actual:</b> aplicando Rayleigh a A<sup>T</sup>A y usando ‖Ax‖<sup>2</sup> = x<sup>T</sup>A<sup>T</sup>Ax, se obtiene <b>máx<sub>‖x‖=1</sub>‖Ax‖ = σ<sub>1</sub></b> y <b>mín<sub>‖x‖=1</sub>‖Ax‖ = σ<sub>n</sub></b>. Ésa es la justificación teórica de los tres ejercicios de la sección 8, y es lo que hay que citar.
+</div>
+
+<div class="example"><div class="ex-t">Cómo se usa · 16/VI/2018 ej 3, segunda parte</div>
+<i>Para la matriz simétrica A hallada (con σ(A) = {1, 4, 6}), determinar todos los k ∈ ℝ tales que 4 ≤ x<sup>T</sup>(A + kI)x ≤ 64 si x ∈ ℝ<sup>3</sup> y ‖x‖<sup>2</sup> = 4.</i><br><br>
+<b>▸</b> A + kI es simétrica con σ(A + kI) = {1+k, 4+k, 6+k}: <b>los autovalores se corren, los autovectores no cambian</b>.<br>
+<b>▸</b> ‖x‖<sup>2</sup> = 4 ⟹ ‖x‖ = 2 ⟹ por Rayleigh escalado, x<sup>T</sup>(A+kI)x recorre <b>todo</b> el intervalo [4(1+k), 4(6+k)] cuando x recorre la esfera de radio 2.<br>
+<b>▸</b> Pedir que ese intervalo esté contenido en [4, 64] es pedir <b>4(1+k) ≥ 4</b> y <b>4(6+k) ≤ 64</b>, o sea <b>k ≥ 0</b> y <b>k ≤ 10</b>.<br>
+<b>▸ Respuesta: k ∈ [0, 10].</b> ▸ <span class="muted">El detalle que hay que decir para que cuente: los extremos se <b>alcanzan</b> (en los autovectores), así que las desigualdades son las correctas y no hay que aflojarlas.</span>
+</div>
+
+<div class="trap"><div class="tr-t">Rayleigh exige A simétrica, y la cota es sobre x<sup>T</sup>Ax, no sobre ‖Ax‖</div>
+Dos confusiones distintas y las dos se cobran:<br>
+▸ <b>Si A no es simétrica</b>, sus autovalores pueden ser complejos y la desigualdad no tiene sentido. Simetrizá primero: x<sup>T</sup>Mx = x<sup>T</sup>((M+M<sup>T</sup>)/2)x.<br>
+▸ <b>x<sup>T</sup>Ax y ‖Ax‖ son cosas distintas.</b> El primero se acota con los <b>autovalores</b> de A; el segundo con los <b>valores singulares</b>. Coinciden en valor absoluto sólo si A es simétrica. Para A = [[3,−8],[4,6]] los autovalores son complejos y los valores singulares son 10 y 5, bien reales.
+</div>
+
+<div class="reveal-wrap" data-rv="7" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 8 · DVS, SEUDOINVERSA Y CUADRADOS MÍNIMOS ============ -->
+<details id="fals-s8">
+<summary><span class="num">8</span> DVS, seudoinversa y cuadrados mínimos: el bloque del final <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-8"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">El dato más fuerte de toda esta guía</div>
+<b>En los 10 segundos parciales del régimen actual, el ejercicio 5 es DVS, seudoinversa, cuadrados mínimos o imagen de la esfera. Los 10. Sin una excepción.</b> Y en <b>ocho</b> de ellos hay <b>además</b> otro ejercicio de este bloque en la posición 4. Sumando el ajuste por cuadrados mínimos que abre el 07/07/25, son <b>19 de los 50 ejercicios</b>.<br><br>
+Si tenés que elegir dónde poner la última semana de estudio y ya sabés construir la simétrica, es acá.
+</div>
+
+<h3>8.1 · Los cinco moldes de este bloque, y cómo distinguirlos en diez segundos</h3>
+
+<table class="tbl">
+  <tr><th>Lo que dice el enunciado</th><th>Molde</th><th>Qué construís</th></tr>
+  <tr><td>"Hallar una descomposición en valores singulares de A"</td><td><b>DVS directa</b></td><td>U, Σ, V completas (o U<sub>r</sub>, D, V<sub>r</sub> si dice "reducida")</td></tr>
+  <tr><td>"Hallar A<sup>†</sup>, la seudoinversa de Moore-Penrose de A"</td><td><b>Seudoinversa</b></td><td>Sólo la DVS reducida: A<sup>†</sup> = V<sub>r</sub>D<sup>−1</sup>U<sub>r</sub><sup>T</sup>. No completes bases.</td></tr>
+  <tr><td>"Usando la técnica de mínimos cuadrados, ajustar los siguientes datos mediante y = …"</td><td><b>Ajuste</b></td><td>Matriz de diseño M y ecuaciones normales M<sup>T</sup>Mc = M<sup>T</sup>y. <b>Nada de DVS.</b></td></tr>
+  <tr><td>"Hallar todas las soluciones por cuadrados mínimos de Ax = b" / "la de norma mínima"</td><td><b>C.m. general</b></td><td>x* = A<sup>†</sup>b, y todas son x* + nul(A)</td></tr>
+  <tr><td>"Caracterizar geométricamente y graficar la imagen por T de la esfera unitaria" / "hallar los x que maximizan ‖T(x)‖"</td><td><b>Geometría</b></td><td>σ<sub>i</sub> y u<sub>i</sub>: los semiejes y sus direcciones</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La confusión que arruina el ejercicio 5: "cuadrados mínimos" significa dos cosas distintas</div>
+▸ <b>Si te dan una tabla de datos (x<sub>i</sub>, y<sub>i</sub>)</b> y una familia de funciones, la incógnita son los <b>coeficientes</b> de la función, la matriz A se llama <b>matriz de diseño</b> y la armás vos. Nunca hace falta la seudoinversa: A tiene columnas independientes y sale con (A<sup>T</sup>A)<sup>−1</sup>A<sup>T</sup>.<br>
+▸ <b>Si te dan una matriz A y un vector b</b>, la incógnita es x y casi siempre nul(A) ≠ {0}, así que hay <b>infinitas</b> soluciones y hay que dar la familia completa y la de norma mínima, con la seudoinversa.<br>
+Los dos aparecen en el mismo examen (31/VII/24 tiene los dos, ejercicios 4 y 5). Confundirlos cuesta los dos.
+</div>
+
+<h3>8.2 · Ajuste de datos: el molde que la Guía 4 no trae</h3>
+
+<div class="key"><div class="ky-t">Cuatro de los diez exámenes lo tienen, y la Guía 4 no lo practica</div>
+Está en el <b>capítulo 3 del apunte oficial</b> (Pustilnik–Muszkats), no en la Guía 4. Si estudiás sólo con la guía de TP, llegás al examen sin haberlo hecho nunca. Es el agujero más grande entre "lo que practicás" y "lo que toman".
+</div>
+
+<p>El procedimiento es mecánico y siempre igual:</p>
+
+<ol>
+  <li><b>Escribí el sistema incompatible.</b> Una ecuación por dato: para cada (x<sub>i</sub>, y<sub>i</sub>), la ecuación es "la función evaluada en x<sub>i</sub> vale y<sub>i</sub>". Con cinco datos y tres coeficientes, son 5 ecuaciones y 3 incógnitas.</li>
+  <li><b>Armá la matriz de diseño M</b> poniendo, en cada fila, los valores de las <b>funciones base</b> evaluadas en x<sub>i</sub>. Recta y = mx + b ⟹ fila [x<sub>i</sub>, 1]. Parábola y = ax<sup>2</sup> + bx + c ⟹ fila [x<sub>i</sub><sup>2</sup>, x<sub>i</sub>, 1].</li>
+  <li><b>Ecuaciones normales M<sup>T</sup>Mc = M<sup>T</sup>y</b>, donde c es el vector de coeficientes. M<sup>T</sup>M es chiquita (2×2 o 3×3) y simétrica.</li>
+  <li><b>Resolvé y escribí la función</b>, no el vector de coeficientes sueltos.</li>
+</ol>
+
+<div class="key"><div class="ky-t">El atajo que la cátedra te regala: los datos son simétricos</div>
+En los dos ajustes de parábola (27/VI/24 14hs y 31/VII/24), los x<sub>i</sub> son <b>−2, −1, 0, 1, 2</b>. Con esa simetría:
+<div class="formula">Σx<sub>i</sub> = 0 &nbsp;·&nbsp; Σx<sub>i</sub><sup>3</sup> = 0 &nbsp;·&nbsp; Σx<sub>i</sub><sup>2</sup> = 10 &nbsp;·&nbsp; Σx<sub>i</sub><sup>4</sup> = 34</div>
+y entonces <b>M<sup>T</sup>M = [[34,0,10],[0,10,0],[10,0,5]]</b> <i>siempre</i>, sin importar los y<sub>i</sub>. ▸ Como la fila del medio queda aislada, <b>b = (Σx<sub>i</sub>y<sub>i</sub>)/10</b> sale de una división, y a y c salen de un sistema 2×2. ▸ Si además los y<sub>i</sub> son simétricos (y<sub>−2</sub> = y<sub>2</sub>, y<sub>−1</sub> = y<sub>1</sub>), entonces Σx<sub>i</sub>y<sub>i</sub> = 0 y <b>b = 0</b>: la parábola no tiene término lineal. En los dos ajustes de parábola reales pasa exactamente eso.
+</div>
+
+<div class="example"><div class="ex-t">27/VI/24 14hs ej 5 · parábola, hecho entero</div>
+<i>Ajustar x = (−2,−1,0,1,2), y = (5,3,2,3,5) mediante y = ax<sup>2</sup> + bx + c.</i><br><br>
+<b>▸</b> M = [[4,−2,1],[1,−1,1],[0,0,1],[1,1,1],[4,2,1]], y = [5,3,2,3,5]<sup>T</sup>, incógnita c = [a,b,c]<sup>T</sup>.<br>
+<b>▸ M<sup>T</sup>M = [[34,0,10],[0,10,0],[10,0,5]]</b> (la de arriba).<br>
+<b>▸ M<sup>T</sup>y</b> = [Σx<sub>i</sub><sup>2</sup>y<sub>i</sub>, Σx<sub>i</sub>y<sub>i</sub>, Σy<sub>i</sub>]<sup>T</sup> = [4·5 + 1·3 + 0 + 1·3 + 4·5, −10−3+0+3+10, 5+3+2+3+5]<sup>T</sup> = <b>[46, 0, 18]<sup>T</sup></b>.<br>
+<b>▸</b> Fila del medio: 10b = 0 ⟹ <b>b = 0</b>. ▸ Sistema restante: 34a + 10c = 46 y 10a + 5c = 18. De la segunda, c = (18 − 10a)/5; reemplazando: 34a + 2(18 − 10a) = 46 ⟹ 14a = 10 ⟹ <b>a = 5/7</b>, y <b>c = (18 − 50/7)/5 = 76/35</b>.<br>
+<b>▸ Respuesta: y = (5/7)x<sup>2</sup> + 76/35.</b> <span class="muted">≈ 0,714x<sup>2</sup> + 2,171. Chequeo de sensatez: en x = 0 el ajuste vale 2,17 contra el dato 2, y en x = ±2 vale 5,03 contra 5. Cierra.</span>
+</div>
+
+<table class="tbl">
+  <tr><th>Examen</th><th>Datos</th><th>Modelo</th><th>Respuesta verificada</th></tr>
+  <tr><td>27/VI/24 14hs</td><td>x = (−2,−1,0,1,2), y = (5,3,2,3,5)</td><td>parábola</td><td>y = (5/7)x<sup>2</sup> + 76/35</td></tr>
+  <tr><td>31/VII/24 (R)</td><td>x = (−2,−1,0,1,2), y = (4,1,−1,1,4)</td><td>parábola</td><td>y = (8/7)x<sup>2</sup> − 17/35</td></tr>
+  <tr><td>10/VII/24 (R)</td><td>x = (0,1,2,3,4), y = (1,2,4,6,8)</td><td>recta</td><td>y = (9/5)x + 3/5</td></tr>
+  <tr><td>07/07/25 (R)</td><td>x = (1,2,3,4,5), y = (4,5,11,12,13)</td><td>recta</td><td>y = (5/2)x + 3/2</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Los tres errores del ajuste</div>
+<b>1 · Poner los datos como incógnitas.</b> El sistema es M·c = y, con c = coeficientes. Si armás una matriz con los y<sub>i</sub> adentro, invertiste el problema.<br>
+<b>2 · Olvidar la columna de unos.</b> El término independiente c corresponde a la función constante 1, que evaluada en cualquier x<sub>i</sub> vale 1. Sin esa columna estás ajustando y = ax<sup>2</sup> + bx, que pasa por el origen.<br>
+<b>3 · Entregar el vector [a,b,c].</b> El enunciado pide <b>ajustar mediante y = ax<sup>2</sup>+bx+c</b>: la respuesta es la función escrita.
+</div>
+
+<h3>8.3 · Construir una DVS, y reconocer una ya construida</h3>
+
+<div class="key"><div class="ky-t">Los siete pasos, y la regla de oro</div>
+<b>(1)</b> Autovalores de A<sup>T</sup>A, <b>ordenados de mayor a menor</b>. ▸ <b>(2)</b> b.o.n. {v<sub>i</sub>} de autovectores de A<sup>T</sup>A (existe por el espectral: A<sup>T</sup>A es simétrica y semidefinida positiva, porque x<sup>T</sup>A<sup>T</sup>Ax = ‖Ax‖<sup>2</sup> ≥ 0). ▸ <b>(3)</b> σ<sub>i</sub> = √λ<sub>i</sub>. ▸ <b>(4)</b> u<sub>i</sub> = Av<sub>i</sub>/σ<sub>i</sub> para i ≤ r. ▸ <b>(5)</b> Si r &lt; m, completá {u<sub>i</sub>} a b.o.n. de ℝ<sup>m</sup> con una b.o.n. de nul(A<sup>T</sup>). ▸ <b>(6)</b> V = [v<sub>1</sub> ⋯ v<sub>n</sub>], U = [u<sub>1</sub> ⋯ u<sub>m</sub>], Σ ∈ ℝ<sup>m×n</sup> con los σ<sub>i</sub> en la diagonal. ▸ <b>(7)</b> <b>A = UΣV<sup>T</sup></b>.<br><br>
+<b>Regla de oro:</b> diagonalizá <b>la más chica</b> entre A<sup>T</sup>A y AA<sup>T</sup>. Si A es 2×3, los autovalores no nulos de AA<sup>T</sup> (2×2) son los mismos que los de A<sup>T</sup>A (3×3), y te ahorrás una cúbica.<br><br>
+<b>Tamaños:</b> A ∈ ℝ<sup>m×n</sup> ⟹ U ∈ ℝ<sup>m×m</sup>, Σ ∈ ℝ<sup>m×n</sup>, V ∈ ℝ<sup>n×n</sup>. Σ es la única que <b>no</b> es cuadrada, y tiene la forma de A.
+</div>
+
+<div class="example"><div class="ex-t">10/VII/24 ej 4 · rango 1, la DVS más barata que existe</div>
+<i>Hallar una descomposición en valores singulares de A = [[8,8,4],[10,10,5]].</i><br><br>
+<b>▸ Mirá las filas antes de calcular nada.</b> [8,8,4] = 4·[2,2,1] y [10,10,5] = 5·[2,2,1]: las dos filas son múltiplos del mismo vector. Entonces <b>A = [4,5]<sup>T</sup>·[2,2,1]</b>, un producto exterior, y <b>rango(A) = 1</b>: hay un solo valor singular no nulo.<br>
+<b>▸</b> ‖[4,5]‖ = √41 y ‖[2,2,1]‖ = 3, así que <b>σ<sub>1</sub> = 3√41</b>, con u<sub>1</sub> = [4,5]<sup>T</sup>/√41 y v<sub>1</sub> = [2,2,1]<sup>T</sup>/3.<br>
+<b>▸ Para completar V:</b> nul(A) = {x : 2x<sub>1</sub> + 2x<sub>2</sub> + x<sub>3</sub> = 0}, de dimensión 2. Una base ortogonal: <b>[1,−1,0]<sup>T</sup></b> y <b>[1,1,−4]<sup>T</sup></b> (chequeo: son ⊥ entre sí y ⊥ a [2,2,1] ✓). Normalizadas: [1,−1,0]<sup>T</sup>/√2 y [1,1,−4]<sup>T</sup>/(3√2).<br>
+<b>▸ Para completar U:</b> nul(A<sup>T</sup>) = gen{[−5,4]<sup>T</sup>}, normalizado [−5,4]<sup>T</sup>/√41.
+<div class="formula">U = (1/√41)[[4,−5],[5,4]] &nbsp;·&nbsp; Σ = [[3√41, 0, 0],[0,0,0]] &nbsp;·&nbsp; V = [ [2,2,1]<sup>T</sup>/3 | [1,−1,0]<sup>T</sup>/√2 | [1,1,−4]<sup>T</sup>/(3√2) ]</div>
+<b>▸ Verificación barata:</b> Σσ<sub>i</sub><sup>2</sup> tiene que dar tr(A<sup>T</sup>A) = ‖A‖<sub>F</sub><sup>2</sup> = 64+64+16+100+100+25 = 369, y (3√41)<sup>2</sup> = 9·41 = 369 ✓.
+</div>
+
+<div class="example"><div class="ex-t">7/VIII/24 ej 4 · rango 2, con un valor singular doble</div>
+<i>Hallar una DVS de A = [[0,1,0],[1,0,1],[0,1,0]].</i><br><br>
+<b>▸</b> A<sup>T</sup>A = [[1,0,1],[0,2,0],[1,0,1]], con autovalores <b>2 (doble)</b> y 0. Entonces <b>σ<sub>1</sub> = σ<sub>2</sub> = √2</b> y r = 2.<br>
+<b>▸</b> S<sub>2</sub> = gen{[0,1,0]<sup>T</sup>, [1,0,1]<sup>T</sup>}, que ya es ortogonal: v<sub>1</sub> = [0,1,0]<sup>T</sup>, v<sub>2</sub> = [1,0,1]<sup>T</sup>/√2. ▸ S<sub>0</sub> = gen{[1,0,−1]<sup>T</sup>}: v<sub>3</sub> = [1,0,−1]<sup>T</sup>/√2.<br>
+<b>▸</b> u<sub>1</sub> = Av<sub>1</sub>/√2 = [1,0,1]<sup>T</sup>/√2. ▸ u<sub>2</sub> = Av<sub>2</sub>/√2 = [0,2,0]<sup>T</sup>/(√2·√2) = [0,1,0]<sup>T</sup>. ▸ u<sub>3</sub>: b.o.n. de nul(A<sup>T</sup>) = nul(A) = gen{[1,0,−1]<sup>T</sup>/√2}.<br>
+<div class="formula">U = [ [1,0,1]<sup>T</sup>/√2 | [0,1,0]<sup>T</sup> | [1,0,−1]<sup>T</sup>/√2 ] &nbsp;·&nbsp; Σ = diag(√2, √2, 0) &nbsp;·&nbsp; V = [ [0,1,0]<sup>T</sup> | [1,0,1]<sup>T</sup>/√2 | [1,0,−1]<sup>T</sup>/√2 ]</div>
+<b>▸ Y de yapa la seudoinversa</b>, que en el 27/VI/24 14hs piden para <b>esta misma matriz</b> (escrita como A = [1,0,1]<sup>T</sup>[0,1,0] + [0,1,0]<sup>T</sup>[1,0,1]): A<sup>†</sup> = (1/√2)v<sub>1</sub>u<sub>1</sub><sup>T</sup> + (1/√2)v<sub>2</sub>u<sub>2</sub><sup>T</sup> = <b>A/2</b> = (1/2)[[0,1,0],[1,0,1],[0,1,0]]. ▸ <span class="muted">Sale así porque A es simétrica con σ(A) = {√2, −√2, 0} y para simétricas A<sup>†</sup> se arma invirtiendo los autovalores no nulos.</span>
+</div>
+
+<div class="key"><div class="ky-t">Reconocer una DVS ya hecha · el patrón que aparece en cinco exámenes</div>
+Te dan A escrita como <b>suma de productos exteriores</b> c<sub>1</sub>a<sub>1</sub>b<sub>1</sub><sup>T</sup> + c<sub>2</sub>a<sub>2</sub>b<sub>2</sub><sup>T</sup> + ⋯, o como producto de tres matrices. El procedimiento:<br>
+<b>1.</b> Calculá las normas de todos los a<sub>i</sub> y b<sub>i</sub>. Son enteros redondos: 3, 5, 6, 7, 9.<br>
+<b>2.</b> Normalizá: u<sub>i</sub> = a<sub>i</sub>/‖a<sub>i</sub>‖, v<sub>i</sub> = b<sub>i</sub>/‖b<sub>i</sub>‖, y el escalar que sobra es <b>σ<sub>i</sub> = c<sub>i</sub>‖a<sub>i</sub>‖‖b<sub>i</sub>‖</b>.<br>
+<b>3. Verificá que {u<sub>i</sub>} sea ortonormal y que {v<sub>i</sub>} sea ortonormal.</b> Si no lo son, <b>no es una DVS</b> y no podés leer nada de ahí.<br>
+<b>4.</b> Reordená de mayor a menor σ. Y si algún σ sale negativo, cambiale el signo al u<sub>i</sub> correspondiente.<br><br>
+El paso 3 no es una formalidad: es el que te dice si el ejercicio salió, y hay un examen real donde <b>falla</b> (abajo).
+</div>
+
+<div class="trap"><div class="tr-t">La errata que la cátedra arrastra desde el 4.18(b) de la Guía 4, y cómo aparece en dos parciales</div>
+La terna de vectores favorita de esta cátedra es <b>[−1,2,2], [2,−1,2], [2,2,−1]</b> (ortogonales, norma 3) y su prima <b>[−2,6,−3], [6,3,2], [−3,2,6]</b> (ortogonales, norma 7). Con signos correctos, todo cierra y los valores singulares son enteros. Con un signo cambiado, no.<br><br>
+▸ <b>4/XII/24 14hs ej 5</b> trae A = 5[−1,2,2]<sup>T</sup>[−2,6,−3] + 3[2,−1,2]<sup>T</sup>[6,3,2] + 2[2,2,−1]<sup>T</sup>[−3,2,6]. Verificás: las tres columnas son ortogonales entre sí (norma 3) y las tres filas también (norma 7). <b>Es una DVS legítima</b>, con σ = 5·3·7 = <b>105</b>, 3·3·7 = <b>63</b> y 2·3·7 = <b>42</b>, ya ordenados. La imagen de la esfera es el <b>elipsoide de semiejes 105, 63 y 42</b> en las direcciones [−1,2,2]/3, [2,−1,2]/3 y [2,2,−1]/3.<br><br>
+▸ <b>4/XII/24 17hs ej 5</b> trae A = 5[2,2,−1]<sup>T</sup>[6,3,2] + 3[−1,2,2]<sup>T</sup>[2,6,−3] + 2[2,−1,2]<sup>T</sup>[3,2,6]. Acá los vectores fila son [6,3,2], [2,6,−3] y [3,2,6], y <b>[6,3,2]·[2,6,−3] = 12 + 18 − 6 = 24 ≠ 0</b>: <b>no son ortogonales</b>. Tal como está impreso, esa expresión <b>no es una DVS</b>, y los valores singulares verdaderos son irracionales feos (≈ 114,46 · 57,09 · 19,96). Es la misma errata del 4.18(b) de la Guía 4.<br><br>
+<b>Qué hacer si te toca:</b> no pelees con la cuenta. Escribí explícitamente <i>"los vectores [6,3,2] y [2,6,−3] no son ortogonales (su producto interno vale 24), por lo tanto esta expresión no es una descomposición en valores singulares"</i>, y resolvé el caso corregido (cambiando los signos a [−2,6,−3] y [−3,2,6]) dejando dicho cuál es el ajuste. Con la corrección, σ = 105, 63, 42 y el máximo de ‖T(x)‖ es <b>105</b>, alcanzado en ±v<sub>1</sub> = ±[6,3,2]<sup>T</sup>/7. <b>Esa observación es exactamente la justificación teórica que la cátedra pide.</b>
+</div>
+
+<h3>8.4 · Seudoinversa y cuadrados mínimos</h3>
+
+<div class="key"><div class="ky-t">Las cinco líneas que resuelven los ocho ejercicios de este molde</div>
+<div class="formula">A<sup>†</sup> = V<sub>r</sub>D<sup>−1</sup>U<sub>r</sub><sup>T</sup> = (1/σ<sub>1</sub>)v<sub>1</sub>u<sub>1</sub><sup>T</sup> + ⋯ + (1/σ<sub>r</sub>)v<sub>r</sub>u<sub>r</sub><sup>T</sup></div>
+<b>▸</b> A<sup>†</sup>A = P<sub>fil(A)</sub> &nbsp;·&nbsp; AA<sup>†</sup> = P<sub>col(A)</sub><br>
+<b>▸ x* = A<sup>†</sup>b es LA solución por cuadrados mínimos de norma mínima</b>, y es la única que cae en fil(A).<br>
+<b>▸ Todas las soluciones por c.m.:</b> x = x* + n con n ∈ nul(A). Si nul(A) = {0}, es única.<br>
+<b>▸</b> Si rango(A) = n (columnas independientes), A<sup>†</sup> = (A<sup>T</sup>A)<sup>−1</sup>A<sup>T</sup>. Si no, <b>esa fórmula no existe</b> y hay que ir por la DVS reducida.
+</div>
+
+<div class="key"><div class="ky-t">El atajo de rango 1, que sale en tres exámenes</div>
+Si A = uv<sup>T</sup> con u ∈ ℝ<sup>m</sup> y v ∈ ℝ<sup>n</sup>, entonces r = 1, <b>σ<sub>1</sub> = ‖u‖‖v‖</b>, u<sub>1</sub> = u/‖u‖, v<sub>1</sub> = v/‖v‖, y
+<div class="formula">A<sup>†</sup> = (1/σ<sub>1</sub>)v<sub>1</sub>u<sub>1</sub><sup>T</sup> = <b>vu<sup>T</sup> / (‖u‖<sup>2</sup>‖v‖<sup>2</sup>)</b></div>
+Es decir: <b>A<sup>†</sup> es A transpuesta dividida por ‖u‖<sup>2</sup>‖v‖<sup>2</sup></b>. Una división y listo. ▸ Y x* = A<sup>†</sup>b = [(u·b)/(‖u‖<sup>2</sup>‖v‖<sup>2</sup>)]·v.<br><br>
+<b>Cómo detectar el rango 1:</b> todas las filas son múltiplos de un mismo vector (o todas las columnas). Aparece en 10/VII/24 ej 4, 7/VIII/24 ej 5 y 4/XII/24 3.<sup>er</sup> turno ej 4.
+</div>
+
+<div class="example"><div class="ex-t">7/VIII/24 ej 5 · el enunciado que te da la DVS en palabras</div>
+<i>Sea A ∈ ℝ<sup>3×3</sup> de rango 1 tal que [2,1,2]<sup>T</sup> ∈ fil(A) y A[2,1,2]<sup>T</sup> = [4,4,−2]<sup>T</sup>. Hallar A<sup>†</sup> y usarla para determinar la solución por cuadrados mínimos de norma mínima de Ax = [1,1,1]<sup>T</sup>.</i><br><br>
+<b>▸ Reconstruí A.</b> Rango 1 y [2,1,2]<sup>T</sup> ∈ fil(A) ⟹ <b>fil(A) = gen{[2,1,2]<sup>T</sup>}</b> (una recta ya llena el espacio fila). Entonces A = w·[2,1,2] para algún w ∈ ℝ<sup>3</sup>.<br>
+<b>▸</b> A[2,1,2]<sup>T</sup> = w·(2·2+1·1+2·2) = 9w = [4,4,−2]<sup>T</sup> ⟹ <b>w = [4,4,−2]<sup>T</sup>/9</b>, y A = (1/9)[[8,4,8],[8,4,8],[−4,−2,−4]].<br>
+<b>▸ Los datos de la DVS:</b> u<sub>1</sub> = w/‖w‖ = [4,4,−2]<sup>T</sup>/6 = <b>[2,2,−1]<sup>T</sup>/3</b>, v<sub>1</sub> = <b>[2,1,2]<sup>T</sup>/3</b>, y σ<sub>1</sub> = ‖w‖·‖[2,1,2]‖ = (6/9)·3 = <b>2</b>.<br>
+<b>▸</b> A<sup>†</sup> = (1/2)v<sub>1</sub>u<sub>1</sub><sup>T</sup> = (1/2)(1/9)[2,1,2]<sup>T</sup>[2,2,−1] = <b>(1/18)[[4,4,−2],[2,2,−1],[4,4,−2]]</b>.<br>
+<b>▸</b> x* = A<sup>†</sup>[1,1,1]<sup>T</sup> = (1/18)[4+4−2, 2+2−1, 4+4−2]<sup>T</sup> = (1/18)[6,3,6]<sup>T</sup> = <b>[1/3, 1/6, 1/3]<sup>T</sup></b>.<br>
+<b>▸ Control:</b> x* tiene que estar en fil(A) = gen{[2,1,2]<sup>T</sup>}, y efectivamente [1/3,1/6,1/3] = (1/6)[2,1,2] ✓. <b>Hacé siempre ese control:</b> si x* no cae en fil(A), la cuenta está mal.
+</div>
+
+<div class="example"><div class="ex-t">31/VII/24 ej 4 · cuando A ya es una proyección</div>
+<i>Sea A la matriz en base canónica de la proyección ortogonal de ℝ<sup>3</sup> sobre el plano {x : x<sub>1</sub> − x<sub>2</sub> − x<sub>3</sub> = 0}. Hallar todas las soluciones por cuadrados mínimos de Ax = [1,1,1]<sup>T</sup> y determinar la de norma mínima.</i><br><br>
+<b>▸</b> n = [1,−1,−1]<sup>T</sup>, ‖n‖<sup>2</sup> = 3, y A = I − nn<sup>T</sup>/3 = <b>(1/3)[[2,1,1],[1,2,−1],[1,−1,2]]</b>.<br>
+<b>▸ El atajo:</b> una proyección ortogonal es simétrica e idempotente, y su seudoinversa es <b>ella misma</b>: A<sup>†</sup> = A. <span class="muted">Porque sus autovalores son 1 (doble) y 0, y A<sup>†</sup> invierte los no nulos.</span><br>
+<b>▸</b> x* = A<sup>†</sup>b = Ab = (1/3)[2+1+1, 1+2−1, 1−1+2]<sup>T</sup> = <b>(1/3)[4,2,2]<sup>T</sup></b>.<br>
+<b>▸</b> nul(A) = gen{[1,−1,−1]<sup>T</sup>}, así que <b>todas las soluciones son x = (1/3)[4,2,2]<sup>T</sup> + t[1,−1,−1]<sup>T</sup>, t ∈ ℝ</b>, y la de norma mínima es x* = (1/3)[4,2,2]<sup>T</sup>.<br>
+<b>▸ Control:</b> x* ⊥ nul(A): (4 − 2 − 2)/3 = 0 ✓.
+</div>
+
+<h3>8.5 · La geometría: qué es la imagen de la esfera</h3>
+
+<div class="key"><div class="ky-t">La cuenta, y la tabla que responde los tres ejercicios</div>
+Con A = UΣV<sup>T</sup> de rango r y el cambio x = Vy (que no cambia la norma), z = Ax = σ<sub>1</sub>y<sub>1</sub>u<sub>1</sub> + ⋯ + σ<sub>r</sub>y<sub>r</sub>u<sub>r</sub>. Llamando w<sub>i</sub> a las coordenadas de z en la b.o.n. {u<sub>i</sub>}:
+<div class="formula">w<sub>1</sub><sup>2</sup>/σ<sub>1</sub><sup>2</sup> + ⋯ + w<sub>r</sub><sup>2</sup>/σ<sub>r</sub><sup>2</sup> = 1 si r = n &nbsp;·&nbsp; ≤ 1 si r &lt; n, &nbsp;con w<sub>r+1</sub> = ⋯ = w<sub>m</sub> = 0</div>
+<table class="tbl">
+  <tr><th>Caso</th><th>La imagen de la esfera es</th></tr>
+  <tr><td>r = n = m = 2</td><td><b>Elipse</b> (sólo el borde) de semiejes σ<sub>1</sub> sobre gen{u<sub>1</sub>} y σ<sub>2</sub> sobre gen{u<sub>2</sub>}</td></tr>
+  <tr><td>r = n = m = 3</td><td><b>Elipsoide</b> (sólo la cáscara) de semiejes σ<sub>1</sub>, σ<sub>2</sub>, σ<sub>3</sub> sobre u<sub>1</sub>, u<sub>2</sub>, u<sub>3</sub></td></tr>
+  <tr><td>r = 2 &lt; n</td><td><b>Elipse llena</b> (con su interior), en el plano col(A) = gen{u<sub>1</sub>,u<sub>2</sub>}</td></tr>
+  <tr><td>r = 1</td><td><b>Segmento</b> de extremos ±σ<sub>1</sub>u<sub>1</sub></td></tr>
+  <tr><td>r = 0</td><td>El punto {0}</td></tr>
+</table>
+<b>Y las tres preguntas asociadas:</b> los x de norma 1 que <b>maximizan</b> ‖T(x)‖ son <b>±v<sub>1</sub></b> y el máximo vale <b>σ<sub>1</sub></b>; los que minimizan son ±v<sub>n</sub> y el mínimo vale σ<sub>n</sub>. Sus imágenes son los extremos de los ejes.
+</div>
+
+<div class="example"><div class="ex-t">4/XII/24 3.<sup>er</sup> turno ej 5 · elipse llena en ℝ<sup>2</sup></div>
+<i>T : ℝ<sup>3</sup> → ℝ<sup>2</sup> con A = [1,1]<sup>T</sup>[6,6,6] + [−1,1]<sup>T</sup>[0,1,−1]. Caracterizar y graficar la imagen de la esfera unitaria de ℝ<sup>3</sup>.</i><br><br>
+<b>▸ Chequeo de ortogonalidad:</b> [1,1]·[−1,1] = 0 ✓ y [6,6,6]·[0,1,−1] = 0 + 6 − 6 = 0 ✓. <b>Es una DVS ya hecha.</b><br>
+<b>▸ Normas:</b> ‖[1,1]‖ = √2, ‖[−1,1]‖ = √2, ‖[6,6,6]‖ = 6√3, ‖[0,1,−1]‖ = √2.<br>
+<b>▸ Valores singulares:</b> σ<sub>1</sub> = √2·6√3 = <b>6√6 ≈ 14,7</b> con u<sub>1</sub> = [1,1]<sup>T</sup>/√2, y σ<sub>2</sub> = √2·√2 = <b>2</b> con u<sub>2</sub> = [−1,1]<sup>T</sup>/√2. Ya están ordenados.<br>
+<b>▸</b> r = 2 y n = 3, o sea <b>r &lt; n</b>: la esfera se aplasta (nul(A) es una recta) y la imagen es la <b>elipse llena</b>.<br>
+<b>▸ Respuesta:</b> la región elíptica con centro en el origen, semieje mayor <b>6√6</b> en la dirección de la bisectriz [1,1]<sup>T</sup>/√2 y semieje menor <b>2</b> en la dirección [−1,1]<sup>T</sup>/√2, <b>incluido su interior</b>. ▸ <span class="muted">Verificación: A = [[6,5,7],[6,7,5]] y tr(AA<sup>T</sup>) = 36+25+49+36+49+25 = 220 = 216 + 4 = (6√6)<sup>2</sup> + 2<sup>2</sup> ✓.</span>
+</div>
+
+<div class="trap"><div class="tr-t">Cuando r &lt; n la imagen es la elipse LLENA, no el borde</div>
+Es el error más frecuente de este molde. Si el núcleo no es trivial, distintos puntos de la esfera van a parar al mismo lugar y <b>hay que agregar el interior</b>. La cuenta lo dice sola: con r &lt; n queda Σ<sub>i≤r</sub>y<sub>i</sub><sup>2</sup> <b>≤</b> 1, con desigualdad, porque las coordenadas y<sub>r+1</sub>,…,y<sub>n</sub> se llevan parte de la norma. ▸ Regla mnemotécnica: <b>si A tiene núcleo, la imagen es maciza</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Los σ<sub>i</sub> NO son los autovalores de A</div>
+Los valores singulares son las <b>raíces de los autovalores de A<sup>T</sup>A</b>. Coinciden con |λ<sub>i</sub>| sólo si A es simétrica. Para A = [[3,−8],[4,6]] (el 4.16 de la Guía) los autovalores son complejos y los valores singulares son 10 y 5. <b>Nunca</b> uses los autovalores de A para describir la elipse imagen.
+</div>
+
+<h3>8.6 · El molde inverso: hallar A a partir de datos de su DVS</h3>
+
+<div class="example"><div class="ex-t">07/07/25 ej 4 · el más difícil de los cincuenta</div>
+<i>Hallar una matriz A que cumpla simultáneamente: Nul(A) = gen{[1,1,0]<sup>T</sup>}, [0,1,1]<sup>T</sup> ∈ Nul(A<sup>T</sup>), tr(A<sup>T</sup>A) = 29, máx<sub>‖x‖=1</sub>‖Ax‖ = 5.</i><br><br>
+<b>▸ Traducción de cada dato:</b><br>
+· Nul(A) = gen{[1,1,0]<sup>T</sup>} de dimensión 1 ⟹ A es 3×3 (o al menos con 3 columnas) y <b>rango(A) = 2</b>, o sea r = 2.<br>
+· <b>tr(A<sup>T</sup>A) = Σσ<sub>i</sub><sup>2</sup></b> = 29. <span class="muted">Es la norma de Frobenius al cuadrado, y sale de que tr(A<sup>T</sup>A) es la suma de los autovalores de A<sup>T</sup>A.</span><br>
+· máx<sub>‖x‖=1</sub>‖Ax‖ = <b>σ<sub>1</sub> = 5</b> ⟹ σ<sub>1</sub><sup>2</sup> = 25 ⟹ σ<sub>2</sub><sup>2</sup> = 4 ⟹ <b>σ<sub>2</sub> = 2</b>.<br>
+· <b>fil(A) = nul(A)<sup>⊥</sup></b> = {x : x<sub>1</sub> + x<sub>2</sub> = 0} = gen{[1,−1,0]<sup>T</sup>, [0,0,1]<sup>T</sup>} ⟹ ahí viven v<sub>1</sub> y v<sub>2</sub>.<br>
+· dim nul(A<sup>T</sup>) = 3 − 2 = 1, así que <b>nul(A<sup>T</sup>) = gen{[0,1,1]<sup>T</sup>}</b> y <b>col(A) = nul(A<sup>T</sup>)<sup>⊥</sup></b> = gen{[1,0,0]<sup>T</sup>, [0,1,−1]<sup>T</sup>} ⟹ ahí viven u<sub>1</sub> y u<sub>2</sub>.<br>
+<b>▸ Ensamblado.</b> Elegimos v<sub>1</sub> = [1,−1,0]<sup>T</sup>/√2, v<sub>2</sub> = [0,0,1]<sup>T</sup>, u<sub>1</sub> = [1,0,0]<sup>T</sup>, u<sub>2</sub> = [0,1,−1]<sup>T</sup>/√2, y
+<div class="formula">A = 5u<sub>1</sub>v<sub>1</sub><sup>T</sup> + 2u<sub>2</sub>v<sub>2</sub><sup>T</sup> = [[5/√2, −5/√2, 0],[0,0,√2],[0,0,−√2]]</div>
+<b>▸ Verificación completa:</b> A[1,1,0]<sup>T</sup> = 0 ✓ · A<sup>T</sup>[0,1,1]<sup>T</sup> = [0,0,√2−√2]<sup>T</sup> = 0 ✓ · tr(A<sup>T</sup>A) = 25/2 + 25/2 + 2 + 2 = 29 ✓ · σ<sub>1</sub> = 5 ✓.<br>
+<b>▸ No es única:</b> cualquier otra elección de b.o.n. de fil(A) y col(A) sirve, y hay infinitas. Decilo.
+</div>
+
+<div class="key"><div class="ky-t">El diccionario de este molde inverso</div>
+<table class="tbl">
+  <tr><th>Dato</th><th>Traducción</th></tr>
+  <tr><td>máx<sub>‖x‖=1</sub>‖Ax‖ = M</td><td>σ<sub>1</sub> = M</td></tr>
+  <tr><td>mín<sub>‖x‖=1</sub>‖Ax‖ = m</td><td>σ<sub>n</sub> = m &nbsp;<span class="muted">(cuidado: si r &lt; n el mínimo es 0)</span></td></tr>
+  <tr><td>tr(A<sup>T</sup>A) = S</td><td>Σσ<sub>i</sub><sup>2</sup> = S</td></tr>
+  <tr><td>v ∈ nul(A)</td><td>v es un v<sub>i</sub> con σ<sub>i</sub> = 0, y <b>fil(A) ⊆ v<sup>⊥</sup></b></td></tr>
+  <tr><td>u ∈ nul(A<sup>T</sup>)</td><td>u es un u<sub>i</sub> sobrante, y <b>col(A) ⊆ u<sup>⊥</sup></b></td></tr>
+  <tr><td>rango(A) = r</td><td>Hay exactamente r valores singulares no nulos</td></tr>
+  <tr><td>v es autovector de A<sup>T</sup>A</td><td>v es un vector singular derecho (a menos de normalizar)</td></tr>
+  <tr><td>Av = w</td><td>Si v/‖v‖ = v<sub>i</sub>, entonces σ<sub>i</sub> = ‖w‖/‖v‖ y u<sub>i</sub> = w/‖w‖</td></tr>
+</table>
+Es el <b>4.15 de la Guía 4</b> con otros números, y aparece una vez en los diez exámenes.
+</div>
+
+<div class="reveal-wrap" data-rv="8" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="8" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 9 · BANCO REAL ============ -->
+<details id="fals-s9">
+<summary><span class="num">9</span> Banco real · los 50 ejercicios de los 10 parciales, resueltos <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-9"></span></summary>
+<div class="content">
+
+<p>Acá están los <b>50 ejercicios</b> de los 10 segundos parciales del régimen actual, transcriptos <b>textuales</b> y resueltos uno por uno. Cada resultado numérico —polinomios característicos, autoespacios, matrices simétricas, valores singulares, seudoinversas, ajustes— fue verificado con <span class="code">sympy</span> antes de escribirlo.</p>
+
+<div class="key"><div class="ky-t">De dónde salen, y cuánto vale cada uno</div>
+<b>Procedencia:</b> el repositorio público <span class="code">github.com/JoacoPorro/Algebra2</span> enlaza un Drive "General" abierto sin login. En las subcarpetas <span class="code">Pizarra online / Integradores Resueltos</span> y <span class="code">Pizarra online / Parciales Resueltos</span> están los 10 exámenes 2024–2025, subidos por un docente o ayudante junto con su resolución manuscrita. Son <b>fotos del enunciado impreso</b>: se ve el papel real del examen, con los casilleros de Apellido / Legajo / Curso y los datos personales tachados.<br><br>
+<b>Confiabilidad del enunciado: alta en los 10.</b> No son reconstrucciones ni "modelos": es el papel fotografiado.<br>
+<b>Confiabilidad de la fecha: alta en 7, media en 3.</b> En siete el encabezado impreso trae cuatrimestre, fecha y hora. En tres (26/06/2024, el tercer turno del 4/XII/24 y el 07/07/2025) la foto está recortada arriba y la fecha sale del nombre del archivo en el Drive.<br><br>
+<b>Lo que esto NO es:</b> material publicado por la cátedra en el campus. La cátedra no distribuye segundos parciales resueltos. Lo que sí es palabra de la cátedra son los <b>enunciados impresos</b> que se ven en las fotos.
+</div>
+
+<h3>9.1 · Los diez exámenes, con su encabezado</h3>
+
+<table class="tbl">
+  <tr><th>#</th><th>Encabezado impreso</th><th>Confiabilidad de la fecha</th></tr>
+  <tr><td>A1</td><td>Segundo parcial — Primer cuatrimestre 2024 — <b>27/VI/24, 9:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A2</td><td>Segundo parcial — Primer cuatrimestre 2024 — <b>27/VI/24, 14:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A3</td><td>(recortado) — <b>26/06/2024</b></td><td>media</td></tr>
+  <tr><td>A4</td><td>Segundo parcial <b>(R)</b> — Primer cuatrimestre 2024 — <b>10/VII/24, 9:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A5</td><td>Segundo parcial <b>(R)</b> — Primer cuatrimestre 2024 — <b>31/VII/24, 9:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A6</td><td>Segundo parcial <b>(R)</b> — Primer cuatrimestre 2024 — <b>7/VIII/24, 9:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A7</td><td>Segundo parcial — Segundo cuatrimestre 2024 — <b>4/XII/24, 14:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A8</td><td>Segundo parcial — Segundo cuatrimestre 2024 — <b>4/XII/24, 17:00 hs</b></td><td>alta</td></tr>
+  <tr><td>A9</td><td>(recortado) — <b>4/XII/24</b>, tercer turno</td><td>media</td></tr>
+  <tr><td>A10</td><td>(recortado) — recuperatorio del segundo parcial, <b>07/07/2025</b></td><td>media</td></tr>
+</table>
+
+<p>El encabezado literal de los que se ven completos dice: <b>ÁLGEBRA II (61.08 – 81.02) - ÁLGEBRA LINEAL (CB002)</b>, "Segundo parcial", "Duración: 3 horas", el cuatrimestre y la fecha con la hora. Los cinco ejercicios van numerados 1 a 5 y no hay puntajes por ejercicio.</p>
+
+<h3>9.2 · Qué hay además, y qué no se pudo conseguir</h3>
+
+<table class="tbl">
+  <tr><th>Qué</th><th>Estado</th></tr>
+  <tr><td><b>4 segundas partes de parcial del régimen anterior</b> (2/XI/2016 Tema 1, 3/VI/2017 Tema 4 con resolución manuscrita, 6/XII/2017 Tema 2, 16/VI/2018)</td><td>Conseguidos, con encabezado institucional. Otro formato: se aprobaba con <b>2 ejercicios</b> de 3 o 4, e incluían producto interno y formas cuadráticas. Dos de sus ejercicios se usan en la sección 7 (6/XII/2017 ej 4 y 16/VI/2018 ej 3).</td></tr>
+  <tr><td>Un 2.º parcial de <b>1996</b> (altillo.com, Tema 13)</td><td><b>Mutilado</b>: las matrices están como imágenes rotas. Además su programa incluía ecuaciones diferenciales y cuádricas, y ya no coincide con la unidad 4 actual. <b>Descartado.</b></td></tr>
+  <tr><td>El sitio <span class="code">materias.fi.uba.ar/6108</span></td><td>Sin responder.</td></tr>
+  <tr><td>Studocu</td><td>"Resolución 2 Parcial" existe pero está detrás de muro de pago. No se usó.</td></tr>
+  <tr><td>Segundos parciales en altillo.com</td><td>Se revisó el índice completo de UBA-Ingeniería: de Álgebra II hay <b>un solo</b> segundo parcial (el de 1996), el resto son primeros parciales y un final.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Cómo usar este banco, para que sirva de verdad</div>
+<b>No los leas.</b> Resolvelos. Cada uno tiene el enunciado visible y la resolución oculta: escribí tu respuesta en papel <b>antes</b> de revelar. ▸ El orden que rinde es <b>por molde, no por examen</b>: hacé los siete de diagonalización con parámetro seguidos, después los nueve de simétrica, después los del bloque DVS. Así ves el patrón, que es lo que te va a salvar el 2/12. ▸ Recién en la última semana hacé un examen completo cronometrado, y para eso está el simulacro de la sección 10.
+</div>
+
+<div class="reveal-wrap" data-rv="9" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="9" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 10 · SIMULACRO ============ -->
+<details id="fals-s10">
+<summary><span class="num">10</span> Simulacro · un segundo parcial completo <span class="sec-score" id="ss-fiuba-algebra-lineal-segundo-parcial-10"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Cómo se usa</div>
+<b>Tres horas de reloj, hoja en blanco, calculadora, y tus 4 carillas manuscritas.</b> Nada más. Cerrás la guía, ponés el timer y no lo tocás. ▸ Aprobás con <b>3 de 5 correctos y completos</b>, con la justificación escrita. Un ejercicio "casi" no cuenta. ▸ Hacelo en la <b>semana 6</b>, no antes: hacerlo temprano no mide nada porque todavía no automatizaste los moldes.<br><br>
+<b>Cómo está calibrado.</b> Los cinco ejercicios reproducen los cinco moldes más frecuentes en sus posiciones más frecuentes: el 1 es diagonalización con parámetro (8 de 10 exámenes reales lo tienen ahí), el 2 es construir la simétrica (9 de 10 lo tienen en algún lado), el 3 es una ecuación matricial (4 de 10), el 4 es seudoinversa (5 de 10) y el 5 es ajuste por cuadrados mínimos (4 de 10, y el bloque DVS/c.m. está en el 5 de 10 de 10). Los números son inventados; los moldes, no.
+</div>
+
+<h3>10.1 · El enunciado</h3>
+
+<p class="muted">ÁLGEBRA II (61.08 – 81.02) - ÁLGEBRA LINEAL (CB002) · Simulacro de segundo parcial · Duración: 3 horas · <i>Simulacro construido para esta guía, no es un examen de la cátedra.</i></p>
+
+<div class="example"><div class="ex-t">1</div>
+Sea A ∈ ℝ<sup>3×3</sup> la matriz definida por
+<div class="formula">A = [[4, −2, 0], [0, a<sup>2</sup>−3a, 0], [0, −2, 4]]</div>
+Hallar todos los a ∈ ℝ tales que A es diagonalizable.
+</div>
+
+<div class="example"><div class="ex-t">2</div>
+Hallar una matriz simétrica A ∈ ℝ<sup>3×3</sup> que posea las siguientes propiedades: σ(A) ⊂ (0, +∞), rango(A − 3I) = 1, A<sup>3</sup> − 6A<sup>2</sup> es singular y el plano { x ∈ ℝ<sup>3</sup> : x<sub>1</sub> + 2x<sub>2</sub> + 2x<sub>3</sub> = 0 } es un autoespacio de A.
+</div>
+
+<div class="example"><div class="ex-t">3</div>
+Hallar una matriz A ∈ ℝ<sup>2×2</sup> tal que traza(A) = 3 y
+<div class="formula">A<sup>2</sup> − 5A + 6I = [[3, −3], [−3, 3]]</div>
+</div>
+
+<div class="example"><div class="ex-t">4</div>
+Sea A ∈ ℝ<sup>3×3</sup> una matriz de rango 1 tal que [1, 2, 2]<sup>T</sup> ∈ fil(A) y A[1, 2, 2]<sup>T</sup> = [3, −6, 6]<sup>T</sup>. Hallar A<sup>†</sup>, la seudoinversa de Moore-Penrose de A, y utilizarla para determinar la solución por cuadrados mínimos de norma mínima de la ecuación Ax = [1, 0, 1]<sup>T</sup>.
+</div>
+
+<div class="example"><div class="ex-t">5</div>
+Usando la técnica de mínimos cuadrados, ajustar los siguientes datos
+<div class="formula">x | −2 &nbsp; −1 &nbsp; 0 &nbsp; 1 &nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp; y | 6 &nbsp;&nbsp; 3 &nbsp;&nbsp; 2 &nbsp; 3 &nbsp; 7</div>
+mediante una parábola y = ax<sup>2</sup> + bx + c.
+</div>
+
+<h3>10.2 · Cómo administrar las tres horas</h3>
+
+<table class="tbl">
+  <tr><th>Minuto</th><th>Qué hacés</th></tr>
+  <tr><td>0–5</td><td>Leés los cinco y marcás cuáles tres cerrás seguro. <b>No empieces por el 1 por ser el 1.</b></td></tr>
+  <tr><td>5–40</td><td>Primer ejercicio elegido, <b>completo y justificado</b>. Si a los 40 no cerró, lo dejás y pasás.</td></tr>
+  <tr><td>40–80</td><td>Segundo elegido.</td></tr>
+  <tr><td>80–120</td><td>Tercero. <b>Acá ya deberías tener el examen aprobado.</b></td></tr>
+  <tr><td>120–150</td><td>Cuarto ejercicio, o vuelta a lo que quedó abierto.</td></tr>
+  <tr><td>150–180</td><td><b>Verificación.</b> Traza y determinante de cada matriz que construiste; AP = PΛ; A<sup>†</sup>b ∈ fil(A); reemplazar el ajuste en dos datos. Esta media hora vale más que el quinto ejercicio.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Los cinco chequeos de verificación, uno por ejercicio</div>
+<b>1.</b> Sustituí un valor de a que <i>no</i> esté en tu lista de excepciones y comprobá que ahí hay tres autovalores distintos.<br>
+<b>2.</b> traza(A) = 2α + β y det(A) = α<sup>2</sup>β: los dos tienen que dar lo que predijiste antes de armar la matriz.<br>
+<b>3.</b> Calculá p(A) con la A que construiste y compará con B, entrada por entrada. Son 2×2.<br>
+<b>4.</b> x* tiene que estar en fil(A), o sea ser múltiplo de [1,2,2]<sup>T</sup>. Y A<sup>†</sup> tiene que tener rango 1.<br>
+<b>5.</b> Evaluá tu parábola en x = 0 y en x = 2 y compará con los datos: tienen que estar cerca, no iguales.
+</div>
+
+<div class="reveal-wrap" data-rv="10" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<div class="quiz-wrap" data-qz="10" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
+<a class="back" href="#subject-fiuba-algebra-lineal-segundo-parcial">↑ Volver al índice</a>
+</div>
+</details>
