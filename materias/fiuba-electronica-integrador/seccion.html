@@ -1,0 +1,804 @@
+<header>
+    <h1>Introducción a la Ing. Electrónica / Bioingeniería · Examen integrador</h1>
+    <div class="sub">FIUBA · TB063 / TB157 (histórico 86.02) — Cátedra Veiga. Guía de examen construida sobre los <b>9 exámenes reales</b> que publica la cátedra: los <b>4 parciales</b> de 1C2018, 2C2019, 2C2020 y 2C2021 y los <b>5 coloquios integradores</b> del 2C2022, con sus <b>29 problemas</b> transcriptos y resueltos. Este cuatrimestre no hay parciales: se aprueba con las actividades obligatorias y el <b>examen integrador</b>, y el método de evaluación pide <b>fundamentar cada decisión con los conceptos teóricos</b>, no llegar al número</div>
+  </header>
+<nav class="toc" id="toc-fiuba-electronica-integrador">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#feli-s1">Qué es el integrador y cómo se prepara</a></li>
+    <li><a href="#feli-s2">Máxima transferencia de potencia · está en los nueve</a></li>
+    <li><a href="#feli-s3">El circuito de los coloquios: uno solo, cinco variaciones</a></li>
+    <li><a href="#feli-s4">Los cuatro parciales reales, resueltos</a></li>
+    <li><a href="#feli-s5">Los cinco coloquios integradores, resueltos</a></li>
+    <li><a href="#feli-s6">Cómo se fundamenta una respuesta</a></li>
+    <li><a href="#feli-s7">Simulacro · un integrador completo con su resolución</a></li>
+  </ol>
+  <div class="score" id="global-score-fiuba-electronica-integrador">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ 1 · QUÉ ES EL INTEGRADOR Y CÓMO SE PREPARA ============ -->
+<details id="feli-s1">
+<summary><span class="num">1</span> Qué es el integrador y cómo se prepara <span class="sec-score" id="ss-fiuba-electronica-integrador-1"></span></summary>
+<div class="content">
+
+<p>Esta guía no explica la materia. La <b>madre</b> (<i>Introducción a la Ing. Electrónica / Bioingeniería · Guía completa</i>) ya tiene las doce secciones de teoría de circuitos con sus demostraciones, la guía de problemas de la cátedra resuelta y los trabajos prácticos. Acá se hace otra cosa: se mira <b>qué toma esta cátedra cuando evalúa</b>, se convierte cada tema en un procedimiento que se ejecuta en veinte minutos con la justificación adentro, y se entrena contra los nueve exámenes reales. Si un resultado teórico no cambia lo que vas a escribir en la hoja, no está.</p>
+
+<h3>El régimen real, sin adornos</h3>
+
+<div class="key"><div class="ky-t">La regla, en una línea</div>
+Este cuatrimestre <b>no hay parciales</b>. Para aprobar hay que cumplir con las <b>actividades obligatorias</b> y con el <b>examen integrador</b>. No hay una nota de escrito que decida sola: la evaluación es continua y mira el proceso.
+</div>
+
+<p>La página «Método de evaluación y aprobación» del campus enumera qué se evalúa. Leelo como lo que es —una <b>rúbrica de corrección</b>—, porque cada cláusula es un renglón que el docente busca en tu hoja:</p>
+
+<table class="tbl">
+  <tr><th>Lo que dice el método de evaluación</th><th>Qué significa en la hoja del integrador</th></tr>
+  <tr><td>Las <b>actividades obligatorias</b></td><td>Ejercicios progresivos, TP y mediciones de clase. Son la columna vertebral de la nota; el integrador se suma, no la reemplaza.</td></tr>
+  <tr><td>El <b>proceso de desarrollo</b> de las actividades</td><td>Se mira el recorrido, no sólo el resultado. En el integrador eso se traduce en que <b>un planteo bien fundamentado con un número mal vale más que un número solo</b>.</td></tr>
+  <tr><td>El <b>cumplimiento de las consignas</b></td><td>Si el enunciado dice «dibuje el banco de medición», sin dibujo el ítem no está resuelto aunque expliques el procedimiento en prosa.</td></tr>
+  <tr><td>Las <b>revisiones</b> y cómo mejoraste lo señalado</td><td>Aplica a las entregas. En el examen se refleja en que la cátedra premia la <b>autocorrección explícita</b>: detectar y declarar el propio error suma.</td></tr>
+  <tr><td>La <b>fundamentación de las decisiones según los conceptos teóricos de la asignatura</b></td><td><b>Esta es la cláusula que gobierna toda la guía.</b> No alcanza con que el número esté bien: hay que nombrar el teorema, la hipótesis o el principio que lo sostiene. La sección 6 es enteramente sobre cómo se escribe eso.</td></tr>
+</table>
+
+<h3>La letra chica del encabezado, que dice lo mismo en los nueve exámenes</h3>
+
+<p>Los nueve exámenes publicados traen el mismo pie de página, con diferencias mínimas de redacción entre los parciales y los coloquios: los coloquios dicen «<i>Por favor expresar correctamente…; dado que todos estos factores afectan la calificación</i>» y los cuatro parciales «<i>Expresar correctamente…; todos estos factores afectan la calificación</i>». La frase «Indique todos los razonamientos e hipótesis a los que recurre» está en los nueve, aunque cambia de bloque según la hoja. No es decoración: es la lista de las formas de perder puntos.</p>
+
+<div class="example"><div class="ex-t">Verbatim del encabezado de los cinco coloquios <span class="muted">(los cuatro parciales dicen lo mismo sin «Por favor» ni «dado que»)</span></div>
+«<i>Indique todos los razonamientos e hipótesis a los que recurre. Las condiciones que se creen no especificadas deberán ser establecidas <b>explícitamente antes</b> de hacer los cálculos. <b>Si hay errores, indíquelos.</b> Si sobran datos o son incompatibles, justifique cuáles usa. Por favor expresar correctamente las unidades de medida, las incertidumbres y proponer respuestas breves; dado que todos estos factores afectan la calificación. <b>Un error conceptual o una cantidad incorrecta pueden invalidar la respuesta.</b></i>»
+</div>
+
+<table class="tbl">
+  <tr><th>Cláusula</th><th>Qué te obliga a hacer</th><th>Dónde se cobra en el corpus</th></tr>
+  <tr><td>«hipótesis explícitas <b>antes</b> de calcular»</td><td>Escribir arriba de todo: fuentes ideales, voltímetro ideal o no, acoplamiento del modo AC, convención de T<sub>on</sub>, sentido de referencia de la corriente.</td><td>En los cinco coloquios la ambigüedad de T<sub>on</sub> cambia el resultado del ítem 1b hasta <b>por un factor 3,6</b>. Declarar la convención es lo único que salva el ítem.</td></tr>
+  <tr><td>«si hay errores, indíquelos»</td><td>Denunciar lo que no cierra en vez de taparlo.</td><td>Hay <b>al menos tres errores reales</b> en los enunciados publicados (más abajo). Y hay ítems —coloquios 1, 2, 3— donde <b>la respuesta correcta es «el problema no tiene solución finita»</b>.</td></tr>
+  <tr><td>«unidades e incertidumbres»</td><td>Ningún número pelado. Toda lectura de instrumento va como (valor ± incertidumbre) unidad, con los decimales que da la escala.</td><td>El «+ n dígitos» de la especificación vale distinto en cada escala. Errar la escala cambia la incertidumbre por un factor 10.</td></tr>
+  <tr><td>«respuestas breves»</td><td>Cerrar cada ítem con un renglón de resultado. No dejar que el corrector busque el número entre las cuentas.</td><td>Transversal.</td></tr>
+  <tr><td>«un error conceptual puede invalidar la respuesta»</td><td>El puntaje no es proporcional: aplicar mal un teorema anula el ítem entero aunque la aritmética esté impecable.</td><td>Aplicar R<sub>L</sub> = R<sub>th</sub> cuando lo que varía es la resistencia <b>de fuente</b> es el error conceptual más frecuente de todo el corpus.</td></tr>
+</table>
+
+<h3>El corpus: nueve exámenes, 29 problemas, 66 ítems</h3>
+
+<p>La cátedra publica en «Problemas y Parciales» cuatro parciales y, bajo el título <b>«Secuencia de exámenes para reforzar conocimientos (DESAFÍO: parecen iguales, pero...)»</b>, los cinco coloquios integradores del 2C2022. Éste es el inventario completo, contado problema por problema:</p>
+
+<table class="tbl">
+  <tr><th>Examen</th><th>Fecha</th><th>Oportunidad</th><th>Problemas</th><th>Ítems</th><th>Estructura</th></tr>
+  <tr><td><b>Parcial 1C2018</b></td><td>31-05-2018</td><td>1ª</td><td>4</td><td>10</td><td>Thévenin+MTP · multímetro · filtro RC · divisor DC+AC y transitorio</td></tr>
+  <tr><td><b>Parcial 2C2019</b></td><td>04-11-2019</td><td>1ª</td><td>4</td><td>11</td><td>Transitorio RC · frecuencia+osciloscopio · puente+MTP · dos multímetros</td></tr>
+  <tr><td><b>Parcial 2C2020</b></td><td>11-03-2021</td><td>3ª (recuperatorio)</td><td>3</td><td>8</td><td>Multímetro sobre tren de pulsos · RC transitorio y en frecuencia · potencia+MTP+osciloscopio</td></tr>
+  <tr><td><b>Parcial 2C2021</b></td><td>20-12-2021</td><td>2ª</td><td>3</td><td>7</td><td>UPS: onda modificada+multímetro · puente+MTP · RC en el puente</td></tr>
+  <tr><td><b>Coloquios 1 a 5</b></td><td>15-12-2022 al 23-02-2023</td><td>1ª a 5ª</td><td>3 c/u = <b>15</b></td><td>6 c/u = <b>30</b></td><td><b>Esqueleto fijo</b>: 1) medición + MTP · 2) transitorio RC + banco · 3) respuesta en frecuencia + filtro</td></tr>
+  <tr><td><b>Total</b></td><td>—</td><td>—</td><td><b>29</b></td><td><b>66</b></td><td>—</td></tr>
+</table>
+
+<h3>Qué cae, contado ítem por ítem</h3>
+
+<p>Clasificación propia de los <b>66 ítems</b> por el concepto dominante de cada uno. Cuando un ítem mezcla dos ejes (por ejemplo el 3b del parcial 2018, que pide una nueva frecuencia de corte <i>por efecto de carga del instrumento</i>) se cuenta por el concepto que decide la respuesta:</p>
+
+<table class="tbl">
+  <tr><th>Eje</th><th>Ítems</th><th>%</th><th>En cuántos de los 9 exámenes aparece</th></tr>
+  <tr><td><b>Medición: multímetro, valor medio vs. True-RMS, incertidumbre, efecto de carga</b></td><td><b>15</b></td><td>23 %</td><td><b>9 de 9</b></td></tr>
+  <tr><td><b>Respuesta en frecuencia y filtros de primer orden</b></td><td><b>14</b></td><td>21 %</td><td><b>9 de 9</b></td></tr>
+  <tr><td><b>Máxima transferencia de potencia</b></td><td><b>11</b></td><td>17 %</td><td><b>9 de 9</b></td></tr>
+  <tr><td><b>Transitorio RC</b></td><td><b>11</b></td><td>17 %</td><td><b>9 de 9</b></td></tr>
+  <tr><td>Circuitos de continua: Thévenin, puente, divisores, potencia media</td><td>7</td><td>11 %</td><td>4 de 9</td></tr>
+  <tr><td>Banco de medición y osciloscopio</td><td>7</td><td>11 %</td><td>7 de 9</td></tr>
+  <tr><td>Caracterización de señales (dibujo y acotado)</td><td>1</td><td>2 %</td><td>1 de 9</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El dato que ordena toda la preparación</div>
+<b>Cuatro ejes aparecen en los nueve exámenes, sin una sola excepción</b>: medición con incertidumbre, respuesta en frecuencia, transitorio RC y máxima transferencia de potencia. Entre los cuatro suman <b>51 de los 66 ítems (77 %)</b>.<br><br>
+Y no es que aparezcan «en algún lado»: aparecen <b>emparejados</b>. En los cinco coloquios el emparejamiento es literal —problema 1 = medición + máxima transferencia, problema 2 = transitorio, problema 3 = frecuencia— y en los cuatro parciales es el mismo reparto con las piezas movidas de lugar. ▸ La consecuencia operativa: <b>no hay tema que puedas dejar afuera</b>, pero tampoco hay sorpresas. Si dominás los cuatro ejes con su justificación teórica, cubrís tres cuartos de cualquier examen que esta cátedra escriba.
+</div>
+
+<h3>El hilo que une los cuatro ejes (y que es lo que en realidad se evalúa)</h3>
+
+<p>Mirados de cerca, los cuatro ejes son <b>el mismo cálculo</b> hecho cuatro veces. En los nueve exámenes, todo empieza con la misma pregunta:</p>
+
+<div class="formula">
+¿Cuál es el <b>equivalente de Thévenin</b> visto desde los bornes del elemento que me interesa?
+</div>
+
+<table class="tbl">
+  <tr><th>Si el elemento es…</th><th>R<sub>th</sub> te da…</th><th>V<sub>th</sub> te da…</th><th>El eje</th></tr>
+  <tr><td>Una carga resistiva R<sub>L</sub></td><td>El valor óptimo: R<sub>L</sub> = R<sub>th</sub></td><td>P<sub>máx</sub> = V<sub>th</sub>²/(4R<sub>th</sub>)</td><td>Máxima transferencia</td></tr>
+  <tr><td>Un capacitor, en el tiempo</td><td>τ = R<sub>th</sub>·C</td><td>El valor final de la exponencial</td><td>Transitorio RC</td></tr>
+  <tr><td>Un capacitor, en frecuencia</td><td>f<sub>c</sub> = 1/(2π·R<sub>th</sub>·C)</td><td>La meseta de la transferencia</td><td>Respuesta en frecuencia</td></tr>
+  <tr><td>Un voltímetro de R<sub>V</sub> finita</td><td>El error de carga: R<sub>V</sub>/(R<sub>V</sub>+R<sub>th</sub>)</td><td>La lectura sin cargar</td><td>Medición</td></tr>
+</table>
+
+<p>Por eso los coloquios funcionan: <b>los tres problemas usan el mismo R<sub>th</sub></b>. En el coloquio 2, R<sub>th</sub> = 6 MΩ da τ = 282 µs en el problema 2 y f<sub>c</sub> = 564 Hz en el problema 3, y 564 Hz = 1/(2π·282 µs) exactamente. Si tus dos respuestas no cierran con esa relación, una de las dos está mal y lo podés detectar solo, en el examen, sin corrector.</p>
+
+<div class="key"><div class="ky-t">El chequeo de dos segundos que hay que hacer siempre</div>
+<b>f<sub>c</sub> = 1/(2π·τ).</b> Si el examen te pide una constante de tiempo en un ítem y una frecuencia de corte en otro sobre el mismo circuito, los dos números tienen que cumplir esa relación. Es el control cruzado más barato de toda la materia y en los nueve exámenes se puede aplicar.
+</div>
+
+<h3>Tres errores del propio material publicado</h3>
+
+<p>El encabezado pide «si hay errores, indíquelos». Hay errores <b>en los enunciados de la cátedra</b>, y conviene conocerlos: si aparecen en tu examen, señalarlos suma; y si los tomás como buenos, arrastrás el error.</p>
+
+<div class="trap"><div class="tr-t">Error 1 · El coloquio 3 está fechado 09-02-2022 y es de 2023</div>
+La hoja dice «<i>2do. cuatrimestre 2022 — 09-02-2022</i>» y es la <b>3ª oportunidad</b> de ese cuatrimestre. Una tercera fecha del segundo cuatrimestre de 2022 cae en <b>febrero de 2023</b>, no de 2022: el examen del 9 de febrero de 2022 sería anterior al cuatrimestre que evalúa. Es un error de tipeo de plantilla y se arrastra igual a los coloquios <b>4 (16-02-2022)</b> y <b>5 (23-02-2022)</b>. ▸ Las fechas correctas son 09, 16 y 23 de <b>febrero de 2023</b>. En esta guía se transcribe la fecha impresa y se señala el error, que es exactamente lo que pide el encabezado.
+</div>
+
+<div class="trap"><div class="tr-t">Error 2 · El parcial 2020 dice «las preguntas 1, 2, 3 y 4» y tiene tres problemas</div>
+El pie del parcial del 2C2020 (fecha 11-03-2021) trae la nota «<i>(*) Las preguntas 1, 2, 3 y 4 evalúan distintos conceptos por lo que la evaluación es global</i>», pero la hoja tiene <b>3 problemas</b> y la grilla de calificación sólo tres casilleros más el «Final». Es una plantilla reutilizada del formato de cuatro problemas. ▸ Lo que sí sigue valiendo es el criterio: <b>la evaluación es global</b>, o sea que los problemas no se promedian por separado. El parcial 2021 corrigió la plantilla y dice «las preguntas 1, 2 y 3».
+</div>
+
+<div class="trap"><div class="tr-t">Error 3 (bonus) · La figura de la onda de los coloquios es un dibujo genérico reutilizado</div>
+En los cinco coloquios la señal V₁ viene con la misma figura: un tramo alto ancho, un pulso bajo angosto, y la flecha <b>T<sub>on</sub> dibujada sobre el pulso bajo</b>. Eso es geométricamente consistente con un ciclo de trabajo del 20 % si T<sub>on</sub> es el tiempo en V<sub>min</sub>… pero <b>los coloquios 3 y 4 dicen «ciclo de trabajo 80 %»</b> y traen exactamente el mismo dibujo, donde el pulso marcado ocupa el 28 % del período. O sea: <b>la figura no está a escala y la flecha no es evidencia</b>. ▸ Qué hacer: declarar la convención que usás y —cuando el resultado cambie— dar las dos ramas. <b>En toda esta guía se adopta T<sub>on</sub> = tiempo en el nivel alto</b> (D = t<sub>alto</sub>/T), que es la convención estándar, la que usa la guía madre y la que entiende cualquier generador de funciones; la rama opuesta se da entre paréntesis cada vez que cambia el resultado. En el ítem 1a <b>no cambia nada</b> porque el valor de alterna depende de D·(1−D), que es simétrico; en el 1b sí cambia.
+</div>
+
+<h3>El plan de preparación</h3>
+
+<p>Cinco pasos, en este orden. El orden importa: cada uno usa el anterior.</p>
+
+<ol>
+  <li><b>Sección 2, máxima transferencia, hasta que salga sin pensar.</b> Es el 17 % de los ítems, está en los nueve exámenes y es donde vive el error conceptual más caro del corpus. Media hora bien invertida.</li>
+  <li><b>Sección 3, la comparación de los cinco coloquios, leída de corrido.</b> Es el mapa: te muestra que los cinco son el mismo circuito y que lo único que cambia es dónde está el cortocircuito. Una hora.</li>
+  <li><b>Sección 5, los cinco coloquios resueltos, en orden y con la hoja tapada.</b> Resolvé cada uno antes de revelar. Es una tarde entera y vale por diez ejercicios sueltos, porque entrenás justo la habilidad que evalúan: <b>mirar la topología antes de aplicar la fórmula</b>.</li>
+  <li><b>Sección 4, los cuatro parciales.</b> Traen lo que los coloquios no tienen: puente de Wheatstone, osciloscopio con la masa en un nodo intermedio, dos instrumentos comparados, onda de UPS. Otra tarde.</li>
+  <li><b>Sección 6 mientras resolvés todo lo anterior, y el simulacro de la sección 7 al final</b>, cronometrado y de una sentada.</li>
+</ol>
+
+<div class="key"><div class="ky-t">La regla de escritura, que vale para los siete pasos</div>
+<b>Escribí siempre en el orden: hipótesis → topología → cuenta → respuesta con unidades → justificación en dos renglones.</b> Ese orden no es estético: es el orden en el que la rúbrica de la cátedra busca las cosas. Si escribís la cuenta primero y las hipótesis al final «para que quede prolijo», el corrector ya leyó el número y no encontró la hipótesis donde el encabezado dice que tiene que estar («explícitamente <b>antes</b> de hacer los cálculos»).
+</div>
+
+<p class="muted"><b>Procedencia de esta sección.</b> El régimen de aprobación, el método de evaluación y el material de práctica salen del <b>campus de la materia</b>. El texto del encabezado está transcripto verbatim de los nueve exámenes publicados. El inventario de <b>29 problemas y 66 ítems</b>, la clasificación por eje y el conteo de «en cuántos exámenes aparece» son un <b>conteo propio</b> hecho ítem por ítem sobre esos nueve exámenes; la clasificación de los ítems mixtos está declarada en el texto. Los tres errores del material fueron verificados contra los PDF y los PNG originales publicados por la cátedra.</p>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 2 · MÁXIMA TRANSFERENCIA DE POTENCIA ============ -->
+<details id="feli-s2">
+<summary><span class="num">2</span> Máxima transferencia de potencia · está en los nueve <span class="sec-score" id="ss-fiuba-electronica-integrador-2"></span></summary>
+<div class="content">
+
+<p>Once ítems de 66, y presente en <b>los nueve exámenes</b>: parcial 2018 (1b, 1c), 2019 (3b, 3c), 2020 (3b), 2021 (2c) y el ítem <b>1b de cada uno de los cinco coloquios</b>. Ningún otro concepto de la materia tiene ese registro. Va primero por eso.</p>
+
+<p>La demostración completa está en la <b>sección 3 de la madre</b> y no se repite acá. Lo que necesitás en la hoja es esto:</p>
+
+<div class="formula">
+P<sub>L</sub>(R<sub>L</sub>) = V<sub>th</sub>²·R<sub>L</sub> / (R<sub>th</sub> + R<sub>L</sub>)²<br><br>
+dP<sub>L</sub>/dR<sub>L</sub> = V<sub>th</sub>²·(R<sub>th</sub> − R<sub>L</sub>) / (R<sub>th</sub> + R<sub>L</sub>)³ &nbsp;&nbsp;⟹&nbsp;&nbsp; <b>R<sub>L</sub> = R<sub>th</sub></b> &nbsp;·&nbsp; <b>P<sub>máx</sub> = V<sub>th</sub>² / (4·R<sub>th</sub>)</b> &nbsp;·&nbsp; <b>η = 50 %</b>
+</div>
+
+<div class="key"><div class="ky-t">Las dos frases que hay que tener escritas de memoria</div>
+<b>1.</b> «El teorema de máxima transferencia dice cómo <b>adaptar la carga a una fuente dada</b>. Sólo vale cuando V<sub>th</sub> y R<sub>th</sub> son <b>fijos</b> y la variable libre es la carga.»<br>
+<b>2.</b> «Si la variable libre es la <b>resistencia serie de la fuente</b>, con la carga fija, entonces dP/dR<sub>serie</sub> = −2V²R<sub>L</sub>/(R<sub>serie</sub>+R<sub>L</sub>)³ &lt; 0 para todo R<sub>serie</sub> ≥ 0: la función es <b>monótona decreciente</b> y el máximo está en el <b>extremo</b> del dominio, R<sub>serie</sub> = 0.»<br><br>
+La segunda frase, con la derivada escrita, es literalmente lo que salva cuatro ítems del corpus.
+</div>
+
+<h3>Las tres variantes de enunciado, y cómo se distinguen en diez segundos</h3>
+
+<p>La cátedra pregunta lo mismo de tres maneras. La diferencia está en <b>cuál resistor es la incógnita respecto de cuál resistor recibe la potencia</b>:</p>
+
+<table class="tbl">
+  <tr><th>Variante</th><th>Cómo suena el enunciado</th><th>Qué se hace</th><th>Respuesta</th><th>Dónde cae</th></tr>
+  <tr><td><b>A · Directa</b><br><span class="muted">la incógnita ES la carga</span></td><td>«¿Cuál debería ser el valor de <b>R<sub>L</sub></b> para que la potencia disipada <b>en ella</b> sea máxima?»</td><td>Thévenin desde los bornes de R<sub>L</sub>, con R<sub>L</sub> <b>removida</b>. Igualar.</td><td><b>R<sub>L</sub> = R<sub>th</sub></b>, P = V<sub>th</sub>²/(4R<sub>th</sub>)</td><td>2018-1b · 2019-3b · coloquios 4-1b y 5-1b</td></tr>
+  <tr><td><b>B · Invertida</b><br><span class="muted">la incógnita está EN SERIE con la carga</span></td><td>«¿Cuál debería ser el valor de <b>R<sub>th</sub></b> (o R1, o R4) para que la potencia sobre <b>R<sub>L</sub></b> sea máxima?»</td><td><b>No se iguala nada.</b> Se deriva respecto de la resistencia serie, se muestra que es negativa, y el máximo va al borde.</td><td><b>R<sub>serie</sub> = 0 Ω</b>, P = V<sub>th</sub>²/R<sub>L</sub><br><span class="muted">(cuatro veces la de la variante A)</span></td><td>2018-1c · 2019-3c · 2020-3b</td></tr>
+  <tr><td><b>C · Trampa topológica</b><br><span class="muted">la incógnita no aparece en la fórmula</span></td><td>«¿Qué valor debería tomar <b>R2</b> para que sobre <b>R1</b> se disipe la máxima potencia?»</td><td><b>Mirar el circuito antes de derivar.</b> Si una fuente ideal o un cortocircuito desacopla las ramas, la incógnita no interviene.</td><td><b>«R2 es irrelevante»</b>, con la expresión de P donde se ve que R2 no aparece.</td><td>2021-2c · coloquios 1-1b, 2-1b y 3-1b</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">El error conceptual más caro de todo el corpus</div>
+Contestar «R<sub>serie</sub> = R<sub>L</sub>» en la <b>variante B</b>. Es un error <b>conceptual</b>, del tipo que el encabezado dice que invalida la respuesta, y además se ve solo que es peor: en el parcial 2018, adaptar da 0,08 W contra los 0,32 W reales, <b>cuatro veces menos</b>; en el 2019, 66,3 W contra 265,1 W; en el 2020, 0,125 W contra 0,5 W. ▸ La relación es siempre la misma y conviene saberla: la respuesta equivocada da <b>exactamente un cuarto</b> de la correcta, porque V²R<sub>L</sub>/(2R<sub>L</sub>)² = V²/(4R<sub>L</sub>) contra V²/R<sub>L</sub>.
+</div>
+
+<h3>La pregunta de control: ¿cuál de las dos resistencias está fija?</h3>
+
+<p>Antes de escribir una sola cuenta, respondé esto por escrito en la hoja:</p>
+
+<div class="key"><div class="ky-t">El test de una línea</div>
+<b>«¿El resistor que recibe la potencia es el mismo que el enunciado me deja variar?»</b><br><br>
+<b>SÍ</b> → variante A. Thévenin y R<sub>L</sub> = R<sub>th</sub>.<br>
+<b>NO, y el que varía está en serie con el que recibe</b> → variante B. Derivada negativa, respuesta 0 Ω.<br>
+<b>NO, y no está claro que estén en serie</b> → variante C. Escribí P del resistor que recibe <b>en función explícita</b> del que varía. Si la incógnita no aparece en la expresión, ya está: la respuesta es «no influye», y la justificación es la fórmula misma.
+</div>
+
+<h3>El caso degenerado: R<sub>th</sub> = 0 y por qué es la respuesta correcta</h3>
+
+<p>Los coloquios 1, 2 y 3 llevan la variante A a un caso que asusta: <b>R<sub>th</sub> = 0 Ω</b>. Pasa cuando un cortocircuito (R = 0) o una fuente ideal quedan en paralelo con los bornes de la carga. Ahí:</p>
+
+<div class="formula">
+R<sub>L</sub> = R<sub>th</sub> = 0 &nbsp;⟹&nbsp; P<sub>máx</sub> = V<sub>th</sub>²/(4·0) → <b>∞</b>
+</div>
+
+<p>La reacción natural es pensar que uno se equivocó. <b>No</b>: la cuenta está bien y ese infinito <b>es la respuesta que el examen busca</b>. Lo que hay que escribir es qué hipótesis se rompió:</p>
+
+<div class="example"><div class="ex-t">Cómo se redacta un caso degenerado, en cuatro renglones</div>
+«Con R3 = 0 Ω, la fuente ideal V2 queda directamente en paralelo con R2, de modo que R<sub>th</sub> visto desde R2 vale <b>R1 ∥ 0 = 0 Ω</b>. La potencia sobre R2 es entonces P = V2²/R2, que <b>crece sin cota</b> cuando R2 → 0: <b>no existe un valor finito de R2 que la maximice</b>. El teorema de máxima transferencia pierde sentido con resistencia interna nula. ▸ El resultado no es físico y la hipótesis que lo produce es la de <b>fuente ideal</b>: en la práctica el límite lo impone la resistencia interna real de V2 y su capacidad de entrega de corriente. Con una R<sub>g</sub> = 50 Ω de generador de laboratorio, la respuesta sería R2 = 50 Ω.»
+</div>
+
+<p>Fijate qué hace esa redacción: <b>nombra la topología</b> (por qué R<sub>th</sub> = 0), <b>escribe la expresión</b> de la que se lee el infinito, <b>declara que no es físico</b>, <b>identifica la hipótesis culpable</b> y <b>ofrece el modelo corregido con un número</b>. Cumple las cinco cláusulas del encabezado de una vez.</p>
+
+<h3>Potencia media cuando la excitación no es senoidal</h3>
+
+<p>En los cinco coloquios la fuente es una <b>rectangular</b>, así que la potencia media no sale de un valor pico ni de un valor medio. Sale del <b>valor cuadrático medio</b>:</p>
+
+<div class="formula">
+P̄ = ⟨v²(t)⟩ / R &nbsp;&nbsp;con&nbsp;&nbsp; ⟨v²⟩ = D·V<sub>alto</sub>² + (1−D)·V<sub>bajo</sub>²
+</div>
+
+<div class="trap"><div class="tr-t">La continua sí cuenta para la potencia</div>
+Para la <b>lectura de un multímetro en modo AC</b> la componente continua se descarta (hay un capacitor de bloqueo). Para la <b>potencia disipada</b>, no: el resistor no sabe de acoplamientos y disipa la señal entera. ▸ En el coloquio 3, usar sólo la alterna da 36 V²/4 MΩ = 9,0 µW; con el eficaz total, 37 V²/4 MΩ = <b>9,25 µW</b>. Es la diferencia entre el número correcto y el que se parece.
+</div>
+
+<h3>Máxima potencia ≠ máximo rendimiento</h3>
+
+<p>El punto de adaptación transfiere la potencia máxima <b>y tira la mitad de la energía adentro de la fuente</b>: con R<sub>L</sub> = R<sub>th</sub>, η = R<sub>L</sub>/(R<sub>th</sub>+R<sub>L</sub>) = <b>50 %</b>. Es un dato que la cátedra pide justificar, así que conviene tenerlo en tabla:</p>
+
+<table class="tbl">
+  <tr><th>R<sub>L</sub>/R<sub>th</sub></th><th>P<sub>L</sub> / P<sub>máx</sub></th><th>Rendimiento η</th><th>Lectura</th></tr>
+  <tr><td>0,1</td><td>33,1 %</td><td>9,1 %</td><td>Carga casi en corto: mucha corriente, poca tensión</td></tr>
+  <tr><td>0,5</td><td>88,9 %</td><td>33,3 %</td><td>El máximo es <b>plano</b>: a la mitad todavía llega el 89 %</td></tr>
+  <tr><td><b>1 (adaptado)</b></td><td><b>100 %</b></td><td><b>50,0 %</b></td><td>Máxima potencia y máxima disipación interna a la vez</td></tr>
+  <tr><td>2</td><td>88,9 %</td><td>66,7 %</td><td>Mismo 89 % de potencia, pero el doble de rendimiento</td></tr>
+  <tr><td>10</td><td>33,1 %</td><td>90,9 %</td><td>Zona de las instalaciones eléctricas: se busca η, no P</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Cuándo se adapta y cuándo no, en dos renglones para la hoja</div>
+Se adapta donde lo que importa es la <b>señal</b> y su relación con el ruido: una antena, un transductor piezoeléctrico, un <b>electrodo de biopotencial</b>, la entrada de un amplificador. No se adapta donde lo que importa es la <b>energía</b>: ahí se trabaja con R<sub>L</sub> ≫ R<sub>interna</sub> para que η → 100 %. Una compañía eléctrica adaptada a su carga quemaría la mitad de lo que genera en sus propias líneas. ▸ Y en <b>medición</b> pasa lo contrario de adaptar: el voltímetro se hace de R<sub>V</sub> ≫ R<sub>th</sub> justamente para <b>no</b> tomar potencia del circuito y no perturbarlo.
+</div>
+
+<h3>Las trampas de esta sección</h3>
+
+<div class="trap"><div class="tr-t">Calcular R<sub>th</sub> sin remover la carga</div>
+El equivalente de Thévenin se calcula <b>desde los bornes de la carga, con la carga afuera</b>. En el coloquio 5, R<sub>th</sub> = R1 ∥ R3 = 2 MΩ; si dejás R2 adentro, te da otra cosa y el ítem se cae entero.
+</div>
+
+<div class="trap"><div class="tr-t">Pasivar mal las fuentes</div>
+Fuente de <b>tensión</b> ideal → <b>cortocircuito</b>. Fuente de <b>corriente</b> ideal → <b>circuito abierto</b>. Y ojo con la distinción que toma el parcial 2021: <b>«desconectar» la fuente no es «pasivar» la fuente</b>. Desconectar deja los bornes <b>abiertos</b>; pasivar los une. En ese parcial las dos redes dan 891,6 kΩ y 878,4 kΩ: se parecen tanto que el que se equivoca ni se entera, y la cátedra pide el razonamiento, no el número.
+</div>
+
+<div class="trap"><div class="tr-t">Confundir el eficaz con el pico al calcular la potencia</div>
+«V = 10 V·sen(ωt)» es <b>amplitud</b>. Si usás 10 V como eficaz, la potencia sale al doble. En el parcial 2020 eso convierte 0,125 W en 0,25 W.
+</div>
+
+<div class="trap"><div class="tr-t">Superponer potencias</div>
+Superposición vale para tensiones y corrientes, que son lineales respecto de las fuentes. La potencia es <b>cuadrática</b> y tiene término cruzado. Se superponen corrientes, se suma, y recién con el total se calcula P = I<sub>total</sub>²·R. La única excepción —componente continua más alterna de media nula— está demostrada en la sección 3 de la madre y <b>no es</b> superposición de potencias: es la propiedad V<sub>ef</sub>² = V<sub>DC</sub>² + V<sub>ef,AC</sub>².
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fiuba-electronica-integrador"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 3 · EL CIRCUITO DE LOS COLOQUIOS ============ -->
+<details id="feli-s3">
+<summary><span class="num">3</span> El circuito de los coloquios: uno solo, cinco variaciones <span class="sec-score" id="ss-fiuba-electronica-integrador-3"></span></summary>
+<div class="content">
+
+<p>La cátedra publica los cinco coloquios bajo el título <b>«Secuencia de exámenes para reforzar conocimientos (DESAFÍO: parecen iguales, pero...)»</b>. El título es una consigna, no un chiste: los cinco usan <b>el mismo dibujo</b>, la misma estructura de tres problemas y casi los mismos valores. Lo que cambia es <b>cuál de los tres resistores vale 0 Ω</b>, más un puñado de datos. Y esos cambios chicos dan resultados completamente distintos.</p>
+
+<p>Esta sección es el mapa. Si la leés entera antes de resolver nada, la sección 5 te va a llevar la mitad de tiempo.</p>
+
+<h3>El circuito base, descripto desde la figura</h3>
+
+<p><span class="muted">Topología leída del PNG de cada coloquio, verificada nodo por nodo. Los rótulos C, A y B son los que usa la cátedra; al nodo central, que en las figuras aparece sólo como un punto negro grueso, lo llamo <b>D</b>.</span></p>
+
+<p>Es un rectángulo con un <b>riel inferior horizontal</b> que une tres pies y sirve de nodo común. Recorriendo desde arriba a la izquierda:</p>
+
+<ul>
+  <li><b>V₁</b> — círculo con el glifo de <b>onda cuadrada</b> adentro, en la rama vertical izquierda. Su borne inferior baja al riel; su borne superior lleva un <b>«+»</b> dibujado al lado y sube a la esquina superior izquierda, <b>rotulada C</b>. Es decir: <b>el nodo C es directamente el borne positivo de V₁</b>.</li>
+  <li><b>R₁</b> — resistor <b>horizontal</b> en el tramo superior, del nodo <b>C</b> al nodo central <b>D</b> (punto negro de unión).</li>
+  <li><b>R₂</b> — resistor <b>vertical</b>, de <b>D</b> al riel inferior.</li>
+  <li><b>V₂</b> — <b>pila de continua</b> en el tramo superior, entre <b>D</b> y la esquina superior derecha <b>A</b>. La <b>placa larga y fina (+) mira a D</b> y la <b>corta y gruesa (−) mira a A</b>, o sea <b>V<sub>D</sub> − V<sub>A</sub> = +V₂</b>. <span class="muted">(En el coloquio 5 la polaridad es la misma, pero como la masa está en el nodo central, eso se traduce en V<sub>A</sub> = −3 V.)</span></li>
+  <li><b>R₃</b> — resistor <b>vertical</b>, de <b>A</b> a la esquina inferior derecha, <b>rotulada B</b>, que pertenece al riel.</li>
+  <li>Del nodo <b>D</b> sale hacia arriba un <b>trazo en U que termina en un triángulo hueco</b>: es el símbolo de referencia (masa). <b>No es un componente</b>: no disipa ni conduce corriente de malla, sólo fija el 0 V. Aparece <b>idéntico en la figura del problema 1 de los cinco coloquios</b>, así que <b>no</b> distingue una versión de otra — ver el recuadro siguiente.</li>
+</ul>
+
+<p>El <b>problema 2</b> de cada coloquio reemplaza <b>V₂ por un capacitor C = 47 pF</b>, en el mismo lugar (horizontal, entre D y A). El <b>problema 3</b> mantiene esa topología y cambia la fuente por una <b>senoidal V = 2 V·sen(ωt)</b>. Nada más.</p>
+
+<div class="key"><div class="ky-t">Dónde está la masa, que no es siempre el mismo lugar</div>
+Acá hay que ser honesto con lo que muestran los PNG: <b>la figura del problema 1 es la misma en los cinco coloquios</b>, y el único símbolo de referencia que trae cuelga del <b>nodo central D</b>. O sea: el dibujo <b>no</b> distingue un coloquio de otro, y <b>ninguna</b> lectura única de la referencia deja no triviales a los cinco ítems 1a. ▸ Tomando D como referencia, el 1a del <b>coloquio 3</b> (nodo A) mide <b>continua pura</b>, −3 V, y la lectura de AC daría 0,000 V: el ítem se queda vacío. Tomando el riel como referencia, el 1a del <b>coloquio 5</b> («la tensión en el punto B») da <b>idénticamente cero</b>. ▸ Por eso <b>hay que declarar la hipótesis</b>, que es exactamente lo que pide el encabezado. En esta guía se adopta la referencia que deja cada ítem con sentido: <b>el riel (nodo B) en los coloquios 1 a 4</b> y <b>el nodo D en el coloquio 5</b>. Y conviene notar que en los coloquios 1, 2 y 4 la lectura de <b>alterna no cambia</b> con una referencia u otra, porque las dos difieren en una constante que el modo AC bloquea. ▸ Aparte, en las figuras de los problemas 2 y 3 del <b>coloquio 5</b> hay <b>dos</b> símbolos de tierra (uno en el borne inferior de la fuente y otro en el nodo de unión C–R₃), lo que cortocircuitaría R₃ entre dos masas — eso sí es exclusivo del coloquio 5 (en el coloquio 4 el símbolo del problema 2 aparece solo, en el nodo C–R₃, y en los coloquios 1, 2 y 3 no hay ninguno). Es un <b>error de dibujo</b> y hay que señalarlo: si se toma literal, el ítem 3b se queda sin respuesta posible.
+</div>
+
+<h3>La tabla que resuelve el DESAFÍO: qué cambia de una versión a otra</h3>
+
+<table class="tbl">
+  <tr><th></th><th>Coloquio 1<br><span class="muted">15-12-2022</span></th><th>Coloquio 2<br><span class="muted">22-12-2022</span></th><th>Coloquio 3<br><span class="muted">09-02-2023*</span></th><th>Coloquio 4<br><span class="muted">16-02-2023*</span></th><th>Coloquio 5<br><span class="muted">23-02-2023*</span></th></tr>
+  <tr><td><b>Resistor en corto</b></td><td><b>R₃ = 0</b></td><td><b>R₂ = 0</b></td><td><b>R₁ = 0</b></td><td><b>R₁ = 0</b></td><td><b>ninguno</b></td></tr>
+  <tr><td>Los otros dos</td><td>R₁ = R₂ = 4 MΩ</td><td>R₁ = R₃ = 4 MΩ</td><td>R₂ = R₃ = 4 MΩ</td><td>R₂ = R₃ = 4 MΩ</td><td>R₁ = R₂ = R₃ = 4 MΩ</td></tr>
+  <tr><td>V<sub>min</sub> / V<sub>max</sub></td><td>−8 V / +2 V</td><td>−10 V / +10 V</td><td>−10 V / +5 V</td><td>−10 V / +5 V</td><td>−10 V / +5 V</td></tr>
+  <tr><td><b>Ciclo de trabajo</b></td><td><b>20 %</b></td><td><b>20 %</b></td><td><b>80 %</b></td><td><b>80 %</b></td><td><b>20 %</b></td></tr>
+  <tr><td>V₂</td><td>4 V</td><td>4 V</td><td>3 V</td><td>3 V</td><td>3 V (+ a masa)</td></tr>
+  <tr><td>Dígitos del display</td><td>3 ¾ (3999)</td><td>3 ¾ (3999)</td><td>3 ½ (1999)</td><td>3 ½ (1999)</td><td>3 ½ (1999)</td></tr>
+  <tr><td>Especificación ΔV</td><td>±(2 % + <b>1</b> dgt)</td><td>±(2 % + <b>2</b> dgt)</td><td>±(<b>1 %</b> + <b>3</b> dgt)</td><td>±(1 % + 3 dgt)</td><td>±(1 % + 3 dgt)</td></tr>
+  <tr><td>Masa <span class="muted">(hipótesis declarada, no dato de la figura)</span></td><td>riel (B)</td><td>riel (B)</td><td>riel (B)</td><td>riel (B)</td><td><b>nodo D</b></td></tr>
+  <tr><td><b>Dónde se mide (1a)</b></td><td>nodo <b>C</b></td><td>nodo <b>C</b></td><td>nodo <b>A</b></td><td>sobre <b>R₃</b></td><td>punto <b>B</b></td></tr>
+  <tr><td><b>Qué se optimiza (1b)</b></td><td>R₂ (sobre R₂) <b>y</b> R₂ (sobre R₁)</td><td>R₃ (sobre R₁) <b>y</b> R₁ (sobre R₁)</td><td>R₂ (sobre R₃) <b>y</b> R₃ (sobre R₃)</td><td>R₁ (sobre R₁)</td><td>R₂ (sobre R₂)</td></tr>
+  <tr><td><b>Qué se grafica (2a)</b></td><td>corriente sobre <b>R₁</b></td><td>corriente sobre <b>C</b></td><td>corriente sobre <b>C</b></td><td>corriente sobre <b>C</b></td><td>corriente sobre <b>C</b></td></tr>
+  <tr><td><b>Qué se mide en el banco (2b)</b></td><td>tensión sobre <b>R₁</b></td><td>tensión sobre <b>C</b></td><td>tensión sobre <b>C</b></td><td>tensión sobre <b>R₂</b></td><td>tensión sobre <b>R₁</b></td></tr>
+  <tr><td><b>Salida del filtro (3a)</b></td><td>sobre <b>C</b></td><td>sobre <b>R₃</b></td><td>sobre <b>R₃</b></td><td>sobre <b>R₂</b></td><td>sobre <b>R₁</b></td></tr>
+  <tr><td>¿Repone el resistor en corto?</td><td>no</td><td><b>sí</b>: «salvo que R2 = 4 MΩ»</td><td>no</td><td>no</td><td>—</td></tr>
+</table>
+
+<p class="muted">* Fecha impresa: 09-02-2022, 16-02-2022 y 23-02-2022. Son de <b>2023</b>: ver el error 1 de la sección 1.</p>
+
+<div class="key"><div class="ky-t">Los dos detalles de esa tabla que deciden exámenes enteros</div>
+<b>1 · El coloquio 2 es el único que repone el resistor cortocircuitado.</b> Su problema 2 dice «manteniendo el resto de los valores originales, <b>salvo que R2 = 4 MΩ</b>». Ninguno de los otros cuatro trae esa cláusula, y ahí está el argumento textual: en los coloquios 1, 3 y 4 <b>el cortocircuito sigue vigente en los problemas 2 y 3</b>. El que asume que se repone, contesta los tres problemas de otro examen.<br><br>
+<b>2 · El ciclo de trabajo no cambia el ítem 1a, pero sí el 1b.</b> Las magnitudes de alterna de una rectangular dependen de D·(1−D), que es <b>simétrico</b> en D ↔ (1−D): con 20 % o con 80 % dan idénticas. La <b>potencia</b>, en cambio, depende de D asimétricamente. Por eso los coloquios 3 y 4 (80 %) tienen exactamente la misma lectura de instrumento que tendrían con 20 %, y una potencia distinta.
+</div>
+
+<h3>Qué le hace cada cortocircuito al circuito</h3>
+
+<p>Un resistor de 0 Ω es un <b>cable</b>: funde dos nodos en uno. Todo lo demás es consecuencia de eso.</p>
+
+<table class="tbl">
+  <tr><th>Corto</th><th>Qué nodos funde</th><th>Consecuencia inmediata</th><th>Qué queda desacoplado</th></tr>
+  <tr><td><b>R₃ = 0</b><br><span class="muted">coloquio 1</span></td><td><b>A ≡ B ≡ masa</b></td><td><b>V₂ queda en paralelo con R₂</b> y <b>fija el nodo D en +4 V</b>, continua pura, independiente de todo lo demás.</td><td>V₁ deja de influir sobre R₂. La corriente por R₁ vale (V₁ − 4 V)/R₁ y <b>no depende de R₂</b>.</td></tr>
+  <tr><td><b>R₂ = 0</b><br><span class="muted">coloquio 2</span></td><td><b>D ≡ masa</b></td><td>El circuito se parte en <b>dos mallas independientes</b>: V₁–R₁ por un lado y V₂–R₃ por el otro.</td><td>R₃ y V₂ no tocan a R₁. v<sub>R1</sub> = v₁(t) entero, sin divisor.</td></tr>
+  <tr><td><b>R₁ = 0</b><br><span class="muted">coloquios 3 y 4</span></td><td><b>C ≡ D</b></td><td>La fuente ideal V₁ <b>fija el nodo D</b>. <b>R₂ queda en paralelo con una fuente ideal</b>: carga al generador pero no cambia ninguna tensión.</td><td>R₂ desaparece de todos los cálculos: de v<sub>A</sub>, de τ, de la transferencia y de R<sub>th</sub>.</td></tr>
+  <tr><td><b>ninguno</b><br><span class="muted">coloquio 5</span></td><td>—</td><td>Las tres ramas conviven. Hay que resolver por <b>nodos</b> de verdad, y el voltímetro de 10 MΩ <b>sí carga</b>.</td><td>Nada. Es el único donde todos los elementos intervienen.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La respuesta que da todo el mundo, y por qué está mal en cuatro de los cinco</div>
+La receta aprendida es «R<sub>th</sub> visto desde R₂ es R₁ ∥ R₃, y V<sub>th</sub> = (V₁R₃ + V₂R₁)/(R₁+R₃)». Con R₁ = R₃ = 4 MΩ eso da R<sub>th</sub> = 2 MΩ y la respuesta «R₂ = 2 MΩ». ▸ Esa es <b>exactamente la respuesta del coloquio 5</b>, el único sin cortocircuito. En los coloquios 1, 2 y 3 aplicarla da mal, y la respuesta correcta ni siquiera es un número: es <b>«no existe un valor finito»</b> o <b>«el resistor que me piden es irrelevante»</b>. ▸ Ése es todo el DESAFÍO: comprobar si mirás la topología o si aplicás la fórmula de memoria.
+</div>
+
+<h3>El resultado de los cinco, lado a lado</h3>
+
+<p><span class="muted">Todos los números verificados con numpy: valor medio, valor medio de módulo, eficaz, factor de forma, lectura del instrumento, incertidumbre por escala, R<sub>th</sub>, τ, corriente de pico y f<sub>c</sub>. En los ítems donde la convención de T<sub>on</sub> cambia el resultado se dan las dos ramas.</span></p>
+
+<table class="tbl">
+  <tr><th>Ítem</th><th>Coloquio 1</th><th>Coloquio 2</th><th>Coloquio 3</th><th>Coloquio 4</th><th>Coloquio 5</th></tr>
+  <tr><td><b>1a ·</b> componente continua del punto medido</td><td><b>−6,00 V</b><br><span class="muted">(0 V exacto con la otra convención)</span></td><td>−6 V<br><span class="muted">(+6 V con la otra convención)</span></td><td>−1,00 V<br><span class="muted">(−10,0 V con la otra)</span></td><td>−1,00 V<br><span class="muted">(−10,0 V con la otra)</span></td><td>+1,176 V<br><span class="muted">(−1,471 V con la otra)</span></td></tr>
+  <tr><td><b>1a ·</b> ⟨|v<sub>AC</sub>|⟩</td><td>3,200 V</td><td>6,400 V</td><td>4,800 V</td><td>4,800 V</td><td>1,412 V</td></tr>
+  <tr><td><b>1a ·</b> lectura del <b>valor medio</b></td><td><b>(3,554 ± 0,072) V</b><br><span class="muted">escala 4 V</span></td><td><b>(7,11 ± 0,17) V</b><br><span class="muted">escala 40 V</span></td><td><b>(5,33 ± 0,09) V</b><br><span class="muted">escala 20 V</span></td><td><b>(5,33 ± 0,09) V</b><br><span class="muted">escala 20 V</span></td><td><b>(1,568 ± 0,019) V</b><br><span class="muted">escala 2 V</span></td></tr>
+  <tr><td><b>1a ·</b> lectura <b>True-RMS</b></td><td><b>(4,00 ± 0,09) V</b><br><span class="muted">salta a escala 40 V</span></td><td><b>(8,00 ± 0,18) V</b></td><td><b>(6,00 ± 0,09) V</b></td><td><b>(6,00 ± 0,09) V</b></td><td><b>(1,765 ± 0,021) V</b></td></tr>
+  <tr><td><b>1a ·</b> factor de forma real / error del instrumento</td><td>1,25 → <b>−11,1 %</b></td><td>1,25 → <b>−11,1 %</b></td><td>1,25 → <b>−11,1 %</b></td><td>1,25 → <b>−11,1 %</b></td><td>1,25 → <b>−11,1 %</b><br>+ carga −11,8 %</td></tr>
+  <tr><td><b>1b ·</b> respuesta de máxima transferencia</td><td><b>No existe R₂ finito</b> (R<sub>th</sub> = 0). Y para P<sub>R1</sub>: <b>R₂ es irrelevante</b></td><td><b>R₃ es irrelevante.</b> Y no hay R₁ óptimo (R<sub>th</sub> = 0)</td><td><b>R₂ es irrelevante.</b> Y no hay R₃ óptimo (R<sub>th</sub> = 0)</td><td><b>R₁ = R₂ ∥ R₃ = 2 MΩ</b></td><td><b>R₂ = R₁ ∥ R₃ = 2 MΩ</b></td></tr>
+  <tr><td><b>1b ·</b> potencia media</td><td>P<sub>R2</sub> = <b>4 µW</b> · P<sub>R1</sub> = <b>29 µW</b><br><span class="muted">(8 µW con la otra convención)</span></td><td>P<sub>R1</sub> = <b>25 µW</b></td><td>P<sub>R3</sub> = <b>9,25 µW</b><br><span class="muted">(34,0 µW con la otra convención)</span></td><td>P<sub>R1</sub> = <b>4,53 µW</b><br><span class="muted">(13,5 µW con la otra)</span></td><td>P<sub>R2</sub> = <b>1,63 µW</b><br><span class="muted">(1,91 µW con la otra)</span></td></tr>
+  <tr><td><b>2a ·</b> R<sub>th</sub> vista por C</td><td>R₁∥R₂ = <b>2 MΩ</b></td><td>(R₁∥R₂)+R₃ = <b>6 MΩ</b></td><td>R₃ = <b>4 MΩ</b></td><td>R₃ = <b>4 MΩ</b></td><td>(R₁∥R₂)+R₃ = <b>6 MΩ</b></td></tr>
+  <tr><td><b>2a · τ</b></td><td><b>94 µs</b></td><td><b>282 µs</b></td><td><b>188 µs</b></td><td><b>188 µs</b></td><td><b>282 µs</b></td></tr>
+  <tr><td><b>2a ·</b> corriente de pico</td><td>salto de <b>2,5 µA</b> en i<sub>R1</sub></td><td><b>±1,67 µA</b></td><td><b>±3,75 µA</b></td><td><b>±3,75 µA</b></td><td><b>±1,25 µA</b></td></tr>
+  <tr><td><b>2b ·</b> ¿el elemento es flotante?</td><td><b>Sí</b> (R₁ entre C y D) → diferencial</td><td><b>Sí</b> (C entre D y A) → diferencial</td><td><b>Sí</b> (C entre D y A) → diferencial</td><td><b>No</b> (R₂ tiene un borne a masa) → un canal</td><td><b>Sí</b> (R₁ entre X e Y) → diferencial</td></tr>
+  <tr><td><b>3a ·</b> tipo de red</td><td><b>Pasa-bajos</b>, meseta 0,5</td><td><b>Pasa-altos</b>, meseta 1/3</td><td><b>Pasa-altos</b>, meseta 1</td><td><b>Ninguna:</b> H ≡ 1</td><td><b>Shelf</b>: 0,5 → 0,667</td></tr>
+  <tr><td><b>3a · f<sub>c</sub></b></td><td><b>1,69 kHz</b></td><td><b>564 Hz</b></td><td><b>847 Hz</b></td><td><b>no existe</b></td><td>polo <b>564 Hz</b> + cero <b>423 Hz</b></td></tr>
+  <tr><td><b>3b ·</b> capacitor elegido y dónde</td><td><b>Imposible con R₃ = 0</b>; hay que reponerlo y medir sobre R₃</td><td><b>1 pF</b> sobre R₃</td><td><b>1 pF</b> sobre R₃</td><td><b>1 pF</b> sobre R₃</td><td><b>1 pF</b> sobre R₃</td></tr>
+</table>
+
+<h3>Lo que la tabla enseña, en cuatro conclusiones</h3>
+
+<div class="key"><div class="ky-t">1 · Un cambio de un resistor mueve τ en un factor 3</div>
+El mismo capacitor de 47 pF, el mismo dibujo, los mismos 4 MΩ: y <b>τ vale 94, 188 o 282 µs</b> según dónde esté el corto. Es un factor <b>3</b> entre los extremos, y f<sub>c</sub> se mueve en el mismo factor (1,69 kHz contra 564 Hz). ▸ La razón es puramente topológica: con R₁ = 0 el capacitor ve <b>sólo R₃</b> (la fuente ideal aplasta a R₂); con R₃ = 0 ve <b>R₁ ∥ R₂</b>; y sin cortos ve <b>(R₁∥R₂) + R₃</b>, que es la suma de los dos casos anteriores. Nunca es «la resistencia que está al lado del capacitor».
+</div>
+
+<div class="key"><div class="ky-t">2 · La lectura del instrumento es lo único que casi no cambia</div>
+El error del multímetro de valor medio es <b>−11,1 % en los cinco</b>. No es casualidad: los cinco tienen ciclo de trabajo del 20 % o del 80 %, y en ambos casos el factor de forma de la componente alterna vale <b>1/(2·√(D(1−D))) = 1/(2·0,4) = 1,25</b>, contra el 1,1107 de la senoide para el que el instrumento está calibrado. ▸ Y lo que sí cambia es la <b>escala</b>, que decide cuánto vale «+ n dígitos»: 0,001 V en la de 4 V, 0,01 V en las de 20 y 40 V. En el coloquio 1 el detalle es cruel: la lectura True-RMS da <b>4,000 V</b>, o sea <b>4000 cuentas &gt; 3999</b>, así que el instrumento <b>desborda la escala de 4 V y salta a la de 40 V</b>, con lo cual la incertidumbre pasa de ±0,081 V a ±0,09 V.
+</div>
+
+<div class="key"><div class="ky-t">3 · «Máxima transferencia» tiene respuesta numérica en sólo dos de los cinco</div>
+Coloquios 4 y 5: <b>2 MΩ</b>. Coloquios 1, 2 y 3: la respuesta correcta es una <b>frase</b> —«no existe un valor finito» o «el resistor que me piden no interviene»— acompañada de la expresión de la que se lee. ▸ Es el mensaje central del DESAFÍO y es también, sin coincidencia, la cláusula del método de evaluación sobre fundamentar decisiones: en tres de cinco casos <b>no hay número que fundamentar</b>, sólo hay fundamento.
+</div>
+
+<div class="key"><div class="ky-t">4 · El ítem 3b es el mismo problema de diseño cinco veces, y la topología decide si tiene respuesta</div>
+Los cinco piden lo mismo: conservar una señal de <b>1 kHz</b> y eliminar una interferencia de <b>50 Hz</b>, eligiendo entre <b>1 pF, 1 nF y 1 µF</b>. Como la interferencia está <b>por debajo</b> de la señal, hace falta un <b>pasa-altos</b>, y el pasa-altos de esta topología está siempre <b>sobre R₃</b>. ▸ Pero: en el coloquio 1, R₃ = 0 y esa salida <b>no existe</b> — la respuesta correcta es denunciar la incompatibilidad y pedir reponer R₃. En los coloquios 2, 3, 4 y 5 la respuesta por rechazo es la misma —<b>1 pF sobre R₃</b>— porque la discriminación crece monótonamente con f<sub>c</sub>: la R<sub>eq</sub> (6 MΩ en el 2 y el 5, 4 MΩ en el 3 y el 4) sólo mueve dónde queda el corte, no cuál capacitor gana. Los coloquios 3 y 4 son el mismo circuito y por lo tanto tienen la misma respuesta. ▸ Mismo enunciado, <b>dos</b> respuestas distintas: «imposible, hay que reponer R₃» en el 1 y «1 pF sobre R₃» en los otros cuatro — con el precio declarado (la señal útil cae al 1,3 % con 6 MΩ y al 2,5 % con 4 MΩ) y la objeción de realizabilidad, que si se adopta como criterio dominante lleva a 1 nF.
+</div>
+
+<h3>El criterio de elección del capacitor, hecho bien</h3>
+
+<p>Los cinco ítems 3b se resuelven con la misma cuenta, y conviene tenerla clara porque es un punto donde el «óptimo intuitivo» está mal.</p>
+
+<p>En un pasa-altos de primer orden, la <b>discriminación</b> entre la señal útil y la interferencia es</p>
+
+<div class="formula">
+D(f<sub>c</sub>) = |H(f<sub>señal</sub>)| / |H(f<sub>interf</sub>)| = (f<sub>señal</sub>/f<sub>interf</sub>) · √(f<sub>c</sub>² + f<sub>interf</sub>²) / √(f<sub>c</sub>² + f<sub>señal</sub>²)
+</div>
+
+<p>Esa función <b>crece monótonamente con f<sub>c</sub></b> y satura en el cociente de frecuencias: 1000/50 = <b>20 = 26,0 dB</b>. No tiene máximo interior.</p>
+
+<div class="trap"><div class="tr-t">La media geométrica NO es el óptimo de rechazo</div>
+Es tentador poner f<sub>c</sub> = √(50·1000) ≈ 224 Hz «para quedar en el medio». Verificado numéricamente: con R<sub>eq</sub> = 6 MΩ eso pide C ≈ 118 pF y da <b>13,0 dB</b> de discriminación, contra los <b>26,0 dB</b> de 1 pF y los <b>19,9 dB</b> del propio C = 47 pF del enunciado. La media geométrica es un criterio de <b>pasa-banda</b>, o de reparto equilibrado de la pérdida en la banda de paso; <b>no</b> es el óptimo de rechazo de un solo polo.
+</div>
+
+<div class="key"><div class="ky-t">Los dos criterios, y por qué hay que declarar cuál usás</div>
+<b>Criterio «máximo rechazo»:</b> cuanto más alto f<sub>c</sub>, mejor → gana <b>1 pF</b>, con los 26 dB máximos alcanzables con un polo. <b>El precio</b>: la señal útil también cae, a 1,26 % de la entrada (25 mV de pico sobre 2 V), y hay que amplificar después.<br>
+<b>Criterio «rechazar sin castigar la señal»:</b> se busca un compromiso, y ahí 47 pF (19,9 dB conservando el 29 % de la señal) es mejor que cualquiera de los tres ofrecidos. ▸ <b>Ninguno de los dos es «el» óptimo a secas.</b> Lo que la cátedra pide es que <b>declares el criterio y muestres los dos números</b> —|H| a 50 Hz y |H| a 1 kHz— antes de elegir. Una elección sin esas dos cuentas no está justificada aunque el capacitor sea el correcto.
+</div>
+
+<div class="trap"><div class="tr-t">Y la objeción de ingeniería que hay que escribir siempre que elijas 1 pF</div>
+<b>1 pF es menor que las capacidades parásitas del banco.</b> Una punta ×10 aporta 10–15 pF, el cableado de un protoboard otros pocos. En un circuito de MΩ, el filtro real quedaría dominado por los parásitos y f<sub>c</sub> caería a otro lado. ▸ La respuesta completa es: «elijo 1 pF por rechazo máximo, <b>pero</b> el valor no es realizable con instrumentación común; habría que usar punta activa/FET (≈1 pF) o —mejor— bajar los resistores: con R = 470 kΩ y C = 1 nF el corte queda en el rango útil». Eso es exactamente lo que el método de evaluación llama fundamentar una decisión.
+</div>
+
+<h3>Trampas transversales de los cinco coloquios</h3>
+
+<div class="trap"><div class="tr-t">Creer que «multímetro de valor medio» significa «indica el valor medio»</div>
+No. <b>Rectifica</b>, promedia el <b>módulo</b> y multiplica por el <b>factor de forma de una senoide</b>, π/(2√2) = 1,1107, porque su escala está calibrada en eficaces de senoide. Sólo lee el eficaz verdadero si la entrada <b>es</b> una senoide. ▸ Y ojo con el nombre: una vez acoplada en alterna, la señal tiene valor medio <b>cero por construcción</b>, así que un instrumento que «indicara el valor medio» marcaría 0,000 V en los cinco coloquios. Lo que indica es 1,1107·⟨|v<sub>AC</sub>|⟩: en el coloquio 1, <b>3,554 V</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Olvidar que el modo AC bloquea la continua</div>
+Hay un capacitor de acoplamiento en la entrada. En el coloquio 3, V₂ = 3 V es continua pura y <b>desaparece por completo</b> de la lectura de AC: la componente alterna de v<sub>A</sub> es idéntica a la de V₁. Quien suma los 3 V, o quien calcula el eficaz total (√37 = 6,083 V) y lo da como respuesta del True-RMS en vez de 6,000 V, pierde el ítem.
+</div>
+
+<div class="trap"><div class="tr-t">Poner la meseta del filtro en ganancia 1</div>
+La ganancia máxima nunca es 1 salvo en el coloquio 3. Es <b>0,5</b> en el 1, <b>1/3</b> en el 2, <b>2/3</b> en el 5. El punto de −3 dB se cuenta <b>desde la meseta</b>, no desde 0 dB: en el coloquio 2, f<sub>c</sub> está donde |H| = 0,236, que en valor absoluto son −12,55 dB — y no donde |H| = 0,707.
+</div>
+
+<div class="trap"><div class="tr-t">Graficar la tensión cuando piden la corriente</div>
+Los ítems 2a piden <b>i(t)</b>. La corriente de un capacitor es i = C·dv/dt: ante escalones son <b>púas exponenciales angostas</b> con cero entre medio, no exponenciales que se acuestan entre dos niveles. Y con τ de 94 a 282 µs contra un período de 20 ms, esas púas ocupan entre el 2 % y el 7 % del período: en escala de milisegundos se ven como pinchazos. Conviene dibujar el período completo <b>y al lado</b> un detalle ampliado de un flanco.
+</div>
+
+<div class="trap"><div class="tr-t">Poner la masa del osciloscopio en el nodo equivocado</div>
+Es el error de banco clásico y los cinco ítems 2b lo están buscando. Generador y osciloscopio comparten <b>la tierra de red</b>: sus masas son el mismo nodo eléctrico. Si el elemento a medir es <b>flotante</b> (los dos bornes fuera de masa), apoyar el cocodrilo en uno de ellos <b>cortocircuita</b> lo que haya entre ese nodo y masa. ▸ La solución es <b>medición diferencial</b>: ambos cocodrilos al riel común, CH1 y CH2 en los dos bornes, y <b>MATH = CH1 − CH2</b>. O punta diferencial activa. <b>Nunca</b> levantar la tierra del osciloscopio: además de peligroso, en esta cátedra es respuesta invalidante.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fiuba-electronica-integrador"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 4 · LOS CUATRO PARCIALES REALES ============ -->
+<details id="feli-s4">
+<summary><span class="num">4</span> Los cuatro parciales reales, resueltos <span class="sec-score" id="ss-fiuba-electronica-integrador-4"></span></summary>
+<div class="content">
+
+<p>Los <b>14 problemas</b> de los cuatro parciales que publica la cátedra, transcriptos verbatim, con la figura descripta en palabras y la resolución completa. Están en el bloque de ejercicios revelables del final: <b>resolvelos antes de abrir la solución</b>, en hojas separadas y con las hipótesis escritas arriba, como pide el encabezado.</p>
+
+<div class="key"><div class="ky-t">Antes de empezar: qué aportan los parciales que los coloquios no tienen</div>
+Los cinco coloquios son variaciones de un circuito. Los cuatro parciales traen <b>cinco topologías y dos instrumentos</b> que no aparecen en ningún coloquio y que sí pueden caer en un integrador: <b>puente de Wheatstone</b> (2019 y 2021), <b>determinación experimental de un Thévenin</b> midiendo en vacío y con carga (2018), <b>osciloscopio con la masa en un nodo intermedio</b> (2020), <b>comparación de dos instrumentos con distinta R<sub>int</sub></b> (2019) y <b>onda cuadrada modificada de UPS</b> (2021). Por eso van después de los coloquios pero van.
+</div>
+
+<h3>Parcial 1C2018 · 31-05-2018 · 1ª oportunidad · 4 problemas, 10 ítems</h3>
+
+<table class="tbl">
+  <tr><th>Problema</th><th>Qué toma</th><th>El ítem que decide</th></tr>
+  <tr><td><b>1</b></td><td>Thévenin experimental (dos mediciones) + máxima transferencia en sus dos variantes</td><td><b>1c</b>: la variante invertida. Contestar «R<sub>th</sub> = R<sub>L</sub> = 800 Ω» da 0,08 W contra los 0,32 W correctos</td></tr>
+  <tr><td><b>2</b></td><td>Multímetro de valor medio sobre rectangular con D = 75 %: lectura DC, lectura AC, escalas, incertidumbre y validez</td><td><b>2c</b>: decidir si con esas dos lecturas alcanza para conocer el eficaz total. <b>No alcanza</b>, y hay que decir por qué</td></tr>
+  <tr><td><b>3</b></td><td>Filtro pasa-altos con Thévenin previo, y efecto de carga del voltímetro sobre f<sub>c</sub></td><td><b>3a</b>: la R que ve el capacitor es <b>(R1∥R2) + R3 = 320 kΩ</b>, ni R3 sola ni sumas directas</td></tr>
+  <tr><td><b>4</b></td><td>Divisor resistivo con DC + AC simultáneas, y transitorio RC con salto discontinuo de la tensión de nodo</td><td><b>4b</b>: el capacitor se conecta <b>descargado</b> y la tensión del nodo A–B <b>salta a 0 V</b> en t = 0<sup>+</sup></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La lección del parcial 2018</div>
+Es el parcial donde <b>el equivalente de Thévenin aparece tres veces con tres funciones distintas</b>: como resultado de una medición (1a), como herramienta para simplificar antes de calcular f<sub>c</sub> (3a) y como fuente equivalente para el transitorio (4b). Si tenés automatizado «primero Thévenin desde los bornes del elemento», el parcial 2018 se resuelve casi solo.
+</div>
+
+<h3>Parcial 2C2019 · 04-11-2019 · 1ª oportunidad · 4 problemas, 11 ítems</h3>
+
+<table class="tbl">
+  <tr><th>Problema</th><th>Qué toma</th><th>El ítem que decide</th></tr>
+  <tr><td><b>1</b></td><td>Transitorio RC con llave: carga durante 25 ms y descarga después, <b>con dos constantes de tiempo distintas</b></td><td><b>1b</b>: al abrir la llave R1 desaparece y τ pasa de 3 ms a <b>7,5 ms</b>. Y la corriente del capacitor <b>sí salta</b> (a −80 mA); lo que no puede saltar es la tensión</td></tr>
+  <tr><td><b>2</b></td><td>El mismo circuito en régimen senoidal: pasa-bajos con ganancia 0,6, y <b>cómo medir la respuesta en frecuencia con osciloscopio</b></td><td><b>2b</b>: hay que dibujar el banco, elegir escalas, acoplamiento y disparo, y advertir que la R<sub>g</sub> = 50 Ω del generador contra una carga de 12,5 Ω <b>corre f<sub>c</sub> de 53 a 24 Hz</b> si se mide en valor absoluto</td></tr>
+  <tr><td><b>3</b></td><td>Puente de Wheatstone muy desequilibrado + máxima transferencia en sus dos variantes</td><td><b>3a</b>: la resta de dos divisores casi iguales exige <b>7 cifras significativas</b> o la forma cerrada. Con tres cifras el problema «no sale»</td></tr>
+  <tr><td><b>4</b></td><td>Dos multímetros —True-RMS de 10 MΩ y valor medio de 10 kΩ— midiendo el mismo circuito, con DC + AC</td><td><b>4d</b>: <b>incertidumbre ≠ error</b>. Menor incertidumbre: el de valor medio (0,45 %). Menor error: el True-RMS (−0,02 % contra −15,4 %). La respuesta es <b>cruzada</b></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La lección del parcial 2019, y es la más transferible de las cuatro</div>
+<b>El instrumento forma parte del circuito.</b> El problema 4 lo demuestra de la manera más cruda posible: el multímetro «B», que tiene la mejor especificación de fábrica (0,3 % + 1 dígito contra 1,2 % + 3 dígitos), entrega el peor resultado, porque sus 10 kΩ de entrada contra una R<sub>th</sub> de 1,82 kΩ se comen el <b>15,4 %</b> de la señal. Su intervalo (8,80 ± 0,04) V <b>ni siquiera contiene</b> al valor verdadero de 10,398 V. ▸ El error de carga es <b>sistemático</b> y <b>no está incluido</b> en la incertidumbre declarada por el fabricante. Escribir esa frase, con el número, es la respuesta del ítem.
+</div>
+
+<h3>Parcial 2C2020 · 11-03-2021 · 3ª oportunidad · 3 problemas, 8 ítems</h3>
+
+<table class="tbl">
+  <tr><th>Problema</th><th>Qué toma</th><th>El ítem que decide</th></tr>
+  <tr><td><b>1</b></td><td>Tren de pulsos leído <b>de una grilla</b>: 4 pulsos de 1 división en 14 divisiones. Lectura en VDC, en VAC y con un True-RMS</td><td><b>1a</b>: contar bien el ciclo de trabajo, δ = 4/14 = <b>2/7 = 28,57 %</b>. Y elegir la escala comparando las <b>dos incertidumbres</b>, porque en VAC la escala más sensible tiene <b>peor</b> porcentaje (1,9 % contra 1,5 %)</td></tr>
+  <tr><td><b>2</b></td><td>RC con rama R3+C en paralelo con R2: transitorio con <b>valor inicial no nulo</b>, y el mismo circuito en frecuencia</td><td><b>2a</b>: el capacitor descargado es un <b>cortocircuito</b>, no un abierto. v<sub>R2</sub> arranca en <b>3,333 V</b> y <b>crece</b> hasta 5 V. Y τ = (R3 + R1∥R2)·C = 150 ms</td></tr>
+  <tr><td><b>3</b></td><td>Potencia media, máxima transferencia invertida, y osciloscopio con la <b>masa en el nodo intermedio</b></td><td><b>3c</b>: <b>ningún borne de V1 está a masa</b>. Hace falta medición diferencial CH1−CH2, o declarar explícitamente la hipótesis de generador flotante</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La lección del parcial 2020</div>
+Es el parcial de las <b>hipótesis que no están escritas en el enunciado</b>. Tres ejemplos que la cátedra puntúa y que casi nadie declara: <b>(1)</b> la señal del problema 1 tiene picos de 5 V y la escala elegida es la de 4 V, con fondo 3,999 V — hay que declarar que el instrumento admite esos picos sin saturar, o pasar a la escala de 40 V y contestar (1,43 ± 0,02) V. <b>(2)</b> La fundamental de esa señal es de <b>7,14 Hz</b>, por debajo del límite inferior típico (45 Hz) de un rango VAC; el enunciado lo tapa con «considere suficiente el ancho de banda», y conviene decir que en un instrumento real no sería así. <b>(3)</b> En el problema 3 hay que declarar si el generador es flotante <b>antes</b> de dibujar el banco, porque la respuesta cambia por completo.
+</div>
+
+<h3>Parcial 2C2021 · 20-12-2021 · 2ª oportunidad · 3 problemas, 7 ítems</h3>
+
+<table class="tbl">
+  <tr><th>Problema</th><th>Qué toma</th><th>El ítem que decide</th></tr>
+  <tr><td><b>1</b></td><td><b>UPS</b>: onda cuadrada modificada de tres niveles (±245 V y cero), 50 Hz, medida con un valor medio de 3½ dígitos</td><td><b>1a</b>: la lectura AC da 201,4 V, que <b>no entra</b> en la escala de 200 V (fondo 199,9 V) → escala de 1000 V, y ahí «+2 dígitos» valen <b>2 V</b>. En DC el valor medio es <b>0 V</b> por simetría de media onda, pero los picos de ±245 V obligan igual a la escala de 1000 V</td></tr>
+  <tr><td><b>2</b></td><td>Puente de Wheatstone con la <b>masa en el nodo A</b>, hallar R2 a partir de V<sub>B</sub> = −2 V, potencia, y máxima transferencia</td><td><b>2c</b>: variante topológica pura. <b>R4 no aparece en la expresión de P<sub>R3</sub></b>, así que ningún valor la cambia. La pregunta evalúa si entendiste qué es una fuente ideal</td></tr>
+  <tr><td><b>3</b></td><td>Capacitor en la diagonal del puente: descarga con la fuente <b>desconectada</b>, y respuesta en frecuencia con la fuente senoidal</td><td><b>3a</b>: <b>«desconectar» ≠ «pasivar»</b>. Desconectada, el capacitor se descarga por (R1+R2) ∥ (R3+R4) = 891,6 kΩ; pasivada sería (R1∥R3) + (R2∥R4) = 878,4 kΩ. Los números se parecen y el razonamiento es lo que se corrige</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La lección del parcial 2021</div>
+Es el parcial donde <b>hay que mirar dónde está el triángulo de masa antes de leer los datos</b>. En el problema 2 la masa está en el <b>nodo A</b>, no en el borne negativo de la fuente: por eso «V<sub>B</sub> = −2 V» tiene sentido como tensión de la diagonal. El que no mira el símbolo interpreta V<sub>B</sub> como «la tensión sobre R4», arma la ecuación con 3,95 V y llega a un R2 que no cierra. ▸ Es el mismo mecanismo que en el coloquio 5, donde la masa está en el nodo central. <b>La referencia no siempre está donde la esperás.</b>
+</div>
+
+<h3>Un mapa cruzado: qué parcial mirar según qué te falla</h3>
+
+<table class="tbl">
+  <tr><th>Si lo que no te sale es…</th><th>Andá a</th></tr>
+  <tr><td>Elegir la escala del multímetro y cargar bien el «+ n dígitos»</td><td><b>2018-P2</b> (3½, D = 75 %) · <b>2020-P1</b> (3¾, comparación de escalas) · <b>2021-P1</b> (desborde a la escala de 1000 V)</td></tr>
+  <tr><td>Distinguir valor medio de True-RMS</td><td><b>2019-P4</b> (los dos instrumentos juntos) · <b>2020-P1b</b></td></tr>
+  <tr><td>Efecto de carga del instrumento</td><td><b>2019-P4</b> (−15,4 %) · <b>2018-P3b</b> (corre f<sub>c</sub> +11,6 %)</td></tr>
+  <tr><td>Máxima transferencia en su variante invertida</td><td><b>2018-P1c</b> · <b>2019-P3c</b> · <b>2020-P3b</b></td></tr>
+  <tr><td>Máxima transferencia en su variante topológica</td><td><b>2021-P2c</b></td></tr>
+  <tr><td>La R que ve el capacitor</td><td><b>2018-P3a</b> ((R1∥R2)+R3) · <b>2019-P1</b> (R1∥R2, y después R2 sola) · <b>2020-P2</b> (R3+(R1∥R2)) · <b>2021-P3a</b> (desconectar vs. pasivar)</td></tr>
+  <tr><td>Osciloscopio y masas</td><td><b>2019-P2b</b> (barrido en frecuencia) · <b>2020-P3c</b> (masa en nodo intermedio, 8×10 divisiones)</td></tr>
+  <tr><td>Puente de Wheatstone</td><td><b>2019-P3</b> (precisión numérica) · <b>2021-P2</b> (masa en la diagonal)</td></tr>
+</table>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fiuba-electronica-integrador"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 5 · LOS CINCO COLOQUIOS ============ -->
+<details id="feli-s5">
+<summary><span class="num">5</span> Los cinco coloquios integradores, resueltos <span class="sec-score" id="ss-fiuba-electronica-integrador-5"></span></summary>
+<div class="content">
+
+<p>Los <b>15 problemas</b> de los cinco coloquios del 2C2022, verbatim, con la resolución completa y —a partir del segundo— <b>marcado explícitamente qué cambia respecto del anterior</b>. La topología común y la tabla comparativa están en la <b>sección 3</b>: leela antes.</p>
+
+<div class="key"><div class="ky-t">Cómo resolverlos, que es la mitad del ejercicio</div>
+<b>En orden, del 1 al 5, sin abrir las soluciones hasta terminar cada uno.</b> Y antes de cada cuenta, escribí en la hoja estas tres líneas:<br>
+<b>1.</b> «El corto está en R__, así que los nodos __ y __ son el mismo.»<br>
+<b>2.</b> «Entonces el capacitor (o la carga) ve una resistencia de ____.»<br>
+<b>3.</b> «Y el elemento que tengo que medir es / no es flotante, porque ____.»<br><br>
+Si esas tres líneas están bien, los seis ítems del coloquio salen. Si alguna está mal, salen mal los seis: <b>es el mismo R<sub>th</sub> el que aparece en los tres problemas</b>.
+</div>
+
+<h3>El recorrido, coloquio por coloquio</h3>
+
+<table class="tbl">
+  <tr><th>Coloquio</th><th>Lo nuevo respecto del anterior</th><th>Lo que ese cambio produce</th></tr>
+  <tr><td><b>1</b> · 15-12-2022<br>1ª oportunidad</td><td>—</td><td><b>R₃ = 0</b> pone a V₂ en paralelo con R₂ y <b>clava el nodo D en +4 V</b>. Consecuencias en cadena: la componente continua del nodo C vale <b>−6,00 V</b> (+2 V durante 4 ms y −8 V durante 16 ms, con T<sub>on</sub> = nivel alto; con la convención opuesta daría 0 V exacto, y por eso hay que declararla); R<sub>th</sub> visto por R₂ es 0 Ω y no hay óptimo; la corriente por R₁ no depende de R₂; el capacitor ve R₁∥R₂ = 2 MΩ y τ = 94 µs; y el filtro sobre C es <b>pasa-bajos</b> con meseta 0,5. El ítem 3b es directamente <b>irrealizable</b>: la única salida pasa-altos es sobre R₃, y R₃ vale 0.</td></tr>
+  <tr><td><b>2</b> · 22-12-2022<br>2ª oportunidad</td><td>El corto se muda a <b>R₂</b>. La onda pasa a ±10 V simétrica. La especificación pasa a <b>+2 dígitos</b>. <b>Y el problema 2 repone R₂ = 4 MΩ.</b></td><td>Con R₂ = 0 el nodo D <b>es masa</b> y el circuito se parte en <b>dos mallas independientes</b>: V₁–R₁ y V₂–R₃. R₃ no puede influir sobre R₁ (respuesta: «irrelevante») y R<sub>th</sub> visto por R₁ es 0 Ω (respuesta: «no hay óptimo finito»). ▸ Como el problema 2 <b>repone R₂</b>, el capacitor ve (R₁∥R₂)+R₃ = <b>6 MΩ</b> y τ salta a <b>282 µs</b>, el triple que en el coloquio 1. Y la salida sobre R₃ es un <b>pasa-altos</b> con meseta 1/3.</td></tr>
+  <tr><td><b>3</b> · 09-02-2023<br>3ª oportunidad</td><td>El corto se muda a <b>R₁</b>. Onda −10/+5 V y <b>ciclo de trabajo 80 %</b>. Instrumento de <b>3½</b> dígitos con ±(1 % + 3 dgt). V₂ pasa a 3 V. <b>No</b> repone el resistor.</td><td>Con R₁ = 0 la fuente ideal <b>fija el nodo D</b> y <b>R₂ queda en paralelo con ella</b>: desaparece de todos los cálculos. v<sub>A</sub> = V₁ − 3 V exacto, sin efecto de carga del voltímetro (R<sub>th</sub> = 0). ▸ El capacitor ve <b>sólo R₃ = 4 MΩ</b> → τ = <b>188 µs</b>, y como el escalón completo de 15 V cae sobre R₃, la corriente de pico es <b>3,75 µA</b>, la más alta de los cinco. La salida sobre R₃ es un pasa-altos <b>con meseta 1</b> (no hay atenuador antes).</td></tr>
+  <tr><td><b>4</b> · 16-02-2023<br>4ª oportunidad</td><td>Mismo corto (<b>R₁ = 0</b>) y mismos datos que el 3. Cambia <b>qué se pregunta</b>: se mide sobre R₃ en vez del nodo A, se pide <b>reemplazar R₁</b>, se mide v<sub>R2</sub> en el banco y la salida del filtro es <b>sobre R₂</b>. Y la <b>masa está dibujada en el nodo D</b>.</td><td>El ítem 1a da idéntico al coloquio 3 (es la misma tensión). <b>Pero el 1b cambia de género</b>: al preguntar por R₁ —el resistor cortocircuitado— la respuesta vuelve a ser un <b>número</b>: R<sub>th</sub> = R₂∥R₃ = <b>2 MΩ</b>, con V<sub>th</sub> = V₁ − 1,5 V y P̄ = <b>4,53 µW</b>. ▸ Y el 3a es el ítem más raro del corpus: con R₁ = 0, la transferencia sobre R₂ vale <b>1 a toda frecuencia</b> y <b>no existe frecuencia de corte</b>. La respuesta correcta es denunciar la incompatibilidad.</td></tr>
+  <tr><td><b>5</b> · 23-02-2023<br>5ª oportunidad</td><td><b>No hay ningún corto</b>: R₁ = R₂ = R₃ = 4 MΩ. Ciclo de trabajo vuelve a <b>20 %</b>. Se adopta la <b>masa en el nodo D</b> (el triángulo del dibujo; con el riel como referencia «la tensión en B» sería cero) y V₂ tiene el <b>+ hacia masa</b> (V<sub>A</sub> = −3 V). Se mide el punto <b>B</b> y la salida del filtro es <b>sobre R₁</b>.</td><td>Es el único donde <b>todo interviene</b>. Hay que resolver por <b>nodos</b> con el voltímetro adentro, porque sus 10 MΩ contra 4 MΩ producen un <b>error de carga del −11,8 %</b> que <b>no se suma sino que se compone</b> con el −11,1 % del factor de forma: <b>−21,6 %</b> de error total. ▸ Y es el único donde el ítem 1b tiene la respuesta «de manual»: R₂ = R₁∥R₃ = <b>2 MΩ</b>. ▸ El 3a tiene <b>un cero y un polo casi pegados</b> (423 y 564 Hz): no es un filtro, es un <b>shelf</b> de sólo 2,5 dB.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">El coloquio 4 y el coloquio 3 no son el mismo examen</div>
+Tienen los <b>mismos datos</b> —R₁ = 0, R₂ = R₃ = 4 MΩ, −10/+5 V, 80 %, V₂ = 3 V, 3½ dígitos, ±(1 % + 3 dgt)— y por eso el ítem 1a da exactamente lo mismo: <b>(5,33 ± 0,09) V</b> y <b>(6,00 ± 0,09) V</b>. Pero los otros cinco ítems son distintos porque preguntan por otros elementos. ▸ Es la mejor prueba de que el DESAFÍO no está sólo en los valores: está en <b>qué se pregunta sobre la misma topología</b>. Un cambio de «sobre R₃» a «sobre R₂» convierte un pasa-altos en una recta horizontal.
+</div>
+
+<h3>Las tres respuestas que no son números, y cómo se escriben</h3>
+
+<p>Tres de los cinco ítems 1b y uno de los 3a piden algo que no tiene valor numérico. Como es contraintuitivo, conviene tener las frases armadas:</p>
+
+<div class="example"><div class="ex-t">Caso «no existe un óptimo finito» — coloquios 1, 2 y 3</div>
+«Pasivando las fuentes, la resistencia de Thévenin vista desde los bornes de [la carga] resulta <b>R<sub>th</sub> = 0 Ω</b>, porque [el cortocircuito / la fuente ideal] pone [nodo] directamente a masa. La condición R<sub>L</sub> = R<sub>th</sub> daría R<sub>L</sub> = 0 y P = V<sub>th</sub>²/(4·0) → ∞. Escribiendo la potencia explícitamente, P(R<sub>L</sub>) = V<sub>th,ef</sub>²/R<sub>L</sub>, se ve que es <b>monótona decreciente</b>: crece sin cota cuando R<sub>L</sub> → 0<sup>+</sup> y <b>el supremo no se alcanza</b>. Por lo tanto <b>no existe un valor óptimo finito</b>. El resultado no es físico y la hipótesis responsable es la de <b>fuente ideal</b>; con la R<sub>g</sub> = 50 Ω de un generador real la respuesta sería R<sub>L</sub> = 50 Ω.»
+</div>
+
+<div class="example"><div class="ex-t">Caso «el resistor que me piden es irrelevante» — coloquios 1, 2 y 3</div>
+«Con [el corto], [nodo] queda [a masa / fijado por la fuente ideal], de modo que la corriente por [el resistor que recibe la potencia] vale i = ______ y <b>no contiene a [el resistor incógnita]</b>. Entonces P = ⟨i²⟩·R = ______ µW <b>para cualquier valor de [incógnita] &gt; 0</b>. No existe un valor que la maximice: <b>el dato es irrelevante</b>, y eso es lo que corresponde señalar según la consigna sobre datos sobrantes o incompatibles.» ▸ <b>Y excluí el cero</b>: en el coloquio 1, R₂ = 0 cortocircuitaría la fuente ideal V₂ y el modelo deja de tener solución.
+</div>
+
+<div class="example"><div class="ex-t">Caso «no hay frecuencia de corte» — coloquio 4, ítem 3a</div>
+«Con R₁ = 0 Ω el generador ideal impone su tensión directamente sobre R₂, así que V̂<sub>R2</sub>/V̂ = <b>1 a toda frecuencia</b>: la rama C–R₃ cuelga de un nodo forzado por una fuente ideal y no puede alterar nada. El gráfico es una <b>recta horizontal en 0 dB</b> y <b>no existe frecuencia de corte</b>. El enunciado arrastró el R₁ = 0 del problema 1 sin reponerle valor: lo señalo como incompatibilidad. <b>Hipótesis para poder responder</b>: adopto R₁ = 2 MΩ, el valor hallado en el ítem 1b, que es el único valor de R₁ que el examen provee. Con él la red es un <i>shelf</i> con polo en 635 Hz y cero en 847 Hz, de 0,667 a 0,500 — apenas 2,5 dB de excursión, repartidos en casi dos décadas, así que tampoco es un filtro útil.»
+</div>
+
+<div class="key"><div class="ky-t">Por qué esas respuestas valen más que un número</div>
+Son literalmente lo que el método de evaluación de la cátedra llama «fundamentar las decisiones según los conceptos teóricos». En los tres casos la respuesta correcta <b>exige</b> nombrar el concepto (fuente ideal, cortocircuito, R<sub>th</sub> nula), escribir la expresión de la que se lee la conclusión, y declarar qué hipótesis del modelo se rompió. Un alumno que contesta «2 MΩ» de memoria en el coloquio 1 no puede escribir ninguna de esas tres cosas.
+</div>
+
+<h3>Un chequeo final que se puede hacer en el examen</h3>
+
+<div class="key"><div class="ky-t">Los tres problemas comparten R<sub>th</sub>: usalo como control</div>
+En cada coloquio, <b>la misma resistencia equivalente</b> aparece en el problema 2 (como τ = R<sub>th</sub>·C) y en el problema 3 (como f<sub>c</sub> = 1/(2π·R<sub>th</sub>·C)). Comprobalo antes de entregar:<br>
+Coloquio 1: τ = 94 µs ⟹ f<sub>c</sub> = 1/(2π·94 µs) = <b>1693 Hz</b> ✓<br>
+Coloquios 2 y 5: τ = 282 µs ⟹ f<sub>c</sub> = <b>564 Hz</b> ✓<br>
+Coloquio 3: τ = 188 µs ⟹ f<sub>c</sub> = <b>847 Hz</b> ✓<br><br>
+Si tus dos números no cumplen la relación, <b>uno de los dos está mal y todavía estás a tiempo</b>. En el coloquio 5 el control es más fino: el <b>polo</b> de la transferencia sobre R₁ es 564 Hz, el mismo 1/(2πτ); el <b>cero</b>, en 423 Hz, sale de otra resistencia —(R₂+R₃)·C = 376 µs— y no tiene por qué coincidir.
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fiuba-electronica-integrador"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 6 · CÓMO SE FUNDAMENTA UNA RESPUESTA ============ -->
+<details id="feli-s6">
+<summary><span class="num">6</span> Cómo se fundamenta una respuesta <span class="sec-score" id="ss-fiuba-electronica-integrador-6"></span></summary>
+<div class="content">
+
+<p>El método de evaluación de la cátedra incluye, textualmente, <b>«la fundamentación de las decisiones según los conceptos teóricos de la asignatura»</b>. Y el encabezado de los nueve exámenes lo repite desde el otro lado: <b>«indique todos los razonamientos e hipótesis a los que recurre»</b> y <b>«un error conceptual puede invalidar la respuesta»</b>.</p>
+
+<p>Esta sección es el manual de esa cláusula. No agrega teoría: convierte la teoría que ya sabés en <b>frases que se escriben en la hoja</b>.</p>
+
+<div class="key"><div class="ky-t">Qué es y qué no es fundamentar</div>
+<b>No es</b> escribir más. Una fundamentación son <b>dos renglones</b>: el nombre del resultado teórico y la condición que lo habilita en <i>este</i> circuito.<br>
+<b>No es</b> repetir el enunciado ni narrar la cuenta («reemplazo los valores y opero»).<br>
+<b>Sí es</b> responder, por escrito, a la pregunta que el corrector se hace en cada renglón: <b>«¿por qué tenés derecho a hacer eso acá?»</b>
+</div>
+
+<h3>El molde de tres partes</h3>
+
+<div class="formula">
+<b>[Nombre del resultado]</b> + <b>[la condición que lo habilita en este circuito]</b> + <b>[la consecuencia numérica]</b>
+</div>
+
+<div class="example"><div class="ex-t">El mismo resultado, mal y bien fundamentado</div>
+<b>Mal:</b> «τ = 6 MΩ × 47 pF = 282 µs.»<br><br>
+<b>Bien:</b> «Como el circuito es de <b>primer orden</b> (un solo elemento almacenador), la respuesta es exponencial con una única constante de tiempo, dada por la <b>resistencia de Thévenin vista desde los bornes del capacitor con las fuentes independientes pasivadas</b>. Pasivando V (fuente de tensión → cortocircuito), desde el borne izquierdo de C se ve R₁ ∥ R₂ = 2 MΩ y desde el derecho R₃ = 4 MΩ, en serie: R<sub>th</sub> = <b>6 MΩ</b> y <b>τ = R<sub>th</sub>·C = 282 µs</b>.»<br><br>
+La segunda versión tiene el mismo número y ocupa cuatro renglones más. Pero contiene <b>tres decisiones justificadas</b> —que es de primer orden, que la resistencia se calcula pasivando, y cuál es la topología resultante— y cada una es un renglón que la rúbrica busca.
+</div>
+
+<h3>El catálogo: para cada tipo de resultado, qué lo justifica</h3>
+
+<table class="tbl">
+  <tr><th>Si tu resultado es…</th><th>El concepto que lo sostiene</th><th>Los dos renglones, listos</th></tr>
+  <tr><td>Un <b>equivalente de Thévenin</b></td><td>Teorema de Thévenin: toda red <b>lineal</b> vista desde dos bornes equivale a V<sub>th</sub> en serie con R<sub>th</sub></td><td>«La red es lineal (fuentes independientes y resistores óhmicos), así que admite equivalente de Thévenin desde A–B. V<sub>th</sub> es la tensión <b>a circuito abierto</b> y R<sub>th</sub> la resistencia vista con las fuentes independientes <b>pasivadas</b> (tensión → corto, corriente → abierto).»</td></tr>
+  <tr><td><b>R<sub>L</sub> = R<sub>th</sub></b></td><td>Máxima transferencia, variante directa</td><td>«V<sub>th</sub> y R<sub>th</sub> son <b>fijos</b> y la variable libre es la carga, así que aplica el teorema: dP/dR<sub>L</sub> = V<sub>th</sub>²(R<sub>th</sub>−R<sub>L</sub>)/(R<sub>th</sub>+R<sub>L</sub>)³ se anula en R<sub>L</sub> = R<sub>th</sub>, y ahí es máximo porque la derivada cambia de + a −.»</td></tr>
+  <tr><td><b>R<sub>serie</sub> = 0 Ω</b></td><td>Máxima transferencia, variante invertida — <b>que no es el teorema</b></td><td>«Acá la carga está <b>fija</b> y lo que varía es la resistencia <b>serie de fuente</b>, así que el teorema <b>no aplica</b>. Con P(R<sub>s</sub>) = V²R<sub>L</sub>/(R<sub>s</sub>+R<sub>L</sub>)², dP/dR<sub>s</sub> = −2V²R<sub>L</sub>/(R<sub>s</sub>+R<sub>L</sub>)³ &lt; 0 ∀R<sub>s</sub> ≥ 0: es <b>monótona decreciente</b> y el máximo está en el extremo, <b>R<sub>s</sub> = 0</b>.»</td></tr>
+  <tr><td><b>«Ese resistor no influye»</b></td><td>Fuente ideal / cortocircuito que desacopla ramas</td><td>«Con [R = 0 / la fuente ideal en paralelo], el nodo __ queda fijado y la corriente por __ vale ____, expresión en la que <b>no aparece</b> el resistor por el que se pregunta. Por lo tanto P es la misma para todo valor &gt; 0: el dato es irrelevante.»</td></tr>
+  <tr><td>Una <b>constante de tiempo τ</b></td><td>Circuito de primer orden + R<sub>th</sub> vista por el reactivo</td><td>«Un solo elemento almacenador ⟹ respuesta exponencial con una única τ = R<sub>th</sub>·C, donde R<sub>th</sub> es la resistencia vista desde los bornes del capacitor con las fuentes <b>pasivadas</b>.»</td></tr>
+  <tr><td>Un <b>valor inicial</b> en t = 0<sup>+</sup></td><td>Continuidad de v<sub>C</sub></td><td>«La tensión del capacitor <b>no puede cambiar bruscamente</b> (implicaría corriente infinita): v<sub>C</sub>(0<sup>+</sup>) = v<sub>C</sub>(0<sup>−</sup>) = ___ V. La <b>corriente sí</b> puede saltar, y salta a ___.»</td></tr>
+  <tr><td>Un <b>valor final</b></td><td>Régimen permanente de continua</td><td>«En régimen permanente de continua i<sub>C</sub> = 0, así que el capacitor se comporta como <b>circuito abierto</b> y la red se reduce a ____. Descargado, en cambio, se comporta como <b>cortocircuito</b>.»</td></tr>
+  <tr><td>Una <b>frecuencia de corte</b></td><td>Régimen senoidal permanente + módulo de la transferencia</td><td>«En régimen permanente senoidal trabajo con fasores. f<sub>c</sub> es donde la reactancia iguala a la resistencia total del lazo, |1/(ωC)| = R<sub>th</sub>, o sea donde |H| cae a <b>1/√2 de su meseta</b> (−3 dB) y la fase vale 45°. f<sub>c</sub> = 1/(2πR<sub>th</sub>C) = ___ Hz.»</td></tr>
+  <tr><td>El <b>tipo de filtro</b></td><td>Comportamiento asintótico del capacitor</td><td>«A baja frecuencia X<sub>C</sub> → ∞ y el capacitor es un <b>abierto</b>: la salida vale ___. A alta frecuencia X<sub>C</sub> → 0 y es un <b>cortocircuito</b>: la salida vale ___. Como pasa de ___ a ___, es un <b>pasa-[altos/bajos]</b> de primer orden, con pendiente asintótica de ±20 dB/década.»</td></tr>
+  <tr><td>Una <b>lectura de multímetro en AC</b></td><td>Principio de medición del instrumento</td><td>«El instrumento es <b>de valor medio</b>: rectifica, promedia el módulo y multiplica por el factor de forma de la <b>senoide</b>, π/(2√2) = 1,1107. En modo AC está <b>acoplado en alterna</b>, así que la componente continua queda bloqueada. Lectura = 1,1107·⟨|v<sub>AC</sub>|⟩ = ___ V.»</td></tr>
+  <tr><td>Un <b>error de forma de onda</b></td><td>Factor de forma real vs. de calibración</td><td>«El factor de forma real de esta señal es F = V<sub>ef,AC</sub>/⟨|v<sub>AC</sub>|⟩ = ___, contra 1,1107 para el que el instrumento está calibrado. El error sistemático es 1,1107/F − 1 = ___ %, y <b>no está cubierto por la especificación del fabricante</b>, que rige sólo para señal senoidal.»</td></tr>
+  <tr><td>Una <b>incertidumbre</b></td><td>Especificación del fabricante + resolución de escala</td><td>«Con __ dígitos la cuenta máxima es ____; la lectura de ___ V obliga a la escala de __ V, donde 1 dígito vale ___ V. ΔV = __ % · lectura + __ dígitos = ___ V, redondeado <b>por exceso</b> a la resolución del display.»</td></tr>
+  <tr><td>Un <b>error de carga</b></td><td>El instrumento como divisor de tensión</td><td>«R<sub>V</sub> = ___ queda en paralelo con la red vista desde los bornes, de R<sub>th</sub> = ___. El factor de atenuación es R<sub>V</sub>/(R<sub>V</sub>+R<sub>th</sub>) = ___, o sea un error <b>sistemático</b> de ___ %, que <b>no está incluido</b> en la incertidumbre declarada.»</td></tr>
+  <tr><td>Una <b>potencia media</b> con excitación no senoidal</td><td>Valor cuadrático medio</td><td>«La excitación no es senoidal, así que P̄ = ⟨v²⟩/R con ⟨v²⟩ = D·V<sub>alto</sub>² + (1−D)·V<sub>bajo</sub>². Uso el eficaz <b>total</b> (continua incluida), porque el resistor disipa la señal completa: la continua sólo se descarta en el <b>modo AC del instrumento</b>, no en la potencia.»</td></tr>
+  <tr><td>Un <b>banco de medición</b></td><td>Masa común y medición flotante</td><td>«El elemento es <b>flotante</b>: ninguno de sus bornes está a masa. Generador y osciloscopio comparten la <b>tierra de red</b>, así que apoyar el cocodrilo en un borne del elemento cortocircuitaría ____. Mido <b>diferencialmente</b>: ambos cocodrilos al riel común, CH1 y CH2 en los dos bornes, MATH = CH1 − CH2.»</td></tr>
+</table>
+
+<h3>Las hipótesis que hay que declarar antes de calcular (y casi nadie escribe)</h3>
+
+<p>El encabezado dice «<b>explícitamente antes</b> de hacer los cálculos». Ésta es la lista, tomada de lo que los nueve exámenes efectivamente exigen:</p>
+
+<table class="tbl">
+  <tr><th>Hipótesis</th><th>Por qué hay que declararla</th><th>Qué pasa si es falsa</th></tr>
+  <tr><td><b>Fuentes ideales</b> (R<sub>interna</sub> = 0)</td><td>Es la que produce los casos degenerados R<sub>th</sub> = 0</td><td>Con R<sub>g</sub> = 50 Ω real, «P → ∞» se convierte en un número finito</td></tr>
+  <tr><td><b>Voltímetro ideal o no</b></td><td>Decide si las ramas de un puente son independientes</td><td>Con R<sub>V</sub> finita hay corriente por la diagonal y todo el análisis cambia</td></tr>
+  <tr><td><b>Modo AC = acoplado en alterna</b></td><td>Decide qué componente se mide</td><td>En AC+DC las lecturas de los cinco coloquios serían otras</td></tr>
+  <tr><td><b>Qué es T<sub>on</sub></b> en la figura</td><td>Las figuras de la cátedra son dibujos genéricos reutilizados</td><td>Cambia la potencia media hasta por un factor 3,6 (coloquio 1: 8 µW o 29 µW)</td></tr>
+  <tr><td><b>Capacitor inicialmente descargado</b></td><td>Rara vez está en el enunciado</td><td>Cambia la condición inicial y por lo tanto todo el transitorio</td></tr>
+  <tr><td><b>«10 V·sen(ωt)» es amplitud, no eficaz</b></td><td>Un factor √2 escondido</td><td>La potencia sale al doble</td></tr>
+  <tr><td><b>Ancho de banda y acoplamiento del instrumento</b></td><td>La spec del fabricante vale para senoide en un rango de frecuencia</td><td>Con fundamental de 7 Hz (parcial 2020) un VAC real no mediría bien</td></tr>
+  <tr><td><b>El pico instantáneo entra en la escala</b></td><td>La escala se elige por el valor <b>indicado</b>, pero satura por el valor <b>instantáneo</b></td><td>Parcial 2020: lectura 1,43 V en la escala de 4 V, con picos de 5 V a la entrada</td></tr>
+  <tr><td><b>Generador flotante o con un borne a tierra</b></td><td>Decide si el banco propuesto rompe o no el circuito</td><td>Parcial 2020-3c: cambia por completo la conexión correcta</td></tr>
+  <tr><td><b>Sentido y polaridad de referencia</b></td><td>El parcial 2020 lo pide <b>explícitamente</b> en dos ítems</td><td>Una respuesta numérica sin referencia de signo pierde puntaje aunque el módulo esté bien</td></tr>
+</table>
+
+<h3>Tres fundamentaciones completas, tomadas de exámenes reales</h3>
+
+<div class="example"><div class="ex-t">Ejemplo 1 · Parcial 2018, ítem 1c — la variante invertida</div>
+<b>Consigna:</b> «¿Cuál debería ser el valor de R<sub>Th</sub> para que la potencia disipada sobre R<sub>L</sub> sea la máxima posible?»<br><br>
+<b>Respuesta fundamentada:</b> «Declaro que R<sub>L</sub> = 800 Ω se mantiene fija; si también fuera libre, con R<sub>Th</sub> = 0 y R<sub>L</sub> → 0 la potencia tendería a infinito y el problema carecería de sentido físico. ▸ Con la carga fija, P<sub>L</sub>(R<sub>Th</sub>) = V<sub>Th</sub>²R<sub>L</sub>/(R<sub>Th</sub>+R<sub>L</sub>)², y dP<sub>L</sub>/dR<sub>Th</sub> = −2V<sub>Th</sub>²R<sub>L</sub>/(R<sub>Th</sub>+R<sub>L</sub>)³ &lt; 0 para todo R<sub>Th</sub> ≥ 0: <b>monótona decreciente</b>, sin máximo interior. El máximo está en el extremo del dominio: <b>R<sub>Th</sub> = 0 Ω</b> (fuente de tensión ideal), y ahí P<sub>máx</sub> = V<sub>Th</sub>²/R<sub>L</sub> = 256/800 = <b>0,32 W</b>. ▸ No aplica el teorema de máxima transferencia: ése dice cómo <b>adaptar la carga a una fuente dada</b>, no al revés. Contestar R<sub>Th</sub> = R<sub>L</sub> = 800 Ω daría 0,08 W, la cuarta parte.»<br><br>
+<span class="muted">Qué hace bien: declara la hipótesis que falta, escribe la derivada, dice explícitamente por qué el teorema no aplica, y <b>compara con la respuesta equivocada</b> mostrando que es peor. Eso último es opcional y suma: demuestra que la elección es una decisión, no un descarte.</span>
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo 2 · Parcial 2019, ítem 4d — incertidumbre contra error</div>
+<b>Consigna:</b> «Indicar cuál de las dos mediciones de tensión eficaz total obtiene menor incertidumbre y cuál menor error.»<br><br>
+<b>Respuesta fundamentada:</b> «Son <b>dos preguntas distintas</b> y la respuesta es cruzada. ▸ <b>Menor incertidumbre: el instrumento B</b>, (8,80 ± 0,04) V, 0,45 % relativo, contra 1,5 % de A: su especificación de fábrica es mejor (0,3 % + 1 dígito contra 1,2 % + 3 dígitos). ▸ <b>Menor error: el instrumento A</b>, −0,02 % contra −15,4 %. La razón es el <b>efecto de carga</b>: R<sub>int</sub> de A vale 10 MΩ, unas 5500 veces R<sub>th</sub> = 1,82 kΩ, y prácticamente no perturba; los 10 kΩ de B son sólo 5,5 veces R<sub>th</sub> y le comen el 15,4 % de la señal. ▸ La distinción conceptual: la <b>incertidumbre</b> es lo que el fabricante garantiza sobre la lectura; el <b>error</b> es la diferencia contra el valor verdadero de la magnitud. B da un número muy preciso <b>de una tensión que él mismo modificó</b>. El error de carga es <b>sistemático</b> y no está contemplado en la incertidumbre declarada: por eso (8,80 ± 0,04) V <b>ni siquiera contiene</b> al valor verdadero, 10,398 V.»<br><br>
+<span class="muted">Qué hace bien: separa las dos preguntas antes de contestar, da los números de las dos, nombra el mecanismo (efecto de carga) con la relación de resistencias, define la diferencia conceptual, y cierra con la prueba más contundente —el intervalo no contiene al valor verdadero—.</span>
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo 3 · Coloquio 1, ítem 3b — cuando el enunciado es imposible</div>
+<b>Consigna:</b> «¿Cuál de los capacitores elegiría y dónde mediría la señal de salida?»<br><br>
+<b>Respuesta fundamentada:</b> «La interferencia (50 Hz) está <b>por debajo</b> de la señal útil (1 kHz), así que hace falta un <b>pasa-altos</b>, y en esta topología la única salida pasa-altos es <b>sobre R₃</b> (el capacitor queda en serie con el camino de señal y R₃ a masa). ▸ <b>Pero en este examen R₃ = 0 Ω</b>, con lo cual V̂<sub>A</sub> ≡ 0: esa salida <b>no existe</b>. Las dos salidas disponibles no sirven: sobre C es <b>pasa-bajos</b> y atenúa el 1 kHz más que el 50 Hz, exactamente al revés de lo pedido; y sobre R₁ la transferencia va de 0,5 a 1, o sea <b>como máximo 6 dB</b> de discriminación total, y con C = 47 pF sólo 2,5 dB entre las dos frecuencias. ▸ Por lo tanto <b>el filtrado pedido es imposible con R₃ = 0 Ω</b>, y lo señalo según la consigna sobre datos incompatibles. La condición para poder filtrar es <b>reponer R₃</b>. Repuesto R₃ = 4 MΩ, evalúo los tres capacitores con la transferencia sobre R₃: 1 pF da f<sub>c</sub> = 26,5 kHz con |H(50 Hz)| = 6,3·10<sup>−4</sup> y |H(1 kHz)| = 1,26·10<sup>−2</sup>, o sea <b>26 dB</b> de rechazo, el máximo alcanzable con un solo polo; 1 nF (26,5 Hz) da 1,1 dB y 1 µF (0,027 Hz) da 0 dB, porque en ambos el corte queda <b>por debajo</b> de los 50 Hz. <b>Elijo 1 pF</b>, declarando que la señal útil también cae al 1,26 % y que 1 pF es comparable a las capacidades parásitas del banco.»<br><br>
+<span class="muted">Qué hace bien: empieza por el <b>tipo</b> de filtro necesario antes de mirar los valores, identifica dónde está esa salida, detecta la incompatibilidad y la denuncia, <b>descarta las alternativas con números</b>, repone la condición mínima, evalúa los tres candidatos cuantitativamente y declara el precio de la elección.</span>
+</div>
+
+<h3>El checklist de dos minutos, antes de entregar cada hoja</h3>
+
+<ol>
+  <li>¿Están las <b>hipótesis arriba</b>, antes de la primera cuenta?</li>
+  <li>¿Cada número tiene <b>unidad</b>, y cada lectura de instrumento su <b>incertidumbre</b> con los decimales de la escala?</li>
+  <li>¿Dije <b>por qué</b> el teorema que usé aplica acá, o por qué no aplica el que parecía?</li>
+  <li>¿Marqué el <b>sentido o la polaridad de referencia</b> de toda corriente y tensión que calculé?</li>
+  <li>Si el enunciado pedía <b>dibujar</b> algo, ¿está dibujado? (Sin dibujo, el ítem no está resuelto.)</li>
+  <li>¿Hay algún dato del enunciado que <b>no usé</b>? Si sobra, hay que decir por qué sobra. Si es incompatible, hay que denunciarlo.</li>
+  <li>¿Hice el <b>control cruzado</b>? f<sub>c</sub> = 1/(2πτ); balance de potencia; Q = C·ΔV = i<sub>pico</sub>·τ; el mismo resultado por dos caminos.</li>
+  <li>¿Cada ítem cierra con un <b>renglón de respuesta</b> breve y separado?</li>
+</ol>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ 7 · SIMULACRO ============ -->
+<details id="feli-s7">
+<summary><span class="num">7</span> Simulacro · un integrador completo con su resolución <span class="sec-score" id="ss-fiuba-electronica-integrador-7"></span></summary>
+<div class="content">
+
+<p>Tres problemas nuevos —no están en ninguna fecha real— armados con el <b>esqueleto de los coloquios</b>, que es el formato integrador de esta cátedra: <b>problema 1</b> medición + máxima transferencia, <b>problema 2</b> transitorio RC + banco de medición, <b>problema 3</b> respuesta en frecuencia + elección de filtro. Los cuatro ejes que caen en los nueve exámenes, en la proporción en que caen.</p>
+
+<p>Los valores están elegidos como los elige la cátedra —MΩ, pF, µA, µW— pero <b>a propósito distintos de los cinco coloquios</b>, para que no puedas resolverlo de memoria. Y hay una diferencia deliberada que vale la pena que descubras solo: <b>el ciclo de trabajo es del 30 %</b>, y eso cambia el signo del error del instrumento respecto de los cinco coloquios. <b>Todas las cuentas fueron verificadas con numpy.</b></p>
+
+<pre class="code-block">INTRODUCCIÓN A LA INGENIERÍA ELECTRÓNICA 86.02
+Evaluación Integradora  —  Simulacro
+
+Apellido y Nombres: .....................  Padrón: ..........  Turno de TP: ......
+
+IMPORTANTE: Entregue cada ejercicio en hojas separadas. Indique todos los
+razonamientos e hipótesis a los que recurre. Las condiciones que se creen no
+especificadas deberán ser establecidas explícitamente antes de hacer los
+cálculos. Si hay errores, indíquelos. Si sobran datos o son incompatibles,
+justifique cuáles usa. Expresar correctamente las unidades de medida y las
+incertidumbres, y proponer respuestas breves.
+
+CIRCUITO (los tres problemas comparten la topología):
+
+     C          R1              D          V2 (o C)          A
+     o---------/\/\/\----------o----------|i---------------o
+     |                          |                          |
+    (~)  V1                    [ ] R2                     [ ] R3
+     |                          |                          |
+     o--------------------------o--------------------------o  riel = masa (B)
+
+  V1: borne + arriba (nodo C).   V2: placa larga (+) del lado de D.
+  El riel inferior es el nodo de referencia.
+
+
+Problema 1. Se requiere medir el circuito de la figura suponiendo que
+R1 = 1 MOhm, R2 = 3 MOhm, R3 = 6 MOhm, V1 una señal periódica rectangular
+de período T = 10 ms, Vmin = -4 V, Vmax = 6 V y ciclo de trabajo 30 %
+(Ton/T) y V2 = 2 V. Se dispone de un multímetro de valor medio de 3 1/2
+dígitos con una incertidumbre especificada por el fabricante de
+DeltaV = +-(1,5 % v.m. + 2 dgt.) y RV = 10 MOhm. Suponga que el instrumento
+tiene el ancho de banda suficiente para medir esta señal.
+
+  a) Calcule la tensión en el nodo D que mediría el voltímetro en modo AC
+     con su correspondiente incertidumbre. ¿Qué valor de VAC mediría un
+     multímetro de verdadero valor eficaz (True-RMS) de similares
+     características? Analice similitudes y diferencias.
+
+  b) Determine qué valor debería tomar R2 para que sobre este resistor se
+     transfiera la máxima potencia posible. Indique el valor de la potencia
+     media en R2. ¿Y qué valor debería tomar R1 para que sobre R2 se disipe
+     la máxima potencia?
+
+
+Problema 2. Se modifica el circuito del Problema 1 reemplazando la fuente de
+continua por un capacitor de valor C = 47 pF, como se observa en la figura,
+manteniendo el resto de los valores originales.
+
+  a) Grafique la corriente sobre C en función del tiempo. ¿Cuál es la
+     constante de tiempo del circuito?
+
+  b) Dibuje el banco de medición que utilizaría para poder medir la tensión
+     sobre R1 en función del tiempo. Indique los pasos a seguir para obtener
+     dicha medición. Suposiciones: puede asumir que dispone de cualquiera de
+     los instrumentos del laboratorio, cada uno con sus correspondientes
+     conexiones a tierra en el banco de trabajo.
+
+
+Problema 3. Dado el circuito de la figura, tomando los mismos valores que el
+problema 2, pero con una excitación senoidal V = 3 V sen(wt):
+
+  a) Halle la frecuencia de corte y grafique en forma aproximada (cualitativa)
+     la ganancia del circuito en función de la frecuencia tomando la salida
+     sobre el resistor R3 (V_R3 / V).
+
+  b) Suponiendo que la entrada del circuito es una señal senoidal V de 2 kHz,
+     pero que la misma tiene sumada una interferencia senoidal de 50 Hz que se
+     desea eliminar. Se dispone de capacitores con los siguientes valores de
+     capacitancia: 10 pF, 470 pF, 10 nF. ¿Cuál de los capacitores elegiría y
+     dónde mediría la señal de salida? Justifique su elección.</pre>
+
+<div class="key"><div class="ky-t">Cómo tomártelo</div>
+<b>Dos horas, reloj a la vista, hojas separadas, y las hipótesis arriba de todo.</b> Sin mirar la sección 3 ni la 5. ▸ Antes de calcular nada, escribí las tres líneas del protocolo: dónde está la masa, qué resistencia ve el capacitor, y si el elemento que hay que medir es flotante. ▸ Al terminar, pasá el <b>checklist de ocho puntos</b> de la sección 6 <b>antes</b> de revelar las soluciones. La mitad del valor del simulacro está en descubrir vos mismo cuál de los seis ítems te salió mal.
+</div>
+
+<div class="key"><div class="ky-t">Cómo leer tu resultado</div>
+<table class="tbl">
+<tr><th>Cómo te fue</th><th>Qué significa y qué hacer</th></tr>
+<tr><td><b>6 de 6 ítems</b>, con las hipótesis escritas</td><td>Estás listo. Repasá sólo la sección 6 y el catálogo de fundamentaciones.</td></tr>
+<tr><td><b>5 de 6</b></td><td>Mirá cuál fue: si el que falló fue 1b, volvé a la sección 2 completa. Si fue 2a o 3a, el problema es <b>qué resistencia ve el capacitor</b>, y eso se arregla con la tabla de la sección 3.</td></tr>
+<tr><td><b>Los números bien pero sin hipótesis ni justificación</b></td><td>Es el caso más común y el más peligroso, porque «se siente» aprobado. Con la rúbrica de esta cátedra, media hoja de cuentas correctas sin una hipótesis declarada pierde puntos en todos los ítems a la vez. Sección 6, entera.</td></tr>
+<tr><td><b>3 o menos</b></td><td>No sigas con simulacros. Volvé a los cinco coloquios de la sección 5, en orden y con la hoja tapada, y recién después volvé acá.</td></tr>
+</table>
+</div>
+
+<h3>Los tres controles cruzados de este simulacro</h3>
+
+<p>Antes de revelar, verificá que tus propias respuestas sean coherentes entre sí. Los tres problemas comparten circuito, así que tienen que cerrar:</p>
+
+<table class="tbl">
+  <tr><th>Control</th><th>Qué tiene que dar</th></tr>
+  <tr><td><b>f<sub>c</sub> = 1/(2π·τ)</b></td><td>La τ del problema 2 y la f<sub>c</sub> del problema 3 salen de la <b>misma</b> R<sub>th</sub>. Si τ = 317 µs, f<sub>c</sub> tiene que dar ≈ 502 Hz.</td></tr>
+  <tr><td><b>Q = C·ΔV = i<sub>pico</sub>·τ</b></td><td>La carga que entra al capacitor en cada flanco, calculada de las dos maneras, tiene que dar el mismo número.</td></tr>
+  <tr><td><b>Meseta del filtro por dos caminos</b></td><td>Con C en cortocircuito, la salida sobre R₃ es V·(R₂∥R₃)/(R₁ + R₂∥R₃). Tiene que coincidir con la meseta que te da la fórmula de la transferencia.</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La trampa deliberada del problema 1</div>
+En los cinco coloquios reales el ciclo de trabajo es 20 % u 80 %, y en los dos casos el factor de forma de la componente alterna vale <b>1,25</b>, con lo cual el multímetro de valor medio <b>sub-lee un 11,1 %</b>, siempre. Es tan consistente que se aprende como si fuera una constante de la naturaleza. ▸ Acá el ciclo es del <b>30 %</b>, y el factor de forma es <b>1/(2√(D(1−D))) = 1/(2·0,4583) = 1,091</b>, que es <b>menor</b> que el 1,1107 de la senoide. El instrumento <b>sobre-lee</b>. ▸ Y hay una consecuencia más fina, que es el verdadero punto del ítem: como el error de forma es chico, esta vez <b>los dos intervalos de incertidumbre sí se superponen</b>, y la conclusión del análisis «similitudes y diferencias» es la <b>opuesta</b> a la de los cinco coloquios. Si copiaste la frase «los intervalos no se solapan, es un error sistemático», contestaste el examen anterior.
+</div>
+
+<div class="reveal-wrap" data-rv="7" data-subject="fiuba-electronica-integrador"></div>
+<div class="quiz-wrap" data-qz="7" data-subject="fiuba-electronica-integrador"></div>
+<a class="back" href="#subject-fiuba-electronica-integrador">↑ Volver al índice</a>
+</div>
+</details>
