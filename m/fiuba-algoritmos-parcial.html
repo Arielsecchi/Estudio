@@ -1441,9 +1441,9 @@ Del 1 de julio al 14 de agosto hay <b>cuatro planillas de integrador</b>. Eso no
 No está publicado en el campus, así que <b>no lo vas a leer acá</b>: la nota de corte, si hay promoción sin final, cuánto pesa el integrador frente al parcial, si el examen se rinde en papel o en máquina con compilador, cuánto dura, y si podés llevar material. <b>Preguntalo en la primera clase y anotalo</b>, porque cada una de esas respuestas cambia cómo se estudia. En particular: si es <b>en papel</b>, tenés que poder escribir C sin autocompletado ni compilador que te avise; si es <b>en máquina</b>, lo que decide es la velocidad de compilar-probar-corregir.
 </div>
 
-<h3>El dato de tiempo que sí está publicado, y es el más accionable de todos</h3>
+<h3>El dato de tiempo que sí está publicado, con la tabla completa</h3>
 
-<p>Cinco de las tareas del campus tienen <b>hora de apertura y de cierre en el mismo día</b>. Esa ventana es lo que la cátedra considera que dura escribir, compilar y entregar un ejercicio de ese tipo:</p>
+<p><b>Ocho</b> de las doce tareas tienen <b>hora de apertura y de cierre el mismo día</b>. Van las ocho, sin recortar, porque la tabla recortada cuenta otra historia:</p>
 
 <table class="tbl">
   <tr><th>Tarea</th><th>Apertura</th><th>Cierre</th><th>Ventana</th></tr>
@@ -1452,11 +1452,15 @@ No está publicado en el campus, así que <b>no lo vas a leer acá</b>: la nota 
   <tr><td>Mostrando palabras en orden</td><td>18:20</td><td>18:45</td><td><b>25 min</b></td></tr>
   <tr><td>Ejercicio 3 Archivos - Cargar Alumnos</td><td>18:13</td><td>18:40</td><td><b>27 min</b></td></tr>
   <tr><td>Formato timestamp</td><td>20:30</td><td>21:15</td><td><b>45 min</b></td></tr>
+  <tr><td>Cociente con restas sucesivas</td><td>17:40</td><td>20:00</td><td>2 h 20 min</td></tr>
+  <tr><td>Ejercicio TDA Número Complejo</td><td>17:30</td><td>19:30</td><td>2 h</td></tr>
+  <tr><td>Ejercicio Recursividad</td><td>17:15</td><td>23:00</td><td>5 h 45 min</td></tr>
 </table>
 
-<div class="key"><div class="ky-t">25 minutos por ejercicio: ése es el reloj contra el que hay que entrenar</div>
-Tres de las cinco ventanas son de <b>exactamente 25 minutos</b>, y una cuarta de 27. Ése es el presupuesto real: en 25 minutos hay que <b>leer el enunciado, escribir la función, escribir el main que la invoca, compilar, probar y entregar</b>. No hay tiempo para diseñar desde cero. Por eso la sección 5 de esta guía existe: si reconocés el patrón en los primeros treinta segundos, los 25 minutos alcanzan; si tenés que pensarlo, no.<br><br>
-Los simulacros de las secciones 6 y 7 están cronometrados con este número: <b>25 minutos por ejercicio</b>.
+<div class="key"><div class="ky-t">Qué se puede sostener con esta tabla y qué no</div>
+<b>Lo que se sostiene:</b> hay un grupo de tareas cortas —factorial, nombre y apellido, palabras en orden— con ventanas de <b>exactamente 25 minutos</b>, y una cuarta de 27. Son todas del mismo tipo: <b>una función chica más el main que la invoca</b>. Para ese tipo de ejercicio, 25 minutos es el presupuesto que la cátedra considera suficiente para leer, escribir, compilar, probar y entregar.<br><br>
+<b>Lo que NO se sostiene:</b> que 25 minutos sea "el reloj de la cátedra" a secas. La misma clase del 15/4 dio <b>2 h 20</b> para el cociente por restas sucesivas, y las de recursividad y TDA dieron 2 h y 5 h 45. Las ventanas largas son de tareas que se hacían en casa o durante toda la clase; las cortas, de las que se resolvían en el momento. <b>La ventana mide el tipo de ejercicio, no el ritmo del parcial</b>, y del parcial no hay ningún dato de duración publicado.<br><br>
+Los simulacros de las secciones 6 y 7 usan 25 minutos por ejercicio porque es el número que la cátedra asignó a ejercicios <b>de ese mismo tamaño</b>. Es una analogía razonable, no una regla de la cátedra.
 </div>
 
 <h3>El plan de preparación, en cuatro bloques</h3>
@@ -1531,7 +1535,7 @@ return 0;}</pre>
 <p>Lo que dice el compilador al compilarlo (MSVC, con <span class="code">/W3</span>) y lo que imprime al correrlo:</p>
 
 <div class="example"><div class="ex-t">Salida real</div>
-<pre class="code-block">estilo_mal.c(6): warning C4244: 'return': conversion de 'float' a 'int'; posible perdida de datos
+<pre class="code-block">estilo_mal.c(6): warning C4244: 'return': conversión de 'float' a 'int'; posible pérdida de datos
 Promedio: 7</pre>
 </div>
 
@@ -1610,9 +1614,9 @@ Lo mismo con <span class="code">%d</span> contra <span class="code">%.2f</span>:
 
 <div class="key"><div class="ky-t">Un detalle del compilador que te puede voltear la entrega</div>
 <b>MSVC no acepta arreglos de tamaño variable.</b> Escribir <span class="code">int vector[n];</span> con <span class="code">n</span> leído por teclado compila con gcc (es C99) y <b>no compila con MSVC</b>. Lo probamos:
-<pre class="code-block">vla.c(10): error C2057: se esperaba una expresion constante
-vla.c(10): error C2466: no se puede asignar una matriz de tamano constante 0
-vla.c(10): error C2133: 'vector': tamano desconocido</pre>
+<pre class="code-block">vla.c(10): error C2057: se esperaba una expresión constante
+vla.c(10): error C2466: no se puede asignar una matriz de tamaño constante 0
+vla.c(10): error C2133: 'vector': tamaño desconocido</pre>
 Si el tamaño no se conoce al compilar, la respuesta de esta materia es <b>memoria dinámica</b>: <span class="code">malloc</span>. Y si tu ejercicio no necesita tamaño variable, declarás el arreglo con la constante <span class="code">MAX</span> y llevás el <b>máximo lógico</b> aparte, que es exactamente lo que hace la cátedra en el Tipo Parcial 02.
 </div>
 
@@ -1981,6 +1985,10 @@ El molde <span class="code">% 10</span> / <span class="code">/ 10</span> con acu
 </div>
 
 <p>Cuatro salidas por parámetro, o sea cuatro punteros. Y la validación es parte de la consigna, con el mensaje <b>textual</b>: si lo escribís distinto, no cumpliste.</p>
+
+<div class="trap"><div class="tr-t">La tilde de "inválido": lo que hacemos acá y lo que conviene entregar</div>
+La consigna escribe <i>"Valor ingresado inválido"</i>, <b>con tilde</b>. El programa de abajo imprime <span class="code">"Valor ingresado invalido"</span>, <b>sin tilde</b>, y hay que decir por qué: en la consola de Windows un literal con tilde compilado por MSVC sale como un carácter roto salvo que se acomode la página de códigos, y una salida rota se ve peor que una salida sin tilde. <b>Pero la consigna manda.</b> En tu entrega escribí <span class="code">printf("Valor ingresado inválido\n");</span> tal cual, probalo, y si en tu consola sale mal, dejá un comentario de una línea diciendo que es un problema de codificación de la terminal y no del programa. Lo que no conviene es cambiar el texto de la consigna en silencio, que es exactamente lo que este ejemplo hace por prolijidad de la salida.
+</div>
 
 <pre class="code-block">#include &lt;stdio.h&gt;
 
@@ -2560,6 +2568,29 @@ void armar_pedidos(const t_libro libros[], int cantidad, t_pedido pedidos[], int
             ++(*cant_pedidos);
         }
     }
+}
+
+/*
+ * Pide codigos por teclado y los busca binariamente en el vector, que
+ * ya tiene que estar ordenado por codigo. Termina cuando se ingresa 0.
+ */
+void buscar_e_informar(const t_libro libros[], int cantidad)
+{
+    int codigo;
+    int posicion;
+
+    printf("Codigo a buscar (0 termina): ");
+    codigo = leer_entero();
+    while (codigo != 0) {
+        posicion = buscar_por_codigo(libros, cantidad, codigo);
+        if (posicion &gt;= 0)
+            printf("Encontrado en la posicion %d: %s, de %s\n", posicion,
+                   libros[posicion].titulo, libros[posicion].autor);
+        else
+            printf("No hay ningun libro con codigo %d\n", codigo);
+        printf("Codigo a buscar (0 termina): ");
+        codigo = leer_entero();
+    }
 }</pre>
 
 <p>Y el <span class="code">main</span>, que es sólo el guion de las seis partes en orden:</p>
@@ -2574,6 +2605,7 @@ void armar_pedidos(const t_libro libros[], int cantidad, t_pedido pedidos[], int
     int i;
 
     cargar_libros(libros, &amp;cantidad);
+    printf("\nSe cargaron %d libros.\n", cantidad);
     mostrar_listado(libros, cantidad, "1) LISTADO COMPLETO (orden de carga)");
 
     ordenar_por_titulo(libros, cantidad);
@@ -2646,10 +2678,11 @@ Codigo  Titulo                 Autor                    Precio   Stock
 105     Adan Buenosayres       Leopoldo Marechal      21000.00       7
 
 5) BUSQUEDA BINARIA POR CODIGO
-Codigo a buscar: 103
+Codigo a buscar (0 termina): 103
 Encontrado en la posicion 2: Ficciones, de Jorge Luis Borges
-Codigo a buscar: 777
+Codigo a buscar (0 termina): 777
 No hay ningun libro con codigo 777
+Codigo a buscar (0 termina): 0
 
 6) INFORMES
 a) Libro mas caro: Adan Buenosayres, de Leopoldo Marechal, a 21000.00
@@ -3984,10 +4017,10 @@ registerExercises('fiuba-algoritmos-parcial', '1', [
    c: 1,
    ex: 'Los dos ejercicios que la cátedra bautizó "Tipo Parcial" son de <b>vectores</b> y de <b>funciones con parámetros de salida</b>, y se abrieron <b>tres semanas antes</b> de que se dictaran structs y archivos. Ninguno de los dos usa struct, archivo, recursión ni memoria dinámica. ▸ Es una <b>inferencia sobre las fechas</b>, no una afirmación de la cátedra, y así está dicha en la guía. Pero es la inferencia que ordena el estudio, y por eso esta guía tiene dos simulacros distintos: uno de parcial y uno de integrador.'},
 
-  {st: 'Cinco tareas del campus tienen apertura y cierre el mismo día. ¿Cuánto dura la ventana en tres de ellas?',
-   opts: ['2 horas', 'Exactamente 25 minutos', '10 minutos', 'Toda la clase'],
+  {st: 'Ocho tareas del campus tienen apertura y cierre el mismo día, con ventanas que van de 25 minutos a 5 horas 45. ¿Qué se puede concluir de eso sobre el parcial?',
+   opts: ['Que el parcial dura 25 minutos por ejercicio', 'Nada sobre el parcial: la ventana mide el tamaño del ejercicio, no el ritmo del examen. Sí sirve como referencia de cuánto vale una función chica con su main: 25 minutos', 'Que el parcial dura 5 horas 45', 'Que las ventanas son arbitrarias y no dicen nada'],
    c: 1,
-   ex: 'Factorial (17:40 a 18:05), Recorriendo tu nombre y apellido (17:20 a 17:45) y Mostrando palabras en orden (18:20 a 18:45): <b>25 minutos clavados</b> las tres. La de archivos son 27 y la de timestamp 45. ▸ Es el dato de tiempo más accionable que publica la cátedra: en 25 minutos hay que <b>leer, escribir la función, escribir el main, compilar, probar y entregar</b>. No hay margen para diseñar desde cero, sólo para reconocer el patrón y ejecutarlo. ▸ Por eso los simulacros de esta guía están cronometrados con ese número.'},
+   ex: 'Las ocho ventanas: factorial 25 min, nombre y apellido 25, palabras en orden 25, archivos 27, timestamp 45, cociente <b>2 h 20</b>, TDA <b>2 h</b>, recursividad <b>5 h 45</b>. ▸ Las tres de 25 minutos son todas del mismo tipo —<b>una función chica más el main que la invoca</b>— y ahí el número es una referencia útil de cuánto lleva leer, escribir, compilar, probar y entregar un ejercicio de ese tamaño. ▸ Pero quedarse con esas tres y llamarlas "el reloj de la cátedra" es <b>recortar la tabla para que diga lo que uno quiere</b>: la misma clase del 15/4 dio 2 h 20 para el cociente. ▸ De la duración del <b>parcial</b> no hay ningún dato publicado. Los simulacros de esta guía usan 25 minutos por analogía de tamaño, y así está dicho.'},
 
   {st: 'Hay cuatro planillas de "Integrador" con fechas 01-07, 29-07, 05-08 y 14-08 de 2026. ¿Qué se deduce y qué no?',
    opts: ['Que hay cuatro integradores obligatorios y hay que rendir los cuatro', 'Que existen integradores con fechas propias repartidas en seis semanas; cuántas veces podés presentarte NO está publicado', 'Que el integrador reemplaza al parcial', 'Que los integradores son opcionales'],
@@ -4216,7 +4249,7 @@ registerReveals('fiuba-algoritmos-parcial', '6', [
 
 {st: '<b>SIMULACRO · Ejercicio 2.</b> Devolver el mayor dígito de un entero y cuántas veces aparece, sin usar arreglos. 919293 → 9 y 3.',
  ans: 'Un do-while que pela dígitos con % 10 y / 10, con el mayor inicializado en −1 y el contador que se reinicia en 1 cada vez que aparece un dígito estrictamente mayor.',
- sol: '<pre class="code-block">void mayor_digito(int numero, int *mayor, int *repeticiones)<br>{<br>    int digito;<br><br>    if (numero &lt; 0)<br>        numero = -numero;<br><br>    *mayor = -1;<br>    *repeticiones = 0;<br>    do {<br>        digito = numero % 10;<br>        if (digito &gt; *mayor) {<br>            *mayor = digito;<br>            *repeticiones = 1;<br>        } else if (digito == *mayor) {<br>            ++(*repeticiones);<br>        }<br>        numero = numero / 10;<br>    } while (numero &gt; 0);<br>}</pre>▸ <b>Las tres decisiones que deciden el ejercicio.</b> <b>1 · El mayor arranca en −1</b>, no en 0: si arrancara en 0, un número como 105 nunca "encontraría" el 0 como mayor y el contador quedaría mal. Con −1, cualquier dígito real gana en la primera vuelta. ▸ <b>2 · El contador se reinicia en 1</b> cuando aparece un dígito mayor, no se incrementa. Es el error clásico: <span class="code">++(*repeticiones)</span> en la rama del <span class="code">if</span> hace que el contador acumule apariciones de dígitos distintos. ▸ <b>3 · El <span class="code">else if</span> con <span class="code">==</span></b>, no un segundo <span class="code">if</span> suelto: si el dígito acaba de convertirse en el nuevo mayor, un <span class="code">if (digito == *mayor)</span> independiente lo contaría dos veces. ▸ <b>Salida real:</b><pre class="code-block">25831   -&gt; mayor digito 8, aparece 1 vez/veces<br>919293  -&gt; mayor digito 9, aparece 3 vez/veces<br>0       -&gt; mayor digito 0, aparece 1 vez/veces<br>-4004   -&gt; mayor digito 4, aparece 2 vez/veces</pre>▸ El <b>0</b> sale bien gracias al <span class="code">do-while</span>, y el <b>−4004</b> gracias a la conversión a positivo del principio.'},
+ sol: '<pre class="code-block">void mayor_digito(int numero, int *mayor, int *repeticiones)<br>{<br>    int digito;<br><br>    if (numero &lt; 0)<br>        numero = -numero;<br><br>    *mayor = -1;<br>    *repeticiones = 0;<br>    do {<br>        digito = numero % 10;<br>        if (digito &gt; *mayor) {<br>            *mayor = digito;<br>            *repeticiones = 1;<br>        } else if (digito == *mayor) {<br>            ++(*repeticiones);<br>        }<br>        numero = numero / 10;<br>    } while (numero &gt; 0);<br>}</pre>▸ <b>Las tres decisiones que deciden el ejercicio.</b> <b>1 · El mayor arranca en −1</b>, no en 0, porque el inicializador de un máximo tiene que ser <b>imposible como dato</b> y 0 sí es un dígito posible. Honestidad sobre este punto: lo probamos sobre los enteros de 0 a 999999 y con <span class="code">*mayor = 0</span> <b>no hay ni una diferencia</b>, porque la rama del <span class="code">==</span> cubre el caso. O sea que acá el 0 <i>funciona</i>; el −1 es el que está <b>bien fundado</b>, y es el que sigue andando si mañana tocás el resto del ciclo. ▸ <b>2 · El contador se reinicia en 1</b> cuando aparece un dígito mayor, no se incrementa. Éste sí es un bug de verdad: con <span class="code">++(*repeticiones)</span> en la rama del <span class="code">if</span>, el contador acumula apariciones de dígitos distintos y falla en <b>779.175</b> de los 1.000.000 de casos entre 0 y 999999. El número testigo es <b>4321</b> (da 4 en vez de 1), no 1234: el ciclo pela los dígitos de derecha a izquierda, así que en 1234 el bug queda tapado. ▸ <b>3 · El <span class="code">else if</span> con <span class="code">==</span></b>, no un segundo <span class="code">if</span> suelto: si el dígito acaba de convertirse en el nuevo mayor, un <span class="code">if (digito == *mayor)</span> independiente lo contaría dos veces. ▸ <b>Salida real:</b><pre class="code-block">25831   -&gt; mayor digito 8, aparece 1 vez/veces<br>919293  -&gt; mayor digito 9, aparece 3 vez/veces<br>0       -&gt; mayor digito 0, aparece 1 vez/veces<br>-4004   -&gt; mayor digito 4, aparece 2 vez/veces</pre>▸ El <b>0</b> sale bien gracias al <span class="code">do-while</span>, y el <b>−4004</b> gracias a la conversión a positivo del principio.'},
 
 {st: '<b>SIMULACRO · Ejercicio 3.</b> Dada una frase, devolver por parámetro la palabra más larga y la cantidad de palabras, recorriendo la frase una sola vez y sin <span class="code">strtok</span>.',
  ans: 'Un solo recorrido con una máquina de dos estados: dentro de palabra o fuera. Se lleva el inicio y el largo de la palabra actual, y el inicio y el largo de la mejor hasta el momento. Al final se copia con strncpy y se cierra con el terminador.',
@@ -4230,15 +4263,15 @@ registerExercises('fiuba-algoritmos-parcial', '6', [
    c: 1,
    ex: 'El índice de escritura avanza <b>sólo cuando el elemento se conserva</b>. Si al final vale lo mismo que el máximo lógico original, se conservaron todos y no se eliminó nada. ▸ Un contador aparte funcionaría igual, pero el dato ya está: agregarlo es ruido. ▸ Y la comparación contra una copia violaría "sin arreglo auxiliar", y un primer recorrido para contar violaría "una sola pasada". Las dos restricciones del enunciado apuntan a esta solución.'},
 
-  {st: 'En el ejercicio 2 del simulacro, ¿por qué el mayor dígito se inicializa en −1 y no en 0?',
-   opts: ['Por costumbre', 'Porque con 0 un número como 105 nunca registraría el 0 como mayor en la primera comparación y el contador quedaría mal; con −1 cualquier dígito real gana en la primera vuelta', 'Porque −1 es más rápido', 'Porque el 0 no es un dígito'],
+  {st: 'En el ejercicio 2 del simulacro el mayor se inicializa en −1. Si lo inicializaras en 0, ¿el programa daría mal?',
+   opts: ['Sí, cualquier número con un 0 daría mal', 'No: con este código da igual, porque la rama <span class="code">else if (digito == *mayor)</span> cubre el caso. −1 igual es la elección correcta, por una razón de diseño y no de resultado', 'Sí, sólo el número 0 daría mal', 'No, y por eso da lo mismo cómo lo inicialices'],
    c: 1,
-   ex: 'El inicializador de un acumulador de máximo tiene que ser <b>menor que cualquier valor posible</b>. Los dígitos van de 0 a 9, así que 0 <b>no</b> sirve: es un valor alcanzable. ▸ Con <span class="code">*mayor = 0</span>, en un número como 100 el primer dígito procesado es 0 y la condición <span class="code">digito &gt; *mayor</span> es falsa, así que el contador nunca se pone en 1 y quedaría en 0 aunque el mayor sí sea 0. ▸ Con −1, el primer dígito siempre entra por la rama del <span class="code">if</span> y deja el contador consistente. ▸ La alternativa correcta sería inicializar con el primer dígito antes del ciclo, pero con <span class="code">-1</span> el código queda más corto y sin caso especial.'},
+   ex: 'Lo <b>medimos</b> antes de afirmarlo: corrimos las dos versiones sobre los 1.000.000 de enteros de 0 a 999999 y hay <b>cero diferencias</b>. Con <span class="code">*mayor = 0</span>, 105 devuelve 5 y 1 vez, 100 devuelve 1 y 1 vez, y 0 devuelve 0 y 1 vez: todo correcto. La razón es que la rama <span class="code">else if (digito == *mayor)</span> atrapa el caso del cero inicial. ▸ Entonces, ¿por qué <b>−1</b>? Porque la regla de diseño es que el inicializador de un máximo sea <b>imposible como dato</b>, y 0 <b>es</b> un dígito posible. Que acá funcione es una coincidencia entre el rango de los datos y la forma del <span class="code">if/else if</span>: en cuanto cambies el código —por ejemplo si sacás la rama del <span class="code">==</span>, o si el dato deja de ser un dígito— el 0 rompe y el −1 no. ▸ <b>La moraleja es la interesante:</b> "funciona en todos los casos que probé" no es lo mismo que "es correcto por construcción". Acá las dos versiones funcionan; sólo una está bien fundada.'},
 
   {st: 'En el ejercicio 2, ¿qué pasa si en la rama del dígito mayor escribís <span class="code">++(*repeticiones)</span> en vez de <span class="code">*repeticiones = 1</span>?',
    opts: ['Nada, es lo mismo', 'El contador acumula apariciones de dígitos distintos: cuando aparece un dígito mayor hay que EMPEZAR a contar de nuevo, no seguir sumando', 'El programa se cuelga', 'Cuenta uno de menos'],
    c: 1,
-   ex: 'Es el error central de este ejercicio. Encontrar un dígito <b>mayor</b> invalida todo lo contado hasta ahí: el máximo cambió, así que el contador de ese máximo arranca en <b>1</b>. ▸ Con <span class="code">++</span>, procesando 1234 el contador terminaría en 4 (una por cada dígito, porque cada uno es mayor que el anterior) cuando la respuesta es <b>4 aparece 1 vez</b>. ▸ Y el otro detalle del mismo bloque: la segunda rama tiene que ser <span class="code">else if (digito == *mayor)</span>. Un <span class="code">if</span> suelto contaría dos veces el dígito que acaba de convertirse en el nuevo máximo.'},
+   ex: 'Es el error central de este ejercicio. Encontrar un dígito <b>mayor</b> invalida todo lo contado hasta ahí: el máximo cambió, así que el contador de ese máximo arranca en <b>1</b>. ▸ <b>El número que lo destapa es 4321</b>, no 1234, y la razón es que el ciclo pela los dígitos <b>de derecha a izquierda</b>: en 4321 el orden de procesamiento es 1, 2, 3, 4 y cada uno es mayor que el anterior, así que con <span class="code">++</span> el contador suma en las cuatro vueltas y termina en <b>4</b> cuando la respuesta es <b>4 aparece 1 vez</b>. Con 1234 el orden es 4, 3, 2, 1 y el bug <b>no se ve</b>: da 1, que casualmente es lo correcto. ▸ Lo medimos: entre 0 y 999999 la versión con <span class="code">++</span> difiere de la correcta en <b>779.175</b> de los 1.000.000 de casos. ▸ Y el otro detalle del mismo bloque: la segunda rama tiene que ser <span class="code">else if (digito == *mayor)</span>. Un <span class="code">if</span> suelto contaría dos veces el dígito que acaba de convertirse en el nuevo máximo.'},
 
   {st: 'En el ejercicio 3, el <span class="code">for</span> no tiene condición de corte: <span class="code">for (i = 0; ; i++)</span>. ¿Por qué?',
    opts: ['Es un error', 'Para que el ciclo entre también en la posición del terminador y pueda cerrar la última palabra antes de salir con break', 'Porque la frase puede ser infinita', 'Porque strlen es lento'],

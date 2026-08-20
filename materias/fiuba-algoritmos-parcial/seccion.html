@@ -77,9 +77,9 @@ Del 1 de julio al 14 de agosto hay <b>cuatro planillas de integrador</b>. Eso no
 No está publicado en el campus, así que <b>no lo vas a leer acá</b>: la nota de corte, si hay promoción sin final, cuánto pesa el integrador frente al parcial, si el examen se rinde en papel o en máquina con compilador, cuánto dura, y si podés llevar material. <b>Preguntalo en la primera clase y anotalo</b>, porque cada una de esas respuestas cambia cómo se estudia. En particular: si es <b>en papel</b>, tenés que poder escribir C sin autocompletado ni compilador que te avise; si es <b>en máquina</b>, lo que decide es la velocidad de compilar-probar-corregir.
 </div>
 
-<h3>El dato de tiempo que sí está publicado, y es el más accionable de todos</h3>
+<h3>El dato de tiempo que sí está publicado, con la tabla completa</h3>
 
-<p>Cinco de las tareas del campus tienen <b>hora de apertura y de cierre en el mismo día</b>. Esa ventana es lo que la cátedra considera que dura escribir, compilar y entregar un ejercicio de ese tipo:</p>
+<p><b>Ocho</b> de las doce tareas tienen <b>hora de apertura y de cierre el mismo día</b>. Van las ocho, sin recortar, porque la tabla recortada cuenta otra historia:</p>
 
 <table class="tbl">
   <tr><th>Tarea</th><th>Apertura</th><th>Cierre</th><th>Ventana</th></tr>
@@ -88,11 +88,15 @@ No está publicado en el campus, así que <b>no lo vas a leer acá</b>: la nota 
   <tr><td>Mostrando palabras en orden</td><td>18:20</td><td>18:45</td><td><b>25 min</b></td></tr>
   <tr><td>Ejercicio 3 Archivos - Cargar Alumnos</td><td>18:13</td><td>18:40</td><td><b>27 min</b></td></tr>
   <tr><td>Formato timestamp</td><td>20:30</td><td>21:15</td><td><b>45 min</b></td></tr>
+  <tr><td>Cociente con restas sucesivas</td><td>17:40</td><td>20:00</td><td>2 h 20 min</td></tr>
+  <tr><td>Ejercicio TDA Número Complejo</td><td>17:30</td><td>19:30</td><td>2 h</td></tr>
+  <tr><td>Ejercicio Recursividad</td><td>17:15</td><td>23:00</td><td>5 h 45 min</td></tr>
 </table>
 
-<div class="key"><div class="ky-t">25 minutos por ejercicio: ése es el reloj contra el que hay que entrenar</div>
-Tres de las cinco ventanas son de <b>exactamente 25 minutos</b>, y una cuarta de 27. Ése es el presupuesto real: en 25 minutos hay que <b>leer el enunciado, escribir la función, escribir el main que la invoca, compilar, probar y entregar</b>. No hay tiempo para diseñar desde cero. Por eso la sección 5 de esta guía existe: si reconocés el patrón en los primeros treinta segundos, los 25 minutos alcanzan; si tenés que pensarlo, no.<br><br>
-Los simulacros de las secciones 6 y 7 están cronometrados con este número: <b>25 minutos por ejercicio</b>.
+<div class="key"><div class="ky-t">Qué se puede sostener con esta tabla y qué no</div>
+<b>Lo que se sostiene:</b> hay un grupo de tareas cortas —factorial, nombre y apellido, palabras en orden— con ventanas de <b>exactamente 25 minutos</b>, y una cuarta de 27. Son todas del mismo tipo: <b>una función chica más el main que la invoca</b>. Para ese tipo de ejercicio, 25 minutos es el presupuesto que la cátedra considera suficiente para leer, escribir, compilar, probar y entregar.<br><br>
+<b>Lo que NO se sostiene:</b> que 25 minutos sea "el reloj de la cátedra" a secas. La misma clase del 15/4 dio <b>2 h 20</b> para el cociente por restas sucesivas, y las de recursividad y TDA dieron 2 h y 5 h 45. Las ventanas largas son de tareas que se hacían en casa o durante toda la clase; las cortas, de las que se resolvían en el momento. <b>La ventana mide el tipo de ejercicio, no el ritmo del parcial</b>, y del parcial no hay ningún dato de duración publicado.<br><br>
+Los simulacros de las secciones 6 y 7 usan 25 minutos por ejercicio porque es el número que la cátedra asignó a ejercicios <b>de ese mismo tamaño</b>. Es una analogía razonable, no una regla de la cátedra.
 </div>
 
 <h3>El plan de preparación, en cuatro bloques</h3>
@@ -167,7 +171,7 @@ return 0;}</pre>
 <p>Lo que dice el compilador al compilarlo (MSVC, con <span class="code">/W3</span>) y lo que imprime al correrlo:</p>
 
 <div class="example"><div class="ex-t">Salida real</div>
-<pre class="code-block">estilo_mal.c(6): warning C4244: 'return': conversion de 'float' a 'int'; posible perdida de datos
+<pre class="code-block">estilo_mal.c(6): warning C4244: 'return': conversión de 'float' a 'int'; posible pérdida de datos
 Promedio: 7</pre>
 </div>
 
@@ -246,9 +250,9 @@ Lo mismo con <span class="code">%d</span> contra <span class="code">%.2f</span>:
 
 <div class="key"><div class="ky-t">Un detalle del compilador que te puede voltear la entrega</div>
 <b>MSVC no acepta arreglos de tamaño variable.</b> Escribir <span class="code">int vector[n];</span> con <span class="code">n</span> leído por teclado compila con gcc (es C99) y <b>no compila con MSVC</b>. Lo probamos:
-<pre class="code-block">vla.c(10): error C2057: se esperaba una expresion constante
-vla.c(10): error C2466: no se puede asignar una matriz de tamano constante 0
-vla.c(10): error C2133: 'vector': tamano desconocido</pre>
+<pre class="code-block">vla.c(10): error C2057: se esperaba una expresión constante
+vla.c(10): error C2466: no se puede asignar una matriz de tamaño constante 0
+vla.c(10): error C2133: 'vector': tamaño desconocido</pre>
 Si el tamaño no se conoce al compilar, la respuesta de esta materia es <b>memoria dinámica</b>: <span class="code">malloc</span>. Y si tu ejercicio no necesita tamaño variable, declarás el arreglo con la constante <span class="code">MAX</span> y llevás el <b>máximo lógico</b> aparte, que es exactamente lo que hace la cátedra en el Tipo Parcial 02.
 </div>
 
@@ -617,6 +621,10 @@ El molde <span class="code">% 10</span> / <span class="code">/ 10</span> con acu
 </div>
 
 <p>Cuatro salidas por parámetro, o sea cuatro punteros. Y la validación es parte de la consigna, con el mensaje <b>textual</b>: si lo escribís distinto, no cumpliste.</p>
+
+<div class="trap"><div class="tr-t">La tilde de "inválido": lo que hacemos acá y lo que conviene entregar</div>
+La consigna escribe <i>"Valor ingresado inválido"</i>, <b>con tilde</b>. El programa de abajo imprime <span class="code">"Valor ingresado invalido"</span>, <b>sin tilde</b>, y hay que decir por qué: en la consola de Windows un literal con tilde compilado por MSVC sale como un carácter roto salvo que se acomode la página de códigos, y una salida rota se ve peor que una salida sin tilde. <b>Pero la consigna manda.</b> En tu entrega escribí <span class="code">printf("Valor ingresado inválido\n");</span> tal cual, probalo, y si en tu consola sale mal, dejá un comentario de una línea diciendo que es un problema de codificación de la terminal y no del programa. Lo que no conviene es cambiar el texto de la consigna en silencio, que es exactamente lo que este ejemplo hace por prolijidad de la salida.
+</div>
 
 <pre class="code-block">#include &lt;stdio.h&gt;
 
@@ -1196,6 +1204,29 @@ void armar_pedidos(const t_libro libros[], int cantidad, t_pedido pedidos[], int
             ++(*cant_pedidos);
         }
     }
+}
+
+/*
+ * Pide codigos por teclado y los busca binariamente en el vector, que
+ * ya tiene que estar ordenado por codigo. Termina cuando se ingresa 0.
+ */
+void buscar_e_informar(const t_libro libros[], int cantidad)
+{
+    int codigo;
+    int posicion;
+
+    printf("Codigo a buscar (0 termina): ");
+    codigo = leer_entero();
+    while (codigo != 0) {
+        posicion = buscar_por_codigo(libros, cantidad, codigo);
+        if (posicion &gt;= 0)
+            printf("Encontrado en la posicion %d: %s, de %s\n", posicion,
+                   libros[posicion].titulo, libros[posicion].autor);
+        else
+            printf("No hay ningun libro con codigo %d\n", codigo);
+        printf("Codigo a buscar (0 termina): ");
+        codigo = leer_entero();
+    }
 }</pre>
 
 <p>Y el <span class="code">main</span>, que es sólo el guion de las seis partes en orden:</p>
@@ -1210,6 +1241,7 @@ void armar_pedidos(const t_libro libros[], int cantidad, t_pedido pedidos[], int
     int i;
 
     cargar_libros(libros, &amp;cantidad);
+    printf("\nSe cargaron %d libros.\n", cantidad);
     mostrar_listado(libros, cantidad, "1) LISTADO COMPLETO (orden de carga)");
 
     ordenar_por_titulo(libros, cantidad);
@@ -1282,10 +1314,11 @@ Codigo  Titulo                 Autor                    Precio   Stock
 105     Adan Buenosayres       Leopoldo Marechal      21000.00       7
 
 5) BUSQUEDA BINARIA POR CODIGO
-Codigo a buscar: 103
+Codigo a buscar (0 termina): 103
 Encontrado en la posicion 2: Ficciones, de Jorge Luis Borges
-Codigo a buscar: 777
+Codigo a buscar (0 termina): 777
 No hay ningun libro con codigo 777
+Codigo a buscar (0 termina): 0
 
 6) INFORMES
 a) Libro mas caro: Adan Buenosayres, de Leopoldo Marechal, a 21000.00
