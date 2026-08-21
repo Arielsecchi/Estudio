@@ -6192,13 +6192,13 @@ a * b     = 11.00 - 2.00i
 <h3>De dónde sale este catálogo</h3>
 <p>No es una lista de errores genéricos de C sacada de un libro. Cada entrada viene de uno de dos lugares:</p>
 <ul>
-  <li><b>Las cinco revisiones adversariales</b> que se le hicieron a las soluciones de las guías de esta misma guía (básicos, funciones, arreglos y cadenas, struct y archivos, memoria y recursividad). Un revisor independiente buscó, ejercicio por ejercicio, qué se rompe y con qué entrada. Todo lo que encontró está acá.</li>
+  <li><b>Las cinco revisiones adversariales</b> que se le hicieron a las soluciones de las guías de la cátedra publicadas acá (básicos, funciones, arreglos y cadenas, struct y archivos, memoria y recursividad). Un revisor independiente buscó, ejercicio por ejercicio, qué se rompe y con qué entrada. Todo lo que encontró está acá.</li>
   <li><b>La compilación real.</b> Cada uno de los programas de esta sección fue escrito en un <span class="code">.c</span>, compilado con <b>MSVC de Visual Studio 2022</b> y ejecutado. <b>Las salidas que vas a leer son las salidas que dio el programa</b>, no lo que "debería" pasar. En los casos que abortan, está el código de salida real.</li>
 </ul>
 <p><span class="muted">Un detalle para que puedas reproducirlo: MSVC considera "insegura" a <span class="code">scanf</span> y a <span class="code">strcpy</span> y tira <span class="code">warning C4996</span> (en el IDE, directamente error). Todo lo de esta sección se compiló con <span class="code">cl /nologo /W3 /D_CRT_SECURE_NO_WARNINGS archivo.c</span>. Ese <span class="code">/D</span> apaga el C4996 y no toca ninguno de los warnings que sí importan acá.</span></p>
 
 <div class="key"><div class="ky-t">Lo que aprendí compilando, y que cambia cómo estudiás</div>
-Compilé los cuatro primeros errores de la lista con <span class="code">/W4</span> y hasta con <span class="code">/Wall</span>, que es el nivel de advertencias más alto de MSVC. Resultado:
+Compilé seis errores de la lista con <span class="code">/W4</span> y hasta con <span class="code">/Wall</span>, que es el nivel de advertencias más alto de MSVC. Resultado:
 <table class="tbl">
   <tr><th>Error</th><th>¿MSVC avisa?</th></tr>
   <tr><td><span class="code">if (nota &gt;= 4);</span> con punto y coma</td><td><b>No. Ni con <span class="code">/Wall</span>.</b></td></tr>
@@ -6326,7 +6326,8 @@ strcpy(d.resto, "BASURA");
 strncpy(d.corta, "Hola", 4);       /* 4 caracteres justos: no queda lugar al terminador */
 
 printf("printf(\"%%s\") sobre d.corta imprime: %s\n", d.corta);
-printf("strlen(d.corta) devuelve: %d\n", (int) strlen(d.corta));</pre>
+printf("strlen(d.corta) devuelve: %d\n", (int) strlen(d.corta));
+printf("y d.resto seguia valiendo: %s\n", d.resto);</pre>
 <p><b>Salida real:</b></p>
 <pre class="code-block">printf("%s") sobre d.corta imprime: HolaBASURA
 strlen(d.corta) devuelve: 10

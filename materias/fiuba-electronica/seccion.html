@@ -834,7 +834,9 @@ Si el cálculo dice «R = 100 Ω» y el circuito le pone 12 V encima, el resisto
 
 <p>La ficha de la cátedra (<i>Problemas Ley de Kirchhoff</i>, 3 ejercicios) arranca con una advertencia que conviene tomarse en serio: <i>«recuerde siempre expresar cada magnitud con su unidad (ej: V1 = 2,5 V)»</i>. En esta cátedra un número sin unidad no es una respuesta.</p>
 
-<p><b>Qué trae el bloque de ejercicios a revelar de esta sección:</b> los <b>3 ejercicios de la ficha «Problemas Ley de Kirchhoff»</b> —el 1 con sus tres casos a, b y c— y los <b>Ejercicios 8, 16, 18, 19, 20, 21, 22 y 23 de la «Guía completa de problemas»</b>, es decir el circuito de las dos fuentes de corriente en paralelo y todo el bloque <i>«Tensiones respecto a Tierra»</i>. Los ejercicios 9 a 15 de esa misma guía piden Thévenin y Norton y están resueltos en la sección 7; los 1 y 2, en la sección 3.</p>
+<p><b>Qué trae el bloque de ejercicios a revelar de esta sección:</b> los <b>3 ejercicios de la ficha «Problemas Ley de Kirchhoff»</b> —el 1 con sus tres casos a, b y c— y los <b>Ejercicios 8, 16, 18, 19, 20, 21, 22 y 23 de la «Guía completa de problemas»</b>, es decir el circuito de las dos fuentes de corriente en paralelo y el grueso del bloque <i>«Tensiones respecto a Tierra»</i> (que en la guía de la cátedra va del 16 al 27). Los ejercicios 9 a 15 de esa misma guía piden Thévenin y Norton y están resueltos en la sección 7; los 1 y 2, en la sección 3.</p>
+
+<p><span class="muted"><b>Los que no se repiten acá, y por qué.</b> Del bloque de tierra quedan el <b>17</b> ("obtener la tensión V<sub>A</sub> para los 3 circuitos", del mismo tipo que el 16 que sí está resuelto) y los <b>24 a 27</b>, que son la <b>variante inversa</b> del 23: te dan una tensión medida y piden el valor de la fuente o de un resistor. El 23 está resuelto abajo paso a paso y el método es idéntico en los cuatro: escribís las tensiones de nodo respecto de la masa que elige el dibujo, imponés el dato y despejás. ▸ Y los <b>Ejercicios 3 a 7</b> de la Guía completa —"calcular la tensión y la corriente de R<sub>1</sub> y R<sub>2</sub> para los casos A, B, C y D", con valores que incluyen 0 Ω e ∞— son casos límite de serie y paralelo: el método está en la <b>sección 5</b>, en "Cortocircuito y circuito abierto", y los once ejercicios de la ficha de resistencias equivalentes que se resuelven ahí son exactamente ese tipo.</span></p>
 
 <h3>El vocabulario: nodo, rama y malla</h3>
 
@@ -2580,6 +2582,34 @@ IIE parte de un <b>micrófono electret</b> con un LM324 y termina en un auricula
 BIO parte de <b>electrodos sobre la piel</b> con un <b>INA122</b> y termina en una pantalla: señal biológica, <b>micro</b>volts montados sobre interferencia de red mucho mayor que la señal, ancho de banda de decenas de hertz.<br><br>
 Por eso BIO necesita un amplificador de <b>instrumentación</b> y IIE no: el problema no es amplificar, es amplificar <b>la diferencia</b> descartando lo común. Si en el informe de BIO justificás el INA122 diciendo "porque amplifica mucho", perdiste el punto: amplifica <b>en modo diferencial</b> con alto rechazo de modo común, y esa es toda la razón de que exista.
 </div>
+
+<h3>El operacional, lo mínimo para la clase del 7/9 y para el TPG</h3>
+
+<p>El calendario pone <b>una sola clase</b> de amplificación —el lunes 7/9: "Operacional (básico: modelo ideal), configuraciones básicas (inversor, no-inversor y seguidor), armado de inversor"— y de ahí en adelante el TPG vive de eso: el LM324 en las dos listas, el INA122 en BIO, y la medición del <b>seguidor con divisor a la entrada</b> del 9/11. Los nueve exámenes publicados <b>no traen ningún problema de operacional</b>, así que esto no es material de examen escrito: es lo que hace falta para diseñar y para <b>fundamentar</b> la etapa de entrada. Va acá, corto y sin demostración.</p>
+
+<div class="key"><div class="ky-t">Las dos reglas del operacional ideal, que es todo lo que se usa</div>
+Un operacional ideal tiene ganancia infinita, entradas que no consumen corriente y salida de resistencia cero. <b>Cuando hay realimentación negativa</b> (un camino de la salida a la entrada <b>−</b>) eso se reduce a dos renglones que se escriben antes de cualquier cuenta:<br><br>
+<b>1 · v<sub>+</sub> = v<sub>−</sub></b> — la salida hace lo que haga falta para igualar las dos entradas. Se llama <i>cortocircuito virtual</i>: virtual porque no hay conexión, hay igualdad de tensión.<br>
+<b>2 · i<sub>+</sub> = i<sub>−</sub> = 0</b> — por las entradas no entra corriente, así que toda la corriente que llega por la resistencia de entrada sigue de largo por la de realimentación.<br><br>
+Con esas dos reglas más Kirchhoff (sección 4) salen las tres configuraciones. No hace falta nada más.
+</div>
+
+<table class="tbl">
+  <tr><th>Configuración</th><th>Ganancia</th><th>Signo y R de entrada</th><th>Para qué se usa en el TPG</th></tr>
+  <tr><td><b>No inversor</b><br>señal a la pata +, divisor R<sub>f</sub>–R<sub>1</sub> de la salida a la pata −</td><td>v<sub>o</sub>/v<sub>i</sub> = <b>1 + R<sub>f</sub>/R<sub>1</sub></b></td><td>Positivo (en fase). R de entrada altísima: la fuente casi no se carga</td><td>La ganancia de las etapas posteriores. Con R<sub>f</sub> = 47 kΩ y R<sub>1</sub> = 2,2 kΩ da <b>22,4</b>, que es el número que aparece en el reparto de ganancia del ECG</td></tr>
+  <tr><td><b>Inversor</b><br>señal por R<sub>1</sub> a la pata −, R<sub>f</sub> de la salida a esa misma pata, pata + a masa</td><td>v<sub>o</sub>/v<sub>i</sub> = <b>−R<sub>f</sub>/R<sub>1</sub></b></td><td>Negativo (invierte). R de entrada = <b>R<sub>1</sub></b>, y eso <b>sí</b> carga a la fuente</td><td>Es el que se arma en clase el 7/9. Ganancia menor que 1 posible, cosa que el no inversor no puede</td></tr>
+  <tr><td><b>Seguidor</b> (buffer)<br>salida atada directo a la pata −, señal a la pata +</td><td>v<sub>o</sub>/v<sub>i</sub> = <b>1</b></td><td>Positivo. R de entrada altísima, R de salida ≈ 0</td><td>No amplifica: <b>desacopla</b>. Es el caso R<sub>f</sub> = 0 del no inversor</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Por qué el seguidor existe, si su ganancia es 1: es el efecto de carga de la sección 5</div>
+La medición del 9/11 es "<b>seguidor con divisor a la entrada</b>", y ése es exactamente el experimento: un divisor de <b>10 V con R<sub>1</sub> = R<sub>2</sub> = 1 MΩ</b> vale 5,000 V en vacío, pero leído con un instrumento de 1 MΩ da <b>3,333 V</b>, un −33 % (es la tabla de la sección 5, "Efecto de carga"). Poné un seguidor en el medio y la etapa siguiente ve una fuente de R<sub>salida</sub> ≈ 0: el divisor entrega sus 5 V y la carga los recibe. ▸ Traducido a la fundamentación que pide la cátedra: el seguidor no se justifica "porque sí", se justifica con <b>dos números</b> —lo que da el divisor solo y lo que daría cargado— y el teorema de Thévenin (sección 7) explicando por qué.
+</div>
+
+<div class="trap"><div class="tr-t">Alimentación simple: la ganancia que da la cuenta puede no entrar en la salida</div>
+El LM324 en el TPG se alimenta con <b>una sola fuente</b> (0–5 V del Arduino, o 0–9 V), no con ±V. Consecuencias que hay que escribir en el informe: la señal tiene que ir montada sobre una continua de referencia (típicamente 2,5 V, la mitad del rango del ADC), y la salida <b>no llega a los dos rieles</b> —el LM324 baja hasta prácticamente 0 V pero por arriba se queda alrededor de <b>1,5 V por debajo de la alimentación</b>—. ▸ Una etapa que "satura" no está rota: está pegada contra el riel porque le pediste más excursión de la que hay. Antes de subir la ganancia, calculá la excursión de salida y comparala con el rango disponible. Es el mismo razonamiento del reparto de ganancia del ECG, donde el offset de electrodos de 50 mV es el que fija el techo de la primera etapa.
+</div>
+
+<p><span class="muted"><b>Procedencia de este bloque.</b> El contenido de la clase del 7/9 y la medición del 9/11 salen de la "Planificación - Calendario" de la cátedra. Los modelos y las tres ganancias son el material estándar del libro de la materia (Robbins y Miller) y no material publicado por la cátedra: no hay apunte de operacionales en el campus. Los límites de excursión del LM324 y la fórmula G = 5 + 200 kΩ/R<sub>G</sub> del INA122 salen de las hojas de datos de esos integrados, que la propia bibliografía de la materia manda consultar.</span></p>
 
 <h3>El cronograma clase por clase, mapeado a esta guía</h3>
 
