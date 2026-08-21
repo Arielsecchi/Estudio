@@ -401,7 +401,7 @@ Y el atajo que sigue: el <b>tercer</b> autoespacio es la recta generada por el <
 <div class="key"><div class="ky-t">La forma cerrada que conviene tener memorizada</div>
 <b>Si el autoespacio doble es el plano de normal n y el simple es gen{n}:</b>
 <div class="formula">A = αI + (β − α)·nn<sup>T</sup>/‖n‖<sup>2</sup></div>
-Con n de norma entera (los enunciados eligen [2,−1,2], [1,−1,1], [1,2,2], todos redondos), esto es una matriz por un escalar más una matriz de rango 1. ▸ Chequeo instantáneo: <b>traza(A) = 2α + β</b> y <b>det(A) = α<sup>2</sup>β</b>, sin hacer ninguna cuenta.
+Con ‖n‖<sup>2</sup> entero (los enunciados eligen [2,−1,2] con ‖n‖<sup>2</sup> = 9, y [1,−1,1] o [1,−1,−1] con ‖n‖<sup>2</sup> = 3 — ojo que ‖n‖ en sí no es entera, la que entra en la fórmula es ‖n‖<sup>2</sup>), esto es una matriz por un escalar más una matriz de rango 1. ▸ Chequeo instantáneo: <b>traza(A) = 2α + β</b> y <b>det(A) = α<sup>2</sup>β</b>, sin hacer ninguna cuenta.
 </div>
 
 <div class="example"><div class="ex-t">Hecho completo · 27/VI/24 9hs, ejercicio 4</div>
@@ -484,7 +484,7 @@ rango(A) = 2 dice que <b>dim nul(A) = 1</b>, o sea que <b>0 es autovalor con μ(
 <div class="key"><div class="ky-t">El renglón que resuelve los seis</div>
 Si {v<sub>1</sub>,…,v<sub>n</sub>} es base de autovectores de A con autovalores λ<sub>1</sub>,…,λ<sub>n</sub>, entonces
 <div class="formula">A<sup>k</sup>( Σ<sub>j</sub> c<sub>j</sub>v<sub>j</sub> ) = Σ<sub>j</sub> c<sub>j</sub> λ<sub>j</sub><sup>k</sup> v<sub>j</sub></div>
-O sea: <b>escribís x<sub>0</sub> en la base de autovectores y elevás los autovalores</b>. Nunca multipliques matrices. ▸ El único trabajo del ejercicio es hallar los c<sub>j</sub>, y en los cuatro casos reales la base <b>es ortogonal</b> (porque A es simétrica o es una rotación), así que c<sub>j</sub> = ⟨x<sub>0</sub>, v<sub>j</sub>⟩/‖v<sub>j</sub>‖<sup>2</sup> sin resolver ningún sistema.
+O sea: <b>escribís x<sub>0</sub> en la base de autovectores y elevás los autovalores</b>. Nunca multipliques matrices. ▸ El único trabajo del ejercicio es hallar los c<sub>j</sub>. En el 10/VII/24 y el 4/XII/24 17hs A es simétrica, la base de autovectores sale ortogonal y c<sub>j</sub> = ⟨x<sub>0</sub>, v<sub>j</sub>⟩/‖v<sub>j</sub>‖<sup>2</sup> sin resolver ningún sistema; el 31/VII/24 es una rotación y va por ángulos. <b>Ojo con el cuarto</b>: en el 07/07/25 ej 2, A = [[3,0,−3],[2,2,−2],[−3,0,3]] <b>no</b> es simétrica y sus autovectores no son ortogonales (⟨[0,1,0], [−1,−1,1]⟩ = −1), así que ahí los c<sub>j</sub> salen resolviendo el sistema x<sub>0</sub> = Σc<sub>j</sub>v<sub>j</sub>.
 </div>
 
 <h3>6.1 · "La partícula que recibe impactos"</h3>
@@ -609,7 +609,7 @@ Los tres son el mismo ejercicio con distinta función del autovalor. Si automati
 <b>2 · Calcular det(U). Ese único número decide el tipo:</b>
 <table class="tbl">
   <tr><th>det(U)</th><th>Qué es T</th><th>Qué hay que dar además</th><th>σ(U)</th></tr>
-  <tr><td><b>+1</b></td><td><b>Rotación</b> de ángulo θ alrededor del origen</td><td>El ángulo θ, leído de U = [[cos θ, −sen θ],[sen θ, cos θ]]</td><td>Complejos (salvo θ = 0 o π)</td></tr>
+  <tr><td><b>+1</b></td><td><b>Rotación</b> de ángulo θ alrededor del origen</td><td>El ángulo θ, leído de U = <span class="code">[[cos θ, −sen θ],</span> <span class="code">[sen θ, cos θ]]</span></td><td>Complejos (salvo θ = 0 o π)</td></tr>
   <tr><td><b>−1</b></td><td><b>Simetría</b> (reflexión) respecto de una recta por el origen</td><td>La recta, que es <b>nul(U − I)</b> = el autoespacio de λ = 1</td><td>{1, −1}</td></tr>
 </table>
 "Caracterizar" significa exactamente eso: decir si es rotación o simetría, y dar el ángulo o el eje.
@@ -806,7 +806,7 @@ y entonces <b>M<sup>T</sup>M = [[34,0,10],[0,10,0],[10,0,5]]</b> <i>siempre</i>,
 
 <div class="key"><div class="ky-t">Reconocer una DVS ya hecha · el patrón que aparece en cinco exámenes</div>
 Te dan A escrita como <b>suma de productos exteriores</b> c<sub>1</sub>a<sub>1</sub>b<sub>1</sub><sup>T</sup> + c<sub>2</sub>a<sub>2</sub>b<sub>2</sub><sup>T</sup> + ⋯, o como producto de tres matrices. El procedimiento:<br>
-<b>1.</b> Calculá las normas de todos los a<sub>i</sub> y b<sub>i</sub>. Son enteros redondos: 3, 5, 6, 7, 9.<br>
+<b>1.</b> Calculá las normas de todos los a<sub>i</sub> y b<sub>i</sub>. <b>No siempre salen enteras:</b> en los dos turnos del 4/XII/24 (14 y 17 hs) sí (‖a<sub>i</sub>‖ = 3 y ‖b<sub>i</sub>‖ = 7), pero en el 27/VI/24 9hs salen √6, √3 y √2, en el 26/VI/24 los a<sub>i</sub> tienen norma √5 y en el 4/XII/24 3.<sup>er</sup> turno salen √2 y 6√3. Cuando quedan raíces, no te asustes: se cancelan al armar σ<sub>i</sub>.<br>
 <b>2.</b> Normalizá: u<sub>i</sub> = a<sub>i</sub>/‖a<sub>i</sub>‖, v<sub>i</sub> = b<sub>i</sub>/‖b<sub>i</sub>‖, y el escalar que sobra es <b>σ<sub>i</sub> = c<sub>i</sub>‖a<sub>i</sub>‖‖b<sub>i</sub>‖</b>.<br>
 <b>3. Verificá que {u<sub>i</sub>} sea ortonormal y que {v<sub>i</sub>} sea ortonormal.</b> Si no lo son, <b>no es una DVS</b> y no podés leer nada de ahí.<br>
 <b>4.</b> Reordená de mayor a menor σ. Y si algún σ sale negativo, cambiale el signo al u<sub>i</sub> correspondiente.<br><br>
