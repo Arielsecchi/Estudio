@@ -302,6 +302,8 @@ typedef int t_vector[MAX]</pre>
 <p><span class="muted">Entrega: <span class="code">actividad-02-&lt;tu_padron&gt;.c</span></span></p>
 </div>
 
+<p><span class="muted">Vocabulario, por si lo estás viendo por primera vez: el <b>máximo lógico</b> es la cantidad de elementos <b>efectivamente cargados</b> en el vector. Un arreglo en C sólo sabe cuántos elementos <b>caben</b> (el máximo físico, acá <span class="code">MAX</span>), así que la cantidad cargada es una variable aparte que viaja siempre pegada al vector. Está desarrollado en el <b>Patrón 2 de la sección 5</b>.</span></p>
+
 <h4>Paso 0 · desarmar el enunciado en obligaciones</h4>
 
 <table class="tbl">
@@ -1857,21 +1859,29 @@ Adentro de <span class="code">void f(int vec[])</span>, escribir <span class="co
   <tr><th></th><th>Insertar (el vector crece)</th><th>Eliminar (el vector se achica)</th></tr>
   <tr><td><b>Dirección</b></td><td>De atrás hacia adelante</td><td>De adelante hacia atrás</td></tr>
   <tr><td><b>Por qué</b></td><td>Corrés hacia una posición ya visitada o libre: nunca pisás lo que falta leer</td><td>Escribís siempre <b>detrás</b> de donde leés: el índice de escritura nunca alcanza al de lectura</td></tr>
-  <tr><td><b>Núcleo</b></td><td><pre class="code-block">i = *max_logico - 1;
+  <tr><td><b>Máximo lógico</b></td><td><span class="code">++(*max_logico)</span> al final</td><td><span class="code">*max_logico = escritura</span> al final</td></tr>
+</table>
+
+<p><b>El núcleo de la forma que inserta</b> (el vector crece, se recorre de atrás hacia adelante):</p>
+
+<pre class="code-block">i = *max_logico - 1;
 while (i &gt;= 0 &amp;&amp; vec[i] &gt; valor) {
     vec[i + 1] = vec[i];
     --i;
 }
-vec[i + 1] = valor;</pre></td><td><pre class="code-block">escritura = 0;
+vec[i + 1] = valor;
+++(*max_logico);</pre>
+
+<p><b>El núcleo de la forma que elimina</b> (el vector se achica, se recorre de adelante hacia atrás con dos índices):</p>
+
+<pre class="code-block">escritura = 0;
 for (lectura = 0; lectura &lt; *max_logico; lectura++) {
     if (vec[lectura] != valor) {
         vec[escritura] = vec[lectura];
         ++escritura;
     }
 }
-*max_logico = escritura;</pre></td></tr>
-  <tr><td><b>Máximo lógico</b></td><td><span class="code">++(*max_logico)</span> al final</td><td><span class="code">*max_logico = escritura</span> al final</td></tr>
-</table>
+*max_logico = escritura;</pre>
 
 <div class="key"><div class="ky-t">La versión de eliminar también sirve para filtrar</div>
 Cambiá la condición <span class="code">vec[lectura] != valor</span> por cualquier otra y tenés "borrar los negativos", "dejar sólo los pares", "eliminar los repetidos consecutivos". El esqueleto —dos índices, uno que siempre avanza y otro que avanza sólo cuando el elemento se conserva— es idéntico. Está resuelto en el simulacro de la sección 6.

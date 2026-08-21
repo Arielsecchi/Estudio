@@ -700,6 +700,12 @@
   .content {
     padding: 18px 20px 22px;
     font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
   }
   .content h3 {
     font-size: 15px;
@@ -1540,7 +1546,7 @@ No es un error de esta guía: <b>la tabla del campus tiene los tres casilleros d
   <tr><th>Consigna del encabezado</th><th>Qué te están pidiendo, en concreto</th></tr>
   <tr><td>"Indique todos los <b>razonamientos e hipótesis</b> a los que recurre"</td><td>Escribir <i>antes</i> de la cuenta: "supongo el voltímetro ideal", "supongo régimen permanente", "supongo el ancho de banda suficiente". Sin eso, una cuenta correcta puede valer menos</td></tr>
   <tr><td>"Las condiciones que se creen no especificadas deberán ser <b>establecidas explícitamente antes</b> de hacer los cálculos"</td><td>Si falta un dato, no lo adivines en silencio: declarás el supuesto y seguís</td></tr>
-  <tr><td>"<b>Si hay errores, indíquelos</b>"</td><td>El enunciado puede venir con errores <b>a propósito</b>. Los hay reales: un coloquio está fechado "09-02-2022" cuando corresponde a 2023, y un parcial dice "las preguntas 1, 2, 3 y 4" cuando tiene tres problemas</td></tr>
+  <tr><td>"<b>Si hay errores, indíquelos</b>"</td><td>El enunciado puede venir con errores <b>a propósito</b>. Los hay reales: los coloquios 3, 4 y 5 están fechados "09-02-2022", "16-02-2022" y "23-02-2022" cuando —al ser la 3<sup>ra</sup>, 4<sup>ta</sup> y 5<sup>ta</sup> oportunidad del 2<sup>do</sup> cuatrimestre de 2022— corresponden a febrero de <b>2023</b>; y un parcial dice "las preguntas 1, 2, 3 y 4" cuando tiene tres problemas</td></tr>
   <tr><td>"Si <b>sobran datos o son incompatibles</b>, justifique cuáles usa"</td><td>Hay enunciados que dan más datos de los necesarios. Elegir y justificar es parte del puntaje</td></tr>
   <tr><td>"Expresar correctamente <b>las unidades de medida</b> y <b>las incertidumbres</b>"</td><td>Un número pelado, sin unidad o sin su ±, no está completo. Es la razón de ser de la sección 2 de esta guía</td></tr>
   <tr><td>"Proponer <b>respuestas breves</b>"</td><td>Se corrige la respuesta, no la extensión. Dos carillas de vueltas para llegar a lo mismo restan</td></tr>
@@ -1808,7 +1814,7 @@ De ahí sale el truco para marcar polaridades sin pensar: <b>el + de un resistor
 
 <h3>Qué mide un multímetro y cómo se conecta</h3>
 <table class="tbl">
-  <tr><th>Modo</th><th>Cómo se conecta</th><th>R interna ideal</th><th>R interna típica real</th><th>Qué pasa si lo conectás al revés</th></tr>
+  <tr><th>Modo</th><th>Cómo se conecta</th><th>R interna ideal</th><th>R interna típica real</th><th>Qué pasa si lo conectás en el lugar equivocado</th></tr>
   <tr><td><b>Voltímetro</b></td><td><b>En paralelo</b> con el elemento, sin tocar el circuito</td><td><b>∞</b> (no debe desviar corriente)</td><td>1 MΩ a 10 MΩ</td><td>Nada grave: si va en serie, se abre el circuito y medís casi toda la tensión de la fuente sobre el propio instrumento</td></tr>
   <tr><td><b>Amperímetro</b></td><td><b>En serie</b>: hay que <b>abrir</b> la rama e intercalarlo</td><td><b>0</b> (no debe caer tensión)</td><td>Décimas de ohm (un shunt)</td><td><b>Rompés algo.</b> En paralelo con un elemento es un cortocircuito: quema el fusible del instrumento, y si no lo tiene, el instrumento</td></tr>
   <tr><td><b>Óhmetro</b></td><td>Sobre el componente <b>desconectado</b> del circuito y <b>sin alimentación</b></td><td>—</td><td>Inyecta una corriente conocida y mide la caída</td><td>Con el circuito energizado la lectura no significa nada, y podés dañar el instrumento</td></tr>
@@ -1823,6 +1829,8 @@ La regla, que además explica por qué es así: <b>el voltímetro no tiene que t
 
 <h3>Resistencia interna de los instrumentos y efecto de carga</h3>
 <p>Un voltímetro real tiene una R<sub>int</sub> finita, y al conectarlo queda <b>en paralelo</b> con lo que estabas midiendo. Eso <b>baja</b> la tensión que querías medir: el instrumento modifica el circuito que observa. Y la magnitud del efecto <b>no depende del resistor que medís</b>, sino de la <b>resistencia de Thévenin vista desde los dos puntos de medición</b>.</p>
+
+<p class="muted"><b>R<sub>th</sub>, por ahora, en una línea.</b> Es la resistencia que "ve" el instrumento mirando hacia el circuito desde sus dos puntas, con las fuentes apagadas (las de tensión reemplazadas por un cable, las de corriente por un corte). En un divisor de dos resistores medido sobre cualquiera de los dos, esa resistencia es el <b>paralelo</b> de ambos, y por eso vale la mitad de lo que uno esperaría. El teorema que hay detrás —Thévenin— está demostrado en la <b>sección 7</b>; acá alcanza con saber calcularla así, y las tres formas de hallarla están en esa sección.</p>
 
 <div class="formula">
 V<sub>medida</sub> = V<sub>real</sub> · R<sub>int</sub> / (R<sub>int</sub> + R<sub>th</sub>) &nbsp;&nbsp;&nbsp; error relativo = − R<sub>th</sub> / (R<sub>th</sub> + R<sub>int</sub>)
@@ -2811,7 +2819,7 @@ Es el error más caro de la sección. En el Ej. 8 de la ficha, el Thévenin que 
 
 <h3>Máxima transferencia de potencia</h3>
 
-<p>Es la aplicación directa de Thévenin y una de las dos consignas conceptuales que la cátedra publicó en el campus («Demostrar el teorema de máxima transferencia de potencia»). Acá va la demostración completa.</p>
+<p>Es la aplicación directa de Thévenin y una de las dos consignas conceptuales que la cátedra publicó en el campus («Demostrar el teorema de máxima transferencia de potencia»). La demostración va de nuevo acá, en su lugar natural: en la <b>sección 3</b> se hizo cuando todavía no tenías Thévenin y había que darlo por dado. <span class="muted">Si venís de leer la sección 3 de corrido, la derivada ya la viste: saltá hasta el recuadro «A más resistencia de carga, más potencia», que aplica el teorema a los números del Ejercicio 4 de la ficha. Eso es lo nuevo de acá.</span></p>
 
 <p>Armado el equivalente V<sub>th</sub>–R<sub>th</sub>, colgamos R<sub>L</sub>. La corriente es I = V<sub>th</sub>/(R<sub>th</sub>+R<sub>L</sub>), y la potencia que recibe la carga:</p>
 

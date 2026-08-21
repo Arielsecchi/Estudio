@@ -700,6 +700,12 @@
   .content {
     padding: 18px 20px 22px;
     font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
   }
   .content h3 {
     font-size: 15px;
@@ -1425,7 +1431,7 @@ No se promedia nada. Tres problemas cerrados y dos en blanco <b>aprueba</b>; cin
 <table class="tbl">
 <tr><th>Posición</th><th>Tema dominante</th><th>Frecuencia</th><th>Alternativa cuando no es ése</th></tr>
 <tr><td><b>Ej 1</b></td><td>Subespacios: intersección, suma, suma directa, completar base</td><td><b>15/19 = 79 %</b></td><td>Coordenadas y cambio de base, 4/19</td></tr>
-<tr><td><b>Ej 2</b></td><td>Transformación lineal dada por su matriz entre dos bases</td><td><b>18/19 = 95 %</b></td><td>Proyección/simetría, 1/19</td></tr>
+<tr><td><b>Ej 2</b></td><td>Transformación lineal dada por su matriz entre dos bases</td><td><b>18/19 = 95 %</b></td><td>Proyección o simetría, 1/19</td></tr>
 <tr><td><b>Ej 3</b></td><td>Proyecciones y simetrías en ℝ³</td><td><b>16/19 = 84 %</b></td><td>Ecuación diferencial 2/19; una TL más, 1/19</td></tr>
 <tr><td><b>Ej 4</b></td><td>Producto interno: distancia, mejor aproximación, área</td><td><b>13/19 = 68 %</b></td><td>Fibra de la proyección 5/19; cuadrados mínimos 1/19</td></tr>
 <tr><td><b>Ej 5</b></td><td>Cuadrados mínimos</td><td><b>10/19 = 53 %</b></td><td>Fibra de la proyección 6/19; producto interno 3/19</td></tr>
@@ -1609,7 +1615,7 @@ El subíndice es el <b>grado máximo</b>; la base es {1, x, x², x³}. Este erro
 <div class="example"><div class="ex-t">7/VIII/24, Ej 1 — resuelto en cuatro renglones</div>
 S₁ = {p ∈ ℝ₃[x] : p(1) = p(−1) = 0} = gen{x²−1, x³−x}, dim 2 ▸ S₂ = gen{1+x², 1−x³, 2+3x²}, y el rango de esos tres da 3 ▸ un p ∈ S₂ genérico es a(1+x²) + b(1−x³) + c(2+3x²), e imponerle p(1) = p(−1) = 0 da b = 0 y a = −5c/2, o sea <b>S₁ ∩ S₂ = gen{x²−1}</b>, dim 1 ▸ Grassmann: dim(S₁+S₂) = 2 + 3 − 1 = 4 = dim ℝ₃[x].<br><br>
 Entonces B₀ = {x²−1}; lo extiendo a S₁ con x³−x; lo extiendo a S₂ con 1+x² y 1−x³. La respuesta es<br>
-<b>B = {x²−1, x³−x, 1+x², 1−x³}</b>, y hay que decir explícitamente: {x²−1} es base de S₁∩S₂, {x²−1, x³−x} de S₁, {x²−1, 1+x², 1−x³} de S₂. El determinante de las cuatro ternas de coeficientes da −2 ≠ 0, así que es base de ℝ₃[x]. <span class="muted">(Verificado con sympy.)</span>
+<b>B = {x²−1, x³−x, 1+x², 1−x³}</b>, y hay que decir explícitamente: {x²−1} es base de S₁∩S₂, {x²−1, x³−x} de S₁, {x²−1, 1+x², 1−x³} de S₂. El determinante de los cuatro vectores de coeficientes (en la base {1, x, x², x³}) da −2 ≠ 0, así que es base de ℝ₃[x]. <span class="muted">(Verificado con sympy.)</span>
 </div>
 
 <h3>Formas B y C · el certificado que hay que escribir</h3>
@@ -2469,7 +2475,7 @@ registerExercises('fiuba-algebra-lineal-parcial', '1', [
    ex: 'Esa frase aparece en <b>tres Ej 1 reales</b> y no es decorativa: es media consigna. Hay que decir <b>no es único</b> y <b>construir otro</b>, verificado con el mismo certificado que el primero. ▸ Decirlo sin exhibirlo deja la afirmación sin justificar, y la cátedra avisa que todo resultado no visto en clase hay que justificarlo. ▸ Y no, el ortogonal no es "el" complemento: es uno entre infinitos, depende del producto interno, y en la mayoría de estos ejercicios ni siquiera hay un producto interno dado.'},
 
   {st: 'Ecuaciones diferenciales aparece 4 veces en los 103 ejercicios. ¿Dónde y cuándo?',
-   opts: ['Siempre como Ej 5, y en todos los años', 'Como Ej 3 en las 19 fechas con encabezado, y sólo en 2021, en el 2º recuperatorio de diciembre de 2022 y en los dos exámenes sin fechar (donde cae como Ej 2 y como Ej 4): cero apariciones en los 13 parciales de 2023 y 2024', 'Como Ej 1, en 2023', 'Repartido entre las cinco posiciones'],
+   opts: ['Siempre como Ej 5, y en todos los años', 'Como Ej 3 en las dos fechas con encabezado donde aparece (16/XI/21 y el 2º recuperatorio del 14/XII/22), más los dos exámenes sin fechar (donde cae como Ej 2 y como Ej 4): cero apariciones en los 13 parciales de 2023 y 2024', 'Como Ej 1, en 2023', 'Repartido entre las cinco posiciones'],
    c: 1,
    ex: 'En los exámenes fechados cae siempre en el <b>Ej 3</b>, ocupando el lugar de proyecciones y simetrías (16/XI/21 y 14/XII/22); los dos sin encabezado no respetan el esqueleto y ahí aparece como Ej 4 y como Ej 2. Y el conteo por año es contundente: <b>cero</b> apariciones en las 13 fechas de 2023 y 2024. ▸ Eso lo convierte en lo primero que se resigna si te queda poco tiempo. ▸ Pero si lo estudiás, sabé esto: en las <b>dos</b> ecuaciones no homogéneas del corpus hay <b>resonancia</b>, o sea que la forma natural de la propuesta ya está en la solución homogénea y hay que multiplicarla por x.'},
 
