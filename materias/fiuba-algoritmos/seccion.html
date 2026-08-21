@@ -68,7 +68,7 @@ No está publicado en el campus, y por lo tanto <b>no lo vas a leer acá</b>: la
 <table class="tbl">
   <tr><th>Tarea</th><th>Qué pide</th><th>Nombre de archivo obligatorio</th></tr>
   <tr><td>Ejercicio Struct Librería</td><td>Vector de estructuras, carga con corte, listado, tres ordenamientos, búsqueda binaria, informes</td><td><span class="code">struct-libreria-&lt;tu_padron&gt;.c</span></td></tr>
-  <tr><td>Ejercicio Struct Alumno</td><td>Ídem sobre alumnos</td><td><span class="code">struct-alumno-&lt;tu_padron&gt;.c</span></td></tr>
+  <tr><td>Ejercicio Struct Alumno</td><td>Ídem sobre alumnos. <span class="muted">Ojo: esta tarea <b>no trae enunciado</b> en el campus, sólo el nombre del archivo a entregar; el "ídem" es inferencia nuestra a partir del título</span></td><td><span class="code">struct-alumno-&lt;tu_padron&gt;.c</span></td></tr>
   <tr><td><b>Ejercicio Tipo Parcial 02</b></td><td>Intercalar un entero en un vector <b>ya ordenado</b> de forma que siga ordenado, devolviendo <span class="code">true</span>/<span class="code">false</span>, <b>recorriendo una sola vez</b> y <b>sin arreglo auxiliar</b></td><td><span class="code">actividad-02-&lt;tu_padron&gt;.c</span></td></tr>
   <tr><td><b>Ejercicio Tipo Parcial 03</b></td><td>Función que recibe un entero y devuelve el <b>producto de sus dígitos pares</b> y <b>cuántos</b> procesó (25831 → 16 y 2), <b>sin usar arreglos</b></td><td><span class="code">actividad-03-&lt;tu_padron&gt;.c</span></td></tr>
 </table>
@@ -77,9 +77,9 @@ No está publicado en el campus, y por lo tanto <b>no lo vas a leer acá</b>: la
 Los dos traen una <b>restricción de método</b> además del resultado: "una sola vez", "sin arreglo auxiliar", "sin usar arreglos". No alcanza con que el programa dé bien; tiene que dar bien <b>de la forma pedida</b>. Es la marca registrada de esta cátedra y es lo primero que hay que leer de cualquier enunciado: <b>subrayá la restricción antes de escribir una línea.</b>
 </div>
 
-<p>Las otras ocho están en "Actividades en Clase", ordenadas por tema: <i>Formato timestamp</i>, <i>Función para calcular el cociente con restas sucesivas</i>, <i>Función para calcular el factorial</i>, <i>Recorriendo tu nombre y apellido</i>, <i>Mostrando palabras en orden</i>, <i>Ejercicio 3 Archivos - Cargar Alumnos</i>, <i>Ejercicio Recursividad</i> y <i>Ejercicio TDA Número Complejo</i>. Todas están resueltas en la guía hija.</p>
+<p>Las otras ocho están en "Actividades en Clase", ordenadas por tema: <i>Formato timestamp</i>, <i>Función para calcular el cociente con restas sucesivas</i>, <i>Función para calcular el factorial</i>, <i>Recorriendo tu nombre y apellido</i>, <i>Mostrando palabras en orden</i>, <i>Ejercicio 3 Archivos - Cargar Alumnos</i>, <i>Ejercicio Recursividad</i> y <i>Ejercicio TDA Número Complejo</i>. Todas están resueltas en la guía hija <span class="muted">(las dos últimas, con enunciado propuesto por nosotros y marcado como tal: el campus publica el título de esas dos tareas pero no la consigna)</span>.</p>
 
-<div class="trap"><div class="tr-t">Dos detalles administrativos que cuestan la entrega entera</div>
+<div class="trap"><div class="tr-t">Dos detalles administrativos de esas cuatro entregas que cuestan la entrega entera</div>
 <b>1. El nombre del archivo es parte de la consigna.</b> La cátedra lo escribe con ejemplo incluido: <i>"struct-libreria-101203.c"</i>, y aclara <i>"la extensón debe ser .c"</i> <span class="muted">(el typo es del campus, lo dejamos tal cual)</span>. Subir <span class="code">tp.c</span>, <span class="code">main.c</span> o un <span class="code">.cpp</span> es incumplir la consigna antes de que nadie lea tu código.<br><br>
 <b>2. Tenés 2 intentos.</b> El campus lo dice textual: <i>"Este es el intento 1 (2 intentos permitidos)"</i>. No subas para "ver si anda": <b>compilá y probá antes</b>. Si quemás los dos intentos con código que no compila, no hay tercero.
 </div>
@@ -1789,7 +1789,7 @@ La mejor nota es 9.25 y es del legajo 118742</pre>
 Y la disciplina que hace que esto no explote: <b>toda alta, baja o intercambio se hace en todos los arreglos a la vez</b>. Si ordenás <span class="code">notas</span> y te olvidás de mover <span class="code">legajos</span>, quedan cruzados y el programa sigue funcionando, mintiendo.
 </div>
 
-<h3>El ejercicio 8 de Vectores, que es el que más se parece a un parcial</h3>
+<h3>Los ejercicios 7 y 8 de Vectores, que son los que más se parecen a un parcial</h3>
 <p>Dos consignas juntas que aparecen una y otra vez: <b>"resolver recorriendo una sola vez el vector"</b> y <b>"sin utilizar un arreglo auxiliar"</b>. Aparecen en el 7, en el 8, y también en la tarea del campus llamada "Ejercicio Tipo Parcial 02". Traducción:</p>
 
 <table class="tbl">
@@ -1919,7 +1919,7 @@ for (i = 0; i &lt; largo; i++)
 
 <div class="trap"><div class="tr-t">Nunca <span class="code">for (i = 0; i &lt; strlen(cadena); i++)</span></div>
 <span class="code">strlen</span> no es un dato guardado: <b>es una función que recorre la cadena entera contando</b> hasta el terminador. Ponerla en la condición del <span class="code">for</span> la ejecuta en <b>cada vuelta</b>, y un recorrido que debía costar N pasa a costar N². Con cadenas cortas ni se nota; con una de 100.000 caracteres el programa parece colgado.<br><br>
-Y en los ejercicios donde el enunciado dice "<b>no recorrer la cadena más de una vez</b>" —el 3, el 4, el 5, el 7 y el 8 de esta guía lo dicen— llamar a <span class="code">strlen</span> adentro del ciclo es exactamente lo que la consigna prohíbe. Guardalo en una variable, o usá la forma 1 y no llames a <span class="code">strlen</span> en absoluto.
+Y en los ejercicios donde el enunciado dice "<b>no recorrer la cadena más de una vez</b>" —el 3, el 4 y el 5 de esta guía lo dicen con esas palabras, y el 7 y el 8 lo dicen como "evitar realizar ciclos innecesarios"— llamar a <span class="code">strlen</span> adentro del ciclo es exactamente lo que la consigna prohíbe. Guardalo en una variable, o usá la forma 1 y no llames a <span class="code">strlen</span> en absoluto.
 </div>
 
 <h3>Leer una cadena del teclado: <span class="code">gets</span>, <span class="code">scanf</span> y <span class="code">fgets</span></h3>
@@ -3514,7 +3514,7 @@ El otro: comparar la clave con <span class="code">==</span> cuando es una <b>cad
 <div class="content">
 
 <h3>Qué publica la cátedra sobre este tema, exactamente</h3>
-<p>La pestaña <b>Recursividad</b> del campus tiene cuatro cosas y ninguna más: la presentación <i>Recursividad - Conceptos</i> de Diego Serra, el <b>capítulo 14</b> de <i>Fundamentos de programación</i> de Joyanes Aguilar como bibliografía, la <b>Guía Recursividad (2024_v2)</b> con <b>15 ejercicios</b>, y una carpeta <i>Ejemplos</i> con <b>seis programas en C</b>:</p>
+<p>La pestaña <b>Recursividad</b> del campus tiene tres cosas y ninguna más: la presentación <i>Recursividad - Conceptos</i> de Diego Serra, el <b>capítulo 14</b> de <i>Fundamentos de programación</i> de Joyanes Aguilar como bibliografía, y una carpeta <i>Ejemplos</i> con <b>seis programas en C</b>. La cuarta pieza del tema vive aparte, en la sección <i>Guías de Ejercicios</i>: la <b>Guía Recursividad (2024_v2)</b>, con <b>15 ejercicios</b>:</p>
 
 <table class="tbl">
   <tr><th>Ejemplo de la cátedra</th><th>Qué te enseña</th><th>Dónde está resuelto acá</th></tr>
@@ -3822,7 +3822,7 @@ Con <span class="code">sumar_digitos(-4703)</span>, el caso base <span class="co
 <div class="content">
 
 <h3>Qué publica la cátedra sobre este tema</h3>
-<p>Es la pestaña con más material propio de toda la materia: <b>dos presentaciones</b> de Diego Serra y Gustavo Bianchi (<i>Parte 1 - Conceptos</i> y <i>Parte 2 - Funciones</i>), un <b>apunte de 12 páginas</b> sobre memoria dinámica y punteros, <b>cinco ejemplos numerados</b> en C, una presentación sobre <b>Valgrind</b>, y la <b>Guía de Ejercicios de Memoria Dinámica (2024_v1)</b> con <b>10 ejercicios</b> y un anexo con el <span class="code">struct t_alumno</span>.</p>
+<p>Es la pestaña con más material propio de toda la materia: <b>dos presentaciones</b> de Diego Serra y Gustavo Bianchi (<i>Parte 1 - Conceptos</i> y <i>Parte 2 - Funciones</i>), un <b>apunte de 12 páginas</b> sobre memoria dinámica y punteros, <b>cinco ejemplos numerados</b> en C y una presentación sobre <b>Valgrind</b>. La guía del tema, como todas, está en la sección <i>Guías de Ejercicios</i>: la <b>Guía de Ejercicios de Memoria Dinámica (2024_v1)</b>, con <b>10 ejercicios</b> y un anexo con el <span class="code">struct t_alumno</span>.</p>
 
 <div class="trap"><div class="tr-t">Como Recursividad: cero videos</div>
 Los <b>26 videos</b> de la cátedra cubren Introducción, Funciones, Arreglos, Cadenas, Archivos y Archivos de Texto. <b>Memoria Dinámica no tiene ninguno.</b> Es el último tema de la materia, el más abstracto y el único que se estudia leyendo. Presupuestá tiempo extra.
@@ -4168,7 +4168,7 @@ El apunte de la cátedra escribe <span class="code">int *p = (int *) malloc(size
 <div class="content">
 
 <h3>Qué publica la cátedra de este tema, exactamente</h3>
-<p>La sección <b>"Ordenamiento y Búsqueda"</b> del Aula Virtual tiene <b>cinco archivos y nada más</b>:</p>
+<p>La pestaña <b>"Ordenamiento y Búsqueda"</b> de la sección "Lenguaje C" del campus tiene <b>cinco archivos y nada más</b>:</p>
 
 <table class="tbl">
   <tr><th>Archivo del campus</th><th>Qué trae</th></tr>
@@ -4180,7 +4180,7 @@ El apunte de la cátedra escribe <span class="code">int *p = (int *) malloc(size
 </table>
 
 <div class="key"><div class="ky-t">Dos cosas verificadas que conviene tener claras antes de empezar</div>
-<b>1. Este tema no tiene videos.</b> Los videos de Bianchi del Aula Virtual cubren <b>seis</b> secciones: Introducción, Funciones, Arreglos, Cadenas, Archivos y Archivos de Texto. Las otras cuatro —<b>Ordenamiento y Búsqueda</b>, Struct, Recursividad y Memoria Dinámica— <b>no tienen ninguno</b>. Si esperabas que alguien te explicara el burbujeo hablando, no está: está el PDF y están los cuatro <span class="code">.c</span>.<br><br>
+<b>1. Este tema no tiene videos.</b> Los videos de Bianchi del campus cubren <b>seis</b> de las diez pestañas de "Lenguaje C": Introducción, Funciones, Arreglos, Cadenas, Archivos y Archivos de Texto. Las otras cuatro —<b>Ordenamiento y Búsqueda</b>, Struct, Recursividad y Memoria Dinámica— <b>no tienen ninguno</b>. Si esperabas que alguien te explicara el burbujeo hablando, no está: está el PDF y están los cuatro <span class="code">.c</span>.<br><br>
 <b>2. Ninguna de las 9 guías de ejercicios pide "ordená este vector con burbujeo".</b> Ni una. Lo que sí piden las guías es lo que <i>rodea</i> al ordenamiento: mantener un vector ordenado (Vectores 7), <b>verificar</b> si lo está (Vectores 8), <b>intercalar</b> dos ordenados (Vectores 9) y <b>buscar</b> lineal y binariamente (Vectores 10 y 11). El ordenamiento propiamente dicho aparece como <b>medio</b> en la tarea del campus "Ejercicio Struct Librería", que pide tres ordenamientos y después una binaria.
 </div>
 
@@ -4642,7 +4642,7 @@ La primera línea es la búsqueda hecha bien: se ordenó por legajo y después s
 
 <h3>TDA: tipo de dato abstracto</h3>
 <div class="key"><div class="ky-t">De dónde sale lo que sigue</div>
-La cátedra publica una actividad llamada <b>"TDA"</b> y una tarea llamada <b>"Ejercicio TDA Número Complejo"</b> en la sección "Memoria / Recursividad / TDA" del campus, pero <b>no publica ni la consigna ni material teórico de TDA</b>, y no hay ningún ejercicio de TDA en las 9 guías. Lo que sigue es <b>construcción nuestra</b> a partir del título de esa tarea, con la convención de código de la cátedra. Está compilado y corrido, pero no es palabra de la cátedra.
+La cátedra publica una actividad llamada <b>"TDA"</b> y una tarea llamada <b>"Ejercicio TDA Número Complejo"</b> en la sección "Memoria / Recursividad / TDA" del campus, pero <b>no publica ni la consigna ni material teórico de TDA</b>, y no hay ningún ejercicio de TDA en las 9 guías. Lo que sigue es <b>construcción nuestra</b> a partir del título de esa tarea, con la convención de código de la cátedra. Está compilado y corrido, pero no es palabra de la cátedra. <span class="muted">La guía hija resuelve la misma tarea del campus en un solo archivo, con resta, división y conjugado además de esto; acá va partido en <span class="code">.h</span> + <span class="code">.c</span> para ver la separación entre interfaz e implementación.</span>
 </div>
 
 <p>Un <b>tipo de dato abstracto</b> es un tipo definido por <b>qué operaciones se le pueden hacer</b>, no por cómo está guardado. La diferencia con un <span class="code">struct</span> pelado es de disciplina: en un TDA el que usa el tipo <b>no toca los campos</b>, sólo llama funciones.</p>
