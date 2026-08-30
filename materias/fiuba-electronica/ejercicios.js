@@ -72,18 +72,18 @@ registerExercises('fiuba-electronica', '1', [
 ,
   {st: 'La presentación del primer día (parte a) lista los instrumentos de evaluación y describe cómo se corrige el examen. Según esa diapositiva, ¿qué pasa después de que entregás el examen?',
    opts: ['Nada más: la nota sale de lo que entregaste ese día',
-          'Hay dos entregas más con vencimiento: la Corrección #1, que subís al campus indicando errores y solución correcta, y la Corrección #2, después de discutir los problemas en el aula en dos rondas',
           'Se puede recuperar una única vez, rindiendo el mismo examen en la fecha siguiente',
-          'Se corrige en el aula y el docente sube la versión corregida al campus'],
-   c: 1,
-   ex: 'La diapositiva "¿Cómo es el examen?" describe un circuito de tres tiempos. &#9656; <b>El día del examen</b>: resolución individual, se entrega y <b>se sacan fotos que se suben al campus</b>. &#9656; <b>Corrección #1</b>: "antes de la siguiente fecha debe subirse al campus la corrección del examen indicando los errores y la solución correcta". &#9656; <b>Corrección #2</b>: "en el aula se discuten los problemas en dos rondas para determinar las mejores soluciones", y antes de la siguiente fecha se sube "la última versión del examen con todas las correcciones anteriores". &#9656; La primera opción es la lógica de un parcial clásico y es justo lo que esta cátedra no hace: el examen "forma parte del proceso de aprendizaje". &#9656; La tercera confunde corrección con recuperatorio: los recuperatorios existen (2/11 y 3/12) pero son otra cosa. &#9656; La cuarta invierte quién corrige: la corrección la escribís vos, y eso es lo que se evalúa, porque el criterio de la página de evaluación es "cómo los estudiantes mejoraron los aspectos señalados por los docentes".'},
+          'Se corrige en el aula y el docente sube la versión corregida al campus',
+          'Hay dos entregas más con vencimiento: la Corrección #1, que subís al campus indicando errores y solución correcta, y la Corrección #2, después de discutir los problemas en el aula en dos rondas'],
+   c: 3,
+   ex: 'La diapositiva "¿Cómo es el examen?" describe un circuito de tres tiempos. &#9656; <b>El día del examen</b>: resolución individual, se entrega y <b>se sacan fotos que se suben al campus</b>. &#9656; <b>Corrección #1</b>: "antes de la siguiente fecha debe subirse al campus la corrección del examen indicando los errores y la solución correcta". &#9656; <b>Corrección #2</b>: "en el aula se discuten los problemas en dos rondas para determinar las mejores soluciones", y antes de la siguiente fecha se sube "la última versión del examen con todas las correcciones anteriores". &#9656; "La nota sale de lo que entregaste ese día" es la lógica de un parcial clásico y es justo lo que esta cátedra no hace: el examen "forma parte del proceso de aprendizaje". &#9656; La opción del recuperatorio confunde corrección con segunda fecha: los recuperatorios existen (2/11 y 3/12) pero son otra cosa. &#9656; Y la de "el docente sube la versión corregida" invierte quién corrige: la corrección la escribís vos, y eso es lo que se evalúa, porque el criterio de la página de evaluación es "cómo los estudiantes mejoraron los aspectos señalados por los docentes".'},
 
   {st: 'El cuestionario "Tensión-Corriente-Ley de Ohm" de la pestaña Cuestionarios abrió el jueves 27/8 a las 19:10 y cerró a las 19:25, con 1 intento, 15 minutos de límite y revisión no permitida. ¿Qué conclusión operativa se saca de esos datos?',
    opts: ['Que es una autoevaluación optativa para practicar antes del parcial',
-          'Que se toma en clase, sobre el material que había que leer antes, sin segunda oportunidad y sin poder repasarlo después',
           'Que se puede rendir desde casa en cualquier momento de esa semana',
+          'Que se toma en clase, sobre el material que había que leer antes, sin segunda oportunidad y sin poder repasarlo después',
           'Que reemplaza al parcial del 19/10'],
-   c: 1,
+   c: 2,
    ex: 'Cada dato dice algo. &#9656; <b>19:10 a 19:25 de un día de clase</b>, sobre una clase que empieza 19:00: se toma <b>en el aula, al principio</b>. &#9656; <b>1 intento y 15 minutos</b>: no hay práctica ni reintento. &#9656; <b>Revisión no permitida</b>: terminado el cuestionario no se puede volver a ver, así que no sirve como material de estudio posterior. &#9656; El tema (tensión, corriente y ley de Ohm) es el de las <b>dos clases anteriores</b>, es decir el material del Módulo 1 que la cátedra pide "leer y ver antes de la clase". &#9656; La calificación para aprobar es <b>5,00 de 10,00</b>, o sea que está calificado: entra en las "actividades obligatorias con vencimiento, con calificación" de la presentación. &#9656; No reemplaza nada: la lista de instrumentos de evaluación incluye por separado los ejercicios, el examen parcial y la integradora.'}
 
 ]);
@@ -203,10 +203,10 @@ registerExercises('fiuba-electronica', '2', [
 ,
   {st: 'Medís V = 2,40 V con &Delta;V = 0,022 V (0,92 %) e I = 0,428 mA con &Delta;I = 0,0063 mA (1,47 %), y calculás R = V/I = 5,61 k&Omega;. Aplicando el método del apunte "Mediciones e incertidumbres" de la cátedra, ¿cuánto vale la incertidumbre relativa de R?',
    opts: ['2,4 %, sumando las relativas',
-          '1,73 %, combinando las relativas en cuadratura',
           '0,55 %, restando las relativas',
+          '1,73 %, combinando las relativas en cuadratura',
           'No se puede calcular sin conocer el valor verdadero de R'],
-   c: 1,
+   c: 2,
    ex: 'El apunte usa el <b>método GUM</b>: &Delta;y = &radic;( &Sigma; [(&part;f/&part;x<sub>i</sub>)&middot;&Delta;x<sub>i</sub>]<sup>2</sup> ) (Ec. 4). Para R = V/I (Ec. 5) queda &Delta;R = &radic;( ((1/I)&Delta;V)<sup>2</sup> + ((&minus;V/I<sup>2</sup>)&Delta;I)<sup>2</sup> ) (Ec. 6), y dividiendo por R = V/I se simplifica en <b>&Delta;R/R = &radic;( (&Delta;V/V)<sup>2</sup> + (&Delta;I/I)<sup>2</sup> )</b>. &#9656; Con los números: &radic;(0,92<sup>2</sup> + 1,47<sup>2</sup>) = &radic;(0,846 + 2,161) = &radic;3,007 = <b>1,73 %</b>, o sea &plusmn;0,097 k&Omega;. &#9656; La primera opción es la <b>cota lineal del peor caso</b>: no está mal como cota superior (da 2,4 %, &plusmn;0,135 k&Omega;) pero no es la que usa el material de la cátedra. El propio apunte explica por qué prefiere la cuadrática: "garantiza aproximadamente la misma confianza pero con una cota menor". &#9656; Restar relativas no tiene sentido: las incertidumbres nunca se cancelan entre sí, sólo se acumulan. &#9656; Y la última confunde error con incertidumbre: la incertidumbre se calcula justamente porque el valor verdadero <b>jamás se conoce</b>. &#9656; Chequeo de sanidad: los dos intervalos contienen 5,6 k&Omega; de la serie E24.'},
 
   {st: 'Un multímetro de cinco dígitos con la calibración vencida mide diez veces la misma tensión y siempre entrega 4,8213 V, cuando el valor verdadero es 4,9000 V. Según las definiciones del apunte de la cátedra, ese instrumento es:',
@@ -218,12 +218,12 @@ registerExercises('fiuba-electronica', '2', [
    ex: '<b>Precisión</b> es "la noción de cercanía que existe entre valores de una medición si fuese repetida reiteradas veces": se relaciona con la <b>repetibilidad</b>, y acá la dispersión es cero, así que es máximamente preciso. &#9656; <b>Exactitud</b> "nos indica la cercanía del valor medido al valor real": hay 0,0787 V de diferencia sistemática, así que es poco exacto. &#9656; Los dos criterios son <b>independientes</b> (son los cuatro blancos de tiro de la figura del apunte), y éste es justo el ejemplo que el apunte da en electrónica: "un instrumento de mucha resolución nos permitirá tener una medición muy precisa (poca incertidumbre), mientras que si el instrumento está descalibrado podríamos tener una medición poco exacta (existe un sesgo o error sistemático)". &#9656; El detalle que importa para el laboratorio: esa diferencia es un <b>error sistemático</b>, es repetible y por lo tanto <b>se puede corregir</b> si se determina su origen. La incertidumbre, en cambio, no se corrige.'},
 
   {st: 'Con el Sonel CMM-10 en el rango de 4,000 V (resolución 0,001 V, incertidumbre básica &plusmn;(1,2 % m.v. + 2 dígitos)) leés 0,604 V sobre R2 en un divisor de 220 &Omega; y 150 &Omega; alimentado con 1,49 V. ¿Cómo se informa la medición?',
-   opts: ['(0,604 &plusmn; 0,007) V',
+   opts: ['(0,604 &plusmn; 0,002) V',
+          '(0,604 &plusmn; 0,007) V',
           '(0,604 &plusmn; 0,009) V',
-          '(0,604 &plusmn; 0,002) V',
           '(0,604 &plusmn; 0,012) V'],
-   c: 1,
-   ex: 'Hay que sumar <b>los dos términos</b>, que es exactamente lo que hace la diapositiva de la clase. &#9656; <b>Porcentaje del valor leído</b>: 1,2 &times; 0,604/100 = 0,00725 V. &#9656; <b>Dos dígitos</b>: 2 &times; 0,001 = 0,002 V, porque en el rango de 4 V un dígito vale 0,001 V. &#9656; Total: 0,00925 &rArr; <b>&plusmn;0,009 V</b>, y el intervalo es [0,595 ; 0,613] V. &#9656; La primera opción olvidó los "+2 dígitos", que es la trampa número uno del tema. &#9656; La tercera se quedó sólo con los dígitos y tiró el porcentaje. &#9656; La cuarta usaría el rango de 40 V (1 dgt = 0,01 V): daría 0,00725 + 0,02 = 0,027 V, todavía peor, y muestra por qué conviene <b>la escala más baja que no sature</b>. &#9656; Verificación teórica con el divisor: 1,49 &times; 150/370 = 0,604 V. La medición y la cuenta coinciden hasta el último dígito.'}
+   c: 2,
+   ex: 'Hay que sumar <b>los dos términos</b>, que es exactamente lo que hace la diapositiva de la clase. &#9656; <b>Porcentaje del valor leído</b>: 1,2 &times; 0,604/100 = 0,00725 V. &#9656; <b>Dos dígitos</b>: 2 &times; 0,001 = 0,002 V, porque en el rango de 4 V un dígito vale 0,001 V. &#9656; Total: 0,00925 &rArr; <b>&plusmn;0,009 V</b>, y el intervalo es [0,595 ; 0,613] V. &#9656; &plusmn;0,007 V olvidó los "+2 dígitos", que es la trampa número uno del tema. &#9656; &plusmn;0,002 V se quedó sólo con los dígitos y tiró el porcentaje. &#9656; &plusmn;0,012 V es lo que daría el rango de 40 V (1 dgt = 0,01 V): daría 0,00725 + 0,02 = 0,027 V, todavía peor, y muestra por qué conviene <b>la escala más baja que no sature</b>. &#9656; Verificación teórica con el divisor: 1,49 &times; 150/370 = 0,604 V. La medición y la cuenta coinciden hasta el último dígito.'}
 
 ]);
 
@@ -338,19 +338,19 @@ registerExercises('fiuba-electronica', '3', [
  ex: 'R(T) = R<sub>0</sub>[1 + α(T − T<sub>0</sub>)] = 0,336·[1 + 3,9×10<sup>−3</sup>·60] ≈ <b>0,415 Ω</b>, un aumento del <b>23 %</b>. En un metal α es <b>positivo</b>: la red vibra más y los portadores chocan más. ▸ Y con la corriente fijada por el resto del circuito, P = I²R también sube: más calor, más temperatura, más R. Es un lazo de realimentación positiva y es el mecanismo de falla de un conductor subdimensionado. ▸ La primera opción invierte el signo de α en metales; los que bajan con T son los <b>termistores NTC</b> y el carbón. ▸ La tercera es falsa: el efecto es grande justamente en metales, y es el principio de la PT100. ▸ La última usa P = V²/R cuando lo que está fijo es la corriente: con I impuesta, más R es más potencia, no menos.'}
 ,
   {st: 'En la clase de Ley de Ohm la cátedra mide un dispositivo D y grafica <b>I en función de V</b>, con V de 0 a 7,0 V e I de 0 a 0,13 A. La diapositiva concluye que "la pendiente de la recta = cte = &Delta;I/&Delta;V". ¿Qué valor de resistencia sale de ahí?',
-   opts: ['R &asymp; 0,019 &Omega;, que es la pendiente',
-          'R &asymp; 54 &Omega;, que es la inversa de la pendiente',
+   opts: ['R &asymp; 54 &Omega;, que es la inversa de la pendiente',
+          'R &asymp; 0,019 &Omega;, que es la pendiente',
           'R &asymp; 7,0 &Omega;, el valor máximo de tensión',
           'No se puede saber sin conocer la potencia disipada'],
-   c: 1,
-   ex: 'En un gráfico <b>I(V)</b> la pendiente es la <b>conductancia</b> G = 1/R, no la resistencia. La propia diapositiva lo escribe así: pendiente = &Delta;I/&Delta;V = <b>1/R</b>. &#9656; Con los números de la tabla de la clase: 0,13 A / 7,0 V &asymp; 0,0186 S &rArr; R = 1/0,0186 &asymp; <b>54 &Omega;</b>. &#9656; La primera opción es el error clásico de leer la pendiente como si fuera R: informarías 0,019 &Omega; en lugar de 54 &Omega;, tres órdenes de magnitud y la unidad equivocada. &#9656; Si graficaras <b>V(I)</b>, con la tensión en el eje vertical, ahí sí la pendiente sería R directamente. Por eso conviene mirar siempre qué hay en cada eje antes de leer una pendiente. &#9656; La tabla de la clase, además, tiene <b>cuatro columnas</b>: V, &Delta;V, I y &Delta;I, con &Delta;V = 0,1 V y &Delta;I = 0,01 A. Las barras de error del gráfico salen de ahí, y sin ellas no se puede justificar que los puntos "caen sobre una recta".'},
+   c: 0,
+   ex: 'En un gráfico <b>I(V)</b> la pendiente es la <b>conductancia</b> G = 1/R, no la resistencia. La propia diapositiva lo escribe así: pendiente = &Delta;I/&Delta;V = <b>1/R</b>. &#9656; Con los números de la tabla de la clase: 0,13 A / 7,0 V &asymp; 0,0186 S &rArr; R = 1/0,0186 &asymp; <b>54 &Omega;</b>. &#9656; Contestar 0,019 &Omega; es el error clásico de leer la pendiente como si fuera R: informarías 0,019 &Omega; en lugar de 54 &Omega;, tres órdenes de magnitud y la unidad equivocada. &#9656; Si graficaras <b>V(I)</b>, con la tensión en el eje vertical, ahí sí la pendiente sería R directamente. Por eso conviene mirar siempre qué hay en cada eje antes de leer una pendiente. &#9656; La tabla de la clase, además, tiene <b>cuatro columnas</b>: V, &Delta;V, I y &Delta;I, con &Delta;V = 0,1 V y &Delta;I = 0,01 A. Las barras de error del gráfico salen de ahí, y sin ellas no se puede justificar que los puntos "caen sobre una recta".'},
 
   {st: 'La presentación "Modelos" muestra un resistor medido hasta 14 V: hasta unos 10 V los puntos siguen la recta y = 0,0335x + 0,0017, después se despegan hacia abajo y al final la corriente se desploma a casi cero. ¿Cuál es la conclusión que la cátedra saca de ese gráfico?',
    opts: ['Que la medición estuvo mal hecha y hay que repetirla',
-          'Que el modelo lineal vale dentro del rango medido y no se puede extrapolar, y que el proceso dejó de ser reversible cuando el resistor se quemó',
           'Que la ley de Ohm es falsa para resistores reales',
+          'Que el modelo lineal vale dentro del rango medido y no se puede extrapolar, y que el proceso dejó de ser reversible cuando el resistor se quemó',
           'Que la ordenada al origen de 0,0017 A demuestra que el resistor tiene una fuente interna'],
-   c: 1,
+   c: 2,
    ex: 'La diapositiva se llama "El resistor que se quema…" y al costado lista los siete conceptos que hay que mirar en todo gráfico experimental: <b>puntos, incertidumbre, interpolación, límites, reversibilidad, pendiente, ordenada</b>. &#9656; Los <b>límites</b>: la recta ajusta bien hasta unos 10 V; usar y = 0,0335x + 0,0017 para predecir la corriente a 14 V da un número que la realidad no cumple. Interpolar dentro del rango es legítimo; extrapolar fuera, no. &#9656; La <b>reversibilidad</b>: después de quemarse el resistor no vuelve, así que repitiendo la medición en sentido inverso no recorrés la misma curva. &#9656; El modelo <b>no está mal</b>: está acotado. Es exactamente el punto de la cadena R &rarr; P &rarr; F &rarr; M &rarr; C: el modelo matemático (V = I&middot;R) describe al modelo físico (dipolo lineal), no a la realidad entera. &#9656; La ordenada 0,0017 A no es física, porque una recta I(V) de un resistor pasa por el origen: es el residuo del ajuste, y sirve para estimar el error sistemático del banco. &#9656; La pendiente 0,0335 S corresponde a R &asymp; 30 &Omega;.'}
 
 ]);
@@ -496,18 +496,18 @@ registerExercises('fiuba-electronica', '4', [
 ,
   {st: 'En el banco de la clase de Kirchhoff se mide una pila en serie con R1 = 220 &Omega; y R2 = 150 &Omega;, sobre los puntos A (entre fuente y R1), B (entre R1 y R2) y O (el retorno). Los resultados son V<sub>AO</sub> = 1,49 V, V<sub>AB</sub> = 0,89 V y V<sub>BO</sub> = 0,60 V. ¿Qué "regla general" está buscando la cátedra con esa medición?',
    opts: ['La ley de nodos, porque la corriente es la misma en los dos resistores',
-          'La ley de mallas: V<sub>AO</sub> = V<sub>AB</sub> + V<sub>BO</sub>, es decir que la subida de la fuente iguala la suma de las caídas',
           'La ley de Ohm, porque 1,49 V / 370 &Omega; da la corriente',
+          'La ley de mallas: V<sub>AO</sub> = V<sub>AB</sub> + V<sub>BO</sub>, es decir que la subida de la fuente iguala la suma de las caídas',
           'El teorema de Thévenin, porque se reemplaza el circuito por un equivalente'],
-   c: 1,
+   c: 2,
    ex: 'Las tres tensiones son <b>diferencias entre puntos</b>: V<sub>AO</sub> = V<sub>A</sub> &minus; V<sub>O</sub>, V<sub>AB</sub> = V<sub>A</sub> &minus; V<sub>B</sub>, V<sub>BO</sub> = V<sub>B</sub> &minus; V<sub>O</sub>. Sumando, V<sub>AB</sub> + V<sub>BO</sub> = (V<sub>A</sub> &minus; V<sub>B</sub>) + (V<sub>B</sub> &minus; V<sub>O</sub>) = V<sub>A</sub> &minus; V<sub>O</sub> = V<sub>AO</sub>: el potencial es una <b>función de estado</b> y por eso la identidad vale siempre, midas lo que midas. &#9656; Con los números: 0,89 + 0,60 = <b>1,49</b> &#10003;. &#9656; Es la <b>ley de mallas</b> en su forma más simple, y por eso la diapositiva siguiente pregunta "¿existe alguna regla general?". &#9656; La ley de nodos también vale acá (la corriente es única) pero no es lo que la medición muestra: no se midió ninguna corriente. &#9656; La ley de Ohm es lo que permite <b>verificar</b> los números (1,49 &times; 150/370 = 0,604 V y 1,49 &times; 220/370 = 0,886 V), no lo que se está descubriendo. &#9656; Ojo con la errata de esa diapositiva: el cuadro amarillo dice "V<sub>AO</sub> = V<sub>AO</sub> + V<sub>BO</sub>", que sólo se cumpliría con V<sub>BO</sub> = 0.'},
 
   {st: 'Recorriendo una malla en sentido horario encontrás una fuente V1 = 5 V a la que entrás por el borne &minus;, un resistor con V2 desconocida al que entrás por el +, y un resistor con V3 = 1 V al que también entrás por el +. Usando la Def. 2 de la ley de mallas que enuncia la cátedra, ¿cuánto vale V2?',
    opts: ['V2 = 6 V',
-          'V2 = 4 V',
           'V2 = &minus;4 V',
-          'V2 = 5 V'],
-   c: 1,
+          'V2 = 5 V',
+          'V2 = 4 V'],
+   c: 3,
    ex: 'La <b>Def. 2</b> dice: "al circular una malla, la suma de todas las diferencias de potencial es cero, considerando a las <b>subidas</b> de tensión como positivas (+) y las <b>caídas</b> como negativas (&minus;)". &#9656; El criterio operativo es mirar <b>por qué borne entrás</b>: si entrás por el &minus;, subís (signo +); si entrás por el +, caés (signo &minus;). &#9656; Acá: V1 es subida, V2 y V3 son caídas &rArr; <b>V1 &minus; V2 &minus; V3 = 0 V</b> &rArr; 5 V &minus; V2 &minus; 1 V = 0 &rArr; <b>V2 = 4 V</b>. &#9656; Con la <b>Def. 1</b>, "la suma de todas las subidas es igual a la suma de todas las caídas", sale lo mismo: 5 = V2 + 1. &#9656; "6 V" sale de sumar V3 en vez de restarlo, o sea de clasificar mal uno de los dos resistores. &#9656; "&minus;4 V" sale de recorrer la malla al revés y no dar vuelta todos los signos: si cambiás el sentido de recorrido, <b>todos</b> los términos cambian de signo y la ecuación queda equivalente. &#9656; "5 V" ignora la caída sobre V3, que es justo el elemento que la diapositiva agrega en el último paso.'}
 
 ]);
