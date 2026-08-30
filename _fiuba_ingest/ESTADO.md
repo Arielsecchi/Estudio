@@ -3,25 +3,43 @@
 Spec: `PLAN-2026-08-19.md` · Auditoría del campus: `AUDITORIA-CAMPUS.md` · Fuentes: `INSUMOS.md`
 Estilo obligatorio para los redactores: `BRIEF-ESTILO.md`
 
-**Cinco materias, 12 guías publicadas.** Última verificación: **2026-08-25**, build en verde,
+**Cinco materias, 12 guías publicadas.** Última verificación: **2026-08-30**, build en verde,
 auditorías estructurales y de rutas sin hallazgos, y las páginas revisadas en el navegador en
 escritorio y teléfono.
 
-## Línea de base del campus · 2026-08-25
+## Línea de base del campus · 2026-08-30
 
 Módulos por curso, para comparar en el próximo chequeo:
 
-| Curso | Materia | Módulos |
-|---|---|---|
-| 1256 | CB002 Álgebra Lineal (Palacios) | 20 |
-| 1405 | CB110 Anatomía e Histología (Iurman) | 41 |
-| 198 | TB021/TA130 Algoritmos (Azcurra) | 142 |
-| 1269 | TB063/TB157 Bioingeniería (Veiga) | 50 |
-| **1259** | **CB040 Química Básica (Boeykens)** | **22** |
+| Curso | Materia | Módulos | Últ. chequeo |
+|---|---|---|---|
+| 1256 | CB002 Álgebra Lineal (Palacios) | 20 | 25/8 |
+| 1405 | CB110 Anatomía e Histología (Iurman) | 41 | 25/8 |
+| 198 | TB021/TA130 Algoritmos (Azcurra) | 142 | 25/8 |
+| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **72** (era 50) | **30/8** |
+| 1259 | CB040 Química Básica (Boeykens) | 22 | 25/8 |
 
-Los cuatro primeros **sin novedades** desde el 21/8: conteos idénticos, ningún id de módulo nuevo
-(el máximo global sigue siendo 180399) y `core_course_get_updates_since` devuelve cero.
-En Anatomía **sigue sin haber** respiratorio, cardiovascular, digestivo ni urinario.
+En Anatomía **sigue sin haber** respiratorio, cardiovascular, digestivo ni urinario (al 25/8).
+
+### Bioingeniería (1269): novedades del 30/8, ingeridas
+
+El aula se reorganizó y pasó de 3 a **5 secciones visibles**: se agregaron **Módulo 1** (23 items) y
+**Cuestionarios** (2). Total 72 actividades; las secciones 2, 3, 4, 6 y 8 existen pero están ocultas.
+El detalle actividad por actividad, con dónde quedó cada cosa en las guías, está en
+`bio1269/COBERTURA.md`. Lo grueso:
+
+- **"Presentación de la asignatura" cambió de archivo**: la parte b es la vieja (hash idéntico), pero
+  la parte a es nueva — 29 diapositivas con la lista de instrumentos de evaluación (que **sí nombra
+  el examen parcial**), el ciclo de Corrección #1 y #2 del escrito, plan/créditos/12 h semanales, ABP,
+  los dos proyectos textuales, compromisos, normas de convivencia y los contenidos mínimos.
+- **Apunte "Mediciones e incertidumbres"** (obligatorio para el TP1) con las Ec. 1 a 6. Trajo una
+  **corrección de fondo a la guía**: la cátedra propaga incertidumbres **en cuadratura** (GUM), no
+  linealmente. Las tres partes de la sección 2 que enseñaban la suma lineal quedaron con las dos.
+- Presentaciones nuevas: **Multímetro DC** (DT-830D + tabla del Sonel CMM-10), **Ley de Ohm**,
+  **Modelos** (R→P→F→M→C) y **Leyes de Kirchhoff** (55 diapositivas).
+- **Cuestionario en clase** el 27/8, 15 min, 1 intento, revisión no permitida. Formato nuevo.
+- Canales nuevos: grupo de Telegram, foro "Armado de Grupos", sala de Meet.
+- **No se pudo bajar**: "Ejercicios incrementales" Partes 1 y 2 — apuntan a una actividad oculta.
 
 ## Lo que quedó
 
@@ -35,7 +53,7 @@ En Anatomía **sigue sin haber** respiratorio, cardiovascular, digestivo ni urin
 | 01 | · Segundo parcial · 2/12 | `fiuba-algebra-lineal-segundo-parcial` | 10 | 81 | `5d21174` |
 | 03 | Algoritmos y Programación I | `fiuba-algoritmos` | 12 | 255 | `71941fe` |
 | 03 | · Parcial e integrador | `fiuba-algoritmos-parcial` | 7 | 60 | `c40b053` |
-| 04 | Introducción a la Bioingeniería | `fiuba-electronica` | 12 | 248 | `6af8cc0` |
+| 04 | Introducción a la Bioingeniería | `fiuba-electronica` | 12 | **257** | `6af8cc0` + Módulo 1 (30/8) |
 | 04 | · Examen integrador | `fiuba-electronica-integrador` | 7 | 88 | `c049de8` |
 | 05 | Química Básica | `fiuba-quimica` | 12 | 252 | `dc570ed` |
 | 05 | · Examen libre | `fiuba-quimica-libre` | 7 | 124 | `dc570ed` |
