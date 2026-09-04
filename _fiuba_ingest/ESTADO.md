@@ -3,23 +3,64 @@
 Spec: `PLAN-2026-08-19.md` · Auditoría del campus: `AUDITORIA-CAMPUS.md` · Fuentes: `INSUMOS.md`
 Estilo obligatorio para los redactores: `BRIEF-ESTILO.md`
 
-**Cinco materias, 12 guías publicadas.** Última verificación: **2026-08-30**, build en verde,
+**Cinco materias, 12 guías publicadas.** Última verificación: **2026-09-04**, build en verde,
 auditorías estructurales y de rutas sin hallazgos, y las páginas revisadas en el navegador en
 escritorio y teléfono.
 
-## Línea de base del campus · 2026-08-30
+**2026-09-04 · las dos guías de Bioingeniería llevan figuras.** 16 diagramas de circuito en la madre
+y 2 en el integrador, en **SVG inline** con `currentColor` y `var(--accent)`, así que siguen el tema
+claro/oscuro y escalan solos. Se generan con `_figuras_bio.py` + `_figuras_bio_b.py` y se insertan
+con `_insertar_figuras.py` (idempotente: detecta la figura por su `aria-label`). Para mirarlas sin
+navegador, `_render_figuras.py` las pasa a PNG con PyMuPDF.
 
-Módulos por curso, para comparar en el próximo chequeo:
+## Línea de base del campus · 2026-09-04
 
-| Curso | Materia | Módulos | Últ. chequeo |
-|---|---|---|---|
-| 1256 | CB002 Álgebra Lineal (Palacios) | 20 | 25/8 |
-| 1405 | CB110 Anatomía e Histología (Iurman) | 41 | 25/8 |
-| 198 | TB021/TA130 Algoritmos (Azcurra) | 142 | 25/8 |
-| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **72** (era 50) | **30/8** |
-| 1259 | CB040 Química Básica (Boeykens) | 22 | 25/8 |
+Módulos por curso, para comparar en el próximo chequeo. El inventario sale de
+`core_courseformat_get_state` y quedó volcado en `_campus_20260904.json`.
 
-En Anatomía **sigue sin haber** respiratorio, cardiovascular, digestivo ni urinario (al 25/8).
+| Curso | Materia | Módulos | Antes | Últ. chequeo |
+|---|---|---|---|---|
+| **1256** | **CB002 Álgebra Lineal (Palacios)** | **26** | 20 (25/8) | **4/9** |
+| 1405 | CB110 Anatomía e Histología (Iurman) | 41 | 41 (25/8) | 4/9 |
+| 198 | TB021/TA130 Algoritmos (Azcurra) | 146 | 146 (26/8) | 4/9 |
+| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **104** | 72 (30/8) | **4/9** |
+| 1259 | CB040 Química Básica (Boeykens) | 22 | 22 (25/8) | 25/8 |
+
+> El 142 que figuraba antes para Algoritmos era un conteo viejo: contra el manifiesto del 26/8
+> (146 actividades) el curso está **idéntico**, actividad por actividad. Lo único que cambió es
+> el nombre del foro: «1er. Cuatrimestre 2026» → «**2do. Cuatrimestre 2026**».
+
+En Anatomía **sigue sin haber** respiratorio, cardiovascular, digestivo ni urinario, el cronograma
+de la etiqueta «Fechas importantes» está sin tocar y el último aviso del foro es de julio.
+
+### Chequeo del 2026-09-04 · qué apareció, sin ingerir todavía
+
+**Álgebra Lineal (1256) — 7 archivos nuevos, ninguno ingerido:**
+
+- Sección **«Talleres»**, que antes no existía: **Taller 1** (clase 21/8), **2** (26/8), **3** (28/8),
+  **4** (2/9) y **5** (4/9). Es material de clase a clase, del cuatrimestre en curso.
+- En Unidad 1: **«clase teórica virtual 2-9-26»** y **«taller virtual 2-9-26»**.
+- Aviso del foro del 1/9 (Palacios): **la clase del miércoles 2/9 fue virtual**, por Meet.
+
+**Bioingeniería (1269) — 32 actividades nuevas desde el 30/8, ninguna ingerida:**
+
+| Sección | Novedades |
+|---|---|
+| **Módulo 1** (23 → 33) | «Señales en el dominio del tiempo» + presentación · **«Señales fisiológicas bioeléctricas»** · **Osciloscopio** (presentación + laboratorio) · actividad obligatoria **«Resolver circuito con dos fuentes»** (página, últ. modificación 31/8) · video de potenciómetro |
+| **Módulo 2** (nuevo, 5) | **Superposición** · **Fuentes de tensión y corriente** · **Ejercicios Incrementales Parte 3** |
+| **Extras** (12) | Tutoriales de **LTspice** (2 wikis + video de simulación en DC), **KiCad**, **Falstad** (wiki + dos actividades optativas: tensión/corriente/resistores y fuentes/generadores), «Proto por dentro» |
+| **Trabajos Prácticos** (4) | **«TP1 - Resistores (2C-2026)»** — el enunciado del TP de este cuatrimestre · y el TPG **partido en dos**: uno para Electrónica y **otro para Bioingeniería** · videos de diseño de PCBs para el TPG |
+
+Además, el foro **«Armado de Grupos»** ya tiene el primer hilo (Grupo 1 - IIE, 3/9).
+
+Nada desapareció ni se renombró en 1269: los 72 ítems del 30/8 siguen con el mismo cmid y el mismo
+nombre.
+
+**Qué de esto pide trabajo de guía**, por si se retoma: la actividad obligatoria del circuito con dos
+fuentes y el TP1 del cuatrimestre son enunciados reales que hoy no están en la guía; Superposición y
+Fuentes de tensión y corriente son material de cátedra sobre secciones que la guía **ya cubre**
+(secciones 6 y 3), así que ahí lo que corresponde es contrastar, no agregar; y osciloscopio, señales
+bioeléctricas y los simuladores son tema nuevo que la guía toca sólo de refilón.
 
 ### Bioingeniería (1269): novedades del 30/8, ingeridas
 
