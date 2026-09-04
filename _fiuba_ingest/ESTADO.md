@@ -42,25 +42,49 @@ de la etiqueta «Fechas importantes» está sin tocar y el último aviso del for
 - En Unidad 1: **«clase teórica virtual 2-9-26»** y **«taller virtual 2-9-26»**.
 - Aviso del foro del 1/9 (Palacios): **la clase del miércoles 2/9 fue virtual**, por Meet.
 
-**Bioingeniería (1269) — 32 actividades nuevas desde el 30/8, ninguna ingerida:**
+**Bioingeniería (1269) — 32 actividades nuevas desde el 30/8.** De ésas ya están ingeridas
+**dos**, marcadas ✅ en la tabla; el resto sigue pendiente.
 
 | Sección | Novedades |
 |---|---|
-| **Módulo 1** (23 → 33) | «Señales en el dominio del tiempo» + presentación · **«Señales fisiológicas bioeléctricas»** · **Osciloscopio** (presentación + laboratorio) · actividad obligatoria **«Resolver circuito con dos fuentes»** (página, últ. modificación 31/8) · video de potenciómetro |
+| **Módulo 1** (23 → 33) | «Señales en el dominio del tiempo» + presentación · **«Señales fisiológicas bioeléctricas»** · **Osciloscopio** (presentación + laboratorio) · ✅ actividad obligatoria **«Resolver circuito con dos fuentes»** · video de potenciómetro |
 | **Módulo 2** (nuevo, 5) | **Superposición** · **Fuentes de tensión y corriente** · **Ejercicios Incrementales Parte 3** |
 | **Extras** (12) | Tutoriales de **LTspice** (2 wikis + video de simulación en DC), **KiCad**, **Falstad** (wiki + dos actividades optativas: tensión/corriente/resistores y fuentes/generadores), «Proto por dentro» |
-| **Trabajos Prácticos** (4) | **«TP1 - Resistores (2C-2026)»** — el enunciado del TP de este cuatrimestre · y el TPG **partido en dos**: uno para Electrónica y **otro para Bioingeniería** · videos de diseño de PCBs para el TPG |
+| **Trabajos Prácticos** (4) | ✅ **«TP1 - Resistores (2C-2026)»** — el enunciado del TP de este cuatrimestre · y el TPG **partido en dos**: uno para Electrónica y **otro para Bioingeniería** · videos de diseño de PCBs para el TPG |
 
 Además, el foro **«Armado de Grupos»** ya tiene el primer hilo (Grupo 1 - IIE, 3/9).
 
 Nada desapareció ni se renombró en 1269: los 72 ítems del 30/8 siguen con el mismo cmid y el mismo
 nombre.
 
-**Qué de esto pide trabajo de guía**, por si se retoma: la actividad obligatoria del circuito con dos
-fuentes y el TP1 del cuatrimestre son enunciados reales que hoy no están en la guía; Superposición y
-Fuentes de tensión y corriente son material de cátedra sobre secciones que la guía **ya cubre**
-(secciones 6 y 3), así que ahí lo que corresponde es contrastar, no agregar; y osciloscopio, señales
-bioeléctricas y los simuladores son tema nuevo que la guía toca sólo de refilón.
+### 2026-09-04 · ingerido: el TP1 y la actividad del circuito con dos fuentes
+
+Lo pidió Ariel después del chequeo. Las dos cosas entraron a `fiuba-electronica`:
+
+- **Actividad obligatoria «Resolver circuito con dos fuentes»** (cmid 179424, publicada el 31/8) →
+  **sección 4**, nueva subsección con el enunciado textual, **figura SVG del circuito** copiada del
+  PNG de la cátedra (`circuito_2_fuentes.png`: V₁ = 20 V y V₂ = 5 V con el **+ hacia arriba las dos**,
+  R₁ = R₃ = 3,6 kΩ, R₂ = 1,8 kΩ, masa en el riel) y la resolución completa: **V_A = 7,5 V** por
+  ecuación de nodo, las tres corrientes con su signo, el balance de potencia —donde sale que
+  **V₂ absorbe 6,94 mW**, no entrega— y los dos controles por superposición y por Thévenin.
+- **TP1 - Resistores (2C-2026)** (cmid 179517) → **sección 12**, subsección nueva consigna por
+  consigna. **Ojo con el archivo**: la actividad se llama «Resistores» pero el PDF es
+  `TP1 - Ley de Ohm (1C-2026).pdf`, versión 26.0, y el encabezado de todas las páginas dice «LEY DE
+  OHM». Es el mismo documento. Quedó documentado: los 5 objetivos textuales, la estructura mapeada a
+  las secciones de la guía, las columnas de las Tablas 1 y 2, las ecuaciones (1) y (2) con la forma
+  relativa ΔR = R·√((ΔV/V)² + (ΔI/I)²), las cinco reglas del gráfico I(V) y el ítem G (LTspice + un
+  agente de IA). **El hallazgo que vale**: los ítems D-E-F son el **error de carga del voltímetro**
+  aunque el TP no lo nombre — con un divisor 50/50 y R_V = 10 MΩ, con resistores de 1 kΩ la suma da
+  el 99,995 % de V_f y con 1 MΩ se cae al 95,2 %.
+- **5 preguntas nuevas** en el banco (2 en la sección 4, 3 en la sección 12): 159 → **164**.
+- Copia del PDF en `bio1269/nuevo/`. Los scripts: `_ingesta_tp1.py`, `_ingesta_tp1_ajustes.py`
+  (coherencia del inventario del Módulo 1 y las notas de fecha) y `_ingesta_tp1_quiz.py`.
+
+**Lo que sigue pendiente** de la tanda del 4/9: Superposición y Fuentes de tensión y corriente son
+material de cátedra sobre secciones que la guía **ya cubre** (6 y 3), así que ahí corresponde
+contrastar, no agregar; y osciloscopio, señales en el dominio del tiempo, señales bioeléctricas y los
+simuladores (LTspice, KiCad, Falstad) son tema nuevo que la guía toca sólo de refilón. En Álgebra, los
+5 talleres siguen sin ingerir.
 
 ### Bioingeniería (1269): novedades del 30/8, ingeridas
 
