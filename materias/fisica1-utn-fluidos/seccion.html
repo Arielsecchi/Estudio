@@ -1,0 +1,710 @@
+<header>
+    <h1>Física I · Fluidos</h1>
+    <div class="sub">UTN FRBA · Hidrostática e hidrodinámica desde cero · 6 ejercicios de parcial (cátedra Martinelli 2009-2016) + 8 problemas de finales UTN.BA</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-fluidos">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fl-s1">Hidrostática desde cero (teoría que tu resumen no trae)</a></li>
+    <li><a href="#fl-s2">Arquímedes con una tercera fuerza · 5 ejercicios reales</a></li>
+    <li><a href="#fl-s3">Flotación cargada: témpanos, balsas y capas de aceite</a></li>
+    <li><a href="#fl-s4">Hidrodinámica desde cero (teoría que tu resumen no trae)</a></li>
+    <li><a href="#fl-s5">Los fluidos del final: Torricelli, Venturi y tubo en U</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-fluidos">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ==================== UNIDAD 1 ==================== -->
+<details id="fl-s1">
+<summary><span class="num">1</span> Hidrostática desde cero (teoría que tu resumen no trae) <span class="sec-score" id="ss-fisica1-utn-fluidos-1"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Por qué esta unidad existe</div>
+Tu resumen teórico de 52 páginas <b>no cubre fluidos</b>. Y fluidos aparece en 6 de los 8 primeros parciales de la cátedra Martinelli que tenemos, y en <b>casi todos los finales</b> que conseguimos (2/3/23, 21/2/24, 14/2/24, 26/5/22, 13/2/25 y los tres sin fecha). O sea: es el tema con mejor relación entre "cuánto hay que estudiar" y "cuántos puntos rinde". Acá está la teoría completa escrita de cero.
+</div>
+
+<h3>1.1 · Densidad</h3>
+<p>La <b>densidad</b> es masa por unidad de volumen:</p>
+
+<div class="formula">
+  δ = <span class="frac"><span>m</span><span>V</span></span> &nbsp;&nbsp;→&nbsp;&nbsp; m = δ · V &nbsp;&nbsp;·&nbsp;&nbsp; P = m·g = δ · V · g
+</div>
+
+<p>La cátedra usa <span class="m">δ</span> (delta), no <span class="m">ρ</span>. Fijate que <b>el peso de un cuerpo homogéneo siempre se puede escribir como δ·V·g</b>: esa es la clave de casi todos los ejercicios, porque te permite pasar de densidades a fuerzas sin conocer la masa.</p>
+
+<table class="tbl">
+  <tr><th>Sustancia</th><th>CGS (g/cm³)</th><th>SI (kg/m³)</th></tr>
+  <tr><td>Agua</td><td>1</td><td>1000</td></tr>
+  <tr><td>Agua de mar</td><td>1,03</td><td>1030</td></tr>
+  <tr><td>Hielo</td><td>0,9 · 0,917</td><td>900 · 917</td></tr>
+  <tr><td>Madera (la de los parciales)</td><td>0,6 · 0,8</td><td>600 · 800</td></tr>
+  <tr><td>Aceite</td><td>0,65 · 0,8</td><td>650 · 800</td></tr>
+  <tr><td>Gasolina</td><td>0,72</td><td>720</td></tr>
+  <tr><td>Hierro</td><td>7,86</td><td>7860</td></tr>
+  <tr><td>Mercurio</td><td>13,6</td><td>13600</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La conversión que tenés que tener automatizada</div>
+<b>1 g/cm³ = 1000 kg/m³.</b> Se despeja en dos segundos: 1 g = 10⁻³ kg y 1 cm³ = 10⁻⁶ m³, entonces 10⁻³/10⁻⁶ = 10³.<br>
+Al revés: para pasar de kg/m³ a g/cm³, <b>corré la coma tres lugares</b> (917 kg/m³ = 0,917 g/cm³).<br>
+También aparece <b>kg/dm³</b> (un final lo escribe así): 1 kg/dm³ = 1 g/cm³ = 1000 kg/m³, porque 1 dm³ = 1 litro = 1000 cm³.
+</div>
+
+<h3>1.2 · Presión</h3>
+<p>La presión es la fuerza <b>perpendicular</b> por unidad de área:</p>
+
+<div class="formula">
+  p = <span class="frac"><span>F<sub>⊥</sub></span><span>A</span></span> &nbsp;&nbsp;→&nbsp;&nbsp; F = p · A
+</div>
+
+<p>La presión es un <b>escalar</b>: no tiene dirección. Lo que tiene dirección es la fuerza que produce, y esa fuerza es siempre <b>perpendicular a la superficie</b> sobre la que actúa el fluido.</p>
+
+<table class="tbl">
+  <tr><th>Unidad</th><th>Equivale a</th><th>Cuándo aparece</th></tr>
+  <tr><td>1 Pa (pascal)</td><td>1 N/m²</td><td>SI · lo que pide el final</td></tr>
+  <tr><td>1 din/cm²</td><td>0,1 Pa</td><td>CGS · lo que usa la cátedra al resolver</td></tr>
+  <tr><td>1 atm</td><td>101 300 Pa ≈ 1,013·10⁵ Pa</td><td>presión atmosférica normal</td></tr>
+  <tr><td>1 bar</td><td>10⁵ Pa</td><td>rara vez</td></tr>
+  <tr><td>760 mm Hg</td><td>1 atm</td><td>barómetro de Torricelli</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La conversión que más se cobra: 1 Pa = 10 din/cm²</div>
+No es 1, no es 100: es <b>10</b>. Se saca así:<br>
+1 Pa = 1 N/m² = <span class="frac"><span>10⁵ din</span><span>10⁴ cm²</span></span> = <b>10 din/cm²</b>.<br>
+Por eso, en el parcial 2009, cuando el enunciado dice "la presión es 6 Pa", la cátedra escribe <b>60 din/cm²</b>. Si ponés 6 din/cm² o 600, el ejercicio entero se te cae.<br>
+Al revés: <b>din/cm² ÷ 10 = Pa</b>.
+</div>
+
+<h3>1.3 · Trabajar en CGS y entregar en SI (lo que hace la cátedra)</h3>
+<p>Las resoluciones oficiales de Martinelli casi siempre plantean en <b>CGS</b> — porque las densidades vienen en g/cm³ y los volúmenes en cm³, y así no hay que convertir nada — y recién al final pasan a SI. Para eso:</p>
+
+<div class="formula">
+  En CGS: &nbsp; g = 1000 cm/s² &nbsp;·&nbsp; [δ] = g/cm³ &nbsp;·&nbsp; [V] = cm³ &nbsp;·&nbsp; [F] = <b>dina</b><br>
+  Puente: &nbsp; <b>1 N = 10⁵ dina</b> &nbsp;·&nbsp; 1 Pa = 10 din/cm² &nbsp;·&nbsp; 1 N/m = 10 din/cm
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo de conversión (sale del parcial 2013)</div>
+Peso de una esfera de δ = 2 g/cm³ y V = 600 cm³:<br>
+<b>CGS:</b> P = δ·V·g = 2 · 600 · 1000 = 1 200 000 dina.<br>
+<b>A SI:</b> 1 200 000 din ÷ 10⁵ = <b>12 N</b>.<br>
+<b>Control directo en SI:</b> δ = 2000 kg/m³, V = 6·10⁻⁴ m³ → m = 1,2 kg → P = 12 N. ✔
+</div>
+
+<div class="trap"><div class="tr-t">El error de unidades nº 1 del tema</div>
+Mezclar <b>g/cm³ con m/s²</b>. Si trabajás con δ en g/cm³ y V en cm³, <b>g tiene que ser 1000 cm/s²</b> y el resultado sale en dinas. Si usás g = 10 m/s² con esas densidades, el número que te da no significa nada (ni newtons ni dinas).<br>
+Regla práctica: <b>elegí un sistema al principio del ejercicio y no lo abandones</b> hasta la última línea.
+</div>
+
+<h3>1.4 · Presión hidrostática: p = p₀ + δ·g·h</h3>
+<p>Agarrá una columna de fluido en reposo, de sección <span class="m">A</span> y altura <span class="m">h</span>, y planteale equilibrio vertical. Sobre la cara de arriba el fluido de encima empuja hacia abajo con <span class="m">p₀·A</span>; la columna pesa <span class="m">δ·A·h·g</span>; la cara de abajo tiene que sostener todo eso con <span class="m">p·A</span>:</p>
+
+<div class="formula">
+  p·A = p₀·A + δ·A·h·g &nbsp;&nbsp;⟹&nbsp;&nbsp; <b>p = p₀ + δ·g·h</b>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 380 220" style="max-width:100%;height:auto" role="img" aria-label="Recipiente con líquido, presión a profundidad h">
+  <rect x="50" y="55" width="280" height="140" fill="currentColor" opacity="0.12"/>
+  <path d="M50 30 L50 195 L330 195 L330 30" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="50" y1="55" x2="330" y2="55" stroke="currentColor" stroke-width="1.8"/>
+  <text x="56" y="47" fill="currentColor" font-size="13">p₀ (atmósfera, o gas encerrado)</text>
+  <line x1="140" y1="55" x2="140" y2="140" stroke="currentColor" stroke-width="1.4" marker-start="url(#flar)" marker-end="url(#flar)"/>
+  <text x="147" y="102" fill="currentColor" font-size="13">h</text>
+  <circle cx="140" cy="140" r="4" fill="currentColor"/>
+  <line x1="70" y1="140" x2="310" y2="140" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <circle cx="265" cy="140" r="4" fill="currentColor"/>
+  <text x="150" y="160" fill="currentColor" font-size="13">p = p₀ + δ·g·h</text>
+  <text x="120" y="182" fill="currentColor" font-size="12">misma altura ⟹ misma presión</text>
+  <defs>
+    <marker id="flar" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">La presión crece linealmente con la profundidad y <b>no depende de la forma del recipiente</b> ni del volumen total: solo de <span class="m">h</span>.</div>
+</div>
+
+<div class="key"><div class="ky-t">El teorema fundamental (el que resuelve los tubos en U)</div>
+<b>Dentro de un mismo fluido en reposo y conectado, todos los puntos a la misma altura tienen la misma presión.</b><br>
+Con eso resolvés cualquier tubo en U: elegís una altura de referencia que atraviese líquido continuo, escribís la presión bajando por cada rama, e igualás. Dos condiciones que hay que cumplir sí o sí: (1) mismo fluido, (2) conectados sin interrupción.
+</div>
+
+<h3>1.5 · Absoluta, manométrica y barométrica</h3>
+<table class="tbl">
+  <tr><th>Presión</th><th>Qué mide</th><th>Relación</th></tr>
+  <tr><td><b>Absoluta</b></td><td>la presión real, medida desde el vacío (siempre ≥ 0)</td><td>p<sub>abs</sub> = p<sub>atm</sub> + p<sub>man</sub></td></tr>
+  <tr><td><b>Manométrica</b></td><td>el exceso sobre la atmosférica (puede ser negativa)</td><td>p<sub>man</sub> = p<sub>abs</sub> − p<sub>atm</sub></td></tr>
+  <tr><td><b>Barométrica</b></td><td>la presión atmosférica del lugar</td><td>p<sub>atm</sub> ≈ 101 300 Pa a nivel del mar</td></tr>
+</table>
+
+<p>La goma del inflador te marca <b>manométrica</b>: cuando dice 0 no significa vacío, significa que adentro hay una atmósfera. En Bernoulli y en Torricelli tenés que usar <b>absolutas</b> (o manométricas en los <i>dos</i> puntos, nunca mezcladas).</p>
+
+<div class="trap"><div class="tr-t">Cuándo la atmosférica se cancela sola</div>
+Si la atmósfera actúa <b>de los dos lados</b> de lo que estás analizando (las dos caras de una compuerta, los dos brazos de un tubo en U abierto, la superficie libre y el orificio de salida), se cancela y podés trabajar con manométricas. Si <b>solo hay atmósfera de un lado</b> (un tanque cerrado y presurizado, una cámara de aire, un émbolo), <b>no se cancela</b> y tenés que llevarla en la cuenta.
+</div>
+
+<h3>1.6 · Principio de Pascal</h3>
+<p><b>Un incremento de presión aplicado a un fluido encerrado se transmite íntegro a todos sus puntos.</b> De ahí sale la prensa hidráulica:</p>
+
+<div class="formula">
+  <span class="frac"><span>F₁</span><span>A₁</span></span> = <span class="frac"><span>F₂</span><span>A₂</span></span> &nbsp;&nbsp;⟹&nbsp;&nbsp; F₂ = F₁ · <span class="frac"><span>A₂</span><span>A₁</span></span>
+</div>
+
+<p>El precio: lo que ganás en fuerza lo pagás en recorrido. Los volúmenes desplazados son iguales, así que <span class="m">A₁·d₁ = A₂·d₂</span> y el pistón grande se mueve menos. El trabajo no se multiplica.</p>
+
+<h3>1.7 · Fuerza sobre una superficie plana sumergida</h3>
+<p>Si la superficie es <b>horizontal</b>, la presión es la misma en todos sus puntos y listo: <span class="m">F = p·A</span>. Si es <b>vertical o inclinada</b>, la presión crece con la profundidad y hay que integrar. El resultado es simple y conviene sabérselo:</p>
+
+<div class="formula">
+  <b>F = p<sub>CG</sub> · A = δ·g·h<sub>CG</sub> · A</b> &nbsp;&nbsp;<span class="muted">(h<sub>CG</sub> = profundidad del centro geométrico de la superficie)</span>
+</div>
+
+<p>Para una compuerta <b>rectangular vertical</b> de ancho <span class="m">b</span> que va desde la superficie libre hasta la profundidad <span class="m">H</span>: <span class="m">h<sub>CG</sub> = H/2</span> y <span class="m">A = b·H</span>, entonces</p>
+
+<div class="formula">
+  F = δ·g·<span class="frac"><span>H</span><span>2</span></span>·(b·H) = <b>½ · δ·g·b·H²</b> &nbsp;&nbsp;·&nbsp;&nbsp; aplicada a <b>2H/3</b> de la superficie
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 380 210" style="max-width:100%;height:auto" role="img" aria-label="Distribución triangular de presión sobre una compuerta vertical">
+  <rect x="60" y="45" width="150" height="130" fill="currentColor" opacity="0.12"/>
+  <line x1="40" y1="45" x2="215" y2="45" stroke="currentColor" stroke-width="1.8"/>
+  <text x="42" y="38" fill="currentColor" font-size="12">superficie libre</text>
+  <line x1="210" y1="45" x2="210" y2="175" stroke="currentColor" stroke-width="3.5"/>
+  <line x1="60" y1="175" x2="240" y2="175" stroke="currentColor" stroke-width="2"/>
+  <path d="M210 45 L210 175 L300 175 Z" fill="currentColor" opacity="0.18" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="212" y1="70" x2="228" y2="70" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="212" y1="100" x2="252" y2="100" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="212" y1="130" x2="273" y2="130" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="212" y1="160" x2="294" y2="160" stroke="currentColor" stroke-width="1.2"/>
+  <text x="305" y="120" fill="currentColor" font-size="12">p crece</text>
+  <text x="305" y="136" fill="currentColor" font-size="12">con h</text>
+  <line x1="45" y1="45" x2="45" y2="175" stroke="currentColor" stroke-width="1.2"/>
+  <text x="28" y="115" fill="currentColor" font-size="13">H</text>
+  <circle cx="210" cy="131.7" r="4.5" fill="currentColor"/>
+  <text x="150" y="199" fill="currentColor" font-size="12">resultante aplicada a 2H/3 de la superficie</text>
+</svg>
+<div class="fig-cap">La presión es un triángulo, no un rectángulo: la resultante vale <b>½δgbH²</b> y se aplica en el tercio inferior, no en el medio.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Los tres errores clásicos de este ítem</div>
+<b>1.</b> Usar la presión del <i>fondo</i> por toda la compuerta: te da el doble de la fuerza real.<br>
+<b>2.</b> Poner la resultante en el medio (H/2): va en <b>2H/3</b>, porque la carga es triangular.<br>
+<b>3.</b> Sumar la atmosférica cuando también está del otro lado de la compuerta: ahí se cancela.
+</div>
+
+<h3>1.8 · Principio de Arquímedes</h3>
+<p>Sacá mentalmente el cuerpo y reemplazalo por líquido. Ese líquido está en reposo, así que el resto del fluido lo sostiene con una fuerza igual a su peso. Cuando volvés a meter el cuerpo, el fluido de alrededor <b>no se enteró de nada</b>: sigue empujando igual. De ahí:</p>
+
+<div class="formula">
+  <b>E = δ<sub>líq</sub> · V<sub>sumergido</sub> · g</b> &nbsp;&nbsp;<span class="muted">vertical, hacia arriba, aplicada en el centro del volumen desplazado</span>
+</div>
+
+<div class="key"><div class="ky-t">Las tres cosas que hay que leer bien</div>
+<b>δ es la del LÍQUIDO</b>, nunca la del cuerpo. La del cuerpo entra en el peso.<br>
+<b>V es el SUMERGIDO</b>, no el total. Si el cuerpo flota parcialmente, el empuje solo cuenta la parte mojada.<br>
+<b>Si hay dos líquidos superpuestos, hay dos empujes</b>: uno por cada capa, cada uno con su densidad y su porción de volumen.
+</div>
+
+<p>Con solo peso y empuje (<b>flotación libre</b>), el equilibrio <span class="m">E = P</span> da:</p>
+
+<div class="formula">
+  δ<sub>líq</sub>·V<sub>sum</sub>·g = δ<sub>cuerpo</sub>·V·g &nbsp;&nbsp;⟹&nbsp;&nbsp; <b><span class="frac"><span>V<sub>sum</sub></span><span>V</span></span> = <span class="frac"><span>δ<sub>cuerpo</sub></span><span>δ<sub>líq</sub></span></span></b>
+</div>
+
+<p>La fracción sumergida <b>no depende de g ni del tamaño del cuerpo</b>: es puro cociente de densidades. Un cuerpo de δ = 0,3 g/cm³ en agua flota con el 30% sumergido, sea una pelotita o un iceberg. Y si <span class="m">δ<sub>cuerpo</sub> > δ<sub>líq</sub></span> la fórmula te daría más del 100%: significa que <b>se hunde</b>, y ahí necesitás una tercera fuerza (que es de lo que trata la unidad 2).</p>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 2 ==================== -->
+<details id="fl-s2">
+<summary><span class="num">2</span> Arquímedes con una tercera fuerza · 5 ejercicios reales <span class="sec-score" id="ss-fisica1-utn-fluidos-2"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">El arquetipo: siempre es el mismo problema</div>
+Los cinco ejercicios de fluidos de los parciales de Martinelli entre 2010 y 2016 son <b>la misma cuenta</b> con distinto disfraz. Un cuerpo en equilibrio dentro de un líquido, y tres fuerzas verticales:<br>
+<b>1)</b> el <b>peso</b> P = δ<sub>cuerpo</sub>·V·g, hacia abajo, siempre;<br>
+<b>2)</b> el <b>empuje</b> E = δ<sub>líq</sub>·V<sub>sum</sub>·g, hacia arriba, siempre;<br>
+<b>3)</b> una <b>tercera fuerza</b> que cambia de ejercicio en ejercicio: una cuerda al fondo, un resorte arriba, otro cuerpo colgando, una pesa apoyada encima, o una fuerza aplicada.<br>
+La ecuación es siempre <b>ΣF<sub>y</sub> = 0</b>. Lo único que tenés que decidir bien es <b>el sentido de la tercera fuerza</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Cómo decidir el sentido de la tercera fuerza sin equivocarte</div>
+Preguntate: <b>si la tercera fuerza no existiera, ¿el cuerpo subiría o bajaría?</b><br>
+· Si <b>δ<sub>cuerpo</sub> &lt; δ<sub>líq</sub></b> (tiende a subir) → la tercera fuerza lo <b>frena hacia abajo</b>. Cuerda al fondo, pesa encima, fuerza aplicada.<br>
+· Si <b>δ<sub>cuerpo</sub> &gt; δ<sub>líq</sub></b> (tiende a hundirse) → la tercera fuerza lo <b>sostiene hacia arriba</b>. Resorte estirado desde arriba, normal del fondo, soga que cuelga de un flotador.<br>
+Con eso el signo sale solo. El error clásico del parcial 2012 (E + T = P en vez de E = P + T) es exactamente no hacerse esta pregunta.
+</div>
+
+<h3>Consigna de la cátedra que se puntúa aparte</h3>
+<p>El encabezado de todos estos parciales pide, textual: <b>mostrar todo el desarrollo</b>, <b>indicar explícitamente el sistema de referencia</b> y <b>hacer claramente el diagrama de cuerpo libre</b>. En fluidos eso significa: escribí "tomo <span class="m">y</span> positivo hacia arriba", dibujá el cuerpo con sus tres flechas rotuladas (P, E y la tercera), y recién después planteá la ecuación. Son puntos regalados.</p>
+
+<h3>Las cinco figuras</h3>
+
+<div class="fig">
+<svg viewBox="0 0 700 200" style="max-width:100%;height:auto" role="img" aria-label="Cinco configuraciones de Arquímedes con una tercera fuerza">
+  <!-- A: dos cuerpos unidos por soga (2010) -->
+  <rect x="15" y="55" width="115" height="115" fill="currentColor" opacity="0.12"/>
+  <path d="M15 30 L15 170 L130 170 L130 30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="15" y1="55" x2="130" y2="55" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="72" cy="55" r="20" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1.6"/>
+  <text x="67" y="60" fill="currentColor" font-size="12">1</text>
+  <line x1="72" y1="75" x2="72" y2="120" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="72" cy="132" r="12" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="1.6"/>
+  <text x="68" y="136" fill="currentColor" font-size="11">2</text>
+  <text x="24" y="192" fill="currentColor" font-size="12">A · soga entre cuerpos</text>
+
+  <!-- B: esfera atada al fondo (2012) -->
+  <rect x="155" y="55" width="115" height="115" fill="currentColor" opacity="0.12"/>
+  <path d="M155 30 L155 170 L270 170 L270 30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="155" y1="55" x2="270" y2="55" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="212" cy="55" r="22" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="212" y1="77" x2="212" y2="170" stroke="currentColor" stroke-width="1.6"/>
+  <text x="217" y="128" fill="currentColor" font-size="11">T</text>
+  <text x="163" y="192" fill="currentColor" font-size="12">B · cuerda al fondo</text>
+
+  <!-- C: resorte arriba (2013) -->
+  <rect x="295" y="70" width="115" height="100" fill="currentColor" opacity="0.12"/>
+  <path d="M295 45 L295 170 L410 170 L410 45" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="295" y1="70" x2="410" y2="70" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="330" y1="12" x2="385" y2="12" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M352 12 l0 6 l-9 4 l18 6 l-18 6 l18 6 l-9 4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="352" y1="44" x2="352" y2="48" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="352" cy="70" r="22" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1.6"/>
+  <text x="303" y="192" fill="currentColor" font-size="12">C · resorte arriba</text>
+
+  <!-- D: cubo con fuerza aplicada (2014) -->
+  <rect x="435" y="55" width="110" height="115" fill="currentColor" opacity="0.12"/>
+  <path d="M435 30 L435 170 L545 170 L545 30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="435" y1="55" x2="545" y2="55" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="468" y="41" width="44" height="34" fill="currentColor" opacity="0.28" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="490" y1="14" x2="490" y2="38" stroke="currentColor" stroke-width="2" marker-end="url(#flar2)"/>
+  <text x="496" y="28" fill="currentColor" font-size="12">F</text>
+  <text x="443" y="192" fill="currentColor" font-size="12">D · fuerza aplicada</text>
+
+  <!-- E: cubo en el fondo con pesa (2016) -->
+  <rect x="570" y="45" width="115" height="125" fill="currentColor" opacity="0.12"/>
+  <path d="M570 25 L570 170 L685 170 L685 25" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="570" y1="45" x2="685" y2="45" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="600" y="110" width="56" height="56" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="616" y="88" width="24" height="22" fill="currentColor" opacity="0.55" stroke="currentColor" stroke-width="1.4"/>
+  <text x="578" y="192" fill="currentColor" font-size="12">E · pesa encima, en el fondo</text>
+  <defs>
+    <marker id="flar2" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 1.5 L8 4.5 L1 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Las cinco configuraciones que tomó la cátedra entre 2010 y 2016. En las cinco, la ecuación es ΣF<sub>y</sub> = 0.</div>
+</div>
+
+<div class="trap"><div class="tr-t">El truco que salva el ejercicio 2014</div>
+Cuando el enunciado <b>no te da ni la densidad del líquido ni el volumen</b>, no es que falten datos: <b>se cancelan</b>. Escribí el peso de las dos formas posibles (<span class="m">m·g</span> y <span class="m">δ<sub>cuerpo</sub>·V·g</span>) y usá la condición de flotación para eliminar <span class="m">V</span>. Es la aplicación directa de aquello de "puede haber datos que no interesen" del encabezado.
+</div>
+
+<div class="trap"><div class="tr-t">Cuando hay dos cuerpos, hacé dos DCL</div>
+En los ejercicios A (2010) y E (2016) hay <b>dos cuerpos</b>: hay que hacer <b>un diagrama por cuerpo</b> y vincularlos con el <b>par de acción y reacción</b> (la tensión tira hacia arriba de uno y hacia abajo del otro; la normal empuja hacia arriba a la pesa y hacia abajo al bloque).<br>
+Además, resolvé <b>primero el cuerpo que tenga una sola incógnita</b>: en el 2010 ese es el cuerpo 2 (totalmente sumergido, volumen conocido), no el 1.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 3 ==================== -->
+<details id="fl-s3">
+<summary><span class="num">3</span> Flotación cargada: témpanos, balsas y capas de aceite <span class="sec-score" id="ss-fisica1-utn-fluidos-3"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Este estilo aparece en el FINAL, no en los parciales</div>
+Los parciales de Martinelli te dan el cuerpo y te piden una fuerza. Los <b>finales de UTN.BA</b> hacen otra cosa: te ponen un flotador que tiene que <b>llevar carga</b> (un oso, tres niños, una pesa) y te preguntan <b>cuánta carga aguanta</b> o <b>cuánto flotador hace falta</b>. Aparece en el final del <b>2/3/23</b> (balsa de troncos), el del <b>21/2/24</b> (oso y témpano), el del <b>14/2/24</b> (oso polar sobre la placa de hielo) y el del <b>26/5/22</b> (bloque entre agua y aceite). Cuatro de los finales que tenemos: es el problema de fluidos más probable.
+</div>
+
+<h3>3.1 · La condición límite: "totalmente sumergido"</h3>
+<p>Todos estos problemas tienen la misma condición de borde, escrita con distintas palabras:</p>
+
+<table class="tbl">
+  <tr><th>Cómo lo dice el enunciado</th><th>Qué significa físicamente</th></tr>
+  <tr><td>"de tal manera que el témpano quede totalmente sumergido"</td><td rowspan="4"><b>V<sub>sumergido</sub> = V<sub>total</sub></b><br>Es el <b>máximo empuje posible</b>. Un milímetro más de carga y se hunde.</td></tr>
+  <tr><td>"sin que se moje las patas"</td></tr>
+  <tr><td>"como mínimo para mantenerlos a flote"</td></tr>
+  <tr><td>"la cara superior justo a nivel de la superficie"</td></tr>
+</table>
+
+<div class="formula">
+  <b>δ<sub>líq</sub> · V<sub>total</sub> · g = δ<sub>flotador</sub> · V<sub>total</sub> · g + P<sub>carga</sub></b><br>
+  ⟹ &nbsp; P<sub>carga</sub> = (δ<sub>líq</sub> − δ<sub>flotador</sub>) · V<sub>total</sub> · g
+</div>
+
+<div class="key"><div class="ky-t">La fórmula de bolsillo: capacidad de carga</div>
+Un flotador de volumen <span class="m">V</span> y densidad <span class="m">δ<sub>f</sub></span>, en un líquido de densidad <span class="m">δ<sub>L</sub></span>, puede cargar como máximo una masa<br>
+<b>m<sub>carga</sub> = (δ<sub>L</sub> − δ<sub>f</sub>) · V</b><br>
+Fijate que <b>g no aparece</b>: la capacidad de carga es una masa, y no depende de la gravedad. Un tronco de 0,12 m³ de madera de 800 kg/m³ en agua dulce carga (1000 − 800)·0,12 = 24 kg. Nada más.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 700 210" style="max-width:100%;height:auto" role="img" aria-label="Balsa de troncos, témpano con oso y bloque entre agua y aceite">
+  <!-- Balsa de troncos -->
+  <rect x="15" y="95" width="200" height="90" fill="currentColor" opacity="0.12"/>
+  <line x1="15" y1="95" x2="215" y2="95" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="1.6" fill="currentColor" fill-opacity="0.25">
+    <circle cx="55" cy="95" r="15"/><circle cx="87" cy="95" r="15"/><circle cx="119" cy="95" r="15"/>
+    <circle cx="151" cy="95" r="15"/><circle cx="183" cy="95" r="15"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <circle cx="90" cy="60" r="7"/><line x1="90" y1="67" x2="90" y2="80"/>
+    <circle cx="119" cy="60" r="7"/><line x1="119" y1="67" x2="119" y2="80"/>
+    <circle cx="148" cy="60" r="7"/><line x1="148" y1="67" x2="148" y2="80"/>
+  </g>
+  <text x="20" y="205" fill="currentColor" font-size="12">Balsa · Final 2/3/23 · ¿cuántos troncos?</text>
+  <text x="25" y="86" fill="currentColor" font-size="11">D = 0,3 m · L = 1,7 m</text>
+
+  <!-- Témpano con oso -->
+  <rect x="250" y="95" width="190" height="90" fill="currentColor" opacity="0.12"/>
+  <line x1="250" y1="95" x2="440" y2="95" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="290" y="95" width="115" height="42" fill="currentColor" opacity="0.28" stroke="currentColor" stroke-width="1.6"/>
+  <text x="316" y="122" fill="currentColor" font-size="12">témpano</text>
+  <g stroke="currentColor" stroke-width="1.8" fill="none">
+    <ellipse cx="347" cy="76" rx="26" ry="13"/>
+    <circle cx="375" cy="68" r="8"/>
+    <line x1="330" y1="88" x2="330" y2="95"/><line x1="362" y1="88" x2="362" y2="95"/>
+  </g>
+  <text x="256" y="205" fill="currentColor" font-size="12">Témpano · Finales 21/2/24 y 14/2/24</text>
+
+  <!-- Bloque entre agua y aceite -->
+  <rect x="475" y="95" width="205" height="90" fill="currentColor" opacity="0.12"/>
+  <rect x="475" y="62" width="205" height="33" fill="currentColor" opacity="0.28"/>
+  <line x1="475" y1="62" x2="680" y2="62" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="475" y1="95" x2="680" y2="95" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <rect x="545" y="62" width="80" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="483" y="56" fill="currentColor" font-size="12">aceite (H)</text>
+  <text x="487" y="130" fill="currentColor" font-size="12">agua</text>
+  <text x="628" y="80" fill="currentColor" font-size="11">e = 10 cm</text>
+  <text x="481" y="205" fill="currentColor" font-size="12">Capa de aceite · Final 26/5/22</text>
+</svg>
+<div class="fig-cap">Los tres escenarios del final. En los tres, el flotador está <b>al límite</b>: sumergido justo hasta arriba de todo.</div>
+</div>
+
+<h3>3.2 · Dos líquidos superpuestos: dos empujes</h3>
+<p>En el problema del <b>26/5/22</b> el cuerpo termina con su parte de arriba metida en aceite y la de abajo en agua. Ahí <b>hay dos empujes</b> y se suman:</p>
+
+<div class="formula">
+  P = E<sub>aceite</sub> + E<sub>agua</sub><br>
+  δ<sub>c</sub>·A·e·g = δ<sub>ac</sub>·A·H·g + δ<sub>ag</sub>·A·(e − H)·g
+</div>
+
+<p>El área <span class="m">A</span> se cancela: por eso el enunciado no te la da y no la necesitás. Solo entran los <b>espesores</b>.</p>
+
+<div class="trap"><div class="tr-t">Los cuatro errores que se cobran en esta unidad</div>
+<b>1. Volumen del cilindro.</b> El tronco viene por <b>diámetro</b> D = 0,3 m: el radio es 0,15 m y V = π·r²·L. Usar D como radio te cuadruplica el volumen y te da 2 troncos en vez de 5.<br>
+<b>2. Peso vs masa.</b> El oso del 21/2/24 <b>pesa 3540 N</b>, no tiene 3540 kg. Su masa es 354 kg. En cambio el del 14/2/24 te pide la <b>masa</b>: fijate qué te dan y qué te piden.<br>
+<b>3. Redondear para abajo.</b> Si te dan 4,99 troncos, la respuesta es <b>5</b>, no 4 ni 4,99. La cantidad "mínima" siempre se redondea <b>hacia arriba</b>, aunque el decimal sea chiquito.<br>
+<b>4. Olvidar el peso del propio flotador.</b> El témpano/la balsa también pesa. El empuje tiene que sostener <b>flotador + carga</b>, no solo la carga.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 4 ==================== -->
+<details id="fl-s4">
+<summary><span class="num">4</span> Hidrodinámica desde cero (teoría que tu resumen no trae) <span class="sec-score" id="ss-fisica1-utn-fluidos-4"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Dónde cae esto</div>
+En los <b>parciales</b> de Martinelli la hidrodinámica cayó <b>una sola vez</b> (1er parcial 2009, tema 1). En los <b>finales</b>, en cambio, está por todos lados: cañería que baja 3 m, tanque presurizado con orificio, tanque de gasolina, tubo en U con émbolo, Venturi con resorte. Si estás preparando el final, esta unidad no es opcional.
+</div>
+
+<h3>4.1 · El modelo: fluido ideal</h3>
+<p>Todo lo que sigue vale para un <b>fluido ideal</b>, que es el que asumen todos los enunciados:</p>
+<table class="tbl">
+  <tr><th>Hipótesis</th><th>Cómo lo dice el enunciado</th></tr>
+  <tr><td><b>Incompresible</b> (δ constante)</td><td>"agua de densidad 1 kg/dm³"</td></tr>
+  <tr><td><b>No viscoso</b> (sin rozamiento interno)</td><td>"considere que la viscosidad es despreciable"</td></tr>
+  <tr><td><b>Régimen estacionario</b></td><td>"mantiene el caudal constante"</td></tr>
+  <tr><td><b>Sin turbulencia</b> (líneas de corriente)</td><td>"el diámetro disminuye <b>gradualmente</b>"</td></tr>
+</table>
+<p>Escribí estas hipótesis en la hoja: el encabezado de la cátedra <b>pide explícitamente que declares las hipótesis</b> y lo puntúa.</p>
+
+<h3>4.2 · Caudal y ecuación de continuidad</h3>
+<p>El <b>caudal volumétrico</b> es el volumen que atraviesa una sección por unidad de tiempo:</p>
+
+<div class="formula">
+  Q = <span class="frac"><span>V</span><span>t</span></span> = <b>A · v</b> &nbsp;&nbsp;<span class="muted">[m³/s] · [cm³/s] · [l/min]</span>
+</div>
+
+<p>Si el fluido no se comprime ni se acumula, lo que entra por un lado sale por el otro. Ese es todo el contenido de la <b>ecuación de continuidad</b>:</p>
+
+<div class="formula">
+  <b>A₁ · v₁ = A₂ · v₂ = Q</b> &nbsp;&nbsp;⟹&nbsp;&nbsp; v₂ = v₁ · <span class="frac"><span>A₁</span><span>A₂</span></span>
+</div>
+
+<div class="trap"><div class="tr-t">Diámetro no es radio, y el área va al cuadrado</div>
+Los enunciados dan casi siempre el <b>diámetro</b>: "sección circular de 25 mm de diámetro interior", "a la salida de la bomba el diámetro es de 7 cm". El radio es la mitad, y <b>A = π·r²</b>.<br>
+Como el área va con el cuadrado, si el diámetro se reduce a la mitad la velocidad se <b>cuadruplica</b>. En el final de la cañería, de 25 mm a 12 mm: v₂ = v₁·(25/12)² = 4,34·v₁. Si te olvidás del cuadrado te da 2,08 y toda la presión sale mal.<br>
+Y ojo con la mezcla: en el parcial 2009 el punto 1 viene por <b>diámetro</b> (7 cm) y el punto 2 directamente por <b>área</b> (30 cm²). Leelo dos veces.
+</div>
+
+<div class="example"><div class="ex-t">Conversión de caudal que aparece textual en el parcial 2009</div>
+Q = 25 l/min. Pasalo a CGS: 25 litros = 25 000 cm³, y 1 min = 60 s.<br>
+Q = 25 000/60 = <b>416,67 cm³/s</b>. &nbsp;<span class="muted">(en SI: 4,167·10⁻⁴ m³/s)</span>
+</div>
+
+<h3>4.3 · Ecuación de Bernoulli</h3>
+<p>Es conservación de la energía mecánica escrita <b>por unidad de volumen</b>. Cada término es un J/m³, que es exactamente un pascal:</p>
+
+<div class="formula">
+  <b>p + ½·δ·v² + δ·g·h = constante</b><br>
+  <span class="muted">presión estática &nbsp;·&nbsp; presión dinámica &nbsp;·&nbsp; presión de altura</span>
+</div>
+
+<p>Entre dos puntos de la misma línea de corriente:</p>
+
+<div class="formula">
+  p₁ + ½·δ·v₁² + δ·g·h₁ = p₂ + ½·δ·v₂² + δ·g·h₂
+</div>
+
+<div class="key"><div class="ky-t">Cómo se usa, siempre igual</div>
+<b>1.</b> Elegí y <b>numerá dos puntos</b> (los que tengan más datos: superficie libre, orificio, salida a la atmósfera).<br>
+<b>2.</b> Elegí el <b>nivel h = 0</b> y decilo. Conviene ponerlo en el punto más bajo.<br>
+<b>3.</b> Sacá las velocidades con <b>continuidad</b> (Bernoulli sola nunca alcanza).<br>
+<b>4.</b> Escribí Bernoulli, tachá lo que se cancela y despejá.<br>
+<b>Todas las presiones absolutas, o todas manométricas. Nunca mezcladas.</b>
+</div>
+
+<h3>4.4 · Efecto Venturi</h3>
+<p>Si el caño es <b>horizontal</b> (h₁ = h₂), el término de altura se cancela y queda:</p>
+
+<div class="formula">
+  p₁ + ½·δ·v₁² = p₂ + ½·δ·v₂² &nbsp;&nbsp;⟹&nbsp;&nbsp; p₂ = p₁ + ½·δ·(v₁² − v₂²)
+</div>
+
+<p>Como en el estrechamiento <span class="m">A₂ &lt; A₁</span>, continuidad manda <span class="m">v₂ &gt; v₁</span>, y entonces <b>p₂ &lt; p₁</b>. <b>Donde el fluido corre más rápido, la presión es menor.</b> Eso es el efecto Venturi.</p>
+
+<div class="fig">
+<svg viewBox="0 0 420 220" style="max-width:100%;height:auto" role="img" aria-label="Tubo de Venturi con dos tubos manométricos">
+  <path d="M20 100 L140 100 L185 128 L245 128 L290 100 L400 100" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 170 L140 170 L185 152 L245 152 L290 170 L400 170" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 100 L140 100 L185 128 L245 128 L290 100 L400 100 L400 170 L290 170 L245 152 L185 152 L140 170 L20 170 Z" fill="currentColor" opacity="0.12"/>
+  <line x1="80" y1="100" x2="80" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="98" y1="100" x2="98" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="80" y="45" width="18" height="55" fill="currentColor" opacity="0.3"/>
+  <line x1="205" y1="128" x2="205" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="223" y1="128" x2="223" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="205" y="95" width="18" height="33" fill="currentColor" opacity="0.3"/>
+  <line x1="70" y1="45" x2="235" y2="45" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="196" y1="95" x2="245" y2="95" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="250" y="52" fill="currentColor" font-size="12">p₁ &gt; p₂</text>
+  <text x="40" y="140" fill="currentColor" font-size="13">A₁ · v₁</text>
+  <text x="192" y="146" fill="currentColor" font-size="12">A₂ · v₂</text>
+  <text x="330" y="140" fill="currentColor" font-size="12">v₂ &gt; v₁</text>
+  <line x1="30" y1="135" x2="70" y2="135" stroke="currentColor" stroke-width="1.6" marker-end="url(#flar4)"/>
+  <line x1="300" y1="135" x2="380" y2="135" stroke="currentColor" stroke-width="1.6" marker-end="url(#flar4)"/>
+  <text x="120" y="205" fill="currentColor" font-size="12">se angosta ⟹ acelera ⟹ baja la presión</text>
+  <defs>
+    <marker id="flar4" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 1.5 L8 4.5 L1 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Tubo de Venturi: la columna del manómetro baja donde el caño se angosta.</div>
+</div>
+
+<div class="trap"><div class="tr-t">El control de signo que te salva el ejercicio</div>
+En un caño <b>horizontal que se angosta</b>, la presión <b>tiene que bajar</b>. Si te da p₂ &gt; p₁, tenés un error de signo: volvé a mirar el paréntesis (v₁² − v₂²), que es <b>negativo</b>.<br>
+Contra-intuición pura: mucha gente cree que "apretado ⟹ más presión". Es al revés. La energía que gana en velocidad la pierde en presión.
+</div>
+
+<h3>4.5 · Teorema de Torricelli</h3>
+<p>Un tanque grande abierto con un orificio chico a profundidad <span class="m">h</span>. Punto 1 = superficie libre (v₁ ≈ 0 porque A₁ ≫ A₂, p₁ = p<sub>atm</sub>); punto 2 = el orificio (p₂ = p<sub>atm</sub>). Bernoulli:</p>
+
+<div class="formula">
+  p<sub>atm</sub> + δ·g·h = p<sub>atm</sub> + ½·δ·v² &nbsp;&nbsp;⟹&nbsp;&nbsp; <b>v = √(2·g·h)</b>
+</div>
+
+<p>Es la misma velocidad que tendría un cuerpo en caída libre desde <span class="m">h</span>. Si además hay <b>gas a presión p₀ arriba</b> (tanque presurizado, que es el caso de los finales), la atmosférica ya <b>no se cancela</b>:</p>
+
+<div class="formula">
+  <b>v = √( <span class="frac"><span>2·(p₀ − p<sub>atm</sub>)</span><span>δ</span></span> + 2·g·h )</b>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 400 240" style="max-width:100%;height:auto" role="img" aria-label="Tanque presurizado con orificio y chorro parabólico">
+  <rect x="35" y="60" width="150" height="140" fill="currentColor" opacity="0.12"/>
+  <rect x="35" y="30" width="150" height="170" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="35" y1="60" x2="185" y2="60" stroke="currentColor" stroke-width="1.6"/>
+  <text x="60" y="50" fill="currentColor" font-size="13">aire a p₀</text>
+  <line x1="55" y1="60" x2="55" y2="130" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar5)" marker-end="url(#flar5)"/>
+  <text x="61" y="98" fill="currentColor" font-size="13">h</text>
+  <circle cx="80" cy="130" r="4" fill="currentColor"/>
+  <text x="88" y="127" fill="currentColor" font-size="12">A</text>
+  <line x1="20" y1="60" x2="20" y2="200" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar5)" marker-end="url(#flar5)"/>
+  <text x="5" y="135" fill="currentColor" font-size="13">H</text>
+  <rect x="182" y="126" width="6" height="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M188 130 Q 260 132 320 200" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="190" y1="123" x2="228" y2="123" stroke="currentColor" stroke-width="1.6" marker-end="url(#flar5b)"/>
+  <text x="196" y="117" fill="currentColor" font-size="12">v</text>
+  <line x1="35" y1="205" x2="350" y2="205" stroke="currentColor" stroke-width="2"/>
+  <line x1="185" y1="218" x2="320" y2="218" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar5)" marker-end="url(#flar5)"/>
+  <text x="243" y="234" fill="currentColor" font-size="13">d</text>
+  <text x="215" y="170" fill="currentColor" font-size="12">tiro horizontal</text>
+  <defs>
+    <marker id="flar5" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+    <marker id="flar5b" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 1.5 L8 4.5 L1 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Torricelli + tiro horizontal: el chorro sale con <span class="m">v</span> horizontal y cae desde la altura del orificio. Es el problema 3 de dos finales.</div>
+</div>
+
+<div class="key"><div class="ky-t">El combo que el final adora: Torricelli + tiro horizontal</div>
+Una vez que tenés <span class="m">v</span> con Bernoulli, el chorro es un <b>tiro horizontal</b> común y silvestre:<br>
+<b>t = √(2·y/g)</b> con <span class="m">y</span> = <b>altura del orificio sobre el piso</b>, y después <b>d = v·t</b>.<br>
+La trampa: <span class="m">y</span> <b>no es</b> la profundidad <span class="m">h</span> del orificio bajo la superficie. Si el tanque tiene agua hasta H y el orificio está a profundidad h, entonces <b>y = H − h</b>.
+</div>
+
+<h3>4.6 · Tubo en U y manómetros</h3>
+<p>El tubo en U es hidrostática pura (nada se mueve), pero cae en la misma pregunta que Bernoulli. La receta es siempre esta:</p>
+
+<div class="key"><div class="ky-t">Receta del tubo en U</div>
+<b>1.</b> Elegí una <b>altura de referencia</b> que corte líquido continuo en las dos ramas (el nivel de la interfaz más baja, o el nivel del émbolo).<br>
+<b>2.</b> Bajá por la rama izquierda sumando δ·g·h de cada capa hasta esa altura.<br>
+<b>3.</b> Bajá por la derecha igual.<br>
+<b>4.</b> <b>Igualá</b> las dos expresiones.<br>
+Con dos líquidos de distinta densidad, las <b>alturas de las columnas son distintas</b>: δ₁·h₁ = δ₂·h₂. El más liviano forma la columna más alta.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 340 220" style="max-width:100%;height:auto" role="img" aria-label="Tubo en U con dos líquidos de distinta densidad">
+  <path d="M60 30 L60 170 Q60 190 80 190 L200 190 Q220 190 220 170 L220 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M95 30 L95 170 Q95 155 120 155 L160 155 Q185 155 185 170 L185 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M60 100 L95 100 L95 170 Q95 190 120 190 L160 190 Q185 190 185 170 L185 70 L220 70 L220 170 Q220 190 200 190 L80 190 Q60 190 60 170 Z" fill="currentColor" opacity="0.14"/>
+  <path d="M185 70 L220 70 L220 100 L185 100 Z" fill="currentColor" opacity="0.3"/>
+  <line x1="60" y1="100" x2="95" y2="100" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="185" y1="70" x2="220" y2="70" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="45" y1="100" x2="235" y2="100" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="238" y="83" fill="currentColor" font-size="12">líquido 2</text>
+  <text x="238" y="98" fill="currentColor" font-size="12">(más liviano)</text>
+  <text x="18" y="123" fill="currentColor" font-size="12">nivel de</text>
+  <text x="18" y="137" fill="currentColor" font-size="12">referencia</text>
+  <line x1="243" y1="70" x2="243" y2="100" stroke="currentColor" stroke-width="1.2" marker-start="url(#flar6)" marker-end="url(#flar6)"/>
+  <text x="250" y="118" fill="currentColor" font-size="12">δ₁·h₁ = δ₂·h₂</text>
+  <text x="98" y="24" fill="currentColor" font-size="12">abierto</text>
+  <text x="188" y="24" fill="currentColor" font-size="12">abierto</text>
+  <defs>
+    <marker id="flar6" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Debajo del nivel de la interfaz, todo es el mismo líquido conectado: ahí las presiones se igualan.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Bernoulli no reemplaza a continuidad</div>
+Bernoulli tiene <b>dos incógnitas de velocidad</b> (v₁ y v₂) y una sola ecuación. <b>Siempre</b> necesitás la ecuación de continuidad para sacar las velocidades primero, y recién después Bernoulli para la presión. El parcial 2009 se cae entero si intentás hacer solo una de las dos.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 5 ==================== -->
+<details id="fl-s5">
+<summary><span class="num">5</span> Los fluidos del final: Torricelli, Venturi y tubo en U <span class="sec-score" id="ss-fisica1-utn-fluidos-5"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Los cuatro problemas de hidrodinámica que realmente aparecieron</div>
+<b>1.</b> Tanque hermético presurizado con orificio, y el <b>alcance del chorro</b> (aparece en dos hojas de final distintas, siempre como problema 3).<br>
+<b>2.</b> Cañería que <b>reduce la sección y baja 3 m</b> (dos hojas de final, siempre como problema 6).<br>
+<b>3.</b> Tanque de <b>gasolina con aire comprimido</b>, velocidad de salida (dos hojas de final, problema 4).<br>
+<b>4.</b> <b>Tubo en U con émbolo y resorte</b>, con agua y aceite (final del 13/2/25, según la recreación de los alumnos).<br>
+Los tres primeros están completos y verificados; el cuarto viene de una recreación de memoria que sí trae las respuestas.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 620 230" style="max-width:100%;height:auto" role="img" aria-label="Cañería con reducción y desnivel, y tubo en U con émbolo y resorte">
+  <!-- cañería con desnivel -->
+  <path d="M20 55 L120 55 L160 130 L280 130" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 90 L110 90 L150 152 L280 152" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 55 L120 55 L160 130 L280 130 L280 152 L150 152 L110 90 L20 90 Z" fill="currentColor" opacity="0.12"/>
+  <text x="24" y="46" fill="currentColor" font-size="12">Ø 25 mm · v₁ = 1 m/s · p₁ = 10⁵ Pa</text>
+  <text x="188" y="172" fill="currentColor" font-size="12">Ø 12 mm · p₂ = ?</text>
+  <line x1="300" y1="72" x2="300" y2="141" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar7)" marker-end="url(#flar7)"/>
+  <text x="306" y="112" fill="currentColor" font-size="13">3 m</text>
+  <line x1="120" y1="72" x2="300" y2="72" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="200" y1="141" x2="300" y2="141" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="55" y="205" fill="currentColor" font-size="12">Cañería que se angosta y baja · final problema 6</text>
+
+  <!-- tubo en U con émbolo -->
+  <path d="M400 40 L400 165 Q400 185 420 185 L560 185 Q580 185 580 165 L580 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M435 40 L435 165 Q435 150 455 150 L525 150 Q545 150 545 165 L545 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M400 100 L435 100 L435 165 Q435 185 455 185 L525 185 Q545 185 545 165 L545 75 L580 75 L580 165 Q580 185 560 185 L420 185 Q400 185 400 165 Z" fill="currentColor" opacity="0.14"/>
+  <line x1="400" y1="40" x2="435" y2="40" stroke="currentColor" stroke-width="2.6"/>
+  <path d="M417 40 l0 5 l-9 4 l18 5 l-18 5 l18 5 l-9 4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="376" y="52" fill="currentColor" font-size="12">k</text>
+  <line x1="400" y1="100" x2="435" y2="100" stroke="currentColor" stroke-width="4"/>
+  <text x="352" y="96" fill="currentColor" font-size="12">émbolo</text>
+  <line x1="400" y1="100" x2="580" y2="100" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/>
+  <line x1="562" y1="75" x2="562" y2="100" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar7)" marker-end="url(#flar7)"/>
+  <text x="586" y="92" fill="currentColor" font-size="13">h</text>
+  <text x="470" y="130" fill="currentColor" font-size="12">agua</text>
+  <text x="546" y="26" fill="currentColor" font-size="12">abierto</text>
+  <text x="404" y="212" fill="currentColor" font-size="12">Tubo en U con émbolo · final 13/2/25</text>
+  <defs>
+    <marker id="flar7" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Izquierda: en la cañería que baja, el término δ·g·Δh <b>suma</b> presión y el estrechamiento la <b>resta</b>. Derecha: el resorte se comprime porque el agua empuja el émbolo hacia arriba.</div>
+</div>
+
+<h3>5.1 · El orden de ataque, problema por problema</h3>
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Arrancá por…</th></tr>
+  <tr><td>"orificio pequeño" + "gran volumen" + presión arriba</td><td><b>Torricelli con p₀</b>: sacá h con hidrostática, después v, después tiro horizontal</td></tr>
+  <tr><td>"reduce su diámetro" + "desciende N metros"</td><td><b>Continuidad</b> (v₂), después <b>Bernoulli completa</b> con el término de altura</td></tr>
+  <tr><td>"A₂ mucho menor que A₁, despreciable la velocidad en A₁"</td><td><b>Bernoulli con v₁ = 0</b>: es Torricelli con presión extra</td></tr>
+  <tr><td>"tubo en U", "émbolo", "resorte", "columna de aceite"</td><td><b>Hidrostática pura</b>: nivel de referencia + ΣF = 0 en el émbolo</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La atmosférica en el tanque presurizado: no se cancela</div>
+En Torricelli clásico (tanque abierto) la p<sub>atm</sub> aparece de los dos lados y se va. En el <b>tanque hermético</b> arriba hay p₀ (aire comprimido) y afuera hay p<sub>atm</sub>: <b>son distintas y ninguna se cancela</b>.<br>
+Fijate el guiño del enunciado del final: da p₀ = 202 600 Pa, que es <b>exactamente 2 × 101 300</b>. Es la pista de que tenés que usar p<sub>atm</sub> = 101 300 Pa (1 atm) y trabajar en absolutas.
+</div>
+
+<div class="trap"><div class="tr-t">Bajar 3 metros gana más presión de la que el estrechamiento le quita</div>
+En el final de la cañería, el estrechamiento resta ≈ 8 900 Pa (Venturi) pero bajar 3 m suma δ·g·Δh = 1000·10·3 = <b>30 000 Pa</b>. Resultado: la presión final es <b>mayor</b> que la inicial (≈ 1,21·10⁵ Pa contra 10⁵ Pa).<br>
+Es el mismo punto que el inciso b) del parcial 2009: "si la cañería tuviera un desnivel de 1 m, ¿cambiaría el resultado?" — <b>cambia, y muchísimo</b>: 1 m de agua son 10 000 Pa, un orden de magnitud por encima de los términos dinámicos típicos. No alcanza con contestar "sí": hay que escribir δ·g·(h₂ − h₁) y discutir el signo.
+</div>
+
+<div class="trap"><div class="tr-t">Los dos "empujones" del émbolo con resorte</div>
+En el tubo en U del 13/2/25, sobre el émbolo actúan <b>tres</b> cosas: el <b>agua desde abajo</b> (p<sub>agua</sub>·S, hacia arriba), el <b>aire de la cámara</b> (p<sub>atm</sub>·S, hacia abajo, porque el enunciado aclara que la cámara está a presión atmosférica) y el <b>resorte comprimido</b> (k·Δx, hacia abajo). De ahí sale directo <b>δ·g·h·S = k·Δx</b>: la atmosférica se cancela sola porque también está sobre la superficie libre del agua.<br>
+Y en el inciso b) hay un paso geométrico que casi nadie ve: <b>al subir el émbolo, el nivel del agua de la otra rama baja</b>. Si el émbolo sube δ, el otro nivel baja δ, así que para que se encuentren hace falta δ = h/2. No es un problema de fuerzas: es <b>conservación del volumen de agua</b>.
+</div>
+
+<div class="key"><div class="ky-t">Formulario de bolsillo de esta unidad</div>
+<b>Hidrostática:</b> p = p₀ + δ·g·h &nbsp;·&nbsp; E = δ<sub>L</sub>·V<sub>sum</sub>·g &nbsp;·&nbsp; V<sub>sum</sub>/V = δ<sub>c</sub>/δ<sub>L</sub><br>
+<b>Continuidad:</b> Q = A·v &nbsp;·&nbsp; A₁v₁ = A₂v₂ &nbsp;·&nbsp; A = π·(D/2)²<br>
+<b>Bernoulli:</b> p + ½δv² + δgh = cte<br>
+<b>Torricelli:</b> v = √(2gh) &nbsp;·&nbsp; presurizado: v = √( 2(p₀ − p<sub>atm</sub>)/δ + 2gh )<br>
+<b>Chorro:</b> t = √(2y/g), d = v·t &nbsp;·&nbsp; <b>Conversiones:</b> 1 g/cm³ = 1000 kg/m³ · 1 Pa = 10 din/cm² · 1 N = 10⁵ din · 1 atm = 101 300 Pa
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>

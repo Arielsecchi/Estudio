@@ -1,0 +1,753 @@
+<header>
+    <h1>Cuerpo rígido y rotación</h1>
+    <div class="sub">UTN FRBA · Física I · rodadura, poleas con masa, rototraslación y momento angular · el tema que aparece en los 10 finales</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-rigido">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#cr-s1">La receta del cuerpo rígido</a></li>
+    <li><a href="#cr-s2">Rodadura con cuerda enrollada: yo-yo, carretel, cilindro tirado</a></li>
+    <li><a href="#cr-s3">Poleas con masa</a></li>
+    <li><a href="#cr-s4">Energía en rototraslación</a></li>
+    <li><a href="#cr-s5">Momento angular y rotación pura</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-rigido">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<details id="cr-s1">
+<summary><span class="num">1</span> La receta del cuerpo rígido <span class="sec-score" id="ss-fisica1-utn-rigido-1"></span></summary>
+<div class="content">
+
+<p>Si tenés que elegir un solo tema para blindar antes del final, es éste. En el corpus de 66 ejercicios de parcial de la cátedra Martinelli, cuerpo rígido es <b>14 de los 35 ejercicios del 2do parcial</b> y aparece en <b>las 9 fechas</b> disponibles (2009-2017). En los <b>10 finales</b> transcriptos de UTN.BA <b>no falta en ninguno</b>, y en varios ocupa dos de los seis problemas. Un final se aprueba con el 50 %: tres problemas bien. Si de esos tres, uno o dos son de cuerpo rígido y los tenés automatizados, ya estás jugando otro partido.</p>
+
+<div class="key"><div class="ky-t">Lo que el final te regala y el parcial no</div>
+En el final el encabezado imprime <b>g = 10 m/s²</b> y <b>los momentos de inercia vienen como dato</b> («Utilice, donde lo necesite, I<sub>CM</sub><sup>disco</sup> = mR²/2, I<sub>CM</sub><sup>barra</sup> = mL²/12», final del 02/03/23). No tenés que acordarte de ninguna fórmula de inercia: tenés que saber <b>qué hacer con ella</b>.</div>
+
+<h3>Las tres ecuaciones. Siempre las mismas tres.</h3>
+
+<p>Todo problema de cuerpo rígido de esta materia se resuelve con el mismo trípode. No hay una cuarta idea escondida:</p>
+
+<div class="formula">
+<b>(1) Newton para el centro de masa</b> &nbsp;·&nbsp; Σ<span class="m">F</span> = <span class="m">M</span>·<span class="m">a</span><sub>CM</sub><br>
+<b>(2) Ecuación de momentos</b> &nbsp;·&nbsp; Σ<span class="m">τ</span> = <span class="m">I</span>·<span class="m">γ</span><br>
+<b>(3) Ecuación de vínculo</b> &nbsp;·&nbsp; la que liga <span class="m">a</span><sub>CM</sub> con <span class="m">γ</span> y con las aceleraciones de los otros cuerpos
+</div>
+
+<p>Las dos primeras las sabés. <b>El problema entero se juega en la tercera.</b> Casi todas las trampas de la cátedra son trampas de vínculo: qué punto del cuerpo es el que se mueve con la cuerda, con qué radio se relaciona <span class="m">a</span><sub>CM</sub> con <span class="m">γ</span>, si dos cuerpos tienen la misma aceleración o el doble.</p>
+
+<div class="fig">
+<svg viewBox="0 0 540 250" style="max-width:100%;height:auto" role="img" aria-label="Cilindro que rueda: centro de masa, punto de contacto y fuerzas">
+  <line x1="20" y1="205" x2="520" y2="205" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="24" y1="205" x2="14" y2="217"/><line x1="54" y1="205" x2="44" y2="217"/>
+    <line x1="84" y1="205" x2="74" y2="217"/><line x1="114" y1="205" x2="104" y2="217"/>
+    <line x1="144" y1="205" x2="134" y2="217"/><line x1="174" y1="205" x2="164" y2="217"/>
+    <line x1="204" y1="205" x2="194" y2="217"/><line x1="234" y1="205" x2="224" y2="217"/>
+    <line x1="264" y1="205" x2="254" y2="217"/><line x1="294" y1="205" x2="284" y2="217"/>
+    <line x1="324" y1="205" x2="314" y2="217"/><line x1="354" y1="205" x2="344" y2="217"/>
+    <line x1="384" y1="205" x2="374" y2="217"/><line x1="414" y1="205" x2="404" y2="217"/>
+    <line x1="444" y1="205" x2="434" y2="217"/><line x1="474" y1="205" x2="464" y2="217"/>
+    <line x1="504" y1="205" x2="494" y2="217"/>
+  </g>
+  <circle cx="200" cy="130" r="75" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="200" cy="130" r="4" fill="currentColor" stroke="none"/>
+  <circle cx="200" cy="205" r="4" fill="currentColor" stroke="none"/>
+  <line x1="200" y1="130" x2="253" y2="183" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="232" y="152" fill="currentColor" font-size="13">R</text>
+  <text x="208" y="126" fill="currentColor" font-size="13">CM</text>
+  <text x="208" y="226" fill="currentColor" font-size="13">Q (contacto)</text>
+  <path d="M 200 130 m -45 0 a 45 45 0 1 1 12 30" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 167 160 l 2 -13 l 11 6 z" fill="currentColor" stroke="none"/>
+  <text x="120" y="100" fill="currentColor" font-size="13">γ</text>
+  <line x1="200" y1="130" x2="300" y2="130" stroke="currentColor" stroke-width="2"/>
+  <path d="M 300 130 l -12 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+  <text x="262" y="122" fill="currentColor" font-size="13">a</text><text x="272" y="126" fill="currentColor" font-size="10">CM</text>
+  <line x1="200" y1="205" x2="140" y2="205" stroke="currentColor" stroke-width="2"/>
+  <path d="M 140 205 l 12 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+  <text x="120" y="198" fill="currentColor" font-size="13">F</text><text x="129" y="202" fill="currentColor" font-size="10">roz</text>
+  <line x1="200" y1="205" x2="200" y2="155" stroke="currentColor" stroke-width="2"/>
+  <path d="M 200 155 l -5 12 l 10 0 z" fill="currentColor" stroke="none"/>
+  <text x="206" y="172" fill="currentColor" font-size="13">N</text>
+  <line x1="200" y1="130" x2="200" y2="80" stroke="currentColor" stroke-width="2"/>
+  <path d="M 200 80 l -5 12 l 10 0 z" fill="currentColor" stroke="none" transform="rotate(180 200 86)"/>
+  <text x="352" y="80" fill="currentColor" font-size="13">Momentos en el CM:</text>
+  <text x="352" y="98" fill="currentColor" font-size="13">I = I</text><text x="380" y="102" fill="currentColor" font-size="10">CM</text>
+  <text x="352" y="132" fill="currentColor" font-size="13">Momentos en Q:</text>
+  <text x="352" y="150" fill="currentColor" font-size="13">I = I</text><text x="380" y="154" fill="currentColor" font-size="10">CM</text><text x="392" y="150" fill="currentColor" font-size="13">+ MR²</text>
+  <text x="352" y="168" fill="currentColor" font-size="11">(Steiner)</text>
+</svg>
+<div class="fig-cap">El mismo cuerpo, dos centros de momentos posibles. La respuesta es idéntica; lo que cambia es cuánto trabajo algebraico te ahorrás.</div>
+</div>
+
+<h3>¿CM o punto de contacto? La regla de decisión</h3>
+
+<p>Los dos caminos son correctos y dan lo mismo. La elección es táctica:</p>
+
+<table class="tbl">
+  <tr><th>Tomás momentos en…</th><th>Momento de inercia</th><th>Qué fuerzas desaparecen</th><th>Cuándo conviene</th></tr>
+  <tr><td><b>El centro de masa</b></td><td><span class="m">I</span><sub>CM</sub> (el dato que te dan)</td><td>El <b>peso</b> y cualquier fuerza aplicada en el eje (una cuerda atada al centro).</td><td>Cuando <b>querés</b> conocer la fuerza de rozamiento (queda en la ecuación y la despejás).</td></tr>
+  <tr><td><b>El punto de contacto Q</b><br><span class="muted">(eje instantáneo de rotación)</span></td><td><span class="m">I</span><sub>Q</sub> = <span class="m">I</span><sub>CM</sub> + <span class="m">M</span><span class="m">R</span>² <span class="muted">(Steiner)</span></td><td>La <b>normal</b> y el <b>rozamiento</b>: los dos pasan por Q, brazo cero.</td><td>Cuando el rozamiento <b>no te interesa</b> y sólo querés <span class="m">γ</span> o <span class="m">a</span><sub>CM</sub>. Una sola ecuación y listo.</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Steiner en una línea</div>
+<div class="formula"><span class="m">I</span><sub>Q</sub> = <span class="m">I</span><sub>CM</sub> + <span class="m">M</span>·<span class="m">d</span>²</div>
+donde <span class="m">d</span> es la distancia del CM al nuevo eje. Para un cilindro apoyado en el piso, <span class="m">d</span> = <span class="m">R</span>, así que <span class="m">I</span><sub>Q</sub> = ½<span class="m">MR</span>² + <span class="m">MR</span>² = <b>(3/2)<span class="m">MR</span>²</b>. Es la cuenta que más vas a repetir en toda la guía.</div>
+
+<div class="trap"><div class="tr-t">Trampa 1 · el rozamiento estático NO es μ·N</div>
+Cuando un cuerpo <b>rueda sin deslizar</b>, la fuerza de rozamiento es <b>estática</b> y es una <b>incógnita del sistema de ecuaciones</b>. No vale escribir <span class="m">F</span><sub>roz</sub> = μ<sub>e</sub><span class="m">N</span> ni μ<sub>d</sub><span class="m">N</span>. Se despeja igual que la tensión.
+<p>μ<sub>e</sub> sirve para <b>una sola cosa</b>: verificar al final que <span class="m">F</span><sub>roz</sub> ≤ μ<sub>e</sub>·<span class="m">N</span>, o sea que la hipótesis de rodadura se sostiene. Y μ<sub>d</sub>, en los problemas de rodadura, <b>no se usa nunca</b>: es uno de los «datos que no interesan» que el encabezado del parcial avisa expresamente que puede haber.</p></div>
+
+<div class="trap"><div class="tr-t">Trampa 2 · el rozamiento puede apuntar hacia adelante</div>
+En 4 de los 8 problemas de cuerda enrollada del corpus, la fuerza de rozamiento estático sale <b>positiva</b>, es decir <b>en el mismo sentido que la fuerza aplicada</b>. Contradice la intuición de «el rozamiento se opone al movimiento», pero es lo que dicen las ecuaciones. La receta: <b>no le supongas sentido</b>, ponela con un signo, resolvé, y el signo del resultado te dice para dónde va. Y decilo en la hoja: el sentido de la fuerza de rozamiento es parte de la respuesta.</div>
+
+<h3>Por qué el rozamiento de rodadura no disipa energía</h3>
+
+<p>Es el punto conceptual que más se pregunta en el final («determine si la energía mecánica se conserva o no; justifique»). La justificación es de una línea y tiene que estar escrita:</p>
+
+<div class="key"><div class="ky-t">La justificación, textual para copiar</div>
+«El punto de contacto es el <b>eje instantáneo de rotación</b>: su velocidad es nula. La potencia de la fuerza de rozamiento es <span class="m">P</span> = <span class="m">F</span>·<span class="m">v</span> = 0 en todo instante, así que su trabajo es cero y la energía mecánica se conserva.»</div>
+
+<p>Ojo con la lectura al revés: <b>que no disipe no significa que no exista</b>. El rozamiento estático está, vale lo que vale, y es el que le da el torque al cuerpo para que gire. Lo que no hace es sacar energía del sistema.</p>
+
+<div class="trap"><div class="tr-t">Cuándo SÍ se disipa</div>
+Si el cuerpo <b>desliza</b> (el contacto tiene velocidad no nula), el rozamiento es <b>dinámico</b>, vale μ<sub>d</sub><span class="m">N</span> y <b>sí disipa</b>. Los dos casos del corpus donde pasa: el cilindro de la pared del 2P 2012 (el enunciado dice que desliza) y la rueda que llega en traslación pura y se pone a rodar por fricción (final, unidad 5). Ahí no podés usar conservación de la energía.</div>
+
+<h3>La analogía traslación / rotación</h3>
+
+<p>Si te trabás en un problema de rotación, traducilo a traslación: la estructura de las ecuaciones es idéntica.</p>
+
+<table class="tbl">
+  <tr><th>Traslación</th><th>Rotación</th><th>Puente</th></tr>
+  <tr><td>posición <span class="m">x</span></td><td>ángulo <span class="m">φ</span></td><td><span class="m">x</span> = <span class="m">φ</span>·<span class="m">R</span></td></tr>
+  <tr><td>velocidad <span class="m">v</span></td><td>velocidad angular <span class="m">ω</span></td><td><span class="m">v</span> = <span class="m">ω</span>·<span class="m">R</span></td></tr>
+  <tr><td>aceleración <span class="m">a</span></td><td>aceleración angular <span class="m">γ</span></td><td><span class="m">a</span> = <span class="m">γ</span>·<span class="m">R</span></td></tr>
+  <tr><td>masa <span class="m">m</span></td><td>momento de inercia <span class="m">I</span></td><td><span class="m">I</span> = <span class="m">k</span>·<span class="m">mR</span>²</td></tr>
+  <tr><td>fuerza <span class="m">F</span></td><td>momento <span class="m">τ</span> = <span class="m">F</span>·brazo</td><td>—</td></tr>
+  <tr><td><span class="m">F</span> = <span class="m">m</span><span class="m">a</span></td><td><span class="m">τ</span> = <span class="m">I</span><span class="m">γ</span></td><td>—</td></tr>
+  <tr><td><span class="m">E</span><sub>c</sub> = ½<span class="m">mv</span>²</td><td><span class="m">E</span><sub>c</sub> = ½<span class="m">Iω</span>²</td><td>se <b>suman</b> si hay las dos</td></tr>
+  <tr><td>cantidad de movimiento <span class="m">p</span> = <span class="m">mv</span></td><td>momento angular <span class="m">L</span> = <span class="m">Iω</span></td><td>—</td></tr>
+  <tr><td><span class="m">v</span>² = <span class="m">v</span><sub>0</sub>² + 2<span class="m">a</span>Δ<span class="m">x</span></td><td><span class="m">ω</span>² = <span class="m">ω</span><sub>0</sub>² + 2<span class="m">γ</span>Δ<span class="m">φ</span></td><td>MRUV angular</td></tr>
+</table>
+
+<h3>Tabla de momentos de inercia</h3>
+
+<p>En el final te los dan. Igual conviene tenerlos a mano porque los factores de energía y de aceleración salen de acá.</p>
+
+<table class="tbl">
+  <tr><th>Cuerpo</th><th><span class="m">I</span><sub>CM</sub></th><th><span class="m">k</span> = <span class="m">I</span>/<span class="m">MR</span>²</th><th><span class="m">E</span><sub>c</sub> rodando</th><th><span class="m">a</span> bajando un plano α</th></tr>
+  <tr><td>Cilindro o disco macizo</td><td>½<span class="m">MR</span>²</td><td>1/2</td><td><b>¾<span class="m">Mv</span>²</b></td><td>(2/3)·<span class="m">g</span>·senα</td></tr>
+  <tr><td>Aro / cilindro hueco de pared fina</td><td><span class="m">MR</span>²</td><td>1</td><td><span class="m">Mv</span>²</td><td>½·<span class="m">g</span>·senα</td></tr>
+  <tr><td>Esfera maciza</td><td>(2/5)<span class="m">MR</span>²</td><td>2/5</td><td><b>(7/10)<span class="m">Mv</span>²</b></td><td>(5/7)·<span class="m">g</span>·senα</td></tr>
+  <tr><td>Esfera hueca</td><td>(2/3)<span class="m">MR</span>²</td><td>2/3</td><td>(5/6)<span class="m">Mv</span>²</td><td>(3/5)·<span class="m">g</span>·senα</td></tr>
+  <tr><td>Barra delgada, eje ⊥ por el CM</td><td>(1/12)<span class="m">ML</span>²</td><td>—</td><td>—</td><td>—</td></tr>
+  <tr><td>Barra delgada, eje ⊥ por un extremo</td><td>(1/3)<span class="m">ML</span>²</td><td>—</td><td>—</td><td>—</td></tr>
+  <tr><td>Cilindro hueco de radios <span class="m">R</span><sub>1</sub>, <span class="m">R</span><sub>2</sub></td><td>½<span class="m">M</span>(<span class="m">R</span><sub>1</sub>²+<span class="m">R</span><sub>2</sub>²)</td><td>—</td><td>—</td><td>—</td></tr>
+</table>
+
+<p>Las dos fórmulas generales, para deducir cualquier fila si te olvidás:</p>
+
+<div class="formula">
+<span class="m">E</span><sub>c</sub> = ½<span class="m">Mv</span>² + ½<span class="m">Iω</span>² = ½(1 + <span class="m">k</span>)<span class="m">Mv</span>² &nbsp;&nbsp;·&nbsp;&nbsp;
+<span class="m">a</span> = <span class="frac"><span><span class="m">g</span>·senα</span><span>1 + <span class="m">k</span></span></span> &nbsp;&nbsp;·&nbsp;&nbsp;
+<span class="m">F</span><sub>roz</sub> = <span class="frac"><span><span class="m">k</span></span><span>1 + <span class="m">k</span></span></span>·<span class="m">Mg</span>·senα &nbsp;&nbsp;·&nbsp;&nbsp;
+tgα<sub>máx</sub> = <span class="frac"><span>1 + <span class="m">k</span></span><span><span class="m">k</span></span></span>·μ<sub>e</sub>
+</div>
+
+<h3>El protocolo de hoja, que se puntúa aparte</h3>
+
+<p>El encabezado de los parciales lo pide explícitamente y los correctores de final lo esperan igual. Tres cosas antes de la primera cuenta:</p>
+
+<div class="key"><div class="ky-t">Los tres puntos gratis</div>
+<b>1. Declarar el sistema de referencia.</b> Escribí «x positivo hacia la derecha, y hacia arriba, z entrante» y dibujá la terna. El signo del rozamiento y de <span class="m">γ</span> dependen de eso: sin la terna declarada, el signo de tu resultado no significa nada.<br>
+<b>2. Diagrama de cuerpo libre de cada cuerpo.</b> Uno por cuerpo, con la fuerza <b>dibujada en su punto de aplicación</b> (la tensión en el punto por donde sale la cuerda, el rozamiento en el contacto). En cuerpo rígido el punto de aplicación no es un detalle: <b>es el brazo</b>.<br>
+<b>3. Enunciar las hipótesis.</b> «Cuerda ideal e inextensible», «la cuerda no desliza sobre la polea», «rueda sin deslizar, luego el rozamiento es estático», «el punto de contacto es eje instantáneo de rotación».</div>
+
+<div class="fig">
+<svg viewBox="0 0 560 220" style="max-width:100%;height:auto" role="img" aria-label="Cilindro sobre una mesa, cuerda desde su centro a una polea con masa y bloque colgante">
+  <line x1="20" y1="140" x2="400" y2="140" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="24" y1="140" x2="14" y2="152"/><line x1="60" y1="140" x2="50" y2="152"/>
+    <line x1="96" y1="140" x2="86" y2="152"/><line x1="132" y1="140" x2="122" y2="152"/>
+    <line x1="168" y1="140" x2="158" y2="152"/><line x1="204" y1="140" x2="194" y2="152"/>
+    <line x1="240" y1="140" x2="230" y2="152"/><line x1="276" y1="140" x2="266" y2="152"/>
+    <line x1="312" y1="140" x2="302" y2="152"/><line x1="348" y1="140" x2="338" y2="152"/>
+  </g>
+  <line x1="400" y1="140" x2="400" y2="210" stroke="currentColor" stroke-width="2"/>
+  <circle cx="120" cy="100" r="40" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="120" cy="100" r="3" fill="currentColor" stroke="none"/>
+  <text x="88" y="70" fill="currentColor" font-size="13">M</text><text x="99" y="74" fill="currentColor" font-size="10">C</text>
+  <line x1="120" y1="100" x2="148" y2="128" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="140" y="118" fill="currentColor" font-size="12">R</text><text x="150" y="122" fill="currentColor" font-size="9">C</text>
+  <line x1="120" y1="100" x2="400" y2="100" stroke="currentColor" stroke-width="2"/>
+  <circle cx="420" cy="100" r="20" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="420" cy="100" r="2.5" fill="currentColor" stroke="none"/>
+  <line x1="420" y1="100" x2="400" y2="140" stroke="currentColor" stroke-width="1"/>
+  <line x1="420" y1="100" x2="440" y2="140" stroke="currentColor" stroke-width="1"/>
+  <text x="404" y="72" fill="currentColor" font-size="13">M</text><text x="415" y="76" fill="currentColor" font-size="10">P</text>
+  <line x1="440" y1="100" x2="440" y2="160" stroke="currentColor" stroke-width="2"/>
+  <rect x="418" y="160" width="44" height="34" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="432" y="182" fill="currentColor" font-size="13">M</text><text x="443" y="186" fill="currentColor" font-size="10">B</text>
+  <text x="200" y="92" fill="currentColor" font-size="12">cuerda atada al CENTRO</text>
+  <text x="200" y="200" fill="currentColor" font-size="12">V</text><text x="208" y="204" fill="currentColor" font-size="9">b</text>
+  <text x="216" y="200" fill="currentColor" font-size="12">= V</text><text x="236" y="204" fill="currentColor" font-size="9">C</text>
+  <text x="248" y="200" fill="currentColor" font-size="12">(no 2V</text><text x="288" y="204" fill="currentColor" font-size="9">C</text><text x="294" y="200" fill="currentColor" font-size="12">)</text>
+</svg>
+<div class="fig-cap">Parcial 2025, ejercicio 3. La cuerda sale <b>del centro</b> del cilindro: por eso el vínculo es V<sub>b</sub> = V<sub>C</sub> y no el doble. Si saliera del borde superior, todo cambia.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 460 230" style="max-width:100%;height:auto" role="img" aria-label="Esfera maciza sobre un plano inclinado de ángulo alfa">
+  <path d="M 30 200 L 420 200 L 420 40 Z" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="70" y1="200" x2="62" y2="210"/><line x1="120" y1="200" x2="112" y2="210"/>
+    <line x1="170" y1="200" x2="162" y2="210"/><line x1="220" y1="200" x2="212" y2="210"/>
+    <line x1="270" y1="200" x2="262" y2="210"/><line x1="320" y1="200" x2="312" y2="210"/>
+    <line x1="370" y1="200" x2="362" y2="210"/>
+  </g>
+  <path d="M 80 200 A 50 50 0 0 1 78 180" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <text x="58" y="192" fill="currentColor" font-size="13">α</text>
+  <circle cx="290" cy="97" r="34" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="290" cy="97" r="3" fill="currentColor" stroke="none"/>
+  <text x="300" y="70" fill="currentColor" font-size="13">m, r</text>
+  <line x1="290" y1="97" x2="290" y2="165" stroke="currentColor" stroke-width="2"/>
+  <path d="M 290 165 l -5 -12 l 10 0 z" fill="currentColor" stroke="none"/>
+  <text x="296" y="150" fill="currentColor" font-size="12">P</text>
+  <line x1="315" y1="128" x2="257" y2="70" stroke="currentColor" stroke-width="2"/>
+  <path d="M 257 70 l 13 2 l -6 11 z" fill="currentColor" stroke="none" transform="rotate(180 260.5 76.5)"/>
+  <text x="228" y="66" fill="currentColor" font-size="12">N</text>
+  <line x1="315" y1="128" x2="358" y2="85" stroke="currentColor" stroke-width="2"/>
+  <path d="M 358 85 l -12 1 l 5 8 z" fill="currentColor" stroke="none" transform="rotate(180 352 89)"/>
+  <text x="360" y="80" fill="currentColor" font-size="12">F</text><text x="369" y="84" fill="currentColor" font-size="9">roz</text>
+  <text x="60" y="60" fill="currentColor" font-size="12">rueda sin resbalar ⟹</text>
+  <text x="60" y="78" fill="currentColor" font-size="12">F</text><text x="69" y="82" fill="currentColor" font-size="9">roz</text>
+  <text x="82" y="78" fill="currentColor" font-size="12">= (2/7)·mg·senα ≤ μ</text><text x="212" y="82" fill="currentColor" font-size="9">e</text><text x="218" y="78" fill="currentColor" font-size="12">·N</text>
+</svg>
+<div class="fig-cap">La esfera del final: la condición de rodadura fija un ángulo máximo, y ese ángulo máximo fija la aceleración máxima.</div>
+</div>
+
+<div class="reveal-wrap" data-rv="1" data-subject="fisica1-utn-rigido"></div>
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-rigido"></div>
+<a class="back" href="#subject-fisica1-utn-rigido">↑ Volver al índice</a>
+</div>
+</details>
+
+<details id="cr-s2">
+<summary><span class="num">2</span> Rodadura con cuerda enrollada: yo-yo, carretel, cilindro tirado <span class="sec-score" id="ss-fisica1-utn-rigido-2"></span></summary>
+<div class="content">
+
+<p>Éste es <b>el arquetipo número uno</b> del corpus: 8 de los 14 ejercicios de cuerpo rígido de parcial, más al menos 3 de los finales transcriptos. Un cuerpo redondo apoyado en el piso o en un plano, con una cuerda enrollada de la que se tira. Siempre las mismas tres ecuaciones. Lo único que cambia entre un ejercicio y otro es <b>por dónde sale la cuerda</b>.</p>
+
+<h3>La tabla del brazo. Aprendete ésta y ya está.</h3>
+
+<p>Todo se ordena con una sola idea geométrica: <b>para una fuerza horizontal, el brazo respecto del punto de contacto Q es la altura del punto de aplicación sobre el piso.</b> Y esa misma altura, dividida por R, es cuántas veces más rápido se mueve ese punto que el centro de masa.</p>
+
+<div class="fig">
+<svg viewBox="0 0 700 250" style="max-width:100%;height:auto" role="img" aria-label="Cuatro modos en que puede salir la cuerda de un carretel que rueda">
+  <g>
+    <line x1="10" y1="200" x2="160" y2="200" stroke="currentColor" stroke-width="2"/>
+    <circle cx="80" cy="150" r="50" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+    <circle cx="80" cy="150" r="3" fill="currentColor" stroke="none"/>
+    <line x1="80" y1="150" x2="150" y2="150" stroke="currentColor" stroke-width="2"/>
+    <path d="M 150 150 l -11 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+    <text x="18" y="30" fill="currentColor" font-size="13">A · del eje</text>
+    <text x="18" y="48" fill="currentColor" font-size="12">brazo CM = 0</text>
+    <text x="18" y="65" fill="currentColor" font-size="12">brazo Q = R</text>
+    <text x="18" y="82" fill="currentColor" font-size="12">v = v</text><text x="46" y="86" fill="currentColor" font-size="9">CM</text>
+  </g>
+  <g>
+    <line x1="185" y1="200" x2="335" y2="200" stroke="currentColor" stroke-width="2"/>
+    <circle cx="255" cy="150" r="50" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+    <circle cx="255" cy="150" r="3" fill="currentColor" stroke="none"/>
+    <line x1="255" y1="100" x2="330" y2="100" stroke="currentColor" stroke-width="2"/>
+    <path d="M 330 100 l -11 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+    <text x="193" y="30" fill="currentColor" font-size="13">B · del tope</text>
+    <text x="193" y="48" fill="currentColor" font-size="12">brazo CM = R</text>
+    <text x="193" y="65" fill="currentColor" font-size="12">brazo Q = 2R</text>
+    <text x="193" y="82" fill="currentColor" font-size="12">v = 2·v</text><text x="228" y="86" fill="currentColor" font-size="9">CM</text>
+  </g>
+  <g>
+    <line x1="360" y1="200" x2="510" y2="200" stroke="currentColor" stroke-width="2"/>
+    <circle cx="430" cy="150" r="50" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+    <circle cx="430" cy="150" r="25" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+    <circle cx="430" cy="150" r="3" fill="currentColor" stroke="none"/>
+    <line x1="430" y1="125" x2="505" y2="125" stroke="currentColor" stroke-width="2"/>
+    <path d="M 505 125 l -11 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+    <text x="368" y="30" fill="currentColor" font-size="13">C · carretel, por ARRIBA</text>
+    <text x="368" y="48" fill="currentColor" font-size="12">brazo CM = r</text>
+    <text x="368" y="65" fill="currentColor" font-size="12">brazo Q = R + r</text>
+    <text x="368" y="82" fill="currentColor" font-size="12">v = v</text><text x="396" y="86" fill="currentColor" font-size="9">CM</text><text x="404" y="82" fill="currentColor" font-size="12">·(1 + r/R)</text>
+  </g>
+  <g>
+    <line x1="535" y1="200" x2="690" y2="200" stroke="currentColor" stroke-width="2"/>
+    <circle cx="608" cy="150" r="50" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+    <circle cx="608" cy="150" r="25" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+    <circle cx="608" cy="150" r="3" fill="currentColor" stroke="none"/>
+    <line x1="608" y1="175" x2="685" y2="175" stroke="currentColor" stroke-width="2"/>
+    <path d="M 685 175 l -11 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+    <text x="543" y="30" fill="currentColor" font-size="13">D · carretel, por ABAJO</text>
+    <text x="543" y="48" fill="currentColor" font-size="12">brazo CM = r</text>
+    <text x="543" y="65" fill="currentColor" font-size="12">brazo Q = R − r</text>
+    <text x="543" y="82" fill="currentColor" font-size="12">v = v</text><text x="571" y="86" fill="currentColor" font-size="9">CM</text><text x="579" y="82" fill="currentColor" font-size="12">·(1 − r/R)</text>
+  </g>
+  <text x="10" y="238" fill="currentColor" font-size="12">Regla única: brazo respecto de Q = altura del punto de aplicación sobre el piso &nbsp;·&nbsp; v(punto) / v(CM) = altura / R</text>
+</svg>
+<div class="fig-cap">Los cuatro casos que aparecen en los parciales. Mirar bien la figura del enunciado y ubicarse en esta tabla es la mitad del problema.</div>
+</div>
+
+<table class="tbl">
+  <tr><th>Sale por…</th><th>Brazo respecto del CM</th><th>Brazo respecto de Q</th><th>Vínculo del extremo libre</th><th>Aparece en</th></tr>
+  <tr><td><b>El eje (centro)</b></td><td>0 <span class="muted">(no da momento)</span></td><td><span class="m">R</span></td><td><span class="m">a</span><sub>libre</sub> = <span class="m">a</span><sub>CM</sub></td><td>Parcial 2025 · 2P 2009 (cuerda al bloque)</td></tr>
+  <tr><td><b>El tope, radio R</b></td><td><span class="m">R</span></td><td><b>2<span class="m">R</span></b></td><td><b><span class="m">a</span><sub>libre</sub> = 2·<span class="m">a</span><sub>CM</sub></b></td><td>2P 2009 (la F) · 2P 2011 B1 · 2P 2016 B1 · final 14/02/24 P3</td></tr>
+  <tr><td><b>Carretel interior, por arriba</b></td><td><span class="m">r</span></td><td><span class="m">R</span> + <span class="m">r</span></td><td><span class="m">a</span><sub>libre</sub> = <span class="m">a</span><sub>CM</sub>(1 + <span class="m">r</span>/<span class="m">R</span>)</td><td>2P 2010 B1 · 2P 2015 B1</td></tr>
+  <tr><td><b>Carretel interior, por abajo</b></td><td><span class="m">r</span></td><td><span class="m">R</span> − <span class="m">r</span></td><td><span class="m">a</span><sub>libre</sub> = <span class="m">a</span><sub>CM</sub>(1 − <span class="m">r</span>/<span class="m">R</span>)</td><td>2P 2013 B2</td></tr>
+  <tr><td><b>Tangente en el contacto</b></td><td><span class="m">R</span></td><td>0</td><td><span class="m">v</span> = 0 <span class="muted">(cuerda fija a una pared)</span></td><td>2P 2012 B1 · 2P 2014 B2</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Consecuencia importante del caso D</div>
+Cuando la cuerda sale <b>por abajo</b> del carretel, el brazo respecto de Q es <span class="m">R</span> − <span class="m">r</span>, que sigue siendo <b>positivo</b>: el carretel avanza <b>en el sentido en que tirás</b>, aunque parezca que se va a ir para atrás. Y como el punto de aplicación avanza menos que el CM, el trabajo de la tensión es <b>menor</b> que <span class="m">T</span>·<span class="m">d</span><sub>CM</sub>. Esa es la trampa entera del 2P 2013 B2.</div>
+
+<h3>El esqueleto de resolución, en cinco pasos</h3>
+
+<div class="example"><div class="ex-t">Los cinco pasos, siempre iguales</div>
+<b>1.</b> Terna declarada + DCL con cada fuerza en su punto de aplicación.<br>
+<b>2.</b> Newton en x: Σ<span class="m">F</span><sub>x</sub> = <span class="m">M</span><span class="m">a</span><sub>CM</sub>. Newton en y: normalmente <span class="m">N</span> = <span class="m">Mg</span> (si la cuerda es horizontal).<br>
+<b>3.</b> Momentos. Si el rozamiento te interesa, en el CM: <span class="m">T</span>·brazo<sub>T</sub> ± <span class="m">F</span><sub>roz</sub>·<span class="m">R</span> = <span class="m">I</span><sub>CM</sub><span class="m">γ</span>. Si no te interesa, en Q: <span class="m">T</span>·brazo<sub>Q</sub> = (<span class="m">I</span><sub>CM</sub> + <span class="m">MR</span>²)<span class="m">γ</span> y listo.<br>
+<b>4.</b> Vínculos. <span class="m">a</span><sub>CM</sub> = <span class="m">γ</span>·<span class="m">R</span> siempre con el <b>radio que apoya</b>. Más, si hay otro cuerpo, el vínculo de la cuerda de la tabla de arriba.<br>
+<b>5.</b> Verificar: <span class="m">F</span><sub>roz</sub> ≤ μ<sub>e</sub><span class="m">N</span>, e interpretar el signo que salió.</div>
+
+<div class="trap"><div class="tr-t">Las cuatro que más se cobran</div>
+<b>·</b> Usar <span class="m">I</span><sub>CM</sub> cuando tomaste momentos en Q. Si vas por Q, va Steiner: <span class="m">I</span><sub>Q</sub> = <span class="m">I</span><sub>CM</sub> + <span class="m">MR</span>².<br>
+<b>·</b> Usar <span class="m">r</span> (el radio del carretel) en el vínculo de rodadura. El vínculo va con el <b>radio que toca el piso</b>: <span class="m">a</span><sub>CM</sub> = <span class="m">γR</span>.<br>
+<b>·</b> Suponer que el cuerpo colgante o el bloque tienen la misma aceleración que el CM cuando la cuerda sale del tope. Ahí es el <b>doble</b>. En el 2P 2016 el propio enunciado avisa: «note que ambas son distintas».<br>
+<b>·</b> Escribir <span class="m">I</span><sub>CM</sub> = ½<span class="m">mR</span>² cuando el enunciado te dio <span class="m">I</span><sub>CM</sub> como dato numérico. En los yo-yos <b>no</b> coinciden: en el 2P 2015, ½·0,5·0,04 = 0,01 y el dato es 0,004.</div>
+
+<div class="fig">
+<svg viewBox="0 0 560 210" style="max-width:100%;height:auto" role="img" aria-label="Bloque arrastrado por un cilindro del que se tira desde arriba">
+  <line x1="20" y1="170" x2="540" y2="170" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="30" y1="170" x2="20" y2="182"/><line x1="80" y1="170" x2="70" y2="182"/>
+    <line x1="130" y1="170" x2="120" y2="182"/><line x1="180" y1="170" x2="170" y2="182"/>
+    <line x1="230" y1="170" x2="220" y2="182"/><line x1="280" y1="170" x2="270" y2="182"/>
+    <line x1="330" y1="170" x2="320" y2="182"/><line x1="380" y1="170" x2="370" y2="182"/>
+    <line x1="430" y1="170" x2="420" y2="182"/><line x1="480" y1="170" x2="470" y2="182"/>
+    <line x1="530" y1="170" x2="520" y2="182"/>
+  </g>
+  <rect x="60" y="125" width="60" height="45" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="84" y="153" fill="currentColor" font-size="13">m</text>
+  <circle cx="250" cy="115" r="55" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="250" cy="115" r="3" fill="currentColor" stroke="none"/>
+  <text x="243" y="100" fill="currentColor" font-size="13">M</text>
+  <line x1="250" y1="115" x2="289" y2="154" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="278" y="140" fill="currentColor" font-size="12">R</text>
+  <line x1="120" y1="115" x2="195" y2="115" stroke="currentColor" stroke-width="2"/>
+  <text x="132" y="108" fill="currentColor" font-size="12">cuerda al centro</text>
+  <line x1="250" y1="60" x2="460" y2="60" stroke="currentColor" stroke-width="2"/>
+  <path d="M 460 60 l -13 -6 l 0 12 z" fill="currentColor" stroke="none"/>
+  <text x="466" y="65" fill="currentColor" font-size="14">F</text>
+  <text x="300" y="50" fill="currentColor" font-size="12">tangente al tope: brazo 2R respecto de Q</text>
+  <circle cx="250" cy="170" r="3.5" fill="currentColor" stroke="none"/>
+  <text x="256" y="192" fill="currentColor" font-size="12">Q</text>
+</svg>
+<div class="fig-cap">2do parcial 2009, problema 1. La <b>F</b> tira del punto más alto (brazo 2R respecto de Q) y la cuerda al bloque sale del centro (brazo R). Los dos brazos distintos en un mismo dibujo.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 520 220" style="max-width:100%;height:auto" role="img" aria-label="Yo-yo apoyado con cuerda saliendo por arriba del carretel interior">
+  <line x1="20" y1="185" x2="500" y2="185" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="30" y1="185" x2="20" y2="197"/><line x1="80" y1="185" x2="70" y2="197"/>
+    <line x1="130" y1="185" x2="120" y2="197"/><line x1="180" y1="185" x2="170" y2="197"/>
+    <line x1="230" y1="185" x2="220" y2="197"/><line x1="280" y1="185" x2="270" y2="197"/>
+    <line x1="330" y1="185" x2="320" y2="197"/><line x1="380" y1="185" x2="370" y2="197"/>
+    <line x1="430" y1="185" x2="420" y2="197"/><line x1="480" y1="185" x2="470" y2="197"/>
+  </g>
+  <circle cx="180" cy="120" r="65" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <circle cx="180" cy="120" r="33" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="180" cy="120" r="3" fill="currentColor" stroke="none"/>
+  <line x1="180" y1="120" x2="134" y2="74" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="140" y="72" fill="currentColor" font-size="13">R</text>
+  <line x1="180" y1="120" x2="157" y2="143" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="150" y="156" fill="currentColor" font-size="13">r</text>
+  <line x1="180" y1="87" x2="420" y2="87" stroke="currentColor" stroke-width="2"/>
+  <path d="M 420 87 l -13 -6 l 0 12 z" fill="currentColor" stroke="none"/>
+  <text x="426" y="92" fill="currentColor" font-size="14">T</text>
+  <line x1="180" y1="185" x2="180" y2="87" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity="0.7"/>
+  <text x="188" y="175" fill="currentColor" font-size="12">brazo respecto de Q = R + r</text>
+  <circle cx="180" cy="185" r="3.5" fill="currentColor" stroke="none"/>
+  <text x="160" y="207" fill="currentColor" font-size="12">Q</text>
+</svg>
+<div class="fig-cap">El yo-yo del 2do parcial 2010 y del 2015: la cuerda sale por <b>arriba</b> del carretel interior, tangente a la altura R + r. En el 2013 sale por abajo, a la altura R − r, y el brazo cambia.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 500 240" style="max-width:100%;height:auto" role="img" aria-label="Cilindro que asciende un plano inclinado tirado por una cuerda que sale de su punto más alto">
+  <path d="M 30 215 L 440 215 L 440 45 Z" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="100" y1="215" x2="92" y2="226"/><line x1="150" y1="215" x2="142" y2="226"/>
+    <line x1="200" y1="215" x2="192" y2="226"/><line x1="250" y1="215" x2="242" y2="226"/>
+    <line x1="300" y1="215" x2="292" y2="226"/><line x1="350" y1="215" x2="342" y2="226"/>
+  </g>
+  <path d="M 85 215 A 55 55 0 0 1 82 192" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <text x="60" y="208" fill="currentColor" font-size="13">37°</text>
+  <circle cx="215" cy="145" r="38" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="215" cy="145" r="3" fill="currentColor" stroke="none"/>
+  <text x="196" y="140" fill="currentColor" font-size="13">M</text>
+  <circle cx="246" cy="123" r="3.5" fill="currentColor" stroke="none"/>
+  <text x="222" y="112" fill="currentColor" font-size="12">A</text>
+  <line x1="246" y1="123" x2="415" y2="53" stroke="currentColor" stroke-width="2"/>
+  <circle cx="428" cy="48" r="11" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <line x1="437" y1="55" x2="437" y2="140" stroke="currentColor" stroke-width="2"/>
+  <rect x="416" y="140" width="42" height="34" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="428" y="162" fill="currentColor" font-size="13">m</text><text x="437" y="166" fill="currentColor" font-size="10">B</text>
+  <line x1="470" y1="140" x2="470" y2="180" stroke="currentColor" stroke-width="2"/>
+  <path d="M 470 180 l -5 -12 l 10 0 z" fill="currentColor" stroke="none"/>
+  <text x="476" y="168" fill="currentColor" font-size="12">a</text><text x="484" y="172" fill="currentColor" font-size="9">B</text>
+  <text x="60" y="70" fill="currentColor" font-size="12">La cuerda sale del punto A (el más alto):</text>
+  <text x="60" y="88" fill="currentColor" font-size="12">a</text><text x="68" y="92" fill="currentColor" font-size="9">B</text><text x="76" y="88" fill="currentColor" font-size="12">= 2R·γ = 2·a</text><text x="152" y="92" fill="currentColor" font-size="9">CM</text>
+</svg>
+<div class="fig-cap">2do parcial 2011, B1. El cilindro <b>sube</b> el plano rodando y la cuerda sale de su punto más alto: el bloque baja al doble de la velocidad del centro del cilindro.</div>
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-rigido"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-rigido"></div>
+<a class="back" href="#subject-fisica1-utn-rigido">↑ Volver al índice</a>
+</div>
+</details>
+
+<details id="cr-s3">
+<summary><span class="num">3</span> Poleas con masa <span class="sec-score" id="ss-fisica1-utn-rigido-3"></span></summary>
+<div class="content">
+
+<p>El segundo arquetipo más frecuente: 6 ejercicios de parcial y presente en casi todos los finales, muchas veces como <b>parte</b> de un problema de energía o de Newton. Es el mismo problema de bloques y polea que hacías en el primer parcial, con <b>una sola diferencia</b> — y es esa diferencia la que te evalúan.</p>
+
+<div class="key"><div class="ky-t">La idea entera, en una línea</div>
+Como la polea <b>tiene inercia</b>, hace falta un <b>momento neto</b> para acelerarla angularmente. Ese momento neto sólo puede venir de que las tensiones a los dos lados sean <b>distintas</b>:
+<div class="formula">(<span class="m">T</span><sub>2</sub> − <span class="m">T</span><sub>1</sub>)·<span class="m">R</span> = <span class="m">I</span><sub>CM</sub>·<span class="m">γ</span></div>
+Si la polea fuera ideal (<span class="m">I</span> = 0), esa ecuación diría <span class="m">T</span><sub>1</sub> = <span class="m">T</span><sub>2</sub>, que es lo que usabas antes. Todo lo demás es igual.</div>
+
+<div class="fig">
+<svg viewBox="0 0 520 250" style="max-width:100%;height:auto" role="img" aria-label="Polea con masa: la tensión de un lado no es igual a la del otro">
+  <line x1="20" y1="90" x2="290" y2="90" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="30" y1="90" x2="20" y2="102"/><line x1="70" y1="90" x2="60" y2="102"/>
+    <line x1="110" y1="90" x2="100" y2="102"/><line x1="150" y1="90" x2="140" y2="102"/>
+    <line x1="190" y1="90" x2="180" y2="102"/><line x1="230" y1="90" x2="220" y2="102"/>
+    <line x1="270" y1="90" x2="260" y2="102"/>
+  </g>
+  <line x1="290" y1="90" x2="290" y2="220" stroke="currentColor" stroke-width="2"/>
+  <rect x="90" y="52" width="55" height="38" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="112" y="76" fill="currentColor" font-size="13">A</text>
+  <line x1="145" y1="70" x2="290" y2="70" stroke="currentColor" stroke-width="2"/>
+  <text x="196" y="62" fill="currentColor" font-size="14">T</text><text x="205" y="66" fill="currentColor" font-size="10">A</text>
+  <circle cx="290" cy="90" r="22" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="290" cy="90" r="3" fill="currentColor" stroke="none"/>
+  <text x="304" y="112" fill="currentColor" font-size="13">M</text><text x="315" y="116" fill="currentColor" font-size="10">P</text><text x="322" y="112" fill="currentColor" font-size="13">, R</text>
+  <line x1="312" y1="90" x2="312" y2="165" stroke="currentColor" stroke-width="2"/>
+  <text x="318" y="130" fill="currentColor" font-size="14">T</text><text x="327" y="134" fill="currentColor" font-size="10">B</text>
+  <rect x="288" y="165" width="50" height="40" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="308" y="190" fill="currentColor" font-size="13">B</text>
+  <path d="M 290 60 a 30 30 0 0 1 26 15" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 316 75 l -11 -1 l 4 -9 z" fill="currentColor" stroke="none"/>
+  <text x="266" y="46" fill="currentColor" font-size="13">γ</text>
+  <text x="360" y="60" fill="currentColor" font-size="13">T</text><text x="369" y="64" fill="currentColor" font-size="10">B</text><text x="376" y="60" fill="currentColor" font-size="13">≠ T</text><text x="397" y="64" fill="currentColor" font-size="10">A</text>
+  <text x="360" y="86" fill="currentColor" font-size="12">(T</text><text x="376" y="90" fill="currentColor" font-size="9">B</text><text x="382" y="86" fill="currentColor" font-size="12">− T</text><text x="402" y="90" fill="currentColor" font-size="9">A</text><text x="408" y="86" fill="currentColor" font-size="12">)R = I γ</text>
+  <text x="360" y="112" fill="currentColor" font-size="12">masa extra: I/R² = M</text><text x="480" y="116" fill="currentColor" font-size="9">P</text><text x="486" y="112" fill="currentColor" font-size="12">/2</text>
+</svg>
+<div class="fig-cap">Máquina de Atwood modificada. Tres cuerpos, tres ecuaciones, dos tensiones distintas y un vínculo.</div>
+</div>
+
+<h3>El truco: sumar y que se cancelen las tensiones</h3>
+
+<p>Escribís las tres ecuaciones, <b>dividís la de momentos por R</b>, y sumás las tres. Las tensiones desaparecen solas. Es mucho más rápido que resolver el sistema 3×3.</p>
+
+<div class="example"><div class="ex-t">El mecanismo, con el ejemplo del 2do parcial 2017</div>
+Bloque A sobre la mesa con μ<sub>d</sub>, bloque B colgando, polea de masa M<sub>P</sub>. Con el vínculo <span class="m">a</span><sub>A</sub> = <span class="m">a</span><sub>B</sub> = <span class="m">γR</span> = <span class="m">a</span>:
+<p>(1) &nbsp; <span class="m">T</span><sub>A</sub> − <span class="m">F</span><sub>roz</sub> = <span class="m">M</span><sub>A</sub>·<span class="m">a</span><br>
+(2) &nbsp; <span class="m">M</span><sub>B</sub><span class="m">g</span> − <span class="m">T</span><sub>B</sub> = <span class="m">M</span><sub>B</sub>·<span class="m">a</span><br>
+(3) &nbsp; (<span class="m">T</span><sub>B</sub> − <span class="m">T</span><sub>A</sub>)·<span class="m">R</span> = ½<span class="m">M</span><sub>P</sub><span class="m">R</span>²·(<span class="m">a</span>/<span class="m">R</span>) &nbsp;⟹&nbsp; <b>dividida por R</b>: &nbsp; <span class="m">T</span><sub>B</sub> − <span class="m">T</span><sub>A</sub> = ½<span class="m">M</span><sub>P</sub>·<span class="m">a</span></p>
+<p>Sumando (1)+(2)+(3'): &nbsp; <span class="m">M</span><sub>B</sub><span class="m">g</span> − <span class="m">F</span><sub>roz</sub> = (<span class="m">M</span><sub>A</sub> + <span class="m">M</span><sub>B</sub> + <b>½<span class="m">M</span><sub>P</sub></b>)·<span class="m">a</span></p>
+Que es exactamente la fórmula de siempre, con la polea entrando como <b>media masa extra</b>.</div>
+
+<div class="key"><div class="ky-t">La «masa extra» M<sub>P</sub>/2</div>
+El término <span class="m">I</span>/<span class="m">R</span>² es la masa efectiva que aporta la polea. Para una polea cilíndrica (<span class="m">I</span> = ½<span class="m">MR</span>²) da <b><span class="m">M</span><sub>P</sub>/2</b>, y el radio se cancela — por eso en varios enunciados el radio es un dato que no hace falta usar.
+<div class="formula"><span class="m">a</span> = <span class="frac"><span>Σ fuerzas motrices − Σ fuerzas resistivas</span><span>Σ masas + Σ <span class="m">I</span><sub>i</sub>/<span class="m">R</span><sub>i</sub>²</span></span></div>
+Sirve como <b>atajo de control</b> del resultado. Pero en el examen escribí igual las tres ecuaciones: el planteo se puntúa.</div>
+
+<div class="trap"><div class="tr-t">Los cinco errores de este tema</div>
+<b>·</b> Poner una tensión única. Es <b>el</b> error del tema. Con dos poleas hay tres tensiones distintas (2P 2013 B1); con una polea, dos.<br>
+<b>·</b> Sumar <span class="m">M</span><sub>P</sub> entero en vez de <span class="m">M</span><sub>P</sub>/2. En el 2P 2013 B1 eso lleva de M<sub>B</sub> = 4 kg a 3,33 kg.<br>
+<b>·</b> Confundir el <b>momento de rozamiento del eje</b> con una fuerza. Entra directo como <span class="m">M</span><sub>roz</sub> en la ecuación de momentos, en N·m; no es μN·R (2P 2014 B1).<br>
+<b>·</b> En una polea escalonada, usar el radio equivocado en el vínculo. Cada cuerda va con <b>su</b> radio: <span class="m">v</span><sub>A</sub> = <span class="m">ωR</span><sub>i</sub>, <span class="m">v</span><sub>B</sub> = <span class="m">ωR</span><sub>e</sub>.<br>
+<b>·</b> En una polea de dos discos concéntricos, calcular un solo momento de inercia con la masa total. Se <b>suman</b>: <span class="m">I</span> = ½<span class="m">M</span><sub>1</sub><span class="m">R</span><sub>1</sub>² + ½<span class="m">M</span><sub>2</sub><span class="m">R</span><sub>2</sub>².</div>
+
+<h3>Poleas escalonadas y de dos discos: no confundirlas</h3>
+
+<table class="tbl">
+  <tr><th>Configuración</th><th>Qué es</th><th>Cuidado con</th></tr>
+  <tr><td><b>Polea escalonada</b><br><span class="muted">2P 2016 B2 · final de las poleas concéntricas</span></td><td>Un solo cuerpo rígido con <b>dos radios</b>. Una cuerda en cada radio, un cuerpo colgando de cada una.</td><td>Los vínculos: <span class="m">v</span><sub>A</sub> = <span class="m">ωR</span><sub>i</sub> y <span class="m">v</span><sub>B</sub> = <span class="m">ωR</span><sub>e</sub>. Si B baja 1 m, A sube <span class="m">R</span><sub>i</sub>/<span class="m">R</span><sub>e</sub> metros, <b>no</b> 1 m. Y quien gana no es el más pesado sino el de <b>mayor momento</b> (<span class="m">m</span>·<span class="m">g</span>·<span class="m">R</span>).</td></tr>
+  <tr><td><b>Dos discos concéntricos</b><br><span class="muted">2P 2011 B2</span></td><td>Dos discos pegados girando juntos, pero la cuerda va en <b>uno solo</b> de ellos.</td><td>El momento de inercia se suma (los dos giran), pero <b>el vínculo usa el radio donde está la cuerda</b>. En el 2P 2011 B2, sobre R<sub>1</sub>.</td></tr>
+</table>
+
+<div class="fig">
+<svg viewBox="0 0 480 250" style="max-width:100%;height:auto" role="img" aria-label="Polea escalonada con dos bloques colgando de radios distintos">
+  <line x1="120" y1="20" x2="360" y2="20" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="130" y1="20" x2="120" y2="10"/><line x1="170" y1="20" x2="160" y2="10"/>
+    <line x1="210" y1="20" x2="200" y2="10"/><line x1="250" y1="20" x2="240" y2="10"/>
+    <line x1="290" y1="20" x2="280" y2="10"/><line x1="330" y1="20" x2="320" y2="10"/>
+  </g>
+  <line x1="240" y1="20" x2="240" y2="55" stroke="currentColor" stroke-width="2"/>
+  <circle cx="240" cy="100" r="60" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <circle cx="240" cy="100" r="30" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="240" cy="100" r="3.5" fill="currentColor" stroke="none"/>
+  <line x1="240" y1="100" x2="288" y2="64" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="286" y="60" fill="currentColor" font-size="12">R</text><text x="295" y="64" fill="currentColor" font-size="9">e</text>
+  <line x1="240" y1="100" x2="264" y2="82" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="252" y="76" fill="currentColor" font-size="12">R</text><text x="261" y="80" fill="currentColor" font-size="9">i</text>
+  <line x1="210" y1="100" x2="210" y2="185" stroke="currentColor" stroke-width="2"/>
+  <rect x="188" y="185" width="45" height="35" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="205" y="208" fill="currentColor" font-size="13">A</text>
+  <line x1="300" y1="100" x2="300" y2="185" stroke="currentColor" stroke-width="2"/>
+  <rect x="278" y="185" width="45" height="35" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="296" y="208" fill="currentColor" font-size="13">B</text>
+  <line x1="168" y1="200" x2="168" y2="165" stroke="currentColor" stroke-width="2"/>
+  <path d="M 168 165 l -5 12 l 10 0 z" fill="currentColor" stroke="none"/>
+  <text x="140" y="180" fill="currentColor" font-size="12">sube</text>
+  <line x1="345" y1="170" x2="345" y2="210" stroke="currentColor" stroke-width="2"/>
+  <path d="M 345 210 l -5 -12 l 10 0 z" fill="currentColor" stroke="none"/>
+  <text x="352" y="195" fill="currentColor" font-size="12">baja</text>
+  <text x="20" y="115" fill="currentColor" font-size="12">v</text><text x="27" y="119" fill="currentColor" font-size="9">A</text><text x="34" y="115" fill="currentColor" font-size="12">= ωR</text><text x="68" y="119" fill="currentColor" font-size="9">i</text>
+  <text x="20" y="138" fill="currentColor" font-size="12">v</text><text x="27" y="142" fill="currentColor" font-size="9">B</text><text x="34" y="138" fill="currentColor" font-size="12">= ωR</text><text x="68" y="142" fill="currentColor" font-size="9">e</text>
+</svg>
+<div class="fig-cap">2do parcial 2016, B2. Con M<sub>A</sub> = M<sub>B</sub>, baja B porque cuelga del radio grande: su momento es el doble.</div>
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-rigido"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-rigido"></div>
+<a class="back" href="#subject-fisica1-utn-rigido">↑ Volver al índice</a>
+</div>
+</details>
+
+<details id="cr-s4">
+<summary><span class="num">4</span> Energía en rototraslación <span class="sec-score" id="ss-fisica1-utn-rigido-4"></span></summary>
+<div class="content">
+
+<p>Cuando el enunciado dice «aplicando energía», «utilizando conceptos de trabajo y energía», o te pide una velocidad después de un desplazamiento y no te pregunta ninguna fuerza, la vía es energía y no dinámica. Se ahorra la mitad del trabajo.</p>
+
+<div class="formula">
+<span class="m">E</span><sub>c</sub> = ½<span class="m">Mv</span><sub>CM</sub>² + ½<span class="m">I</span><sub>CM</sub><span class="m">ω</span>² &nbsp;&nbsp; con &nbsp;&nbsp; <span class="m">ω</span> = <span class="m">v</span><sub>CM</sub>/<span class="m">R</span> &nbsp;&nbsp; (teorema de König)
+</div>
+
+<p>Reemplazando <span class="m">ω</span> = <span class="m">v</span>/<span class="m">R</span> y el momento de inercia, todo queda en función de <span class="m">v</span>:</p>
+
+<div class="key"><div class="ky-t">Los dos números que tenés que tener automatizados</div>
+<b>Cilindro o disco macizo:</b> &nbsp; <span class="m">E</span><sub>c</sub> = ½<span class="m">Mv</span>² + ½(½<span class="m">MR</span>²)(<span class="m">v</span>/<span class="m">R</span>)² = ½<span class="m">Mv</span>² + ¼<span class="m">Mv</span>² = <b>¾<span class="m">Mv</span>²</b><br>
+<b>Esfera maciza:</b> &nbsp; <span class="m">E</span><sub>c</sub> = ½<span class="m">Mv</span>² + ½(⅖<span class="m">MR</span>²)(<span class="m">v</span>/<span class="m">R</span>)² = ½<span class="m">Mv</span>² + ⅕<span class="m">Mv</span>² = <b>(7/10)<span class="m">Mv</span>²</b>
+<p>Un cilindro que rueda tiene <b>un 50 % más</b> de energía cinética que una partícula de la misma masa a la misma velocidad. Por eso baja más despacio que un bloque sin rozamiento.</p></div>
+
+<div class="trap"><div class="tr-t">El error que devuelve el resultado de partícula</div>
+Si resolvés el plano inclinado como si el cilindro fuera una partícula te da <span class="m">v</span> = √(2<span class="m">g</span>Δ<span class="m">h</span>). Con Δh = 1,2 m eso son 4,9 m/s, cuando la respuesta correcta es 4 m/s (2P 2014 B2). <b>Te olvidaste el término rotacional.</b> Chequeo mental: si el número que te dio es mayor que √(2gΔh), algo se te fue.</div>
+
+<h3>Los cuatro escenarios de energía que caen</h3>
+
+<table class="tbl">
+  <tr><th>Escenario</th><th>¿Se conserva E?</th><th>Ecuación</th><th>Dónde cayó</th></tr>
+  <tr><td>Rueda sin deslizar, sin más fuerzas</td><td><b>Sí.</b> El rozamiento estático no trabaja.</td><td><span class="m">Mg</span>Δ<span class="m">h</span> = ¾<span class="m">Mv</span>²</td><td>Finales 26/05/22 P6, 14/02/24 P4</td></tr>
+  <tr><td>Rueda sin deslizar + resorte</td><td><b>Sí</b>, sumando la elástica</td><td><span class="m">Mgd</span>·senα = ¾<span class="m">Mv</span>² + ½<span class="m">kd</span>²</td><td>Finales con k = 250 N/m y k = 100 N/m</td></tr>
+  <tr><td>Cuerda tensa aplicada en el eje instantáneo</td><td><b>Sí.</b> La potencia de T es nula</td><td><span class="m">Mg</span>Δ<span class="m">h</span> = ¾<span class="m">Mv</span>²</td><td>2P 2014 B2</td></tr>
+  <tr><td>Un torque externo frenante</td><td><b>No.</b> <span class="m">W</span><sub>torque</sub> = Δ<span class="m">E</span></td><td><span class="m">E</span><sub>f</sub> − <span class="m">E</span><sub>i</sub> = <span class="m">W</span><sub>torque</sub> &lt; 0</td><td>2P 2011 B2 inciso b</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Trampa grande · el tramo sin rozamiento</div>
+Si el cuerpo rueda y después entra en un tramo <b>sin rozamiento</b>, deja de valer <span class="m">v</span> = <span class="m">ωR</span>. Sin rozamiento no hay ninguna fuerza que dé momento respecto del CM, así que <b><span class="m">ω</span> queda congelada</b> en el valor que traía, y sólo cambia <span class="m">v</span><sub>CM</sub>. En el término rotacional de la energía no cambia nada — se cancela a los dos lados — y sólo hay que balancear <b>½<span class="m">Mv</span>² con <span class="m">Mgh</span></b>. Es exactamente lo que pide el problema 4 del final del 14/02/24.</div>
+
+<div class="fig">
+<svg viewBox="0 0 560 230" style="max-width:100%;height:auto" role="img" aria-label="Cilindro que sube un tramo rugoso hasta B y sigue por un tramo liso hasta C">
+  <path d="M 20 200 L 130 200 L 330 90 L 520 90" stroke="currentColor" stroke-width="2" fill="none"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.65">
+    <line x1="150" y1="189" x2="142" y2="200"/><line x1="180" y1="173" x2="172" y2="184"/>
+    <line x1="210" y1="156" x2="202" y2="167"/><line x1="240" y1="140" x2="232" y2="151"/>
+  </g>
+  <circle cx="105" cy="178" r="22" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="88" y="222" fill="currentColor" font-size="13">A</text>
+  <text x="60" y="160" fill="currentColor" font-size="12">v</text><text x="67" y="164" fill="currentColor" font-size="9">A</text><text x="74" y="160" fill="currentColor" font-size="12">= 4 m/s</text>
+  <circle cx="285" cy="98" r="22" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="300" y="132" fill="currentColor" font-size="13">B</text>
+  <circle cx="450" cy="68" r="22" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="446" y="118" fill="currentColor" font-size="13">C</text>
+  <line x1="330" y1="90" x2="520" y2="90" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="358" y="82" fill="currentColor" font-size="12">tramo SIN rozamiento (de B a C)</text>
+  <text x="150" y="120" fill="currentColor" font-size="12">rueda sin deslizar</text>
+  <line x1="536" y1="200" x2="536" y2="90" stroke="currentColor" stroke-width="1"/>
+  <line x1="530" y1="145" x2="542" y2="145" stroke="currentColor" stroke-width="1"/>
+  <text x="440" y="160" fill="currentColor" font-size="12">h = 0,3 m (A→B)</text>
+  <text x="440" y="178" fill="currentColor" font-size="12">h = 0,3 m (B→C)</text>
+  <text x="20" y="30" fill="currentColor" font-size="12">De A a B: ¾Mv² se reparte con Mgh &nbsp;·&nbsp; De B a C: ω NO cambia, sólo v</text>
+</svg>
+<div class="fig-cap">Final UTN.BA 14/02/24, problema 4. Dos tramos con reglas distintas. La geometría del dibujo es esquemática; los datos de altura son los del enunciado.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 480 220" style="max-width:100%;height:auto" role="img" aria-label="Cilindro que baja un plano inclinado estirando un resorte anclado arriba">
+  <path d="M 30 195 L 430 195 L 430 45 Z" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="110" y1="195" x2="102" y2="206"/><line x1="170" y1="195" x2="162" y2="206"/>
+    <line x1="230" y1="195" x2="222" y2="206"/><line x1="290" y1="195" x2="282" y2="206"/>
+    <line x1="350" y1="195" x2="342" y2="206"/>
+  </g>
+  <path d="M 88 195 A 58 58 0 0 1 86 175" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <text x="62" y="188" fill="currentColor" font-size="13">30°</text>
+  <circle cx="210" cy="140" r="32" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="210" cy="140" r="3" fill="currentColor" stroke="none"/>
+  <text x="192" y="136" fill="currentColor" font-size="13">m</text>
+  <path d="M 236 124 l 12 -12 l 10 16 l 14 -22 l 10 16 l 14 -22 l 10 16 l 14 -22 l 10 16 l 12 -12" stroke="currentColor" stroke-width="2" fill="none"/>
+  <line x1="342" y1="98" x2="358" y2="88" stroke="currentColor" stroke-width="2"/>
+  <text x="270" y="80" fill="currentColor" font-size="13">k</text>
+  <line x1="210" y1="140" x2="170" y2="163" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+  <path d="M 170 163 l 12 -1 l -5 -9 z" fill="currentColor" stroke="none" transform="rotate(180 176 158)"/>
+  <text x="140" y="180" fill="currentColor" font-size="12">d</text>
+  <text x="30" y="35" fill="currentColor" font-size="12">mgd·senα = ¾mv² + ½kd²</text>
+</svg>
+<div class="fig-cap">El cilindro con resorte: sale en dos finales distintos, con k = 250 N/m (d = 20 cm) y con k = 100 N/m (d = 50 cm). Es el mismo problema.</div>
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-rigido"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-rigido"></div>
+<a class="back" href="#subject-fisica1-utn-rigido">↑ Volver al índice</a>
+</div>
+</details>
+
+<details id="cr-s5">
+<summary><span class="num">5</span> Momento angular y rotación pura <span class="sec-score" id="ss-fisica1-utn-rigido-5"></span></summary>
+<div class="content">
+
+<p>Acá está la parte que <b>ningún parcial de Martinelli toca</b> y que en los finales de UTN.BA aparece una y otra vez. En 66 ejercicios de parcial hay <b>cero</b> problemas de conservación del momento angular; en los 10 finales transcriptos hay al menos cuatro. Si venís estudiando sólo con los parciales, éste es tu punto ciego.</p>
+
+<div class="formula">
+<span class="m">L</span> = <span class="m">I</span>·<span class="m">ω</span> &nbsp;(cuerpo rígido) &nbsp;·&nbsp; <span class="m">L</span> = <span class="m">m</span>·<span class="m">v</span>·<span class="m">b</span> &nbsp;(partícula, con <span class="m">b</span> = distancia del eje a la recta de acción de <span class="m">v</span>)<br>
+Si Σ<span class="m">τ</span><sub>ext</sub> = 0 respecto de un eje, entonces <b><span class="m">L</span> respecto de ese eje se conserva</b>.
+</div>
+
+<div class="key"><div class="ky-t">Lo primero, siempre: elegir el eje</div>
+El momento angular <b>no se conserva a secas</b>: se conserva <b>respecto de un eje determinado</b>. La consigna de todo problema de <span class="m">L</span> es «¿respecto de qué punto los momentos externos son cero?». Tres elecciones que resuelven casi todo:
+<p><b>·</b> <b>El agujero de la mesa</b>, cuando la cuerda pasa por ahí: la tensión es central, brazo nulo, no da momento.<br>
+<b>·</b> <b>El centro del disco</b>, cuando una partícula lo choca: las fuerzas del choque son internas al par.<br>
+<b>·</b> <b>Un punto fijo de la superficie</b>, cuando una rueda pasa de deslizar a rodar: el rozamiento actúa en la línea de contacto y su momento respecto de ese punto es nulo.</p></div>
+
+<h3>Arquetipo 1 · el radio que se achica</h3>
+
+<div class="fig">
+<svg viewBox="0 0 500 250" style="max-width:100%;height:auto" role="img" aria-label="Masa que gira sobre una mesa con la cuerda pasando por un agujero central y otra masa colgando">
+  <ellipse cx="200" cy="95" rx="170" ry="55" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <ellipse cx="200" cy="95" rx="6" ry="3" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+  <ellipse cx="200" cy="95" rx="105" ry="34" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+  <ellipse cx="200" cy="95" rx="52" ry="17" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+  <circle cx="305" cy="95" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="2"/>
+  <text x="313" y="88" fill="currentColor" font-size="13">m</text><text x="323" y="92" fill="currentColor" font-size="10">1</text>
+  <line x1="200" y1="95" x2="298" y2="95" stroke="currentColor" stroke-width="1.5"/>
+  <text x="234" y="88" fill="currentColor" font-size="12">r</text><text x="240" y="92" fill="currentColor" font-size="9">i</text>
+  <text x="176" y="70" fill="currentColor" font-size="12">r</text><text x="182" y="74" fill="currentColor" font-size="9">f</text>
+  <line x1="305" y1="95" x2="305" y2="52" stroke="currentColor" stroke-width="2"/>
+  <path d="M 305 52 l -5 12 l 10 0 z" fill="currentColor" stroke="none"/>
+  <text x="311" y="52" fill="currentColor" font-size="12">v</text>
+  <line x1="200" y1="98" x2="200" y2="195" stroke="currentColor" stroke-width="2"/>
+  <rect x="180" y="195" width="42" height="34" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <text x="192" y="217" fill="currentColor" font-size="13">m</text><text x="203" y="221" fill="currentColor" font-size="10">2</text>
+  <text x="20" y="180" fill="currentColor" font-size="12">m</text><text x="30" y="184" fill="currentColor" font-size="9">2</text><text x="36" y="180" fill="currentColor" font-size="12">g = m</text><text x="74" y="184" fill="currentColor" font-size="9">1</text><text x="80" y="180" fill="currentColor" font-size="12">v²/r &nbsp;(equilibrio)</text>
+  <text x="20" y="202" fill="currentColor" font-size="12">m</text><text x="30" y="206" fill="currentColor" font-size="9">1</text><text x="36" y="202" fill="currentColor" font-size="12">v</text><text x="44" y="206" fill="currentColor" font-size="9">i</text><text x="50" y="202" fill="currentColor" font-size="12">r</text><text x="57" y="206" fill="currentColor" font-size="9">i</text><text x="63" y="202" fill="currentColor" font-size="12">= m</text><text x="87" y="206" fill="currentColor" font-size="9">1</text><text x="93" y="202" fill="currentColor" font-size="12">v</text><text x="101" y="206" fill="currentColor" font-size="9">f</text><text x="106" y="202" fill="currentColor" font-size="12">r</text><text x="113" y="206" fill="currentColor" font-size="9">f</text><text x="120" y="202" fill="currentColor" font-size="12">&nbsp;(L conservado)</text>
+</svg>
+<div class="fig-cap">Final 02/03/23, problema 1. Dos ideas en un mismo dibujo: dinámica circular para hallar m<sub>2</sub>, y conservación de L para hallar la velocidad final.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Se conserva L, NO la energía</div>
+Si el radio se reduce a la mitad, la velocidad se <b>duplica</b> (<span class="m">L</span> = <span class="m">mvr</span> constante) y la energía cinética se <b>cuadruplica</b>. ¿De dónde salió esa energía? Del trabajo que hacés vos al tirar de la cuerda hacia abajo. La tensión es central y <b>no da momento</b>, pero <b>sí hace trabajo</b> porque el radio cambia. Confundir «no da momento» con «no hace trabajo» es el error clásico.</div>
+
+<h3>Arquetipo 2 · partícula que choca un cuerpo que puede girar</h3>
+
+<p>Es un choque, así que hay una cantidad que se conserva. Pero acá no es <span class="m">p</span> lineal: es <span class="m">L</span> respecto del eje del cuerpo.</p>
+
+<div class="fig">
+<svg viewBox="0 0 480 240" style="max-width:100%;height:auto" role="img" aria-label="Partícula que choca el borde de un disco formando 30 grados con la dirección radial">
+  <circle cx="250" cy="125" r="80" stroke="currentColor" stroke-width="2" fill="var(--surface-2)"/>
+  <circle cx="250" cy="125" r="4" fill="currentColor" stroke="none"/>
+  <text x="258" y="120" fill="currentColor" font-size="13">O</text>
+  <circle cx="180" cy="86" r="4.5" fill="currentColor" stroke="none"/>
+  <text x="172" y="76" fill="currentColor" font-size="13">C</text>
+  <line x1="250" y1="125" x2="180" y2="86" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="216" y="118" fill="currentColor" font-size="12">R</text>
+  <line x1="86" y1="86" x2="176" y2="86" stroke="currentColor" stroke-width="2"/>
+  <path d="M 176 86 l -12 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+  <text x="106" y="78" fill="currentColor" font-size="13">v = 10 m/s</text>
+  <path d="M 150 86 A 30 30 0 0 0 163 102" stroke="currentColor" stroke-width="1.2" fill="none"/>
+  <text x="150" y="106" fill="currentColor" font-size="12">30°</text>
+  <line x1="250" y1="125" x2="86" y2="125" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity="0.8"/>
+  <line x1="120" y1="86" x2="120" y2="125" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="60" y="112" fill="currentColor" font-size="12">b = R·sen30°</text>
+  <line x1="180" y1="86" x2="140" y2="64" stroke="currentColor" stroke-width="2"/>
+  <path d="M 140 64 l 12 1 l -4 9 z" fill="currentColor" stroke="none" transform="rotate(180 146 69)"/>
+  <text x="112" y="56" fill="currentColor" font-size="12">v&#39; = 4 m/s (radial)</text>
+  <path d="M 250 65 a 60 60 0 0 1 52 30" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 302 95 l -11 -2 l 3 -10 z" fill="currentColor" stroke="none"/>
+  <text x="290" y="60" fill="currentColor" font-size="13">ω</text>
+  <text x="20" y="215" fill="currentColor" font-size="12">L antes = m·v·(R sen30°) &nbsp;·&nbsp; L después = ½MR²·ω &nbsp;(la partícula sale radial: su L es cero)</text>
+</svg>
+<div class="fig-cap">Final UTN.BA 12/12/23, problema 2. Como después del choque la partícula sale <b>en dirección radial</b>, su recta de acción pasa por O y no aporta momento angular. Todo el L se lo llevó el disco.</div>
+</div>
+
+<h3>Arquetipo 3 · de traslación pura a rodadura</h3>
+
+<p>Una rueda que llega deslizando (girando poco o nada) y por fricción termina rodando. Acá <b>sí</b> hay rozamiento dinámico y <b>sí</b> se pierde energía; lo que se conserva es <span class="m">L</span> respecto de un punto fijo del piso, porque el rozamiento pasa justo por la línea de contacto.</p>
+
+<div class="fig">
+<svg viewBox="0 0 540 190" style="max-width:100%;height:auto" role="img" aria-label="Rueda que llega en traslación pura y termina rodando sin deslizar">
+  <line x1="20" y1="150" x2="520" y2="150" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.6">
+    <line x1="30" y1="150" x2="20" y2="162"/><line x1="80" y1="150" x2="70" y2="162"/>
+    <line x1="130" y1="150" x2="120" y2="162"/><line x1="180" y1="150" x2="170" y2="162"/>
+    <line x1="230" y1="150" x2="220" y2="162"/><line x1="280" y1="150" x2="270" y2="162"/>
+    <line x1="330" y1="150" x2="320" y2="162"/><line x1="380" y1="150" x2="370" y2="162"/>
+    <line x1="430" y1="150" x2="420" y2="162"/><line x1="480" y1="150" x2="470" y2="162"/>
+  </g>
+  <circle cx="110" cy="105" r="45" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="110" cy="105" r="3" fill="currentColor" stroke="none"/>
+  <line x1="110" y1="105" x2="185" y2="105" stroke="currentColor" stroke-width="2"/>
+  <path d="M 185 105 l -12 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+  <text x="140" y="96" fill="currentColor" font-size="13">v</text><text x="148" y="100" fill="currentColor" font-size="10">0</text>
+  <text x="66" y="42" fill="currentColor" font-size="12">Ω = 0 (desliza)</text>
+  <line x1="110" y1="150" x2="160" y2="150" stroke="currentColor" stroke-width="2"/>
+  <path d="M 160 150 l -12 -5 l 0 10 z" fill="currentColor" stroke="none" transform="rotate(180 154 150)"/>
+  <text x="120" y="172" fill="currentColor" font-size="11">F</text><text x="128" y="176" fill="currentColor" font-size="9">roz din</text>
+  <text x="238" y="108" fill="currentColor" font-size="26">⟶</text>
+  <circle cx="400" cy="105" r="45" stroke="currentColor" stroke-width="2" fill="var(--surface-3)"/>
+  <circle cx="400" cy="105" r="3" fill="currentColor" stroke="none"/>
+  <line x1="400" y1="105" x2="460" y2="105" stroke="currentColor" stroke-width="2"/>
+  <path d="M 460 105 l -12 -5 l 0 10 z" fill="currentColor" stroke="none"/>
+  <text x="424" y="96" fill="currentColor" font-size="13">v = ωR</text>
+  <path d="M 400 65 a 40 40 0 0 1 34 20" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M 434 85 l -11 -2 l 3 -10 z" fill="currentColor" stroke="none"/>
+  <text x="350" y="42" fill="currentColor" font-size="12">rueda sin deslizar</text>
+  <text x="20" y="186" fill="currentColor" font-size="12">m·v</text><text x="42" y="190" fill="currentColor" font-size="9">0</text><text x="48" y="186" fill="currentColor" font-size="12">·R = (I</text><text x="88" y="190" fill="currentColor" font-size="9">CM</text><text x="102" y="186" fill="currentColor" font-size="12">+ mR²)·ω &nbsp;⟹&nbsp; ω = 2v</text><text x="248" y="190" fill="currentColor" font-size="9">0</text><text x="254" y="186" fill="currentColor" font-size="12">/(3R) &nbsp;·&nbsp; se pierde 1/3 de la energía cinética</text>
+</svg>
+<div class="fig-cap">Final UTN.BA (hoja sin fecha), problema 2. El propio enunciado sugiere «utilice la conservación del momento angular»: es la pista de qué eje elegir.</div>
+</div>
+
+<h3>Rotación pura: el disco que gira alrededor de un eje fijo</h3>
+
+<p>Es el caso más simple de todos y sin embargo cayó una sola vez en parcial (2P 2017, B2) — y varias veces en el final. Sin traslación, no hay vínculo: sólo cinemática angular más Σ<span class="m">τ</span> = <span class="m">I</span><span class="m">γ</span>.</p>
+
+<div class="formula">
+<span class="m">ω</span> = <span class="m">ω</span><sub>0</sub> + <span class="m">γt</span> &nbsp;·&nbsp; <span class="m">φ</span> = <span class="m">ω</span><sub>0</sub><span class="m">t</span> + ½<span class="m">γt</span>² &nbsp;·&nbsp; <b><span class="m">ω</span>² = <span class="m">ω</span><sub>0</sub>² + 2<span class="m">γ</span>Δ<span class="m">φ</span></b> &nbsp;·&nbsp; <span class="m">τ</span>·Δ<span class="m">φ</span> = Δ(½<span class="m">Iω</span>²)
+</div>
+
+<div class="trap"><div class="tr-t">Los detalles que se cobran en rotación pura</div>
+<b>·</b> «Gira 2 radianes» son <b>2 radianes</b>, no 2 vueltas. Si multiplicás por 2π el resultado cambia por ese factor.<br>
+<b>·</b> «100 rpm» hay que pasarlo a rad/s: <span class="m">ω</span> = 100·2π/60 = 10,47 rad/s.<br>
+<b>·</b> El <b>momento</b> del rozamiento del eje se pide en N·m y sale directo de Σ<span class="m">τ</span> = <span class="m">Iγ</span>. No podés calcular la fuerza: no te dan ni el radio del eje ni la normal ahí.<br>
+<b>·</b> <span class="m">R</span> = 50 cm = 0,5 m, y va <b>al cuadrado</b>: ½·10·0,5² = 1,25 kg·m², no 2,5.<br>
+<b>·</b> Los signos: <span class="m">γ</span> y el momento frenante son <b>negativos</b>. La pregunta pide «la desaceleración», así que en la respuesta aclarás módulo y sentido.</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fisica1-utn-rigido"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fisica1-utn-rigido"></div>
+<a class="back" href="#subject-fisica1-utn-rigido">↑ Volver al índice</a>
+</div>
+</details>

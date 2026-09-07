@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física I · Trabajo y energía · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="fisica1-utn-energia"] {
+    --bg: #f9f5f3; --text: #341f14; --text-muted: #816456;
+    --surface: #ffffff; --surface-2: #f3eae5; --surface-3: #e9d9d1;
+    --border: #eadfd9; --border-2: #dbc7bd;
+    --accent: #ea580c; --accent-hover: #be480a; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #f3eae5; --summary-hover: #e9d9d1; --num-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.07);
+  }
+  [data-theme="dark"][data-subject="fisica1-utn-energia"] {
+    --bg: #180e0a; --text: #e7dbd5; --text-muted: #b09c92;
+    --surface: #271a14; --surface-2: #37261d; --surface-3: #4d372b;
+    --border: #4d372b; --border-2: #684c3d;
+    --accent: #eca079; --accent-hover: #f6c6ac; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #37261d; --summary-hover: #4d372b; --num-text: #180e0a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica1-utn">
+          <div class="drawer-item" data-target="fisica1-utn" onclick="switchSubject('fisica1-utn')">
+            <div class="ic" style="background:#4338ca;color:#ffffff">F1</div>
+            <div class="info">
+              <div class="t" style="color:#4338ca">Física I</div>
+              <div class="d">UTN FRBA · Guía de final · 84 exámenes analizados</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">
+              <div class="ic" style="background:#7c3aed;color:#ffffff">CR</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física I · Cuerpo rígido</div>
+                <div class="d">Rodadura, poleas con masa, rototraslación y momento angular · en los 10 finales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">
+              <div class="ic" style="background:#be123c;color:#ffffff">Ch</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Física I · Choques</div>
+                <div class="d">Choque plástico, elástico y en 2D · impulso y cantidad de movimiento</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">
+              <div class="ic" style="background:#0891b2;color:#ffffff">MA</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">Física I · Oscilaciones</div>
+                <div class="d">MAS masa-resorte, péndulo simple y péndulo físico</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">
+              <div class="ic" style="background:#ea580c;color:#ffffff">TE</div>
+              <div class="info">
+                <div class="t" style="color:#ea580c">Física I · Trabajo y energía</div>
+                <div class="d">Trabajo, energía, resortes y movimiento circular</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">
+              <div class="ic" style="background:#1d4ed8;color:#ffffff">Dn</div>
+              <div class="info">
+                <div class="t" style="color:#1d4ed8">Física I · Dinámica</div>
+                <div class="d">Newton, planos inclinados, poleas, cinemática y sistemas no inerciales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">
+              <div class="ic" style="background:#0d9488;color:#ffffff">Fl</div>
+              <div class="info">
+                <div class="t" style="color:#0d9488">Física I · Fluidos</div>
+                <div class="d">Hidrostática e hidrodinámica · teoría que el resumen no cubre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">
+              <div class="ic" style="background:#a16207;color:#ffffff">Op</div>
+              <div class="info">
+                <div class="t" style="color:#a16207">Física I · Óptica geométrica</div>
+                <div class="d">Espejos, lentes, prisma y marcha de rayos</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')">
+              <div class="ic" style="background:#475569;color:#ffffff">Sm</div>
+              <div class="info">
+                <div class="t" style="color:#475569">Física I · Simulacros</div>
+                <div class="d">Finales completos de 6 problemas con reloj + banco de preguntas conceptuales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fiuba-algebra-lineal">
+          <div class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+            <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+            <div class="info">
+              <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+              <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-parcial" onclick="switchSubject('fiuba-algebra-lineal-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">Álgebra Lineal · Primer parcial</div>
+                <div class="d">Palacios · 1er parcial · 21/10 · 21 parciales reales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-segundo-parcial" onclick="switchSubject('fiuba-algebra-lineal-segundo-parcial')">
+              <div class="ic" style="background:#1e5f8a;color:#eff6ff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#1e5f8a">Álgebra Lineal · Segundo parcial</div>
+                <div class="d">Palacios · 2do parcial · 2/12 · unidad 4</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-anatomia">
+          <div class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+            <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+            <div class="info">
+              <div class="t" style="color:#9d2449">Anatomía e Histología Funcional · FIUBA</div>
+              <div class="d">Iurman · Materia completa · las 16 clases del cronograma</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-anatomia-parcial" onclick="switchSubject('fiuba-anatomia-parcial')">
+              <div class="ic" style="background:#be123c;color:#fff1f2">P1</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Anatomía · Primer parcial</div>
+                <div class="d">Iurman · 1er parcial · 29/9 · clases 1 a 6</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-anatomia-segundo-parcial" onclick="switchSubject('fiuba-anatomia-segundo-parcial')">
+              <div class="ic" style="background:#7c2d5a;color:#fdf2f8">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7c2d5a">Anatomía · Segundo parcial</div>
+                <div class="d">Iurman · 2do parcial · 17/11 · clases 8 a 13</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-algoritmos">
+          <div class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+            <div class="ic" style="background:#4c1d95;color:#ede9fe">AP</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Algoritmos y Programación I · FIUBA</div>
+              <div class="d">Azcurra · Materia completa · las 9 guías en C</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algoritmos-parcial" onclick="switchSubject('fiuba-algoritmos-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#f5f3ff">PI</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Algoritmos · Parcial e integrador</div>
+                <div class="d">Azcurra · Las 12 consignas reales del campus</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-electronica">
+          <div class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+            <div class="ic" style="background:#92400e;color:#fffbeb">IB</div>
+            <div class="info">
+              <div class="t" style="color:#92400e">Introducción a la Bioingeniería · FIUBA</div>
+              <div class="d">Veiga · Materia completa · teoría de circuitos</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-electronica-integrador" onclick="switchSubject('fiuba-electronica-integrador')">
+              <div class="ic" style="background:#b45309;color:#fffbeb">IN</div>
+              <div class="info">
+                <div class="t" style="color:#b45309">Bioingeniería · Examen integrador</div>
+                <div class="d">Veiga · Integrador · 4 parciales y 5 coloquios reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-quimica">
+          <div class="drawer-item" data-target="fiuba-quimica" onclick="switchSubject('fiuba-quimica')">
+            <div class="ic" style="background:#047857;color:#ecfdf5">QB</div>
+            <div class="info">
+              <div class="t" style="color:#047857">Química Básica · FIUBA</div>
+              <div class="d">Boeykens · Materia completa · las 12 secciones del temario</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-quimica-libre" onclick="switchSubject('fiuba-quimica-libre')">
+              <div class="ic" style="background:#0f766e;color:#f0fdfa">QL</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Química Básica · Examen libre</div>
+                <div class="d">Boeykens · Libre · las 3 etapas, 9 exámenes reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA I · TRABAJO Y ENERGÍA =============== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica1-utn-energia">
+  <header>
+    <h1>Física I · Trabajo y energía</h1>
+    <div class="sub">UTN FRBA · Final · La fórmula madre ΔE = W<sub>NC</sub>, resortes, planos inclinados y movimiento circular · Arquetipos de la cátedra Martinelli (2009–2017) + finales UTN.BA</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-energia">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#en-s1">ΔE = W de las fuerzas no conservativas</a></li>
+    <li><a href="#en-s2">Resorte + rozamiento + plano inclinado (el arquetipo)</a></li>
+    <li><a href="#en-s3">Movimiento circular: loop, MCU y circular vertical</a></li>
+    <li><a href="#en-s4">Cinemática dentro de un problema de energía</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-energia">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ==================== UNIDAD 1 ==================== -->
+<details id="en-s1">
+<summary><span class="num">1</span> ΔE = W de las fuerzas no conservativas <span class="sec-score" id="ss-fisica1-utn-energia-1"></span></summary>
+<div class="content">
+
+<h3>Antes que nada: cómo es el examen que rendís</h3>
+<p>Vos ya regularizaste. Lo que viene es el <b>final</b>: <b>6 problemas sueltos</b>, sin bloques A y B, y se aprueba con el <b>50% del examen</b>. El encabezado imprime <b>g = 10 m/s²</b> y te <b>da los momentos de inercia</b> como dato (I<sub>disco</sub> = mR²/2, I<sub>esfera</sub> = 2/5 mr², I<sub>barra</sub> = mL²/12). No hay multiple choice: todo es desarrollo.</p>
+<p>Los parciales de la cátedra Martinelli (2009–2017) que te pasaron <b>no son el formato del final</b>: son la <b>cantera de arquetipos</b>. Los problemas de energía del final son los mismos tipos, con otros números. Por eso los vas a ver acá tal cual salieron, con su fecha.</p>
+
+<div class="key"><div class="ky-t">Lo que el enunciado puntúa aparte (en el parcial y en el final)</div>
+Textual de la cátedra: <i>"Indique explícitamente los sistemas de referencia que adopta en cada problema, realice claramente los diagramas que correspondan y diga las hipótesis que hace en cada caso."</i><br>
+En un problema de energía eso se traduce en tres renglones que <b>no te podés saltear</b>:<br>
+1. <b>Dónde ponés el cero de energía potencial gravitatoria</b> (V<sub>g</sub> = 0). Elegilo en el punto más bajo del problema y no lo muevas más.<br>
+2. <b>El DCL</b> de cada tramo (sirve para justificar qué fuerzas trabajan y cuáles no).<br>
+3. <b>Las hipótesis</b>: "el resorte es ideal", "la polea no tiene rozamiento en su eje", "rueda sin resbalar, por lo tanto el rozamiento estático no disipa".
+</div>
+
+<h3>La única fórmula madre</h3>
+<p>Todo problema de energía de Física I sale de <b>una sola ecuación</b>. No hay una fórmula para el resorte, otra para el rozamiento y otra para el plano inclinado: hay <b>una</b>, y el laburo es armar bien los dos lados.</p>
+
+<div class="formula">
+  <b>ΔE = E<sub>final</sub> − E<sub>inicial</sub> = W<sub>fuerzas no conservativas</sub></b><br><br>
+  con &nbsp; E = ½·m·v² &nbsp;+&nbsp; ½·I<sub>CM</sub>·Ω² &nbsp;+&nbsp; m·g·h &nbsp;+&nbsp; ½·k·Δl²<br>
+  <span class="muted">(cinética de traslación + cinética de rotación + potencial gravitatoria + potencial elástica)</span>
+</div>
+
+<p>Del lado derecho van <b>solo las fuerzas no conservativas que trabajan</b>. Las candidatas son siempre las mismas:</p>
+
+<table class="tbl">
+  <tr><th>Fuerza</th><th>¿Trabaja?</th><th>Cuánto vale</th></tr>
+  <tr><td>Peso</td><td>Es conservativa → <b>ya está adentro de E</b> como m·g·h. Nunca la pongas a la derecha.</td><td>W<sub>P</sub> = −Δ(m·g·h)</td></tr>
+  <tr><td>Fuerza elástica</td><td>Conservativa → <b>ya está adentro de E</b> como ½·k·Δl².</td><td>W<sub>el</sub> = −Δ(½kΔl²)</td></tr>
+  <tr><td>Normal</td><td><b>No</b>: es perpendicular al desplazamiento.</td><td>W<sub>N</sub> = 0</td></tr>
+  <tr><td>Tensión (cuerda ⊥ al movimiento, tipo péndulo o circular)</td><td><b>No</b>: perpendicular al desplazamiento.</td><td>W<sub>T</sub> = 0</td></tr>
+  <tr><td>Tensión (cuerda ideal + polea ideal, sistema completo)</td><td><b>No neto</b>: lo que le saca a un cuerpo se lo da al otro.</td><td>ΣW<sub>T</sub> = 0</td></tr>
+  <tr><td>Rozamiento <b>dinámico</b> (desliza)</td><td><b>Sí, y siempre negativo.</b></td><td>W<sub>roz</sub> = −μ<sub>d</sub>·N·d</td></tr>
+  <tr><td>Rozamiento <b>estático</b> de rodadura (rueda sin resbalar)</td><td><b>No</b>: el punto de contacto está instantáneamente quieto (dl = 0).</td><td>W<sub>roz</sub> = 0</td></tr>
+  <tr><td>Fuerza aplicada F (te empujan, un freno, un motor)</td><td><b>Sí.</b> Signo según sentido.</td><td>W<sub>F</sub> = ±F·d</td></tr>
+</table>
+
+<div class="fig">
+<svg viewBox="0 0 560 230" style="max-width:100%;height:auto" role="img" aria-label="Balance de energía: energía inicial menos el trabajo del rozamiento igual a energía final">
+  <rect x="55" y="35" width="80" height="150" fill="var(--surface-3)" stroke="currentColor"/>
+  <text x="95" y="205" fill="currentColor" font-size="13" text-anchor="middle">E inicial</text>
+  <text x="95" y="27" fill="currentColor" font-size="12" text-anchor="middle">2000 J</text>
+  <line x1="150" y1="35" x2="150" y2="185" stroke="currentColor" stroke-dasharray="4 4"/>
+  <line x1="150" y1="35" x2="255" y2="35" stroke="currentColor" stroke-dasharray="4 4"/>
+  <path d="M 200 45 L 200 105 M 194 97 L 200 106 L 206 97" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="212" y="80" fill="currentColor" font-size="13">W&#8202;<tspan font-size="10" dy="3">NC</tspan><tspan dy="-3"> = &#8722;1000 J</tspan></text>
+  <text x="212" y="98" fill="currentColor" font-size="11">(rozamiento: se lo come)</text>
+  <rect x="390" y="110" width="80" height="75" fill="var(--surface-3)" stroke="currentColor"/>
+  <text x="430" y="205" fill="currentColor" font-size="13" text-anchor="middle">E final</text>
+  <text x="430" y="102" fill="currentColor" font-size="12" text-anchor="middle">1000 J</text>
+  <line x1="40" y1="185" x2="520" y2="185" stroke="currentColor" stroke-width="1.4"/>
+  <text x="40" y="200" fill="currentColor" font-size="11">0</text>
+</svg>
+<div class="fig-cap">El balance del problema C del 1er parcial 2013: arranca con 2000 J de potencial, el rozamiento se lleva 1000 J y quedan 1000 J. Nada más que eso.</div>
+</div>
+
+<h3>¿Energía o Newton? La pregunta que decide el problema</h3>
+
+<div class="key"><div class="ky-t">Regla de decisión</div>
+<b>Te piden velocidad, altura, compresión, elongación, distancia recorrida o "cuánto sube/baja" → ENERGÍA.</b> Un solo renglón te conecta el estado inicial con el final, sin importar el camino.<br><br>
+<b>Te piden fuerza, tensión, normal, aceleración, tiempo o coeficiente de rozamiento → NEWTON.</b> La energía no tiene tiempo adentro: si aparece la palabra <i>tiempo</i>, energía sola no alcanza.<br><br>
+<b>Te piden las dos cosas → las dos.</b> Es el caso típico del circular vertical: la velocidad sale por energía, la tensión sale de ΣF = m·a<sub>c</sub>. Y el caso del loop: la altura sale por energía, pero la <i>condición</i> (N = 0) sale de Newton.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 1 · Contar el peso dos veces</div>
+Si ya escribiste el término <b>m·g·h</b> dentro de E, el peso <b>no</b> va del lado del trabajo. Poner "W<sub>P</sub> = −m·g·h" a la derecha <i>y</i> además m·g·h a la izquierda es el error que más te descuenta, porque te duplica el término y el resultado sale con un factor 2 de más. Lo mismo con el resorte: o ponés ½kΔl² adentro de E, o ponés W<sub>el</sub> afuera. Nunca las dos.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 2 · El signo del rozamiento</div>
+W<sub>roz</sub> = <b>−</b>μ<sub>d</sub>·N·d, <b>siempre negativo</b>, vaya el cuerpo para donde vaya (sube, baja, va y vuelve). Si el cuerpo pasa <i>dos veces</i> por la zona rugosa, restás <b>dos veces</b>. Si la respuesta te da que el cuerpo termina con más energía de la que arrancó, revisá el signo.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 3 · La normal en el plano inclinado</div>
+Sobre un plano de ángulo α, N = m·g·<b>cos</b>α, no m·g. Con α = 37° y m = 1 kg: N = 1·10·0,8 = <b>8 N</b>, no 10 N. Y ojo: si la fuerza aplicada F es <b>paralela</b> al plano (como en el problema 4 del parcial 2009), no modifica la normal; si es <b>horizontal</b>, sí la modifica.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 4 · "Puede haber datos que no interesen"</div>
+La cátedra lo avisa en el encabezado y lo cumple. Los distractores clásicos: <b>μ<sub>e</sub></b> cuando el cuerpo ya está deslizando; <b>μ<sub>d</sub></b> cuando el cuerpo rueda sin resbalar (ahí el rozamiento es estático y no disipa); una <b>masa</b> que se cancela; el <b>ángulo</b> de la rampa cuando solo te importa la altura; una <b>distancia</b> recorrida sobre una superficie lisa. No te sientas mal por no usar un dato: decilo explícitamente en la hoja ("μ<sub>D</sub> = 0,6 no interviene porque el cilindro rueda sin resbalar y el rozamiento estático no realiza trabajo") y sumás puntos.
+</div>
+
+<h3>Cómo se arma el balance, paso a paso</h3>
+<div class="example"><div class="ex-t">La receta de 6 pasos que sirve para los 20 ejercicios de esta guía</div>
+<b>1.</b> Marcá los <b>puntos</b> del recorrido con letras (A, B, C…). Uno por cada cambio de superficie, de tramo o de pregunta.<br>
+<b>2.</b> Elegí el <b>cero de V<sub>g</sub></b> en el punto más bajo y decilo.<br>
+<b>3.</b> Escribí <b>E en cada punto</b>: ½mv² + ½IΩ² + mgh + ½kΔl². Los términos que no existen los ponés en cero y listo.<br>
+<b>4.</b> Escribí <b>W<sub>NC</sub></b> tramo por tramo: solo rozamiento dinámico y fuerzas aplicadas.<br>
+<b>5.</b> Escribí los <b>vínculos</b>: cuerda inextensible (Δl del resorte = descenso del cuerpo), rodadura (Ω = v/R), geometría del plano (d = h/senα).<br>
+<b>6.</b> Igualá, despejá y <b>chequeá el signo y las unidades</b> (cm → m, gramos → kg).
+</div>
+
+<div class="key"><div class="ky-t">El truco que ahorra tiempo: elegí bien los dos puntos</div>
+No hace falta ir A → B → C → D calculando todo. Si el tramo intermedio no disipa, saltalo: aplicá el balance <b>directo entre el primer y el último punto</b> y solo sumá los trabajos de rozamiento de los tramos rugosos que atravesó. En el B1 del parcial 2010, la altura sobre la rampa sale en <b>un renglón</b> desde el resorte, sin pasar por la velocidad en el loop.
+</div>
+
+<div class="reveal-wrap" data-rv="1" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 2 ==================== -->
+<details id="en-s2">
+<summary><span class="num">2</span> Resorte + rozamiento + plano inclinado (el arquetipo) <span class="sec-score" id="ss-fisica1-utn-energia-2"></span></summary>
+<div class="content">
+
+<h3>Por qué esta unidad es la más grande</h3>
+<p>De los 11 ejercicios de energía de los parciales Martinelli que tenés, <b>7 son alguna versión de esto</b>: un resorte que lanza un cuerpo o un cuerpo que comprime un resorte, un tramo liso y un tramo rugoso, y te piden velocidad, altura máxima, compresión máxima o la constante k. Y en los finales UTN.BA aparece igual de seguido, mezclado con una polea con masa o con un cilindro que rueda.</p>
+
+<div class="fig">
+<svg viewBox="0 0 640 280" style="max-width:100%;height:auto" role="img" aria-label="Plano inclinado rugoso a la izquierda, tramo horizontal liso y resorte contra la pared derecha">
+  <polygon points="60,220 300,220 60,40" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="60" y1="220" x2="600" y2="220" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="96" y1="66" x2="82" y2="60"/><line x1="132" y1="93" x2="118" y2="87"/>
+    <line x1="168" y1="120" x2="154" y2="114"/><line x1="204" y1="147" x2="190" y2="141"/>
+    <line x1="240" y1="174" x2="226" y2="168"/><line x1="276" y1="201" x2="262" y2="195"/>
+  </g>
+  <path d="M 265 220 A 40 40 0 0 0 278 200" fill="none" stroke="currentColor"/>
+  <text x="245" y="212" fill="currentColor" font-size="13">α</text>
+  <text x="120" y="130" fill="currentColor" font-size="13">μ&#8202;<tspan font-size="10" dy="3">d</tspan></text>
+  <text x="120" y="148" fill="currentColor" font-size="11">(rugoso)</text>
+  <text x="380" y="240" fill="currentColor" font-size="12">tramo liso</text>
+  <line x1="596" y1="168" x2="596" y2="232" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="596" y1="176" x2="606" y2="168"/><line x1="596" y1="192" x2="606" y2="184"/>
+    <line x1="596" y1="208" x2="606" y2="200"/><line x1="596" y1="224" x2="606" y2="216"/>
+  </g>
+  <path d="M 500 220 L 508 220 L 514 208 L 526 232 L 538 208 L 550 232 L 562 208 L 574 232 L 580 220 L 596 220" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="536" y="196" fill="currentColor" font-size="13" text-anchor="middle">k</text>
+  <circle cx="490" cy="211" r="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="484" y="188" fill="currentColor" font-size="13">m</text>
+  <path d="M 470 200 L 430 200 M 438 195 L 429 200 L 438 205" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="30" y1="100" x2="30" y2="220" stroke="currentColor" stroke-dasharray="4 4"/>
+  <path d="M 30 104 L 30 216 M 26 110 L 30 103 L 34 110 M 26 210 L 30 217 L 34 210" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="12" y="165" fill="currentColor" font-size="13">h</text>
+  <line x1="30" y1="100" x2="132" y2="100" stroke="currentColor" stroke-dasharray="3 3" opacity="0.6"/>
+</svg>
+<div class="fig-cap">El arquetipo puro (B2 del 1er parcial 2011): el resorte dispara el cuerpo por el tramo <b>liso</b>, el cuerpo sube el plano <b>rugoso</b> y te piden hasta qué altura h llega. En otras versiones va al revés: el cuerpo baja y comprime el resorte.</div>
+</div>
+
+<h3>Las cuatro preguntas posibles y qué se cancela en cada una</h3>
+<table class="tbl">
+  <tr><th>Te piden…</th><th>Planteo</th><th>Lo que se cancela</th></tr>
+  <tr><td><b>Velocidad</b> al pie del plano</td><td>½kΔl² = ½mv²</td><td>La altura no cambia en el tramo horizontal</td></tr>
+  <tr><td><b>Altura máxima</b> sobre el plano</td><td>mgh − ½mv² = −μ<sub>d</sub>·mg·cosα·(h/senα)</td><td>La masa se va entera si no hay resorte de por medio</td></tr>
+  <tr><td><b>Compresión máxima</b> del resorte</td><td>½kΔl² = ½mv² (+ mgΔh si el resorte está en otro nivel)</td><td>v = 0 en la compresión máxima</td></tr>
+  <tr><td><b>Constante k</b></td><td>Misma ecuación, despejás k</td><td>—</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">LA trampa de la unidad · La compresión máxima NO es la posición de equilibrio</div>
+Es el error más frecuente de todo el primer parcial. En el B2 de 2014 te preguntan <b>cuánto desciende el cuerpo hasta detenerse</b>. Si planteás equilibrio (k·x = M<sub>2</sub>·g) te da <b>20 cm</b>. Está mal: <b>la respuesta correcta es 40 cm, exactamente el doble.</b><br><br>
+El punto en el que el cuerpo <b>se detiene</b> es el de <b>máximo estiramiento</b>, donde v = 0 pero la fuerza neta <b>no</b> es cero (el resorte tira más fuerte que el peso y lo va a hacer rebotar). El equilibrio es el punto <i>medio</i> del recorrido, el que atraviesa a máxima velocidad.<br><br>
+Con energía: ½kΔh² = M<sub>2</sub>·g·Δh &nbsp;⟹&nbsp; Δh = <b>2</b>·M<sub>2</sub>·g/k. Con equilibrio: kx = M<sub>2</sub>g ⟹ x = M<sub>2</sub>·g/k. El factor 2 es toda la diferencia.<br><br>
+<b>Regla:</b> si el enunciado dice <i>"hasta detenerse"</i>, <i>"máxima compresión"</i>, <i>"elongación máxima"</i> o <i>"altura máxima"</i>, es <b>energía con v = 0</b>, nunca equilibrio de fuerzas.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 520 300" style="max-width:100%;height:auto" role="img" aria-label="Resorte horizontal, bloque sobre mesa lisa, cuerda por polea y bloque colgante; se marcan la posición de equilibrio y la de máximo descenso">
+  <line x1="50" y1="90" x2="50" y2="205" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="50" y1="100" x2="40" y2="92"/><line x1="50" y1="120" x2="40" y2="112"/>
+    <line x1="50" y1="140" x2="40" y2="132"/><line x1="50" y1="160" x2="40" y2="152"/>
+    <line x1="50" y1="180" x2="40" y2="172"/><line x1="50" y1="200" x2="40" y2="192"/>
+  </g>
+  <line x1="50" y1="205" x2="345" y2="205" stroke="currentColor" stroke-width="1.6"/>
+  <text x="200" y="222" fill="currentColor" font-size="11" text-anchor="middle">sin rozamiento</text>
+  <path d="M 52 172 L 62 172 L 68 162 L 80 182 L 92 162 L 104 182 L 116 162 L 128 182 L 134 172 L 146 172" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="98" y="152" fill="currentColor" font-size="13" text-anchor="middle">K</text>
+  <rect x="146" y="154" width="52" height="36" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="172" y="177" fill="currentColor" font-size="13" text-anchor="middle">M₁</text>
+  <line x1="198" y1="172" x2="332" y2="172" stroke="currentColor" stroke-width="1.3"/>
+  <circle cx="340" cy="172" r="14" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="340" cy="172" r="2.5" fill="currentColor"/>
+  <line x1="354" y1="172" x2="354" y2="228" stroke="currentColor" stroke-width="1.3"/>
+  <rect x="334" y="228" width="42" height="34" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="355" y="250" fill="currentColor" font-size="13" text-anchor="middle">M₂</text>
+  <line x1="400" y1="262" x2="500" y2="262" stroke="currentColor" stroke-dasharray="4 4" opacity="0.8"/>
+  <text x="410" y="256" fill="currentColor" font-size="11">equilibrio · 20 cm  ✗</text>
+  <line x1="400" y1="292" x2="500" y2="292" stroke="currentColor" stroke-dasharray="4 4"/>
+  <text x="410" y="286" fill="currentColor" font-size="11">se detiene · 40 cm  ✓</text>
+  <path d="M 392 232 L 392 288 M 388 238 L 392 231 L 396 238 M 388 282 L 392 289 L 396 282" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="368" y="284" fill="currentColor" font-size="13">Δh</text>
+</svg>
+<div class="fig-cap">B2 del 1er parcial 2014. El vínculo es que lo que <b>baja</b> M₂ es lo mismo que se <b>estira</b> el resorte (cuerda inextensible). Y el punto donde se detiene es el doble del de equilibrio.</div>
+</div>
+
+<h3>El vínculo: el paso que hace que el problema cierre</h3>
+<p>En estos problemas casi nunca podés escribir la energía sin antes decir <b>cómo se relacionan las variables</b>. Tres vínculos cubren todos los casos:</p>
+<div class="formula">
+  <b>Cuerda inextensible:</b> Δl<sub>resorte</sub> = Δh<sub>cuerpo</sub> = d<sub>CM</sub> &nbsp;<span class="muted">(todo lo que se mueve uno lo hace el otro)</span><br>
+  <b>Rodadura sin resbalar:</b> Ω = v<sub>CM</sub>/R &nbsp;⟹&nbsp; E<sub>c</sub> = ½mv² + ½·I<sub>CM</sub>·(v/R)²<br>
+  <b>Geometría del plano:</b> h = d·senα &nbsp;·&nbsp; d = h/senα &nbsp;·&nbsp; N = m·g·cosα
+</div>
+
+<div class="key"><div class="ky-t">Los factores de energía cinética que conviene tener en la cabeza</div>
+Con Ω = v/R el radio <b>siempre se cancela</b>. Te quedan números fijos:<br>
+<b>Cilindro o disco macizo</b> (I = ½mR²): E<sub>c</sub> = ½mv² + ¼mv² = <b>¾·m·v²</b><br>
+<b>Esfera maciza</b> (I = 2/5 mr²): E<sub>c</sub> = ½mv² + 1/5 mv² = <b>7/10·m·v²</b><br>
+<b>Aro / cilindro hueco</b> (I = mR²): E<sub>c</sub> = <b>m·v²</b><br>
+<b>Polea con masa</b> que gira sin trasladarse (I = ½m<sub>p</sub>R²): aporta <b>¼·m<sub>p</sub>·v²</b> al balance.<br>
+Olvidarte la rotación es el error que más se repite en los ejercicios de 2do parcial: en el B2 de 2015 te daría 1,0 m/s en vez de 0,816 m/s.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 560 270" style="max-width:100%;height:auto" role="img" aria-label="Cilindro que rueda sobre un plano inclinado unido a un resorte anclado en la parte alta">
+  <polygon points="60,230 430,230 430,20" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.7">
+    <line x1="100" y1="207" x2="94" y2="219"/><line x1="140" y1="184" x2="134" y2="196"/>
+    <line x1="180" y1="161" x2="174" y2="173"/><line x1="220" y1="139" x2="214" y2="151"/>
+    <line x1="260" y1="116" x2="254" y2="128"/><line x1="300" y1="93" x2="294" y2="105"/>
+    <line x1="340" y1="70" x2="334" y2="82"/><line x1="380" y1="48" x2="374" y2="60"/>
+  </g>
+  <path d="M 105 230 A 45 45 0 0 0 100 205" fill="none" stroke="currentColor"/>
+  <text x="112" y="222" fill="currentColor" font-size="13">α</text>
+  <circle cx="177" cy="136" r="24" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="177" cy="136" r="2.5" fill="currentColor"/>
+  <path d="M 163 122 A 20 20 0 0 1 191 122" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="146" y="118" fill="currentColor" font-size="13">m</text>
+  <g transform="translate(177,136) rotate(-29.6)">
+    <path d="M 26 0 L 38 0 L 44 -10 L 56 10 L 68 -10 L 80 10 L 92 -10 L 104 10 L 110 0 L 122 0" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="122" y1="-14" x2="122" y2="14" stroke="currentColor" stroke-width="2"/>
+    <text x="66" y="-18" fill="currentColor" font-size="13" text-anchor="middle">k</text>
+  </g>
+  <text x="150" y="182" fill="currentColor" font-size="11">rueda sin resbalar</text>
+  <text x="200" y="252" fill="currentColor" font-size="11">el rozamiento es ESTÁTICO: no disipa</text>
+</svg>
+<div class="fig-cap">Variante rodante del mismo arquetipo (B2 del 2do parcial 2015 y el problema 6 de un final UTN.BA). El vínculo es d<sub>CM</sub> = Δl del resorte, y la altura que baja es d·senα, no d.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · El resorte que YA venía deformado</div>
+Si en el estado inicial el resorte ya está estirado o comprimido (te lo dicen: <i>"la longitud del resorte es 60 cm y la natural es 50 cm"</i>, <i>"el resorte está estirado 1 m"</i>), la energía elástica inicial <b>no es cero</b> y hay que restarla:<br>
+<b>ΔE<sub>elástica</sub> = ½k·Δl<sub>final</sub>² − ½k·Δl<sub>inicial</sub>²</b><br>
+Y ojo con el otro lado del mismo error: la elongación final es la <b>total medida desde la longitud natural</b>, no el estiramiento adicional. En el problema 2 del 2do parcial 2009 esa distinción es la que convierte el problema en una <b>cuadrática</b>: 50·Δl² − 10·Δl − 0,46 = 0.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · La distancia sobre el plano no es la altura</div>
+El rozamiento actúa a lo largo de <b>D</b> (lo recorrido sobre el plano), pero la energía potencial usa <b>h</b> (la altura vertical). Se relacionan con D = h/senα. En el B2 de 2011 la altura da 8,93 m pero la distancia recorrida sobre el plano es 14,9 m. Si te confundís, el término de rozamiento queda mal por un factor 1/senα.<br>
+Y el clásico de siempre: <b>sen37° = 0,6</b>, <b>cos37° = 0,8</b>. Intercambiarlos rompe todo el problema.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · El resorte y el punto de partida están a la misma altura</div>
+Si el resorte está sobre el mismo tramo horizontal donde el cuerpo llegó, la energía potencial gravitatoria <b>es la misma a los dos lados</b> y se cancela: toda la cinética se va a elástica, ½kΔl² = ½mv². No hace falta arrastrar el término m·g·h por toda la cuenta (aunque si lo arrastrás, se cancela igual y también está bien).
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 3 ==================== -->
+<details id="en-s3">
+<summary><span class="num">3</span> Movimiento circular: loop, MCU y circular vertical <span class="sec-score" id="ss-fisica1-utn-energia-3"></span></summary>
+<div class="content">
+
+<h3>La estructura de todos estos problemas</h3>
+<p>Siempre es lo mismo, y siempre son <b>dos ecuaciones</b>: una de energía para conseguir la velocidad en el punto que te interesa, y una de Newton en dirección <b>radial</b> para conseguir la fuerza (normal o tensión). Ninguna de las dos sola alcanza.</p>
+
+<div class="formula">
+  <b>(1) Energía:</b> ΔE = W<sub>NC</sub> &nbsp;→&nbsp; te da <b>v</b> en el punto<br>
+  <b>(2) Newton radial:</b> ΣF<sub>hacia el centro</sub> = m·a<sub>c</sub> = m·<span class="frac"><span>v²</span><span>R</span></span> &nbsp;→&nbsp; te da <b>N</b> o <b>T</b>
+</div>
+
+<div class="key"><div class="ky-t">Los cuatro casos que tenés que poder escribir de memoria</div>
+<b>Punto más ALTO</b> (el centro está abajo, todo apunta hacia abajo):<br>
+&nbsp;&nbsp;• con cuerda: <b>T + m·g = m·v²/L</b><br>
+&nbsp;&nbsp;• con pista por dentro (loop): <b>N + m·g = m·v²/R</b><br>
+<b>Punto más BAJO</b> (el centro está arriba, T o N apuntan hacia arriba y el peso en contra):<br>
+&nbsp;&nbsp;• con cuerda: <b>T − m·g = m·v²/L</b><br>
+&nbsp;&nbsp;• con pista: <b>N − m·g = m·v²/R</b><br><br>
+Por eso la tensión abajo es <i>enorme</i> comparada con la de arriba. En el B2 de 2017 dan 6,67 N arriba y 126,67 N abajo: casi 19 veces más. Está bien, no te asustes.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 470 300" style="max-width:100%;height:auto" role="img" aria-label="Circunferencia vertical con la tensión y el peso en el punto más alto y en el más bajo">
+  <circle cx="200" cy="150" r="95" fill="none" stroke="currentColor" stroke-dasharray="5 4"/>
+  <circle cx="200" cy="150" r="2.5" fill="currentColor"/>
+  <line x1="200" y1="150" x2="270" y2="86" stroke="currentColor" stroke-width="1.2"/>
+  <text x="243" y="112" fill="currentColor" font-size="13">L</text>
+  <circle cx="200" cy="55" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="196" y="40" fill="currentColor" font-size="13" text-anchor="middle">A</text>
+  <path d="M 200 63 L 200 108 M 195 100 L 200 109 L 205 100" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="207" y="92" fill="currentColor" font-size="12">T&#8202;<tspan font-size="10" dy="3">A</tspan></text>
+  <path d="M 168 58 L 168 108 M 163 100 L 168 109 L 173 100" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="150" y="92" fill="currentColor" font-size="12">P</text>
+  <circle cx="200" cy="245" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="196" y="268" fill="currentColor" font-size="13" text-anchor="middle">B</text>
+  <path d="M 200 237 L 200 192 M 195 200 L 200 191 L 205 200" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="207" y="212" fill="currentColor" font-size="12">T&#8202;<tspan font-size="10" dy="3">B</tspan></text>
+  <path d="M 168 240 L 168 288 M 163 280 L 168 289 L 173 280" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="150" y="270" fill="currentColor" font-size="12">P</text>
+  <line x1="200" y1="245" x2="430" y2="245" stroke="currentColor" stroke-dasharray="4 4" opacity="0.7"/>
+  <text x="330" y="261" fill="currentColor" font-size="11">V&#8202;<tspan font-size="9" dy="3">g</tspan><tspan dy="-3"> = 0</tspan></text>
+  <line x1="360" y1="55" x2="430" y2="55" stroke="currentColor" stroke-dasharray="4 4" opacity="0.7"/>
+  <path d="M 400 59 L 400 241 M 396 66 L 400 58 L 404 66 M 396 234 L 400 242 L 404 234" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="408" y="152" fill="currentColor" font-size="14" font-weight="bold">2L</text>
+</svg>
+<div class="fig-cap">Arriba T y P apuntan <b>los dos</b> hacia el centro (se suman). Abajo T apunta hacia el centro y P en contra (se restan). Y la altura entre A y B es <b>2L</b>: el diámetro.</div>
+</div>
+
+<div class="trap"><div class="tr-t">LA trampa de la unidad · Entre el punto más alto y el más bajo hay 2L, no L</div>
+Es el error que más arruina el B2 de 2017 y el problema del loop. La altura entre el techo y el piso de la circunferencia es el <b>diámetro</b>: <b>2L</b> (o <b>2R</b> en el loop).<br>
+Con h = 2L: L = (v<sub>B</sub>² − v<sub>A</sub>²)/(4g) = (64 − 16)/40 = <b>1,2 m</b>. ✓<br>
+Con h = L (mal): L = (v<sub>B</sub>² − v<sub>A</sub>²)/(2g) = 2,4 m ✗ — y con eso las dos tensiones del inciso b) salen mal también.
+</div>
+
+<h3>La condición de no desprendimiento</h3>
+<p>Cuando el enunciado dice <i>"la velocidad mínima para pasar sin desprenderse"</i>, <i>"para que no se despegue de la pista"</i> o <i>"para que la cuerda no se afloje"</i>, está pidiendo un <b>caso límite</b>, y el límite es siempre el mismo: <b>N = 0</b> (o T = 0). En ese instante el peso solo alcanza justo para dar toda la fuerza centrípeta.</p>
+
+<div class="formula">
+  En el punto más alto, con N = 0: &nbsp; m·g = m·<span class="frac"><span>v<sub>mín</sub>²</span><span>R</span></span> &nbsp;⟹&nbsp; <b>v<sub>mín</sub> = √(g·R)</b>
+</div>
+<p>Con R = 1 m y g = 10: v<sub>mín</sub> = √10 = <b>3,16 m/s</b>. Y una vez que sabés que pasa por arriba sin desprenderse, <b>no se desprende en ningún otro punto</b> del loop: arriba es el punto más exigente.</p>
+
+<div class="trap"><div class="tr-t">Trampa · "Mínima velocidad" ≠ "velocidad cero"</div>
+La condición no es v = 0 arriba (eso sería caerse), ni ½mv² = mgh. Es <b>N = 0</b>: la normal desaparece y el peso pasa a ser toda la resultante centrípeta. Si te da que la velocidad real es <i>mayor</i> que √(gR), pasa; si es menor, se despega antes de llegar arriba.<br>
+En términos de altura de partida en una pista lisa: h<sub>mín</sub> = 2R + v<sub>mín</sub>²/(2g) = 2R + R/2 = <b>2,5·R</b>. Ese numerito es lindo para chequear.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 660 300" style="max-width:100%;height:auto" role="img" aria-label="Pista con rampa a la izquierda, zona rugosa, loop circular y resorte contra la pared derecha">
+  <line x1="30" y1="255" x2="632" y2="255" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="350" cy="195" r="60" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <circle cx="350" cy="135" r="7" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="350" y="122" fill="currentColor" font-size="13" text-anchor="middle">B</text>
+  <line x1="350" y1="195" x2="392" y2="153" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3 3"/>
+  <text x="380" y="184" fill="currentColor" font-size="12">R</text>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="152" y1="255" x2="144" y2="267"/><line x1="172" y1="255" x2="164" y2="267"/>
+    <line x1="192" y1="255" x2="184" y2="267"/><line x1="212" y1="255" x2="204" y2="267"/>
+    <line x1="232" y1="255" x2="224" y2="267"/><line x1="252" y1="255" x2="244" y2="267"/>
+    <line x1="272" y1="255" x2="264" y2="267"/>
+  </g>
+  <path d="M 148 282 L 272 282 M 155 278 L 147 282 L 155 286 M 265 278 L 273 282 L 265 286" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="210" y="297" fill="currentColor" font-size="13" text-anchor="middle">d</text>
+  <text x="272" y="246" fill="currentColor" font-size="12" text-anchor="middle">C</text>
+  <text x="146" y="246" fill="currentColor" font-size="12" text-anchor="middle">D</text>
+  <line x1="148" y1="255" x2="52" y2="178" stroke="currentColor" stroke-width="1.8"/>
+  <circle cx="70" cy="192" r="7" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="60" y="176" fill="currentColor" font-size="12">H</text>
+  <line x1="24" y1="178" x2="52" y2="178" stroke="currentColor" stroke-dasharray="3 3"/>
+  <path d="M 32 182 L 32 251 M 28 188 L 32 181 L 36 188 M 28 245 L 32 252 L 36 245" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="14" y="220" fill="currentColor" font-size="13">h</text>
+  <line x1="628" y1="205" x2="628" y2="268" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M 540 255 L 548 255 L 554 243 L 566 267 L 578 243 L 590 267 L 602 243 L 614 267 L 620 255 L 628 255" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="582" y="232" fill="currentColor" font-size="13" text-anchor="middle">K</text>
+  <circle cx="530" cy="246" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="528" y="228" fill="currentColor" font-size="12" text-anchor="middle">A</text>
+  <path d="M 508 236 L 466 236 M 474 231 L 465 236 L 474 241" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+<div class="fig-cap">B1 del 1er parcial 2010. Fijate <b>dónde</b> está la zona rugosa: <i>después</i> del loop. Para v<sub>B</sub> usás conservación pura desde el resorte, sin descontar nada.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · Dónde está la zona rugosa</div>
+Antes de plantear nada, seguí el recorrido con el dedo y anotá <b>qué tramos son rugosos y en qué orden los atraviesa</b>. En el B1 de 2010 la zona rugosa está entre el loop y la rampa: la velocidad en el loop sale de conservación <b>pura</b> (E<sub>A</sub> = E<sub>B</sub>), y el rozamiento recién entra para la altura sobre la rampa. Si le restás el rozamiento al loop, todo el ejercicio se cae.
+</div>
+
+<h3>MCU: cuando el radio cambia</h3>
+<p>En MCU horizontal la velocidad es constante en módulo, la resultante es puramente centrípeta y vale F = m·v²/r. Pero hay una familia de finales donde <b>el radio cambia</b> (una soga que se tira por un agujero, una fuerza centrípeta que se incrementa). Ahí la fuerza es <b>radial</b>, no hace momento respecto del centro, y <b>se conserva el momento angular</b>:</p>
+<div class="formula">
+  <b>L = m·v·r = constante</b> &nbsp;⟹&nbsp; v<sub>f</sub> = v<sub>i</sub>·<span class="frac"><span>r<sub>i</sub></span><span>r<sub>f</sub></span></span> &nbsp;·&nbsp; y entonces &nbsp; F<sub>f</sub> = F<sub>i</sub>·<span class="frac"><span>r<sub>i</sub>³</span><span>r<sub>f</sub>³</span></span>
+</div>
+<div class="trap"><div class="tr-t">Trampa · Si achicás el radio, la velocidad NO se mantiene</div>
+El error automático es escribir F<sub>f</sub> = m·v²/(r/2) = 2·F<sub>i</sub> dejando v igual. Está mal: al tirar de la soga hacia adentro hay desplazamiento radial, la fuerza <b>sí</b> hace trabajo y la partícula se acelera. Con L constante, al mitad de radio la velocidad se <b>duplica</b>, y la fuerza queda <b>8 veces</b> mayor (2³), no 2 veces.
+</div>
+
+<div class="key"><div class="ky-t">Un caso que aparece en los finales: MCU con resorte</div>
+Una partícula gira en un plano horizontal sujeta a un resorte de longitud natural l<sub>0</sub>. Ahí conviven <b>dos longitudes</b> que hay que no confundir:<br>
+• <b>R</b> = el radio del círculo = la longitud <i>actual</i> del resorte. Va en a<sub>c</sub> = v²/<b>R</b>.<br>
+• <b>R − l<sub>0</sub></b> = la <i>deformación</i>. Va en la fuerza elástica F<sub>el</sub> = k·(<b>R − l<sub>0</sub></b>) y en la energía ½k(R − l<sub>0</sub>)².<br>
+La ecuación queda k·(R − l<sub>0</sub>) = m·v²/R. Poner k·R en vez de k·(R − l<sub>0</sub>) es el error clásico.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 4 ==================== -->
+<details id="en-s4">
+<summary><span class="num">4</span> Cinemática dentro de un problema de energía <span class="sec-score" id="ss-fisica1-utn-energia-4"></span></summary>
+<div class="content">
+
+<h3>El problema de dos actos</h3>
+<p>Hay una familia entera que se resuelve en <b>dos actos</b>: primero energía (para conseguir la velocidad al final de una pista, una rampa o un riel), y después cinemática (porque el cuerpo <b>sale despedido</b> y hace un tiro). Los reconocés porque el inciso a) dice "calcule la velocidad" y el b) dice "a qué distancia impacta" o "dónde toca el piso".</p>
+
+<div class="key"><div class="ky-t">La bisagra entre los dos actos</div>
+La energía te da el <b>módulo</b> de la velocidad. La <b>dirección</b> te la da la geometría de la pista en el punto donde despega:<br>
+• Si la pista termina <b>horizontal</b> → tiro <b>semiparabólico</b>: v<sub>0y</sub> = 0, y el tiempo sale de h = ½gt².<br>
+• Si la pista termina <b>inclinada</b> a α → tiro <b>oblicuo</b>: v<sub>0x</sub> = v·cosα, v<sub>0y</sub> = v·senα (hacia arriba si venía subiendo).<br>
+Escribí siempre las dos componentes por separado antes de seguir.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 640 300" style="max-width:100%;height:auto" role="img" aria-label="Partícula que sube una rampa rugosa y sale despedida en tiro oblicuo desde el borde superior">
+  <line x1="30" y1="250" x2="612" y2="250" stroke="currentColor" stroke-width="1.6"/>
+  <polygon points="300,160 420,250 300,250" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="320" y1="175" x2="330" y2="169"/><line x1="344" y1="193" x2="354" y2="187"/>
+    <line x1="368" y1="211" x2="378" y2="205"/><line x1="392" y1="229" x2="402" y2="223"/>
+  </g>
+  <path d="M 392 250 A 32 32 0 0 0 402 228" fill="none" stroke="currentColor"/>
+  <text x="374" y="243" fill="currentColor" font-size="12">37°</text>
+  <text x="330" y="192" fill="currentColor" font-size="13">D</text>
+  <text x="336" y="212" fill="currentColor" font-size="11">μ&#8202;<tspan font-size="9" dy="3">d</tspan></text>
+  <circle cx="500" cy="241" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M 484 230 L 442 230 M 450 225 L 441 230 L 450 235" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="452" y="220" fill="currentColor" font-size="13">V₀</text>
+  <path d="M 300 160 Q 250 128 144 250" fill="none" stroke="currentColor" stroke-dasharray="5 4" stroke-width="1.4"/>
+  <path d="M 300 160 L 258 138 M 266 134 L 257 137 L 261 145" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="252" y="126" fill="currentColor" font-size="12">v&#8202;<tspan font-size="10" dy="3">B</tspan><tspan dy="-3"> a 37°</tspan></text>
+  <line x1="300" y1="160" x2="300" y2="250" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="256" y1="160" x2="296" y2="160" stroke="currentColor" stroke-dasharray="3 3" opacity="0.6"/>
+  <path d="M 272 165 L 272 246 M 268 172 L 272 164 L 276 172 M 268 239 L 272 247 L 276 239" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="252" y="208" fill="currentColor" font-size="12">h&#8202;<tspan font-size="10" dy="3">B</tspan></text>
+  <circle cx="144" cy="250" r="4" fill="currentColor"/>
+  <path d="M 148 268 L 296 268 M 155 264 L 147 268 L 155 272 M 289 264 L 297 268 L 289 272" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="222" y="284" fill="currentColor" font-size="13" text-anchor="middle">x&#8202;<tspan font-size="10" dy="3">C</tspan></text>
+</svg>
+<div class="fig-cap">B2 del 1er parcial 2012. Al salir por el vértice, la partícula <b>conserva la dirección del plano</b>: sale a 37° sobre la horizontal, con componente vertical hacia arriba. No sale horizontal.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · No sale horizontal</div>
+El error más caro de esta unidad: suponer que la partícula abandona el plano inclinado con velocidad horizontal. <b>Sale con la dirección del plano.</b> Si venía subiendo por una rampa de 37°, sale a 37° <b>hacia arriba</b>, con v<sub>0y</sub> = v·sen37° positiva. Eso hace que primero <i>siga subiendo</i> un poco y recién después caiga.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · El lanzamiento es desde una altura → cuadrática completa</div>
+Como el despegue está a h<sub>B</sub> sobre el piso, no vale la fórmula de alcance a igual nivel. Tenés que escribir la ecuación horaria completa y resolver:<br>
+<b>y(t) = h<sub>B</sub> + v<sub>0y</sub>·t − ½·g·t² = 0</b> &nbsp;→&nbsp; una cuadrática en t.<br>
+En el B2 de 2012: 5t² − 2,1t − 1,2 = 0 → t = 0,743 s (se descarta la raíz negativa). Después x = v<sub>0x</sub>·t.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · Cuando el enunciado te dice CON QUÉ resolverlo</div>
+El problema C de 2013 arranca con "<i>debe ser resuelto utilizando conceptos de trabajo y energía</i>". Si lo resolvés descomponiendo velocidades y buscando el tiempo de vuelo, aunque te dé bien te lo bajan. Además por energía es más corto: en el tramo B→C está en el aire, solo actúa el peso, se conserva la energía y v<sub>C</sub> sale de mgh<sub>B</sub> + ½mv<sub>B</sub>² = ½mv<sub>C</sub>², sin necesitar ni el alcance ni el tiempo.
+</div>
+
+<h3>El radio de curvatura en el vértice (esto solo cae en el final)</h3>
+<p>Este no aparece en ningún parcial de Martinelli: es <b>exclusivo de los finales UTN.BA</b>, y cuando cae, cae como problema 1. La idea es elegante y en tres renglones está resuelto.</p>
+
+<div class="key"><div class="ky-t">Por qué en el vértice a<sub>c</sub> = g</div>
+La aceleración se descompone en <b>tangencial</b> (cambia el módulo de v) y <b>normal o centrípeta</b> (cambia la dirección). En un tiro oblicuo la única aceleración es <b>g</b>, vertical hacia abajo.<br>
+En la <b>altura máxima</b> la velocidad es <b>horizontal</b>. Entonces g queda <b>perpendicular</b> a la velocidad: toda g es centrípeta y nada es tangencial.<br>
+<b>g = v<sub>vértice</sub>²/R</b> &nbsp;⟹&nbsp; <b>v<sub>vértice</sub> = √(g·R)</b> &nbsp;— la misma cara que la condición del loop, ojo.<br>
+Y como en el vértice la velocidad es la componente horizontal, que es constante: <b>v<sub>0</sub> = v<sub>vértice</sub>/cos θ<sub>0</sub></b>.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 620 270" style="max-width:100%;height:auto" role="img" aria-label="Trayectoria parabólica con el círculo osculador en el vértice y el radio de curvatura">
+  <line x1="40" y1="250" x2="590" y2="250" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M 70 250 Q 300 -70 530 250" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M 185 144 A 150 150 0 0 1 415 144" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.85"/>
+  <line x1="300" y1="90" x2="300" y2="240" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <circle cx="300" cy="240" r="3" fill="currentColor"/>
+  <text x="308" y="175" fill="currentColor" font-size="14">R = 90 m</text>
+  <circle cx="300" cy="90" r="6" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M 308 90 L 380 90 M 372 85 L 381 90 L 372 95" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="330" y="80" fill="currentColor" font-size="13">v&#8202;<tspan font-size="10" dy="3">vértice</tspan><tspan dy="-3"> (horizontal)</tspan></text>
+  <path d="M 268 90 L 268 146 M 263 138 L 268 147 L 273 138" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="212" y="122" fill="currentColor" font-size="13">g = a&#8202;<tspan font-size="10" dy="3">c</tspan></text>
+  <path d="M 70 250 L 118 186 M 112 194 L 119 185 L 118 196" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="84" y="180" fill="currentColor" font-size="13">v₀</text>
+  <path d="M 108 250 A 38 38 0 0 0 100 226" fill="none" stroke="currentColor"/>
+  <text x="112" y="242" fill="currentColor" font-size="12">53°</text>
+</svg>
+<div class="fig-cap">En la altura máxima la velocidad es horizontal y g es perpendicular a ella: toda la gravedad es aceleración centrípeta. De ahí sale v<sub>vértice</sub> = √(g·R) = √(10·90) = 30 m/s, y v₀ = 30/cos53° = <b>50 m/s</b>.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · cos 53° = 0,6, no 0,8</div>
+53° es el complemento de 37°, así que se intercambian: <b>sen53° = cos37° = 0,8</b> y <b>cos53° = sen37° = 0,6</b>. Si usás 0,8 en el denominador te da v₀ = 37,5 m/s y el problema entero queda mal por un solo seno mal puesto.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'fisica1-utn-energia';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS ENERGÍA ============
+// Física I · UTN FRBA · Trabajo y energía
+// Ejercicios reales: parciales de la cátedra Martinelli 2009-2017 (_fisica1_ingest/porTema/energia.json)
+// + finales UTN.BA 2022-2025 (_fisica1_ingest/porTema/_finales.md).
+// Convención de la cátedra en TODA resolución: g = 10 m/s², sen37° = 0,6 · cos37° = 0,8 · sen30° = 0,5.
+
+/* ==================== UNIDAD 1 · ΔE = W de las no conservativas ==================== */
+
+registerExercises('fisica1-utn-energia', '1', [
+  {st: 'Un cuerpo baja por una rampa rugosa. ¿Qué fuerzas van del lado derecho de ΔE = W<sub>NC</sub>?',
+   opts: ['El peso y el rozamiento dinámico',
+          'El peso, la normal y el rozamiento dinámico',
+          'Solo el rozamiento dinámico',
+          'El rozamiento dinámico y la normal'],
+   c: 2,
+   ex: 'Del lado derecho van únicamente las fuerzas <b>no conservativas que trabajan</b>. Acá la única es el rozamiento dinámico: W<sub>roz</sub> = −μ<sub>d</sub>·N·d. ▸ Por qué las otras: el <b>peso</b> es conservativo y ya está contabilizado adentro de E como m·g·h, ponerlo también a la derecha te duplica el término (es el error que más descuenta); la <b>normal</b> es perpendicular al desplazamiento, así que su trabajo es exactamente cero y no aporta nada, ni a un lado ni al otro; la opción que junta las tres suma los dos errores a la vez.'},
+
+  {st: 'En el problema C del 1er parcial 2013 la energía en A vale 2000 J y en B vale 1000 J. ¿Cuánto vale el trabajo del rozamiento en el tramo AB?',
+   opts: ['+1000 J', '−2000 J', '0 J: la energía mecánica se conserva', '−1000 J'],
+   c: 3,
+   ex: 'W<sub>roz</sub> = ΔE = E<sub>B</sub> − E<sub>A</sub> = 1000 − 2000 = <b>−1000 J</b>. El signo negativo no es un detalle: el rozamiento siempre se come energía. ▸ Por qué las otras: <b>+1000 J</b> es el mismo número pero con el signo dado vuelta, y si lo ponés positivo el cuerpo terminaría con más energía de la que arrancó; <b>−2000 J</b> confunde el trabajo del rozamiento con la energía potencial inicial completa (el cuerpo llega a B con 1000 J, no con cero); <b>0 J</b> sería el caso de un riel liso, pero el enunciado dice explícitamente que el riel tiene rozamiento.'},
+
+  {st: 'Te piden el <b>tiempo</b> que tarda un cilindro en detenerse mientras sube un plano inclinado. ¿Con qué lo resolvés?',
+   opts: ['Con Newton (y después cinemática): la energía no tiene el tiempo adentro',
+          'Con energía sola: ΔE = W<sub>NC</sub> alcanza y sobra',
+          'Con energía, y después dividiendo la distancia por la velocidad inicial',
+          'No se puede resolver sin conocer el coeficiente de rozamiento'],
+   c: 0,
+   ex: 'La ecuación de energía conecta dos <b>estados</b>, no dos instantes: en ΔE = W<sub>NC</sub> el tiempo no aparece por ningún lado. Apenas el enunciado dice <i>tiempo</i>, <i>aceleración</i>, <i>fuerza</i>, <i>tensión</i> o <i>normal</i>, necesitás ΣF = m·a (y ΣM = I·α si rota). ▸ Por qué las otras: la energía te da la distancia recorrida o la velocidad, pero nunca el tiempo; dividir la distancia por la velocidad inicial supondría movimiento uniforme, y acá el cilindro frena (el movimiento es uniformemente variado, así que habría que usar la velocidad media, y aun así primero necesitás la aceleración); el coeficiente de rozamiento no hace falta cuando el cilindro rueda sin resbalar, ahí el rozamiento es estático y sale como incógnita de las ecuaciones.'},
+
+  {st: 'En el problema del patinador (final UTN.BA 21/2/2024) la pérdida de altura por cada pasada por la zona rugosa de longitud D vale…',
+   opts: ['μ<sub>c</sub>·D·m, o sea que un patinador más pesado pierde más altura',
+          'μ<sub>c</sub>·D·cos α, con α el ángulo de la loma',
+          'μ<sub>c</sub>·D, y no depende de la masa',
+          'μ<sub>c</sub>·m·g·D, medido en metros'],
+   c: 2,
+   ex: 'Planteás m·g·h<sub>f</sub> − m·g·h<sub>i</sub> = −μ<sub>c</sub>·m·g·D y la masa <b>se cancela entera</b>: Δh = μ<sub>c</sub>·D = 0,5·2 = 1 m por pasada. Por eso el problema se puede resolver sin que te den la masa del patinador. ▸ Por qué las otras: dejar la masa adentro significa que no la cancelaste, y además el resultado te quedaría en kg·m, que no es una altura; el cos α aparecería si la zona rugosa estuviera <b>inclinada</b>, pero acá es el tramo horizontal entre las dos lomas; μ<sub>c</sub>·m·g·D es una <b>energía</b> en joules, no una altura en metros (ese es el chequeo de unidades que te salva).'},
+
+  {st: 'Un cuerpo de m = 1 kg está sobre un plano de 37° y lo empujan con una fuerza F = 100 N <b>paralela al plano</b>. ¿Cuánto vale la normal?',
+   opts: ['10 N', '108 N', '6 N', '8 N'],
+   c: 3,
+   ex: 'N = m·g·cos37° = 1·10·0,8 = <b>8 N</b>. Una fuerza paralela al plano no tiene componente perpendicular, así que no toca la normal: es exactamente el caso del problema 4 del parcial 2009. ▸ Por qué las otras: <b>10 N</b> es m·g, la normal del piso horizontal, y usarla te infla el rozamiento un 25%; <b>108 N</b> sale de sumarle F a la normal, que solo valdría si F fuera perpendicular al plano (si fuera <b>horizontal</b> tampoco se suma entera: entraría F·senα); <b>6 N</b> es m·g·sen37°, que es la componente del peso <i>a lo largo</i> del plano, no la perpendicular — intercambiar seno y coseno rompe todo el ejercicio.'},
+
+  {st: 'En el ascensor del final del 2/3/2023 el freno aplica 2500 N durante los 6 m de caída y <b>deja de actuar</b> cuando el ascensor toca el paragolpes. Para calcular la compresión máxima del resorte…',
+   opts: ['entre el contacto y la compresión máxima la energía se conserva: ½M·v² + M·g·x = ½·k·x²',
+          'hay que seguir descontando el rozamiento a lo largo de la compresión',
+          'el peso ya no trabaja, porque a partir del contacto lo sostiene el resorte',
+          'v = 0 en el momento del contacto, así que solo queda energía potencial elástica'],
+   c: 0,
+   ex: 'El enunciado te dice que la fuerza del freno <b>cesa</b> al tocar el paragolpes, así que en ese segundo tramo no hay ninguna fuerza no conservativa: ΔE = 0. El ascensor sigue bajando x mientras comprime, entonces el término M·g·x va del lado de lo que aporta, y te queda una cuadrática. ▸ Por qué las otras: seguir restando el rozamiento contradice el enunciado (y es la trampa deliberada del problema); el peso <b>sí</b> sigue trabajando durante la compresión, el resorte no lo anula, lo frena; y v en el contacto no es cero, es 6,7 m/s — el punto donde v = 0 es el de <b>máxima compresión</b>, no el de contacto.'},
+]);
+
+registerReveals('fisica1-utn-energia', '1', [
+
+  {st: '<span class="muted">1er parcial 2013, cátedra Martinelli · 3/9/2013 · curso O1122 · UTN FRBA</span><br><b>C (debe ser resuelto utilizando conceptos de trabajo y energía):</b> Un cuerpo de masa 10 kg, se deja caer desde el punto A (h<sub>A</sub> = 20 m) y desliza por un riel con rozamiento, hasta que lo abandona en B (h<sub>B</sub> = 5 m) con una velocidad cuyo módulo vale 10 m/s. El cuerpo continúa su movimiento hasta tocar el piso por primera vez en C. Determine:<br>a) El trabajo promedio realizado por la fuerza de rozamiento en el tramo AB.<br>b) El módulo de la velocidad del cuerpo en C y el trabajo del peso entre A y C.',
+   ans: 'a) W<sub>roz</sub> = −1000 J · b) v<sub>C</sub> = √200 = 14,14 m/s y W<sub>peso</sub>(A→C) = 2000 J',
+   sol: '<b>Paso 0. Referencias e hipótesis.</b> Cero de energía potencial gravitatoria en el <b>piso</b> (nivel de C). "Se deja caer" significa v<sub>A</sub> = 0. g = 10 m/s².<br><b>Paso 1. Energías en A y en B.</b><br>E<sub>A</sub> = m·g·h<sub>A</sub> = 10·10·20 = <b>2000 J</b> (no hay cinética).<br>E<sub>B</sub> = m·g·h<sub>B</sub> + ½·m·v<sub>B</sub>² = 10·10·5 + ½·10·10² = 500 + 500 = <b>1000 J</b>.<br><b>Paso 2. a) El trabajo del rozamiento.</b> En AB la única no conservativa que trabaja es el rozamiento (la normal es perpendicular):<br>W<sub>roz</sub> = ΔE<sub>AB</sub> = E<sub>B</sub> − E<sub>A</sub> = 1000 − 2000 = <b>−1000 J</b>.<br>El signo negativo es obligatorio: el riel se comió la mitad de la energía.<br><b>Paso 3. b) La velocidad en C.</b> Entre B y C el cuerpo está <b>en el aire</b>: la única fuerza es el peso, que es conservativo, así que la energía mecánica se conserva. No hace falta el tiempo de vuelo ni el alcance:<br>E<sub>C</sub> = E<sub>B</sub> &nbsp;⟹&nbsp; ½·m·v<sub>C</sub>² = 1000 J &nbsp;⟹&nbsp; 5·v<sub>C</sub>² = 1000<br>v<sub>C</sub>² = 200 m²/s² &nbsp;⟹&nbsp; <b>v<sub>C</sub> = 14,14 m/s</b>.<br><b>Paso 4. El trabajo del peso entre A y C.</b> El peso es conservativo: su trabajo depende solo de las alturas, no del camino (ni del riel curvo ni de la parábola).<br>W<sub>P</sub> = m·g·(h<sub>A</sub> − h<sub>C</sub>) = 10·10·(20 − 0) = <b>2000 J</b>.<br><b>Paso 5. Chequeo de coherencia.</b> El peso puso 2000 J, el rozamiento sacó 1000 J, y al cuerpo le quedan 1000 J de cinética en C. Cierra. Ojo: W<sub>P</sub> = 2000 J <b>no</b> es igual a ½m·v<sub>C</sub>² = 1000 J, justamente por esos 1000 J que se llevó el riel.'},
+
+  {st: '<span class="muted">Final UTN.BA · EXAMEN FINAL 21/2/2024 · problema 1 · el encabezado imprime "Para todos los ejercicios use g = 10 m/s²"</span><br><b>1.</b> Un patinador se dirige hacia una pista, como se observa en la figura, con una velocidad inicial v<sub>0</sub> que es la mínima necesaria para poder alcanzar el primer desnivel de h<sub>i</sub> = 5 m. Suponiendo que se deja caer desde el reposo desde allí, el patinador encontrará un tramo de longitud D = 2 m donde la superficie posee rozamiento y su coeficiente cinético es μ<sub>c</sub> = 0.5. La pista cullmina [sic] con otro desnivel similar al primero. Se pide determinar<br>(i) El valor de la velocidad inicial v<sub>0</sub>.<br>(ii) La altura h<sub>1</sub> a la que llega en la segunda elevación luego de pasar una vez por la zona de rozamiento.<br>(iii) El número de veces necesarias que debe pasar para que su altura máxima sea h<sub>f</sub> = 2 m.',
+   ans: '(i) v<sub>0</sub> = 10 m/s · (ii) h<sub>1</sub> = 4 m · (iii) 3 pasadas',
+   sol: '<b>Paso 0. Hipótesis.</b> Las lomas son <b>lisas</b> (el enunciado solo pone rozamiento en el tramo D). Cero de V<sub>g</sub> en el piso. La masa del patinador no te la dan… y no hace falta.<br><b>Paso 1. (i) "La mínima necesaria para alcanzar h<sub>i</sub>".</b> Mínima significa que llega arriba con <b>v = 0</b> justo:<br>½·m·v<sub>0</sub>² = m·g·h<sub>i</sub> &nbsp;⟹&nbsp; v<sub>0</sub> = √(2·g·h<sub>i</sub>) = √(2·10·5) = <b>10 m/s</b>. La masa se cancela.<br><b>Paso 2. (ii) Una pasada por la zona rugosa.</b> Baja de h<sub>i</sub>, cruza D y vuelve a subir hasta h<sub>1</sub>:<br>m·g·h<sub>1</sub> − m·g·h<sub>i</sub> = −μ<sub>c</sub>·m·g·D<br>Dividís todo por m·g y te queda un resultado precioso: la altura perdida por pasada es<br><b>Δh = μ<sub>c</sub>·D = 0,5·2 = 1 m</b>, independiente de la masa y de g.<br>h<sub>1</sub> = 5 − 1 = <b>4 m</b>.<br><b>Paso 3. (iii) Cuántas pasadas.</b> Cada cruce le saca el mismo metro, así que después de n cruces:<br>h<sub>n</sub> = h<sub>i</sub> − n·μ<sub>c</sub>·D = 5 − n<br>Pedís h<sub>n</sub> = 2 m &nbsp;⟹&nbsp; n = <b>3 pasadas</b>.<br><b>Paso 4. El detalle que puntúa.</b> Decí explícitamente que la pérdida es la <b>misma en cada cruce</b> porque la normal en el tramo horizontal es constante (N = m·g) y la longitud D también. Ese es el argumento que convierte el inciso (iii) en una división en vez de tres balances encadenados.'},
+
+  {st: '<span class="muted">Final UTN.BA · EXAMEN FINAL 2/3/2023 · problema 2</span><br><b>2.</b> Un ascensor de masa M = 400 kg está en reposo a 6 m del extremo superior de un resorte paragolpes cuya constante elastica es k = 20000 N/m. Súbitamente, se corta el cable que lo sostiene y para detener la caída actúa inmediatamente un freno de fricción contra las guías que le aplica una fuerza, opuesta al desplazamiento, de 2500 N. Esta fuerza sólo cesa cuando el ascensor toma contacto con el paragolpes. Halle:<br>(i) La velocidad del ascensor al llegar al extremo del resorte.<br>(ii) La máxima distancia que lo comprimirá.',
+   ans: '(i) v = √45 = 6,71 m/s · (ii) x = 1,17 m',
+   sol: '<b>Paso 0. Los dos tramos.</b> Tramo 1: caída libre frenada, 6 m, con la fuerza del freno F<sub>r</sub> = 2500 N. Tramo 2: compresión del resorte, <b>sin</b> freno (el enunciado dice que cesa al tocar). Cero de V<sub>g</sub> en el extremo superior del resorte.<br><b>Paso 1. (i) Tramo 1: ΔE = W<sub>NC</sub>.</b> La única no conservativa es el freno, y su trabajo es negativo porque se opone al desplazamiento:<br>½·M·v² − M·g·h = −F<sub>r</sub>·h<br>½·400·v² = 400·10·6 − 2500·6 = 24000 − 15000 = <b>9000 J</b><br>200·v² = 9000 &nbsp;⟹&nbsp; v² = 45 m²/s² &nbsp;⟹&nbsp; <b>v = 6,71 m/s</b>.<br><b>Paso 2. (ii) Tramo 2: ahora la energía se conserva.</b> Desde el contacto hasta la compresión máxima x (donde v = 0), el ascensor <b>sigue bajando x metros más</b>, así que sigue entregando energía potencial gravitatoria:<br>½·M·v² + M·g·x = ½·k·x²<br>9000 + 400·10·x = ½·20000·x²<br>9000 + 4000·x = 10000·x² &nbsp;⟹&nbsp; 10·x² − 4·x − 9 = 0<br><b>Paso 3. Resolvés la cuadrática.</b><br>x = [4 ± √(16 + 360)]/20 = (4 ± 19,39)/20<br>Se descarta la raíz negativa: <b>x = 1,17 m</b>.<br><b>Paso 4. Las dos trampas.</b> (1) Si seguís restando el freno durante la compresión, el enunciado te contradice: dice <i>"sólo cesa cuando el ascensor toma contacto"</i>. (2) Si te olvidás del término M·g·x pensando que al tocar el resorte el peso deja de trabajar, te da x = 0,95 m y perdés el inciso. El peso trabaja mientras el ascensor se mueva, punto.'},
+
+  {st: '<span class="muted">Final UTN.BA · FINAL 27/2/25 · problema 3</span><br><b>3)</b> Una partícula de masa 1 kg, que puede considerarse puntual, es lanzada por una pista semicircular de radio 1 m. La pista finaliza en un tramo horizontal con rozamiento y finalmente la masa comprime un resorte de constante K = 250 N/m comprimiéndolo 20 cm. Si en el punto más bajo de la trayectoria (A) la fuerza vertical que la pista realiza sobre la masa es de 46 N, calcule el trabajo de las fuerzas no conservativas sobre la masa entre el punto A y la compresión máxima.',
+   ans: 'v<sub>A</sub> = 6 m/s y W<sub>NC</sub> = −13 J',
+   sol: '<b>Paso 0. Por qué este problema necesita las dos herramientas.</b> El dato que te dan es una <b>fuerza</b> (la normal en A), y lo que te piden es un <b>trabajo</b>. Newton primero, energía después.<br><b>Paso 1. Newton radial en A para sacar v<sub>A</sub>.</b> A es el punto más bajo de la pista semicircular: el centro está arriba, la normal apunta hacia arriba (hacia el centro) y el peso en contra.<br>N − m·g = m·v<sub>A</sub>²/R<br>46 − 1·10 = 1·v<sub>A</sub>²/1 &nbsp;⟹&nbsp; v<sub>A</sub>² = 36 m²/s² &nbsp;⟹&nbsp; <b>v<sub>A</sub> = 6 m/s</b>.<br><b>Paso 2. Energías en los dos estados.</b> Cero de V<sub>g</sub> en el tramo horizontal, que es donde están tanto A como el resorte: la altura no cambia y el término gravitatorio se cancela.<br>E<sub>A</sub> = ½·m·v<sub>A</sub>² = ½·1·36 = <b>18 J</b><br>E<sub>final</sub> = ½·K·Δl² = ½·250·(0,20)² = ½·250·0,04 = <b>5 J</b> &nbsp;(en la compresión máxima v = 0)<br><b>Paso 3. El balance.</b><br>W<sub>NC</sub> = ΔE = E<sub>final</sub> − E<sub>A</sub> = 5 − 18 = <b>−13 J</b>.<br><b>Paso 4. Chequeos.</b> El signo <b>tiene</b> que dar negativo: el único no conservativo que trabaja es el rozamiento del tramo horizontal. Y fijate que el radio de 1 m se usó <b>solo</b> en la ecuación de Newton — no hace falta la altura de la que se lanzó ni el largo del tramo rugoso, porque el trabajo te lo pregunta como un todo, no como −μ·N·d.'},
+]);
+
+/* ==================== UNIDAD 2 · Resorte + rozamiento + plano inclinado ==================== */
+
+registerExercises('fisica1-utn-energia', '2', [
+  {st: 'Un cuerpo de M<sub>2</sub> = 2 kg cuelga de una cuerda que pasa por una polea ideal y tira de un resorte de k = 100 N/m, inicialmente trabado en su longitud natural. Se destraba. ¿Cuánto desciende M<sub>2</sub> <b>hasta detenerse</b>?',
+   opts: ['10 cm', '20 cm', '40 cm', '80 cm'],
+   c: 2,
+   ex: 'El punto donde se detiene es el de <b>máximo estiramiento</b>, y sale de energía con v = 0: ½·k·Δh² = M<sub>2</sub>·g·Δh ⟹ Δh = 2·M<sub>2</sub>·g/k = 2·2·10/100 = <b>0,40 m</b>. Es el B2 del 1er parcial 2014. ▸ Por qué las otras: <b>20 cm</b> es la respuesta equivocada más frecuente de todo el primer parcial — sale de plantear <i>equilibrio</i> (k·x = M<sub>2</sub>·g), pero el equilibrio es el punto <i>medio</i> del recorrido, el que atraviesa a máxima velocidad, no donde frena; <b>10 cm</b> es M<sub>2</sub>·g/(2k), o sea el error de equilibrio y encima dividido a la mitad; <b>80 cm</b> duplica dos veces (usaría 4·M<sub>2</sub>·g/k).'},
+
+  {st: 'Un cilindro macizo rueda sin resbalar y el módulo de la velocidad de su centro de masa es v. Su energía cinética total vale…',
+   opts: ['¾·m·v²', '½·m·v²', '7/10·m·v²', 'm·v²'],
+   c: 0,
+   ex: 'E<sub>c</sub> = ½·m·v² + ½·I<sub>CM</sub>·Ω² con I<sub>CM</sub> = ½mR² y Ω = v/R: el radio se cancela y queda ½mv² + ¼mv² = <b>¾·m·v²</b>. ▸ Por qué las otras: <b>½mv²</b> es olvidarse la rotación, y es el error que más se repite en los ejercicios de 2do parcial (en el B2 de 2015 te daría 1,0 m/s en vez de 0,816 m/s); <b>7/10·mv²</b> es el factor de la <b>esfera maciza</b> (I = 2/5 mr²), que también aparece pero en otros problemas; <b>m·v²</b> es el del <b>aro o cilindro hueco</b> (I = mR²), donde la rotación se lleva tanto como la traslación.'},
+
+  {st: 'El resorte de un problema mide 60 cm en el instante inicial y su longitud natural es 50 cm; k = 100 N/m. La energía potencial elástica <b>inicial</b> vale…',
+   opts: ['0 J, porque el problema recién arranca', '½·k·(0,60 m)² = 18 J', '½·k·(0,50 m)² = 12,5 J', '½·k·(0,10 m)² = 0,5 J'],
+   c: 3,
+   ex: 'La energía elástica se calcula con la <b>deformación</b>, o sea la diferencia entre la longitud actual y la natural: Δl = 0,60 − 0,50 = 0,10 m, y ½·100·0,01 = <b>0,5 J</b>. Es el arranque del problema 2 del 2do parcial 2009. ▸ Por qué las otras: <b>0 J</b> vale solo cuando el enunciado dice que el resorte parte <i>en su longitud natural</i> o <i>sin deformación</i> — acá te dijeron lo contrario, y olvidarte esos 0,5 J te cambia la cuadrática final; <b>18 J</b> usa la longitud <i>total</i> del resorte como si fuera deformación; <b>12,5 J</b> usa la longitud natural, que por definición no guarda energía.'},
+
+  {st: 'Un cuerpo sube una altura h sobre un plano rugoso de 37°. El trabajo del rozamiento vale…',
+   opts: ['−μ<sub>d</sub>·m·g·cos37°·h', '−μ<sub>d</sub>·m·g·cos37°·(h/sen37°)', '−μ<sub>d</sub>·m·g·h', '−μ<sub>d</sub>·m·g·sen37°·(h/cos37°)'],
+   c: 1,
+   ex: 'El rozamiento actúa a lo largo de <b>lo que recorre sobre el plano</b>, que es D = h/sen37°, y con la normal del plano N = m·g·cos37°. En el B2 de 2011 la altura da 8,93 m pero la distancia recorrida es 14,9 m. ▸ Por qué las otras: usar h como distancia recorrida te deja el término chico por un factor 1/sen37° = 1,67; usar N = m·g olvida que sobre un plano inclinado la normal es la <b>componente perpendicular</b> del peso; y la última intercambia seno con coseno en los dos lugares, que es la forma más rápida de romper el ejercicio (acordate: <b>sen37° = 0,6</b>, <b>cos37° = 0,8</b>).'},
+
+  {st: 'En el B2 del 2do parcial 2010 el enunciado te da μ<sub>D</sub> = 0,6 y aclara que el cilindro <b>rueda sin resbalar</b>. ¿Qué hacés con ese coeficiente?',
+   opts: ['No interviene: el rozamiento es estático, se aplica en un punto de velocidad nula y no realiza trabajo',
+          'Lo metés en el balance como −μ<sub>D</sub>·N·d',
+          'Lo usás para calcular la normal sobre el plano',
+          'Te avisa que la energía mecánica no se conserva'],
+   c: 0,
+   ex: 'Si rueda sin resbalar, el punto de contacto está <b>instantáneamente quieto</b>: dl = 0 y por lo tanto W<sub>roz</sub> = 0 aunque haya rozamiento. La energía se conserva y μ<sub>D</sub> es uno de esos "datos que no interesan" que la cátedra avisa en el encabezado. Escribilo en la hoja: sumás puntos por decirlo. ▸ Por qué las otras: meterlo como −μ<sub>D</sub>·N·d te hace perder energía que en realidad nunca se disipó; el coeficiente no interviene en el cálculo de la normal (la normal sale de Newton perpendicular al plano); y decir que la energía no se conserva es exactamente la conclusión opuesta a la que pide el ejercicio, que además pedía resolver "aplicando sólo conceptos de energía".'},
+
+  {st: 'Un cuerpo de 2 kg cae 2 m tirando de una cuerda que pasa por una polea de 0,5 kg (I = ½m<sub>p</sub>R²) y estira un resorte de k = 10 N/m desde su longitud natural. ¿Con qué velocidad llega al piso?',
+   opts: ['6,32 m/s', '4,47 m/s', '4,22 m/s', '5,96 m/s'],
+   c: 2,
+   ex: 'Balance completo: m·g·h = ½·m·v² + ¼·m<sub>p</sub>·v² + ½·k·x², con x = h = 2 m por la cuerda inextensible. 40 = (1 + 0,125)·v² + 20 ⟹ v² = 17,78 ⟹ <b>v = 4,22 m/s</b> (final UTN.BA 21/2/2024, problema 4). ▸ Por qué las otras: <b>6,32 m/s</b> es √(2gh), o sea caída libre: te olvidaste del resorte <i>y</i> de la polea; <b>4,47 m/s</b> descuenta el resorte pero ignora que la polea con masa se lleva ¼·m<sub>p</sub>·v²; <b>5,96 m/s</b> hace lo inverso, cuenta la polea y se olvida los 20 J que se guardó el resorte.'},
+]);
+
+registerReveals('fisica1-utn-energia', '2', [
+
+  {st: '<span class="muted">1er parcial 2009, cátedra Martinelli · TEMA 1 · 22/10/09 · UTN FRBA</span><br><b>4)</b> Se empuja un cuerpo partiendo del reposo con una fuerza constante F como indica la figura. En el plano inclinado hay rozamiento mientras que en el horizontal el rozamiento es despreciable.<br>a) Calcular la velocidad del cuerpo en el punto B.<br>b) Si a partir del punto B la fuerza F se anula, calcule la compresión máxima del resorte.<br><b>Datos:</b> m = 10 kg &nbsp; k = 10000 N/m &nbsp; μ<sub>D</sub> = 0,1 &nbsp; F = 100 N &nbsp; AB = 5 m &nbsp; α = 37º',
+   ans: 'a) v<sub>B</sub> = 5,66 m/s · b) Δl = 17,9 cm <span class="muted">(la clave oficial, que usa sen37° = 0,6018 y cos37° = 0,7986 en vez de los valores redondos de la cátedra, da 5,642 m/s y 17,84 cm)</span>',
+   sol: '<b>Paso 0. Referencias.</b> Cero de V<sub>g</sub> en A. Parte del reposo: v<sub>A</sub> = 0. g = 10 m/s², sen37° = 0,6, cos37° = 0,8.<br><b>Paso 1. a) Las no conservativas del tramo AB son dos: F y el rozamiento.</b> Como F es <b>paralela al plano</b> (así viene en la figura), no modifica la normal:<br>N = m·g·cos37° = 10·10·0,8 = <b>80 N</b><br>W<sub>F</sub> = +F·AB = 100·5 = 500 J &nbsp;(a favor del movimiento)<br>W<sub>roz</sub> = −μ<sub>D</sub>·N·AB = −0,1·80·5 = −40 J<br>W<sub>NC</sub> = 500 − 40 = <b>460 J</b><br><b>Paso 2. La energía en B.</b> El cuerpo subió h = AB·sen37° = 5·0,6 = 3 m:<br>E<sub>B</sub> = ½·m·v<sub>B</sub>² + m·g·h = 5·v<sub>B</sub>² + 10·10·3 = 5·v<sub>B</sub>² + 300 J<br><b>Paso 3. Igualás.</b> E<sub>B</sub> − E<sub>A</sub> = W<sub>NC</sub>:<br>5·v<sub>B</sub>² + 300 = 460 &nbsp;⟹&nbsp; v<sub>B</sub>² = 32 m²/s² &nbsp;⟹&nbsp; <b>v<sub>B</sub> = 5,66 m/s</b>.<br><b>Paso 4. b) Del punto B al resorte.</b> A partir de B se anula F y el tramo horizontal es liso: <b>no hay ninguna fuerza no conservativa</b>, la energía se conserva. Además el resorte está a la <b>misma altura</b> que B, así que el término m·g·h aparece a los dos lados y se cancela solo:<br>½·k·Δl² = ½·m·v<sub>B</sub>² = ½·10·32 = <b>160 J</b><br>½·10000·Δl² = 160 &nbsp;⟹&nbsp; Δl² = 0,032 m² &nbsp;⟹&nbsp; <b>Δl = 0,179 m = 17,9 cm</b>.<br><b>Paso 5. Las trampas.</b> No le sumes ni le restes una componente de F a la normal (es paralela al plano); no arrastres F después de B (el enunciado la anula); no metas rozamiento en el tramo horizontal (es despreciable); y pasá el resultado a cm, que es como lo escribe la clave.'},
+
+  {st: '<span class="muted">1er parcial 2011, cátedra Martinelli · 20/10/11 · Prof. H. Patricia Martinelli · UTN FRBA</span><br><b>B2:</b> Un cuerpo puntual, de masa 1 kg, es lanzado por la pista de la figura mediante un resorte ideal, de constante elástica K = 1000 N/m, que inicialmente se encuentra comprimido 50 cm. El plano inclinado forma un ángulo de 37° con la horizontal y presenta rozamiento, siendo sus coeficientes de rozamiento estático y dinámico 0.4 y 0.3, respectivamente. El tramo horizontal carece de rozamiento.<br>a) Determine con qué velocidad llega el bloque a la base del plano inclinado<br>b) Calcule hasta que altura h asciende sobre el plano inclinado.',
+   ans: 'a) v<sub>B</sub> = 15,81 m/s · b) h = 8,93 m (recorriendo 14,9 m sobre el plano)',
+   sol: '<b>Paso 0. Puntos e hipótesis.</b> A = partida con el resorte comprimido 0,5 m y v<sub>A</sub> = 0; B = pie del plano; C = altura máxima, con v<sub>C</sub> = 0. Cero de V<sub>g</sub> en el tramo horizontal. Resorte ideal.<br><b>Paso 1. a) Tramo AB: liso ⟹ la energía se conserva.</b> Toda la elástica se hace cinética, y la altura no cambia:<br>½·K·Δl² = ½·m·v<sub>B</sub>²<br>½·1000·(0,5)² = <b>125 J</b> = ½·1·v<sub>B</sub>²<br>v<sub>B</sub>² = 250 m²/s² &nbsp;⟹&nbsp; <b>v<sub>B</sub> = 15,81 m/s</b>.<br><b>Paso 2. b) Tramo BC: rugoso ⟹ ΔE = W<sub>roz</sub>.</b><br>m·g·h − ½·m·v<sub>B</sub>² = −μ<sub>d</sub>·N·D<sub>BC</sub><br><b>Paso 3. Los tres reemplazos que hay que escribir.</b><br>½·m·v<sub>B</sub>² = 125 J &nbsp;·&nbsp; N = m·g·cos37° = 1·10·0,8 = <b>8 N</b> &nbsp;·&nbsp; D<sub>BC</sub> = h/sen37° = h/0,6<br><b>Paso 4. Reemplazás y despejás.</b><br>10·h − 125 = −0,3·8·(h/0,6) = −4·h<br>14·h = 125 &nbsp;⟹&nbsp; <b>h = 8,93 m</b> &nbsp;(y D<sub>BC</sub> = 8,93/0,6 = 14,9 m sobre el plano).<br><b>Paso 5. El dato que no interesa.</b> μ<sub>e</sub> = 0,4 <b>no se usa</b>: el cuerpo está deslizando todo el tiempo. Solo serviría para decidir si queda frenado en C, y como tg37° = 0,75 > 0,4, en realidad vuelve a bajar. Escribilo en la hoja.<br><b>Paso 6. Chequeo por Newton.</b> a = −g·(sen37° + μ<sub>d</sub>·cos37°) = −10·(0,6 + 0,24) = −8,4 m/s²; D = v<sub>B</sub>²/(2·8,4) = 14,88 m; h = 14,88·0,6 = 8,93 m. Da lo mismo, pero por energía son tres renglones.'},
+
+  {st: '<span class="muted">1er parcial 2014, cátedra Martinelli · 21/8/2014 · curso I1021 · UTN.BA</span><br><b>B2:</b> Se tiene el sistema mostrado en la figura, donde el resorte, las cuerdas y la polea son ideales, y la superficie horizontal carece de rozamiento. Las masas de los bloques son M<sub>1</sub> = M<sub>2</sub> = 2 kg. Inicialmente, el resorte de constante elástica K = 100 N/m, se encuentra trabado en su longitud natural, l<sub>o</sub>, y en determinado momento se lo destraba. Determine cuánto descenderá el cuerpo 2 hasta detenerse, a partir de su posición inicial.',
+   ans: 'Δh = 0,4 m = 40 cm',
+   sol: '<b>Paso 0. Hipótesis explícitas.</b> Superficie sin rozamiento, resorte y polea ideales ⟹ <b>la energía mecánica se conserva</b>: ΔE = 0.<br><b>Paso 1. Los dos estados.</b><br>Inicial: reposo (sin cinética) y resorte en su longitud natural (sin elástica).<br>Final: <b>máximo estiramiento</b>, que es donde el cuerpo 2 <i>se detiene</i>: v = 0 otra vez, pero ahora sí hay elástica.<br><b>Paso 2. El vínculo, que es el paso que hace cerrar el problema.</b> La cuerda es inextensible y pasa por una polea ideal, así que lo que <b>baja</b> M<sub>2</sub> es exactamente lo que se <b>estira</b> el resorte:<br><b>Δl = Δh</b><br><b>Paso 3. El balance.</b> M<sub>1</sub> se mueve horizontal, su energía potencial no cambia; solo baja M<sub>2</sub>:<br>ΔE = ½·K·Δh² − M<sub>2</sub>·g·Δh = 0<br>Dividís por Δh (descartando la solución trivial Δh = 0, que es el estado inicial):<br>Δh = <b>2</b>·M<sub>2</sub>·g/K = 2·2·10/100 = <b>0,4 m = 40 cm</b>.<br><b>Paso 4. LA trampa.</b> Si planteás <b>equilibrio</b> (K·x = M<sub>2</sub>·g) te da 20 cm, exactamente la mitad, y es el error más frecuente del ejercicio. El punto donde el cuerpo <b>se detiene</b> no es el de fuerza neta cero: es el de máximo estiramiento, donde el resorte tira más fuerte que el peso y lo va a hacer rebotar. El equilibrio es el punto <i>medio</i>, el que atraviesa a máxima velocidad.<br><b>Paso 5. El dato que no interesa.</b> M<sub>1</sub> = 2 kg <b>no aparece en la respuesta</b>: interviene en la cinética intermedia, pero en el estado final v = 0 para los dos cuerpos y se cancela. Decilo por escrito.'},
+
+  {st: '<span class="muted">2do parcial 2009, cátedra Martinelli · TEMA 1 · 07/12/2009 · UTN FRBA</span><br><b>Problema 2:</b> Un disco de radio R = 10 cm y masa M = 2 kg (I<sub>CM</sub> = MR²/2), rueda sin resbalar sobre la superficie de un plano inclinado de ángulo α = 30°. El centro del disco está unido por una cuerda a un resorte de longitud natural l<sub>0</sub> = 50 cm y constante elástica k = 100 N/m, cuyo otro extremo está unido a una pared, como se muestra en la figura. Considere que la polea, la cuerda y el resorte son ideales. En determinado momento, la longitud del resorte es 60 cm y el centro de masa del disco se mueve con una velocidad v de módulo 0.8 m/s, en la dirección indicada. Determine la elongación máxima del resorte.',
+   ans: 'Δl<sub>máx</sub> = 23,86 cm (longitud máxima del resorte ≈ 73,9 cm)',
+   sol: '<b>Paso 0. Hipótesis.</b> Rueda sin resbalar ⟹ el rozamiento es estático, se aplica en un punto de velocidad nula y <b>no disipa</b>: la energía se conserva. Polea, cuerda y resorte ideales. Cero de V<sub>g</sub> en la posición inicial A del centro de masa. El disco <b>baja</b> por el plano (así apunta v en la figura).<br><b>Paso 1. Estado A.</b> Δl<sub>A</sub> = 0,60 − 0,50 = <b>0,1 m</b> (el resorte YA venía estirado):<br>½·M·v² = ½·2·0,64 = 0,64 J<br>½·I<sub>CM</sub>·Ω² = ½·(½·2·0,1²)·(0,8/0,1)² = 0,32 J &nbsp;<span class="muted">(juntos: ¾·M·v², el radio se cancela)</span><br>½·k·Δl<sub>A</sub>² = ½·100·0,01 = 0,50 J<br><b>E<sub>A</sub> = 1,46 J</b><br><b>Paso 2. Estado B: elongación máxima, v = 0.</b> El vínculo dice que el centro del disco se desplaza por el plano lo mismo que <b>aumenta</b> la elongación, o sea (Δl<sub>máx</sub> − Δl<sub>A</sub>), y como baja, la altura desciende ese desplazamiento por sen30°:<br>E<sub>B</sub> = −M·g·(Δl<sub>máx</sub> − Δl<sub>A</sub>)·sen30° + ½·k·Δl<sub>máx</sub>²<br>−2·10·0,5·(Δl<sub>máx</sub> − 0,1) + 50·Δl<sub>máx</sub>² = 1,46<br><b>Paso 3. Cuadrática.</b><br>50·Δl<sub>máx</sub>² − 10·Δl<sub>máx</sub> − 0,46 = 0<br>Δl<sub>máx</sub> = [10 ± √(100 + 92)]/100 = (10 ± 13,856)/100<br>Se descarta la raíz negativa (−3,86 cm no tiene sentido físico: con una cuerda de por medio el resorte no se comprime).<br><b>Δl<sub>máx</sub> = 0,2386 m = 23,86 cm</b>.<br><b>Paso 4. Los cuatro lugares donde se pierde este ejercicio.</b> (1) Olvidar la energía cinética de rotación: E<sub>A</sub> te daría 1,14 J; (2) poner cero la elástica inicial, cuando el resorte ya venía estirado 10 cm; (3) usar el <i>aumento</i> de elongación en vez de la elongación <b>total</b> Δl<sub>máx</sub> dentro de ½kΔl²; (4) equivocar el signo del término gravitatorio (el disco baja, la potencial disminuye).'},
+
+  {st: '<span class="muted">2do parcial 2015, cátedra Martinelli · 25/11/2015 · curso Z1102 · UTN FRBA</span><br><b>B2:</b> El cilindro C, de masa m<sub>c</sub> = 5 kg y radio R<sub>c</sub> = 20 cm, está vinculado a un resorte de constante elástica k = 100 N/m mediante una cuerda que pasa por la polea P. El cilindro está apoyado sobre un plano inclinado con rozamiento, de ángulo α = 37º. La soga, el resorte y la polea P, son ideales. El momento de inercia del cilindro respecto de su centro de masa es I<sub>CM</sub> = m<sub>c</sub>·R<sub>c</sub>²/2. Suponiendo que el mismo parte del reposo cuando el resorte tiene su longitud natural y que rueda sin deslizar, calcule la velocidad de su centro de masa cuando el resorte se estiró 10 cm.',
+   ans: 'v<sub>CM</sub> = 0,816 m/s',
+   sol: '<b>Paso 0. La justificación que vale medio ejercicio.</b> Aunque el plano "tiene rozamiento", <b>no disipa</b>: el cilindro rueda sin deslizar, el punto de contacto está instantáneamente en reposo (dl = 0) y W<sub>roz</sub> = 0. La normal tampoco trabaja. La tensión no es conservativa, pero lo que le saca al cilindro se lo da al resorte y la suma es cero (cuerda y polea ideales). <b>Conclusión: la energía mecánica del sistema cilindro + resorte se conserva.</b><br><b>Paso 1. Los vínculos.</b><br>El centro de masa recorre sobre el plano lo mismo que se estira el resorte: d = Δl = <b>0,1 m</b><br>La altura que <b>baja</b> es h = Δl·sen37° = 0,1·0,6 = <b>0,06 m</b> &nbsp;<span class="muted">(no 0,1 m: hay que proyectar)</span><br>Rodadura: Ω = v<sub>CM</sub>/R<sub>c</sub><br><b>Paso 2. El balance.</b><br>m<sub>c</sub>·g·Δl·sen37° = ½·m<sub>c</sub>·v<sub>CM</sub>² + ½·(½m<sub>c</sub>R<sub>c</sub>²)·(v<sub>CM</sub>/R<sub>c</sub>)² + ½·k·Δl²<br>Los dos términos cinéticos se juntan en <b>¾·m<sub>c</sub>·v<sub>CM</sub>²</b> y el radio se cancela:<br>50 N·0,06 m = ¾·5·v<sub>CM</sub>² + ½·100·(0,1)²<br><b>3 J = 3,75·v<sub>CM</sub>² + 0,5 J</b><br><b>Paso 3. Despejás.</b><br>v<sub>CM</sub>² = 2,5/3,75 = 0,667 m²/s² &nbsp;⟹&nbsp; <b>v<sub>CM</sub> = 0,816 m/s</b>.<br><b>Paso 4. El error caro.</b> Si te olvidás la rotación te queda 2,5·v² = 2,5 y v = 1,0 m/s. Ese 1,0 tan redondo es tentador y está mal: la rotación se lleva un tercio de la cinética.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la del prisma de caras paralelas y el péndulo balístico) · problema 6</span><br><b>6-</b> El sistema de la figura parte del reposo, el resorte ideal (k = 250 N/m), no presenta deformación inicial. Luego el cilindro macizo y homogéneo (I<sub>CM</sub> = 1/2 mr²) de masa 10 Kg, comienza a descender rodando sin resbalar por el plano (α = 30º). Determine la velocidad del centro de masa del mismo, cuando su centro se desplazó una distancia d = 20 cm, a lo largo del plano.',
+   ans: 'v<sub>CM</sub> = 0,816 m/s',
+   sol: '<b>Paso 0. Es el mismo problema del 2do parcial 2015 con otros números.</b> Mismo esquema, misma justificación: rueda sin resbalar ⟹ el rozamiento estático no trabaja; resorte ideal ⟹ la energía se conserva. Vínculo: el desplazamiento del centro a lo largo del plano es igual al estiramiento del resorte, d = Δl = 0,2 m.<br><b>Paso 1. Lo que entrega la gravedad.</b> La altura que baja es d·sen30° = 0,2·0,5 = 0,1 m:<br>m·g·d·sen30° = 10·10·0,1 = <b>10 J</b><br><b>Paso 2. Lo que se guarda el resorte.</b><br>½·k·Δl² = ½·250·(0,2)² = ½·250·0,04 = <b>5 J</b><br><b>Paso 3. Lo que queda como cinética de rototraslación.</b><br>½·m·v² + ½·(½mr²)·(v/r)² = ¾·m·v² = ¾·10·v² = <b>7,5·v²</b><br><b>Paso 4. Igualás.</b><br>10 J = 7,5·v² + 5 J &nbsp;⟹&nbsp; v² = 5/7,5 = 0,667 m²/s² &nbsp;⟹&nbsp; <b>v<sub>CM</sub> = 0,816 m/s</b>.<br><b>Paso 5. Guiño.</b> Da <i>exactamente</i> el mismo número que el B2 del 2do parcial 2015. No es magia: en los dos casos la mitad de la energía que entrega la gravedad se la queda el resorte. Si en el final te sale 0,816 m/s, es buena señal.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la que abre con el radio de curvatura a 53°) · problema 4</span><br><b>4)</b> El sistema representado en la figura parte del reposo, y el resorte (de constante K = 100 N/m) se encuentra inicialmente sin deformación. Un cilindro macizo de masa 10 kg, cuyo momento de inercia respecto a su eje es I = mR²/2, comienza a descender sin deslizar por el plano inclinado de 30°. Determinar la velocidad del centro de masa del cilindro luego de haber descendido 50 cm a lo largo del plano.',
+   ans: 'v<sub>CM</sub> = 1,29 m/s',
+   sol: '<b>Paso 0. Tercera vez el mismo arquetipo.</b> Cambian k (100 N/m) y d (0,5 m); el planteo es idéntico. Cero de V<sub>g</sub> en la posición final del centro de masa, vínculo d = Δl = 0,5 m.<br><b>Paso 1. Energía que entrega la gravedad.</b><br>m·g·d·sen30° = 10·10·0,5·0,5 = <b>25 J</b><br><b>Paso 2. Energía que absorbe el resorte.</b><br>½·K·Δl² = ½·100·(0,5)² = ½·100·0,25 = <b>12,5 J</b><br><b>Paso 3. Cinética de rototraslación.</b><br>¾·m·v² = ¾·10·v² = <b>7,5·v²</b><br><b>Paso 4. Balance y despeje.</b><br>25 = 7,5·v² + 12,5 &nbsp;⟹&nbsp; v² = 12,5/7,5 = 1,667 m²/s² &nbsp;⟹&nbsp; <b>v<sub>CM</sub> = 1,29 m/s</b>.<br><b>Paso 5. Chequeo rápido de que no te pasaste.</b> El resorte se quedó con la mitad exacta de los 25 J. Como acá d es más grande, el resorte llegó a estirarse 50 cm y la energía elástica crece con el <b>cuadrado</b>: si hubieras usado ½·K·d en vez de ½·K·d², te daría cualquier cosa. Y si te olvidás la rotación: 25 = 5·v² + 12,5 ⟹ v = 1,58 m/s, mal.'},
+
+  {st: '<span class="muted">Final UTN.BA · EXAMEN FINAL 2/3/2023 · problema 4</span><br><b>4.</b> Un cuerpo de masa m₁ = 3 kg se encuentra, en el instante inicial, descendiendo a una velocidad de v<sub>i</sub> = 5 m/s. El disco de la polea, que es homogéneo y de masa m₂ = 2 kg, gira sin rozamiento y esta ligado a través de una cuerda ideal a un tercer cuerpo de masa m₃ = 2 kg apoyado sobre un plano horizontal con rozamiento μ<sub>c</sub> = 0,35. Este cuerpo está vinculado a un resorte de constante elástica k = 50 N/m que en ese instante se encuentra elongado Δx<sub>i</sub> = 0,5 m. Halle la velocidad del cuerpo 1 después de que éste desciende una distancia de 1 m.',
+   ans: 'v = 4 m/s',
+   sol: '<b>Paso 0. Este es el arquetipo completo: resorte + rozamiento + polea con masa, todo junto.</b> Cuerda inextensible ⟹ los dos cuerpos y el borde de la polea van con el mismo módulo de velocidad v, y Ω = v/R. La polea es un disco: I = ½m₂R², así que aporta ½·I·Ω² = <b>¼·m₂·v²</b>.<br><b>Paso 1. Vínculos y estados.</b> Cuando el cuerpo 1 baja d = 1 m, el cuerpo 3 avanza 1 m y el resorte pasa de Δx<sub>i</sub> = 0,5 m a Δx<sub>f</sub> = <b>1,5 m</b>.<br><b>Paso 2. Energía inicial.</b><br>Cinética: ½·(m₁+m₃)·v<sub>i</sub>² + ¼·m₂·v<sub>i</sub>² = ½·5·25 + ¼·2·25 = 62,5 + 12,5 = 75 J<br>Elástica: ½·50·(0,5)² = 6,25 J<br><b>E<sub>i</sub> = 81,25 J</b> (con V<sub>g</sub> = 0 en la posición inicial del cuerpo 1)<br><b>Paso 3. Energía final.</b><br>Cinética: (2,5 + 0,5)·v² = 3·v²<br>Elástica: ½·50·(1,5)² = 56,25 J<br>Gravitatoria: −m₁·g·d = −3·10·1 = −30 J<br><b>E<sub>f</sub> = 3·v² + 26,25 J</b><br><b>Paso 4. El trabajo no conservativo.</b> Solo el rozamiento del cuerpo 3 sobre el plano horizontal (N = m₃·g = 20 N):<br>W<sub>roz</sub> = −μ<sub>c</sub>·m₃·g·d = −0,35·20·1 = <b>−7 J</b><br><b>Paso 5. Balance.</b><br>3·v² + 26,25 − 81,25 = −7 &nbsp;⟹&nbsp; 3·v² = 48 &nbsp;⟹&nbsp; v² = 16 &nbsp;⟹&nbsp; <b>v = 4 m/s</b>.<br><b>Paso 6. Lo que hay que no perder de vista.</b> (1) El sistema <b>arranca en movimiento</b>: la cinética inicial de 75 J no es cero; (2) el resorte ya venía estirado, así que se resta ½k(0,5)² y no cero; (3) el resorte se lleva 50 J netos, más de lo que aporta el peso — por eso el cuerpo termina más <i>lento</i> (4 m/s) de lo que arrancó (5 m/s), y eso está bien.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la del rizo circular y la cañería) · problema 2</span><br><b>2-</b> En el sistema de la figura el resorte ideal (k = 20 N/m), se halla en un extremo, fijo al piso y en el otro a una partícula de masa m1 = 8 kg. La polea de geometría cilíndrica (I<sub>CM</sub> = 1/2Mr²), no tiene rozamiento en su eje, y tiene una masa M = 2 kg. La otra partícula, de masa m2 = 15 kg, se encuentra posicionada a la misma altura h = 4 m, con respecto al piso que la otra. Cuando el sistema se deja en libertad, desde el reposo, el resorte está estirado 1 m. La cuerda es inextensible y de masa despreciable. Determine el módulo de la velocidad de la partícula m2 cuando llegue al piso.',
+   ans: 'v = √(10/3) = 1,83 m/s',
+   sol: '<b>Paso 0. Qué se mueve y hacia dónde.</b> m2 = 15 kg pesa más que m1 = 8 kg, así que <b>m2 baja 4 m y m1 sube 4 m</b>, estirando el resorte todavía más. La cuerda es inextensible: los dos van con el mismo módulo v, y la polea gira con Ω = v/r.<br><b>Paso 1. El resorte va de 1 m a 5 m de estiramiento.</b> Ese es el paso que decide el problema: no se estira 4 m, <b>pasa</b> de 1 m a 5 m.<br>ΔE<sub>elástica</sub> = ½·k·(5² − 1²) = ½·20·24 = <b>+240 J</b><br><b>Paso 2. Los términos gravitatorios.</b><br>m2 baja 4 m: −15·10·4 = <b>−600 J</b><br>m1 sube 4 m: +8·10·4 = <b>+320 J</b><br><b>Paso 3. La cinética final.</b> Los dos cuerpos más la polea:<br>½·(m1+m2)·v² + ¼·M·v² = ½·23·v² + ¼·2·v² = 11,5·v² + 0,5·v² = <b>12·v²</b><br><b>Paso 4. Balance (todo ideal ⟹ ΔE = 0).</b><br>12·v² − 600 + 320 + 240 = 0 &nbsp;⟹&nbsp; 12·v² = 40<br>v² = 3,33 m²/s² &nbsp;⟹&nbsp; <b>v = 1,83 m/s</b>.<br><b>Paso 5. Por qué da tan poco.</b> Los 600 J que suelta m2 se los comen casi enteros el ascenso de m1 (320 J) y el resorte (240 J): quedan 40 J para repartir entre 25 kg de materia. Si te da 6 o 7 m/s, seguro te olvidaste el estiramiento previo del resorte o el ascenso de m1.'},
+]);
+
+/* ==================== UNIDAD 3 · Movimiento circular ==================== */
+
+registerExercises('fisica1-utn-energia', '3', [
+  {st: 'Un cuerpo puntual recorre por adentro un loop de R = 1 m. ¿Cuál es la velocidad mínima que necesita en el punto más alto para no desprenderse? (g = 10 m/s²)',
+   opts: ['0 m/s', '3,16 m/s', '4,47 m/s', '10 m/s'],
+   c: 1,
+   ex: 'La condición límite es <b>N = 0</b>: el peso solo alcanza justo para dar toda la fuerza centrípeta. m·g = m·v²/R ⟹ v<sub>mín</sub> = √(g·R) = √10 = <b>3,16 m/s</b>. ▸ Por qué las otras: <b>0 m/s</b> sería quedarse quieto en el techo del loop, que es literalmente caerse; <b>4,47 m/s</b> es √(2gR), que es la velocidad de caída libre desde una altura R, un número que no tiene nada que ver con la condición de no desprendimiento; <b>10 m/s</b> es √(2g·h) con h = 5 m, otro número que aparece en problemas vecinos pero no acá.'},
+
+  {st: 'Una partícula da vueltas en un plano vertical atada a una cuerda de longitud L. La diferencia de altura entre el punto más alto y el más bajo vale…',
+   opts: ['L/2', 'L', '2L', '2πL'],
+   c: 2,
+   ex: 'Es el <b>diámetro</b> de la circunferencia: <b>2L</b>. Con eso, en el B2 de 2017, L = (v<sub>B</sub>² − v<sub>A</sub>²)/(4g) = (64 − 16)/40 = 1,2 m. ▸ Por qué las otras: <b>L</b> es el radio, y usarlo te da L = 2,4 m, el doble, y arrastra el error a las dos tensiones del inciso b); <b>L/2</b> no corresponde a ninguna distancia del dibujo; <b>2πL</b> es la longitud de la circunferencia, o sea lo que <i>recorre</i> dando una vuelta, no la altura que sube.'},
+
+  {st: 'En el punto más alto de una trayectoria circular vertical con cuerda, ¿cómo queda la ecuación de Newton en dirección radial?',
+   opts: ['T = m·v²/L − m·g', 'T = m·v²/L + m·g', 'T = m·g − m·v²/L', 'T = m·v²/L'],
+   c: 0,
+   ex: 'Arriba el centro está <b>abajo</b>, así que la tensión y el peso apuntan los dos hacia el centro y se suman: T + m·g = m·v²/L ⟹ <b>T = m·v²/L − m·g</b>. En el B2 de 2017 da 6,67 N. ▸ Por qué las otras: <b>T = mv²/L + mg</b> es la ecuación del punto más <b>bajo</b> (allá la tensión apunta hacia arriba y el peso en contra), y da 126,67 N — no te asustes de que sea 19 veces más grande, está bien; <b>T = mg − mv²/L</b> tiene el signo dado vuelta y te daría tensión negativa; <b>T = mv²/L</b> confunde la resultante centrípeta con la tensión sola, olvidando el peso.'},
+
+  {st: 'En el B1 del 1er parcial 2010 la zona rugosa está <b>después</b> del loop, entre el loop y la rampa. Para calcular la velocidad en el punto más alto del loop…',
+   opts: ['hay que descontar −μ<sub>d</sub>·m·g·d antes de llegar al loop',
+          'hay que sumar el trabajo del rozamiento porque el cuerpo acelera',
+          'hace falta conocer el ángulo de la rampa',
+          'se usa conservación pura desde el resorte: E<sub>A</sub> = E<sub>B</sub>'],
+   c: 3,
+   ex: 'Seguí el recorrido con el dedo antes de plantear nada: entre el resorte y el loop la pista es <b>lisa</b>, así que E<sub>A</sub> = ½KΔl² = 20 J se conserva entera hasta B. El rozamiento recién entra después, para calcular la altura sobre la rampa. ▸ Por qué las otras: descontarlo antes te baja v<sub>B</sub> y te tira todo el ejercicio; el trabajo del rozamiento <b>nunca</b> es positivo, va siempre restando; y el ángulo de la rampa es otro dato que no hace falta, porque lo que te piden es la <b>altura</b> h, no la distancia recorrida sobre la rampa.'},
+
+  {st: 'Una partícula gira en un plano horizontal atada a un resorte de longitud natural l<sub>0</sub> y constante k, describiendo un círculo de radio R. La ecuación correcta es…',
+   opts: ['k·R = m·v²/R', 'k·(R − l<sub>0</sub>) = m·v²/R', 'k·(R − l<sub>0</sub>) = m·v²/(R − l<sub>0</sub>)', 'k·l<sub>0</sub> = m·v²/R'],
+   c: 1,
+   ex: 'Conviven dos longitudes distintas: la <b>deformación</b> (R − l<sub>0</sub>), que es la que va en la fuerza elástica, y el <b>radio</b> R, que es la longitud actual del resorte y va en la aceleración centrípeta v²/R. ▸ Por qué las otras: <b>k·R</b> usa la longitud actual como si fuera deformación, y un resorte en su longitud natural no hace fuerza; la tercera pone la deformación también en el denominador de la centrípeta, pero el radio del círculo que describe la partícula es R, no lo que se estiró el resorte; <b>k·l<sub>0</sub></b> es el error opuesto, usar la longitud natural como deformación.'},
+
+  {st: 'Una partícula hace MCU en un plano horizontal atada a una soga que pasa por un agujero. Se tira de la soga hasta que el radio queda a la <b>mitad</b>. La fuerza centrípeta pasa a valer…',
+   opts: ['el doble', 'cuatro veces mayor', 'ocho veces mayor', 'la misma'],
+   c: 2,
+   ex: 'La fuerza es radial, no hace momento respecto del centro, y <b>se conserva el momento angular</b>: L = m·v·r ⟹ al mitad de radio la velocidad se <b>duplica</b>. Entonces F = m·v²/r queda con v² cuatro veces mayor sobre un r a la mitad: <b>8 veces</b> (F ∝ 1/r³). En el final de la hoja del cohete: de 1 N a 8 N. ▸ Por qué las otras: <b>el doble</b> es el error automático de escribir F = m·v²/(r/2) dejando v igual — pero al tirar hacia adentro hay desplazamiento radial, la fuerza <i>sí</i> hace trabajo y la partícula acelera; <b>cuatro veces</b> cuenta el aumento de v² pero se olvida de que el radio también cambió; <b>la misma</b> ignoraría las dos cosas.'},
+]);
+
+registerReveals('fisica1-utn-energia', '3', [
+
+  {st: '<span class="muted">1er parcial 2010, cátedra Martinelli · 26/10/10 · UTN FRBA</span><br><b>B1:</b> Un cuerpo puntual es lanzado por la pista de la figura mediante un resorte que inicialmente se encuentra comprimido una distancia de 20 cm.<br>a) Calcular la velocidad en la parte superior del loop. Compárela con la velocidad mínima para que pase por la pista sin desprenderse.<br>b) Calcular la altura máxima que alcanza sobre la rampa inclinada.<br><b>Datos:</b> R = 1 m, K = 1000 N/m, d = 20 m, m = 100 gr, μ<sub>d</sub> = 0.5',
+   ans: 'a) v<sub>B</sub> = 18,97 m/s frente a v<sub>mín</sub> = 3,16 m/s: no se desprende · b) h = 10 m',
+   sol: '<b>Paso 0. Unidades y puntos.</b> m = 100 gr = <b>0,1 kg</b>, Δl = 20 cm = <b>0,2 m</b>. A = partida contra el resorte; B = punto más alto del loop; C y D = principio y fin de la zona rugosa; H = punto más alto sobre la rampa. Cero de V<sub>g</sub> en el piso. Los tramos A-C y D-H son <b>lisos</b>.<br><b>Paso 1. a) Conservación pura entre A y B.</b> La zona rugosa está <i>después</i> del loop, así que acá no se descuenta nada:<br>E<sub>A</sub> = ½·K·Δl² = ½·1000·(0,2)² = <b>20 J</b><br>E<sub>B</sub> = ½·m·v<sub>B</sub>² + m·g·<b>2R</b> = 0,05·v<sub>B</sub>² + 0,1·10·2 = 0,05·v<sub>B</sub>² + 2 J<br>20 = 0,05·v<sub>B</sub>² + 2 &nbsp;⟹&nbsp; v<sub>B</sub>² = 360 m²/s² &nbsp;⟹&nbsp; <b>v<sub>B</sub> = 18,97 m/s</b>.<br><b>Paso 2. La velocidad mínima: la condición es N = 0.</b><br>m·g = m·v<sub>mín</sub>²/R &nbsp;⟹&nbsp; v<sub>mín</sub> = √(g·R) = √10 = <b>3,16 m/s</b><br>Como 18,97 ≫ 3,16, <b>no se desprende</b>; y si pasa por B sin desprenderse, tampoco se desprende en ningún otro punto del loop, porque arriba es el punto más exigente.<br><b>Paso 3. b) De B a H, la única pérdida es el tramo CD.</b> Podés saltarte todos los puntos intermedios y aplicar el balance directo desde el resorte:<br>W<sub>roz</sub> = −μ<sub>d</sub>·m·g·d = −0,5·0,1·10·20 = <b>−10 J</b><br>E<sub>H</sub> = E<sub>A</sub> + W<sub>roz</sub> = 20 − 10 = <b>10 J</b><br><b>Paso 4. En H solo hay potencial (v<sub>H</sub> = 0).</b><br>E<sub>H</sub> = m·g·h &nbsp;⟹&nbsp; 10 J = (0,1·10)·h = 1 N·h &nbsp;⟹&nbsp; <b>h = 10 m</b>.<br><b>Paso 5. Los cuatro errores clásicos.</b> (1) Usar R en vez de <b>2R</b> para la altura de B; (2) descontar el rozamiento antes del loop; (3) restar el rozamiento dos veces (el cuerpo pasa <i>una sola</i> vez por CD antes de subir la rampa); (4) confundir h (altura vertical) con la distancia sobre la rampa — el ángulo de la rampa ni te lo dan, señal de que no hace falta.'},
+
+  {st: '<span class="muted">1er parcial 2017, cátedra Martinelli · 26/6/2017 · curso R1022 · UTN FRBA</span><br><b>B2:</b> Una partícula de masa m = 2 kg realiza un movimiento circular en el plano vertical, unida a una cuerda inextensible de masa despreciable. La velocidad en el punto más alto de su trayectoria es 4 m/s, mientras que en el punto más bajo es 8 m/s.<br>a) Utilizando conceptos de trabajo y energía, calcule la longitud de la cuerda.<br>b) Determine la tensión de la cuerda en cada uno de esos dos puntos.',
+   ans: 'a) L = 1,2 m · b) T<sub>arriba</sub> = 20/3 N = 6,67 N y T<sub>abajo</sub> = 380/3 N = 126,67 N',
+   sol: '<b>Paso 0. La justificación que el inciso a) pide explícitamente.</b> La tensión <b>no es conservativa</b>, pero en todo momento es perpendicular al desplazamiento (que es tangente a la circunferencia): W<sub>T</sub> = 0. El peso es conservativo. Por lo tanto <b>la energía mecánica se conserva</b>. Escribí ese renglón: es la mitad del puntaje del inciso.<br><b>Paso 1. a) Balance entre A (arriba) y B (abajo).</b> Cero de V<sub>g</sub> en B; la altura de A sobre B es <b>2L</b>, el diámetro:<br>½·m·v<sub>A</sub>² + m·g·2L = ½·m·v<sub>B</sub>²<br>La masa se cancela:<br>L = (v<sub>B</sub>² − v<sub>A</sub>²)/(4·g) = (64 − 16)/40 = 48/40 = <b>1,2 m</b>.<br><b>Paso 2. b) Newton radial arriba.</b> El centro está abajo: T y P apuntan los dos hacia el centro.<br>T<sub>A</sub> + m·g = m·v<sub>A</sub>²/L<br>T<sub>A</sub> = 2·16/1,2 − 2·10 = 26,67 − 20 = <b>20/3 N = 6,67 N</b><br><b>Paso 3. Newton radial abajo.</b> El centro está arriba: T va hacia el centro y P en contra.<br>T<sub>B</sub> − m·g = m·v<sub>B</sub>²/L<br>T<sub>B</sub> = 2·64/1,2 + 2·10 = 106,67 + 20 = <b>380/3 N = 126,67 N</b><br><b>Paso 4. Chequeos.</b> (1) La diferencia de casi 19 veces entre las dos tensiones es <b>correcta</b> y suele hacer dudar: dejá los resultados como fracciones exactas 20/3 y 380/3. (2) Arriba se necesita v<sub>A</sub>² ≥ g·L = 12 m²/s² para que la cuerda no se afloje; acá v<sub>A</sub>² = 16 > 12, por eso T<sub>A</sub> sale positiva pero chica. (3) Si usás h = L en vez de 2L te da L = 2,4 m y los dos incisos quedan mal.<br><b>Paso 5. Ojo con esto.</b> No es un MCU: la velocidad varía entre 8 y 4 m/s, así que hay aceleración tangencial. Pero justo en el punto más alto y en el más bajo la aceleración tangencial es <b>perpendicular</b> a la dirección radial, así que no ensucia la ecuación radial que usaste.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la del prisma de caras paralelas) · problema 2</span><br><b>2-</b> Se dispone de un péndulo simple (masa puntual y cuerda ideal). La masa del mismo vale m = <b>1</b> kg <span class="muted">(dato reconstruido: en la foto el valor está tapado por un garabato en lapicera roja del corrector; los resultados escalan proporcionalmente con m)</span>, y la longitud de la cuerda es l = 1,5 m. En el instante inicial se lo libera desde el reposo con un ángulo α = 37º, medido desde la vertical. Cuando el péndulo pasa por la vertical (instante final), la velocidad de la masa es v<sub>f</sub> = 2,25 m/s. Determine:<br>a) El trabajo realizado por todas las fuerzas en juego, entre ambos instantes.<br>b) El trabajo de las fuerzas NO conservativas, entre ambos instantes.<br>c) La tensión que soporta la cuerda en el instante final.',
+   ans: 'a) W<sub>total</sub> = 2,53 J · b) W<sub>NC</sub> = −0,47 J · c) T = 13,4 N &nbsp;<span class="muted">(por cada kg de masa)</span>',
+   sol: '<b>Paso 0. La geometría del péndulo.</b> Al soltarlo a 37° de la vertical, la masa está más alta que en la posición de equilibrio en<br>h = l·(1 − cos37°) = 1,5·(1 − 0,8) = <b>0,3 m</b><br>Cero de V<sub>g</sub> en la posición más baja. Parte del reposo: v<sub>i</sub> = 0.<br><b>Paso 1. a) El trabajo de TODAS las fuerzas es la variación de energía cinética.</b> Ese es el teorema del trabajo y la energía, sin más:<br>W<sub>total</sub> = ΔE<sub>c</sub> = ½·m·v<sub>f</sub>² − 0 = ½·1·(2,25)² = <b>2,53 J</b><br><b>Paso 2. b) El trabajo de las NO conservativas es la variación de energía MECÁNICA.</b> Ojo con la diferencia: acá entra la potencial.<br>W<sub>NC</sub> = ΔE = (½·m·v<sub>f</sub>²) − (m·g·h) = 2,53 − 1·10·0,3 = 2,53 − 3 = <b>−0,47 J</b><br><b>Paso 3. Chequeo de que el signo tiene sentido.</b> Si no hubiera pérdidas, la velocidad en la vertical sería √(2·g·h) = √6 = 2,45 m/s. Te dicen que llega a 2,25 m/s, o sea <b>menos</b>: hubo rozamiento con el aire (o en el punto de sujeción), y por eso W<sub>NC</sub> da negativo. Si te diera positivo, revisá la cuenta.<br><b>Paso 4. c) La tensión sale de Newton, no de energía.</b> En el punto más bajo el centro está arriba: T hacia el centro, el peso en contra.<br>T − m·g = m·v<sub>f</sub>²/l<br>T = 1·10 + 1·(2,25)²/1,5 = 10 + 3,375 = <b>13,4 N</b><br><b>Paso 5. Por qué la tensión no trabaja pero igual existe.</b> W<sub>T</sub> = 0 porque es perpendicular al desplazamiento — eso es lo que usaste en b). Pero que no trabaje no significa que valga cero: es la que sostiene a la masa <i>y</i> le da la aceleración centrípeta. Son dos preguntas distintas y por eso hacen falta las dos herramientas.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la del rizo circular y la cañería) · problema 4</span><br><b>4-</b> Determine desde qué altura H, se debería dejar caer desde el reposo, una partícula de masa m, por una pista sin fricción como muestra el gráfico, para que, al llegar a la parte más elevada del rizo circular, la fuerza normal, tenga allí un valor igual al triple de su peso.',
+   ans: 'H = 4·R',
+   sol: '<b>Paso 0. Es un problema de dos ecuaciones y ningún número.</b> No te dan ni m ni R ni g: la respuesta tiene que salir en función de R. Eso ya te avisa que todo se va a cancelar.<br><b>Paso 1. Newton radial en el punto más alto del rizo.</b> Ahí el centro está abajo, y la normal (la pista empuja desde afuera hacia adentro) y el peso apuntan los dos hacia el centro:<br>N + m·g = m·v²/R<br>Con la condición del enunciado, N = <b>3·m·g</b>:<br>3·m·g + m·g = m·v²/R &nbsp;⟹&nbsp; 4·g·R = v² &nbsp;⟹&nbsp; <b>v² = 4·g·R</b><br><b>Paso 2. Energía entre la partida y el punto más alto.</b> La pista es <b>sin fricción</b>: la energía se conserva. Cero de V<sub>g</sub> en el piso; la altura del punto más alto del rizo es <b>2R</b>:<br>m·g·H = m·g·(2R) + ½·m·v²<br>La masa se cancela:<br>g·H = 2·g·R + ½·(4·g·R) = 2·g·R + 2·g·R = 4·g·R<br><b>Paso 3. Despejás.</b> También se cancela g:<br><b>H = 4·R</b><br><b>Paso 4. Chequeo con el caso límite.</b> Si en vez de N = 3P pidieran N = 0 (el mínimo para pasar), sería v² = g·R y H = 2R + R/2 = <b>2,5·R</b>. Como acá pedís que la pista apriete tres veces el peso, la altura tiene que ser <i>mayor</i> que 2,5R: 4R > 2,5R. ✓<br><b>Paso 5. La trampa.</b> Usar R en vez de 2R como altura del punto más alto te da H = 3R y perdés el ejercicio por un factor que no se ve en el resultado. Dibujá el rizo y marcá el diámetro.'},
+
+  {st: '<span class="muted">Final UTN.BA · 26/05/22 · problema 5</span><br><b>5.</b> Una esfera sólida de masa m = 1 kg y de radio r = 0,1 m rueda sin deslizar a lo largo de la pista mostrada en la figura que posee un loop de R = 0,5 m. Si parte del reposo en la parte superior de la pista donde el centro de masa está a una altura h<sub>cm</sub> = 1,5 m. Hallar el valor de la fuerza normal actuante sobre la esfera en A (punto superior de la pista).',
+   ans: 'v<sub>CM</sub>² = 8,57 m²/s² y N = 11,4 N (≈ 1,14 veces el peso)',
+   sol: '<b>Paso 0. Por qué acá el radio de la esfera SÍ importa.</b> El enunciado te da r = 0,1 m y te habla del <b>centro de masa</b>: eso te está diciendo que la esfera no es puntual. Rodando por adentro del loop, su centro describe una circunferencia de radio <b>R − r = 0,4 m</b>, y en el punto más alto ese centro está a <b>2R − r = 0,9 m</b> del piso.<br><b>Paso 1. Energía entre la partida y A.</b> Rueda sin deslizar ⟹ el rozamiento es estático y no disipa: la energía se conserva. Esfera maciza: E<sub>c</sub> = ½mv² + ½·(2/5 mr²)·(v/r)² = <b>7/10·m·v²</b>.<br>m·g·(h<sub>cm</sub> − 0,9) = 7/10·m·v<sub>CM</sub>²<br>1·10·(1,5 − 0,9) = <b>6 J</b> = 0,7·v<sub>CM</sub>²<br>v<sub>CM</sub>² = 60/7 = <b>8,57 m²/s²</b> &nbsp;(v<sub>CM</sub> = 2,93 m/s)<br><b>Paso 2. Newton radial en A.</b> El radio de la trayectoria del centro es R − r = 0,4 m:<br>N + m·g = m·v<sub>CM</sub>²/(R − r)<br>N = 1·8,57/0,4 − 1·10 = 21,43 − 10 = <b>11,4 N</b><br><b>Paso 3. Chequeo.</b> N sale positiva, así que la esfera efectivamente <b>no se despega</b>. Si hubiera dado negativa, la esfera se habría desprendido antes de llegar arriba y el resultado no tendría sentido físico.<br><b>Paso 4. La versión "de apuro".</b> Si tratás la esfera como puntual (r despreciable, altura 2R = 1 m y radio R = 0,5 m) te da v² = 7,14 m²/s² y N = 4,3 N. Es un planteo defendible si lo aclarás, pero el enunciado te dio r y h<sub>cm</sub> justamente para que uses R − r y 2R − r.<br><b>Paso 5. El error que sí es error.</b> Olvidarte la rotación: con ½mv² en vez de 7/10·mv² te daría v² = 12 y N = 20 N, casi el doble.'},
+
+  {st: '<span class="muted">Final UTN.BA · EXAMEN FINAL 2/3/2023 · problema 1</span><br><b>1.</b> Una masa puntual m₁ = 0,2 kg se halla sujeta a un extremo de una soga ideal girando sobre un plano horizontal sin rozamiento. Su velocidad en módulo es inicialmente v₁ⁱ = 2 m/s cuando el radio de giro es r₁ⁱ = 0,4 m. Para esto es necesario contar con una masa m₂ que cuelga desde el otro extremo de la cuerda. Si añadimos una masa extra de modo tal que la masa m₁ describe ahora una trayectoria circular de radio r₁ᶠ = 0,2 m. Calcule:<br>(i) El valor de la masa m₂ inicialmente.<br>(ii) La velocidad en modulo cuando se aumenta la masa que cuelga de la soga',
+   ans: '(i) m₂ = 0,2 kg · (ii) v₁ᶠ = 4 m/s',
+   sol: '<b>Paso 0. El montaje.</b> La soga pasa por un agujero en el centro de la mesa: arriba m₁ gira, abajo m₂ cuelga <b>quieta</b>. La tensión es la misma en los dos extremos.<br><b>Paso 1. (i) m₂ está en equilibrio, m₁ hace MCU.</b> Dos ecuaciones, una tensión.<br>Para m₂ (en reposo, ΣF = 0): &nbsp; T = m₂·g<br>Para m₁ (MCU, la tensión es toda la centrípeta): &nbsp; T = m₁·v₁ⁱ²/r₁ⁱ = 0,2·4/0,4 = <b>2 N</b><br>m₂ = T/g = 2/10 = <b>0,2 kg</b>.<br><b>Paso 2. (ii) Al tirar hacia adentro se conserva el momento angular.</b> La tensión es <b>radial</b>: su momento respecto del centro es cero, así que L = m₁·v·r se mantiene constante.<br>v₁ⁱ·r₁ⁱ = v₁ᶠ·r₁ᶠ<br>v₁ᶠ = 2·(0,4/0,2) = <b>4 m/s</b>.<br><b>Paso 3. Lo que NO se conserva.</b> La energía cinética pasa de ½·0,2·4 = 0,4 J a ½·0,2·16 = 1,6 J: se cuadruplicó. No hay contradicción — al tirar de la soga hacia adentro hay <b>desplazamiento radial</b>, y ahí la tensión <i>sí</i> hace trabajo positivo. Ese trabajo se lo pone la masa extra que agregaste.<br><b>Paso 4. La trampa.</b> Suponer que la velocidad "no tiene por qué cambiar" y calcular la nueva tensión con v = 2 m/s. Al mitad de radio la velocidad se <b>duplica</b>, y por eso la fuerza necesaria queda 2³ = <b>8 veces</b> mayor: 16 N en vez de 2 N.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la del tanque de gasolina y el cohete) · problema 5</span><br><b>5.</b> Una partícula de masa m = 0,1 kg realiza un movimiento circular uniforme en un plano horizontal con una velocidad v = 2 m/s bajo la acción de una fuerza centrípeta F = 1 N. Luego se incrementa la fuerza (siempre en dirección centrípeta) hasta un valor final tal que la partícula recorre una trayectoria circular cuyo radio es la mitad del inicial. Calcule el valor final de la fuerza centrípeta.',
+   ans: 'F<sub>f</sub> = 8 N (ocho veces la inicial)',
+   sol: '<b>Paso 0. Es el mismo problema del agujero, escrito al revés.</b> Acá te dan la fuerza y tenés que sacar el radio.<br><b>Paso 1. El radio inicial.</b><br>F<sub>i</sub> = m·v<sub>i</sub>²/r<sub>i</sub> &nbsp;⟹&nbsp; r<sub>i</sub> = m·v<sub>i</sub>²/F<sub>i</sub> = 0,1·4/1 = <b>0,4 m</b><br>Entonces r<sub>f</sub> = 0,2 m.<br><b>Paso 2. Momento angular constante.</b> La fuerza es siempre <b>centrípeta</b>, o sea radial: no hace momento respecto del centro.<br>m·v<sub>i</sub>·r<sub>i</sub> = m·v<sub>f</sub>·r<sub>f</sub> &nbsp;⟹&nbsp; v<sub>f</sub> = v<sub>i</sub>·(r<sub>i</sub>/r<sub>f</sub>) = 2·2 = <b>4 m/s</b><br><b>Paso 3. La fuerza final.</b><br>F<sub>f</sub> = m·v<sub>f</sub>²/r<sub>f</sub> = 0,1·16/0,2 = <b>8 N</b><br><b>Paso 4. La regla general que conviene saberse.</b> Con L constante, v ∝ 1/r, así que<br>F = m·v²/r ∝ <b>1/r³</b> &nbsp;⟹&nbsp; F<sub>f</sub> = F<sub>i</sub>·(r<sub>i</sub>/r<sub>f</sub>)³ = 1·2³ = 8 N.<br>Con ese cociente resolvés el ejercicio en un renglón, sin calcular ni r<sub>i</sub> ni v<sub>f</sub>.<br><b>Paso 5. El error automático.</b> Escribir F<sub>f</sub> = m·v²/(r/2) = 2·F<sub>i</sub> = 2 N dejando v igual. La respuesta 2 N está en la cabeza de todo el mundo y está mal por un factor 4.'},
+]);
+
+/* ==================== UNIDAD 4 · Cinemática dentro de un problema de energía ==================== */
+
+registerExercises('fisica1-utn-energia', '4', [
+  {st: 'Una partícula sube por una rampa de 37° y abandona la pista por el vértice superior. Su velocidad inicial de tiro…',
+   opts: ['es horizontal',
+          'es vertical, porque en el vértice se frena',
+          'forma 53° sobre la horizontal',
+          'forma 37° sobre la horizontal, con componente vertical hacia arriba'],
+   c: 3,
+   ex: 'La partícula <b>conserva la dirección del plano</b> en el instante en que lo abandona: si venía subiendo por una rampa de 37°, sale a 37° hacia arriba, con v<sub>0y</sub> = v·sen37° positiva. Eso hace que primero <i>siga subiendo</i> un poco y recién después caiga. ▸ Por qué las otras: suponerla horizontal es el error más caro de la unidad (te cambia el tiempo de vuelo y el alcance); vertical no tiene ningún sustento (en el vértice no se frena, llega con v<sub>B</sub> = 3,49 m/s en el B2 de 2012); y 53° sería el ángulo <b>complementario</b>, el que forma el plano con la vertical.'},
+
+  {st: 'En el problema del radio de curvatura, el objeto se lanza a 53°. ¿Cuánto vale cos53°?',
+   opts: ['0,5', '0,6', '0,8', '1'],
+   c: 1,
+   ex: '53° es el complemento de 37°, así que seno y coseno se intercambian: <b>sen53° = cos37° = 0,8</b> y <b>cos53° = sen37° = 0,6</b>. Con eso v₀ = 30/0,6 = 50 m/s. ▸ Por qué las otras: <b>0,8</b> es el error exacto que te deja v₀ = 37,5 m/s, un problema entero perdido por un coseno mal puesto; <b>1</b> es cos0°; <b>0,5</b> es cos60°, que es el otro par de valores que conviene tener a mano (sen30° = 0,5, cos30° = 0,866).'},
+
+  {st: 'En la altura máxima de un tiro oblicuo, ¿cómo se reparte la aceleración entre tangencial y centrípeta?',
+   opts: ['a<sub>c</sub> = 0 y a<sub>t</sub> = g', 'a<sub>c</sub> = a<sub>t</sub> = g/2', 'a<sub>c</sub> = g y a<sub>t</sub> = 0', 'La aceleración es nula: por eso está en el máximo'],
+   c: 2,
+   ex: 'En el vértice la velocidad es <b>horizontal</b> y g es vertical: quedan perpendiculares, así que <b>toda</b> g es centrípeta y nada es tangencial. De ahí sale g = v<sub>vértice</sub>²/R ⟹ v<sub>vértice</sub> = √(g·R). ▸ Por qué las otras: a<sub>t</sub> = g solo pasaría en una caída o subida <i>vertical</i>, donde g es paralela a v; el reparto mitad y mitad no corresponde a ningún punto en particular; y la aceleración <b>nunca</b> es nula en un tiro — lo que se anula en el vértice es la <i>componente vertical de la velocidad</i>, que es otra cosa.'},
+
+  {st: 'Un objeto se lanza a 53° y en la altura máxima el radio de curvatura de la trayectoria es R = 90 m. ¿Cuál es el módulo de v₀? (g = 10 m/s²)',
+   opts: ['50 m/s', '30 m/s', '37,5 m/s', '45 m/s'],
+   c: 0,
+   ex: 'En el vértice v<sub>vértice</sub> = √(g·R) = √900 = 30 m/s, y como esa es la componente <b>horizontal</b>, que es constante en todo el tiro: v₀ = 30/cos53° = 30/0,6 = <b>50 m/s</b>. ▸ Por qué las otras: <b>30 m/s</b> es la velocidad <i>en el vértice</i>, no la inicial — te frenaste un renglón antes; <b>37,5 m/s</b> sale de usar cos53° = 0,8 (el intercambio de seno y coseno); <b>45 m/s</b> saldría de dividir por sen53° pensando que la componente que se conserva es la vertical.'},
+
+  {st: 'Una partícula despega a 1,2 m del piso con v<sub>0y</sub> = 2,1 m/s hacia arriba y v<sub>0x</sub> = 2,8 m/s. El tiempo hasta tocar el suelo sale de…',
+   opts: ['t = 2·v<sub>0y</sub>/g, la fórmula de tiempo de vuelo',
+          't = √(2h/g), como si cayera desde el reposo',
+          '5t² − 2,1t − 1,2 = 0, la cuadrática completa',
+          't = x/v<sub>0x</sub>, con el alcance de la fórmula a igual nivel'],
+   c: 2,
+   ex: 'Como el despegue está a 1,2 m sobre el piso, la salida y la llegada <b>no están al mismo nivel</b>: hay que escribir la horaria completa y = 1,2 + 2,1·t − 5·t² = 0 y resolver la cuadrática. Da t = 0,743 s (se descarta la raíz negativa) y después x = 2,8·0,743 = 2,08 m. Es el B2 del 1er parcial 2012. ▸ Por qué las otras: 2·v<sub>0y</sub>/g vale solo cuando el proyectil vuelve a la <i>misma</i> altura; √(2h/g) ignora que la partícula sale con componente vertical hacia arriba (sería el caso semiparabólico); y usar el alcance de la fórmula a igual nivel arrastra el mismo error, más que necesitarías el alcance que justamente te están pidiendo.'},
+]);
+
+registerReveals('fisica1-utn-energia', '4', [
+
+  {st: '<span class="muted">1er parcial 2012, cátedra Martinelli · 18/10/12 · UTN FRBA</span><br><b>B2:</b> Una partícula se mueve primero sobre una superficie horizontal carente de rozamiento, en la dirección indicada, con una velocidad de módulo V<sub>0</sub> = 7 m/s. Luego, la misma asciende por un plano inclinado de longitud D = 2 m y ángulo 37º, cuyo coeficiente de rozamiento dinámico es μ<sub>d</sub> = 0.4. Determine:<br>a) Con qué velocidad llega la partícula al punto superior del plano (resuelva utilizando conceptos de energía).<br>b) A qué distancia de la base del plano impacta nuevamente con el suelo.',
+   ans: 'a) v<sub>B</sub> = 3,49 m/s ≅ 3,5 m/s (a 37° sobre la horizontal) · b) x<sub>C</sub> = 2,08 m desde el pie de la pared vertical',
+   sol: '<b>Paso 0. Los dos actos.</b> Acto 1: energía sobre la rampa rugosa, para conseguir el módulo de la velocidad en el vértice. Acto 2: tiro oblicuo desde esa altura. La bisagra entre los dos es que la <b>dirección</b> te la da la geometría del plano, no la energía.<br><b>Paso 1. a) La altura del vértice.</b><br>h<sub>B</sub> = D·sen37° = 2·0,6 = <b>1,2 m</b><br><b>Paso 2. Balance A→B (el tramo horizontal es liso, no disipa).</b><br>½·m·v<sub>B</sub>² + m·g·h<sub>B</sub> − ½·m·v<sub>A</sub>² = −μ<sub>d</sub>·m·g·cos37°·D &nbsp;<span class="muted">(la masa se cancela entera)</span><br>v<sub>B</sub>² = v<sub>A</sub>² − 2·g·D·(sen37° + μ<sub>d</sub>·cos37°)<br>v<sub>B</sub>² = 49 − 2·10·2·(0,6 + 0,4·0,8) = 49 − 40·0,92 = 49 − 36,8 = <b>12,2 m²/s²</b><br><b>v<sub>B</sub> = 3,49 m/s ≅ 3,5 m/s</b>, dirigida a <b>37° sobre la horizontal</b>.<br><b>Paso 3. b) Descomponés la velocidad de despegue.</b><br>v<sub>Bx</sub> = 3,5·cos37° = <b>2,8 m/s</b> &nbsp;·&nbsp; v<sub>By</sub> = 3,5·sen37° = <b>2,1 m/s hacia arriba</b><br><b>Paso 4. Las horarias con origen al pie de la pared vertical.</b><br>x(t) = 2,8·t<br>y(t) = 1,2 + 2,1·t − 5·t²<br><b>Paso 5. Impacto: y = 0.</b><br>5t² − 2,1t − 1,2 = 0<br>t = [2,1 + √(4,41 + 24)]/10 = (2,1 + 5,33)/10 = <b>0,743 s</b> (se descarta la raíz negativa)<br>x<sub>C</sub> = 2,8·0,743 = <b>2,08 m</b>.<br><b>Paso 6. Las cinco trampas.</b> (1) El rozamiento actúa sobre D = 2 m, no sobre la altura; (2) N = m·g·cos37°, no m·g; (3) el paréntesis (0,6 + 0,4·0,8) = 0,92 junta la subida y el rozamiento, no te olvides ninguno de los dos; (4) <b>no sale horizontal</b>: v<sub>By</sub> = 2,1 m/s hacia arriba; (5) el lanzamiento es desde 1,2 m, así que el tiempo sale de la cuadrática completa. Y antes de seguir, chequeá que v<sub>B</sub>² = 12,2 > 0, o sea que efectivamente llega arriba.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la de las poleas concéntricas y el MAS del resorte vertical) · problema 1</span><br><b>1)</b> Un objeto es lanzado con un ángulo de 53° con la horizontal. Cuando alcanza la altura máxima, el radio de curvatura de la trayectoria es de R = 90 m. Calcular el modulo de la velocidad inicial v<sub>0</sub> del objeto, despreciando el rozamiento con el aire.',
+   ans: 'v<sub>0</sub> = 50 m/s',
+   sol: '<b>Paso 0. Este problema no cae en ningún parcial de Martinelli: es exclusivo de los finales.</b> Y cuando cae, cae como problema 1. Son tres renglones si entendés la idea.<br><b>Paso 1. La idea.</b> La aceleración de un cuerpo se descompone en <b>tangencial</b> (cambia el módulo de v) y <b>normal o centrípeta</b> (cambia la dirección). En un tiro la única aceleración es <b>g</b>, vertical hacia abajo. En la <b>altura máxima</b> la velocidad es <b>horizontal</b>, así que g queda perpendicular a ella:<br><b>toda g es centrípeta y nada es tangencial.</b><br><b>Paso 2. Escribís eso.</b><br>g = v<sub>vértice</sub>²/R &nbsp;⟹&nbsp; v<sub>vértice</sub> = √(g·R) = √(10·90) = √900 = <b>30 m/s</b><br><b>Paso 3. Del vértice al lanzamiento.</b> En el vértice la velocidad es puramente horizontal, y la componente horizontal <b>es constante durante todo el tiro</b>:<br>v<sub>vértice</sub> = v<sub>0</sub>·cos53° &nbsp;⟹&nbsp; v<sub>0</sub> = 30/cos53° = 30/0,6 = <b>50 m/s</b>.<br><b>Paso 4. Las dos trampas.</b> (1) <b>cos53° = 0,6</b>, no 0,8: 53° es el complemento de 37° y los valores se intercambian. Con 0,8 te da 37,5 m/s y el ejercicio entero queda mal por un solo coseno. (2) Frenarte en los 30 m/s: esa es la velocidad <i>en el vértice</i>, y te preguntan la <b>inicial</b>.<br><b>Paso 5. Guiño.</b> v = √(g·R) es la misma cara que la condición de no desprendimiento en el loop. No es casualidad: en los dos casos el peso es exactamente la resultante centrípeta.'},
+
+  {st: '<span class="muted">Final UTN.BA · FINAL 27/2/25 · problema 1</span><br><b>1)</b> Desde una altura de 2 m se lanza horizontalmente una flecha que se clava en una pared ubicada horizontalmente a 5 m del lugar de lanzamiento y a una altura de 0.75 m, calcule:<br>a. La velocidad con la cual fue lanzada la flecha.<br>b. El impulso que recibe la flecha de la pared donde se incrusta, sabiendo que la masa de la flecha es de 100 g.',
+   ans: 'a) v<sub>0</sub> = 10 m/s · b) |J| = 1,12 N·s, con componentes J<sub>x</sub> = −1 N·s y J<sub>y</sub> = +0,5 N·s (opuesto a la velocidad de impacto)',
+   sol: '<b>Paso 0. Tiro semiparabólico: se lanza HORIZONTAL.</b> v<sub>0y</sub> = 0, así que la componente vertical arranca de cero y la horizontal es constante. Origen en el punto de lanzamiento, eje y hacia arriba.<br><b>Paso 1. a) Primero el tiempo, por la vertical.</b> La flecha baja<br>Δy = 2 − 0,75 = <b>1,25 m</b><br>1,25 = ½·g·t² = 5·t² &nbsp;⟹&nbsp; t² = 0,25 &nbsp;⟹&nbsp; <b>t = 0,5 s</b><br><b>Paso 2. Y con ese tiempo, la horizontal.</b><br>v<sub>0</sub> = x/t = 5/0,5 = <b>10 m/s</b>.<br><b>Paso 3. b) La velocidad justo antes del impacto.</b><br>v<sub>x</sub> = 10 m/s (constante) &nbsp;·&nbsp; v<sub>y</sub> = −g·t = −5 m/s<br>|v| = √(100 + 25) = √125 = <b>11,18 m/s</b><br><span class="muted">Chequeo por energía: ½v² = ½v<sub>0</sub>² + g·Δy ⟹ v² = 100 + 2·10·1,25 = 125. ✓</span><br><b>Paso 4. El impulso es la variación de la cantidad de movimiento.</b> Se <b>clava</b>, o sea que queda en reposo: p<sub>final</sub> = 0. Con m = 100 g = <b>0,1 kg</b>:<br>J = Δp = 0 − m·v = −0,1·(10 î − 5 ĵ) = <b>(−1 î + 0,5 ĵ) N·s</b><br>|J| = 0,1·11,18 = <b>1,12 N·s</b><br><b>Paso 5. Dirección y sentido (el enunciado lo pide implícitamente).</b> El impulso apunta <b>exactamente en contra</b> de la velocidad de impacto: hacia atrás y hacia arriba, formando 26,6° con la horizontal. Tiene que ser así: la pared frena a la flecha.<br><b>Paso 6. La trampa de unidades.</b> 100 g = 0,1 kg. Si dejás 100, el impulso te da 1118 N·s y ninguna pared del mundo aguanta eso.'},
+
+  {st: '<span class="muted">Final UTN.BA · hoja sin fecha visible (la del tanque de gasolina y el MCU con radio variable) · problema 6</span><br><b>6.</b> Un cohete parte del reposo elevándose con una aceleración constante de 19,5 m/s² durante un minuto. En ese momento se agota el combustible y sigue subiendo como partícula libre. Calcule la altura máxima alcanzada por el cohete.',
+   ans: 'H<sub>máx</sub> = 35100 m + 68445 m = 103545 m ≈ 103,5 km',
+   sol: '<b>Paso 0. Otra vez dos actos, pero al revés que en el B2 de 2012.</b> Acto 1: cinemática pura (MRUV con motor). Acto 2: energía (tiro vertical libre). Marcá el instante que los separa: cuando se agota el combustible.<br><b>Paso 1. Acto 1, con las horarias del MRUV.</b> t<sub>1</sub> = un minuto = <b>60 s</b>, a = 19,5 m/s², parte del reposo:<br>h<sub>1</sub> = ½·a·t<sub>1</sub>² = ½·19,5·3600 = <b>35100 m</b><br>v<sub>1</sub> = a·t<sub>1</sub> = 19,5·60 = <b>1170 m/s</b><br><b>Paso 2. Acto 2, por energía (más corto que por cinemática).</b> A partir de ahí solo actúa el peso, la energía mecánica se conserva y en la altura máxima v = 0:<br>½·m·v<sub>1</sub>² = m·g·h<sub>2</sub> &nbsp;⟹&nbsp; h<sub>2</sub> = v<sub>1</sub>²/(2·g) = 1170²/20 = 1368900/20 = <b>68445 m</b><br><b>Paso 3. La altura total.</b><br>H<sub>máx</sub> = h<sub>1</sub> + h<sub>2</sub> = 35100 + 68445 = <b>103545 m ≈ 103,5 km</b>.<br><b>Paso 4. La trampa del enunciado.</b> "Durante un minuto" son <b>60 s</b>, no 1. Con t = 1 s te da h ≈ 29 m y el resultado no tiene ningún sentido para un cohete.<br><b>Paso 5. El error conceptual.</b> Suponer que la altura máxima es solo h<sub>2</sub>, o solo h<sub>1</sub>. El cohete <b>sigue subiendo</b> después de que se apaga el motor: la altura final es la suma de los dos tramos. Y ojo, en el segundo tramo la aceleración deja de ser 19,5 m/s² hacia arriba y pasa a ser g = 10 m/s² hacia abajo.'},
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

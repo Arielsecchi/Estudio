@@ -1,0 +1,492 @@
+<header>
+    <h1>Física I · Choques y cantidad de movimiento</h1>
+    <div class="sub">UTN FRBA · Guía para el final · 8 choques de parcial (cátedra Martinelli 2010–2017) + los choques que aparecen en los finales de UTN.BA</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-choques">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#ch-s1">La secuencia obligada de tres etapas</a></li>
+    <li><a href="#ch-s2">Choque plástico 1D · los 8 del parcial</a></li>
+    <li><a href="#ch-s3">Choque elástico y coeficiente de restitución</a></li>
+    <li><a href="#ch-s4">Choque en 2D, explosiones y péndulo balístico</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-choques">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · LAS TRES ETAPAS ============ -->
+<details id="ch-s1">
+<summary><span class="num">1</span> La secuencia obligada de tres etapas <span class="sec-score" id="ss-fisica1-utn-choques-1"></span></summary>
+<div class="content">
+
+<h3>Un problema de choque nunca es un problema de choque</h3>
+
+<p>Es tres problemas pegados. El choque en sí ocupa dos renglones; todo lo demás es energía. Si vos aprendés a <b>cortar el problema en los dos instantes correctos</b>, los ocho ejercicios de parcial que hay en esta guía se resuelven con el mismo esqueleto y cambian solo los números.</p>
+
+<div class="fig"><svg viewBox="0 0 640 236" style="max-width:100%;height:auto" role="img" aria-label="Esquema de las tres etapas de un problema de choque: energia antes del choque, conservacion de la cantidad de movimiento durante el choque, y energia despues del choque">
+<defs><marker id="chflA" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0 0 L8 3.2 L0 6.4" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<rect x="12" y="42" width="180" height="126" rx="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<rect x="230" y="42" width="180" height="126" rx="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<rect x="448" y="42" width="180" height="126" rx="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="102" y="66" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">ETAPA 1 · ANTES</text>
+<text x="102" y="90" fill="currentColor" font-size="11.5" text-anchor="middle">Se conserva la ENERGÍA</text>
+<text x="102" y="112" fill="currentColor" font-size="12" text-anchor="middle">mgh + ½kΔx² = ½mv²</text>
+<text x="102" y="134" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">(péndulo, resorte, curva lisa)</text>
+<text x="102" y="156" fill="currentColor" font-size="11" text-anchor="middle">→ v justo ANTES</text>
+<text x="320" y="66" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">ETAPA 2 · EL CHOQUE</text>
+<text x="320" y="90" fill="currentColor" font-size="11.5" text-anchor="middle">Se conserva la CANT. DE MOV.</text>
+<text x="320" y="112" fill="currentColor" font-size="12" text-anchor="middle">Σ m·v = Σ m·v′</text>
+<text x="320" y="134" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">jamás energía si es plástico</text>
+<text x="320" y="156" fill="currentColor" font-size="11" text-anchor="middle">→ v justo DESPUÉS</text>
+<text x="538" y="66" fill="currentColor" font-size="12" font-weight="700" text-anchor="middle">ETAPA 3 · DESPUÉS</text>
+<text x="538" y="90" fill="currentColor" font-size="11.5" text-anchor="middle">Energía + trabajo del roce</text>
+<text x="538" y="112" fill="currentColor" font-size="12" text-anchor="middle">ΔE = W = −μ<tspan dy="3" font-size="8.5">d</tspan><tspan dy="-3">·N·d</tspan></text>
+<text x="538" y="134" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">N con la masa TOTAL</text>
+<text x="538" y="156" fill="currentColor" font-size="11" text-anchor="middle">→ dónde se detiene / h</text>
+<path d="M211 26 V184" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<path d="M429 26 V184" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="211" y="202" fill="var(--accent)" font-size="10.5" text-anchor="middle">punto 2 · justo ANTES</text>
+<text x="429" y="202" fill="var(--accent)" font-size="10.5" text-anchor="middle">punto 3 · justo DESPUÉS</text>
+<path d="M196 20 H226" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#chflA)"/>
+<path d="M414 20 H444" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#chflA)"/>
+<text x="320" y="228" fill="var(--text-muted)" font-size="10" text-anchor="middle">El choque dura un instante: entre el punto 2 y el 3 los cuerpos no se movieron</text>
+</svg>
+<div class="fig-cap">El corte. Los dos instantes que definen todo el problema son <b>justo antes</b> y <b>justo después</b> del choque. Entre ellos no pasa nada más: no hay desplazamiento, no hay trabajo del rozamiento, no hay cambio de altura. Por eso ahí, y solo ahí, vale escribir la ecuación de cantidad de movimiento a secas.</div></div>
+
+<h3>Etapa 1 · La velocidad de llegada la da la energía</h3>
+
+<p>El enunciado nunca te regala la velocidad con la que el cuerpo llega al choque: te da una altura, un resorte comprimido o una zona rugosa que atravesó. Todos esos son problemas de energía que ya sabés resolver.</p>
+
+<table class="tbl">
+  <tr><th>Lo que hay antes del choque</th><th>Ecuación</th><th>Velocidad de llegada</th></tr>
+  <tr><td><b>Péndulo</b> que se suelta con la soga horizontal</td><td>m·g·L = ½·m·v²</td><td>v = √(2gL)</td></tr>
+  <tr><td><b>Curva lisa</b> desde una altura h</td><td>m·g·h = ½·m·v²</td><td>v = √(2gh)</td></tr>
+  <tr><td><b>Resorte</b> comprimido Δx que empuja</td><td>½·k·Δx² = ½·m·v²</td><td>v = Δx·√(k/m)</td></tr>
+  <tr><td><b>Zona rugosa</b> de largo D que ya atravesó</td><td>½mv<sub>B</sub>² − ½mv<sub>0</sub>² = −μ<sub>d</sub>·m·g·D</td><td>v<sub>B</sub> = √(v<sub>0</sub>² − 2μ<sub>d</sub>gD)</td></tr>
+  <tr><td><b>Nada</b>: te dan v<sub>0</sub> directamente</td><td>—</td><td>v<sub>0</sub></td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La masa se cancela en las tres primeras filas</div>
+En el péndulo y en la curva lisa la velocidad de llegada <b>no depende de la masa</b>: v = √(2gh). Eso es un chequeo rápido — si te quedó una masa colgada ahí, te equivocaste. En el resorte sí queda (v = Δx·√(k/m)), porque la energía la fija el resorte y no el cuerpo.
+</div>
+
+<div class="trap"><div class="tr-t">Por qué se conserva la energía en el péndulo (te lo puntúan aparte)</div>
+El enunciado de la cátedra pide <b>explicitar las hipótesis</b>. La justificación correcta es: <b>la tensión de la soga es siempre perpendicular al desplazamiento, entonces no realiza trabajo</b>, y sin rozamiento la única fuerza que trabaja es el peso, que es conservativa. No alcanza con escribir "se conserva la energía": hay que decir por qué.<br>
+Y al revés: en la bajada del péndulo <b>no</b> se puede usar cantidad de movimiento, porque el peso es una fuerza externa que actúa durante todo el tramo.
+</div>
+
+<h3>Etapa 2 · El choque: solo cantidad de movimiento</h3>
+
+<div class="formula">
+m<sub>1</sub>·v<sub>1</sub> + m<sub>2</sub>·v<sub>2</sub> &nbsp;=&nbsp; m<sub>1</sub>·v′<sub>1</sub> + m<sub>2</sub>·v′<sub>2</sub><br>
+<span class="muted">y si el choque es plástico (quedan pegados): v′<sub>1</sub> = v′<sub>2</sub> = v′</span><br><br>
+plástico &nbsp;→&nbsp; m<sub>1</sub>·v<sub>1</sub> + m<sub>2</sub>·v<sub>2</sub> = (m<sub>1</sub> + m<sub>2</sub>)·v′
+</div>
+
+<p>¿Por qué se conserva la cantidad de movimiento si hay peso, normal y a veces rozamiento? Porque el choque <b>dura un instante</b>: las fuerzas impulsivas entre los cuerpos son internas y enormes, y el impulso de las externas (peso, roce) en ese Δt ≈ 0 es despreciable. Esa frase, escrita, es una hipótesis que suma puntos.</p>
+
+<table class="tbl">
+  <tr><th>Tipo de choque</th><th>Cantidad de movimiento</th><th>Energía cinética</th><th>Qué te dan como dato</th></tr>
+  <tr><td><b>Plástico</b> (perfectamente inelástico)</td><td>SÍ se conserva</td><td><b>NO</b> — pérdida máxima</td><td>"quedan pegados", "queda incrustado", "chocan plásticamente" → una sola v′</td></tr>
+  <tr><td><b>Inelástico parcial</b></td><td>SÍ se conserva</td><td><b>NO</b> — pérdida intermedia</td><td>te dan una de las velocidades finales, o la amplitud a la que llega el péndulo</td></tr>
+  <tr><td><b>Elástico</b></td><td>SÍ se conserva</td><td><b>SÍ</b> se conserva</td><td>la palabra "elástico" → tenés dos ecuaciones</td></tr>
+  <tr><td><b>Explosión</b> / resorte que se libera</td><td>SÍ se conserva (p = 0 si partían en reposo)</td><td><b>AUMENTA</b> (la pone el resorte)</td><td>la energía liberada en joules</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">El error nº 1 de todo el tema, sin competencia</div>
+<b>Plantear conservación de la energía a través del choque plástico.</b> En el A1 de 2010 se pierden 6 de los 8 J iniciales; en el A2 de 2011, 50 de 100 J; en el A1 de 2016, el 95% (237,5 de 250 J). Si escribís ½m<sub>1</sub>v<sub>1</sub>² = ½(m<sub>1</sub>+m<sub>2</sub>)v′², el resultado sale mal y el inciso vale cero.<br>
+El espejo del mismo error: <b>usar cantidad de movimiento en los tramos con altura o rozamiento</b>. Ahí hay fuerzas externas actuando durante un tiempo largo, así que p no se conserva.
+</div>
+
+<h3>Etapa 3 · Después: energía otra vez, ahora con el roce</h3>
+
+<div class="formula">
+E<sub>final</sub> − E<sub>después del choque</sub> = W<sub>roz</sub> = −μ<sub>d</sub> · N · d<br>
+<span class="muted">con N = (m<sub>1</sub> + m<sub>2</sub>)·g en tramo horizontal, y E = ½mv² + mgh + ½kΔx²</span>
+</div>
+
+<div class="trap"><div class="tr-t">Las tres formas de arruinar la etapa 3</div>
+<b>1 · La masa.</b> Después del choque plástico la masa que se mueve es <b>(m<sub>1</sub>+m<sub>2</sub>)</b>, tanto en la energía cinética como en la normal del rozamiento. Poner solo m<sub>1</sub> en el roce es el error clásico.<br>
+<b>2 · El coeficiente.</b> El cuerpo está deslizando: va <b>μ<sub>d</sub></b>. El μ<sub>e</sub> que te dan es casi siempre un distractor deliberado — pasa en el A1 2012, en el A1 2013, en el A1 2015 y en el A1 2016.<br>
+<b>3 · El signo.</b> El rozamiento se opone al desplazamiento: su trabajo es <b>negativo</b>. Si te da que el cuerpo llega más rápido de lo que salió, sumaste en vez de restar.
+</div>
+
+<div class="key"><div class="ky-t">Antes de calcular, verificá si llega</div>
+Si después del choque hay una zona rugosa de largo d y después un plano, <b>comparate primero</b> la energía cinética que entra contra el trabajo que le sacaría el roce en todo el tramo:<br>
+• Si ½(m<sub>1</sub>+m<sub>2</sub>)v′² &gt; μ<sub>d</sub>(m<sub>1</sub>+m<sub>2</sub>)g·d → atraviesa y sigue.<br>
+• Si es menor → <b>se detiene adentro</b>, y lo que hay que calcular es a qué distancia d′ (con d′ &lt; d).<br>
+En el A1 de 2010 entran 2 J y el tramo le sacaría 10 J: se detiene a 10 cm de la entrada y nunca sube al plano inclinado. Quien supone sin verificar que llega al plano, obtiene un absurdo.
+</div>
+
+<h3>Impulso: la otra cara de la etapa 2</h3>
+
+<div class="formula">
+I⃗ = Δp⃗ = m·v⃗<sub>f</sub> − m·v⃗<sub>i</sub> &nbsp;&nbsp;·&nbsp;&nbsp; [I] = kg·m/s = N·s
+</div>
+
+<p>El impulso es <b>vectorial</b> y casi siempre te lo piden así, con módulo, dirección y sentido. Dos usos que aparecen en los exámenes:</p>
+<p>• <b>Impulso sobre uno de los cuerpos del choque</b>: I⃗<sub>A</sub> = m<sub>A</sub>·v⃗′ − m<sub>A</sub>·v⃗<sub>A</sub>. Da <b>negativo</b> para el que venía rápido (lo frenaron) y positivo para el que estaba quieto. Y se cumple I⃗<sub>A</sub> = −I⃗<sub>B</sub>: es el par acción-reacción escrito en impulsos.</p>
+<p>• <b>Impulso de una pared o del piso</b>: si el cuerpo queda clavado, v⃗<sub>f</sub> = 0 y el impulso es <b>−m·v⃗<sub>i</sub></b>, opuesto a la velocidad con la que llegó.</p>
+
+<div class="trap"><div class="tr-t">"Exprese en forma vectorial" no es decorativo</div>
+Cuando el enunciado dice <b>expréselo en forma vectorial</b> (A1 2010) o <b>indique módulo, dirección y sentido</b> (final 14/02/24), la respuesta "3 kg·m/s" está incompleta y te la corrigen. Hay que escribir el sistema de referencia adoptado y el resultado con su versor: por ejemplo <b>ΔP⃗<sub>A</sub> = −3 kg·m/s î</b>, aclarando hacia dónde apunta î.
+</div>
+
+<div class="reveal-wrap" data-rv="1" data-subject="fisica1-utn-choques"></div>
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-choques"></div>
+<a class="back" href="#subject-fisica1-utn-choques">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · PLÁSTICO 1D ============ -->
+<details id="ch-s2">
+<summary><span class="num">2</span> Choque plástico 1D · los 8 del parcial <span class="sec-score" id="ss-fisica1-utn-choques-2"></span></summary>
+<div class="content">
+
+<h3>Los 8 son el mismo problema</h3>
+
+<p>En los parciales de la cátedra Martinelli que le pasaron a tu curso (2010 a 2017) hay <b>ocho ejercicios de choque, y los ocho son plásticos y en una dimensión</b>. Ninguno es elástico. Lo único que cambia es qué hay antes y qué hay después. Esta tabla es el mapa: si reconocés la fila, ya sabés las tres ecuaciones que vas a escribir.</p>
+
+<table class="tbl">
+  <tr><th>Examen</th><th>ANTES del choque</th><th>DESPUÉS del choque</th><th>Qué piden</th></tr>
+  <tr><td>2do parcial <b>2014</b></td><td>péndulo (soga horizontal) contra cuerpo que viene <b>de frente</b></td><td>nada</td><td>v antes y v después, con sentido</td></tr>
+  <tr><td>2do parcial <b>2017</b></td><td>péndulo (soga horizontal), el otro en reposo</td><td>suben juntos</td><td>v después y <b>altura máxima</b></td></tr>
+  <tr><td>2do parcial <b>2010</b></td><td>curva lisa desde h</td><td>zona rugosa d y después un plano</td><td>v, <b>impulso vectorial</b> y dónde se detienen</td></tr>
+  <tr><td>2do parcial <b>2011</b></td><td>resorte comprimido</td><td>zona rugosa d y plano inclinado liso</td><td>v después y <b>altura máxima</b></td></tr>
+  <tr><td>2do parcial <b>2013</b></td><td>v<sub>0</sub> dada, riel liso</td><td>desnivel H liso y después zona rugosa</td><td>v después, v en A y <b>distancia D</b></td></tr>
+  <tr><td>2do parcial <b>2012</b></td><td><b>zona rugosa</b> A-B que atraviesa primero</td><td>nada</td><td>v en B y v después del choque</td></tr>
+  <tr><td>2do parcial <b>2015</b></td><td>v<sub>0</sub> <b>incógnita</b>, tramo liso</td><td>zona rugosa y <b>resorte</b> contra la pared</td><td>v<sub>0</sub> (problema al revés)</td></tr>
+  <tr><td>2do parcial <b>2016</b></td><td>bala disparada contra el bloque</td><td>piso rugoso y <b>resorte</b> a la pared</td><td>v después y <b>k del resorte</b></td></tr>
+</table>
+
+<h3>Arquetipo A · Péndulo → choque (2014 y 2017)</h3>
+
+<p>Los dos usan exactamente los mismos números de arranque: L = 0,8 m y m<sub>1</sub> = 0,25 kg, soltado con la soga horizontal. Por eso en los dos la velocidad de llegada es la misma: <b>v = √(2·10·0,8) = 4 m/s</b>. Lo que cambia es contra qué choca.</p>
+
+<div class="trap"><div class="tr-t">2014: el choque es FRONTAL, y ahí se juega todo</div>
+En 2014 el cuerpo 2 <b>viene hacia el péndulo</b> a 3 m/s, no está en reposo. Si tomás x positivo hacia la derecha (el sentido de v<sub>2</sub>), el péndulo llega moviéndose hacia la izquierda: <b>v<sub>1</sub> = −4 m/s</b>.<br>
+0,25·(−4) + 1·3 = 1,25·v′ → v′ = <b>+1,6 m/s</b>, hacia la derecha.<br>
+El error típico es sumar todo positivo: 0,25·4 + 1·3 = 4 → v′ = 3,2 m/s. Es exactamente el doble de mal: número equivocado y sentido equivocado.<br>
+Segundo detalle del mismo ejercicio: <b>m<sub>2</sub> = 4·m<sub>1</sub> = 1 kg</b>, no 4 kg.
+</div>
+
+<h3>Arquetipo B · Curva o resorte → choque → rugoso (2010, 2011)</h3>
+
+<div class="fig"><svg viewBox="0 0 580 236" style="max-width:100%;height:auto" role="img" aria-label="Pista del segundo parcial 2010: plano inclinado a 37 grados a la izquierda, zona rugosa de largo d, cuerpo B en reposo sobre el tramo liso, y rampa curva a la derecha desde la que se suelta el cuerpo A a una altura h">
+<defs><marker id="chflB" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker>
+<marker id="chflC" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.3"/></marker>
+<marker id="chflD" markerWidth="9" markerHeight="9" refX="1.5" refY="3" orient="auto"><path d="M7 0 L0 3 L7 6" fill="none" stroke="currentColor" stroke-width="1.3"/></marker></defs>
+<path d="M40 62 L164 178 H520" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M164 178 Q 440 178 470 150 Q 500 122 512 84" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<rect x="164" y="178" width="64" height="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.1"/>
+<path d="M168 187 l6 -9 M180 187 l6 -9 M192 187 l6 -9 M204 187 l6 -9 M216 187 l6 -9" stroke="currentColor" stroke-width="1"/>
+<path d="M164 178 H300" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="4 4"/>
+<path d="M164 178 A 46 46 0 0 0 196 164" fill="none" stroke="currentColor" stroke-width="1.1"/>
+<text x="206" y="168" fill="currentColor" font-size="11">37°</text>
+<rect x="300" y="156" width="22" height="22" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="311" y="149" fill="currentColor" font-size="12" text-anchor="middle" font-weight="700">B</text>
+<circle cx="510" cy="76" r="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="510" y="56" fill="currentColor" font-size="12" text-anchor="middle" font-weight="700">A</text>
+<path d="M540 76 V178" fill="none" stroke="currentColor" stroke-width="1.2" marker-start="url(#chflD)" marker-end="url(#chflC)"/>
+<text x="552" y="130" fill="currentColor" font-size="12">h</text>
+<path d="M164 206 H228" fill="none" stroke="currentColor" stroke-width="1.2" marker-start="url(#chflD)" marker-end="url(#chflC)"/>
+<text x="196" y="222" fill="currentColor" font-size="12" text-anchor="middle">d</text>
+<path d="M420 140 H360" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#chflB)"/>
+<text x="392" y="130" fill="var(--accent)" font-size="10.5" text-anchor="middle">A baja y va hacia B</text>
+<path d="M292 128 H244" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#chflB)"/>
+<text x="268" y="118" fill="var(--accent)" font-size="10.5" text-anchor="middle">juntos</text>
+</svg>
+<div class="fig-cap">A1 · 2do parcial 2010. A cae por la <b>curva lisa</b> desde h = 80 cm, choca con B en el tramo liso, y recién <b>después</b> el par se mete en la zona rugosa de largo d = 50 cm. El plano inclinado de 37° está del otro lado — y nunca lo alcanzan: entran con 2 J y el roce del tramo completo les sacaría 10 J. El ángulo de 37° es un <b>dato que no interesa</b>.</div></div>
+
+<div class="key"><div class="ky-t">El orden de los tramos importa, y el dibujo te lo dice</div>
+En 2010 y en 2011 la zona rugosa está <b>después</b> del choque. En 2012 está <b>antes</b>. Es el mismo dibujo con la franja gris corrida de lugar, y cambia por completo qué masa entra en el trabajo del rozamiento: si es después, N = (m<sub>1</sub>+m<sub>2</sub>)·g; si es antes, N = m<sub>1</sub>·g. Mirá la figura antes de escribir la primera ecuación.
+</div>
+
+<h3>Arquetipo C · Choque → resorte (2015, 2016)</h3>
+
+<p>Cuando después del choque hay un resorte, la etapa 3 termina en <b>½·k·Δl²</b> con velocidad cero en la máxima compresión. Y aparece la trampa más cara de los ocho ejercicios: <b>la distancia que se recorre con rozamiento no es la que dice el enunciado</b>.</p>
+
+<div class="fig"><svg viewBox="0 0 580 220" style="max-width:100%;height:auto" role="img" aria-label="Geometria del segundo parcial 2015: la zona rugosa empieza 1,5 metros antes de la pared, el resorte de longitud natural 0,5 metros esta apoyado en la pared, y la distancia realmente recorrida con rozamiento es 1,2 metros">
+<defs><marker id="chflE" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.3"/></marker>
+<marker id="chflF" markerWidth="9" markerHeight="9" refX="1.5" refY="3" orient="auto"><path d="M7 0 L0 3 L7 6" fill="none" stroke="currentColor" stroke-width="1.3"/></marker>
+<marker id="chflG" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M20 160 H520" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<rect x="350" y="160" width="170" height="10" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.1"/>
+<path d="M354 170 l6 -10 M366 170 l6 -10 M378 170 l6 -10 M390 170 l6 -10 M402 170 l6 -10 M414 170 l6 -10 M426 170 l6 -10 M438 170 l6 -10 M450 170 l6 -10 M462 170 l6 -10 M474 170 l6 -10 M486 170 l6 -10 M498 170 l6 -10 M510 170 l6 -10" stroke="currentColor" stroke-width="1"/>
+<path d="M520 60 V180" fill="none" stroke="currentColor" stroke-width="2.2"/>
+<path d="M522 66 l10 -8 M522 82 l10 -8 M522 98 l10 -8 M522 114 l10 -8 M522 130 l10 -8 M522 146 l10 -8 M522 162 l10 -8" stroke="currentColor" stroke-width="1"/>
+<path d="M470 138 h6 l5 -10 l10 20 l10 -20 l10 20 l5 -10 h4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="446" y="126" width="24" height="24" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="458" y="118" fill="currentColor" font-size="10.5" text-anchor="middle">1+2</text>
+<rect x="60" y="136" width="24" height="24" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="72" y="129" fill="currentColor" font-size="11" text-anchor="middle">1</text>
+<rect x="150" y="136" width="24" height="24" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="162" y="129" fill="currentColor" font-size="11" text-anchor="middle">2</text>
+<path d="M92 148 H136" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#chflG)"/>
+<text x="114" y="141" fill="var(--accent)" font-size="11" text-anchor="middle">v₀</text>
+<path d="M350 150 V196" fill="none" stroke="var(--accent)" stroke-width="1.1" stroke-dasharray="4 4"/>
+<path d="M470 116 V196" fill="none" stroke="var(--accent)" stroke-width="1.1" stroke-dasharray="4 4"/>
+<text x="350" y="112" fill="var(--accent)" font-size="12" text-anchor="middle" font-weight="700">A</text>
+<text x="470" y="108" fill="var(--accent)" font-size="12" text-anchor="middle" font-weight="700">B</text>
+<path d="M350 190 H470" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-start="url(#chflF)" marker-end="url(#chflG)"/>
+<text x="410" y="184" fill="var(--accent)" font-size="11" text-anchor="middle">D = 1,2 m</text>
+<path d="M350 210 H520" fill="none" stroke="currentColor" stroke-width="1.1" marker-start="url(#chflF)" marker-end="url(#chflE)"/>
+<text x="435" y="207" fill="currentColor" font-size="10.5" text-anchor="middle">1,5 m (zona gris)</text>
+<path d="M470 76 H520" fill="none" stroke="currentColor" stroke-width="1.1" marker-start="url(#chflF)" marker-end="url(#chflE)"/>
+<text x="495" y="70" fill="currentColor" font-size="10.5" text-anchor="middle">l₀ − Δl</text>
+</svg>
+<div class="fig-cap">A1 · 2do parcial 2015. El bloque unido entra a la zona rugosa en <b>A</b> y se detiene en <b>B</b>, la máxima compresión. Como el resorte mide l<sub>0</sub> = 50 cm y se comprime Δl = 20 cm, el bloque <b>no</b> recorre los 1,5 m de la zona gris: recorre <b>D = 1,5 − 0,5 + 0,2 = 1,2 m</b>. Usar 1,5 m es el error más frecuente del ejercicio.</div></div>
+
+<div class="trap"><div class="tr-t">2016: el 95% de la energía se evapora en el choque</div>
+Bala de 50 g a 100 m/s contra un bloque de 950 g: E<sub>i</sub> = ½·0,05·100² = <b>250 J</b>. Después del choque el conjunto de 1,00 kg va a 5 m/s: E<sub>f</sub> = ½·1·25 = <b>12,5 J</b>. Se disiparon 237,5 J.<br>
+Si en vez de cantidad de movimiento usás energía en el choque, te da v = √(2·250/1) = 22,4 m/s en lugar de 5 m/s, y arrastrás el error a todo el ejercicio (la k del resorte te daría 20 veces más grande).<br>
+Detalle de unidades: <b>950 g y 50 g pasalos a kg</b> antes de operar, y fijate que la masa después del choque es exactamente 1,00 kg — la cátedra elige los números para que queden redondos. Si no te quedan redondos, revisá.
+</div>
+
+<div class="key"><div class="ky-t">El caso al revés (2015): mismo esqueleto, leído de atrás para adelante</div>
+Cuando la incógnita es v<sub>0</sub>, no cambia nada: escribís las mismas tres ecuaciones y despejás al final.<br>
+1) Choque: m<sub>1</sub>v<sub>0</sub> = (m<sub>1</sub>+m<sub>2</sub>)v<sub>A</sub>, y como m<sub>1</sub> = m<sub>2</sub> → <b>v<sub>0</sub> = 2·v<sub>A</sub></b>.<br>
+2) Tramo A→B con roce y resorte: ½kΔl² − ½(m<sub>1</sub>+m<sub>2</sub>)v<sub>A</sub>² = −μ<sub>d</sub>(m<sub>1</sub>+m<sub>2</sub>)g·D.<br>
+3) Despejás v<sub>A</sub> y lo duplicás. Es la misma cadena, recorrida al revés.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-choques"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-choques"></div>
+<a class="back" href="#subject-fisica1-utn-choques">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · ELÁSTICO Y RESTITUCIÓN ============ -->
+<details id="ch-s3">
+<summary><span class="num">3</span> Choque elástico y coeficiente de restitución <span class="sec-score" id="ss-fisica1-utn-choques-3"></span></summary>
+<div class="content">
+
+<h3>Esto no cae en el parcial. Sí cae en el final</h3>
+
+<p>Los ocho choques de los parciales de Martinelli son todos plásticos. Pero en los finales de UTN.BA que tenés aparecen <b>choques elásticos y choques inelásticos parciales</b>: el bloque que retrocede y deja al otro oscilando en un resorte, la bala que atraviesa, el proyectil que rebota del péndulo. Si vas al final entrenada solo en plástico, te falta la mitad del tema.</p>
+
+<div class="formula">
+Cantidad de movimiento: &nbsp; m<sub>1</sub>v<sub>1</sub> + m<sub>2</sub>v<sub>2</sub> = m<sub>1</sub>v′<sub>1</sub> + m<sub>2</sub>v′<sub>2</sub><br>
+Energía cinética: &nbsp; ½m<sub>1</sub>v<sub>1</sub>² + ½m<sub>2</sub>v<sub>2</sub>² = ½m<sub>1</sub>v′<sub>1</sub>² + ½m<sub>2</sub>v′<sub>2</sub>²
+</div>
+
+<p>Son dos ecuaciones con dos incógnitas. Resolver el sistema cuadrático a mano en un final es perder diez minutos. El atajo que hay que saber es que <b>combinando las dos sale una relación lineal</b>:</p>
+
+<div class="formula">
+v<sub>1</sub> − v<sub>2</sub> = −(v′<sub>1</sub> − v′<sub>2</sub>)<br>
+<span class="muted">la velocidad relativa se conserva en módulo y se invierte en sentido</span>
+</div>
+
+<div class="fig"><svg viewBox="0 0 520 200" style="max-width:100%;height:auto" role="img" aria-label="En un choque elastico la velocidad relativa de acercamiento antes del choque es igual a la velocidad relativa de alejamiento despues, con sentido invertido">
+<defs><marker id="chflH" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker>
+<marker id="chflI" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.4"/></marker></defs>
+<text x="30" y="42" fill="currentColor" font-size="12" font-weight="700">ANTES</text>
+<circle cx="150" cy="66" r="15" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="150" y="70" fill="currentColor" font-size="11" text-anchor="middle">m₁</text>
+<circle cx="330" cy="66" r="19" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="330" y="70" fill="currentColor" font-size="11" text-anchor="middle">m₂</text>
+<path d="M170 66 H222" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#chflI)"/>
+<text x="196" y="58" fill="currentColor" font-size="11" text-anchor="middle">v₁</text>
+<path d="M352 66 H384" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#chflI)"/>
+<text x="368" y="58" fill="currentColor" font-size="11" text-anchor="middle">v₂</text>
+<text x="440" y="70" fill="var(--accent)" font-size="11">v₁ − v₂ &gt; 0</text>
+<text x="30" y="132" fill="currentColor" font-size="12" font-weight="700">DESPUÉS</text>
+<circle cx="150" cy="152" r="15" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="150" y="156" fill="currentColor" font-size="11" text-anchor="middle">m₁</text>
+<circle cx="330" cy="152" r="19" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="330" y="156" fill="currentColor" font-size="11" text-anchor="middle">m₂</text>
+<path d="M130 152 H96" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#chflH)"/>
+<text x="112" y="144" fill="var(--accent)" font-size="11" text-anchor="middle">v′₁</text>
+<path d="M352 152 H414" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#chflH)"/>
+<text x="382" y="144" fill="var(--accent)" font-size="11" text-anchor="middle">v′₂</text>
+<text x="440" y="156" fill="var(--accent)" font-size="11">v′₁ − v′₂ &lt; 0</text>
+<path d="M30 96 H490" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="5 4"/>
+<text x="260" y="188" fill="var(--text-muted)" font-size="10" text-anchor="middle">Se acercan a cierta rapidez relativa · se alejan con la misma rapidez relativa</text>
+</svg>
+<div class="fig-cap">La lectura física del atajo: en un choque elástico la <b>rapidez con la que se acercan es igual a la rapidez con la que se separan</b>. Esa igualdad reemplaza a la ecuación de la energía y es lineal, así que el sistema se resuelve en dos renglones.</div></div>
+
+<p>Con esa relación y la de cantidad de movimiento salen las fórmulas cerradas. Si el cuerpo 2 arranca en reposo (v<sub>2</sub> = 0), que es el caso de todos los finales:</p>
+
+<div class="formula">
+v′<sub>1</sub> = <span class="frac"><span>m<sub>1</sub> − m<sub>2</sub></span><span>m<sub>1</sub> + m<sub>2</sub></span></span> · v<sub>1</sub> &nbsp;&nbsp;&nbsp;&nbsp; v′<sub>2</sub> = <span class="frac"><span>2·m<sub>1</sub></span><span>m<sub>1</sub> + m<sub>2</sub></span></span> · v<sub>1</sub>
+</div>
+
+<table class="tbl">
+  <tr><th>Caso</th><th>Qué pasa</th><th>Dónde aparece</th></tr>
+  <tr><td><b>m<sub>1</sub> = m<sub>2</sub></b></td><td><b>Intercambian velocidades</b>: v′<sub>1</sub> = 0, v′<sub>2</sub> = v<sub>1</sub>. El que venía queda quieto</td><td>bolas de billar</td></tr>
+  <tr><td><b>m<sub>1</sub> ≪ m<sub>2</sub></b></td><td>v′<sub>1</sub> ≈ −v<sub>1</sub> (rebota casi con la misma rapidez) y v′<sub>2</sub> ≈ 2m<sub>1</sub>v<sub>1</sub>/m<sub>2</sub>, chiquita</td><td>bala de 10 g contra un péndulo de 10 kg (final 13/02/25)</td></tr>
+  <tr><td><b>m<sub>1</sub> ≫ m<sub>2</sub></b></td><td>v′<sub>1</sub> ≈ v<sub>1</sub> (sigue de largo) y v′<sub>2</sub> ≈ 2v<sub>1</sub>: el chico sale al <b>doble</b></td><td>camión contra pelota</td></tr>
+</table>
+
+<h3>Coeficiente de restitución: el dial entre plástico y elástico</h3>
+
+<div class="formula">
+e = <span class="frac"><span>v′<sub>2</sub> − v′<sub>1</sub></span><span>v<sub>1</sub> − v<sub>2</sub></span></span> = <span class="frac"><span>rapidez de separación</span><span>rapidez de acercamiento</span></span>
+</div>
+
+<table class="tbl">
+  <tr><th>e</th><th>Tipo</th><th>Energía cinética</th></tr>
+  <tr><td><b>e = 1</b></td><td>elástico</td><td>se conserva entera</td></tr>
+  <tr><td><b>0 &lt; e &lt; 1</b></td><td>inelástico parcial</td><td>se pierde una parte</td></tr>
+  <tr><td><b>e = 0</b></td><td>plástico</td><td>pérdida <b>máxima</b> posible (quedan pegados)</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El truco de examen: verificar si un choque fue elástico</div>
+Cuando el enunciado te da las dos velocidades finales sin decir de qué tipo es el choque, <b>calculá las dos energías cinéticas y comparalas</b>. Es una línea y te dice si podés usar la conservación de energía como control.<br>
+En el final del bloque de 6 kg contra el de 12 kg: E<sub>i</sub> = ½·6·3² = 27 J y E<sub>f</sub> = ½·6·1² + ½·12·2² = 3 + 24 = <b>27 J</b>. Era elástico, aunque el enunciado nunca usa la palabra.
+</div>
+
+<div class="trap"><div class="tr-t">"No queda adherido" no significa "elástico"</div>
+En el final del 12/12/23 el proyectil <b>rebota</b> del péndulo y aun así se pierden 12,2 de los 16 J: es inelástico parcial (e ≈ 0,47). La única palabra que te habilita a escribir la ecuación de energía en el choque es <b>elástico</b>. Con cualquier otra redacción, la segunda ecuación te la tiene que dar el enunciado por otro lado — una velocidad final, una amplitud, una altura.<br>
+Y al revés: si el problema dice "elástico" y vos usás solo cantidad de movimiento, te faltan datos y no cerrás.
+</div>
+
+<div class="trap"><div class="tr-t">La pérdida de energía sale de restar, no de una fórmula</div>
+Cuando piden <b>la energía perdida en el choque</b> (12/12/23 y 21/02/24), la respuesta es<br>
+<b>ΔE = E<sub>c,después</sub> − E<sub>c,antes</sub></b>, sumando la cinética de <b>todos</b> los cuerpos en cada instante. Da negativa. No hay que meter energía potencial ni trabajo del roce: el choque es instantáneo, nadie se movió ni cambió de altura.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-choques"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-choques"></div>
+<a class="back" href="#subject-fisica1-utn-choques">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · 2D, EXPLOSIONES Y BALÍSTICO ============ -->
+<details id="ch-s4">
+<summary><span class="num">4</span> Choque en 2D, explosiones y péndulo balístico <span class="sec-score" id="ss-fisica1-utn-choques-4"></span></summary>
+<div class="content">
+
+<h3>En 2D no hay nada nuevo: hay dos ecuaciones en vez de una</h3>
+
+<p>La cantidad de movimiento es un <b>vector</b>. Se conserva componente por componente, así que un choque en el plano te da <b>una ecuación por eje</b>:</p>
+
+<div class="formula">
+eje x: &nbsp; Σ m·v<sub>x</sub> = Σ m·v′<sub>x</sub><br>
+eje y: &nbsp; Σ m·v<sub>y</sub> = Σ m·v′<sub>y</sub>
+</div>
+
+<div class="key"><div class="ky-t">Elegí los ejes con la velocidad inicial</div>
+Poné <b>x en la dirección de la velocidad que traía el cuerpo que se movía</b>. Así el miembro izquierdo de la ecuación en y queda en cero y la mitad del trabajo se hace sola. Después escribí el sistema de referencia en la hoja: te lo puntúan.
+</div>
+
+<h3>Caso A · Sale perpendicular (final 26/05/22)</h3>
+
+<div class="fig"><svg viewBox="0 0 520 250" style="max-width:100%;height:auto" role="img" aria-label="Choque en dos dimensiones: la particula A llega horizontalmente a 20 metros por segundo, despues del choque sale hacia arriba a 6 metros por segundo perpendicular a su direccion inicial, y la particula B sale hacia abajo a la derecha">
+<defs><marker id="chflJ" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0 0 L8 3.2 L0 6.4" fill="none" stroke="currentColor" stroke-width="1.6"/></marker>
+<marker id="chflK" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0 0 L8 3.2 L0 6.4" fill="none" stroke="var(--accent)" stroke-width="1.6"/></marker></defs>
+<path d="M40 130 H470" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="5 4"/>
+<path d="M230 24 V236" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="5 4"/>
+<text x="478" y="134" fill="var(--text-muted)" font-size="11">x</text>
+<text x="234" y="22" fill="var(--text-muted)" font-size="11">y</text>
+<path d="M70 130 H200" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#chflJ)"/>
+<text x="132" y="122" fill="currentColor" font-size="11.5" text-anchor="middle">A · 3 kg · 20 m/s</text>
+<circle cx="230" cy="130" r="7" fill="currentColor"/>
+<path d="M230 116 V56" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#chflK)"/>
+<text x="244" y="76" fill="var(--accent)" font-size="11.5">A′ · 6 m/s</text>
+<text x="244" y="94" fill="var(--text-muted)" font-size="10">perpendicular</text>
+<path d="M244 138 L392 182" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#chflK)"/>
+<text x="330" y="204" fill="var(--accent)" font-size="11.5" text-anchor="middle">B′ · 6 kg · 10,4 m/s</text>
+<path d="M262 130 A 32 32 0 0 1 254 148" fill="none" stroke="currentColor" stroke-width="1.1"/>
+<text x="278" y="152" fill="currentColor" font-size="10.5">16,7°</text>
+<path d="M212 112 A 20 20 0 0 0 230 112" fill="none" stroke="currentColor" stroke-width="1.1"/>
+<text x="200" y="106" fill="currentColor" font-size="10.5" text-anchor="end">90°</text>
+</svg>
+<div class="fig-cap">Final 26/05/22, problema 1. Como A sale <b>perpendicular</b>, en el eje x A no aporta nada después del choque: 3·20 = 6·v<sub>Bx</sub> → v<sub>Bx</sub> = 10 m/s. Y en el eje y, que arrancaba en cero: 0 = 3·6 + 6·v<sub>By</sub> → v<sub>By</sub> = −3 m/s. B sale a 10,4 m/s hacia abajo. Recién con las dos componentes se puede calcular la variación de energía.</div></div>
+
+<div class="trap"><div class="tr-t">La rapidez de B no es 10 m/s</div>
+Es tentador quedarse con v<sub>Bx</sub> = 10 y calcular la energía con eso. Pero B <b>también</b> tiene componente en y: |v<sub>B</sub>| = √(10² + 3²) = √109 = 10,44 m/s, y en la energía entra el <b>cuadrado del módulo</b>, es decir 109 (no 100). La diferencia son 27 J en la respuesta final.
+</div>
+
+<h3>Caso B · El cuerpo que cae y el proyectil horizontal</h3>
+
+<p>Un cuerpo cae libremente, un proyectil lo alcanza de costado y queda incrustado. Suena distinto, pero es el mismo choque plástico con <b>dos ejes</b>: el proyectil aporta todo en x y el cuerpo que cae, todo en y.</p>
+
+<div class="trap"><div class="tr-t">¿Se conserva p en el eje vertical si está actuando la gravedad?</div>
+<b>Sí, durante el choque.</b> El peso es una fuerza externa, pero el choque dura Δt ≈ 0 y su impulso (m·g·Δt) es despreciable frente al impulso interno. Por eso se aplica conservación de p en <b>los dos ejes</b> en el instante del impacto.<br>
+Lo que <b>no</b> podés hacer es usar conservación de p en el tramo de caída antes o después: ahí la gravedad actúa durante un tiempo largo y sí cambia la cantidad de movimiento. Antes y después: cinemática o energía. En el choque: cantidad de movimiento.
+</div>
+
+<h3>Caso C · El proyectil que ATRAVIESA el bloque</h3>
+
+<p>Es un choque inelástico con <b>dos velocidades finales distintas</b> (el proyectil sale con una, el bloque queda con otra) y una sola ecuación de cantidad de movimiento. Faltaría un dato… salvo que el enunciado te da lo que le pasa al bloque <b>después</b>. Por eso el problema se resuelve al revés:</p>
+
+<div class="key"><div class="ky-t">La secuencia invertida del proyectil que atraviesa</div>
+<b>1)</b> Con la etapa 3 (el bloque comprimiendo el resorte: ½mv² = ½kΔx²) sacás la velocidad del <b>bloque</b> justo después del choque.<br>
+<b>2)</b> Recién entonces vas a la ecuación de cantidad de movimiento y despejás la velocidad de <b>salida del proyectil</b>.<br>
+<b>3)</b> La energía perdida se calcula al final restando cinéticas.<br>
+Es el único orden posible: la etapa 2 tiene dos incógnitas y no se puede atacar primero.
+</div>
+
+<h3>Caso D · La explosión: el choque plástico filmado al revés</h3>
+
+<p>Dos carritos en reposo con un resorte comprimido entre ellos. Al soltarlo, la cantidad de movimiento total sigue siendo <b>cero</b>: salen en sentidos opuestos y la energía elástica se reparte.</p>
+
+<div class="formula">
+0 = m<sub>A</sub>·v<sub>A</sub> + m<sub>B</sub>·v<sub>B</sub> &nbsp;→&nbsp; m<sub>A</sub>·|v<sub>A</sub>| = m<sub>B</sub>·|v<sub>B</sub>|<br>
+E<sub>liberada</sub> = ½·m<sub>A</sub>·v<sub>A</sub>² + ½·m<sub>B</sub>·v<sub>B</sub>²
+</div>
+
+<div class="fig"><svg viewBox="0 0 520 210" style="max-width:100%;height:auto" role="img" aria-label="Dos carritos A y B con un resorte comprimido entre ellos en el fondo de una pista en forma de valle; al soltarse cada uno sube por su rampa hasta una altura maxima distinta">
+<defs><marker id="chflL" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M30 40 Q 70 160 180 160 H340 Q 450 160 490 40" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<rect x="212" y="138" width="26" height="22" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="225" y="132" fill="currentColor" font-size="11" text-anchor="middle">A</text>
+<text x="225" y="176" fill="var(--text-muted)" font-size="10" text-anchor="middle">20 kg</text>
+<rect x="282" y="138" width="26" height="22" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="295" y="132" fill="currentColor" font-size="11" text-anchor="middle">B</text>
+<text x="295" y="176" fill="var(--text-muted)" font-size="10" text-anchor="middle">30 kg</text>
+<path d="M240 150 h4 l4 -8 l8 16 l8 -16 l8 16 l4 -8 h4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M204 118 H166" fill="none" stroke="var(--accent)" stroke-width="1.7" marker-end="url(#chflL)"/>
+<path d="M316 118 H354" fill="none" stroke="var(--accent)" stroke-width="1.7" marker-end="url(#chflL)"/>
+<path d="M62 100 H180" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M340 130 H452" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="86" y="94" fill="var(--accent)" font-size="11">h_A = 4,5 m</text>
+<text x="380" y="124" fill="var(--accent)" font-size="11">h_B = 2 m</text>
+<text x="260" y="200" fill="var(--text-muted)" font-size="10" text-anchor="middle">El más liviano sale más rápido y sube más alto: h_A / h_B = (m_B / m_A)²</text>
+</svg>
+<div class="fig-cap">Final 14/02/24, problema 2. El resorte libera 1500 J entre un carrito de 20 kg y otro de 30 kg. La cantidad de movimiento total sigue valiendo cero, así que <b>el liviano sale más rápido</b> (v<sub>A</sub> = 1,5·v<sub>B</sub>) y sube más: 4,5 m contra 2 m. La energía se reparte al revés de las masas: 900 J para A y 600 J para B.</div></div>
+
+<h3>Caso E · El péndulo balístico</h3>
+
+<p>Es el experimento clásico para medir la velocidad de una bala, y en tu carpeta de finales aparece con una vuelta de tuerca: hay que <b>decidir si el arma cumple con lo que declara el fabricante</b>. Son las tres etapas de siempre, pero recorridas al revés.</p>
+
+<div class="fig"><svg viewBox="0 0 460 260" style="max-width:100%;height:auto" role="img" aria-label="Pendulo balistico: un saco de arena de masa M cuelga de una cuerda de longitud l, un proyectil de masa m lo impacta horizontalmente y el conjunto se eleva hasta que la cuerda forma 60 grados con la vertical">
+<defs><marker id="chflM" markerWidth="10" markerHeight="10" refX="8" refY="3.2" orient="auto"><path d="M0 0 L8 3.2 L0 6.4" fill="none" stroke="var(--accent)" stroke-width="1.6"/></marker>
+<marker id="chflN" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.3"/></marker>
+<marker id="chflO" markerWidth="9" markerHeight="9" refX="1.5" refY="3" orient="auto"><path d="M7 0 L0 3 L7 6" fill="none" stroke="currentColor" stroke-width="1.3"/></marker></defs>
+<path d="M110 30 H350" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M114 30 l-8 -8 M130 30 l-8 -8 M146 30 l-8 -8 M162 30 l-8 -8 M178 30 l-8 -8 M194 30 l-8 -8 M210 30 l-8 -8 M226 30 l-8 -8 M242 30 l-8 -8 M258 30 l-8 -8 M274 30 l-8 -8 M290 30 l-8 -8 M306 30 l-8 -8 M322 30 l-8 -8 M338 30 l-8 -8" stroke="currentColor" stroke-width="1"/>
+<circle cx="200" cy="30" r="3.5" fill="currentColor"/>
+<path d="M200 30 V190" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<rect x="184" y="190" width="32" height="30" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<text x="200" y="238" fill="currentColor" font-size="11.5" text-anchor="middle">M = 3 kg</text>
+<path d="M200 30 L338 110" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="326" y="110" width="28" height="26" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3"/>
+<path d="M200 90 A 60 60 0 0 1 252 60" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+<text x="236" y="86" fill="var(--accent)" font-size="11.5">α = 60°</text>
+<path d="M90 205 H176" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#chflM)"/>
+<text x="120" y="198" fill="var(--accent)" font-size="11.5" text-anchor="middle">m = 25 g</text>
+<text x="120" y="222" fill="var(--accent)" font-size="11.5" text-anchor="middle">v = ?</text>
+<path d="M338 123 H400" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="4 4"/>
+<path d="M200 200 H400" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="4 4"/>
+<path d="M392 123 V200" fill="none" stroke="currentColor" stroke-width="1.2" marker-start="url(#chflO)" marker-end="url(#chflN)"/>
+<text x="404" y="166" fill="currentColor" font-size="11.5">h</text>
+<text x="150" y="120" fill="currentColor" font-size="11.5">l = 2 m</text>
+</svg>
+<div class="fig-cap">El péndulo balístico del regimiento. Se mide un ángulo (60°) y de ahí se reconstruye la velocidad de la bala: <b>h = l·(1 − cos α)</b> → energía para sacar V justo después del choque → cantidad de movimiento para sacar v de la bala. Nunca al revés, y nunca energía en el choque: se pierde el 99% de la energía cinética.</div></div>
+
+<div class="formula">
+h = l·(1 − cos α) &nbsp;→&nbsp; V = √(2gh) &nbsp;→&nbsp; v = <span class="frac"><span>M + m</span><span>m</span></span> · V
+</div>
+
+<div class="trap"><div class="tr-t">Error relativo porcentual: la parte que se olvida</div>
+El ejercicio del regimiento no termina en el número: termina en <b>decidir</b>. El fabricante declara 550 m/s con un error del 2%, o sea que acepta cualquier valor en el intervalo <b>[539 ; 561] m/s</b>. Hay que calcular el error relativo del valor medido y compararlo:<br>
+<b>ε<sub>r</sub>% = |v<sub>medido</sub> − v<sub>declarado</sub>| / v<sub>declarado</sub> · 100</b><br>
+Y hay que <b>escribir la conclusión</b> ("cumple" o "no cumple"), porque el enunciado dice "Justificar". Un número sin conclusión no es la respuesta a lo que preguntaron.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-choques"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-choques"></div>
+<a class="back" href="#subject-fisica1-utn-choques">↑ Volver al índice</a>
+</div>
+</details>

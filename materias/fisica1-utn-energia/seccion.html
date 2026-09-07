@@ -1,0 +1,495 @@
+<header>
+    <h1>Física I · Trabajo y energía</h1>
+    <div class="sub">UTN FRBA · Final · La fórmula madre ΔE = W<sub>NC</sub>, resortes, planos inclinados y movimiento circular · Arquetipos de la cátedra Martinelli (2009–2017) + finales UTN.BA</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-energia">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#en-s1">ΔE = W de las fuerzas no conservativas</a></li>
+    <li><a href="#en-s2">Resorte + rozamiento + plano inclinado (el arquetipo)</a></li>
+    <li><a href="#en-s3">Movimiento circular: loop, MCU y circular vertical</a></li>
+    <li><a href="#en-s4">Cinemática dentro de un problema de energía</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-energia">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ==================== UNIDAD 1 ==================== -->
+<details id="en-s1">
+<summary><span class="num">1</span> ΔE = W de las fuerzas no conservativas <span class="sec-score" id="ss-fisica1-utn-energia-1"></span></summary>
+<div class="content">
+
+<h3>Antes que nada: cómo es el examen que rendís</h3>
+<p>Vos ya regularizaste. Lo que viene es el <b>final</b>: <b>6 problemas sueltos</b>, sin bloques A y B, y se aprueba con el <b>50% del examen</b>. El encabezado imprime <b>g = 10 m/s²</b> y te <b>da los momentos de inercia</b> como dato (I<sub>disco</sub> = mR²/2, I<sub>esfera</sub> = 2/5 mr², I<sub>barra</sub> = mL²/12). No hay multiple choice: todo es desarrollo.</p>
+<p>Los parciales de la cátedra Martinelli (2009–2017) que te pasaron <b>no son el formato del final</b>: son la <b>cantera de arquetipos</b>. Los problemas de energía del final son los mismos tipos, con otros números. Por eso los vas a ver acá tal cual salieron, con su fecha.</p>
+
+<div class="key"><div class="ky-t">Lo que el enunciado puntúa aparte (en el parcial y en el final)</div>
+Textual de la cátedra: <i>"Indique explícitamente los sistemas de referencia que adopta en cada problema, realice claramente los diagramas que correspondan y diga las hipótesis que hace en cada caso."</i><br>
+En un problema de energía eso se traduce en tres renglones que <b>no te podés saltear</b>:<br>
+1. <b>Dónde ponés el cero de energía potencial gravitatoria</b> (V<sub>g</sub> = 0). Elegilo en el punto más bajo del problema y no lo muevas más.<br>
+2. <b>El DCL</b> de cada tramo (sirve para justificar qué fuerzas trabajan y cuáles no).<br>
+3. <b>Las hipótesis</b>: "el resorte es ideal", "la polea no tiene rozamiento en su eje", "rueda sin resbalar, por lo tanto el rozamiento estático no disipa".
+</div>
+
+<h3>La única fórmula madre</h3>
+<p>Todo problema de energía de Física I sale de <b>una sola ecuación</b>. No hay una fórmula para el resorte, otra para el rozamiento y otra para el plano inclinado: hay <b>una</b>, y el laburo es armar bien los dos lados.</p>
+
+<div class="formula">
+  <b>ΔE = E<sub>final</sub> − E<sub>inicial</sub> = W<sub>fuerzas no conservativas</sub></b><br><br>
+  con &nbsp; E = ½·m·v² &nbsp;+&nbsp; ½·I<sub>CM</sub>·Ω² &nbsp;+&nbsp; m·g·h &nbsp;+&nbsp; ½·k·Δl²<br>
+  <span class="muted">(cinética de traslación + cinética de rotación + potencial gravitatoria + potencial elástica)</span>
+</div>
+
+<p>Del lado derecho van <b>solo las fuerzas no conservativas que trabajan</b>. Las candidatas son siempre las mismas:</p>
+
+<table class="tbl">
+  <tr><th>Fuerza</th><th>¿Trabaja?</th><th>Cuánto vale</th></tr>
+  <tr><td>Peso</td><td>Es conservativa → <b>ya está adentro de E</b> como m·g·h. Nunca la pongas a la derecha.</td><td>W<sub>P</sub> = −Δ(m·g·h)</td></tr>
+  <tr><td>Fuerza elástica</td><td>Conservativa → <b>ya está adentro de E</b> como ½·k·Δl².</td><td>W<sub>el</sub> = −Δ(½kΔl²)</td></tr>
+  <tr><td>Normal</td><td><b>No</b>: es perpendicular al desplazamiento.</td><td>W<sub>N</sub> = 0</td></tr>
+  <tr><td>Tensión (cuerda ⊥ al movimiento, tipo péndulo o circular)</td><td><b>No</b>: perpendicular al desplazamiento.</td><td>W<sub>T</sub> = 0</td></tr>
+  <tr><td>Tensión (cuerda ideal + polea ideal, sistema completo)</td><td><b>No neto</b>: lo que le saca a un cuerpo se lo da al otro.</td><td>ΣW<sub>T</sub> = 0</td></tr>
+  <tr><td>Rozamiento <b>dinámico</b> (desliza)</td><td><b>Sí, y siempre negativo.</b></td><td>W<sub>roz</sub> = −μ<sub>d</sub>·N·d</td></tr>
+  <tr><td>Rozamiento <b>estático</b> de rodadura (rueda sin resbalar)</td><td><b>No</b>: el punto de contacto está instantáneamente quieto (dl = 0).</td><td>W<sub>roz</sub> = 0</td></tr>
+  <tr><td>Fuerza aplicada F (te empujan, un freno, un motor)</td><td><b>Sí.</b> Signo según sentido.</td><td>W<sub>F</sub> = ±F·d</td></tr>
+</table>
+
+<div class="fig">
+<svg viewBox="0 0 560 230" style="max-width:100%;height:auto" role="img" aria-label="Balance de energía: energía inicial menos el trabajo del rozamiento igual a energía final">
+  <rect x="55" y="35" width="80" height="150" fill="var(--surface-3)" stroke="currentColor"/>
+  <text x="95" y="205" fill="currentColor" font-size="13" text-anchor="middle">E inicial</text>
+  <text x="95" y="27" fill="currentColor" font-size="12" text-anchor="middle">2000 J</text>
+  <line x1="150" y1="35" x2="150" y2="185" stroke="currentColor" stroke-dasharray="4 4"/>
+  <line x1="150" y1="35" x2="255" y2="35" stroke="currentColor" stroke-dasharray="4 4"/>
+  <path d="M 200 45 L 200 105 M 194 97 L 200 106 L 206 97" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="212" y="80" fill="currentColor" font-size="13">W&#8202;<tspan font-size="10" dy="3">NC</tspan><tspan dy="-3"> = &#8722;1000 J</tspan></text>
+  <text x="212" y="98" fill="currentColor" font-size="11">(rozamiento: se lo come)</text>
+  <rect x="390" y="110" width="80" height="75" fill="var(--surface-3)" stroke="currentColor"/>
+  <text x="430" y="205" fill="currentColor" font-size="13" text-anchor="middle">E final</text>
+  <text x="430" y="102" fill="currentColor" font-size="12" text-anchor="middle">1000 J</text>
+  <line x1="40" y1="185" x2="520" y2="185" stroke="currentColor" stroke-width="1.4"/>
+  <text x="40" y="200" fill="currentColor" font-size="11">0</text>
+</svg>
+<div class="fig-cap">El balance del problema C del 1er parcial 2013: arranca con 2000 J de potencial, el rozamiento se lleva 1000 J y quedan 1000 J. Nada más que eso.</div>
+</div>
+
+<h3>¿Energía o Newton? La pregunta que decide el problema</h3>
+
+<div class="key"><div class="ky-t">Regla de decisión</div>
+<b>Te piden velocidad, altura, compresión, elongación, distancia recorrida o "cuánto sube/baja" → ENERGÍA.</b> Un solo renglón te conecta el estado inicial con el final, sin importar el camino.<br><br>
+<b>Te piden fuerza, tensión, normal, aceleración, tiempo o coeficiente de rozamiento → NEWTON.</b> La energía no tiene tiempo adentro: si aparece la palabra <i>tiempo</i>, energía sola no alcanza.<br><br>
+<b>Te piden las dos cosas → las dos.</b> Es el caso típico del circular vertical: la velocidad sale por energía, la tensión sale de ΣF = m·a<sub>c</sub>. Y el caso del loop: la altura sale por energía, pero la <i>condición</i> (N = 0) sale de Newton.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 1 · Contar el peso dos veces</div>
+Si ya escribiste el término <b>m·g·h</b> dentro de E, el peso <b>no</b> va del lado del trabajo. Poner "W<sub>P</sub> = −m·g·h" a la derecha <i>y</i> además m·g·h a la izquierda es el error que más te descuenta, porque te duplica el término y el resultado sale con un factor 2 de más. Lo mismo con el resorte: o ponés ½kΔl² adentro de E, o ponés W<sub>el</sub> afuera. Nunca las dos.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 2 · El signo del rozamiento</div>
+W<sub>roz</sub> = <b>−</b>μ<sub>d</sub>·N·d, <b>siempre negativo</b>, vaya el cuerpo para donde vaya (sube, baja, va y vuelve). Si el cuerpo pasa <i>dos veces</i> por la zona rugosa, restás <b>dos veces</b>. Si la respuesta te da que el cuerpo termina con más energía de la que arrancó, revisá el signo.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 3 · La normal en el plano inclinado</div>
+Sobre un plano de ángulo α, N = m·g·<b>cos</b>α, no m·g. Con α = 37° y m = 1 kg: N = 1·10·0,8 = <b>8 N</b>, no 10 N. Y ojo: si la fuerza aplicada F es <b>paralela</b> al plano (como en el problema 4 del parcial 2009), no modifica la normal; si es <b>horizontal</b>, sí la modifica.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa 4 · "Puede haber datos que no interesen"</div>
+La cátedra lo avisa en el encabezado y lo cumple. Los distractores clásicos: <b>μ<sub>e</sub></b> cuando el cuerpo ya está deslizando; <b>μ<sub>d</sub></b> cuando el cuerpo rueda sin resbalar (ahí el rozamiento es estático y no disipa); una <b>masa</b> que se cancela; el <b>ángulo</b> de la rampa cuando solo te importa la altura; una <b>distancia</b> recorrida sobre una superficie lisa. No te sientas mal por no usar un dato: decilo explícitamente en la hoja ("μ<sub>D</sub> = 0,6 no interviene porque el cilindro rueda sin resbalar y el rozamiento estático no realiza trabajo") y sumás puntos.
+</div>
+
+<h3>Cómo se arma el balance, paso a paso</h3>
+<div class="example"><div class="ex-t">La receta de 6 pasos que sirve para los 20 ejercicios de esta guía</div>
+<b>1.</b> Marcá los <b>puntos</b> del recorrido con letras (A, B, C…). Uno por cada cambio de superficie, de tramo o de pregunta.<br>
+<b>2.</b> Elegí el <b>cero de V<sub>g</sub></b> en el punto más bajo y decilo.<br>
+<b>3.</b> Escribí <b>E en cada punto</b>: ½mv² + ½IΩ² + mgh + ½kΔl². Los términos que no existen los ponés en cero y listo.<br>
+<b>4.</b> Escribí <b>W<sub>NC</sub></b> tramo por tramo: solo rozamiento dinámico y fuerzas aplicadas.<br>
+<b>5.</b> Escribí los <b>vínculos</b>: cuerda inextensible (Δl del resorte = descenso del cuerpo), rodadura (Ω = v/R), geometría del plano (d = h/senα).<br>
+<b>6.</b> Igualá, despejá y <b>chequeá el signo y las unidades</b> (cm → m, gramos → kg).
+</div>
+
+<div class="key"><div class="ky-t">El truco que ahorra tiempo: elegí bien los dos puntos</div>
+No hace falta ir A → B → C → D calculando todo. Si el tramo intermedio no disipa, saltalo: aplicá el balance <b>directo entre el primer y el último punto</b> y solo sumá los trabajos de rozamiento de los tramos rugosos que atravesó. En el B1 del parcial 2010, la altura sobre la rampa sale en <b>un renglón</b> desde el resorte, sin pasar por la velocidad en el loop.
+</div>
+
+<div class="reveal-wrap" data-rv="1" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 2 ==================== -->
+<details id="en-s2">
+<summary><span class="num">2</span> Resorte + rozamiento + plano inclinado (el arquetipo) <span class="sec-score" id="ss-fisica1-utn-energia-2"></span></summary>
+<div class="content">
+
+<h3>Por qué esta unidad es la más grande</h3>
+<p>De los 11 ejercicios de energía de los parciales Martinelli que tenés, <b>7 son alguna versión de esto</b>: un resorte que lanza un cuerpo o un cuerpo que comprime un resorte, un tramo liso y un tramo rugoso, y te piden velocidad, altura máxima, compresión máxima o la constante k. Y en los finales UTN.BA aparece igual de seguido, mezclado con una polea con masa o con un cilindro que rueda.</p>
+
+<div class="fig">
+<svg viewBox="0 0 640 280" style="max-width:100%;height:auto" role="img" aria-label="Plano inclinado rugoso a la izquierda, tramo horizontal liso y resorte contra la pared derecha">
+  <polygon points="60,220 300,220 60,40" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="60" y1="220" x2="600" y2="220" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="96" y1="66" x2="82" y2="60"/><line x1="132" y1="93" x2="118" y2="87"/>
+    <line x1="168" y1="120" x2="154" y2="114"/><line x1="204" y1="147" x2="190" y2="141"/>
+    <line x1="240" y1="174" x2="226" y2="168"/><line x1="276" y1="201" x2="262" y2="195"/>
+  </g>
+  <path d="M 265 220 A 40 40 0 0 0 278 200" fill="none" stroke="currentColor"/>
+  <text x="245" y="212" fill="currentColor" font-size="13">α</text>
+  <text x="120" y="130" fill="currentColor" font-size="13">μ&#8202;<tspan font-size="10" dy="3">d</tspan></text>
+  <text x="120" y="148" fill="currentColor" font-size="11">(rugoso)</text>
+  <text x="380" y="240" fill="currentColor" font-size="12">tramo liso</text>
+  <line x1="596" y1="168" x2="596" y2="232" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="596" y1="176" x2="606" y2="168"/><line x1="596" y1="192" x2="606" y2="184"/>
+    <line x1="596" y1="208" x2="606" y2="200"/><line x1="596" y1="224" x2="606" y2="216"/>
+  </g>
+  <path d="M 500 220 L 508 220 L 514 208 L 526 232 L 538 208 L 550 232 L 562 208 L 574 232 L 580 220 L 596 220" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="536" y="196" fill="currentColor" font-size="13" text-anchor="middle">k</text>
+  <circle cx="490" cy="211" r="9" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="484" y="188" fill="currentColor" font-size="13">m</text>
+  <path d="M 470 200 L 430 200 M 438 195 L 429 200 L 438 205" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="30" y1="100" x2="30" y2="220" stroke="currentColor" stroke-dasharray="4 4"/>
+  <path d="M 30 104 L 30 216 M 26 110 L 30 103 L 34 110 M 26 210 L 30 217 L 34 210" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="12" y="165" fill="currentColor" font-size="13">h</text>
+  <line x1="30" y1="100" x2="132" y2="100" stroke="currentColor" stroke-dasharray="3 3" opacity="0.6"/>
+</svg>
+<div class="fig-cap">El arquetipo puro (B2 del 1er parcial 2011): el resorte dispara el cuerpo por el tramo <b>liso</b>, el cuerpo sube el plano <b>rugoso</b> y te piden hasta qué altura h llega. En otras versiones va al revés: el cuerpo baja y comprime el resorte.</div>
+</div>
+
+<h3>Las cuatro preguntas posibles y qué se cancela en cada una</h3>
+<table class="tbl">
+  <tr><th>Te piden…</th><th>Planteo</th><th>Lo que se cancela</th></tr>
+  <tr><td><b>Velocidad</b> al pie del plano</td><td>½kΔl² = ½mv²</td><td>La altura no cambia en el tramo horizontal</td></tr>
+  <tr><td><b>Altura máxima</b> sobre el plano</td><td>mgh − ½mv² = −μ<sub>d</sub>·mg·cosα·(h/senα)</td><td>La masa se va entera si no hay resorte de por medio</td></tr>
+  <tr><td><b>Compresión máxima</b> del resorte</td><td>½kΔl² = ½mv² (+ mgΔh si el resorte está en otro nivel)</td><td>v = 0 en la compresión máxima</td></tr>
+  <tr><td><b>Constante k</b></td><td>Misma ecuación, despejás k</td><td>—</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">LA trampa de la unidad · La compresión máxima NO es la posición de equilibrio</div>
+Es el error más frecuente de todo el primer parcial. En el B2 de 2014 te preguntan <b>cuánto desciende el cuerpo hasta detenerse</b>. Si planteás equilibrio (k·x = M<sub>2</sub>·g) te da <b>20 cm</b>. Está mal: <b>la respuesta correcta es 40 cm, exactamente el doble.</b><br><br>
+El punto en el que el cuerpo <b>se detiene</b> es el de <b>máximo estiramiento</b>, donde v = 0 pero la fuerza neta <b>no</b> es cero (el resorte tira más fuerte que el peso y lo va a hacer rebotar). El equilibrio es el punto <i>medio</i> del recorrido, el que atraviesa a máxima velocidad.<br><br>
+Con energía: ½kΔh² = M<sub>2</sub>·g·Δh &nbsp;⟹&nbsp; Δh = <b>2</b>·M<sub>2</sub>·g/k. Con equilibrio: kx = M<sub>2</sub>g ⟹ x = M<sub>2</sub>·g/k. El factor 2 es toda la diferencia.<br><br>
+<b>Regla:</b> si el enunciado dice <i>"hasta detenerse"</i>, <i>"máxima compresión"</i>, <i>"elongación máxima"</i> o <i>"altura máxima"</i>, es <b>energía con v = 0</b>, nunca equilibrio de fuerzas.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 520 300" style="max-width:100%;height:auto" role="img" aria-label="Resorte horizontal, bloque sobre mesa lisa, cuerda por polea y bloque colgante; se marcan la posición de equilibrio y la de máximo descenso">
+  <line x1="50" y1="90" x2="50" y2="205" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="50" y1="100" x2="40" y2="92"/><line x1="50" y1="120" x2="40" y2="112"/>
+    <line x1="50" y1="140" x2="40" y2="132"/><line x1="50" y1="160" x2="40" y2="152"/>
+    <line x1="50" y1="180" x2="40" y2="172"/><line x1="50" y1="200" x2="40" y2="192"/>
+  </g>
+  <line x1="50" y1="205" x2="345" y2="205" stroke="currentColor" stroke-width="1.6"/>
+  <text x="200" y="222" fill="currentColor" font-size="11" text-anchor="middle">sin rozamiento</text>
+  <path d="M 52 172 L 62 172 L 68 162 L 80 182 L 92 162 L 104 182 L 116 162 L 128 182 L 134 172 L 146 172" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="98" y="152" fill="currentColor" font-size="13" text-anchor="middle">K</text>
+  <rect x="146" y="154" width="52" height="36" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="172" y="177" fill="currentColor" font-size="13" text-anchor="middle">M₁</text>
+  <line x1="198" y1="172" x2="332" y2="172" stroke="currentColor" stroke-width="1.3"/>
+  <circle cx="340" cy="172" r="14" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <circle cx="340" cy="172" r="2.5" fill="currentColor"/>
+  <line x1="354" y1="172" x2="354" y2="228" stroke="currentColor" stroke-width="1.3"/>
+  <rect x="334" y="228" width="42" height="34" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="355" y="250" fill="currentColor" font-size="13" text-anchor="middle">M₂</text>
+  <line x1="400" y1="262" x2="500" y2="262" stroke="currentColor" stroke-dasharray="4 4" opacity="0.8"/>
+  <text x="410" y="256" fill="currentColor" font-size="11">equilibrio · 20 cm  ✗</text>
+  <line x1="400" y1="292" x2="500" y2="292" stroke="currentColor" stroke-dasharray="4 4"/>
+  <text x="410" y="286" fill="currentColor" font-size="11">se detiene · 40 cm  ✓</text>
+  <path d="M 392 232 L 392 288 M 388 238 L 392 231 L 396 238 M 388 282 L 392 289 L 396 282" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="368" y="284" fill="currentColor" font-size="13">Δh</text>
+</svg>
+<div class="fig-cap">B2 del 1er parcial 2014. El vínculo es que lo que <b>baja</b> M₂ es lo mismo que se <b>estira</b> el resorte (cuerda inextensible). Y el punto donde se detiene es el doble del de equilibrio.</div>
+</div>
+
+<h3>El vínculo: el paso que hace que el problema cierre</h3>
+<p>En estos problemas casi nunca podés escribir la energía sin antes decir <b>cómo se relacionan las variables</b>. Tres vínculos cubren todos los casos:</p>
+<div class="formula">
+  <b>Cuerda inextensible:</b> Δl<sub>resorte</sub> = Δh<sub>cuerpo</sub> = d<sub>CM</sub> &nbsp;<span class="muted">(todo lo que se mueve uno lo hace el otro)</span><br>
+  <b>Rodadura sin resbalar:</b> Ω = v<sub>CM</sub>/R &nbsp;⟹&nbsp; E<sub>c</sub> = ½mv² + ½·I<sub>CM</sub>·(v/R)²<br>
+  <b>Geometría del plano:</b> h = d·senα &nbsp;·&nbsp; d = h/senα &nbsp;·&nbsp; N = m·g·cosα
+</div>
+
+<div class="key"><div class="ky-t">Los factores de energía cinética que conviene tener en la cabeza</div>
+Con Ω = v/R el radio <b>siempre se cancela</b>. Te quedan números fijos:<br>
+<b>Cilindro o disco macizo</b> (I = ½mR²): E<sub>c</sub> = ½mv² + ¼mv² = <b>¾·m·v²</b><br>
+<b>Esfera maciza</b> (I = 2/5 mr²): E<sub>c</sub> = ½mv² + 1/5 mv² = <b>7/10·m·v²</b><br>
+<b>Aro / cilindro hueco</b> (I = mR²): E<sub>c</sub> = <b>m·v²</b><br>
+<b>Polea con masa</b> que gira sin trasladarse (I = ½m<sub>p</sub>R²): aporta <b>¼·m<sub>p</sub>·v²</b> al balance.<br>
+Olvidarte la rotación es el error que más se repite en los ejercicios de 2do parcial: en el B2 de 2015 te daría 1,0 m/s en vez de 0,816 m/s.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 560 270" style="max-width:100%;height:auto" role="img" aria-label="Cilindro que rueda sobre un plano inclinado unido a un resorte anclado en la parte alta">
+  <polygon points="60,230 430,230 430,20" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.7">
+    <line x1="100" y1="207" x2="94" y2="219"/><line x1="140" y1="184" x2="134" y2="196"/>
+    <line x1="180" y1="161" x2="174" y2="173"/><line x1="220" y1="139" x2="214" y2="151"/>
+    <line x1="260" y1="116" x2="254" y2="128"/><line x1="300" y1="93" x2="294" y2="105"/>
+    <line x1="340" y1="70" x2="334" y2="82"/><line x1="380" y1="48" x2="374" y2="60"/>
+  </g>
+  <path d="M 105 230 A 45 45 0 0 0 100 205" fill="none" stroke="currentColor"/>
+  <text x="112" y="222" fill="currentColor" font-size="13">α</text>
+  <circle cx="177" cy="136" r="24" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="177" cy="136" r="2.5" fill="currentColor"/>
+  <path d="M 163 122 A 20 20 0 0 1 191 122" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  <text x="146" y="118" fill="currentColor" font-size="13">m</text>
+  <g transform="translate(177,136) rotate(-29.6)">
+    <path d="M 26 0 L 38 0 L 44 -10 L 56 10 L 68 -10 L 80 10 L 92 -10 L 104 10 L 110 0 L 122 0" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="122" y1="-14" x2="122" y2="14" stroke="currentColor" stroke-width="2"/>
+    <text x="66" y="-18" fill="currentColor" font-size="13" text-anchor="middle">k</text>
+  </g>
+  <text x="150" y="182" fill="currentColor" font-size="11">rueda sin resbalar</text>
+  <text x="200" y="252" fill="currentColor" font-size="11">el rozamiento es ESTÁTICO: no disipa</text>
+</svg>
+<div class="fig-cap">Variante rodante del mismo arquetipo (B2 del 2do parcial 2015 y el problema 6 de un final UTN.BA). El vínculo es d<sub>CM</sub> = Δl del resorte, y la altura que baja es d·senα, no d.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · El resorte que YA venía deformado</div>
+Si en el estado inicial el resorte ya está estirado o comprimido (te lo dicen: <i>"la longitud del resorte es 60 cm y la natural es 50 cm"</i>, <i>"el resorte está estirado 1 m"</i>), la energía elástica inicial <b>no es cero</b> y hay que restarla:<br>
+<b>ΔE<sub>elástica</sub> = ½k·Δl<sub>final</sub>² − ½k·Δl<sub>inicial</sub>²</b><br>
+Y ojo con el otro lado del mismo error: la elongación final es la <b>total medida desde la longitud natural</b>, no el estiramiento adicional. En el problema 2 del 2do parcial 2009 esa distinción es la que convierte el problema en una <b>cuadrática</b>: 50·Δl² − 10·Δl − 0,46 = 0.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · La distancia sobre el plano no es la altura</div>
+El rozamiento actúa a lo largo de <b>D</b> (lo recorrido sobre el plano), pero la energía potencial usa <b>h</b> (la altura vertical). Se relacionan con D = h/senα. En el B2 de 2011 la altura da 8,93 m pero la distancia recorrida sobre el plano es 14,9 m. Si te confundís, el término de rozamiento queda mal por un factor 1/senα.<br>
+Y el clásico de siempre: <b>sen37° = 0,6</b>, <b>cos37° = 0,8</b>. Intercambiarlos rompe todo el problema.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · El resorte y el punto de partida están a la misma altura</div>
+Si el resorte está sobre el mismo tramo horizontal donde el cuerpo llegó, la energía potencial gravitatoria <b>es la misma a los dos lados</b> y se cancela: toda la cinética se va a elástica, ½kΔl² = ½mv². No hace falta arrastrar el término m·g·h por toda la cuenta (aunque si lo arrastrás, se cancela igual y también está bien).
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 3 ==================== -->
+<details id="en-s3">
+<summary><span class="num">3</span> Movimiento circular: loop, MCU y circular vertical <span class="sec-score" id="ss-fisica1-utn-energia-3"></span></summary>
+<div class="content">
+
+<h3>La estructura de todos estos problemas</h3>
+<p>Siempre es lo mismo, y siempre son <b>dos ecuaciones</b>: una de energía para conseguir la velocidad en el punto que te interesa, y una de Newton en dirección <b>radial</b> para conseguir la fuerza (normal o tensión). Ninguna de las dos sola alcanza.</p>
+
+<div class="formula">
+  <b>(1) Energía:</b> ΔE = W<sub>NC</sub> &nbsp;→&nbsp; te da <b>v</b> en el punto<br>
+  <b>(2) Newton radial:</b> ΣF<sub>hacia el centro</sub> = m·a<sub>c</sub> = m·<span class="frac"><span>v²</span><span>R</span></span> &nbsp;→&nbsp; te da <b>N</b> o <b>T</b>
+</div>
+
+<div class="key"><div class="ky-t">Los cuatro casos que tenés que poder escribir de memoria</div>
+<b>Punto más ALTO</b> (el centro está abajo, todo apunta hacia abajo):<br>
+&nbsp;&nbsp;• con cuerda: <b>T + m·g = m·v²/L</b><br>
+&nbsp;&nbsp;• con pista por dentro (loop): <b>N + m·g = m·v²/R</b><br>
+<b>Punto más BAJO</b> (el centro está arriba, T o N apuntan hacia arriba y el peso en contra):<br>
+&nbsp;&nbsp;• con cuerda: <b>T − m·g = m·v²/L</b><br>
+&nbsp;&nbsp;• con pista: <b>N − m·g = m·v²/R</b><br><br>
+Por eso la tensión abajo es <i>enorme</i> comparada con la de arriba. En el B2 de 2017 dan 6,67 N arriba y 126,67 N abajo: casi 19 veces más. Está bien, no te asustes.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 470 300" style="max-width:100%;height:auto" role="img" aria-label="Circunferencia vertical con la tensión y el peso en el punto más alto y en el más bajo">
+  <circle cx="200" cy="150" r="95" fill="none" stroke="currentColor" stroke-dasharray="5 4"/>
+  <circle cx="200" cy="150" r="2.5" fill="currentColor"/>
+  <line x1="200" y1="150" x2="270" y2="86" stroke="currentColor" stroke-width="1.2"/>
+  <text x="243" y="112" fill="currentColor" font-size="13">L</text>
+  <circle cx="200" cy="55" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="196" y="40" fill="currentColor" font-size="13" text-anchor="middle">A</text>
+  <path d="M 200 63 L 200 108 M 195 100 L 200 109 L 205 100" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="207" y="92" fill="currentColor" font-size="12">T&#8202;<tspan font-size="10" dy="3">A</tspan></text>
+  <path d="M 168 58 L 168 108 M 163 100 L 168 109 L 173 100" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="150" y="92" fill="currentColor" font-size="12">P</text>
+  <circle cx="200" cy="245" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="196" y="268" fill="currentColor" font-size="13" text-anchor="middle">B</text>
+  <path d="M 200 237 L 200 192 M 195 200 L 200 191 L 205 200" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="207" y="212" fill="currentColor" font-size="12">T&#8202;<tspan font-size="10" dy="3">B</tspan></text>
+  <path d="M 168 240 L 168 288 M 163 280 L 168 289 L 173 280" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="150" y="270" fill="currentColor" font-size="12">P</text>
+  <line x1="200" y1="245" x2="430" y2="245" stroke="currentColor" stroke-dasharray="4 4" opacity="0.7"/>
+  <text x="330" y="261" fill="currentColor" font-size="11">V&#8202;<tspan font-size="9" dy="3">g</tspan><tspan dy="-3"> = 0</tspan></text>
+  <line x1="360" y1="55" x2="430" y2="55" stroke="currentColor" stroke-dasharray="4 4" opacity="0.7"/>
+  <path d="M 400 59 L 400 241 M 396 66 L 400 58 L 404 66 M 396 234 L 400 242 L 404 234" fill="none" stroke="currentColor" stroke-width="1.4"/>
+  <text x="408" y="152" fill="currentColor" font-size="14" font-weight="bold">2L</text>
+</svg>
+<div class="fig-cap">Arriba T y P apuntan <b>los dos</b> hacia el centro (se suman). Abajo T apunta hacia el centro y P en contra (se restan). Y la altura entre A y B es <b>2L</b>: el diámetro.</div>
+</div>
+
+<div class="trap"><div class="tr-t">LA trampa de la unidad · Entre el punto más alto y el más bajo hay 2L, no L</div>
+Es el error que más arruina el B2 de 2017 y el problema del loop. La altura entre el techo y el piso de la circunferencia es el <b>diámetro</b>: <b>2L</b> (o <b>2R</b> en el loop).<br>
+Con h = 2L: L = (v<sub>B</sub>² − v<sub>A</sub>²)/(4g) = (64 − 16)/40 = <b>1,2 m</b>. ✓<br>
+Con h = L (mal): L = (v<sub>B</sub>² − v<sub>A</sub>²)/(2g) = 2,4 m ✗ — y con eso las dos tensiones del inciso b) salen mal también.
+</div>
+
+<h3>La condición de no desprendimiento</h3>
+<p>Cuando el enunciado dice <i>"la velocidad mínima para pasar sin desprenderse"</i>, <i>"para que no se despegue de la pista"</i> o <i>"para que la cuerda no se afloje"</i>, está pidiendo un <b>caso límite</b>, y el límite es siempre el mismo: <b>N = 0</b> (o T = 0). En ese instante el peso solo alcanza justo para dar toda la fuerza centrípeta.</p>
+
+<div class="formula">
+  En el punto más alto, con N = 0: &nbsp; m·g = m·<span class="frac"><span>v<sub>mín</sub>²</span><span>R</span></span> &nbsp;⟹&nbsp; <b>v<sub>mín</sub> = √(g·R)</b>
+</div>
+<p>Con R = 1 m y g = 10: v<sub>mín</sub> = √10 = <b>3,16 m/s</b>. Y una vez que sabés que pasa por arriba sin desprenderse, <b>no se desprende en ningún otro punto</b> del loop: arriba es el punto más exigente.</p>
+
+<div class="trap"><div class="tr-t">Trampa · "Mínima velocidad" ≠ "velocidad cero"</div>
+La condición no es v = 0 arriba (eso sería caerse), ni ½mv² = mgh. Es <b>N = 0</b>: la normal desaparece y el peso pasa a ser toda la resultante centrípeta. Si te da que la velocidad real es <i>mayor</i> que √(gR), pasa; si es menor, se despega antes de llegar arriba.<br>
+En términos de altura de partida en una pista lisa: h<sub>mín</sub> = 2R + v<sub>mín</sub>²/(2g) = 2R + R/2 = <b>2,5·R</b>. Ese numerito es lindo para chequear.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 660 300" style="max-width:100%;height:auto" role="img" aria-label="Pista con rampa a la izquierda, zona rugosa, loop circular y resorte contra la pared derecha">
+  <line x1="30" y1="255" x2="632" y2="255" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="350" cy="195" r="60" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <circle cx="350" cy="135" r="7" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="350" y="122" fill="currentColor" font-size="13" text-anchor="middle">B</text>
+  <line x1="350" y1="195" x2="392" y2="153" stroke="currentColor" stroke-width="1.1" stroke-dasharray="3 3"/>
+  <text x="380" y="184" fill="currentColor" font-size="12">R</text>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="152" y1="255" x2="144" y2="267"/><line x1="172" y1="255" x2="164" y2="267"/>
+    <line x1="192" y1="255" x2="184" y2="267"/><line x1="212" y1="255" x2="204" y2="267"/>
+    <line x1="232" y1="255" x2="224" y2="267"/><line x1="252" y1="255" x2="244" y2="267"/>
+    <line x1="272" y1="255" x2="264" y2="267"/>
+  </g>
+  <path d="M 148 282 L 272 282 M 155 278 L 147 282 L 155 286 M 265 278 L 273 282 L 265 286" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="210" y="297" fill="currentColor" font-size="13" text-anchor="middle">d</text>
+  <text x="272" y="246" fill="currentColor" font-size="12" text-anchor="middle">C</text>
+  <text x="146" y="246" fill="currentColor" font-size="12" text-anchor="middle">D</text>
+  <line x1="148" y1="255" x2="52" y2="178" stroke="currentColor" stroke-width="1.8"/>
+  <circle cx="70" cy="192" r="7" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="60" y="176" fill="currentColor" font-size="12">H</text>
+  <line x1="24" y1="178" x2="52" y2="178" stroke="currentColor" stroke-dasharray="3 3"/>
+  <path d="M 32 182 L 32 251 M 28 188 L 32 181 L 36 188 M 28 245 L 32 252 L 36 245" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="14" y="220" fill="currentColor" font-size="13">h</text>
+  <line x1="628" y1="205" x2="628" y2="268" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M 540 255 L 548 255 L 554 243 L 566 267 L 578 243 L 590 267 L 602 243 L 614 267 L 620 255 L 628 255" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="582" y="232" fill="currentColor" font-size="13" text-anchor="middle">K</text>
+  <circle cx="530" cy="246" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <text x="528" y="228" fill="currentColor" font-size="12" text-anchor="middle">A</text>
+  <path d="M 508 236 L 466 236 M 474 231 L 465 236 L 474 241" fill="none" stroke="currentColor" stroke-width="1.5"/>
+</svg>
+<div class="fig-cap">B1 del 1er parcial 2010. Fijate <b>dónde</b> está la zona rugosa: <i>después</i> del loop. Para v<sub>B</sub> usás conservación pura desde el resorte, sin descontar nada.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · Dónde está la zona rugosa</div>
+Antes de plantear nada, seguí el recorrido con el dedo y anotá <b>qué tramos son rugosos y en qué orden los atraviesa</b>. En el B1 de 2010 la zona rugosa está entre el loop y la rampa: la velocidad en el loop sale de conservación <b>pura</b> (E<sub>A</sub> = E<sub>B</sub>), y el rozamiento recién entra para la altura sobre la rampa. Si le restás el rozamiento al loop, todo el ejercicio se cae.
+</div>
+
+<h3>MCU: cuando el radio cambia</h3>
+<p>En MCU horizontal la velocidad es constante en módulo, la resultante es puramente centrípeta y vale F = m·v²/r. Pero hay una familia de finales donde <b>el radio cambia</b> (una soga que se tira por un agujero, una fuerza centrípeta que se incrementa). Ahí la fuerza es <b>radial</b>, no hace momento respecto del centro, y <b>se conserva el momento angular</b>:</p>
+<div class="formula">
+  <b>L = m·v·r = constante</b> &nbsp;⟹&nbsp; v<sub>f</sub> = v<sub>i</sub>·<span class="frac"><span>r<sub>i</sub></span><span>r<sub>f</sub></span></span> &nbsp;·&nbsp; y entonces &nbsp; F<sub>f</sub> = F<sub>i</sub>·<span class="frac"><span>r<sub>i</sub>³</span><span>r<sub>f</sub>³</span></span>
+</div>
+<div class="trap"><div class="tr-t">Trampa · Si achicás el radio, la velocidad NO se mantiene</div>
+El error automático es escribir F<sub>f</sub> = m·v²/(r/2) = 2·F<sub>i</sub> dejando v igual. Está mal: al tirar de la soga hacia adentro hay desplazamiento radial, la fuerza <b>sí</b> hace trabajo y la partícula se acelera. Con L constante, al mitad de radio la velocidad se <b>duplica</b>, y la fuerza queda <b>8 veces</b> mayor (2³), no 2 veces.
+</div>
+
+<div class="key"><div class="ky-t">Un caso que aparece en los finales: MCU con resorte</div>
+Una partícula gira en un plano horizontal sujeta a un resorte de longitud natural l<sub>0</sub>. Ahí conviven <b>dos longitudes</b> que hay que no confundir:<br>
+• <b>R</b> = el radio del círculo = la longitud <i>actual</i> del resorte. Va en a<sub>c</sub> = v²/<b>R</b>.<br>
+• <b>R − l<sub>0</sub></b> = la <i>deformación</i>. Va en la fuerza elástica F<sub>el</sub> = k·(<b>R − l<sub>0</sub></b>) y en la energía ½k(R − l<sub>0</sub>)².<br>
+La ecuación queda k·(R − l<sub>0</sub>) = m·v²/R. Poner k·R en vez de k·(R − l<sub>0</sub>) es el error clásico.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 4 ==================== -->
+<details id="en-s4">
+<summary><span class="num">4</span> Cinemática dentro de un problema de energía <span class="sec-score" id="ss-fisica1-utn-energia-4"></span></summary>
+<div class="content">
+
+<h3>El problema de dos actos</h3>
+<p>Hay una familia entera que se resuelve en <b>dos actos</b>: primero energía (para conseguir la velocidad al final de una pista, una rampa o un riel), y después cinemática (porque el cuerpo <b>sale despedido</b> y hace un tiro). Los reconocés porque el inciso a) dice "calcule la velocidad" y el b) dice "a qué distancia impacta" o "dónde toca el piso".</p>
+
+<div class="key"><div class="ky-t">La bisagra entre los dos actos</div>
+La energía te da el <b>módulo</b> de la velocidad. La <b>dirección</b> te la da la geometría de la pista en el punto donde despega:<br>
+• Si la pista termina <b>horizontal</b> → tiro <b>semiparabólico</b>: v<sub>0y</sub> = 0, y el tiempo sale de h = ½gt².<br>
+• Si la pista termina <b>inclinada</b> a α → tiro <b>oblicuo</b>: v<sub>0x</sub> = v·cosα, v<sub>0y</sub> = v·senα (hacia arriba si venía subiendo).<br>
+Escribí siempre las dos componentes por separado antes de seguir.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 640 300" style="max-width:100%;height:auto" role="img" aria-label="Partícula que sube una rampa rugosa y sale despedida en tiro oblicuo desde el borde superior">
+  <line x1="30" y1="250" x2="612" y2="250" stroke="currentColor" stroke-width="1.6"/>
+  <polygon points="300,160 420,250 300,250" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <g stroke="currentColor" stroke-width="0.9" opacity="0.75">
+    <line x1="320" y1="175" x2="330" y2="169"/><line x1="344" y1="193" x2="354" y2="187"/>
+    <line x1="368" y1="211" x2="378" y2="205"/><line x1="392" y1="229" x2="402" y2="223"/>
+  </g>
+  <path d="M 392 250 A 32 32 0 0 0 402 228" fill="none" stroke="currentColor"/>
+  <text x="374" y="243" fill="currentColor" font-size="12">37°</text>
+  <text x="330" y="192" fill="currentColor" font-size="13">D</text>
+  <text x="336" y="212" fill="currentColor" font-size="11">μ&#8202;<tspan font-size="9" dy="3">d</tspan></text>
+  <circle cx="500" cy="241" r="8" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M 484 230 L 442 230 M 450 225 L 441 230 L 450 235" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="452" y="220" fill="currentColor" font-size="13">V₀</text>
+  <path d="M 300 160 Q 250 128 144 250" fill="none" stroke="currentColor" stroke-dasharray="5 4" stroke-width="1.4"/>
+  <path d="M 300 160 L 258 138 M 266 134 L 257 137 L 261 145" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="252" y="126" fill="currentColor" font-size="12">v&#8202;<tspan font-size="10" dy="3">B</tspan><tspan dy="-3"> a 37°</tspan></text>
+  <line x1="300" y1="160" x2="300" y2="250" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="256" y1="160" x2="296" y2="160" stroke="currentColor" stroke-dasharray="3 3" opacity="0.6"/>
+  <path d="M 272 165 L 272 246 M 268 172 L 272 164 L 276 172 M 268 239 L 272 247 L 276 239" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="252" y="208" fill="currentColor" font-size="12">h&#8202;<tspan font-size="10" dy="3">B</tspan></text>
+  <circle cx="144" cy="250" r="4" fill="currentColor"/>
+  <path d="M 148 268 L 296 268 M 155 264 L 147 268 L 155 272 M 289 264 L 297 268 L 289 272" fill="none" stroke="currentColor" stroke-width="1.3"/>
+  <text x="222" y="284" fill="currentColor" font-size="13" text-anchor="middle">x&#8202;<tspan font-size="10" dy="3">C</tspan></text>
+</svg>
+<div class="fig-cap">B2 del 1er parcial 2012. Al salir por el vértice, la partícula <b>conserva la dirección del plano</b>: sale a 37° sobre la horizontal, con componente vertical hacia arriba. No sale horizontal.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · No sale horizontal</div>
+El error más caro de esta unidad: suponer que la partícula abandona el plano inclinado con velocidad horizontal. <b>Sale con la dirección del plano.</b> Si venía subiendo por una rampa de 37°, sale a 37° <b>hacia arriba</b>, con v<sub>0y</sub> = v·sen37° positiva. Eso hace que primero <i>siga subiendo</i> un poco y recién después caiga.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · El lanzamiento es desde una altura → cuadrática completa</div>
+Como el despegue está a h<sub>B</sub> sobre el piso, no vale la fórmula de alcance a igual nivel. Tenés que escribir la ecuación horaria completa y resolver:<br>
+<b>y(t) = h<sub>B</sub> + v<sub>0y</sub>·t − ½·g·t² = 0</b> &nbsp;→&nbsp; una cuadrática en t.<br>
+En el B2 de 2012: 5t² − 2,1t − 1,2 = 0 → t = 0,743 s (se descarta la raíz negativa). Después x = v<sub>0x</sub>·t.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · Cuando el enunciado te dice CON QUÉ resolverlo</div>
+El problema C de 2013 arranca con "<i>debe ser resuelto utilizando conceptos de trabajo y energía</i>". Si lo resolvés descomponiendo velocidades y buscando el tiempo de vuelo, aunque te dé bien te lo bajan. Además por energía es más corto: en el tramo B→C está en el aire, solo actúa el peso, se conserva la energía y v<sub>C</sub> sale de mgh<sub>B</sub> + ½mv<sub>B</sub>² = ½mv<sub>C</sub>², sin necesitar ni el alcance ni el tiempo.
+</div>
+
+<h3>El radio de curvatura en el vértice (esto solo cae en el final)</h3>
+<p>Este no aparece en ningún parcial de Martinelli: es <b>exclusivo de los finales UTN.BA</b>, y cuando cae, cae como problema 1. La idea es elegante y en tres renglones está resuelto.</p>
+
+<div class="key"><div class="ky-t">Por qué en el vértice a<sub>c</sub> = g</div>
+La aceleración se descompone en <b>tangencial</b> (cambia el módulo de v) y <b>normal o centrípeta</b> (cambia la dirección). En un tiro oblicuo la única aceleración es <b>g</b>, vertical hacia abajo.<br>
+En la <b>altura máxima</b> la velocidad es <b>horizontal</b>. Entonces g queda <b>perpendicular</b> a la velocidad: toda g es centrípeta y nada es tangencial.<br>
+<b>g = v<sub>vértice</sub>²/R</b> &nbsp;⟹&nbsp; <b>v<sub>vértice</sub> = √(g·R)</b> &nbsp;— la misma cara que la condición del loop, ojo.<br>
+Y como en el vértice la velocidad es la componente horizontal, que es constante: <b>v<sub>0</sub> = v<sub>vértice</sub>/cos θ<sub>0</sub></b>.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 620 270" style="max-width:100%;height:auto" role="img" aria-label="Trayectoria parabólica con el círculo osculador en el vértice y el radio de curvatura">
+  <line x1="40" y1="250" x2="590" y2="250" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M 70 250 Q 300 -70 530 250" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M 185 144 A 150 150 0 0 1 415 144" fill="none" stroke="currentColor" stroke-dasharray="5 4" opacity="0.85"/>
+  <line x1="300" y1="90" x2="300" y2="240" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <circle cx="300" cy="240" r="3" fill="currentColor"/>
+  <text x="308" y="175" fill="currentColor" font-size="14">R = 90 m</text>
+  <circle cx="300" cy="90" r="6" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M 308 90 L 380 90 M 372 85 L 381 90 L 372 95" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="330" y="80" fill="currentColor" font-size="13">v&#8202;<tspan font-size="10" dy="3">vértice</tspan><tspan dy="-3"> (horizontal)</tspan></text>
+  <path d="M 268 90 L 268 146 M 263 138 L 268 147 L 273 138" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="212" y="122" fill="currentColor" font-size="13">g = a&#8202;<tspan font-size="10" dy="3">c</tspan></text>
+  <path d="M 70 250 L 118 186 M 112 194 L 119 185 L 118 196" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="84" y="180" fill="currentColor" font-size="13">v₀</text>
+  <path d="M 108 250 A 38 38 0 0 0 100 226" fill="none" stroke="currentColor"/>
+  <text x="112" y="242" fill="currentColor" font-size="12">53°</text>
+</svg>
+<div class="fig-cap">En la altura máxima la velocidad es horizontal y g es perpendicular a ella: toda la gravedad es aceleración centrípeta. De ahí sale v<sub>vértice</sub> = √(g·R) = √(10·90) = 30 m/s, y v₀ = 30/cos53° = <b>50 m/s</b>.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampa · cos 53° = 0,6, no 0,8</div>
+53° es el complemento de 37°, así que se intercambian: <b>sen53° = cos37° = 0,8</b> y <b>cos53° = sen37° = 0,6</b>. Si usás 0,8 en el denominador te da v₀ = 37,5 m/s y el problema entero queda mal por un solo seno mal puesto.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-energia"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-energia"></div>
+<a class="back" href="#subject-fisica1-utn-energia">↑ Volver al índice</a>
+</div>
+</details>

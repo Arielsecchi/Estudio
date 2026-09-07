@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física I · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="fisica1-utn"] {
+    --bg: #f3f3f9; --text: #161434; --text-muted: #595681;
+    --surface: #ffffff; --surface-2: #e6e5f3; --surface-3: #d2d1e9;
+    --border: #dad9ea; --border-2: #bfbddb;
+    --accent: #4338ca; --accent-hover: #362da7; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #e6e5f3; --summary-hover: #d2d1e9; --num-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.07);
+  }
+  [data-theme="dark"][data-subject="fisica1-utn"] {
+    --bg: #0b0a18; --text: #d6d5e7; --text-muted: #9492b0;
+    --surface: #151427; --surface-2: #1f1d37; --surface-3: #2e2b4d;
+    --border: #2e2b4d; --border-2: #413d68;
+    --accent: #8279ec; --accent-hover: #b2acf6; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1f1d37; --summary-hover: #2e2b4d; --num-text: #0b0a18;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica1-utn">
+          <div class="drawer-item" data-target="fisica1-utn" onclick="switchSubject('fisica1-utn')">
+            <div class="ic" style="background:#4338ca;color:#ffffff">F1</div>
+            <div class="info">
+              <div class="t" style="color:#4338ca">Física I</div>
+              <div class="d">UTN FRBA · Guía de final · 84 exámenes analizados</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">
+              <div class="ic" style="background:#7c3aed;color:#ffffff">CR</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física I · Cuerpo rígido</div>
+                <div class="d">Rodadura, poleas con masa, rototraslación y momento angular · en los 10 finales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">
+              <div class="ic" style="background:#be123c;color:#ffffff">Ch</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Física I · Choques</div>
+                <div class="d">Choque plástico, elástico y en 2D · impulso y cantidad de movimiento</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">
+              <div class="ic" style="background:#0891b2;color:#ffffff">MA</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">Física I · Oscilaciones</div>
+                <div class="d">MAS masa-resorte, péndulo simple y péndulo físico</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">
+              <div class="ic" style="background:#ea580c;color:#ffffff">TE</div>
+              <div class="info">
+                <div class="t" style="color:#ea580c">Física I · Trabajo y energía</div>
+                <div class="d">Trabajo, energía, resortes y movimiento circular</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">
+              <div class="ic" style="background:#1d4ed8;color:#ffffff">Dn</div>
+              <div class="info">
+                <div class="t" style="color:#1d4ed8">Física I · Dinámica</div>
+                <div class="d">Newton, planos inclinados, poleas, cinemática y sistemas no inerciales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">
+              <div class="ic" style="background:#0d9488;color:#ffffff">Fl</div>
+              <div class="info">
+                <div class="t" style="color:#0d9488">Física I · Fluidos</div>
+                <div class="d">Hidrostática e hidrodinámica · teoría que el resumen no cubre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">
+              <div class="ic" style="background:#a16207;color:#ffffff">Op</div>
+              <div class="info">
+                <div class="t" style="color:#a16207">Física I · Óptica geométrica</div>
+                <div class="d">Espejos, lentes, prisma y marcha de rayos</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')">
+              <div class="ic" style="background:#475569;color:#ffffff">Sm</div>
+              <div class="info">
+                <div class="t" style="color:#475569">Física I · Simulacros</div>
+                <div class="d">Finales completos de 6 problemas con reloj + banco de preguntas conceptuales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fiuba-algebra-lineal">
+          <div class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+            <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+            <div class="info">
+              <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+              <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-parcial" onclick="switchSubject('fiuba-algebra-lineal-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">Álgebra Lineal · Primer parcial</div>
+                <div class="d">Palacios · 1er parcial · 21/10 · 21 parciales reales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-segundo-parcial" onclick="switchSubject('fiuba-algebra-lineal-segundo-parcial')">
+              <div class="ic" style="background:#1e5f8a;color:#eff6ff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#1e5f8a">Álgebra Lineal · Segundo parcial</div>
+                <div class="d">Palacios · 2do parcial · 2/12 · unidad 4</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-anatomia">
+          <div class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+            <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+            <div class="info">
+              <div class="t" style="color:#9d2449">Anatomía e Histología Funcional · FIUBA</div>
+              <div class="d">Iurman · Materia completa · las 16 clases del cronograma</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-anatomia-parcial" onclick="switchSubject('fiuba-anatomia-parcial')">
+              <div class="ic" style="background:#be123c;color:#fff1f2">P1</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Anatomía · Primer parcial</div>
+                <div class="d">Iurman · 1er parcial · 29/9 · clases 1 a 6</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-anatomia-segundo-parcial" onclick="switchSubject('fiuba-anatomia-segundo-parcial')">
+              <div class="ic" style="background:#7c2d5a;color:#fdf2f8">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7c2d5a">Anatomía · Segundo parcial</div>
+                <div class="d">Iurman · 2do parcial · 17/11 · clases 8 a 13</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-algoritmos">
+          <div class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+            <div class="ic" style="background:#4c1d95;color:#ede9fe">AP</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Algoritmos y Programación I · FIUBA</div>
+              <div class="d">Azcurra · Materia completa · las 9 guías en C</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algoritmos-parcial" onclick="switchSubject('fiuba-algoritmos-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#f5f3ff">PI</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Algoritmos · Parcial e integrador</div>
+                <div class="d">Azcurra · Las 12 consignas reales del campus</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-electronica">
+          <div class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+            <div class="ic" style="background:#92400e;color:#fffbeb">IB</div>
+            <div class="info">
+              <div class="t" style="color:#92400e">Introducción a la Bioingeniería · FIUBA</div>
+              <div class="d">Veiga · Materia completa · teoría de circuitos</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-electronica-integrador" onclick="switchSubject('fiuba-electronica-integrador')">
+              <div class="ic" style="background:#b45309;color:#fffbeb">IN</div>
+              <div class="info">
+                <div class="t" style="color:#b45309">Bioingeniería · Examen integrador</div>
+                <div class="d">Veiga · Integrador · 4 parciales y 5 coloquios reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-quimica">
+          <div class="drawer-item" data-target="fiuba-quimica" onclick="switchSubject('fiuba-quimica')">
+            <div class="ic" style="background:#047857;color:#ecfdf5">QB</div>
+            <div class="info">
+              <div class="t" style="color:#047857">Química Básica · FIUBA</div>
+              <div class="d">Boeykens · Materia completa · las 12 secciones del temario</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-quimica-libre" onclick="switchSubject('fiuba-quimica-libre')">
+              <div class="ic" style="background:#0f766e;color:#f0fdfa">QL</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Química Básica · Examen libre</div>
+                <div class="d">Boeykens · Libre · las 3 etapas, 9 exámenes reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA I =================================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica1-utn">
+  <header>
+    <h1>Física I · UTN FRBA</h1>
+    <div class="sub">Guía de final · 6 problemas, 50% para aprobar, g = 10 m/s² · el mapa, la estrategia y las trampas</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#f1-s1">El final de Física I: formato exacto y de dónde sale este material</a></li>
+    <li><a href="#f1-s2">Mapa: qué cae y cuánto (y en cuál de las 8 hijas está)</a></li>
+    <li><a href="#f1-s3">Las convenciones de la cátedra</a></li>
+    <li><a href="#f1-s4">Las trampas de la cátedra</a></li>
+    <li><a href="#f1-s5">Qué NO entra (y qué de eso sí vuelve en el final)</a></li>
+    <li><a href="#f1-s6">Plan de estudio: en qué orden, y por qué</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 ============ -->
+<details id="f1-s1">
+<summary><span class="num">1</span> El final de Física I: formato exacto y de dónde sale este material <span class="sec-score" id="ss-fisica1-utn-1"></span></summary>
+<div class="content">
+
+<div class="key">
+  <div class="ky-t">Empezá por acá: lo que rendís no es un parcial largo</div>
+  Vos ya regularizaste. Lo que te falta es <b>el final</b>, y el final de Física I de UTN.BA tiene una forma muy estable: <b>seis problemas sueltos, numerados 1 a 6, sin bloques A y B</b>, todo desarrollo, y se aprueba con el <b>50% del examen</b>. No hay grupo eliminatorio. Eso cambia por completo la estrategia respecto de un parcial: en un parcial de la cátedra Martinelli tenías que sacar el 50% <i>de cada bloque</i> y un cero en el bloque B te bochaba aunque el A estuviera perfecto. Acá no. Acá <b>tres problemas enteros y bien resueltos te alcanzan</b>, y podés elegir cuáles.
+</div>
+
+<h3>El examen, en una tabla</h3>
+
+<table class="tbl">
+  <tr><th>Dato</th><th>Cómo es</th></tr>
+  <tr><td>Formato</td><td><b>6 problemas sueltos</b>, numerados 1 a 6, <b>sin bloques</b>. Cada uno con uno o dos incisos (i) y (ii)</td></tr>
+  <tr><td>Tipo de respuesta</td><td><b>100% desarrollo.</b> Cero multiple choice</td></tr>
+  <tr><td>Aprobación</td><td><b>50% del examen.</b> No hay parte eliminatoria</td></tr>
+  <tr><td>Gravedad</td><td><b>g = 10 m/s²</b>, y el propio enunciado lo dice</td></tr>
+  <tr><td>Momentos de inercia</td><td><b>Te los dan como dato en el encabezado.</b> No hay que deducirlos ni integrarlos</td></tr>
+  <tr><td>Grilla de corrección</td><td>Una fila arriba de todo: <span class="m">1 | 2 | 3 | 4 | 5 | 6 | NOTA</span>, más firma del docente. En los finales corregidos que hay, las celdas están llenas con <b>letras</b> (B, R, M, B/R), no con números</td></tr>
+  <tr><td>Datos personales</td><td>«Nombre y apellido» + «D.N.I.», o «Apellido y nombre» + «Legajo», según la hoja</td></tr>
+  <tr><td>Duración</td><td><b>No consta en ninguna hoja de final.</b> El único examen FRBA que declara tiempo es el 1er parcial 2023 de Dibarbora: «Tiempo estimado 120 minutos»</td></tr>
+</table>
+
+<div class="fig">
+<svg viewBox="0 0 520 320" style="max-width:100%;height:auto" role="img" aria-label="Esquema de la hoja de un final de Física I de UTN.BA">
+  <rect x="20" y="14" width="480" height="292" rx="4" fill="var(--surface-3)" stroke="currentColor"/>
+  <text x="38" y="42" fill="currentColor" font-size="14" font-weight="bold">FÍSICA I</text>
+  <text x="482" y="42" fill="currentColor" font-size="13" text-anchor="end">UTN.BA</text>
+  <text x="270" y="42" fill="currentColor" font-size="13" text-anchor="middle">EXAMEN FINAL — __ / __ / ____</text>
+  <line x1="38" y1="52" x2="482" y2="52" stroke="currentColor"/>
+  <!-- grilla -->
+  <g stroke="currentColor" fill="none">
+    <rect x="150" y="62" width="220" height="26"/>
+    <line x1="180" y1="62" x2="180" y2="88"/>
+    <line x1="210" y1="62" x2="210" y2="88"/>
+    <line x1="240" y1="62" x2="240" y2="88"/>
+    <line x1="270" y1="62" x2="270" y2="88"/>
+    <line x1="300" y1="62" x2="300" y2="88"/>
+    <line x1="330" y1="62" x2="330" y2="88"/>
+  </g>
+  <g fill="currentColor" font-size="12" text-anchor="middle">
+    <text x="165" y="80">1</text><text x="195" y="80">2</text><text x="225" y="80">3</text>
+    <text x="255" y="80">4</text><text x="285" y="80">5</text><text x="315" y="80">6</text>
+    <text x="350" y="80">NOTA</text>
+  </g>
+  <text x="38" y="110" fill="currentColor" font-size="12">Utilice, donde lo necesite,  I(CM)disco = m R² / 2 ,  I(CM)barra = m L² / 12</text>
+  <text x="38" y="132" fill="currentColor" font-size="12">Nombre y apellido: ..............................    D.N.I. ..................</text>
+  <g fill="currentColor" font-size="12">
+    <text x="38" y="160">1.  ────────────────────────────────</text>
+    <text x="38" y="184">2.  ────────────────────────────────</text>
+    <text x="38" y="208">3.  ────────────────────────────────</text>
+    <text x="38" y="232">4.  ────────────────────────────────</text>
+    <text x="38" y="256">5.  ────────────────────────────────</text>
+    <text x="38" y="280">6.  ────────────────────────────────</text>
+  </g>
+  <g stroke="currentColor" fill="none">
+    <rect x="405" y="148" width="80" height="42"/><rect x="405" y="196" width="80" height="42"/>
+    <rect x="405" y="244" width="80" height="42"/>
+  </g>
+  <text x="445" y="173" fill="currentColor" font-size="11" text-anchor="middle">figura</text>
+  <text x="445" y="221" fill="currentColor" font-size="11" text-anchor="middle">figura</text>
+  <text x="445" y="269" fill="currentColor" font-size="11" text-anchor="middle">figura</text>
+</svg>
+<div class="fig-cap">La hoja tipo del final de UTN.BA: grilla de seis casilleros más NOTA, la línea de momentos de inercia como dato, y las figuras impresas al margen derecho. Reconstruida a partir de las 21 fotos de final del material.</div>
+</div>
+
+<div class="key">
+  <div class="ky-t">Los momentos de inercia son dato, y eso te dice qué NO van a preguntarte</div>
+  La línea del encabezado dice, textual en el final del <b>2/3/2023</b>: «<i>Utilice, donde lo necesite, I(CM)<sup>disco</sup> = m R², I(CM)<sup>barra</sup> = m L²/12</i>» — con el <span class="frac"><span>1</span><span>2</span></span> del disco. En otros finales aparecen además la esfera maciza (<span class="m">I = <span class="frac"><span>2</span><span>5</span></span> m r²</span>) y el cilindro (<span class="m">I = <span class="frac"><span>1</span><span>2</span></span> m R²</span>) dentro del propio enunciado del problema. ▸ Consecuencia práctica: <b>nadie te va a pedir calcular un momento de inercia por integración</b>. Lo que sí te van a pedir es <b>usarlo bien</b> — y sobre todo aplicar <b>Steiner</b> cuando el eje no pasa por el centro de masa, que eso no te lo dan.
+</div>
+
+<h3>Qué significa «50% del examen» cuando son 6 problemas</h3>
+
+<p>Seis problemas, mitad del examen: <b>tres problemas completos</b>. La aritmética es la parte fácil; la parte que decide es <i>cuáles</i> tres. Como no hay bloques, tenés libertad total para elegir, y esa libertad es tu mejor arma: si dominás cuerpo rígido, oscilaciones y choques, en la práctica <b>ya tenés tus tres problemas antes de dar vuelta la hoja</b> (mirá el mapa de la unidad 2: esos tres temas aparecen prácticamente en todas las fechas).</p>
+
+<div class="trap">
+  <div class="tr-t">La trampa de estrategia: no arranques por el 1</div>
+  <p>La numeración del final no es de menor a mayor dificultad — es arbitraria. En el final del 2/3/2023 el problema 1 es conservación del momento angular (uno de los más finos de todo el examen) y el 3 es un plano inclinado con polea con masa, mucho más mecánico. Si empezás por el 1 porque es el 1, podés quemar 25 minutos en el problema más difícil y llegar con la lengua afuera a los tres que sí te salían.</p>
+  <p>▸ <b>Hacé una pasada de lectura completa de los 6 antes de escribir nada.</b> Marcá tus tres seguros, resolvelos, y recién después peleá los otros. Es gratis y te compra el 50%.</p>
+</div>
+
+<div class="trap">
+  <div class="tr-t">La otra trampa de estrategia: la grilla se llena por problema, no por inciso</div>
+  <p>En los finales corregidos que hay en el material, la grilla tiene <b>un casillero por problema</b> (1 a 6) y adentro va una letra: B, R, M. En los parciales de Martinelli 2011-2012 la grilla llegaba a tener casillero por inciso a) y b). En el final <b>se perdió ese desglose</b>. ▸ Traducción: <b>medio problema resuelto puntúa peor de lo que creés</b>. Conviene terminar tres problemas enteros antes que dejar seis empezados por la mitad.</p>
+</div>
+
+<h3>De dónde sale todo lo que hay en esta guía</h3>
+
+<table class="tbl">
+  <tr><th>Fuente</th><th>Cantidad</th><th>Para qué sirve acá</th></tr>
+  <tr><td><b>Parciales cátedra Martinelli, 2009-2017</b></td><td><b>17 exámenes</b>: 7 primeros parciales + 9 segundos parciales con enunciado, más 16 hojas de <b>solución oficial</b>. En total <b>66 ejercicios</b></td><td>Es <b>la cantera de arquetipos</b>. Casi todo lo que aparece en un final es una variante de alguno de estos 66, y tienen resolución oficial de la cátedra</td></tr>
+  <tr><td><b>Finales UTN.BA 2022-2025</b></td><td><b>21 fotos ≈ 10 finales distintos</b> (hay 7 pares duplicados), con unos <b>60 problemas</b></td><td>Es <b>el formato y el temario reales del examen que rendís</b>. Fechas identificadas: 26/05/22, 02/03/23, 12/12/23, 14/02/24, 21/02/24, 13/02/25 y 27/02/25</td></tr>
+  <tr><td><b>1er parcial 2023, Prof. Dibarbora — UTN FRBA</b></td><td>1 examen, 6 problemas</td><td>Es el <b>eslabón</b> entre Martinelli y el final: mismo temario, pero ya con seis problemas corridos, 120 minutos declarados y las constantes impresas en el encabezado</td></tr>
+  <tr><td><b>Ejercicio suelto de parcial 2025</b></td><td>1 problema (cilindro + polea con masa)</td><td>Confirma que el cuerpo rígido sigue siendo el eje, y que el puntaje pasó a ser <b>por ítem (3 p)</b> en vez de criterio por bloque</td></tr>
+  <tr><td><b>Resumen teórico</b> (Federico Cañete, UTN FRGP)</td><td>52 páginas, 49 útiles</td><td>Teoría de apoyo. <b>No es de FRBA</b> y tiene agujeros importantes — ver la unidad 5</td></tr>
+  <tr><td><b>18 exámenes de UTN San Rafael</b></td><td>Enunciados adaptados de Sears-Zemansky, más ~70-80 <b>preguntas conceptuales</b></td><td>Su programa es un <b>superconjunto</b> del de FRBA y cubre justo los temas que el final agrega y ningún parcial de Martinelli toca. Va todo <b>sellado como «otra regional»</b> y renormalizado a g = 10</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Por qué hay tantos ejercicios de Martinelli si vos no cursaste con ella</div>
+  A tu curso <b>le pasaron los parciales de la cátedra Martinelli</b> con la indicación de que se basen en ellos para estudiar. Por eso están acá: son <b>la fuente de los tipos de problema</b>, y encima son la única parte del material que viene <b>con solución oficial</b>. ▸ Pero ojo con la lectura: <b>el formato de esos parciales no es el formato de tu final</b>. Martinelli tomaba 4 problemas en bloques A1/A2 y B1/B2 con «50% de cada grupo» (y en 2013 llegó a exigir «50% de <i>cada problema</i>»). Tu final son 6 sueltos con 50% del total. Cuando en esta guía leas «1er parcial 2013, cátedra Martinelli», leelo como <b>«este tipo de problema»</b>, nunca como «así te lo van a tomar».
+</div>
+
+<h3>Los huecos del material, dichos de frente</h3>
+
+<p>Para que sepas dónde esta guía se apoya en roca y dónde en arena:</p>
+
+<table class="tbl">
+  <tr><th>Hueco</th><th>Qué implica</th></tr>
+  <tr><td><b>No hay 1er parcial 2015 ni 2016</b></td><td>El 2016 se recupera parcialmente porque su hoja de solución transcribe los enunciados. El 2015 directamente no está. Falta además la solución oficial del 2do parcial 2016</td></tr>
+  <tr><td><b>Nada de FRBA entre 2018 y 2022</b></td><td>Cinco años en blanco. Todo lo que sabemos de 2018 en adelante son dos hojas: el parcial 2023 de Dibarbora y el ejercicio suelto de 2025</td></tr>
+  <tr><td><b>Ningún final tiene resolución oficial</b></td><td>Las resoluciones de los finales que vas a ver en las hijas están <b>hechas desde cero</b> y contrastadas contra el método de las claves de Martinelli. No hay clave de cátedra contra la cual verificarlas</td></tr>
+  <tr><td><b>Datos ilegibles reconstruidos</b></td><td>Cuatro casos concretos: una masa tapada por la firma del corrector, coeficientes tachados a mano en el del <b>26/05/22</b>, un gráfico v-t borroso en el del <b>14/02/24</b>, y el final del <b>13/02/25</b> que es una <i>recreación de memoria hecha por alumnos</i> con anotaciones del tipo «no recuerdo qué datos daba». Cada vez que un dato fue reconstruido, <b>está marcado en el propio enunciado</b> con una aclaración en gris. Nunca se pasa un dato inventado como original</td></tr>
+  <tr><td><b>Los parciales dicen «TEMA 1»</b></td><td>De 2009 sabemos que existían temas 2 y 3. No están. Lo mismo con las guías de TP y el programa oficial: no hay</td></tr>
+  <tr><td><b>Erratas en las soluciones oficiales</b></td><td>Tres detectadas: el 2do parcial 2011 A1 imprime <span class="m">a<sub>max</sub> = 1 m/s²</span> y <span class="m">F = 0,1 N</span> cuando corresponde 1000 m/s² y 100 N; el 2do parcial 2010 B2 escribe <span class="m">v = √(<span class="frac"><span>15</span><span>16</span></span> g h)</span> con la fracción invertida (aunque el resultado, 4 m/s, es correcto); y el 1er parcial 2016 A2 arrastra un «= 0» de más. <b>Si tu cuenta no coincide con la clave, puede ser la clave</b></td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Los finales son de otras cátedras, no de Martinelli</div>
+  <p>Las hojas de final de UTN.BA vienen en tres composiciones tipográficas distintas (LaTeX, Word, e impresión de baja tinta) y con encabezados distintos: unas piden D.N.I., otras Legajo; unas tienen «Firma docente» en la grilla y otras no. Son <b>de cátedras diferentes</b>. ▸ Lo bueno: el <b>temario es estable</b> entre todas — cuerpo rígido, choques y oscilaciones caen igual en todas las fechas. ▸ Lo malo: <b>no des por sentado el estilo de redacción</b>. Algunas hojas dan los momentos de inercia arriba de todo y otras los meten adentro del problema.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn"></div>
+<a class="back" href="#subject-fisica1-utn">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 ============ -->
+<details id="f1-s2">
+<summary><span class="num">2</span> Mapa: qué cae y cuánto (y en cuál de las 8 hijas está) <span class="sec-score" id="ss-fisica1-utn-2"></span></summary>
+<div class="content">
+
+<div class="key">
+  <div class="ky-t">Para qué sirve esta unidad</div>
+  Estudiar todo por igual es la forma más cara de preparar un final. Acá están <b>los números reales</b> de qué cae y con qué frecuencia, contados uno por uno sobre los 66 ejercicios de parcial y las 21 fotos de final. Con esto decidís dónde poner las horas. La conclusión, adelantada: <b>tres temas te dan el 50%</b>.
+</div>
+
+<h3>Frecuencias sobre los 66 ejercicios de parcial (Martinelli 2009-2017)</h3>
+
+<table class="tbl">
+  <tr><th>Tema</th><th>1er parcial (31 ej.)</th><th>2do parcial (35 ej.)</th></tr>
+  <tr><td><b>Cuerpo rígido / rodadura</b></td><td>0 de 31</td><td><b>14 de 35 — en las 9 de 9 fechas</b></td></tr>
+  <tr><td><b>Oscilaciones (MAS)</b></td><td>0 de 31</td><td><b>9 de 35 — 9 de 9 fechas, y siempre en la posición A2</b></td></tr>
+  <tr><td><b>Choque plástico</b></td><td>0 de 31</td><td><b>8 de 35 — 8 de 9 fechas</b></td></tr>
+  <tr><td>Dinámica de Newton</td><td><b>9 de 31 — 8 de 8 fechas</b></td><td>0 (lo absorbe el cuerpo rígido)</td></tr>
+  <tr><td>Trabajo y energía</td><td><b>7 de 31 — 8 de 8 fechas</b></td><td>4 como tema propio, pero <b>~25 de 35 lo usan como método</b></td></tr>
+  <tr><td>Óptica geométrica</td><td><b>7 de 31 — 7 de 8 fechas, siempre en A1</b></td><td>0</td></tr>
+  <tr><td>Fluidos (Arquímedes)</td><td><b>6 de 31 — 6 de 8 fechas</b></td><td>0</td></tr>
+  <tr><td>Cinemática</td><td>2 completos + 2 incisos</td><td>0 (solo cinemática angular)</td></tr>
+  <tr><td>Movimiento circular</td><td>3 de 31</td><td>0</td></tr>
+  <tr><td>Bernoulli / continuidad</td><td><b>1 de 31</b> (solo 2009)</td><td>0</td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">Los dos parciales de Martinelli no comparten ni un solo tema</div>
+  Fijate en las dos columnas: donde una tiene número, la otra tiene cero. Óptica, fluidos, Newton y energía viven en el primero; rígido, MAS y choques en el segundo. ▸ <b>Eso se rompe en el final</b>, que junta las dos mitades en una sola hoja. Por eso no podés estudiar «el segundo parcial» y creer que estás: los seis problemas del final se reparten entre <i>ambas</i> columnas.
+</div>
+
+<h3>Y en los finales de UTN.BA (recuento sobre las 21 fotos, agrupadas por hoja)</h3>
+
+<table class="tbl">
+  <tr><th>Tema</th><th>Presencia en los finales</th><th>Cómo aparece</th></tr>
+  <tr><td><b>Cuerpo rígido / rodadura</b></td><td><b>En los 10 finales. Sin excepción, y muchas veces en dos problemas del mismo examen</b></td><td>Rodadura en plano inclinado, cilindro con cuerda enrollada + polea, energía en rototraslación, torque y aceleración angular</td></tr>
+  <tr><td><b>Cantidad de movimiento y choques</b></td><td><b>En casi todos</b></td><td>Plástico 1D, choque en 2D, explosión de dos carritos con resorte, partícula contra disco (momento angular), y en una fecha <b>choque elástico</b></td></tr>
+  <tr><td><b>Oscilaciones</b></td><td><b>En la mayoría</b></td><td>MAS masa-resorte (frecuencia, amplitud, velocidad), y también <b>péndulo físico con Steiner</b> — barra + disco, que en parcial no aparece nunca</td></tr>
+  <tr><td><b>Fluidos</b></td><td><b>En la mayoría</b>, y repartido entre las dos mitades del tema</td><td><b>Hidrostática</b>: Arquímedes con balsa de troncos, témpano cargado, dos líquidos superpuestos, tubo en U con émbolo. <b>Hidrodinámica</b>: Bernoulli, continuidad, Torricelli con tanque presurizado</td></tr>
+  <tr><td>Trabajo y energía</td><td>Prácticamente en todos, casi siempre como <b>método</b> dentro de otro problema</td><td>Resorte + rozamiento, rampa curva, teorema del trabajo y la energía cinética</td></tr>
+  <tr><td>Dinámica y estática</td><td>Muy frecuente</td><td>Plano inclinado con rozamiento estático/cinético, bloque contra pared, bloques apilados con aceleración inclinada (<b>sistema no inercial</b>)</td></tr>
+  <tr><td>Movimiento circular</td><td>Frecuente</td><td>Loop con normal en el punto más alto, plataforma giratoria, tensión en el punto más bajo de un péndulo</td></tr>
+  <tr><td><b>Óptica geométrica</b></td><td><b>Baja: aparece en 3 hojas distintas</b></td><td>Dos de <b>espejos esféricos</b> (aumento, radio, distancia focal) y una de <b>refracción con lámina de caras paralelas</b> y ley de Snell — este último tipo <b>no existe en ningún parcial</b></td></tr>
+  <tr><td>Cinemática</td><td>Baja, casi siempre como inciso</td><td>Tiro oblicuo con radio de curvatura, lectura de gráfico v-t, MRUV + caída libre</td></tr>
+  <tr><td>Errores de medición</td><td><b>Una fecha</b></td><td>Error relativo porcentual del péndulo balístico contra la especificación de fábrica</td></tr>
+  <tr><td>Gravitación</td><td><b>Una fecha</b>, y solo enunciado el tema</td><td>Aparece nombrada en la recreación del 13/02/25, sin consigna recuperable</td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">La lectura peligrosa de esta tabla</div>
+  <p>«Óptica cae poco, la salteo». ▸ <b>No.</b> Óptica es el tema con <b>mejor relación puntos/hora de estudio de todo el final</b>: son dos fórmulas, una convención de signos y una marcha de rayos, se estudia en una tarde, y cuando cae te regala un problema entero de los seis. En el 1er parcial de Dibarbora 2023 <b>óptica y fluidos son 2 de 6 problemas = el 33%</b> del examen. Saltearla es tirar un problema barato para pelear uno caro.</p>
+</div>
+
+<h3>Los 13 arquetipos, con cuántas veces aparece cada uno</h3>
+
+<p>Los 66 ejercicios de parcial no son 66 problemas distintos: son <b>13 moldes</b> con los números cambiados. Este es el conteo real, y es la lista contra la que conviene autoevaluarse:</p>
+
+<table class="tbl">
+  <tr><th>#</th><th>Arquetipo</th><th>Veces</th><th>Dónde está resuelto</th></tr>
+  <tr><td>1</td><td><b>Energía con resorte + rozamiento</b> (tramos sucesivos, compresión máxima)</td><td><b>9</b></td><td><a href="#subject-fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">Trabajo y energía</a></td></tr>
+  <tr><td>2</td><td><b>Choque plástico 1D en tres etapas</b> (antes / choque / después)</td><td><b>8</b></td><td><a href="#subject-fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">Choques</a></td></tr>
+  <tr><td>3</td><td><b>Rodadura con cuerda enrollada / yo-yo</b></td><td><b>8</b></td><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">Cuerpo rígido</a></td></tr>
+  <tr><td>4</td><td><b>MAS vertical</b> (masa colgada de un resorte)</td><td><b>7</b></td><td><a href="#subject-fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">Oscilaciones</a></td></tr>
+  <tr><td>5</td><td><b>Espejo o lente + marcha de rayos</b></td><td><b>7</b></td><td><a href="#subject-fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">Óptica</a></td></tr>
+  <tr><td>6</td><td><b>Bloques con cuerda en plano inclinado</b></td><td><b>6</b></td><td><a href="#subject-fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">Dinámica</a></td></tr>
+  <tr><td>7</td><td><b>Polea con masa</b> (momento de inercia, vínculo a = αR)</td><td><b>6</b></td><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">Cuerpo rígido</a></td></tr>
+  <tr><td>8</td><td><b>Arquímedes con una tercera fuerza</b> (cuerda, resorte, carga extra)</td><td><b>5</b></td><td><a href="#subject-fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">Fluidos</a></td></tr>
+  <tr><td>9</td><td><b>Cinemática pura</b> (tiro, MRUV, gráficos)</td><td><b>4</b></td><td><a href="#subject-fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">Dinámica</a></td></tr>
+  <tr><td>10</td><td><b>Energía en rototraslación</b> (rueda que baja una rampa)</td><td><b>4</b></td><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">Cuerpo rígido</a></td></tr>
+  <tr><td>11</td><td><b>Circular vertical / loop</b></td><td><b>3</b></td><td><a href="#subject-fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">Trabajo y energía</a></td></tr>
+  <tr><td>12</td><td><b>MAS horizontal</b> (masa-resorte sobre mesa)</td><td><b>2</b></td><td><a href="#subject-fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">Oscilaciones</a></td></tr>
+  <tr><td>13</td><td><b>Rotación pura</b> (disco con torque constante)</td><td><b>1</b></td><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">Cuerpo rígido</a></td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">La cuenta que te aprueba</div>
+  Sumá los arquetipos 1, 2, 3, 4, 7 y 10: <b>42 de los 66 ejercicios</b>, casi dos tercios. Y son exactamente los que viven en tres hijas: <a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">cuerpo rígido</a>, <a href="#subject-fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">oscilaciones</a> y <a href="#subject-fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">choques</a>, más el método de <a href="#subject-fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">energía</a> que los atraviesa a todos. ▸ En un final de seis problemas, esos temas ocupan típicamente <b>tres o cuatro</b>. Ahí está tu 50%, con margen.
+</div>
+
+<h3>Las 8 hijas: qué hay en cada una</h3>
+
+<table class="tbl">
+  <tr><th>Guía</th><th>Qué contiene</th><th>Prioridad</th></tr>
+  <tr><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')"><b>Cuerpo rígido</b></a></td><td>Los 14 ejercicios de rígido del 2do parcial: rodadura sin deslizar, cilindro con cuerda enrollada, poleas con masa, energía en rototraslación, torque y aceleración angular. <b>Más lo que solo agrega el final</b>: conservación del momento angular (partícula contra disco, transición de deslizamiento a rodadura) y Steiner</td><td><b>Máxima.</b> Está en los 10 finales</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')"><b>Oscilaciones</b></a></td><td>Los 9 ejercicios de MAS (7 verticales + 2 horizontales): período, frecuencia, amplitud, velocidad en función de la elongación, energía. <b>Más</b> péndulo simple y <b>péndulo físico con Steiner</b> (barra + disco), que solo cae en final</td><td><b>Máxima.</b> 9 de 9 fechas de parcial, y casi todos los finales</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')"><b>Choques</b></a></td><td>Los 8 choques plásticos 1D en tres etapas. <b>Más</b> choque elástico, choque en 2D, explosión con resorte interno, impulso como variación de <span class="m">p</span> y péndulo balístico</td><td><b>Máxima.</b> Es el tema que más rápido se domina</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')"><b>Trabajo y energía</b></a></td><td>Los 7 ejercicios de energía del 1er parcial + los 3 de circular/loop: resorte con rozamiento, teorema del trabajo y la energía cinética, fuerzas no conservativas, rampa curva, normal en el punto más alto</td><td><b>Alta.</b> Es el <i>método</i> de ~25 de 35 ejercicios del 2do parcial</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')"><b>Dinámica</b></a></td><td>Los 9 de Newton del 1er parcial + cinemática: DCL, planos inclinados, poleas ideales, rozamiento estático vs cinético, estática. <b>Más sistemas no inerciales</b> (bloque sobre cuña acelerada, plataforma acelerada), que solo caen en final</td><td><b>Alta.</b> Es el andamiaje de todos los demás</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')"><b>Fluidos</b></a></td><td><b>Teoría escrita de cero</b> porque el resumen no la cubre: presión hidrostática, absoluta vs manométrica, Arquímedes, fuerza sobre superficies sumergidas, <b>y toda la hidrodinámica</b> — continuidad, Bernoulli, Torricelli, Venturi, tubo en U, tanque presurizado</td><td><b>Alta y urgente.</b> Cae en la mayoría de los finales <i>y</i> no tenés apunte de dónde estudiarlo</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')"><b>Óptica</b></a></td><td>Los 7 ejercicios de espejos y lentes con la convención de signos de la cátedra y la marcha de rayos. <b>Más</b> refracción, ley de Snell, prisma y lámina de caras paralelas, que solo caen en final</td><td><b>Media, pero barata.</b> Un problema entero por una tarde de estudio</td></tr>
+  <tr><td><a href="#subject-fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')"><b>Simulacros</b></a></td><td>Finales completos de 6 problemas <b>con reloj</b>, en el formato real. Más el banco de preguntas conceptuales de San Rafael, que es lo único que entrena el «diga las hipótesis»</td><td><b>Al final, y sí o sí.</b> Es donde descubrís si administrás el tiempo</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn"></div>
+<a class="back" href="#subject-fisica1-utn">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 ============ -->
+<details id="f1-s3">
+<summary><span class="num">3</span> Las convenciones de la cátedra <span class="sec-score" id="ss-fisica1-utn-3"></span></summary>
+<div class="content">
+
+<div class="key">
+  <div class="ky-t">Esto no es teoría: son las reglas de la casa</div>
+  Física I de UTN FRBA tiene un puñado de convenciones numéricas y de presentación que <b>no se negocian</b>. Usar otras no es «una variante válida»: te descuadra los resultados respecto de las claves y te hace perder puntos que no tienen nada que ver con la física. Aprendelas de memoria antes que cualquier fórmula.
+</div>
+
+<h3>Las constantes, tal como las usa la cátedra</h3>
+
+<div class="formula">
+g = 10 m/s²  ·  sen 37° = 0,6  ·  cos 37° = 0,8  ·  cos 30° = 0,866  ·  ρ<sub>agua</sub> = 1 g/cm³ = 1000 kg/m³  ·  1 Pa = 10 din/cm²
+</div>
+
+<table class="tbl">
+  <tr><th>Convención</th><th>Detalle</th></tr>
+  <tr><td><b>g = 10 m/s²</b></td><td>Siempre. Los finales lo dicen explícito en el encabezado, y el 1er parcial 2023 de Dibarbora lo imprime junto con <span class="m">δ<sub>agua</sub> = 1000 kg/m³ = 1 g/cm³</span> y <span class="m">1 litro = 1000 cm³</span></td></tr>
+  <tr><td><b>El triángulo 3-4-5</b></td><td>Cuando el ángulo es 37° (o su complemento 53°), los senos y cosenos son exactos y redondos: 0,6 y 0,8. Es la señal de que el problema fue diseñado para cerrar con números lindos</td></tr>
+  <tr><td><b>Fluidos en CGS</b></td><td>Los ejercicios de hidrostática suelen resolverse en <b>g/cm³ y cm</b> y recién al final se pasa a SI. Con <span class="m">ρ<sub>agua</sub> = 1 g/cm³</span> las cuentas salen mentalmente. Para pasar presiones: <b>1 Pa = 10 din/cm²</b></td></tr>
+  <tr><td><b>Momentos de inercia</b></td><td>Te los dan. Los tres que aparecen impresos: disco/cilindro <span class="m">I = <span class="frac"><span>1</span><span>2</span></span> m R²</span>, barra por el centro <span class="m">I = <span class="frac"><span>1</span><span>12</span></span> m L²</span>, esfera maciza <span class="m">I = <span class="frac"><span>2</span><span>5</span></span> m r²</span>. <b>Steiner no te lo dan</b>: <span class="m">I = I<sub>CM</sub> + m d²</span></td></tr>
+  <tr><td><b>Óptica: espejos</b></td><td><span class="m"><span class="frac"><span>1</span><span>x</span></span> + <span class="frac"><span>1</span><span>x'</span></span> = <span class="frac"><span>2</span><span>R</span></span></span>, con <span class="m">f = R/2</span></td></tr>
+  <tr><td><b>Óptica: lentes</b></td><td><span class="m"><span class="frac"><span>1</span><span>x</span></span> − <span class="frac"><span>1</span><span>x'</span></span> = <span class="frac"><span>1</span><span>f</span></span></span>. <b>Ojo con el signo menos</b>: la ecuación de la cátedra no es la de Sears</td></tr>
+  <tr><td><b>Óptica: signos</b></td><td><b>La coordenada x es positiva hacia la izquierda</b> (contra el sentido de la luz incidente). Esta es la convención de la cátedra y hay que respetarla o los signos de todo el problema se dan vuelta</td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Con 9,8 no cierra ninguna clave</div>
+  <p>Se verificó ejercicio por ejercicio contra las soluciones oficiales: <b>los resultados de la cátedra solo salen con g = 10</b>. Si venís del secundario o de otra facultad con 9,8 metido en el reflejo, vas a obtener números que difieren un 2% y que no coinciden con ninguna respuesta esperada — y en un problema con varias etapas encadenadas, ese 2% se amplifica.</p>
+  <p>▸ <b>Cuidado extra con el material de San Rafael</b> que aparece en las hijas: <b>ellos usan g = 9,8</b>. Todos sus ejercicios están renormalizados a 10 y sellados como «otra regional», pero si algún día agarrás uno crudo de esa fuente, acordate de cambiar la gravedad.</p>
+</div>
+
+<h3>Las tres cosas que el enunciado exige y puntúa aparte</h3>
+
+<p>Esta es la parte que más alumnos regalan. Los enunciados de Martinelli piden, con estas palabras, tres cosas <b>además</b> del resultado numérico. Y el parcial 2023 de Dibarbora, aunque cambió la redacción, pide lo mismo: «<i>Entregar todos los desarrollos, cuentas y diagramas. Todas las magnitudes deben tener sus unidades.</i>»</p>
+
+<table class="tbl">
+  <tr><th>Qué piden</th><th>Cómo se hace en dos renglones</th></tr>
+  <tr><td><b>1. Declarar el sistema de referencia</b></td><td>Dibujá los ejes y escribí dónde está el origen y hacia dónde apunta cada eje positivo. En plano inclinado: <b>x paralelo al plano, y perpendicular</b>. En caída: decí si «hacia abajo» es positivo o negativo. Dos renglones, y ya no podés equivocarte de signo después</td></tr>
+  <tr><td><b>2. Hacer el diagrama de cuerpo libre (DCL)</b></td><td><b>Uno por cada cuerpo.</b> Solo fuerzas <i>reales</i> aplicadas sobre <i>ese</i> cuerpo, con su punto de aplicación. Si hay dos cuerpos y una polea con masa, son tres DCL</td></tr>
+  <tr><td><b>3. Decir las hipótesis</b></td><td>«Cuerda inextensible y sin masa», «polea sin rozamiento en el eje», «el cuerpo rueda sin deslizar», «el resorte es ideal», «desprecio la resistencia del aire», «el fluido es incompresible y no viscoso». <b>Cada hipótesis justifica una ecuación que vas a usar</b> — por eso la puntúan</td></tr>
+</table>
+
+<div class="fig">
+<svg viewBox="0 0 470 270" style="max-width:100%;height:auto" role="img" aria-label="Diagrama de cuerpo libre de un bloque sobre plano inclinado con ejes rotados">
+  <!-- plano -->
+  <polygon points="30,230 400,230 400,110" fill="var(--surface-3)" stroke="currentColor"/>
+  <path d="M 375 230 A 40 40 0 0 0 366 213" fill="none" stroke="currentColor"/>
+  <text x="352" y="224" fill="currentColor" font-size="13">θ</text>
+  <!-- bloque -->
+  <g transform="translate(232,157) rotate(-18)">
+    <rect x="-24" y="-20" width="48" height="24" fill="var(--surface)" stroke="currentColor"/>
+    <text x="0" y="-4" fill="currentColor" font-size="12" text-anchor="middle">m</text>
+  </g>
+  <!-- ejes rotados -->
+  <g stroke="currentColor" fill="none">
+    <line x1="232" y1="149" x2="310" y2="123" stroke-dasharray="4 3"/>
+    <line x1="232" y1="149" x2="210" y2="82" stroke-dasharray="4 3"/>
+  </g>
+  <text x="316" y="122" fill="currentColor" font-size="13">x</text>
+  <text x="200" y="76" fill="currentColor" font-size="13">y</text>
+  <!-- Normal -->
+  <line x1="232" y1="149" x2="255" y2="82" stroke="currentColor"/>
+  <polygon points="255,82 250,92 261,90" fill="currentColor"/>
+  <text x="261" y="78" fill="currentColor" font-size="13">N</text>
+  <!-- Peso -->
+  <line x1="232" y1="149" x2="232" y2="222" stroke="currentColor"/>
+  <polygon points="232,226 226,214 238,214" fill="currentColor"/>
+  <text x="238" y="220" fill="currentColor" font-size="13">P = mg</text>
+  <!-- rozamiento -->
+  <line x1="232" y1="149" x2="170" y2="169" stroke="currentColor"/>
+  <polygon points="165,171 176,164 178,175" fill="currentColor"/>
+  <text x="118" y="168" fill="currentColor" font-size="13">f_roz</text>
+  <!-- componentes del peso -->
+  <line x1="232" y1="149" x2="209" y2="216" stroke="currentColor" stroke-dasharray="3 3"/>
+  <line x1="232" y1="149" x2="255" y2="155" stroke="currentColor" stroke-dasharray="3 3"/>
+  <text x="150" y="212" fill="currentColor" font-size="12">P_y = mg·cos θ</text>
+  <text x="262" y="160" fill="currentColor" font-size="12">P_x = mg·sen θ</text>
+  <text x="30" y="34" fill="currentColor" font-size="12">Hipótesis: cuerpo rígido puntual · rozamiento cinético (ya desliza)</text>
+  <text x="30" y="52" fill="currentColor" font-size="12">Sistema de referencia: origen en el bloque, x paralelo al plano</text>
+</svg>
+<div class="fig-cap">El DCL que espera la cátedra: ejes rotados y declarados, solo fuerzas reales sobre el bloque, el peso descompuesto en punteado, y las hipótesis escritas al lado. Esto solo ya puntúa.</div>
+</div>
+
+<div class="trap">
+  <div class="tr-t">El DCL no es un dibujito decorativo</div>
+  <p>Tres errores que aparecen una y otra vez en los DCL mal hechos:</p>
+  <ul>
+    <li><b>Dibujar <span class="m">ma</span> como si fuera una fuerza.</b> <span class="m">ma</span> es el <i>resultado</i> de la suma de fuerzas, no una fuerza más. En el DCL no va.</li>
+    <li><b>Dibujar la fuerza centrípeta.</b> Tampoco existe como fuerza aparte: la centrípeta <i>es</i> la resultante de las fuerzas reales que ya dibujaste (la tensión, la normal, el peso). Si la ponés además, contás dos veces.</li>
+    <li><b>Un solo DCL para todo el sistema.</b> Si hay dos cuerpos unidos por una cuerda, hacen falta <b>dos</b> DCL con la tensión apareciendo en ambos, con sentidos opuestos. Es la única manera de que la tensión sea una incógnita despejable.</li>
+  </ul>
+</div>
+
+<div class="trap">
+  <div class="tr-t">«Puede haber datos que no interesen»</div>
+  <p>Es una frase que Martinelli imprime en los enunciados, y es literal: hay <b>distractores deliberados</b>. Los tres formatos más comunes:</p>
+  <ul>
+    <li><b>Te dan <span class="m">μ<sub>e</sub></span> cuando el cuerpo ya está deslizando.</b> Si desliza, la que actúa es <span class="m">μ<sub>d</sub></span>. El <span class="m">μ<sub>e</sub></span> está ahí solo para ver si lo agarrás.</li>
+    <li><b>Te dan masas que se cancelan.</b> En un plano inclinado sin polea, la aceleración es <span class="m">a = g(sen θ − μ cos θ)</span>: la masa no aparece. Si te dieron la masa y no la usás, <b>no está mal</b> — decilo en las hipótesis y seguí.</li>
+    <li><b>Te dan un ángulo o una longitud que no entra en la cuenta.</b> Típico en fluidos: la profundidad a la que está sumergido un cuerpo no afecta el empuje.</li>
+  </ul>
+  <p>▸ <b>La reacción correcta no es forzar el dato.</b> Si te sobró un dato, escribí «el dato X no interviene porque…» y listo. Si en cambio te <i>falta</i> un dato, ahí sí volvé a leer: probablemente entendiste mal la geometría.</p>
+</div>
+
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn"></div>
+<a class="back" href="#subject-fisica1-utn">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 ============ -->
+<details id="f1-s4">
+<summary><span class="num">4</span> Las trampas de la cátedra <span class="sec-score" id="ss-fisica1-utn-4"></span></summary>
+<div class="content">
+
+<div class="key">
+  <div class="ky-t">La unidad que más rinde de toda la guía</div>
+  Estas trampas salen de leer los 66 ejercicios de parcial <b>contra sus soluciones oficiales</b> y ver dónde se bifurca el camino correcto del incorrecto. Casi ninguna es un error de cálculo: son <b>errores de planteo</b>, y el problema con los errores de planteo es que dan un número prolijo, con unidades correctas, que se ve perfectamente bien. No hay forma de darte cuenta al final. Hay que evitarlos <b>al principio</b>.
+</div>
+
+<h3>La tabla grande</h3>
+
+<table class="tbl">
+  <tr><th>#</th><th>Trampa</th><th>Lo que hacés mal</th><th>Lo correcto</th><th>Dónde te espera</th></tr>
+  <tr><td>1</td><td><b>μ<sub>e</sub> vs μ<sub>d</sub></b></td><td>Usás el coeficiente <b>estático</b> en un cuerpo que ya está en movimiento, solo porque el enunciado te dio los dos</td><td>Si el cuerpo <b>desliza</b>, va <span class="m">μ<sub>d</sub></span>. El <span class="m">μ<sub>e</sub></span> solo sirve para <b>decidir si arranca</b> o para hallar una condición límite (<span class="m">f<sub>e</sub> ≤ μ<sub>e</sub> N</span>)</td><td>Dinámica, energía, rodadura. Es la trampa más repetida del corpus</td></tr>
+  <tr><td>2</td><td><b>2L vs L en circular vertical</b></td><td>Ponés <span class="m">h = L</span> (o <span class="m">h = R</span>) para el punto más alto del rizo</td><td>El punto más alto está a <b>dos radios</b> del más bajo: <span class="m">h = 2R</span>. Con una cuerda de largo <span class="m">L</span>, el desnivel entre el punto más bajo y el más alto es <b>2L</b></td><td>Loop, péndulo que da la vuelta entera, balde de agua</td></tr>
+  <tr><td>3</td><td><b>Distancia sobre el plano vs altura</b></td><td>Usás la longitud <span class="m">d</span> recorrida <i>sobre</i> el plano inclinado como si fuera la altura en <span class="m">mgh</span></td><td><span class="m">h = d · sen θ</span>. La distancia va en el <b>trabajo del rozamiento</b> (<span class="m">W<sub>f</sub> = −μ mg cos θ · d</span>); la altura va en la <b>energía potencial</b></td><td>Todo problema de energía en plano inclinado. Es el error más caro porque da un número «razonable»</td></tr>
+  <tr><td>4</td><td><b>El brazo de la tensión en el yo-yo</b></td><td>Calculás el torque como <span class="m">T · R</span> usando el radio <b>exterior</b> del cilindro cuando la cuerda está enrollada en un <b>eje interior</b> de radio <span class="m">r</span></td><td>El brazo es la distancia del eje de giro a <b>la recta de acción de la cuerda</b>: si está enrollada en el eje de radio <span class="m">r</span>, el torque es <span class="m">T · r</span>. Y el vínculo cinemático usa <b>ese mismo r</b>: <span class="m">a<sub>cuerda</sub> = α r</span></td><td>Los 8 ejercicios de rodadura con cuerda enrollada</td></tr>
+  <tr><td>5</td><td><b>Compresión máxima vs equilibrio</b></td><td>Buscás la compresión máxima del resorte poniendo <span class="m">ΣF = 0</span></td><td>La compresión es <b>máxima donde v = 0</b>, y ahí la fuerza neta <b>no</b> es cero (el resorte empuja de vuelta). Donde <span class="m">ΣF = 0</span> es la <b>posición de equilibrio</b>, que es justo donde la <b>velocidad es máxima</b>. Son dos puntos distintos</td><td>Energía con resorte (9 ejercicios), ascensor contra paragolpes, MAS</td></tr>
+  <tr><td>6</td><td><b>Resortes en serie</b></td><td>Sumás las constantes: <span class="m">k<sub>eq</sub> = k<sub>1</sub> + k<sub>2</sub></span></td><td>En <b>serie</b>: <span class="m"><span class="frac"><span>1</span><span>k<sub>eq</sub></span></span> = <span class="frac"><span>1</span><span>k<sub>1</sub></span></span> + <span class="frac"><span>1</span><span>k<sub>2</sub></span></span></span> → el equivalente es <b>más blando que el más blando de los dos</b>. En <b>paralelo</b> sí es <span class="m">k<sub>eq</sub> = k<sub>1</sub> + k<sub>2</sub></span>. ▸ Regla para no confundirse: <b>si los dos resortes se estiran lo mismo, es paralelo; si se reparten la elongación, es serie</b></td><td>MAS, energía elástica</td></tr>
+  <tr><td>7</td><td><b>l<sub>eq</sub> vs l<sub>0</sub> en el MAS vertical</b></td><td>Medís la elongación desde la <b>longitud natural</b> del resorte y después sumás la energía potencial gravitatoria por separado, mezclando las dos referencias</td><td>La masa colgada oscila <b>alrededor de la posición de equilibrio</b> <span class="m">l<sub>eq</sub> = l<sub>0</sub> + <span class="frac"><span>mg</span><span>k</span></span></span>. Si medís <span class="m">x</span> desde <span class="m">l<sub>eq</sub></span>, la gravedad <b>desaparece de la ecuación</b> y queda un MAS puro con <span class="m">ω = √(k/m)</span>. La <b>amplitud se mide desde l<sub>eq</sub></b>, nunca desde <span class="m">l<sub>0</sub></span></td><td>Los 7 ejercicios de MAS vertical. Es la trampa que define ese arquetipo</td></tr>
+  <tr><td>8</td><td><b>Energía en el choque plástico</b></td><td>Planteás conservación de la energía mecánica durante el choque</td><td><b>En un choque plástico la energía mecánica NO se conserva.</b> Lo que se conserva es la <b>cantidad de movimiento</b>. La energía perdida (<span class="m">ΔE = E<sub>f</sub> − E<sub>i</sub> &lt; 0</span>) suele ser justamente lo que te piden calcular</td><td>Los 8 choques plásticos. Es la trampa que <b>define</b> el arquetipo de tres etapas</td></tr>
+  <tr><td>9</td><td><b>El aumento negativo en óptica</b></td><td>Escribís <span class="m">m = 3</span> cuando el enunciado dice «imagen real tres veces mayor proyectada sobre una pantalla»</td><td>Imagen <b>real</b> = imagen <b>invertida</b> = <b>aumento negativo</b>: <span class="m">m = −3</span>. Con el signo cambiado te da una distancia focal con el signo al revés y el espejo se te convierte de cóncavo en convexo</td><td>Los 7 ejercicios de espejos y lentes, y los 2 finales con espejos esféricos</td></tr>
+  <tr><td>10</td><td><b>R vs f</b></td><td>Metés el <b>radio</b> del espejo donde va la <b>distancia focal</b> (o al revés)</td><td><span class="m">f = R/2</span>. Si el enunciado te da <span class="m">R</span> y la fórmula que usás pide <span class="m">f</span>, tu resultado sale <b>al doble o a la mitad</b>. ▸ Truco de control: la fórmula <span class="m"><span class="frac"><span>1</span><span>x</span></span> + <span class="frac"><span>1</span><span>x'</span></span></span> se iguala a <span class="m"><span class="frac"><span>2</span><span>R</span></span></span> <b>o</b> a <span class="m"><span class="frac"><span>1</span><span>f</span></span></span>: el 2 y el R viajan siempre juntos</td><td>Óptica, sin excepción</td></tr>
+  <tr><td>11</td><td><b>El empuje no depende de la profundidad</b></td><td>Metés la profundidad <span class="m">h</span> en la fórmula del empuje, o creés que un cuerpo más hondo flota distinto</td><td><span class="m">E = ρ<sub>líq</sub> · V<sub>desplazado</sub> · g</span>. <b>No aparece h por ningún lado.</b> Lo que sí depende de la profundidad es la <b>presión</b> (<span class="m">p = p<sub>0</sub> + ρ g h</span>), y por eso el problema suele darte la profundidad: la necesitás para la <i>otra</i> pregunta, no para el empuje</td><td>Los 5 Arquímedes con tercera fuerza, y la hidrostática de casi todos los finales</td></tr>
+  <tr><td>12</td><td><b>El rozamiento en rodadura no es μN</b></td><td>Escribís <span class="m">f = μ N</span> para la fuerza de rozamiento de un cuerpo que rueda sin deslizar</td><td>En rodadura sin deslizamiento el rozamiento es <b>estático</b>, y el estático <b>no tiene un valor fijo</b>: es una incógnita que se despeja de las ecuaciones. <span class="m">μ<sub>e</sub> N</span> es solo su <b>cota superior</b>, y sirve para responder «¿hasta qué ángulo rueda sin patinar?»</td><td>Los 14 ejercicios de rígido y los 10 finales</td></tr>
+  <tr><td>13</td><td><b>Steiner olvidado</b></td><td>Usás <span class="m">I<sub>CM</sub></span> cuando el cuerpo gira alrededor de un eje que <b>no pasa</b> por su centro de masa</td><td><span class="m">I = I<sub>CM</sub> + m d²</span>. Aparece siempre en el <b>péndulo físico</b> (barra colgada de un extremo: <span class="m">I = <span class="frac"><span>1</span><span>3</span></span> m L²</span>, no <span class="frac"><span>1</span><span>12</span></span>) y en el disco montado lejos del pivote</td><td>Péndulo físico, rodadura resuelta desde el punto de contacto</td></tr>
+  <tr><td>14</td><td><b>El vínculo a = αR</b></td><td>Tratás la aceleración lineal y la angular como independientes, o usás el radio equivocado</td><td>Si rueda sin deslizar, <span class="m">a<sub>CM</sub> = α R</span> con <span class="m">R</span> el radio <b>de contacto</b>. Si la cuerda pasa por una polea, <span class="m">a<sub>cuerda</sub> = α R<sub>polea</sub></span>. Cada radio con su vínculo: son ecuaciones distintas</td><td>Polea con masa (6 ejercicios), cilindro + polea + bloque</td></tr>
+  <tr><td>15</td><td><b>Presión absoluta vs manométrica</b></td><td>Sumás o no sumás la atmosférica según cómo venga la mano</td><td><span class="m">p<sub>abs</sub> = p<sub>atm</sub> + p<sub>man</sub></span>. Si te piden <b>fuerza sobre una compuerta o una cara</b>, normalmente va la <b>manométrica</b> (la atmosférica actúa de los dos lados y se cancela). Si te piden «presión barométrica total», va la <b>absoluta</b></td><td>Hidrostática de final y el P5 del parcial 2023 de Dibarbora</td></tr>
+  <tr><td>16</td><td><b>No pasar de CGS a SI</b></td><td>Resolvés el problema de fluidos en g/cm³ y cm, y entregás el resultado en esas unidades</td><td>Resolver en CGS está <b>bien</b> y es lo que hace la cátedra. Pero el resultado se entrega en SI. Acordate: <b>1 Pa = 10 din/cm²</b>, y <span class="m">1 g/cm³ = 1000 kg/m³</span></td><td>Los 6 ejercicios de fluidos del 1er parcial</td></tr>
+</table>
+
+<h3>Las cinco que conviene ver dibujadas</h3>
+
+<div class="fig">
+<svg viewBox="0 0 340 300" style="max-width:100%;height:auto" role="img" aria-label="Rizo vertical de radio R mostrando que el punto más alto está a 2R de altura">
+  <circle cx="150" cy="150" r="90" fill="none" stroke="currentColor"/>
+  <line x1="40" y1="240" x2="300" y2="240" stroke="currentColor"/>
+  <circle cx="150" cy="60" r="9" fill="var(--surface-3)" stroke="currentColor"/>
+  <circle cx="150" cy="240" r="9" fill="var(--surface-3)" stroke="currentColor"/>
+  <!-- cota 2R -->
+  <line x1="270" y1="60" x2="270" y2="240" stroke="currentColor"/>
+  <polygon points="270,60 265,72 275,72" fill="currentColor"/>
+  <polygon points="270,240 265,228 275,228" fill="currentColor"/>
+  <text x="278" y="155" fill="currentColor" font-size="14" font-weight="bold">2R</text>
+  <!-- radio -->
+  <line x1="150" y1="150" x2="240" y2="150" stroke="currentColor" stroke-dasharray="4 3"/>
+  <text x="188" y="144" fill="currentColor" font-size="13">R</text>
+  <!-- fuerzas arriba -->
+  <line x1="150" y1="60" x2="150" y2="92" stroke="currentColor"/>
+  <polygon points="150,96 145,84 155,84" fill="currentColor"/>
+  <text x="158" y="82" fill="currentColor" font-size="12">N + P → centro</text>
+  <text x="40" y="30" fill="currentColor" font-size="12">En el punto más alto: N + mg = m v² / R</text>
+  <text x="40" y="48" fill="currentColor" font-size="12">Condición límite para no caer: N = 0 → v²ₘᵢₙ = g R</text>
+  <text x="40" y="272" fill="currentColor" font-size="12">La energía se plantea con h = 2R, NO con h = R</text>
+</svg>
+<div class="fig-cap">Trampa 2. El desnivel del rizo es <b>2R</b>, no R. Y en el punto más alto la normal apunta <i>hacia el centro</i>, es decir hacia abajo: se suma al peso, no se resta.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 420 220" style="max-width:100%;height:auto" role="img" aria-label="Plano inclinado mostrando la diferencia entre la distancia recorrida sobre el plano y la altura ganada">
+  <polygon points="40,180 380,180 380,60" fill="var(--surface-3)" stroke="currentColor"/>
+  <path d="M 350 180 A 40 40 0 0 0 340 163" fill="none" stroke="currentColor"/>
+  <text x="326" y="174" fill="currentColor" font-size="13">θ</text>
+  <rect x="160" y="116" width="34" height="20" fill="var(--surface)" stroke="currentColor" transform="rotate(-19.4 177 126)"/>
+  <!-- d sobre el plano -->
+  <line x1="60" y1="173" x2="200" y2="124" stroke="currentColor" stroke-width="2"/>
+  <polygon points="204,122 194,118 196,129" fill="currentColor"/>
+  <text x="104" y="164" fill="currentColor" font-size="14" font-weight="bold">d</text>
+  <!-- h vertical -->
+  <line x1="200" y1="124" x2="200" y2="173" stroke="currentColor" stroke-dasharray="4 3"/>
+  <line x1="60" y1="173" x2="200" y2="173" stroke="currentColor" stroke-dasharray="4 3"/>
+  <text x="207" y="154" fill="currentColor" font-size="14" font-weight="bold">h</text>
+  <text x="40" y="30" fill="currentColor" font-size="13">h = d · sen θ</text>
+  <text x="40" y="50" fill="currentColor" font-size="12">Energía potencial: m g h     Trabajo del rozamiento: − μ m g cos θ · d</text>
+  <text x="40" y="206" fill="currentColor" font-size="12">La MISMA d aparece en las dos ecuaciones, pero solo una lleva el sen θ</text>
+</svg>
+<div class="fig-cap">Trampa 3. El rozamiento come energía a lo largo de <span class="m">d</span>; la gravedad la devuelve a lo largo de <span class="m">h</span>. Confundirlas te sobreestima la energía potencial en un factor <span class="m">1/sen θ</span>.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 400 260" style="max-width:100%;height:auto" role="img" aria-label="Cilindro con cuerda enrollada en un eje interior de radio r, mostrando el brazo del torque">
+  <line x1="20" y1="220" x2="380" y2="220" stroke="currentColor"/>
+  <circle cx="150" cy="130" r="90" fill="var(--surface-3)" stroke="currentColor"/>
+  <circle cx="150" cy="130" r="38" fill="var(--surface)" stroke="currentColor"/>
+  <circle cx="150" cy="130" r="3" fill="currentColor"/>
+  <!-- radios -->
+  <line x1="150" y1="130" x2="150" y2="40" stroke="currentColor" stroke-dasharray="4 3"/>
+  <text x="156" y="66" fill="currentColor" font-size="13">R</text>
+  <line x1="150" y1="130" x2="112" y2="130" stroke="currentColor"/>
+  <text x="118" y="146" fill="currentColor" font-size="13">r</text>
+  <!-- cuerda desde el eje interior -->
+  <line x1="112" y1="130" x2="112" y2="30" stroke="currentColor" stroke-width="2"/>
+  <polygon points="112,26 107,38 117,38" fill="currentColor"/>
+  <text x="70" y="26" fill="currentColor" font-size="13" font-weight="bold">T</text>
+  <!-- indicacion brazo -->
+  <line x1="112" y1="96" x2="150" y2="96" stroke="currentColor" stroke-dasharray="3 3"/>
+  <text x="158" y="100" fill="currentColor" font-size="12">brazo = r  →  τ = T · r</text>
+  <text x="20" y="248" fill="currentColor" font-size="12">Vínculo de la cuerda: a_cuerda = α · r      Vínculo de rodadura: a_CM = α · R</text>
+  <text x="230" y="150" fill="currentColor" font-size="12">contacto con el piso:</text>
+  <text x="230" y="168" fill="currentColor" font-size="12">rozamiento estático f</text>
+  <text x="230" y="186" fill="currentColor" font-size="12">(incógnita, no μN)</text>
+</svg>
+<div class="fig-cap">Trampas 4, 12 y 14 juntas, que es como aparecen en el examen. Dos radios distintos, dos vínculos distintos, y un rozamiento que es incógnita.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 400 280" style="max-width:100%;height:auto" role="img" aria-label="Resorte vertical mostrando longitud natural, posición de equilibrio y oscilación">
+  <line x1="30" y1="30" x2="370" y2="30" stroke="currentColor"/>
+  <!-- resorte 1: natural -->
+  <polyline points="80,30 80,50 66,58 94,72 66,86 94,100 66,114 80,122 80,140" fill="none" stroke="currentColor"/>
+  <line x1="40" y1="140" x2="130" y2="140" stroke="currentColor" stroke-dasharray="4 3"/>
+  <text x="30" y="158" fill="currentColor" font-size="13">l₀</text>
+  <text x="46" y="176" fill="currentColor" font-size="11">natural</text>
+  <!-- resorte 2: equilibrio -->
+  <polyline points="200,30 200,54 186,66 214,84 186,102 214,120 186,138 200,150 200,170" fill="none" stroke="currentColor"/>
+  <rect x="180" y="170" width="40" height="26" fill="var(--surface-3)" stroke="currentColor"/>
+  <text x="200" y="188" fill="currentColor" font-size="12" text-anchor="middle">m</text>
+  <line x1="150" y1="170" x2="260" y2="170" stroke="currentColor"/>
+  <text x="264" y="166" fill="currentColor" font-size="12">l_eq = l₀ + mg/k</text>
+  <line x1="140" y1="140" x2="140" y2="170" stroke="currentColor"/>
+  <polygon points="140,140 136,150 144,150" fill="currentColor"/>
+  <polygon points="140,170 136,160 144,160" fill="currentColor"/>
+  <text x="98" y="160" fill="currentColor" font-size="11">mg/k</text>
+  <!-- oscilacion -->
+  <line x1="300" y1="130" x2="300" y2="210" stroke="currentColor" stroke-dasharray="3 3"/>
+  <line x1="286" y1="170" x2="330" y2="170" stroke="currentColor"/>
+  <text x="336" y="174" fill="currentColor" font-size="12">x = 0</text>
+  <line x1="300" y1="170" x2="300" y2="130" stroke="currentColor"/>
+  <polygon points="300,126 296,138 304,138" fill="currentColor"/>
+  <line x1="300" y1="170" x2="300" y2="210" stroke="currentColor"/>
+  <polygon points="300,214 296,202 304,202" fill="currentColor"/>
+  <text x="308" y="132" fill="currentColor" font-size="12">+A</text>
+  <text x="308" y="216" fill="currentColor" font-size="12">−A</text>
+  <text x="30" y="242" fill="currentColor" font-size="12">Midiendo x desde l_eq, la gravedad desaparece: m ẍ = − k x  →  ω = √(k/m)</text>
+  <text x="30" y="262" fill="currentColor" font-size="12">La amplitud A se mide desde l_eq, NUNCA desde l₀</text>
+</svg>
+<div class="fig-cap">Trampa 7. El MAS vertical tiene exactamente el mismo <span class="m">ω</span> que el horizontal: la gravedad solo corre el centro de oscilación, no cambia la frecuencia.</div>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 400 230" style="max-width:100%;height:auto" role="img" aria-label="Dos cuerpos idénticos sumergidos a distinta profundidad reciben el mismo empuje">
+  <rect x="30" y="30" width="340" height="170" fill="var(--surface-3)" stroke="currentColor"/>
+  <line x1="30" y1="46" x2="370" y2="46" stroke="currentColor" stroke-dasharray="5 4"/>
+  <!-- cuerpo poco profundo -->
+  <rect x="90" y="70" width="46" height="34" fill="var(--surface)" stroke="currentColor"/>
+  <line x1="113" y1="70" x2="113" y2="34" stroke="currentColor"/>
+  <polygon points="113,30 108,42 118,42" fill="currentColor"/>
+  <text x="122" y="36" fill="currentColor" font-size="13">E</text>
+  <text x="64" y="122" fill="currentColor" font-size="11">h₁ chica</text>
+  <!-- cuerpo profundo -->
+  <rect x="250" y="146" width="46" height="34" fill="var(--surface)" stroke="currentColor"/>
+  <line x1="273" y1="146" x2="273" y2="110" stroke="currentColor"/>
+  <polygon points="273,106 268,118 278,118" fill="currentColor"/>
+  <text x="282" y="112" fill="currentColor" font-size="13">E</text>
+  <text x="222" y="198" fill="currentColor" font-size="11">h₂ grande</text>
+  <text x="150" y="90" fill="currentColor" font-size="12">mismo V</text>
+  <text x="150" y="108" fill="currentColor" font-size="12">mismo E</text>
+  <text x="30" y="222" fill="currentColor" font-size="12">E = ρ_líq · V_desplazado · g   ·   la presión sí crece: p = p₀ + ρ g h</text>
+</svg>
+<div class="fig-cap">Trampa 11. Mismo volumen desplazado, mismo empuje, esté donde esté. La profundidad cambia la presión sobre las caras, no la resultante vertical.</div>
+</div>
+
+<div class="trap">
+  <div class="tr-t">Bonus: las tres trampas de presentación que no son de física</div>
+  <ul>
+    <li><b>Entregar sin unidades.</b> El enunciado de Dibarbora lo dice textual: «<i>Todas las magnitudes deben tener sus unidades</i>». Un número pelado puntúa menos que el mismo número con «m/s» al lado.</li>
+    <li><b>No declarar el sistema de referencia y después pelearte con los signos.</b> El 90% de los errores de signo en energía y en MAS vienen de no haber escrito dos renglones al principio.</li>
+    <li><b>Dejar seis problemas empezados.</b> La grilla del final tiene un casillero por problema, no por inciso. <b>Terminá tres.</b></li>
+  </ul>
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn"></div>
+<a class="back" href="#subject-fisica1-utn">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 ============ -->
+<details id="f1-s5">
+<summary><span class="num">5</span> Qué NO entra (y qué de eso sí vuelve en el final) <span class="sec-score" id="ss-fisica1-utn-5"></span></summary>
+<div class="content">
+
+<div class="key">
+  <div class="ky-t">Para qué sirve esta unidad: para no perder tiempo</div>
+  El resumen de 52 páginas que tenés desarrolla temas que <b>en 84 exámenes analizados no cayeron nunca</b>. Estudiarlos no está mal, pero si te queda poco tiempo, son los primeros que se sacan de la lista. Ojo: hay temas que el resumen <i>casi no toca</i> y que <b>sí caen en el final</b> — esos están en la segunda tabla y son la prioridad opuesta.
+</div>
+
+<h3>Lo que el resumen desarrolla y no cayó nunca</h3>
+
+<table class="tbl">
+  <tr><th>Tema</th><th>Por qué no cae</th><th>Veredicto</th></tr>
+  <tr><td><b>Mediciones y cifras significativas</b> (como capítulo)</td><td>Ningún ejercicio del corpus FRBA pide «exprese con la cantidad correcta de cifras significativas» ni evalúa el capítulo de mediciones como tal</td><td><b>Salteable</b> — pero leé el renglón de errores en la tabla de abajo, que es otra cosa</td></tr>
+  <tr><td><b>Potencia</b> (<span class="m">P = W/t</span>, <span class="m">P = F·v</span>)</td><td>Cero apariciones. La cátedra pregunta trabajo y energía, nunca la tasa</td><td><b>Salteable</b></td></tr>
+  <tr><td><b>Centro de masa</b> (cálculo de la posición del CM de un sistema)</td><td>Cero apariciones como consigna. El CM aparece <i>usado</i> (velocidad del CM, aceleración del CM), pero nunca hay que <i>localizarlo</i></td><td><b>Salteable el cálculo</b>, no el concepto</td></tr>
+  <tr><td><b>Radio de giro</b></td><td>Cero apariciones</td><td><b>Salteable</b></td></tr>
+  <tr><td><b>Momento de inercia por integración</b></td><td><b>El enunciado te los da como dato.</b> No hay un solo ejercicio que pida deducir <span class="m">I</span> integrando</td><td><b>Salteable.</b> Pero <b>Steiner sí entra</b>, y ese no te lo dan</td></tr>
+  <tr><td><b>Espejo plano</b></td><td>Los 7 ejercicios de óptica del corpus son de espejos <b>esféricos</b> y lentes. El plano no aparece</td><td><b>Salteable</b></td></tr>
+  <tr><td><b>Oscilaciones amortiguadas y forzadas</b>, resonancia</td><td>Los 9 ejercicios de oscilaciones son <b>MAS puro</b>, sin amortiguamiento</td><td><b>Salteable</b></td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">«Salteable» no es «prohibido»</div>
+  <p>Esta lista sale de un corpus de <b>84 exámenes reales</b>, que es mucho, pero no es infinito — y tiene un <b>agujero de cinco años (2018-2022)</b> donde no hay ni una hoja de FRBA. Si te sobra tiempo, dale una leída conceptual a potencia y a centro de masa: son dos páginas cada uno. ▸ Lo que <b>sí</b> podés dar por seguro es que no vas a tener que integrar para sacar un momento de inercia: eso está escrito en el encabezado del propio final.</p>
+</div>
+
+<h3>Y ahora al revés: lo que el parcial no toca pero el final sí</h3>
+
+<p>Aproximadamente el <b>40% del final</b> son temas que <b>ningún parcial de Martinelli toca</b>. Si estudiás solo con los parciales, te falta esto — y es justo lo que el programa de San Rafael cubre, por eso ese material entra en las hijas:</p>
+
+<table class="tbl">
+  <tr><th>Tema</th><th>Cómo aparece en los finales</th><th>Dónde estudiarlo</th></tr>
+  <tr><td><b>Conservación del momento angular</b></td><td>Masa que gira atada a una soga que pasa por un agujero y se acorta el radio (final 2/3/23); partícula que choca contra un disco con varilla y le invierte el giro; transición de deslizamiento puro a rodadura pura</td><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">Cuerpo rígido</a></td></tr>
+  <tr><td><b>Choque elástico y choque en 2D</b></td><td>Choque en dos dimensiones sobre superficie sin roce con variación de energía cinética; choque elástico bala-péndulo; explosión de dos carritos con un resorte comprimido entre ellos</td><td><a href="#subject-fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">Choques</a></td></tr>
+  <tr><td><b>Péndulo físico y Steiner</b></td><td>«Con una barra y un disco se construye un dispositivo para un reloj de péndulo antiguo» — hay que armar <span class="m">I</span> total con Steiner para los dos cuerpos y sacar el período</td><td><a href="#subject-fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">Oscilaciones</a></td></tr>
+  <tr><td><b>Sistemas no inerciales</b></td><td>Bloque sobre cuña acelerada; plataforma acelerada con polea y dos cuerpos ligados, pidiendo la <b>aceleración máxima sin deslizamiento</b>; bloques apilados con aceleración inclinada</td><td><a href="#subject-fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">Dinámica</a></td></tr>
+  <tr><td><b>Hidrodinámica</b> (Bernoulli, Torricelli, Venturi, tubo en U)</td><td>Tanque presurizado del que sale un chorro y hay que calcular el <b>alcance</b> (Torricelli + tiro horizontal); continuidad con cambio de sección y de cota; tubo en U con émbolo y resorte</td><td><a href="#subject-fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">Fluidos</a> · <b>teoría escrita de cero</b></td></tr>
+  <tr><td><b>Gravitación</b></td><td>Aparece nombrada en un final (la recreación del 13/02/25) sin consigna recuperable. <b>El resumen tampoco la cubre.</b> Es el tema con menos evidencia de todos</td><td><a href="#subject-fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">Dinámica</a> · nivel básico</td></tr>
+  <tr><td><b>Errores de medición</b></td><td>«Calcule el error relativo porcentual y compare con la especificación de fábrica» — dentro del problema del péndulo balístico. <b>No es el capítulo de mediciones: es propagación de errores aplicada a un resultado que ya calculaste</b></td><td><a href="#subject-fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')">Simulacros</a></td></tr>
+  <tr><td><b>Óptica de refracción</b>: Snell, prisma, lámina de caras paralelas</td><td>«Calcule el corrimiento lateral del rayo al atravesar la lámina» — <b>no existe en ningún parcial</b>, y en un final es el problema 1</td><td><a href="#subject-fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">Óptica</a></td></tr>
+  <tr><td><b>Flotación cargada</b> (balsa, témpano, oso)</td><td>«¿Cuántos troncos hacen falta como mínimo para mantener a flote a tres niños de 40 kg?»; placa de hielo con carga adicional; flotación entre dos líquidos superpuestos</td><td><a href="#subject-fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">Fluidos</a></td></tr>
+</table>
+
+<div class="key">
+  <div class="ky-t">La conclusión de esta unidad, en una línea</div>
+  <b>Sacá de la lista</b>: potencia, radio de giro, espejo plano, amortiguadas, cálculo del CM, integrar momentos de inercia. <b>Meté en la lista</b>: momento angular, choque elástico y 2D, péndulo físico con Steiner, no inerciales, Bernoulli y Torricelli, Snell con lámina. ▸ Son cambios de lista que valen, cada uno, un problema entero del final.
+</div>
+
+<div class="quiz-wrap" data-qz="5" data-subject="fisica1-utn"></div>
+<a class="back" href="#subject-fisica1-utn">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 6 ============ -->
+<details id="f1-s6">
+<summary><span class="num">6</span> Plan de estudio: en qué orden, y por qué <span class="sec-score" id="ss-fisica1-utn-6"></span></summary>
+<div class="content">
+
+<div class="key">
+  <div class="ky-t">El criterio: peso real, no orden del programa</div>
+  El programa de la materia va en el orden en que se enseña. Vos no necesitás ese orden: necesitás el orden que <b>maximiza puntos por hora</b>. Y ese orden lo dicta la tabla de frecuencias de la unidad 2. Va de mayor a menor peso, con una sola excepción al final (fluidos, que va tarde pero <b>no se puede saltear</b>).
+</div>
+
+<h3>El orden</h3>
+
+<table class="tbl">
+  <tr><th>Paso</th><th>Qué</th><th>Por qué ahí</th><th>Señal de que ya lo tenés</th></tr>
+  <tr><td><b>1</b></td><td><a href="#subject-fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')"><b>Cuerpo rígido</b></a><br><span class="muted">rodadura · polea con masa · rototraslación · momento angular</span></td><td><b>Está en los 10 finales</b>, y muchas veces en dos problemas del mismo examen. Es 14 de 35 del 2do parcial. No hay ningún otro tema con este peso, y es el <b>más largo de aprender</b>: por eso va primero, cuando tenés la cabeza fresca y el calendario abierto</td><td>Ante un cilindro con cuerda enrollada, escribís las <b>tres</b> ecuaciones (Newton en el CM, torque respecto del CM, vínculo <span class="m">a = αR</span>) sin pensar cuál es cuál</td></tr>
+  <tr><td><b>2</b></td><td><a href="#subject-fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')"><b>Oscilaciones</b></a> y <a href="#subject-fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')"><b>choques</b></a></td><td>Son <b>los dos temas más garantizados después de rígido</b> (MAS: 9 de 9 fechas; choque plástico: 8 de 9) y a la vez <b>los más rápidos de dominar</b>: cada uno es esencialmente un molde con dos o tres variantes. Mejor relación puntos/hora de todo el final</td><td>MAS: sacás <span class="m">ω</span>, <span class="m">T</span>, <span class="m">A</span> y <span class="m">v(x)</span> de un vertical sin dudar dónde está <span class="m">l<sub>eq</sub></span>. Choques: separás sin pensarlo las <b>tres etapas</b> y sabés en cuál se conserva <span class="m">p</span> y en cuál <span class="m">E</span></td></tr>
+  <tr><td><b>3</b></td><td><a href="#subject-fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')"><b>Trabajo y energía</b></a> y <a href="#subject-fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')"><b>dinámica</b></a></td><td>No son solo temas: son <b>el método</b> con el que se resuelven los otros. <b>~25 de los 35 ejercicios del 2do parcial usan energía como herramienta.</b> Van tercero porque los pasos 1 y 2 ya te obligaron a usarlos y llegás con medio camino hecho</td><td>Elegís sin dudar entre <b>Newton</b> (cuando piden aceleración o fuerza) y <b>energía</b> (cuando piden velocidad o distancia), y sabés cuándo <b>no</b> podés usar energía (choque plástico)</td></tr>
+  <tr><td><b>4</b></td><td><a href="#subject-fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')"><b>Óptica</b></a></td><td>Cae poco en final (3 hojas de 10) pero <b>es baratísima</b>: dos fórmulas, una convención de signos y una marcha de rayos. Se cierra en una tarde y te compra un problema entero</td><td>Dado un espejo, sacás <span class="m">x'</span> y el aumento con el signo correcto, y <b>dibujás la marcha de rayos</b> sin copiarla</td></tr>
+  <tr><td><b>5</b></td><td><a href="#subject-fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')"><b>Fluidos</b></a></td><td><b>Va último pero es obligatorio</b>, y ojo: <b>hay que estudiarlo desde cero</b>. El resumen de 52 páginas <b>no cubre fluidos</b>, que es justamente el tema que cae en 6 de 8 primeros parciales y en la mayoría de los finales. La teoría está escrita de cero en la hija: hidrostática completa <b>y</b> toda la hidrodinámica</td><td>Resolvés un Arquímedes con tercera fuerza en CGS y lo pasás a SI; y de un tanque presurizado sacás la velocidad de salida con Bernoulli y después el alcance del chorro con tiro horizontal</td></tr>
+  <tr><td><b>6</b></td><td><a href="#subject-fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')"><b>Simulacros</b></a></td><td>Cuando ya tenés los cinco anteriores. Acá no aprendés física: aprendés a <b>elegir tres problemas y administrar el tiempo</b>, que es la habilidad que decide el final</td><td>Hacés seis problemas de corrido, elegís bien tus tres, y te sobra tiempo para revisar unidades</td></tr>
+</table>
+
+<div class="trap">
+  <div class="tr-t">Fluidos: la trampa del plan de estudio</div>
+  <p>Es el único tema donde <b>tu material de teoría te miente por omisión</b>. El resumen que tenés es de UTN <b>FRGP</b> (otra regional) y <b>no cubre fluidos ni gravitación</b>. Si armás el plan de estudio mirando el índice del resumen, fluidos directamente no aparece — y es un tema que cae en 6 de cada 8 primeros parciales y en la mayoría de los finales, entre hidrostática e hidrodinámica.</p>
+  <p>▸ Por eso la hija de <a href="#subject-fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">fluidos</a> es la única que tiene la <b>teoría escrita de cero</b>. Reservale tiempo de verdad: no es «repasar», es aprender el tema.</p>
+</div>
+
+<div class="key">
+  <div class="ky-t">La aritmética del plan</div>
+  Pasos 1 + 2 = <b>cuerpo rígido, oscilaciones y choques</b>. Con eso solo, en un final típico de seis problemas, tenés <b>tres o cuatro</b> a tiro. Es literalmente el 50%. ▸ Los pasos 3 a 5 no son «lo que sobra»: son <b>el margen</b>. Porque en el examen real vas a encontrar que uno de tus tres seguros vino con una vuelta rara, y ahí necesitás tener un cuarto y un quinto en la manga.
+</div>
+
+<h3>Un recordatorio final sobre el material</h3>
+
+<p>Todo lo que vas a leer en las 8 hijas viene con <b>procedencia visible</b>: cada ejercicio dice de dónde salió («1er parcial 2013, cátedra Martinelli» o «Final UTN.BA 14/02/24»). Eso no es adorno: es para que sepas cuánto pesa cada cosa.</p>
+
+<table class="tbl">
+  <tr><th>Si el ejercicio dice…</th><th>Significa</th></tr>
+  <tr><td><b>«Parcial, cátedra Martinelli 2009-2017»</b></td><td>Tiene <b>solución oficial</b> contra la cual está verificado. Es el material más sólido. Pero el <b>formato</b> de ese parcial no es el de tu final</td></tr>
+  <tr><td><b>«Final UTN.BA» con fecha</b></td><td>Es el examen que rendís, en su formato real. Pero <b>no hay resolución oficial</b>: la resolución está hecha desde cero y contrastada con el método de las claves de Martinelli</td></tr>
+  <tr><td><b>«dato reconstruido»</b> en gris</td><td>El original estaba ilegible (tapado por una firma, tachado a mano, o es la recreación de memoria del 13/02/25). El dato es coherente pero <b>no es el original</b>. La física del ejercicio vale igual; el número puede no ser el que salió ese día</td></tr>
+  <tr><td><b>«UTN San Rafael»</b></td><td>Otra regional. Entra porque cubre los temas que solo caen en final. <b>Ellos usan g = 9,8</b>: en esta guía está renormalizado a 10</td></tr>
+  <tr><td><b>«1er parcial 2023, Prof. Dibarbora — FRBA»</b></td><td>El puente entre los dos mundos: temario de Martinelli, formato de final</td></tr>
+</table>
+
+<div class="quiz-wrap" data-qz="6" data-subject="fisica1-utn"></div>
+<a class="back" href="#subject-fisica1-utn">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'fisica1-utn';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS FÍSICA I ============
+// Física I · UTN FRBA — guía madre del FINAL.
+// Fuentes: 66 ejercicios de parcial de la cátedra Martinelli (2009-2017) con sus 16 hojas de
+// solución oficial · 21 fotos de final de UTN.BA 2022-2025 (~10 finales distintos) ·
+// 1er parcial 2023 del Prof. Dibarbora (FRBA) · ejercicio suelto de parcial 2025 ·
+// resumen teórico de F. Cañete (UTN FRGP) · 18 exámenes de UTN San Rafael.
+// Análisis completo en _fisica1_ingest/ESTADO.md. Sin registerReveals: los ejercicios resueltos
+// viven en las 8 hijas.
+
+/* ============ UNIDAD 1 · El formato del final y de dónde sale el material ============ */
+registerExercises('fisica1-utn', '1', [
+
+  {st: '¿Cómo es exactamente el final de Física I de UTN.BA y cómo se aprueba?',
+   opts: [
+     'Cuatro problemas repartidos en bloques A y B, y hay que sacar el 50% de cada bloque por separado',
+     'Seis problemas de desarrollo más un multiple choice de teoría que es eliminatorio',
+     'Seis problemas sueltos numerados 1 a 6, sin bloques, todo desarrollo, y se aprueba con el 50% del examen',
+     'Cuatro problemas de desarrollo y un coloquio oral obligatorio sobre las hipótesis'
+   ], c: 2,
+   ex: 'Seis problemas corridos, numerados 1 a 6, cada uno con uno o dos incisos, <b>100% desarrollo</b>, y el criterio es el 50% <b>del examen</b>: no hay parte eliminatoria. Eso significa que <b>tres problemas enteros y bien resueltos te aprueban</b>, y que vos elegís cuáles tres. Es una libertad enorme que el formato de parcial no te daba. ▸ Por qué las otras: la <b>a</b> es el formato de los <i>parciales</i> de la cátedra Martinelli (bloques A1/A2 y B1/B2 con «50% de cada grupo», y en 2013 llegó a exigir «50% de cada problema») — es la cantera de donde salen los ejercicios, no el examen que rendís; la <b>b</b> inventa un multiple choice que no existe en ninguna de las 21 fotos de final; la <b>d</b> inventa un oral: ninguna hoja de final menciona instancia oral, y de hecho ni siquiera declara la duración del examen.'},
+
+  {st: 'El encabezado del final imprime los momentos de inercia como dato: «Utilice, donde lo necesite, I(CM) disco = m R²/2, I(CM) barra = m L²/12». ¿Qué conclusión práctica te deja eso para estudiar?',
+   opts: [
+     'Que nadie te va a pedir deducir un momento de inercia por integración, pero Steiner sí lo tenés que saber, porque ese no te lo dan',
+     'Que el cuerpo rígido pierde peso en el final, porque si te dan el dato el tema es más fácil',
+     'Que te dan también el teorema de los ejes paralelos ya aplicado al cuerpo del problema',
+     'Que conviene memorizar igual todos los momentos de inercia porque el encabezado a veces falta'
+   ], c: 0,
+   ex: 'El dato impreso te dice qué <b>no</b> van a preguntarte: no hay un solo ejercicio en todo el corpus que pida obtener <span class="m">I</span> integrando. Lo que sí te van a pedir es <b>usarlo bien</b>, y ahí aparece lo que el encabezado <i>no</i> te regala: <b>Steiner</b>, <span class="m">I = I<sub>CM</sub> + m d²</span>, que necesitás cada vez que el eje de giro no pasa por el centro de masa (péndulo físico con barra colgada de un extremo, disco montado lejos del pivote, rodadura resuelta desde el punto de contacto). ▸ Por qué las otras: la <b>b</b> lee al revés la evidencia — el cuerpo rígido aparece en <b>los 10 finales</b>, es el tema más pesado del examen, y que te den el <span class="m">I</span> es justamente la señal de que lo van a usar; la <b>c</b> es falsa: Steiner lo aplicás vos; la <b>d</b> es memorizar de más — el encabezado los trae, y cuando no, el propio enunciado del problema mete la esfera (<span class="m">I = 2/5 m r²</span>) o el cilindro adentro del texto.'},
+
+  {st: 'Vos no cursaste con Martinelli, pero la guía está llena de ejercicios de sus parciales 2009-2017. ¿Cómo hay que leerlos?',
+   opts: [
+     'Son exactamente el examen que vas a rendir: mismo formato, mismo criterio de aprobación',
+     'No sirven, porque son de otra cátedra y de hace más de diez años',
+     'Sirven solo si terminás rindiendo el 2do parcial, no para el final',
+     'Son la cantera de arquetipos y la única parte del material con solución oficial, pero su formato (4 problemas en bloques) no es el de tu final'
+   ], c: 3,
+   ex: 'A tu curso le pasaron esos parciales con la indicación de estudiar sobre ellos, y con razón: los 66 ejercicios no son 66 problemas distintos sino <b>13 moldes</b> con los números cambiados, y son <b>lo único del material que viene con clave de cátedra</b>. Cuando leas «2do parcial 2013, cátedra Martinelli», traducilo como <b>«este tipo de problema»</b>, nunca como «así te lo van a tomar». ▸ Por qué las otras: la <b>a</b> es el error de lectura más caro — Martinelli tomaba 4 problemas en bloques con 50% de cada grupo, tu final son 6 sueltos con 50% del total; la <b>b</b> tira a la basura la parte más sólida del material: el temario es estable y la física no caducó; la <b>c</b> ignora que <b>el final junta las dos mitades</b> — óptica, fluidos, Newton y energía viven en el 1er parcial, y también caen en el final.'},
+
+  {st: 'Das vuelta la hoja del final y ves los seis problemas. ¿Cuál es la primera movida?',
+   opts: [
+     'Arrancar por el 1 y bajar en orden: la numeración va de menor a mayor dificultad',
+     'Leer los seis enunciados completos antes de escribir nada, marcar tus tres seguros y resolver esos primero',
+     'Empezar por el 6 y subir, porque el último suele ser el más corto',
+     'Hacer los seis en paralelo, planteando las ecuaciones de todos y resolviéndolas después'
+   ], c: 1,
+   ex: 'La numeración es <b>arbitraria</b>, no creciente en dificultad: en el final del <b>2/3/2023</b> el problema 1 es conservación del momento angular (de lo más fino que hay en todo el examen) y el 3 es un plano inclinado con polea con masa, mucho más mecánico. Una pasada de lectura de los seis te cuesta tres minutos y te compra el 50%: identificás cuáles caen en tus temas fuertes y los resolvés con la cabeza fresca. ▸ Por qué las otras: la <b>a</b> te puede hacer quemar 25 minutos en el problema más difícil del examen y llegar sin aire a los tres que sí te salían; la <b>c</b> es la misma apuesta ciega, invertida; la <b>d</b> suena ordenada pero es la peor de todas — <b>medio problema puntúa mucho menos de lo que creés</b> (ver la pregunta de la grilla), así que dispersarte en seis planteos te deja seis medios.'},
+
+  {st: 'En los finales corregidos que hay en el material, la grilla de arriba tiene un casillero por problema (1 a 6) con una letra adentro (B, R, M, B/R). ¿Qué consecuencia táctica tiene eso?',
+   opts: [
+     'Ninguna: la nota igual sale de sumar los puntos parciales de cada inciso',
+     'Que las letras se convierten a número dividiendo por seis, así que da lo mismo cómo repartas el esfuerzo',
+     'Que hay que hacer los seis sí o sí, porque un casillero vacío es una M automática',
+     'Que conviene terminar tres problemas enteros antes que dejar seis empezados por la mitad, porque el corrector califica el problema completo'
+   ], c: 3,
+   ex: 'En los parciales de Martinelli 2011-2012 la grilla llegaba a tener casillero por inciso a) y b). En el final <b>ese desglose se perdió</b>: hay un casillero por problema y adentro va una calificación cualitativa. Con esa grilla, un problema planteado a medias no se lleva medio casillero — se lleva una R o una M. Por eso la aritmética del 50% se cumple mejor con <b>tres completos</b> que con seis a medio hacer. ▸ Por qué las otras: la <b>a</b> describe un esquema de puntos por inciso que en el final no existe (sí aparece, en cambio, en el ejercicio suelto de <b>2025</b>, que ya puntúa por ítem con 3 p, pero eso es un parcial); la <b>b</b> se inventa una conversión que no está en ninguna hoja; la <b>c</b> es el consejo opuesto al correcto: dejar tres en blanco y tres impecables es exactamente la estrategia que aprueba.'},
+
+  {st: 'Hacés un ejercicio de Martinelli, comparás con la clave oficial y no te da igual. ¿Cuál es la lectura correcta?',
+   opts: [
+     'Puede ser la clave: hay tres erratas detectadas en las soluciones oficiales, y los finales directamente no tienen resolución oficial',
+     'Si no coincide con la clave, seguro te equivocaste vos: la clave de cátedra es infalible',
+     'Los finales sí traen resolución oficial, así que verificá contra esa y listo',
+     'No hay ninguna solución oficial en todo el material: todo está resuelto desde cero'
+   ], c: 0,
+   ex: 'Las erratas concretas, para que las tengas fichadas: el <b>2do parcial 2011 A1</b> imprime <span class="m">a<sub>max</sub> = 1 m/s²</span> y <span class="m">F = 0,1 N</span> cuando corresponde 1000 m/s² y 100 N; el <b>2do parcial 2010 B2</b> escribe <span class="m">v = √(15/16 · g · h)</span> con la fracción invertida (aunque el resultado, 4 m/s, es correcto); y el <b>1er parcial 2016 A2</b> arrastra un «= 0» de más. Antes de dudar de vos, revisá el orden de magnitud: si tu número es 1000 veces el de la clave, sospechá de la clave. ▸ Por qué las otras: la <b>b</b> te hace desconfiar de una cuenta buena; la <b>c</b> es falsa y es el hueco más importante del material — <b>ninguno de los ~10 finales tiene clave de cátedra</b>, las resoluciones de las hijas están hechas desde cero y contrastadas contra el método de Martinelli; la <b>d</b> se pasa de largo: hay <b>16 hojas de solución oficial</b> de parcial, que son el material más sólido que tenés.'}
+
+]);
+
+/* ============ UNIDAD 2 · El mapa de frecuencias ============ */
+registerExercises('fisica1-utn', '2', [
+
+  {st: 'Sobre las 21 fotos de final de UTN.BA (≈ 10 finales distintos), ¿con qué frecuencia aparece cuerpo rígido / rodadura?',
+   opts: [
+     'En 3 de los 10 finales, más o menos como óptica',
+     'En los 10 finales, sin excepción, y muchas veces en dos problemas del mismo examen',
+     'En unos 5 de 10: es frecuente, pero se turna con choques',
+     'Solo cuando el final no trae fluidos, porque se reparten el lugar'
+   ], c: 1,
+   ex: 'Es el número más contundente de todo el análisis y la razón por la que cuerpo rígido va <b>primero</b> en el plan de estudio: no falta en ninguna fecha. Aparece como rodadura en plano inclinado, cilindro con cuerda enrollada más polea, energía en rototraslación, y torque con aceleración angular. Y en el 2do parcial de Martinelli es <b>14 de 35 ejercicios, en las 9 de 9 fechas</b>. Si hay un solo tema que no podés dejar flojo, es este. ▸ Por qué las otras: la <b>a</b> confunde rígido con <b>óptica</b>, que sí aparece en 3 hojas de 10; la <b>c</b> subestima el tema y te llevaría a repartir horas que no conviene repartir; la <b>d</b> inventa una exclusión que no existe — hay finales con rígido <i>y</i> fluidos, y encima con rígido en dos problemas.'},
+
+  {st: 'En los 35 ejercicios del 2do parcial de Martinelli, ¿cómo aparecen las oscilaciones (MAS)?',
+   opts: [
+     '4 ejercicios repartidos en 4 fechas, sin posición fija',
+     '9 ejercicios pero concentrados en tres fechas, así que se puede saltear',
+     'Aparece en el 1er parcial, no en el segundo',
+     '9 ejercicios, en las 9 de 9 fechas, y siempre en la posición A2'
+   ], c: 3,
+   ex: 'Es el ejercicio más garantizado de todo el corpus: <b>ninguna fecha del 2do parcial se tomó sin un MAS</b>, y siempre en el mismo casillero (A2). En los finales sigue apareciendo en la mayoría de las fechas, con un agregado que en parcial no existe: el <b>péndulo físico con Steiner</b> (barra + disco, «un dispositivo para un reloj de péndulo antiguo»). Y son 7 verticales contra 2 horizontales: el vertical es <i>el</i> molde. ▸ Por qué las otras: la <b>a</b> son los números de «trabajo y energía como tema propio» en el 2do parcial (4 de 35); la <b>b</b> se contradice sola — 9 ejercicios en 9 fechas es uno por fecha, no un racimo; la <b>c</b> tiene el reparto al revés: en el <b>1er parcial el MAS aparece 0 de 31 veces</b>, porque los dos parciales de Martinelli no comparten ni un solo tema.'},
+
+  {st: '«Óptica cae poco en los finales, la salteo y estudio otra cosa». ¿Qué dicen los números?',
+   opts: [
+     'Óptica es 7 de 31 en el 1er parcial (7 de 8 fechas, siempre en A1), baja a 3 hojas de 10 en los finales, pero en el 1er parcial 2023 de Dibarbora óptica + fluidos son 2 de 6 problemas = el 33%: es el tema con mejor relación puntos/hora',
+     'Tiene razón: 3 hojas de 10 es poco y el tiempo rinde más en rígido',
+     'Óptica no entra más: desapareció después de 2017',
+     'Óptica cae en todos los finales, es el segundo tema más frecuente'
+   ], c: 0,
+   ex: 'La cuenta que importa no es «cuántas veces cae» sino <b>cuántos puntos te da por hora de estudio</b>. Óptica son <b>dos fórmulas</b> (espejos <span class="m">1/x + 1/x′ = 2/R</span>, lentes <span class="m">1/x − 1/x′ = 1/f</span>), <b>una convención de signos</b> y <b>una marcha de rayos</b>: se cierra en una tarde y cuando cae te regala un problema entero de los seis. Saltearla es tirar un problema barato para pelear uno caro. ▸ Por qué las otras: la <b>b</b> mira solo la frecuencia y no el costo de aprenderlo; la <b>c</b> es falsa — el parcial 2023 de FRBA tiene espejo esférico con marcha de rayos en el P3, y hay dos finales con espejos más uno de refracción con lámina de caras paralelas; la <b>d</b> exagera: el segundo tema más frecuente en los finales es <b>cantidad de movimiento y choques</b>, no óptica.'},
+
+  {st: 'El choque plástico en el corpus de Martinelli:',
+   opts: [
+     '8 ejercicios repartidos entre los dos parciales',
+     '3 ejercicios en total, es un tema menor',
+     '8 de los 35 ejercicios del 2do parcial, en 8 de las 9 fechas, y 0 de 31 en el primero',
+     '14 de 35, es el tema más frecuente del 2do parcial'
+   ], c: 2,
+   ex: 'Casi una por fecha, y siempre con el mismo molde: <b>tres etapas</b> — antes del choque (energía o cinemática), el choque (se conserva <span class="m">p</span>, <b>no</b> la energía) y después del choque (energía otra vez). Es, junto con MAS, el tema que <b>más rápido se domina</b>: aprendés a separar las tres etapas y el problema se resuelve casi solo. En los finales se mantiene y agrega variantes que el parcial no tiene: choque en 2D, choque elástico, explosión de dos carritos con un resorte comprimido, y partícula contra disco (que ya es momento angular). ▸ Por qué las otras: la <b>a</b> reparte mal — en el 1er parcial hay <b>cero</b> choques; la <b>b</b> son los ejercicios de movimiento circular (3 de 31); la <b>d</b> son los de <b>cuerpo rígido</b> (14 de 35), que sí es el tema más frecuente del segundo.'},
+
+  {st: '¿Cuál es el verdadero peso de «trabajo y energía» en el 2do parcial de Martinelli?',
+   opts: [
+     'Bajo: solo 4 de los 35 ejercicios son de energía',
+     'Aparece como tema propio en 4 de 35, pero ~25 de los 35 lo usan como método para resolver otra cosa',
+     'Nulo: en el 2do parcial se resuelve todo con Newton y torques',
+     'Alto como tema propio: 14 de 35'
+   ], c: 1,
+   ex: 'Esta es la diferencia entre contar <i>temas</i> y contar <i>herramientas</i>. Si mirás el título del ejercicio, energía casi no aparece en el segundo parcial. Si mirás la <b>resolución oficial</b>, está en todos lados: la velocidad con la que un cilindro llega al pie de la rampa, la altura que sube un bloque después de un choque, la compresión de un resorte — todo eso se hace con energía. Por eso energía va <b>tercera</b> en el plan y no quinta: no es un tema más, es el andamiaje. En el 1er parcial además sí es tema propio, 7 de 31 en las 8 de 8 fechas. ▸ Por qué las otras: la <b>a</b> se queda con la mitad del dato y te haría subestimar el tema; la <b>c</b> es falsa — Newton te da fuerzas y aceleraciones, energía te da velocidades y distancias, y el 2do parcial pide las dos cosas; la <b>d</b> son los ejercicios de cuerpo rígido.'},
+
+  {st: 'Los 66 ejercicios de parcial se reducen a 13 arquetipos. Si te enfocás en seis de ellos —energía con resorte + rozamiento (9), choque plástico 1D en tres etapas (8), rodadura con cuerda enrollada / yo-yo (8), MAS vertical (7), polea con masa (6) y energía en rototraslación (4)—, ¿cuánto del corpus cubrís?',
+   opts: [
+     '18 de los 66 ejercicios: poco más de un cuarto',
+     'Los 66: los otros siete arquetipos son variantes de estos seis',
+     '30 de 66, pero repartidos en las ocho hijas, así que no ahorra tiempo',
+     '42 de los 66: casi dos tercios, y viven todos en tres hijas (rígido, oscilaciones y choques) más el método de energía'
+   ], c: 3,
+   ex: '9 + 8 + 8 + 7 + 6 + 4 = <b>42</b>. Y lo importante no es el número sino <i>dónde</i> están concentrados: <b>cuerpo rígido</b> (yo-yo, polea con masa, rototraslación = 18), <b>oscilaciones</b> (MAS vertical = 7), <b>choques</b> (plástico 1D = 8) y <b>energía</b> (resorte con rozamiento = 9). En un final de seis problemas, esos temas ocupan típicamente <b>tres o cuatro</b>. Ahí está tu 50%, con margen. ▸ Por qué las otras: la <b>a</b> es la suma de los arquetipos <i>menos</i> frecuentes (circular 3, cinemática 4, MAS horizontal 2, rotación pura 1, y algo más); la <b>b</b> es falsa — óptica (7), Arquímedes con tercera fuerza (5) y bloques en plano inclinado (6) son moldes distintos y suman 18 ejercicios más; la <b>c</b> confunde el conteo: el punto de los arquetipos es justamente que <b>no</b> están repartidos parejo.'}
+
+]);
+
+/* ============ UNIDAD 3 · Las convenciones de la cátedra ============ */
+registerExercises('fisica1-utn', '3', [
+
+  {st: 'Estás resolviendo un problema del corpus y te sale un número que difiere ~2% de la clave. Tenés metido g = 9,8 por costumbre. ¿Qué pasa?',
+   opts: [
+     'Que con 9,8 no cierra ninguna clave: la cátedra usa g = 10 m/s² siempre, y el propio encabezado del final lo imprime',
+     'Nada: 9,8 y 10 son equivalentes, la diferencia es despreciable',
+     'Depende del tema: en fluidos va 9,8 y en dinámica va 10',
+     'Hay que usar 9,81 para tener la precisión que pide la corrección'
+   ], c: 0,
+   ex: '<b>g = 10 m/s², sin excepciones.</b> Se verificó ejercicio por ejercicio contra las soluciones oficiales: los resultados de la cátedra solo salen con 10. Y no es solo cuestión de precisión: en un problema con etapas encadenadas (choque + rampa + resorte) ese 2% se amplifica y termina dándote un número que no coincide con nada. El parcial 2023 de Dibarbora lo imprime en el encabezado junto con <span class="m">δ<sub>agua</sub> = 1000 kg/m³ = 1 g/cm³</span> y <span class="m">1 litro = 1000 cm³</span>. ▸ <b>Ojo con el material de San Rafael</b> que aparece en las hijas: <b>allá usan g = 9,8</b>. Está todo renormalizado a 10 y sellado como «otra regional», pero si algún día agarrás un ejercicio crudo de esa fuente, cambiá la gravedad antes de empezar. ▸ Por qué las otras: la <b>b</b> subestima el arrastre del error en problemas de varias etapas; la <b>c</b> inventa una regla por tema que no existe; la <b>d</b> confunde precisión con convención — nadie te pide tres cifras de g, te piden usar la de la casa.'},
+
+  {st: 'Un enunciado te da un plano inclinado de 37°. ¿Qué señal es eso, y qué valores usás?',
+   opts: [
+     'sen 37° = 0,5 y cos 37° = 0,87, que son los del triángulo 30-60-90',
+     'Hay que sacarlo con calculadora y usar todos los decimales, o no coincide con la clave',
+     'sen 37° = 0,60 y cos 37° = 0,80 — el triángulo 3-4-5: es la señal de que el problema fue diseñado para cerrar con números redondos',
+     'Que el ángulo es un dato que no interesa: en un plano inclinado la masa y el ángulo se cancelan'
+   ], c: 2,
+   ex: 'El 37° (y su complemento, 53°) es la firma del triángulo <b>3-4-5</b>: 0,6 y 0,8 exactos, sin decimales feos. Cuando lo veas, esperá que la cuenta cierre redonda — y si no cierra, revisá el planteo, porque el problema estaba diseñado para que cerrara. La otra constante que la cátedra usa redondeada es <b>cos 30° = 0,866</b>. ▸ Por qué las otras: la <b>a</b> mezcla los valores de 30°; la <b>b</b> es contraproducente — arrastrar decimales te aleja de la clave en vez de acercarte, porque la clave misma usa 0,6 y 0,8; la <b>d</b> mete a la fuerza la advertencia de los «datos que no interesen» donde no va: en un plano inclinado <b>la masa</b> sí puede cancelarse (<span class="m">a = g(sen θ − μ cos θ)</span>), pero <b>el ángulo nunca</b>.'},
+
+  {st: 'Los enunciados de Martinelli piden tres cosas <b>además</b> del resultado numérico, y las puntúan aparte. ¿Cuáles son?',
+   opts: [
+     'Cifras significativas, notación científica y unidades del SI',
+     'Declarar el sistema de referencia, hacer el diagrama de cuerpo libre y decir las hipótesis',
+     'Deducir el momento de inercia, verificar unidades y hacer el gráfico de la trayectoria',
+     'Escribir en tinta, numerar las hojas y firmar cada carilla'
+   ], c: 1,
+   ex: 'Son tres cosas que se hacen en dos renglones cada una y que <b>puntúan solas</b>. El <b>sistema de referencia</b>: dibujá los ejes y decí dónde está el origen y hacia dónde apunta cada eje positivo (en plano inclinado, x paralelo al plano e y perpendicular). El <b>DCL</b>: uno por <i>cada</i> cuerpo, solo fuerzas reales, con su punto de aplicación — si hay dos bloques y una polea con masa, son <b>tres</b> DCL. Las <b>hipótesis</b>: «cuerda inextensible y sin masa», «rueda sin deslizar», «el resorte es ideal», «desprecio la resistencia del aire» — cada una <b>justifica una ecuación que vas a usar</b>, por eso las piden. El parcial 2023 de Dibarbora cambió la redacción pero pide lo mismo: «Entregar todos los desarrollos, cuentas y diagramas. Todas las magnitudes deben tener sus unidades». ▸ Por qué las otras: la <b>a</b> es el capítulo de mediciones, que en el corpus FRBA <b>no se evalúa nunca</b> como tal; la <b>c</b> es exactamente lo que <i>no</i> te piden — el momento de inercia te lo dan como dato; la <b>d</b> son formalidades de entrega (lo de la tinta sí aparece en Dibarbora), pero no son lo que puntúa.'},
+
+  {st: 'Un ejercicio de hidrostática te da densidades en g/cm³ y profundidades en cm. ¿Cómo lo resolvés?',
+   opts: [
+     'Pasás todo a SI antes de empezar, siempre: kg/m³ y metros',
+     'Resolvés en CGS y entregás en CGS: es el sistema que usó el enunciado',
+     'Da igual el sistema porque en fluidos todo se cancela',
+     'Resolvés en CGS (así lo hace la cátedra: con <span class="m">ρ<sub>agua</sub> = 1 g/cm³</span> las cuentas salen casi mentalmente) y al final pasás el resultado a SI, con 1 Pa = 10 din/cm²'
+   ], c: 3,
+   ex: 'Trabajar en CGS en hidrostática es una ventaja real: con la densidad del agua valiendo <b>1</b>, las densidades relativas se leen directo y las cuentas de flotación salen sin calculadora. Pero el resultado se entrega en SI. Las dos equivalencias que tenés que tener a mano: <b>1 g/cm³ = 1000 kg/m³</b> y <b>1 Pa = 10 din/cm²</b>. ▸ Por qué las otras: la <b>a</b> no está <i>mal</i>, pero te complica gratis y te aleja del camino de la clave; la <b>b</b> es el error concreto que se repite en los 6 ejercicios de fluidos del 1er parcial: buena física, unidades de entrega equivocadas; la <b>c</b> es falsa — las presiones y las fuerzas no se cancelan, y una fuerza en dinas no es una fuerza en newtons.'},
+
+  {st: 'Las fórmulas de óptica de la cátedra son <span class="m">1/x + 1/x′ = 2/R</span> para espejos y <span class="m">1/x − 1/x′ = 1/f</span> para lentes, con <b>x positivo hacia la izquierda</b>. ¿Por qué importa tanto respetarlas al pie de la letra?',
+   opts: [
+     'No importa: cualquier convención de signos da el mismo resultado físico',
+     'Porque son fórmulas aproximadas y solo valen para ángulos chicos',
+     'Porque la de lentes lleva un signo menos que la de Sears no tiene, y porque la x crece contra el sentido de la luz incidente: mezclar convenciones te da vuelta los signos de todo el problema',
+     'Porque los espejos usan f y las lentes usan R, y no se pueden intercambiar'
+   ], c: 2,
+   ex: 'La convención de signos es un <b>paquete cerrado</b>: la fórmula, el sentido positivo del eje y la interpretación del signo del resultado van juntos. Si tomás la ecuación de la cátedra y el criterio de signos de otro libro, el resultado te sale con el signo cambiado y un espejo cóncavo se te convierte en convexo. Sumale el control de <b>R vs f</b>: <span class="m">f = R/2</span>, y en la fórmula de espejos <b>el 2 y la R viajan siempre juntos</b> (<span class="m">2/R</span> o <span class="m">1/f</span>, nunca <span class="m">2/f</span>). ▸ Por qué las otras: la <b>a</b> es verdad solo si usás <i>una</i> convención completa y coherente, que es justo lo que no pasa cuando mezclás; la <b>b</b> confunde el criterio de signos con la aproximación paraxial, que es otra discusión y no cambia los signos; la <b>d</b> es falsa: <span class="m">f = R/2</span> convierte una en otra sin problema, y para lentes también se define <span class="m">f</span>.'},
+
+  {st: 'Martinelli imprime en sus enunciados: «puede haber datos que no interesen». Terminás un problema y te sobró un dato. ¿Qué hacés?',
+   opts: [
+     'Escribís «el dato X no interviene porque…» y seguís: los distractores son deliberados',
+     'Volvés atrás y buscás dónde meterlo: si te lo dieron, tiene que entrar',
+     'Lo ignorás en silencio, sin mencionarlo',
+     'Le mandás una consulta al docente durante el examen'
+   ], c: 0,
+   ex: 'Los tres formatos de distractor que más se repiten: <b>(1)</b> te dan <span class="m">μ<sub>e</sub></span> cuando el cuerpo <i>ya está deslizando</i> — si desliza, va <span class="m">μ<sub>d</sub></span>; <b>(2)</b> te dan masas que se cancelan — en un plano inclinado sin polea, <span class="m">a = g(sen θ − μ cos θ)</span> y la masa no aparece; <b>(3)</b> te dan una longitud o un ángulo que no entra, típicamente la <b>profundidad</b> en un problema de flotación, porque el empuje no depende de ella. Decir en una línea por qué el dato no entra <b>demuestra que entendiste el planteo</b> y es parte de las hipótesis que puntúan. ▸ La regla espejada: si te <i>falta</i> un dato, ahí sí volvé a leer, porque probablemente entendiste mal la geometría. ▸ Por qué las otras: la <b>b</b> es la reacción que la cátedra está midiendo con la trampa — forzar el dato te lleva a una ecuación falsa; la <b>c</b> desaprovecha un renglón que suma; la <b>d</b> no es una estrategia de examen.'}
+
+]);
+
+/* ============ UNIDAD 4 · Las trampas de la cátedra ============ */
+registerExercises('fisica1-utn', '4', [
+
+  {st: 'Un bloque <b>ya está deslizando</b> por un plano inclinado y el enunciado te da μ<sub>e</sub> = 0,5 y μ<sub>d</sub> = 0,3. ¿Cuál usás y por qué?',
+   opts: [
+     'μ<sub>e</sub> = 0,5, porque es el que aparece primero y es el que frena de verdad',
+     'El promedio de los dos, 0,4',
+     'μ<sub>e</sub> para el tramo de subida y μ<sub>d</sub> para el de bajada',
+     'μ<sub>d</sub> = 0,3, porque el cuerpo desliza: el μ<sub>e</sub> solo sirve para decidir si arranca o para una condición límite'
+   ], c: 3,
+   ex: 'Es <b>la trampa más repetida de todo el corpus</b> y aparece en dinámica, en energía y en rodadura. La regla es simple: <b>hay deslizamiento relativo → μ<sub>d</sub></b>. El <span class="m">μ<sub>e</sub></span> responde otra pregunta: «¿el cuerpo arranca?» (<span class="m">mg sen θ > μ<sub>e</sub> mg cos θ</span>) o «¿hasta qué ángulo aguanta sin patinar?». ▸ El caso hermano, en rodadura: si un cilindro <b>rueda sin deslizar</b>, el rozamiento es <b>estático</b> y <b>no vale μ<sub>e</sub>N</b> — es una <b>incógnita</b> que se despeja de las ecuaciones, y <span class="m">μ<sub>e</sub> N</span> es apenas su cota superior. Escribir <span class="m">f = μ N</span> en un problema de rodadura es error de planteo, no de cuenta. ▸ Por qué las otras: la <b>a</b> es exactamente el reflejo que el distractor está buscando; la <b>b</b> promedia dos coeficientes que describen situaciones físicas distintas, no dos medidas de lo mismo; la <b>c</b> inventa una regla: el coeficiente depende de si hay deslizamiento, no del sentido del movimiento.'},
+
+  {st: 'Un carrito recorre un rizo vertical de radio R. Planteás energía entre el punto más bajo y el más alto. ¿Qué altura va en el mgh?',
+   opts: [
+     'h = R, que es la distancia del centro al punto más alto',
+     'h = 2R: el punto más alto está a dos radios del más bajo',
+     'h = πR, que es medio perímetro del rizo',
+     'h = R/2, porque hay que tomar la altura del centro de masa promedio'
+   ], c: 1,
+   ex: 'El punto más bajo y el más alto están separados por un <b>diámetro</b>. Con una cuerda o varilla de largo <span class="m">L</span> que da la vuelta entera, el desnivel es <b>2L</b>, no L. Es un error que da un número prolijo y con unidades correctas, así que no hay forma de detectarlo al final: hay que evitarlo al principio, dibujando el rizo con la cota. ▸ Y ya que estás en el punto más alto, la otra mitad de la trampa: <b>la normal apunta hacia el centro, o sea hacia abajo</b>, y se <i>suma</i> al peso: <span class="m">N + mg = m v²/R</span>. La condición límite para no caer es <span class="m">N = 0 → v²<sub>min</sub> = g R</span>. ▸ Por qué las otras: la <b>a</b> es el error clásico, y te subestima la energía necesaria justo a la mitad; la <b>c</b> confunde <b>altura</b> con <b>camino recorrido</b> — el arco importa para el trabajo del rozamiento, no para la energía potencial (la misma confusión que en el plano inclinado, donde <span class="m">h = d · sen θ</span>); la <b>d</b> mete un promedio que no viene al caso: la energía potencial se evalúa punto a punto.'},
+
+  {st: 'Un cilindro de radio exterior R tiene una cuerda enrollada en un <b>eje interior de radio r</b>, y se tira de la cuerda. ¿Cómo escribís el torque de la tensión y el vínculo cinemático?',
+   opts: [
+     'τ = T·R y a<sub>cuerda</sub> = α·R: el radio del cuerpo es el que manda',
+     'τ = T·(R − r), porque hay que restar los radios',
+     'τ = T·r (el brazo es la distancia a la recta de acción de la cuerda) y a<sub>cuerda</sub> = α·r, mientras que si además rueda sin deslizar, a<sub>CM</sub> = α·R',
+     'τ = T·R y a<sub>CM</sub> = α·r: se cruzan los radios'
+   ], c: 2,
+   ex: 'El molde del <b>yo-yo</b> aparece en 8 ejercicios del corpus y es donde más gente se cae. El torque se calcula con el <b>brazo</b>, que es la distancia perpendicular del eje de giro a <b>la recta de acción de la fuerza</b>: si la cuerda sale del eje de radio <span class="m">r</span>, el brazo es <span class="m">r</span>. Y hay <b>dos vínculos distintos que conviven</b>: la cuerda se desenrolla a <span class="m">a<sub>cuerda</sub> = α r</span> y el centro avanza a <span class="m">a<sub>CM</sub> = α R</span>. Cada radio con su vínculo. Lo mismo pasa cuando hay una polea con masa: <span class="m">a<sub>cuerda</sub> = α R<sub>polea</sub></span>, con el radio <i>de la polea</i>. ▸ Y no te olvides de <b>Steiner</b> si elegís tomar torques respecto del punto de contacto en vez del CM: <span class="m">I = I<sub>CM</sub> + m d²</span>. ▸ Por qué las otras: la <b>a</b> usa el radio exterior para la cuerda y es el error típico — te sobreestima el torque en un factor <span class="m">R/r</span>; la <b>b</b> inventa una resta de radios que no tiene sentido geométrico; la <b>d</b> tiene los dos radios cruzados, que es la peor combinación posible: mal el torque <i>y</i> mal el vínculo.'},
+
+  {st: 'Las dos trampas del resorte, en el mismo examen. <b>(i)</b> Un bloque llega con velocidad v y comprime un resorte: te piden la <b>compresión máxima</b>. <b>(ii)</b> Una masa m cuelga de un resorte de constante k y longitud natural l₀ y oscila: te piden la <b>amplitud</b>. ¿Qué condición imponés en (i) y desde dónde medís en (ii)?',
+   opts: [
+     '(i) v = 0 (la compresión es máxima cuando el cuerpo se frena, y ahí la fuerza neta no es cero) · (ii) desde l<sub>eq</sub> = l₀ + mg/k, la posición de equilibrio, con ω = √(k/m)',
+     '(i) ΣF = 0, que es donde el resorte está en equilibrio · (ii) desde l₀, la longitud natural',
+     '(i) v = 0 · (ii) desde l₀, y ω = √(k/m) − g/l₀ porque la gravedad frena la oscilación',
+     '(i) ΣF = 0 · (ii) desde l<sub>eq</sub>, pero con ω = √(k/m + g/l<sub>eq</sub>) porque hay que sumar el efecto del peso'
+   ], c: 0,
+   ex: 'Son dos confusiones distintas y las dos nacen de <b>elegir mal el punto de referencia</b>. <b>(i)</b> «Compresión máxima» y «equilibrio» son <b>puntos distintos</b>: donde <span class="m">v = 0</span> el resorte está máximamente comprimido y la fuerza es <b>máxima</b>; donde <span class="m">ΣF = 0</span> está el equilibrio, y ahí la <b>velocidad es máxima</b>. Justo al revés uno del otro. La compresión máxima se saca por <b>energía</b>: toda la cinética inicial (menos lo que se comió el rozamiento) se convirtió en <span class="m">½ k x²</span>. Es la trampa que gobierna los 9 ejercicios de energía con resorte. <b>(ii)</b> Si medís <span class="m">x</span> desde <span class="m">l<sub>eq</sub> = l₀ + mg/k</span>, la ecuación de movimiento queda <span class="m">m ẍ = −k x</span>: <b>el peso se fue</b>, porque su único efecto fue correr el centro de oscilación. De ahí sale la conclusión potente: <b>el MAS vertical tiene exactamente la misma frecuencia que el horizontal</b>. Y la <b>amplitud se mide desde l<sub>eq</sub></b>, nunca desde <span class="m">l₀</span> — es la trampa que define el arquetipo del MAS vertical (7 de los 9 ejercicios de oscilaciones). ▸ Por qué las otras: la <b>b</b> se come las dos, y en (i) te da la compresión de equilibrio <span class="m">mg/k</span> en vez de la máxima; la <b>c</b> acierta (i) pero mide la amplitud desde la referencia equivocada e inventa un término en <span class="m">ω</span> que no existe; la <b>d</b> acierta la referencia de (ii) pero cae en el error conceptual central —<b>la gravedad no entra en ω</b>, y sumarle un término te da un período más corto que el real— y además equivoca (i).'},
+
+  {st: 'En un choque perfectamente plástico (los cuerpos quedan pegados) te piden la velocidad final y la energía perdida. ¿Qué conservás?',
+   opts: [
+     'Solo la cantidad de movimiento. La energía mecánica no se conserva, y la que se pierde (ΔE = E<sub>f</sub> − E<sub>i</sub> &lt; 0) suele ser justamente lo que te piden calcular',
+     'Energía mecánica y cantidad de movimiento: las dos siempre se conservan en un choque',
+     'Solo la energía: la cantidad de movimiento se pierde en el impacto',
+     'Ninguna de las dos, porque hay fuerzas internas de deformación'
+   ], c: 0,
+   ex: 'Los 8 choques plásticos del corpus tienen todos el mismo esqueleto de <b>tres etapas</b>, y la clave es saber <i>qué</i> ley usar en cada una: <b>antes</b> del choque, energía o cinemática para llegar a la velocidad de impacto; <b>en</b> el choque, <b>solo</b> <span class="m">p<sub>i</sub> = p<sub>f</sub></span>, con <span class="m">m₁v₁ + m₂v₂ = (m₁+m₂)v<sub>f</sub></span>; <b>después</b>, energía otra vez para la altura que suben o la distancia que recorren. La energía que falta se fue en deformación y calor, y calcularla es una consigna habitual. ▸ Regla de bolsillo: <b>si quedan pegados, la energía no se conserva; si es elástico, sí</b>. ▸ Por qué las otras: la <b>b</b> es el error de planteo que define el arquetipo, y da un resultado numéricamente prolijo pero falso; la <b>c</b> tiene todo al revés — <span class="m">p</span> se conserva porque las fuerzas del choque son <b>internas</b> al sistema; la <b>d</b> confunde «hay disipación» con «no hay ley de conservación»: justamente porque las fuerzas son internas, <span class="m">p</span> se conserva.'},
+
+  {st: 'Dos detalles de dos problemas distintos del mismo final: (i) el enunciado de óptica dice «se obtiene una imagen <b>real</b>, <b>tres veces mayor</b>, proyectada sobre una pantalla»; (ii) el de fluidos te da la <b>profundidad</b> a la que está sumergido un cuerpo. ¿Cómo los tratás?',
+   opts: [
+     'm = +3, y la profundidad entra en E = ρ V g',
+     'm = +3, y la profundidad no entra en el empuje',
+     'm = −3 (imagen real ⇒ invertida ⇒ aumento negativo), y la profundidad no entra en el empuje: E = ρ<sub>líq</sub> · V<sub>desplazado</sub> · g',
+     'm = −3, y la profundidad entra en el empuje porque a más profundidad hay más presión'
+   ], c: 2,
+   ex: 'Dos distractores clásicos, uno por tema. <b>Óptica</b>: «real» y «proyectada sobre una pantalla» son sinónimos de <b>invertida</b>, y una imagen invertida tiene <b>aumento negativo</b>. Si escribís <span class="m">m = +3</span>, la distancia focal te sale con el signo cambiado y el espejo se te convierte de cóncavo en convexo — todo el resto del problema sale mal a partir de ahí. <b>Fluidos</b>: en <span class="m">E = ρ<sub>líq</sub> V<sub>desp</sub> g</span> <b>no aparece h por ningún lado</b>. Dos cuerpos idénticos, uno a 20 cm y otro a 3 m, reciben <b>el mismo empuje</b>. Lo que sí crece con la profundidad es la <b>presión</b> (<span class="m">p = p₀ + ρ g h</span>), y por eso el enunciado te da <span class="m">h</span>: la necesitás para <i>la otra</i> pregunta del problema, no para el empuje. ▸ Por qué las otras: la <b>a</b> se come las dos trampas juntas; la <b>b</b> acierta el empuje pero pierde el signo del aumento; la <b>d</b> acierta el signo pero cae en la confusión presión/empuje — que la presión sea mayor abajo es cierto, pero el empuje es la <i>resultante</i> de las presiones sobre todas las caras, y esa diferencia depende del <b>volumen</b>, no de la profundidad.'}
+
+]);
+
+/* ============ UNIDAD 5 · Qué NO entra (y qué de eso sí vuelve en el final) ============ */
+registerExercises('fisica1-utn', '5', [
+
+  {st: 'Sobre momentos de inercia, ¿qué sacás de la lista de estudio y qué dejás?',
+   opts: [
+     'Sacás todo: si te los dan como dato, el tema no se estudia',
+     'Dejás la integración porque puede aparecer un cuerpo raro que no esté en el encabezado',
+     'Sacás el cálculo por integración (no hay un solo ejercicio que lo pida), pero dejás Steiner, que no te lo dan y aparece en péndulo físico y en rodadura tomada desde el contacto',
+     'Sacás Steiner también, porque el eje siempre pasa por el centro de masa'
+   ], c: 2,
+   ex: 'La distinción es fina y vale un problema entero. Que te <i>den</i> <span class="m">I<sub>CM</sub></span> no significa que el tema sea gratis: significa que el examen te va a pedir <b>trasladarlo</b>. Casos concretos que aparecen: barra colgada de un extremo → <span class="m">I = ⅓ m L²</span> (y no <span class="m">1/12</span>); disco montado lejos del pivote en el péndulo físico de «reloj antiguo»; cilindro cuyo torque tomás respecto del punto de contacto con el piso. ▸ Por qué las otras: la <b>a</b> es el atajo que te deja sin Steiner y con eso sin péndulo físico; la <b>b</b> gasta horas en una técnica que el encabezado del final vuelve innecesaria — cuando aparece un cuerpo que no está arriba (esfera maciza <span class="m">2/5 m r²</span>, cilindro <span class="m">½ m R²</span>), el <b>propio enunciado del problema</b> lo trae; la <b>d</b> es falsa, y es la trampa 13 de la unidad anterior.'},
+
+  {st: '¿Cuál de estos grupos de temas puede salir de la lista con menos riesgo?',
+   opts: [
+     'Cuerpo rígido, choques y oscilaciones',
+     'Fluidos y óptica, que caen poco en los finales',
+     'Momento angular, péndulo físico y sistemas no inerciales',
+     'Potencia (P = W/t, P = F·v), radio de giro, espejo plano y oscilaciones amortiguadas/forzadas: cero apariciones en el corpus'
+   ], c: 3,
+   ex: 'Son cuatro temas que el resumen teórico desarrolla y que <b>no aparecen ni una vez</b>: la cátedra pregunta trabajo y energía pero nunca la <i>tasa</i> a la que se entrega; los 7 ejercicios de óptica son de espejos <b>esféricos</b> y lentes, el plano no figura; y los 9 de oscilaciones son <b>MAS puro</b>, sin amortiguamiento ni resonancia. Si el tiempo es corto, estos son los primeros que se caen. ▸ Por qué las otras: la <b>a</b> es exactamente lo contrario — son los tres temas más frecuentes y los que te dan el 50%; la <b>b</b> es un error caro: <b>fluidos cae en 6 de 8 primeros parciales y en la mayoría de los finales</b> (y encima tu resumen no lo cubre), y óptica es el tema más barato del examen; la <b>c</b> es justo el paquete que el final <b>agrega</b> y que ningún parcial de Martinelli toca: es prioridad alta, no baja.'},
+
+  {st: 'El resumen dedica páginas a calcular la posición del centro de masa de un sistema. ¿Qué hacés con eso?',
+   opts: [
+     'Lo estudiás completo: es la base del cuerpo rígido',
+     'Sacás el cálculo de la posición (cero apariciones como consigna), pero no el concepto: el CM aparece usado todo el tiempo — velocidad del CM, aceleración del CM, energía en rototraslación',
+     'Lo sacás entero, concepto incluido: en el final no aparece la palabra CM',
+     'Lo estudiás porque en el final hay que localizar el CM del sistema barra + disco'
+   ], c: 1,
+   ex: 'Es la diferencia entre <i>localizarlo</i> y <i>usarlo</i>. Localizarlo (<span class="m">x<sub>CM</sub> = Σm<sub>i</sub>x<sub>i</sub> / Σm<sub>i</sub></span>) no se pide nunca. Usarlo es constante: <span class="m">ΣF = m a<sub>CM</sub></span>, la energía de un cuerpo que rueda es <span class="m">½ m v<sub>CM</sub>² + ½ I<sub>CM</sub> ω²</span>, y el vínculo de rodadura es <span class="m">a<sub>CM</sub> = α R</span>. Sin el concepto no escribís ninguna de esas tres. ▸ Por qué las otras: la <b>a</b> te hace estudiar la parte que no rinde; la <b>c</b> tira el concepto junto con el cálculo y te deja sin poder plantear rototraslación; la <b>d</b> confunde el péndulo físico — ahí lo que armás es el <b>momento de inercia total con Steiner</b>, no la posición del centro de masa.'},
+
+  {st: 'En un final aparece «calcule el error relativo porcentual y compare con la especificación de fábrica». ¿Eso significa que hay que estudiar el capítulo de mediciones y cifras significativas?',
+   opts: [
+     'No: es propagación de errores aplicada a un resultado que ya calculaste —aparece dentro del problema del péndulo balístico— y el capítulo de mediciones como tal no se evalúa nunca en el corpus',
+     'Sí: hay que estudiar mediciones completo, con cifras significativas y notación científica',
+     'No, porque los errores de medición aparecen solo en San Rafael y no en FRBA',
+     'Sí, pero solo la parte de cifras significativas, que es lo que puntúan'
+   ], c: 0,
+   ex: 'La consigna aparece <b>en una sola fecha</b> y viene pegada a un problema de física normal: resolvés el péndulo balístico, obtenés la velocidad de la bala, y recién ahí comparás contra el valor de fábrica con <span class="m">e% = |v<sub>calc</sub> − v<sub>fab</sub>| / v<sub>fab</sub> × 100</span>. Es media carilla de teoría, no un capítulo. ▸ Por qué las otras: la <b>b</b> te manda a estudiar un capítulo entero que <b>no cayó nunca</b> en los 84 exámenes analizados — ningún enunciado pide «exprese con la cantidad correcta de cifras significativas»; la <b>c</b> es falsa: el ejercicio del error relativo está en un final de <b>UTN.BA</b> (lo que sí aporta San Rafael es teoría de errores más desarrollada, útil como apoyo); la <b>d</b> inventa un criterio de corrección que no figura en ninguna hoja.'},
+
+  {st: 'Aproximadamente el 40% del final son temas que ningún parcial de Martinelli toca. ¿Cuáles son?',
+   opts: [
+     'Potencia, radio de giro, espejo plano, oscilaciones amortiguadas y cifras significativas',
+     'Nada: el final es una selección de los mismos ejercicios de los dos parciales',
+     'Todo lo del 1er parcial, porque los finales solo toman los temas del segundo',
+     'Momento angular · choque elástico y en 2D · péndulo físico con Steiner · sistemas no inerciales · hidrodinámica (Bernoulli, Torricelli, Venturi, tubo en U) · gravitación · errores de medición · óptica de prisma y lámina de caras paralelas · flotación cargada'
+   ], c: 3,
+   ex: 'Este es el motivo por el que estudiar <i>solo</i> con los parciales de Martinelli te deja corta. Ejemplos textuales de los finales: una masa que gira atada a una soga que pasa por un agujero y se acorta el radio (momento angular, final del <b>2/3/23</b>); «con una barra y un disco se construye un dispositivo para un reloj de péndulo antiguo» (péndulo físico con Steiner en dos cuerpos); una plataforma acelerada con polea y dos cuerpos ligados pidiendo la aceleración máxima sin deslizamiento (no inercial); un tanque presurizado del que sale un chorro y hay que calcular el <b>alcance</b> (Torricelli + tiro horizontal); «¿cuántos troncos hacen falta como mínimo para mantener a flote a tres niños de 40 kg?» (flotación cargada); «calcule el corrimiento lateral del rayo al atravesar la lámina» (Snell, y en ese final <b>es el problema 1</b>). Es justo el temario que el programa de San Rafael cubre, y por eso ese material entra en las hijas. ▸ Por qué las otras: la <b>a</b> es la lista de lo <b>salteable</b>, la opuesta; la <b>b</b> desmiente todos los ejemplos de arriba; la <b>c</b> es falsa — el final <b>junta las dos mitades</b>: óptica, fluidos, Newton y energía siguen entrando.'},
+
+  {st: 'Leés que un tema es «salteable». ¿Qué tan fuerte es esa afirmación?',
+   opts: [
+     'Es definitiva: si no cayó en el corpus, no puede caer',
+     'Es fuerte pero no infinita: sale de un corpus de 84 exámenes que tiene un agujero de cinco años (2018-2022) sin una sola hoja de FRBA — lo único que sí podés dar por seguro es que no vas a integrar para sacar un momento de inercia, porque eso está escrito en el encabezado del final',
+     'Es débil: con 84 exámenes no se puede concluir nada',
+     'Es definitiva para los parciales pero no dice nada de los finales'
+   ], c: 1,
+   ex: 'Hay que separar dos tipos de evidencia. La <b>estadística</b> («potencia no apareció en 84 exámenes») es muy buena pero probabilística, y tiene un hueco declarado: <b>entre 2018 y 2022 no hay ninguna hoja de FRBA</b>, y de 2018 en adelante todo lo que sabemos son dos papeles (el parcial 2023 de Dibarbora y el ejercicio suelto de 2025). La <b>documental</b> («los momentos de inercia van impresos en el encabezado») es certeza: no es una inferencia, está en la hoja. Si te sobra tiempo, dale una leída conceptual a potencia y a centro de masa — son dos páginas cada uno. ▸ Por qué las otras: la <b>a</b> convierte una probabilidad alta en un absoluto, y con un agujero de cinco años eso es imprudente; la <b>c</b> tira por la borda una muestra grande y consistente — es el mejor dato que hay; la <b>d</b> invierte el argumento: el recuento de los ~10 finales es <i>parte</i> del corpus, no está afuera.'}
+
+]);
+
+/* ============ UNIDAD 6 · El plan de estudio y el orden ============ */
+registerExercises('fisica1-utn', '6', [
+
+  {st: '¿Por qué el plan arranca con cuerpo rígido y no con el primer tema del programa?',
+   opts: [
+     'Porque es el de mayor peso (está en los 10 finales, muchas veces en dos problemas del mismo examen, y es 14 de 35 del 2do parcial) y a la vez el más largo de aprender: va primero, con la cabeza fresca y el calendario abierto',
+     'Porque es el más fácil y sirve para agarrar confianza',
+     'Porque el programa de la materia lo pone primero',
+     'Porque los momentos de inercia vienen dados y entonces se resuelve solo'
+   ], c: 0,
+   ex: 'El criterio del plan no es el orden en que se enseña: es <b>maximizar puntos por hora</b>, y eso lo dicta la tabla de frecuencias. Rígido gana por goleada en peso y además es el que más tiempo pide, porque no es una fórmula sino un <b>sistema de tres ecuaciones</b> que hay que aprender a montar. ▸ Señal de que ya lo tenés: ante un cilindro con cuerda enrollada escribís sin dudar las tres —<b>Newton en el CM</b>, <b>torque respecto del CM</b> y <b>el vínculo a = αR</b>— y sabés cuál es cuál. ▸ Por qué las otras: la <b>b</b> es falsa, es el tema más difícil del examen; la <b>c</b> es justo el criterio que el plan descarta; la <b>d</b> confunde el dato con el trabajo — que te den <span class="m">I<sub>CM</sub></span> te ahorra una integral, no te ahorra plantear el problema (ni Steiner, que no te lo dan).'},
+
+  {st: 'Después de rígido, el plan pone oscilaciones y choques juntos en el paso 2. ¿Por qué esos dos?',
+   opts: [
+     'Porque son los que más se parecen entre sí',
+     'Porque son prerrequisito de fluidos y de óptica',
+     'Porque son los más garantizados después de rígido (MAS: 9 de 9 fechas; choque plástico: 8 de 9) y a la vez los más rápidos de dominar: cada uno es un molde con dos o tres variantes. Mejor relación puntos/hora del final',
+     'Porque son los únicos que tienen solución oficial'
+   ], c: 2,
+   ex: 'Es la combinación ideal: máxima probabilidad de aparecer, mínimo tiempo de aprendizaje. El MAS es esencialmente un molde (masa colgada de un resorte, 7 de 9 casos) y el choque plástico otro (tres etapas, 8 casos). ▸ Señales de que ya los tenés: en MAS sacás <span class="m">ω</span>, <span class="m">T</span>, <span class="m">A</span> y <span class="m">v(x)</span> de un vertical sin dudar dónde está <span class="m">l<sub>eq</sub></span>; en choques separás sin pensarlo las tres etapas y sabés en cuál se conserva <span class="m">p</span> y en cuál <span class="m">E</span>. Con los pasos 1 y 2 hechos ya tenés <b>tres o cuatro</b> problemas a tiro de un final de seis: literalmente el 50%. ▸ Por qué las otras: la <b>a</b> es falsa y además irrelevante como criterio; la <b>b</b> invierte la dependencia — fluidos y óptica son independientes de estos dos; la <b>d</b> es falsa: hay 16 hojas de solución oficial que cubren todos los temas de parcial.'},
+
+  {st: 'Fluidos va en el paso 5, casi al final del plan. ¿Significa que es opcional?',
+   opts: [
+     'Sí: va último porque cae poco',
+     'Va último porque es el más difícil de todos',
+     'Va último porque solo entra hidrostática, que es media hora de estudio',
+     'No: va tarde pero es obligatorio, y encima hay que estudiarlo desde cero — cae en 6 de 8 primeros parciales y en la mayoría de los finales, y el resumen de 52 páginas que tenés no lo cubre'
+   ], c: 3,
+   ex: 'Es <b>la trampa del plan de estudio</b>, y es la única del material donde tu teoría te miente por omisión: el resumen es de UTN <b>FRGP</b> (otra regional) y no cubre fluidos ni gravitación. Si armás el cronograma mirando el índice de ese resumen, fluidos <b>directamente no aparece</b> — y es un tema que cae todo el tiempo. Por eso la hija de fluidos es la única con la <b>teoría escrita de cero</b>: hidrostática completa (presión hidrostática, absoluta vs manométrica, Arquímedes, fuerza sobre superficies sumergidas) <b>y toda la hidrodinámica</b> (continuidad, Bernoulli, Torricelli, Venturi, tubo en U, tanque presurizado). Reservale tiempo de verdad: no es «repasar», es aprender el tema. ▸ Señal de que ya lo tenés: resolvés un Arquímedes con tercera fuerza en CGS y lo pasás a SI, y de un tanque presurizado sacás la velocidad de salida con Bernoulli y después el alcance del chorro con tiro horizontal. ▸ Por qué las otras: la <b>a</b> es falsa en los números; la <b>b</b> confunde «no tenés apunte» con «es difícil»; la <b>c</b> se olvida de la hidrodinámica, que en el final vale tanto como la hidrostática.'},
+
+  {st: 'Óptica queda cuarta en el plan, después de energía y dinámica. ¿Con qué lógica?',
+   opts: [
+     'Porque hay que saber dinámica para entender la marcha de rayos',
+     'Porque cae poco en los finales (3 hojas de 10) pero es baratísima: dos fórmulas, una convención de signos y una marcha de rayos. Se cierra en una tarde y te compra un problema entero, así que va después de lo pesado pero nunca se saltea',
+     'Porque en el final óptica casi no entra y es un tema de relleno',
+     'Porque es el tema más difícil y conviene dejarlo para el final'
+   ], c: 1,
+   ex: 'El lugar en la lista mide <b>urgencia</b>, no importancia. Óptica va cuarta porque puede esperar, pero rinde muchísimo cuando llega: su costo de aprendizaje es de los más bajos del examen y su premio es un problema completo de los seis. Acordate además de que en el parcial 2023 de Dibarbora óptica y fluidos son <b>2 de 6 problemas</b>. ▸ Señal de que ya la tenés: dado un espejo sacás <span class="m">x′</span> y el aumento con el signo correcto (imagen real ⇒ <span class="m">m</span> negativo), y <b>dibujás la marcha de rayos sin copiarla</b>. ▸ Por qué las otras: la <b>a</b> inventa una dependencia que no existe; la <b>c</b> es la lectura que te hace regalar un problema barato; la <b>d</b> es falsa — el más difícil y el más largo es cuerpo rígido, y por eso va primero.'},
+
+  {st: 'Trabajo y energía junto con dinámica van en el paso 3, después de rígido, oscilaciones y choques. ¿Por qué no van primero, si son «lo básico»?',
+   opts: [
+     'Porque son temas menores en el final',
+     'Porque el programa los pone al final',
+     'Porque no son solo temas: son el método con el que se resuelven los otros (~25 de los 35 ejercicios del 2do parcial usan energía como herramienta), y al hacer los pasos 1 y 2 ya los usaste — llegás con medio camino hecho',
+     'Porque energía solo sirve para el 1er parcial'
+   ], c: 2,
+   ex: 'Es una decisión deliberada y un poco contraintuitiva: en vez de estudiar la herramienta en abstracto y después buscar dónde aplicarla, la aprendés <b>usándola</b> en rodadura, en MAS y en choques, y recién después la formalizás. Cuando llegás al paso 3 no arrancás de cero: venís de haber planteado conservación de energía veinte veces. ▸ Señal de que ya lo tenés: elegís sin dudar entre <b>Newton</b> (cuando piden aceleración o fuerza) y <b>energía</b> (cuando piden velocidad o distancia), y sabés cuándo <b>no</b> podés usar energía —el choque plástico—. ▸ Por qué las otras: la <b>a</b> es falsa, energía está prácticamente en todos los finales, casi siempre embebida en otro problema; la <b>b</b> vuelve al criterio del programa, que el plan descarta; la <b>d</b> se contradice con el 2do parcial, donde energía es el método dominante aunque casi no sea el título del ejercicio.'},
+
+  {st: 'Abrís una hija y el ejercicio dice «Final UTN.BA 14/02/24». ¿Qué información te está dando esa etiqueta?',
+   opts: [
+     'Que viene con resolución oficial de la cátedra, como todos los ejercicios fechados',
+     'Que es material de otra regional y hay que renormalizar la gravedad',
+     'Que el enunciado fue reconstruido porque el original estaba ilegible',
+     'Que es el examen que rendís, en su formato real, pero que no hay resolución oficial: la resolución está hecha desde cero y contrastada contra el método de las claves de Martinelli'
+   ], c: 3,
+   ex: 'La procedencia no es adorno: te dice <b>cuánto pesa</b> cada cosa. El código completo: <b>«Parcial, cátedra Martinelli 2009-2017»</b> = tiene clave oficial contra la cual está verificado, es el material más sólido, pero su formato no es el de tu final. <b>«Final UTN.BA» con fecha</b> = formato real del examen, sin clave. <b>«dato reconstruido» en gris</b> = el original estaba ilegible (masa tapada por una firma, coeficientes tachados a mano en el del 26/05/22, gráfico v-t borroso en el del 14/02/24, o la recreación de memoria del 13/02/25 con anotaciones del tipo «no recuerdo qué datos daba»): la física vale igual, el número puede no ser el que salió ese día. <b>«UTN San Rafael»</b> = otra regional, entra porque cubre los temas que solo caen en final, y <b>allá usan g = 9,8</b> (acá está renormalizado a 10). <b>«1er parcial 2023, Prof. Dibarbora — FRBA»</b> = el puente: temario de Martinelli, formato de final. ▸ Por qué las otras: la <b>a</b> es falsa y es el hueco más grande del material — <b>ningún final tiene clave</b>; la <b>b</b> corresponde a la etiqueta de San Rafael; la <b>c</b> corresponde a la marca gris de «dato reconstruido», que es una advertencia distinta y aparece dentro del enunciado.'}
+
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

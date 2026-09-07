@@ -1,0 +1,584 @@
+<header>
+    <h1>Física I · Óptica geométrica</h1>
+    <div class="sub">UTN FRBA · Cátedra Martinelli · Espejos, lentes, prisma y marcha de rayos · 10 ejercicios reales (7 de parcial 2009–2017 + 3 de final)</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-optica">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#op-s1">La convención de signos, explicada una sola vez y bien</a></li>
+    <li><a href="#op-s2">Espejos esféricos</a></li>
+    <li><a href="#op-s3">Lentes delgadas</a></li>
+    <li><a href="#op-s4">La marcha de rayos a escala</a></li>
+    <li><a href="#op-s5">Prisma, lámina de caras paralelas y los ejercicios de diseño</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-optica">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · CONVENCIÓN DE SIGNOS ============ -->
+<details id="op-s1">
+<summary><span class="num">1</span> La convención de signos, explicada una sola vez y bien <span class="sec-score" id="ss-fisica1-utn-optica-1"></span></summary>
+<div class="content">
+
+<h3>Por qué te conviene estudiar óptica</h3>
+<p>Óptica es el tema más barato de toda Física I: son <b>dos ecuaciones y un dibujo</b>, no hay que plantear Newton ni energía, y el problema entero se resuelve en media carilla. Y sin embargo es el que más gente deja en blanco.</p>
+
+<div class="key"><div class="ky-t">Dónde aparece, según el material relevado</div>
+• En los <b>parciales de la cátedra Martinelli</b> que tenés (2009, 2010, 2011, 2012, 2014, 2016 y 2017), óptica es <b>el problema A1</b>: el primero del bloque A, que era eliminatorio. Seis de esos siete están numerados literalmente "A1".<br>
+• En los <b>finales</b> relevados aparece en <b>3 exámenes distintos</b>: el espejo del dentista (final del 12/12/23, problema 6), el prisma de caras paralelas (problema 1) y el espejo que proyecta el triple sobre una pantalla (problema 6).<br>
+• Como el final son <b>6 problemas sueltos y se aprueba con el 50%</b>, un problema de óptica bien resuelto es 1 de los 3 que necesitás. Y es el más corto de todos.
+</div>
+
+<h3>El sistema de referencia de la cátedra</h3>
+<p>Esto es lo único que tenés que memorizar, y hay que declararlo por escrito en el examen (la consigna del parcial pide "indique explícitamente los sistemas de referencia que adopta en cada caso"):</p>
+
+<div class="key"><div class="ky-t">Convención Martinelli</div>
+• La luz <b>viaja desde la izquierda</b> hacia el espejo o la lente.<br>
+• El origen está <b>en el espejo o en el centro óptico de la lente</b>.<br>
+• <b><span class="m">x</span> es positivo hacia la IZQUIERDA</b>, es decir del lado del objeto.<br>
+• <b><span class="m">y</span> es positivo hacia arriba.</b><br>
+Con esto, un <b>objeto real siempre tiene <span class="m">x</span> &gt; 0</b>. Esa es la única constante de todos los problemas.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 600 225" style="max-width:100%;height:auto" role="img" aria-label="Sistema de referencia: origen en el espejo, x positivo hacia la izquierda, y positivo hacia arriba">
+  <line x1="20" y1="130" x2="580" y2="130" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.7"/>
+  <text x="30" y="124" fill="currentColor" font-size="12" opacity="0.8">eje óptico</text>
+  <!-- elemento óptico = eje y -->
+  <line x1="440" y1="212" x2="440" y2="42" stroke="currentColor" stroke-width="3"/>
+  <polygon points="440,32 434,48 446,48" fill="currentColor"/>
+  <text x="450" y="46" fill="currentColor" font-size="14">+ y</text>
+  <text x="450" y="206" fill="currentColor" font-size="12">espejo o lente</text>
+  <text x="450" y="192" fill="currentColor" font-size="12">(origen)</text>
+  <!-- eje x hacia la izquierda -->
+  <line x1="430" y1="172" x2="112" y2="172" stroke="currentColor" stroke-width="1.5"/>
+  <polygon points="100,172 116,166 116,178" fill="currentColor"/>
+  <text x="150" y="192" fill="currentColor" font-size="14">+ x  (hacia la izquierda, del lado del objeto)</text>
+  <!-- luz -->
+  <line x1="40" y1="60" x2="140" y2="60" stroke="currentColor" stroke-width="1.5" opacity="0.8"/>
+  <polygon points="152,60 136,54 136,66" fill="currentColor" opacity="0.8"/>
+  <text x="40" y="50" fill="currentColor" font-size="12" opacity="0.85">la luz llega desde la izquierda</text>
+  <!-- objeto -->
+  <line x1="270" y1="130" x2="270" y2="78" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="270,68 264,84 276,84" fill="currentColor"/>
+  <text x="228" y="64" fill="currentColor" font-size="13">objeto (y &gt; 0)</text>
+  <!-- cota x -->
+  <line x1="270" y1="148" x2="440" y2="148" stroke="currentColor" stroke-width="1" opacity="0.8"/>
+  <polygon points="270,148 282,144 282,152" fill="currentColor" opacity="0.8"/>
+  <polygon points="440,148 428,144 428,152" fill="currentColor" opacity="0.8"/>
+  <text x="348" y="143" fill="currentColor" font-size="13">x &gt; 0</text>
+</svg>
+<div class="fig-cap">El sistema de referencia que hay que escribir en la hoja antes de tocar una cuenta.</div>
+</div>
+
+<h3>Las dos ecuaciones (y son distintas)</h3>
+
+<div class="formula">
+<b>ESPEJOS esféricos</b><br>
+1/x + 1/x′ = 1/f = 2/R &nbsp;&nbsp;&nbsp; A = y′/y = <b>−</b> x′/x
+</div>
+
+<div class="formula">
+<b>LENTES delgadas</b><br>
+1/x <b>−</b> 1/x′ = 1/f &nbsp;&nbsp;&nbsp; A = y′/y = <b>+</b> x′/x
+</div>
+
+<p>Fijate la simetría: en espejos la ecuación <b>suma</b> y el aumento <b>resta</b> (lleva el menos); en lentes la ecuación <b>resta</b> y el aumento <b>suma</b>. Es la única forma de que las dos den resultados físicamente coherentes con <span class="m">x</span> positivo hacia la izquierda. Si te olvidás de cuál es cuál, chequealo con un caso conocido: espejo cóncavo con el objeto en el infinito tiene que dar la imagen en el foco.</p>
+
+<h3>La tabla de decisión: traducir el enunciado a signos</h3>
+<p>El 80% de los errores no son de cuenta: son de traducción. Esta tabla es el diccionario.</p>
+
+<table class="tbl">
+  <tr><th>Lo que dice el enunciado</th><th>En un ESPEJO</th><th>En una LENTE</th></tr>
+  <tr><td>objeto real (siempre, salvo aviso)</td><td>x &gt; 0</td><td>x &gt; 0</td></tr>
+  <tr><td><b>imagen real</b> · "se forma sobre una pantalla" · "se proyecta" · "cae sobre una pantalla"</td><td><b>x′ &gt; 0</b> (delante del espejo, del lado del objeto)</td><td><b>x′ &lt; 0</b> (del otro lado, donde va la luz)</td></tr>
+  <tr><td><b>imagen virtual</b> · "se ve dentro del espejo" · "no se puede recoger"</td><td><b>x′ &lt; 0</b> (detrás del espejo)</td><td><b>x′ &gt; 0</b> (del mismo lado que el objeto)</td></tr>
+  <tr><td><b>derecha</b> / directa / "del mismo sentido"</td><td>A &gt; 0</td><td>A &gt; 0</td></tr>
+  <tr><td><b>invertida</b></td><td>A &lt; 0</td><td>A &lt; 0</td></tr>
+  <tr><td>"n veces mayor" / "el triple de tamaño"</td><td colspan="2">|A| = n &nbsp;→ el signo lo deducís vos, no lo dice el enunciado</td></tr>
+  <tr><td>"la mitad de tamaño"</td><td colspan="2">|A| = 0,5</td></tr>
+  <tr><td><b>cóncavo</b> / convergente</td><td>f &gt; 0, R &gt; 0</td><td>f &gt; 0</td></tr>
+  <tr><td><b>convexo</b> / divergente</td><td>f &lt; 0, R &lt; 0</td><td>f &lt; 0</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Las tres reglas que te dan el signo de A cuando el enunciado no lo dice</div>
+1. Con <b>objeto real</b>: <b>imagen real ⟹ imagen invertida</b> (A &lt; 0). Sin excepciones, ni en espejos ni en lentes.<br>
+2. Con <b>objeto real</b>: <b>imagen virtual ⟹ imagen derecha</b> (A &gt; 0). Tampoco tiene excepciones.<br>
+3. "Sobre una pantalla" es sinónimo de <b>real</b>, y por lo tanto de <b>invertida</b>. Una imagen virtual no se puede proyectar: no hay luz ahí.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa nº 1 · Tomar A positivo cuando la imagen es invertida</div>
+Es <b>el error más caro de la unidad</b>, y aparece señalado en casi todas las resoluciones oficiales. El enunciado te dice "4 veces mayor" o "la mitad de tamaño": eso es <b>|A|</b>, el módulo. El signo lo tenés que poner vos.<br><br>
+Ejemplo real (1er parcial 2009): "imagen invertida, 4 veces mayor" ⟹ <b>A = −4</b>, no +4. Con A = +4 en un espejo obtenés x′ = −4x, o sea imagen virtual, y la ecuación te devuelve un foco negativo — un espejo convexo — contradiciendo el "cóncavo" del propio enunciado. El absurdo aparece al final, cuando ya perdiste 20 minutos.<br><br>
+Ejemplo real (1er parcial 2017): "es real y tiene la mitad de tamaño". Real + objeto real ⟹ invertida ⟹ <b>A = −0,5</b>. Con A = +0,5 sale x = −30 cm, un objeto virtual, que en este problema es físicamente imposible.<br><br>
+<b>Chequeo de 5 segundos:</b> si te da x o x′ negativo donde el enunciado dice que hay un objeto real o una pantalla, el signo de A está mal.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa nº 2 · Confundir R con f</div>
+En espejos, <b>R = 2f</b>. La ecuación de la cátedra lo trae escrito: <b>1/x + 1/x′ = 1/f = 2/R</b>. Ojo con las dos direcciones del error:<br>
+• Si pedís 1/f y te dan 1/16 cm⁻¹, entonces f = 16 cm y <b>R = 32 cm</b>. Contestar 16 cuando piden el radio es error.<br>
+• Si escribís 1/x + 1/x′ = <b>1/R</b> (olvidándote el 2), todo el problema sale con el doble o la mitad.<br><br>
+El 1er parcial 2009 pide <b>el radio</b> (R = 32 cm) y el 2017 también pide <b>el radio</b> (R = 20 cm, con f = 10 cm). El 2012 y el 2014, en cambio, piden <b>la distancia focal</b>. Subrayá la palabra en el enunciado antes de arrancar.<br><br>
+En <b>lentes delgadas</b> esta relación NO existe: ahí f es f y punto. No hay ningún R = 2f que aplicar.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa nº 3 · Sumar x + x′ cuando dan "la distancia entre el objeto y la imagen"</div>
+Cuando el enunciado te da la separación entre objeto e imagen (o entre el objeto y la pantalla), la relación correcta en esta convención es siempre:<br><br>
+<div class="formula">separación = | x − x′ |</div>
+porque <b>x y x′ se miden sobre el mismo eje, con el mismo sentido positivo</b>, desde el mismo origen. La resta ya se encarga de los signos sola.<br><br>
+• <b>1er parcial 2009:</b> objeto real y imagen real, las dos del lado izquierdo (x = 20, x′ = 80). Separación = |20 − 80| = 60 cm ✓. Si escribís x + x′ = 60 te da x = 12 cm y todo el problema sale mal.<br>
+• <b>Final (espejo 3×):</b> x = 1 m, x′ = 3 m ⟹ separación = 2 m ✓.<br>
+• <b>Final (dentista):</b> x = 1,5 cm, x′ = −6 cm ⟹ separación = |1,5 − (−6)| = 7,5 cm — acá la resta <i>sí</i> termina sumando, porque la imagen está detrás del espejo. Por eso la fórmula con módulo funciona en los dos casos y "sumar" no.
+</div>
+
+<h3>La receta, en orden</h3>
+<div class="key"><div class="ky-t">Cinco pasos que resuelven cualquiera de estos problemas</div>
+<b>1.</b> Dibujá el eje, el elemento óptico y escribí el sistema de referencia (x hacia la izquierda, y hacia arriba). Esto se puntúa aparte.<br>
+<b>2.</b> Traducí cada frase del enunciado a un signo, con la tabla de arriba. Anotá x, x′, A, f o R con su signo, y marcá cuál es la incógnita.<br>
+<b>3.</b> Escribí las dos ecuaciones (la del elemento y la del aumento) y contá incógnitas: siempre te quedan 2 ecuaciones con 2 incógnitas.<br>
+<b>4.</b> Resolvé y <b>verificá la coherencia física</b>: ¿el signo de f corresponde al tipo de espejo/lente que dice el enunciado? ¿la imagen quedó del lado que corresponde?<br>
+<b>5.</b> Hacé la marcha de rayos <b>a escala</b> (unidad 4). Es medio problema.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · ESPEJOS ESFÉRICOS ============ -->
+<details id="op-s2">
+<summary><span class="num">2</span> Espejos esféricos <span class="sec-score" id="ss-fisica1-utn-optica-2"></span></summary>
+<div class="content">
+
+<h3>Lo que hay que saber</h3>
+<div class="formula">
+1/x + 1/x′ = 1/f = 2/R &nbsp;&nbsp;·&nbsp;&nbsp; A = y′/y = − x′/x &nbsp;&nbsp;·&nbsp;&nbsp; R = 2f
+</div>
+
+<p>El <b>vértice V</b> es el punto donde el eje óptico corta al espejo (el origen). El <b>centro de curvatura C</b> está a R del vértice y el <b>foco F</b> a f = R/2. En un espejo <b>cóncavo</b> (el que "abraza" al objeto) F y C están <b>delante</b> del espejo, con f &gt; 0 y R &gt; 0. En un <b>convexo</b> están detrás: f &lt; 0 y R &lt; 0.</p>
+
+<div class="fig">
+<svg viewBox="0 0 600 200" style="max-width:100%;height:auto" role="img" aria-label="Zonas de un espejo cóncavo: más allá de C, entre C y F, y dentro del foco">
+  <line x1="20" y1="100" x2="575" y2="100" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.7"/>
+  <!-- espejo cóncavo -->
+  <path d="M 512,20 Q 556,100 512,180" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="540" y1="20" x2="540" y2="180" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <circle cx="540" cy="100" r="3.5" fill="currentColor"/>
+  <text x="534" y="196" fill="currentColor" font-size="13">V</text>
+  <circle cx="440" cy="100" r="3.5" fill="currentColor"/>
+  <text x="436" y="196" fill="currentColor" font-size="13">F</text>
+  <circle cx="340" cy="100" r="3.5" fill="currentColor"/>
+  <text x="336" y="196" fill="currentColor" font-size="13">C</text>
+  <line x1="440" y1="100" x2="540" y2="100" stroke="currentColor" stroke-width="2.5" opacity="0.9"/>
+  <text x="470" y="92" fill="currentColor" font-size="12">f</text>
+  <line x1="340" y1="120" x2="540" y2="120" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+  <polygon points="340,120 352,116 352,124" fill="currentColor" opacity="0.7"/>
+  <polygon points="540,120 528,116 528,124" fill="currentColor" opacity="0.7"/>
+  <text x="432" y="134" fill="currentColor" font-size="12">R = 2f</text>
+  <!-- zonas -->
+  <text x="150" y="60" fill="currentColor" font-size="14">① x &gt; R</text>
+  <text x="352" y="60" fill="currentColor" font-size="14">② F–C</text>
+  <text x="452" y="60" fill="currentColor" font-size="14">③ x &lt; f</text>
+  <line x1="30" y1="72" x2="336" y2="72" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  <line x1="344" y1="72" x2="436" y2="72" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  <line x1="444" y1="72" x2="536" y2="72" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+</svg>
+<div class="fig-cap">Espejo cóncavo: las tres zonas donde puede caer el objeto. El resultado del problema tiene que ser coherente con la zona.</div>
+</div>
+
+<table class="tbl">
+  <tr><th>Espejo</th><th>Dónde está el objeto</th><th>Imagen</th><th>Ejercicio real</th></tr>
+  <tr><td rowspan="4"><b>Cóncavo</b><br>(f &gt; 0)</td><td>① más allá de C (x &gt; R)</td><td>real, invertida, <b>menor</b>, entre F y C</td><td>2017 A1 (x = 30, x′ = 15)</td></tr>
+  <tr><td>② entre F y C</td><td>real, invertida, <b>mayor</b>, más allá de C</td><td>2009 · 2012 · 2014</td></tr>
+  <tr><td>x = f</td><td>no se forma imagen (rayos paralelos)</td><td>—</td></tr>
+  <tr><td>③ dentro del foco (x &lt; f)</td><td><b>virtual</b>, derecha, mayor, detrás del espejo</td><td>Final: espejo del dentista</td></tr>
+  <tr><td><b>Convexo</b><br>(f &lt; 0)</td><td>en cualquier lado</td><td>siempre <b>virtual, derecha y menor</b>, entre V y F, detrás</td><td>—</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El chequeo de coherencia que salva el problema</div>
+Una vez que tenés x y x′, mirá la tabla: si te dio "imagen real, invertida y 4 veces mayor" pero el objeto quedó <b>fuera de C</b>, algo está mal, porque esa zona da imágenes <b>menores</b>. En el parcial 2009 el objeto sale a 20 cm con F = 16 y C = 32: queda <b>entre F y C</b>, que es exactamente la zona de "real, invertida y mayor". Eso confirma que la cuenta está bien antes de entregar.
+</div>
+
+<div class="trap"><div class="tr-t">"Cae sobre una pantalla" no es un dato decorativo</div>
+Es el dato que fija <b>el signo de x′ y el signo de A al mismo tiempo</b>. Pantalla ⟹ imagen real ⟹ x′ &gt; 0 <b>y</b> A &lt; 0. En el parcial 2014, si por costumbre le ponés x′ = −40 cm, te da f = −13,3 cm y concluís "espejo convexo", que es exactamente la respuesta equivocada del inciso a).<br><br>
+Y ojo con dónde está la pantalla: en el 2012, los <b>8 m son la distancia imagen x′</b> (el enunciado dice "una pantalla ubicada a 8 m del espejo"), no la posición del objeto. Leer eso al revés arruina los dos incisos.
+</div>
+
+<div class="trap"><div class="tr-t">Unidades mezcladas a propósito</div>
+La cátedra mezcla mm con cm y cm con m dentro del mismo enunciado (2014: objeto de 2 mm y distancias en cm; 2012: objeto de 0,6 cm y pantalla a 8 m). <b>El aumento es adimensional</b>, así que y′ sale en la misma unidad que y sin convertir nada; pero para calcular f <b>todo tiene que estar en la misma unidad</b>. Elegí una y pasá todo antes de escribir la primera ecuación.
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo modelo: el planteo completo en 6 líneas</div>
+Datos: espejo cóncavo, imagen invertida 4 veces mayor de un objeto real, separación objeto–imagen 60 cm.<br>
+<b>1.</b> Sistema de referencia: origen en V, x positivo hacia la izquierda, y positivo hacia arriba.<br>
+<b>2.</b> Traducción: objeto real ⟹ x &gt; 0. Invertida y 4 veces mayor ⟹ A = <b>−4</b>.<br>
+<b>3.</b> Aumento: A = −x′/x = −4 ⟹ <b>x′ = 4x</b> (positivo: imagen real, del lado del objeto).<br>
+<b>4.</b> Separación: |x − x′| = 60 ⟹ 4x − x = 60 ⟹ <b>x = 20 cm</b>, <b>x′ = 80 cm</b>.<br>
+<b>5.</b> Espejo: 1/20 + 1/80 = 5/80 = 1/16 = 2/R ⟹ <b>f = 16 cm, R = 32 cm</b>.<br>
+<b>6.</b> Coherencia: f = 16 &gt; 0 ⟹ cóncavo ✓; el objeto (20) quedó entre F (16) y C (32) ⟹ zona de imagen real, invertida y mayor ✓.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-optica"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · LENTES DELGADAS ============ -->
+<details id="op-s3">
+<summary><span class="num">3</span> Lentes delgadas <span class="sec-score" id="ss-fisica1-utn-optica-3"></span></summary>
+<div class="content">
+
+<h3>Lo que hay que saber</h3>
+<div class="formula">
+1/x − 1/x′ = 1/f &nbsp;&nbsp;·&nbsp;&nbsp; A = y′/y = + x′/x
+</div>
+
+<p>Misma convención de siempre: origen en el <b>centro óptico</b> de la lente, x positivo hacia la izquierda. Lo que cambia respecto de los espejos es <b>dónde queda la imagen real</b>: en una lente la luz atraviesa y sigue de largo, así que la imagen real se forma <b>del otro lado</b> — y en esta convención eso significa <b>x′ &lt; 0</b>.</p>
+
+<div class="key"><div class="ky-t">La traducción que hay que tener grabada</div>
+En una LENTE, con objeto real (x &gt; 0):<br>
+• <b>imagen real</b> ⟹ x′ &lt; 0 ⟹ A = x′/x &lt; 0 ⟹ <b>invertida</b>.<br>
+• <b>imagen virtual</b> ⟹ x′ &gt; 0 ⟹ A = x′/x &gt; 0 ⟹ <b>derecha</b>.<br>
+Todo cierra solo: no hace falta memorizar la orientación aparte, sale del signo de x′.
+</div>
+
+<table class="tbl">
+  <tr><th>Lente</th><th>Dónde está el objeto</th><th>Imagen</th><th>Ejercicio real</th></tr>
+  <tr><td rowspan="4"><b>Convergente</b><br>(f &gt; 0)</td><td>x &gt; 2f</td><td>real (x′&lt;0), invertida, menor</td><td>—</td></tr>
+  <tr><td>x = 2f</td><td>real, invertida, <b>igual tamaño</b>, a 2f del otro lado</td><td>2016 A1, primer caso</td></tr>
+  <tr><td>f &lt; x &lt; 2f</td><td>real, invertida, mayor</td><td>—</td></tr>
+  <tr><td><b>x &lt; f</b> (dentro del foco)</td><td><b>virtual</b> (x′&gt;0), derecha, mayor → es <b>la lupa</b></td><td>2010 A1 · 2016 A1, segundo caso</td></tr>
+  <tr><td><b>Divergente</b><br>(f &lt; 0)</td><td>en cualquier lado</td><td>siempre <b>virtual, derecha y menor</b>, del mismo lado que el objeto</td><td>2011 A1</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">"Convergente" no quiere decir "imagen real"</div>
+Es el error que la propia resolución del parcial 2010 marca. Una lente convergente da imagen real <b>solo si el objeto está fuera del foco</b>. Con el objeto <b>dentro</b> del foco (x &lt; f) la imagen es <b>virtual, derecha y ampliada</b>: es el modo lupa, y es exactamente lo que pasa en el 2010 (objeto a 20 cm con f = 60 cm).<br><br>
+La palabra <b>"directa"</b> del enunciado significa <b>derecha</b>, o sea A &gt; 0. Si tomás A = −1,5 en ese problema te sale f = 12 cm — una lente convergente con imagen real e invertida — que contradice el "directa" del enunciado. El número sale, pero el problema está mal.
+</div>
+
+<div class="trap"><div class="tr-t">|f| = 30 cm no es f = 30 cm</div>
+En el parcial 2011 el enunciado dice textual: "una lente divergente cuya distancia focal, <b>en módulo</b>, vale 30 cm". Divergente ⟹ <b>f = −30 cm</b>. Meter +30 en la ecuación da un resultado sin sentido físico.<br><br>
+Y el aumento en una divergente con objeto real es <b>siempre positivo</b>: A = +0,5, no −0,5. Con A = −0,5 llegás a un objeto virtual, que en el problema no existe. Estas dos cosas (f negativa, A positivo) se deducen antes de calcular nada, mirando la última fila de la tabla.
+</div>
+
+<div class="trap"><div class="tr-t">Ojo con otras convenciones de Internet</div>
+La mayoría de los libros y videos usan <b>1/s′ − 1/s = 1/f</b> con s positivo hacia la derecha (convención de Gauss moderna). <b>Los signos salen distintos</b>: ahí la imagen real de una lente tiene s′ &gt; 0, acá tiene x′ &lt; 0. Las dos son correctas, pero <b>mezclarlas es el error más común</b> y el que más se ve en las correcciones. Elegí la de la cátedra, declarála por escrito arriba de todo, y no la sueltes en el resto del problema.
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo modelo: la lupa (parcial 2010, en 4 líneas)</div>
+Datos: x = 20 cm, imagen "ampliada y directa", 1,5 veces el objeto.<br>
+<b>1.</b> Directa ⟹ A = <b>+1,5</b>.<br>
+<b>2.</b> A = x′/x ⟹ x′ = 1,5 · 20 cm = <b>+30 cm</b> ⟹ x′ &gt; 0 ⟹ <b>imagen virtual y derecha</b>, del mismo lado que el objeto.<br>
+<b>3.</b> 1/20 − 1/30 = (3 − 2)/60 = 1/60 ⟹ <b>f = +60 cm</b> ⟹ <b>lente convergente</b>.<br>
+<b>4.</b> Coherencia: x = 20 cm &lt; f = 60 cm ⟹ el objeto está dentro del foco ⟹ caso lupa: virtual, derecha, ampliada ✓.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-optica"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · MARCHA DE RAYOS ============ -->
+<details id="op-s4">
+<summary><span class="num">4</span> La marcha de rayos a escala <span class="sec-score" id="ss-fisica1-utn-optica-4"></span></summary>
+<div class="content">
+
+<h3>Por qué esta unidad vale la mitad de la nota</h3>
+<p>Mirá los enunciados: <b>2009 b)</b> "Dibuje a escala la marcha de rayos". <b>2010 b)</b> "Realice a escala la marcha de rayos". <b>2011 b)</b> "Realice a escala la marcha de rayos". <b>2012 b)</b> "Realice a escala el trazado de rayos". <b>2017 b)</b> "Realice a escala el trazado de rayos". Cinco de los siete ejercicios de parcial tienen el mismo inciso b), y en las grillas de corrección el inciso b) puntúa aparte del a).</p>
+
+<div class="key"><div class="ky-t">Lo que se puntúa del dibujo</div>
+<b>1.</b> Que esté <b>a escala</b> — el enunciado lo dice literalmente. Si f = 10, x = 30 y x′ = 15, el objeto tiene que estar al doble de distancia que la imagen y al triple que el foco. Elegí una escala cómoda (1 cm de hoja = 5 cm reales) y <b>escribila</b>.<br>
+<b>2.</b> El <b>sistema de referencia dibujado</b>: eje óptico, sentido positivo de x, sentido positivo de y.<br>
+<b>3.</b> Los <b>puntos marcados con su distancia</b>: V, F y C en espejos; centro óptico, F y F′ en lentes.<br>
+<b>4.</b> <b>Al menos dos rayos notables</b> (tres queda mejor) trazados hasta que se corten, con flechitas de sentido.<br>
+<b>5.</b> Las <b>prolongaciones en línea de trazos</b> cuando la imagen es virtual — y solo ahí.<br>
+<b>6.</b> Que el dibujo <b>coincida con la cuenta del inciso a)</b>: si calculaste A = −4, la imagen va invertida y 4 veces más alta. Un dibujo que contradice el a) hace perder los dos incisos.
+</div>
+
+<h3>Los rayos notables</h3>
+<table class="tbl">
+  <tr><th>ESPEJO esférico</th><th>LENTE delgada</th></tr>
+  <tr><td>① Rayo <b>paralelo al eje</b> → se refleja pasando por <b>F</b> (o su prolongación por F, si es convexo).</td><td>① Rayo <b>paralelo al eje</b> → se refracta pasando por el <b>foco imagen F′</b> (o su prolongación, si es divergente).</td></tr>
+  <tr><td>② Rayo que <b>pasa por F</b> → se refleja <b>paralelo al eje</b>.</td><td>② Rayo que <b>pasa por el foco objeto F</b> → emerge <b>paralelo al eje</b>.</td></tr>
+  <tr><td>③ Rayo que va al <b>centro de curvatura C</b> → incide perpendicular al espejo y <b>vuelve sobre sí mismo</b>.</td><td>③ Rayo por el <b>centro óptico</b> → <b>sigue derecho</b>, sin desviarse. Es el más fácil y nunca falla.</td></tr>
+  <tr><td>④ Rayo al <b>vértice V</b> → se refleja <b>simétrico respecto del eje óptico</b> (ángulo de incidencia = ángulo de reflexión).</td><td>—</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Aproximación paraxial</div>
+En todos estos dibujos se supone que los rayos forman ángulos chicos con el eje, así que <b>la reflexión o la refracción se dibuja sobre el plano vertical del vértice</b> (la línea de trazos en las figuras), no sobre la superficie curva. Es lo que hacen las resoluciones oficiales y es lo correcto para las ecuaciones que estamos usando.
+</div>
+
+<h3>Caso 1 · Espejo cóncavo, objeto entre F y C</h3>
+<p>Números del <b>1er parcial 2017</b> visto al revés (objeto a 30 cm, f = 10 cm, C a 20 cm, imagen real a 15 cm y de la mitad de tamaño). Los tres rayos se cortan en la punta de la imagen: <b>real, invertida y reducida</b>.</p>
+
+<div class="fig">
+<svg viewBox="0 0 590 250" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en espejo cóncavo: objeto más allá de C, imagen real invertida y reducida">
+  <line x1="20" y1="150" x2="575" y2="150" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <path d="M 472,40 Q 516,150 472,260" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="500" y1="35" x2="500" y2="240" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <!-- puntos -->
+  <circle cx="500" cy="150" r="3.5" fill="currentColor"/><text x="494" y="170" fill="currentColor" font-size="13">V</text>
+  <circle cx="380" cy="150" r="3.5" fill="currentColor"/><text x="368" y="170" fill="currentColor" font-size="13">F</text>
+  <circle cx="260" cy="150" r="3.5" fill="currentColor"/><text x="248" y="170" fill="currentColor" font-size="13">C</text>
+  <text x="356" y="188" fill="currentColor" font-size="12">10 cm</text>
+  <text x="236" y="206" fill="currentColor" font-size="12">20 cm</text>
+  <text x="120" y="224" fill="currentColor" font-size="12">objeto a 30 cm</text>
+  <!-- objeto -->
+  <line x1="140" y1="150" x2="140" y2="95" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="140,86 134,102 146,102" fill="currentColor"/>
+  <text x="112" y="80" fill="currentColor" font-size="13">objeto</text>
+  <!-- rayo 1: paralelo -> F -->
+  <line x1="140" y1="90" x2="500" y2="90" stroke="currentColor" stroke-width="1.4" opacity="0.9"/>
+  <line x1="500" y1="90" x2="260" y2="210" stroke="currentColor" stroke-width="1.4" opacity="0.9"/>
+  <!-- rayo 2: por F -> paralelo -->
+  <line x1="140" y1="90" x2="500" y2="180" stroke="currentColor" stroke-width="1.4" opacity="0.75" stroke-dasharray="9 3"/>
+  <line x1="500" y1="180" x2="230" y2="180" stroke="currentColor" stroke-width="1.4" opacity="0.75" stroke-dasharray="9 3"/>
+  <!-- rayo 3: al vértice -->
+  <line x1="140" y1="90" x2="500" y2="150" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
+  <line x1="500" y1="150" x2="230" y2="195" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
+  <!-- imagen -->
+  <line x1="320" y1="150" x2="320" y2="180" stroke="currentColor" stroke-width="3"/>
+  <polygon points="320,188 314,172 326,172" fill="currentColor"/>
+  <text x="292" y="146" fill="currentColor" font-size="13">imagen</text>
+</svg>
+<div class="fig-cap">Espejo cóncavo. ① paralelo → pasa por F. ② por F → sale paralelo. ④ al vértice → refleja simétrico. Los tres se cortan a 15 cm: imagen real, invertida, mitad de tamaño.</div>
+</div>
+
+<h3>Caso 2 · Espejo convexo</h3>
+<p>Objeto a 10 cm de un convexo con |f| = 10 cm. Los rayos reflejados <b>divergen</b>: no se cortan nunca. Lo que se corta son sus <b>prolongaciones hacia atrás</b> (línea de trazos), a 5 cm <b>detrás</b> del espejo. Imagen <b>virtual, derecha y menor</b>: siempre, con cualquier objeto.</p>
+
+<div class="fig">
+<svg viewBox="0 0 600 250" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en espejo convexo: imagen virtual derecha y menor detrás del espejo">
+  <line x1="20" y1="150" x2="585" y2="150" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <path d="M 402,45 Q 358,150 402,255" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="380" y1="40" x2="380" y2="240" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <circle cx="380" cy="150" r="3.5" fill="currentColor"/><text x="374" y="172" fill="currentColor" font-size="13">V</text>
+  <circle cx="540" cy="150" r="3.5" fill="currentColor"/><text x="534" y="172" fill="currentColor" font-size="13">F</text>
+  <text x="470" y="192" fill="currentColor" font-size="12">|f| = 10 cm (detrás)</text>
+  <!-- objeto -->
+  <line x1="220" y1="150" x2="220" y2="88" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="220,80 214,96 226,96" fill="currentColor"/>
+  <text x="192" y="74" fill="currentColor" font-size="13">objeto</text>
+  <text x="182" y="200" fill="currentColor" font-size="12">10 cm</text>
+  <!-- rayo 1 paralelo -->
+  <line x1="220" y1="80" x2="380" y2="80" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="380" y1="80" x2="200" y2="1" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="380" y1="80" x2="540" y2="150" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2 al vértice -->
+  <line x1="220" y1="80" x2="380" y2="150" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+  <line x1="380" y1="150" x2="220" y2="220" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+  <line x1="380" y1="150" x2="480" y2="106" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- imagen virtual -->
+  <line x1="460" y1="150" x2="460" y2="115" stroke="currentColor" stroke-width="3"/>
+  <polygon points="460,107 454,123 466,123" fill="currentColor"/>
+  <text x="418" y="102" fill="currentColor" font-size="13">imagen virtual</text>
+</svg>
+<div class="fig-cap">Espejo convexo. Los rayos reflejados divergen; las prolongaciones punteadas se cortan detrás del espejo, a 5 cm. Imagen virtual, derecha, la mitad de alta.</div>
+</div>
+
+<h3>Caso 3 · Lente convergente con el objeto dentro del foco (la lupa)</h3>
+<p>Es el <b>parcial 2010</b>: f = 60 cm, objeto a 20 cm. Los rayos emergentes divergen; sus prolongaciones se cortan <b>del mismo lado que el objeto</b>, a 30 cm. Imagen <b>virtual, derecha y 1,5 veces mayor</b>.</p>
+
+<div class="fig">
+<svg viewBox="0 0 600 255" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en lente convergente con el objeto dentro del foco: imagen virtual derecha y ampliada">
+  <line x1="20" y1="110" x2="585" y2="110" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <!-- lente convergente -->
+  <line x1="300" y1="30" x2="300" y2="195" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="300,24 293,40 307,40" fill="currentColor"/>
+  <polygon points="300,201 293,185 307,185" fill="currentColor"/>
+  <text x="308" y="212" fill="currentColor" font-size="12">lente convergente</text>
+  <circle cx="300" cy="110" r="3.5" fill="currentColor"/>
+  <circle cx="60" cy="110" r="3.5" fill="currentColor"/><text x="52" y="130" fill="currentColor" font-size="13">F</text>
+  <circle cx="540" cy="110" r="3.5" fill="currentColor"/><text x="532" y="130" fill="currentColor" font-size="13">F′</text>
+  <text x="44" y="148" fill="currentColor" font-size="12">60 cm</text>
+  <text x="512" y="148" fill="currentColor" font-size="12">60 cm</text>
+  <!-- objeto -->
+  <line x1="220" y1="110" x2="220" y2="76" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="220,68 214,84 226,84" fill="currentColor"/>
+  <text x="196" y="62" fill="currentColor" font-size="13">objeto</text>
+  <text x="222" y="130" fill="currentColor" font-size="12">20 cm</text>
+  <!-- rayo 1: paralelo -> F' -->
+  <line x1="220" y1="70" x2="300" y2="70" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="300" y1="70" x2="565" y2="114" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="300" y1="70" x2="170" y2="48" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2: por el centro óptico -->
+  <line x1="220" y1="70" x2="300" y2="110" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="300" y1="110" x2="520" y2="220" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="300" y1="110" x2="170" y2="45" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- imagen virtual -->
+  <line x1="180" y1="110" x2="180" y2="58" stroke="currentColor" stroke-width="3"/>
+  <polygon points="180,50 174,66 186,66" fill="currentColor"/>
+  <text x="92" y="42" fill="currentColor" font-size="13">imagen virtual (30 cm)</text>
+</svg>
+<div class="fig-cap">Lente convergente en modo lupa. Los rayos que salen divergen; las prolongaciones punteadas se cortan a 30 cm del mismo lado, dando una imagen virtual, derecha y 1,5 veces más alta.</div>
+</div>
+
+<h3>Caso 4 · Lente divergente</h3>
+<p>Objeto real, |f| = 20 cm, objeto a 40 cm. Igual que en el espejo convexo: la imagen es <b>siempre virtual, derecha y menor</b>, y queda <b>entre el foco y la lente, del mismo lado que el objeto</b>.</p>
+
+<div class="fig">
+<svg viewBox="0 0 640 235" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en lente divergente: imagen virtual derecha y reducida">
+  <line x1="20" y1="130" x2="625" y2="130" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <!-- lente divergente -->
+  <line x1="460" y1="40" x2="460" y2="212" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="460,42 453,58 467,58" fill="currentColor"/>
+  <polygon points="460,210 453,194 467,194" fill="currentColor"/>
+  <text x="468" y="226" fill="currentColor" font-size="12">lente divergente</text>
+  <circle cx="460" cy="130" r="3.5" fill="currentColor"/>
+  <circle cx="300" cy="130" r="3.5" fill="currentColor"/><text x="292" y="150" fill="currentColor" font-size="13">F</text>
+  <text x="272" y="168" fill="currentColor" font-size="12">|f| = 20 cm</text>
+  <!-- objeto -->
+  <line x1="140" y1="130" x2="140" y2="82" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="140,74 134,90 146,90" fill="currentColor"/>
+  <text x="112" y="68" fill="currentColor" font-size="13">objeto</text>
+  <text x="122" y="150" fill="currentColor" font-size="12">40 cm</text>
+  <!-- rayo 1 paralelo -->
+  <line x1="140" y1="75" x2="460" y2="75" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="460" y1="75" x2="615" y2="22" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="460" y1="75" x2="290" y2="133" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2 centro óptico -->
+  <line x1="140" y1="75" x2="460" y2="130" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="460" y1="130" x2="620" y2="158" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <!-- imagen virtual -->
+  <line x1="353" y1="130" x2="353" y2="115" stroke="currentColor" stroke-width="3"/>
+  <polygon points="353,107 347,123 359,123" fill="currentColor"/>
+  <text x="330" y="100" fill="currentColor" font-size="13">imagen virtual</text>
+</svg>
+<div class="fig-cap">Lente divergente. El rayo paralelo emerge como si viniera de F (prolongación punteada) y el rayo por el centro óptico sigue derecho; se cortan a 13,3 cm, del mismo lado que el objeto. Imagen virtual, derecha, un tercio de alta.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Errores de dibujo que descuentan</div>
+• <b>Trazar la imagen virtual con línea llena.</b> Los rayos reales nunca pasan por ahí: las prolongaciones van <b>en línea de trazos</b>, y la flecha de la imagen se marca como virtual.<br>
+• <b>Dibujar un esquema cualitativo cuando el enunciado dice "a escala".</b> Si las distancias no guardan proporción, el inciso b) no está resuelto aunque el dibujo sea lindo.<br>
+• <b>Dibujar la imagen del lado equivocado.</b> Con un espejo, la imagen real va <b>delante</b> (mismo lado que el objeto); con una lente, <b>detrás</b> (del otro lado). Es el punto donde más se cruzan las dos convenciones.<br>
+• <b>Olvidarse de marcar F y C con sus distancias.</b> Sin esos puntos rotulados el trazado no se puede verificar y no puntúa completo.<br>
+• <b>Dibujar rayos que no son notables.</b> Cualquier rayo funciona en la realidad, pero solo los notables se pueden trazar sin calcular ángulos; usá esos.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · PRISMA Y LÁMINA + DISEÑO ============ -->
+<details id="op-s5">
+<summary><span class="num">5</span> Prisma, lámina de caras paralelas y los ejercicios de diseño <span class="sec-score" id="ss-fisica1-utn-optica-5"></span></summary>
+<div class="content">
+
+<h3>Este tema cae SOLO en el final</h3>
+<p>En los siete parciales relevados no hay ni un problema de refracción: son todos espejos y lentes. Pero en los finales aparece, y aparece <b>como problema 1</b>. Vale la pena tenerlo, porque es una cuenta de tres líneas.</p>
+
+<h3>Ley de Snell</h3>
+<div class="formula">
+n₁ · sen θ₁ = n₂ · sen θ₂
+</div>
+<p>Los ángulos <b>se miden respecto de la NORMAL</b> a la superficie, nunca respecto de la superficie. Con aire, n₁ = 1. Al pasar a un medio <b>más denso ópticamente</b> (n mayor) el rayo <b>se acerca a la normal</b>; al salir a uno menos denso, se aleja.</p>
+
+<div class="key"><div class="ky-t">Ángulo límite (por si lo piden)</div>
+Yendo del medio denso al aire hay reflexión total interna cuando el ángulo supera el <b>ángulo límite</b>: sen θ<sub>L</sub> = n<sub>aire</sub>/n<sub>vidrio</sub> = 1/n. Para n = 1,5: <b>θ<sub>L</sub> = 41,8°</b>. En la lámina del final el rayo interno viaja a 28,1°, muy por debajo del límite, así que sale sin problema.
+</div>
+
+<h3>Lámina de caras paralelas · corrimiento lateral</h3>
+<p>El enunciado del final la llama "prisma de caras paralelas", pero es una <b>lámina</b>: dos caras planas y paralelas, con aire de los dos lados. Lo importante es esto:</p>
+
+<div class="key"><div class="ky-t">El rayo sale PARALELO al que entró</div>
+Entra con α respecto de la normal, adentro viaja con β, y al salir por la cara de abajo la normal es la misma dirección, así que vuelve a salir con <b>α</b>. <b>No hay desviación angular neta</b>: lo único que cambia es la <b>posición</b>. Ese corrimiento perpendicular al rayo es el <b>corrimiento lateral d</b>.
+</div>
+
+<div class="formula">
+sen α = n · sen β &nbsp;&nbsp;·&nbsp;&nbsp; <b>d = e · sen(α − β) / cos β</b>
+</div>
+<p>donde <b>e</b> es el espesor de la lámina. Sale de dos pasos: el camino recorrido adentro es L = e/cos β, y el corrimiento perpendicular a ese camino es d = L · sen(α − β).</p>
+
+<div class="fig">
+<svg viewBox="0 0 560 285" style="max-width:100%;height:auto" role="img" aria-label="Lámina de caras paralelas: rayo incidente, refractado y emergente con el corrimiento lateral d">
+  <rect x="80" y="90" width="440" height="100" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+  <text x="410" y="146" fill="currentColor" font-size="14">n = 1,5</text>
+  <!-- normales -->
+  <line x1="220" y1="40" x2="220" y2="140" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <text x="226" y="46" fill="currentColor" font-size="12" opacity="0.85">normal</text>
+  <line x1="273" y1="145" x2="273" y2="248" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <!-- rayo incidente -->
+  <line x1="130" y1="0" x2="220" y2="90" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="192,62 172,68 186,80" fill="currentColor"/>
+  <text x="96" y="30" fill="currentColor" font-size="13">rayo incidente</text>
+  <text x="196" y="80" fill="currentColor" font-size="13">α</text>
+  <!-- rayo interno -->
+  <line x1="220" y1="90" x2="273" y2="190" stroke="currentColor" stroke-width="1.8"/>
+  <text x="240" y="118" fill="currentColor" font-size="13">β</text>
+  <!-- prolongación del incidente -->
+  <line x1="220" y1="90" x2="352" y2="222" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.7"/>
+  <text x="330" y="246" fill="currentColor" font-size="12" opacity="0.85">si no hubiera lámina</text>
+  <!-- rayo emergente -->
+  <line x1="273" y1="190" x2="343" y2="260" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="343,260 325,252 331,240" fill="currentColor"/>
+  <text x="246" y="214" fill="currentColor" font-size="13">α</text>
+  <!-- corrimiento d -->
+  <line x1="313" y1="230" x2="336" y2="207" stroke="currentColor" stroke-width="1.6"/>
+  <polygon points="313,230 322,222 320,231" fill="currentColor"/>
+  <polygon points="336,207 327,215 329,206" fill="currentColor"/>
+  <text x="336" y="196" fill="currentColor" font-size="14">d</text>
+  <!-- espesor -->
+  <line x1="46" y1="90" x2="46" y2="190" stroke="currentColor" stroke-width="1"/>
+  <polygon points="46,90 42,102 50,102" fill="currentColor"/>
+  <polygon points="46,190 42,178 50,178" fill="currentColor"/>
+  <text x="20" y="146" fill="currentColor" font-size="14">e</text>
+</svg>
+<div class="fig-cap">El rayo emergente es paralelo al incidente; lo que se pide es d, la distancia perpendicular entre los dos. Con α = 45° y n = 1,5 sale β = 28,1°.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampas de la lámina</div>
+• <b>Medir el ángulo desde la superficie y no desde la normal.</b> El enunciado del final ya te lo aclara ("formando este haz un ángulo α = 45° con respecto a la normal a la superficie"). Si usás 45° medidos desde la cara, todo cambia.<br>
+• <b>Buscar una desviación angular.</b> No la hay: el rayo sale paralelo. Lo que se corre es la <b>posición</b>.<br>
+• <b>Poner e en la fórmula donde va L</b> (o al revés). El espesor e es <b>perpendicular</b> a las caras; el camino dentro del vidrio es L = e/cos β y es más largo.<br>
+• <b>Olvidarse del cos β del denominador</b> y escribir d = e·sen(α − β). Con los números del final eso te da 30,5 mm en vez de 21, y el espesor sale un 12% chico.<br>
+• <b>"Prisma de caras paralelas" no es un prisma triangular.</b> Si te ponés a buscar la fórmula de la desviación mínima de un prisma, estás resolviendo otro problema.
+</div>
+
+<h3>Los ejercicios de diseño</h3>
+<p>Son los que en vez de darte la geometría te dan el <b>resultado deseado</b> ("quiero una imagen así") y te piden el elemento óptico que lo consigue. La estrategia es la misma: traducir a signos y despejar. Lo único distinto es que la <b>incógnita es f o R</b>, y que la <b>pregunta cualitativa</b> ("¿de qué tipo de espejo se trata?") se contesta con el <b>signo de f</b> al final.</p>
+
+<div class="key"><div class="ky-t">Los dos que aparecen en los finales</div>
+• <b>El espejo del dentista</b> (final 12/12/23, problema 6): imagen <b>derecha</b> y <b>4 veces mayor</b> a 1,5 cm. Derecha + aumentada + objeto real ⟹ espejo <b>cóncavo con el objeto dentro del foco</b> ⟹ imagen virtual. Es el mismo principio del espejo de maquillaje.<br>
+• <b>El espejo que proyecta a 2 m</b>: imagen <b>sobre una pantalla</b> (⟹ real ⟹ invertida), el <b>triple</b> de tamaño, con la pantalla a 2 m del objeto. Sale con |x − x′| = 2 m y A = −3.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 450 245" style="max-width:100%;height:auto" role="img" aria-label="Espejo del dentista: espejo cóncavo con el objeto dentro del foco, imagen virtual derecha y cuatro veces mayor">
+  <line x1="30" y1="140" x2="435" y2="140" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <path d="M 183,55 Q 214,140 183,225" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="200" y1="45" x2="200" y2="230" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <circle cx="200" cy="140" r="3.5" fill="currentColor"/><text x="196" y="160" fill="currentColor" font-size="13">V</text>
+  <circle cx="140" cy="140" r="3.5" fill="currentColor"/><text x="132" y="160" fill="currentColor" font-size="13">F</text>
+  <text x="104" y="180" fill="currentColor" font-size="12">f = 2 cm</text>
+  <!-- objeto (diente) -->
+  <line x1="155" y1="140" x2="155" y2="122" stroke="currentColor" stroke-width="3"/>
+  <polygon points="155,116 150,128 160,128" fill="currentColor"/>
+  <text x="124" y="110" fill="currentColor" font-size="12">diente (1,5 cm)</text>
+  <!-- rayo 1 paralelo -->
+  <line x1="155" y1="120" x2="200" y2="120" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="200" y1="120" x2="62" y2="166" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="200" y1="120" x2="380" y2="60" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2 al vértice -->
+  <line x1="155" y1="120" x2="200" y2="140" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="200" y1="140" x2="62" y2="201" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="200" y1="140" x2="380" y2="60" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- imagen virtual -->
+  <line x1="380" y1="140" x2="380" y2="68" stroke="currentColor" stroke-width="3"/>
+  <polygon points="380,60 374,76 386,76" fill="currentColor"/>
+  <text x="300" y="52" fill="currentColor" font-size="13">imagen virtual 4×</text>
+  <text x="292" y="180" fill="currentColor" font-size="12">6 cm detrás del espejo</text>
+</svg>
+<div class="fig-cap">Espejo del dentista: cóncavo, f = 2 cm, el diente a 1,5 cm queda DENTRO del foco. La imagen es virtual, derecha y 4 veces mayor, 6 cm detrás. R = 2f = 4 cm.</div>
+</div>
+
+<div class="trap"><div class="tr-t">"¿De qué tipo de espejo se trata?" se contesta al final, no al principio</div>
+En el final del espejo que proyecta el triple no te dicen si es cóncavo o convexo: <b>te lo preguntan</b>. La tentación es adivinar antes de calcular. No hace falta: planteás con f como incógnita, y el <b>signo de f que sale</b> te da la respuesta (f &gt; 0 ⟹ cóncavo). En ese problema sale f = +0,75 m ⟹ cóncavo. Y de paso, un espejo <b>convexo nunca</b> podría hacerlo: con objeto real siempre da imágenes virtuales y menores, así que jamás proyecta nada sobre una pantalla ni agranda.
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fisica1-utn-optica"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>

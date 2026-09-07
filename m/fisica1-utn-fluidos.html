@@ -1,0 +1,2786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física I · Fluidos · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="fisica1-utn-fluidos"] {
+    --bg: #f3f9f9; --text: #143431; --text-muted: #56817d;
+    --surface: #ffffff; --surface-2: #e5f3f1; --surface-3: #d1e9e6;
+    --border: #d9eae9; --border-2: #bddbd9;
+    --accent: #0d9488; --accent-hover: #096a61; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #e5f3f1; --summary-hover: #d1e9e6; --num-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.07);
+  }
+  [data-theme="dark"][data-subject="fisica1-utn-fluidos"] {
+    --bg: #0a1816; --text: #d5e7e5; --text-muted: #92b0ad;
+    --surface: #142725; --surface-2: #1d3734; --surface-3: #2b4d4a;
+    --border: #2b4d4a; --border-2: #3d6865;
+    --accent: #79ece2; --accent-hover: #acf6ef; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1d3734; --summary-hover: #2b4d4a; --num-text: #0a1816;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica1-utn">
+          <div class="drawer-item" data-target="fisica1-utn" onclick="switchSubject('fisica1-utn')">
+            <div class="ic" style="background:#4338ca;color:#ffffff">F1</div>
+            <div class="info">
+              <div class="t" style="color:#4338ca">Física I</div>
+              <div class="d">UTN FRBA · Guía de final · 84 exámenes analizados</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">
+              <div class="ic" style="background:#7c3aed;color:#ffffff">CR</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física I · Cuerpo rígido</div>
+                <div class="d">Rodadura, poleas con masa, rototraslación y momento angular · en los 10 finales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">
+              <div class="ic" style="background:#be123c;color:#ffffff">Ch</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Física I · Choques</div>
+                <div class="d">Choque plástico, elástico y en 2D · impulso y cantidad de movimiento</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">
+              <div class="ic" style="background:#0891b2;color:#ffffff">MA</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">Física I · Oscilaciones</div>
+                <div class="d">MAS masa-resorte, péndulo simple y péndulo físico</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">
+              <div class="ic" style="background:#ea580c;color:#ffffff">TE</div>
+              <div class="info">
+                <div class="t" style="color:#ea580c">Física I · Trabajo y energía</div>
+                <div class="d">Trabajo, energía, resortes y movimiento circular</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">
+              <div class="ic" style="background:#1d4ed8;color:#ffffff">Dn</div>
+              <div class="info">
+                <div class="t" style="color:#1d4ed8">Física I · Dinámica</div>
+                <div class="d">Newton, planos inclinados, poleas, cinemática y sistemas no inerciales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">
+              <div class="ic" style="background:#0d9488;color:#ffffff">Fl</div>
+              <div class="info">
+                <div class="t" style="color:#0d9488">Física I · Fluidos</div>
+                <div class="d">Hidrostática e hidrodinámica · teoría que el resumen no cubre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">
+              <div class="ic" style="background:#a16207;color:#ffffff">Op</div>
+              <div class="info">
+                <div class="t" style="color:#a16207">Física I · Óptica geométrica</div>
+                <div class="d">Espejos, lentes, prisma y marcha de rayos</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')">
+              <div class="ic" style="background:#475569;color:#ffffff">Sm</div>
+              <div class="info">
+                <div class="t" style="color:#475569">Física I · Simulacros</div>
+                <div class="d">Finales completos de 6 problemas con reloj + banco de preguntas conceptuales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fiuba-algebra-lineal">
+          <div class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+            <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+            <div class="info">
+              <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+              <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-parcial" onclick="switchSubject('fiuba-algebra-lineal-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">Álgebra Lineal · Primer parcial</div>
+                <div class="d">Palacios · 1er parcial · 21/10 · 21 parciales reales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-segundo-parcial" onclick="switchSubject('fiuba-algebra-lineal-segundo-parcial')">
+              <div class="ic" style="background:#1e5f8a;color:#eff6ff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#1e5f8a">Álgebra Lineal · Segundo parcial</div>
+                <div class="d">Palacios · 2do parcial · 2/12 · unidad 4</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-anatomia">
+          <div class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+            <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+            <div class="info">
+              <div class="t" style="color:#9d2449">Anatomía e Histología Funcional · FIUBA</div>
+              <div class="d">Iurman · Materia completa · las 16 clases del cronograma</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-anatomia-parcial" onclick="switchSubject('fiuba-anatomia-parcial')">
+              <div class="ic" style="background:#be123c;color:#fff1f2">P1</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Anatomía · Primer parcial</div>
+                <div class="d">Iurman · 1er parcial · 29/9 · clases 1 a 6</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-anatomia-segundo-parcial" onclick="switchSubject('fiuba-anatomia-segundo-parcial')">
+              <div class="ic" style="background:#7c2d5a;color:#fdf2f8">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7c2d5a">Anatomía · Segundo parcial</div>
+                <div class="d">Iurman · 2do parcial · 17/11 · clases 8 a 13</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-algoritmos">
+          <div class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+            <div class="ic" style="background:#4c1d95;color:#ede9fe">AP</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Algoritmos y Programación I · FIUBA</div>
+              <div class="d">Azcurra · Materia completa · las 9 guías en C</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algoritmos-parcial" onclick="switchSubject('fiuba-algoritmos-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#f5f3ff">PI</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Algoritmos · Parcial e integrador</div>
+                <div class="d">Azcurra · Las 12 consignas reales del campus</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-electronica">
+          <div class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+            <div class="ic" style="background:#92400e;color:#fffbeb">IB</div>
+            <div class="info">
+              <div class="t" style="color:#92400e">Introducción a la Bioingeniería · FIUBA</div>
+              <div class="d">Veiga · Materia completa · teoría de circuitos</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-electronica-integrador" onclick="switchSubject('fiuba-electronica-integrador')">
+              <div class="ic" style="background:#b45309;color:#fffbeb">IN</div>
+              <div class="info">
+                <div class="t" style="color:#b45309">Bioingeniería · Examen integrador</div>
+                <div class="d">Veiga · Integrador · 4 parciales y 5 coloquios reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-quimica">
+          <div class="drawer-item" data-target="fiuba-quimica" onclick="switchSubject('fiuba-quimica')">
+            <div class="ic" style="background:#047857;color:#ecfdf5">QB</div>
+            <div class="info">
+              <div class="t" style="color:#047857">Química Básica · FIUBA</div>
+              <div class="d">Boeykens · Materia completa · las 12 secciones del temario</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-quimica-libre" onclick="switchSubject('fiuba-quimica-libre')">
+              <div class="ic" style="background:#0f766e;color:#f0fdfa">QL</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Química Básica · Examen libre</div>
+                <div class="d">Boeykens · Libre · las 3 etapas, 9 exámenes reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA I · FLUIDOS ========================= -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica1-utn-fluidos">
+  <header>
+    <h1>Física I · Fluidos</h1>
+    <div class="sub">UTN FRBA · Hidrostática e hidrodinámica desde cero · 6 ejercicios de parcial (cátedra Martinelli 2009-2016) + 8 problemas de finales UTN.BA</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-fluidos">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#fl-s1">Hidrostática desde cero (teoría que tu resumen no trae)</a></li>
+    <li><a href="#fl-s2">Arquímedes con una tercera fuerza · 5 ejercicios reales</a></li>
+    <li><a href="#fl-s3">Flotación cargada: témpanos, balsas y capas de aceite</a></li>
+    <li><a href="#fl-s4">Hidrodinámica desde cero (teoría que tu resumen no trae)</a></li>
+    <li><a href="#fl-s5">Los fluidos del final: Torricelli, Venturi y tubo en U</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-fluidos">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ==================== UNIDAD 1 ==================== -->
+<details id="fl-s1">
+<summary><span class="num">1</span> Hidrostática desde cero (teoría que tu resumen no trae) <span class="sec-score" id="ss-fisica1-utn-fluidos-1"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Por qué esta unidad existe</div>
+Tu resumen teórico de 52 páginas <b>no cubre fluidos</b>. Y fluidos aparece en 6 de los 8 primeros parciales de la cátedra Martinelli que tenemos, y en <b>casi todos los finales</b> que conseguimos (2/3/23, 21/2/24, 14/2/24, 26/5/22, 13/2/25 y los tres sin fecha). O sea: es el tema con mejor relación entre "cuánto hay que estudiar" y "cuántos puntos rinde". Acá está la teoría completa escrita de cero.
+</div>
+
+<h3>1.1 · Densidad</h3>
+<p>La <b>densidad</b> es masa por unidad de volumen:</p>
+
+<div class="formula">
+  δ = <span class="frac"><span>m</span><span>V</span></span> &nbsp;&nbsp;→&nbsp;&nbsp; m = δ · V &nbsp;&nbsp;·&nbsp;&nbsp; P = m·g = δ · V · g
+</div>
+
+<p>La cátedra usa <span class="m">δ</span> (delta), no <span class="m">ρ</span>. Fijate que <b>el peso de un cuerpo homogéneo siempre se puede escribir como δ·V·g</b>: esa es la clave de casi todos los ejercicios, porque te permite pasar de densidades a fuerzas sin conocer la masa.</p>
+
+<table class="tbl">
+  <tr><th>Sustancia</th><th>CGS (g/cm³)</th><th>SI (kg/m³)</th></tr>
+  <tr><td>Agua</td><td>1</td><td>1000</td></tr>
+  <tr><td>Agua de mar</td><td>1,03</td><td>1030</td></tr>
+  <tr><td>Hielo</td><td>0,9 · 0,917</td><td>900 · 917</td></tr>
+  <tr><td>Madera (la de los parciales)</td><td>0,6 · 0,8</td><td>600 · 800</td></tr>
+  <tr><td>Aceite</td><td>0,65 · 0,8</td><td>650 · 800</td></tr>
+  <tr><td>Gasolina</td><td>0,72</td><td>720</td></tr>
+  <tr><td>Hierro</td><td>7,86</td><td>7860</td></tr>
+  <tr><td>Mercurio</td><td>13,6</td><td>13600</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">La conversión que tenés que tener automatizada</div>
+<b>1 g/cm³ = 1000 kg/m³.</b> Se despeja en dos segundos: 1 g = 10⁻³ kg y 1 cm³ = 10⁻⁶ m³, entonces 10⁻³/10⁻⁶ = 10³.<br>
+Al revés: para pasar de kg/m³ a g/cm³, <b>corré la coma tres lugares</b> (917 kg/m³ = 0,917 g/cm³).<br>
+También aparece <b>kg/dm³</b> (un final lo escribe así): 1 kg/dm³ = 1 g/cm³ = 1000 kg/m³, porque 1 dm³ = 1 litro = 1000 cm³.
+</div>
+
+<h3>1.2 · Presión</h3>
+<p>La presión es la fuerza <b>perpendicular</b> por unidad de área:</p>
+
+<div class="formula">
+  p = <span class="frac"><span>F<sub>⊥</sub></span><span>A</span></span> &nbsp;&nbsp;→&nbsp;&nbsp; F = p · A
+</div>
+
+<p>La presión es un <b>escalar</b>: no tiene dirección. Lo que tiene dirección es la fuerza que produce, y esa fuerza es siempre <b>perpendicular a la superficie</b> sobre la que actúa el fluido.</p>
+
+<table class="tbl">
+  <tr><th>Unidad</th><th>Equivale a</th><th>Cuándo aparece</th></tr>
+  <tr><td>1 Pa (pascal)</td><td>1 N/m²</td><td>SI · lo que pide el final</td></tr>
+  <tr><td>1 din/cm²</td><td>0,1 Pa</td><td>CGS · lo que usa la cátedra al resolver</td></tr>
+  <tr><td>1 atm</td><td>101 300 Pa ≈ 1,013·10⁵ Pa</td><td>presión atmosférica normal</td></tr>
+  <tr><td>1 bar</td><td>10⁵ Pa</td><td>rara vez</td></tr>
+  <tr><td>760 mm Hg</td><td>1 atm</td><td>barómetro de Torricelli</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La conversión que más se cobra: 1 Pa = 10 din/cm²</div>
+No es 1, no es 100: es <b>10</b>. Se saca así:<br>
+1 Pa = 1 N/m² = <span class="frac"><span>10⁵ din</span><span>10⁴ cm²</span></span> = <b>10 din/cm²</b>.<br>
+Por eso, en el parcial 2009, cuando el enunciado dice "la presión es 6 Pa", la cátedra escribe <b>60 din/cm²</b>. Si ponés 6 din/cm² o 600, el ejercicio entero se te cae.<br>
+Al revés: <b>din/cm² ÷ 10 = Pa</b>.
+</div>
+
+<h3>1.3 · Trabajar en CGS y entregar en SI (lo que hace la cátedra)</h3>
+<p>Las resoluciones oficiales de Martinelli casi siempre plantean en <b>CGS</b> — porque las densidades vienen en g/cm³ y los volúmenes en cm³, y así no hay que convertir nada — y recién al final pasan a SI. Para eso:</p>
+
+<div class="formula">
+  En CGS: &nbsp; g = 1000 cm/s² &nbsp;·&nbsp; [δ] = g/cm³ &nbsp;·&nbsp; [V] = cm³ &nbsp;·&nbsp; [F] = <b>dina</b><br>
+  Puente: &nbsp; <b>1 N = 10⁵ dina</b> &nbsp;·&nbsp; 1 Pa = 10 din/cm² &nbsp;·&nbsp; 1 N/m = 10 din/cm
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo de conversión (sale del parcial 2013)</div>
+Peso de una esfera de δ = 2 g/cm³ y V = 600 cm³:<br>
+<b>CGS:</b> P = δ·V·g = 2 · 600 · 1000 = 1 200 000 dina.<br>
+<b>A SI:</b> 1 200 000 din ÷ 10⁵ = <b>12 N</b>.<br>
+<b>Control directo en SI:</b> δ = 2000 kg/m³, V = 6·10⁻⁴ m³ → m = 1,2 kg → P = 12 N. ✔
+</div>
+
+<div class="trap"><div class="tr-t">El error de unidades nº 1 del tema</div>
+Mezclar <b>g/cm³ con m/s²</b>. Si trabajás con δ en g/cm³ y V en cm³, <b>g tiene que ser 1000 cm/s²</b> y el resultado sale en dinas. Si usás g = 10 m/s² con esas densidades, el número que te da no significa nada (ni newtons ni dinas).<br>
+Regla práctica: <b>elegí un sistema al principio del ejercicio y no lo abandones</b> hasta la última línea.
+</div>
+
+<h3>1.4 · Presión hidrostática: p = p₀ + δ·g·h</h3>
+<p>Agarrá una columna de fluido en reposo, de sección <span class="m">A</span> y altura <span class="m">h</span>, y planteale equilibrio vertical. Sobre la cara de arriba el fluido de encima empuja hacia abajo con <span class="m">p₀·A</span>; la columna pesa <span class="m">δ·A·h·g</span>; la cara de abajo tiene que sostener todo eso con <span class="m">p·A</span>:</p>
+
+<div class="formula">
+  p·A = p₀·A + δ·A·h·g &nbsp;&nbsp;⟹&nbsp;&nbsp; <b>p = p₀ + δ·g·h</b>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 380 220" style="max-width:100%;height:auto" role="img" aria-label="Recipiente con líquido, presión a profundidad h">
+  <rect x="50" y="55" width="280" height="140" fill="currentColor" opacity="0.12"/>
+  <path d="M50 30 L50 195 L330 195 L330 30" fill="none" stroke="currentColor" stroke-width="2.5"/>
+  <line x1="50" y1="55" x2="330" y2="55" stroke="currentColor" stroke-width="1.8"/>
+  <text x="56" y="47" fill="currentColor" font-size="13">p₀ (atmósfera, o gas encerrado)</text>
+  <line x1="140" y1="55" x2="140" y2="140" stroke="currentColor" stroke-width="1.4" marker-start="url(#flar)" marker-end="url(#flar)"/>
+  <text x="147" y="102" fill="currentColor" font-size="13">h</text>
+  <circle cx="140" cy="140" r="4" fill="currentColor"/>
+  <line x1="70" y1="140" x2="310" y2="140" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <circle cx="265" cy="140" r="4" fill="currentColor"/>
+  <text x="150" y="160" fill="currentColor" font-size="13">p = p₀ + δ·g·h</text>
+  <text x="120" y="182" fill="currentColor" font-size="12">misma altura ⟹ misma presión</text>
+  <defs>
+    <marker id="flar" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">La presión crece linealmente con la profundidad y <b>no depende de la forma del recipiente</b> ni del volumen total: solo de <span class="m">h</span>.</div>
+</div>
+
+<div class="key"><div class="ky-t">El teorema fundamental (el que resuelve los tubos en U)</div>
+<b>Dentro de un mismo fluido en reposo y conectado, todos los puntos a la misma altura tienen la misma presión.</b><br>
+Con eso resolvés cualquier tubo en U: elegís una altura de referencia que atraviese líquido continuo, escribís la presión bajando por cada rama, e igualás. Dos condiciones que hay que cumplir sí o sí: (1) mismo fluido, (2) conectados sin interrupción.
+</div>
+
+<h3>1.5 · Absoluta, manométrica y barométrica</h3>
+<table class="tbl">
+  <tr><th>Presión</th><th>Qué mide</th><th>Relación</th></tr>
+  <tr><td><b>Absoluta</b></td><td>la presión real, medida desde el vacío (siempre ≥ 0)</td><td>p<sub>abs</sub> = p<sub>atm</sub> + p<sub>man</sub></td></tr>
+  <tr><td><b>Manométrica</b></td><td>el exceso sobre la atmosférica (puede ser negativa)</td><td>p<sub>man</sub> = p<sub>abs</sub> − p<sub>atm</sub></td></tr>
+  <tr><td><b>Barométrica</b></td><td>la presión atmosférica del lugar</td><td>p<sub>atm</sub> ≈ 101 300 Pa a nivel del mar</td></tr>
+</table>
+
+<p>La goma del inflador te marca <b>manométrica</b>: cuando dice 0 no significa vacío, significa que adentro hay una atmósfera. En Bernoulli y en Torricelli tenés que usar <b>absolutas</b> (o manométricas en los <i>dos</i> puntos, nunca mezcladas).</p>
+
+<div class="trap"><div class="tr-t">Cuándo la atmosférica se cancela sola</div>
+Si la atmósfera actúa <b>de los dos lados</b> de lo que estás analizando (las dos caras de una compuerta, los dos brazos de un tubo en U abierto, la superficie libre y el orificio de salida), se cancela y podés trabajar con manométricas. Si <b>solo hay atmósfera de un lado</b> (un tanque cerrado y presurizado, una cámara de aire, un émbolo), <b>no se cancela</b> y tenés que llevarla en la cuenta.
+</div>
+
+<h3>1.6 · Principio de Pascal</h3>
+<p><b>Un incremento de presión aplicado a un fluido encerrado se transmite íntegro a todos sus puntos.</b> De ahí sale la prensa hidráulica:</p>
+
+<div class="formula">
+  <span class="frac"><span>F₁</span><span>A₁</span></span> = <span class="frac"><span>F₂</span><span>A₂</span></span> &nbsp;&nbsp;⟹&nbsp;&nbsp; F₂ = F₁ · <span class="frac"><span>A₂</span><span>A₁</span></span>
+</div>
+
+<p>El precio: lo que ganás en fuerza lo pagás en recorrido. Los volúmenes desplazados son iguales, así que <span class="m">A₁·d₁ = A₂·d₂</span> y el pistón grande se mueve menos. El trabajo no se multiplica.</p>
+
+<h3>1.7 · Fuerza sobre una superficie plana sumergida</h3>
+<p>Si la superficie es <b>horizontal</b>, la presión es la misma en todos sus puntos y listo: <span class="m">F = p·A</span>. Si es <b>vertical o inclinada</b>, la presión crece con la profundidad y hay que integrar. El resultado es simple y conviene sabérselo:</p>
+
+<div class="formula">
+  <b>F = p<sub>CG</sub> · A = δ·g·h<sub>CG</sub> · A</b> &nbsp;&nbsp;<span class="muted">(h<sub>CG</sub> = profundidad del centro geométrico de la superficie)</span>
+</div>
+
+<p>Para una compuerta <b>rectangular vertical</b> de ancho <span class="m">b</span> que va desde la superficie libre hasta la profundidad <span class="m">H</span>: <span class="m">h<sub>CG</sub> = H/2</span> y <span class="m">A = b·H</span>, entonces</p>
+
+<div class="formula">
+  F = δ·g·<span class="frac"><span>H</span><span>2</span></span>·(b·H) = <b>½ · δ·g·b·H²</b> &nbsp;&nbsp;·&nbsp;&nbsp; aplicada a <b>2H/3</b> de la superficie
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 380 210" style="max-width:100%;height:auto" role="img" aria-label="Distribución triangular de presión sobre una compuerta vertical">
+  <rect x="60" y="45" width="150" height="130" fill="currentColor" opacity="0.12"/>
+  <line x1="40" y1="45" x2="215" y2="45" stroke="currentColor" stroke-width="1.8"/>
+  <text x="42" y="38" fill="currentColor" font-size="12">superficie libre</text>
+  <line x1="210" y1="45" x2="210" y2="175" stroke="currentColor" stroke-width="3.5"/>
+  <line x1="60" y1="175" x2="240" y2="175" stroke="currentColor" stroke-width="2"/>
+  <path d="M210 45 L210 175 L300 175 Z" fill="currentColor" opacity="0.18" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="212" y1="70" x2="228" y2="70" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="212" y1="100" x2="252" y2="100" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="212" y1="130" x2="273" y2="130" stroke="currentColor" stroke-width="1.2"/>
+  <line x1="212" y1="160" x2="294" y2="160" stroke="currentColor" stroke-width="1.2"/>
+  <text x="305" y="120" fill="currentColor" font-size="12">p crece</text>
+  <text x="305" y="136" fill="currentColor" font-size="12">con h</text>
+  <line x1="45" y1="45" x2="45" y2="175" stroke="currentColor" stroke-width="1.2"/>
+  <text x="28" y="115" fill="currentColor" font-size="13">H</text>
+  <circle cx="210" cy="131.7" r="4.5" fill="currentColor"/>
+  <text x="150" y="199" fill="currentColor" font-size="12">resultante aplicada a 2H/3 de la superficie</text>
+</svg>
+<div class="fig-cap">La presión es un triángulo, no un rectángulo: la resultante vale <b>½δgbH²</b> y se aplica en el tercio inferior, no en el medio.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Los tres errores clásicos de este ítem</div>
+<b>1.</b> Usar la presión del <i>fondo</i> por toda la compuerta: te da el doble de la fuerza real.<br>
+<b>2.</b> Poner la resultante en el medio (H/2): va en <b>2H/3</b>, porque la carga es triangular.<br>
+<b>3.</b> Sumar la atmosférica cuando también está del otro lado de la compuerta: ahí se cancela.
+</div>
+
+<h3>1.8 · Principio de Arquímedes</h3>
+<p>Sacá mentalmente el cuerpo y reemplazalo por líquido. Ese líquido está en reposo, así que el resto del fluido lo sostiene con una fuerza igual a su peso. Cuando volvés a meter el cuerpo, el fluido de alrededor <b>no se enteró de nada</b>: sigue empujando igual. De ahí:</p>
+
+<div class="formula">
+  <b>E = δ<sub>líq</sub> · V<sub>sumergido</sub> · g</b> &nbsp;&nbsp;<span class="muted">vertical, hacia arriba, aplicada en el centro del volumen desplazado</span>
+</div>
+
+<div class="key"><div class="ky-t">Las tres cosas que hay que leer bien</div>
+<b>δ es la del LÍQUIDO</b>, nunca la del cuerpo. La del cuerpo entra en el peso.<br>
+<b>V es el SUMERGIDO</b>, no el total. Si el cuerpo flota parcialmente, el empuje solo cuenta la parte mojada.<br>
+<b>Si hay dos líquidos superpuestos, hay dos empujes</b>: uno por cada capa, cada uno con su densidad y su porción de volumen.
+</div>
+
+<p>Con solo peso y empuje (<b>flotación libre</b>), el equilibrio <span class="m">E = P</span> da:</p>
+
+<div class="formula">
+  δ<sub>líq</sub>·V<sub>sum</sub>·g = δ<sub>cuerpo</sub>·V·g &nbsp;&nbsp;⟹&nbsp;&nbsp; <b><span class="frac"><span>V<sub>sum</sub></span><span>V</span></span> = <span class="frac"><span>δ<sub>cuerpo</sub></span><span>δ<sub>líq</sub></span></span></b>
+</div>
+
+<p>La fracción sumergida <b>no depende de g ni del tamaño del cuerpo</b>: es puro cociente de densidades. Un cuerpo de δ = 0,3 g/cm³ en agua flota con el 30% sumergido, sea una pelotita o un iceberg. Y si <span class="m">δ<sub>cuerpo</sub> > δ<sub>líq</sub></span> la fórmula te daría más del 100%: significa que <b>se hunde</b>, y ahí necesitás una tercera fuerza (que es de lo que trata la unidad 2).</p>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 2 ==================== -->
+<details id="fl-s2">
+<summary><span class="num">2</span> Arquímedes con una tercera fuerza · 5 ejercicios reales <span class="sec-score" id="ss-fisica1-utn-fluidos-2"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">El arquetipo: siempre es el mismo problema</div>
+Los cinco ejercicios de fluidos de los parciales de Martinelli entre 2010 y 2016 son <b>la misma cuenta</b> con distinto disfraz. Un cuerpo en equilibrio dentro de un líquido, y tres fuerzas verticales:<br>
+<b>1)</b> el <b>peso</b> P = δ<sub>cuerpo</sub>·V·g, hacia abajo, siempre;<br>
+<b>2)</b> el <b>empuje</b> E = δ<sub>líq</sub>·V<sub>sum</sub>·g, hacia arriba, siempre;<br>
+<b>3)</b> una <b>tercera fuerza</b> que cambia de ejercicio en ejercicio: una cuerda al fondo, un resorte arriba, otro cuerpo colgando, una pesa apoyada encima, o una fuerza aplicada.<br>
+La ecuación es siempre <b>ΣF<sub>y</sub> = 0</b>. Lo único que tenés que decidir bien es <b>el sentido de la tercera fuerza</b>.
+</div>
+
+<div class="trap"><div class="tr-t">Cómo decidir el sentido de la tercera fuerza sin equivocarte</div>
+Preguntate: <b>si la tercera fuerza no existiera, ¿el cuerpo subiría o bajaría?</b><br>
+· Si <b>δ<sub>cuerpo</sub> &lt; δ<sub>líq</sub></b> (tiende a subir) → la tercera fuerza lo <b>frena hacia abajo</b>. Cuerda al fondo, pesa encima, fuerza aplicada.<br>
+· Si <b>δ<sub>cuerpo</sub> &gt; δ<sub>líq</sub></b> (tiende a hundirse) → la tercera fuerza lo <b>sostiene hacia arriba</b>. Resorte estirado desde arriba, normal del fondo, soga que cuelga de un flotador.<br>
+Con eso el signo sale solo. El error clásico del parcial 2012 (E + T = P en vez de E = P + T) es exactamente no hacerse esta pregunta.
+</div>
+
+<h3>Consigna de la cátedra que se puntúa aparte</h3>
+<p>El encabezado de todos estos parciales pide, textual: <b>mostrar todo el desarrollo</b>, <b>indicar explícitamente el sistema de referencia</b> y <b>hacer claramente el diagrama de cuerpo libre</b>. En fluidos eso significa: escribí "tomo <span class="m">y</span> positivo hacia arriba", dibujá el cuerpo con sus tres flechas rotuladas (P, E y la tercera), y recién después planteá la ecuación. Son puntos regalados.</p>
+
+<h3>Las cinco figuras</h3>
+
+<div class="fig">
+<svg viewBox="0 0 700 200" style="max-width:100%;height:auto" role="img" aria-label="Cinco configuraciones de Arquímedes con una tercera fuerza">
+  <!-- A: dos cuerpos unidos por soga (2010) -->
+  <rect x="15" y="55" width="115" height="115" fill="currentColor" opacity="0.12"/>
+  <path d="M15 30 L15 170 L130 170 L130 30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="15" y1="55" x2="130" y2="55" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="72" cy="55" r="20" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1.6"/>
+  <text x="67" y="60" fill="currentColor" font-size="12">1</text>
+  <line x1="72" y1="75" x2="72" y2="120" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="72" cy="132" r="12" fill="currentColor" opacity="0.35" stroke="currentColor" stroke-width="1.6"/>
+  <text x="68" y="136" fill="currentColor" font-size="11">2</text>
+  <text x="24" y="192" fill="currentColor" font-size="12">A · soga entre cuerpos</text>
+
+  <!-- B: esfera atada al fondo (2012) -->
+  <rect x="155" y="55" width="115" height="115" fill="currentColor" opacity="0.12"/>
+  <path d="M155 30 L155 170 L270 170 L270 30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="155" y1="55" x2="270" y2="55" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="212" cy="55" r="22" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="212" y1="77" x2="212" y2="170" stroke="currentColor" stroke-width="1.6"/>
+  <text x="217" y="128" fill="currentColor" font-size="11">T</text>
+  <text x="163" y="192" fill="currentColor" font-size="12">B · cuerda al fondo</text>
+
+  <!-- C: resorte arriba (2013) -->
+  <rect x="295" y="70" width="115" height="100" fill="currentColor" opacity="0.12"/>
+  <path d="M295 45 L295 170 L410 170 L410 45" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="295" y1="70" x2="410" y2="70" stroke="currentColor" stroke-width="1.5"/>
+  <line x1="330" y1="12" x2="385" y2="12" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M352 12 l0 6 l-9 4 l18 6 l-18 6 l18 6 l-9 4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="352" y1="44" x2="352" y2="48" stroke="currentColor" stroke-width="1.6"/>
+  <circle cx="352" cy="70" r="22" fill="currentColor" opacity="0.25" stroke="currentColor" stroke-width="1.6"/>
+  <text x="303" y="192" fill="currentColor" font-size="12">C · resorte arriba</text>
+
+  <!-- D: cubo con fuerza aplicada (2014) -->
+  <rect x="435" y="55" width="110" height="115" fill="currentColor" opacity="0.12"/>
+  <path d="M435 30 L435 170 L545 170 L545 30" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="435" y1="55" x2="545" y2="55" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="468" y="41" width="44" height="34" fill="currentColor" opacity="0.28" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="490" y1="14" x2="490" y2="38" stroke="currentColor" stroke-width="2" marker-end="url(#flar2)"/>
+  <text x="496" y="28" fill="currentColor" font-size="12">F</text>
+  <text x="443" y="192" fill="currentColor" font-size="12">D · fuerza aplicada</text>
+
+  <!-- E: cubo en el fondo con pesa (2016) -->
+  <rect x="570" y="45" width="115" height="125" fill="currentColor" opacity="0.12"/>
+  <path d="M570 25 L570 170 L685 170 L685 25" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="570" y1="45" x2="685" y2="45" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="600" y="110" width="56" height="56" fill="currentColor" opacity="0.22" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="616" y="88" width="24" height="22" fill="currentColor" opacity="0.55" stroke="currentColor" stroke-width="1.4"/>
+  <text x="578" y="192" fill="currentColor" font-size="12">E · pesa encima, en el fondo</text>
+  <defs>
+    <marker id="flar2" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 1.5 L8 4.5 L1 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Las cinco configuraciones que tomó la cátedra entre 2010 y 2016. En las cinco, la ecuación es ΣF<sub>y</sub> = 0.</div>
+</div>
+
+<div class="trap"><div class="tr-t">El truco que salva el ejercicio 2014</div>
+Cuando el enunciado <b>no te da ni la densidad del líquido ni el volumen</b>, no es que falten datos: <b>se cancelan</b>. Escribí el peso de las dos formas posibles (<span class="m">m·g</span> y <span class="m">δ<sub>cuerpo</sub>·V·g</span>) y usá la condición de flotación para eliminar <span class="m">V</span>. Es la aplicación directa de aquello de "puede haber datos que no interesen" del encabezado.
+</div>
+
+<div class="trap"><div class="tr-t">Cuando hay dos cuerpos, hacé dos DCL</div>
+En los ejercicios A (2010) y E (2016) hay <b>dos cuerpos</b>: hay que hacer <b>un diagrama por cuerpo</b> y vincularlos con el <b>par de acción y reacción</b> (la tensión tira hacia arriba de uno y hacia abajo del otro; la normal empuja hacia arriba a la pesa y hacia abajo al bloque).<br>
+Además, resolvé <b>primero el cuerpo que tenga una sola incógnita</b>: en el 2010 ese es el cuerpo 2 (totalmente sumergido, volumen conocido), no el 1.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 3 ==================== -->
+<details id="fl-s3">
+<summary><span class="num">3</span> Flotación cargada: témpanos, balsas y capas de aceite <span class="sec-score" id="ss-fisica1-utn-fluidos-3"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Este estilo aparece en el FINAL, no en los parciales</div>
+Los parciales de Martinelli te dan el cuerpo y te piden una fuerza. Los <b>finales de UTN.BA</b> hacen otra cosa: te ponen un flotador que tiene que <b>llevar carga</b> (un oso, tres niños, una pesa) y te preguntan <b>cuánta carga aguanta</b> o <b>cuánto flotador hace falta</b>. Aparece en el final del <b>2/3/23</b> (balsa de troncos), el del <b>21/2/24</b> (oso y témpano), el del <b>14/2/24</b> (oso polar sobre la placa de hielo) y el del <b>26/5/22</b> (bloque entre agua y aceite). Cuatro de los finales que tenemos: es el problema de fluidos más probable.
+</div>
+
+<h3>3.1 · La condición límite: "totalmente sumergido"</h3>
+<p>Todos estos problemas tienen la misma condición de borde, escrita con distintas palabras:</p>
+
+<table class="tbl">
+  <tr><th>Cómo lo dice el enunciado</th><th>Qué significa físicamente</th></tr>
+  <tr><td>"de tal manera que el témpano quede totalmente sumergido"</td><td rowspan="4"><b>V<sub>sumergido</sub> = V<sub>total</sub></b><br>Es el <b>máximo empuje posible</b>. Un milímetro más de carga y se hunde.</td></tr>
+  <tr><td>"sin que se moje las patas"</td></tr>
+  <tr><td>"como mínimo para mantenerlos a flote"</td></tr>
+  <tr><td>"la cara superior justo a nivel de la superficie"</td></tr>
+</table>
+
+<div class="formula">
+  <b>δ<sub>líq</sub> · V<sub>total</sub> · g = δ<sub>flotador</sub> · V<sub>total</sub> · g + P<sub>carga</sub></b><br>
+  ⟹ &nbsp; P<sub>carga</sub> = (δ<sub>líq</sub> − δ<sub>flotador</sub>) · V<sub>total</sub> · g
+</div>
+
+<div class="key"><div class="ky-t">La fórmula de bolsillo: capacidad de carga</div>
+Un flotador de volumen <span class="m">V</span> y densidad <span class="m">δ<sub>f</sub></span>, en un líquido de densidad <span class="m">δ<sub>L</sub></span>, puede cargar como máximo una masa<br>
+<b>m<sub>carga</sub> = (δ<sub>L</sub> − δ<sub>f</sub>) · V</b><br>
+Fijate que <b>g no aparece</b>: la capacidad de carga es una masa, y no depende de la gravedad. Un tronco de 0,12 m³ de madera de 800 kg/m³ en agua dulce carga (1000 − 800)·0,12 = 24 kg. Nada más.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 700 210" style="max-width:100%;height:auto" role="img" aria-label="Balsa de troncos, témpano con oso y bloque entre agua y aceite">
+  <!-- Balsa de troncos -->
+  <rect x="15" y="95" width="200" height="90" fill="currentColor" opacity="0.12"/>
+  <line x1="15" y1="95" x2="215" y2="95" stroke="currentColor" stroke-width="1.6"/>
+  <g stroke="currentColor" stroke-width="1.6" fill="currentColor" fill-opacity="0.25">
+    <circle cx="55" cy="95" r="15"/><circle cx="87" cy="95" r="15"/><circle cx="119" cy="95" r="15"/>
+    <circle cx="151" cy="95" r="15"/><circle cx="183" cy="95" r="15"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.6" fill="none">
+    <circle cx="90" cy="60" r="7"/><line x1="90" y1="67" x2="90" y2="80"/>
+    <circle cx="119" cy="60" r="7"/><line x1="119" y1="67" x2="119" y2="80"/>
+    <circle cx="148" cy="60" r="7"/><line x1="148" y1="67" x2="148" y2="80"/>
+  </g>
+  <text x="20" y="205" fill="currentColor" font-size="12">Balsa · Final 2/3/23 · ¿cuántos troncos?</text>
+  <text x="25" y="86" fill="currentColor" font-size="11">D = 0,3 m · L = 1,7 m</text>
+
+  <!-- Témpano con oso -->
+  <rect x="250" y="95" width="190" height="90" fill="currentColor" opacity="0.12"/>
+  <line x1="250" y1="95" x2="440" y2="95" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="290" y="95" width="115" height="42" fill="currentColor" opacity="0.28" stroke="currentColor" stroke-width="1.6"/>
+  <text x="316" y="122" fill="currentColor" font-size="12">témpano</text>
+  <g stroke="currentColor" stroke-width="1.8" fill="none">
+    <ellipse cx="347" cy="76" rx="26" ry="13"/>
+    <circle cx="375" cy="68" r="8"/>
+    <line x1="330" y1="88" x2="330" y2="95"/><line x1="362" y1="88" x2="362" y2="95"/>
+  </g>
+  <text x="256" y="205" fill="currentColor" font-size="12">Témpano · Finales 21/2/24 y 14/2/24</text>
+
+  <!-- Bloque entre agua y aceite -->
+  <rect x="475" y="95" width="205" height="90" fill="currentColor" opacity="0.12"/>
+  <rect x="475" y="62" width="205" height="33" fill="currentColor" opacity="0.28"/>
+  <line x1="475" y1="62" x2="680" y2="62" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="475" y1="95" x2="680" y2="95" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <rect x="545" y="62" width="80" height="46" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="483" y="56" fill="currentColor" font-size="12">aceite (H)</text>
+  <text x="487" y="130" fill="currentColor" font-size="12">agua</text>
+  <text x="628" y="80" fill="currentColor" font-size="11">e = 10 cm</text>
+  <text x="481" y="205" fill="currentColor" font-size="12">Capa de aceite · Final 26/5/22</text>
+</svg>
+<div class="fig-cap">Los tres escenarios del final. En los tres, el flotador está <b>al límite</b>: sumergido justo hasta arriba de todo.</div>
+</div>
+
+<h3>3.2 · Dos líquidos superpuestos: dos empujes</h3>
+<p>En el problema del <b>26/5/22</b> el cuerpo termina con su parte de arriba metida en aceite y la de abajo en agua. Ahí <b>hay dos empujes</b> y se suman:</p>
+
+<div class="formula">
+  P = E<sub>aceite</sub> + E<sub>agua</sub><br>
+  δ<sub>c</sub>·A·e·g = δ<sub>ac</sub>·A·H·g + δ<sub>ag</sub>·A·(e − H)·g
+</div>
+
+<p>El área <span class="m">A</span> se cancela: por eso el enunciado no te la da y no la necesitás. Solo entran los <b>espesores</b>.</p>
+
+<div class="trap"><div class="tr-t">Los cuatro errores que se cobran en esta unidad</div>
+<b>1. Volumen del cilindro.</b> El tronco viene por <b>diámetro</b> D = 0,3 m: el radio es 0,15 m y V = π·r²·L. Usar D como radio te cuadruplica el volumen y te da 2 troncos en vez de 5.<br>
+<b>2. Peso vs masa.</b> El oso del 21/2/24 <b>pesa 3540 N</b>, no tiene 3540 kg. Su masa es 354 kg. En cambio el del 14/2/24 te pide la <b>masa</b>: fijate qué te dan y qué te piden.<br>
+<b>3. Redondear para abajo.</b> Si te dan 4,99 troncos, la respuesta es <b>5</b>, no 4 ni 4,99. La cantidad "mínima" siempre se redondea <b>hacia arriba</b>, aunque el decimal sea chiquito.<br>
+<b>4. Olvidar el peso del propio flotador.</b> El témpano/la balsa también pesa. El empuje tiene que sostener <b>flotador + carga</b>, no solo la carga.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 4 ==================== -->
+<details id="fl-s4">
+<summary><span class="num">4</span> Hidrodinámica desde cero (teoría que tu resumen no trae) <span class="sec-score" id="ss-fisica1-utn-fluidos-4"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Dónde cae esto</div>
+En los <b>parciales</b> de Martinelli la hidrodinámica cayó <b>una sola vez</b> (1er parcial 2009, tema 1). En los <b>finales</b>, en cambio, está por todos lados: cañería que baja 3 m, tanque presurizado con orificio, tanque de gasolina, tubo en U con émbolo, Venturi con resorte. Si estás preparando el final, esta unidad no es opcional.
+</div>
+
+<h3>4.1 · El modelo: fluido ideal</h3>
+<p>Todo lo que sigue vale para un <b>fluido ideal</b>, que es el que asumen todos los enunciados:</p>
+<table class="tbl">
+  <tr><th>Hipótesis</th><th>Cómo lo dice el enunciado</th></tr>
+  <tr><td><b>Incompresible</b> (δ constante)</td><td>"agua de densidad 1 kg/dm³"</td></tr>
+  <tr><td><b>No viscoso</b> (sin rozamiento interno)</td><td>"considere que la viscosidad es despreciable"</td></tr>
+  <tr><td><b>Régimen estacionario</b></td><td>"mantiene el caudal constante"</td></tr>
+  <tr><td><b>Sin turbulencia</b> (líneas de corriente)</td><td>"el diámetro disminuye <b>gradualmente</b>"</td></tr>
+</table>
+<p>Escribí estas hipótesis en la hoja: el encabezado de la cátedra <b>pide explícitamente que declares las hipótesis</b> y lo puntúa.</p>
+
+<h3>4.2 · Caudal y ecuación de continuidad</h3>
+<p>El <b>caudal volumétrico</b> es el volumen que atraviesa una sección por unidad de tiempo:</p>
+
+<div class="formula">
+  Q = <span class="frac"><span>V</span><span>t</span></span> = <b>A · v</b> &nbsp;&nbsp;<span class="muted">[m³/s] · [cm³/s] · [l/min]</span>
+</div>
+
+<p>Si el fluido no se comprime ni se acumula, lo que entra por un lado sale por el otro. Ese es todo el contenido de la <b>ecuación de continuidad</b>:</p>
+
+<div class="formula">
+  <b>A₁ · v₁ = A₂ · v₂ = Q</b> &nbsp;&nbsp;⟹&nbsp;&nbsp; v₂ = v₁ · <span class="frac"><span>A₁</span><span>A₂</span></span>
+</div>
+
+<div class="trap"><div class="tr-t">Diámetro no es radio, y el área va al cuadrado</div>
+Los enunciados dan casi siempre el <b>diámetro</b>: "sección circular de 25 mm de diámetro interior", "a la salida de la bomba el diámetro es de 7 cm". El radio es la mitad, y <b>A = π·r²</b>.<br>
+Como el área va con el cuadrado, si el diámetro se reduce a la mitad la velocidad se <b>cuadruplica</b>. En el final de la cañería, de 25 mm a 12 mm: v₂ = v₁·(25/12)² = 4,34·v₁. Si te olvidás del cuadrado te da 2,08 y toda la presión sale mal.<br>
+Y ojo con la mezcla: en el parcial 2009 el punto 1 viene por <b>diámetro</b> (7 cm) y el punto 2 directamente por <b>área</b> (30 cm²). Leelo dos veces.
+</div>
+
+<div class="example"><div class="ex-t">Conversión de caudal que aparece textual en el parcial 2009</div>
+Q = 25 l/min. Pasalo a CGS: 25 litros = 25 000 cm³, y 1 min = 60 s.<br>
+Q = 25 000/60 = <b>416,67 cm³/s</b>. &nbsp;<span class="muted">(en SI: 4,167·10⁻⁴ m³/s)</span>
+</div>
+
+<h3>4.3 · Ecuación de Bernoulli</h3>
+<p>Es conservación de la energía mecánica escrita <b>por unidad de volumen</b>. Cada término es un J/m³, que es exactamente un pascal:</p>
+
+<div class="formula">
+  <b>p + ½·δ·v² + δ·g·h = constante</b><br>
+  <span class="muted">presión estática &nbsp;·&nbsp; presión dinámica &nbsp;·&nbsp; presión de altura</span>
+</div>
+
+<p>Entre dos puntos de la misma línea de corriente:</p>
+
+<div class="formula">
+  p₁ + ½·δ·v₁² + δ·g·h₁ = p₂ + ½·δ·v₂² + δ·g·h₂
+</div>
+
+<div class="key"><div class="ky-t">Cómo se usa, siempre igual</div>
+<b>1.</b> Elegí y <b>numerá dos puntos</b> (los que tengan más datos: superficie libre, orificio, salida a la atmósfera).<br>
+<b>2.</b> Elegí el <b>nivel h = 0</b> y decilo. Conviene ponerlo en el punto más bajo.<br>
+<b>3.</b> Sacá las velocidades con <b>continuidad</b> (Bernoulli sola nunca alcanza).<br>
+<b>4.</b> Escribí Bernoulli, tachá lo que se cancela y despejá.<br>
+<b>Todas las presiones absolutas, o todas manométricas. Nunca mezcladas.</b>
+</div>
+
+<h3>4.4 · Efecto Venturi</h3>
+<p>Si el caño es <b>horizontal</b> (h₁ = h₂), el término de altura se cancela y queda:</p>
+
+<div class="formula">
+  p₁ + ½·δ·v₁² = p₂ + ½·δ·v₂² &nbsp;&nbsp;⟹&nbsp;&nbsp; p₂ = p₁ + ½·δ·(v₁² − v₂²)
+</div>
+
+<p>Como en el estrechamiento <span class="m">A₂ &lt; A₁</span>, continuidad manda <span class="m">v₂ &gt; v₁</span>, y entonces <b>p₂ &lt; p₁</b>. <b>Donde el fluido corre más rápido, la presión es menor.</b> Eso es el efecto Venturi.</p>
+
+<div class="fig">
+<svg viewBox="0 0 420 220" style="max-width:100%;height:auto" role="img" aria-label="Tubo de Venturi con dos tubos manométricos">
+  <path d="M20 100 L140 100 L185 128 L245 128 L290 100 L400 100" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 170 L140 170 L185 152 L245 152 L290 170 L400 170" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 100 L140 100 L185 128 L245 128 L290 100 L400 100 L400 170 L290 170 L245 152 L185 152 L140 170 L20 170 Z" fill="currentColor" opacity="0.12"/>
+  <line x1="80" y1="100" x2="80" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="98" y1="100" x2="98" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="80" y="45" width="18" height="55" fill="currentColor" opacity="0.3"/>
+  <line x1="205" y1="128" x2="205" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <line x1="223" y1="128" x2="223" y2="30" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="205" y="95" width="18" height="33" fill="currentColor" opacity="0.3"/>
+  <line x1="70" y1="45" x2="235" y2="45" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="196" y1="95" x2="245" y2="95" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="250" y="52" fill="currentColor" font-size="12">p₁ &gt; p₂</text>
+  <text x="40" y="140" fill="currentColor" font-size="13">A₁ · v₁</text>
+  <text x="192" y="146" fill="currentColor" font-size="12">A₂ · v₂</text>
+  <text x="330" y="140" fill="currentColor" font-size="12">v₂ &gt; v₁</text>
+  <line x1="30" y1="135" x2="70" y2="135" stroke="currentColor" stroke-width="1.6" marker-end="url(#flar4)"/>
+  <line x1="300" y1="135" x2="380" y2="135" stroke="currentColor" stroke-width="1.6" marker-end="url(#flar4)"/>
+  <text x="120" y="205" fill="currentColor" font-size="12">se angosta ⟹ acelera ⟹ baja la presión</text>
+  <defs>
+    <marker id="flar4" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 1.5 L8 4.5 L1 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Tubo de Venturi: la columna del manómetro baja donde el caño se angosta.</div>
+</div>
+
+<div class="trap"><div class="tr-t">El control de signo que te salva el ejercicio</div>
+En un caño <b>horizontal que se angosta</b>, la presión <b>tiene que bajar</b>. Si te da p₂ &gt; p₁, tenés un error de signo: volvé a mirar el paréntesis (v₁² − v₂²), que es <b>negativo</b>.<br>
+Contra-intuición pura: mucha gente cree que "apretado ⟹ más presión". Es al revés. La energía que gana en velocidad la pierde en presión.
+</div>
+
+<h3>4.5 · Teorema de Torricelli</h3>
+<p>Un tanque grande abierto con un orificio chico a profundidad <span class="m">h</span>. Punto 1 = superficie libre (v₁ ≈ 0 porque A₁ ≫ A₂, p₁ = p<sub>atm</sub>); punto 2 = el orificio (p₂ = p<sub>atm</sub>). Bernoulli:</p>
+
+<div class="formula">
+  p<sub>atm</sub> + δ·g·h = p<sub>atm</sub> + ½·δ·v² &nbsp;&nbsp;⟹&nbsp;&nbsp; <b>v = √(2·g·h)</b>
+</div>
+
+<p>Es la misma velocidad que tendría un cuerpo en caída libre desde <span class="m">h</span>. Si además hay <b>gas a presión p₀ arriba</b> (tanque presurizado, que es el caso de los finales), la atmosférica ya <b>no se cancela</b>:</p>
+
+<div class="formula">
+  <b>v = √( <span class="frac"><span>2·(p₀ − p<sub>atm</sub>)</span><span>δ</span></span> + 2·g·h )</b>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 400 240" style="max-width:100%;height:auto" role="img" aria-label="Tanque presurizado con orificio y chorro parabólico">
+  <rect x="35" y="60" width="150" height="140" fill="currentColor" opacity="0.12"/>
+  <rect x="35" y="30" width="150" height="170" fill="none" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="35" y1="60" x2="185" y2="60" stroke="currentColor" stroke-width="1.6"/>
+  <text x="60" y="50" fill="currentColor" font-size="13">aire a p₀</text>
+  <line x1="55" y1="60" x2="55" y2="130" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar5)" marker-end="url(#flar5)"/>
+  <text x="61" y="98" fill="currentColor" font-size="13">h</text>
+  <circle cx="80" cy="130" r="4" fill="currentColor"/>
+  <text x="88" y="127" fill="currentColor" font-size="12">A</text>
+  <line x1="20" y1="60" x2="20" y2="200" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar5)" marker-end="url(#flar5)"/>
+  <text x="5" y="135" fill="currentColor" font-size="13">H</text>
+  <rect x="182" y="126" width="6" height="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M188 130 Q 260 132 320 200" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <line x1="190" y1="123" x2="228" y2="123" stroke="currentColor" stroke-width="1.6" marker-end="url(#flar5b)"/>
+  <text x="196" y="117" fill="currentColor" font-size="12">v</text>
+  <line x1="35" y1="205" x2="350" y2="205" stroke="currentColor" stroke-width="2"/>
+  <line x1="185" y1="218" x2="320" y2="218" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar5)" marker-end="url(#flar5)"/>
+  <text x="243" y="234" fill="currentColor" font-size="13">d</text>
+  <text x="215" y="170" fill="currentColor" font-size="12">tiro horizontal</text>
+  <defs>
+    <marker id="flar5" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+    <marker id="flar5b" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 1.5 L8 4.5 L1 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Torricelli + tiro horizontal: el chorro sale con <span class="m">v</span> horizontal y cae desde la altura del orificio. Es el problema 3 de dos finales.</div>
+</div>
+
+<div class="key"><div class="ky-t">El combo que el final adora: Torricelli + tiro horizontal</div>
+Una vez que tenés <span class="m">v</span> con Bernoulli, el chorro es un <b>tiro horizontal</b> común y silvestre:<br>
+<b>t = √(2·y/g)</b> con <span class="m">y</span> = <b>altura del orificio sobre el piso</b>, y después <b>d = v·t</b>.<br>
+La trampa: <span class="m">y</span> <b>no es</b> la profundidad <span class="m">h</span> del orificio bajo la superficie. Si el tanque tiene agua hasta H y el orificio está a profundidad h, entonces <b>y = H − h</b>.
+</div>
+
+<h3>4.6 · Tubo en U y manómetros</h3>
+<p>El tubo en U es hidrostática pura (nada se mueve), pero cae en la misma pregunta que Bernoulli. La receta es siempre esta:</p>
+
+<div class="key"><div class="ky-t">Receta del tubo en U</div>
+<b>1.</b> Elegí una <b>altura de referencia</b> que corte líquido continuo en las dos ramas (el nivel de la interfaz más baja, o el nivel del émbolo).<br>
+<b>2.</b> Bajá por la rama izquierda sumando δ·g·h de cada capa hasta esa altura.<br>
+<b>3.</b> Bajá por la derecha igual.<br>
+<b>4.</b> <b>Igualá</b> las dos expresiones.<br>
+Con dos líquidos de distinta densidad, las <b>alturas de las columnas son distintas</b>: δ₁·h₁ = δ₂·h₂. El más liviano forma la columna más alta.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 340 220" style="max-width:100%;height:auto" role="img" aria-label="Tubo en U con dos líquidos de distinta densidad">
+  <path d="M60 30 L60 170 Q60 190 80 190 L200 190 Q220 190 220 170 L220 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M95 30 L95 170 Q95 155 120 155 L160 155 Q185 155 185 170 L185 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M60 100 L95 100 L95 170 Q95 190 120 190 L160 190 Q185 190 185 170 L185 70 L220 70 L220 170 Q220 190 200 190 L80 190 Q60 190 60 170 Z" fill="currentColor" opacity="0.14"/>
+  <path d="M185 70 L220 70 L220 100 L185 100 Z" fill="currentColor" opacity="0.3"/>
+  <line x1="60" y1="100" x2="95" y2="100" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="185" y1="70" x2="220" y2="70" stroke="currentColor" stroke-width="1.6"/>
+  <line x1="45" y1="100" x2="235" y2="100" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="238" y="83" fill="currentColor" font-size="12">líquido 2</text>
+  <text x="238" y="98" fill="currentColor" font-size="12">(más liviano)</text>
+  <text x="18" y="123" fill="currentColor" font-size="12">nivel de</text>
+  <text x="18" y="137" fill="currentColor" font-size="12">referencia</text>
+  <line x1="243" y1="70" x2="243" y2="100" stroke="currentColor" stroke-width="1.2" marker-start="url(#flar6)" marker-end="url(#flar6)"/>
+  <text x="250" y="118" fill="currentColor" font-size="12">δ₁·h₁ = δ₂·h₂</text>
+  <text x="98" y="24" fill="currentColor" font-size="12">abierto</text>
+  <text x="188" y="24" fill="currentColor" font-size="12">abierto</text>
+  <defs>
+    <marker id="flar6" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Debajo del nivel de la interfaz, todo es el mismo líquido conectado: ahí las presiones se igualan.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Bernoulli no reemplaza a continuidad</div>
+Bernoulli tiene <b>dos incógnitas de velocidad</b> (v₁ y v₂) y una sola ecuación. <b>Siempre</b> necesitás la ecuación de continuidad para sacar las velocidades primero, y recién después Bernoulli para la presión. El parcial 2009 se cae entero si intentás hacer solo una de las dos.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ==================== UNIDAD 5 ==================== -->
+<details id="fl-s5">
+<summary><span class="num">5</span> Los fluidos del final: Torricelli, Venturi y tubo en U <span class="sec-score" id="ss-fisica1-utn-fluidos-5"></span></summary>
+<div class="content">
+
+<div class="key"><div class="ky-t">Los cuatro problemas de hidrodinámica que realmente aparecieron</div>
+<b>1.</b> Tanque hermético presurizado con orificio, y el <b>alcance del chorro</b> (aparece en dos hojas de final distintas, siempre como problema 3).<br>
+<b>2.</b> Cañería que <b>reduce la sección y baja 3 m</b> (dos hojas de final, siempre como problema 6).<br>
+<b>3.</b> Tanque de <b>gasolina con aire comprimido</b>, velocidad de salida (dos hojas de final, problema 4).<br>
+<b>4.</b> <b>Tubo en U con émbolo y resorte</b>, con agua y aceite (final del 13/2/25, según la recreación de los alumnos).<br>
+Los tres primeros están completos y verificados; el cuarto viene de una recreación de memoria que sí trae las respuestas.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 620 230" style="max-width:100%;height:auto" role="img" aria-label="Cañería con reducción y desnivel, y tubo en U con émbolo y resorte">
+  <!-- cañería con desnivel -->
+  <path d="M20 55 L120 55 L160 130 L280 130" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 90 L110 90 L150 152 L280 152" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M20 55 L120 55 L160 130 L280 130 L280 152 L150 152 L110 90 L20 90 Z" fill="currentColor" opacity="0.12"/>
+  <text x="24" y="46" fill="currentColor" font-size="12">Ø 25 mm · v₁ = 1 m/s · p₁ = 10⁵ Pa</text>
+  <text x="188" y="172" fill="currentColor" font-size="12">Ø 12 mm · p₂ = ?</text>
+  <line x1="300" y1="72" x2="300" y2="141" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar7)" marker-end="url(#flar7)"/>
+  <text x="306" y="112" fill="currentColor" font-size="13">3 m</text>
+  <line x1="120" y1="72" x2="300" y2="72" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="200" y1="141" x2="300" y2="141" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="55" y="205" fill="currentColor" font-size="12">Cañería que se angosta y baja · final problema 6</text>
+
+  <!-- tubo en U con émbolo -->
+  <path d="M400 40 L400 165 Q400 185 420 185 L560 185 Q580 185 580 165 L580 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M435 40 L435 165 Q435 150 455 150 L525 150 Q545 150 545 165 L545 30" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M400 100 L435 100 L435 165 Q435 185 455 185 L525 185 Q545 185 545 165 L545 75 L580 75 L580 165 Q580 185 560 185 L420 185 Q400 185 400 165 Z" fill="currentColor" opacity="0.14"/>
+  <line x1="400" y1="40" x2="435" y2="40" stroke="currentColor" stroke-width="2.6"/>
+  <path d="M417 40 l0 5 l-9 4 l18 5 l-18 5 l18 5 l-9 4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="376" y="52" fill="currentColor" font-size="12">k</text>
+  <line x1="400" y1="100" x2="435" y2="100" stroke="currentColor" stroke-width="4"/>
+  <text x="352" y="96" fill="currentColor" font-size="12">émbolo</text>
+  <line x1="400" y1="100" x2="580" y2="100" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4"/>
+  <line x1="562" y1="75" x2="562" y2="100" stroke="currentColor" stroke-width="1.3" marker-start="url(#flar7)" marker-end="url(#flar7)"/>
+  <text x="586" y="92" fill="currentColor" font-size="13">h</text>
+  <text x="470" y="130" fill="currentColor" font-size="12">agua</text>
+  <text x="546" y="26" fill="currentColor" font-size="12">abierto</text>
+  <text x="404" y="212" fill="currentColor" font-size="12">Tubo en U con émbolo · final 13/2/25</text>
+  <defs>
+    <marker id="flar7" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M1 4.5 L8 1.5 L8 7.5 Z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>
+<div class="fig-cap">Izquierda: en la cañería que baja, el término δ·g·Δh <b>suma</b> presión y el estrechamiento la <b>resta</b>. Derecha: el resorte se comprime porque el agua empuja el émbolo hacia arriba.</div>
+</div>
+
+<h3>5.1 · El orden de ataque, problema por problema</h3>
+<table class="tbl">
+  <tr><th>Si el enunciado dice…</th><th>Arrancá por…</th></tr>
+  <tr><td>"orificio pequeño" + "gran volumen" + presión arriba</td><td><b>Torricelli con p₀</b>: sacá h con hidrostática, después v, después tiro horizontal</td></tr>
+  <tr><td>"reduce su diámetro" + "desciende N metros"</td><td><b>Continuidad</b> (v₂), después <b>Bernoulli completa</b> con el término de altura</td></tr>
+  <tr><td>"A₂ mucho menor que A₁, despreciable la velocidad en A₁"</td><td><b>Bernoulli con v₁ = 0</b>: es Torricelli con presión extra</td></tr>
+  <tr><td>"tubo en U", "émbolo", "resorte", "columna de aceite"</td><td><b>Hidrostática pura</b>: nivel de referencia + ΣF = 0 en el émbolo</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">La atmosférica en el tanque presurizado: no se cancela</div>
+En Torricelli clásico (tanque abierto) la p<sub>atm</sub> aparece de los dos lados y se va. En el <b>tanque hermético</b> arriba hay p₀ (aire comprimido) y afuera hay p<sub>atm</sub>: <b>son distintas y ninguna se cancela</b>.<br>
+Fijate el guiño del enunciado del final: da p₀ = 202 600 Pa, que es <b>exactamente 2 × 101 300</b>. Es la pista de que tenés que usar p<sub>atm</sub> = 101 300 Pa (1 atm) y trabajar en absolutas.
+</div>
+
+<div class="trap"><div class="tr-t">Bajar 3 metros gana más presión de la que el estrechamiento le quita</div>
+En el final de la cañería, el estrechamiento resta ≈ 8 900 Pa (Venturi) pero bajar 3 m suma δ·g·Δh = 1000·10·3 = <b>30 000 Pa</b>. Resultado: la presión final es <b>mayor</b> que la inicial (≈ 1,21·10⁵ Pa contra 10⁵ Pa).<br>
+Es el mismo punto que el inciso b) del parcial 2009: "si la cañería tuviera un desnivel de 1 m, ¿cambiaría el resultado?" — <b>cambia, y muchísimo</b>: 1 m de agua son 10 000 Pa, un orden de magnitud por encima de los términos dinámicos típicos. No alcanza con contestar "sí": hay que escribir δ·g·(h₂ − h₁) y discutir el signo.
+</div>
+
+<div class="trap"><div class="tr-t">Los dos "empujones" del émbolo con resorte</div>
+En el tubo en U del 13/2/25, sobre el émbolo actúan <b>tres</b> cosas: el <b>agua desde abajo</b> (p<sub>agua</sub>·S, hacia arriba), el <b>aire de la cámara</b> (p<sub>atm</sub>·S, hacia abajo, porque el enunciado aclara que la cámara está a presión atmosférica) y el <b>resorte comprimido</b> (k·Δx, hacia abajo). De ahí sale directo <b>δ·g·h·S = k·Δx</b>: la atmosférica se cancela sola porque también está sobre la superficie libre del agua.<br>
+Y en el inciso b) hay un paso geométrico que casi nadie ve: <b>al subir el émbolo, el nivel del agua de la otra rama baja</b>. Si el émbolo sube δ, el otro nivel baja δ, así que para que se encuentren hace falta δ = h/2. No es un problema de fuerzas: es <b>conservación del volumen de agua</b>.
+</div>
+
+<div class="key"><div class="ky-t">Formulario de bolsillo de esta unidad</div>
+<b>Hidrostática:</b> p = p₀ + δ·g·h &nbsp;·&nbsp; E = δ<sub>L</sub>·V<sub>sum</sub>·g &nbsp;·&nbsp; V<sub>sum</sub>/V = δ<sub>c</sub>/δ<sub>L</sub><br>
+<b>Continuidad:</b> Q = A·v &nbsp;·&nbsp; A₁v₁ = A₂v₂ &nbsp;·&nbsp; A = π·(D/2)²<br>
+<b>Bernoulli:</b> p + ½δv² + δgh = cte<br>
+<b>Torricelli:</b> v = √(2gh) &nbsp;·&nbsp; presurizado: v = √( 2(p₀ − p<sub>atm</sub>)/δ + 2gh )<br>
+<b>Chorro:</b> t = √(2y/g), d = v·t &nbsp;·&nbsp; <b>Conversiones:</b> 1 g/cm³ = 1000 kg/m³ · 1 Pa = 10 din/cm² · 1 N = 10⁵ din · 1 atm = 101 300 Pa
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fisica1-utn-fluidos"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fisica1-utn-fluidos"></div>
+<a class="back" href="#subject-fisica1-utn-fluidos">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'fisica1-utn-fluidos';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS FLUIDOS ============
+// ============================================================
+// FÍSICA I · UTN FRBA · FLUIDOS
+// Fuentes:
+//   · 6 ejercicios de 1er parcial, cátedra Martinelli (2009, 2010,
+//     2012, 2013, 2014, 2016) — cantera de arquetipos.
+//   · 8 problemas de fluidos de los finales de UTN.BA
+//     (2/3/23, 26/5/22, 14/2/24, 21/2/24, 13/2/25 y tres hojas sin fecha).
+// Convenciones de la cátedra: g = 10 m/s² (= 1000 cm/s²),
+// δ_agua = 1 g/cm³, resoluciones planteadas en CGS y pasadas a SI.
+// ============================================================
+
+// ============================================================
+// SECCIÓN 1 · HIDROSTÁTICA DESDE CERO
+// ============================================================
+registerExercises('fisica1-utn-fluidos', '1', [
+  {st: 'El enunciado te da δ = 0,8 g/cm³. ¿Cuánto vale en el SI?',
+   opts: ['0,8 kg/m³', '80 kg/m³', '800 kg/m³', '8000 kg/m³'],
+   c: 2,
+   ex: '<b>1 g/cm³ = 1000 kg/m³</b>, así que 0,8 g/cm³ = <b>800 kg/m³</b>. ▸ Sale de 1 g = 10⁻³ kg y 1 cm³ = 10⁻⁶ m³: el cociente da 10³. ▸ Truco: para pasar de g/cm³ a kg/m³ <b>corré la coma tres lugares a la derecha</b>. ▸ Por qué las otras: (A) no convierte nada; (B) usa un factor 100 (confunde con cm→m lineal); (D) usa 10⁴, un lugar de más.'},
+
+  {st: 'La cátedra escribe "P₁ = 6 Pa = 60 dinas/cm²". ¿Cuál es el factor correcto entre Pa y din/cm²?',
+   opts: ['1 Pa = 1 din/cm²', '1 Pa = 10 din/cm²', '1 Pa = 100 din/cm²', '1 Pa = 10⁵ din/cm²'],
+   c: 1,
+   ex: '<b>1 Pa = 1 N/m² = 10⁵ din / 10⁴ cm² = 10 din/cm².</b> ▸ Es el factor que aparece textual en la resolución del 1er parcial 2009: 6 Pa → 60 din/cm². ▸ Por qué las otras: (A) confunde con que Pa y din/cm² fueran la misma unidad; (C) usa 10² (mezcla el factor de longitud sin elevar al cuadrado); (D) es el factor <b>N → dina</b>, no el de presión.'},
+
+  {st: 'Un buzo está a 20 m de profundidad en agua (δ = 1000 kg/m³, p_atm = 101 300 Pa, g = 10 m/s²). ¿Cuál es la presión ABSOLUTA a esa profundidad?',
+   opts: ['2,00·10⁵ Pa', '3,01·10⁵ Pa', '1,01·10⁵ Pa', '2,01·10⁶ Pa'],
+   c: 1,
+   ex: '<b>p_abs = p₀ + δ·g·h</b> = 101 300 + 1000·10·20 = 101 300 + 200 000 = <b>301 300 Pa ≈ 3,01·10⁵ Pa</b>. ▸ Por qué las otras: (A) 2,00·10⁵ Pa es la presión <b>manométrica</b> (el término δgh solo) — es la respuesta correcta a otra pregunta, cuidado con cuál te piden; (C) es solo la atmosférica, como si el buzo estuviera en la superficie; (D) corre la coma un lugar.'},
+
+  {st: 'Dos recipientes distintos, uno angosto y uno ancho, tienen agua hasta la misma altura y están abiertos. ¿Dónde es mayor la presión en el fondo?',
+   opts: ['En el ancho, porque tiene más agua', 'En el angosto, porque el agua está más concentrada', 'Es la misma: la presión depende de h, no del volumen', 'Depende de la forma de las paredes'],
+   c: 2,
+   ex: 'La presión hidrostática es <b>p = p₀ + δ·g·h</b>: depende solo de la <b>profundidad</b>, la densidad y g. ▸ Ni el volumen total ni la forma del recipiente entran en la fórmula (es la llamada paradoja hidrostática). ▸ Consecuencia directa que usás todo el tiempo: <b>dentro de un mismo fluido conectado, misma altura ⟹ misma presión</b>. ▸ Por qué las otras: (A) y (B) razonan con el peso total del líquido, que no es lo que determina la presión; (D) la forma cambia la fuerza total sobre el fondo solo si cambia el área, no la presión.'},
+
+  {st: 'Una compuerta rectangular vertical de 2 m de ancho va desde la superficie libre hasta 3 m de profundidad. La atmósfera actúa de los dos lados. ¿Qué fuerza le hace el agua? (δ = 1000 kg/m³, g = 10 m/s²)',
+   opts: ['90 kN', '180 kN', '45 kN', '30 kN'],
+   c: 0,
+   ex: 'Como la presión crece con la profundidad, la carga es <b>triangular</b>: se usa la presión en el <b>centro geométrico</b>, a h = 1,5 m. ▸ F = δ·g·h_CG·A = 1000·10·1,5·(2·3) = <b>90 000 N = 90 kN</b>. ▸ Fórmula directa: F = ½·δ·g·b·H² = 0,5·1000·10·2·3² = 90 kN. ▸ La resultante se aplica a <b>2H/3 = 2 m</b> de la superficie, no en el medio. ▸ Por qué las otras: (B) 180 kN es el error clásico de usar la presión del <b>fondo</b> (30 000 Pa) por toda la compuerta: da el doble; (C) 45 kN olvida un factor 2 del ancho; (D) 30 kN confunde la presión (30 kPa) con la fuerza.'},
+
+  {st: 'Un bloque de densidad 0,6 g/cm³ flota libremente en agua (1 g/cm³). ¿Qué fracción del volumen queda sumergida?',
+   opts: ['40%', '60%', '100%', 'Depende del volumen del bloque'],
+   c: 1,
+   ex: 'En flotación libre E = P, y al cancelar V y g queda <b>V_sum/V = δ_cuerpo/δ_líq</b> = 0,6/1 = <b>0,6 = 60%</b>. ▸ Es la fórmula que más se usa en toda la unidad, y <b>no depende ni de g ni del tamaño</b>: vale igual para una pelotita o para un iceberg. ▸ Por qué las otras: (A) 40% es la parte que <b>emerge</b> (el complemento) — ojo con qué te preguntan; (C) 100% sería si δ_cuerpo ≥ δ_líq, o sea si se hundiera; (D) el volumen se cancela, por eso nunca hace falta como dato.'}
+]);
+
+// ============================================================
+// SECCIÓN 2 · ARQUÍMEDES CON UNA TERCERA FUERZA
+// ============================================================
+registerExercises('fisica1-utn-fluidos', '2', [
+  {st: 'Una esfera flota parcialmente sumergida y está atada al FONDO por una cuerda. ¿Cuál es la ecuación de equilibrio correcta?',
+   opts: ['E + T = P', 'E = P + T', 'E = P − T', 'P = E + T'],
+   c: 1,
+   ex: 'La cuerda va al <b>fondo</b>, así que tira de la esfera <b>hacia abajo</b>: entra del mismo lado que el peso. ▸ <b>E = P + T</b>. ▸ El chequeo conceptual: estar amarrada obliga a la esfera a sumergirse <b>más</b> que en flotación libre (en el parcial 2012: 50% amarrada contra 30% libre). ▸ Por qué las otras: (A) es el error del 2012 que da 10% en vez de 50%: pone la tensión hacia arriba; (C) le cambia el signo a T sin justificación; (D) invertiría el sentido del empuje y haría que la esfera se hundiera sola.'},
+
+  {st: 'En el parcial 2013, una esfera de δ = 2 g/cm³ y V = 600 cm³ está a MITAD sumergida en agua, colgada de un resorte estirado 10 cm. ¿Cuánto vale k?',
+   opts: ['120 N/m', '90 N/m', '30 N/m', '9 N/m'],
+   c: 1,
+   ex: 'Tres fuerzas verticales: resorte hacia arriba, empuje hacia arriba, peso hacia abajo. ▸ <b>P</b> = δ_e·V·g = 2·600·1000 = 1,2·10⁶ din = <b>12 N</b>. ▸ <b>E</b> = δ_a·(V/2)·g = 1·300·1000 = 3·10⁵ din = <b>3 N</b> (¡la mitad del volumen!). ▸ F_el = P − E = <b>9 N</b> → k = 9 N / 0,10 m = <b>90 N/m</b>. ▸ Por qué las otras: (A) 120 N/m es olvidarse del empuje (usar solo el peso); (C) 30 N/m usaría el volumen total en el empuje; (D) 9 N/m confunde la fuerza (9 N) con la constante y deja el estiramiento en 10 cm sin pasar a metros.'},
+
+  {st: 'Un cubo de 400 g flota con 1/5 de su volumen sumergido. Te preguntan qué fuerza hacia abajo hay que aplicarle para hundirlo del todo, pero NO te dan ni la densidad del líquido ni el volumen. ¿Qué hacés?',
+   opts: ['Faltan datos, no se puede resolver', 'Asumo que el líquido es agua', 'Escribo el peso de dos formas (mg y δ_c·V·g) y uso la condición de flotación: se cancelan', 'Uso la densidad del cubo como 1 g/cm³'],
+   c: 2,
+   ex: 'La condición "1/5 sumergido" equivale a <b>δ_líq = 5·δ_cubo</b>. ▸ Con eso, el empuje total vale 5 veces el peso: mg + F = 5mg ⟹ <b>F = 4mg</b> = 4·0,4·10 = <b>16 N</b>. ▸ Ni δ_líq ni V hacen falta: es el "puede haber datos que no interesen" del encabezado, pero al revés — <b>datos que parecen faltar y en realidad se cancelan</b>. ▸ Por qué las otras: (A) es la reacción de pánico más cara del parcial; (B) inventar datos cambia el resultado y se descuenta; (D) si el cubo fuera de densidad 1 no flotaría con 1/5 sumergido.'},
+
+  {st: 'Un bloque de madera está apoyado en el FONDO de un recipiente con agua, con una pesa de hierro encima; todo bajo el agua. ¿Cuántos diagramas de cuerpo libre conviene hacer?',
+   opts: ['Uno solo, con el conjunto', 'Dos: uno para la pesa y otro para la madera, vinculados por el par acción-reacción', 'Tres, uno por cada fuerza', 'Ninguno, se resuelve con energía'],
+   c: 1,
+   ex: 'Son <b>dos cuerpos</b>: hay que hacer <b>dos DCL</b> y unirlos con la normal de contacto, que es un <b>par de acción y reacción</b> (empuja hacia arriba a la pesa y hacia abajo al bloque). ▸ Sumando las dos ecuaciones esa normal interna se cancela y queda N_fondo = P_fe + P_m − E_fe − E_m. ▸ Es el parcial 2016: N = 15,72 + 6 − 2 − 10 = <b>9,72 N</b>. ▸ Por qué las otras: (A) se puede tomar el conjunto y llegar a lo mismo, pero <b>solo si no te olvidás ninguna de las cuatro fuerzas</b>, que es justo lo que falla; (C) los DCL son por cuerpo, no por fuerza; (D) es estática, no hay movimiento ni energía en juego.'},
+
+  {st: 'En ese mismo problema, la pesa de hierro está apoyada ARRIBA del bloque pero bajo el agua. ¿Recibe empuje?',
+   opts: ['No, porque está apoyada sobre otro cuerpo', 'No, porque el hierro se hunde', 'Sí: está totalmente sumergida, así que E = δ_agua·V_pesa·g', 'Solo la mitad del empuje'],
+   c: 2,
+   ex: 'El empuje lo da <b>el volumen de fluido desplazado</b>, y la pesa está enteramente bajo el agua: <b>E_fe = 1 g/cm³ · 200 cm³ · 1000 cm/s² = 2·10⁵ din = 2 N</b>. ▸ Que se hunda no significa que no reciba empuje: significa que el empuje es <b>menor que su peso</b>. ▸ Por qué las otras: (A) apoyarse en otro cuerpo no cambia el fluido desalojado; (B) confunde "se hunde" con "no hay empuje"; (D) el medio empuje aplicaría si estuviera medio sumergida, no es el caso.'}
+]);
+
+// ============================================================
+// SECCIÓN 3 · FLOTACIÓN CARGADA
+// ============================================================
+registerExercises('fisica1-utn-fluidos', '3', [
+  {st: 'Un tronco de madera (δ = 800 kg/m³) tiene V = 0,12 m³ y flota en agua (1000 kg/m³). ¿Qué masa máxima puede cargar antes de quedar totalmente sumergido? (g = 10 m/s²)',
+   opts: ['24 kg', '96 kg', '120 kg', '200 kg'],
+   c: 0,
+   ex: 'En el límite el tronco está <b>totalmente sumergido</b>: E = P_tronco + P_carga. ▸ δ_ag·V·g = δ_m·V·g + m·g ⟹ <b>m = (δ_L − δ_f)·V</b> = (1000 − 800)·0,12 = <b>24 kg</b>. ▸ Fijate que <b>g desaparece</b>: la capacidad de carga es una masa y no depende de la gravedad. ▸ Por qué las otras: (B) 96 kg = 800·0,12, que es la masa <b>del tronco</b>, no lo que carga; (C) 120 kg = 1000·0,12 es la masa del agua desalojada (el empuje entero, sin restar el peso propio del tronco); (D) 200 kg confunde la diferencia de densidades con una masa.'},
+
+  {st: 'Los troncos del final del 2/3/23 tienen D = 0,3 m de DIÁMETRO y L = 1,7 m. ¿Cuál es el volumen de cada uno?',
+   opts: ['0,481 m³', '0,120 m³', '0,153 m³', '0,038 m³'],
+   c: 1,
+   ex: 'El dato es el <b>diámetro</b>: el radio es 0,15 m. ▸ V = π·r²·L = π·0,15²·1,7 = π·0,03825 = <b>0,120 m³</b>. ▸ Por qué las otras: (A) 0,481 m³ es el error estrella: usar D = 0,3 como radio, lo que <b>cuadruplica</b> el volumen y te haría contestar 2 troncos en vez de 5; (C) usa el diámetro sin elevar al cuadrado; (D) 0,038 m³ es r²·L sin multiplicar por π.'},
+
+  {st: 'Un oso PESA 3540 N y se sube a un témpano hasta dejarlo totalmente sumergido (δ_agua = 1000, δ_hielo = 900 kg/m³, g = 10). ¿Qué volumen tiene el témpano?',
+   opts: ['0,354 m³', '3,54 m³', '35,4 m³', '354 m³'],
+   c: 1,
+   ex: 'Témpano totalmente sumergido: <b>δ_ag·V·g = δ_h·V·g + P_oso</b>. ▸ 10 000·V − 9000·V = 3540 ⟹ 1000·V = 3540 ⟹ <b>V = 3,54 m³</b>. ▸ Clave de lectura: el enunciado te da un <b>peso en newtons</b>, no una masa. Su masa sería 354 kg, pero acá ni hace falta calcularla. ▸ Por qué las otras: (A) y (C) corren la coma un lugar; (D) 354 m³ confunde el peso con la masa y encima divide mal.'},
+
+  {st: 'La cuenta de la balsa te da 4,99 troncos. ¿Qué contestás?',
+   opts: ['4 troncos', '4,99 troncos', '5 troncos', 'No se puede saber'],
+   c: 2,
+   ex: 'Piden la cantidad <b>mínima para mantenerlos a flote</b>: con 4 troncos el empuje no alcanza y se hunden. ▸ La cantidad mínima se redondea <b>siempre hacia arriba</b>, aunque el decimal sea 0,99 o 0,01: <b>5 troncos</b>. ▸ Escribí la justificación en la hoja ("con 4 el empuje es insuficiente"): es lo que corrige el docente. ▸ Por qué las otras: (A) redondea hacia abajo y la balsa se hunde; (B) no existen troncos fraccionarios; (D) el criterio es claro y explícito en el enunciado.'},
+
+  {st: 'Un cuerpo queda con su parte de arriba dentro de una capa de aceite y su parte de abajo en agua, con la cara superior justo al nivel del aceite. ¿Cómo planteás el equilibrio?',
+   opts: ['P = E_agua, el aceite no cuenta porque es más liviano', 'P = E_aceite + E_agua, un empuje por cada capa con su densidad y su espesor', 'P = E_aceite, porque es la capa de arriba', 'P = (δ_agua + δ_aceite)·V·g'],
+   c: 1,
+   ex: 'Con <b>dos líquidos superpuestos hay dos empujes</b> y se suman: cada capa aporta δ_capa · V_del cuerpo en esa capa · g. ▸ En el final del 26/5/22: δ_c·e = δ_ac·H + δ_ag·(e − H), con e = 10 cm. Con δ_c = 750 kg/m³ (venía flotando con 3/4 sumergido) sale <b>H = 7,14 cm</b>. ▸ El área se cancela: por eso el enunciado no te la da. ▸ Por qué las otras: (A) y (C) ignoran media escena; (D) suma las densidades y aplica el volumen entero a las dos, que es contar dos veces el mismo volumen.'}
+]);
+
+// ============================================================
+// SECCIÓN 4 · HIDRODINÁMICA DESDE CERO
+// ============================================================
+registerExercises('fisica1-utn-fluidos', '4', [
+  {st: 'Una cañería pasa de 25 mm a 12 mm de diámetro interior. Si en la parte ancha el agua va a 1 m/s, ¿a qué velocidad va en la angosta?',
+   opts: ['2,08 m/s', '4,34 m/s', '0,48 m/s', '1 m/s'],
+   c: 1,
+   ex: 'Continuidad: A₁v₁ = A₂v₂ con A = π·(D/2)², así que <b>v₂ = v₁·(D₁/D₂)²</b>. ▸ v₂ = 1·(25/12)² = 1·(2,0833)² = <b>4,34 m/s</b>. ▸ Por qué las otras: (A) 2,08 m/s es el error más frecuente: usar la razón de diámetros <b>sin elevarla al cuadrado</b>; (C) 0,48 m/s invierte la razón (el fluido acelera al angostarse, no frena); (D) 1 m/s sería si la sección no cambiara.'},
+
+  {st: 'El parcial 2009 da Q = 25 l/min. ¿Cuánto es en CGS?',
+   opts: ['25 cm³/s', '416,67 cm³/s', '1500 cm³/s', '0,42 cm³/s'],
+   c: 1,
+   ex: '25 litros = <b>25 000 cm³</b> (1 l = 1000 cm³) y 1 min = 60 s. ▸ Q = 25 000/60 = <b>416,67 cm³/s</b>. ▸ En SI serían 4,167·10⁻⁴ m³/s. ▸ Por qué las otras: (A) usa el número tal cual, sin convertir ni litros ni minutos; (C) 1500 cm³/s convierte los minutos pero no los litros al revés (25·60); (D) divide por 1000 de más.'},
+
+  {st: 'En una cañería HORIZONTAL que se angosta, ¿qué le pasa a la presión?',
+   opts: ['Aumenta, porque el fluido está más apretado', 'Disminuye, porque la velocidad aumenta', 'No cambia', 'Depende de la densidad del fluido'],
+   c: 1,
+   ex: 'Bernoulli horizontal: p + ½δv² = cte. ▸ Continuidad manda v₂ &gt; v₁ al angostarse, así que <b>p₂ &lt; p₁</b>: es el <b>efecto Venturi</b>. ▸ Control de signo: si te da p₂ &gt; p₁ en un caño horizontal que se angosta, tenés un error — el paréntesis (v₁² − v₂²) es <b>negativo</b>. ▸ Por qué las otras: (A) es la intuición equivocada más común del tema: la energía que gana en velocidad la pierde en presión; (C) solo si la sección no cambiara; (D) la densidad cambia <b>cuánto</b> baja, no <b>si</b> baja.'},
+
+  {st: 'Un tanque abierto y grande tiene un orificio chico a 5 m por debajo de la superficie libre. ¿Con qué velocidad sale el agua? (g = 10 m/s²)',
+   opts: ['5 m/s', '10 m/s', '50 m/s', '100 m/s'],
+   c: 1,
+   ex: 'Torricelli: <b>v = √(2·g·h)</b> = √(2·10·5) = √100 = <b>10 m/s</b>. ▸ Es la misma velocidad que tendría un cuerpo en caída libre desde 5 m: sale de Bernoulli con p_atm de los dos lados (se cancela) y v ≈ 0 en la superficie porque el tanque es grande. ▸ Por qué las otras: (A) 5 m/s confunde h con v; (C) 50 m/s es 2gh sin la raíz; (D) 100 m/s es directamente v² sin la raíz.'},
+
+  {st: 'Vas a resolver una cañería que cambia de sección Y de altura, y te piden la presión en el punto 2. ¿Qué usás?',
+   opts: ['Solo Bernoulli', 'Solo continuidad', 'Continuidad primero (para v₂) y después Bernoulli completa con el término δgh', 'Solo hidrostática, p = p₀ + δgh'],
+   c: 2,
+   ex: 'Bernoulli tiene <b>dos velocidades incógnitas</b> y una sola ecuación: no cierra sola. ▸ Orden correcto: <b>1)</b> continuidad A₁v₁ = A₂v₂ para sacar v₂; <b>2)</b> Bernoulli con los tres términos, incluido δ·g·(h₁ − h₂). ▸ Por qué las otras: (A) te faltan velocidades; (B) continuidad no dice nada de presiones; (D) hidrostática solo vale si el fluido está en <b>reposo</b>, y acá circula.'},
+
+  {st: 'En un tubo en U abierto en las dos ramas hay agua (1 g/cm³) y sobre ella, en una rama, una columna de aceite (0,8 g/cm³) de 10 cm. ¿Cómo se comparan las alturas de las columnas medidas desde la interfaz?',
+   opts: ['Son iguales, porque los dos son líquidos', 'La columna de aceite es MÁS alta que el desnivel de agua que la compensa', 'La columna de aceite es más baja', 'No hay relación posible'],
+   c: 1,
+   ex: 'Debajo de la interfaz todo es agua conectada, así que a esa altura las presiones se igualan: <b>δ_ac·h_ac = δ_ag·h_ag</b>. ▸ 0,8·10 = 1·h_ag ⟹ h_ag = 8 cm. ▸ O sea: <b>el líquido más liviano forma la columna más alta</b> (10 cm de aceite equilibran solo 8 cm de agua). ▸ Por qué las otras: (A) si fueran iguales las densidades no importarían; (C) invierte la relación; (D) la relación es exactamente δ₁h₁ = δ₂h₂.'}
+]);
+
+// ============================================================
+// SECCIÓN 5 · LOS FLUIDOS DEL FINAL
+// ============================================================
+registerExercises('fisica1-utn-fluidos', '5', [
+  {st: 'Tanque hermético con aire a p₀ = 202 600 Pa arriba. En un punto A a profundidad h (lejos del orificio) la presión es pA = 207 600 Pa. ¿Cuánto vale h? (δ = 1000 kg/m³, g = 10 m/s²)',
+   opts: ['0,5 m', '5 m', '2 m', '20,76 m'],
+   c: 0,
+   ex: 'El punto A está en <b>fluido en reposo</b> (el enunciado aclara "muy lejos del orificio"), así que vale hidrostática pura: <b>pA = p₀ + δ·g·h</b>. ▸ 207 600 − 202 600 = 5000 = 1000·10·h ⟹ <b>h = 0,5 m</b>. ▸ Este es el paso 1 obligatorio del problema: sin h no podés seguir. ▸ Por qué las otras: (B) 5 m sale de dividir 5000 por 1000 (olvidando g); (C) 2 m no sale de ninguna cuenta del enunciado; (D) 20,76 m divide pA por 10 000.'},
+
+  {st: 'En ese mismo tanque, el agua llega hasta H = 4 m y el orificio está a h = 0,5 m bajo la superficie. Para el tiro horizontal del chorro, ¿desde qué altura cae?',
+   opts: ['0,5 m', '4 m', '3,5 m', '4,5 m'],
+   c: 2,
+   ex: 'El chorro sale del orificio y cae hasta el piso: la altura de caída es la <b>altura del orificio sobre el piso</b>, o sea <b>y = H − h = 4 − 0,5 = 3,5 m</b>. ▸ Después t = √(2y/g) = √0,7 = 0,837 s y d = v·t. ▸ Por qué las otras: (A) 0,5 m es la <b>profundidad</b> bajo la superficie, que sirve para la presión, no para la caída — es la confusión que más se cobra en este problema; (B) 4 m sería si el orificio estuviera en el fondo; (D) 4,5 m suma en vez de restar.'},
+
+  {st: 'Cañería horizontal de 25 mm a 10⁵ Pa que se angosta a 12 mm y BAJA 3 m. ¿La presión final es mayor o menor que 10⁵ Pa? (δ = 1000 kg/m³, g = 10)',
+   opts: ['Menor, porque se angosta (Venturi)', 'Mayor: bajar 3 m suma 30 000 Pa y el estrechamiento solo resta ≈ 8900 Pa', 'Igual, los dos efectos se cancelan exactamente', 'No se puede saber sin el caudal'],
+   c: 1,
+   ex: 'Compiten dos términos. ▸ <b>Venturi</b>: ½δ(v₁² − v₂²) = 500·(1 − 18,84) = <b>−8919 Pa</b>. ▸ <b>Altura</b>: δ·g·Δh = 1000·10·3 = <b>+30 000 Pa</b>. ▸ p₂ = 100 000 − 8919 + 30 000 = <b>121 081 Pa ≈ 1,21·10⁵ Pa</b>: gana la altura. ▸ Moraleja: 1 m de agua vale 10 000 Pa, un orden de magnitud por encima de los términos dinámicos típicos. ▸ Por qué las otras: (A) mira solo la mitad del problema; (C) los números no dan lo mismo; (D) el caudal sale de v₁ y A₁, que ya te los dan.'},
+
+  {st: 'Tanque de gasolina (δ = 720 kg/m³) con aire comprimido a p₀ = 130,1 kPa, lleno hasta h = 1 m, que descarga a la atmósfera (101,3 kPa). ¿Con qué velocidad sale? (g = 10, A₂ ≪ A₁)',
+   opts: ['4,5 m/s', '10 m/s', '20 m/s', '14,6 m/s'],
+   c: 1,
+   ex: 'Bernoulli entre la superficie (v ≈ 0, p = p₀, altura h) y la salida (p = p_atm, altura 0): ▸ <b>½δv² = (p₀ − p_atm) + δ·g·h</b> = 28 800 + 7200 = 36 000. ▸ 360·v² = 36 000 ⟹ v² = 100 ⟹ <b>v = 10 m/s</b>. ▸ Es Torricelli con un empujón extra: la sobrepresión aporta 28 800 Pa y la columna 7200 Pa. ▸ Por qué las otras: (A) 4,5 m/s es Torricelli puro √(2gh) = 4,47, ignorando la presurización; (C) 20 m/s duplica; (D) 14,6 m/s es la respuesta del <b>otro</b> problema (el tanque de agua a 202 600 Pa) — no mezcles los dos tanques.'},
+
+  {st: 'Tubo en U con el extremo izquierdo cerrado por un émbolo con un resorte (cámara a presión atmosférica) y el derecho abierto. El agua queda h = 10 cm por encima del émbolo. ¿Cuál es la ecuación del émbolo? (S = 10 cm², k = 50 N/m, g = 10)',
+   opts: ['p_atm·S = k·Δx', 'δ·g·h·S = k·Δx', '(p_atm + δgh)·S = k·Δx', 'δ·g·h = k·Δx'],
+   c: 1,
+   ex: 'Sobre el émbolo actúan: el agua desde abajo con (p_atm + δgh)·S hacia arriba, el aire de la cámara con p_atm·S hacia abajo y el resorte comprimido con k·Δx hacia abajo. ▸ La atmosférica <b>se cancela</b> y queda <b>δ·g·h·S = k·Δx</b>. ▸ Números: 1000·10·0,1·10⁻³ = 1 N ⟹ Δx = 1/50 = <b>0,02 m = 2 cm</b> ✔ (coincide con la respuesta de la hoja). ▸ Por qué las otras: (A) ignora el agua; (C) no cancela la atmosférica y te da un Δx absurdo (más de 2 m); (D) se olvida de multiplicar por el área: una presión no es una fuerza.'}
+]);
+
+// ============================================================
+// REVEALS · EJERCICIOS REALES
+// ============================================================
+
+// --- SECCIÓN 2 · Los 5 ejercicios de Arquímedes de los parciales ---
+registerReveals('fisica1-utn-fluidos', '2', [
+  {st: '<b>1er parcial 26/10/10 · UTN FRBA · Prof. Patricia Martinelli · Problema A2</b><br><br>A2: Dos cuerpos unidos por una soga ideal están en reposo dentro de un recipiente que contiene un líquido como se muestra en la figura; como puede observarse el 2 esta totalmente sumergido y el 1 parcialmente. Calcular:<br>a) La tensión en la soga.<br>b) El volumen del cuerpo 1 que sobresale por encima de la superficie libre del líquido.<br><br>δ1=0,7gr/cm3 , δ2=2gr/cm3 , δLiq=1,2gr/cm3 , V1=100cm3, V2=10cm3',
+   ans: 'a) T = 8000 dinas = 0,08 N &nbsp;·&nbsp; b) V que sobresale = 35 cm³ (queda sumergido 65 cm³ de los 100 cm³)',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba. Reposo ⟹ ΣF_y = 0 en cada cuerpo. Trabajo en CGS con g = 1000 cm/s² (= 10 m/s²). Soga ideal: la tensión es la misma en los dos extremos y de sentido opuesto en cada cuerpo.<br><br><b>Paso 1 · Elegí bien por dónde empezar.</b> El cuerpo 2 tiene <b>una sola incógnita</b> (está totalmente sumergido, su volumen es dato). El cuerpo 1 tiene dos (T y el volumen sumergido). Empezá por el 2.<br><br><b>Paso 2 · DCL del cuerpo 2.</b> Como δ₂ = 2 &gt; δ_Liq = 1,2, tiende a hundirse: la soga tira de él <b>hacia arriba</b>.<br>T + E₂ − P₂ = 0<br>T = P₂ − E₂ = (δ₂ − δ_Liq)·V₂·g = (2 − 1,2)·10·1000<br><b>T = 8000 dinas = 0,08 N</b><br><br><b>Paso 3 · DCL del cuerpo 1.</b> Flota parcialmente (δ₁ = 0,7 &lt; 1,2), y por reacción la soga tira de él <b>hacia abajo</b>. El empuje se calcula <b>solo con el volumen sumergido</b> V_sum:<br>δ_Liq·V_sum·g − T − δ₁·V₁·g = 0<br>1,2·V_sum·1000 = 8000 + 0,7·100·1000 = 8000 + 70 000 = 78 000<br>V_sum = 78 000 / 1200 = <b>65 cm³</b><br><br><b>Paso 4 · Lo que piden.</b> El volumen que <b>sobresale</b>:<br>V_emergido = V₁ − V_sum = 100 − 65 = <b>35 cm³</b><br><br><b>Control.</b> El inciso b) <b>no depende de g</b>: si usás g = 980 cm/s², T pasa a 7840 din pero V_emergido sigue siendo 35 cm³. Buena verificación de que no metiste g de más en algún lado.'},
+
+  {st: '<b>1er parcial 18/10/12 · UTN FRBA · Prof. H. Patricia Martinelli · Problema A2</b><br><br>A2: Una esfera de densidad δ=0.3g/cm3 y volumen V=1500cm3, se encuentra parcialmente sumergida en agua como se muestra en la figura, estando unida al fondo del recipiente por medio de una cuerda ideal.<br>a) Sabiendo que la densidad del agua es 1g/cm3 y que la tensión en la cuerda es 3N, determine qué porcentaje del volumen de la esfera está sumergido.<br>b) ¿Qué porcentaje quedaría sumergido si se cortara la cuerda?',
+   ans: 'a) 50% del volumen sumergido &nbsp;·&nbsp; b) 30% del volumen sumergido',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; equilibrio (ΣF_y = 0). CGS con g = 1000 cm/s². Paso previo de unidades: <b>T = 3 N = 3·10⁵ dinas</b>.<br><br><b>Paso 1 · Sentido de la tensión.</b> La cuerda va al <b>fondo</b> ⟹ tira de la esfera <b>hacia abajo</b>, del mismo lado que el peso:<br><b>E = P + T</b><br><br><b>Paso 2 · Inciso a).</b> Llamá x a la fracción sumergida (V_sum = x·V):<br>δ_agua·g·x·V = δ·g·V + T<br>1·1000·x·1500 = 0,3·1000·1500 + 300 000<br>1 500 000·x = 450 000 + 300 000 = 750 000<br>x = 0,5 ⟹ <b>50% sumergido</b><br><br>Escrito como fórmula: x = δ/δ_agua + T/(δ_agua·g·V) = 0,3 + 0,2 = 0,5.<br><br><b>Paso 3 · Inciso b).</b> Si se corta la cuerda, T = 0 y queda <b>flotación libre</b>:<br>δ_agua·g·x·V = δ·g·V ⟹ x = δ/δ_agua = 0,3/1<br><b>x = 30% sumergido</b><br><br><b>Control conceptual.</b> Estar amarrada al fondo la obliga a sumergirse <b>más</b> (50%) que si flotara libre (30%). Si te da al revés, revisá el signo de T. ▸ Y fijate que el inciso b) <b>no depende ni de g, ni de V, ni de la tensión</b>: es puro cociente de densidades.'},
+
+  {st: '<b>1er parcial 3/9/2013 · Curso O1122 · Prof. Patricia Martinelli · UTN FRBA · Problema A</b><br><br>A: Una esfera de densidad δe = 2g/cm3 y volumen Ve = 600cm3, tiene la mitad de su volumen sumergido en agua y está sostenida por medio de un resorte ideal, como se muestra en la figura. La densidad del agua es δa = 1g/cm3. Sabiendo que el resorte está estirado 10cm, determine su constante elástica.',
+   ans: 'k = 9·10⁴ dina/cm = 90 N/m',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; esfera en equilibrio. El resorte está <b>estirado y por encima</b> de la esfera ⟹ su fuerza es <b>hacia arriba</b>. CGS con g = 1000 cm/s².<br><br><b>Paso 1 · DCL: tres fuerzas verticales.</b><br>F_el (arriba) + E (arriba) − P (abajo) = 0<br><br><b>Paso 2 · Peso.</b><br>P = δ_e·V_e·g = 2 · 600 · 1000 = 1 200 000 dina = <b>12 N</b><br><br><b>Paso 3 · Empuje (¡solo la mitad sumergida!).</b><br>V_sum = V_e/2 = 300 cm³<br>E = δ_a·V_sum·g = 1 · 300 · 1000 = 300 000 dina = <b>3 N</b><br><br><b>Paso 4 · Fuerza elástica y constante.</b><br>F_el = P − E = 1 200 000 − 300 000 = 900 000 dina = <b>9 N</b><br>k = F_el / Δl = 900 000 din / 10 cm = <b>9·10⁴ din/cm</b><br>En SI: k = 9 N / 0,10 m = <b>90 N/m</b><br><br><b>Los errores que este ejercicio caza.</b> ▸ Olvidar el empuje da k = 120 N/m. ▸ Usar el volumen total en el empuje da k = 60 N/m. ▸ Dejar el estiramiento en 10 cm en vez de 0,10 m te divide por 100. ▸ Y ojo: la esfera flota parcialmente pero <b>no está en flotación libre</b>, porque δ_e &gt; δ_a: la que compensa la diferencia es la fuerza del resorte.'},
+
+  {st: '<b>1er parcial 21/8/2014 · Curso I1021 · Prof. Patricia Martinelli · UTN.BA · Problema A2</b><br><br>A2: Un cubo de masa m=400g se encuentra flotando en equilibrio en un líquido, con 1/5 de su volumen sumergido. ¿Qué fuerza hacia abajo habría que aplicarle al cubo para mantenerlo totalmente sumergido en ese líquido?',
+   ans: 'F = 16 N (equivale a 4 veces el peso del cubo)',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; equilibrio en las dos situaciones. g = 10 m/s². Peso: P = m·g = 0,4 kg · 10 m/s² = <b>4 N</b>.<br><br><b>Paso 1 · Situación inicial (flotando, 1/5 sumergido).</b> P = E:<br>m·g = δ_liq·g·(V/5) &nbsp;&nbsp;y también&nbsp;&nbsp; m·g = δ_cubo·g·V<br>Igualando: δ_liq·V/5 = δ_cubo·V ⟹ <b>δ_liq = 5·δ_cubo</b> &nbsp;<span class="muted">…(1)</span><br><br><b>Paso 2 · Situación final (totalmente sumergido, con F hacia abajo).</b><br>P + F = E-prima = δ_liq·g·V<br>Usando (1): m·g + F = 5·δ_cubo·g·V = 5·m·g<br><b>F = 4·m·g = 4 · 0,4 · 10 = 16 N</b><br><br><b>El punto del ejercicio.</b> No te dan ni δ_liq ni V, y <b>no hacen falta</b>: se cancelan. El truco es escribir el peso de <b>dos maneras</b> (m·g y δ_cubo·V·g) para eliminar V. Si te trabás buscando datos que no están, perdiste el problema.<br><br><b>Chequeo.</b> Sumergido del todo, el empuje vale 5 veces el peso; para equilibrar hay que agregar 4 pesos hacia abajo. ▸ Errores típicos: contestar F = 4 N (el peso), o calcular el empuje final con V/5 en lugar de V.'},
+
+  {st: '<b>1er parcial 1/8/2016 · Curso R1022 · Prof. Patricia Martinelli · UTN.BA · Problema A2</b> <span class="muted">(de esta fecha solo tenemos la hoja de resolución; el enunciado está transcripto de ahí)</span><br><br>Problema A2: Un cubo de madera de 10 cm de lado, se encuentra completamente sumergido, en el fondo de un recipiente que contiene agua. Sobre el mismo está apoyada una pesa de hierro de volumen 200 cm³. Las densidades del agua, el hierro y la madera son δag=1g/cm³, δm=0.6g/cm³ y δfe=7.86g/cm³, respectivamente. Determine el valor de la fuerza normal que hace el fondo del recipiente sobre el bloque de madera.',
+   ans: 'N_madera = 972 000 dinas = 9,72 N',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; los dos cuerpos en equilibrio. Los dos están <b>totalmente sumergidos</b>, así que los dos reciben empuje. CGS con g = 1000 cm/s².<br><br><b>Paso 0 · El volumen del cubo.</b> Te dan el <b>lado</b>: V_m = (10 cm)³ = <b>1000 cm³</b>. Olvidar el cubo del lado es el error más frecuente del problema.<br><br><b>Paso 1 · Dos DCL.</b><br>Pesa de hierro: E_fe (arriba) + N_fe (arriba, contacto con la madera) − P_fe (abajo) = 0 &nbsp;<span class="muted">…(1)</span><br>Bloque de madera: E_m (arriba) + N_m (arriba, del fondo) − N-prima_fe (abajo) − P_m (abajo) = 0 &nbsp;<span class="muted">…(2)</span><br>N_fe y N-prima_fe son <b>par de acción y reacción</b>: mismo módulo.<br><br><b>Paso 2 · Sumá (1) y (2).</b> La normal interna se cancela:<br><b>N_m = P_fe + P_m − E_fe − E_m</b><br><br><b>Paso 3 · Los cuatro términos.</b><br>E_fe = δ_ag·V_fe·g = 1·200·1000 = 200 000 din = <b>2 N</b><br>E_m = δ_ag·V_m·g = 1·1000·1000 = 10⁶ din = <b>10 N</b><br>P_fe = δ_fe·V_fe·g = 7,86·200·1000 = 1 572 000 din = <b>15,72 N</b><br>P_m = δ_m·V_m·g = 0,6·1000·1000 = 600 000 din = <b>6 N</b><br><br><b>Paso 4 · Resultado.</b><br>N_m = 15,72 + 6 − 2 − 10 = <b>9,72 N</b><br><br><b>Verificación de sentido.</b> La madera sola flotaría (δ_m = 0,6 &lt; 1): es la pesa de hierro la que la mantiene contra el fondo. Que dé <b>N_m &gt; 0</b> confirma que el conjunto efectivamente apoya; si te diera negativa, significaría que el sistema flota y la hipótesis era falsa.<br><br><span class="muted">Nota: en la hoja original la ecuación aparece escrita como "N_m = P_fe + P_m − E_fe − E_m = 0". Ese "= 0" final es un error de tipeo del apunte: el resultado no es cero, es 9,72 N.</span>'}
+]);
+
+// --- SECCIÓN 3 · Flotación cargada (los 4 del final) ---
+registerReveals('fisica1-utn-fluidos', '3', [
+  {st: '<b>Examen Final 2/3/2023 · UTN.BA · Problema 6</b><br><br>6. Tres niños fabrican una balsa uniendo troncos de diámetro D = 0,3 m y longitud L = 1,7 m. Cada niño tiene una masa de 40 kg. Si la densidad del agua es δ_a = 1000 kg/m³ y la de la madera es δ_m = 800 kg/m³, ¿cuántos troncos serán necesarios como mínimo para mantenerlos a flote?<br><br><span class="muted">(datos reconstruidos: la foto recorta el margen derecho de la hoja y se cortan "Cada niño tiene un[a masa de 40 kg]" y "¿cuántos tronc[os]". El resto está completo.)</span>',
+   ans: 'N = 5 troncos (la cuenta da 4,99 y se redondea hacia arriba)',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba. Condición límite: la balsa queda <b>totalmente sumergida</b> pero los chicos no se mojan — es el máximo empuje disponible. g = 10 m/s².<br><br><b>Paso 1 · Volumen de un tronco (cilindro).</b> El dato es el <b>diámetro</b> D = 0,3 m ⟹ r = 0,15 m.<br>V = π·r²·L = π·(0,15)²·1,7 = π·0,03825 = <b>0,1202 m³</b><br><br><b>Paso 2 · Equilibrio de la balsa en el límite.</b><br>E = P_troncos + P_niños<br>N·V·δ_a·g = N·V·δ_m·g + m_niños·g<br>N·V·(δ_a − δ_m) = m_niños<br><br><b>Paso 3 · Despejá N.</b><br>m_niños = 3 · 40 kg = <b>120 kg</b><br>N = 120 / [0,1202 · (1000 − 800)] = 120 / 24,03 = <b>4,99</b><br><br><b>Paso 4 · Redondeo (esto es lo que se corrige).</b> Piden el <b>mínimo</b>: con 4 troncos la capacidad es 4·24,03 = 96,1 kg &lt; 120 kg y la balsa se hunde. Con 5 son 120,2 kg ≥ 120 kg.<br><b>Respuesta: 5 troncos.</b><br><br><b>La fórmula de bolsillo.</b> Cada tronco carga (δ_a − δ_m)·V = 200 · 0,1202 = <b>24 kg</b>. Nada más que eso: el resto de su empuje se lo come su propio peso. ▸ Error nº 1: usar D = 0,3 m como radio — el volumen se cuadruplica (0,481 m³) y contestarías 2 troncos. ▸ Error nº 2: redondear 4,99 a 4.'},
+
+  {st: '<b>Examen Final 21/2/2024 · UTN.BA · Problema 6</b> <span class="muted">(el día impreso podría ser 21 o 24; el mes y el año se leen sin duda)</span><br><br>6. Un oso pesa 3540 N, se sube a un témpano de hielo, en alta mar, de tal manera que el témpano quede totalmente sumergido, ¿qué volumen tiene el témpano?. DATOS: δagua = 1000kg/m³, δhielo = 900kg/m³<br><br><span class="muted">Encabezado de la hoja: "Para todos los ejercicios use g = 10 m/s²."</span>',
+   ans: 'V = 3,54 m³',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; equilibrio. Condición del enunciado: <b>témpano totalmente sumergido</b> ⟹ V_sumergido = V_total. g = 10 m/s².<br><br><b>Paso 1 · Leé bien el dato.</b> "Un oso <b>pesa</b> 3540 N": eso ya es un <b>peso</b> (fuerza), no una masa. No lo multipliques por g otra vez. (Su masa, si la quisieras, sería 354 kg.)<br><br><b>Paso 2 · DCL del conjunto témpano + oso.</b><br>E = P_hielo + P_oso<br>δ_agua·V·g = δ_hielo·V·g + P_oso<br><br><b>Paso 3 · Reemplazá y despejá.</b><br>1000·10·V = 900·10·V + 3540<br>10 000·V − 9000·V = 3540<br>1000·V = 3540<br><b>V = 3,54 m³</b><br><br><b>Atajo (la fórmula de capacidad de carga).</b> m_carga = (δ_L − δ_f)·V ⟹ 354 = (1000 − 900)·V ⟹ V = 3,54 m³. Mismo resultado en una línea.<br><br><b>Control de razonabilidad.</b> 3,54 m³ de hielo son unos 3186 kg: un témpano de poco más de 1,5 m × 1,5 m × 1,5 m sosteniendo a un oso de 354 kg. Razonable. ▸ Si te da 35,4 o 0,354, revisá dónde se te fue un factor 10 (casi siempre en g).'},
+
+  {st: '<b>Examen Final 14/02/24 · UTN FRBA · Problema 6</b><br><br>6) Un gran bloque de hielo (densidad 917 kg/m³) flota en agua de mar (densidad 1030 kg/m³). ¿Si el área superficial del hielo es 20 m² y tiene 0,20 m de espesor, cuál es la masa del oso polar más pesado que puede estar parado en el hielo sin que se moje las patas?<br><br><span class="muted">Encabezado de la hoja: "Para aprobar se requiere el 50% del examen bien resuelto. Utilice cuando sea necesario |g| = 10 m/s²."</span>',
+   ans: 'm_oso = 452 kg',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; equilibrio. <b>Traducción de la consigna:</b> "sin que se moje las patas" = el agua llega justo hasta la cara superior de la placa ⟹ <b>la placa queda totalmente sumergida</b>, que es el máximo empuje posible. g = 10 m/s².<br><br><b>Paso 1 · Volumen de la placa.</b><br>V = A · e = 20 m² · 0,20 m = <b>4 m³</b><br><br><b>Paso 2 · Equilibrio del conjunto hielo + oso.</b><br>E = P_hielo + P_oso<br>δ_mar·V·g = δ_hielo·V·g + m_oso·g<br><br><b>Paso 3 · Cancelá g y despejá.</b><br>m_oso = (δ_mar − δ_hielo)·V = (1030 − 917)·4 = 113·4<br><b>m_oso = 452 kg</b><br><br><b>Lo bueno de esta forma.</b> Al cancelar g te queda la fórmula de capacidad de carga directa: <b>m = (δ_L − δ_f)·V</b>. No hace falta calcular ningún peso.<br><br><b>Diferencia con el problema del 21/2/24.</b> Ahí te daban el <b>peso</b> del oso y pedían el <b>volumen</b> del témpano; acá te dan el <b>volumen</b> de la placa y piden la <b>masa</b> del oso. Es la misma ecuación despejada al revés — reconocerlo te ahorra la mitad del tiempo.'},
+
+  {st: '<b>Examen Final 26/05/22 · Física I · Problema 2</b><br><br>2. Un cuerpo de forma rectangular de 10 cm de espesor está flotando en una laguna pequeña con tres cuartos de su volumen sumergido (densidad del agua: 1000 kg/m³). Si un camión cisterna derrama en la laguna aceite de densidad 0,65 g/cm³, quedando la cara superior del cuerpo justamente a nivel de la superficie del líquido. ¿Cuál es el espesor de la capa de aceite?',
+   ans: 'H = 7,14 cm ≈ 0,0714 m',
+   sol: '<b>Sistema de referencia e hipótesis.</b> Eje y positivo hacia arriba; equilibrio en las dos situaciones. El cuerpo es un prisma de área A (que se va a cancelar) y espesor e = 10 cm. Aceite: δ_ac = 0,65 g/cm³ = 650 kg/m³.<br><br><b>Paso 1 · Sacá la densidad del cuerpo de la situación INICIAL.</b> Flotación libre en agua con 3/4 sumergido:<br>V_sum/V = δ_c/δ_ag ⟹ 3/4 = δ_c/1000<br><b>δ_c = 750 kg/m³</b><br><br><b>Paso 2 · Interpretá la situación FINAL.</b> El aceite (más liviano) queda <b>arriba</b> formando una capa de espesor H. La cara superior del cuerpo está justo a nivel de la superficie del aceite, así que:<br>· la parte de arriba del cuerpo, de altura <b>H</b>, está en <b>aceite</b>;<br>· la parte de abajo, de altura <b>e − H</b>, está en <b>agua</b>.<br><br><b>Paso 3 · Dos líquidos ⟹ dos empujes.</b><br>P = E_aceite + E_agua<br>δ_c·A·e·g = δ_ac·A·H·g + δ_ag·A·(e − H)·g<br>El área A y g se cancelan:<br><b>δ_c·e = δ_ac·H + δ_ag·(e − H)</b><br><br><b>Paso 4 · Números (en cm, que es lo cómodo acá).</b><br>750·10 = 650·H + 1000·(10 − H)<br>7500 = 650H + 10 000 − 1000H<br>7500 = 10 000 − 350H<br>350H = 2500<br><b>H = 7,14 cm ≈ 7,1 cm (0,0714 m)</b><br><br><b>Controles.</b> ▸ H = 7,14 cm &lt; e = 10 cm: coherente, el cuerpo todavía tiene 2,86 cm dentro del agua. ▸ El cuerpo se hundió más que antes (ahora está 100% sumergido contra 75% antes) porque el aceite es <b>menos denso</b> que el agua y empuja menos. ▸ Si te da H &gt; 10 cm, revisá: significaría que el cuerpo flota entero en el aceite, imposible con δ_c = 750 &gt; 650.'}
+]);
+
+// --- SECCIÓN 4 · El único de hidrodinámica que cayó en parcial ---
+registerReveals('fisica1-utn-fluidos', '4', [
+  {st: '<b>1er parcial 22/10/09 · TEMA 1 · UTN FRBA · Dra. Patricia Martinelli · Problema 3</b><br><br>3) Una bomba de agua mantiene el caudal constante ( 25lt/min) a lo largo de una cañería horizontal; a la salida de la bomba el diámetro es de 7cm y la presión 6 Pa, luego el diámetro disminuye gradualmente hasta tener una sección de 30 cm2. Considere que la viscosidad es despreciable.<br><br>a) Calcule la presión del fluido en la parte mas estrecha.<br>b) Si la cañería tuviera un desnivel de 1m cambiaria el resultado anterior, justifique.',
+   ans: 'a) P₂ = 22,17 din/cm² = 2,22 Pa &nbsp;·&nbsp; b) Sí cambia: aparece el término δ·g·(h₂ − h₁), que con 1 m vale 10⁵ din/cm² (10⁴ Pa), enormemente mayor que las presiones del inciso a)',
+   sol: '<b>Hipótesis (declaralas, la cátedra las puntúa).</b> Fluido ideal: incompresible (agua, δ = 1 g/cm³), <b>no viscoso</b> (lo dice el enunciado), <b>régimen estacionario</b> ("caudal constante") y sin turbulencia ("el diámetro disminuye <b>gradualmente</b>"). Cañería <b>horizontal</b> en el inciso a) ⟹ h₁ = h₂. Trabajo en CGS.<br><br><b>Paso 0 · Numerá los puntos y convertí todo.</b><br>Punto 1 = salida de la bomba (D = 7 cm). Punto 2 = donde S = 30 cm².<br>Q = 25 l/min = 25 000 cm³ / 60 s = <b>416,67 cm³/s</b><br>P₁ = 6 Pa = <b>60 din/cm²</b> &nbsp;<span class="muted">(1 Pa = 10 din/cm²)</span><br>S₁ = π·r₁² = π·(3,5 cm)² = <b>38,48 cm²</b> &nbsp;<span class="muted">(el dato es el DIÁMETRO: r = 3,5 cm)</span><br>S₂ = <b>30 cm²</b> &nbsp;<span class="muted">(este viene ya como área)</span><br><br><b>Paso 1 · Continuidad ⟹ las velocidades.</b><br>v₁ = Q/S₁ = 416,67 / 38,48 = <b>10,83 cm/s</b><br>v₂ = Q/S₂ = 416,67 / 30 = <b>13,89 cm/s</b><br>Como S₂ &lt; S₁, efectivamente v₂ &gt; v₁. ✔<br><br><b>Paso 2 · Bernoulli horizontal ⟹ la presión.</b><br>P₁ + ½·δ·v₁² = P₂ + ½·δ·v₂²<br>P₂ = P₁ + ½·δ·(v₁² − v₂²)<br>P₂ = 60 + ½·1·(117,3 − 192,9) = 60 − 37,8<br><b>P₂ = 22,17 din/cm² = 2,22 Pa</b><br><br><b>Paso 3 · Inciso b) — no alcanza con decir "sí".</b> Con desnivel, Bernoulli lleva el tercer término:<br>P₁ + ½δv₁² + δ·g·h₁ = P₂ + ½δv₂² + δ·g·h₂<br>P₂ = P₁ + ½δ(v₁² − v₂²) <b>+ δ·g·(h₁ − h₂)</b><br>· Las <b>velocidades no cambian</b>: dependen solo de Q y de las secciones, no de la altura.<br>· Con Δh = 1 m = 100 cm: δ·g·Δh = 1 · 1000 · 100 = <b>10⁵ din/cm² = 10⁴ Pa</b>.<br>· <b>Si el punto 2 está más bajo</b> (h₂ &lt; h₁), P₂ <b>aumenta</b> en 10⁵ din/cm². <b>Si está más alto</b>, disminuye en lo mismo.<br>· Magnitud: ese término es <b>miles de veces</b> más grande que los 60 din/cm² del enunciado. El desnivel domina completamente.<br><br><b>Trampas de este ejercicio.</b> ▸ El dato de arriba es <b>diámetro</b> (7 cm) y el de abajo es <b>área</b> (30 cm²): mezclarlos es el error más caro. ▸ 6 Pa = 60 din/cm², no 6 ni 600. ▸ Hay que usar continuidad <b>y</b> Bernoulli: con una sola no cierra. ▸ Control de signo: caño horizontal que se angosta ⟹ P₂ &lt; P₁ siempre.<br><br><span class="muted">Nota física: 6 Pa es una presión absurdamente baja para la salida de una bomba real (es 17 000 veces menos que la atmosférica). Es un dato de enunciado, no un valor realista — usalo tal cual viene y seguí.</span>'}
+]);
+
+// --- SECCIÓN 5 · Los 4 problemas de hidrodinámica del final ---
+registerReveals('fisica1-utn-fluidos', '5', [
+  {st: '<b>Examen Final UTN.BA · hoja sin encabezado visible (aparece idéntico en dos hojas de final distintas) · Problema 3</b><br><br>3- Un tanque hermético, de gran volumen de agua, está presurizado y en su parte superior hay aire a una presión p0 = 202.600 Pa. Dicho tanque presenta un orificio pequeño a una profundidad h. Se sabe que la presión en el punto A, que está a la misma profundidad h que el orificio, pero muy lejos de éste, es pA = 207600 Pa. El tanque está lleno hasta una altura H = 4 m. Determine La distancia horizontal d que llegará el fluido, medido desde el borde del tanque.',
+   ans: 'h = 0,5 m · v = 14,58 m/s · t = 0,837 s · <b>d ≈ 12,2 m</b>',
+   sol: '<b>Hipótesis.</b> Fluido ideal; "gran volumen" y "orificio pequeño" ⟹ la velocidad de descenso de la superficie libre es despreciable (v₁ ≈ 0). Tomo p_atm = 101 300 Pa (el enunciado te lo insinúa: p₀ = 202 600 Pa es <b>exactamente 2 atm</b>). δ_agua = 1000 kg/m³, g = 10 m/s².<br><br><b>Paso 1 · Sacá h con HIDROSTÁTICA.</b> El punto A está "muy lejos del orificio" ⟹ fluido en reposo:<br>pA = p₀ + δ·g·h<br>207 600 = 202 600 + 1000·10·h<br>5000 = 10 000·h ⟹ <b>h = 0,5 m</b><br><br><b>Paso 2 · Velocidad de salida con BERNOULLI.</b> Punto 1 = superficie libre (p = p₀, v ≈ 0). Punto 2 = orificio (p = p_atm, altura h por debajo del 1).<br>p₀ + δ·g·h = p_atm + ½·δ·v²<br>½·1000·v² = 202 600 + 5000 − 101 300 = <b>106 300</b><br>v² = 212,6 ⟹ <b>v = 14,58 m/s</b><br><span class="muted">(Atajo equivalente: ½δv² = pA − p_atm, porque pA ya incluye p₀ + δgh.)</span><br><br><b>Paso 3 · Altura de caída del chorro.</b> Acá está la trampa: la altura de caída <b>no es h</b>. El agua llega hasta H = 4 m y el orificio está 0,5 m por debajo de la superficie:<br><b>y = H − h = 4 − 0,5 = 3,5 m</b><br><br><b>Paso 4 · Tiro horizontal.</b> Sale horizontal con v y cae desde y:<br>t = √(2y/g) = √(2·3,5/10) = √0,7 = <b>0,837 s</b><br>d = v·t = 14,58 · 0,837 = <b>12,2 m</b><br><br><b>Los tres errores que este problema busca.</b> ▸ Creer que la p_atm se cancela: <b>no se cancela</b>, porque el tanque está presurizado a p₀ ≠ p_atm. ▸ Usar h = 0,5 m como altura de caída (te daría d = 4,6 m). ▸ Usar Torricelli pelado v = √(2gh) = 3,16 m/s, ignorando la presurización.'},
+
+  {st: '<b>Examen Final UTN.BA · hoja sin encabezado visible (aparece idéntico en dos hojas de final distintas) · Problema 6</b><br><br>6- Una cañería horizontal, con sección circular de 25 mm de diámetro interior, transporta agua de densidad 1 kg/dm³ con velocidad de 1 m/s y a la presión de 10⁵ Pa. En cierto lugar la cañería reduce su diámetro interior a 12mm y desciende 3m, con respecto al nivel inicial. Determine, la presión que tendrá el agua en el nuevo nivel.',
+   ans: 'v₂ = 4,34 m/s · <b>p₂ ≈ 1,21·10⁵ Pa (121 081 Pa)</b>',
+   sol: '<b>Hipótesis.</b> Fluido ideal, régimen estacionario. δ = 1 kg/dm³ = <b>1000 kg/m³</b> (1 dm³ = 1 litro = 1000 cm³). g = 10 m/s². Punto 1 = tramo ancho y alto; punto 2 = tramo angosto y 3 m más abajo.<br><br><b>Paso 1 · Continuidad ⟹ v₂.</b> Los datos son <b>diámetros</b>, y como A ∝ D², la razón de velocidades va con el cuadrado:<br>v₂ = v₁·(D₁/D₂)² = 1 · (25/12)² = 1 · 4,340<br><b>v₂ = 4,34 m/s</b><br><span class="muted">(equivalentemente: A₁ = π·0,0125² = 4,909·10⁻⁴ m², A₂ = π·0,006² = 1,131·10⁻⁴ m²)</span><br><br><b>Paso 2 · Bernoulli COMPLETA.</b> Tomo el nivel de referencia en el punto 2 ⟹ h₁ = 3 m, h₂ = 0:<br>p₁ + ½δv₁² + δ·g·h₁ = p₂ + ½δv₂² + δ·g·h₂<br>p₂ = p₁ + ½δ(v₁² − v₂²) + δ·g·(h₁ − h₂)<br><br><b>Paso 3 · Término por término.</b><br>· Venturi: ½·1000·(1² − 4,34²) = 500·(1 − 18,84) = <b>−8919 Pa</b><br>· Altura: 1000·10·3 = <b>+30 000 Pa</b><br>p₂ = 100 000 − 8919 + 30 000<br><b>p₂ = 121 081 Pa ≈ 1,21·10⁵ Pa</b><br><br><b>La lectura del resultado.</b> La presión final es <b>mayor</b> que la inicial, aunque el caño se angoste. ▸ Bajar 3 m de agua aporta 30 000 Pa; el estrechamiento solo quita 8919 Pa. <b>Gana la altura</b>, y por goleada. ▸ Regla mental: <b>1 m de columna de agua ≈ 10 000 Pa</b>. Cualquier desnivel de metros aplasta a los términos dinámicos de velocidades chicas.<br><br><b>Errores típicos.</b> ▸ Olvidar el cuadrado en la razón de diámetros (te da v₂ = 2,08 y todo mal). ▸ Poner el signo de δgΔh al revés (te daría 61 081 Pa). ▸ Usar 1 kg/dm³ como 1 kg/m³.'},
+
+  {st: '<b>Examen Final UTN.BA · hoja sin encabezado visible (aparece idéntico en dos hojas de final distintas) · Problema 4</b><br><br>4. La figura ilustra un tanque de gasolina con área transversal A1, lleno hasta una altura h = 1 m. El espacio arriba de la gasolina está con aire comprimido a una presión p0 = 130,1 kPa y la gasolina sale a la atmósfera por un tubo muy corto de área A2. Se asume que A2 es mucho menor que A1, de modo que pueda despreciarse la velocidad del fluido en esta última sección. Sabiendo que la densidad de la gasolina es δ = 720 kg/m³, determine la velocidad con la que sale la misma por el tubo inferior. Dato: p_atm = 101,3 kPa.',
+   ans: 'v = 10 m/s',
+   sol: '<b>Hipótesis.</b> Fluido ideal. El propio enunciado te regala la hipótesis clave: <b>A₂ ≪ A₁ ⟹ v₁ ≈ 0</b> en la superficie libre. g = 10 m/s².<br><br><b>Paso 0 · Unidades.</b> p₀ = 130,1 kPa = <b>130 100 Pa</b>; p_atm = 101,3 kPa = <b>101 300 Pa</b>.<br><br><b>Paso 1 · Elegí los puntos.</b><br>Punto 1 = superficie de la gasolina: p₁ = p₀, v₁ ≈ 0, altura h = 1 m.<br>Punto 2 = salida del tubo: p₂ = p_atm, altura 0 (nivel de referencia acá).<br><br><b>Paso 2 · Bernoulli.</b><br>p₀ + ½δ·0² + δ·g·h = p_atm + ½·δ·v² + 0<br>½·δ·v² = (p₀ − p_atm) + δ·g·h<br><br><b>Paso 3 · Números.</b><br>p₀ − p_atm = 130 100 − 101 300 = <b>28 800 Pa</b> &nbsp;<span class="muted">(el aporte de la presurización)</span><br>δ·g·h = 720·10·1 = <b>7200 Pa</b> &nbsp;<span class="muted">(el aporte de la columna)</span><br>½·720·v² = 36 000 ⟹ 360·v² = 36 000<br>v² = 100 ⟹ <b>v = 10 m/s</b><br><br><b>Cómo leerlo.</b> Es <b>Torricelli con un empujón</b>: si el tanque estuviera abierto, v = √(2gh) = √20 = 4,47 m/s. La sobrepresión del aire comprimido (28 800 Pa, cuatro veces el aporte de la columna) más que duplica la velocidad de salida.<br><br><b>Errores típicos.</b> ▸ Dejar los kPa sin pasar a Pa. ▸ Cancelar la atmosférica (no se puede: adentro hay p₀, afuera p_atm, y son distintas). ▸ Usar la densidad del agua en vez de la de la gasolina: δ = 720, no 1000.'},
+
+  {st: '<b>Examen Final 13/2/25 · UTN.BA</b> <span class="muted">(el enunciado del final está incompletamente recordado en la recreación que hicieron los alumnos — "En un tubo de venturi, se halla un resorte… Pide hallar la compresión del resorte. K = (nos la da). No recuerdo qué datos da". El propio documento adjunta este ejercicio "parecido" completo y con respuestas, y aclara: "único que nos daba la altura en el final, pedía sacar la contracción nomás". Es el que conviene estudiar.)</span><br><br>Se tiene un tubo en U de sección uniforme S = 10 cm² con uno de sus extremos cerrado y el otro abierto. Al extremo cerrado está sujeto un resorte de constante elástica k = 50 N/m fijo a un émbolo como indica la figura. Considere que en la cámara que contiene al resorte hay aire a presión atmosférica. Se vierte agua (δ = 1 g/cm³) por el extremo abierto del tubo hasta que el nivel de la misma se encuentre a una altura h = 10 cm por encima del émbolo.<br>a) Calcule la compresión inicial Δxi del resorte.<br>A continuación se agrega en el brazo derecho del tubo una columna de aceite (δ = 0,8 g/cm³) de altura H hasta que el nivel del agua coincida con el del émbolo.<br>b) Calcule el valor de H.<br><br><span class="muted">Rta. de la hoja: a) Δxi = 2 cm ; b) H = 0,438 m</span>',
+   ans: 'a) Δx_i = 0,02 m = 2 cm &nbsp;·&nbsp; b) H = 0,4375 m ≈ 0,438 m',
+   sol: '<b>Hipótesis y datos en SI.</b> Todo en reposo ⟹ <b>hidrostática pura</b> (acá no hay Bernoulli). S = 10 cm² = <b>10⁻³ m²</b>; k = 50 N/m; δ_ag = 1000 kg/m³; δ_ac = 800 kg/m³; h = 0,10 m; g = 10 m/s². Émbolo de masa despreciable.<br><br><b>Paso 1 · DCL del émbolo (inciso a).</b> Tres fuerzas verticales:<br>· El <b>agua desde abajo</b> lo empuja hacia arriba con (p_atm + δ_ag·g·h)·S. <span class="muted">Esa es la presión del agua a la altura del émbolo, porque en la rama abierta el agua está h por encima.</span><br>· El <b>aire de la cámara</b> lo empuja hacia abajo con p_atm·S (el enunciado aclara que está a presión atmosférica).<br>· El <b>resorte comprimido</b> empuja hacia abajo con k·Δx.<br><br>(p_atm + δ_ag·g·h)·S = p_atm·S + k·Δx_i<br>La atmosférica <b>se cancela</b>:<br><b>δ_ag·g·h·S = k·Δx_i</b><br><br><b>Paso 2 · Números del inciso a).</b><br>δ_ag·g·h = 1000·10·0,10 = 1000 Pa<br>Fuerza neta del agua: 1000 Pa · 10⁻³ m² = <b>1 N</b><br>Δx_i = 1 N / 50 N/m = <b>0,02 m = 2 cm</b> ✔<br><br><b>Paso 3 · El paso geométrico del inciso b) (el que casi nadie ve).</b> Al agregar aceite, la presión sobre el émbolo aumenta y el émbolo <b>sube</b> una distancia δ, comprimiendo más el resorte. Pero el agua es la misma: si el émbolo sube δ, el agua de la rama izquierda ocupa ese espacio y <b>el nivel de la rama derecha baja δ</b>.<br>· Nivel inicial del agua (derecha) = posición del émbolo + 0,10 m.<br>· Nivel final del agua = émbolo_inicial + 0,10 − δ. Posición final del émbolo = émbolo_inicial + δ.<br>· El enunciado pide que <b>coincidan</b>: 0,10 − δ = δ ⟹ <b>δ = 0,05 m</b>.<br><b>Δx_f = Δx_i + δ = 0,02 + 0,05 = 0,07 m</b><br><br><b>Paso 4 · Equilibrio final del émbolo.</b> Ahora, a la altura del émbolo, la columna que hay encima en la rama derecha es <b>solo aceite</b> (el agua quedó justo al nivel del émbolo):<br>(p_atm + δ_ac·g·H)·S = p_atm·S + k·Δx_f<br><b>δ_ac·g·H·S = k·Δx_f</b><br>800·10·H·10⁻³ = 50·0,07<br>8·H = 3,5<br><b>H = 0,4375 m ≈ 0,438 m</b> ✔<br><br><b>Por qué este ejercicio es difícil.</b> No es la física: son las <b>dos ecuaciones acopladas</b>. La de fuerzas (presión ↔ resorte) y la de <b>conservación del volumen de agua</b> (émbolo sube δ ⟹ nivel derecho baja δ). Si te olvidás de la segunda, planteás δ_ac·g·H·S = k·(0,02) y te da H = 0,125 m, que es la respuesta equivocada más común.<br><br><b>Chequeo de coherencia.</b> Hacen falta 43,75 cm de aceite (δ = 0,8) para lograr lo mismo que harían 35 cm de agua: el líquido más liviano necesita <b>columna más alta</b>. ✔'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

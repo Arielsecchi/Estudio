@@ -1,0 +1,548 @@
+<header>
+    <h1>Física I · Dinámica</h1>
+    <div class="sub">UTN FRBA · Newton, planos inclinados, poleas, cinemática y sistemas no inerciales · 16 ejercicios reales (parciales cátedra Martinelli 2009–2017, parcial FRBA 2023 y finales UTN.BA)</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-dinamica">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#dn-s1">La receta de Newton · DCL, ejes propios y el gran dilema μe / μd</a></li>
+    <li><a href="#dn-s2">Bloques vinculados por cuerda y polea · las 6 configuraciones que caen</a></li>
+    <li><a href="#dn-s3">Cinemática pura · encuentro de móviles y tiro oblicuo</a></li>
+    <li><a href="#dn-s4">Sistemas no inerciales · la fuerza de inercia (tema de FINAL)</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-dinamica">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · LA RECETA DE NEWTON ============ -->
+<details id="dn-s1">
+<summary><span class="num">1</span> La receta de Newton · DCL, ejes propios y el gran dilema μe / μd <span class="sec-score" id="ss-fisica1-utn-dinamica-1"></span></summary>
+<div class="content">
+
+<p>Casi todos los problemas de dinámica de la cátedra son el mismo problema disfrazado. Cambian la geometría, los ángulos y quién tira de quién, pero el procedimiento no se mueve nunca. Aprendete la receta una vez y después solo cambiás el dibujo.</p>
+
+<div class="key"><div class="ky-t">La receta, en 7 pasos (y en este orden)</div>
+<b>1.</b> Dibujá <b>un DCL por cuerpo</b>. Un cuerpo, un diagrama, aislado del resto.<br>
+<b>2.</b> Elegí <b>ejes propios para cada cuerpo</b>: <span class="m">x</span> en la dirección del movimiento (rotado si el cuerpo está sobre un plano inclinado) e <span class="m">y</span> perpendicular a la superficie de apoyo.<br>
+<b>3.</b> Declarálos por escrito. <b>El enunciado lo puntúa aparte</b>: "indique explícitamente los sistemas de referencia que adopta".<br>
+<b>4.</b> Escribí la <b>ecuación de vínculo</b> (qué relación hay entre las aceleraciones de los cuerpos).<br>
+<b>5.</b> Planteá <b>ΣF = m·a</b> en <span class="m">x</span> y en <span class="m">y</span> para cada cuerpo. En <span class="m">y</span> casi siempre da <b>a<sub>y</sub> = 0</b> y ahí sale la <b>normal</b>.<br>
+<b>6.</b> Reemplazá la normal en el término de rozamiento y resolvé el sistema.<br>
+<b>7.</b> <b>Chequeá el signo</b> de lo que te dio: si la aceleración salió negativa, el cuerpo va para el otro lado y probablemente pusiste el rozamiento al revés.
+</div>
+
+<h3>Ejes propios: el plano inclinado se resuelve rotando los ejes, no el problema</h3>
+
+<p>Sobre un plano inclinado, el truco es <b>no</b> usar los ejes horizontal/vertical. Poné <span class="m">x</span> a lo largo del plano y <span class="m">y</span> perpendicular a él. Con esos ejes la aceleración tiene <b>una sola componente</b> (<span class="m">a<sub>y</sub></span> = 0, el cuerpo no se despega ni se hunde) y la única fuerza que hay que descomponer es el peso.</p>
+
+<div class="fig"><svg viewBox="0 0 470 290" role="img" aria-label="Plano inclinado de angulo alfa con un bloque apoyado, ejes x rotado a lo largo del plano e y perpendicular, y el diagrama de cuerpo libre con la normal, el rozamiento y el peso descompuesto" style="max-width:100%;height:auto">
+<polygon points="60,230 420,230 420,22" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M60 244 l14 12 M92 244 l14 12 M124 244 l14 12 M156 244 l14 12 M188 244 l14 12 M220 244 l14 12 M252 244 l14 12 M284 244 l14 12 M316 244 l14 12 M348 244 l14 12 M380 244 l14 12 M412 244 l14 12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M60 230 H430" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M110 230 A50 50 0 0 0 103 205" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<text x="122" y="222" fill="var(--accent)" font-size="13" font-style="italic">α</text>
+<rect x="228" y="94" width="44" height="26" transform="rotate(-30 250 120)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="244" cy="109" r="2.6" fill="currentColor"/>
+<defs><marker id="dnA" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.4"/></marker><marker id="dnB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M244 109 V166" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnA)"/>
+<text x="252" y="176" fill="currentColor" font-size="13">P = mg</text>
+<path d="M244 109 L217 62" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnA)"/>
+<text x="196" y="56" fill="currentColor" font-size="13">N</text>
+<path d="M244 109 L280 88" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnA)"/>
+<text x="286" y="82" fill="currentColor" font-size="13">f</text>
+<path d="M244 109 L218 124 M244 109 L270 154 M218 124 L244 169 M270 154 L244 169" fill="none" stroke="var(--text-muted)" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="176" y="132" fill="var(--text-muted)" font-size="11.5">P·senα</text>
+<text x="276" y="152" fill="var(--text-muted)" font-size="11.5">P·cosα</text>
+<path d="M360 57 L406 30" fill="none" stroke="var(--accent)" stroke-width="1.7" marker-end="url(#dnB)"/>
+<path d="M360 57 L336 15" fill="none" stroke="var(--accent)" stroke-width="1.7" marker-end="url(#dnB)"/>
+<text x="414" y="30" fill="var(--accent)" font-size="13" font-style="italic">x</text>
+<text x="320" y="16" fill="var(--accent)" font-size="13" font-style="italic">y</text>
+<text x="250" y="276" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Ejes rotados: x a lo largo del plano, y perpendicular. Solo el peso se descompone.</text>
+</svg>
+<div class="fig-cap">El DCL del plano inclinado. Con los ejes rotados, <b>N</b> y <b>f</b> ya caen sobre los ejes y solo hay que partir el peso: la componente <b>P·senα</b> va sobre el plano (es la que lo hace bajar) y <b>P·cosα</b> aprieta contra la superficie (es la que fija la normal). El ángulo que aparece entre el peso y la dirección normal es <b>el mismo α</b> del plano.</div></div>
+
+<h3>La normal NO es el peso (salvo en el piso horizontal, y sin nada empujando)</h3>
+
+<div class="formula">
+Plano inclinado, sin fuerzas extras: &nbsp; <b>N = m·g·cos α</b><br>
+Piso horizontal, sin fuerzas extras: &nbsp; <b>N = m·g</b><br>
+Piso horizontal + F a un ángulo α <b>por debajo</b> de la horizontal: &nbsp; <b>N = m·g + F·sen α</b><br>
+Piso horizontal + F a un ángulo α <b>por encima</b> de la horizontal: &nbsp; <b>N = m·g − F·sen α</b>
+</div>
+
+<div class="trap"><div class="tr-t">Error nº1 de la cátedra: N = mg en un plano inclinado</div>
+Escribir <b>f = μ·m·g</b> cuando el cuerpo está sobre un plano inclinado. La normal ahí vale <b>m·g·cosα</b>, no <b>m·g</b>. En el parcial 2017 esa confusión te da μ<sub>d</sub> = 0,2 en lugar de 0,25; en el 2010 te cambia todas las tensiones. Y ojo con el caso inverso: en un sistema con un bloque en el plano y otro en una mesa horizontal, <b>cada uno tiene su propia normal</b> (N<sub>1</sub> = m<sub>1</sub>g·cosα y N<sub>2</sub> = m<sub>2</sub>g). No hay una normal para el sistema.
+</div>
+
+<h3>La ecuación de vínculo</h3>
+
+<p>Los cuerpos unidos por una cuerda ideal e inextensible <b>no se mueven independientemente</b>: si uno avanza 1 m, el otro avanza 1 m. Eso se escribe antes de plantear Newton y es lo que permite cerrar el sistema de ecuaciones.</p>
+
+<div class="key"><div class="ky-t">Cómo se escribe el vínculo</div>
+Si elegís, para cada cuerpo, el eje <span class="m">x</span> <b>en el sentido en que se mueve ese cuerpo</b> (el eje "dobla" en la polea), el vínculo queda simple y sin signos raros:<br>
+<b>a<sub>1x</sub> = a<sub>2x</sub> = a</b> &nbsp; y &nbsp; <b>a<sub>1y</sub> = a<sub>2y</sub> = 0</b><br>
+Es exactamente lo que hacen todas las resoluciones oficiales de Martinelli. Si en cambio usás ejes "globales" iguales para los dos, te va a aparecer <b>a<sub>1</sub> = −a<sub>2</sub></b> y tenés una fuente extra de errores de signo.<br>
+Con <b>polea ideal y cuerda ideal</b>, además, la tensión es la misma a los dos lados de esa cuerda. Pero <b>una cuerda distinta es una tensión distinta</b>.
+</div>
+
+<h3>El rozamiento: primero el sentido, después el número</h3>
+
+<p>La fuerza de rozamiento se opone <b>al deslizamiento (real o tendencial) del cuerpo respecto de la superficie</b>. No "al movimiento", no "a la fuerza aplicada": al deslizamiento relativo. Antes de escribir nada, preguntate: <i>si no hubiera rozamiento, ¿para dónde arrancaría este cuerpo?</i> El rozamiento va exactamente al revés.</p>
+
+<div class="trap"><div class="tr-t">El rozamiento a veces EMPUJA hacia adelante</div>
+En el parcial 2016 hay dos bloques apilados y se tira del de <b>abajo</b>. ¿Qué acelera al bloque de arriba? El rozamiento, y apunta <b>en el sentido del movimiento</b>. Lo mismo pasa con el plato sobre la bandeja del mozo (2013) y con la caja sobre la cinta transportadora (parcial FRBA 2023): sin rozamiento la caja se quedaría quieta y la cinta se le escaparía. La frase "el rozamiento siempre frena" es falsa; lo que siempre hace es <b>oponerse al deslizamiento relativo entre las dos superficies</b>.
+</div>
+
+<h3>μe o μd: la decisión que más se cobra</h3>
+
+<p>El enunciado te da los dos coeficientes casi siempre. <b>Casi siempre uno de los dos es un distractor deliberado</b>: la nota de la cátedra avisa que "puede haber datos que no interesen". Este es el bloque que más puntos te va a devolver de toda la guía.</p>
+
+<div class="fig"><svg viewBox="0 0 430 250" role="img" aria-label="Grafico de la fuerza de rozamiento en funcion de la fuerza aplicada: crece linealmente hasta mu estatico por N, cae a mu dinamico por N y se mantiene constante" style="max-width:100%;height:auto">
+<path d="M62 210 H400 M62 210 V32" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M396 206 l6 4 l-6 4 M58 38 l4 -6 l4 6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M62 210 L210 72" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+<path d="M210 72 L210 106 L392 106" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
+<circle cx="210" cy="72" r="3.6" fill="var(--accent)"/>
+<path d="M62 72 H210 M62 106 H210 M210 106 V210" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<text x="56" y="76" fill="currentColor" font-size="12" text-anchor="end">μe·N</text>
+<text x="56" y="110" fill="currentColor" font-size="12" text-anchor="end">μd·N</text>
+<text x="30" y="46" fill="currentColor" font-size="12.5" text-anchor="middle">f</text>
+<text x="404" y="232" fill="currentColor" font-size="12.5" text-anchor="middle">F aplicada</text>
+<text x="128" y="176" fill="var(--text-muted)" font-size="11" text-anchor="middle">ESTÁTICO</text>
+<text x="128" y="192" fill="var(--text-muted)" font-size="10" text-anchor="middle">no desliza · f = lo que haga falta</text>
+<text x="302" y="146" fill="var(--text-muted)" font-size="11" text-anchor="middle">DINÁMICO</text>
+<text x="302" y="162" fill="var(--text-muted)" font-size="10" text-anchor="middle">desliza · f = μd·N (valor fijo)</text>
+<text x="222" y="238" fill="var(--text-muted)" font-size="10" text-anchor="start">acá arranca a deslizar</text>
+<path d="M216 228 L211 112" fill="none" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 3"/>
+</svg>
+<div class="fig-cap">Mientras el cuerpo <b>no desliza</b>, la fuerza de rozamiento vale <b>lo que necesite valer</b> para que ΣF = m·a (es una incógnita del problema, no una fórmula). μ<sub>e</sub>·N es solo <b>el techo</b> que puede alcanzar. Cuando la fuerza aplicada supera ese techo, el cuerpo arranca y el rozamiento <b>cae</b> a un valor fijo: μ<sub>d</sub>·N. Por eso siempre μ<sub>d</sub> &lt; μ<sub>e</sub>: si te da al revés, revisá.</div></div>
+
+<table class="tbl">
+  <tr><th>Lo que dice el enunciado</th><th>Cuál usás</th><th>Cómo entra en la ecuación</th></tr>
+  <tr><td>"el sistema <b>se mueve</b>", "desliza", "desciende", te dan una aceleración distinta de cero</td><td><b>μd</b></td><td>f = μ<sub>d</sub>·N, valor fijo, opuesto a la velocidad relativa</td></tr>
+  <tr><td>"se mueve con <b>velocidad constante</b>"</td><td><b>μd</b></td><td>f = μ<sub>d</sub>·N y además <b>a = 0</b>. Es equilibrio <i>dinámico</i>, no estática</td></tr>
+  <tr><td>"<b>mínimo</b> coeficiente para que no se mueva", "<b>máxima</b> fuerza sin que deslice", "está <b>a punto</b> de deslizar"</td><td><b>μe</b></td><td>f = μ<sub>e</sub>·N (el caso límite: el rozamiento está en su techo)</td></tr>
+  <tr><td>"está en reposo" a secas, y te piden la fuerza de rozamiento</td><td><b>ninguno</b></td><td>f sale de ΣF = 0. Después verificás que f ≤ μ<sub>e</sub>·N</td></tr>
+  <tr><td>dos cuerpos que se mueven <b>juntos</b>, sin resbalar uno sobre el otro (aunque estén acelerando)</td><td><b>μe</b></td><td>si además la fuerza es "la máxima posible", f = μ<sub>e</sub>·N</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Los tres distractores reales que ya tomaron</div>
+<b>Parcial 2010 (B2):</b> da μe = 0,30 y μd = 0,25 y aclara que el sistema se mueve con a = 4 m/s². <b>μe no se usa.</b><br>
+<b>Parcial 2014 (B1):</b> da μe = 0,7 y μd = 0,5 y dice que el cuerpo tiene aceleración 2 m/s². <b>μe no se usa.</b><br>
+<b>Parcial 2016 (B2):</b> da μe = 0,3 y μd = 0,2, pero el bloque de arriba <b>no desliza</b> sobre el de abajo. <b>Acá el distractor es μd</b>, al revés que en los anteriores. Si usás μd te da a = 2 m/s² y F = 30 N, todo mal.<br>
+Moraleja: no elijas por costumbre. Preguntate solo una cosa: <b>¿las dos superficies en contacto están resbalando una sobre la otra, sí o no?</b>
+</div>
+
+<h3>Chequeos rápidos antes de entregar</h3>
+
+<div class="key"><div class="ky-t">Cuatro controles de 10 segundos</div>
+• <b>μd &lt; μe</b>. Si te dio al revés, algo está mal planteado.<br>
+• Un cuerpo que baja un plano <b>con</b> rozamiento tiene <b>a &lt; g·senα</b>. Si te da más, el rozamiento quedó con el signo cambiado.<br>
+• Si te dan <b>pesos en newtons</b> (100 N, 200 N), <b>no son masas</b>: dividí por g = 10 m/s² para obtener kg.<br>
+• Si un cuerpo cuelga y está <b>acelerando</b>, <b>T ≠ m·g</b>. Solo vale T = m·g si está quieto o a velocidad constante.
+</div>
+
+<div class="reveal-wrap" data-rv="1" data-subject="fisica1-utn-dinamica"></div>
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-dinamica"></div>
+<a class="back" href="#subject-fisica1-utn-dinamica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · BLOQUES VINCULADOS ============ -->
+<details id="dn-s2">
+<summary><span class="num">2</span> Bloques vinculados por cuerda y polea · las 6 configuraciones que caen <span class="sec-score" id="ss-fisica1-utn-dinamica-2"></span></summary>
+<div class="content">
+
+<p>Esta es la unidad más rentable de la guía. Entre 2009 y 2017 la cátedra tomó <b>seis configuraciones geométricas distintas</b> de bloques con cuerda, polea y plano inclinado. Cambia el dibujo, no el método: son las mismas cuatro ecuaciones de siempre. Acá están las seis, con su figura, y abajo los seis enunciados verbatim para resolver.</p>
+
+<table class="tbl">
+  <tr><th>#</th><th>Configuración</th><th>Examen</th><th>Lo que la hace distinta</th></tr>
+  <tr><td>A</td><td>Dos bloques en el <b>mismo</b> plano inclinado, unidos por una cuerda, bajando</td><td>1er parcial 2009</td><td>Coeficientes de rozamiento <b>distintos</b>: por eso la cuerda está tensa</td></tr>
+  <tr><td>B</td><td>Plano inclinado + polea en la cima + cuerpo <b>colgando</b></td><td>1er parcial 2011</td><td>Masas iguales: la masa se cancela. Piden μe mínimo y μd</td></tr>
+  <tr><td>C</td><td>Plano inclinado + <b>meseta horizontal</b> + polea en el vértice, y se tira desde afuera</td><td>1er parcial 2010</td><td><b>Dos tensiones distintas</b> y <b>dos normales distintas</b></td></tr>
+  <tr><td>D</td><td>Doble plano <b>37° / 53°</b> con polea en el vértice</td><td>1er parcial 2017</td><td>"Velocidad constante" ⇒ a = 0. Ojo con sen37 vs sen53</td></tr>
+  <tr><td>E</td><td>Polea del techo, dos bloques <b>en serie</b>, se tira del extremo libre</td><td>1er parcial 2012</td><td>Sin plano inclinado, pero con <b>dos cuerdas y dos tensiones</b></td></tr>
+  <tr><td>F</td><td>Bloque en el piso con una <b>fuerza oblicua</b> a 37° bajo la horizontal</td><td>1er parcial 2014</td><td>La fuerza <b>cambia la normal</b>: N = mg + F·sen37°</td></tr>
+</table>
+
+<h3>A · Dos bloques en el mismo plano inclinado (parcial 2009)</h3>
+
+<div class="fig"><svg viewBox="0 0 440 285" role="img" aria-label="Plano inclinado que baja de izquierda a derecha con dos bloques rotulados 1 y 2 unidos por una cuerda, descendiendo, angulo de 30 grados en el extremo inferior derecho" style="max-width:100%;height:auto">
+<polygon points="40,30 400,238 40,238" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M40 252 l14 12 M80 252 l14 12 M120 252 l14 12 M160 252 l14 12 M200 252 l14 12 M240 252 l14 12 M280 252 l14 12 M320 252 l14 12 M360 252 l14 12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M30 238 H420" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<rect x="124" y="66" width="40" height="24" transform="rotate(30 144 90)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<rect x="219" y="121" width="40" height="24" transform="rotate(30 239 145)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="140" y="72" fill="currentColor" font-size="13" font-weight="700">1</text>
+<text x="235" y="127" fill="currentColor" font-size="13" font-weight="700">2</text>
+<path d="M163 101 L220 134" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<defs><marker id="dnC" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M96 44 L140 69" fill="none" stroke="var(--accent)" stroke-width="1.7" marker-end="url(#dnC)"/>
+<text x="70" y="42" fill="var(--accent)" font-size="11.5">bajan</text>
+<path d="M350 238 A50 50 0 0 1 357 213" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<text x="368" y="232" fill="var(--accent)" font-size="12.5">30°</text>
+<text x="120" y="200" fill="var(--text-muted)" font-size="11">μ₁ = 0,4</text>
+<text x="210" y="220" fill="var(--text-muted)" font-size="11">μ₂ = 0,2</text>
+<text x="220" y="278" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">P₁ = 100 N (arriba) · P₂ = 200 N (abajo) · la cuerda queda tensa porque μ₁ ≠ μ₂</text>
+</svg>
+<div class="fig-cap">Los dos bloques bajan juntos con la misma aceleración. El de arriba tiene <b>más</b> rozamiento (μ₁ = 0,4), así que solo tendería a frenarse: la cuerda lo <b>tira hacia abajo</b> del plano (T entra con signo + en su ecuación) y frena al de abajo (T con signo −). <b>Si los dos μ fueran iguales, T = 0 y la cuerda quedaría floja.</b></div></div>
+
+<div class="trap"><div class="tr-t">No se puede tratar como un solo bloque si te piden la tensión</div>
+Sumar las dos ecuaciones en <span class="m">x</span> y trabajar con la masa total está perfecto para sacar <b>a</b> (la tensión se cancela). Pero <b>la tensión es interna</b>: para obtenerla hay que volver a una de las dos ecuaciones individuales. Y cada cuerpo tiene su propio coeficiente y su propia normal: N₁ = P₁·cos30° y N₂ = P₂·cos30°.
+</div>
+
+<h3>B · Plano inclinado + polea + cuerpo colgando (parcial 2011)</h3>
+
+<div class="fig"><svg viewBox="0 0 460 260" role="img" aria-label="Plano inclinado de 30 grados con un bloque 1 apoyado, una polea en el vertice superior y un bloque 2 colgando de la cuerda" style="max-width:100%;height:auto">
+<polygon points="60,220 380,220 380,35" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M60 234 l14 12 M100 234 l14 12 M140 234 l14 12 M180 234 l14 12 M220 234 l14 12 M260 234 l14 12 M300 234 l14 12 M340 234 l14 12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M50 220 H400" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<rect x="200" y="104" width="40" height="24" transform="rotate(-30 220 128)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="216" y="122" fill="currentColor" font-size="13" font-weight="700">1</text>
+<circle cx="390" cy="28" r="12" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="390" cy="28" r="2.4" fill="currentColor"/>
+<path d="M237 118 L385 32" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<path d="M402 28 V118" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<rect x="384" y="118" width="38" height="30" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="399" y="139" fill="currentColor" font-size="13" font-weight="700">2</text>
+<path d="M110 220 A50 50 0 0 0 103 195" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<text x="120" y="212" fill="var(--accent)" font-size="12.5">30°</text>
+<text x="150" y="180" fill="var(--text-muted)" font-size="11">con rozamiento</text>
+<text x="230" y="248" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">m₁ = m₂ = m (la masa se cancela: no hace falta su valor)</text>
+</svg>
+<div class="fig-cap">Antes de dibujar el rozamiento hay que decidir <b>hacia dónde tiende a moverse el sistema</b>. Como m·g &gt; m·g·sen30°, sin rozamiento el colgante <b>baja</b> y el del plano <b>sube</b>. El rozamiento se opone a eso: sobre el bloque 1 apunta <b>hacia abajo</b> del plano.</div></div>
+
+<h3>C · Plano inclinado + meseta horizontal + polea, tirando desde afuera (parcial 2010)</h3>
+
+<div class="fig"><svg viewBox="0 0 470 250" role="img" aria-label="Rampa de 30 grados que termina en una meseta horizontal, con el bloque M1 en la rampa, una polea en el vertice, el bloque M2 en la meseta y una cuerda que tira hacia la derecha con tension T" style="max-width:100%;height:auto">
+<polygon points="40,215 240,100 420,100 420,215" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M40 229 l14 12 M80 229 l14 12 M120 229 l14 12 M160 229 l14 12 M200 229 l14 12 M240 229 l14 12 M280 229 l14 12 M320 229 l14 12 M360 229 l14 12 M400 229 l14 12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M30 215 H440" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<rect x="120" y="134" width="40" height="24" transform="rotate(-30 140 158)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="130" y="152" fill="currentColor" font-size="12" font-weight="700">M₁</text>
+<circle cx="240" cy="86" r="12" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="240" cy="86" r="2.4" fill="currentColor"/>
+<path d="M157 148 L236 99" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<path d="M240 74 H300" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<rect x="300" y="70" width="46" height="30" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="316" y="91" fill="currentColor" font-size="12" font-weight="700">M₂</text>
+<defs><marker id="dnD" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M346 85 H412" fill="none" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#dnD)"/>
+<text x="380" y="76" fill="var(--accent)" font-size="13" font-style="italic">T</text>
+<path d="M90 215 A50 50 0 0 0 83 190" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<text x="100" y="207" fill="var(--accent)" font-size="12.5">30°</text>
+<text x="230" y="240" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Hay rozamiento en las DOS superficies · a = 4 m/s² hacia la derecha</text>
+</svg>
+<div class="fig-cap">Acá hay <b>dos tensiones</b>: la de la cuerda interna que une M₁ con M₂ (llamala T₂) y la externa con la que se tira (T). Y hay <b>dos normales distintas</b>: N₁ = m₁·g·cos30° para el bloque de la rampa y N₂ = m₂·g para el de la meseta. El eje <span class="m">x</span> "dobla" en la polea: para M₁ apunta hacia arriba de la rampa y para M₂ hacia la derecha.</div></div>
+
+<h3>D · Doble plano 37° / 53° (parcial 2017)</h3>
+
+<div class="fig"><svg viewBox="0 0 400 250" role="img" aria-label="Cuna en forma de techo a dos aguas con la cara izquierda a 37 grados y la derecha a 53 grados, una polea en el vertice, el bloque m1 en la cara izquierda y m2 en la derecha" style="max-width:100%;height:auto">
+<polygon points="30,200 230,50 343,200" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M30 214 l14 12 M70 214 l14 12 M110 214 l14 12 M150 214 l14 12 M190 214 l14 12 M230 214 l14 12 M270 214 l14 12 M310 214 l14 12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M20 200 H360" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<circle cx="230" cy="38" r="11" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="230" cy="38" r="2.2" fill="currentColor"/>
+<rect x="110" y="101" width="40" height="24" transform="rotate(-37 130 125)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<rect x="270" y="105" width="40" height="24" transform="rotate(53 290 129)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="120" y="118" fill="currentColor" font-size="12" font-weight="700">m₁</text>
+<text x="292" y="124" fill="currentColor" font-size="12" font-weight="700">m₂</text>
+<path d="M146 113 L227 49" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<path d="M278 113 L234 54" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<defs><marker id="dnE" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M78 140 L110 116" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#dnE)"/>
+<path d="M312 148 L332 176" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#dnE)"/>
+<path d="M80 200 A50 50 0 0 0 70 170" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="92" y="192" fill="currentColor" font-size="12.5">37°</text>
+<path d="M293 200 A50 50 0 0 1 313 155" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="278" y="192" fill="currentColor" font-size="12.5">53°</text>
+<text x="86" y="86" fill="var(--text-muted)" font-size="11">con rozamiento</text>
+<text x="316" y="94" fill="var(--text-muted)" font-size="11">liso</text>
+<text x="190" y="238" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">m₁ = m₂ = 1 kg · se mueven hacia la derecha con VELOCIDAD CONSTANTE ⇒ a = 0</text>
+</svg>
+<div class="fig-cap">Los dos ángulos son <b>complementarios</b>: sen37° = cos53° = 0,6 y cos37° = sen53° = 0,8. Como el lado de 53° "gana" (sen53° &gt; sen37°), m₂ baja y m₁ sube. Y como la velocidad es constante, <b>a = 0</b>: la tensión sale <b>sola</b> del bloque del plano liso, T = m₂·g·sen53° = 8 N, sin resolver ningún sistema.</div></div>
+
+<div class="trap"><div class="tr-t">"Velocidad constante" no es estática</div>
+Velocidad constante ⇒ <b>a = 0</b> ⇒ ΣF = 0. Hasta ahí igual que la estática. Pero el cuerpo <b>está deslizando</b>, así que el rozamiento es <b>dinámico</b>: f = μ<sub>d</sub>·N, un número determinado, y no una desigualdad f ≤ μ<sub>e</sub>·N. Es la diferencia entre poder despejar μ<sub>d</sub> = 0,25 y quedarte con "μ ≥ algo".
+</div>
+
+<h3>E · Polea del techo con dos bloques en serie (parcial 2012)</h3>
+
+<div class="fig"><svg viewBox="0 0 340 300" role="img" aria-label="Polea colgada del techo con una cuerda; del ramal izquierdo cuelga el bloque 1 y de este cuelga el bloque 2; del ramal derecho se tira hacia abajo con una fuerza F" style="max-width:100%;height:auto">
+<path d="M60 20 H280" fill="none" stroke="currentColor" stroke-width="2.6"/>
+<path d="M60 20 l-10 -12 M92 20 l-10 -12 M124 20 l-10 -12 M156 20 l-10 -12 M188 20 l-10 -12 M220 20 l-10 -12 M252 20 l-10 -12 M280 20 l-10 -12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M170 20 V40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="170" cy="55" r="16" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="170" cy="55" r="2.6" fill="currentColor"/>
+<path d="M154 55 V110" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<rect x="124" y="110" width="60" height="44" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="154" y="138" fill="currentColor" font-size="13" font-weight="700" text-anchor="middle">1</text>
+<path d="M154 154 V196" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<rect x="124" y="196" width="60" height="44" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<text x="154" y="224" fill="currentColor" font-size="13" font-weight="700" text-anchor="middle">2</text>
+<defs><marker id="dnF" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.5"/></marker></defs>
+<path d="M186 55 V232" fill="none" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#dnF)"/>
+<text x="196" y="230" fill="var(--accent)" font-size="13" font-style="italic">F</text>
+<text x="120" y="88" fill="currentColor" font-size="12" text-anchor="end">T₁</text>
+<text x="120" y="180" fill="currentColor" font-size="12" text-anchor="end">T₂</text>
+<path d="M126 78 H150 M126 172 H150" fill="none" stroke="var(--text-muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<defs><marker id="dnG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.4"/></marker></defs>
+<path d="M250 180 V120" fill="none" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#dnG)"/>
+<text x="258" y="156" fill="var(--accent)" font-size="11.5">a = 3 m/s²</text>
+<text x="170" y="274" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Cada bloque pesa 20 N · DOS cuerdas ⇒ DOS tensiones distintas</text>
+</svg>
+<div class="fig-cap">La cuerda de arriba (T₁) sostiene <b>a los dos bloques</b>; la de abajo (T₂) sostiene <b>solo al bloque 2</b>. Sobre el bloque 1 actúan T₁ hacia arriba, su peso hacia abajo <b>y T₂ hacia abajo</b> (la reacción de la cuerda que cuelga de él). Y como la polea es ideal, la fuerza con la que se tira del extremo libre <b>es</b> T₁: no hay que plantear una ecuación nueva ni se duplica nada.</div></div>
+
+<h3>F · Fuerza oblicua que cambia la normal (parcial 2014)</h3>
+
+<div class="fig"><svg viewBox="0 0 420 220" role="img" aria-label="Bloque de masa m sobre un piso horizontal con una fuerza F aplicada a 37 grados por debajo de la horizontal, empujandolo hacia adelante y contra el piso" style="max-width:100%;height:auto">
+<path d="M30 160 H390" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M30 160 l-12 14 M62 160 l-12 14 M94 160 l-12 14 M126 160 l-12 14 M158 160 l-12 14 M190 160 l-12 14 M222 160 l-12 14 M254 160 l-12 14 M286 160 l-12 14 M318 160 l-12 14 M350 160 l-12 14 M382 160 l-12 14" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<rect x="140" y="110" width="60" height="50" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<text x="170" y="141" fill="currentColor" font-size="14" font-style="italic" text-anchor="middle">m</text>
+<path d="M200 120 H320" fill="none" stroke="var(--text-muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<defs><marker id="dnH" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.6"/></marker></defs>
+<path d="M200 120 L262 156" fill="none" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#dnH)"/>
+<text x="272" y="152" fill="var(--accent)" font-size="14" font-style="italic">F</text>
+<path d="M244 120 A44 44 0 0 1 236 145" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+<text x="250" y="140" fill="var(--accent)" font-size="12">37°</text>
+<text x="90" y="190" fill="var(--text-muted)" font-size="11.5">μe = 0,7 · μd = 0,5</text>
+<text x="210" y="206" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">La componente vertical de F apunta HACIA ABAJO: aprieta el bloque contra el piso</text>
+</svg>
+<div class="fig-cap">El texto solo dice "en la dirección indicada en la figura". <b>Hay que mirar el dibujo sí o sí</b>: la flecha sale del bloque hacia abajo y hacia la derecha, o sea 37° <b>por debajo</b> de la horizontal. Entonces <b>N = m·g + F·sen37°</b>, más grande que el peso, y el rozamiento crece con F. Si la flecha fuera hacia arriba sería N = m·g − F·sen37° y el resultado cambiaría por completo.</div></div>
+
+<div class="trap"><div class="tr-t">La normal cambia cuando cambia la situación</div>
+En ese mismo problema, el inciso b) saca la fuerza F. <b>Al desaparecer F desaparece su componente vertical</b>: la normal pasa de N = mg + F·sen37° = 18,4 N a N′ = mg = 10 N, y el rozamiento cae de 9,2 N a 5 N. Arrastrar la normal del inciso a) al b) es el error más frecuente de este ejercicio.
+</div>
+
+<div class="key"><div class="ky-t">Cómo atacar cualquiera de las seis en 4 líneas</div>
+<b>1)</b> ¿Para dónde se mueve el sistema? (o "para dónde tendería a moverse"). Eso fija el sentido del rozamiento y el signo de las componentes del peso.<br>
+<b>2)</b> Ejes por cuerpo, con <span class="m">x</span> en el sentido del movimiento de <b>ese</b> cuerpo.<br>
+<b>3)</b> Ecuación en <span class="m">y</span> de cada cuerpo ⇒ su normal. Ecuación en <span class="m">x</span> de cada cuerpo ⇒ el sistema a resolver.<br>
+<b>4)</b> Si te piden <b>solo la aceleración</b>, sumá las ecuaciones en <span class="m">x</span>: las tensiones internas se cancelan. Si te piden <b>la tensión</b>, volvé a una ecuación individual.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-dinamica"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-dinamica"></div>
+<a class="back" href="#subject-fisica1-utn-dinamica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · CINEMÁTICA PURA ============ -->
+<details id="dn-s3">
+<summary><span class="num">3</span> Cinemática pura · encuentro de móviles y tiro oblicuo <span class="sec-score" id="ss-fisica1-utn-dinamica-3"></span></summary>
+<div class="content">
+
+<p>La cinemática sin fuerzas aparece menos que la dinámica, pero <b>paga barato</b>: son dos ecuaciones horarias, ningún DCL, y en 15 minutos tenés un problema entero del final resuelto. Vale la pena tenerla afilada aunque sea "fácil".</p>
+
+<div class="formula">
+<b>MRU:</b> &nbsp; x(t) = x₀ + v·t &nbsp;&nbsp;&nbsp; <b>MRUV:</b> &nbsp; x(t) = x₀ + v₀·t + ½·a·t² &nbsp;&nbsp; v(t) = v₀ + a·t &nbsp;&nbsp; v² = v₀² + 2·a·Δx<br>
+<b>Tiro oblicuo:</b> &nbsp; x(t) = v₀·cosα·t &nbsp;&nbsp;&nbsp; y(t) = y₀ + v₀·senα·t − ½·g·t² &nbsp;&nbsp;&nbsp; v<sub>x</sub> = cte
+</div>
+
+<h3>Encuentro de dos móviles: la receta</h3>
+
+<div class="key"><div class="ky-t">Los 4 pasos del encuentro</div>
+<b>1.</b> <b>Un solo origen para los dos</b>, y decilo por escrito. Es lo que decide si la respuesta es 660 m o 600 m.<br>
+<b>2.</b> <b>Un solo t = 0</b>. Si uno salió antes, ese adelanto va <b>adentro</b> de su ecuación: si el colectivo salió 900 s antes, su posición es x = v·(t + 900).<br>
+<b>3.</b> Escribí las dos ecuaciones horarias completas.<br>
+<b>4.</b> Igualalas: x₁(t) = x₂(t). <b>Pero antes fijate si el tiempo de encuentro ya es dato</b> — si te lo dan, no hay nada que resolver: evaluás la ecuación más simple y listo.
+</div>
+
+<div class="fig"><svg viewBox="0 0 440 280" role="img" aria-label="Grafico de posicion en funcion del tiempo: el auto B es una recta que arranca en 60 metros con pendiente 20 metros por segundo y el auto A es una parabola que arranca en el origen con pendiente inicial 10 metros por segundo; se cortan a los 30 segundos en 660 metros" style="max-width:100%;height:auto">
+<path d="M62 240 H410 M62 240 V28" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M406 236 l6 4 l-6 4 M58 34 l4 -6 l4 6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<path d="M62 230 L400 90" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
+<path d="M62 240 Q230 205 400 58" fill="none" stroke="currentColor" stroke-width="2.2"/>
+<circle cx="315" cy="124" r="4.2" fill="var(--gold)"/>
+<path d="M315 124 V240 M62 124 H315" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<text x="322" y="112" fill="var(--gold)" font-size="11.5">(30 s ; 660 m)</text>
+<text x="56" y="128" fill="currentColor" font-size="11" text-anchor="end">660</text>
+<text x="56" y="234" fill="currentColor" font-size="11" text-anchor="end">60</text>
+<text x="315" y="256" fill="currentColor" font-size="11" text-anchor="middle">30</text>
+<text x="145" y="256" fill="currentColor" font-size="11" text-anchor="middle">10</text>
+<text x="230" y="256" fill="currentColor" font-size="11" text-anchor="middle">20</text>
+<path d="M145 240 v6 M230 240 v6 M315 240 v6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="36" y="42" fill="currentColor" font-size="12.5">x (m)</text>
+<text x="410" y="264" fill="currentColor" font-size="12.5" text-anchor="middle">t (s)</text>
+<text x="376" y="82" fill="var(--accent)" font-size="12">B: recta</text>
+<text x="330" y="52" fill="currentColor" font-size="12">A: parábola</text>
+<text x="236" y="274" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">B arranca adelante y más rápido: primero se aleja. Recién a los 30 s A lo alcanza.</text>
+</svg>
+<div class="fig-cap">El gráfico esquemático que pide el inciso b) del parcial 2017. Lo que se corrige es: <b>B es una recta</b> (MRU) que arranca en 60 m; <b>A es una parábola</b> (MRUV) que arranca en el origen con pendiente inicial 10 m/s y va abriéndose; <b>se separan al principio</b> y hay <b>un único cruce</b>, en t = 30 s. Dibujar las dos como rectas es error conceptual.</div></div>
+
+<h3>Tiro oblicuo</h3>
+
+<div class="fig"><svg viewBox="0 0 420 240" role="img" aria-label="Trayectoria parabolica de una flecha lanzada a 60 grados desde el suelo que impacta en un arbol ubicado a 15 metros, a una altura de casi 6 metros" style="max-width:100%;height:auto">
+<path d="M30 200 H392" fill="none" stroke="currentColor" stroke-width="1.7"/>
+<path d="M30 200 l-12 12 M70 200 l-12 12 M110 200 l-12 12 M150 200 l-12 12 M190 200 l-12 12 M230 200 l-12 12 M270 200 l-12 12 M310 200 l-12 12 M350 200 l-12 12" fill="none" stroke="var(--text-muted)" stroke-width="1.1"/>
+<rect x="326" y="58" width="11" height="142" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.4"/>
+<path d="M60 200 Q195 -34 330 92" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-dasharray="6 4"/>
+<defs><marker id="dnI" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.5"/></marker></defs>
+<path d="M60 200 L86 155" fill="none" stroke="currentColor" stroke-width="2" marker-end="url(#dnI)"/>
+<text x="90" y="150" fill="currentColor" font-size="12" font-style="italic">v₀</text>
+<path d="M96 200 A36 36 0 0 0 79 169" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text x="104" y="188" fill="currentColor" font-size="12">60°</text>
+<circle cx="330" cy="92" r="4" fill="var(--gold)"/>
+<path d="M346 92 H370 M346 200 H370 M360 92 V200" fill="none" stroke="var(--text-muted)" stroke-width="1.1"/>
+<text x="376" y="150" fill="var(--text-muted)" font-size="11.5">h = ?</text>
+<path d="M60 218 H330" fill="none" stroke="var(--text-muted)" stroke-width="1.1"/>
+<path d="M60 213 V223 M330 213 V223" fill="none" stroke="var(--text-muted)" stroke-width="1.1"/>
+<text x="195" y="234" fill="var(--text-muted)" font-size="11.5" text-anchor="middle">15 m</text>
+<text x="342" y="48" fill="var(--text-muted)" font-size="11">árbol</text>
+</svg>
+<div class="fig-cap">La flecha del parcial 2011. Cuidado: <b>no llega al suelo</b>, choca contra el árbol a los 2 s, así que <b>y(2 s) ≠ 0</b> y no sirve ninguna fórmula de alcance ni de tiempo de vuelo. El dato "15 m por delante" es la <b>coordenada horizontal</b>, no la distancia recorrida sobre la trayectoria. Y a los 2 s la flecha <b>ya viene bajando</b> (la altura máxima es a los 1,3 s).</div></div>
+
+<div class="trap"><div class="tr-t">Las tres trampas del tiro oblicuo</div>
+• <b>El tiempo lo manda el eje que tenga el dato.</b> En un tiro horizontal el tiempo sale de la <b>caída vertical</b> (Δy = ½·g·t²) y recién después se usa la horizontal. En este de la flecha, el tiempo era dato y salió v₀ de la horizontal.<br>
+• <b>v<sub>x</sub> es constante</b> durante todo el vuelo: la gravedad es vertical y no la toca. Lo que se anula en el punto más alto es v<sub>y</sub>.<br>
+• <b>sen60° = 0,866 y cos60° = 0,5</b> (no al revés). Con 37°: sen = 0,6 y cos = 0,8. Con 53°: al revés.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-dinamica"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-dinamica"></div>
+<a class="back" href="#subject-fisica1-utn-dinamica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · SISTEMAS NO INERCIALES ============ -->
+<details id="dn-s4">
+<summary><span class="num">4</span> Sistemas no inerciales · la fuerza de inercia (tema de FINAL) <span class="sec-score" id="ss-fisica1-utn-dinamica-4"></span></summary>
+<div class="content">
+
+<p>Esta unidad es distinta a las tres anteriores: <b>en los parciales de Martinelli casi no aparece</b>. Lo más cerca que estuvo fue el plato sobre la bandeja acelerada del mozo (2013), y ese se resuelve tranquilamente desde tierra. Pero <b>en los finales de UTN.BA hay varios</b>: la cuña acelerada por una fuerza, la plataforma acelerada con polea, el bloque sobre bloque con aceleración inclinada, el disco sobre la plataforma giratoria. Por eso está acá.</p>
+
+<h3>Qué es un sistema no inercial y por qué complica todo</h3>
+
+<p>Un sistema de referencia es <b>inercial</b> si en él vale ΣF = m·a con las fuerzas <b>reales</b> (las que ejerce algún cuerpo identificable: la Tierra, una cuerda, una superficie, un resorte). El piso del aula es inercial. <b>Una cuña que acelera, una plataforma que arranca o un disco que gira NO lo son</b>: si te parás ahí adentro, ves cuerpos que se aceleran sin que nadie los empuje.</p>
+
+<div class="key"><div class="ky-t">La fuerza de inercia</div>
+Para poder seguir usando ΣF = m·a <b>desde adentro</b> de un sistema que acelera con <b>a<sub>sist</sub></b>, se le agrega a cada cuerpo una fuerza ficticia:<br>
+<div class="formula"><b>F<sub>in</sub> = − m · a<sub>sist</sub></b> &nbsp;&nbsp; (misma dirección que la aceleración del sistema, sentido contrario, módulo m·a<sub>sist</sub>)</div>
+Con ella incluida, en el sistema acelerado el cuerpo que "viaja junto" está <b>en equilibrio</b>: ΣF + F<sub>in</sub> = 0. Es exactamente la sensación de irse para atrás cuando el colectivo arranca.<br>
+No tiene reacción (nadie la ejerce) y <b>desaparece</b> si volvés a mirar desde tierra. En una plataforma que <b>gira</b>, la fuerza de inercia se llama <b>centrífuga</b> y vale m·ω²·r hacia afuera.
+</div>
+
+<div class="fig"><svg viewBox="0 0 470 240" role="img" aria-label="Dos vistas del mismo bloque sobre un carro que acelera: desde tierra actuan solo el peso, la normal y el rozamiento y el bloque acelera; desde el carro se agrega la fuerza de inercia y el bloque queda en equilibrio" style="max-width:100%;height:auto">
+<text x="118" y="22" fill="var(--accent)" font-size="12" text-anchor="middle" font-weight="700">DESDE TIERRA (inercial)</text>
+<text x="352" y="22" fill="var(--accent)" font-size="12" text-anchor="middle" font-weight="700">DESDE EL CARRO (no inercial)</text>
+<path d="M235 34 V212" fill="none" stroke="var(--border-2)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<path d="M30 170 H210" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="88" y="118" width="58" height="52" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<defs><marker id="dnJ" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.4"/></marker><marker id="dnK" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--gold)" stroke-width="1.6"/></marker></defs>
+<path d="M117 144 V196" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnJ)"/>
+<text x="124" y="192" fill="currentColor" font-size="11">P</text>
+<path d="M117 144 V96" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnJ)"/>
+<text x="124" y="98" fill="currentColor" font-size="11">N</text>
+<path d="M117 144 H166" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnJ)"/>
+<text x="150" y="136" fill="currentColor" font-size="11">f</text>
+<path d="M60 66 H120" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#dnI)"/>
+<text x="42" y="70" fill="var(--accent)" font-size="12" font-style="italic">a</text>
+<text x="118" y="216" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Solo fuerzas reales · el bloque ACELERA: f = m·a</text>
+<path d="M264 170 H444" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="322" y="118" width="58" height="52" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+<path d="M351 144 V196" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnJ)"/>
+<text x="358" y="192" fill="currentColor" font-size="11">P</text>
+<path d="M351 144 V96" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnJ)"/>
+<text x="358" y="98" fill="currentColor" font-size="11">N</text>
+<path d="M351 144 H400" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnJ)"/>
+<text x="384" y="136" fill="currentColor" font-size="11">f</text>
+<path d="M351 144 H302" fill="none" stroke="var(--gold)" stroke-width="2" marker-end="url(#dnK)"/>
+<text x="292" y="136" fill="var(--gold)" font-size="11">F<tspan dy="3" font-size="8">in</tspan><tspan dy="-3">&#8203;</tspan></text>
+<text x="352" y="216" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Se agrega F(in) = −m·a · el bloque está EN EQUILIBRIO</text>
+</svg>
+<div class="fig-cap">El mismo bloque, dos descripciones válidas y el mismo resultado numérico. <b>Desde tierra</b> el rozamiento es la fuerza neta que lo acelera (f = m·a). <b>Desde el carro</b> el bloque está quieto, y lo que equilibra al rozamiento es la fuerza de inercia, que vale lo mismo. Nunca mezcles las dos: o ponés F<sub>in</sub> y escribís equilibrio, o no la ponés y escribís ΣF = m·a.</div></div>
+
+<div class="key"><div class="ky-t">¿Conviene usarla, o resuelvo desde tierra?</div>
+<b>Resolvé desde tierra</b> (sin fuerza de inercia) cuando la aceleración del cuerpo que te interesa es <b>conocida y en una sola dirección</b>: el plato sobre la bandeja, el bloque sobre el bloque, la plataforma con polea. Es lo que hacen todas las resoluciones oficiales de la cátedra y no te podés equivocar de signo.<br>
+<b>Usá la fuerza de inercia</b> cuando el cuerpo <b>viaja pegado</b> a algo que acelera y te piden una condición de equilibrio <b>relativo</b> (que no deslice, que no se caiga, qué ángulo toma un péndulo colgado del techo del colectivo). Ahí el planteo se vuelve una estática común y sale en tres líneas.<br>
+<b>Nunca la uses "por las dudas".</b> Poner F<sub>in</sub> y además escribir m·a del lado derecho es contar la misma cosa dos veces: es el error clásico.
+</div>
+
+<h3>Las cuatro escenas que aparecen en los finales</h3>
+
+<div class="fig"><svg viewBox="0 0 460 250" role="img" aria-label="Cuna de masa m1 sobre piso sin rozamiento con un bloque m2 apoyado en su cara inclinada; una fuerza horizontal F empuja la cuna" style="max-width:100%;height:auto">
+<polygon points="70,200 380,200 380,60" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M50 200 H420" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M60 208 H410" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="6 5"/>
+<text x="236" y="224" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">piso SIN rozamiento</text>
+<rect x="240" y="106" width="42" height="24" transform="rotate(-24.3 261 130)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="255" y="124" fill="currentColor" font-size="12" font-weight="700">m₂</text>
+<text x="330" y="160" fill="currentColor" font-size="12" font-weight="700">m₁</text>
+<defs><marker id="dnL" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.7"/></marker></defs>
+<path d="M18 168 H80" fill="none" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#dnL)"/>
+<text x="30" y="158" fill="var(--accent)" font-size="14" font-style="italic">F</text>
+<path d="M120 200 A50 50 0 0 0 116 178" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text x="132" y="194" fill="currentColor" font-size="12">α</text>
+<text x="150" y="110" fill="var(--text-muted)" font-size="11">μe entre m₂ y la cuña</text>
+<text x="236" y="242" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Los dos aceleran juntos: a = F / (m₁ + m₂)</text>
+</svg>
+<div class="fig-cap"><b>Escena 1 · la cuña acelerada</b> (final 12/12/23). Mientras el bloque no desliza, los dos tienen la <b>misma aceleración horizontal</b> a = F/(m₁+m₂). Lo que hay que ver es que sobre la cara inclinada la normal <b>ya no vale</b> m₂·g·cosα: la aceleración horizontal se la modifica. Con el rozamiento en su valor límite μ<sub>e</sub>·N sale la condición.</div></div>
+
+<div class="fig"><svg viewBox="0 0 440 250" role="img" aria-label="Plataforma sobre piso liso que acelera hacia la derecha, con el cuerpo 1 apoyado arriba unido por una cuerda que pasa por una polea del borde y baja hasta el cuerpo 2 apoyado contra la pared frontal" style="max-width:100%;height:auto">
+<rect x="60" y="120" width="260" height="70" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M40 200 H420" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M50 208 H410" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="6 5"/>
+<text x="200" y="224" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">piso SIN rozamiento</text>
+<circle cx="106" cy="196" r="9" fill="var(--surface)" stroke="currentColor" stroke-width="1.4"/>
+<circle cx="274" cy="196" r="9" fill="var(--surface)" stroke="currentColor" stroke-width="1.4"/>
+<rect x="150" y="88" width="54" height="32" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="177" y="110" fill="currentColor" font-size="13" font-weight="700" text-anchor="middle">1</text>
+<circle cx="330" cy="104" r="11" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="330" cy="104" r="2.2" fill="currentColor"/>
+<path d="M204 104 H319" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<path d="M341 104 V132" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<rect x="320" y="132" width="42" height="46" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="341" y="161" fill="currentColor" font-size="13" font-weight="700" text-anchor="middle">2</text>
+<text x="176" y="80" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">μe = 0,5</text>
+<text x="374" y="160" fill="var(--text-muted)" font-size="10.5">pared lisa</text>
+<defs><marker id="dnM" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.7"/></marker></defs>
+<path d="M92 52 H172" fill="none" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#dnM)"/>
+<text x="76" y="56" fill="var(--accent)" font-size="14" font-style="italic">a</text>
+<text x="220" y="242" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">m₁ = m₂ = m · el resultado no depende de la masa</text>
+</svg>
+<div class="fig-cap"><b>Escena 2 · la plataforma acelerada con polea</b> (final UTN.BA sin fecha). El cuerpo 2 cuelga <b>apoyado contra la pared frontal</b>: como la pared es lisa, su ecuación vertical da <b>T = m·g</b> directo. Y esa tensión es la que tira del cuerpo 1 hacia adelante. Si la plataforma acelera más de lo que esa tensión puede sostener, el cuerpo 1 <b>se va para atrás</b> y ahí entra el rozamiento estático en su máximo.</div></div>
+
+<div class="fig"><svg viewBox="0 0 420 230" role="img" aria-label="Bloque 1 apoyado sobre el bloque 2 horizontal; el bloque 2 adquiere una aceleracion a inclinada 37 grados por debajo de la horizontal hacia la derecha" style="max-width:100%;height:auto">
+<rect x="70" y="118" width="230" height="56" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<rect x="130" y="72" width="80" height="46" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<text x="170" y="101" fill="currentColor" font-size="13" font-weight="700" text-anchor="middle">1</text>
+<text x="264" y="152" fill="currentColor" font-size="13" font-weight="700" text-anchor="middle">2</text>
+<path d="M300 96 H392" fill="none" stroke="var(--text-muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<defs><marker id="dnN" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.7"/></marker></defs>
+<path d="M300 96 L370 148" fill="none" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#dnN)"/>
+<text x="380" y="150" fill="var(--accent)" font-size="14" font-style="italic">a</text>
+<path d="M346 96 A46 46 0 0 1 338 122" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+<text x="350" y="118" fill="var(--accent)" font-size="12">α = 37°</text>
+<text x="170" y="60" fill="var(--text-muted)" font-size="11" text-anchor="middle">μe = 0,8 · μc = 0,5</text>
+<text x="200" y="204" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">La superficie de contacto sigue siendo HORIZONTAL: N vertical, f horizontal</text>
+</svg>
+<div class="fig-cap"><b>Escena 3 · bloque sobre bloque con aceleración inclinada</b> (final 13/02/25). El detalle que decide el problema: la aceleración tiene <b>componente vertical hacia abajo</b>, así que el bloque 1 "pesa menos" contra el 2 y la normal <b>baja</b>: N = m₁(g − a·senα). Al mismo tiempo la componente horizontal exige más rozamiento. Los dos efectos empujan en contra y por eso hay un a máximo.</div></div>
+
+<div class="fig"><svg viewBox="0 0 400 230" role="img" aria-label="Vista superior de una plataforma giratoria con un pequeno disco apoyado a una distancia r del eje; el rozamiento estatico apunta hacia el centro" style="max-width:100%;height:auto">
+<circle cx="180" cy="118" r="90" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="180" cy="118" r="3.4" fill="currentColor"/>
+<circle cx="252" cy="118" r="15" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M180 118 H236" fill="none" stroke="var(--text-muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="206" y="110" fill="var(--text-muted)" font-size="11.5" text-anchor="middle">r</text>
+<defs><marker id="dnO" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--gold)" stroke-width="1.7"/></marker><marker id="dnP" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.6"/></marker></defs>
+<path d="M252 118 H208" fill="none" stroke="var(--gold)" stroke-width="2.2" marker-end="url(#dnO)"/>
+<text x="228" y="140" fill="var(--gold)" font-size="11.5" text-anchor="middle">f<tspan dy="3" font-size="8">e</tspan><tspan dy="-3">&#8203;</tspan></text>
+<path d="M180 18 A100 100 0 0 1 268 66" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#dnP)"/>
+<text x="234" y="34" fill="var(--accent)" font-size="13" font-style="italic">ω</text>
+<text x="200" y="222" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">El rozamiento estático es la ÚNICA fuerza centrípeta: μe·m·g = m·ω²·r</text>
+</svg>
+<div class="fig-cap"><b>Escena 4 · el disco sobre la plataforma giratoria</b> (final 12/12/23). Acá no hay ninguna fuerza "hacia afuera" en el planteo desde tierra: <b>la centrífuga no existe en un sistema inercial</b>. Lo único que actúa horizontalmente es el rozamiento estático, apuntando <b>hacia el centro</b>, y su techo μ<sub>e</sub>·m·g es el que limita la frecuencia.</div></div>
+
+<div class="trap"><div class="tr-t">La fuerza centrífuga no va en el DCL (desde tierra)</div>
+Si resolvés desde el piso del laboratorio, sobre el disco actúan <b>peso, normal y rozamiento</b>. Punto. La aceleración centrípeta va del <b>otro lado</b> del igual: ΣF<sub>radial</sub> = m·ω²·r. Poner una "fuerza centrífuga" hacia afuera y además igualar a m·a<sub>c</sub> te deja con 0 = 0. La centrífuga solo aparece si te subís a la plataforma, y ahí el disco queda <b>en equilibrio</b>.
+</div>
+
+<div class="key"><div class="ky-t">Y el plato sobre la bandeja (parcial 2013), que ya resolviste</div>
+Es el mismo esquema que el bloque sobre bloque, con la aceleración horizontal. Desde tierra: mientras no desliza, el rozamiento estático le da al plato la misma aceleración que la bandeja; cuando la bandeja supera el límite (a<sub>B</sub> &gt; 4 m/s²), el plato <b>desliza</b> y su aceleración queda <b>fijada</b> por el rozamiento dinámico en 3 m/s², sin importar cuánto acelere la bandeja. Desde la bandeja verías al plato irse para atrás con 3 m/s² relativos. Las dos lecturas dan lo mismo: elegí una y no las mezcles.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-dinamica"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-dinamica"></div>
+<a class="back" href="#subject-fisica1-utn-dinamica">↑ Volver al índice</a>
+</div>
+</details>

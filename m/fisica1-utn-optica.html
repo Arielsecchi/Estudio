@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física I · Óptica geométrica · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="fisica1-utn-optica"] {
+    --bg: #f9f7f3; --text: #342714; --text-muted: #816f56;
+    --surface: #ffffff; --surface-2: #f3ede5; --surface-3: #e9dfd1;
+    --border: #eae3d9; --border-2: #dbcfbd;
+    --accent: #a16207; --accent-hover: #754705; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #f3ede5; --summary-hover: #e9dfd1; --num-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.07);
+  }
+  [data-theme="dark"][data-subject="fisica1-utn-optica"] {
+    --bg: #18120a; --text: #e7e0d5; --text-muted: #b0a392;
+    --surface: #271f14; --surface-2: #372c1d; --surface-3: #4d3f2b;
+    --border: #4d3f2b; --border-2: #68573d;
+    --accent: #ecbd79; --accent-hover: #f6d8ac; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #372c1d; --summary-hover: #4d3f2b; --num-text: #18120a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica1-utn">
+          <div class="drawer-item" data-target="fisica1-utn" onclick="switchSubject('fisica1-utn')">
+            <div class="ic" style="background:#4338ca;color:#ffffff">F1</div>
+            <div class="info">
+              <div class="t" style="color:#4338ca">Física I</div>
+              <div class="d">UTN FRBA · Guía de final · 84 exámenes analizados</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">
+              <div class="ic" style="background:#7c3aed;color:#ffffff">CR</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física I · Cuerpo rígido</div>
+                <div class="d">Rodadura, poleas con masa, rototraslación y momento angular · en los 10 finales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">
+              <div class="ic" style="background:#be123c;color:#ffffff">Ch</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Física I · Choques</div>
+                <div class="d">Choque plástico, elástico y en 2D · impulso y cantidad de movimiento</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">
+              <div class="ic" style="background:#0891b2;color:#ffffff">MA</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">Física I · Oscilaciones</div>
+                <div class="d">MAS masa-resorte, péndulo simple y péndulo físico</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">
+              <div class="ic" style="background:#ea580c;color:#ffffff">TE</div>
+              <div class="info">
+                <div class="t" style="color:#ea580c">Física I · Trabajo y energía</div>
+                <div class="d">Trabajo, energía, resortes y movimiento circular</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">
+              <div class="ic" style="background:#1d4ed8;color:#ffffff">Dn</div>
+              <div class="info">
+                <div class="t" style="color:#1d4ed8">Física I · Dinámica</div>
+                <div class="d">Newton, planos inclinados, poleas, cinemática y sistemas no inerciales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">
+              <div class="ic" style="background:#0d9488;color:#ffffff">Fl</div>
+              <div class="info">
+                <div class="t" style="color:#0d9488">Física I · Fluidos</div>
+                <div class="d">Hidrostática e hidrodinámica · teoría que el resumen no cubre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">
+              <div class="ic" style="background:#a16207;color:#ffffff">Op</div>
+              <div class="info">
+                <div class="t" style="color:#a16207">Física I · Óptica geométrica</div>
+                <div class="d">Espejos, lentes, prisma y marcha de rayos</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')">
+              <div class="ic" style="background:#475569;color:#ffffff">Sm</div>
+              <div class="info">
+                <div class="t" style="color:#475569">Física I · Simulacros</div>
+                <div class="d">Finales completos de 6 problemas con reloj + banco de preguntas conceptuales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fiuba-algebra-lineal">
+          <div class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+            <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+            <div class="info">
+              <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+              <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-parcial" onclick="switchSubject('fiuba-algebra-lineal-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">Álgebra Lineal · Primer parcial</div>
+                <div class="d">Palacios · 1er parcial · 21/10 · 21 parciales reales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-segundo-parcial" onclick="switchSubject('fiuba-algebra-lineal-segundo-parcial')">
+              <div class="ic" style="background:#1e5f8a;color:#eff6ff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#1e5f8a">Álgebra Lineal · Segundo parcial</div>
+                <div class="d">Palacios · 2do parcial · 2/12 · unidad 4</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-anatomia">
+          <div class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+            <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+            <div class="info">
+              <div class="t" style="color:#9d2449">Anatomía e Histología Funcional · FIUBA</div>
+              <div class="d">Iurman · Materia completa · las 16 clases del cronograma</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-anatomia-parcial" onclick="switchSubject('fiuba-anatomia-parcial')">
+              <div class="ic" style="background:#be123c;color:#fff1f2">P1</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Anatomía · Primer parcial</div>
+                <div class="d">Iurman · 1er parcial · 29/9 · clases 1 a 6</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-anatomia-segundo-parcial" onclick="switchSubject('fiuba-anatomia-segundo-parcial')">
+              <div class="ic" style="background:#7c2d5a;color:#fdf2f8">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7c2d5a">Anatomía · Segundo parcial</div>
+                <div class="d">Iurman · 2do parcial · 17/11 · clases 8 a 13</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-algoritmos">
+          <div class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+            <div class="ic" style="background:#4c1d95;color:#ede9fe">AP</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Algoritmos y Programación I · FIUBA</div>
+              <div class="d">Azcurra · Materia completa · las 9 guías en C</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algoritmos-parcial" onclick="switchSubject('fiuba-algoritmos-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#f5f3ff">PI</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Algoritmos · Parcial e integrador</div>
+                <div class="d">Azcurra · Las 12 consignas reales del campus</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-electronica">
+          <div class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+            <div class="ic" style="background:#92400e;color:#fffbeb">IB</div>
+            <div class="info">
+              <div class="t" style="color:#92400e">Introducción a la Bioingeniería · FIUBA</div>
+              <div class="d">Veiga · Materia completa · teoría de circuitos</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-electronica-integrador" onclick="switchSubject('fiuba-electronica-integrador')">
+              <div class="ic" style="background:#b45309;color:#fffbeb">IN</div>
+              <div class="info">
+                <div class="t" style="color:#b45309">Bioingeniería · Examen integrador</div>
+                <div class="d">Veiga · Integrador · 4 parciales y 5 coloquios reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-quimica">
+          <div class="drawer-item" data-target="fiuba-quimica" onclick="switchSubject('fiuba-quimica')">
+            <div class="ic" style="background:#047857;color:#ecfdf5">QB</div>
+            <div class="info">
+              <div class="t" style="color:#047857">Química Básica · FIUBA</div>
+              <div class="d">Boeykens · Materia completa · las 12 secciones del temario</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-quimica-libre" onclick="switchSubject('fiuba-quimica-libre')">
+              <div class="ic" style="background:#0f766e;color:#f0fdfa">QL</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Química Básica · Examen libre</div>
+                <div class="d">Boeykens · Libre · las 3 etapas, 9 exámenes reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA I · ÓPTICA GEOMÉTRICA =============== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica1-utn-optica">
+  <header>
+    <h1>Física I · Óptica geométrica</h1>
+    <div class="sub">UTN FRBA · Cátedra Martinelli · Espejos, lentes, prisma y marcha de rayos · 10 ejercicios reales (7 de parcial 2009–2017 + 3 de final)</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-optica">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#op-s1">La convención de signos, explicada una sola vez y bien</a></li>
+    <li><a href="#op-s2">Espejos esféricos</a></li>
+    <li><a href="#op-s3">Lentes delgadas</a></li>
+    <li><a href="#op-s4">La marcha de rayos a escala</a></li>
+    <li><a href="#op-s5">Prisma, lámina de caras paralelas y los ejercicios de diseño</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-optica">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · CONVENCIÓN DE SIGNOS ============ -->
+<details id="op-s1">
+<summary><span class="num">1</span> La convención de signos, explicada una sola vez y bien <span class="sec-score" id="ss-fisica1-utn-optica-1"></span></summary>
+<div class="content">
+
+<h3>Por qué te conviene estudiar óptica</h3>
+<p>Óptica es el tema más barato de toda Física I: son <b>dos ecuaciones y un dibujo</b>, no hay que plantear Newton ni energía, y el problema entero se resuelve en media carilla. Y sin embargo es el que más gente deja en blanco.</p>
+
+<div class="key"><div class="ky-t">Dónde aparece, según el material relevado</div>
+• En los <b>parciales de la cátedra Martinelli</b> que tenés (2009, 2010, 2011, 2012, 2014, 2016 y 2017), óptica es <b>el problema A1</b>: el primero del bloque A, que era eliminatorio. Seis de esos siete están numerados literalmente "A1".<br>
+• En los <b>finales</b> relevados aparece en <b>3 exámenes distintos</b>: el espejo del dentista (final del 12/12/23, problema 6), el prisma de caras paralelas (problema 1) y el espejo que proyecta el triple sobre una pantalla (problema 6).<br>
+• Como el final son <b>6 problemas sueltos y se aprueba con el 50%</b>, un problema de óptica bien resuelto es 1 de los 3 que necesitás. Y es el más corto de todos.
+</div>
+
+<h3>El sistema de referencia de la cátedra</h3>
+<p>Esto es lo único que tenés que memorizar, y hay que declararlo por escrito en el examen (la consigna del parcial pide "indique explícitamente los sistemas de referencia que adopta en cada caso"):</p>
+
+<div class="key"><div class="ky-t">Convención Martinelli</div>
+• La luz <b>viaja desde la izquierda</b> hacia el espejo o la lente.<br>
+• El origen está <b>en el espejo o en el centro óptico de la lente</b>.<br>
+• <b><span class="m">x</span> es positivo hacia la IZQUIERDA</b>, es decir del lado del objeto.<br>
+• <b><span class="m">y</span> es positivo hacia arriba.</b><br>
+Con esto, un <b>objeto real siempre tiene <span class="m">x</span> &gt; 0</b>. Esa es la única constante de todos los problemas.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 600 225" style="max-width:100%;height:auto" role="img" aria-label="Sistema de referencia: origen en el espejo, x positivo hacia la izquierda, y positivo hacia arriba">
+  <line x1="20" y1="130" x2="580" y2="130" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.7"/>
+  <text x="30" y="124" fill="currentColor" font-size="12" opacity="0.8">eje óptico</text>
+  <!-- elemento óptico = eje y -->
+  <line x1="440" y1="212" x2="440" y2="42" stroke="currentColor" stroke-width="3"/>
+  <polygon points="440,32 434,48 446,48" fill="currentColor"/>
+  <text x="450" y="46" fill="currentColor" font-size="14">+ y</text>
+  <text x="450" y="206" fill="currentColor" font-size="12">espejo o lente</text>
+  <text x="450" y="192" fill="currentColor" font-size="12">(origen)</text>
+  <!-- eje x hacia la izquierda -->
+  <line x1="430" y1="172" x2="112" y2="172" stroke="currentColor" stroke-width="1.5"/>
+  <polygon points="100,172 116,166 116,178" fill="currentColor"/>
+  <text x="150" y="192" fill="currentColor" font-size="14">+ x  (hacia la izquierda, del lado del objeto)</text>
+  <!-- luz -->
+  <line x1="40" y1="60" x2="140" y2="60" stroke="currentColor" stroke-width="1.5" opacity="0.8"/>
+  <polygon points="152,60 136,54 136,66" fill="currentColor" opacity="0.8"/>
+  <text x="40" y="50" fill="currentColor" font-size="12" opacity="0.85">la luz llega desde la izquierda</text>
+  <!-- objeto -->
+  <line x1="270" y1="130" x2="270" y2="78" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="270,68 264,84 276,84" fill="currentColor"/>
+  <text x="228" y="64" fill="currentColor" font-size="13">objeto (y &gt; 0)</text>
+  <!-- cota x -->
+  <line x1="270" y1="148" x2="440" y2="148" stroke="currentColor" stroke-width="1" opacity="0.8"/>
+  <polygon points="270,148 282,144 282,152" fill="currentColor" opacity="0.8"/>
+  <polygon points="440,148 428,144 428,152" fill="currentColor" opacity="0.8"/>
+  <text x="348" y="143" fill="currentColor" font-size="13">x &gt; 0</text>
+</svg>
+<div class="fig-cap">El sistema de referencia que hay que escribir en la hoja antes de tocar una cuenta.</div>
+</div>
+
+<h3>Las dos ecuaciones (y son distintas)</h3>
+
+<div class="formula">
+<b>ESPEJOS esféricos</b><br>
+1/x + 1/x′ = 1/f = 2/R &nbsp;&nbsp;&nbsp; A = y′/y = <b>−</b> x′/x
+</div>
+
+<div class="formula">
+<b>LENTES delgadas</b><br>
+1/x <b>−</b> 1/x′ = 1/f &nbsp;&nbsp;&nbsp; A = y′/y = <b>+</b> x′/x
+</div>
+
+<p>Fijate la simetría: en espejos la ecuación <b>suma</b> y el aumento <b>resta</b> (lleva el menos); en lentes la ecuación <b>resta</b> y el aumento <b>suma</b>. Es la única forma de que las dos den resultados físicamente coherentes con <span class="m">x</span> positivo hacia la izquierda. Si te olvidás de cuál es cuál, chequealo con un caso conocido: espejo cóncavo con el objeto en el infinito tiene que dar la imagen en el foco.</p>
+
+<h3>La tabla de decisión: traducir el enunciado a signos</h3>
+<p>El 80% de los errores no son de cuenta: son de traducción. Esta tabla es el diccionario.</p>
+
+<table class="tbl">
+  <tr><th>Lo que dice el enunciado</th><th>En un ESPEJO</th><th>En una LENTE</th></tr>
+  <tr><td>objeto real (siempre, salvo aviso)</td><td>x &gt; 0</td><td>x &gt; 0</td></tr>
+  <tr><td><b>imagen real</b> · "se forma sobre una pantalla" · "se proyecta" · "cae sobre una pantalla"</td><td><b>x′ &gt; 0</b> (delante del espejo, del lado del objeto)</td><td><b>x′ &lt; 0</b> (del otro lado, donde va la luz)</td></tr>
+  <tr><td><b>imagen virtual</b> · "se ve dentro del espejo" · "no se puede recoger"</td><td><b>x′ &lt; 0</b> (detrás del espejo)</td><td><b>x′ &gt; 0</b> (del mismo lado que el objeto)</td></tr>
+  <tr><td><b>derecha</b> / directa / "del mismo sentido"</td><td>A &gt; 0</td><td>A &gt; 0</td></tr>
+  <tr><td><b>invertida</b></td><td>A &lt; 0</td><td>A &lt; 0</td></tr>
+  <tr><td>"n veces mayor" / "el triple de tamaño"</td><td colspan="2">|A| = n &nbsp;→ el signo lo deducís vos, no lo dice el enunciado</td></tr>
+  <tr><td>"la mitad de tamaño"</td><td colspan="2">|A| = 0,5</td></tr>
+  <tr><td><b>cóncavo</b> / convergente</td><td>f &gt; 0, R &gt; 0</td><td>f &gt; 0</td></tr>
+  <tr><td><b>convexo</b> / divergente</td><td>f &lt; 0, R &lt; 0</td><td>f &lt; 0</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Las tres reglas que te dan el signo de A cuando el enunciado no lo dice</div>
+1. Con <b>objeto real</b>: <b>imagen real ⟹ imagen invertida</b> (A &lt; 0). Sin excepciones, ni en espejos ni en lentes.<br>
+2. Con <b>objeto real</b>: <b>imagen virtual ⟹ imagen derecha</b> (A &gt; 0). Tampoco tiene excepciones.<br>
+3. "Sobre una pantalla" es sinónimo de <b>real</b>, y por lo tanto de <b>invertida</b>. Una imagen virtual no se puede proyectar: no hay luz ahí.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa nº 1 · Tomar A positivo cuando la imagen es invertida</div>
+Es <b>el error más caro de la unidad</b>, y aparece señalado en casi todas las resoluciones oficiales. El enunciado te dice "4 veces mayor" o "la mitad de tamaño": eso es <b>|A|</b>, el módulo. El signo lo tenés que poner vos.<br><br>
+Ejemplo real (1er parcial 2009): "imagen invertida, 4 veces mayor" ⟹ <b>A = −4</b>, no +4. Con A = +4 en un espejo obtenés x′ = −4x, o sea imagen virtual, y la ecuación te devuelve un foco negativo — un espejo convexo — contradiciendo el "cóncavo" del propio enunciado. El absurdo aparece al final, cuando ya perdiste 20 minutos.<br><br>
+Ejemplo real (1er parcial 2017): "es real y tiene la mitad de tamaño". Real + objeto real ⟹ invertida ⟹ <b>A = −0,5</b>. Con A = +0,5 sale x = −30 cm, un objeto virtual, que en este problema es físicamente imposible.<br><br>
+<b>Chequeo de 5 segundos:</b> si te da x o x′ negativo donde el enunciado dice que hay un objeto real o una pantalla, el signo de A está mal.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa nº 2 · Confundir R con f</div>
+En espejos, <b>R = 2f</b>. La ecuación de la cátedra lo trae escrito: <b>1/x + 1/x′ = 1/f = 2/R</b>. Ojo con las dos direcciones del error:<br>
+• Si pedís 1/f y te dan 1/16 cm⁻¹, entonces f = 16 cm y <b>R = 32 cm</b>. Contestar 16 cuando piden el radio es error.<br>
+• Si escribís 1/x + 1/x′ = <b>1/R</b> (olvidándote el 2), todo el problema sale con el doble o la mitad.<br><br>
+El 1er parcial 2009 pide <b>el radio</b> (R = 32 cm) y el 2017 también pide <b>el radio</b> (R = 20 cm, con f = 10 cm). El 2012 y el 2014, en cambio, piden <b>la distancia focal</b>. Subrayá la palabra en el enunciado antes de arrancar.<br><br>
+En <b>lentes delgadas</b> esta relación NO existe: ahí f es f y punto. No hay ningún R = 2f que aplicar.
+</div>
+
+<div class="trap"><div class="tr-t">Trampa nº 3 · Sumar x + x′ cuando dan "la distancia entre el objeto y la imagen"</div>
+Cuando el enunciado te da la separación entre objeto e imagen (o entre el objeto y la pantalla), la relación correcta en esta convención es siempre:<br><br>
+<div class="formula">separación = | x − x′ |</div>
+porque <b>x y x′ se miden sobre el mismo eje, con el mismo sentido positivo</b>, desde el mismo origen. La resta ya se encarga de los signos sola.<br><br>
+• <b>1er parcial 2009:</b> objeto real y imagen real, las dos del lado izquierdo (x = 20, x′ = 80). Separación = |20 − 80| = 60 cm ✓. Si escribís x + x′ = 60 te da x = 12 cm y todo el problema sale mal.<br>
+• <b>Final (espejo 3×):</b> x = 1 m, x′ = 3 m ⟹ separación = 2 m ✓.<br>
+• <b>Final (dentista):</b> x = 1,5 cm, x′ = −6 cm ⟹ separación = |1,5 − (−6)| = 7,5 cm — acá la resta <i>sí</i> termina sumando, porque la imagen está detrás del espejo. Por eso la fórmula con módulo funciona en los dos casos y "sumar" no.
+</div>
+
+<h3>La receta, en orden</h3>
+<div class="key"><div class="ky-t">Cinco pasos que resuelven cualquiera de estos problemas</div>
+<b>1.</b> Dibujá el eje, el elemento óptico y escribí el sistema de referencia (x hacia la izquierda, y hacia arriba). Esto se puntúa aparte.<br>
+<b>2.</b> Traducí cada frase del enunciado a un signo, con la tabla de arriba. Anotá x, x′, A, f o R con su signo, y marcá cuál es la incógnita.<br>
+<b>3.</b> Escribí las dos ecuaciones (la del elemento y la del aumento) y contá incógnitas: siempre te quedan 2 ecuaciones con 2 incógnitas.<br>
+<b>4.</b> Resolvé y <b>verificá la coherencia física</b>: ¿el signo de f corresponde al tipo de espejo/lente que dice el enunciado? ¿la imagen quedó del lado que corresponde?<br>
+<b>5.</b> Hacé la marcha de rayos <b>a escala</b> (unidad 4). Es medio problema.
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · ESPEJOS ESFÉRICOS ============ -->
+<details id="op-s2">
+<summary><span class="num">2</span> Espejos esféricos <span class="sec-score" id="ss-fisica1-utn-optica-2"></span></summary>
+<div class="content">
+
+<h3>Lo que hay que saber</h3>
+<div class="formula">
+1/x + 1/x′ = 1/f = 2/R &nbsp;&nbsp;·&nbsp;&nbsp; A = y′/y = − x′/x &nbsp;&nbsp;·&nbsp;&nbsp; R = 2f
+</div>
+
+<p>El <b>vértice V</b> es el punto donde el eje óptico corta al espejo (el origen). El <b>centro de curvatura C</b> está a R del vértice y el <b>foco F</b> a f = R/2. En un espejo <b>cóncavo</b> (el que "abraza" al objeto) F y C están <b>delante</b> del espejo, con f &gt; 0 y R &gt; 0. En un <b>convexo</b> están detrás: f &lt; 0 y R &lt; 0.</p>
+
+<div class="fig">
+<svg viewBox="0 0 600 200" style="max-width:100%;height:auto" role="img" aria-label="Zonas de un espejo cóncavo: más allá de C, entre C y F, y dentro del foco">
+  <line x1="20" y1="100" x2="575" y2="100" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.7"/>
+  <!-- espejo cóncavo -->
+  <path d="M 512,20 Q 556,100 512,180" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="540" y1="20" x2="540" y2="180" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <circle cx="540" cy="100" r="3.5" fill="currentColor"/>
+  <text x="534" y="196" fill="currentColor" font-size="13">V</text>
+  <circle cx="440" cy="100" r="3.5" fill="currentColor"/>
+  <text x="436" y="196" fill="currentColor" font-size="13">F</text>
+  <circle cx="340" cy="100" r="3.5" fill="currentColor"/>
+  <text x="336" y="196" fill="currentColor" font-size="13">C</text>
+  <line x1="440" y1="100" x2="540" y2="100" stroke="currentColor" stroke-width="2.5" opacity="0.9"/>
+  <text x="470" y="92" fill="currentColor" font-size="12">f</text>
+  <line x1="340" y1="120" x2="540" y2="120" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+  <polygon points="340,120 352,116 352,124" fill="currentColor" opacity="0.7"/>
+  <polygon points="540,120 528,116 528,124" fill="currentColor" opacity="0.7"/>
+  <text x="432" y="134" fill="currentColor" font-size="12">R = 2f</text>
+  <!-- zonas -->
+  <text x="150" y="60" fill="currentColor" font-size="14">① x &gt; R</text>
+  <text x="352" y="60" fill="currentColor" font-size="14">② F–C</text>
+  <text x="452" y="60" fill="currentColor" font-size="14">③ x &lt; f</text>
+  <line x1="30" y1="72" x2="336" y2="72" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  <line x1="344" y1="72" x2="436" y2="72" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+  <line x1="444" y1="72" x2="536" y2="72" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+</svg>
+<div class="fig-cap">Espejo cóncavo: las tres zonas donde puede caer el objeto. El resultado del problema tiene que ser coherente con la zona.</div>
+</div>
+
+<table class="tbl">
+  <tr><th>Espejo</th><th>Dónde está el objeto</th><th>Imagen</th><th>Ejercicio real</th></tr>
+  <tr><td rowspan="4"><b>Cóncavo</b><br>(f &gt; 0)</td><td>① más allá de C (x &gt; R)</td><td>real, invertida, <b>menor</b>, entre F y C</td><td>2017 A1 (x = 30, x′ = 15)</td></tr>
+  <tr><td>② entre F y C</td><td>real, invertida, <b>mayor</b>, más allá de C</td><td>2009 · 2012 · 2014</td></tr>
+  <tr><td>x = f</td><td>no se forma imagen (rayos paralelos)</td><td>—</td></tr>
+  <tr><td>③ dentro del foco (x &lt; f)</td><td><b>virtual</b>, derecha, mayor, detrás del espejo</td><td>Final: espejo del dentista</td></tr>
+  <tr><td><b>Convexo</b><br>(f &lt; 0)</td><td>en cualquier lado</td><td>siempre <b>virtual, derecha y menor</b>, entre V y F, detrás</td><td>—</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">El chequeo de coherencia que salva el problema</div>
+Una vez que tenés x y x′, mirá la tabla: si te dio "imagen real, invertida y 4 veces mayor" pero el objeto quedó <b>fuera de C</b>, algo está mal, porque esa zona da imágenes <b>menores</b>. En el parcial 2009 el objeto sale a 20 cm con F = 16 y C = 32: queda <b>entre F y C</b>, que es exactamente la zona de "real, invertida y mayor". Eso confirma que la cuenta está bien antes de entregar.
+</div>
+
+<div class="trap"><div class="tr-t">"Cae sobre una pantalla" no es un dato decorativo</div>
+Es el dato que fija <b>el signo de x′ y el signo de A al mismo tiempo</b>. Pantalla ⟹ imagen real ⟹ x′ &gt; 0 <b>y</b> A &lt; 0. En el parcial 2014, si por costumbre le ponés x′ = −40 cm, te da f = −13,3 cm y concluís "espejo convexo", que es exactamente la respuesta equivocada del inciso a).<br><br>
+Y ojo con dónde está la pantalla: en el 2012, los <b>8 m son la distancia imagen x′</b> (el enunciado dice "una pantalla ubicada a 8 m del espejo"), no la posición del objeto. Leer eso al revés arruina los dos incisos.
+</div>
+
+<div class="trap"><div class="tr-t">Unidades mezcladas a propósito</div>
+La cátedra mezcla mm con cm y cm con m dentro del mismo enunciado (2014: objeto de 2 mm y distancias en cm; 2012: objeto de 0,6 cm y pantalla a 8 m). <b>El aumento es adimensional</b>, así que y′ sale en la misma unidad que y sin convertir nada; pero para calcular f <b>todo tiene que estar en la misma unidad</b>. Elegí una y pasá todo antes de escribir la primera ecuación.
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo modelo: el planteo completo en 6 líneas</div>
+Datos: espejo cóncavo, imagen invertida 4 veces mayor de un objeto real, separación objeto–imagen 60 cm.<br>
+<b>1.</b> Sistema de referencia: origen en V, x positivo hacia la izquierda, y positivo hacia arriba.<br>
+<b>2.</b> Traducción: objeto real ⟹ x &gt; 0. Invertida y 4 veces mayor ⟹ A = <b>−4</b>.<br>
+<b>3.</b> Aumento: A = −x′/x = −4 ⟹ <b>x′ = 4x</b> (positivo: imagen real, del lado del objeto).<br>
+<b>4.</b> Separación: |x − x′| = 60 ⟹ 4x − x = 60 ⟹ <b>x = 20 cm</b>, <b>x′ = 80 cm</b>.<br>
+<b>5.</b> Espejo: 1/20 + 1/80 = 5/80 = 1/16 = 2/R ⟹ <b>f = 16 cm, R = 32 cm</b>.<br>
+<b>6.</b> Coherencia: f = 16 &gt; 0 ⟹ cóncavo ✓; el objeto (20) quedó entre F (16) y C (32) ⟹ zona de imagen real, invertida y mayor ✓.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-optica"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · LENTES DELGADAS ============ -->
+<details id="op-s3">
+<summary><span class="num">3</span> Lentes delgadas <span class="sec-score" id="ss-fisica1-utn-optica-3"></span></summary>
+<div class="content">
+
+<h3>Lo que hay que saber</h3>
+<div class="formula">
+1/x − 1/x′ = 1/f &nbsp;&nbsp;·&nbsp;&nbsp; A = y′/y = + x′/x
+</div>
+
+<p>Misma convención de siempre: origen en el <b>centro óptico</b> de la lente, x positivo hacia la izquierda. Lo que cambia respecto de los espejos es <b>dónde queda la imagen real</b>: en una lente la luz atraviesa y sigue de largo, así que la imagen real se forma <b>del otro lado</b> — y en esta convención eso significa <b>x′ &lt; 0</b>.</p>
+
+<div class="key"><div class="ky-t">La traducción que hay que tener grabada</div>
+En una LENTE, con objeto real (x &gt; 0):<br>
+• <b>imagen real</b> ⟹ x′ &lt; 0 ⟹ A = x′/x &lt; 0 ⟹ <b>invertida</b>.<br>
+• <b>imagen virtual</b> ⟹ x′ &gt; 0 ⟹ A = x′/x &gt; 0 ⟹ <b>derecha</b>.<br>
+Todo cierra solo: no hace falta memorizar la orientación aparte, sale del signo de x′.
+</div>
+
+<table class="tbl">
+  <tr><th>Lente</th><th>Dónde está el objeto</th><th>Imagen</th><th>Ejercicio real</th></tr>
+  <tr><td rowspan="4"><b>Convergente</b><br>(f &gt; 0)</td><td>x &gt; 2f</td><td>real (x′&lt;0), invertida, menor</td><td>—</td></tr>
+  <tr><td>x = 2f</td><td>real, invertida, <b>igual tamaño</b>, a 2f del otro lado</td><td>2016 A1, primer caso</td></tr>
+  <tr><td>f &lt; x &lt; 2f</td><td>real, invertida, mayor</td><td>—</td></tr>
+  <tr><td><b>x &lt; f</b> (dentro del foco)</td><td><b>virtual</b> (x′&gt;0), derecha, mayor → es <b>la lupa</b></td><td>2010 A1 · 2016 A1, segundo caso</td></tr>
+  <tr><td><b>Divergente</b><br>(f &lt; 0)</td><td>en cualquier lado</td><td>siempre <b>virtual, derecha y menor</b>, del mismo lado que el objeto</td><td>2011 A1</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">"Convergente" no quiere decir "imagen real"</div>
+Es el error que la propia resolución del parcial 2010 marca. Una lente convergente da imagen real <b>solo si el objeto está fuera del foco</b>. Con el objeto <b>dentro</b> del foco (x &lt; f) la imagen es <b>virtual, derecha y ampliada</b>: es el modo lupa, y es exactamente lo que pasa en el 2010 (objeto a 20 cm con f = 60 cm).<br><br>
+La palabra <b>"directa"</b> del enunciado significa <b>derecha</b>, o sea A &gt; 0. Si tomás A = −1,5 en ese problema te sale f = 12 cm — una lente convergente con imagen real e invertida — que contradice el "directa" del enunciado. El número sale, pero el problema está mal.
+</div>
+
+<div class="trap"><div class="tr-t">|f| = 30 cm no es f = 30 cm</div>
+En el parcial 2011 el enunciado dice textual: "una lente divergente cuya distancia focal, <b>en módulo</b>, vale 30 cm". Divergente ⟹ <b>f = −30 cm</b>. Meter +30 en la ecuación da un resultado sin sentido físico.<br><br>
+Y el aumento en una divergente con objeto real es <b>siempre positivo</b>: A = +0,5, no −0,5. Con A = −0,5 llegás a un objeto virtual, que en el problema no existe. Estas dos cosas (f negativa, A positivo) se deducen antes de calcular nada, mirando la última fila de la tabla.
+</div>
+
+<div class="trap"><div class="tr-t">Ojo con otras convenciones de Internet</div>
+La mayoría de los libros y videos usan <b>1/s′ − 1/s = 1/f</b> con s positivo hacia la derecha (convención de Gauss moderna). <b>Los signos salen distintos</b>: ahí la imagen real de una lente tiene s′ &gt; 0, acá tiene x′ &lt; 0. Las dos son correctas, pero <b>mezclarlas es el error más común</b> y el que más se ve en las correcciones. Elegí la de la cátedra, declarála por escrito arriba de todo, y no la sueltes en el resto del problema.
+</div>
+
+<div class="example"><div class="ex-t">Ejemplo modelo: la lupa (parcial 2010, en 4 líneas)</div>
+Datos: x = 20 cm, imagen "ampliada y directa", 1,5 veces el objeto.<br>
+<b>1.</b> Directa ⟹ A = <b>+1,5</b>.<br>
+<b>2.</b> A = x′/x ⟹ x′ = 1,5 · 20 cm = <b>+30 cm</b> ⟹ x′ &gt; 0 ⟹ <b>imagen virtual y derecha</b>, del mismo lado que el objeto.<br>
+<b>3.</b> 1/20 − 1/30 = (3 − 2)/60 = 1/60 ⟹ <b>f = +60 cm</b> ⟹ <b>lente convergente</b>.<br>
+<b>4.</b> Coherencia: x = 20 cm &lt; f = 60 cm ⟹ el objeto está dentro del foco ⟹ caso lupa: virtual, derecha, ampliada ✓.
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-optica"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · MARCHA DE RAYOS ============ -->
+<details id="op-s4">
+<summary><span class="num">4</span> La marcha de rayos a escala <span class="sec-score" id="ss-fisica1-utn-optica-4"></span></summary>
+<div class="content">
+
+<h3>Por qué esta unidad vale la mitad de la nota</h3>
+<p>Mirá los enunciados: <b>2009 b)</b> "Dibuje a escala la marcha de rayos". <b>2010 b)</b> "Realice a escala la marcha de rayos". <b>2011 b)</b> "Realice a escala la marcha de rayos". <b>2012 b)</b> "Realice a escala el trazado de rayos". <b>2017 b)</b> "Realice a escala el trazado de rayos". Cinco de los siete ejercicios de parcial tienen el mismo inciso b), y en las grillas de corrección el inciso b) puntúa aparte del a).</p>
+
+<div class="key"><div class="ky-t">Lo que se puntúa del dibujo</div>
+<b>1.</b> Que esté <b>a escala</b> — el enunciado lo dice literalmente. Si f = 10, x = 30 y x′ = 15, el objeto tiene que estar al doble de distancia que la imagen y al triple que el foco. Elegí una escala cómoda (1 cm de hoja = 5 cm reales) y <b>escribila</b>.<br>
+<b>2.</b> El <b>sistema de referencia dibujado</b>: eje óptico, sentido positivo de x, sentido positivo de y.<br>
+<b>3.</b> Los <b>puntos marcados con su distancia</b>: V, F y C en espejos; centro óptico, F y F′ en lentes.<br>
+<b>4.</b> <b>Al menos dos rayos notables</b> (tres queda mejor) trazados hasta que se corten, con flechitas de sentido.<br>
+<b>5.</b> Las <b>prolongaciones en línea de trazos</b> cuando la imagen es virtual — y solo ahí.<br>
+<b>6.</b> Que el dibujo <b>coincida con la cuenta del inciso a)</b>: si calculaste A = −4, la imagen va invertida y 4 veces más alta. Un dibujo que contradice el a) hace perder los dos incisos.
+</div>
+
+<h3>Los rayos notables</h3>
+<table class="tbl">
+  <tr><th>ESPEJO esférico</th><th>LENTE delgada</th></tr>
+  <tr><td>① Rayo <b>paralelo al eje</b> → se refleja pasando por <b>F</b> (o su prolongación por F, si es convexo).</td><td>① Rayo <b>paralelo al eje</b> → se refracta pasando por el <b>foco imagen F′</b> (o su prolongación, si es divergente).</td></tr>
+  <tr><td>② Rayo que <b>pasa por F</b> → se refleja <b>paralelo al eje</b>.</td><td>② Rayo que <b>pasa por el foco objeto F</b> → emerge <b>paralelo al eje</b>.</td></tr>
+  <tr><td>③ Rayo que va al <b>centro de curvatura C</b> → incide perpendicular al espejo y <b>vuelve sobre sí mismo</b>.</td><td>③ Rayo por el <b>centro óptico</b> → <b>sigue derecho</b>, sin desviarse. Es el más fácil y nunca falla.</td></tr>
+  <tr><td>④ Rayo al <b>vértice V</b> → se refleja <b>simétrico respecto del eje óptico</b> (ángulo de incidencia = ángulo de reflexión).</td><td>—</td></tr>
+</table>
+
+<div class="key"><div class="ky-t">Aproximación paraxial</div>
+En todos estos dibujos se supone que los rayos forman ángulos chicos con el eje, así que <b>la reflexión o la refracción se dibuja sobre el plano vertical del vértice</b> (la línea de trazos en las figuras), no sobre la superficie curva. Es lo que hacen las resoluciones oficiales y es lo correcto para las ecuaciones que estamos usando.
+</div>
+
+<h3>Caso 1 · Espejo cóncavo, objeto entre F y C</h3>
+<p>Números del <b>1er parcial 2017</b> visto al revés (objeto a 30 cm, f = 10 cm, C a 20 cm, imagen real a 15 cm y de la mitad de tamaño). Los tres rayos se cortan en la punta de la imagen: <b>real, invertida y reducida</b>.</p>
+
+<div class="fig">
+<svg viewBox="0 0 590 250" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en espejo cóncavo: objeto más allá de C, imagen real invertida y reducida">
+  <line x1="20" y1="150" x2="575" y2="150" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <path d="M 472,40 Q 516,150 472,260" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="500" y1="35" x2="500" y2="240" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <!-- puntos -->
+  <circle cx="500" cy="150" r="3.5" fill="currentColor"/><text x="494" y="170" fill="currentColor" font-size="13">V</text>
+  <circle cx="380" cy="150" r="3.5" fill="currentColor"/><text x="368" y="170" fill="currentColor" font-size="13">F</text>
+  <circle cx="260" cy="150" r="3.5" fill="currentColor"/><text x="248" y="170" fill="currentColor" font-size="13">C</text>
+  <text x="356" y="188" fill="currentColor" font-size="12">10 cm</text>
+  <text x="236" y="206" fill="currentColor" font-size="12">20 cm</text>
+  <text x="120" y="224" fill="currentColor" font-size="12">objeto a 30 cm</text>
+  <!-- objeto -->
+  <line x1="140" y1="150" x2="140" y2="95" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="140,86 134,102 146,102" fill="currentColor"/>
+  <text x="112" y="80" fill="currentColor" font-size="13">objeto</text>
+  <!-- rayo 1: paralelo -> F -->
+  <line x1="140" y1="90" x2="500" y2="90" stroke="currentColor" stroke-width="1.4" opacity="0.9"/>
+  <line x1="500" y1="90" x2="260" y2="210" stroke="currentColor" stroke-width="1.4" opacity="0.9"/>
+  <!-- rayo 2: por F -> paralelo -->
+  <line x1="140" y1="90" x2="500" y2="180" stroke="currentColor" stroke-width="1.4" opacity="0.75" stroke-dasharray="9 3"/>
+  <line x1="500" y1="180" x2="230" y2="180" stroke="currentColor" stroke-width="1.4" opacity="0.75" stroke-dasharray="9 3"/>
+  <!-- rayo 3: al vértice -->
+  <line x1="140" y1="90" x2="500" y2="150" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
+  <line x1="500" y1="150" x2="230" y2="195" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
+  <!-- imagen -->
+  <line x1="320" y1="150" x2="320" y2="180" stroke="currentColor" stroke-width="3"/>
+  <polygon points="320,188 314,172 326,172" fill="currentColor"/>
+  <text x="292" y="146" fill="currentColor" font-size="13">imagen</text>
+</svg>
+<div class="fig-cap">Espejo cóncavo. ① paralelo → pasa por F. ② por F → sale paralelo. ④ al vértice → refleja simétrico. Los tres se cortan a 15 cm: imagen real, invertida, mitad de tamaño.</div>
+</div>
+
+<h3>Caso 2 · Espejo convexo</h3>
+<p>Objeto a 10 cm de un convexo con |f| = 10 cm. Los rayos reflejados <b>divergen</b>: no se cortan nunca. Lo que se corta son sus <b>prolongaciones hacia atrás</b> (línea de trazos), a 5 cm <b>detrás</b> del espejo. Imagen <b>virtual, derecha y menor</b>: siempre, con cualquier objeto.</p>
+
+<div class="fig">
+<svg viewBox="0 0 600 250" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en espejo convexo: imagen virtual derecha y menor detrás del espejo">
+  <line x1="20" y1="150" x2="585" y2="150" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <path d="M 402,45 Q 358,150 402,255" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="380" y1="40" x2="380" y2="240" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <circle cx="380" cy="150" r="3.5" fill="currentColor"/><text x="374" y="172" fill="currentColor" font-size="13">V</text>
+  <circle cx="540" cy="150" r="3.5" fill="currentColor"/><text x="534" y="172" fill="currentColor" font-size="13">F</text>
+  <text x="470" y="192" fill="currentColor" font-size="12">|f| = 10 cm (detrás)</text>
+  <!-- objeto -->
+  <line x1="220" y1="150" x2="220" y2="88" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="220,80 214,96 226,96" fill="currentColor"/>
+  <text x="192" y="74" fill="currentColor" font-size="13">objeto</text>
+  <text x="182" y="200" fill="currentColor" font-size="12">10 cm</text>
+  <!-- rayo 1 paralelo -->
+  <line x1="220" y1="80" x2="380" y2="80" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="380" y1="80" x2="200" y2="1" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="380" y1="80" x2="540" y2="150" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2 al vértice -->
+  <line x1="220" y1="80" x2="380" y2="150" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+  <line x1="380" y1="150" x2="220" y2="220" stroke="currentColor" stroke-width="1.4" opacity="0.75"/>
+  <line x1="380" y1="150" x2="480" y2="106" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- imagen virtual -->
+  <line x1="460" y1="150" x2="460" y2="115" stroke="currentColor" stroke-width="3"/>
+  <polygon points="460,107 454,123 466,123" fill="currentColor"/>
+  <text x="418" y="102" fill="currentColor" font-size="13">imagen virtual</text>
+</svg>
+<div class="fig-cap">Espejo convexo. Los rayos reflejados divergen; las prolongaciones punteadas se cortan detrás del espejo, a 5 cm. Imagen virtual, derecha, la mitad de alta.</div>
+</div>
+
+<h3>Caso 3 · Lente convergente con el objeto dentro del foco (la lupa)</h3>
+<p>Es el <b>parcial 2010</b>: f = 60 cm, objeto a 20 cm. Los rayos emergentes divergen; sus prolongaciones se cortan <b>del mismo lado que el objeto</b>, a 30 cm. Imagen <b>virtual, derecha y 1,5 veces mayor</b>.</p>
+
+<div class="fig">
+<svg viewBox="0 0 600 255" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en lente convergente con el objeto dentro del foco: imagen virtual derecha y ampliada">
+  <line x1="20" y1="110" x2="585" y2="110" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <!-- lente convergente -->
+  <line x1="300" y1="30" x2="300" y2="195" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="300,24 293,40 307,40" fill="currentColor"/>
+  <polygon points="300,201 293,185 307,185" fill="currentColor"/>
+  <text x="308" y="212" fill="currentColor" font-size="12">lente convergente</text>
+  <circle cx="300" cy="110" r="3.5" fill="currentColor"/>
+  <circle cx="60" cy="110" r="3.5" fill="currentColor"/><text x="52" y="130" fill="currentColor" font-size="13">F</text>
+  <circle cx="540" cy="110" r="3.5" fill="currentColor"/><text x="532" y="130" fill="currentColor" font-size="13">F′</text>
+  <text x="44" y="148" fill="currentColor" font-size="12">60 cm</text>
+  <text x="512" y="148" fill="currentColor" font-size="12">60 cm</text>
+  <!-- objeto -->
+  <line x1="220" y1="110" x2="220" y2="76" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="220,68 214,84 226,84" fill="currentColor"/>
+  <text x="196" y="62" fill="currentColor" font-size="13">objeto</text>
+  <text x="222" y="130" fill="currentColor" font-size="12">20 cm</text>
+  <!-- rayo 1: paralelo -> F' -->
+  <line x1="220" y1="70" x2="300" y2="70" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="300" y1="70" x2="565" y2="114" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="300" y1="70" x2="170" y2="48" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2: por el centro óptico -->
+  <line x1="220" y1="70" x2="300" y2="110" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="300" y1="110" x2="520" y2="220" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="300" y1="110" x2="170" y2="45" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- imagen virtual -->
+  <line x1="180" y1="110" x2="180" y2="58" stroke="currentColor" stroke-width="3"/>
+  <polygon points="180,50 174,66 186,66" fill="currentColor"/>
+  <text x="92" y="42" fill="currentColor" font-size="13">imagen virtual (30 cm)</text>
+</svg>
+<div class="fig-cap">Lente convergente en modo lupa. Los rayos que salen divergen; las prolongaciones punteadas se cortan a 30 cm del mismo lado, dando una imagen virtual, derecha y 1,5 veces más alta.</div>
+</div>
+
+<h3>Caso 4 · Lente divergente</h3>
+<p>Objeto real, |f| = 20 cm, objeto a 40 cm. Igual que en el espejo convexo: la imagen es <b>siempre virtual, derecha y menor</b>, y queda <b>entre el foco y la lente, del mismo lado que el objeto</b>.</p>
+
+<div class="fig">
+<svg viewBox="0 0 640 235" style="max-width:100%;height:auto" role="img" aria-label="Trazado de rayos en lente divergente: imagen virtual derecha y reducida">
+  <line x1="20" y1="130" x2="625" y2="130" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <!-- lente divergente -->
+  <line x1="460" y1="40" x2="460" y2="212" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="460,42 453,58 467,58" fill="currentColor"/>
+  <polygon points="460,210 453,194 467,194" fill="currentColor"/>
+  <text x="468" y="226" fill="currentColor" font-size="12">lente divergente</text>
+  <circle cx="460" cy="130" r="3.5" fill="currentColor"/>
+  <circle cx="300" cy="130" r="3.5" fill="currentColor"/><text x="292" y="150" fill="currentColor" font-size="13">F</text>
+  <text x="272" y="168" fill="currentColor" font-size="12">|f| = 20 cm</text>
+  <!-- objeto -->
+  <line x1="140" y1="130" x2="140" y2="82" stroke="currentColor" stroke-width="2.5"/>
+  <polygon points="140,74 134,90 146,90" fill="currentColor"/>
+  <text x="112" y="68" fill="currentColor" font-size="13">objeto</text>
+  <text x="122" y="150" fill="currentColor" font-size="12">40 cm</text>
+  <!-- rayo 1 paralelo -->
+  <line x1="140" y1="75" x2="460" y2="75" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="460" y1="75" x2="615" y2="22" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="460" y1="75" x2="290" y2="133" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2 centro óptico -->
+  <line x1="140" y1="75" x2="460" y2="130" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="460" y1="130" x2="620" y2="158" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <!-- imagen virtual -->
+  <line x1="353" y1="130" x2="353" y2="115" stroke="currentColor" stroke-width="3"/>
+  <polygon points="353,107 347,123 359,123" fill="currentColor"/>
+  <text x="330" y="100" fill="currentColor" font-size="13">imagen virtual</text>
+</svg>
+<div class="fig-cap">Lente divergente. El rayo paralelo emerge como si viniera de F (prolongación punteada) y el rayo por el centro óptico sigue derecho; se cortan a 13,3 cm, del mismo lado que el objeto. Imagen virtual, derecha, un tercio de alta.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Errores de dibujo que descuentan</div>
+• <b>Trazar la imagen virtual con línea llena.</b> Los rayos reales nunca pasan por ahí: las prolongaciones van <b>en línea de trazos</b>, y la flecha de la imagen se marca como virtual.<br>
+• <b>Dibujar un esquema cualitativo cuando el enunciado dice "a escala".</b> Si las distancias no guardan proporción, el inciso b) no está resuelto aunque el dibujo sea lindo.<br>
+• <b>Dibujar la imagen del lado equivocado.</b> Con un espejo, la imagen real va <b>delante</b> (mismo lado que el objeto); con una lente, <b>detrás</b> (del otro lado). Es el punto donde más se cruzan las dos convenciones.<br>
+• <b>Olvidarse de marcar F y C con sus distancias.</b> Sin esos puntos rotulados el trazado no se puede verificar y no puntúa completo.<br>
+• <b>Dibujar rayos que no son notables.</b> Cualquier rayo funciona en la realidad, pero solo los notables se pueden trazar sin calcular ángulos; usá esos.
+</div>
+
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 5 · PRISMA Y LÁMINA + DISEÑO ============ -->
+<details id="op-s5">
+<summary><span class="num">5</span> Prisma, lámina de caras paralelas y los ejercicios de diseño <span class="sec-score" id="ss-fisica1-utn-optica-5"></span></summary>
+<div class="content">
+
+<h3>Este tema cae SOLO en el final</h3>
+<p>En los siete parciales relevados no hay ni un problema de refracción: son todos espejos y lentes. Pero en los finales aparece, y aparece <b>como problema 1</b>. Vale la pena tenerlo, porque es una cuenta de tres líneas.</p>
+
+<h3>Ley de Snell</h3>
+<div class="formula">
+n₁ · sen θ₁ = n₂ · sen θ₂
+</div>
+<p>Los ángulos <b>se miden respecto de la NORMAL</b> a la superficie, nunca respecto de la superficie. Con aire, n₁ = 1. Al pasar a un medio <b>más denso ópticamente</b> (n mayor) el rayo <b>se acerca a la normal</b>; al salir a uno menos denso, se aleja.</p>
+
+<div class="key"><div class="ky-t">Ángulo límite (por si lo piden)</div>
+Yendo del medio denso al aire hay reflexión total interna cuando el ángulo supera el <b>ángulo límite</b>: sen θ<sub>L</sub> = n<sub>aire</sub>/n<sub>vidrio</sub> = 1/n. Para n = 1,5: <b>θ<sub>L</sub> = 41,8°</b>. En la lámina del final el rayo interno viaja a 28,1°, muy por debajo del límite, así que sale sin problema.
+</div>
+
+<h3>Lámina de caras paralelas · corrimiento lateral</h3>
+<p>El enunciado del final la llama "prisma de caras paralelas", pero es una <b>lámina</b>: dos caras planas y paralelas, con aire de los dos lados. Lo importante es esto:</p>
+
+<div class="key"><div class="ky-t">El rayo sale PARALELO al que entró</div>
+Entra con α respecto de la normal, adentro viaja con β, y al salir por la cara de abajo la normal es la misma dirección, así que vuelve a salir con <b>α</b>. <b>No hay desviación angular neta</b>: lo único que cambia es la <b>posición</b>. Ese corrimiento perpendicular al rayo es el <b>corrimiento lateral d</b>.
+</div>
+
+<div class="formula">
+sen α = n · sen β &nbsp;&nbsp;·&nbsp;&nbsp; <b>d = e · sen(α − β) / cos β</b>
+</div>
+<p>donde <b>e</b> es el espesor de la lámina. Sale de dos pasos: el camino recorrido adentro es L = e/cos β, y el corrimiento perpendicular a ese camino es d = L · sen(α − β).</p>
+
+<div class="fig">
+<svg viewBox="0 0 560 285" style="max-width:100%;height:auto" role="img" aria-label="Lámina de caras paralelas: rayo incidente, refractado y emergente con el corrimiento lateral d">
+  <rect x="80" y="90" width="440" height="100" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.5"/>
+  <text x="410" y="146" fill="currentColor" font-size="14">n = 1,5</text>
+  <!-- normales -->
+  <line x1="220" y1="40" x2="220" y2="140" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <text x="226" y="46" fill="currentColor" font-size="12" opacity="0.85">normal</text>
+  <line x1="273" y1="145" x2="273" y2="248" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <!-- rayo incidente -->
+  <line x1="130" y1="0" x2="220" y2="90" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="192,62 172,68 186,80" fill="currentColor"/>
+  <text x="96" y="30" fill="currentColor" font-size="13">rayo incidente</text>
+  <text x="196" y="80" fill="currentColor" font-size="13">α</text>
+  <!-- rayo interno -->
+  <line x1="220" y1="90" x2="273" y2="190" stroke="currentColor" stroke-width="1.8"/>
+  <text x="240" y="118" fill="currentColor" font-size="13">β</text>
+  <!-- prolongación del incidente -->
+  <line x1="220" y1="90" x2="352" y2="222" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.7"/>
+  <text x="330" y="246" fill="currentColor" font-size="12" opacity="0.85">si no hubiera lámina</text>
+  <!-- rayo emergente -->
+  <line x1="273" y1="190" x2="343" y2="260" stroke="currentColor" stroke-width="1.8"/>
+  <polygon points="343,260 325,252 331,240" fill="currentColor"/>
+  <text x="246" y="214" fill="currentColor" font-size="13">α</text>
+  <!-- corrimiento d -->
+  <line x1="313" y1="230" x2="336" y2="207" stroke="currentColor" stroke-width="1.6"/>
+  <polygon points="313,230 322,222 320,231" fill="currentColor"/>
+  <polygon points="336,207 327,215 329,206" fill="currentColor"/>
+  <text x="336" y="196" fill="currentColor" font-size="14">d</text>
+  <!-- espesor -->
+  <line x1="46" y1="90" x2="46" y2="190" stroke="currentColor" stroke-width="1"/>
+  <polygon points="46,90 42,102 50,102" fill="currentColor"/>
+  <polygon points="46,190 42,178 50,178" fill="currentColor"/>
+  <text x="20" y="146" fill="currentColor" font-size="14">e</text>
+</svg>
+<div class="fig-cap">El rayo emergente es paralelo al incidente; lo que se pide es d, la distancia perpendicular entre los dos. Con α = 45° y n = 1,5 sale β = 28,1°.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Trampas de la lámina</div>
+• <b>Medir el ángulo desde la superficie y no desde la normal.</b> El enunciado del final ya te lo aclara ("formando este haz un ángulo α = 45° con respecto a la normal a la superficie"). Si usás 45° medidos desde la cara, todo cambia.<br>
+• <b>Buscar una desviación angular.</b> No la hay: el rayo sale paralelo. Lo que se corre es la <b>posición</b>.<br>
+• <b>Poner e en la fórmula donde va L</b> (o al revés). El espesor e es <b>perpendicular</b> a las caras; el camino dentro del vidrio es L = e/cos β y es más largo.<br>
+• <b>Olvidarse del cos β del denominador</b> y escribir d = e·sen(α − β). Con los números del final eso te da 30,5 mm en vez de 21, y el espesor sale un 12% chico.<br>
+• <b>"Prisma de caras paralelas" no es un prisma triangular.</b> Si te ponés a buscar la fórmula de la desviación mínima de un prisma, estás resolviendo otro problema.
+</div>
+
+<h3>Los ejercicios de diseño</h3>
+<p>Son los que en vez de darte la geometría te dan el <b>resultado deseado</b> ("quiero una imagen así") y te piden el elemento óptico que lo consigue. La estrategia es la misma: traducir a signos y despejar. Lo único distinto es que la <b>incógnita es f o R</b>, y que la <b>pregunta cualitativa</b> ("¿de qué tipo de espejo se trata?") se contesta con el <b>signo de f</b> al final.</p>
+
+<div class="key"><div class="ky-t">Los dos que aparecen en los finales</div>
+• <b>El espejo del dentista</b> (final 12/12/23, problema 6): imagen <b>derecha</b> y <b>4 veces mayor</b> a 1,5 cm. Derecha + aumentada + objeto real ⟹ espejo <b>cóncavo con el objeto dentro del foco</b> ⟹ imagen virtual. Es el mismo principio del espejo de maquillaje.<br>
+• <b>El espejo que proyecta a 2 m</b>: imagen <b>sobre una pantalla</b> (⟹ real ⟹ invertida), el <b>triple</b> de tamaño, con la pantalla a 2 m del objeto. Sale con |x − x′| = 2 m y A = −3.
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 450 245" style="max-width:100%;height:auto" role="img" aria-label="Espejo del dentista: espejo cóncavo con el objeto dentro del foco, imagen virtual derecha y cuatro veces mayor">
+  <line x1="30" y1="140" x2="435" y2="140" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4" opacity="0.6"/>
+  <path d="M 183,55 Q 214,140 183,225" stroke="currentColor" stroke-width="3" fill="none"/>
+  <line x1="200" y1="45" x2="200" y2="230" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/>
+  <circle cx="200" cy="140" r="3.5" fill="currentColor"/><text x="196" y="160" fill="currentColor" font-size="13">V</text>
+  <circle cx="140" cy="140" r="3.5" fill="currentColor"/><text x="132" y="160" fill="currentColor" font-size="13">F</text>
+  <text x="104" y="180" fill="currentColor" font-size="12">f = 2 cm</text>
+  <!-- objeto (diente) -->
+  <line x1="155" y1="140" x2="155" y2="122" stroke="currentColor" stroke-width="3"/>
+  <polygon points="155,116 150,128 160,128" fill="currentColor"/>
+  <text x="124" y="110" fill="currentColor" font-size="12">diente (1,5 cm)</text>
+  <!-- rayo 1 paralelo -->
+  <line x1="155" y1="120" x2="200" y2="120" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="200" y1="120" x2="62" y2="166" stroke="currentColor" stroke-width="1.4"/>
+  <line x1="200" y1="120" x2="380" y2="60" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- rayo 2 al vértice -->
+  <line x1="155" y1="120" x2="200" y2="140" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="200" y1="140" x2="62" y2="201" stroke="currentColor" stroke-width="1.4" opacity="0.8"/>
+  <line x1="200" y1="140" x2="380" y2="60" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.75"/>
+  <!-- imagen virtual -->
+  <line x1="380" y1="140" x2="380" y2="68" stroke="currentColor" stroke-width="3"/>
+  <polygon points="380,60 374,76 386,76" fill="currentColor"/>
+  <text x="300" y="52" fill="currentColor" font-size="13">imagen virtual 4×</text>
+  <text x="292" y="180" fill="currentColor" font-size="12">6 cm detrás del espejo</text>
+</svg>
+<div class="fig-cap">Espejo del dentista: cóncavo, f = 2 cm, el diente a 1,5 cm queda DENTRO del foco. La imagen es virtual, derecha y 4 veces mayor, 6 cm detrás. R = 2f = 4 cm.</div>
+</div>
+
+<div class="trap"><div class="tr-t">"¿De qué tipo de espejo se trata?" se contesta al final, no al principio</div>
+En el final del espejo que proyecta el triple no te dicen si es cóncavo o convexo: <b>te lo preguntan</b>. La tentación es adivinar antes de calcular. No hace falta: planteás con f como incógnita, y el <b>signo de f que sale</b> te da la respuesta (f &gt; 0 ⟹ cóncavo). En ese problema sale f = +0,75 m ⟹ cóncavo. Y de paso, un espejo <b>convexo nunca</b> podría hacerlo: con objeto real siempre da imágenes virtuales y menores, así que jamás proyecta nada sobre una pantalla ni agranda.
+</div>
+
+<div class="reveal-wrap" data-rv="5" data-subject="fisica1-utn-optica"></div>
+<div class="quiz-wrap" data-qz="5" data-subject="fisica1-utn-optica"></div>
+<a class="back" href="#subject-fisica1-utn-optica">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'fisica1-utn-optica';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS ÓPTICA ============
+// Física I · UTN FRBA · Óptica geométrica
+// Fuentes: 1os parciales de la cátedra Martinelli 2009, 2010, 2011, 2012, 2014, 2016 y 2017 (UTN FRBA);
+// 1er parcial 2023 tema A (Prof. Dibarbora, UTN.BA); y 3 problemas de finales de UTN.BA relevados
+// (lámina de caras paralelas, espejo del dentista del final 12/12/23 y espejo que proyecta el triple).
+// Convención de la cátedra en TODAS las resoluciones: origen en el espejo / centro óptico,
+// x positivo hacia la izquierda (lado del objeto), y positivo hacia arriba.
+
+/* ============ UNIDAD 1 · CONVENCIÓN DE SIGNOS (solo quiz) ============ */
+registerExercises('fisica1-utn-optica', '1', [
+  {st: 'Con la convención de la cátedra (luz que llega desde la izquierda, origen en el espejo o en el centro óptico, x positivo hacia la izquierda), ¿qué signo tiene siempre la posición de un objeto real?',
+   opts: ['x &lt; 0, porque el objeto está antes del origen.',
+          'x &gt; 0, porque el objeto está del lado hacia el que apunta el eje x positivo.',
+          'x = 0, porque el objeto se mide desde el foco.',
+          'Depende: x &gt; 0 en espejos y x &lt; 0 en lentes.'],
+   c: 1,
+   ex: 'Es la única constante de todos los problemas de la unidad: el eje x apunta hacia la izquierda, que es justo el lado donde está el objeto real, así que <b>x &gt; 0 siempre</b> (salvo que el enunciado hable explícitamente de un objeto virtual, cosa que no pasa en ninguno de los ejercicios relevados). Por eso, si terminás un problema con x negativo, no es que descubriste algo raro: te equivocaste en el signo del aumento. ▸ Por qué las otras: la primera confunde "antes" en el camino de la luz con el signo del eje; la tercera mide desde el foco cuando el origen está en el vértice o en el centro óptico; la cuarta inventa una diferencia que no existe: lo que cambia entre espejo y lente es el signo de x′ de la imagen real, no el del objeto.'},
+
+  {st: 'Un ESPEJO esférico forma una imagen que "cae sobre una pantalla plana". ¿Qué signos quedan fijados con esa sola frase?',
+   opts: ['x′ &lt; 0 y A &gt; 0 (imagen virtual y derecha).',
+          'x′ &gt; 0 y A &gt; 0 (imagen real y derecha).',
+          'x′ &lt; 0 y A &lt; 0 (imagen virtual e invertida).',
+          'x′ &gt; 0 y A &lt; 0 (imagen real e invertida).'],
+   c: 3,
+   ex: 'Una pantalla solo recoge luz que efectivamente llega hasta ahí: <b>pantalla = imagen real</b>. En un espejo la luz vuelve para el lado del objeto, así que la imagen real queda delante del espejo, con <b>x′ &gt; 0</b>. Y con objeto real, imagen real implica siempre <b>imagen invertida</b>, o sea <b>A &lt; 0</b>. Los dos signos salen de la misma palabra, por eso "cae sobre una pantalla" nunca es decorativo (parciales 2012 y 2014). ▸ Por qué las otras: las dos que ponen x′ &lt; 0 tratan la imagen como virtual, y una imagen virtual no se puede proyectar porque no hay luz ahí; la segunda acierta el x′ pero deja A positivo, que es la trampa nº 1 de la guía.'},
+
+  {st: '"Un espejo esférico cóncavo forma una imagen invertida, 4 veces mayor, de un objeto real" (1er parcial 2009). ¿Qué valor de aumento entra en las ecuaciones?',
+   opts: ['A = +4', 'A = −4', 'A = +0,25', 'A = −0,25'],
+   c: 1,
+   ex: '"4 veces mayor" te da el <b>módulo</b> (|A| = 4) y "invertida" te da el <b>signo</b>: <b>A = −4</b>. El enunciado nunca te escribe el signo, lo tenés que poner vos. Con A = −4 sale x′ = 4x, separación |x − x′| = 60 cm ⟹ x = 20 cm, x′ = 80 cm y R = 32 cm. ▸ Por qué las otras: con A = +4 obtenés x′ = −4x (imagen virtual), la ecuación te devuelve f negativa —un espejo convexo— y eso contradice el "cóncavo" del propio enunciado; con |A| = 0,25 estás invirtiendo la razón y calculando el objeto como 4 veces mayor que la imagen, al revés de lo que dice el texto.'},
+
+  {st: 'Resolviste un espejo y te quedó 1/x + 1/x′ = 1/16 cm⁻¹. El enunciado pide <b>el radio de curvatura</b>. ¿Qué contestás?',
+   opts: ['R = 8 cm', 'R = 16 cm', 'R = 32 cm', 'R = 64 cm'],
+   c: 2,
+   ex: 'La ecuación de la cátedra ya lo trae escrito: <b>1/x + 1/x′ = 1/f = 2/R</b>, o sea <b>R = 2f</b>. Si 1/f = 1/16 cm⁻¹ entonces f = 16 cm y <b>R = 32 cm</b>. Subrayá en el enunciado si te piden f o R antes de arrancar: el parcial 2009 y el 2017 piden <b>el radio</b>, mientras que el 2012 y el 2014 piden <b>la distancia focal</b>. ▸ Por qué las otras: 16 cm es la distancia focal, la respuesta a otra pregunta; 8 cm sale de dividir f por 2 en vez de multiplicar; 64 cm sale de duplicar dos veces. Ojo: en <b>lentes delgadas</b> esta relación no existe, ahí f es f y no hay ningún R que calcular.'},
+
+  {st: 'Un espejo forma una imagen real de un objeto real: x = 20 cm y x′ = 80 cm. ¿Cuánto vale la distancia entre el objeto y la imagen?',
+   opts: ['60 cm, porque la separación es |x − x′|.',
+          '100 cm, porque hay que sumar x + x′.',
+          '40 cm, porque hay que restar y dividir por 2.',
+          'No se puede saber sin conocer f.'],
+   c: 0,
+   ex: 'x y x′ se miden <b>sobre el mismo eje, desde el mismo origen y con el mismo sentido positivo</b>, así que la separación es siempre <b>|x − x′|</b> = |20 − 80| = 60 cm. La resta se encarga sola de los signos. Fijate que en el espejo del dentista (x = 1,5 cm, x′ = −6 cm) la misma fórmula da |1,5 − (−6)| = 7,5 cm: la resta termina sumando porque la imagen está detrás del espejo. Por eso el módulo de la resta funciona en los dos casos y "sumar" no. ▸ Por qué las otras: x + x′ = 100 cm es la trampa nº 3 y arruina el problema entero (en el 2009 te devuelve x = 12 cm en vez de 20); 40 cm no sale de ninguna cuenta con sentido; y f no hace falta, la separación es un dato puramente geométrico.'},
+
+  {st: 'En una LENTE delgada, con objeto real, ¿qué implica que la imagen sea REAL?',
+   opts: ['x′ &gt; 0, del mismo lado que el objeto, y la imagen es derecha.',
+          'x′ &gt; 0, del otro lado de la lente, y la imagen es invertida.',
+          'x′ &lt; 0, del otro lado de la lente, y la imagen es invertida.',
+          'x′ &lt; 0, del mismo lado que el objeto, y la imagen es derecha.'],
+   c: 2,
+   ex: 'En una lente la luz atraviesa y sigue de largo, así que la imagen real se forma <b>del otro lado</b>, y con x positivo hacia la izquierda eso significa <b>x′ &lt; 0</b>. Como A = +x′/x en lentes, un x′ negativo da A negativo, o sea <b>invertida</b>. Todo cierra solo: no hace falta memorizar la orientación aparte. ▸ Por qué las otras: las dos que ponen x′ &gt; 0 describen la imagen <b>virtual</b> de la lente (caso lupa: mismo lado, derecha); y la última mezcla el signo correcto con el lado equivocado. Acordate de que en <b>espejos</b> es al revés: ahí la imagen real tiene x′ &gt; 0.'}
+]);
+
+/* ============ UNIDAD 2 · ESPEJOS ESFÉRICOS ============ */
+registerReveals('fisica1-utn-optica', '2', [
+  {st: '<b>1)</b> Un espejo esférico cóncavo forma una imagen invertida, 4 veces mayor, de un objeto real. La distancia entre el objeto y la imagen es 60cm.<br>a) Calcule la posición del objeto, la posición de la imagen y el radio de curvatura del espejo.<br>b) Dibuje a escala la marcha de rayos.<br><span class="muted">1er parcial 2009, tema 1 — 22/10/09 — Dra. Patricia Martinelli, UTN FRBA.</span>',
+   ans: 'a) x = 20 cm · x′ = 80 cm · R = 32 cm (f = 16 cm). Imagen real, invertida y 4 veces mayor. b) El objeto queda entre F (16 cm) y C (32 cm).',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice V del espejo, x positivo hacia la izquierda (lado del objeto), y positivo hacia arriba. Esto va escrito en la hoja: se puntúa aparte.<br><br><b>Paso 2 · Traducción a signos.</b> Objeto real ⟹ x &gt; 0. "Invertida" ⟹ A &lt; 0; "4 veces mayor" ⟹ |A| = 4. Entonces <b>A = −4</b>.<br><br><b>Paso 3 · Aumento.</b> A = y′/y = −x′/x = −4 ⟹ <b>x′ = 4x</b>. Como x &gt; 0, queda x′ &gt; 0: imagen <b>real</b>, delante del espejo, del mismo lado que el objeto. Coherente con "invertida".<br><br><b>Paso 4 · Separación objeto–imagen.</b> |x − x′| = 60 cm ⟹ 4x − x = 60 cm ⟹ 3x = 60 cm ⟹ <b>x = 20 cm</b> y <b>x′ = 4·20 = 80 cm</b>.<br><br><b>Paso 5 · Ecuación del espejo.</b> 1/x + 1/x′ = 1/f = 2/R<br>1/20 + 1/80 = 4/80 + 1/80 = 5/80 = 1/16 cm⁻¹<br>⟹ f = 16 cm y, como piden el <b>radio</b>, <b>R = 2f = 32 cm</b>.<br><br><b>Paso 6 · Chequeo de coherencia.</b> f = +16 cm &gt; 0 ⟹ espejo cóncavo, tal como dice el enunciado. Y el objeto (20 cm) quedó <b>entre F = 16 cm y C = 32 cm</b>, que es exactamente la zona donde un cóncavo da imagen real, invertida y ampliada. Todo cierra.<br><br><b>Paso 7 · Inciso b).</b> Escala sugerida: 1 cm de hoja = 10 cm reales. Marcá V, F a 16 cm y C a 32 cm; el objeto a 20 cm; trazá el rayo paralelo al eje (se refleja por F), el que pasa por F (sale paralelo) y el que va al vértice (refleja simétrico). Los tres se cortan a 80 cm, del lado del objeto, con la flecha <b>hacia abajo</b> y 4 veces más larga.'},
+
+  {st: '<b>A1:</b> Un objeto, de altura 0.6cm, se encuentra delante de un espejo esférico cóncavo. Se desea que la imagen de dicho objeto se forme sobre una pantalla ubicada a 8m del espejo y que el tamaño de la misma sea 2.4cm.<br>a) Determine en qué posición debe estar el objeto y qué distancia focal debe tener el espejo. Indique si la imagen es real o virtual y si es directa o invertida.<br>b) Realice a escala el trazado de rayos.<br><span class="muted">1er parcial 2012 — 18/10/12 — Prof. H. Patricia Martinelli, UTN FRBA.</span>',
+   ans: 'a) x = 2 m · f = 1,6 m (R = 3,2 m) · A = −4 · imagen REAL e INVERTIDA, de 2,4 cm. b) F a 1,6 m, C a 3,2 m, objeto a 2 m, pantalla a 8 m.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice, x positivo hacia la izquierda, y positivo hacia arriba.<br><br><b>Paso 2 · Leer bien el dato de los 8 m.</b> "Una pantalla ubicada a 8m del espejo" es la <b>posición de la imagen</b>: <b>x′ = 8 m</b>, no la del objeto. Confundir esto arruina los dos incisos.<br><br><b>Paso 3 · Traducción a signos.</b> Se forma sobre una pantalla ⟹ imagen <b>real</b> ⟹ x′ &gt; 0 y, con objeto real, <b>invertida</b> ⟹ y′ = <b>−2,4 cm</b> (el enunciado da el tamaño, vos ponés el signo).<br><br><b>Paso 4 · Aumento.</b> A = y′/y = −2,4/0,6 = <b>−4</b>. Y A = −x′/x ⟹ −4 = −8 m / x ⟹ <b>x = 8/4 = 2 m</b>.<br><br><b>Paso 5 · Ecuación del espejo.</b> 1/x + 1/x′ = 1/f<br>1/2 m + 1/8 m = 4/8 + 1/8 = 5/8 m⁻¹<br>⟹ <b>f = 8/5 = 1,6 m</b> (y R = 2f = 3,2 m, por si lo piden).<br><br><b>Paso 6 · Unidades.</b> El objeto viene en cm y las distancias en m: el <b>aumento es adimensional</b>, así que y′ sale en cm sin convertir nada; pero para calcular f pasá todo a metros antes de escribir la ecuación.<br><br><b>Paso 7 · Coherencia.</b> f = 1,6 m &gt; 0 ⟹ cóncavo ✓. El objeto a 2 m quedó entre F = 1,6 m y C = 3,2 m ⟹ zona de imagen real, invertida y ampliada ✓. Y |A| = x′/x = 8/2 = 4 = 2,4/0,6 ✓.<br><br><b>Respuesta del a):</b> el objeto va a <b>2 m</b> del espejo, la focal debe ser <b>1,6 m</b>, y la imagen es <b>real e invertida</b>.'},
+
+  {st: '<b>A1:</b> Un objeto de altura 2mm se encuentra 10cm delante de un espejo esférico. La imagen de dicho objeto cae sobre una pantalla plana colocada 40cm delante del espejo.<br>a) Calcule la distancia focal del espejo, e indique si el mismo es cóncavo o convexo.<br>b) Determine el tamaño de la imagen, y si es directa o invertida.<br><span class="muted">1er parcial 2014 — curso I1021 — 21/8/2014 — Prof. Patricia Martinelli, UTN.BA.</span>',
+   ans: 'a) f = 8 cm &gt; 0 ⟹ espejo CÓNCAVO (R = 16 cm). b) A = −4 ⟹ y′ = −8 mm: imagen de 8 mm, real e INVERTIDA.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice, x positivo hacia la izquierda, y positivo hacia arriba.<br><br><b>Paso 2 · Traducción.</b> y = 2 mm; x = 10 cm; la imagen <b>cae sobre una pantalla colocada delante del espejo</b> ⟹ es <b>real</b> y está del lado del objeto ⟹ <b>x′ = +40 cm</b>.<br><br><b>Paso 3 · Inciso a), ecuación del espejo.</b><br>1/x + 1/x′ = 1/f<br>1/10 cm + 1/40 cm = 4/40 + 1/40 = 5/40 = 1/8 cm⁻¹<br>⟹ <b>f = 8 cm</b>. Como <b>f &gt; 0, el espejo es CÓNCAVO</b> (y R = 2f = 16 cm).<br><br><b>Paso 4 · Inciso b), aumento.</b><br>A = y′/y = −x′/x = −40/10 = <b>−4</b><br>y′ = A · y = −4 · 2 mm = <b>−8 mm</b>.<br>El módulo es el tamaño (<b>8 mm</b>) y el signo menos dice que la imagen es <b>invertida</b>. Contestar solo "8 mm" deja el inciso b) incompleto: el enunciado pregunta explícitamente si es directa o invertida.<br><br><b>Paso 5 · Trampas de este ejercicio.</b> Si por costumbre le ponés x′ = −40 cm te queda 1/10 − 1/40 = 3/40 ⟹ f = 13,3 cm, un número que no cierra con nada y que además te hace dudar del tipo de espejo. Y las <b>unidades vienen mezcladas a propósito</b>: el objeto en mm y las distancias en cm. Como el aumento es adimensional, y′ sale en mm directo; lo que sí tiene que estar en una sola unidad es la ecuación de f.<br><br><b>Paso 6 · Coherencia.</b> f = 8 cm, C = 16 cm, objeto a 10 cm: queda <b>entre F y C</b>, la zona de imagen real, invertida y ampliada ✓ (|A| = 4).'},
+
+  {st: '<b>A1:</b> La imagen de un objeto por un espejo esférico cóncavo es real, está ubicada a 15 cm del vértice del espejo y tiene la mitad de tamaño que el objeto.<br>a) Determine la posición del objeto y el radio del espejo.<br>b) Realice a escala el trazado de rayos.<br><span class="muted">1er parcial 2017 — curso R1022 — 26/6/2017 — Prof. Patricia Martinelli, UTN FRBA.</span>',
+   ans: 'a) x = 30 cm · f = 10 cm · <b>R = 20 cm</b>. b) Objeto a 30 cm (más allá de C = 20 cm), imagen real, invertida y de la mitad de tamaño, a 15 cm.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice V, x positivo hacia la izquierda, y positivo hacia arriba.<br><br><b>Paso 2 · Traducción a signos.</b> La imagen es <b>real</b> ⟹ en un espejo eso es <b>x′ &gt; 0</b> ⟹ <b>x′ = 15 cm</b>. "La mitad de tamaño" da |A| = 0,5, y como imagen real con objeto real es siempre invertida, <b>A = −0,5</b>.<br><br><b>Paso 3 · Aumento.</b> A = −x′/x ⟹ −0,5 = −15 cm / x ⟹ <b>x = 30 cm</b>.<br><br><b>Paso 4 · Ecuación del espejo.</b><br>1/x + 1/x′ = 1/f = 2/R<br>1/30 + 1/15 = 1/30 + 2/30 = 3/30 = 1/10 cm⁻¹<br>⟹ f = 10 cm ⟹ <b>R = 2f = 20 cm</b>. Piden <b>el radio</b>: contestar 10 cm es error.<br><br><b>Paso 5 · Trampa del signo.</b> Con A = +0,5 llegás a x = −30 cm, o sea un <b>objeto virtual</b>, que acá es físicamente imposible: el enunciado habla de "un objeto" delante de un espejo. Ese absurdo es la señal de que el signo del aumento está mal.<br><br><b>Paso 6 · Coherencia.</b> f = 10 cm, C = 20 cm y el objeto a 30 cm: queda <b>más allá de C</b>, que es la zona de imagen real, invertida y <b>menor</b> ✓ — justo lo que dice el enunciado.<br><br><b>Paso 7 · Inciso b).</b> Escala 1 cm de hoja = 5 cm reales. Marcá V, F (10 cm), C (20 cm), objeto (30 cm) e imagen (15 cm). Rayo paralelo → refleja por F; rayo por F → sale paralelo; rayo al vértice → refleja simétrico respecto del eje. Los tres se cortan a 15 cm, con la flecha hacia abajo y la mitad de alta.'},
+
+  {st: '<b>3.</b> Determinar el tipo y el radio de un espejo esférico de manera que colocado a una distancia de 45 cm de un objeto, se obtiene una imagen derecha y de un tamaño cinco veces menor que el del objeto. Realizar cuentas y marcha de rayos(esquema)<br><span class="muted">1er parcial 2023, tema A — Prof. Dibarbora, UTN.BA. El examen no trae fecha: el año viene del catálogo del archivo. Encabezado con g = 10 m/s². La transcripción respeta la redacción original.</span>',
+   ans: 'A = +0,2 · x′ = −9 cm (imagen VIRTUAL, detrás del espejo) · f = −11,25 cm · <b>R = −22,5 cm ⟹ espejo CONVEXO</b> de 22,5 cm de radio.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice, x positivo hacia la izquierda, y positivo hacia arriba (misma convención que usa toda la guía).<br><br><b>Paso 2 · Traducción a signos.</b> Objeto real a 45 cm ⟹ <b>x = 45 cm</b>. "Derecha" ⟹ A &gt; 0; "cinco veces menor" ⟹ |A| = 1/5. Entonces <b>A = +0,2</b>. Acá el signo <i>sí</i> te lo dan (la palabra "derecha"), aprovechalo.<br><br><b>Paso 3 · Posición de la imagen.</b><br>A = −x′/x ⟹ x′ = −A·x = −0,2 · 45 cm = <b>−9 cm</b><br>x′ &lt; 0 ⟹ la imagen está <b>detrás</b> del espejo: es <b>virtual</b>. Coherente con "derecha" (regla: imagen virtual con objeto real ⟹ derecha).<br><br><b>Paso 4 · Ecuación del espejo.</b><br>1/x + 1/x′ = 1/f<br>1/45 + 1/(−9) = 1/45 − 5/45 = −4/45 cm⁻¹<br>⟹ <b>f = −45/4 = −11,25 cm</b><br>⟹ <b>R = 2f = −22,5 cm</b>.<br><br><b>Paso 5 · Responder las dos preguntas.</b> El enunciado pide <b>tipo</b> y <b>radio</b>: f &lt; 0 y R &lt; 0 ⟹ es un espejo <b>CONVEXO</b>, con foco y centro de curvatura detrás, y su radio mide <b>22,5 cm</b> en módulo. No hace falta adivinar el tipo al principio: te lo da el signo de f al final.<br><br><b>Paso 6 · Coherencia.</b> Un convexo con objeto real da <b>siempre</b> imagen virtual, derecha y menor, para cualquier posición del objeto: es el único tipo compatible con "derecha y cinco veces menor" a la vez. |A| = |x′|/x = 9/45 = 0,2 ✓.<br><br><b>Paso 7 · Esquema pedido.</b> Espejo convexo, F a 11,25 cm y C a 22,5 cm <b>detrás</b>. Rayo paralelo al eje → se refleja divergiendo, con su prolongación pasando por F; rayo al vértice → refleja simétrico. Las <b>prolongaciones en línea de trazos</b> se cortan a 9 cm detrás del espejo: ahí va la imagen, derecha y de 1/5 del tamaño.'}
+]);
+
+registerExercises('fisica1-utn-optica', '2', [
+  {st: 'Un objeto está 10 cm delante de un espejo esférico y su imagen cae sobre una pantalla colocada 40 cm delante del espejo (1er parcial 2014). ¿Cuánto vale f y de qué espejo se trata?',
+   opts: ['f = 8 cm ⟹ cóncavo.',
+          'f = 13,3 cm ⟹ cóncavo.',
+          'f = −8 cm ⟹ convexo.',
+          'f = 50 cm ⟹ cóncavo.'],
+   c: 0,
+   ex: 'La pantalla está <b>delante</b> del espejo, del mismo lado que el objeto: la imagen es real, con <b>x′ = +40 cm</b>. Entonces 1/10 + 1/40 = 5/40 = 1/8 ⟹ <b>f = 8 cm</b>, positivo, o sea <b>cóncavo</b>. ▸ Por qué las otras: 13,3 cm sale de meter x′ = −40 cm por costumbre (1/10 − 1/40 = 3/40), el error que la propia resolución marca; f = −8 cm invierte el signo del resultado y te hace contestar "convexo", que es justo la respuesta equivocada del inciso a); 50 cm sale de sumar mal las fracciones (5/40 leído como 40/5·... ) y no corresponde a ninguna cuenta válida.'},
+
+  {st: 'Objeto de 0,6 cm, imagen de 2,4 cm sobre una pantalla ubicada a 8 m del espejo cóncavo (1er parcial 2012). ¿Qué aumento y qué posición del objeto salen?',
+   opts: ['A = +4 y x = 2 m.',
+          'A = −4 y x = 2 m.',
+          'A = −4 y x = 32 m.',
+          'A = −0,25 y x = 32 m.'],
+   c: 1,
+   ex: 'Pantalla ⟹ imagen real ⟹ invertida ⟹ y′ = −2,4 cm, así que <b>A = y′/y = −2,4/0,6 = −4</b>. Con A = −x′/x y x′ = 8 m: −4 = −8/x ⟹ <b>x = 2 m</b>. Y el objeto queda entre F = 1,6 m y C = 3,2 m, la zona correcta para una imagen real, invertida y ampliada. ▸ Por qué las otras: A = +4 ignora que la imagen proyectada es invertida; x = 32 m sale de <i>multiplicar</i> 8 por 4 en vez de dividir; y A = −0,25 invierte la razón entre imagen y objeto (sería el objeto el 4 veces mayor).'},
+
+  {st: 'La imagen que da un espejo cóncavo es real, está a 15 cm del vértice y tiene la mitad de tamaño que el objeto (1er parcial 2017). ¿Dónde está el objeto?',
+   opts: ['A 7,5 cm del vértice.',
+          'A 30 cm del vértice.',
+          'A −30 cm del vértice (objeto virtual).',
+          'A 15 cm, igual que la imagen.'],
+   c: 1,
+   ex: 'Imagen real en un espejo ⟹ x′ = +15 cm. "La mitad de tamaño" + real + objeto real ⟹ <b>A = −0,5</b>. De A = −x′/x: −0,5 = −15/x ⟹ <b>x = 30 cm</b>. Después 1/30 + 1/15 = 1/10 ⟹ f = 10 cm y R = 20 cm. ▸ Por qué las otras: 7,5 cm sale de multiplicar 15 por 0,5 en vez de dividir; −30 cm es exactamente lo que obtenés si tomás A = +0,5, y un objeto virtual acá es imposible (es la señal de que el signo está mal); 15 cm supondría A = −1, o sea el objeto en C y la imagen del mismo tamaño, que no es lo que dice el enunciado.'},
+
+  {st: 'Espejo CONVEXO y objeto real, en cualquier posición. ¿Cómo es siempre la imagen?',
+   opts: ['Real, invertida y menor.',
+          'Virtual, invertida y mayor.',
+          'Depende de si el objeto está dentro o fuera del foco.',
+          'Virtual, derecha y menor, entre el vértice y el foco, detrás del espejo.'],
+   c: 3,
+   ex: 'Un convexo tiene f &lt; 0 y con objeto real da <b>siempre</b> imagen virtual, derecha y reducida, apretada entre V y F por detrás. Por eso el problema del parcial 2023 ("derecha y cinco veces menor") tiene que dar convexo, y por eso un convexo <b>nunca</b> puede proyectar nada sobre una pantalla. ▸ Por qué las otras: "real e invertida" es lo que hace un cóncavo con el objeto fuera del foco; "invertida y mayor" no la produce ningún espejo convexo; y no depende de la posición del objeto: esa dependencia es propia del cóncavo, que sí cambia de comportamiento según las zonas ①②③.'},
+
+  {st: 'Un espejo colocado a 45 cm de un objeto da una imagen derecha y cinco veces menor (1er parcial 2023, Prof. Dibarbora). ¿Qué radio tiene?',
+   opts: ['R = +22,5 cm, espejo cóncavo.',
+          'R = −22,5 cm, espejo convexo.',
+          'R = −11,25 cm, espejo convexo.',
+          'R = −9 cm, espejo convexo.'],
+   c: 1,
+   ex: 'Derecha ⟹ A = +0,2. x′ = −A·x = −9 cm (virtual, detrás). 1/45 − 1/9 = −4/45 ⟹ f = −11,25 cm ⟹ <b>R = 2f = −22,5 cm</b>: <b>convexo</b> de 22,5 cm de radio. ▸ Por qué las otras: el signo + le cambia el tipo al espejo y contradice que la imagen sea derecha y menor; −11,25 cm es <b>la distancia focal</b>, no el radio (la trampa nº 2, y acá el enunciado pide el radio); −9 cm es la posición de la imagen x′, otro número del problema.'},
+
+  {st: 'Espejo cóncavo con f = 16 cm y el objeto a 20 cm del vértice. Sin hacer ninguna cuenta, ¿cómo va a ser la imagen?',
+   opts: ['Virtual, derecha y mayor.',
+          'Real, invertida y menor.',
+          'Real, invertida y mayor.',
+          'No se forma imagen.'],
+   c: 2,
+   ex: 'Con f = 16 cm, el centro de curvatura está en C = 2f = 32 cm. El objeto a 20 cm cae <b>entre F y C</b>: esa es la zona ② y da imagen <b>real, invertida y ampliada</b>, más allá de C. Este chequeo de 10 segundos es el que valida el resultado del parcial 2009 (x = 20, x′ = 80, A = −4) antes de entregar. ▸ Por qué las otras: "virtual, derecha y mayor" es la zona ③, con el objeto <b>dentro</b> del foco (x &lt; 16 cm), que es el caso del espejo del dentista; "real, invertida y menor" pasa con el objeto <b>más allá de C</b> (el parcial 2017, x = 30 cm); y "no se forma imagen" ocurre solo justo en x = f, donde los rayos reflejados salen paralelos.'}
+]);
+
+/* ============ UNIDAD 3 · LENTES DELGADAS ============ */
+registerReveals('fisica1-utn-optica', '3', [
+  {st: '<b>A1:</b> Una lente produce una imagen ampliada y directa de un objeto colocado 20cm delante de ella. Si el tamaño de la imagen es 1.5 veces el tamaño del objeto:<br>a) Determine la posición de la imagen y la distancia focal de la lente. Indique si la imagen es real o virtual, y si la lente es convergente o divergente.<br>b) Realice a escala la marcha de rayos.<br><span class="muted">1er parcial 2010 — 26/10/10 — cátedra Martinelli, UTN FRBA.</span>',
+   ans: 'a) x′ = +30 cm · f = +60 cm · imagen VIRTUAL y derecha, del mismo lado que el objeto · lente CONVERGENTE. b) Objeto dentro del foco: caso lupa.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el centro óptico de la lente, x positivo hacia la izquierda (lado del objeto), y positivo hacia arriba.<br><br><b>Paso 2 · Traducción.</b> x = 20 cm. "Ampliada" ⟹ |A| = 1,5; <b>"directa" significa derecha</b> ⟹ A &gt; 0. Entonces <b>A = +1,5</b>.<br><br><b>Paso 3 · Posición de la imagen.</b> En lentes el aumento va con signo <b>más</b>: A = y′/y = <b>+x′/x</b>.<br>x′ = A·x = 1,5 · 20 cm = <b>+30 cm</b><br>x′ &gt; 0 ⟹ la imagen está <b>del mismo lado que el objeto</b> ⟹ es <b>VIRTUAL</b> y derecha.<br><br><b>Paso 4 · Ecuación de las lentes.</b> Ojo que acá <b>resta</b>: 1/x − 1/x′ = 1/f<br>1/20 − 1/30 = (3 − 2)/60 = 1/60 cm⁻¹<br>⟹ <b>f = +60 cm</b> ⟹ f &gt; 0 ⟹ lente <b>CONVERGENTE</b>.<br><br><b>Paso 5 · Coherencia (y la trampa del ejercicio).</b> "Convergente" no quiere decir "imagen real": acá x = 20 cm &lt; f = 60 cm, o sea el objeto está <b>dentro del foco</b>, que es exactamente la condición del <b>modo lupa</b> ⟹ imagen virtual, derecha y ampliada ✓. Si en cambio tomás A = −1,5 te sale x′ = −30 cm y f = 12 cm: una convergente con imagen real e invertida, que contradice el "directa" del enunciado. El número sale, pero el problema está mal.<br><br><b>Paso 6 · Inciso b).</b> Escala 1 cm de hoja = 10 cm reales. Lente convergente (flecha vertical de doble punta), F y F′ a 60 cm de cada lado, objeto a 20 cm. Rayo paralelo al eje → se refracta pasando por F′; rayo por el centro óptico → sigue derecho. Los dos <b>divergen</b> después de la lente: sus <b>prolongaciones en línea de trazos</b> se cortan a 30 cm del lado del objeto, dando la imagen virtual, derecha y 1,5 veces más alta.'},
+
+  {st: '<b>A1:</b> Un objeto se encuentra delante de una lente divergente cuya distancia focal, en módulo, vale 30cm. El tamaño de la imagen que se forma tiene la mitad de tamaño que el objeto.<br>a) Determine las posiciones del objeto y de la imagen, e indique si la imagen es real o virtual y si es directa o invertida. Indique claramente el sistema de coordenadas utilizado.<br>b) Realice a escala la marcha de rayos.<br><span class="muted">1er parcial 2011 — 20/10/11 — Prof. H. Patricia Martinelli, UTN FRBA.</span>',
+   ans: 'a) x = 30 cm · x′ = +15 cm · imagen VIRTUAL (mismo lado que el objeto), DIRECTA y de la mitad de tamaño. b) Imagen entre la lente y el foco.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en la lente, x positivo hacia la izquierda (lado del objeto), y positivo hacia arriba. El enunciado pide explícitamente indicarlo: escribilo.<br><br><b>Paso 2 · El dato del módulo.</b> Dice "distancia focal, <b>en módulo</b>, vale 30cm" y dice <b>divergente</b>: entonces <b>f = −30 cm</b>. Meter +30 en la ecuación da un resultado sin sentido físico.<br><br><b>Paso 3 · El signo del aumento sale antes de calcular.</b> Una lente divergente con objeto real da <b>siempre</b> imagen virtual, derecha y menor. Virtual en una lente ⟹ x′ &gt; 0, y como A = +x′/x con x &gt; 0, el aumento es <b>positivo</b>: <b>A = +0,5</b>. Con A = −0,5 llegás a un objeto virtual, que en este problema no existe.<br><br><b>Paso 4 · Relacionar x y x′.</b> A = x′/x = 0,5 ⟹ <b>x′ = 0,5x</b>.<br><br><b>Paso 5 · Ecuación de las lentes.</b> 1/x − 1/x′ = 1/f<br>1/x − 1/(0,5x) = −1/30 cm⁻¹<br>1/x − 2/x = −1/30 ⟹ −1/x = −1/30<br>⟹ <b>x = 30 cm</b> y, de (3), <b>x′ = 0,5 · 30 = 15 cm</b>.<br><br><b>Paso 6 · Respuestas cualitativas.</b> x′ = +15 cm &gt; 0 ⟹ la imagen se forma <b>del mismo lado que el objeto</b> ⟹ <b>VIRTUAL</b>; A = +0,5 &gt; 0 ⟹ <b>DIRECTA</b> (derecha), y de la mitad de altura. Todo consistente con la última fila de la tabla de la unidad.<br><br><b>Paso 7 · Inciso b).</b> Escala 1 cm de hoja = 10 cm reales. Lente divergente (flecha vertical con las puntas hacia adentro), foco a 30 cm, objeto a 30 cm. Rayo paralelo al eje → emerge divergiendo, con la <b>prolongación</b> pasando por el foco; rayo por el centro óptico → sigue derecho. Las prolongaciones en línea de trazos se cortan a 15 cm, del lado del objeto: imagen derecha, virtual, de altura y/2.'},
+
+  {st: '<b>Problema A1:</b> Un objeto colocado frente a una lente convergente de abscisa focal f, produce una imagen real a 60 cm de la misma. En cambio, cuando la distancia entre el objeto y la lente es un tercio de la anterior, se obtiene una imagen virtual a 60 cm de la lente.<br>a) Calcule f.<br>b) Determine la distancia entre el objeto y la lente en cada caso.<br><span class="muted">1er parcial 2016 — curso R1022 — 1/8/2016 — Prof. Patricia Martinelli, UTN.BA. <b>Enunciado reconstruido a partir de la resolución oficial</b>: del 2016 tenemos la resolución, no la hoja de enunciados.</span>',
+   ans: 'a) f = 30 cm. b) Primer caso x₁ = 60 cm (= 2f, imagen real a 60 cm del otro lado); segundo caso x₂ = 20 cm (dentro del foco, imagen virtual a 60 cm del mismo lado).',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el centro óptico, x positivo hacia la izquierda, y positivo hacia arriba. Lente convergente ⟹ f &gt; 0.<br><br><b>Paso 2 · La clave: los dos "60 cm" NO son la misma incógnita.</b> En una lente, imagen <b>real</b> ⟹ x′ &lt; 0 (del otro lado) e imagen <b>virtual</b> ⟹ x′ &gt; 0 (mismo lado). Entonces:<br>• Primer caso: <b>x′₁ = −60 cm</b><br>• Segundo caso: <b>x′₂ = +60 cm</b><br>Mismo número, signos opuestos. Ese es el corazón del problema.<br><br><b>Paso 3 · El otro dato.</b> "La distancia entre el objeto y la lente es un tercio de la anterior" se refiere a la distancia <b>objeto–lente</b>: <b>x₂ = x₁/3</b>.<br><br><b>Paso 4 · Las dos ecuaciones.</b> Con 1/x − 1/x′ = 1/f:<br>(1) 1/x₁ − 1/(−60) = 1/f ⟹ <b>1/x₁ + 1/60 = 1/f</b><br>(2) 1/(x₁/3) − 1/60 = 1/f ⟹ <b>3/x₁ − 1/60 = 1/f</b><br><br><b>Paso 5 · Igualar y despejar.</b><br>1/x₁ + 1/60 = 3/x₁ − 1/60<br>2/60 = 2/x₁<br>⟹ <b>x₁ = 60 cm</b> y <b>x₂ = x₁/3 = 20 cm</b>.<br>Reemplazando en (1): 1/f = 1/60 + 1/60 = 2/60 ⟹ <b>f = 30 cm</b>.<br><br><b>Paso 6 · Coherencia.</b> x₁ = 60 cm = <b>2f</b>: un objeto en 2f da imagen real, invertida y del <b>mismo tamaño</b> a 2f del otro lado, y efectivamente |x′₁| = 60 cm ✓. x₂ = 20 cm &lt; f = 30 cm: el objeto quedó <b>dentro del foco</b>, que es la condición para imagen virtual ✓, con A = x′₂/x₂ = 60/20 = +3 (derecha y tres veces mayor). Los dos casos cierran.'}
+]);
+
+registerExercises('fisica1-utn-optica', '3', [
+  {st: 'Una lente produce una imagen "ampliada y directa", 1,5 veces el tamaño del objeto (1er parcial 2010). ¿Qué aumento entra en las ecuaciones?',
+   opts: ['A = −1,5', 'A = +1,5', 'A = −0,67', 'A = +0,67'],
+   c: 1,
+   ex: '"Directa" es sinónimo de <b>derecha</b>, o sea no invertida: <b>A = +1,5</b>. Con eso sale x′ = +30 cm (imagen virtual, del mismo lado) y f = +60 cm, lente convergente en modo lupa. ▸ Por qué las otras: A = −1,5 es el error que la propia resolución señala: te da x′ = −30 cm y f = 12 cm, o sea una imagen real e invertida que contradice la palabra "directa" del enunciado; y los 0,67 invierten la razón (sería la imagen la más chica), cuando el enunciado dice claramente "ampliada".'},
+
+  {st: 'Mismo problema: x = 20 cm y A = +1,5. ¿Dónde queda la imagen y qué lente es?',
+   opts: ['x′ = +30 cm, f = +60 cm, convergente, imagen virtual.',
+          'x′ = −30 cm, f = +12 cm, convergente, imagen real.',
+          'x′ = +30 cm, f = −60 cm, divergente, imagen virtual.',
+          'x′ = −30 cm, f = −12 cm, divergente, imagen real.'],
+   c: 0,
+   ex: 'En lentes A = <b>+</b>x′/x ⟹ x′ = 1,5 · 20 = <b>+30 cm</b>, positivo, o sea del <b>mismo lado que el objeto</b>: imagen <b>virtual</b>. Después 1/20 − 1/30 = 1/60 ⟹ <b>f = +60 cm</b> ⟹ <b>convergente</b>. Y el objeto (20 cm) está dentro del foco (60 cm): caso lupa. ▸ Por qué las otras: la segunda es exactamente lo que obtenés con A = −1,5; la tercera mezcla el x′ correcto con una f de signo imposible (con esos datos la ecuación da +60); y la cuarta acumula los dos errores. Recordá que una <b>divergente nunca</b> da imagen real con objeto real.'},
+
+  {st: '"Un objeto se encuentra delante de una lente divergente cuya distancia focal, en módulo, vale 30cm. La imagen tiene la mitad de tamaño" (1er parcial 2011). ¿Qué f y qué A entran?',
+   opts: ['f = +30 cm y A = +0,5', 'f = +30 cm y A = −0,5', 'f = −30 cm y A = −0,5', 'f = −30 cm y A = +0,5'],
+   c: 3,
+   ex: 'Divergente ⟹ <b>f = −30 cm</b>: el enunciado te da el <b>módulo</b>, el signo lo ponés vos. Y una divergente con objeto real da siempre imagen <b>virtual y derecha</b>, así que <b>A = +0,5</b>. Las dos cosas se deducen antes de calcular nada, mirando la última fila de la tabla. Después sale x = 30 cm y x′ = 15 cm. ▸ Por qué las otras: cualquier opción con f = +30 cm está describiendo una lente convergente, que no es la del enunciado; y A = −0,5 te lleva a un objeto virtual, un absurdo en este problema.'},
+
+  {st: '¿En qué caso una lente CONVERGENTE da una imagen virtual, derecha y ampliada?',
+   opts: ['Nunca: una convergente siempre da imagen real.',
+          'Cuando el objeto está entre f y 2f.',
+          'Cuando el objeto está dentro del foco (x &lt; f).',
+          'Cuando el objeto está más allá de 2f.'],
+   c: 2,
+   ex: 'Es el <b>modo lupa</b>: con el objeto <b>dentro del foco</b>, los rayos emergentes divergen y lo que se corta son sus prolongaciones, del mismo lado que el objeto. Pasa en el parcial 2010 (x = 20 cm, f = 60 cm) y en el segundo caso del 2016 (x = 20 cm, f = 30 cm, A = +3). ▸ Por qué las otras: "nunca" es la creencia que la resolución del 2010 marca como error; entre f y 2f la imagen es real, invertida y mayor; y más allá de 2f es real, invertida y menor. Fuera del foco, la imagen de una convergente es siempre real.'},
+
+  {st: 'En el parcial 2016 los dos casos dan "60 cm": imagen real a 60 cm en uno y virtual a 60 cm en el otro. ¿Qué valores de x′ hay que escribir?',
+   opts: ['x′₁ = +60 cm y x′₂ = +60 cm',
+          'x′₁ = −60 cm y x′₂ = +60 cm',
+          'x′₁ = +60 cm y x′₂ = −60 cm',
+          'x′₁ = −60 cm y x′₂ = −60 cm'],
+   c: 1,
+   ex: 'En una LENTE, imagen <b>real</b> ⟹ x′ &lt; 0 (del otro lado, donde va la luz) e imagen <b>virtual</b> ⟹ x′ &gt; 0 (mismo lado que el objeto). Por eso <b>x′₁ = −60 cm</b> y <b>x′₂ = +60 cm</b>: el mismo número con signos opuestos. Con eso, más x₂ = x₁/3, salen x₁ = 60 cm, x₂ = 20 cm y f = 30 cm. ▸ Por qué las otras: si ponés los dos con el mismo signo estás diciendo que las dos imágenes son del mismo tipo, y el enunciado dice que una es real y la otra virtual — el sistema te queda incompatible o te devuelve una f absurda. La tercera opción, además, usa el criterio de los <b>espejos</b>, donde la imagen real sí tiene x′ &gt; 0.'}
+]);
+
+/* ============ UNIDAD 4 · MARCHA DE RAYOS (solo quiz) ============ */
+registerExercises('fisica1-utn-optica', '4', [
+  {st: '¿Cuál de estos NO es un rayo notable en un espejo esférico?',
+   opts: ['El rayo paralelo al eje óptico, que se refleja pasando por F.',
+          'El rayo que pasa por F, que se refleja paralelo al eje.',
+          'El rayo dirigido al centro de curvatura C, que vuelve sobre sí mismo.',
+          'Un rayo cualquiera que sale del objeto formando 45° con el eje.'],
+   c: 3,
+   ex: 'Los rayos notables son los cuatro que se pueden trazar <b>sin calcular ningún ángulo</b>: paralelo → F, por F → paralelo, hacia C → vuelve sobre sí mismo, y al vértice → refleja simétrico respecto del eje. Un rayo a 45° cualquiera también existe en la realidad, pero para saber por dónde sale tendrías que aplicar la ley de reflexión punto a punto: no sirve para construir. ▸ Por qué las otras: las tres primeras son exactamente los rayos ①, ② y ③ de la tabla de la unidad, y las resoluciones oficiales usan esos (más el del vértice, que es el ④).'},
+
+  {st: 'En una LENTE delgada, el rayo que pasa por el centro óptico...',
+   opts: ['se refracta pasando por el foco imagen F′.',
+          'sigue derecho, sin desviarse.',
+          'vuelve sobre sí mismo.',
+          'emerge paralelo al eje óptico.'],
+   c: 1,
+   ex: 'Es el rayo más fácil de todos y nunca falla: por el centro óptico <b>sigue derecho</b>. En una lente delgada las dos caras son ahí paralelas entre sí, así que el rayo se comporta como en una lámina de espesor despreciable: sale sin desviarse. Usalo siempre como uno de los dos rayos del dibujo. ▸ Por qué las otras: "pasa por F′" es lo que hace el rayo <b>paralelo al eje</b> (rayo ①); "emerge paralelo" es lo que hace el rayo que <b>entra por el foco objeto F</b> (rayo ②); y "vuelve sobre sí mismo" es el rayo que va al centro de curvatura C, que existe en <b>espejos</b>, no en lentes.'},
+
+  {st: 'El inciso b) dice "realice a escala el trazado de rayos" y entregás un esquema prolijo pero sin proporciones entre las distancias. ¿Qué pasa?',
+   opts: ['Basta con aclarar al costado "esquema, no está a escala".',
+          'Puntúa igual: lo que se corrige es el inciso a).',
+          'No resuelve el inciso b): el enunciado pide literalmente "a escala" y el inciso puntúa aparte.',
+          'Puntúa la mitad de forma automática.'],
+   c: 2,
+   ex: 'Cinco de los siete ejercicios de parcial relevados (2009, 2010, 2011, 2012 y 2017) tienen el mismo inciso b) pidiendo el dibujo <b>a escala</b>, y en las grillas de corrección el b) puntúa aparte del a). Elegí una escala cómoda (por ejemplo 1 cm de hoja = 5 cm reales), <b>escribila</b> y respetala: si f = 10, x = 30 y x′ = 15, el objeto tiene que quedar al doble de distancia que la imagen y al triple que el foco. ▸ Por qué las otras: aclarar que no está a escala no cambia lo que pide la consigna; el a) y el b) se corrigen por separado, así que uno no cubre al otro; y no existe ninguna regla de "medio punto automático".'},
+
+  {st: 'La imagen del problema resultó VIRTUAL. ¿Cómo se dibuja?',
+   opts: ['Se trazan las prolongaciones de los rayos hacia atrás en línea de trazos, y la imagen se marca donde se cortan esas prolongaciones.',
+          'Los rayos reflejados se cortan detrás del espejo y se dibujan en línea llena hasta ahí.',
+          'No se dibuja nada, porque una imagen virtual no existe.',
+          'Se dibuja igual que una imagen real, solo que más chica.'],
+   c: 0,
+   ex: 'Cuando la imagen es virtual los rayos reales <b>divergen y nunca se cortan</b>: lo que se corta son sus prolongaciones. Esas prolongaciones van en <b>línea de trazos</b> —y solo ahí— y la flecha de la imagen se marca como virtual. Es lo que pasa en el espejo convexo, en la lupa del 2010 y en la divergente del 2011. ▸ Por qué las otras: dibujar en línea llena detrás del espejo dice que la luz pasa por ahí, y no pasa (por eso no se puede proyectar sobre una pantalla); "no existe" es falso, la imagen se ve perfectamente, lo que no se puede es recogerla; y dibujarla como real borra justamente la información que se está evaluando.'},
+
+  {st: 'Calculaste A = −4 en el inciso a), pero en el dibujo del b) pusiste la imagen derecha y del mismo tamaño que el objeto. ¿Qué consecuencia tiene?',
+   opts: ['Ninguna: el inciso a) ya está resuelto y puntúa aparte.',
+          'El dibujo manda, así que hay que rehacer el a).',
+          'Se compensa si aclarás la escala usada.',
+          'El dibujo contradice la cuenta —con A = −4 la imagen va invertida y 4 veces más alta— y esa incoherencia hace perder los dos incisos.'],
+   c: 3,
+   ex: 'El punto 6 de lo que se puntúa del dibujo es justamente que <b>coincida con la cuenta</b>: signo del aumento (invertida o derecha), tamaño relativo y lado en el que queda la imagen. Un dibujo que contradice el a) le dice al corrector que no entendiste tu propio resultado. Usalo al revés: el dibujo es tu control de calidad del a). ▸ Por qué las otras: el b) puntúa aparte pero no de forma independiente del contenido; el dibujo no "manda" sobre la cuenta, los dos tienen que decir lo mismo; y la escala es otro requisito distinto, no compensa una imagen dibujada al revés.'}
+]);
+
+/* ============ UNIDAD 5 · PRISMA, LÁMINA Y EJERCICIOS DE DISEÑO ============ */
+registerReveals('fisica1-utn-optica', '5', [
+  {st: '<b>1-</b> Se tiene un prisma de caras paralelas, rodeado de aire. El mismo tiene un índice de refracción n = 1,5. Se hace incidir un haz de luz monocromático en la cara superior del prisma, formando este haz, un ángulo α = 45°, con respecto a la normal a la superficie del prisma. Se quiere que el corrimiento lateral del rayo valga una distancia d = 21 mm. Determine el espesor que debe tener dicho prisma de caras paralelas.<br><span class="muted">Final de Física I, UTN.BA — problema 1. La hoja relevada no muestra encabezado ni fecha. <b>Dato reconstruido:</b> el índice n = 1,5 está parcialmente tapado por una firma en lapicera roja; se lee con seguridad el "5" final y el patrón indica 1,5.</span>',
+   ans: 'β = 28,1° · α − β = 16,9° · <b>e ≈ 63,8 mm</b> (≈ 6,4 cm). El rayo emergente sale paralelo al incidente.',
+   sol: '<b>Paso 1 · Qué es esto.</b> El enunciado lo llama "prisma de caras paralelas", pero es una <b>lámina</b>: dos caras planas y paralelas con aire de los dos lados. No busques la fórmula de la desviación mínima de un prisma triangular: no va acá.<br><br><b>Paso 2 · Snell en la cara superior.</b> Los ángulos se miden <b>desde la normal</b> (el enunciado te lo aclara). Con n₁ = 1 (aire):<br>1 · sen α = n · sen β<br>sen β = sen 45° / 1,5 = 0,7071 / 1,5 = <b>0,4714</b><br>⟹ <b>β = 28,1°</b>, y cos β = 0,882.<br><br><b>Paso 3 · Chequeo del ángulo límite (opcional pero rápido).</b> Al salir por la cara de abajo va del vidrio al aire: sen θ<sub>L</sub> = 1/n = 0,667 ⟹ θ<sub>L</sub> = 41,8°. Como β = 28,1° &lt; 41,8°, <b>no hay reflexión total</b> y el rayo sale. Bien.<br><br><b>Paso 4 · El rayo sale paralelo.</b> En la cara inferior la normal tiene la misma dirección, así que Snell al revés devuelve el ángulo de salida igual a α = 45°. <b>No hay desviación angular neta</b>: lo único que cambia es la posición. Ese corrimiento perpendicular al rayo es d.<br><br><b>Paso 5 · Geometría.</b> El camino recorrido <b>dentro</b> del vidrio no es el espesor: es la hipotenusa<br>L = e / cos β<br>y el corrimiento perpendicular a la dirección del rayo es<br>d = L · sen(α − β) = <b>e · sen(α − β) / cos β</b><br><br><b>Paso 6 · Despejar el espesor.</b><br>e = d · cos β / sen(α − β)<br>α − β = 45° − 28,1° = 16,9° ⟹ sen 16,9° = 0,290<br>e = 21 mm · 0,882 / 0,290<br><b>e ≈ 63,8 mm ≈ 6,4 cm</b><br><br><b>Paso 7 · Errores que descuentan.</b> Si te olvidás del <b>cos β del denominador</b> y escribís d = e·sen(α − β), te queda e = 21/0,290 = 72,3 mm: casi 9 mm de más. Y si medís los 45° desde la <b>cara</b> en vez de desde la normal, cambia todo el problema desde la primera línea.'},
+
+  {st: '<b>6.</b> Un dentista necesita un pequeño espejo que produzca una imagen derecha y aumentada 4 veces cuando coloque el espejo a 1,5 cm de un diente. Calcule el radio de curvatura del espejo.<br><span class="muted">Final UTN.BA del 12/12/23 — problema 6 (enunciado digital, texto completo y legible).</span>',
+   ans: 'A = +4 · x′ = −6 cm (imagen VIRTUAL, 6 cm detrás del espejo) · f = +2 cm ⟹ <b>R = 2f = 4 cm</b>, espejo CÓNCAVO.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice del espejo, x positivo hacia la izquierda (lado del diente), y positivo hacia arriba.<br><br><b>Paso 2 · Traducción a signos.</b> El diente es un objeto real a 1,5 cm ⟹ <b>x = 1,5 cm</b>. "Derecha" ⟹ A &gt; 0; "aumentada 4 veces" ⟹ |A| = 4. Entonces <b>A = +4</b>.<br><br><b>Paso 3 · Posición de la imagen.</b> En espejos A = −x′/x:<br>x′ = −A · x = −4 · 1,5 cm = <b>−6 cm</b><br>x′ &lt; 0 ⟹ la imagen está <b>detrás</b> del espejo: es <b>virtual</b>. Coherente: derecha y virtual van siempre juntas con objeto real.<br><br><b>Paso 4 · Ecuación del espejo.</b><br>1/x + 1/x′ = 1/f<br>1/1,5 + 1/(−6) = 4/6 − 1/6 = 3/6 = 1/2 cm⁻¹<br>⟹ <b>f = 2 cm</b><br><br><b>Paso 5 · Lo que piden.</b> El enunciado pide <b>el radio de curvatura</b>:<br><b>R = 2f = 4 cm</b><br>Contestar 2 cm es la trampa nº 2. Y como f &gt; 0, el espejo es <b>cóncavo</b>.<br><br><b>Paso 6 · Coherencia física.</b> f = 2 cm y el diente está a 1,5 cm: el objeto quedó <b>dentro del foco</b> (zona ③ del cóncavo), que es exactamente la única configuración que da imagen <b>virtual, derecha y ampliada</b> ✓. Es el mismo principio del espejo de maquillaje. Un espejo convexo no serviría: da siempre imágenes derechas pero <b>menores</b>.<br><br><b>Paso 7 · Chequeo extra.</b> Separación diente–imagen: |x − x′| = |1,5 − (−6)| = 7,5 cm. Acá la resta termina sumando, porque la imagen está del otro lado del espejo: por eso la fórmula con módulo funciona siempre y "sumar" no.'},
+
+  {st: '<b>6</b> Por medio de un espejo esférico se quiere proyectar la imagen de un objeto sobre una pantalla, de modo que la misma tenga el triple de tamaño del objeto. La pantalla está colocada a 2 m del objeto. Indique de qué tipo de espejo se trata y calcule su distancia focal.<br><span class="muted">Final de Física I, UTN.BA — problema 6. La hoja relevada (compuesta en LaTeX, 6 problemas) no muestra encabezado ni fecha; el mismo enunciado aparece en dos fotos distintas del material.</span>',
+   ans: 'A = −3 · x = 1 m · x′ = 3 m · <b>f = 0,75 m &gt; 0 ⟹ espejo CÓNCAVO</b> (R = 1,5 m). Imagen real e invertida.',
+   sol: '<b>Paso 1 · Sistema de referencia.</b> Origen en el vértice, x positivo hacia la izquierda, y positivo hacia arriba.<br><br><b>Paso 2 · Traducción a signos.</b> "Proyectar sobre una pantalla" ⟹ imagen <b>real</b> ⟹ x′ &gt; 0 y, con objeto real, <b>invertida</b>. "El triple de tamaño" ⟹ |A| = 3. Entonces <b>A = −3</b>.<br><br><b>Paso 3 · Relación entre x y x′.</b> A = −x′/x = −3 ⟹ <b>x′ = 3x</b>.<br><br><b>Paso 4 · La distancia de 2 m.</b> Es la separación entre <b>el objeto y la pantalla</b>, o sea entre objeto e imagen:<br>|x − x′| = 2 m ⟹ |x − 3x| = 2x = 2 m<br>⟹ <b>x = 1 m</b> y <b>x′ = 3 m</b>.<br>Si acá sumás en vez de restar (x + x′ = 4x = 2 m) te sale x = 0,5 m y todo el problema queda mal.<br><br><b>Paso 5 · Ecuación del espejo.</b><br>1/x + 1/x′ = 1/f<br>1/1 + 1/3 = 3/3 + 1/3 = 4/3 m⁻¹<br>⟹ <b>f = 3/4 = 0,75 m</b> (y R = 2f = 1,5 m, por si lo piden).<br><br><b>Paso 6 · Responder "de qué tipo se trata".</b> No hace falta adivinarlo al principio: planteás con f como incógnita y el <b>signo que sale</b> te lo dice. Como <b>f = +0,75 m &gt; 0</b>, el espejo es <b>CÓNCAVO</b>.<br><br><b>Paso 7 · Coherencia.</b> f = 0,75 m ⟹ C = 1,5 m. El objeto a 1 m quedó <b>entre F y C</b>: la zona de imagen real, invertida y ampliada ✓, con la imagen a 3 m, más allá de C ✓. Y de paso: un espejo <b>convexo</b> jamás podría hacer esto, porque con objeto real da siempre imágenes virtuales y menores — ni proyecta sobre una pantalla ni agranda.'}
+]);
+
+registerExercises('fisica1-utn-optica', '5', [
+  {st: 'Un rayo entra en una lámina de caras paralelas con α = 45° respecto de la normal. ¿Cómo sale por la otra cara?',
+   opts: ['Desviado un ángulo α − β respecto de la dirección incidente.',
+          'Paralelo al rayo incidente, pero corrido lateralmente una distancia d.',
+          'Perpendicular a la cara de salida.',
+          'No sale: se refleja totalmente adentro.'],
+   c: 1,
+   ex: 'Las dos caras son <b>paralelas</b>, así que la normal de salida tiene la misma dirección que la de entrada: Snell aplicado dos veces devuelve el rayo con el mismo ángulo α con el que entró. <b>No hay desviación angular neta</b>; lo único que cambia es la <b>posición</b>, y ese corrimiento perpendicular es la d que te piden. ▸ Por qué las otras: α − β es el ángulo que usa la fórmula del corrimiento, no la desviación de salida; "perpendicular a la cara" sería el caso de incidencia normal (α = 0), otro problema; y no hay reflexión total porque adentro el rayo viaja a β = 28,1°, muy por debajo del ángulo límite de 41,8°.'},
+
+  {st: 'Ley de Snell con aire (n₁ = 1), α = 45° y una lámina de n = 1,5. ¿Cuánto vale el ángulo β dentro del vidrio?',
+   opts: ['30°', '28,1°', '41,8°', '45°, igual que el de entrada.'],
+   c: 1,
+   ex: 'sen β = sen 45° / 1,5 = 0,7071/1,5 = 0,4714 ⟹ <b>β = 28,1°</b>. Al pasar a un medio ópticamente más denso el rayo <b>se acerca a la normal</b>, por eso β &lt; α. ▸ Por qué las otras: 30° saldría si sen β fuera 0,5, o sea con n = 1,414, no 1,5; <b>41,8° es el ángulo límite</b> de este vidrio (sen θ<sub>L</sub> = 1/1,5), un número del mismo problema pero que responde otra pregunta; y 45° adentro solo pasaría si no hubiera cambio de medio.'},
+
+  {st: 'En una lámina de espesor e, ¿cuánto mide el camino L que recorre el rayo DENTRO del vidrio?',
+   opts: ['L = e', 'L = e · cos β', 'L = e / cos β', 'L = e · sen β'],
+   c: 2,
+   ex: 'El espesor <b>e se mide perpendicular a las caras</b>; el rayo entra oblicuo, así que recorre la hipotenusa de un triángulo cuyo cateto adyacente al ángulo β es e: <b>L = e / cos β</b>, siempre <b>mayor</b> que el espesor. De ahí sale d = L·sen(α − β) = e·sen(α − β)/cos β. ▸ Por qué las otras: L = e solo valdría con incidencia normal; e·cos β es <b>menor</b> que e, imposible para un camino oblicuo; y e·sen β es la componente horizontal del recorrido, otro segmento del dibujo.'},
+
+  {st: 'Un dentista quiere una imagen derecha y 4 veces mayor con el espejo a 1,5 cm del diente (final del 12/12/23). Antes de calcular nada, ¿qué espejo puede ser?',
+   opts: ['Convexo, porque los convexos dan imágenes derechas.',
+          'Cóncavo, con el diente dentro del foco: imagen virtual, derecha y ampliada.',
+          'Plano, porque solo un plano da imágenes derechas del mismo lado.',
+          'Divergente de f = −2 cm.'],
+   c: 1,
+   ex: 'Derecha + ampliada + objeto real solo lo consigue un <b>cóncavo con el objeto dentro del foco</b> (zona ③), que da imagen virtual. Y las cuentas lo confirman: x′ = −6 cm, f = +2 cm, R = 4 cm, con el diente a 1,5 cm &lt; f = 2 cm ✓. ▸ Por qué las otras: el convexo da derechas, sí, pero <b>siempre menores</b>, nunca 4 veces mayores; el plano da imágenes derechas pero <b>del mismo tamaño</b> (A = +1); y "divergente de f = −2 cm" es la descripción de un convexo, con el signo de f al revés del que sale de la cuenta.'},
+
+  {st: 'Espejo que debe proyectar sobre una pantalla una imagen del triple de tamaño, con la pantalla a 2 m del objeto. ¿Cuáles son las dos ecuaciones correctas?',
+   opts: ['A = +3 y x + x′ = 2 m',
+          'A = −3 y x + x′ = 2 m',
+          'A = −3 y |x − x′| = 2 m',
+          'A = +3 y |x − x′| = 2 m'],
+   c: 2,
+   ex: 'Pantalla ⟹ imagen real ⟹ <b>invertida</b> ⟹ A = <b>−3</b>; y la separación objeto–imagen en esta convención es siempre <b>|x − x′|</b>. Con x′ = 3x queda 2x = 2 m ⟹ x = 1 m, x′ = 3 m y f = +0,75 m: espejo cóncavo. ▸ Por qué las otras: A = +3 supone imagen derecha, imposible en una imagen proyectada; y x + x′ = 2 m es la trampa nº 3 — te daría 4x = 2 m ⟹ x = 0,5 m, x′ = 1,5 m y una f distinta, con todo el problema mal aunque las cuentas siguientes estén prolijas.'},
+
+  {st: '¿Podría un espejo CONVEXO proyectar sobre una pantalla una imagen ampliada de un objeto real?',
+   opts: ['Sí, si el objeto está muy cerca del vértice.',
+          'Sí, si el radio es lo bastante grande.',
+          'Solo si la pantalla se pone detrás del espejo.',
+          'No: con objeto real un convexo da siempre imagen virtual, derecha y menor, así que ni proyecta ni agranda.'],
+   c: 3,
+   ex: 'Es el razonamiento que te ahorra la mitad del problema del final: como <b>f &lt; 0</b> y x &gt; 0, la ecuación del espejo obliga a x′ &lt; 0 para cualquier posición del objeto, o sea imagen <b>siempre virtual</b> (detrás), derecha y reducida. Ninguna pantalla puede recoger eso. Por eso, si el enunciado habla de proyectar y ampliar, el espejo tiene que ser cóncavo, y lo confirmás con el signo de f al final. ▸ Por qué las otras: acercar el objeto o agrandar el radio cambia <b>cuánto</b> mide la imagen, pero nunca su carácter virtual; y poner la pantalla detrás del espejo no sirve, porque ahí no llega luz: la imagen virtual se ve, no se recoge.'}
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>

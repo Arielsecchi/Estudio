@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Física I · Oscilaciones · Guías</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+  /* ===== VARIABLES BASE ===== */
+  :root {
+    --bg: #f7f3ec;
+    --text: #2a2420;
+    --text-muted: #7a6f62;
+    --surface: #fdfbf6;
+    --surface-2: #f0e6d0;
+    --surface-3: #e8ddc3;
+    --border: #e0d9cc;
+    --border-2: #d9cfc0;
+    --accent: #5a1818;
+    --accent-hover: #7a2020;
+    --gold: #b8913a;
+    --ex-bg: #fdf8eb;
+    --ex-border: #e8d9b3;
+    --ex-title: #7a3828;
+    --ok-bg: #e8f0dc;
+    --ok-text: #2d5020;
+    --ok-border: #4a7a3a;
+    --ko-bg: #f5dfd9;
+    --ko-text: #6a1810;
+    --ko-border: #9a3028;
+    --summary-bg: #f0e6d0;
+    --summary-hover: #e8ddc3;
+    --num-text: #fdfbf6;
+    --shadow: rgba(90, 24, 24, 0.06);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1815;
+    --text: #e8e0d0;
+    --text-muted: #9a9080;
+    --surface: #252220;
+    --surface-2: #332d25;
+    --surface-3: #3d362c;
+    --border: #3a342c;
+    --border-2: #453e33;
+    --accent: #e89478;
+    --accent-hover: #f0a890;
+    --gold: #d4a854;
+    --ex-bg: #2d2620;
+    --ex-border: #4d4020;
+    --ex-title: #e0b088;
+    --ok-bg: #1f2e18;
+    --ok-text: #a8d088;
+    --ok-border: #6a9848;
+    --ko-bg: #2d1515;
+    --ko-text: #fca5a5;
+    --ko-border: #b05848;
+    --summary-bg: #332d25;
+    --summary-hover: #3d362c;
+    --num-text: #1a1815;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
+  [data-subject="fisica1-utn-oscilaciones"] {
+    --bg: #f3f8f9; --text: #142e34; --text-muted: #567881;
+    --surface: #ffffff; --surface-2: #e5f0f3; --surface-3: #d1e4e9;
+    --border: #d9e7ea; --border-2: #bdd5db;
+    --accent: #0891b2; --accent-hover: #066d86; --gold: #b45309;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #e5f0f3; --summary-hover: #d1e4e9; --num-text: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.07);
+  }
+  [data-theme="dark"][data-subject="fisica1-utn-oscilaciones"] {
+    --bg: #0a1518; --text: #d5e4e7; --text-muted: #92aab0;
+    --surface: #142327; --surface-2: #1d3237; --surface-3: #2b464d;
+    --border: #2b464d; --border-2: #3d6068;
+    --accent: #79d6ec; --accent-hover: #ace8f6; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1d3237; --summary-hover: #2b464d; --num-text: #0a1518;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 16px;
+    min-height: 100vh;
+    transition: background 0.2s, color 0.2s;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  /* ===== BOTONES FLOTANTES ===== */
+  .menu-btn, .theme-btn {
+    position: fixed;
+    top: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px var(--shadow);
+    z-index: 100;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn { left: 16px; }
+  .theme-btn { right: 16px; }
+  .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
+  .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
+
+  /* ===== DRAWER (MENÚ LATERAL) ===== */
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 200;
+  }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--surface);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 201;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-head h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .drawer-head .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .drawer-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
+  /* ===== AUTH OVERLAY ===== */
+  .auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    animation: authFadeIn 0.4s ease;
+  }
+  body.locked .auth-overlay { display: flex; }
+  body.locked > *:not(.auth-overlay):not(script) { display: none !important; }
+  body.locked { overflow: hidden; }
+
+  @keyframes authFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes authSlideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .auth-bg-deco {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .auth-bg-deco span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+  }
+  .auth-bg-deco span:nth-child(1) {
+    width: 320px; height: 320px;
+    top: -80px; left: -80px;
+    background: var(--accent);
+  }
+  .auth-bg-deco span:nth-child(2) {
+    width: 260px; height: 260px;
+    bottom: -60px; right: -60px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .auth-bg-deco span:nth-child(3) {
+    width: 180px; height: 180px;
+    top: 40%; right: 8%;
+    background: var(--accent);
+    opacity: 0.25;
+  }
+
+  .auth-box {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 30px 28px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.05),
+      0 12px 40px rgba(0,0,0,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    animation: authSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .auth-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 4px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  .auth-titles { text-align: center; margin-bottom: 6px; }
+  .auth-titles h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+    letter-spacing: -0.015em;
+  }
+  .auth-titles .auth-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .auth-field label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .auth-box input {
+    padding: 12px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 14.5px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .auth-box button {
+    padding: 13px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: var(--num-text);
+    font: inherit;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+  .auth-box button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .auth-box button:active { transform: translateY(0); }
+  .auth-box button svg { transition: transform 0.2s; }
+  .auth-box button:hover svg { transform: translateX(3px); }
+  .auth-error {
+    color: var(--ko-text);
+    font-size: 13px;
+    min-height: 18px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .auth-error:not(:empty) {
+    background: var(--ko-bg);
+    border: 1px solid var(--ko-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 2px;
+    animation: authShake 0.4s ease;
+  }
+  @keyframes authShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: underline;
+  }
+  .logout-link:hover { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 28px 22px 22px; border-radius: 16px; }
+    .auth-titles h2 { font-size: 20px; }
+  }
+
+  .drawer-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .drawer-group {
+    list-style: none;
+  }
+  .drawer-cat-toggle {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 8px;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-group:first-child .drawer-cat-toggle {
+    border-top: none;
+    margin-top: 0;
+  }
+  .drawer-cat-toggle:hover { color: var(--accent); }
+  .drawer-cat-toggle .cat-arrow {
+    display: inline-block;
+    font-size: 10px;
+    transition: transform 0.2s;
+    width: 10px;
+    text-align: center;
+  }
+  .drawer-group.collapsed .cat-arrow { transform: rotate(-90deg); }
+  .drawer-cat-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-group.collapsed .drawer-cat-items {
+    max-height: 0;
+  }
+  .drawer-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .drawer-item:hover { background: var(--surface-2); }
+  .drawer-item.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-item .ic {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .drawer-item .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-item .info .t {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .drawer-item .info .d {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  .drawer-item-wrap {
+    list-style: none;
+  }
+  .drawer-item-wrap .drawer-item {
+    /* deja espacio para la flechita a la derecha */
+    padding-right: 8px;
+  }
+  .subitem-arrow {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subitem-arrow:hover {
+    background: var(--surface-3);
+    color: var(--accent);
+  }
+  .drawer-item-wrap.collapsed .subitem-arrow { transform: rotate(-90deg); }
+  .drawer-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .drawer-item-wrap.collapsed .drawer-children { max-height: 0; }
+  .drawer-subitem {
+    padding: 10px 18px 10px 50px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+  }
+  .drawer-subitem::before {
+    content: '↳';
+    position: absolute;
+    left: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .drawer-subitem:hover { background: var(--surface-2); }
+  .drawer-subitem.active {
+    background: var(--surface-2);
+    border-left-color: var(--accent);
+  }
+  .drawer-subitem .ic {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--num-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .drawer-subitem .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .drawer-subitem .info .t {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1px;
+  }
+  .drawer-subitem .info .d {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .drawer-foot {
+    margin-top: auto;
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  header {
+    padding: 20px 56px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.3px;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .partial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px;
+    padding: 12px 16px;
+    background: var(--accent);
+    color: var(--num-text);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .partial-header .date {
+    margin-left: auto;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  nav.toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+  nav.toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  nav.toc ol { padding-left: 20px; font-size: 14px; }
+  nav.toc li { margin: 4px 0; }
+  nav.toc li.partial-sep {
+    list-style: none;
+    margin-left: -20px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    cursor: pointer;
+  }
+  nav.toc a:hover { border-bottom-style: solid; }
+  nav.toc .score {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  details[open] { box-shadow: 0 2px 6px var(--shadow); }
+  summary {
+    padding: 14px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    background: var(--summary-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: "▸";
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--gold);
+    font-size: 12px;
+  }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary:hover { background: var(--summary-hover); }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--num-text);
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .sec-score {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .content {
+    padding: 18px 20px 22px;
+    font-size: 14.5px;
+    /* details lleva overflow:hidden por el border-radius, y eso recorta las
+       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
+       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
+       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
+       porque auto no muestra barra si no hay desborde. */
+    overflow-x: auto;
+  }
+  .content h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 18px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .content h3:first-child { margin-top: 0; }
+  .content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ex-title);
+    margin: 14px 0 6px;
+  }
+  .content p { margin: 10px 0; }
+  .content ul, .content ol { margin: 10px 0 10px 22px; }
+  .content li { margin: 4px 0; }
+  .m { font-family: "Georgia", "Times New Roman", serif; font-style: italic; }
+  .m b { font-weight: 700; }
+  .vec { font-family: Georgia, serif; font-weight: 500; }
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 3px;
+    font-family: Georgia, serif;
+    line-height: 1.15;
+    font-size: 14px;
+  }
+  .frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 6px 2px; }
+  .frac > span:last-child { padding: 2px 6px 0; }
+  .mat { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; font-family: Georgia, serif; }
+  .mat .br { border-left: 1px solid currentColor; border-right: 1px solid currentColor; padding: 2px 8px; }
+  .mat table { border-collapse: collapse; }
+  .mat td { padding: 2px 6px; text-align: center; }
+  code, .code {
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  pre.code-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--gold);
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre;
+  }
+  .formula {
+    background: var(--summary-bg);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 15px;
+    font-family: Georgia, serif;
+    overflow-x: auto;
+    color: var(--text);
+  }
+  .example {
+    background: var(--ex-bg);
+    border: 1px solid var(--ex-border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin: 12px 0;
+  }
+  .example .ex-t {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ex-title);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .trap {
+    background: var(--ko-bg);
+    border-left: 3px solid var(--ko-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ko-text);
+  }
+  .trap .tr-t { font-weight: 700; color: var(--ko-text); margin-bottom: 4px; }
+  .key {
+    background: var(--ok-bg);
+    border-left: 3px solid var(--ok-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: var(--ok-text);
+  }
+  .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
+  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  .fig { margin: 14px auto; text-align: center; }
+  .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
+  .fig-cap { font-size: 12.5px; color: var(--text-muted); margin-top: 5px; font-style: italic; }
+  table.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table.tbl th, table.tbl td {
+    border: 1px solid var(--border-2);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.tbl th {
+    background: var(--summary-bg);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  table.tbl td.c { text-align: center; font-family: Georgia, serif; }
+
+  .quiz-wrap {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 2px dashed var(--gold);
+  }
+  .quiz-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-title::before { content: "✎"; color: var(--gold); font-size: 16px; }
+  .qex {
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .qex-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .qex-n {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    background: var(--summary-bg);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .qex-st { font-size: 14px; line-height: 1.7; color: var(--text); }
+  .qex-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 0; }
+  .qex-opt {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qex-opt:hover:not(:disabled) { background: var(--summary-bg); border-color: var(--gold); }
+  .qex-opt:disabled { cursor: default; }
+  .qex-opt.ok { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); font-weight: 500; }
+  .qex-opt.ko { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  .qex-fb { margin-top: 10px; padding: 10px 12px; border-radius: 6px; font-size: 13px; line-height: 1.7; }
+  .qex-fb.ok { background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); }
+  .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
+  .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* Reveal answer (ejercicios a resolver, sin opciones) */
+  .reveal-wrap { margin-top: 18px; }
+  .rev-title::before { content: "🔎"; }
+  .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
+  .rev-btn {
+    margin-top: 12px; padding: 8px 16px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--num-text); border-radius: 6px;
+    cursor: pointer; font-size: 13px; font-weight: 600; font-family: inherit;
+  }
+  .rev-btn:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .rev-btn:disabled { cursor: default; opacity: 0.65; }
+  .rev-body { display: none; margin-top: 12px; }
+  .rev-ex.revealed .rev-body { display: block; }
+  .rev-ans { padding: 10px 12px; background: var(--ok-bg); color: var(--ok-text); border-left: 3px solid var(--ok-border); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+  .rev-sol { margin-top: 8px; padding: 10px 12px; background: var(--surface-2); border-radius: 6px; font-size: 13px; line-height: 1.7; color: var(--text); }
+  .muted { color: var(--text-muted); font-weight: 400; }
+
+  .back {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back:hover { color: var(--accent); }
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Oculta materias no seleccionadas */
+  .subject { display: none; }
+  .subject.active { display: block; }
+
+  @media (max-width: 500px) {
+    body { padding: 10px; }
+    .content { padding: 14px 16px 18px; }
+    summary { font-size: 14px; padding: 12px 14px; }
+    .formula, .example, .trap, .key { font-size: 13.5px; }
+    .qex { padding: 12px 14px; }
+    .qex-st, .qex-opt { font-size: 13px; }
+    .menu-btn, .theme-btn { top: 10px; width: 40px; height: 40px; font-size: 18px; }
+    .menu-btn { left: 10px; }
+    .theme-btn { right: 10px; }
+    header { padding: 20px 50px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="auth-overlay" id="auth-overlay">
+  <div class="auth-bg-deco" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <form class="auth-box" onsubmit="return tryAccess(event)" autocomplete="on">
+    <div class="auth-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="30" height="30">
+        <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 16.99l-5 2.73-5-2.73v-3.72L12 16l5-2.73v3.72z"/>
+      </svg>
+    </div>
+    <div class="auth-titles">
+      <h2>Guías de estudio</h2>
+      <p class="auth-hint">Ingresá tus credenciales para continuar</p>
+    </div>
+    <div class="auth-field">
+      <label for="auth-name">Nombre</label>
+      <input type="text" id="auth-name" autocomplete="username" autocapitalize="words" autocorrect="off" spellcheck="false" required>
+    </div>
+    <div class="auth-field">
+      <label for="auth-pass">Contraseña</label>
+      <input type="password" id="auth-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit">
+      <span>Ingresar</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="auth-error" id="auth-error" role="alert"></div>
+  </form>
+</div>
+
+<button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="Cerrar">×</button>
+  <div class="drawer-head">
+    <h2>Guías UBA XXI</h2>
+    <div class="hint">Elegí la materia que querés estudiar</div>
+  </div>
+  <ul class="drawer-list">
+    <li class="drawer-group" data-cat="UBA XXI">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA XXI</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="analisis">
+          <div class="drawer-item" data-target="analisis" onclick="switchSubject('analisis')">
+            <div class="ic" style="background:#5a1818;color:#fdfbf6">An</div>
+            <div class="info">
+              <div class="t" style="color:#5a1818">Análisis Matemático A</div>
+              <div class="d">Cátedra Cabana · Parcial 27/04</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="analisis-parcial" onclick="switchSubject('analisis-parcial')">
+              <div class="ic" style="background:#a04018;color:#fdf3e8">P1</div>
+              <div class="info">
+                <div class="t" style="color:#a04018">Análisis · Primer Parcial</div>
+                <div class="d">Cabana · Guía 1° Parcial · 9 unidades</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-segundo-parcial" onclick="switchSubject('analisis-segundo-parcial')">
+              <div class="ic" style="background:#166534;color:#f0fdf4">P2</div>
+              <div class="info">
+                <div class="t" style="color:#166534">Análisis · Segundo Parcial</div>
+                <div class="d">Cabana · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="analisis-final" onclick="switchSubject('analisis-final')">
+              <div class="ic" style="background:#9f1239;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#9f1239">Análisis · Final</div>
+                <div class="d">Cabana · Guía Final (10 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="algebra">
+          <div class="drawer-item" data-target="algebra" onclick="switchSubject('algebra')">
+            <div class="ic" style="background:#1e3a8a;color:#fff">Al</div>
+            <div class="info">
+              <div class="t" style="color:#1e3a8a">Álgebra A</div>
+              <div class="d">Cátedra Escayola · Parciales 22/04 y 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="algebra-parcial" onclick="switchSubject('algebra-parcial')">
+              <div class="ic" style="background:#1e3a8a;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#1e3a8a">Álgebra · Primer Parcial</div>
+                <div class="d">Escayola · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-segundo-parcial" onclick="switchSubject('algebra-segundo-parcial')">
+              <div class="ic" style="background:#3730a3;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Segundo Parcial</div>
+                <div class="d">Escayola · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="algebra-final" onclick="switchSubject('algebra-final')">
+              <div class="ic" style="background:#3730a3;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#3730a3">Álgebra · Final</div>
+                <div class="d">Escayola · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="pc">
+          <div class="drawer-item" data-target="pc" onclick="switchSubject('pc')">
+            <div class="ic" style="background:#0f766e;color:#fff">PC</div>
+            <div class="info">
+              <div class="t" style="color:#0f766e">Pensamiento Computacional</div>
+              <div class="d">Cátedra Balbiano · Parciales 20/04 y 08/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="pc-parcial" onclick="switchSubject('pc-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">PC · Primer Parcial</div>
+                <div class="d">Balbiano · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="pc-segundo-parcial" onclick="switchSubject('pc-segundo-parcial')">
+              <div class="ic" style="background:#0891b2;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">PC · Segundo Parcial</div>
+                <div class="d">Balbiano · Guía 2° Parcial</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica">
+          <div class="drawer-item" data-target="fisica" onclick="switchSubject('fisica')">
+            <div class="ic" style="background:#4c1d95;color:#fff">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Física</div>
+              <div class="d">Cátedra Torti · Parciales 23/04 y 11/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica-parcial" onclick="switchSubject('fisica-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#fff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física · Primer Parcial</div>
+                <div class="d">Torti · Guía 1° Parcial (23/04)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-segundo-parcial" onclick="switchSubject('fisica-segundo-parcial')">
+              <div class="ic" style="background:#7e22ce;color:#fff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7e22ce">Física · Segundo Parcial</div>
+                <div class="d">Torti · Guía 2° Parcial (11/06)</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica-final" onclick="switchSubject('fisica-final')">
+              <div class="ic" style="background:#5b21b6;color:#fff">F</div>
+              <div class="info">
+                <div class="t" style="color:#5b21b6">Física · Final</div>
+                <div class="d">Torti · Guía Final (19 finales reales)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="biologia">
+          <div class="drawer-item" data-target="biologia" onclick="switchSubject('biologia')">
+            <div class="ic" style="background:#2d5e3a;color:#f0f5e8">Bi</div>
+            <div class="info">
+              <div class="t" style="color:#2d5e3a">Biología (008)</div>
+              <div class="d">Cátedra Szwarcberg · 1°c 2026 · 2° Parcial 10/06</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="biologia-segundo-parcial" onclick="switchSubject('biologia-segundo-parcial')">
+              <div class="ic" style="background:#0f766e;color:#ecfdf5">B2</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Biología · 2° Parcial</div>
+                <div class="d">Szwarcberg · Guía 2° Parcial (10/06)</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UBA Medicina">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UBA Medicina</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fisiologia">
+          <div class="drawer-item" data-target="fisiologia" onclick="switchSubject('fisiologia')">
+            <div class="ic" style="background:#8c1f2c;color:#fbecec">Fs</div>
+            <div class="info">
+              <div class="t" style="color:#8c1f2c">Fisiología</div>
+              <div class="d">UBA Med · Fisiología y Biofísica · 8 sistemas</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisiologia-r1" onclick="switchSubject('fisiologia-r1')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">R1</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología R1</div>
+                <div class="d">Renal · Cardio · Respi · Sangre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-r2" onclick="switchSubject('fisiologia-r2')">
+              <div class="ic" style="background:#1f5f6c;color:#e8f6f6">R2</div>
+              <div class="info">
+                <div class="t" style="color:#1f5f6c">Fisiología R2</div>
+                <div class="d">Neuro · Endocrino · Digestivo · Embarazo</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisiologia-finales" onclick="switchSubject('fisiologia-finales')">
+              <div class="ic" style="background:#8c1f2c;color:#fbecec">Fin</div>
+              <div class="info">
+                <div class="t" style="color:#8c1f2c">Fisiología · Final</div>
+                <div class="d">Cát. 1 · Guía de Finales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UNSO">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UNSO</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item" data-target="criminologia-ii" onclick="switchSubject('criminologia-ii')">
+          <div class="ic" style="background:#1e3a5f;color:#f5f0e8">Cr</div>
+          <div class="info">
+            <div class="t" style="color:#1e3a5f">Criminología II</div>
+            <div class="d">UNSO 2026 · Lic. Varela · 1er parcial</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="psicologia" onclick="switchSubject('psicologia')">
+          <div class="ic" style="background:#4a2a5e;color:#f5eee8">Ps</div>
+          <div class="info">
+            <div class="t" style="color:#4a2a5e">Psicología</div>
+            <div class="d">UNSO 2026 · 8 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="papiloscopia-rastros" onclick="switchSubject('papiloscopia-rastros')">
+          <div class="ic" style="background:#3e2a33;color:#f5ece8">Pa</div>
+          <div class="info">
+            <div class="t" style="color:#3e2a33">Papiloscopía y Rastros</div>
+            <div class="d">UNSO · Papiloscopía y Rastros · 8 unidades</div>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="UTN FRBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">UTN FRBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="led">
+          <div class="drawer-item" data-target="led" onclick="switchSubject('led')">
+            <div class="ic" style="background:#0e7490;color:#ecfeff">LE</div>
+            <div class="info">
+              <div class="t" style="color:#0e7490">Lógica y Estructuras Discretas</div>
+              <div class="d">UTN FRBA · Piñeiro · LED · 10 unidades</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="led-primer-parcial" onclick="switchSubject('led-primer-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Primer Parcial</div>
+                <div class="d">Piñeiro · Guía 1° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-segundo-parcial" onclick="switchSubject('led-segundo-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Segundo Parcial</div>
+                <div class="d">Piñeiro · Guía 2° Parcial</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="led-finales" onclick="switchSubject('led-finales')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">FN</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">LED · Finales</div>
+                <div class="d">Piñeiro · Guía Final</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item" data-target="ingles-tecnico-ii" onclick="switchSubject('ingles-tecnico-ii')">
+          <div class="ic" style="background:#1e4d3a;color:#f2f5e8">IT</div>
+          <div class="info">
+            <div class="t" style="color:#1e4d3a">Inglés Técnico II</div>
+            <div class="d">UTN FRBA · Z3043 · 1°c 2026 · Parciales 15/05 y 26/06</div>
+          </div>
+        </li>
+        <li class="drawer-item" data-target="ayed" onclick="switchSubject('ayed')">
+          <div class="ic" style="background:#4338ca;color:#eef2ff">Ay</div>
+          <div class="info">
+            <div class="t" style="color:#4338ca">Algoritmos y Estructuras de Datos</div>
+            <div class="d">UTN FRBA · DISI · C++ · 14 unidades</div>
+          </div>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fisica1-utn">
+          <div class="drawer-item" data-target="fisica1-utn" onclick="switchSubject('fisica1-utn')">
+            <div class="ic" style="background:#4338ca;color:#ffffff">F1</div>
+            <div class="info">
+              <div class="t" style="color:#4338ca">Física I</div>
+              <div class="d">UTN FRBA · Guía de final · 84 exámenes analizados</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fisica1-utn-rigido" onclick="switchSubject('fisica1-utn-rigido')">
+              <div class="ic" style="background:#7c3aed;color:#ffffff">CR</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Física I · Cuerpo rígido</div>
+                <div class="d">Rodadura, poleas con masa, rototraslación y momento angular · en los 10 finales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-choques" onclick="switchSubject('fisica1-utn-choques')">
+              <div class="ic" style="background:#be123c;color:#ffffff">Ch</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Física I · Choques</div>
+                <div class="d">Choque plástico, elástico y en 2D · impulso y cantidad de movimiento</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-oscilaciones" onclick="switchSubject('fisica1-utn-oscilaciones')">
+              <div class="ic" style="background:#0891b2;color:#ffffff">MA</div>
+              <div class="info">
+                <div class="t" style="color:#0891b2">Física I · Oscilaciones</div>
+                <div class="d">MAS masa-resorte, péndulo simple y péndulo físico</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-energia" onclick="switchSubject('fisica1-utn-energia')">
+              <div class="ic" style="background:#ea580c;color:#ffffff">TE</div>
+              <div class="info">
+                <div class="t" style="color:#ea580c">Física I · Trabajo y energía</div>
+                <div class="d">Trabajo, energía, resortes y movimiento circular</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-dinamica" onclick="switchSubject('fisica1-utn-dinamica')">
+              <div class="ic" style="background:#1d4ed8;color:#ffffff">Dn</div>
+              <div class="info">
+                <div class="t" style="color:#1d4ed8">Física I · Dinámica</div>
+                <div class="d">Newton, planos inclinados, poleas, cinemática y sistemas no inerciales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-fluidos" onclick="switchSubject('fisica1-utn-fluidos')">
+              <div class="ic" style="background:#0d9488;color:#ffffff">Fl</div>
+              <div class="info">
+                <div class="t" style="color:#0d9488">Física I · Fluidos</div>
+                <div class="d">Hidrostática e hidrodinámica · teoría que el resumen no cubre</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-optica" onclick="switchSubject('fisica1-utn-optica')">
+              <div class="ic" style="background:#a16207;color:#ffffff">Op</div>
+              <div class="info">
+                <div class="t" style="color:#a16207">Física I · Óptica geométrica</div>
+                <div class="d">Espejos, lentes, prisma y marcha de rayos</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fisica1-utn-simulacros" onclick="switchSubject('fisica1-utn-simulacros')">
+              <div class="ic" style="background:#475569;color:#ffffff">Sm</div>
+              <div class="info">
+                <div class="t" style="color:#475569">Física I · Simulacros</div>
+                <div class="d">Finales completos de 6 problemas con reloj + banco de preguntas conceptuales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="drawer-group" data-cat="FIUBA">
+      <button class="drawer-cat-toggle" type="button" onclick="toggleCat(this)">
+        <span class="cat-arrow">▾</span>
+        <span class="cat-name">FIUBA</span>
+      </button>
+      <ul class="drawer-cat-items">
+        <li class="drawer-item-wrap" data-parent="fiuba-algebra-lineal">
+          <div class="drawer-item" data-target="fiuba-algebra-lineal" onclick="switchSubject('fiuba-algebra-lineal')">
+            <div class="ic" style="background:#0b4f6c;color:#fff">AL</div>
+            <div class="info">
+              <div class="t" style="color:#0b4f6c">Álgebra Lineal · FIUBA</div>
+              <div class="d">Palacios · Materia completa · las 4 guías de TP</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-parcial" onclick="switchSubject('fiuba-algebra-lineal-parcial')">
+              <div class="ic" style="background:#0e7490;color:#ecfeff">P1</div>
+              <div class="info">
+                <div class="t" style="color:#0e7490">Álgebra Lineal · Primer parcial</div>
+                <div class="d">Palacios · 1er parcial · 21/10 · 21 parciales reales</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-algebra-lineal-segundo-parcial" onclick="switchSubject('fiuba-algebra-lineal-segundo-parcial')">
+              <div class="ic" style="background:#1e5f8a;color:#eff6ff">P2</div>
+              <div class="info">
+                <div class="t" style="color:#1e5f8a">Álgebra Lineal · Segundo parcial</div>
+                <div class="d">Palacios · 2do parcial · 2/12 · unidad 4</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-anatomia">
+          <div class="drawer-item" data-target="fiuba-anatomia" onclick="switchSubject('fiuba-anatomia')">
+            <div class="ic" style="background:#9d2449;color:#fff">AH</div>
+            <div class="info">
+              <div class="t" style="color:#9d2449">Anatomía e Histología Funcional · FIUBA</div>
+              <div class="d">Iurman · Materia completa · las 16 clases del cronograma</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-anatomia-parcial" onclick="switchSubject('fiuba-anatomia-parcial')">
+              <div class="ic" style="background:#be123c;color:#fff1f2">P1</div>
+              <div class="info">
+                <div class="t" style="color:#be123c">Anatomía · Primer parcial</div>
+                <div class="d">Iurman · 1er parcial · 29/9 · clases 1 a 6</div>
+              </div>
+            </li>
+            <li class="drawer-subitem" data-target="fiuba-anatomia-segundo-parcial" onclick="switchSubject('fiuba-anatomia-segundo-parcial')">
+              <div class="ic" style="background:#7c2d5a;color:#fdf2f8">P2</div>
+              <div class="info">
+                <div class="t" style="color:#7c2d5a">Anatomía · Segundo parcial</div>
+                <div class="d">Iurman · 2do parcial · 17/11 · clases 8 a 13</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-algoritmos">
+          <div class="drawer-item" data-target="fiuba-algoritmos" onclick="switchSubject('fiuba-algoritmos')">
+            <div class="ic" style="background:#4c1d95;color:#ede9fe">AP</div>
+            <div class="info">
+              <div class="t" style="color:#4c1d95">Algoritmos y Programación I · FIUBA</div>
+              <div class="d">Azcurra · Materia completa · las 9 guías en C</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-algoritmos-parcial" onclick="switchSubject('fiuba-algoritmos-parcial')">
+              <div class="ic" style="background:#7c3aed;color:#f5f3ff">PI</div>
+              <div class="info">
+                <div class="t" style="color:#7c3aed">Algoritmos · Parcial e integrador</div>
+                <div class="d">Azcurra · Las 12 consignas reales del campus</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-electronica">
+          <div class="drawer-item" data-target="fiuba-electronica" onclick="switchSubject('fiuba-electronica')">
+            <div class="ic" style="background:#92400e;color:#fffbeb">IB</div>
+            <div class="info">
+              <div class="t" style="color:#92400e">Introducción a la Bioingeniería · FIUBA</div>
+              <div class="d">Veiga · Materia completa · teoría de circuitos</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-electronica-integrador" onclick="switchSubject('fiuba-electronica-integrador')">
+              <div class="ic" style="background:#b45309;color:#fffbeb">IN</div>
+              <div class="info">
+                <div class="t" style="color:#b45309">Bioingeniería · Examen integrador</div>
+                <div class="d">Veiga · Integrador · 4 parciales y 5 coloquios reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="drawer-item-wrap" data-parent="fiuba-quimica">
+          <div class="drawer-item" data-target="fiuba-quimica" onclick="switchSubject('fiuba-quimica')">
+            <div class="ic" style="background:#047857;color:#ecfdf5">QB</div>
+            <div class="info">
+              <div class="t" style="color:#047857">Química Básica · FIUBA</div>
+              <div class="d">Boeykens · Materia completa · las 12 secciones del temario</div>
+            </div>
+            <button class="subitem-arrow" type="button" onclick="event.stopPropagation(); toggleSub(this)" aria-label="Desplegar submodulos">▾</button>
+          </div>
+          <ul class="drawer-children">
+            <li class="drawer-subitem" data-target="fiuba-quimica-libre" onclick="switchSubject('fiuba-quimica-libre')">
+              <div class="ic" style="background:#0f766e;color:#f0fdfa">QL</div>
+              <div class="info">
+                <div class="t" style="color:#0f766e">Química Básica · Examen libre</div>
+                <div class="d">Boeykens · Libre · las 3 etapas, 9 exámenes reales</div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <div class="drawer-foot">
+    Armado para Ariel · abril 2026
+    <a href="#" class="logout-link" onclick="logout(); return false;">Cerrar sesión</a>
+  </div>
+</aside>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- =============== FÍSICA I · OSCILACIONES ==================== -->
+<!-- ============================================================ -->
+<section class="subject" id="subject-fisica1-utn-oscilaciones">
+  <header>
+    <h1>Física I · Oscilaciones (MAS)</h1>
+    <div class="sub">UTN FRBA · Cátedra Martinelli + finales UTN.BA · El ejercicio más garantizado de la materia: 9 de 9 fechas del 2º parcial</div>
+  </header>
+<nav class="toc" id="toc-fisica1-utn-oscilaciones">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#os-s1">Un solo esquema resuelve los nueve</a></li>
+    <li><a href="#os-s2">MAS vertical masa-resorte (7 ejercicios reales)</a></li>
+    <li><a href="#os-s3">MAS horizontal (2 ejercicios reales + finales)</a></li>
+    <li><a href="#os-s4">Péndulo simple y péndulo físico (sale en el final)</a></li>
+  </ol>
+  <div class="score" id="global-score-fisica1-utn-oscilaciones">Puntaje: 0 / 0 correctas</div>
+</nav>
+
+<!-- ============ UNIDAD 1 · EL ESQUEMA MAESTRO ============ -->
+<details id="os-s1">
+<summary><span class="num">1</span> Un solo esquema resuelve los nueve <span class="sec-score" id="ss-fisica1-utn-oscilaciones-1"></span></summary>
+<div class="content">
+
+<h3>Por qué esta unidad vale tanto</h3>
+<p>De los <b>9 parciales de la cátedra Martinelli</b> que tenés (2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016 y 2017), <b>los 9</b> traen un ejercicio de oscilaciones, y en <b>los 9</b> está en el <b>bloque A</b>. No hay tema con esa regularidad en toda la materia.</p>
+<p>La noticia buena es que son el mismo problema nueve veces. Cambia qué te dan y qué te piden, pero el esquema de resolución es idéntico. Aprendete <b>este</b> esquema y no vuelvas a pensar el ejercicio desde cero.</p>
+
+<div class="key"><div class="ky-t">El examen que rendís es el FINAL, no el parcial</div>
+Estos parciales son la <b>cantera de arquetipos</b>: te muestran cómo piensa la cátedra. El final que vas a rendir son <b>6 problemas sueltos, sin bloques, y se aprueba con el 50% del examen</b>; el encabezado imprime <b>g = 10 m/s²</b> y te da los momentos de inercia como dato. En los finales el MAS aparece igual de seguido, pero mezclado con choques, con poleas o con dos bloques apilados: en la unidad 3 tenés esos casos.
+</div>
+
+<h3>El esquema maestro, en cinco pasos</h3>
+
+<div class="fig">
+<svg viewBox="0 0 600 350" style="max-width:100%;height:auto">
+  <!-- techo -->
+  <line x1="20" y1="30" x2="580" y2="30" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="32" y1="30" x2="20" y2="42"/><line x1="62" y1="30" x2="50" y2="42"/>
+    <line x1="92" y1="30" x2="80" y2="42"/><line x1="122" y1="30" x2="110" y2="42"/>
+    <line x1="152" y1="30" x2="140" y2="42"/><line x1="182" y1="30" x2="170" y2="42"/>
+    <line x1="212" y1="30" x2="200" y2="42"/><line x1="242" y1="30" x2="230" y2="42"/>
+    <line x1="272" y1="30" x2="260" y2="42"/><line x1="302" y1="30" x2="290" y2="42"/>
+    <line x1="332" y1="30" x2="320" y2="42"/><line x1="362" y1="30" x2="350" y2="42"/>
+    <line x1="392" y1="30" x2="380" y2="42"/><line x1="422" y1="30" x2="410" y2="42"/>
+    <line x1="452" y1="30" x2="440" y2="42"/><line x1="482" y1="30" x2="470" y2="42"/>
+    <line x1="512" y1="30" x2="500" y2="42"/><line x1="542" y1="30" x2="530" y2="42"/>
+    <line x1="572" y1="30" x2="560" y2="42"/>
+  </g>
+
+  <!-- columna 1: longitud natural -->
+  <polyline points="105,30 105,44 121,54 89,64 121,74 89,84 121,94 105,104 105,118"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="105" y1="118" x2="540" y2="118" stroke="currentColor" stroke-width="1" stroke-dasharray="5 4" opacity="0.65"/>
+  <line x1="58" y1="34" x2="58" y2="114" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M58,30 l-4,9 l8,0 z" fill="currentColor"/><path d="M58,118 l-4,-9 l8,0 z" fill="currentColor"/>
+  <text x="30" y="79" fill="currentColor" font-size="13">l₀</text>
+  <text x="72" y="140" fill="currentColor" font-size="12" opacity="0.8">sin masa</text>
+
+  <!-- columna 2: equilibrio -->
+  <polyline points="280,30 280,44 296,58 264,72 296,86 264,100 296,114 264,128 296,142 280,156 280,170"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <rect x="260" y="170" width="40" height="28" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+  <text x="272" y="189" fill="currentColor" font-size="13">m</text>
+  <line x1="280" y1="170" x2="540" y2="170" stroke="currentColor" stroke-width="1.4" stroke-dasharray="7 4"/>
+  <line x1="232" y1="34" x2="232" y2="166" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M232,30 l-4,9 l8,0 z" fill="currentColor"/><path d="M232,170 l-4,-9 l8,0 z" fill="currentColor"/>
+  <text x="196" y="106" fill="currentColor" font-size="13">l_eq</text>
+  <text x="222" y="220" fill="currentColor" font-size="12" opacity="0.85">equilibrio</text>
+
+  <!-- columna 3: oscilacion -->
+  <polyline points="440,30 440,44 456,58 424,72 456,86 424,100 456,114 424,128 456,142 440,156 440,170"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <rect x="420" y="170" width="40" height="28" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+  <rect x="420" y="126" width="40" height="28" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+  <rect x="420" y="214" width="40" height="28" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="410" y1="126" x2="540" y2="126" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+  <line x1="410" y1="214" x2="540" y2="214" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+  <line x1="505" y1="130" x2="505" y2="166" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M505,126 l-4,9 l8,0 z" fill="currentColor"/><path d="M505,170 l-4,-9 l8,0 z" fill="currentColor"/>
+  <line x1="505" y1="174" x2="505" y2="210" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M505,170 l-4,9 l8,0 z" fill="currentColor"/><path d="M505,214 l-4,-9 l8,0 z" fill="currentColor"/>
+  <text x="512" y="152" fill="currentColor" font-size="13">A</text>
+  <text x="512" y="198" fill="currentColor" font-size="13">A</text>
+  <text x="392" y="118" fill="currentColor" font-size="12" opacity="0.85">l_mín</text>
+  <text x="392" y="232" fill="currentColor" font-size="12" opacity="0.85">l_máx</text>
+
+  <!-- eje -->
+  <circle cx="565" cy="30" r="3.5" fill="currentColor"/>
+  <line x1="565" y1="34" x2="565" y2="292" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M565,300 l-5,-11 l10,0 z" fill="currentColor"/>
+  <text x="551" y="320" fill="currentColor" font-size="13">x (+)</text>
+  <text x="544" y="26" fill="currentColor" font-size="12">0</text>
+</svg>
+<div class="fig-cap">El esquema que resuelve los nueve. El resorte solo mide <span class="m">l₀</span> si no cuelga nada; con la masa se estira hasta <span class="m">l_eq</span>, y la oscilación es simétrica <b>alrededor de l_eq</b>, entre <span class="m">l_mín = l_eq − A</span> y <span class="m">l_máx = l_eq + A</span>. Origen en el techo, eje positivo hacia abajo (así lo toma la cátedra).</div>
+</div>
+
+<p><b>Paso 1 — Declarar el sistema de referencia.</b> Escribilo y dibujalo. El enunciado dice textual: <span class="muted">"Indique explícitamente los sistemas de referencia que adopta en cada problema, realice claramente los diagramas que correspondan y diga las hipótesis que hace"</span>, y eso se puntúa. La cátedra toma <b>origen en el techo y eje x positivo hacia abajo</b>, con <span class="m">x</span> midiendo la longitud del resorte. Podés elegir otro, pero después sostenelo.</p>
+
+<p><b>Paso 2 — Encontrar la posición de equilibrio.</b> Con el cuerpo colgado y en reposo, la elástica compensa al peso:</p>
+
+<div class="formula">
+  <b>k · (l_eq − l₀) = m · g</b><br>
+  <span class="muted">de acá despejás lo que falte:</span> &nbsp; l_eq = l₀ + <span class="frac"><span>mg</span><span>k</span></span> &nbsp;·&nbsp; m = <span class="frac"><span>k(l_eq − l₀)</span><span>g</span></span> &nbsp;·&nbsp; l₀ = l_eq − <span class="frac"><span>mg</span><span>k</span></span> &nbsp;·&nbsp; k = <span class="frac"><span>mg</span><span>l_eq − l₀</span></span>
+</div>
+
+<p>Fijate que <b>la masa casi nunca es dato</b>: en 2009 y en 2013 el ejercicio empieza pidiéndola, y sale de acá. En 2012 y en 2014 lo que se pide es <span class="m">l_eq</span>. En 2015 lo que se pide es <span class="m">l₀</span>. Es siempre la misma ecuación leída al revés.</p>
+
+<div class="trap"><div class="tr-t">Error nº1: oscilar alrededor de l₀</div>
+El MAS oscila alrededor de <b>l_eq</b>, <b>no</b> de la longitud natural. La gravedad no hace otra cosa que <b>correr el centro de oscilación</b> una distancia <span class="m">mg/k</span> hacia abajo. Si escribís <span class="m">x(t) = A·sen(ωt + φ₀) + l₀</span> te va a dar mal la amplitud, la fase y todo lo que venga después. En el 2P 2015 este error es letal por una coincidencia perversa: <span class="m">l₀</span> da <b>40 cm</b>, que es justo el valor de <span class="m">l_mín</span> — podés "acertar" con el razonamiento equivocado.
+</div>
+
+<p><b>Paso 3 — La frecuencia angular.</b> Una vez que corriste el origen al equilibrio, la ecuación queda idéntica a la de un resorte horizontal:</p>
+
+<div class="formula">
+  <b>ω = √(k/m)</b> &nbsp;·&nbsp; <b>T = 2π/ω</b> &nbsp;·&nbsp; <b>f = ω/(2π) = 1/T</b>
+</div>
+
+<div class="trap"><div class="tr-t">Error nº2: querer "corregir" ω por la gravedad</div>
+<b>ω = √(k/m) no depende de g</b> ni de la amplitud ni del estiramiento estático. Colgado o acostado, el mismo resorte con la misma masa oscila con la misma frecuencia. Es la trampa que la cátedra repite en todas las soluciones oficiales.<br><br>
+Un atajo que sale de combinar los pasos 2 y 3: si llamás <span class="m">δ = l_eq − l₀</span> al estiramiento estático, entonces <span class="m">m/k = δ/g</span> y por lo tanto <b>ω = √(g/δ)</b>. Sirve cuando no te dan ni <span class="m">k</span> ni <span class="m">m</span> pero sí el estiramiento — es exactamente el problema 5 de uno de los finales.
+</div>
+
+<p><b>Paso 4 — Sacar A y φ₀.</b> Acá está toda la variedad del ejercicio. La cátedra te da los datos de <b>tres formas</b> y sólo de tres:</p>
+
+<table class="tbl">
+  <tr><th>Cómo te dan los datos</th><th>Qué sale directo</th><th>Fechas donde aparece</th></tr>
+  <tr>
+    <td><b>1. Longitudes extremas</b><br><span class="muted">l_mín y l_máx (o la "mínima distancia al techo")</span></td>
+    <td>A = <span class="frac"><span>l_máx − l_mín</span><span>2</span></span> &nbsp;y&nbsp; l_eq = <span class="frac"><span>l_máx + l_mín</span><span>2</span></span></td>
+    <td>2P 2014, 2P 2015, 2P 2016, 2P 2017</td>
+  </tr>
+  <tr>
+    <td><b>2. Energía mecánica</b><br><span class="muted">te dan E y pedís A (o al revés)</span></td>
+    <td>E = ½·k·A² &nbsp;⟹&nbsp; A = √(2E/k)<br><span class="muted">medida desde el equilibrio, gravedad ya incluida</span></td>
+    <td>2P 2011, 2P 2016</td>
+  </tr>
+  <tr>
+    <td><b>3. Condición inicial</b><br><span class="muted">te dan x(0) y v(0)</span></td>
+    <td>A = √( x₀′² + (v₀/ω)² ) &nbsp;con&nbsp; <b>x₀′ = x₀ − l_eq</b><br><span class="muted">si arranca en el equilibrio, x₀′ = 0 y queda A = v₀/ω</span></td>
+    <td>2P 2009, 2P 2010, 2P 2012, 2P 2013, 2P 2014</td>
+  </tr>
+</table>
+
+<div class="key"><div class="ky-t">El caso que más se repite: "estando el cuerpo en esa posición se le imprime una velocidad"</div>
+En 2009, 2010, 2013 y 2014 el cuerpo arranca <b>justo en el equilibrio</b> con velocidad no nula. Ahí no hace falta ninguna fórmula grande: toda la energía es cinética, la velocidad inicial <b>es</b> la velocidad máxima, y entonces
+<div class="formula"><b>A = v₀ / ω</b></div>
+Reconocer esa frase en el enunciado te ahorra la mitad del ejercicio.
+</div>
+
+<p><b>Paso 5 — Escribir x(t) y v(t), con la convención declarada.</b> Y acá viene lo que más confunde.</p>
+
+<h3>Seno o coseno: declarala vos, porque la cátedra cambia</h3>
+<p>Las dos formas son correctas y equivalentes. Lo que <b>no</b> podés hacer es mezclarlas a mitad de camino.</p>
+
+<div class="formula">
+  <b>Con seno:</b> &nbsp; x(t) = A·sen(ωt + φ₀) + l_eq &nbsp;·&nbsp; v(t) = A·ω·cos(ωt + φ₀)<br>
+  <b>Con coseno:</b> &nbsp; x(t) = A·cos(ωt + φ₀) + l_eq &nbsp;·&nbsp; v(t) = −A·ω·sen(ωt + φ₀)
+</div>
+
+<p>Revisando las soluciones oficiales de las nueve fechas: <b>seno</b> en 2009 y 2012; <b>coseno</b> en 2010, 2011, 2013, 2014, 2015 y 2017. Es decir: <b>la cátedra no tiene una única convención</b>. Por eso el enunciado te pide "indique claramente el sistema de coordenadas utilizado" — es la única forma de que la fase inicial se pueda corregir.</p>
+
+<table class="tbl">
+  <tr><th>Situación (con eje x positivo hacia ABAJO)</th><th>φ₀ con seno</th><th>φ₀ con coseno</th></tr>
+  <tr><td>Arranca <b>en el equilibrio</b> con v₀ hacia <b>abajo</b></td><td>0</td><td>−π/2</td></tr>
+  <tr><td>Arranca <b>en el equilibrio</b> con v₀ hacia <b>arriba</b></td><td>π</td><td>+π/2</td></tr>
+  <tr><td>Se suelta <b>en reposo</b> desde el punto más <b>alto</b> (arriba del equilibrio)</td><td>−π/2</td><td>π</td></tr>
+  <tr><td>Se suelta <b>en reposo</b> desde el punto más <b>bajo</b> (abajo del equilibrio)</td><td>+π/2</td><td>0</td></tr>
+</table>
+
+<div class="trap"><div class="tr-t">Si tomás el eje hacia ARRIBA, la tabla se da vuelta</div>
+Al invertir el eje cambian de signo tanto <span class="m">x₀′</span> como <span class="m">v₀</span>: intercambiá las filas de a pares (<b>abajo ↔ arriba</b>) y listo. Con eje hacia arriba, "arranca en el equilibrio con v₀ hacia abajo" y convención coseno da <b>φ₀ = +π/2</b> en vez de −π/2.<br><br>
+Y ojo con el error clásico que la cátedra marca en 2012, 2013 y 2014: de <span class="m">cos φ₀ = 0</span> salen <b>dos</b> fases (+π/2 y −π/2). El signo lo decide la <b>velocidad</b>, no el gusto. Elegí la que deja <b>A &gt; 0</b>.
+</div>
+
+<h3>El recorrido completo, con números</h3>
+
+<div class="example"><div class="ex-t">2do parcial 2013 (26/11/2013, curso O1122, Prof. Martinelli) · A2</div>
+<p><i>"Inicialmente, un cuerpo se encuentra en reposo colgando de un techo, sostenido por un resorte ideal de constante elástica K=100N/m y longitud natural l0=1m. En esas condiciones la longitud del resorte es leq=1.4m. En determinado instante, t=0s, estando el cuerpo en esa posición, se le imprime al mismo una velocidad hacia abajo v0=60cm/s."</i></p>
+
+<p><b>1) Referencia.</b> Eje <span class="m">x</span> con origen en el techo, <b>positivo hacia abajo</b>. Hipótesis: resorte ideal (sin masa), sin rozamiento, g = 10 m/s².</p>
+<p><b>2) Equilibrio.</b> K(l_eq − l₀) = mg ⟹ m = 100·(1,4 − 1)/10 = 100·0,4/10 = <b>4 kg</b>. <span class="muted">El estiramiento es 0,4 m, no 1,4 m.</span></p>
+<p><b>3) Frecuencia.</b> ω = √(K/m) = √(100/4) = <b>5 s⁻¹</b> · T = 2π/5 = <b>1,26 s</b>.</p>
+<p><b>4) Amplitud y fase.</b> Arranca <b>en el equilibrio</b> (x₀ = l_eq ⟹ x₀′ = 0) con v₀ = +0,6 m/s (hacia abajo = sentido positivo). Entonces A = v₀/ω = 0,6/5 = <b>0,12 m = 12 cm</b>.<br>
+Con coseno: x(0) = A·cos φ₀ + 1,4 = 1,4 ⟹ cos φ₀ = 0 ⟹ φ₀ = ±π/2. Y v(0) = −A·ω·sen φ₀ = +0,6 &gt; 0 exige sen φ₀ &lt; 0 ⟹ <b>φ₀ = −π/2</b>.</p>
+<p><b>5) Ecuaciones.</b> x(t) = 12 cm · cos(5 s⁻¹·t − π/2) + 1,4 m &nbsp;·&nbsp; v(t) = −60 cm/s · sen(5 s⁻¹·t − π/2).</p>
+<p><b>Chequeo de 10 segundos:</b> oscila entre 1,28 m y 1,52 m del techo; v_máx = A·ω = 0,12·5 = 0,6 m/s, que es justo la velocidad inicial. Cierra.</p>
+<p class="muted">Este mismo ejercicio te lo vas a volver a encontrar en la unidad 2. Resolvelo solo antes de mirar la solución.</p>
+</div>
+
+<div class="key"><div class="ky-t">La checklist de 30 segundos antes de entregar</div>
+• ¿Declaraste el eje y dibujaste el DCL (elástica hacia arriba, peso hacia abajo)?<br>
+• ¿Las unidades están todas en SI, o al menos coherentes? (Mezclar cm y m es el error más frecuente de la cátedra.)<br>
+• ¿Tu <span class="m">x(t)</span> tiene el término <b>+ l_eq</b>?<br>
+• ¿<span class="m">A &gt; 0</span>? Si te dio negativa, elegiste mal la fase.<br>
+• ¿<span class="m">v_máx = A·ω</span> coincide con la velocidad inicial cuando el cuerpo arranca en el equilibrio?<br>
+• ¿Evaluaste <span class="m">x(0)</span> y <span class="m">v(0)</span> en tu resultado y te dieron los datos del enunciado?
+</div>
+
+<div class="quiz-wrap" data-qz="1" data-subject="fisica1-utn-oscilaciones"></div>
+<a class="back" href="#subject-fisica1-utn-oscilaciones">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 2 · MAS VERTICAL ============ -->
+<details id="os-s2">
+<summary><span class="num">2</span> MAS vertical masa-resorte (7 ejercicios reales) <span class="sec-score" id="ss-fisica1-utn-oscilaciones-2"></span></summary>
+<div class="content">
+
+<h3>El formato que se repite</h3>
+<p>Siete de las nueve fechas son <b>masa colgando de un resorte del techo</b>. El enunciado siempre arranca igual — "un cuerpo se encuentra en reposo colgando de un techo, sostenido por un resorte ideal" — y después varía qué esconde:</p>
+
+<table class="tbl">
+  <tr><th>Fecha</th><th>Te dan</th><th>Te piden</th><th>Salida</th></tr>
+  <tr><td>2P 2009 (07/12/09)</td><td>k, l₀, l_eq, v₀ en el equilibrio</td><td>m, ω, T, ecuación de movimiento, A, φ₀</td><td>m = 2 kg · A = 8,49 cm</td></tr>
+  <tr><td>2P 2010 (30/11/10)</td><td>2 resortes <b>en serie</b>, k, l₀, posición, v₀</td><td>m, ω, T, x(t), v(t), A, φ₀</td><td>m = 4 kg · A = 12 cm</td></tr>
+  <tr><td>2P 2012 (29/11/12)</td><td>m, k, l₀; se suelta desde l = 40 cm</td><td>l_eq, ω, T, A, φ₀, x(t), v(t)</td><td>l_eq = 60 cm · A = 20 cm</td></tr>
+  <tr><td>2P 2013 (26/11/13)</td><td>K, l₀, l_eq, v₀ en el equilibrio</td><td>m, ω, T, A, φ₀, x(t), v(t)</td><td>m = 4 kg · A = 12 cm</td></tr>
+  <tr><td>2P 2014 (29/11/14)</td><td>m, k, l₀, <b>l_mín</b>; posición y sentido a t = 0</td><td>ω, A, φ₀, x(t), v(t)</td><td>ω = 5 rad/s · A = 20 cm</td></tr>
+  <tr><td>2P 2015 (25/11/15)</td><td>m, l_mín, l_máx, ω</td><td>A, K, v_máx, <b>l₀</b></td><td>K = 200 N/m · l₀ = 40 cm</td></tr>
+  <tr><td>2P 2016 (14/11/16)</td><td>l₀, l_mín, l_máx, <b>E</b></td><td>A, K, ω, m</td><td>K = 50 N/m · m = 2 kg</td></tr>
+</table>
+
+<p>Ninguno te pide algo que no salga del esquema de la unidad 1. Lo único que agrega el 2010 es un detalle geométrico que vale la pena aislar.</p>
+
+<h3>El caso especial: dos resortes EN SERIE (2P 2010)</h3>
+
+<div class="fig">
+<svg viewBox="0 0 460 330" style="max-width:100%;height:auto">
+  <line x1="60" y1="28" x2="400" y2="28" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="72" y1="28" x2="60" y2="40"/><line x1="102" y1="28" x2="90" y2="40"/>
+    <line x1="132" y1="28" x2="120" y2="40"/><line x1="162" y1="28" x2="150" y2="40"/>
+    <line x1="192" y1="28" x2="180" y2="40"/><line x1="222" y1="28" x2="210" y2="40"/>
+    <line x1="252" y1="28" x2="240" y2="40"/><line x1="282" y1="28" x2="270" y2="40"/>
+    <line x1="312" y1="28" x2="300" y2="40"/><line x1="342" y1="28" x2="330" y2="40"/>
+    <line x1="372" y1="28" x2="360" y2="40"/><line x1="402" y1="28" x2="390" y2="40"/>
+  </g>
+
+  <!-- resorte 1 -->
+  <polyline points="200,28 200,40 216,52 184,64 216,76 184,88 216,100 200,112 200,124"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="200" cy="124" r="4" fill="currentColor"/>
+  <text x="232" y="80" fill="currentColor" font-size="13">k , l₀</text>
+
+  <!-- resorte 2 -->
+  <polyline points="200,124 200,136 216,148 184,160 216,172 184,184 216,196 200,208 200,220"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="232" y="176" fill="currentColor" font-size="13">k , l₀</text>
+
+  <!-- bloque -->
+  <rect x="172" y="220" width="56" height="36" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+
+  <!-- cota 160 cm -->
+  <line x1="110" y1="32" x2="110" y2="216" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M110,28 l-4,9 l8,0 z" fill="currentColor"/><path d="M110,220 l-4,-9 l8,0 z" fill="currentColor"/>
+  <text x="52" y="128" fill="currentColor" font-size="13">160 cm</text>
+
+  <!-- eje -->
+  <circle cx="350" cy="28" r="3.5" fill="currentColor"/>
+  <line x1="350" y1="32" x2="350" y2="272" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M350,282 l-5,-11 l10,0 z" fill="currentColor"/>
+  <text x="338" y="302" fill="currentColor" font-size="13">x (+)</text>
+  <text x="330" y="24" fill="currentColor" font-size="12">0</text>
+</svg>
+<div class="fig-cap">2do parcial 2010, A2. Los dos resortes están <b>uno debajo del otro</b>: eso es <b>serie</b>, no paralelo.</div>
+</div>
+
+<div class="trap"><div class="tr-t">Serie, no paralelo: k se divide y l₀ se duplica</div>
+Dos resortes idénticos colgados uno del otro forman un único resorte equivalente con
+<div class="formula"><b>k_eq = <span class="frac"><span>k·k</span><span>k + k</span></span> = <span class="frac"><span>k</span><span>2</span></span> = 100 N/m</b> &nbsp;&nbsp;y&nbsp;&nbsp; <b>l₀_eq = 2·l₀ = 1,2 m</b></div>
+Los dos errores posibles:<br>
+• Sumar las constantes (k_eq = 400 N/m). Eso es lo que pasa <b>en paralelo</b>, cuando los dos resortes están al lado uno del otro sosteniendo el mismo cuerpo.<br>
+• Olvidar duplicar la longitud natural: si usás l₀ = 60 cm, el estiramiento te da 1 m en vez de 0,4 m y la masa sale <b>10 kg en vez de 4 kg</b>.<br><br>
+Regla mnemotécnica: en serie el conjunto es <b>más largo y más blando</b>; cada resorte se estira 0,2 m y el total 0,4 m.
+</div>
+
+<h3>Cómo leer "la mínima distancia al techo"</h3>
+<div class="trap"><div class="tr-t">Mínima distancia = punto MÁS ALTO</div>
+En el 2P 2014 el dato es <span class="m">"la mínima distancia del cuerpo al techo es de 80cm"</span>. Esa es la posición <b>más alta</b> del recorrido (el resorte lo más corto que llega), o sea <span class="m">l_mín</span>. Como el centro es <span class="m">l_eq = 1 m</span>, la amplitud es <span class="m">A = l_eq − l_mín = 100 − 80 = 20 cm</span>. Si lo leés como "el punto más bajo" te queda una amplitud negativa y el ejercicio se cae entero.
+</div>
+
+<h3>Cuando te dan la energía mecánica</h3>
+<p>En el vertical, medida <b>desde el equilibrio</b>, la energía mecánica del oscilador se escribe igual que en el horizontal:</p>
+<div class="formula"><b>E = ½·k·A² = ½·m·v_máx²</b> &nbsp;&nbsp;<span class="muted">(la gravedad ya está absorbida en el corrimiento del centro)</span></div>
+<div class="trap"><div class="tr-t">No sumes mgh aparte</div>
+Si medís todo desde el equilibrio, el peso y la parte constante de la fuerza elástica <b>ya se cancelaron</b>: E = ½kA² es exacta. El error es escribir E = ½kA² + mgh midiendo la altura desde la longitud natural — ahí mezclás dos referencias y el K sale mal. Es exactamente lo que decide el 2P 2016.
+</div>
+
+<div class="reveal-wrap" data-rv="2" data-subject="fisica1-utn-oscilaciones"></div>
+<div class="quiz-wrap" data-qz="2" data-subject="fisica1-utn-oscilaciones"></div>
+<a class="back" href="#subject-fisica1-utn-oscilaciones">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 3 · MAS HORIZONTAL ============ -->
+<details id="os-s3">
+<summary><span class="num">3</span> MAS horizontal (2 ejercicios reales + finales) <span class="sec-score" id="ss-fisica1-utn-oscilaciones-3"></span></summary>
+<div class="content">
+
+<h3>Es el mismo problema, pero sin corrimiento</h3>
+<p>Bloque sobre una superficie horizontal sin rozamiento, unido a un resorte con el otro extremo fijo a la pared. El peso lo compensa la normal (<span class="m">N = mg</span>) y no estira el resorte. Consecuencia:</p>
+
+<div class="formula">
+  <b>l_eq = l₀</b> &nbsp;⟹&nbsp; <b>l₀ = <span class="frac"><span>l_máx + l_mín</span><span>2</span></span></b> &nbsp;·&nbsp; A = <span class="frac"><span>l_máx − l_mín</span><span>2</span></span>
+</div>
+
+<div class="fig">
+<svg viewBox="0 0 520 250" style="max-width:100%;height:auto">
+  <!-- pared -->
+  <line x1="50" y1="30" x2="50" y2="150" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="50" y1="42" x2="38" y2="30"/><line x1="50" y1="66" x2="38" y2="54"/>
+    <line x1="50" y1="90" x2="38" y2="78"/><line x1="50" y1="114" x2="38" y2="102"/>
+    <line x1="50" y1="138" x2="38" y2="126"/>
+  </g>
+  <!-- piso -->
+  <line x1="50" y1="150" x2="500" y2="150" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="70" y1="150" x2="58" y2="162"/><line x1="110" y1="150" x2="98" y2="162"/>
+    <line x1="150" y1="150" x2="138" y2="162"/><line x1="190" y1="150" x2="178" y2="162"/>
+    <line x1="230" y1="150" x2="218" y2="162"/><line x1="270" y1="150" x2="258" y2="162"/>
+    <line x1="310" y1="150" x2="298" y2="162"/><line x1="350" y1="150" x2="338" y2="162"/>
+    <line x1="390" y1="150" x2="378" y2="162"/><line x1="430" y1="150" x2="418" y2="162"/>
+    <line x1="470" y1="150" x2="458" y2="162"/>
+  </g>
+  <text x="360" y="176" fill="currentColor" font-size="12" opacity="0.85">sin rozamiento</text>
+
+  <!-- resorte -->
+  <polyline points="50,110 66,110 78,96 100,124 122,96 144,124 166,96 188,124 206,110 222,110"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="112" y="82" fill="currentColor" font-size="13">k , l₀</text>
+
+  <!-- bloque en equilibrio -->
+  <rect x="222" y="118" width="52" height="32" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+  <text x="242" y="139" fill="currentColor" font-size="13">m</text>
+
+  <!-- extremos -->
+  <rect x="164" y="118" width="52" height="32" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+  <rect x="280" y="118" width="52" height="32" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="164" y1="112" x2="164" y2="40" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+  <line x1="222" y1="112" x2="222" y2="40" stroke="currentColor" stroke-width="1.2" stroke-dasharray="6 3"/>
+  <line x1="280" y1="112" x2="280" y2="40" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
+  <line x1="168" y1="52" x2="218" y2="52" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M164,52 l9,-4 l0,8 z" fill="currentColor"/><path d="M222,52 l-9,-4 l0,8 z" fill="currentColor"/>
+  <line x1="226" y1="52" x2="276" y2="52" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M222,52 l9,-4 l0,8 z" fill="currentColor"/><path d="M280,52 l-9,-4 l0,8 z" fill="currentColor"/>
+  <text x="184" y="44" fill="currentColor" font-size="13">A</text>
+  <text x="244" y="44" fill="currentColor" font-size="13">A</text>
+  <text x="128" y="34" fill="currentColor" font-size="12" opacity="0.85">l_mín</text>
+  <text x="290" y="34" fill="currentColor" font-size="12" opacity="0.85">l_máx</text>
+  <text x="196" y="112" fill="currentColor" font-size="12" opacity="0.9">l₀</text>
+
+  <!-- eje -->
+  <line x1="330" y1="196" x2="470" y2="196" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M480,196 l-11,-5 l0,10 z" fill="currentColor"/>
+  <text x="484" y="201" fill="currentColor" font-size="13">x</text>
+  <circle cx="330" cy="196" r="3.5" fill="currentColor"/>
+  <text x="316" y="216" fill="currentColor" font-size="12">0</text>
+</svg>
+<div class="fig-cap">MAS horizontal (2P 2017 A2 y 2P 2011 A1). Sin gravedad que estire el resorte, el centro de la oscilación <b>es</b> la longitud natural.</div>
+</div>
+
+<div class="trap"><div class="tr-t">La confusión que cruza las dos unidades</div>
+<b>Horizontal:</b> l₀ = (l_máx + l_mín)/2. &nbsp; <b>Vertical:</b> l₀ = (l_máx + l_mín)/2 − mg/k.<br>
+Es decir: el <b>centro de oscilación</b> siempre es el promedio de los extremos, en los dos casos. Lo que cambia es si ese centro coincide o no con la longitud natural. En el vertical hay que restarle el estiramiento estático.<br><br>
+Y en los dos casos, el otro error de siempre: <b>A no es l_máx − l_mín</b>, es la <b>semi</b>diferencia.
+</div>
+
+<h3>Las magnitudes derivadas (lo que pide el 2P 2011)</h3>
+<div class="formula">
+  v_máx = A·ω &nbsp;·&nbsp; a_máx = A·ω² &nbsp;·&nbsp; F_máx = k·A = m·A·ω²<br>
+  v(x) = ω·√(A² − x²) &nbsp;<span class="muted">(x medida desde el equilibrio)</span>
+</div>
+
+<div class="trap"><div class="tr-t">La solución oficial del 2P 2011 A1 tiene una ERRATA — no la copies</div>
+Datos del ejercicio: m = 0,1 kg, K = 1000 N/m, E = 5 J. De ahí ω = √(1000/0,1) = <b>100 s⁻¹</b> y A = √(2E/K) = √(10/1000) = <b>0,1 m</b>.<br><br>
+El manuscrito de la cátedra escribe <b>a(t) = −1 m/s²·cos(100t + φ₀)</b> y <b>F(t) = −0,1 N·cos(100t + φ₀)</b>. Está mal por un factor <b>1000</b>:
+<div class="formula">a_máx = A·ω² = 0,1 m · (100 s⁻¹)² = 0,1 · 10 000 = <b>1000 m/s²</b><br>F_máx = K·A = 1000 N/m · 0,1 m = <b>100 N</b></div>
+El chequeo que te salva: <b>F = m·a</b> ⟹ 0,1 kg · 1000 m/s² = 100 N. Con los números del manuscrito daría 0,1·1 = 0,1 N... que casualmente es lo que escribieron, porque arrastraron el error de a_máx. Verificá siempre con <b>F = −Kx</b>: la amplitud de la fuerza es <span class="m">K·A</span>, y punto.
+</div>
+
+<div class="key"><div class="ky-t">Cuando no hay condiciones iniciales, φ₀ queda libre</div>
+El 2P 2011 no dice desde dónde arranca el cuerpo: sólo da la energía. Entonces <b>φ₀ no se puede determinar</b> y hay que dejarla escrita como constante arbitraria (o elegir una y justificar la elección, por ejemplo "tomo φ₀ = 0 suponiendo que a t = 0 el cuerpo pasa por el equilibrio moviéndose hacia +x"). Dejarla indeterminada <b>y decirlo</b> es la respuesta correcta; inventar un número sin justificar, no.
+</div>
+
+<h3>Los tres disfraces del MAS horizontal en el final</h3>
+<p>En el final el resorte horizontal casi nunca viene solo. Estos tres montajes aparecen en las hojas que tenés:</p>
+<p><b>a) Choque y después MAS.</b> Un bloque le pega a otro que está pegado al resorte. Se resuelve en dos etapas: <b>cantidad de movimiento</b> en el choque (instantáneo, el resorte todavía no actuó) y después <b>MAS</b> con la velocidad que quedó. Como el choque ocurre con el resorte en su longitud natural, el bloque arranca en el equilibrio y sale directo <b>A = v/ω</b>.</p>
+<p><b>b) Dos bloques apilados.</b> El de arriba se mueve <b>gracias al rozamiento estático</b>, y ese rozamiento tiene un techo. Se plantea sobre el bloque de arriba: <span class="m">f_e ≤ μ_e·m·g</span> y <span class="m">f_e = m·a_máx = m·A·ω²</span>, con <span class="m">ω² = k/(M+m)</span> porque los dos oscilan juntos. Sale <b>A_máx = μ_e·g/ω²</b>.</p>
+<p><b>c) Velocidad en una elongación dada.</b> Te dan frecuencia y amplitud y preguntan v cuando la elongación vale x. Es <span class="m">v = ω√(A² − x²)</span>, o lo mismo por energía: ½kA² = ½kx² + ½mv².</p>
+
+<div class="fig">
+<svg viewBox="0 0 460 220" style="max-width:100%;height:auto">
+  <line x1="40" y1="40" x2="40" y2="150" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="40" y1="52" x2="28" y2="40"/><line x1="40" y1="76" x2="28" y2="64"/>
+    <line x1="40" y1="100" x2="28" y2="88"/><line x1="40" y1="124" x2="28" y2="112"/>
+    <line x1="40" y1="148" x2="28" y2="136"/>
+  </g>
+  <line x1="40" y1="150" x2="430" y2="150" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="60" y1="150" x2="48" y2="162"/><line x1="100" y1="150" x2="88" y2="162"/>
+    <line x1="140" y1="150" x2="128" y2="162"/><line x1="180" y1="150" x2="168" y2="162"/>
+    <line x1="220" y1="150" x2="208" y2="162"/><line x1="260" y1="150" x2="248" y2="162"/>
+    <line x1="300" y1="150" x2="288" y2="162"/><line x1="340" y1="150" x2="328" y2="162"/>
+    <line x1="380" y1="150" x2="368" y2="162"/><line x1="420" y1="150" x2="408" y2="162"/>
+  </g>
+  <text x="300" y="178" fill="currentColor" font-size="12" opacity="0.85">sin fricción</text>
+
+  <polyline points="40,124 54,124 64,112 84,136 104,112 124,136 144,112 164,136 178,124 192,124"
+            fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="96" y="102" fill="currentColor" font-size="13">k</text>
+
+  <rect x="192" y="118" width="110" height="32" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+  <text x="240" y="139" fill="currentColor" font-size="13">M</text>
+  <rect x="214" y="88" width="66" height="30" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+  <text x="242" y="108" fill="currentColor" font-size="13">m</text>
+  <line x1="310" y1="118" x2="360" y2="104" stroke="currentColor" stroke-width="1"/>
+  <text x="362" y="102" fill="currentColor" font-size="12">μ_e entre los bloques</text>
+  <line x1="192" y1="196" x2="300" y2="196" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M310,196 l-11,-5 l0,10 z" fill="currentColor"/>
+  <text x="314" y="201" fill="currentColor" font-size="13">x</text>
+</svg>
+<div class="fig-cap">Montaje (b): los dos bloques oscilan juntos, con ω² = k/(M+m), pero al de arriba lo arrastra sólo el rozamiento estático. <span class="muted">Final UTN.BA 21/02/24, problema 3.</span></div>
+</div>
+
+<div class="reveal-wrap" data-rv="3" data-subject="fisica1-utn-oscilaciones"></div>
+<div class="quiz-wrap" data-qz="3" data-subject="fisica1-utn-oscilaciones"></div>
+<a class="back" href="#subject-fisica1-utn-oscilaciones">↑ Volver al índice</a>
+</div>
+</details>
+
+<!-- ============ UNIDAD 4 · PÉNDULOS ============ -->
+<details id="os-s4">
+<summary><span class="num">4</span> Péndulo simple y péndulo físico (sale en el final) <span class="sec-score" id="ss-fisica1-utn-oscilaciones-4"></span></summary>
+<div class="content">
+
+<h3>Dónde aparece cada cosa</h3>
+<div class="key"><div class="ky-t">La diferencia entre el parcial y el final</div>
+En los <b>9 segundos parciales</b> de Martinelli el péndulo <b>nunca es un oscilador</b>: cuando aparece, es el mecanismo que le da velocidad a un cuerpo antes de un choque, y se resuelve con conservación de energía (<span class="m">v = √(2gl(1−cos α))</span>) y después con cantidad de movimiento. El MAS del bloque A siempre es masa-resorte.<br><br>
+En el <b>final</b> sí aparece como oscilador, y de dos formas: <b>péndulo ideal</b> (amplitud angular y fase inicial, o cantidad de oscilaciones después de un choque) y <b>péndulo físico</b> (barra + disco, el reloj antiguo). Por eso el encabezado del final imprime <span class="m">I_disco = mR²/2</span> e <span class="m">I_barra = mL²/12</span>: te los da porque los vas a necesitar.
+</div>
+
+<h3>Péndulo simple (o ideal)</h3>
+<p>Masa puntual + cuerda ideal de longitud <span class="m">l</span>. Para <b>ángulos chicos</b> (sen θ ≈ θ) el apartamiento angular hace un MAS:</p>
+<div class="formula">
+  <b>ω = √(g/l)</b> &nbsp;·&nbsp; <b>T = 2π√(l/g)</b> &nbsp;·&nbsp; θ(t) = θ_máx·cos(ωt + φ₀)<br>
+  <span class="muted">y la velocidad de la masa es</span> v = l·θ̇ &nbsp;⟹&nbsp; v_máx = l·θ_máx·ω
+</div>
+
+<div class="trap"><div class="tr-t">El período NO depende de la masa</div>
+En <span class="m">T = 2π√(l/g)</span> no hay <span class="m">m</span>. Si el enunciado te da la masa del péndulo, o es para otro inciso (energía, tensión, choque) o es un <b>distractor deliberado</b> — la cátedra avisa que "puede haber datos que no interesen". Lo mismo con la amplitud: mientras el ángulo sea chico, T no depende de la amplitud.<br><br>
+Y ojo con la energía: la altura que sube la masa es <b>h = l·(1 − cos α)</b>, no <span class="m">l·cos α</span> ni <span class="m">l·sen α</span>. Para ángulos chicos vale la aproximación <span class="m">h ≈ l·α²/2</span> (con α en radianes) y da lo mismo hasta la tercera cifra.
+</div>
+
+<h3>Péndulo físico</h3>
+<p>Cuerpo rígido colgado de un punto que no es su centro de masa. Oscila con</p>
+<div class="formula">
+  <b>ω = √( <span class="frac"><span>M·g·d</span><span>I</span></span> )</b> &nbsp;·&nbsp; <b>T = 2π√( <span class="frac"><span>I</span><span>M·g·d</span></span> )</b>
+</div>
+<p>donde <span class="m">M</span> es la masa <b>total</b>, <span class="m">I</span> el momento de inercia <b>respecto del punto de suspensión</b> y <span class="m">d</span> la distancia del punto de suspensión al <b>centro de masa del conjunto</b>. Las tres cosas son del cuerpo entero, no de una pieza.</p>
+
+<div class="fig">
+<svg viewBox="0 0 420 330" style="max-width:100%;height:auto">
+  <!-- soporte -->
+  <line x1="120" y1="30" x2="280" y2="30" stroke="currentColor" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="1" opacity="0.55">
+    <line x1="132" y1="30" x2="120" y2="42"/><line x1="162" y1="30" x2="150" y2="42"/>
+    <line x1="192" y1="30" x2="180" y2="42"/><line x1="222" y1="30" x2="210" y2="42"/>
+    <line x1="252" y1="30" x2="240" y2="42"/><line x1="282" y1="30" x2="270" y2="42"/>
+  </g>
+  <circle cx="200" cy="30" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+  <text x="212" y="26" fill="currentColor" font-size="12">O (pivote)</text>
+
+  <!-- barra -->
+  <rect x="194" y="30" width="12" height="230" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+  <!-- disco -->
+  <circle cx="200" cy="222" r="34" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.8"/>
+  <circle cx="200" cy="222" r="2.5" fill="currentColor"/>
+  <text x="242" y="226" fill="currentColor" font-size="12">m_d = 1,2 kg · r = 0,15 m</text>
+
+  <!-- cotas -->
+  <line x1="130" y1="34" x2="130" y2="256" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M130,30 l-4,9 l8,0 z" fill="currentColor"/><path d="M130,260 l-4,-9 l8,0 z" fill="currentColor"/>
+  <text x="80" y="150" fill="currentColor" font-size="13">L = 2 m</text>
+  <line x1="166" y1="34" x2="166" y2="218" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <path d="M166,30 l-4,9 l8,0 z" fill="currentColor"/><path d="M166,222 l-4,-9 l8,0 z" fill="currentColor"/>
+  <text x="122" y="200" fill="currentColor" font-size="13">a = 1,67 m</text>
+  <text x="212" y="60" fill="currentColor" font-size="12">m_b = 0,8 kg</text>
+
+  <!-- centro de masa -->
+  <line x1="200" y1="192" x2="330" y2="192" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3" opacity="0.75"/>
+  <circle cx="200" cy="192" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <text x="286" y="186" fill="currentColor" font-size="12">CM del conjunto</text>
+  <text x="286" y="202" fill="currentColor" font-size="12">d = 1,402 m</text>
+</svg>
+<div class="fig-cap">Péndulo físico barra + disco. <span class="muted">Final UTN.BA 02/03/2023, problema 5.</span> El pivote está en el extremo superior de la barra; el disco está enhebrado a 1,67 m del pivote.</div>
+</div>
+
+<div class="key"><div class="ky-t">La receta para armar I y d (Steiner, dos veces)</div>
+<b>1) I de cada pieza respecto del pivote</b>, con Steiner <span class="m">I = I_CM + m·s²</span>, donde <span class="m">s</span> es la distancia del pivote al CM <b>de esa pieza</b>:<br>
+&nbsp;&nbsp;• barra colgada de un extremo: I = <span class="frac"><span>m_b L²</span><span>12</span></span> + m_b(<span class="frac"><span>L</span><span>2</span></span>)² = <span class="frac"><span>m_b L²</span><span>3</span></span><br>
+&nbsp;&nbsp;• disco a distancia a: I = <span class="frac"><span>m_d r²</span><span>2</span></span> + m_d·a²<br>
+<b>2) Sumás:</b> I_total = I_barra + I_disco.<br>
+<b>3) d es el CM del conjunto</b>, no el de una pieza: d = (m_b·L/2 + m_d·a)/(m_b + m_d).<br>
+<b>4) M es la masa total</b> m_b + m_d.
+</div>
+
+<div class="trap"><div class="tr-t">Los tres errores del péndulo físico</div>
+• Usar <b>T = 2π√(l/g)</b>. Esa fórmula es sólo para masa puntual; acá te daría cualquier cosa.<br>
+• Poner en <span class="m">d</span> la distancia al disco (1,67 m) en vez del CM del conjunto (1,402 m).<br>
+• Olvidar Steiner en el disco: <span class="m">m_d·a² = 3,347 kg·m²</span> es el término dominante, contra apenas <span class="m">0,0135 kg·m²</span> del <span class="m">m_d r²/2</span>. Si lo salteás te queda un I 4 veces más chico.<br><br>
+Chequeo: un péndulo físico "gordo" siempre tiene <b>T mayor</b> que el péndulo simple de la misma longitud. Acá T = 2,50 s contra 2π√(1,402/10) = 2,35 s del simple equivalente. Si te da mucho menor, revisá.
+</div>
+
+<h3>Amplitud angular y fase inicial (el otro formato del final)</h3>
+<p>Es el mismo paso 4 y 5 de la unidad 1, pero con <span class="m">θ</span> en lugar de <span class="m">x</span>. El enunciado del final incluso te <b>dicta</b> la convención: <span class="muted">"suponiendo que el apartamiento del equilibrio es proporcional a cos(ωt + φ)"</span>. Usala tal cual.</p>
+<div class="formula">
+  θ(t) = θ_máx·cos(ωt + φ₀) &nbsp;·&nbsp; θ̇(t) = −θ_máx·ω·sen(ωt + φ₀) &nbsp;·&nbsp; v = l·θ̇
+</div>
+<p>Arranca en el equilibrio (θ = 0) con velocidad hacia el sentido positivo ⟹ <span class="m">cos φ₀ = 0</span> y <span class="m">sen φ₀ &lt; 0</span> ⟹ <b>φ₀ = −π/2</b>, y <span class="m">θ_máx = v₀/(l·ω)</span>. Idéntico al masa-resorte del parcial.</p>
+
+<div class="key"><div class="ky-t">Un formato que apareció en la recreación del final 13/02/25</div>
+<span class="muted">(Fuente: reconstrucción de memoria hecha por alumnos, con datos faltantes declarados por ellos mismos.)</span> Una bala choca elásticamente contra un péndulo ideal de 10 kg y 2,5 m, y el ejercicio pide <b>la cantidad de oscilaciones</b> del péndulo. Se resuelve así: choque (cantidad de movimiento + energía si es elástico) → velocidad del péndulo → amplitud angular → <span class="m">T = 2π√(l/g)</span> → <b>n = t/T</b> con el tiempo que te den. Sin rozamiento el péndulo <b>no se frena</b>, así que la "cantidad de oscilaciones" siempre viene atada a un intervalo de tiempo.
+</div>
+
+<div class="reveal-wrap" data-rv="4" data-subject="fisica1-utn-oscilaciones"></div>
+<div class="quiz-wrap" data-qz="4" data-subject="fisica1-utn-oscilaciones"></div>
+<a class="back" href="#subject-fisica1-utn-oscilaciones">↑ Volver al índice</a>
+</div>
+</details>
+
+</section>
+
+
+<footer>
+  Guías unificadas · abril 2026<br>
+  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+</footer>
+
+</div>
+
+<script>
+window.M_BASE = '';
+window.M_SUBJECT = 'fisica1-utn-oscilaciones';
+
+// ============ ACCESO AL SITIO (cliente) ============
+// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
+// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
+// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
+//
+// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
+// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
+const ACCESS_USERS = [
+  { name: 'Ariel', password: 'Contraseña123' },
+  { name: 'Flor', password: 'Contraseña123' },
+];
+
+function findUser(name){
+  const n = (name || '').trim().toLowerCase();
+  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
+}
+
+function tryAccess(e){
+  e.preventDefault();
+  const nameInput = document.getElementById('auth-name').value;
+  const pass = document.getElementById('auth-pass').value;
+  const user = findUser(nameInput);
+  const err = document.getElementById('auth-error');
+  if (user && user.password === pass) {
+    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
+    document.body.classList.remove('locked');
+    err.textContent = '';
+    return false;
+  }
+  err.textContent = 'Nombre o contraseña incorrectos';
+  // Re-disparar la animacion de shake
+  err.style.animation = 'none';
+  err.offsetHeight; // reflow
+  err.style.animation = '';
+  return false;
+}
+
+function checkAccess(){
+  let saved = null;
+  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
+  if (saved && findUser(saved)) {
+    document.body.classList.remove('locked');
+    return true;
+  }
+  document.body.classList.add('locked');
+  setTimeout(() => {
+    const inp = document.getElementById('auth-name');
+    if (inp) inp.focus();
+  }, 50);
+  return false;
+}
+
+function logout(){
+  try { localStorage.removeItem('uba-auth'); } catch(e) {}
+  location.reload();
+}
+
+// ============ DRAWER / MENÚ ============
+function toggleDrawer(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawer-overlay').classList.toggle('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+function switchSubject(subject){
+  const seccion = document.getElementById('subject-' + subject);
+  // El sitio esta partido en una pagina por materia. Si la materia pedida no
+  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
+  // '' dentro de m/, 'm/' en el index.
+  if (!seccion) {
+    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+    location.href = (window.M_BASE || '') + subject + '.html';
+    return;
+  }
+  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
+  seccion.classList.add('active');
+  document.documentElement.setAttribute('data-subject', subject);
+  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
+    it.classList.toggle('active', it.getAttribute('data-target') === subject);
+  });
+  // Asegura que el grupo al que pertenece la materia activa este expandido
+  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
+  if (activeItem) {
+    const group = activeItem.closest('.drawer-group');
+    if (group && group.classList.contains('collapsed')) {
+      group.classList.remove('collapsed');
+      saveCatState();
+    }
+    // Si es una hija, expandir tambien el wrapper de la madre
+    const wrap = activeItem.closest('.drawer-item-wrap');
+    if (wrap && wrap.classList.contains('collapsed')) {
+      wrap.classList.remove('collapsed');
+      saveSubState();
+    }
+  }
+  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
+  closeDrawer();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCat(btn){
+  const group = btn.closest('.drawer-group');
+  group.classList.toggle('collapsed');
+  saveCatState();
+}
+
+function toggleSub(btn){
+  const wrap = btn.closest('.drawer-item-wrap');
+  wrap.classList.toggle('collapsed');
+  saveSubState();
+}
+
+function saveCatState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreCatState(){
+  try {
+    const raw = localStorage.getItem('uba-cats-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-group').forEach(g => {
+      const cat = g.getAttribute('data-cat');
+      if (stored[cat]) g.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+function saveSubState(){
+  try {
+    const stored = {};
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
+    });
+    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function restoreSubState(){
+  try {
+    const raw = localStorage.getItem('uba-subs-collapsed');
+    if (!raw) return;
+    const stored = JSON.parse(raw);
+    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
+      const slug = w.getAttribute('data-parent');
+      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
+      if (stored[slug] === false) w.classList.remove('collapsed');
+      else w.classList.add('collapsed');
+    });
+  } catch(e) {}
+}
+
+// ============ TEMA ============
+function applyTheme(theme){
+  if (theme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent = '🌙';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('uba-theme', next); } catch(e) {}
+  applyTheme(next);
+}
+
+// ============ SISTEMA DE QUIZ ============
+window.EX = {}; // ejercicios por subject:unit
+const state = {};
+
+function registerExercises(subject, unit, list){
+  window.EX[subject + '-' + unit] = list;
+}
+
+function renderQuizzes(){
+  let totalBySubject = {};
+  let unitsBySubject = {};
+  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-qz');
+    const key = subject + '-' + unit;
+    const list = window.EX[key];
+    if (!list) return;
+    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
+    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
+    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="qex" id="qex-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<div class="qex-opts">';
+      q.opts.forEach((o, i) => {
+        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
+      });
+      html += '</div><div class="qex-fb-wrap"></div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+  window.totalBySubject = totalBySubject;
+  window.unitsBySubject = unitsBySubject;
+  updateAllScores();
+}
+
+function pickQ(subject, unit, idx, picked){
+  const key = subject + '-' + unit;
+  const q = window.EX[key][idx];
+  const correct = (picked === q.c);
+  const stateKey = subject + '-' + unit + '-' + idx;
+  if (state[stateKey] !== undefined) return;
+  state[stateKey] = correct;
+
+  const container = document.getElementById('qex-' + stateKey);
+  const btns = container.querySelectorAll('.qex-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('ok');
+    else if (i === picked) b.classList.add('ko');
+  });
+  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const fbWrap = container.querySelector('.qex-fb-wrap');
+  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
+  updateAllScores();
+}
+
+function updateAllScores(){
+  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
+  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
+  // "analisis-parcial" (que comparten prefijo).
+  const unitsBySubject = window.unitsBySubject || {};
+  Object.keys(unitsBySubject).forEach(subject => {
+    let total = 0, correct = 0, done = 0;
+    unitsBySubject[subject].forEach(unit => {
+      const list = window.EX[subject + '-' + unit];
+      if (!list) return;
+      total += list.length;
+      let c = 0, d = 0;
+      list.forEach((_, idx) => {
+        const sk = subject + '-' + unit + '-' + idx;
+        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
+      });
+      done += d; correct += c;
+      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
+      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
+    });
+    const el = document.getElementById('global-score-' + subject);
+    if (el) {
+      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
+    }
+  });
+}
+
+
+// ============ HELPERS PARA EJERCICIOS ============
+const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
+const M = s => '<span class="m">'+s+'</span>';
+
+// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
+window.RV = {}; // reveals por subject:unit
+function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
+
+function renderReveals(){
+  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
+    const subject = wrap.getAttribute('data-subject');
+    const unit = wrap.getAttribute('data-rv');
+    const list = window.RV[subject + '-' + unit];
+    if (!list) return;
+    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
+    list.forEach((q, idx) => {
+      const id = subject + '-' + unit + '-' + idx;
+      html += '<div class="rev-ex" id="rev-' + id + '">';
+      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
+      html += '<div class="qex-st">' + q.st + '</div>';
+      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
+      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
+      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
+      html += '</div></div>';
+    });
+    wrap.innerHTML = html;
+  });
+}
+
+function revealAns(subject, unit, idx){
+  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
+  if (!el) return;
+  el.classList.add('revealed');
+  const btn = el.querySelector('.rev-btn');
+  if (btn) btn.textContent = 'Respuesta revelada';
+  if (btn) btn.disabled = true;
+}
+
+// ============ EJERCICIOS OSCILACIONES ============
+// ============================================================
+// FÍSICA I · UTN FRBA · OSCILACIONES (MAS)
+// Fuentes:
+//   · 9 segundos parciales de la cátedra Prof. Patricia Martinelli
+//     (2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017) — los 9
+//     traen el ejercicio de MAS en el bloque A.
+//   · Finales de UTN.BA (hojas de enunciado 2022–2025) para péndulo
+//     simple, péndulo físico y los montajes mixtos del MAS horizontal.
+// Convenciones de la cátedra: g = 10 m/s²; declarar sistema de
+// referencia, DCL e hipótesis; puede haber datos que no interesen.
+// ============================================================
+
+
+// ============================================================
+// SECCIÓN 1 · UN SOLO ESQUEMA RESUELVE LOS NUEVE
+// ============================================================
+registerExercises('fisica1-utn-oscilaciones', '1', [
+  {st: 'Una masa cuelga en reposo de un resorte vertical y después se la hace oscilar. ¿Alrededor de qué posición oscila?',
+   opts: ['Alrededor de la longitud natural l₀ del resorte', 'Alrededor de la posición de equilibrio l_eq = l₀ + mg/k', 'Alrededor del techo (x = 0)', 'Alrededor del punto más bajo del recorrido'],
+   c: 1,
+   ex: 'La gravedad <b>corre el centro de oscilación</b> una distancia mg/k hacia abajo, pero no deforma el movimiento: sigue siendo un MAS simétrico alrededor de <b>l_eq</b>. Por eso x(t) lleva el término constante <b>+ l_eq</b>. ▸ Por qué las otras: (A) es el error nº1 de todo el tema, y hace que la amplitud y la fase salgan mal; (C) el techo es sólo el origen del eje, no el centro del movimiento; (D) el punto más bajo es un extremo, donde la velocidad es cero, no el centro.'},
+
+  {st: 'El mismo resorte con la misma masa se prueba primero horizontal y después colgado del techo. ¿Qué le pasa a la frecuencia angular ω?',
+   opts: ['Aumenta, porque ahora también actúa la gravedad', 'Disminuye, porque el resorte ya está estirado', 'No cambia: ω = √(k/m) y no depende de g', 'Depende de la amplitud con que lo hagas oscilar'],
+   c: 2,
+   ex: '<b>ω = √(k/m)</b>: sólo la constante elástica y la masa. La gravedad únicamente desplaza el centro de oscilación. ▸ Es la trampa que la cátedra marca en las soluciones oficiales de 2009, 2013, 2014 y 2015. ▸ Por qué las otras: (A) y (B) intentan corregir ω por el peso, que es el error clásico; (D) en un MAS el período es <b>independiente de la amplitud</b> (isocronismo), y esa es justamente la propiedad que lo define.'},
+
+  {st: '2P 2009: un resorte ideal de k = 100 N/m y longitud natural l₀ = 60 cm mide 80 cm con el cuerpo colgado en reposo. ¿Cuánto vale la masa? (g = 10 m/s²)',
+   opts: ['0,8 kg', '2 kg', '6 kg', '8 kg'],
+   c: 1,
+   ex: 'La masa no es dato: sale del <b>equilibrio estático</b>. k(l_eq − l₀) = mg ⟹ m = 100·(0,80 − 0,60)/10 = 100·0,2/10 = <b>2 kg</b>. ▸ El estiramiento es la <b>diferencia</b>, 20 cm. ▸ Por qué las otras: (D) usa l_eq = 0,80 m entera (100·0,8/10); (C) usa l₀ = 0,60 m entera; (A) mezcla unidades o divide por k en vez de multiplicar.'},
+
+  {st: 'Un resorte oscila entre l_mín = 40 cm y l_máx = 60 cm. ¿Cuánto valen la amplitud y el centro de oscilación?',
+   opts: ['A = 20 cm, centro en 40 cm', 'A = 10 cm, centro en 50 cm', 'A = 20 cm, centro en 50 cm', 'A = 10 cm, centro en 40 cm'],
+   c: 1,
+   ex: 'La amplitud es la <b>semi</b>diferencia y el centro el <b>promedio</b>: A = (60 − 40)/2 = <b>10 cm</b>, l_eq = (60 + 40)/2 = <b>50 cm</b>. ▸ El movimiento va de l_eq − A a l_eq + A, o sea 10 cm para cada lado. ▸ Por qué las otras: (A) y (C) toman A = l_máx − l_mín, que es el <b>recorrido total</b> (2A), el error más repetido del tema; (D) confunde el centro con l_mín.'},
+
+  {st: 'Eje x positivo hacia ABAJO, convención x(t) = A·cos(ωt + φ₀) + l_eq. El cuerpo arranca justo en el equilibrio con velocidad hacia abajo. ¿Cuál es la fase inicial?',
+   opts: ['φ₀ = 0', 'φ₀ = +π/2', 'φ₀ = −π/2', 'φ₀ = π'],
+   c: 2,
+   ex: 'Dos condiciones. <b>(1)</b> x(0) = l_eq ⟹ A·cos φ₀ = 0 ⟹ φ₀ = ±π/2. <b>(2)</b> v(0) = −A·ω·sen φ₀ debe ser positiva (hacia abajo es el sentido +) ⟹ sen φ₀ &lt; 0 ⟹ <b>φ₀ = −π/2</b>. ▸ Es exactamente el planteo de 2P 2013 y 2P 2014. ▸ Por qué las otras: (B) +π/2 es la que corresponde si la velocidad inicial fuera hacia <b>arriba</b> (2P 2010) — elegirla es el error que la cátedra señala como el más común; (A) y (D) darían x(0) = l_eq ± A, o sea arrancar en un extremo con velocidad nula.'},
+
+  {st: '2P 2011: una masa oscila con un resorte de K = 1000 N/m manteniendo su energía mecánica en 5 J. ¿Cuál es la amplitud?',
+   opts: ['0,01 m', '0,1 m', '1 m', '0,32 m'],
+   c: 1,
+   ex: 'En los extremos toda la energía es elástica: <b>E = ½·K·A²</b> ⟹ A² = 2E/K = 10/1000 = 0,01 m² ⟹ <b>A = 0,1 m = 10 cm</b>. ▸ Por qué las otras: (A) 0,01 m es A² sin sacar la raíz; (C) 1 m sale de olvidar el factor ½ y confundirse de potencia; (D) 0,32 m es √0,1, que aparece si usás E = ½KA sin cuadrado.'},
+
+  {st: 'Un cuerpo cuelga en reposo de un resorte y el estiramiento estático es δ = l_eq − l₀. No te dan ni k ni m. ¿Podés calcular ω?',
+   opts: ['No, faltan datos', 'Sí: ω = √(g/δ)', 'Sí: ω = √(δ/g)', 'Sí, pero sólo si además te dan la amplitud'],
+   c: 1,
+   ex: 'Del equilibrio: k·δ = m·g ⟹ m/k = δ/g. Entonces <b>ω = √(k/m) = √(g/δ)</b>. ▸ Es un atajo que resuelve solo el problema del final donde te dan "el resorte está elongado 20 cm en el equilibrio" y nada más: ω = √(10/0,2) = 7,07 rad/s. ▸ Por qué las otras: (C) invierte la fracción (te daría 0,14 rad/s, un período de 45 s); (D) la amplitud no entra en ω, el MAS es isócrono; (A) sí alcanzan los datos.'}
+]);
+
+
+// ============================================================
+// SECCIÓN 2 · MAS VERTICAL MASA-RESORTE
+// ============================================================
+registerExercises('fisica1-utn-oscilaciones', '2', [
+  {st: '2P 2010: un cuerpo cuelga del techo por DOS resortes ideales idénticos colocados uno debajo del otro, cada uno con k = 200 N/m. ¿Cuál es la constante equivalente?',
+   opts: ['400 N/m', '200 N/m', '100 N/m', '50 N/m'],
+   c: 2,
+   ex: 'Uno debajo del otro es <b>serie</b>: 1/k_eq = 1/k + 1/k ⟹ <b>k_eq = k/2 = 100 N/m</b>. El conjunto es <b>más blando</b> que cada resorte por separado. ▸ Por qué las otras: (A) 400 N/m es la suma, que corresponde al <b>paralelo</b> (los dos al lado, sosteniendo el mismo cuerpo); si la usás, la masa te sale mal por un factor 4; (B) sería si hubiera un solo resorte; (D) divide dos veces.'},
+
+  {st: 'En ese mismo sistema, cada resorte tiene longitud natural l₀ = 60 cm. ¿Cuál es la longitud natural del conjunto?',
+   opts: ['60 cm', '30 cm', '120 cm', '180 cm'],
+   c: 2,
+   ex: 'En serie las longitudes <b>se suman</b>: l₀_eq = 2·l₀ = <b>1,2 m</b>. ▸ Con el cuerpo a 160 cm del techo, el estiramiento del conjunto es 1,60 − 1,20 = 0,40 m (0,20 m cada resorte), y de ahí m = k_eq·Δl/g = 100·0,4/10 = 4 kg. ▸ Por qué las otras: (A) usar 60 cm da un estiramiento de 1 m y una masa de 10 kg, que es el error más frecuente del ejercicio; (B) y (D) no salen de ningún planteo.'},
+
+  {st: '2P 2012: m = 2 kg, k = 200 N/m, l₀ = 50 cm. Se lleva el cuerpo hasta que el resorte mide 40 cm y se lo suelta con velocidad nula. ¿Cuál es la amplitud?',
+   opts: ['10 cm', '20 cm', '40 cm', '60 cm'],
+   c: 1,
+   ex: 'Primero el equilibrio: l_eq = l₀ + mg/k = 0,50 + 20/200 = 0,50 + 0,10 = <b>60 cm</b>. Se suelta desde 40 cm, o sea <b>20 cm por encima</b> del equilibrio, y con velocidad nula: ese punto <b>es</b> un extremo ⟹ <b>A = 20 cm</b>. ▸ Por qué las otras: (A) 10 cm es el estiramiento estático mg/k, no la amplitud; (C) 40 cm es la longitud de partida; (D) 60 cm es l_eq. Todos son distractores que están en el enunciado.'},
+
+  {st: '2P 2015: un cuerpo de m = 2 kg cuelga de un resorte y oscila con ω = 10 rad/s. ¿Cuál es la constante elástica?',
+   opts: ['20 N/m', '100 N/m', '200 N/m', '400 N/m'],
+   c: 2,
+   ex: 'De ω = √(K/m) se despeja <b>K = m·ω²</b> = 2·10² = <b>200 N/m</b>. ▸ Por qué las otras: (A) 20 N/m es m·ω (olvidarse el cuadrado); (D) 400 N/m sale de usar ω² = 200 sin dividir bien o de duplicar; (B) 100 N/m es ω² solo, sin la masa. Chequeo rápido: con K = 200 y m = 2, √(200/2) = √100 = 10 ✓.'},
+
+  {st: '2P 2016: un bloque cuelga de un resorte de l₀ = 1 m, oscila entre l_mín = 1,2 m y l_máx = 1,6 m, y la energía mecánica es E = 1 J. ¿Cuánto vale K?',
+   opts: ['12,5 N/m', '25 N/m', '50 N/m', '100 N/m'],
+   c: 2,
+   ex: '<b>Paso 1:</b> A = (1,6 − 1,2)/2 = <b>0,2 m</b>. <b>Paso 2:</b> midiendo desde el equilibrio, E = ½·K·A² ⟹ K = 2E/A² = 2/0,04 = <b>50 N/m</b>. ▸ Por qué las otras: (A) 12,5 N/m sale de tomar A = 0,4 m (la diferencia entera en vez de la mitad); (D) 100 N/m sale de olvidar el ½; (B) 25 N/m combina los dos errores. Chequeo: l_eq = 1,4 m ⟹ δ = 0,4 m ⟹ m = K·δ/g = 50·0,4/10 = 2 kg y ω = √(50/2) = 5 rad/s, con v_máx = 1 m/s y E = ½·2·1² = 1 J ✓.'},
+
+  {st: '2P 2014: el enunciado dice "la mínima distancia del cuerpo al techo es de 80 cm" y el equilibrio está en l_eq = 1 m. ¿Qué representa ese dato y cuánto vale A?',
+   opts: ['Es el punto más bajo del recorrido; A = 20 cm', 'Es el punto más alto del recorrido; A = 20 cm', 'Es el punto más alto del recorrido; A = 80 cm', 'Es la longitud natural del resorte; A = 40 cm'],
+   c: 1,
+   ex: 'Menos distancia al techo = el resorte más corto = el cuerpo <b>más arriba</b>. Es l_mín, el extremo <b>superior</b>. Y la amplitud es la distancia de ahí al centro: <b>A = l_eq − l_mín = 100 − 80 = 20 cm</b>. ▸ Por qué las otras: (A) leerlo como el punto más bajo te deja una amplitud negativa y todo el inciso b) se cae; (C) 80 cm es una posición, no una amplitud; (D) la longitud natural es 60 cm y sólo sirve para ubicar el equilibrio.'}
+]);
+
+
+// ============================================================
+// SECCIÓN 3 · MAS HORIZONTAL
+// ============================================================
+registerExercises('fisica1-utn-oscilaciones', '3', [
+  {st: '2P 2017: un bloque oscila sobre una superficie horizontal sin rozamiento unido a un resorte; l_mín = 30 cm y l_máx = 50 cm. ¿Cuál es la longitud natural del resorte?',
+   opts: ['30 cm', '40 cm', '50 cm', '20 cm'],
+   c: 1,
+   ex: 'En horizontal el peso lo compensa la normal y <b>no estira el resorte</b>: el centro de la oscilación coincide con la longitud natural. l₀ = (50 + 30)/2 = <b>40 cm</b>. ▸ Por qué las otras: (A) confundir l₀ con l_mín es el error típico — vale sólo si el resorte llegara a soltarse, que no es el caso; (C) l_máx es el otro extremo; (D) 20 cm es el recorrido total (2A). Ojo: si el resorte fuera <b>vertical</b> esto NO valdría, habría que restar mg/k.'},
+
+  {st: 'Ese mismo bloque tiene A = 10 cm y v_máx = 2 m/s. ¿Cuál es la frecuencia angular?',
+   opts: ['0,2 rad/s', '20 rad/s', '200 rad/s', '2 rad/s'],
+   c: 1,
+   ex: 'v_máx = A·ω ⟹ ω = v_máx/A = 2/<b>0,1</b> = <b>20 rad/s</b>. ▸ El detalle que decide: pasar A a metros <b>antes</b> de dividir. ▸ Por qué las otras: (A) 0,2 rad/s es A/v_máx invertido; (C) 200 rad/s sale de usar A = 10 (cm) sin convertir, y arrastra un error de 10⁴ en k; (D) 2 rad/s es la propia v_máx mal leída. Chequeo: con m = 0,5 kg, k = m·ω² = 0,5·400 = 200 N/m.'},
+
+  {st: '2P 2011: m = 0,1 kg, K = 1000 N/m, A = 0,1 m (con ω = 100 s⁻¹). ¿Cuál es el módulo de la aceleración máxima?',
+   opts: ['1 m/s²', '10 m/s²', '100 m/s²', '1000 m/s²'],
+   c: 3,
+   ex: '<b>a_máx = A·ω² = 0,1 · (100)² = 0,1 · 10 000 = 1000 m/s²</b>. ▸ Chequeo cruzado obligatorio: F_máx = K·A = 1000·0,1 = 100 N, y F = m·a ⟹ a = 100/0,1 = 1000 m/s² ✓. ▸ <b>Atención:</b> la solución oficial manuscrita de la cátedra escribe 1 m/s² y F = 0,1 N — es una <b>errata</b> de la propia clave, no la copies. ▸ Por qué las otras: (A) es justamente el valor erróneo del manuscrito; (B) y (C) salen de usar ω o ω² a medias.'},
+
+  {st: 'Final UTN.BA: un bloque de 6 kg a 3 m/s choca contra otro de 12 kg unido a un resorte de k = 300 N/m en su longitud natural. El de 6 kg rebota a 1 m/s. ¿Amplitud de las oscilaciones del de 12 kg?',
+   opts: ['0,2 m', '0,4 m', '0,6 m', '1,2 m'],
+   c: 1,
+   ex: '<b>Etapa 1 — choque</b> (el resorte todavía no actuó, se conserva p): 6·3 = 6·(−1) + 12·v₂ ⟹ 18 + 6 = 12·v₂ ⟹ v₂ = <b>2 m/s</b>. <b>Etapa 2 — MAS</b>: ω = √(300/12) = 5 rad/s, y como el choque ocurre con el resorte en su longitud natural, el bloque arranca <b>en el equilibrio</b> ⟹ A = v₂/ω = 2/5 = <b>0,4 m</b>. ▸ Por qué las otras: (A) 0,2 m sale de olvidar el signo del rebote (v₂ = 1 m/s); (C) y (D) salen de usar la velocidad del proyectil o de no dividir por ω. ▸ Verificación por energía: ½·12·2² = 24 J = ½·300·A² ⟹ A = 0,4 m ✓.'},
+
+  {st: 'Final UTN.BA 21/02/24: bloque M = 10 kg con resorte k = 4 N/m sobre superficie sin fricción; encima, un bloque m = 2 kg con μe = 0,1 entre ambos. ¿Amplitud máxima para que el de arriba no resbale? (g = 10 m/s²)',
+   opts: ['0,25 m', '3 m', '1 m', '12 m'],
+   c: 1,
+   ex: 'Al de arriba lo acelera <b>sólo el rozamiento</b>: f = m·a ≤ μe·m·g ⟹ <b>a_máx = μe·g = 1 m/s²</b> (la masa se cancela). Los dos oscilan juntos ⟹ ω² = k/(M + m) = 4/12 = 1/3 s⁻². Y como a_máx = A·ω²: <b>A = 1/(1/3) = 3 m</b>. ▸ Por qué las otras: (C) 1 m es a_máx confundida con amplitud; (A) 0,25 m usa ω² = k/M... sin sumar la masa de arriba mal despejado; (D) 12 m multiplica en vez de dividir. ▸ El paso que más se olvida: <b>ω² usa la masa TOTAL</b>, porque el sistema que oscila son los dos bloques.'}
+]);
+
+
+// ============================================================
+// SECCIÓN 4 · PÉNDULO SIMPLE Y PÉNDULO FÍSICO
+// ============================================================
+registerExercises('fisica1-utn-oscilaciones', '4', [
+  {st: '¿De qué depende el período de un péndulo simple (ángulos chicos)?',
+   opts: ['De la masa y de la longitud', 'Sólo de la longitud y de g', 'De la amplitud y de la masa', 'De la masa, la longitud y la amplitud'],
+   c: 1,
+   ex: '<b>T = 2π√(l/g)</b>: no aparecen ni la masa ni la amplitud. ▸ Si el enunciado te da la masa del péndulo, o la necesitás para otro inciso (energía, tensión, choque) o es un <b>distractor deliberado</b>: la cátedra avisa que puede haber datos que no interesen. ▸ Por qué las otras: (A), (C) y (D) meten masa o amplitud, que no entran en T mientras el ángulo sea chico (isocronismo).'},
+
+  {st: 'Final UTN.BA: un péndulo ideal de l = 2,5 m. ¿Cuánto vale su período? (g = 10 m/s²)',
+   opts: ['π/2 s ≈ 1,57 s', 'π s ≈ 3,14 s', '2π s ≈ 6,28 s', '4 s'],
+   c: 1,
+   ex: 'ω = √(g/l) = √(10/2,5) = √4 = <b>2 rad/s</b> ⟹ T = 2π/ω = <b>π s ≈ 3,14 s</b>. ▸ Por qué las otras: (A) π/2 s corresponde a ω = 4; (C) 2π s a ω = 1 (sería l = 10 m); (D) 4 s confunde ω = 2 con el período. Chequeo: un péndulo de 2,5 m es "largo", tiene que tardar más de 1 s por oscilación completa.'},
+
+  {st: 'En el péndulo físico, T = 2π√(I/(M·g·d)). ¿Qué es exactamente d?',
+   opts: ['La longitud de la barra', 'La distancia del punto de suspensión al centro de masa del CONJUNTO', 'El radio del disco', 'La distancia del punto de suspensión al disco'],
+   c: 1,
+   ex: '<b>d es la distancia del pivote al centro de masa del cuerpo entero</b>. En la barra + disco del final: d = (m_b·L/2 + m_d·a)/(m_b + m_d) = (0,8·1 + 1,2·1,67)/2 = <b>1,402 m</b>. ▸ Por qué las otras: (D) usar a = 1,67 m (la distancia al disco) es el error típico y te da un T casi 9% más chico; (A) L = 2 m sería el CM sólo si toda la masa estuviera en la punta; (C) el radio del disco entra en I, nunca en d. ▸ Y acordate: M en la fórmula es la masa <b>total</b>.'},
+
+  {st: 'Un disco homogéneo de masa m y radio r está enhebrado en una barra, a distancia a del punto de suspensión. ¿Cuál es su momento de inercia respecto de ese punto?',
+   opts: ['m·r²/2', 'm·a²', 'm·r²/2 + m·a²', 'm·r²/2 + m·(a/2)²'],
+   c: 2,
+   ex: '<b>Steiner</b>: I = I_CM + m·s², con s la distancia del eje al CM del disco. I = <b>m·r²/2 + m·a²</b>. ▸ Con los números del final (m = 1,2 kg, r = 0,15 m, a = 1,67 m): 0,0135 + 3,347 = 3,360 kg·m². Fijate que el término de Steiner es <b>250 veces</b> el propio del disco. ▸ Por qué las otras: (A) olvida Steiner y deja I 250 veces más chico; (B) trata al disco como puntual (aproximación aceptable acá pero no es lo que piden); (D) parte a por la mitad sin motivo — a ya se mide desde el pivote.'},
+
+  {st: 'En los 9 segundos parciales de la cátedra Martinelli, ¿cómo aparece el péndulo?',
+   opts: ['Como el oscilador del bloque A, en lugar del masa-resorte', 'Como mecanismo para darle velocidad a un cuerpo antes de un choque', 'No aparece nunca en ningún ejercicio', 'Siempre como péndulo físico con barra y disco'],
+   c: 1,
+   ex: 'En el parcial el MAS del bloque A es <b>siempre masa-resorte</b>; cuando hay un péndulo, sirve para calcular con qué velocidad llega un cuerpo al punto más bajo (v = √(2gl(1−cos α))) y después viene un choque. ▸ Como oscilador, el péndulo aparece en el <b>final</b>: amplitud angular y fase inicial (péndulo ideal) y el reloj de barra + disco (péndulo físico). ▸ Por qué las otras: (A) invierte los roles; (C) sí aparece; (D) el péndulo físico es exclusivo del final.'}
+]);
+
+
+// ============================================================
+// EJERCICIOS REALES · SECCIÓN 2 · MAS VERTICAL
+// 7 ejercicios de parcial (Martinelli) + 1 de final (UTN.BA)
+// ============================================================
+registerReveals('fisica1-utn-oscilaciones', '2', [
+
+{st: '<b>2do parcial 2009 · Tema 1 · Problema 3 · 07/12/2009 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Un cuerpo se encontraba en reposo colgando de un techo, sostenido por un resorte ideal de constante elástica k=100N/m y longitud natural l0=60cm. En esas condiciones la longitud del resorte era 80cm. En el instante t=0s, estando el cuerpo el esa posición <span class="muted">[sic, dice "el" por "en"]</span>, se le imprimió al mismo una velocidad hacia abajo de módulo 60cm/s.<br>a) Calcule la masa del cuerpo y determine la frecuencia angular (o pulsación) y el período del movimiento oscilatorio que se tiene para t&gt;0s.<br>b) Obtenga la ecuación de movimiento, escriba las soluciones generales para la posición y la velocidad del cuerpo para todo t&gt;0s y determine la amplitud y la fase inicial del movimiento.',
+ ans: 'a) m = 2 kg · ω = √50 ≈ 7,071 s⁻¹ · T ≈ 0,8886 s. b) Ecuación de movimiento: ẍ + ω²x = ω²·l_eq. Soluciones: x(t) = A·sen(ωt + φ₀) + 0,80 m y v(t) = A·ω·cos(ωt + φ₀), con A = 8,49 cm y φ₀ = 0.',
+ sol: '<b>Referencia e hipótesis.</b> Eje x vertical, origen en el techo, <b>positivo hacia abajo</b>; x mide la longitud del resorte. Resorte ideal (sin masa), sin rozamiento, g = 10 m/s². DCL del cuerpo: elástica k(x − l₀) hacia arriba, peso mg hacia abajo. ▸ <b>a) Masa.</b> En el equilibrio inicial ΣF = 0: mg = k(l_eq − l₀) con l_eq = 0,80 m y l₀ = 0,60 m, o sea un estiramiento de <b>0,20 m</b> (no 0,80 ni 0,60). m = 100·0,20/10 = <b>2 kg</b>. ▸ <b>Frecuencia y período.</b> ω = √(k/m) = √(100/2) = √50 = <b>7,071 s⁻¹</b>; T = 2π/ω = <b>0,8886 s</b>. ▸ <b>b) Ecuación de movimiento.</b> Newton con x hacia abajo: mg − k(x − l₀) = mẍ. Dividiendo por m y reordenando: <b>ẍ + ω²x = ω²l₀ + g = ω²l_eq</b>. Verificación numérica: ω²l₀ + g = 50·0,6 + 10 = 40 = 50·0,8 ✓. ▸ <b>Soluciones generales.</b> x(t) = A·sen(ωt + φ₀) + 0,80 m; v(t) = A·ω·cos(ωt + φ₀). <span class="muted">(La solución oficial de esta fecha usa la convención SENO.)</span> ▸ <b>Condiciones iniciales.</b> x(0) = 0,80 m = l_eq ⟹ A·sen φ₀ = 0 ⟹ φ₀ = 0 o π. v(0) = +0,60 m/s (hacia abajo = sentido positivo) ⟹ A·ω·cos φ₀ &gt; 0 ⟹ cos φ₀ &gt; 0 ⟹ <b>φ₀ = 0</b>. ▸ <b>Amplitud.</b> A = v₀/ω = 0,60/7,071 = <b>0,0849 m = 8,49 cm</b>. ▸ <b>Chequeo.</b> Oscila entre 71,5 cm y 88,5 cm del techo; v_máx = A·ω = 0,0849·7,071 = 0,60 m/s, que es la velocidad inicial ✓.'},
+
+{st: '<b>2do parcial 2010 · A2 · 30/11/2010 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Un cuerpo se encuentra en reposo, colgando de un techo por medio de dos resortes ideales idénticos, colocados como se muestra en la figura <span class="muted">[los dos resortes van en SERIE, uno colgando del otro; ver la figura de la unidad 2]</span>. Cada resorte tiene constante elástica k=200N/m y longitud natural l0=60cm. En esas condiciones, el cuerpo está situado a 160cm del techo. Estando en esta posición, en determinado instante t=0s, se le imprime al mismo una velocidad de módulo v0=60cm/s, hacia arriba.<br>a) Calcule la masa del cuerpo y determine la frecuencia angular (o pulsación) y el período del movimiento oscilatorio que se tiene para t≥0s.<br>b) Escriba las ecuaciones que definen la posición y la velocidad del cuerpo para todo t≥0s, y determine la amplitud y la fase inicial del movimiento. Indique claramente el sistema de coordenadas utilizado.',
+ ans: 'a) m = 4 kg · ω = 5 s⁻¹ · T = 2π/5 ≈ 1,257 s. b) x(t) = 0,12 m·cos(5 s⁻¹·t + π/2) + 1,60 m y v(t) = −0,60 m/s·sen(5 s⁻¹·t + π/2) = −0,60 m/s·cos(5 s⁻¹·t), con A = 12 cm y φ₀ = +π/2 (eje x positivo hacia abajo, origen en el techo).',
+ sol: '<b>Referencia.</b> Eje x vertical, origen en el techo, positivo hacia abajo. ▸ <b>Resorte equivalente (el corazón del ejercicio).</b> Los dos resortes están <b>en serie</b>: k_eq = k·k/(k+k) = k/2 = <b>100 N/m</b> y l₀_eq = 2·l₀ = <b>1,20 m</b>. ▸ <b>a) Masa.</b> Equilibrio a x_eq = 1,60 m: k_eq(x_eq − l₀_eq) = mg ⟹ 100·(1,60 − 1,20) = 10·m ⟹ 40 N = 10·m ⟹ <b>m = 4 kg</b>. <span class="muted">Cada resorte se estira 0,20 m y el conjunto 0,40 m.</span> ▸ <b>Frecuencia.</b> ω = √(k_eq/m) = √(100/4) = <b>5 s⁻¹</b>; T = 2π/5 = <b>1,257 s</b>. ▸ <b>b) Convención.</b> Esta solución oficial usa COSENO: x(t) = A·cos(ωt + φ₀) + 1,60 m, v(t) = −A·ω·sen(ωt + φ₀). ▸ <b>Condiciones iniciales.</b> x(0) = 1,60 m = x_eq ⟹ cos φ₀ = 0 ⟹ φ₀ = ±π/2. La velocidad inicial es hacia <b>arriba</b>, o sea v(0) = <b>−0,60 m/s</b> con este eje ⟹ −A·5·sen φ₀ &lt; 0 ⟹ sen φ₀ &gt; 0 ⟹ <b>φ₀ = +π/2</b>. ▸ <b>Amplitud.</b> A = v₀/ω = 0,60/5 = <b>0,12 m = 12 cm</b>. ▸ <b>Ecuaciones.</b> x(t) = 0,12 m·cos(5t + π/2) + 1,60 m = 1,60 m − 0,12 m·sen(5t); v(t) = −0,60 m/s·cos(5t). ▸ <b>Chequeo.</b> Oscila entre 1,48 m y 1,72 m del techo, y v(0) = −0,60 m/s (hacia arriba) ✓. <span class="muted">Si hubieras tomado los resortes en paralelo (k_eq = 400 N/m, l₀ = 0,60 m) la masa te habría dado 10 kg y todo lo demás mal.</span>'},
+
+{st: '<b>2do parcial 2012 · A2 · 29/11/2012 · Curso Z1022 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Un cuerpo de masa m=2kg se encuentra inicialmente en reposo colgando de un techo, sostenido por un resorte ideal de constante elástica k=200N/m y longitud natural l0=50cm. Luego se lleva el cuerpo a la posición en que la longitud del resorte es 40cm y en el instante t=0s, se lo suelta desde allí con velocidad nula.<br>a) Calcule la longitud inicial del resorte, mientras el cuerpo está en reposo colgando del techo, y determine la frecuencia angular ω y el período del movimiento oscilatorio armónico que se tiene para t&gt;0s.<br>b) Determine la amplitud A y la fase inicial de este movimiento, y escriba las ecuaciones que definen la posición y la velocidad del cuerpo para todo t&gt;0s.',
+ ans: 'a) l_eq = 60 cm · ω = 10 s⁻¹ · T = π/5 ≈ 0,6283 s. b) A = 20 cm · φ₀ = −π/2 · x(t) = 20 cm·sen(10 s⁻¹·t − π/2) + 60 cm · v(t) = 200 cm/s·cos(10 s⁻¹·t − π/2).',
+ sol: '<b>Referencia.</b> Eje x con origen en el techo, positivo hacia abajo; x mide la longitud del resorte. ▸ <b>a) Longitud inicial (= de equilibrio).</b> Ojo con la palabra "inicial": no es l₀. mg = k(x_eq − l₀) ⟹ x_eq = l₀ + mg/k = 0,50 + (2·10)/200 = 0,50 + 0,10 = <b>0,60 m = 60 cm</b>. ▸ <b>Frecuencia.</b> ω = √(k/m) = √(200/2) = √100 = <b>10 s⁻¹</b>; T = 2π/10 = π/5 = <b>0,6283 s</b>. ▸ <b>b) Convención.</b> Esta solución oficial usa SENO: x(t) = A·sen(ωt + φ₀) + x_eq, v(t) = A·ω·cos(ωt + φ₀). ▸ <b>Condiciones iniciales:</b> x(0) = 40 cm y v(0) = 0. <br>(1) 40 = A·sen φ₀ + 60 ⟹ A·sen φ₀ = <b>−20 cm</b>.<br>(2) 0 = A·ω·cos φ₀ ⟹ cos φ₀ = 0 ⟹ φ₀ = ±π/2.<br>Como A debe ser positiva, (1) exige sen φ₀ &lt; 0 ⟹ <b>φ₀ = −π/2</b> y <b>A = 20 cm</b>. ▸ <b>Ecuaciones.</b> x(t) = 20 cm·sen(10t − π/2) + 60 cm; v(t) = 200 cm/s·cos(10t − π/2). Equivalente: x(t) = 60 cm − 20 cm·cos(10t), v(t) = 200 cm/s·sen(10t). ▸ <b>Lectura física.</b> Se suelta 20 cm por <b>encima</b> del equilibrio y en reposo: ese punto es un extremo del movimiento, por eso la amplitud sale directo. Oscila entre 40 cm y 80 cm del techo. ▸ <b>Trampa.</b> Elegir φ₀ = +π/2 en vez de −π/2 es el error que la cátedra marca como el más frecuente: cos φ₀ = 0 deja dos soluciones y hay que descartar la que da A negativa.'},
+
+{st: '<b>2do parcial 2013 · A2 · 26/11/2013 · Curso O1122 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Inicialmente, un cuerpo se encuentra en reposo colgando de un techo, sostenido por un resorte ideal de constante elástica K=100N/m y longitud natural l0=1m. En esas condiciones la longitud del resorte es leq=1.4m. En determinado instante, t=0s, estando el cuerpo en esa posición, se le imprime al mismo una velocidad hacia abajo v0=60cm/s.<br>a) Calcule la masa del cuerpo, y determine la frecuencia angular (o pulsación) y el período del movimiento oscilatorio que se tiene para t&gt;0s.<br>b) Determine la amplitud A y la fase inicial de este movimiento, y escriba las ecuaciones que definen la posición y la velocidad del cuerpo para todo t&gt;0s.',
+ ans: 'a) m = 4 kg · ω = 5 s⁻¹ · T ≈ 1,26 s. b) A = 12 cm · φ₀ = −π/2 · x(t) = 12 cm·cos(5 s⁻¹·t − π/2) + 1,4 m · v(t) = −60 cm/s·sen(5 s⁻¹·t − π/2).',
+ sol: '<b>Referencia.</b> Eje x con origen en el techo, positivo hacia abajo. ▸ <b>a) Masa.</b> Equilibrio: K(l_eq − l₀) = mg ⟹ m = 100·(1,4 − 1)/10 = 100·0,4/10 = <b>4 kg</b>. <span class="muted">El estiramiento es 0,4 m, no 1,4 m.</span> ▸ ω = √(K/m) = √(100/4) = <b>5 s⁻¹</b>; T = 2π/5 = <b>1,26 s</b>. ▸ <b>b) Convención COSENO</b> (la que usa esta clave): x(t) = A·cos(ωt + φ₀) + x_eq con x_eq = 1,4 m; v(t) = −A·ω·sen(ωt + φ₀). ▸ <b>Condiciones iniciales.</b> x(0) = 1,4 m = x_eq ⟹ cos φ₀ = 0 ⟹ φ₀ = ±π/2. v(0) = +0,60 m/s (hacia abajo = +) ⟹ −A·ω·sen φ₀ &gt; 0 ⟹ sen φ₀ &lt; 0 ⟹ <b>φ₀ = −π/2</b>. ▸ <b>Amplitud.</b> Arranca <b>en el equilibrio</b>, así que x₀′ = 0 y A = v₀/ω = 0,60/5 = <b>0,12 m = 12 cm</b>. ▸ <b>Ecuaciones.</b> x(t) = 12 cm·cos(5t − π/2) + 1,4 m; v(t) = −60 cm/s·sen(5t − π/2). ▸ <b>Chequeo.</b> Oscila entre 1,28 m y 1,52 m; v_máx = 0,12·5 = 0,60 m/s = v₀ ✓. ▸ <b>Nota de método.</b> Si en vez de reconocer que arranca en el equilibrio usás A = √(x₀′² + (v₀/ω)²), acordate de que x₀′ se mide <b>desde el equilibrio</b>: acá x₀′ = 1,4 − 1,4 = 0 y da lo mismo.'},
+
+{st: '<b>2do parcial 2014 · A2 · 29/11/2014 · Curso I1021 · Prof. Patricia Martinelli (UTN.BA).</b><br>Un cuerpo de masa m=2kg, que cuelga de un techo sostenido por un resorte ideal de constante elástica k=50N/m y longitud natural l0=60cm, realiza un movimiento oscilatorio armónico. La mínima distancia del cuerpo al techo es de 80cm.<br>a) Determine la frecuencia angular ω y la amplitud A de dicho movimiento.<br>b) Sabiendo que a t=0s el cuerpo se encontraba a 1m del techo y tenía velocidad hacia abajo, determine la fase inicial φ0 del movimiento, y escriba las ecuaciones que definen la posición y la velocidad del cuerpo para todo t&gt;0s.',
+ ans: 'a) ω = 5 rad/s · l_eq = 1 m · A = 20 cm. b) φ₀ = −π/2 · x(t) = 20 cm·cos(5 s⁻¹·t − π/2) + 1 m · v(t) = 1 m/s·cos(5 s⁻¹·t).',
+ sol: '<b>Referencia y DCL.</b> Eje x positivo hacia abajo, origen en el techo. DCL: elástica k(l_eq − l₀) hacia arriba, peso mg hacia abajo. ▸ <b>Posición de equilibrio</b> (no la piden pero es indispensable): l_eq = l₀ + mg/k = 0,60 + 20/50 = 0,60 + 0,40 = <b>1 m</b>. ▸ <b>a) Frecuencia.</b> ω = √(k/m) = √(50/2) = √25 = <b>5 rad/s</b>. ▸ <b>Amplitud.</b> "La mínima distancia al techo" es el <b>punto más alto</b> del recorrido, l_mín = 80 cm. Como el centro está en 100 cm: A = l_eq − l_mín = 100 − 80 = <b>20 cm</b>. ▸ <b>b) Convención COSENO:</b> x(t) = A·cos(ωt + φ₀) + l_eq; v(t) = −A·ω·sen(ωt + φ₀). ▸ <b>Condiciones iniciales.</b> x(0) = 1 m = l_eq ⟹ 20 cm·cos φ₀ = 0 ⟹ φ₀ = ±π/2. v(0) &gt; 0 (hacia abajo, sentido +) ⟹ −5·0,2·sen φ₀ &gt; 0 ⟹ sen φ₀ &lt; 0 ⟹ <b>φ₀ = −π/2</b>. ▸ <b>Ecuaciones.</b> x(t) = 20 cm·cos(5t − π/2) + 1 m, que es lo mismo que x(t) = 1 m + 0,2 m·sen(5t); v(t) = −1 m/s·sen(5t − π/2) = <b>1 m/s·cos(5t)</b>. ▸ <b>Chequeo.</b> v(0) = 1 m/s hacia abajo, y v_máx = A·ω = 0,2·5 = 1 m/s: a t = 0 el cuerpo pasa por el equilibrio con velocidad máxima, coherente con haber arrancado en el centro. ▸ <b>Datos que se usan bien.</b> l₀ = 60 cm parece un dato suelto, pero es el que ubica el equilibrio: sin él no hay amplitud. Si tomás 60 cm como centro de la oscilación, la amplitud sale mal.'},
+
+{st: '<b>2do parcial 2015 · A2 · 25/11/2015 · Curso Z1102 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Un cuerpo de masa m=2kg que cuelga de un techo sostenido por un resorte ideal, realiza un movimiento oscilatorio armónico en la dirección vertical. Las longitudes mínima y máxima del resorte son, respectivamente, lmin=40cm y lmax=60cm. La frecuencia angular (o pulsación) del movimiento es ω=10rad/s.<br>a) Determine la amplitud A del movimiento, la constante elástica K del resorte y la velocidad máxima del cuerpo.<br>b) Calcule la longitud natural del resorte, l0.',
+ ans: 'a) A = 10 cm = 0,1 m · K = 200 N/m · v_máx = 1 m/s. b) l₀ = 40 cm = 0,4 m.',
+ sol: '<b>Referencia.</b> Eje x con origen en el techo, positivo hacia abajo; x(t) = A·cos(ωt + φ₀) + x_eq, v(t) = −A·ω·sen(ωt + φ₀). ▸ <b>a) Amplitud.</b> Como el coseno va entre −1 y 1: l_máx − l_mín = (A + x_eq) − (−A + x_eq) = 2A ⟹ 20 cm = 2A ⟹ <b>A = 10 cm = 0,1 m</b>. ▸ <b>Constante.</b> De ω = √(K/m): K = m·ω² = 2·100 = <b>200 N/m</b>. ▸ <b>Velocidad máxima.</b> v_máx = A·ω = 0,1·10 = <b>1 m/s</b> (= 100 cm/s). ▸ <b>b) Longitud natural.</b> El centro de oscilación es el promedio: x_eq = (60 + 40)/2 = <b>50 cm</b>. En el equilibrio K(x_eq − l₀) = mg ⟹ l₀ = x_eq − mg/K = 0,50 − 20/200 = 0,50 − 0,10 = <b>0,40 m = 40 cm</b>. ▸ <b>La coincidencia peligrosa.</b> l₀ = 40 cm da <b>numéricamente igual</b> a l_mín. Es casualidad: en un resorte vertical la longitud natural NO es el extremo superior del recorrido. Si "acertás" diciendo "l₀ = l_mín", el resultado está bien pero el razonamiento está mal, y en un ejercicio con otros números te va a fallar. ▸ <b>Chequeo.</b> Estiramiento estático = 50 − 40 = 10 cm = mg/K = 20/200 ✓.'},
+
+{st: '<b>2do parcial 2016 · A2 · 14/11/2016 · Curso R1022 · Prof. Patricia Martinelli (UTN.BA).</b> <span class="muted">(Esta fecha no trae solución oficial: la resolución de abajo es propia.)</span><br>Un bloque cuelga de un techo, sostenido por un resorte ideal, de longitud natural l0=1m. Este bloque realiza un movimiento oscilatorio armónico en la dirección vertical, de manera tal que las longitudes mínima y máxima del resorte son lmin=1.2m y lmax=1.6m, respectivamente. La energía mecánica es E=1J.<br>a) Determine la amplitud del movimiento, A, y la constante elástica del resorte, K.<br>b) Calcule la frecuencia angular (o pulsación) del movimiento, ω, y la masa del bloque, m.',
+ ans: 'a) A = 0,2 m · K = 50 N/m. b) ω = 5 rad/s (T ≈ 1,26 s) · m = 2 kg.',
+ sol: '<b>Referencia.</b> Eje vertical con origen en la <b>posición de equilibrio</b> del bloque, positivo hacia abajo. ▸ <b>a) Amplitud.</b> A = (l_máx − l_mín)/2 = (1,6 − 1,2)/2 = <b>0,2 m</b>. Y el centro: l_eq = (1,6 + 1,2)/2 = 1,4 m, con estiramiento estático δ = l_eq − l₀ = <b>0,4 m</b>. ▸ <b>Constante.</b> Midiendo desde el equilibrio, el peso y la parte constante de la elástica se cancelan y la energía mecánica del oscilador vertical se escribe igual que la del horizontal: E = ½·K·A² ⟹ K = 2E/A² = 2·1/0,04 = <b>50 N/m</b>. ▸ <b>b) Frecuencia.</b> Del equilibrio K·δ = m·g sale m/K = δ/g, así que ω = √(K/m) = √(g/δ) = √(10/0,4) = √25 = <b>5 rad/s</b> (T = 2π/5 ≈ 1,26 s, f ≈ 0,80 Hz). ▸ <b>Masa.</b> m = K/ω² = 50/25 = <b>2 kg</b> (o directo m = K·δ/g = 50·0,4/10 = 2 kg). ▸ <b>Verificación.</b> v_máx = ω·A = 5·0,2 = 1 m/s ⟹ E = ½·m·v_máx² = ½·2·1² = <b>1 J</b> ✓ coincide con el dato. ▸ <b>La trampa del inciso a).</b> Escribir E = ½KA² + mgh, sumando aparte la potencial gravitatoria medida desde la longitud natural, mezcla dos referencias y te da un K equivocado. Con origen en el equilibrio, E = ½KA² es exacta. <span class="muted">Con g = 9,8 daría ω = 4,95 rad/s y m = 2,04 kg; en FRBA se usa g = 10.</span>'},
+
+{st: '<b>Final UTN.BA · Problema 5</b> <span class="muted">(hoja de enunciado sin encabezado visible: la foto recorta la fecha y la grilla de notas)</span>.<br>Una masa m cuelga de un resorte vertical fijo al techo y se encuentra en equilibrio cuando el resorte está elongado 20 cm respecto de su posición natural (posición A). Luego, la masa se eleva suavemente hasta que el resorte recupera su longitud natural y se libera sin velocidad inicial, iniciando un movimiento oscilatorio armónico simple, Despreciando el rozamiento determinar a) la frecuencia de oscilación del sistema, y b) la velocidad de la masa al pasar por la posición A.',
+ ans: 'a) ω = 7,07 rad/s ⟹ f ≈ 1,13 Hz (T ≈ 0,889 s). b) v = 1,41 m/s (es la velocidad máxima, porque A es la posición de equilibrio).',
+ sol: '<b>Lo primero: no te dan ni m ni k.</b> Y no hacen falta. ▸ <b>Referencia.</b> Eje vertical positivo hacia abajo, origen en la posición A (el equilibrio). ▸ <b>a) Frecuencia.</b> Del equilibrio: k·δ = m·g con δ = 0,20 m ⟹ m/k = δ/g. Entonces ω = √(k/m) = <b>√(g/δ) = √(10/0,20) = √50 = 7,071 rad/s</b>. f = ω/(2π) = 7,071/6,2832 = <b>1,13 Hz</b>; T = 1/f = <b>0,889 s</b>. ▸ <b>b) Amplitud.</b> La masa se lleva hasta la longitud natural, que está <b>20 cm por encima</b> del equilibrio, y se suelta <b>en reposo</b>: ese punto es un extremo ⟹ <b>A = 0,20 m</b>. ▸ <b>Velocidad en A.</b> La posición A es el <b>centro</b> de la oscilación, donde la rapidez es máxima: v = A·ω = 0,20·7,071 = <b>1,414 m/s ≈ 1,41 m/s</b>. ▸ <b>Verificación por energía</b> (con origen en el equilibrio): ½kA² = ½mv² ⟹ v = A√(k/m) = A·ω, lo mismo. ▸ <b>Lo que hace difícil este ejercicio.</b> Parece que faltan datos porque no hay números para m ni k; la clave es ver que el estiramiento estático δ ya contiene la relación m/k, que es lo único que ω necesita. Y notar que "posición A" es el equilibrio, no un extremo: por eso ahí la velocidad es la máxima y no cero.'}
+
+]);
+
+
+// ============================================================
+// EJERCICIOS REALES · SECCIÓN 3 · MAS HORIZONTAL
+// 2 ejercicios de parcial (Martinelli) + 3 de final (UTN.BA)
+// ============================================================
+registerReveals('fisica1-utn-oscilaciones', '3', [
+
+{st: '<b>2do parcial 2011 · A1 · 24/11/2011 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Una masa m=0,1kg, oscila horizontalmente mediante un resorte de constante elástica K=1000N/m, manteniendo constante su energía mecánica en 5J. Haga un esquema donde indique el sistema de referencia que utilizará.<br>a) Escriba las ecuaciones x(t), v(t) y a(t), para este movimiento.<br>b) ¿Qué expresión tiene la fuerza que recibe el cuerpo en función del tiempo?',
+ ans: 'ω = 100 s⁻¹ · A = 0,1 m. a) x(t) = 0,1 m·cos(100 s⁻¹·t + φ₀); v(t) = −10 m/s·sen(100 s⁻¹·t + φ₀); a(t) = −1000 m/s²·cos(100 s⁻¹·t + φ₀). b) F(t) = −100 N·cos(100 s⁻¹·t + φ₀). La fase φ₀ queda indeterminada: el enunciado no da condiciones iniciales.',
+ sol: '<b>Esquema y referencia.</b> Pared vertical a la izquierda, resorte horizontal, bloque apoyado en superficie horizontal. Eje x hacia la derecha con <b>origen en la posición de equilibrio</b> (que en horizontal coincide con la longitud natural), eje y hacia arriba. ▸ <b>Frecuencia.</b> ω = √(K/m) = √(1000/0,1) = √10000 = <b>100 s⁻¹</b>. ▸ <b>Amplitud desde la energía.</b> En los extremos toda la energía es elástica: E = ½KA² ⟹ A² = 2E/K = 10/1000 = 0,01 m² ⟹ <b>A = 0,1 m = 10 cm</b>. ▸ <b>a) Ecuaciones horarias</b> (convención coseno, medidas desde el equilibrio):<br>x(t) = 0,1 m·cos(100t + φ₀)<br>v(t) = −A·ω·sen(100t + φ₀) = −10 m/s·sen(100t + φ₀)<br>a(t) = −A·ω²·cos(100t + φ₀) = <b>−1000 m/s²</b>·cos(100t + φ₀)<br><span class="muted">Con la variante seno: x = 0,1·sen(100t+φ₀), v = 10·cos(100t+φ₀), a = −1000·sen(100t+φ₀).</span> ▸ <b>b) La fuerza.</b> DCL: en y, N − mg = 0 ⟹ N = 1 N (no hay movimiento vertical). En x la única fuerza es la elástica, así que la resultante es F = m·a(t) = <b>−100 N·cos(100t + φ₀)</b>. Equivalentemente F = −K·x, con amplitud K·A = 1000·0,1 = 100 N. ▸ <b>Sobre φ₀.</b> El enunciado <b>no</b> da posición ni velocidad inicial: la fase queda como constante arbitraria. Escribilo así, o elegí una y justificala. Inventar un número sin decir por qué es lo único que está mal.',
+ },
+
+{st: '<b>2do parcial 2011 · A1 · ERRATA de la solución oficial</b> <span class="muted">(mismo enunciado que el ejercicio anterior — leelo como control)</span>.<br>La clave manuscrita de la cátedra escribe, para este ejercicio, a(t) = −1 m/s²·cos(100 s⁻¹·t + φ₀) y F(t) = −0,1 N·cos(100 s⁻¹·t + φ₀). Verificá si esos valores son correctos y, si no lo son, corregilos y explicá con qué chequeo se detecta el error.',
+ ans: 'Están mal por un factor 1000. Lo correcto es a_máx = A·ω² = 1000 m/s² y F_máx = K·A = 100 N. El chequeo que lo detecta es F = m·a: 0,1 kg · 1000 m/s² = 100 N.',
+ sol: '<b>El cálculo correcto.</b> a_máx = A·ω² = 0,1 m · (100 s⁻¹)² = 0,1 · 10 000 = <b>1000 m/s²</b>. Y F_máx = K·A = 1000 N/m · 0,1 m = <b>100 N</b>. ▸ <b>De dónde sale el error.</b> El manuscrito escribe a_máx = 1 m/s², como si hubiera hecho 0,1 · 10 en lugar de 0,1 · 100² — y después arrastra ese valor a la fuerza: F = m·a = 0,1 · 1 = 0,1 N. Los dos números de la clave están mal, pero son <b>coherentes entre sí</b>, que es lo que hace que el error pase desapercibido. ▸ <b>Los dos chequeos que te salvan.</b><br><b>1)</b> Calculá la fuerza por el camino independiente: <b>F = −K·x</b>, así que la amplitud de la fuerza es K·A = 1000·0,1 = 100 N, sin pasar por la aceleración.<br><b>2)</b> Contrastá con F = m·a: 0,1 · 1000 = 100 N ✓. Si a fuera 1 m/s², F sería 0,1 N, y una fuerza de 0,1 N sobre un resorte de 1000 N/m lo estiraría 0,1 mm, no 10 cm. El absurdo salta solo. ▸ <b>Moraleja para el final.</b> Cuando dos resultados salen del mismo camino de cálculo, un error se propaga sin dejar rastro. Buscá siempre una <b>segunda vía</b> (energía, F = −Kx, F = ma) para cerrar el número.'},
+
+{st: '<b>2do parcial 2017 · A2 · 13/11/2017 · Curso R1022 · Prof. Patricia Martinelli (UTN FRBA).</b><br>Un cuerpo de masa m=0.5kg, realiza un movimiento oscilatorio armónico sobre una superficie horizontal sin rozamiento, unido a uno de los extremos de un resorte ideal. El otro extremo del resorte está unido a una pared fija. Las longitudes mínima y máxima del resorte son, respectivamente, lmin=30cm y lmax=50cm, y la velocidad máxima del cuerpo es vMAX=2m/s.<br>a) Determine la amplitud del movimiento, A, y la longitud natural del resorte, l0.<br>b) Calcule la frecuencia angular (o pulsación) del movimiento, ω, y la constante elástica k del resorte.',
+ ans: 'a) A = 10 cm = 0,1 m · l₀ = 40 cm = 0,4 m. b) ω = 20 rad/s · k = 200 N/m.',
+ sol: '<b>Referencia.</b> Eje x horizontal hacia la derecha, origen en la posición de equilibrio del bloque. Hipótesis: resorte ideal, superficie sin rozamiento, el peso lo compensa la normal. ▸ <b>a) Amplitud.</b> A = (l_máx − l_mín)/2 = (50 − 30)/2 = <b>10 cm = 0,1 m</b>. ▸ <b>Longitud natural.</b> En horizontal el peso no estira el resorte, así que la posición de equilibrio <b>es</b> la longitud natural, y el equilibrio es el punto medio de la oscilación: l₀ = l_eq = (50 + 30)/2 = <b>40 cm = 0,4 m</b>. ▸ <b>b) Frecuencia.</b> De v_máx = A·ω: ω = v_máx/A = 2/0,1 = <b>20 s⁻¹ (20 rad/s)</b>. <span class="muted">Convertir A a metros antes de dividir; si usás 10 te da ω = 0,2 y k sale mal por 10⁴.</span> ▸ <b>Constante.</b> De ω = √(k/m): k = m·ω² = 0,5·400 = <b>200 N/m</b>. ▸ <b>Datos que no interesan (todavía).</b> La masa no entra en el inciso a): esa parte es puramente geométrica. Recién aparece en b) para pasar de ω a k. Es un ejemplo del "puede haber datos que no interesen" que avisa el encabezado — acá el dato sí sirve, pero no donde uno lo esperaría. ▸ <b>Contraste con el vertical.</b> Si este mismo resorte estuviera colgado, l₀ NO sería 40 cm: habría que restarle mg/k al punto medio.'},
+
+{st: '<b>Final UTN.BA 27/02/2025 · Problema 6.</b><br>Una partícula en un plano horizontal unida a un resorte describe un movimiento armónico simple con una frecuencia de 10 Hz y 5 cm de amplitud. Determine el módulo de la velocidad cuando la elonga[ción] del resorte es de 2.5 cm. <span class="muted">(dato reconstruido: la última palabra del enunciado se corta en el borde derecho de la foto; se lee "la elonga" y el contexto la completa como "elongación")</span>',
+ ans: 'v ≈ 2,72 m/s.',
+ sol: '<b>Referencia.</b> Eje x horizontal con origen en la posición de equilibrio (= longitud natural, porque es horizontal); la "elongación" es entonces la coordenada x medida desde ahí. ▸ <b>Frecuencia angular.</b> ω = 2π·f = 2π·10 = <b>62,83 rad/s</b>. ▸ <b>Camino 1 — la fórmula directa.</b> v(x) = ω·√(A² − x²) = 62,83·√(0,05² − 0,025²) = 62,83·√(0,0025 − 0,000625) = 62,83·√0,001875 = 62,83·0,04330 = <b>2,72 m/s</b>. ▸ <b>Camino 2 — por energía</b> (por si no te acordás la fórmula): ½kA² = ½kx² + ½mv² ⟹ v² = (k/m)(A² − x²) = ω²(A² − x²), que es lo mismo. ▸ <b>Atajo elegante.</b> Como x = A/2, queda v = ω·A·√(1 − ¼) = v_máx·(√3/2) = 0,866·v_máx, con v_máx = ω·A = 62,83·0,05 = 3,14 m/s ⟹ v = <b>2,72 m/s</b>. A la mitad de la amplitud todavía conservás el <b>87%</b> de la rapidez máxima: el MAS pierde velocidad muy despacio cerca del centro y muy rápido cerca de los extremos. ▸ <b>Trampas.</b> No confundir <b>frecuencia f (Hz)</b> con <b>frecuencia angular ω (rad/s)</b>: si usás 10 en vez de 62,83 el resultado sale 6,3 veces más chico. Y pasar los cm a metros antes de restar.'},
+
+{st: '<b>Final UTN.BA 21/02/2024 · Problema 3.</b> <span class="muted">(el encabezado imprime "Para todos los ejercicios use g = 10 m/s²"; el día de la fecha está manuscrito y podría ser 21 o 24)</span><br>Un bloque de masa M = 10kg descansa sobre una superficie sin fricción y está conectado a un resorte horizontal con una constante k = 4N/m. El otro extremo del resorte está fijo a una pared. Un segundo bloque de masa m = 2kg está sobre el primero. El coeficiente de fricción estática entre los bloques es μe = 0,1. Determine la amplitud de oscilación máxima que hace que el bloque superior no resbale.',
+ ans: 'A_máx = 3 m (con ω² = k/(M+m) = 1/3 s⁻² y a_máx = μe·g = 1 m/s²).',
+ sol: '<b>Referencia y DCL.</b> Eje x horizontal en el sentido del movimiento. DCL del bloque de <b>arriba</b> (m): peso mg hacia abajo, normal N = mg hacia arriba, y la <b>única</b> fuerza horizontal es el <b>rozamiento estático</b> que le hace el bloque de abajo. ▸ <b>Paso 1 — la condición física.</b> El de arriba se mueve porque el rozamiento lo arrastra. Ese rozamiento tiene un techo: f ≤ μe·N = μe·m·g. Y como f = m·a: <b>a ≤ μe·g = 0,1·10 = 1 m/s²</b>. La masa se cancela: la aceleración máxima que el rozamiento puede imponer no depende de m. ▸ <b>Paso 2 — la frecuencia del sistema.</b> Mientras no resbalen, los dos bloques oscilan <b>juntos</b> como un solo cuerpo de masa M + m: ω² = k/(M + m) = 4/12 = <b>1/3 s⁻²</b>. ▸ <b>Paso 3 — atar amplitud con aceleración.</b> En un MAS la aceleración máxima es a_máx = A·ω². Igualando con el límite del paso 1:<br>A·ω² = μe·g ⟹ <b>A_máx = μe·g/ω² = 1/(1/3) = 3 m</b>. ▸ <b>Los tres errores.</b> (1) Usar ω² = k/M olvidando la masa de arriba: el sistema que oscila son los dos. (2) Confundir a_máx (1 m/s²) con la amplitud. (3) Plantear el rozamiento sobre el bloque de abajo en vez del de arriba: sobre el de arriba es la única fuerza horizontal, y por eso el planteo sale en una línea. ▸ <b>Chequeo de razonabilidad.</b> Un resorte muy blando (4 N/m) con 12 kg oscila lentísimo: T = 2π/ω = 2π·√3 ≈ 10,9 s. Con aceleraciones tan chicas, una amplitud de 3 m es coherente.'},
+
+{st: '<b>Final UTN.BA · Problema 3</b> <span class="muted">(hoja de enunciado sin encabezado visible: la foto recorta la fecha)</span>.<br>Un bloque de masa m1 = 6 kg desliza por una superficie horizontal sin rozamiento con una velocidad v0 = 3 m/s. En cierto instante choca con otro bloque de masa m2 = 12 kg que está unido a un resorte de constante elástica k = 300 N/m, el cual posee, en el instante del choque, su longitud natural y su otro extremo está fijo a una pared. Después del choque el bloque de masa m1 retrocede con una velocidad de módulo 1 m/s. Calcule la amplitud de las oscilaciones que realiza el cuerpo m2 después del choque.',
+ ans: 'v₂ = 2 m/s después del choque · ω = 5 rad/s · A = 0,4 m = 40 cm.',
+ sol: '<b>El problema tiene dos etapas y hay que separarlas.</b> ▸ <b>Etapa 1 — el choque.</b> Es instantáneo y el resorte está en su longitud natural, así que no ejerce fuerza: se conserva la <b>cantidad de movimiento</b>. Eje x en el sentido de v₀:<br>m₁v₀ = m₁v₁′ + m₂v₂ ⟹ 6·3 = 6·(−1) + 12·v₂ ⟹ 18 + 6 = 12·v₂ ⟹ <b>v₂ = 2 m/s</b>.<br><span class="muted">El signo menos en v₁′ es lo que decide el ejercicio: "retrocede" significa que m₁ vuelve, o sea velocidad negativa. Si le ponés +1, te da v₂ = 1 m/s y A = 0,2 m, mal.</span> ▸ <b>Etapa 2 — el MAS.</b> ω = √(k/m₂) = √(300/12) = √25 = <b>5 rad/s</b>. El bloque m₂ arranca <b>en la posición de equilibrio</b> (el resorte está sin deformar en el instante del choque) con velocidad v₂: por lo tanto v₂ es la velocidad máxima y<br><b>A = v₂/ω = 2/5 = 0,4 m = 40 cm</b>. ▸ <b>Verificación por energía.</b> Justo después del choque toda la energía de m₂ es cinética: E = ½·12·2² = 24 J. En el extremo toda es elástica: 24 = ½·300·A² ⟹ A² = 0,16 ⟹ A = 0,4 m ✓. ▸ <b>Por qué NO se conserva la energía en el choque.</b> Ec inicial = ½·6·9 = 27 J; Ec después = ½·6·1 + ½·12·4 = 3 + 24 = 27 J. Da igual, así que este choque resultó <b>elástico</b> — pero eso es una consecuencia de los números, no algo que puedas suponer de entrada. Siempre arrancá por cantidad de movimiento.'}
+
+]);
+
+
+// ============================================================
+// EJERCICIOS REALES · SECCIÓN 4 · PÉNDULOS (todos de FINAL)
+// ============================================================
+registerReveals('fisica1-utn-oscilaciones', '4', [
+
+{st: '<b>Final UTN.BA 02/03/2023 · Problema 5.</b> <span class="muted">(el encabezado de esa hoja imprime: "Utilice, donde lo necesite, I(CM) disco = m R²/2, I(CM) barra = m L²/12")</span><br>Con una barra y un disco se construye un dispositivo para un reloj de péndulo antiguo. La barra tiene una longitud L = 2 m y una masa m_b = 0,8 kg. El disco es homogéneo, de masa m_d = 1,2 kg y radio r = 0,15 m. Si la distancia a entre el punto de suspensión y el centro del disco es de 1,67 m, halle el período de oscilación del péndulo.',
+ ans: 'I = 4,427 kg·m² · d = 1,402 m · M = 2 kg · T ≈ 2,50 s.',
+ sol: '<b>Es un péndulo FÍSICO</b> (cuerpo rígido colgado de un punto que no es su CM), así que T = 2π√(I/(M·g·d)) y hay que armar tres cosas: I respecto del pivote, la masa total M y la distancia d del pivote al CM del conjunto. ▸ <b>1) Momento de inercia respecto del punto de suspensión O</b> (extremo superior de la barra), con Steiner en cada pieza:<br>· <b>Barra</b> (CM en L/2 = 1 m): I_b = m_b·L²/12 + m_b·(L/2)² = 0,8·4/12 + 0,8·1² = 0,2667 + 0,8 = <b>1,0667 kg·m²</b> <span class="muted">(el clásico m_b L²/3)</span><br>· <b>Disco</b> (CM a a = 1,67 m): I_d = m_d·r²/2 + m_d·a² = 1,2·0,0225/2 + 1,2·2,7889 = 0,0135 + 3,3467 = <b>3,3602 kg·m²</b><br>· <b>Total:</b> I = 1,0667 + 3,3602 = <b>4,4268 kg·m²</b> ▸ <b>2) Masa total.</b> M = 0,8 + 1,2 = <b>2 kg</b>. ▸ <b>3) Distancia al centro de masa del conjunto.</b><br>d = (m_b·L/2 + m_d·a)/M = (0,8·1 + 1,2·1,67)/2 = (0,8 + 2,004)/2 = <b>1,402 m</b> ▸ <b>4) Período.</b><br>T = 2π√(I/(M·g·d)) = 2π√(4,4268/(2·10·1,402)) = 2π√(4,4268/28,04) = 2π√0,15788 = 2π·0,39734 = <b>2,50 s</b> ▸ <b>Chequeos.</b> Un péndulo <b>simple</b> de longitud 1,402 m daría T = 2π√(1,402/10) = 2,35 s: el físico oscila un poco <b>más lento</b>, como corresponde a un cuerpo con masa repartida. Si te diera <b>menos</b>, revisá Steiner. ▸ <b>Los errores que matan este ejercicio.</b> (1) Usar T = 2π√(l/g) con l = 2 m o l = 1,67 m: esa fórmula es para masa puntual. (2) Poner d = 1,67 m (la distancia al disco) en vez de 1,402 m: te da T = 2,29 s. (3) Olvidar el término m_d·a² del disco: es 250 veces más grande que m_d r²/2 y sin él el I sale 4 veces más chico.'},
+
+{st: '<b>Final UTN.BA · Problema 4</b> <span class="muted">(hoja compuesta en LaTeX, sin encabezado ni fecha visible en la foto)</span>.<br>Un péndulo ideal de longitud l = 2,5 m tiene un extremo atado al techo y del otro extremo cuelga una masa puntual encontrándose en equilibrio; en esas condiciones se le imprime una velocidad inicial hacia la derecha de v0 = 0,4 m/s. Eligiendo el sentido positivo del apartamiento hacia la derecha, calcule la amplitud angular y la fase inicial, suponiendo que el apartamiento del equilibrio es proporcional a cos(ω t + φ).',
+ ans: 'ω = 2 rad/s (T = π s ≈ 3,14 s) · θ_máx = 0,08 rad ≈ 4,58° · φ₀ = −π/2.',
+ sol: '<b>Es el mismo esquema del masa-resorte, con θ en vez de x.</b> ▸ <b>Referencia.</b> θ mide el apartamiento angular desde la vertical, <b>positivo hacia la derecha</b> (lo fija el enunciado). Hipótesis: cuerda ideal, masa puntual, amplitud chica (sen θ ≈ θ). ▸ <b>1) Frecuencia angular.</b> ω = √(g/l) = √(10/2,5) = √4 = <b>2 rad/s</b>. T = 2π/ω = <b>π s ≈ 3,14 s</b>. <span class="muted">Fijate que la masa no aparece: por eso el enunciado ni te la da.</span> ▸ <b>2) La convención te la dictan.</b> El enunciado dice "proporcional a cos(ωt + φ)", así que:<br>θ(t) = θ_máx·cos(ωt + φ₀) &nbsp;·&nbsp; θ̇(t) = −θ_máx·ω·sen(ωt + φ₀) ▸ <b>3) Condiciones iniciales.</b> Arranca <b>en el equilibrio</b>: θ(0) = 0 ⟹ cos φ₀ = 0 ⟹ φ₀ = ±π/2.<br>La velocidad de la masa es tangencial: v = l·θ̇, así que θ̇(0) = v₀/l = 0,4/2,5 = <b>+0,16 rad/s</b> (positiva, porque va hacia la derecha).<br>θ̇(0) = −θ_máx·ω·sen φ₀ &gt; 0 ⟹ sen φ₀ &lt; 0 ⟹ <b>φ₀ = −π/2</b>. ▸ <b>4) Amplitud angular.</b> θ_máx = θ̇(0)/ω = 0,16/2 = <b>0,08 rad</b>, o sea 0,08·180/π = <b>4,58°</b>. ▸ <b>5) Respuesta escrita.</b> θ(t) = 0,08 rad·cos(2 s⁻¹·t − π/2), que es lo mismo que θ(t) = 0,08·sen(2t). ▸ <b>Chequeos.</b> 4,58° es un ángulo chico: la hipótesis sen θ ≈ θ es válida (el error es menor al 0,1%). Y la máxima separación horizontal de la masa es l·θ_máx = 2,5·0,08 = 0,2 m. ▸ <b>Trampa.</b> Confundir la velocidad lineal v₀ = 0,4 m/s con la angular: <b>θ̇ = v/l</b>. Si metés 0,4 directo en lugar de 0,16, la amplitud angular te da 0,2 rad (11,5°) — cinco veces más grande.'},
+
+{st: '<b>Final UTN.BA 12/12/2023 · Problema 3.</b><br>Un proyectil de masa m₁ = 0,5 kg con una velocidad de modulo v₀ = 8 m/s impacta horizontalmente en un péndulo ideal de masa m₂ = 20 kg y longitud l = 3 m, que se encuentra inicialmente en reposo en su posición de equilibrio. Después del choque el proyectil no queda adherido a la masa del péndulo y este realiza oscilaciones con una amplitud angular de 3°. Calcule la perdida de energía en el choque.',
+ ans: 'v₂ = 0,287 m/s (péndulo) · v₁′ = −3,47 m/s (el proyectil rebota) · ΔE ≈ 12,2 J perdidos.',
+ sol: '<b>Este es el uso que la cátedra le da al péndulo: es un medidor de velocidad.</b> Hay que ir <b>al revés</b>: de la amplitud angular sacar la velocidad del péndulo, y recién ahí plantear el choque. ▸ <b>Paso 1 — de la amplitud angular a la velocidad.</b> Después del choque el péndulo sale del equilibrio con v₂ y sube hasta que θ = 3°. Conservación de energía en el péndulo:<br>½·m₂·v₂² = m₂·g·l·(1 − cos 3°) ⟹ v₂² = 2·g·l·(1 − cos 3°)<br>cos 3° = 0,998630 ⟹ 1 − cos 3° = 0,0013695<br>v₂² = 2·10·3·0,0013695 = 0,08217 ⟹ <b>v₂ = 0,2867 m/s</b><br><span class="muted">La altura que sube es h = l(1 − cos 3°) = 4,11 mm. Con la aproximación de ángulo chico h ≈ lθ²/2 = 3·(0,05236)²/2 = 4,11 mm: da lo mismo hasta la tercera cifra.</span> ▸ <b>Paso 2 — el choque (cantidad de movimiento).</b> El proyectil <b>no</b> queda adherido, así que hay dos velocidades finales. El choque es instantáneo (la gravedad y la tensión no alcanzan a impulsar nada):<br>m₁v₀ = m₁v₁′ + m₂v₂ ⟹ 0,5·8 = 0,5·v₁′ + 20·0,2867<br>4 = 0,5·v₁′ + 5,733 ⟹ 0,5·v₁′ = −1,733 ⟹ <b>v₁′ = −3,47 m/s</b><br>El signo negativo dice que <b>el proyectil rebota</b>: sale para atrás a 3,47 m/s. Es un resultado sorprendente pero es el que exige el momento: 20 kg moviéndose a 0,287 m/s ya se llevan más cantidad de movimiento (5,73 kg·m/s) que la que traía el proyectil (4 kg·m/s). ▸ <b>Paso 3 — la energía perdida.</b><br>Ec inicial = ½·0,5·8² = <b>16 J</b><br>Ec final = ½·0,5·(3,466)² + ½·20·(0,2867)² = 3,004 + 0,822 = <b>3,83 J</b><br><b>ΔE = 16 − 3,83 ≈ 12,2 J</b> de energía perdida en el choque. ▸ <b>Trampas.</b> (1) Suponer que el proyectil <b>queda incrustado</b>: el enunciado dice explícitamente que no, y con choque plástico la respuesta cambia por completo. (2) Usar h = l·cos α o l·sen α: la altura que sube es <b>l(1 − cos α)</b>. (3) Olvidar la energía cinética que se lleva el proyectil rebotado (3 J de los 3,83 J finales): si la salteás, la pérdida te da 15,2 J.'}
+
+]);
+
+
+// ============ INIT ============
+(function(){
+  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
+  let saved = null;
+  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
+  // el body con .locked y el overlay; el resto del init igual corre.
+  checkAccess();
+
+  // Estado colapsado de categorias del drawer
+  restoreCatState();
+  restoreSubState();
+
+  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
+  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
+  if (window.M_SUBJECT) {
+    switchSubject(window.M_SUBJECT);
+  } else {
+    document.documentElement.removeAttribute('data-subject');
+  }
+})();
+
+// Navegación del índice: abre details al hacer click
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
+    const id = e.target.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+    }
+  }
+});
+
+// Render quizzes después de cargar todo
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
+});
+</script>
+
+</body>
+</html>
