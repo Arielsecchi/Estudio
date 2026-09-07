@@ -1535,12 +1535,75 @@
 Plano inclinado, sin fuerzas extras: &nbsp; <b>N = m·g·cos α</b><br>
 Piso horizontal, sin fuerzas extras: &nbsp; <b>N = m·g</b><br>
 Piso horizontal + F a un ángulo α <b>por debajo</b> de la horizontal: &nbsp; <b>N = m·g + F·sen α</b><br>
-Piso horizontal + F a un ángulo α <b>por encima</b> de la horizontal: &nbsp; <b>N = m·g − F·sen α</b>
+Piso horizontal + F a un ángulo α <b>por encima</b> de la horizontal: &nbsp; <b>N = m·g − F·sen α</b><br>
+<b>Pared vertical</b>, bloque apretado por una F a un ángulo β sobre la horizontal: &nbsp; <b>N = F·cos β</b> &nbsp;<span class="muted">(el peso no entra: la normal es horizontal)</span>
 </div>
 
 <div class="trap"><div class="tr-t">Error nº1 de la cátedra: N = mg en un plano inclinado</div>
 Escribir <b>f = μ·m·g</b> cuando el cuerpo está sobre un plano inclinado. La normal ahí vale <b>m·g·cosα</b>, no <b>m·g</b>. En el parcial 2017 esa confusión te da μ<sub>d</sub> = 0,2 en lugar de 0,25; en el 2010 te cambia todas las tensiones. Y ojo con el caso inverso: en un sistema con un bloque en el plano y otro en una mesa horizontal, <b>cada uno tiene su propia normal</b> (N<sub>1</sub> = m<sub>1</sub>g·cosα y N<sub>2</sub> = m<sub>2</sub>g). No hay una normal para el sistema.
 </div>
+
+<h3>Pared vertical: la normal se acuesta y el rozamiento se para</h3>
+
+<p>Todas las fórmulas de arriba son de <b>piso horizontal</b> o de <b>plano inclinado</b>. Falta una geometría que ya cayó en un final (14/02/24, problema 1) y que descoloca a cualquiera que venga en piloto automático: un bloque <b>apretado contra una pared vertical</b> por una fuerza F que forma un ángulo β con la horizontal. Ahí todo el esquema rota 90°.</p>
+
+<div class="key"><div class="ky-t">Qué cambia cuando la superficie de apoyo es vertical</div>
+<b>1. La normal queda horizontal.</b> La normal es siempre perpendicular a la superficie de contacto, y acá la superficie es la pared. La ecuación en la dirección <span class="m">horizontal</span> no tiene ningún término de peso: <b>N = F·cos β</b>. O sea que <b>la propia F fija la normal</b>: cuanto más apretás, más rozamiento tenés disponible. Es lo contrario del piso horizontal, donde la normal arranca valiendo m·g y F apenas la corrige.<br>
+<b>2. El rozamiento queda vertical.</b> El rozamiento es paralelo a la superficie, así que acá va <b>a lo largo de la pared</b>: quien le hace de contrapeso es el <b>peso</b>, no la fuerza aplicada.<br>
+<b>3. La ecuación que decide todo es la vertical:</b> &nbsp;F·sen β + f = P&nbsp; (tomando f positivo hacia arriba). De ahí sale <b>f = P − F·sen β</b>, que es una <i>incógnita con signo</i>, no una fórmula.
+</div>
+
+<div class="fig"><svg viewBox="0 0 480 296" role="img" aria-label="Dos diagramas de cuerpo libre de un bloque apretado contra una pared vertical por una fuerza F inclinada un angulo beta sobre la horizontal: en el primero la fuerza es chica, el bloque tiende a caer y el rozamiento apunta hacia arriba; en el segundo la fuerza es grande, el bloque tiende a subir y el rozamiento apunta hacia abajo" style="max-width:100%;height:auto">
+<defs><marker id="dnPV1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.4"/></marker><marker id="dnPV2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.6"/></marker><marker id="dnPV3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--gold)" stroke-width="1.7"/></marker></defs>
+<text x="120" y="22" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">F CHICA · tiende a CAER</text>
+<text x="356" y="22" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">F GRANDE · tiende a SUBIR</text>
+<path d="M240 34 V252" fill="none" stroke="var(--border-2)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<path d="M196 36 V244" fill="none" stroke="currentColor" stroke-width="2.2"/>
+<path d="M196 50 l14 -12 M196 74 l14 -12 M196 98 l14 -12 M196 122 l14 -12 M196 146 l14 -12 M196 170 l14 -12 M196 194 l14 -12 M196 218 l14 -12 M196 242 l14 -12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<rect x="152" y="116" width="44" height="46" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="174" cy="139" r="2.6" fill="currentColor"/>
+<path d="M174 139 H116" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnPV1)"/>
+<text x="110" y="134" fill="currentColor" font-size="12.5" text-anchor="end">N</text>
+<path d="M174 139 V204" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnPV1)"/>
+<text x="181" y="200" fill="currentColor" font-size="12.5">P</text>
+<path d="M174 139 V80" fill="none" stroke="var(--gold)" stroke-width="2" marker-end="url(#dnPV3)"/>
+<text x="181" y="88" fill="var(--gold)" font-size="12.5">f</text>
+<path d="M96 183 L148 144" fill="none" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#dnPV2)"/>
+<text x="128" y="152" fill="var(--accent)" font-size="13" font-style="italic">F</text>
+<path d="M96 183 H156" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<path d="M124 183 A28 28 0 0 0 118 166" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<text x="128" y="178" fill="var(--text-muted)" font-size="11.5">β</text>
+<text x="120" y="268" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">F·sen β &lt; P ⇒ f hacia ARRIBA</text>
+<path d="M432 36 V244" fill="none" stroke="currentColor" stroke-width="2.2"/>
+<path d="M432 50 l14 -12 M432 74 l14 -12 M432 98 l14 -12 M432 122 l14 -12 M432 146 l14 -12 M432 170 l14 -12 M432 194 l14 -12 M432 218 l14 -12 M432 242 l14 -12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<rect x="388" y="116" width="44" height="46" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="410" cy="139" r="2.6" fill="currentColor"/>
+<path d="M410 139 H352" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnPV1)"/>
+<text x="346" y="134" fill="currentColor" font-size="12.5" text-anchor="end">N</text>
+<path d="M410 139 V206" fill="none" stroke="currentColor" stroke-width="1.7" marker-end="url(#dnPV1)"/>
+<text x="404" y="224" fill="currentColor" font-size="12.5" text-anchor="end">P</text>
+<path d="M424 139 V190" fill="none" stroke="var(--gold)" stroke-width="2" marker-end="url(#dnPV3)"/>
+<text x="437" y="204" fill="var(--gold)" font-size="12.5">f</text>
+<path d="M306 205 L386 145" fill="none" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#dnPV2)"/>
+<text x="346" y="166" fill="var(--accent)" font-size="13" font-style="italic">F</text>
+<path d="M306 205 H392" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<path d="M336 205 A30 30 0 0 0 330 187" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<text x="340" y="200" fill="var(--text-muted)" font-size="11.5">β</text>
+<text x="356" y="268" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">F·sen β &gt; P ⇒ f hacia ABAJO</text>
+<text x="240" y="288" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">En los dos casos N = F·cos β es HORIZONTAL y el rozamiento es VERTICAL</text>
+</svg>
+<div class="fig-cap">El mismo bloque, la misma pared, la misma F: lo único que cambia es <b>cuánto</b> vale F, y el rozamiento se da vuelta. A la izquierda F no alcanza a sostenerlo y <b>f apunta hacia arriba</b>; a la derecha F lo empuja hacia arriba de más y <b>f apunta hacia abajo</b>. La normal, en cambio, no cambia de dirección nunca: es horizontal y vale F·cos β en los dos casos.</div></div>
+
+<div class="trap"><div class="tr-t">Acá el rozamiento puede apuntar hacia ABAJO</div>
+Preguntate lo de siempre: <i>si no hubiera rozamiento, ¿para dónde arrancaría el bloque?</i> Si <b>F·sen β &lt; P</b> tiende a <b>caer</b> y el rozamiento va hacia arriba, que es el caso que todo el mundo dibuja. Pero si apretás fuerte y <b>F·sen β &gt; P</b>, el bloque tiende a <b>SUBIR</b> raspando la pared, y entonces el rozamiento apunta <b>hacia abajo</b>. Por eso el problema no tiene una respuesta sino <b>dos</b>: hay una F mínima y una F máxima.
+</div>
+
+<div class="formula">
+<b>N = F·cos β</b> &nbsp;·&nbsp; <b>f = P − F·sen β</b> &nbsp; con la condición &nbsp; <b>|f| ≤ μ<sub>e</sub>·N</b><br>
+<b>F<sub>mín</sub> = P / (sen β + μ<sub>e</sub>·cos β)</b> &nbsp;≤&nbsp; F &nbsp;≤&nbsp; <b>F<sub>máx</sub> = P / (sen β − μ<sub>e</sub>·cos β)</b>
+</div>
+
+<p>Con los datos de ese final (m = 1 kg ⇒ P = 10 N, β = 37°, μ<sub>e</sub> = 0,6): F<sub>máx</sub> = 10/(0,6 − 0,6·0,8) = 10/0,12 = <b>83,3 N</b> y F<sub>mín</sub> = 10/(0,6 + 0,48) = <b>9,26 N</b>. El enunciado solo pide la máxima, pero escribir también la mínima es lo que muestra que entendiste que el rozamiento estático <b>se acomoda</b>. Y mirá el denominador de F<sub>máx</sub>: si <b>tg β ≤ μ<sub>e</sub></b> se hace cero o negativo, y eso significa que <b>no hay fuerza máxima</b> — por más que aprietes, el bloque no sube nunca.</p>
 
 <h3>La ecuación de vínculo</h3>
 
@@ -1599,6 +1662,80 @@ En el parcial 2016 hay dos bloques apilados y se tira del de <b>abajo</b>. ¿Qu�
 <b>Parcial 2014 (B1):</b> da μe = 0,7 y μd = 0,5 y dice que el cuerpo tiene aceleración 2 m/s². <b>μe no se usa.</b><br>
 <b>Parcial 2016 (B2):</b> da μe = 0,3 y μd = 0,2, pero el bloque de arriba <b>no desliza</b> sobre el de abajo. <b>Acá el distractor es μd</b>, al revés que en los anteriores. Si usás μd te da a = 2 m/s² y F = 30 N, todo mal.<br>
 Moraleja: no elijas por costumbre. Preguntate solo una cosa: <b>¿las dos superficies en contacto están resbalando una sobre la otra, sí o no?</b>
+</div>
+
+<h3>Estática con resorte en el plano inclinado: el equilibrio es un INTERVALO</h3>
+
+<p>El problema 3 del final del <b>26/05/22</b> es el mismo plano inclinado de siempre, pero con una fuerza más: un <b>resorte</b> que tira del bloque hacia arriba a lo largo del plano. Parece un ejercicio de reemplazar en una fórmula y no lo es: es el mejor problema de toda la guía para entender que <b>el rozamiento estático es una incógnita, no un dato</b>.</p>
+
+<div class="key"><div class="ky-t">Tres fuerzas sobre el plano, y una no tiene sentido fijo</div>
+Eje <span class="m">x</span> a lo largo del plano, positivo <b>hacia arriba</b>. En esa dirección hay exactamente tres fuerzas:<br>
+• la componente del peso, <b>P·sen α</b>, siempre hacia <b>abajo</b>;<br>
+• la fuerza del resorte, <b>F<sub>e</sub> = k·x</b> (con <span class="m">x</span> el estiramiento), siempre hacia <b>arriba</b>;<br>
+• el rozamiento estático <b>f</b>, que <b>no tiene sentido fijo</b>: se acomoda para completar lo que falte.<br>
+Equilibrio: &nbsp;k·x + f − P·sen α = 0 &nbsp;⇒&nbsp; <b>f = P·sen α − k·x</b>. Y en la perpendicular, como siempre, <b>N = P·cos α</b>.
+</div>
+
+<div class="formula">
+Con poco estiramiento (k·x &lt; P·sen α) el resorte no llega: <b>f apunta hacia ARRIBA</b> del plano.<br>
+Con mucho estiramiento (k·x &gt; P·sen α) el resorte se pasa: <b>f apunta hacia ABAJO</b> del plano.<br>
+Justo en k·x = P·sen α el rozamiento vale <b>cero</b>.<br>
+Condición de equilibrio: &nbsp; <b>|P·sen α − k·x| ≤ μ<sub>e</sub>·P·cos α</b> &nbsp;⇒&nbsp; <b>(P·sen α − μ<sub>e</sub>·P·cos α)/k ≤ x ≤ (P·sen α + μ<sub>e</sub>·P·cos α)/k</b>
+</div>
+
+<p>Fijate lo que dice esa doble desigualdad: <b>no hay un estiramiento de equilibrio, hay toda una banda</b>. Cualquier x adentro del intervalo deja al bloque quieto, y lo único que cambia de un extremo al otro es <b>cuánto vale y hacia dónde apunta</b> el rozamiento. Por eso el enunciado puede preguntar por el estiramiento <b>máximo</b>: es el borde derecho de esa banda.</p>
+
+<div class="fig"><svg viewBox="0 0 480 280" role="img" aria-label="A la izquierda un bloque sobre un plano inclinado de 37 grados unido a un resorte que tira hacia arriba del plano con una fuerza F, con el peso, la normal y el rozamiento dibujados; a la derecha una banda que marca el intervalo de estiramientos del resorte para los que el bloque queda en equilibrio, con el rozamiento hacia arriba en la mitad izquierda y hacia abajo en la derecha" style="max-width:100%;height:auto">
+<defs><marker id="dnRE1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="currentColor" stroke-width="1.4"/></marker><marker id="dnRE2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--accent)" stroke-width="1.6"/></marker><marker id="dnRE3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="none" stroke="var(--gold)" stroke-width="1.7"/></marker></defs>
+<text x="130" y="22" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">EL SISTEMA DEL 26/05/22</text>
+<text x="366" y="22" fill="var(--accent)" font-size="11.5" font-weight="700" text-anchor="middle">EL INTERVALO DE EQUILIBRIO</text>
+<path d="M252 34 V250" fill="none" stroke="var(--border-2)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="30,200 230,200 230,50" fill="var(--surface-3)" stroke="currentColor" stroke-width="1.6"/>
+<path d="M30 214 l14 12 M62 214 l14 12 M94 214 l14 12 M126 214 l14 12 M158 214 l14 12 M190 214 l14 12 M222 214 l14 12" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+<path d="M22 200 H244" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M70 200 A40 40 0 0 0 62 176" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+<text x="76" y="192" fill="var(--accent)" font-size="12">α = 37°</text>
+<rect x="100" y="109" width="40" height="24" transform="rotate(-36.87 120 133)" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="113" cy="123" r="2.4" fill="currentColor"/>
+<path d="M113 123 L89 91" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnRE1)"/>
+<text x="82" y="86" fill="currentColor" font-size="12.5" text-anchor="end">N</text>
+<path d="M113 123 V170" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#dnRE1)"/>
+<text x="120" y="178" fill="currentColor" font-size="12.5">P</text>
+<path d="M113 123 L83 145" fill="none" stroke="var(--gold)" stroke-width="1.9" marker-end="url(#dnRE3)"/>
+<text x="76" y="152" fill="var(--gold)" font-size="12.5" text-anchor="end">f</text>
+<g transform="rotate(-36.87 129 111)">
+<path d="M129 111 H141 L146 104 L155 118 L164 104 L173 118 L182 104 L191 118 L197 111 H206" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M206 111 H226" fill="none" stroke="var(--accent)" stroke-width="2.2" marker-end="url(#dnRE2)"/>
+</g>
+<text x="214" y="46" fill="var(--accent)" font-size="13" font-style="italic">F</text>
+<text x="130" y="240" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">m = 2 kg · α = 37° · k = 50 N/m · μe = 0,4</text>
+<rect x="300" y="138" width="146" height="24" fill="var(--surface-3)" stroke="var(--accent)" stroke-width="1.4"/>
+<path d="M373 138 V162" fill="none" stroke="var(--text-muted)" stroke-width="1.1" stroke-dasharray="4 3"/>
+<text x="336" y="155" fill="var(--gold)" font-size="12" font-weight="700" text-anchor="middle">f ↑</text>
+<text x="410" y="155" fill="var(--gold)" font-size="12" font-weight="700" text-anchor="middle">f ↓</text>
+<text x="373" y="128" fill="var(--accent)" font-size="10.5" font-weight="700" text-anchor="middle">EQUILIBRIO</text>
+<text x="294" y="130" fill="var(--text-muted)" font-size="10" text-anchor="end">baja</text>
+<text x="452" y="130" fill="var(--text-muted)" font-size="10">sube</text>
+<path d="M282 176 H466" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#dnRE1)"/>
+<path d="M300 170 V182 M446 170 V182" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<path d="M373 172 V180" fill="none" stroke="var(--text-muted)" stroke-width="1.1"/>
+<text x="300" y="196" fill="currentColor" font-size="10.5" text-anchor="middle">x₁ = 11,2 cm</text>
+<text x="373" y="196" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">x₀ = 24 cm</text>
+<text x="446" y="196" fill="currentColor" font-size="10.5" text-anchor="middle">x₂ = 36,8 cm</text>
+<text x="366" y="218" fill="currentColor" font-size="11" text-anchor="middle">estiramiento del resorte</text>
+<text x="240" y="262" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">El rozamiento se acomoda: no hay UN estiramiento de equilibrio, hay toda una banda</text>
+</svg>
+<div class="fig-cap">A la izquierda, el bloque dibujado con el resorte <b>bien estirado</b>: ahí el resorte tira de más y el rozamiento apunta <b>hacia abajo</b> del plano. A la derecha, la banda de equilibrio con los números del final: entre <b>11,2 cm</b> y <b>36,8 cm</b> de estiramiento el bloque se queda quieto. Justo en el medio, en x₀ = 24 cm, la fuerza del resorte iguala a P·senα y <b>el rozamiento vale cero</b>. Fuera de la banda ya no hay equilibrio posible: con menos estiramiento el bloque baja, con más el resorte se lo lleva.</div></div>
+
+<div class="example"><div class="ex-t">Los números del 26/05/22, en cuatro renglones</div>
+P = m·g = 20 N &nbsp;·&nbsp; sen37° = 0,6 &nbsp;·&nbsp; cos37° = 0,8 &nbsp;·&nbsp; k = 50 N/m &nbsp;·&nbsp; μ<sub>e</sub> = 0,4 <span class="muted">(en la hoja original ese coeficiente está tachado a mano)</span><br>
+<b>N</b> = P·cos37° = <b>16 N</b> &nbsp;⇒&nbsp; techo del rozamiento estático: μ<sub>e</sub>·N = <b>6,4 N</b>. Y lo que hay que compensar: P·sen37° = <b>12 N</b>.<br>
+f = 12 − 50·x &nbsp;⇒&nbsp; |12 − 50·x| ≤ 6,4 &nbsp;⇒&nbsp; 5,6 ≤ 50·x ≤ 18,4 &nbsp;⇒&nbsp; <b>0,112 m ≤ x ≤ 0,368 m</b><br>
+Estiramiento <b>máximo: 36,8 cm</b> (rozamiento 6,4 N hacia abajo del plano, y hay que hacer F = k·x = 18,4 N). Estiramiento <b>mínimo: 11,2 cm</b> (rozamiento 6,4 N hacia arriba).
+</div>
+
+<div class="trap"><div class="tr-t">Si la fuerza desaparece, el resorte también deja de tirar</div>
+El inciso b) de ese problema dice "si F = 0, determine la fuerza de rozamiento". Con F = 0 el resorte vuelve a su longitud natural: <b>x = 0 y F<sub>e</sub> = 0</b>, y quedan solo peso, normal y rozamiento. Acá no se escribe ninguna fórmula de una: primero se <b>chequea si el bloque puede quedarse quieto</b>. Haría falta f = P·sen37° = 12 N y el techo es μ<sub>e</sub>·N = 6,4 N. <b>No alcanza</b>: el bloque desliza, el rozamiento pasa a ser <b>dinámico</b> y vale f = μ<sub>d</sub>·N = 0,3·16 = <b>4,8 N</b> hacia arriba del plano. Si te salteás el chequeo y contestás "f = 12 N" estás afirmando un equilibrio que no existe.
 </div>
 
 <h3>Chequeos rápidos antes de entregar</h3>
@@ -1838,6 +1975,83 @@ En ese mismo problema, el inciso b) saca la fuerza F. <b>Al desaparecer F desapa
 <text x="236" y="274" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">B arranca adelante y más rápido: primero se aleja. Recién a los 30 s A lo alcanza.</text>
 </svg>
 <div class="fig-cap">El gráfico esquemático que pide el inciso b) del parcial 2017. Lo que se corrige es: <b>B es una recta</b> (MRU) que arranca en 60 m; <b>A es una parábola</b> (MRUV) que arranca en el origen con pendiente inicial 10 m/s y va abriéndose; <b>se separan al principio</b> y hay <b>un único cruce</b>, en t = 30 s. Dibujar las dos como rectas es error conceptual.</div></div>
+
+<h3>Lectura de gráficos: la pendiente y el área</h3>
+
+<p>En el final el gráfico no es un adorno: te dan una curva y te piden números. Todo sale de <b>dos lecturas</b> —la <b>pendiente</b> y el <b>área</b>—, y lo primero es saber cuál corresponde a cada gráfico.</p>
+
+<table class="tbl">
+  <tr><th>Gráfico</th><th>La pendiente es…</th><th>El área bajo la curva es…</th><th>Cómo se reconoce</th></tr>
+  <tr><td><b>x vs t</b><br>(posición)</td><td>la <b>velocidad</b>: v = Δx/Δt</td><td><b>nada</b>: no tiene significado físico</td><td>Recta ⇒ MRU. Parábola ⇒ MRUV. Donde la curva hace máximo o mínimo, <b>v = 0</b> y el móvil se da vuelta</td></tr>
+  <tr><td><b>v vs t</b><br>(velocidad)</td><td>la <b>aceleración</b>: a = Δv/Δt</td><td>el <b>desplazamiento</b> Δx, <b>con signo</b></td><td>Es el que cae en el final. Recta horizontal ⇒ a = 0. <b>El área que queda debajo del eje resta</b></td></tr>
+  <tr><td><b>a vs t</b><br>(aceleración)</td><td>no se toma</td><td>la <b>variación de velocidad</b> Δv (y por m, el <b>impulso</b>)</td><td>Aparece poco, pero es el mismo truco: el área es lo que integra</td></tr>
+</table>
+
+<div class="formula">
+<b>Del gráfico v-t salen las cuatro cosas que preguntan:</b><br>
+Δx = área <b>con signo</b> &nbsp;⇒&nbsp; x<sub>final</sub> = x₀ + Δx &nbsp;&nbsp;·&nbsp;&nbsp; d = Σ |áreas| &nbsp;&nbsp;·&nbsp;&nbsp; a<sub>tramo</sub> = Δv/Δt (la pendiente) &nbsp;&nbsp;·&nbsp;&nbsp; I⃗ = Δp⃗ = m·(v<sub>f</sub> − v<sub>i</sub>)
+</div>
+
+<div class="key"><div class="ky-t">Cómo se calcula el área a mano (no hace falta integrar)</div>
+<b>1 · Partí el gráfico en tramos</b>, uno por cada quiebre de la poligonal. Nunca calcules "el área toda junta".<br>
+<b>2 · Cada tramo es una figura elemental:</b><br>
+&nbsp;&nbsp;• v constante ⇒ <b>rectángulo</b>: A = v·Δt<br>
+&nbsp;&nbsp;• v que arranca o termina en cero ⇒ <b>triángulo</b>: A = ½·Δt·v<br>
+&nbsp;&nbsp;• v que va de v₁ a v₂ sin cruzar el cero ⇒ <b>trapecio</b>: A = ½·(v₁ + v₂)·Δt<br>
+&nbsp;&nbsp;• v = 0 durante un rato ⇒ <b>área 0</b>: el móvil está quieto y no aporta nada<br>
+<b>3 · Ponele el signo a cada tramo antes de sumar</b>: si el tramo está debajo del eje, el área va con menos.<br>
+<b>4 · Si la recta cruza el eje, cortá justo en el cruce</b> y contá dos figuras, una positiva y una negativa. Calcular un solo trapecio "de punta a punta" ahí es el error número uno.<br>
+<b>5 · Control de unidades:</b> el área de un v-t es (m/s)·(s) = <b>metros</b>. Si te dio "m/s", contaste mal.
+</div>
+
+<div class="fig"><svg viewBox="0 0 470 312" role="img" aria-label="Grafico de velocidad en funcion del tiempo con cuadricula: la velocidad sube de cero a mas cuatro metros por segundo entre cero y dos segundos, se mantiene en cuatro hasta los cinco segundos, baja a cero a los seis segundos, el movil queda quieto hasta los ocho segundos y despues la velocidad baja hasta menos dos metros por segundo a los diez segundos y se mantiene alli hasta los doce segundos; el area sobre el eje vale mas dieciocho metros y el area bajo el eje menos seis metros" style="max-width:100%;height:auto">
+<path d="M84 90 V250 M114 90 V250 M144 90 V250 M174 90 V250 M204 90 V250 M234 90 V250 M264 90 V250 M294 90 V250 M324 90 V250 M354 90 V250 M384 90 V250 M414 90 V250" fill="none" stroke="var(--surface-3)" stroke-width="0.9"/>
+<path d="M54 90 H414 M54 110 H414 M54 130 H414 M54 150 H414 M54 170 H414 M54 210 H414 M54 230 H414 M54 250 H414" fill="none" stroke="var(--surface-3)" stroke-width="0.9"/>
+<path d="M54 190 L114 110 L204 110 L234 190 Z" fill="var(--accent)" fill-opacity="0.16" stroke="none"/>
+<path d="M294 190 L354 230 L414 230 L414 190 Z" fill="var(--gold)" fill-opacity="0.20" stroke="none"/>
+<path d="M48 190 H436 M54 262 V44" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M430 186 l6 4 l-6 4 M50 50 l4 -6 l4 6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M114 250 v7 M174 250 v7 M234 250 v7 M294 250 v7 M354 250 v7 M414 250 v7" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<path d="M54 190 L114 110 L204 110 L234 190 L294 190 L354 230 L414 230" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+<circle cx="234" cy="190" r="3.6" fill="var(--gold)"/>
+<circle cx="294" cy="190" r="3.6" fill="var(--gold)"/>
+<text x="48" y="60" fill="currentColor" font-size="12.5" text-anchor="end">v (m/s)</text>
+<text x="424" y="180" fill="currentColor" font-size="12.5" text-anchor="end">t (s)</text>
+<text x="48" y="114" fill="currentColor" font-size="11" text-anchor="end">4</text>
+<text x="48" y="154" fill="currentColor" font-size="11" text-anchor="end">2</text>
+<text x="48" y="194" fill="currentColor" font-size="11" text-anchor="end">0</text>
+<text x="48" y="234" fill="currentColor" font-size="11" text-anchor="end">−2</text>
+<text x="114" y="270" fill="currentColor" font-size="11" text-anchor="middle">2</text>
+<text x="174" y="270" fill="currentColor" font-size="11" text-anchor="middle">4</text>
+<text x="234" y="270" fill="currentColor" font-size="11" text-anchor="middle">6</text>
+<text x="294" y="270" fill="currentColor" font-size="11" text-anchor="middle">8</text>
+<text x="354" y="270" fill="currentColor" font-size="11" text-anchor="middle">10</text>
+<text x="414" y="270" fill="currentColor" font-size="11" text-anchor="middle">12</text>
+<text x="144" y="156" fill="var(--accent)" font-size="13" text-anchor="middle" font-weight="bold">+18 m</text>
+<text x="372" y="216" fill="var(--gold)" font-size="13" text-anchor="middle" font-weight="bold">−6 m</text>
+<text x="264" y="180" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">quieto: área 0</text>
+<text x="150" y="102" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">a = 0 (v constante)</text>
+<text x="235" y="288" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">0–2 s acelera · 2–5 s v constante · 5–6 s frena · 6–8 s quieto · 8–12 s va para atrás</text>
+<text x="235" y="303" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">Desplazamiento = +18 − 6 = +12 m &nbsp;|&nbsp; Distancia recorrida = 18 + 6 = 24 m</text>
+</svg>
+<div class="fig-cap">Las áreas con signo de un v-t. <b>Arriba del eje</b> (0 a 6 s): triángulo ½·2·4 = 4 m, rectángulo 3·4 = 12 m y triángulo ½·1·4 = 2 m ⇒ <b>+18 m</b>. <b>Entre 6 y 8 s</b> el móvil está quieto: el área es <b>0</b>, no "se saltea el tiempo". <b>Abajo del eje</b> (8 a 12 s): triángulo ½·2·2 = 2 m y rectángulo 2·2 = 4 m ⇒ <b>−6 m</b>, porque va en sentido contrario. Con x₀ = 0 la posición final es <b>+12 m</b>, pero la distancia recorrida es <b>24 m</b>: son dos preguntas distintas.</div></div>
+
+<div class="trap"><div class="tr-t">Desplazamiento, distancia y posición: tres números distintos</div>
+• <b>Desplazamiento</b> Δx = suma de las áreas <b>con signo</b>. En la figura: +18 − 6 = <b>+12 m</b>.<br>
+• <b>Distancia recorrida</b> d = suma de las áreas <b>en valor absoluto</b>. En la figura: 18 + 6 = <b>24 m</b>. Siempre d ≥ |Δx|, y son iguales solo si el móvil nunca se dio vuelta (o sea, si la curva nunca cruzó el eje).<br>
+• <b>Posición final</b> x<sub>f</sub> = <b>x₀ + Δx</b>. Si el enunciado aclara "en t₀ = 0 está en x₀ = 0" coincide con el desplazamiento; si te dan otro x₀, hay que sumarlo. Es un punto regalado que se pierde por leer rápido.<br>
+• Cuando preguntan <i>"¿cuál es la posición del móvil al final de su recorrido?"</i> piden <b>x₀ + área con signo</b>. Sumar todo en valor absoluto es la respuesta a otra pregunta.<br>
+• Y ojo con el revés: <b>velocidad negativa no significa frenar</b>. Frena el que se acerca al eje (|v| baja); va para atrás el que está debajo del eje. Entre 10 y 12 s el móvil de la figura no frena ni acelera: viaja a 2 m/s hacia atrás.
+</div>
+
+<div class="key"><div class="ky-t">El impulso sale del gráfico sin calcular ninguna fuerza</div>
+El teorema del impulso dice <b>I⃗ = Δp⃗ = m·v⃗<sub>f</sub> − m·v⃗<sub>i</sub></b>. Sobre un camino recto, el v-t te da las dos velocidades <b>leyéndolas</b>: no hace falta saber qué fuerza actuó ni cuánto duró.<br>
+<b>1.</b> Leé v al principio y al final del intervalo que te piden, <b>con su signo</b>.<br>
+<b>2.</b> I = m·(v<sub>f</sub> − v<sub>i</sub>). Sale en kg·m/s, que es lo mismo que <b>N·s</b>.<br>
+<b>3.</b> Contestá <b>módulo, dirección y sentido</b>: el módulo es |I|, la dirección es la del camino (la recta), y el sentido lo da el signo — si el móvil viene frenando, el impulso apunta <b>al revés</b> del movimiento.<br>
+<b>4.</b> Si además querés la fuerza media: F<sub>m</sub> = I/Δt.<br>
+<span class="muted">Así se resuelve el problema 5 del final del 14/02/24: te dan un v-t y piden posición final e impulso. Con leer dos velocidades del gráfico y sumar áreas ya está — sin un solo diagrama de cuerpo libre.</span>
+</div>
 
 <h3>Tiro oblicuo</h3>
 
@@ -2369,7 +2583,17 @@ registerExercises('fisica1-utn-dinamica', '1', [
   {st: 'Una caja de 10 kg sube inmóvil sobre una cinta transportadora inclinada 37° que se mueve con rapidez constante de 2 m/s (parcial FRBA 2023). ¿Qué fuerza hace subir a la caja y hacia dónde apunta?',
    opts: ['El rozamiento estático, paralelo al plano y hacia arriba', 'El rozamiento dinámico, paralelo al plano y hacia arriba', 'La normal, que tiene una componente hacia arriba del plano', 'La cinta la empuja por atrás con una fuerza de contacto'],
    c: 0,
-   ex: 'La caja está <b>inmóvil respecto de la cinta</b>: no hay deslizamiento relativo, así que el rozamiento es <b>estático</b>. Y es la única fuerza que puede equilibrar la componente del peso que tira hacia abajo del plano: f<sub>e</sub> = P·sen37° = 60 N, hacia arriba del plano. Otro contraejemplo de la frase "el rozamiento siempre frena". ▸ Por qué las otras: <b>dinámico</b> requeriría que la caja resbalara sobre la banda, y no lo hace (se mueven juntas). <b>La normal</b> es perpendicular a la superficie por definición: no tiene componente a lo largo del plano. <b>Un empuje por atrás</b> no existe: la cinta es plana y no tiene ningún tope, solo puede rozar. Ojo también con el dato de 2 m/s: es distractor puro, lo único que importa es que sea <i>constante</i> (a = 0).'}
+   ex: 'La caja está <b>inmóvil respecto de la cinta</b>: no hay deslizamiento relativo, así que el rozamiento es <b>estático</b>. Y es la única fuerza que puede equilibrar la componente del peso que tira hacia abajo del plano: f<sub>e</sub> = P·sen37° = 60 N, hacia arriba del plano. Otro contraejemplo de la frase "el rozamiento siempre frena". ▸ Por qué las otras: <b>dinámico</b> requeriría que la caja resbalara sobre la banda, y no lo hace (se mueven juntas). <b>La normal</b> es perpendicular a la superficie por definición: no tiene componente a lo largo del plano. <b>Un empuje por atrás</b> no existe: la cinta es plana y no tiene ningún tope, solo puede rozar. Ojo también con el dato de 2 m/s: es distractor puro, lo único que importa es que sea <i>constante</i> (a = 0).'},
+
+  {st: 'Un bloque de 1 kg se mantiene apretado contra una PARED VERTICAL por una fuerza F que forma β = 37° con la horizontal, apuntando hacia la pared y hacia arriba (final 14/02/24, problema 1). ¿Cuánto vale la normal y en qué dirección actúa el rozamiento?',
+   opts: ['N = m·g, vertical, y el rozamiento es horizontal, como en un bloque apoyado en el piso', 'N = F·cos37°, horizontal, y el rozamiento es vertical, compitiendo con el peso', 'N = m·g + F·sen37°, vertical, porque F aprieta al bloque y le suma al peso', 'N = F·sen37°, horizontal, y el rozamiento también es horizontal, opuesto a F'],
+   c: 1,
+   ex: 'La normal es siempre <b>perpendicular a la superficie de contacto</b>, y acá la superficie es la pared, que es vertical: la normal queda <b>horizontal</b> y la fija la componente de F que aprieta, N = F·cos37° = 0,8·F. El peso no aparece en esa ecuación. Y el rozamiento, que es <b>paralelo</b> a la superficie, queda <b>vertical</b>: lo que equilibra es el <b>peso</b>, no la fuerza aplicada. De ahí sale f = P − F·sen37°, que puede dar positiva (f hacia arriba) o negativa (f hacia abajo, si F lo empuja hacia arriba de más). ▸ Por qué las otras: <b>N = m·g</b> es la fórmula del piso horizontal, y acá el bloque no apoya en ningún piso: si soltás F se cae. <b>N = m·g + F·sen37°</b> es la del parcial 2014 (fuerza oblicua sobre el piso): le suma al peso la componente vertical de F, que en esta geometría no aprieta contra nada — es justamente la que <i>sostiene</i> al bloque. <b>N = F·sen37°</b> se equivoca de componente: la que aprieta contra la pared es la horizontal (cos37° = 0,8); la vertical (sen37° = 0,6) va en la otra ecuación, la que compite con el peso.'},
+
+  {st: 'Un bloque apoyado sobre un plano inclinado rugoso está unido a un resorte que tira hacia arriba a lo largo del plano (final 26/05/22, problema 3). ¿Para qué estiramientos x del resorte queda el bloque en equilibrio?',
+   opts: ['Para uno solo: el que cumple k·x = P·sen α, donde la fuerza del resorte iguala a la del peso', 'Para dos valores: uno con el rozamiento hacia arriba del plano y otro con el rozamiento hacia abajo', 'Para todo un intervalo, de x₁ = (P·senα − μe·P·cosα)/k hasta x₂ = (P·senα + μe·P·cosα)/k', 'Para todos los x ≥ P·senα/k, porque de ahí en adelante el resorte solo tiene que ayudar al rozamiento'],
+   c: 2,
+   ex: 'El rozamiento estático <b>no tiene un valor fijo</b>: se acomoda para completar lo que falte, hasta su techo μ<sub>e</sub>·N. En la dirección del plano el equilibrio pide k·x + f = P·sen α, o sea <b>f = P·sen α − k·x</b>, y la única condición que hay que cumplir es |f| ≤ μ<sub>e</sub>·P·cos α. Eso no devuelve un número: devuelve <b>una banda</b>. Con los datos del final (m = 2 kg, α = 37°, k = 50 N/m, μ<sub>e</sub> = 0,4) queda 0,112 m ≤ x ≤ 0,368 m, y el inciso a) pide el borde derecho. ▸ Por qué las otras: <b>uno solo</b> es el caso particular f = 0 (x₀ = 0,24 m), que es el <i>centro</i> de la banda y sería la única respuesta si el plano fuera liso. <b>Dos valores</b> confunde los extremos con todo el intervalo: x₁ y x₂ son los bordes, pero todo lo que está en el medio también deja al bloque quieto (con el rozamiento por debajo de su techo). <b>Todos los x ≥ P·senα/k</b> se olvida de que estirar de más también rompe el equilibrio: pasado x₂ el resorte se lleva al bloque hacia arriba y el rozamiento, que ahora apunta hacia abajo, tampoco alcanza.'}
 ]);
 
 registerReveals('fisica1-utn-dinamica', '1', [
@@ -2383,7 +2607,11 @@ registerReveals('fisica1-utn-dinamica', '1', [
 
   {st: '<b>4.</b> Una caja de 10 kg se encuentra inmóvil sobre una correa transportadora que la hace ascender con rapidez constante de 2 m/s. La correa es plana y forma con la horizontal un ángulo de 37º. Respecto de esta situación: a) Calcule el valor o módulo de la fuerza de roce estático que actúa sobre la caja y el valor del coeficiente de roce estático entre la caja y la correa para que ésta no deslice pero esté a punto de hacerlo (situación límite). Realizar el DCL. <span class="muted">(1º parcial FRBA 2023, Tema A, Prof. Dibarbora. El examen imprime g = 10 m/s² en el encabezado)</span>',
    ans: 'f<sub>e</sub> = 60 N paralela al plano y hacia arriba &nbsp;·&nbsp; N = 80 N &nbsp;·&nbsp; μe = 0,75 (= tg37°)',
-   sol: '<b>Sistema de referencia.</b> Ejes propios: x a lo largo de la correa, positivo hacia arriba del plano; y perpendicular a la correa. (El examen exige el DCL y los desarrollos en tinta.)<br><br><b>Paso 1 · DCL de la caja: son tres fuerzas y nada más.</b><br>• Peso P = m·g = 100 N, vertical hacia abajo.<br>• Normal N, perpendicular a la superficie de la correa.<br>• Rozamiento <b>estático</b> f<sub>e</sub>, paralelo a la correa y <b>hacia arriba</b> del plano.<br>La correa no empuja a la caja: solo la roza. Es estático porque la caja no desliza respecto de la banda, aunque el conjunto se traslade.<br><br><b>Paso 2 · La clave conceptual.</b> Rapidez <b>constante</b> y trayectoria recta ⇒ <b>a = 0</b> ⇒ equilibrio. Los 2 m/s son un dato distractor: no entran en ninguna cuenta, solo importa que la velocidad no cambie.<br><br><b>Paso 3 · Ecuaciones.</b><br>En x: f<sub>e</sub> − P·sen37° = 0 ⇒ f<sub>e</sub> = 100 N · 0,6 ⇒ <b>f<sub>e</sub> = 60 N</b><br>En y: N − P·cos37° = 0 ⇒ N = 100 N · 0,8 ⇒ <b>N = 80 N</b><br><br><b>Paso 4 · La situación límite.</b> "A punto de deslizar" significa que el rozamiento estático está en su techo: f<sub>e</sub> = μe·N.<br>μe = f<sub>e</sub>/N = 60 N / 80 N ⇒ <b>μe = 0,75</b><br>Que es exactamente tg37°: el resultado clásico del plano inclinado en el límite. Con cualquier μe ≥ 0,75 la caja sube sin deslizar.<br><br><b>Ojo con la redacción.</b> El enunciado dice "para que ésta no deslice" refiriéndose a la <b>caja</b>, no a la correa: es una concordancia confusa del original.'}
+   sol: '<b>Sistema de referencia.</b> Ejes propios: x a lo largo de la correa, positivo hacia arriba del plano; y perpendicular a la correa. (El examen exige el DCL y los desarrollos en tinta.)<br><br><b>Paso 1 · DCL de la caja: son tres fuerzas y nada más.</b><br>• Peso P = m·g = 100 N, vertical hacia abajo.<br>• Normal N, perpendicular a la superficie de la correa.<br>• Rozamiento <b>estático</b> f<sub>e</sub>, paralelo a la correa y <b>hacia arriba</b> del plano.<br>La correa no empuja a la caja: solo la roza. Es estático porque la caja no desliza respecto de la banda, aunque el conjunto se traslade.<br><br><b>Paso 2 · La clave conceptual.</b> Rapidez <b>constante</b> y trayectoria recta ⇒ <b>a = 0</b> ⇒ equilibrio. Los 2 m/s son un dato distractor: no entran en ninguna cuenta, solo importa que la velocidad no cambie.<br><br><b>Paso 3 · Ecuaciones.</b><br>En x: f<sub>e</sub> − P·sen37° = 0 ⇒ f<sub>e</sub> = 100 N · 0,6 ⇒ <b>f<sub>e</sub> = 60 N</b><br>En y: N − P·cos37° = 0 ⇒ N = 100 N · 0,8 ⇒ <b>N = 80 N</b><br><br><b>Paso 4 · La situación límite.</b> "A punto de deslizar" significa que el rozamiento estático está en su techo: f<sub>e</sub> = μe·N.<br>μe = f<sub>e</sub>/N = 60 N / 80 N ⇒ <b>μe = 0,75</b><br>Que es exactamente tg37°: el resultado clásico del plano inclinado en el límite. Con cualquier μe ≥ 0,75 la caja sube sin deslizar.<br><br><b>Ojo con la redacción.</b> El enunciado dice "para que ésta no deslice" refiriéndose a la <b>caja</b>, no a la correa: es una concordancia confusa del original.'},
+
+  {st: '<b>3.</b> Para el sistema de la figura, inicialmente en reposo, el resorte con constante elástica k=50N/m se estira por medio de una fuerza F. Si el bloque tiene una masa de 2kg y el ángulo α=37°, y los coeficientes de rozamiento cinético y estático entre el cuerpo y la superficie son 0,3 y 0,4 respectivamente. Determinar:<br>a) Cual es el estiramiento máximo que puede tener el resorte sin que el bloque pierda el equilibrio.<br>b) Si F=0, determine la fuerza de rozamiento que actúa sobre el bloque. <span class="muted">(Final UTN FRBA 26/05/22, problema 3. El bloque está apoyado sobre un plano inclinado de ángulo α y del bloque sale el resorte, que tira hacia arriba a lo largo del plano; F se aplica en el extremo libre del resorte. OJO: en la hoja original la línea de los coeficientes está TACHADA A MANO con una raya y el segundo valor no se lee con seguridad — se distingue "0,4 y 0,8", pero podría ser 0,9 o 0,6 —, así que acá se tomaron μd = 0,3 y μe = 0,4: un par coherente, con μd &lt; μe, que deja los dos incisos con respuestas nítidas y distintas)</span>',
+   ans: 'a) x<sub>máx</sub> = 0,368 m = 36,8 cm (y la fuerza que hay que aplicar es F = k·x = 18,4 N) &nbsp;·&nbsp; b) el bloque NO queda en equilibrio: desliza, y f = μd·N = 4,8 N paralela al plano y hacia arriba',
+   sol: '<b>Sistema de referencia.</b> Ejes propios: x a lo largo del plano, positivo <b>hacia arriba</b> (el sentido en el que tira el resorte); y perpendicular al plano. El bloque está en reposo, así que a = 0 en las dos direcciones.<br><b>Datos.</b> P = m·g = 20 N · sen37° = 0,6 · cos37° = 0,8 · k = 50 N/m · μe = 0,4 · μd = 0,3.<br><br><b>Paso 1 · La normal (ecuación en y).</b><br>N = P·cos37° = 20 · 0,8 ⇒ <b>N = 16 N</b><br>Techo del rozamiento estático: f<sub>máx</sub> = μe·N = 0,4 · 16 ⇒ <b>6,4 N</b>. Este número manda en todo el problema.<br><br><b>Paso 2 · Las tres fuerzas sobre el plano.</b> La componente del peso, P·sen37° = <b>12 N</b>, siempre hacia abajo. La del resorte, F<sub>e</sub> = k·x, siempre hacia arriba (está estirado). Y el rozamiento f, <b>de sentido todavía desconocido</b>.<br>Equilibrio en x: k·x + f − P·sen37° = 0 ⇒ <b>f = 12 − 50·x</b> &nbsp;(f positivo = hacia arriba)<br>Leé esa línea despacio: con x chico el resorte no llega a los 12 N y el rozamiento tiene que <b>ayudar</b> (apunta hacia arriba); con x grande el resorte se pasa y el rozamiento tiene que <b>frenar</b> (apunta hacia abajo); y en x₀ = 12/50 = 0,24 m el rozamiento es exactamente <b>cero</b>.<br><br><b>Paso 3 · Inciso a): el estiramiento máximo.</b> La única condición es que el rozamiento no supere su techo:<br>|12 − 50·x| ≤ 6,4<br>−6,4 ≤ 12 − 50·x ≤ 6,4 ⇒ 5,6 ≤ 50·x ≤ 18,4<br>⇒ <b>0,112 m ≤ x ≤ 0,368 m</b><br>El máximo es <b>x = 0,368 m = 36,8 cm</b>, y ahí el rozamiento está en su techo, 6,4 N apuntando <b>hacia abajo</b> del plano. Como el resorte no tiene masa, la fuerza que hay que hacer en su extremo es F = k·x = <b>18,4 N</b>.<br>El extremo inferior, 0,112 m, es de regalo: por debajo de ese estiramiento el bloque <b>baja</b>. El enunciado pide uno solo, pero escribir los dos muestra que entendiste que el equilibrio acá es <b>un intervalo</b>.<br><br><b>Paso 4 · Inciso b): F = 0.</b> Sin fuerza en el extremo, el resorte vuelve a su longitud natural: x = 0 y F<sub>e</sub> = 0. Quedan solo peso, normal y rozamiento.<br><b>No escribas todavía ninguna fórmula:</b> primero chequeá si el bloque puede quedarse quieto. Haría falta f = P·sen37° = 12 N, y el techo estático es 6,4 N. <b>No alcanza</b> ⇒ el bloque desliza hacia abajo y el rozamiento pasa a ser <b>dinámico</b>, con valor fijo:<br>f = μd·N = 0,3 · 16 ⇒ <b>f = 4,8 N</b>, paralela al plano y hacia <b>arriba</b> (se opone al deslizamiento).<br>De yapa, la aceleración con la que baja: a = (12 − 4,8)/2 ⇒ a = <b>3,6 m/s²</b>.<br><br><b>Por qué importa el dato tachado.</b> Si el coeficiente estático fuera 0,8 (lo que parece decir el original antes de la tachadura), el techo sería μe·N = 12,8 N &gt; 12 N y el inciso b) cambiaría por completo: el bloque <b>sí</b> quedaría quieto y la respuesta sería f = 12 N, estática. Moraleja: lo que se corrige en este problema no es el número final sino <b>el criterio</b> — comparar lo que hace falta contra el techo μe·N <i>antes</i> de decidir si el rozamiento es estático o dinámico. Escribí esa comparación siempre, con los coeficientes que te den.<br><br><b>Chequeos.</b> μd = 0,3 &lt; μe = 0,4 ✓. x₁ &lt; x₀ &lt; x₂ (0,112 &lt; 0,24 &lt; 0,368) ✓. Y a = 3,6 m/s² &lt; g·sen37° = 6 m/s² ✓, como tiene que pasar siempre que haya rozamiento.'}
 ]);
 
 /* ============================================================
@@ -2468,7 +2696,15 @@ registerExercises('fisica1-utn-dinamica', '3', [
 
   {st: 'Una flecha sale a 60° del suelo con v₀ = 15 m/s y da contra un árbol a los 2 s (parcial 2011). En ese instante, ¿la flecha está subiendo o bajando?',
    opts: ['Bajando: la altura máxima es a los 1,3 s', 'Subiendo: todavía no llegó al punto más alto', 'Justo en el punto más alto', 'Depende de la altura del árbol'], c: 0,
-   ex: 'El tiempo de altura máxima es cuando v<sub>y</sub> = 0: t = v₀·sen60°/g = 15·0,866/10 = <b>1,3 s</b>. A los 2 s ya pasó ese instante, así que la flecha viene <b>bajando</b>, y por eso impacta a h = 5,98 m y no en el máximo. Es el dato que justifica el dibujo de la trayectoria. ▸ Por qué las otras: <b>Subiendo</b> saldría si el impacto fuera antes de 1,3 s. <b>En el punto más alto</b> pasaría solo si el tiempo dado coincidiera con 1,3 s. <b>Depende del árbol</b>: no — la altura de impacto es consecuencia del tiempo, no al revés; el árbol solo fija la coordenada horizontal (15 m), que es lo que te da v₀ = 15 m/s.'}
+   ex: 'El tiempo de altura máxima es cuando v<sub>y</sub> = 0: t = v₀·sen60°/g = 15·0,866/10 = <b>1,3 s</b>. A los 2 s ya pasó ese instante, así que la flecha viene <b>bajando</b>, y por eso impacta a h = 5,98 m y no en el máximo. Es el dato que justifica el dibujo de la trayectoria. ▸ Por qué las otras: <b>Subiendo</b> saldría si el impacto fuera antes de 1,3 s. <b>En el punto más alto</b> pasaría solo si el tiempo dado coincidiera con 1,3 s. <b>Depende del árbol</b>: no — la altura de impacto es consecuencia del tiempo, no al revés; el árbol solo fija la coordenada horizontal (15 m), que es lo que te da v₀ = 15 m/s.'},
+
+  {st: 'El gráfico v-t de la figura: la velocidad sube de 0 a +4 m/s entre t = 0 y t = 2 s, se mantiene en +4 m/s hasta t = 5 s, baja a cero en t = 6 s, el móvil queda quieto hasta t = 8 s, después baja hasta −2 m/s en t = 10 s y sigue en −2 m/s hasta t = 12 s. Si x₀ = 0, ¿cuánto valen el desplazamiento y la distancia recorrida?',
+   opts: ['Δx = 24 m y d = 24 m: el área es área, siempre suma', 'Δx = 18 m y d = 24 m: el tramo con v = 0 se cuenta aparte', 'Δx = +12 m y d = 24 m: lo que está debajo del eje resta para el desplazamiento y suma para la distancia', 'Δx = +12 m y d = 12 m: son lo mismo mientras el móvil no se pare'], c: 2,
+   ex: 'Tramo por tramo: triángulo 0–2 s = ½·2·4 = <b>+4 m</b>; rectángulo 2–5 s = 3·4 = <b>+12 m</b>; triángulo 5–6 s = ½·1·4 = <b>+2 m</b>; tramo 6–8 s con v = 0 ⇒ <b>0</b>; triángulo 8–10 s = ½·2·2 = <b>−2 m</b>; rectángulo 10–12 s = 2·2 = <b>−4 m</b>. ▸ Con signo: 4+12+2+0−2−4 = <b>Δx = +12 m</b> (y como x₀ = 0, esa es también la posición final). ▸ En valor absoluto: 4+12+2+2+4 = <b>d = 24 m</b>: avanzó 18 m, se dio vuelta y volvió 6 m. ▸ Por qué las otras: <b>24 y 24</b> es la trampa clásica — el área bajo el eje resta para el desplazamiento, porque ahí el móvil vuelve sobre sus pasos. <b>18 y 24</b> se olvida de los últimos tramos: el 18 es solo la parte de arriba, no el total con signo. <b>12 y 12</b> confunde detenerse con no darse vuelta: lo que hace que d ≠ |Δx| no es la parada, es el <b>cruce del eje</b> en t = 8 s.'},
+
+  {st: 'Ese mismo móvil tiene masa 5 kg. ¿Cuál es el impulso que recibe entre t = 5 s (donde v = +4 m/s) y t = 10 s (donde v = −2 m/s)?',
+   opts: ['Módulo 30 N·s, dirección la del camino recto y sentido OPUESTO al del movimiento inicial: I = 5·(−2 − 4) = −30 kg·m/s', 'Módulo 10 N·s: I = 5·(4 − 2), la resta de los módulos de las velocidades', 'No se puede calcular: falta la fuerza que actuó y el tiempo durante el que actuó', 'Módulo 30 N·s en el sentido del movimiento inicial, porque el módulo de un impulso es siempre positivo'], c: 0,
+   ex: 'El teorema del impulso es <b>I⃗ = Δp⃗ = m·(v⃗<sub>f</sub> − v⃗<sub>i</sub>)</b>, así que con leer dos velocidades del gráfico alcanza: I = 5·(−2 − 4) = <b>−30 kg·m/s = −30 N·s</b>. Se contesta completo: <b>módulo 30 N·s</b>, <b>dirección</b> la del camino recto (la del movimiento) y <b>sentido opuesto</b> al que traía el móvil. Tiene que dar así: entre esos instantes el móvil frenó y se dio vuelta, o sea que lo empujaron para atrás. ▸ Por qué las otras: <b>10 N·s</b> resta módulos en vez de velocidades con signo — el error más caro del tema; v<sub>f</sub> es <b>−2</b>, no 2. <b>Falta la fuerza</b>: no hace falta ninguna, ese es justamente el punto del teorema del impulso (si igual la querés, la fuerza media es I/Δt = −30/5 = −6 N). <b>En el sentido del movimiento inicial</b>: el módulo sí es positivo, pero el módulo no lleva sentido; el sentido lo da el signo del vector, y acá es al revés del movimiento.'}
 ]);
 
 registerReveals('fisica1-utn-dinamica', '3', [
@@ -2482,7 +2718,11 @@ registerReveals('fisica1-utn-dinamica', '3', [
 
   {st: '<b>1.</b> Jimena ha llegado tarde a la estación y ha perdido el colectivo por 15 minutos. Sabe que la velocidad del colectivo es constante) de 90 km/h. Sale en su persecución con ayuda de la moto de una amiga, con la que partiendo del reposo consigue una aceleración de 0,08 m/s2. ¿Cuándo y dónde alcanzará al colectivo? <span class="muted">(1º parcial FRBA 2023, Tema A, Prof. Dibarbora. El paréntesis suelto después de "constante)" es una errata del enunciado original)</span>',
    ans: 't = 1125 s = 18 min 45 s después de que arranca la moto &nbsp;·&nbsp; x = 50.625 m = 50,6 km desde la estación',
-   sol: '<b>Sistema de referencia.</b> Origen de posiciones: la estación. Origen de tiempos: t = 0 cuando <b>arranca la moto</b> (el colectivo ya lleva 900 s andando).<br><b>Conversión de unidades, primero.</b> 90 km/h = 25 m/s. 15 min = 900 s.<br><br><b>Paso 1 · Las dos horarias, con el adelanto ADENTRO.</b><br>Colectivo (MRU, ya venía andando):<br>(1) x<sub>c</sub>(t) = 25·(t + 900) = 25·t + 22.500 &nbsp;[m]<br>Moto (MRUV desde el reposo):<br>(2) x<sub>m</sub>(t) = ½·0,08·t² = 0,04·t² &nbsp;[m]<br><br><b>Paso 2 · Condición de encuentro.</b><br>0,04·t² = 25·t + 22.500<br>0,04·t² − 25·t − 22.500 = 0 &nbsp;→ dividiendo por 0,04 →&nbsp; t² − 625·t − 562.500 = 0<br>t = [625 ± √(390.625 + 2.250.000)]/2 = [625 ± √2.640.625]/2 = (625 ± 1625)/2<br>⇒ <b>t = 1125 s</b> (la raíz t = −500 s se descarta)<br>1125 s = <b>18 min 45 s</b> después de arrancar la moto, o 2025 s = 33 min 45 s después de que salió el colectivo.<br><br><b>Paso 3 · Dónde.</b><br>x = 0,04·(1125)² = 0,04·1.265.625 ⇒ <b>x = 50.625 m = 50,6 km</b><br>Control con el colectivo: 25·(1125 + 900) = 25·2025 = 50.625 m ✓<br><br><b>Comentario que conviene escribir.</b> Con ese dato la moto llega al encuentro a v = a·t = 0,08·1125 = 90 m/s = 324 km/h, físicamente absurdo: <b>la aceleración 0,08 m/s² es ridículamente chica</b> para una moto (parece un typo por 0,8 m/s²). Se resuelve con el dato tal como está dado y se aclara la incoherencia — eso suma, no resta. <span class="muted">(Si fuera 0,8 m/s²: t ≈ 270 s ≈ 4,5 min y x ≈ 29,3 km.)</span>'}
+   sol: '<b>Sistema de referencia.</b> Origen de posiciones: la estación. Origen de tiempos: t = 0 cuando <b>arranca la moto</b> (el colectivo ya lleva 900 s andando).<br><b>Conversión de unidades, primero.</b> 90 km/h = 25 m/s. 15 min = 900 s.<br><br><b>Paso 1 · Las dos horarias, con el adelanto ADENTRO.</b><br>Colectivo (MRU, ya venía andando):<br>(1) x<sub>c</sub>(t) = 25·(t + 900) = 25·t + 22.500 &nbsp;[m]<br>Moto (MRUV desde el reposo):<br>(2) x<sub>m</sub>(t) = ½·0,08·t² = 0,04·t² &nbsp;[m]<br><br><b>Paso 2 · Condición de encuentro.</b><br>0,04·t² = 25·t + 22.500<br>0,04·t² − 25·t − 22.500 = 0 &nbsp;→ dividiendo por 0,04 →&nbsp; t² − 625·t − 562.500 = 0<br>t = [625 ± √(390.625 + 2.250.000)]/2 = [625 ± √2.640.625]/2 = (625 ± 1625)/2<br>⇒ <b>t = 1125 s</b> (la raíz t = −500 s se descarta)<br>1125 s = <b>18 min 45 s</b> después de arrancar la moto, o 2025 s = 33 min 45 s después de que salió el colectivo.<br><br><b>Paso 3 · Dónde.</b><br>x = 0,04·(1125)² = 0,04·1.265.625 ⇒ <b>x = 50.625 m = 50,6 km</b><br>Control con el colectivo: 25·(1125 + 900) = 25·2025 = 50.625 m ✓<br><br><b>Comentario que conviene escribir.</b> Con ese dato la moto llega al encuentro a v = a·t = 0,08·1125 = 90 m/s = 324 km/h, físicamente absurdo: <b>la aceleración 0,08 m/s² es ridículamente chica</b> para una moto (parece un typo por 0,8 m/s²). Se resuelve con el dato tal como está dado y se aclara la incoherencia — eso suma, no resta. <span class="muted">(Si fuera 0,8 m/s²: t ≈ 270 s ≈ 4,5 min y x ≈ 29,3 km.)</span>'},
+
+  {st: '<b>Ejercicio de práctica construido</b> <span class="muted">(no sale de ningún examen: es un gráfico armado acá para entrenar la lectura, con el mismo formato con el que lo pide el problema 5 del final del 14/02/24)</span>.<br>Un móvil de <b>2 kg</b> se desplaza sobre un camino recto. En el instante t₀ = 0 se encuentra en la posición <b>x₀ = −5 m</b>. Su velocidad en función del tiempo es una <b>poligonal</b> (tramos rectos entre punto y punto) que pasa por estos valores:<table class="tbl"><tr><th>t (s)</th><td>0</td><td>2</td><td>5</td><td>7</td><td>9</td><td>11</td></tr><tr><th>v (m/s)</th><td>0</td><td>+8</td><td>+8</td><td>0</td><td>−6</td><td>−6</td></tr></table>a) ¿Cuál es la posición del móvil en el instante final de su recorrido (t = 11 s)?<br>b) ¿Qué distancia recorrió en total?<br>c) Calculá módulo, dirección y sentido del impulso que recibe el móvil entre t = 5 s y t = 9 s.',
+   ans: 'a) x(11 s) = +17 m (ojo: no 22 m — hay que sumarle x₀ = −5 m) &nbsp;·&nbsp; b) d = 58 m &nbsp;·&nbsp; c) I = 2·(−6 − 8) = −28 kg·m/s ⇒ módulo 28 N·s, dirección la del camino recto, sentido opuesto al del movimiento inicial (es un impulso frenante)',
+   sol: '<b>Sistema de referencia.</b> Eje x sobre el camino recto, positivo en el sentido en que el móvil arranca; el origen es el que fija el enunciado, así que el móvil sale desde x₀ = −5 m (o sea, 5 m <i>detrás</i> del origen). t = 0 al principio del gráfico. Todo el problema se resuelve con áreas y pendientes: no hay ningún diagrama de cuerpo libre.<br><br><b>Paso 1 · Partir en tramos y calcular cada área.</b> Entre punto y punto la velocidad es una recta, así que cada tramo es un triángulo o un rectángulo:<br>▸ <b>0 a 2 s</b> (de 0 a +8 m/s): triángulo ½·2·8 = <b>+8 m</b><br>▸ <b>2 a 5 s</b> (constante en +8): rectángulo 3·8 = <b>+24 m</b><br>▸ <b>5 a 7 s</b> (de +8 a 0): triángulo ½·2·8 = <b>+8 m</b> — sigue sumando: viene frenando, pero todavía va para adelante<br>▸ <b>7 a 9 s</b> (de 0 a −6): triángulo ½·2·6 = <b>−6 m</b> — cruzó el eje, ahora vuelve<br>▸ <b>9 a 11 s</b> (constante en −6): rectángulo 2·6 = <b>−12 m</b><br><br><b>Paso 2 · a) La posición final.</b><br>Δx = 8 + 24 + 8 − 6 − 12 = <b>+22 m</b><br>x(11 s) = x₀ + Δx = −5 + 22 ⇒ <b>x(11 s) = +17 m</b><br>El <b>desplazamiento</b> es 22 m, pero la <b>posición</b> es 17 m: el x₀ = −5 m no está de adorno. (En el final del 14/02/24 el enunciado aclara x₀ = 0 y por eso ahí sí coinciden.)<br><br><b>Paso 3 · b) La distancia recorrida.</b> Las mismas áreas, pero <b>en valor absoluto</b>:<br>d = 8 + 24 + 8 + 6 + 12 = <b>58 m</b><br>Leído como ida y vuelta: avanzó 40 m hasta t = 7 s (que es donde v cruza cero y se da vuelta) y después volvió 18 m. Controles: 40 − 18 = 22 = Δx ✓ y 40 + 18 = 58 = d ✓. De paso, el punto más lejano lo alcanza en <b>t = 7 s</b>, en x = −5 + 40 = <b>+35 m</b>.<br><br><b>Paso 4 · c) El impulso entre 5 s y 9 s.</b> Por el teorema del impulso, I⃗ = Δp⃗, y alcanza con leer dos velocidades:<br>v(5 s) = <b>+8 m/s</b> &nbsp;y&nbsp; v(9 s) = <b>−6 m/s</b><br>I = m·(v<sub>f</sub> − v<sub>i</sub>) = 2·(−6 − 8) = <b>−28 kg·m/s = −28 N·s</b><br>Respuesta completa, como la piden: <b>módulo 28 N·s</b>, <b>dirección</b> la del camino recto, <b>sentido opuesto</b> al del movimiento inicial. Es coherente: en ese intervalo el móvil frenó y se dio vuelta, así que lo que recibió lo empujó para atrás. <span class="muted">(Si pidieran la fuerza media: F = I/Δt = −28/4 = −7 N.)</span><br><br><b>Chequeo con las pendientes.</b> Las aceleraciones tramo por tramo son +4, 0, −4, −3 y 0 m/s². Que entre 5 s y 9 s haya dos pendientes distintas no molesta al inciso c: el impulso solo mira las velocidades de los extremos del intervalo, no lo que pasó en el medio.<div class="trap"><div class="tr-t">Los tres errores que se cobran acá</div><b>1 ·</b> Contestar <b>22 m</b> en el inciso a. Eso es el desplazamiento; la posición es x₀ + Δx. ▸ <b>2 ·</b> Contestar <b>22 m</b> también en el b. La distancia no es |Δx|: como el móvil se dio vuelta, hay que sumar los tramos en valor absoluto (58 m). ▸ <b>3 ·</b> En el c, hacer 2·(6 − 8) = −4 N·s usando el <i>módulo</i> de la velocidad final. v(9 s) vale <b>−6 m/s</b> con su signo, y la resta da −14 m/s, no −2.</div>'}
 ]);
 
 /* ============================================================
