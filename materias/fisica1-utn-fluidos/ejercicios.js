@@ -14,34 +14,28 @@
 // ============================================================
 registerExercises('fisica1-utn-fluidos', '1', [
   {st: 'El enunciado te da δ = 0,8 g/cm³. ¿Cuánto vale en el SI?',
-   opts: ['0,8 kg/m³', '80 kg/m³', '800 kg/m³', '8000 kg/m³'],
-   c: 2,
-   ex: '<b>1 g/cm³ = 1000 kg/m³</b>, así que 0,8 g/cm³ = <b>800 kg/m³</b>. ▸ Sale de 1 g = 10⁻³ kg y 1 cm³ = 10⁻⁶ m³: el cociente da 10³. ▸ Truco: para pasar de g/cm³ a kg/m³ <b>corré la coma tres lugares a la derecha</b>. ▸ Por qué las otras: (A) no convierte nada; (B) usa un factor 100 (confunde con cm→m lineal); (D) usa 10⁴, un lugar de más.'},
+   opts: ['800 kg/m³', '0,8 kg/m³', '80 kg/m³', '8000 kg/m³'], c: 0,
+   ex: '<b>1 g/cm³ = 1000 kg/m³</b>, así que 0,8 g/cm³ = <b>800 kg/m³</b>. ▸ Sale de 1 g = 10⁻³ kg y 1 cm³ = 10⁻⁶ m³: el cociente da 10³. ▸ Truco: para pasar de g/cm³ a kg/m³ <b>corré la coma tres lugares a la derecha</b>. ▸ Por qué las otras: (B) no convierte nada; (C) usa un factor 100 (confunde con cm→m lineal); (D) usa 10⁴, un lugar de más.'},
 
   {st: 'La cátedra escribe "P₁ = 6 Pa = 60 dinas/cm²". ¿Cuál es el factor correcto entre Pa y din/cm²?',
-   opts: ['1 Pa = 1 din/cm²', '1 Pa = 10 din/cm²', '1 Pa = 100 din/cm²', '1 Pa = 10⁵ din/cm²'],
-   c: 1,
-   ex: '<b>1 Pa = 1 N/m² = 10⁵ din / 10⁴ cm² = 10 din/cm².</b> ▸ Es el factor que aparece textual en la resolución del 1er parcial 2009: 6 Pa → 60 din/cm². ▸ Por qué las otras: (A) confunde con que Pa y din/cm² fueran la misma unidad; (C) usa 10² (mezcla el factor de longitud sin elevar al cuadrado); (D) es el factor <b>N → dina</b>, no el de presión.'},
+   opts: ['1 Pa = 1 din/cm²', '1 Pa = 100 din/cm²', '1 Pa = 10 din/cm²', '1 Pa = 10⁵ din/cm²'], c: 2,
+   ex: '<b>1 Pa = 1 N/m² = 10⁵ din / 10⁴ cm² = 10 din/cm².</b> ▸ Es el factor que aparece textual en la resolución del 1er parcial 2009: 6 Pa → 60 din/cm². ▸ Por qué las otras: (A) confunde con que Pa y din/cm² fueran la misma unidad; (B) usa 10² (mezcla el factor de longitud sin elevar al cuadrado); (D) es el factor <b>N → dina</b>, no el de presión.'},
 
   {st: 'Un buzo está a 20 m de profundidad en agua (δ = 1000 kg/m³, p_atm = 101 300 Pa, g = 10 m/s²). ¿Cuál es la presión ABSOLUTA a esa profundidad?',
-   opts: ['2,00·10⁵ Pa', '3,01·10⁵ Pa', '1,01·10⁵ Pa', '2,01·10⁶ Pa'],
-   c: 1,
-   ex: '<b>p_abs = p₀ + δ·g·h</b> = 101 300 + 1000·10·20 = 101 300 + 200 000 = <b>301 300 Pa ≈ 3,01·10⁵ Pa</b>. ▸ Por qué las otras: (A) 2,00·10⁵ Pa es la presión <b>manométrica</b> (el término δgh solo) — es la respuesta correcta a otra pregunta, cuidado con cuál te piden; (C) es solo la atmosférica, como si el buzo estuviera en la superficie; (D) corre la coma un lugar.'},
+   opts: ['2,00·10⁵ Pa', '1,01·10⁵ Pa', '2,01·10⁶ Pa', '3,01·10⁵ Pa'], c: 3,
+   ex: '<b>p_abs = p₀ + δ·g·h</b> = 101 300 + 1000·10·20 = 101 300 + 200 000 = <b>301 300 Pa ≈ 3,01·10⁵ Pa</b>. ▸ Por qué las otras: (A) 2,00·10⁵ Pa es la presión <b>manométrica</b> (el término δgh solo) — es la respuesta correcta a otra pregunta, cuidado con cuál te piden; (B) es solo la atmosférica, como si el buzo estuviera en la superficie; (C) corre la coma un lugar.'},
 
   {st: 'Dos recipientes distintos, uno angosto y uno ancho, tienen agua hasta la misma altura y están abiertos. ¿Dónde es mayor la presión en el fondo?',
-   opts: ['En el ancho, porque tiene más agua', 'En el angosto, porque el agua está más concentrada', 'Es la misma: la presión depende de h, no del volumen', 'Depende de la forma de las paredes'],
-   c: 2,
-   ex: 'La presión hidrostática es <b>p = p₀ + δ·g·h</b>: depende solo de la <b>profundidad</b>, la densidad y g. ▸ Ni el volumen total ni la forma del recipiente entran en la fórmula (es la llamada paradoja hidrostática). ▸ Consecuencia directa que usás todo el tiempo: <b>dentro de un mismo fluido conectado, misma altura ⟹ misma presión</b>. ▸ Por qué las otras: (A) y (B) razonan con el peso total del líquido, que no es lo que determina la presión; (D) la forma cambia la fuerza total sobre el fondo solo si cambia el área, no la presión.'},
+   opts: ['En el ancho, porque tiene más agua', 'Es la misma: la presión depende de h, no del volumen', 'En el angosto, porque el agua está más concentrada', 'Depende de la forma de las paredes'], c: 1,
+   ex: 'La presión hidrostática es <b>p = p₀ + δ·g·h</b>: depende solo de la <b>profundidad</b>, la densidad y g. ▸ Ni el volumen total ni la forma del recipiente entran en la fórmula (es la llamada paradoja hidrostática). ▸ Consecuencia directa que usás todo el tiempo: <b>dentro de un mismo fluido conectado, misma altura ⟹ misma presión</b>. ▸ Por qué las otras: (A) y (C) razonan con el peso total del líquido, que no es lo que determina la presión; (D) la forma cambia la fuerza total sobre el fondo solo si cambia el área, no la presión.'},
 
   {st: 'Una compuerta rectangular vertical de 2 m de ancho va desde la superficie libre hasta 3 m de profundidad. La atmósfera actúa de los dos lados. ¿Qué fuerza le hace el agua? (δ = 1000 kg/m³, g = 10 m/s²)',
-   opts: ['90 kN', '180 kN', '45 kN', '30 kN'],
-   c: 0,
-   ex: 'Como la presión crece con la profundidad, la carga es <b>triangular</b>: se usa la presión en el <b>centro geométrico</b>, a h = 1,5 m. ▸ F = δ·g·h_CG·A = 1000·10·1,5·(2·3) = <b>90 000 N = 90 kN</b>. ▸ Fórmula directa: F = ½·δ·g·b·H² = 0,5·1000·10·2·3² = 90 kN. ▸ La resultante se aplica a <b>2H/3 = 2 m</b> de la superficie, no en el medio. ▸ Por qué las otras: (B) 180 kN es el error clásico de usar la presión del <b>fondo</b> (30 000 Pa) por toda la compuerta: da el doble; (C) 45 kN olvida un factor 2 del ancho; (D) 30 kN confunde la presión (30 kPa) con la fuerza.'},
+   opts: ['180 kN', '45 kN', '90 kN', '30 kN'], c: 2,
+   ex: 'Como la presión crece con la profundidad, la carga es <b>triangular</b>: se usa la presión en el <b>centro geométrico</b>, a h = 1,5 m. ▸ F = δ·g·h_CG·A = 1000·10·1,5·(2·3) = <b>90 000 N = 90 kN</b>. ▸ Fórmula directa: F = ½·δ·g·b·H² = 0,5·1000·10·2·3² = 90 kN. ▸ La resultante se aplica a <b>2H/3 = 2 m</b> de la superficie, no en el medio. ▸ Por qué las otras: (A) 180 kN es el error clásico de usar la presión del <b>fondo</b> (30 000 Pa) por toda la compuerta: da el doble; (B) 45 kN olvida un factor 2 del ancho; (D) 30 kN confunde la presión (30 kPa) con la fuerza.'},
 
   {st: 'Un bloque de densidad 0,6 g/cm³ flota libremente en agua (1 g/cm³). ¿Qué fracción del volumen queda sumergida?',
-   opts: ['40%', '60%', '100%', 'Depende del volumen del bloque'],
-   c: 1,
-   ex: 'En flotación libre E = P, y al cancelar V y g queda <b>V_sum/V = δ_cuerpo/δ_líq</b> = 0,6/1 = <b>0,6 = 60%</b>. ▸ Es la fórmula que más se usa en toda la unidad, y <b>no depende ni de g ni del tamaño</b>: vale igual para una pelotita o para un iceberg. ▸ Por qué las otras: (A) 40% es la parte que <b>emerge</b> (el complemento) — ojo con qué te preguntan; (C) 100% sería si δ_cuerpo ≥ δ_líq, o sea si se hundiera; (D) el volumen se cancela, por eso nunca hace falta como dato.'}
+   opts: ['60%', '40%', '100%', 'Depende del volumen del bloque'], c: 0,
+   ex: 'En flotación libre E = P, y al cancelar V y g queda <b>V_sum/V = δ_cuerpo/δ_líq</b> = 0,6/1 = <b>0,6 = 60%</b>. ▸ Es la fórmula que más se usa en toda la unidad, y <b>no depende ni de g ni del tamaño</b>: vale igual para una pelotita o para un iceberg. ▸ Por qué las otras: (B) 40% es la parte que <b>emerge</b> (el complemento) — ojo con qué te preguntan; (C) 100% sería si δ_cuerpo ≥ δ_líq, o sea si se hundiera; (D) el volumen se cancela, por eso nunca hace falta como dato.'}
 ]);
 
 // ============================================================
@@ -49,19 +43,17 @@ registerExercises('fisica1-utn-fluidos', '1', [
 // ============================================================
 registerExercises('fisica1-utn-fluidos', '2', [
   {st: 'Una esfera flota parcialmente sumergida y está atada al FONDO por una cuerda. ¿Cuál es la ecuación de equilibrio correcta?',
-   opts: ['E + T = P', 'E = P + T', 'E = P − T', 'P = E + T'],
+   opts: ['E + T = P', 'E = P + T', 'E = P', 'T = P + E'],
    c: 1,
-   ex: 'La cuerda va al <b>fondo</b>, así que tira de la esfera <b>hacia abajo</b>: entra del mismo lado que el peso. ▸ <b>E = P + T</b>. ▸ El chequeo conceptual: estar amarrada obliga a la esfera a sumergirse <b>más</b> que en flotación libre (en el parcial 2012: 50% amarrada contra 30% libre). ▸ Por qué las otras: (A) es el error del 2012 que da 10% en vez de 50%: pone la tensión hacia arriba; (C) le cambia el signo a T sin justificación; (D) invertiría el sentido del empuje y haría que la esfera se hundiera sola.'},
+   ex: 'La cuerda va al <b>fondo</b>, así que tira de la esfera <b>hacia abajo</b>: entra del mismo lado que el peso. ▸ <b>E = P + T</b>. ▸ El chequeo conceptual: estar amarrada obliga a la esfera a sumergirse <b>más</b> que en flotación libre (en el parcial 2012: 50% amarrada contra 30% libre). ▸ Por qué las otras: (A) pone la tensión <b>hacia arriba</b>, del lado del empuje — es el error clásico del 2012 y con esos datos da 10% sumergido en vez de 50%. Ojo que <b>«E + T = P», «E = P − T» y «P = E + T» son la misma ecuación reescrita</b> (pasá T de lado y vas a ver): si el parcial te ofrece cualquiera de esas formas, todas caen en este mismo error, así que despejá T antes de elegir — y no la confundas con la opción (D) «T = P + E», que dice otra cosa; (C) se olvida de la cuerda: es la flotación libre, y da 30%, que es el valor que recién vale <b>después</b> de cortarla (inciso b del mismo parcial); (D) invierte el sentido del empuje — lo pone hacia abajo junto al peso, con la cuerda tirando hacia arriba: eso describe una esfera colgada de <b>arriba</b>, no amarrada al fondo.'},
 
   {st: 'En el parcial 2013, una esfera de δ = 2 g/cm³ y V = 600 cm³ está a MITAD sumergida en agua, colgada de un resorte estirado 10 cm. ¿Cuánto vale k?',
-   opts: ['120 N/m', '90 N/m', '30 N/m', '9 N/m'],
-   c: 1,
-   ex: 'Tres fuerzas verticales: resorte hacia arriba, empuje hacia arriba, peso hacia abajo. ▸ <b>P</b> = δ_e·V·g = 2·600·1000 = 1,2·10⁶ din = <b>12 N</b>. ▸ <b>E</b> = δ_a·(V/2)·g = 1·300·1000 = 3·10⁵ din = <b>3 N</b> (¡la mitad del volumen!). ▸ F_el = P − E = <b>9 N</b> → k = 9 N / 0,10 m = <b>90 N/m</b>. ▸ Por qué las otras: (A) 120 N/m es olvidarse del empuje (usar solo el peso); (C) 30 N/m usaría el volumen total en el empuje; (D) 9 N/m confunde la fuerza (9 N) con la constante y deja el estiramiento en 10 cm sin pasar a metros.'},
+   opts: ['120 N/m', '30 N/m', '9 N/m', '90 N/m'], c: 3,
+   ex: 'Tres fuerzas verticales: resorte hacia arriba, empuje hacia arriba, peso hacia abajo. ▸ <b>P</b> = δ_e·V·g = 2·600·1000 = 1,2·10⁶ din = <b>12 N</b>. ▸ <b>E</b> = δ_a·(V/2)·g = 1·300·1000 = 3·10⁵ din = <b>3 N</b> (¡la mitad del volumen!). ▸ F_el = P − E = <b>9 N</b> → k = 9 N / 0,10 m = <b>90 N/m</b>. ▸ Por qué las otras: (A) 120 N/m es olvidarse del empuje (usar solo el peso); (B) 30 N/m sale de confundir el empuje (3 N) con la fuerza del resorte: 3 N / 0,10 m = 30 N/m (usar el volumen total en el empuje daría E = 6 N y k = 60 N/m, que ni siquiera figura entre las opciones); (C) 9 N/m confunde la fuerza (9 N) con la constante y deja el estiramiento en 10 cm sin pasar a metros.'},
 
   {st: 'Un cubo de 400 g flota con 1/5 de su volumen sumergido. Te preguntan qué fuerza hacia abajo hay que aplicarle para hundirlo del todo, pero NO te dan ni la densidad del líquido ni el volumen. ¿Qué hacés?',
-   opts: ['Faltan datos, no se puede resolver', 'Asumo que el líquido es agua', 'Escribo el peso de dos formas (mg y δ_c·V·g) y uso la condición de flotación: se cancelan', 'Uso la densidad del cubo como 1 g/cm³'],
-   c: 2,
-   ex: 'La condición "1/5 sumergido" equivale a <b>δ_líq = 5·δ_cubo</b>. ▸ Con eso, el empuje total vale 5 veces el peso: mg + F = 5mg ⟹ <b>F = 4mg</b> = 4·0,4·10 = <b>16 N</b>. ▸ Ni δ_líq ni V hacen falta: es el "puede haber datos que no interesen" del encabezado, pero al revés — <b>datos que parecen faltar y en realidad se cancelan</b>. ▸ Por qué las otras: (A) es la reacción de pánico más cara del parcial; (B) inventar datos cambia el resultado y se descuenta; (D) si el cubo fuera de densidad 1 no flotaría con 1/5 sumergido.'},
+   opts: ['Faltan datos, no se puede resolver', 'Asumo que el líquido es agua', 'Uso la densidad del cubo como 1 g/cm³', 'Escribo el peso de dos formas (mg y δ_c·V·g) y uso la condición de flotación: se cancelan'], c: 3,
+   ex: 'La condición "1/5 sumergido" equivale a <b>δ_líq = 5·δ_cubo</b>. ▸ Con eso, el empuje total vale 5 veces el peso: mg + F = 5mg ⟹ <b>F = 4mg</b> = 4·0,4·10 = <b>16 N</b>. ▸ Ni δ_líq ni V hacen falta: es el "puede haber datos que no interesen" del encabezado, pero al revés — <b>datos que parecen faltar y en realidad se cancelan</b>. ▸ Por qué las otras: (A) es la reacción de pánico más cara del parcial; (B) inventar datos cambia el resultado y se descuenta; (C) si el cubo fuera de densidad 1 no flotaría con 1/5 sumergido.'},
 
   {st: 'Un bloque de madera está apoyado en el FONDO de un recipiente con agua, con una pesa de hierro encima; todo bajo el agua. ¿Cuántos diagramas de cuerpo libre conviene hacer?',
    opts: ['Uno solo, con el conjunto', 'Dos: uno para la pesa y otro para la madera, vinculados por el par acción-reacción', 'Tres, uno por cada fuerza', 'Ninguno, se resuelve con energía'],
@@ -69,9 +61,8 @@ registerExercises('fisica1-utn-fluidos', '2', [
    ex: 'Son <b>dos cuerpos</b>: hay que hacer <b>dos DCL</b> y unirlos con la normal de contacto, que es un <b>par de acción y reacción</b> (empuja hacia arriba a la pesa y hacia abajo al bloque). ▸ Sumando las dos ecuaciones esa normal interna se cancela y queda N_fondo = P_fe + P_m − E_fe − E_m. ▸ Es el parcial 2016: N = 15,72 + 6 − 2 − 10 = <b>9,72 N</b>. ▸ Por qué las otras: (A) se puede tomar el conjunto y llegar a lo mismo, pero <b>solo si no te olvidás ninguna de las cuatro fuerzas</b>, que es justo lo que falla; (C) los DCL son por cuerpo, no por fuerza; (D) es estática, no hay movimiento ni energía en juego.'},
 
   {st: 'En ese mismo problema, la pesa de hierro está apoyada ARRIBA del bloque pero bajo el agua. ¿Recibe empuje?',
-   opts: ['No, porque está apoyada sobre otro cuerpo', 'No, porque el hierro se hunde', 'Sí: está totalmente sumergida, así que E = δ_agua·V_pesa·g', 'Solo la mitad del empuje'],
-   c: 2,
-   ex: 'El empuje lo da <b>el volumen de fluido desplazado</b>, y la pesa está enteramente bajo el agua: <b>E_fe = 1 g/cm³ · 200 cm³ · 1000 cm/s² = 2·10⁵ din = 2 N</b>. ▸ Que se hunda no significa que no reciba empuje: significa que el empuje es <b>menor que su peso</b>. ▸ Por qué las otras: (A) apoyarse en otro cuerpo no cambia el fluido desalojado; (B) confunde "se hunde" con "no hay empuje"; (D) el medio empuje aplicaría si estuviera medio sumergida, no es el caso.'}
+   opts: ['Sí: está totalmente sumergida, así que E = δ_agua·V_pesa·g', 'No, porque está apoyada sobre otro cuerpo', 'No, porque el hierro se hunde', 'Solo la mitad del empuje'], c: 0,
+   ex: 'El empuje lo da <b>el volumen de fluido desplazado</b>, y la pesa está enteramente bajo el agua: <b>E_fe = 1 g/cm³ · 200 cm³ · 1000 cm/s² = 2·10⁵ din = 2 N</b>. ▸ Que se hunda no significa que no reciba empuje: significa que el empuje es <b>menor que su peso</b>. ▸ Por qué las otras: (B) apoyarse en otro cuerpo no cambia el fluido desalojado; (C) confunde "se hunde" con "no hay empuje"; (D) el medio empuje aplicaría si estuviera medio sumergida, no es el caso.'}
 ]);
 
 // ============================================================
@@ -79,19 +70,17 @@ registerExercises('fisica1-utn-fluidos', '2', [
 // ============================================================
 registerExercises('fisica1-utn-fluidos', '3', [
   {st: 'Un tronco de madera (δ = 800 kg/m³) tiene V = 0,12 m³ y flota en agua (1000 kg/m³). ¿Qué masa máxima puede cargar antes de quedar totalmente sumergido? (g = 10 m/s²)',
-   opts: ['24 kg', '96 kg', '120 kg', '200 kg'],
-   c: 0,
-   ex: 'En el límite el tronco está <b>totalmente sumergido</b>: E = P_tronco + P_carga. ▸ δ_ag·V·g = δ_m·V·g + m·g ⟹ <b>m = (δ_L − δ_f)·V</b> = (1000 − 800)·0,12 = <b>24 kg</b>. ▸ Fijate que <b>g desaparece</b>: la capacidad de carga es una masa y no depende de la gravedad. ▸ Por qué las otras: (B) 96 kg = 800·0,12, que es la masa <b>del tronco</b>, no lo que carga; (C) 120 kg = 1000·0,12 es la masa del agua desalojada (el empuje entero, sin restar el peso propio del tronco); (D) 200 kg confunde la diferencia de densidades con una masa.'},
+   opts: ['96 kg', '120 kg', '24 kg', '200 kg'], c: 2,
+   ex: 'En el límite el tronco está <b>totalmente sumergido</b>: E = P_tronco + P_carga. ▸ δ_ag·V·g = δ_m·V·g + m·g ⟹ <b>m = (δ_L − δ_f)·V</b> = (1000 − 800)·0,12 = <b>24 kg</b>. ▸ Fijate que <b>g desaparece</b>: la capacidad de carga es una masa y no depende de la gravedad. ▸ Por qué las otras: (A) 96 kg = 800·0,12, que es la masa <b>del tronco</b>, no lo que carga; (B) 120 kg = 1000·0,12 es la masa del agua desalojada (el empuje entero, sin restar el peso propio del tronco); (D) 200 kg confunde la diferencia de densidades con una masa.'},
 
   {st: 'Los troncos del final del 2/3/23 tienen D = 0,3 m de DIÁMETRO y L = 1,7 m. ¿Cuál es el volumen de cada uno?',
    opts: ['0,481 m³', '0,120 m³', '0,153 m³', '0,038 m³'],
    c: 1,
-   ex: 'El dato es el <b>diámetro</b>: el radio es 0,15 m. ▸ V = π·r²·L = π·0,15²·1,7 = π·0,03825 = <b>0,120 m³</b>. ▸ Por qué las otras: (A) 0,481 m³ es el error estrella: usar D = 0,3 como radio, lo que <b>cuadruplica</b> el volumen y te haría contestar 2 troncos en vez de 5; (C) usa el diámetro sin elevar al cuadrado; (D) 0,038 m³ es r²·L sin multiplicar por π.'},
+   ex: 'El dato es el <b>diámetro</b>: el radio es 0,15 m. ▸ V = π·r²·L = π·0,15²·1,7 = π·0,03825 = <b>0,120 m³</b>. ▸ Por qué las otras: (A) 0,481 m³ es el error estrella: usar D = 0,3 como radio, lo que <b>cuadruplica</b> el volumen y te haría contestar 2 troncos en vez de 5; (C) 0,153 m³ = D²·L: el cuadrado está bien hecho, pero sobre el <b>diámetro</b> en vez del radio y encima sin π (es (A) al que se le olvidó el π); (D) 0,038 m³ = r²·L: usa bien el radio pero también se olvida de multiplicar por π.'},
 
   {st: 'Un oso PESA 3540 N y se sube a un témpano hasta dejarlo totalmente sumergido (δ_agua = 1000, δ_hielo = 900 kg/m³, g = 10). ¿Qué volumen tiene el témpano?',
-   opts: ['0,354 m³', '3,54 m³', '35,4 m³', '354 m³'],
-   c: 1,
-   ex: 'Témpano totalmente sumergido: <b>δ_ag·V·g = δ_h·V·g + P_oso</b>. ▸ 10 000·V − 9000·V = 3540 ⟹ 1000·V = 3540 ⟹ <b>V = 3,54 m³</b>. ▸ Clave de lectura: el enunciado te da un <b>peso en newtons</b>, no una masa. Su masa sería 354 kg, pero acá ni hace falta calcularla. ▸ Por qué las otras: (A) y (C) corren la coma un lugar; (D) 354 m³ confunde el peso con la masa y encima divide mal.'},
+   opts: ['0,354 m³', '35,4 m³', '354 m³', '3,54 m³'], c: 3,
+   ex: 'Témpano totalmente sumergido: <b>δ_ag·V·g = δ_h·V·g + P_oso</b>. ▸ 10 000·V − 9000·V = 3540 ⟹ 1000·V = 3540 ⟹ <b>V = 3,54 m³</b>. ▸ Clave de lectura: el enunciado te da un <b>peso en newtons</b>, no una masa. Su masa sería 354 kg, pero acá ni hace falta calcularla. ▸ Por qué las otras: (A) y (B) corren la coma un lugar; (C) 354 m³ confunde el peso con la masa y encima divide mal.'},
 
   {st: 'La cuenta de la balsa te da 4,99 troncos. ¿Qué contestás?',
    opts: ['4 troncos', '4,99 troncos', '5 troncos', 'No se puede saber'],
@@ -99,9 +88,8 @@ registerExercises('fisica1-utn-fluidos', '3', [
    ex: 'Piden la cantidad <b>mínima para mantenerlos a flote</b>: con 4 troncos el empuje no alcanza y se hunden. ▸ La cantidad mínima se redondea <b>siempre hacia arriba</b>, aunque el decimal sea 0,99 o 0,01: <b>5 troncos</b>. ▸ Escribí la justificación en la hoja ("con 4 el empuje es insuficiente"): es lo que corrige el docente. ▸ Por qué las otras: (A) redondea hacia abajo y la balsa se hunde; (B) no existen troncos fraccionarios; (D) el criterio es claro y explícito en el enunciado.'},
 
   {st: 'Un cuerpo queda con su parte de arriba dentro de una capa de aceite y su parte de abajo en agua, con la cara superior justo al nivel del aceite. ¿Cómo planteás el equilibrio?',
-   opts: ['P = E_agua, el aceite no cuenta porque es más liviano', 'P = E_aceite + E_agua, un empuje por cada capa con su densidad y su espesor', 'P = E_aceite, porque es la capa de arriba', 'P = (δ_agua + δ_aceite)·V·g'],
-   c: 1,
-   ex: 'Con <b>dos líquidos superpuestos hay dos empujes</b> y se suman: cada capa aporta δ_capa · V_del cuerpo en esa capa · g. ▸ En el final del 26/5/22: δ_c·e = δ_ac·H + δ_ag·(e − H), con e = 10 cm. Con δ_c = 750 kg/m³ (venía flotando con 3/4 sumergido) sale <b>H = 7,14 cm</b>. ▸ El área se cancela: por eso el enunciado no te la da. ▸ Por qué las otras: (A) y (C) ignoran media escena; (D) suma las densidades y aplica el volumen entero a las dos, que es contar dos veces el mismo volumen.'}
+   opts: ['P = E_aceite + E_agua, un empuje por cada capa con su densidad y su espesor', 'P = E_agua, el aceite no cuenta porque es más liviano', 'P = E_aceite, porque es la capa de arriba', 'P = (δ_agua + δ_aceite)·V·g'], c: 0,
+   ex: 'Con <b>dos líquidos superpuestos hay dos empujes</b> y se suman: cada capa aporta δ_capa · V_del cuerpo en esa capa · g. ▸ En el final del 26/5/22: δ_c·e = δ_ac·H + δ_ag·(e − H), con e = 10 cm. Con δ_c = 750 kg/m³ (venía flotando con 3/4 sumergido) sale <b>H = 7,14 cm</b>. ▸ El área se cancela: por eso el enunciado no te la da. ▸ Por qué las otras: (B) y (C) ignoran media escena; (D) suma las densidades y aplica el volumen entero a las dos, que es contar dos veces el mismo volumen.'}
 ]);
 
 // ============================================================
@@ -109,24 +97,21 @@ registerExercises('fisica1-utn-fluidos', '3', [
 // ============================================================
 registerExercises('fisica1-utn-fluidos', '4', [
   {st: 'Una cañería pasa de 25 mm a 12 mm de diámetro interior. Si en la parte ancha el agua va a 1 m/s, ¿a qué velocidad va en la angosta?',
-   opts: ['2,08 m/s', '4,34 m/s', '0,48 m/s', '1 m/s'],
-   c: 1,
-   ex: 'Continuidad: A₁v₁ = A₂v₂ con A = π·(D/2)², así que <b>v₂ = v₁·(D₁/D₂)²</b>. ▸ v₂ = 1·(25/12)² = 1·(2,0833)² = <b>4,34 m/s</b>. ▸ Por qué las otras: (A) 2,08 m/s es el error más frecuente: usar la razón de diámetros <b>sin elevarla al cuadrado</b>; (C) 0,48 m/s invierte la razón (el fluido acelera al angostarse, no frena); (D) 1 m/s sería si la sección no cambiara.'},
+   opts: ['4,34 m/s', '2,08 m/s', '0,48 m/s', '1 m/s'], c: 0,
+   ex: 'Continuidad: A₁v₁ = A₂v₂ con A = π·(D/2)², así que <b>v₂ = v₁·(D₁/D₂)²</b>. ▸ v₂ = 1·(25/12)² = 1·(2,0833)² = <b>4,34 m/s</b>. ▸ Por qué las otras: (B) 2,08 m/s es el error más frecuente: usar la razón de diámetros <b>sin elevarla al cuadrado</b>; (C) 0,48 m/s invierte la razón (el fluido acelera al angostarse, no frena); (D) 1 m/s sería si la sección no cambiara.'},
 
   {st: 'El parcial 2009 da Q = 25 l/min. ¿Cuánto es en CGS?',
-   opts: ['25 cm³/s', '416,67 cm³/s', '1500 cm³/s', '0,42 cm³/s'],
-   c: 1,
-   ex: '25 litros = <b>25 000 cm³</b> (1 l = 1000 cm³) y 1 min = 60 s. ▸ Q = 25 000/60 = <b>416,67 cm³/s</b>. ▸ En SI serían 4,167·10⁻⁴ m³/s. ▸ Por qué las otras: (A) usa el número tal cual, sin convertir ni litros ni minutos; (C) 1500 cm³/s convierte los minutos pero no los litros al revés (25·60); (D) divide por 1000 de más.'},
+   opts: ['25 cm³/s', '1500 cm³/s', '416,67 cm³/s', '0,42 cm³/s'], c: 2,
+   ex: '25 litros = <b>25 000 cm³</b> (1 l = 1000 cm³) y 1 min = 60 s. ▸ Q = 25 000/60 = <b>416,67 cm³/s</b>. ▸ En SI serían 4,167·10⁻⁴ m³/s. ▸ Por qué las otras: (A) usa el número tal cual, sin convertir ni litros ni minutos; (B) 1500 cm³/s convierte los minutos pero no los litros al revés (25·60); (D) divide por 1000 de más.'},
 
   {st: 'En una cañería HORIZONTAL que se angosta, ¿qué le pasa a la presión?',
-   opts: ['Aumenta, porque el fluido está más apretado', 'Disminuye, porque la velocidad aumenta', 'No cambia', 'Depende de la densidad del fluido'],
-   c: 1,
-   ex: 'Bernoulli horizontal: p + ½δv² = cte. ▸ Continuidad manda v₂ &gt; v₁ al angostarse, así que <b>p₂ &lt; p₁</b>: es el <b>efecto Venturi</b>. ▸ Control de signo: si te da p₂ &gt; p₁ en un caño horizontal que se angosta, tenés un error — el paréntesis (v₁² − v₂²) es <b>negativo</b>. ▸ Por qué las otras: (A) es la intuición equivocada más común del tema: la energía que gana en velocidad la pierde en presión; (C) solo si la sección no cambiara; (D) la densidad cambia <b>cuánto</b> baja, no <b>si</b> baja.'},
+   opts: ['Aumenta, porque el fluido está más apretado', 'No cambia', 'Depende de la densidad del fluido', 'Disminuye, porque la velocidad aumenta'], c: 3,
+   ex: 'Bernoulli horizontal: p + ½δv² = cte. ▸ Continuidad manda v₂ &gt; v₁ al angostarse, así que <b>p₂ &lt; p₁</b>: es el <b>efecto Venturi</b>. ▸ Control de signo: si te da p₂ &gt; p₁ en un caño horizontal que se angosta, tenés un error — el paréntesis (v₁² − v₂²) es <b>negativo</b>. ▸ Por qué las otras: (A) es la intuición equivocada más común del tema: la energía que gana en velocidad la pierde en presión; (B) solo si la sección no cambiara; (C) la densidad cambia <b>cuánto</b> baja, no <b>si</b> baja.'},
 
   {st: 'Un tanque abierto y grande tiene un orificio chico a 5 m por debajo de la superficie libre. ¿Con qué velocidad sale el agua? (g = 10 m/s²)',
    opts: ['5 m/s', '10 m/s', '50 m/s', '100 m/s'],
    c: 1,
-   ex: 'Torricelli: <b>v = √(2·g·h)</b> = √(2·10·5) = √100 = <b>10 m/s</b>. ▸ Es la misma velocidad que tendría un cuerpo en caída libre desde 5 m: sale de Bernoulli con p_atm de los dos lados (se cancela) y v ≈ 0 en la superficie porque el tanque es grande. ▸ Por qué las otras: (A) 5 m/s confunde h con v; (C) 50 m/s es 2gh sin la raíz; (D) 100 m/s es directamente v² sin la raíz.'},
+   ex: 'Torricelli: <b>v = √(2·g·h)</b> = √(2·10·5) = √100 = <b>10 m/s</b>. ▸ Es la misma velocidad que tendría un cuerpo en caída libre desde 5 m: sale de Bernoulli con p_atm de los dos lados (se cancela) y v ≈ 0 en la superficie porque el tanque es grande. ▸ Por qué las otras: (A) 5 m/s confunde h con v; (C) 50 m/s es g·h: se olvidó el 2 <b>y</b> la raíz; (D) 100 m/s es 2gh = v², le falta sacar la raíz.'},
 
   {st: 'Vas a resolver una cañería que cambia de sección Y de altura, y te piden la presión en el punto 2. ¿Qué usás?',
    opts: ['Solo Bernoulli', 'Solo continuidad', 'Continuidad primero (para v₂) y después Bernoulli completa con el término δgh', 'Solo hidrostática, p = p₀ + δgh'],
@@ -134,9 +119,8 @@ registerExercises('fisica1-utn-fluidos', '4', [
    ex: 'Bernoulli tiene <b>dos velocidades incógnitas</b> y una sola ecuación: no cierra sola. ▸ Orden correcto: <b>1)</b> continuidad A₁v₁ = A₂v₂ para sacar v₂; <b>2)</b> Bernoulli con los tres términos, incluido δ·g·(h₁ − h₂). ▸ Por qué las otras: (A) te faltan velocidades; (B) continuidad no dice nada de presiones; (D) hidrostática solo vale si el fluido está en <b>reposo</b>, y acá circula.'},
 
   {st: 'En un tubo en U abierto en las dos ramas hay agua (1 g/cm³) y sobre ella, en una rama, una columna de aceite (0,8 g/cm³) de 10 cm. ¿Cómo se comparan las alturas de las columnas medidas desde la interfaz?',
-   opts: ['Son iguales, porque los dos son líquidos', 'La columna de aceite es MÁS alta que el desnivel de agua que la compensa', 'La columna de aceite es más baja', 'No hay relación posible'],
-   c: 1,
-   ex: 'Debajo de la interfaz todo es agua conectada, así que a esa altura las presiones se igualan: <b>δ_ac·h_ac = δ_ag·h_ag</b>. ▸ 0,8·10 = 1·h_ag ⟹ h_ag = 8 cm. ▸ O sea: <b>el líquido más liviano forma la columna más alta</b> (10 cm de aceite equilibran solo 8 cm de agua). ▸ Por qué las otras: (A) si fueran iguales las densidades no importarían; (C) invierte la relación; (D) la relación es exactamente δ₁h₁ = δ₂h₂.'}
+   opts: ['La columna de aceite es MÁS alta que el desnivel de agua que la compensa', 'Son iguales, porque los dos son líquidos', 'La columna de aceite es más baja', 'No hay relación posible'], c: 0,
+   ex: 'Debajo de la interfaz todo es agua conectada, así que a esa altura las presiones se igualan: <b>δ_ac·h_ac = δ_ag·h_ag</b>. ▸ 0,8·10 = 1·h_ag ⟹ h_ag = 8 cm. ▸ O sea: <b>el líquido más liviano forma la columna más alta</b> (10 cm de aceite equilibran solo 8 cm de agua). ▸ Por qué las otras: (B) si fueran iguales las densidades no importarían; (C) invierte la relación; (D) la relación es exactamente δ₁h₁ = δ₂h₂.'}
 ]);
 
 // ============================================================
@@ -144,19 +128,16 @@ registerExercises('fisica1-utn-fluidos', '4', [
 // ============================================================
 registerExercises('fisica1-utn-fluidos', '5', [
   {st: 'Tanque hermético con aire a p₀ = 202 600 Pa arriba. En un punto A a profundidad h (lejos del orificio) la presión es pA = 207 600 Pa. ¿Cuánto vale h? (δ = 1000 kg/m³, g = 10 m/s²)',
-   opts: ['0,5 m', '5 m', '2 m', '20,76 m'],
-   c: 0,
-   ex: 'El punto A está en <b>fluido en reposo</b> (el enunciado aclara "muy lejos del orificio"), así que vale hidrostática pura: <b>pA = p₀ + δ·g·h</b>. ▸ 207 600 − 202 600 = 5000 = 1000·10·h ⟹ <b>h = 0,5 m</b>. ▸ Este es el paso 1 obligatorio del problema: sin h no podés seguir. ▸ Por qué las otras: (B) 5 m sale de dividir 5000 por 1000 (olvidando g); (C) 2 m no sale de ninguna cuenta del enunciado; (D) 20,76 m divide pA por 10 000.'},
+   opts: ['5 m', '0,5 m', '2 m', '20,76 m'], c: 1,
+   ex: 'El punto A está en <b>fluido en reposo</b> (el enunciado aclara "muy lejos del orificio"), así que vale hidrostática pura: <b>pA = p₀ + δ·g·h</b>. ▸ 207 600 − 202 600 = 5000 = 1000·10·h ⟹ <b>h = 0,5 m</b>. ▸ Este es el paso 1 obligatorio del problema: sin h no podés seguir. ▸ Por qué las otras: (A) 5 m sale de dividir 5000 por 1000 (olvidando g); (C) 2 m no sale de ninguna cuenta del enunciado; (D) 20,76 m divide pA por 10 000.'},
 
   {st: 'En ese mismo tanque, el agua llega hasta H = 4 m y el orificio está a h = 0,5 m bajo la superficie. Para el tiro horizontal del chorro, ¿desde qué altura cae?',
-   opts: ['0,5 m', '4 m', '3,5 m', '4,5 m'],
-   c: 2,
-   ex: 'El chorro sale del orificio y cae hasta el piso: la altura de caída es la <b>altura del orificio sobre el piso</b>, o sea <b>y = H − h = 4 − 0,5 = 3,5 m</b>. ▸ Después t = √(2y/g) = √0,7 = 0,837 s y d = v·t. ▸ Por qué las otras: (A) 0,5 m es la <b>profundidad</b> bajo la superficie, que sirve para la presión, no para la caída — es la confusión que más se cobra en este problema; (B) 4 m sería si el orificio estuviera en el fondo; (D) 4,5 m suma en vez de restar.'},
+   opts: ['0,5 m', '4 m', '4,5 m', '3,5 m'], c: 3,
+   ex: 'El chorro sale del orificio y cae hasta el piso: la altura de caída es la <b>altura del orificio sobre el piso</b>, o sea <b>y = H − h = 4 − 0,5 = 3,5 m</b>. ▸ Después t = √(2y/g) = √0,7 = 0,837 s y d = v·t. ▸ Por qué las otras: (A) 0,5 m es la <b>profundidad</b> bajo la superficie, que sirve para la presión, no para la caída — es la confusión que más se cobra en este problema; (B) 4 m sería si el orificio estuviera en el fondo; (C) 4,5 m suma en vez de restar.'},
 
-  {st: 'Cañería horizontal de 25 mm a 10⁵ Pa que se angosta a 12 mm y BAJA 3 m. ¿La presión final es mayor o menor que 10⁵ Pa? (δ = 1000 kg/m³, g = 10)',
-   opts: ['Menor, porque se angosta (Venturi)', 'Mayor: bajar 3 m suma 30 000 Pa y el estrechamiento solo resta ≈ 8900 Pa', 'Igual, los dos efectos se cancelan exactamente', 'No se puede saber sin el caudal'],
-   c: 1,
-   ex: 'Compiten dos términos. ▸ <b>Venturi</b>: ½δ(v₁² − v₂²) = 500·(1 − 18,84) = <b>−8919 Pa</b>. ▸ <b>Altura</b>: δ·g·Δh = 1000·10·3 = <b>+30 000 Pa</b>. ▸ p₂ = 100 000 − 8919 + 30 000 = <b>121 081 Pa ≈ 1,21·10⁵ Pa</b>: gana la altura. ▸ Moraleja: 1 m de agua vale 10 000 Pa, un orden de magnitud por encima de los términos dinámicos típicos. ▸ Por qué las otras: (A) mira solo la mitad del problema; (C) los números no dan lo mismo; (D) el caudal sale de v₁ y A₁, que ya te los dan.'},
+  {st: 'Cañería horizontal de 25 mm que transporta agua a 1 m/s con p₁ = 10⁵ Pa, que se angosta a 12 mm y BAJA 3 m. ¿La presión final es mayor o menor que 10⁵ Pa? (δ = 1000 kg/m³, g = 10)',
+   opts: ['Menor, porque se angosta (Venturi)', 'Igual, los dos efectos se cancelan exactamente', 'No se puede saber sin el caudal', 'Mayor: bajar 3 m suma 30 000 Pa y el estrechamiento solo resta ≈ 8900 Pa'], c: 3,
+   ex: 'Compiten dos términos. ▸ <b>Venturi</b>: ½δ(v₁² − v₂²) = 500·(1 − 18,84) = <b>−8919 Pa</b>. ▸ <b>Altura</b>: δ·g·Δh = 1000·10·3 = <b>+30 000 Pa</b>. ▸ p₂ = 100 000 − 8919 + 30 000 = <b>121 081 Pa ≈ 1,21·10⁵ Pa</b>: gana la altura. ▸ Moraleja: 1 m de agua vale 10 000 Pa, un orden de magnitud por encima de los términos dinámicos típicos. ▸ Por qué las otras: (A) mira solo la mitad del problema; (B) los números no dan lo mismo; (C) el caudal sale de v₁ y A₁, que ya te los dan.'},
 
   {st: 'Tanque de gasolina (δ = 720 kg/m³) con aire comprimido a p₀ = 130,1 kPa, lleno hasta h = 1 m, que descarga a la atmósfera (101,3 kPa). ¿Con qué velocidad sale? (g = 10, A₂ ≪ A₁)',
    opts: ['4,5 m/s', '10 m/s', '20 m/s', '14,6 m/s'],
@@ -164,9 +145,8 @@ registerExercises('fisica1-utn-fluidos', '5', [
    ex: 'Bernoulli entre la superficie (v ≈ 0, p = p₀, altura h) y la salida (p = p_atm, altura 0): ▸ <b>½δv² = (p₀ − p_atm) + δ·g·h</b> = 28 800 + 7200 = 36 000. ▸ 360·v² = 36 000 ⟹ v² = 100 ⟹ <b>v = 10 m/s</b>. ▸ Es Torricelli con un empujón extra: la sobrepresión aporta 28 800 Pa y la columna 7200 Pa. ▸ Por qué las otras: (A) 4,5 m/s es Torricelli puro √(2gh) = 4,47, ignorando la presurización; (C) 20 m/s duplica; (D) 14,6 m/s es la respuesta del <b>otro</b> problema (el tanque de agua a 202 600 Pa) — no mezcles los dos tanques.'},
 
   {st: 'Tubo en U con el extremo izquierdo cerrado por un émbolo con un resorte (cámara a presión atmosférica) y el derecho abierto. El agua queda h = 10 cm por encima del émbolo. ¿Cuál es la ecuación del émbolo? (S = 10 cm², k = 50 N/m, g = 10)',
-   opts: ['p_atm·S = k·Δx', 'δ·g·h·S = k·Δx', '(p_atm + δgh)·S = k·Δx', 'δ·g·h = k·Δx'],
-   c: 1,
-   ex: 'Sobre el émbolo actúan: el agua desde abajo con (p_atm + δgh)·S hacia arriba, el aire de la cámara con p_atm·S hacia abajo y el resorte comprimido con k·Δx hacia abajo. ▸ La atmosférica <b>se cancela</b> y queda <b>δ·g·h·S = k·Δx</b>. ▸ Números: 1000·10·0,1·10⁻³ = 1 N ⟹ Δx = 1/50 = <b>0,02 m = 2 cm</b> ✔ (coincide con la respuesta de la hoja). ▸ Por qué las otras: (A) ignora el agua; (C) no cancela la atmosférica y te da un Δx absurdo (más de 2 m); (D) se olvida de multiplicar por el área: una presión no es una fuerza.'}
+   opts: ['δ·g·h·S = k·Δx', 'p_atm·S = k·Δx', '(p_atm + δgh)·S = k·Δx', 'δ·g·h = k·Δx'], c: 0,
+   ex: 'Sobre el émbolo actúan: el agua desde abajo con (p_atm + δgh)·S hacia arriba, el aire de la cámara con p_atm·S hacia abajo y el resorte comprimido con k·Δx hacia abajo. ▸ La atmosférica <b>se cancela</b> y queda <b>δ·g·h·S = k·Δx</b>. ▸ Números: 1000·10·0,1·10⁻³ = 1 N ⟹ Δx = 1/50 = <b>0,02 m = 2 cm</b> ✔ (coincide con la respuesta de la hoja). ▸ Por qué las otras: (B) ignora el agua; (C) no cancela la atmosférica y te da un Δx absurdo (más de 2 m); (D) se olvida de multiplicar por el área: una presión no es una fuerza.'}
 ]);
 
 // ============================================================

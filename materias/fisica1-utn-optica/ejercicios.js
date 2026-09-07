@@ -26,7 +26,7 @@ registerExercises('fisica1-utn-optica', '1', [
   {st: '"Un espejo esférico cóncavo forma una imagen invertida, 4 veces mayor, de un objeto real" (1er parcial 2009). ¿Qué valor de aumento entra en las ecuaciones?',
    opts: ['A = +4', 'A = −4', 'A = +0,25', 'A = −0,25'],
    c: 1,
-   ex: '"4 veces mayor" te da el <b>módulo</b> (|A| = 4) y "invertida" te da el <b>signo</b>: <b>A = −4</b>. El enunciado nunca te escribe el signo, lo tenés que poner vos. Con A = −4 sale x′ = 4x, separación |x − x′| = 60 cm ⟹ x = 20 cm, x′ = 80 cm y R = 32 cm. ▸ Por qué las otras: con A = +4 obtenés x′ = −4x (imagen virtual), la ecuación te devuelve f negativa —un espejo convexo— y eso contradice el "cóncavo" del propio enunciado; con |A| = 0,25 estás invirtiendo la razón y calculando el objeto como 4 veces mayor que la imagen, al revés de lo que dice el texto.'},
+   ex: '"4 veces mayor" te da el <b>módulo</b> (|A| = 4) y "invertida" te da el <b>signo</b>: <b>A = −4</b>. El enunciado nunca te escribe el signo, lo tenés que poner vos. Con A = −4 sale x′ = 4x, separación |x − x′| = 60 cm ⟹ x = 20 cm, x′ = 80 cm y R = 32 cm. ▸ Por qué las otras: con A = +4 obtenés x′ = −4x y la cuenta cierra igual de bien: |x − x′| = 5x = 60 ⟹ x = 12 cm, x′ = −48 cm, y 1/12 − 1/48 = 3/48 = 1/16 ⟹ f = +16 cm, cóncavo y con el <b>mismo</b> R = 32 cm (es el caso del espejo del dentista: objeto dentro del foco, imagen virtual, derecha y 4 veces mayor). Justamente por eso ninguna cuenta te va a avisar del error: lo único que descarta A = +4 es la palabra "invertida" del enunciado, porque una imagen virtual con objeto real es siempre derecha; con |A| = 0,25 estás invirtiendo la razón y calculando el objeto como 4 veces mayor que la imagen, al revés de lo que dice el texto.'},
 
   {st: 'Resolviste un espejo y te quedó 1/x + 1/x′ = 1/16 cm⁻¹. El enunciado pide <b>el radio de curvatura</b>. ¿Qué contestás?',
    opts: ['R = 8 cm', 'R = 16 cm', 'R = 32 cm', 'R = 64 cm'],
@@ -249,7 +249,7 @@ registerExercises('fisica1-utn-optica', '5', [
   {st: 'En una lámina de espesor e, ¿cuánto mide el camino L que recorre el rayo DENTRO del vidrio?',
    opts: ['L = e', 'L = e · cos β', 'L = e / cos β', 'L = e · sen β'],
    c: 2,
-   ex: 'El espesor <b>e se mide perpendicular a las caras</b>; el rayo entra oblicuo, así que recorre la hipotenusa de un triángulo cuyo cateto adyacente al ángulo β es e: <b>L = e / cos β</b>, siempre <b>mayor</b> que el espesor. De ahí sale d = L·sen(α − β) = e·sen(α − β)/cos β. ▸ Por qué las otras: L = e solo valdría con incidencia normal; e·cos β es <b>menor</b> que e, imposible para un camino oblicuo; y e·sen β es la componente horizontal del recorrido, otro segmento del dibujo.'},
+   ex: 'El espesor <b>e se mide perpendicular a las caras</b>; el rayo entra oblicuo, así que recorre la hipotenusa de un triángulo cuyo cateto adyacente al ángulo β es e: <b>L = e / cos β</b>, siempre <b>mayor</b> que el espesor. De ahí sale d = L·sen(α − β) = e·sen(α − β)/cos β. ▸ Por qué las otras: L = e solo valdría con incidencia normal; e·cos β es <b>menor</b> que e, imposible para un camino oblicuo; y e·sen β no es ningún segmento del dibujo: el corrimiento del rayo paralelo a las caras es L·sen β = <b>e·tan β</b>, y e·sen β queda incluso <b>menor</b> que e, imposible para la hipotenusa.'},
 
   {st: 'Un dentista quiere una imagen derecha y 4 veces mayor con el espejo a 1,5 cm del diente (final del 12/12/23). Antes de calcular nada, ¿qué espejo puede ser?',
    opts: ['Convexo, porque los convexos dan imágenes derechas.',
