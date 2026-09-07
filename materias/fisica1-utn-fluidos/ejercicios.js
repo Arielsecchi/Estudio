@@ -23,7 +23,7 @@ registerExercises('fisica1-utn-fluidos', '1', [
 
   {st: 'Un buzo está a 20 m de profundidad en agua (δ = 1000 kg/m³, p_atm = 101 300 Pa, g = 10 m/s²). ¿Cuál es la presión ABSOLUTA a esa profundidad?',
    opts: ['2,00·10⁵ Pa', '1,01·10⁵ Pa', '2,01·10⁶ Pa', '3,01·10⁵ Pa'], c: 3,
-   ex: '<b>p_abs = p₀ + δ·g·h</b> = 101 300 + 1000·10·20 = 101 300 + 200 000 = <b>301 300 Pa ≈ 3,01·10⁵ Pa</b>. ▸ Por qué las otras: (A) 2,00·10⁵ Pa es la presión <b>manométrica</b> (el término δgh solo) — es la respuesta correcta a otra pregunta, cuidado con cuál te piden; (B) es solo la atmosférica, como si el buzo estuviera en la superficie; (C) corre la coma un lugar.'},
+   ex: '<b>p_abs = p₀ + δ·g·h</b> = 101 300 + 1000·10·20 = 101 300 + 200 000 = <b>301 300 Pa ≈ 3,01·10⁵ Pa</b>. ▸ Por qué las otras: (A) 2,00·10⁵ Pa es la presión <b>manométrica</b> (el término δgh solo) — es la respuesta correcta a otra pregunta, cuidado con cuál te piden; (B) es solo la atmosférica, como si el buzo estuviera en la superficie; (C) 2,01·10⁶ Pa es un señuelo de <b>orden de magnitud</b>: no sale de ninguna cuenta del problema (no hay ningún 2,01·10⁵ intermedio). Control rápido: a 20 m la absoluta tiene que dar ≈ 3·10⁵ Pa, unas 3 atmósferas, nunca 10⁶.'},
 
   {st: 'Dos recipientes distintos, uno angosto y uno ancho, tienen agua hasta la misma altura y están abiertos. ¿Dónde es mayor la presión en el fondo?',
    opts: ['En el ancho, porque tiene más agua', 'Es la misma: la presión depende de h, no del volumen', 'En el angosto, porque el agua está más concentrada', 'Depende de la forma de las paredes'], c: 1,
@@ -35,7 +35,7 @@ registerExercises('fisica1-utn-fluidos', '1', [
 
   {st: 'Un bloque de densidad 0,6 g/cm³ flota libremente en agua (1 g/cm³). ¿Qué fracción del volumen queda sumergida?',
    opts: ['60%', '40%', '100%', 'Depende del volumen del bloque'], c: 0,
-   ex: 'En flotación libre E = P, y al cancelar V y g queda <b>V_sum/V = δ_cuerpo/δ_líq</b> = 0,6/1 = <b>0,6 = 60%</b>. ▸ Es la fórmula que más se usa en toda la unidad, y <b>no depende ni de g ni del tamaño</b>: vale igual para una pelotita o para un iceberg. ▸ Por qué las otras: (B) 40% es la parte que <b>emerge</b> (el complemento) — ojo con qué te preguntan; (C) 100% sería si δ_cuerpo ≥ δ_líq, o sea si se hundiera; (D) el volumen se cancela, por eso nunca hace falta como dato.'}
+   ex: 'En flotación libre E = P, y al cancelar V y g queda <b>V_sum/V = δ_cuerpo/δ_líq</b> = 0,6/1 = <b>0,6 = 60%</b>. ▸ Es la fórmula que más se usa en toda la unidad, y <b>no depende ni de g ni del tamaño</b>: vale igual para una pelotita o para un iceberg. ▸ Por qué las otras: (B) 40% es la parte que <b>emerge</b> (el complemento) — ojo con qué te preguntan; (C) 100% sumergido son dos casos distintos: con δ_cuerpo = δ_líq el cuerpo <b>flota entero justo bajo la superficie</b> (equilibrio indiferente), y con δ_cuerpo &gt; δ_líq ya no flota, se va al fondo; (D) el volumen se cancela, por eso nunca hace falta como dato.'}
 ]);
 
 // ============================================================
@@ -49,7 +49,7 @@ registerExercises('fisica1-utn-fluidos', '2', [
 
   {st: 'En el parcial 2013, una esfera de δ = 2 g/cm³ y V = 600 cm³ está a MITAD sumergida en agua, colgada de un resorte estirado 10 cm. ¿Cuánto vale k?',
    opts: ['120 N/m', '30 N/m', '9 N/m', '90 N/m'], c: 3,
-   ex: 'Tres fuerzas verticales: resorte hacia arriba, empuje hacia arriba, peso hacia abajo. ▸ <b>P</b> = δ_e·V·g = 2·600·1000 = 1,2·10⁶ din = <b>12 N</b>. ▸ <b>E</b> = δ_a·(V/2)·g = 1·300·1000 = 3·10⁵ din = <b>3 N</b> (¡la mitad del volumen!). ▸ F_el = P − E = <b>9 N</b> → k = 9 N / 0,10 m = <b>90 N/m</b>. ▸ Por qué las otras: (A) 120 N/m es olvidarse del empuje (usar solo el peso); (B) 30 N/m sale de confundir el empuje (3 N) con la fuerza del resorte: 3 N / 0,10 m = 30 N/m (usar el volumen total en el empuje daría E = 6 N y k = 60 N/m, que ni siquiera figura entre las opciones); (C) 9 N/m confunde la fuerza (9 N) con la constante y deja el estiramiento en 10 cm sin pasar a metros.'},
+   ex: 'Tres fuerzas verticales: resorte hacia arriba, empuje hacia arriba, peso hacia abajo. ▸ <b>P</b> = δ_e·V·g = 2·600·1000 = 1,2·10⁶ din = <b>12 N</b>. ▸ <b>E</b> = δ_a·(V/2)·g = 1·300·1000 = 3·10⁵ din = <b>3 N</b> (¡la mitad del volumen!). ▸ F_el = P − E = <b>9 N</b> → k = 9 N / 0,10 m = <b>90 N/m</b>. ▸ Por qué las otras: (A) 120 N/m es olvidarse del empuje (usar solo el peso); (B) 30 N/m sale de confundir el empuje (3 N) con la fuerza del resorte: 3 N / 0,10 m = 30 N/m (usar el volumen total en el empuje daría E = 6 N y k = 60 N/m, que ni siquiera figura entre las opciones); (C) 9 N/m confunde la <b>fuerza</b> (9 N) con la constante: le falta dividir por el estiramiento. Ojo que dejar el estiramiento en 10 cm sin pasarlo a metros es <b>otro</b> error, y da 0,9 N/m: cien veces menos que lo correcto.'},
 
   {st: 'Un cubo de 400 g flota con 1/5 de su volumen sumergido. Te preguntan qué fuerza hacia abajo hay que aplicarle para hundirlo del todo, pero NO te dan ni la densidad del líquido ni el volumen. ¿Qué hacés?',
    opts: ['Faltan datos, no se puede resolver', 'Asumo que el líquido es agua', 'Uso la densidad del cubo como 1 g/cm³', 'Escribo el peso de dos formas (mg y δ_c·V·g) y uso la condición de flotación: se cancelan'], c: 3,

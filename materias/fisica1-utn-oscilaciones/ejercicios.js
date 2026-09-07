@@ -40,7 +40,7 @@ registerExercises('fisica1-utn-oscilaciones', '1', [
 
   {st: '2P 2011: una masa oscila con un resorte de K = 1000 N/m manteniendo su energía mecánica en 5 J. ¿Cuál es la amplitud?',
    opts: ['0,1 m', '0,01 m', '1 m', '0,32 m'], c: 0,
-   ex: 'En los extremos toda la energía es elástica: <b>E = ½·K·A²</b> ⟹ A² = 2E/K = 10/1000 = 0,01 m² ⟹ <b>A = 0,1 m = 10 cm</b>. ▸ Por qué las otras: (B) 0,01 m es A² sin sacar la raíz; (C) 1 m sale de olvidar el factor ½ y confundirse de potencia; (D) 0,32 m es √0,1, que aparece si usás E = ½KA sin cuadrado.'},
+   ex: 'En los extremos toda la energía es elástica: <b>E = ½·K·A²</b> ⟹ A² = 2E/K = 10/1000 = 0,01 m² ⟹ <b>A = 0,1 m = 10 cm</b>. ▸ Por qué las otras: (B) 0,01 m es A² sin sacar la raíz; (C) 1 m sale de olvidar el factor ½ y confundirse de potencia; (D) 0,32 m es √0,1: sale de errar la división 2E/K (escribir 0,1 en vez de 0,01 = 10/1000) y recién ahí sacar la raíz.'},
 
   {st: 'Un cuerpo cuelga en reposo de un resorte y el estiramiento estático es δ = l_eq − l₀. No te dan ni k ni m. ¿Podés calcular ω?',
    opts: ['No, faltan datos', 'Sí: ω = √(g/δ)', 'Sí: ω = √(δ/g)', 'Sí, pero sólo si además te dan la amplitud'],
@@ -88,7 +88,7 @@ registerExercises('fisica1-utn-oscilaciones', '2', [
 registerExercises('fisica1-utn-oscilaciones', '3', [
   {st: '2P 2017: un bloque oscila sobre una superficie horizontal sin rozamiento unido a un resorte; l_mín = 30 cm y l_máx = 50 cm. ¿Cuál es la longitud natural del resorte?',
    opts: ['30 cm', '50 cm', '20 cm', '40 cm'], c: 3,
-   ex: 'En horizontal el peso lo compensa la normal y <b>no estira el resorte</b>: el centro de la oscilación coincide con la longitud natural. l₀ = (50 + 30)/2 = <b>40 cm</b>. ▸ Por qué las otras: (A) confundir l₀ con l_mín es el error típico — vale sólo si el resorte llegara a soltarse, que no es el caso; (B) l_máx es el otro extremo; (C) 20 cm es el recorrido total (2A). Ojo: si el resorte fuera <b>vertical</b> esto NO valdría, habría que restar mg/k.'},
+   ex: 'En horizontal el peso lo compensa la normal y <b>no estira el resorte</b>: el centro de la oscilación coincide con la longitud natural. l₀ = (50 + 30)/2 = <b>40 cm</b>. ▸ Por qué las otras: (A) confundir l₀ con l_mín es el error típico: l_mín = 30 cm es un <b>extremo</b> del recorrido, donde el resorte está comprimido 10 cm y el cuerpo se frena, no donde el resorte está relajado; (B) l_máx es el otro extremo; (C) 20 cm es el recorrido total (2A). Ojo: si el resorte fuera <b>vertical</b> esto NO valdría, habría que restar mg/k.'},
 
   {st: 'Ese mismo bloque tiene A = 10 cm y v_máx = 2 m/s. ¿Cuál es la frecuencia angular?',
    opts: ['0,2 rad/s', '200 rad/s', '20 rad/s', '2 rad/s'], c: 2,
