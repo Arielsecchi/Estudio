@@ -2270,9 +2270,11 @@ En "hallar a para que B<sub>a</sub> sea base de S<sub>a</sub>", la independencia
 W ≢ 0 ⟹ l.i. es correcto. W ≡ 0 ⟹ l.d. es <b>falso</b>. Y si la cátedra te pregunta por qué, tenés que poder contestar; recordá que este resultado sí se ve en clase para funciones de C<sup>n−1</sup>, así que se puede usar en la dirección buena sin demostrarlo.
 </div>
 
-<h3>Taller 1 · el práctico del 21/8/2026, resuelto</h3>
+<h3>Los talleres del 2C2026, resueltos</h3>
 
-<p>La cátedra abrió en el campus una sección nueva, <b>Ejercicios clases prácticas</b>, y subió el <b>Taller 1</b> el 21 de agosto. Son dos ejercicios de subespacios, y valen más que dos ejercicios cualquiera: son <i>lo que la cátedra eligió para la primera clase práctica de este cuatrimestre</i>. Van verbatim, con la resolución completa.</p>
+<p>La cátedra abrió en el campus una sección propia, <b>Talleres</b>, y viene subiendo el práctico de cada clase. Al <b>8/9/2026</b> hay <b>siete</b>, del 21/8 al 11/9, con <b>22 ejercicios</b> en total. Valen más que veintidós ejercicios cualquiera: son <i>lo que la cátedra eligió para las clases prácticas de este cuatrimestre</i>. Van todos verbatim, con la resolución completa. ▸ Los siete caen dentro de la <b>unidad 1</b>, que es el material de esta sección, así que sirven de entrenamiento directo para el <b>Ej 1 del primer parcial</b>.</p>
+
+<h4>Taller 1 · clase del 21/8 — subespacios y generadores</h4>
 
 <div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
 Decidir si los siguientes conjuntos son subespacios de los correspondientes espacios vectoriales, y en caso afirmativo dar un sistema de generadores:<br><br>
@@ -2313,7 +2315,309 @@ e) Decidir si S ⊆ T, T ⊆ S y/o S = T, con T = gen{ [1, 1, 1]<sup>T</sup> }.
 Los dos ejercicios son la mitad del Ej 1 de un parcial real: <b>decidir si es subespacio y dar generadores</b>, y <b>comparar dos subespacios por doble inclusión</b>. ▸ El ítem 1c es el que separa: la cátedra elige siempre un conjunto que <b>contiene al 0</b> —así el axioma fácil no alcanza— y falla contra la suma. ▸ Y el 2c instala el atajo que después usás todo el cuatrimestre: <b>una inclusión + igualdad de dimensiones ⟹ igualdad</b>. Verificar las dos inclusiones a mano no está mal, pero te come diez minutos.
 </div>
 
-<p class="muted"><b>Procedencia.</b> Los enunciados de los ejercicios están transcriptos textuales de la <b>Guía 1 · Espacios vectoriales</b> de la cátedra (ejercicios 1.1 a 1.30) y de los <b>Ejercicios adicionales de Espacios vectoriales</b> de Patricia Palacios (ejercicios 1 a 26). El <b>Taller 1</b> sale del PDF que la cátedra subió al campus el <b>21/8/2026</b> en la sección «Ejercicios clases prácticas», y también va verbatim. La teoría y las demostraciones siguen las <i>Notas de Espacios Vectoriales</i> del Prof. Mancilla Aguilar y el apunte oficial de la facultad (Pustilnik – Muszkats), que son el material que la cátedra publica en el campus. Todas las cuentas de las resoluciones fueron verificadas con sympy.</p>
+<h4>Taller 2 · clase del 26/8 — dependencia lineal</h4>
+
+<div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
+Hallar todos los a ∈ ℝ tales que<br><br>
+gen{ [[a, 1],[2, 4]] , [[1, −a],[1, 2]] , [[3, 2],[3, 6]] } = gen{ [[a, 1],[2, 4]] , [[3, 2],[3, 6]] }.
+</div>
+
+<p><b>La traducción que hay que hacer antes de calcular nada.</b> Un generado nunca se achica al agregarle un vector, así que la inclusión ⊇ vale siempre. La igualdad ocurre <b>si y sólo si el vector que sobra ya estaba adentro</b>: la condición es <b>M<sub>2</sub> ∈ gen{M<sub>1</sub>, M<sub>3</sub>}</b>, y nada más. ▸ Ése es el ejercicio entero; el resto es un sistema de 4 ecuaciones.</p>
+
+<p>Planteando M<sub>2</sub> = α M<sub>1</sub> + β M<sub>3</sub> entrada por entrada: <b>1 = αa + 3β</b>, <b>−a = α + 2β</b>, <b>1 = 2α + 3β</b>, <b>2 = 4α + 6β</b>. ▸ La cuarta es el doble de la tercera: <b>sobra</b>, y detectarlo ahorra la mitad del trabajo. ▸ De la tercera, β = (1 − 2α)/3. Reemplazando en la segunda, α = 2 + 3a. Reemplazando las dos en la primera queda <b>α(a − 2) = 0</b>, que se parte en dos casos.</p>
+
+<p><b>Caso α = 0:</b> 2 + 3a = 0 ⟹ <b>a = −2/3</b>, con β = 1/3. Verificación: (1/3)·[[3,2],[3,6]] = [[1, 2/3],[1, 2]], que es M<sub>2</sub> con a = −2/3. ✓<br>
+<b>Caso a = 2:</b> α = 8 y β = −5. Verificación: 8[[2,1],[2,4]] − 5[[3,2],[3,6]] = [[1,−2],[1,2]] = M<sub>2</sub> con a = 2. ✓</p>
+
+<p><b>Respuesta: a = 2 o a = −2/3.</b> ▸ Escribí siempre la verificación: es una ecuación con parámetro y el enunciado pide <i>todos</i> los valores, así que hay que mostrar que los dos sirven y que no hay más.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 2 (verbatim)</div>
+Determinar si los siguientes subconjuntos son linealmente independientes en sus respectivos espacios vectoriales:<br><br>
+a) {(1 0 1 0)<sup>T</sup>, (−1 1 0 2)<sup>T</sup>, (5 −2 3 −4)<sup>T</sup>, (2 1 3 1)<sup>T</sup>}<br>
+b) {3 + x + x<sup>3</sup>, 2x + x<sup>3</sup>, 2 + x} en ℝ<sub>3</sub>[x].<br>
+c) { [[−1, 1],[0, 0]] , [[2, 0],[1, 0]] , [[4, −2],[1, 0]] } en ℝ<sup>2×2</sup>.
+</div>
+
+<p><b>a) LD.</b> Cuatro vectores de ℝ<sup>4</sup>: la matriz es cuadrada y <b>det = 0</b>, así que ya está decidido sin escalonar. ▸ El rango es <b>3</b> y el núcleo es gen{(−3, 2, 1, 0)<sup>T</sup>}, o sea la relación es <b>v<sub>3</sub> = 3v<sub>1</sub> − 2v<sub>2</sub></b> (comprobalo: 3(1,0,1,0) − 2(−1,1,0,2) = (5,−2,3,−4) ✓). ▸ Dar la relación explícita vale puntos: "es LD" a secas se corrige como incompleto.</p>
+
+<p><b>b) LI.</b> Coordenadas en la base E = {1, x, x<sup>2</sup>, x<sup>3</sup>}: (3,1,0,1), (0,2,0,1), (2,1,0,0). Son <b>tres vectores en ℝ<sup>4</sup></b>, la matriz no es cuadrada y hay que escalonar: el rango da <b>3</b> = cantidad de vectores ⟹ LI. ▸ Truco de lectura: la coordenada de x<sup>2</sup> es 0 en los tres, así que el problema vive en el subespacio gen{1, x, x<sup>3</sup>} y podés trabajar con matrices 3×3.</p>
+
+<p><b>c) LD.</b> Vectorizando por filas: (−1,1,0,0), (2,0,1,0), (4,−2,1,0). El rango es <b>2</b>. ▸ La relación es <b>2A − B + C = 0</b>, es decir <b>C = B − 2A</b>. Verificación directa: [[2,0],[1,0]] − 2[[−1,1],[0,0]] = [[4,−2],[1,0]] ✓.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 3 (verbatim)</div>
+a) Analizar si el conjunto {e<sup>x</sup>, x e<sup>x</sup>, x<sup>2</sup> e<sup>x</sup>} es LI o LD.<br>
+b) Hallar todos los a ∈ ℝ tales que el siguiente conjunto es linealmente independiente en C<sup>∞</sup>(ℝ):<br>
+{1 + sen(x) + a cos(x), &nbsp; a + 4 sen(x) − 4 cos(x), &nbsp; 2 + sen(x) + 8 cos(x)}
+</div>
+
+<p><b>a) LI</b>, y la demostración es de dos renglones sin wronskiano. Si c<sub>1</sub>e<sup>x</sup> + c<sub>2</sub>xe<sup>x</sup> + c<sub>3</sub>x<sup>2</sup>e<sup>x</sup> = 0 <i>para todo x</i>, dividí por e<sup>x</sup>, que <b>nunca se anula</b>: queda c<sub>1</sub> + c<sub>2</sub>x + c<sub>3</sub>x<sup>2</sup> = 0 para todo x. ▸ Un polinomio idénticamente nulo tiene todos sus coeficientes nulos ⟹ c<sub>1</sub> = c<sub>2</sub> = c<sub>3</sub> = 0. ▸ La trampa clásica es evaluar en tres puntos y armar un sistema 3×3: eso demuestra menos (podría dar solución no trivial y no probaría nada), y encima es más largo.</p>
+
+<p><b>b)</b> Los tres viven en gen{1, sen x, cos x}, y <b>{1, sen x, cos x} es LI</b> (mismo argumento: evaluar en 0, π/2 y π, o derivar dos veces). Entonces se puede trabajar con coordenadas en esa base: (1, 1, a), (a, 4, −4), (2, 1, 8). ▸ El determinante de la matriz que las tiene por columnas es <b>(a − 2)(a − 14)</b>. ▸ Respuesta: el conjunto es <b>LI ⟺ a ≠ 2 y a ≠ 14</b>.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 4 (verbatim)</div>
+Sea V un K−espacio vectorial y {v<sub>1</sub>, v<sub>2</sub>, v<sub>3</sub>} ⊆ V un conjunto linealmente independiente. Se definen:<br>
+w<sub>1</sub> = v<sub>1</sub> + v<sub>2</sub> + v<sub>3</sub> &nbsp;&nbsp; w<sub>2</sub> = v<sub>2</sub> − v<sub>3</sub> &nbsp;&nbsp; w<sub>3</sub> = v<sub>1</sub> + 2v<sub>2</sub> − v<sub>3</sub><br>
+Analizar si el conjunto {w<sub>1</sub>, w<sub>2</sub>, w<sub>3</sub>} es linealmente independiente o linealmente dependiente.
+</div>
+
+<p><b>LI.</b> Éste es el ejercicio abstracto de la clase, y el método que hay que tener automatizado es: <b>pasar a coordenadas en la base que te dan</b>. Como {v<sub>1</sub>,v<sub>2</sub>,v<sub>3</sub>} es LI, es base de su generado, y ahí [w<sub>1</sub>] = (1,1,1), [w<sub>2</sub>] = (0,1,−1), [w<sub>3</sub>] = (1,2,−1). ▸ El determinante de la matriz con esas columnas es <b>−1 ≠ 0</b> ⟹ LI. ▸ Vale por el teorema de la clase teórica: <b>{u<sub>1</sub>,…,u<sub>k</sub>} es LI ⟺ {[u<sub>1</sub>]<sub>B</sub>,…,[u<sub>k</sub>]<sub>B</sub>} es LI</b> — el cambio a coordenadas es un isomorfismo y por eso conserva la independencia. ▸ Sin coordenadas también sale: escribís c<sub>1</sub>w<sub>1</sub> + c<sub>2</sub>w<sub>2</sub> + c<sub>3</sub>w<sub>3</sub> = 0, agrupás por v<sub>i</sub> y usás que los coeficientes de cada v<sub>i</sub> deben anularse. Es el mismo sistema, escrito más largo.</p>
+
+<h4>Taller 3 · clase del 28/8 — bases y dimensión</h4>
+
+<div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
+Sea S = { X ∈ ℝ<sup>4</sup> : x<sub>1</sub> + 2x<sub>2</sub> + x<sub>3</sub> + 4x<sub>4</sub> = 0, &nbsp; −x<sub>1</sub> + 3x<sub>2</sub> + 4x<sub>3</sub> + x<sub>4</sub> = 0, &nbsp; 2x<sub>1</sub> + x<sub>2</sub> − x<sub>3</sub> + 5x<sub>4</sub> = 0 }<br><br>
+a) Dar una base de S y determinar su dimensión.<br>
+b) Dar una base de ℝ<sup>4</sup> que contenga a la base de S obtenida en el ítem anterior.
+</div>
+
+<p><b>a)</b> Escalonando la matriz de 3×4 del sistema, la reducida es [[1, 0, −1, 2],[0, 1, 1, 1],[0, 0, 0, 0]]: <b>rg = 2</b>, la tercera ecuación es combinación de las otras dos. ▸ Por el teorema de la dimensión, <b>dim S = 4 − 2 = 2</b>. Con x<sub>3</sub>, x<sub>4</sub> libres: x<sub>1</sub> = x<sub>3</sub> − 2x<sub>4</sub>, x<sub>2</sub> = −x<sub>3</sub> − x<sub>4</sub>. ▸ <b>Base de S: {(1, −1, 1, 0)<sup>T</sup>, (−2, −1, 0, 1)<sup>T</sup>}</b>.</p>
+
+<p><b>b)</b> Extender una base: se agregan candidatos y se chequea que el rango suba. ▸ Con <b>e<sub>1</sub> = (1,0,0,0)<sup>T</sup></b> y <b>e<sub>2</sub> = (0,1,0,0)<sup>T</sup></b> el determinante da <b>1 ≠ 0</b>, así que <b>{(1,−1,1,0), (−2,−1,0,1), e<sub>1</sub>, e<sub>2</sub>}</b> es base de ℝ<sup>4</sup>. ▸ La regla de bolsillo, que evita probar al azar: los canónicos que hay que agregar son los de las <b>posiciones pivote</b>. Acá los pivotes son las columnas <b>1 y 2</b>, así que se agregan <b>e<sub>1</sub> y e<sub>2</sub></b>. ▸ Y funciona siempre, no por casualidad: los vectores de la base del núcleo tienen ceros en las coordenadas pivote y la identidad en las libres, así que agregar los canónicos de las pivote da una matriz de determinante ±1.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 2 (verbatim)</div>
+Sea S = {p ∈ ℝ<sub>3</sub>[x] : p(−1) = p(0) = 0}<br><br>
+a) Dar una base de S y determinar su dimensión.<br>
+b) Hallar todos los valores de k ∈ ℝ para los cuales<br>
+B = { kx<sup>3</sup> − x<sup>2</sup> − (k+1)x + k<sup>2</sup> − 4 ; &nbsp; −x<sup>3</sup> + 2kx<sup>2</sup> + (2k+1)x } es una base de S.
+</div>
+
+<p><b>a)</b> Con p = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>x<sup>2</sup> + a<sub>3</sub>x<sup>3</sup>: p(0) = a<sub>0</sub> = 0 y p(−1) = a<sub>0</sub> − a<sub>1</sub> + a<sub>2</sub> − a<sub>3</sub> = 0 ⟹ <b>a<sub>0</sub> = 0</b> y <b>a<sub>1</sub> = a<sub>2</sub> − a<sub>3</sub></b>. Dos condiciones independientes sobre cuatro coeficientes ⟹ <b>dim S = 2</b>. ▸ <b>Base: {x + x<sup>2</sup>, &nbsp; x<sup>3</sup> − x}</b>. ▸ Atajo que conviene tener: p(−1) = p(0) = 0 significa que <b>x y (x + 1) dividen a p</b>, así que S = {x(x+1)q(x) : q ∈ ℝ<sub>1</sub>[x]} y una base es {x(x+1), x<sup>2</sup>(x+1)} = {x + x<sup>2</sup>, x<sup>2</sup> + x<sup>3</sup>}. Es otra base de lo mismo.</p>
+
+<p><b>b) k = 2 y k = −2.</b> Hay dos condiciones y conviene mirarlas en orden. ▸ <b>Pertenencia:</b> el segundo polinomio cumple p(0) = p(−1) = 0 <b>para todo k</b>. El primero da p(0) = k<sup>2</sup> − 4 y p(−1) = k<sup>2</sup> − 4 — las dos condiciones colapsan en la misma — así que está en S ⟺ <b>k<sup>2</sup> = 4</b> ⟺ k = ±2. ▸ <b>Independencia:</b> con k = 2 queda {2x<sup>3</sup> − x<sup>2</sup> − 3x, &nbsp; −x<sup>3</sup> + 4x<sup>2</sup> + 5x} y con k = −2 queda {−2x<sup>3</sup> − x<sup>2</sup> + x, &nbsp; −x<sup>3</sup> − 4x<sup>2</sup> − 3x}; en los dos casos el rango es 2, ninguno es múltiplo del otro. ▸ Y como <b>dim S = 2</b>, dos vectores LI de S ya son base: no hace falta verificar que generan. <b>Los dos valores sirven.</b></p>
+
+<div class="trap"><div class="tr-t">El orden de las dos verificaciones no es un detalle</div>
+Si arrancás por la independencia perdés el tiempo: para casi todo k los dos polinomios son LI, pero <b>no están en S</b>, y un conjunto LI que no está adentro no es base de S. ▸ Primero <b>pertenencia</b> (que casi siempre recorta el parámetro a un par de valores), después <b>independencia</b> sobre los pocos que quedan, y cerrás con el conteo de dimensión.
+</div>
+
+<div class="example"><div class="ex-t">Ejercicio 3 (verbatim)</div>
+Sea k ∈ ℝ y S<sub>k</sub> = {A ∈ ℝ<sup>2×2</sup> : A<sup>T</sup> = −kA}. Para cada valor de k ∈ ℝ, hallar una base de S<sub>k</sub> e indicar su dimensión.
+</div>
+
+<p>Con A = [[a, b],[c, d]], la condición A<sup>T</sup> = −kA se abre en cuatro ecuaciones: <b>a(1 + k) = 0</b>, <b>d(1 + k) = 0</b>, <b>c = −kb</b>, <b>b = −kc</b>. ▸ Sustituyendo las dos últimas entre sí: b = k<sup>2</sup>b, o sea <b>b(1 − k<sup>2</sup>) = 0</b>. La respuesta se parte en tres casos, y hay que darlos los tres.</p>
+
+<table class="tbl">
+  <tr><th>k</th><th>Qué queda</th><th>Base</th><th>dim</th></tr>
+  <tr><td><b>k = −1</b></td><td>A<sup>T</sup> = A: las <b>simétricas</b></td><td>{ [[1,0],[0,0]] , [[0,1],[1,0]] , [[0,0],[0,1]] }</td><td><b>3</b></td></tr>
+  <tr><td><b>k = 1</b></td><td>A<sup>T</sup> = −A: las <b>antisimétricas</b></td><td>{ [[0,1],[−1,0]] }</td><td><b>1</b></td></tr>
+  <tr><td><b>k ≠ ±1</b></td><td>a = d = 0 y b = c = 0</td><td>∅ (subespacio nulo)</td><td><b>0</b></td></tr>
+</table>
+
+<p>▸ El caso k ≠ ±1 no es una trampa: <b>{0} es un subespacio</b>, su dimensión es 0 y su base es el conjunto vacío. Escribir "no tiene base" está mal.</p>
+
+<h4>Taller 4 · clase del 2/9 — los cuatro subespacios fundamentales</h4>
+
+<p class="muted">La cátedra subió este taller dos veces: como <b>Taller 4</b> en la sección Talleres y como <b>«taller virtual 2-9-26»</b> en Unidad 1, esta segunda versión con un ejercicio por página. Es <b>el mismo documento</b>: mismos cuatro ejercicios, mismo texto. El 2 de septiembre la clase fue virtual por Meet (aviso de Palacios del 1/9), y por eso está duplicado.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
+Sea A ∈ ℝ<sup>3×4</sup> una matriz con col(A) = gen{ (1 2 3)<sup>T</sup>, (4 5 6)<sup>T</sup> } y nul(A) = gen{ (6 7 8 0)<sup>T</sup>, (0 0 0 1)<sup>T</sup> }.<br>
+Sea b = (−1 1 3)<sup>T</sup>. Decidir si el sistema Ax = b es incompatible, compatible determinado o compatible indeterminado.
+</div>
+
+<p><b>Compatible indeterminado</b>, y las dos mitades de la respuesta salen de dos subespacios distintos.</p>
+
+<p><b>1 · ¿Compatible?</b> El teorema de la clase teórica del 2/9 dice: <b>Ax = b tiene solución ⟺ b ∈ col(A)</b>. Planteando (−1,1,3) = α(1,2,3) + β(4,5,6): de las dos primeras ecuaciones α = 3, β = −1, y la tercera <b>verifica</b> (3·3 − 6 = 3 ✓). ▸ b ∈ col(A) ⟹ compatible. Si la tercera no hubiera cerrado, la respuesta sería incompatible y el ejercicio terminaba ahí.</p>
+
+<p><b>2 · ¿Única?</b> La solución es única ⟺ nul(A) = {0}. Acá <b>dim nul(A) = 2 ≠ 0</b> ⟹ <b>infinitas soluciones</b>, y el conjunto solución es x<sub>p</sub> + nul(A), un plano trasladado. ▸ Control de consistencia que conviene hacer siempre: rg(A) = dim col(A) = 2, y el teorema de la dimensión pide dim nul(A) = 4 − 2 = <b>2</b>, que es lo que dice el enunciado. Los datos son coherentes.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 2 (verbatim)</div>
+Sean A = [[1, 2, 1, 1, 5],[−2, −4, 0, 4, −2],[1, 2, 2, 4, 9]] y b = (1 2 3)<sup>T</sup>.<br><br>
+a) Hallar bases de los cuatro subespacios fundamentales de la matriz A.<br>
+b) En el caso de que el sistema Ax = b sea compatible, hallar todas sus soluciones.<br>
+c) Hallar, si las hay, todas las soluciones de Ax = b pertenecientes a fil(A).
+</div>
+
+<p>La reducida por filas de [A | b] es [[1, 2, 0, −2, 1 | −1],[0, 0, 1, 3, 4 | 2],[0, 0, 0, 0, 0 | 0]]. De ahí sale todo: <b>rg(A) = 2</b>, columnas pivote la <b>1</b> y la <b>3</b>, y el sistema es <b>compatible</b> (no hay pivote en la columna de b).</p>
+
+<table class="tbl">
+  <tr><th>Subespacio</th><th>Dónde vive</th><th>Base</th><th>dim</th></tr>
+  <tr><td><b>col(A)</b></td><td>ℝ<sup>3</sup></td><td>{ (1, −2, 1)<sup>T</sup>, (1, 0, 2)<sup>T</sup> } — las columnas <b>1 y 3 de A</b>, no de la reducida</td><td>2</td></tr>
+  <tr><td><b>fil(A)</b></td><td>ℝ<sup>5</sup></td><td>{ (1, 2, 0, −2, 1)<sup>T</sup>, (0, 0, 1, 3, 4)<sup>T</sup> } — las filas <b>no nulas de la reducida</b></td><td>2</td></tr>
+  <tr><td><b>nul(A)</b></td><td>ℝ<sup>5</sup></td><td>{ (−2,1,0,0,0)<sup>T</sup>, (2,0,−3,1,0)<sup>T</sup>, (−1,0,−4,0,1)<sup>T</sup> }</td><td>3</td></tr>
+  <tr><td><b>nul(A<sup>T</sup>)</b></td><td>ℝ<sup>3</sup></td><td>{ (−4, −1, 2)<sup>T</sup> }</td><td>1</td></tr>
+</table>
+
+<p><b>La asimetría que se olvida:</b> para col(A) se toman las columnas <b>originales</b> (escalonar cambia el espacio columna), y para fil(A) se toman las filas <b>de la reducida</b> (escalonar no cambia el espacio fila). Es el único lugar del tema donde el "antes o después de escalonar" cambia la respuesta.</p>
+
+<p><b>b)</b> Solución particular poniendo las libres en 0: <b>x<sub>p</sub> = (−1, 0, 2, 0, 0)<sup>T</sup></b>. ▸ Todas las soluciones: <b>x = x<sub>p</sub> + nul(A)</b>, es decir x = (−1,0,2,0,0) + s(−2,1,0,0,0) + t(2,0,−3,1,0) + u(−1,0,−4,0,1), con s,t,u ∈ ℝ. Un subespacio afín de dimensión 3.</p>
+
+<p><b>c)</b> Hay <b>una sola</b>, y ése es el punto del ítem. Como ℝ<sup>5</sup> = fil(A) ⊕ nul(A) —son complementos ortogonales—, cada solución se parte en una componente en fil(A) más una en nul(A), y la de fil(A) es <b>la misma para todas</b>. ▸ Para calcularla, buscá x en fil(A) escribiéndolo como c<sub>1</sub>(1,2,0,−2,1) + c<sub>2</sub>(0,0,1,3,4) e imponé Ax = b: sale c<sub>1</sub> = −11/128 y c<sub>2</sub> = 9/128. ▸ <b>x = (1/128)·(−11, −22, 9, 49, 25)<sup>T</sup></b>, y se verifica que Ax = b. ▸ Ésa es la <b>solución de norma mínima</b> del sistema, que es como reaparece el mismo objeto en la unidad 3 (cuadrados mínimos).</p>
+
+<div class="example"><div class="ex-t">Ejercicio 3 (verbatim)</div>
+Hallar bases de fil(A) y de col(A), con<br>
+A = (1 0 3)<sup>T</sup> · (1 0 1 −1 0) &nbsp;+&nbsp; (0 1 −1)<sup>T</sup> · (1 0 2 1 0)
+</div>
+
+<p><b>No hay que multiplicar nada.</b> La matriz viene escrita como suma de <b>dos productos columna × fila</b>, o sea como suma de dos matrices de rango 1, y eso ya contesta el ejercicio.</p>
+
+<p>Si A = u<sub>1</sub>r<sub>1</sub><sup>T</sup> + u<sub>2</sub>r<sub>2</sub><sup>T</sup>, entonces <b>Ax = (r<sub>1</sub>·x)u<sub>1</sub> + (r<sub>2</sub>·x)u<sub>2</sub></b>: toda columna de A es combinación de u<sub>1</sub> y u<sub>2</sub>, así que col(A) ⊆ gen{u<sub>1</sub>, u<sub>2</sub>}. Simétricamente fil(A) ⊆ gen{r<sub>1</sub>, r<sub>2</sub>}. ▸ Como {u<sub>1</sub>, u<sub>2</sub>} es LI y {r<sub>1</sub>, r<sub>2</sub>} también, el rango es exactamente 2 y las dos inclusiones son <b>igualdades</b>.</p>
+
+<p><b>col(A) = gen{ (1, 0, 3)<sup>T</sup>, (0, 1, −1)<sup>T</sup> }</b> &nbsp;y&nbsp; <b>fil(A) = gen{ (1, 0, 1, −1, 0)<sup>T</sup>, (1, 0, 2, 1, 0)<sup>T</sup> }</b>, las dos de dimensión 2. ▸ Control: multiplicando de verdad, A = [[1,0,1,−1,0],[1,0,2,1,0],[2,0,1,−4,0]], y escalonando el rango da 2 con columnas pivote 1 y 3, que generan lo mismo — (1,1,2) = u<sub>1</sub> + u<sub>2</sub> y (1,2,1) = u<sub>1</sub> + 2u<sub>2</sub>. Sale igual, con diez veces más cuentas.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 4 (verbatim)</div>
+Sean A, B ∈ ℝ<sup>3×3</sup> tales que AB = [[2, 1, −1],[3, 0, 1],[4, −1, 3]], con rango(A) = 3, y B satisfaciendo<br>
+B(1 2 0)<sup>T</sup> = (11 11 0)<sup>T</sup> &nbsp; y &nbsp; B(1 −1 1)<sup>T</sup> = (4 −1 5)<sup>T</sup>.<br>
+Hallar todas las soluciones del sistema Bx = (−10 −25 15)<sup>T</sup>.
+</div>
+
+<p>B no se conoce, y no hace falta conocerla. Se arma la respuesta con <b>una particular + el núcleo</b>, y cada mitad sale de un dato distinto.</p>
+
+<p><b>1 · El núcleo, del dato de A.</b> Como rg(A) = 3, A ∈ ℝ<sup>3×3</sup> es <b>inversible</b>, y entonces <b>nul(AB) = nul(B)</b> (si ABx = 0, multiplicando por A<sup>−1</sup> queda Bx = 0). ▸ Es la proposición de la teórica del 2/9. Escalonando AB: rango 2, y <b>nul(AB) = gen{(−1, 5, 3)<sup>T</sup>}</b>. Ése es nul(B).</p>
+
+<p><b>2 · Una solución particular, de los dos datos de B.</b> Por linealidad, B(α·(1,2,0) + β·(1,−1,1)) = α(11,11,0) + β(4,−1,5). Igualando a (−10,−25,15): de la tercera coordenada 5β = 15 ⟹ β = 3; de la primera 11α + 12 = −10 ⟹ α = −2; y la segunda <b>verifica</b> (−22 − 3 = −25 ✓). ▸ Entonces <b>x<sub>p</sub> = −2(1,2,0) + 3(1,−1,1) = (1, −7, 3)<sup>T</sup></b>.</p>
+
+<p><b>Respuesta: x = (1, −7, 3)<sup>T</sup> + t(−1, 5, 3)<sup>T</sup>, t ∈ ℝ.</b> Una recta. ▸ Si la segunda coordenada no hubiera verificado, el sistema sería incompatible: ese chequeo <b>no es opcional</b>.</p>
+
+<h4>Taller 5 · clase del 4/9 — coordenadas y cambio de base</h4>
+
+<div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
+Sean E = {(1 0)<sup>T</sup>, (0 1)<sup>T</sup>}, B = {(1 −2)<sup>T</sup>, (0 1)<sup>T</sup>}, B′ = {(2 0)<sup>T</sup>, (−1 3)<sup>T</sup>} tres bases de ℝ<sup>2</sup>.<br>
+Calcular [(2 −1)<sup>T</sup>]<sub>E</sub>, [(2 −1)<sup>T</sup>]<sub>B</sub>, [(2 −1)<sup>T</sup>]<sub>B′</sub>. Calcular M<sup>E</sup><sub>B</sub> y M<sup>B′</sup><sub>E</sub>.
+</div>
+
+<p><b>Las coordenadas.</b> [v]<sub>E</sub> = <b>(2, −1)<sup>T</sup></b> (en la canónica, el vector es sus propias coordenadas). ▸ [v]<sub>B</sub> = <b>(2, 3)<sup>T</sup></b>: 2(1,−2) + 3(0,1) = (2,−1) ✓. ▸ [v]<sub>B′</sub> = <b>(5/6, −1/3)<sup>T</sup></b>: (5/6)(2,0) − (1/3)(−1,3) = (5/3 + 1/3, −1) = (2,−1) ✓.</p>
+
+<div class="key"><div class="ky-t">La convención, que es lo único que hace difícil este ejercicio</div>
+M<sup>B′</sup><sub>B</sub> es la matriz que va <b>de B a B′</b>: [v]<sub>B′</sub> = M<sup>B′</sup><sub>B</sub>·[v]<sub>B</sub>. ▸ Sus <b>columnas son las coordenadas <u>en B′</u> de los vectores <u>de B</u></b>. El subíndice dice de dónde salís, el superíndice adónde llegás. ▸ Consecuencia práctica: cuando el superíndice es <b>E</b>, la matriz se escribe de memoria (los vectores de B <i>son</i> sus coordenadas en E, van como columnas). Cuando el subíndice es E, hay que invertir.
+</div>
+
+<p><b>M<sup>E</sup><sub>B</sub> = [[1, 0],[−2, 1]]</b>: columnas = los vectores de B escritos en E, o sea B mismo. Sin cuentas.</p>
+
+<p><b>M<sup>B′</sup><sub>E</sub> = (M<sup>E</sup><sub>B′</sub>)<sup>−1</sup> = [[2, −1],[0, 3]]<sup>−1</sup> = [[1/2, 1/6],[0, 1/3]]</b>. ▸ Control barato: aplicada a [v]<sub>E</sub> = (2,−1) tiene que dar [v]<sub>B′</sub>. (1/2)(2) + (1/6)(−1) = 1 − 1/6 = 5/6 ✓ y (1/3)(−1) = −1/3 ✓.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 2 (verbatim)</div>
+Sean B = { (1 0 −1)<sup>T</sup>, (2 1 0)<sup>T</sup>, (1 0 0)<sup>T</sup> } y B′ = { (0 −3 0)<sup>T</sup>, (1 −1 1)<sup>T</sup>, (−2 0 1)<sup>T</sup> } dos bases de ℝ<sup>3</sup>.<br>
+Sean v ∈ ℝ<sup>3</sup> y a, b ∈ ℝ tales que [v]<sub>B</sub> = (a 1 0)<sup>T</sup> y [v]<sub>B′</sub> = (−1 2 b)<sup>T</sup>.<br>
+Hallar el valor de a y b y determinar el vector v.
+</div>
+
+<p><b>El vector es uno solo, escrito de dos maneras</b>: ésa es toda la idea. Se reconstruye v por las dos vías y se igualan las tres coordenadas en E.</p>
+
+<p>Por B: v = a(1,0,−1) + 1(2,1,0) + 0(1,0,0) = <b>(a + 2, 1, −a)</b>. ▸ Por B′: v = −1(0,−3,0) + 2(1,−1,1) + b(−2,0,1) = <b>(2 − 2b, 1, 2 + b)</b>. ▸ La segunda coordenada da 1 = 1: no aporta, y no es un error. ▸ De la primera: a + 2 = 2 − 2b ⟹ a = −2b. De la tercera: −a = 2 + b ⟹ 2b = 2 + b ⟹ <b>b = 2</b>, <b>a = −4</b>.</p>
+
+<p><b>v = (−2, 1, 4)<sup>T</sup></b>. ▸ Verificación por las dos bases: −4(1,0,−1) + (2,1,0) = (−2,1,4) ✓ y −(0,−3,0) + 2(1,−1,1) + 2(−2,0,1) = (−2, 3−2, 2+2) = (−2,1,4) ✓.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 3 (verbatim)</div>
+Sean E = {1, x, x<sup>2</sup>, x<sup>3</sup>} y B = {−x + x<sup>2</sup>, x<sup>3</sup>, −1, 3 + x + 2x<sup>3</sup>} dos bases de ℝ<sub>3</sub>[x].<br><br>
+(a) Calcular [7 + 2x + 7x<sup>2</sup>]<sub>E</sub> y [7 + 2x + 7x<sup>2</sup>]<sub>B</sub>.<br>
+(b) Sea B′ una base de ℝ<sub>3</sub>[x] tal que M<sup>B</sup><sub>B′</sub> = [[1/2, 1, 1, 0],[0, 1/2, 0, 1],[0, 0, −1, 2],[0, 0, 0, 1]]. Calcular [7 + 2x + 7x<sup>2</sup>]<sub>B′</sub>.<br>
+(c) Hallar la base B′.
+</div>
+
+<p><b>(a)</b> [p]<sub>E</sub> = <b>(7, 2, 7, 0)<sup>T</sup></b>, leyendo coeficientes en el orden 1, x, x<sup>2</sup>, x<sup>3</sup>. ▸ Para [p]<sub>B</sub>, planteá α(−x + x<sup>2</sup>) + β x<sup>3</sup> + γ(−1) + δ(3 + x + 2x<sup>3</sup>) = 7 + 2x + 7x<sup>2</sup> y resolvé <b>de arriba hacia abajo</b>: el coeficiente de x<sup>2</sup> da α = 7 directo; el de x da −7 + δ = 2 ⟹ δ = 9; el constante −γ + 27 = 7 ⟹ γ = 20; el de x<sup>3</sup> da β + 18 = 0 ⟹ β = −18. ▸ <b>[p]<sub>B</sub> = (7, −18, 20, 9)<sup>T</sup></b>.</p>
+
+<p><b>(b)</b> M<sup>B</sup><sub>B′</sub> va <b>de B′ a B</b>, y acá se tiene [p]<sub>B</sub> y se quiere [p]<sub>B′</sub>: hay que <b>invertir</b>. [p]<sub>B′</sub> = (M<sup>B</sup><sub>B′</sub>)<sup>−1</sup>[p]<sub>B</sub> = <b>(126, −54, −2, 9)<sup>T</sup></b>. ▸ La matriz es triangular superior, así que en vez de invertirla conviene resolver el sistema M·y = (7,−18,20,9) por sustitución hacia atrás: y<sub>4</sub> = 9, luego −y<sub>3</sub> + 18 = 20 ⟹ y<sub>3</sub> = −2, luego y<sub>2</sub>/2 + 9 = −18 ⟹ y<sub>2</sub> = −54, y finalmente y<sub>1</sub>/2 − 54 − 2 = 7 ⟹ y<sub>1</sub> = 126.</p>
+
+<p><b>(c)</b> Las columnas de M<sup>B</sup><sub>B′</sub> son las coordenadas <b>en B</b> de los vectores <b>de B′</b>: cada columna se "desarma" contra B. ▸ Columna 1 = (1/2, 0, 0, 0) ⟹ (1/2)(−x + x<sup>2</sup>) = <b>(x<sup>2</sup> − x)/2</b>. ▸ Columna 2 = (1, 1/2, 0, 0) ⟹ (−x + x<sup>2</sup>) + (1/2)x<sup>3</sup> = <b>−x + x<sup>2</sup> + x<sup>3</sup>/2</b>. ▸ Columna 3 = (1, 0, −1, 0) ⟹ (−x + x<sup>2</sup>) − (−1) = <b>1 − x + x<sup>2</sup></b>. ▸ Columna 4 = (0, 1, 2, 1) ⟹ x<sup>3</sup> + 2(−1) + (3 + x + 2x<sup>3</sup>) = <b>1 + x + 3x<sup>3</sup></b>.</p>
+
+<p><b>B′ = { (x<sup>2</sup> − x)/2, &nbsp; −x + x<sup>2</sup> + x<sup>3</sup>/2, &nbsp; 1 − x + x<sup>2</sup>, &nbsp; 1 + x + 3x<sup>3</sup> }</b>. ▸ Verificación del (b) con esta base: 126·(x<sup>2</sup>−x)/2 − 54(−x + x<sup>2</sup> + x<sup>3</sup>/2) − 2(1 − x + x<sup>2</sup>) + 9(1 + x + 3x<sup>3</sup>) = 7 + 2x + 7x<sup>2</sup> ✓ (los x<sup>3</sup> se cancelan: −27 + 27).</p>
+
+<h4>Taller 6 · clase del 9/9 — suma e intersección de subespacios</h4>
+
+<div class="key"><div class="ky-t">"El mayor contenido en ambos" y "el menor que contiene a ambos"</div>
+El enunciado del Taller 6 no dice <b>intersección</b> ni <b>suma</b>: los describe. <b>S<sub>1</sub> ∩ S<sub>2</sub> es el mayor subespacio contenido en los dos</b>, y <b>S<sub>1</sub> + S<sub>2</sub> es el menor subespacio que los contiene a los dos</b> (la unión, en general, <b>no</b> es subespacio: por eso hace falta la suma). ▸ Reconocer la descripción es medio ejercicio, y en el parcial aparece con esas mismas palabras.
+</div>
+
+<div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
+a) Sean S<sub>1</sub> y S<sub>2</sub> ⊆ ℝ<sup>4</sup> los subespacios:<br>
+S<sub>1</sub> := {x ∈ ℝ<sup>4</sup> : 2x<sub>1</sub> − x<sub>2</sub> − x<sub>3</sub> = x<sub>4</sub> − x<sub>3</sub> = 0}, &nbsp; S<sub>2</sub> := {x ∈ ℝ<sup>4</sup> : x<sub>2</sub> + x<sub>4</sub> = 0}.<br>
+Hallar bases para: el mayor subespacio contenido en ambos; el menor subespacio que contiene a ambos.<br><br>
+b) Sean S<sub>1</sub> y S<sub>2</sub> los subespacios de ℝ<sup>4</sup>:<br>
+S<sub>1</sub> := {x ∈ ℝ<sup>4</sup> : x<sub>1</sub> + x<sub>2</sub> + x<sub>3</sub> + x<sub>4</sub> = x<sub>1</sub> + 2x<sub>2</sub> + 4x<sub>3</sub> + 8x<sub>4</sub> = 0}, &nbsp; S<sub>2</sub> := gen{ (0 6 −5 1)<sup>T</sup>, (6 −5 1 0)<sup>T</sup> }.<br>
+Dar una base de ℝ<sup>4</sup> que contenga simultáneamente una base de S<sub>1</sub> ∩ S<sub>2</sub> y una base de S<sub>1</sub> + S<sub>2</sub>.
+</div>
+
+<p><b>a) Intersección.</b> Los dos vienen por ecuaciones, así que la intersección es <b>juntar las ecuaciones</b>: es el caso fácil y hay que aprovecharlo. 2x<sub>1</sub> − x<sub>2</sub> − x<sub>3</sub> = 0, x<sub>4</sub> = x<sub>3</sub>, x<sub>2</sub> + x<sub>4</sub> = 0. Tres ecuaciones independientes en ℝ<sup>4</sup> ⟹ dim = 1. ▸ <b>S<sub>1</sub> ∩ S<sub>2</sub> = gen{ (0, −1, 1, 1)<sup>T</sup> }</b>.</p>
+
+<p><b>a) Suma.</b> dim S<sub>1</sub> = 4 − 2 = 2 (base {(1,2,0,0)<sup>T</sup>, (1,0,2,2)<sup>T</sup>}) y dim S<sub>2</sub> = 4 − 1 = 3. ▸ Por la <b>fórmula de Grassmann</b>: dim(S<sub>1</sub> + S<sub>2</sub>) = 2 + 3 − 1 = <b>4</b>. ▸ Un subespacio de ℝ<sup>4</sup> de dimensión 4 <b>es</b> ℝ<sup>4</sup>: <b>S<sub>1</sub> + S<sub>2</sub> = ℝ<sup>4</sup></b>, y la base más cómoda es la canónica. No hace falta escalonar los cinco generadores.</p>
+
+<p><b>b)</b> Primero las tres piezas. ▸ <b>S<sub>1</sub></b>: base {(2,−3,1,0)<sup>T</sup>, (6,−7,0,1)<sup>T</sup>}, dim 2. ▸ <b>S<sub>1</sub> ∩ S<sub>2</sub></b>: planteando α·(0,6,−5,1) + β·(6,−5,1,0) ∈ S<sub>1</sub> sale α = −β, y la intersección es <b>gen{(6, −11, 6, −1)<sup>T</sup>}</b>, dim 1. ▸ Grassmann: dim(S<sub>1</sub> + S<sub>2</sub>) = 2 + 2 − 1 = <b>3</b>.</p>
+
+<p><b>La construcción que pide el ítem tiene un orden obligatorio</b>, y es el mismo que se usa en el parcial: como S<sub>1</sub> ∩ S<sub>2</sub> ⊆ S<sub>1</sub> + S<sub>2</sub> ⊆ ℝ<sup>4</sup>, se arranca por <b>adentro</b> y se agranda. ▸ <b>1.</b> Base de la intersección: w = (6, −11, 6, −1). ▸ <b>2.</b> Extenderla a base de S<sub>1</sub> + S<sub>2</sub> agregando generadores hasta llegar a dimensión 3: {w, (2,−3,1,0), (0,6,−5,1)}. ▸ <b>3.</b> Extenderla a base de ℝ<sup>4</sup>: con e<sub>1</sub> = (1,0,0,0) el determinante da <b>2 ≠ 0</b>.</p>
+
+<p><b>Base pedida: {(6,−11,6,−1)<sup>T</sup>, (2,−3,1,0)<sup>T</sup>, (0,6,−5,1)<sup>T</sup>, (1,0,0,0)<sup>T</sup>}</b> — sus primeros <b>1</b> vectores son base de S<sub>1</sub> ∩ S<sub>2</sub> y sus primeros <b>3</b> son base de S<sub>1</sub> + S<sub>2</sub>.</p>
+
+<div class="trap"><div class="tr-t">Si armás las dos bases por separado, no cierran</div>
+La tentación es calcular una base de la intersección, otra de la suma, y juntarlas. Casi siempre queda un conjunto <b>LD</b> o con más de 4 vectores. ▸ La única manera de que las dos bases convivan dentro de una sola es que <b>una sea prefijo de la otra</b>, y eso obliga a construir de adentro hacia afuera. Es el mismo movimiento del ejercicio 2 y del Taller 7.
+</div>
+
+<div class="example"><div class="ex-t">Ejercicio 2 (verbatim)</div>
+Dar una base de ℝ<sup>2×2</sup> que contenga simultáneamente una base de S<sub>1</sub> y una base de S<sub>2</sub> si<br>
+S<sub>1</sub> = {A ∈ ℝ<sup>2×2</sup> : traza(A) = 0}, &nbsp; S<sub>2</sub> = gen{ [[1, −1],[3, 1]] , [[−1, 4],[−3, 3]] }
+</div>
+
+<p><b>El conteo primero, porque decide la estrategia.</b> dim S<sub>1</sub> = 3, dim S<sub>2</sub> = 2, y una base de ℝ<sup>2×2</sup> tiene <b>4</b> elementos. 3 + 2 = 5 &gt; 4, así que las dos bases <b>tienen que compartir vectores</b>, y lo compartido sólo puede vivir en <b>S<sub>1</sub> ∩ S<sub>2</sub></b>.</p>
+
+<p>Los dos generadores de S<sub>2</sub> tienen traza 2: <b>ninguno está en S<sub>1</sub></b>, pero una combinación sí. Imponiendo traza 0 sobre α·M<sub>1</sub> + β·M<sub>2</sub> sale α = −β, y <b>S<sub>1</sub> ∩ S<sub>2</sub> = gen{ [[−2, 5],[−6, 2]] }</b>, dim 1. ▸ Grassmann: 3 + 2 − 1 = 4 ⟹ <b>S<sub>1</sub> + S<sub>2</sub> = ℝ<sup>2×2</sup></b>, así que la construcción va a cerrar.</p>
+
+<p><b>La receta, con el mismo orden que en el ejercicio 1b:</b> W = [[−2,5],[−6,2]] (base de la intersección) → completarla a base de S<sub>1</sub> con dos matrices de traza nula → completarla a base de S<sub>2</sub> con una matriz más.</p>
+
+<p><b>Base: { [[−2, 5],[−6, 2]] , [[1, 0],[0, −1]] , [[0, 1],[0, 0]] , [[1, −1],[3, 1]] }</b> — determinante de las coordenadas <b>−12 ≠ 0</b>, así que es base de ℝ<sup>2×2</sup>. ▸ Los <b>tres primeros</b> tienen traza 0 y son LI: base de S<sub>1</sub>. ▸ El <b>primero y el cuarto</b> están en S<sub>2</sub> y son LI: base de S<sub>2</sub>. ▸ El primero está en las dos listas, que es exactamente lo que el conteo obligaba.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 3 (verbatim)</div>
+Se considera la matriz A ∈ ℝ<sup>4×4</sup> definida por<br>
+A = [[1, 0],[1, 1],[0, 1],[1, 0]] · [[0, 1, −1, 0],[1, 2, −1, 1]].<br>
+Hallar bases de Col(A) + Fil(A) y de Col(A) ∩ Fil(A).
+</div>
+
+<p><b>Por qué este ejercicio se puede plantear</b>: A es cuadrada de 4×4, así que Col(A) y Fil(A) viven <b>los dos en ℝ<sup>4</sup></b> y tiene sentido sumarlos e intersecarlos. Con una matriz rectangular la pregunta no existiría.</p>
+
+<p>A es un producto 4×2 por 2×4, así que <b>rg(A) ≤ 2</b>, y de hecho es 2. Multiplicando, A = [[0,1,−1,0],[1,3,−2,1],[1,2,−1,1],[0,1,−1,0]]. ▸ Igual que en el Taller 4, no hace falta escalonar: <b>Col(A) = gen de las columnas del factor izquierdo</b> = gen{(1,1,0,1)<sup>T</sup>, (0,1,1,0)<sup>T</sup>} y <b>Fil(A) = gen de las filas del factor derecho</b> = gen{(0,1,−1,0)<sup>T</sup>, (1,2,−1,1)<sup>T</sup>}.</p>
+
+<p><b>Intersección.</b> Igualando α(1,1,0,1) + β(0,1,1,0) = γ(0,1,−1,0) + δ(1,2,−1,1) sale una recta: <b>Col(A) ∩ Fil(A) = gen{ (1, 1, 0, 1)<sup>T</sup> }</b>, dim 1. ▸ Es el primer generador de Col(A), y también está en Fil(A) porque (1,2,−1,1) − (0,1,−1,0) = (1,1,0,1). Que la intersección sea un generador de una de las dos no es casualidad de la cuenta: pasa porque ese vector fue elegido así al armar el producto.</p>
+
+<p><b>Suma.</b> Grassmann: 2 + 2 − 1 = <b>3</b>. ▸ <b>Col(A) + Fil(A) = gen{ (1,1,0,1)<sup>T</sup>, (0,1,1,0)<sup>T</sup>, (0,1,−1,0)<sup>T</sup> }</b>, y se verifica que el rango de esos tres es 3. ▸ Y de yapa queda la base "escalonada" que pedía el ejercicio 1b: el primer vector es base de la intersección y los tres son base de la suma.</p>
+
+<h4>Taller 7 · clase del 11/9 — suma directa y complementos</h4>
+
+<div class="key"><div class="ky-t">Las dos condiciones de S ⊕ T, y en qué orden se usan</div>
+S ⊕ T = W significa <b>S + T = W</b> y <b>S ∩ T = {0}</b>. ▸ En la práctica no se verifican las dos: se usa el conteo. Si S, T ⊆ W, S ∩ T = {0} y <b>dim S + dim T = dim W</b>, entonces S ⊕ T = W. ▸ Y hay un chequeo previo que se saltea siempre y hace perder el ejercicio entero: <b>si S ⊕ T = W, entonces S ⊆ W</b>. Cuando W depende de parámetros, ésa es la ecuación que los determina.
+</div>
+
+<div class="example"><div class="ex-t">Ejercicio 1 (verbatim)</div>
+Sean S y H los subespacios de ℝ<sup>4</sup> definidos por:<br>
+S = gen{ (1 0 0 1)<sup>T</sup>, (0 1 1 2)<sup>T</sup> }, &nbsp; H = {x ∈ ℝ<sup>4</sup> : x<sub>1</sub> + a x<sub>2</sub> + x<sub>3</sub> + b x<sub>4</sub> = 0}<br>
+Hallar a, b ∈ ℝ de modo tal que exista un subespacio T ⊆ ℝ<sup>4</sup> tal que S ⊕ T = H. Para los valores de a y b hallados, dar una base de un posible subespacio T.
+</div>
+
+<p><b>Los parámetros salen de S ⊆ H, y de nada más.</b> Si S ⊕ T = H entonces S ⊆ H, y para eso basta que <b>los dos generadores</b> cumplan la ecuación. ▸ Con (1,0,0,1): 1 + 0 + 0 + b = 0 ⟹ <b>b = −1</b>. ▸ Con (0,1,1,2): 0 + a + 1 + 2(−1) = 0 ⟹ <b>a = 1</b>.</p>
+
+<p>Con esos valores, <b>H = {x : x<sub>1</sub> + x<sub>2</sub> + x<sub>3</sub> − x<sub>4</sub> = 0}</b>, de <b>dim 3</b>. Como dim S = 2, el conteo obliga a <b>dim T = 1</b>.</p>
+
+<p><b>T = gen{ (1, −1, 0, 0)<sup>T</sup> }.</b> ▸ Verificación en dos renglones: está en H (1 − 1 + 0 − 0 = 0 ✓) y <b>no</b> está en S —los elementos de S son (α, β, β, α + 2β) y harían falta β = −1 y β = 0 a la vez—, así que S ∩ T = {0}. Con dim S + dim T = 2 + 1 = 3 = dim H, la suma es directa y llena H. ▸ <b>No es único</b>: cualquier vector de H fuera de S sirve.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 2 (verbatim)</div>
+Sean S<sub>1</sub> y S<sub>2</sub> los subespacios de ℝ<sub>2</sub>[x] definidos por:<br>
+S<sub>1</sub> := {p ∈ ℝ<sub>2</sub>[x] : p(1) = p(0)}, &nbsp; S<sub>2</sub> := gen{ 3 + x, 1 + x<sup>2</sup> }.<br><br>
+a) Hallar un subespacio H ⊆ ℝ<sub>2</sub>[x] tal que (S<sub>1</sub> ∩ S<sub>2</sub>) ⊕ H = ℝ<sub>2</sub>[x].<br>
+b) Hallar un subespacio T ⊆ ℝ<sub>2</sub>[x] tal que S<sub>1</sub> ⊕ T = S<sub>2</sub> ⊕ T = ℝ<sub>2</sub>[x]. ¿Es único? Si no lo es, construir otro.
+</div>
+
+<p><b>Las dos descripciones, en coordenadas (a, b, c) de p = a + bx + cx<sup>2</sup>.</b> ▸ S<sub>1</sub>: p(1) = p(0) ⟺ a + b + c = a ⟺ <b>b + c = 0</b>. Base {1, x − x<sup>2</sup>}, dim 2. ▸ S<sub>2</sub> = {(3α + β) + αx + βx<sup>2</sup>}, o sea <b>a = 3b + c</b>. dim 2. ▸ Tener las dos como <b>una ecuación cada una</b> es lo que hace corto el resto.</p>
+
+<p><b>S<sub>1</sub> ∩ S<sub>2</sub>:</b> las dos ecuaciones juntas dan dim 1, y sale <b>gen{ 2 + x − x<sup>2</sup> }</b> (es el elemento de S<sub>2</sub> con β = −α).</p>
+
+<p><b>a)</b> Hace falta dim H = 3 − 1 = 2, con H ∩ (S<sub>1</sub> ∩ S<sub>2</sub>) = {0}. ▸ <b>H = gen{x, x<sup>2</sup>}</b> sirve: todo elemento no nulo de H tiene término independiente 0, y 2 + x − x<sup>2</sup> tiene 2. ▸ Verificación por conteo: 1 + 2 = 3 = dim ℝ<sub>2</sub>[x] ✓.</p>
+
+<p><b>b)</b> Hace falta dim T = 1, con T ∩ S<sub>1</sub> = T ∩ S<sub>2</sub> = {0}: alcanza con <b>un polinomio que no esté en ninguno de los dos</b>. Con las ecuaciones de arriba eso se chequea de un vistazo. ▸ <b>T = gen{x}</b>: para p = x, b + c = 1 ≠ 0 (fuera de S<sub>1</sub>) y a − 3b − c = −3 ≠ 0 (fuera de S<sub>2</sub>) ✓. ▸ <b>No es único.</b> Otro: <b>T = gen{x<sup>2</sup>}</b>, con b + c = 1 ≠ 0 y a − 3b − c = −1 ≠ 0. ▸ De hecho hay infinitos: los que fallan son sólo los que caen en S<sub>1</sub> ∪ S<sub>2</sub>, que es la unión de dos planos.</p>
+
+<div class="example"><div class="ex-t">Ejercicio 3 (verbatim)</div>
+Sean S<sub>1</sub> y S<sub>2</sub> los subespacios de ℝ<sup>4</sup> definidos por:<br>
+S<sub>1</sub> := gen{ (0 1 −1 2)<sup>T</sup>, (1 1 0 1)<sup>T</sup> }, &nbsp; S<sub>2</sub> := gen{ (1 2 0 2)<sup>T</sup>, (0 1 0 1)<sup>T</sup> }.<br><br>
+a) Hallar un subespacio T ⊆ ℝ<sup>4</sup> tal que S<sub>1</sub> ⊕ T = S<sub>2</sub> ⊕ T = U, donde U := {x ∈ ℝ<sup>4</sup> : −x<sub>2</sub> + x<sub>3</sub> + x<sub>4</sub> = 0}. ¿Es único? Si no lo es, construir otro.<br>
+b) Hallar un subespacio T ⊆ ℝ<sup>4</sup> tal que S<sub>1</sub> ⊕ T = S<sub>2</sub> ⊕ T = ℝ<sup>4</sup>.
+</div>
+
+<p><b>Lo primero, y es gratis: verificar que S<sub>1</sub> y S<sub>2</sub> están adentro de U.</b> Los cuatro generadores cumplen −x<sub>2</sub> + x<sub>3</sub> + x<sub>4</sub> = 0 (por ejemplo (0,1,−1,2): −1 − 1 + 2 = 0 ✓). Si alguno fallara, el ítem no tendría solución y ésa sería la respuesta.</p>
+
+<p><b>a)</b> dim U = 3, dim S<sub>1</sub> = dim S<sub>2</sub> = 2 ⟹ <b>dim T = 1</b>. Hay que buscar un vector de U que no esté ni en S<sub>1</sub> ni en S<sub>2</sub>. ▸ <b>T = gen{ (0, 1, 1, 0)<sup>T</sup> }</b>: está en U (−1 + 1 + 0 = 0 ✓) y agregado a cualquiera de los dos sube el rango a 3 ⟹ intersección nula en los dos casos. ▸ <b>No es único</b>: <b>T = gen{ (0, 0, 1, −1)<sup>T</sup> }</b> cumple lo mismo. ▸ Los que <b>no</b> sirven son concretos: por ejemplo (1,0,0,0) está en U pero también en S<sub>2</sub> —(1,2,0,2) − 2(0,1,0,1) = (1,0,0,0)—, así que S<sub>2</sub> ∩ T ≠ {0} y la suma no es directa. Vale la pena mostrar un descarte así: es lo que prueba que el chequeo se hizo.</p>
+
+<p><b>b)</b> Ahora hace falta <b>dim T = 2</b>, y hay una observación que ahorra todo el trabajo: <b>S<sub>1</sub> y S<sub>2</sub> están los dos dentro de U</b>, que es un hiperplano. Un T contenido en U nunca puede completar a ℝ<sup>4</sup>, así que T <b>tiene que salirse</b> de U. ▸ <b>T = gen{ (0,0,1,0)<sup>T</sup>, (0,0,0,1)<sup>T</sup> }</b>: junto con cualquiera de los dos S<sub>i</sub> da rango 4, y 2 + 2 = 4 ⟹ suma directa. ▸ Otro que también sirve: gen{(0,1,0,0), (0,0,1,0)}. ▸ Y uno que <b>no</b>: gen{(0,0,0,1), (1,0,0,0)} funciona con S<sub>1</sub> pero <b>no</b> con S<sub>2</sub>, porque (1,0,0,0) ∈ S<sub>2</sub>. Con dos condiciones simultáneas hay que verificar las dos, siempre.</p>
+
+<div class="key"><div class="ky-t">Lo que estos siete talleres te están diciendo del primer parcial</div>
+Los <b>22 ejercicios</b> recorren la unidad 1 completa y en el mismo orden en que la cátedra la evalúa: subespacios y generadores (T1), dependencia lineal con parámetro (T2), bases y dimensión con parámetro (T3), los cuatro subespacios fundamentales y sistemas (T4), coordenadas y cambio de base (T5), suma e intersección (T6), suma directa y complementos (T7). ▸ Cruzado con el relevamiento de los 21 parciales reales de la sección 8: <b>el Ej 1 del parcial sale de acá en los 19 casos con encabezado completo</b> —15 veces subespacios, 4 veces cambio de base—. ▸ Tres movimientos aparecen una y otra vez y conviene tenerlos automatizados: <b>una inclusión + igualdad de dimensiones ⟹ igualdad</b>; <b>parámetro: primero pertenencia, después independencia</b>; y <b>para construir bases encajadas, de adentro hacia afuera</b>.
+</div>
+
+<p class="muted"><b>Procedencia.</b> Los enunciados de los ejercicios están transcriptos textuales de la <b>Guía 1 · Espacios vectoriales</b> de la cátedra (ejercicios 1.1 a 1.30) y de los <b>Ejercicios adicionales de Espacios vectoriales</b> de Patricia Palacios (ejercicios 1 a 26). Los <b>siete talleres</b> salen de los PDF que la cátedra subió al campus en la sección «Talleres» (Taller 1 · 21/8, 2 · 26/8, 3 · 28/8, 4 · 2/9, 5 · 4/9, 6 · 9/9 y 7 · 11/9, bajados el <b>8/9/2026</b>), y van verbatim. El Taller 4 está publicado dos veces: también como «taller virtual 2-9-26» en Unidad 1, con un ejercicio por página; es el mismo documento. Los enunciados del Taller 5 y del 6 se apoyan en la <b>«clase teórica virtual 2-9-26»</b>, las notas de los cuatro subespacios fundamentales y coordenadas que la cátedra subió el 2/9. La teoría y las demostraciones siguen las <i>Notas de Espacios Vectoriales</i> del Prof. Mancilla Aguilar y el apunte oficial de la facultad (Pustilnik – Muszkats), que son el material que la cátedra publica en el campus. Todas las cuentas de las resoluciones fueron verificadas con sympy.</p>
 
 <div class="reveal-wrap" data-rv="3" data-subject="fiuba-algebra-lineal"></div>
 <div class="quiz-wrap" data-qz="3" data-subject="fiuba-algebra-lineal"></div>
@@ -4447,6 +4751,16 @@ registerReveals('fiuba-algebra-lineal', '3', [
  sol: '<b>a)</b> rg(A) = 3 con A cuadrada de 3×3 ⟹ <b>A es inversible</b>. ▸ Entonces Bx = 0 ⟺ ABx = 0 (de izquierda a derecha es inmediato; de derecha a izquierda se multiplica por A<sup>−1</sup>): <b>Nul(B) = Nul(AB)</b>, sin necesidad de comparar dimensiones. ▸ Calculamos Nul(AB) con sympy: rg(AB) = <b>2</b>, y el núcleo es gen{(−1/3, −1/3, 1, 0)<sup>T</sup>, (0, 1, 0, 1)<sup>T</sup>}. Escalando el primero ×3: ▸ <b>Nul(B) = gen{(−1, −1, 3, 0)<sup>T</sup>, (0, 1, 0, 1)<sup>T</sup>}</b>, <b>dim 2</b> = 4 − 2 ✓. ▸ Control a mano con la primera fila de AB: (1)(−1) + (−1)(−1) + 0·3 + 1·0 = 0 ✓ y (1)(0) + (−1)(1) + 0 + 1·1 = 0 ✓. Segunda fila: −2 − 1 + 3 + 0 = 0 ✓ y 0 + 1 + 0 − 1 = 0 ✓. Tercera: −1 − 5 + 6 + 0 = 0 ✓ y 0 + 5 + 0 − 5 = 0 ✓. ▸ <b>De paso</b>: rg(B) = 2, porque A inversible no cambia el rango. ▸ <b>b)</b> Nul(B) ⊆ ℝ⁴ tiene dim 2, así que hace falta <b>dim T = 2</b> con T ⊆ ℝ⁴. ▸ Probamos con canónicos: <b>T = gen{e<sub>1</sub>, e<sub>3</sub>}</b>. Verificado con sympy: {(−1,−1,3,0), (0,1,0,1), (1,0,0,0), (0,0,1,0)} tiene <b>rango 4</b>. ▸ Luego la suma es directa y vale ℝ⁴: <b>Nul(B) ⊕ gen{e<sub>1</sub>, e<sub>3</sub>} = ℝ⁴</b>. ▸ <b>No es único</b>; y si en el parcial te aparece una inconsistencia de este tipo en el enunciado, lo correcto es <b>señalarla y resolver la versión que tiene sentido</b>, no quedarse trabado.'},
 
 
+,
+
+{st: '<b>Taller 4 · clase del 2/9.</b> Sean A = [[1,2,1,1,5],[−2,−4,0,4,−2],[1,2,2,4,9]] y b = (1,2,3)ᵀ. <b>(a)</b> Hallar bases de los cuatro subespacios fundamentales de A. <b>(b)</b> Hallar todas las soluciones de Ax = b. <b>(c)</b> Hallar, si las hay, todas las soluciones de Ax = b que pertenezcan a fil(A).',
+ ans: 'rg(A) = 2. col(A) = gen{(1,−2,1)ᵀ, (1,0,2)ᵀ}; fil(A) = gen{(1,2,0,−2,1)ᵀ, (0,0,1,3,4)ᵀ}; nul(A) = gen{(−2,1,0,0,0)ᵀ, (2,0,−3,1,0)ᵀ, (−1,0,−4,0,1)ᵀ}; nul(Aᵀ) = gen{(−4,−1,2)ᵀ}. (b) x = (−1,0,2,0,0)ᵀ + nul(A). (c) Una sola: x = (1/128)·(−11,−22,9,49,25)ᵀ.',
+ sol: '<b>Paso 1: una sola reducción sirve para todo.</b> La reducida por filas de [A | b] es [[1,2,0,−2,1 | −1],[0,0,1,3,4 | 2],[0,0,0,0,0 | 0]]. ▸ De ahí se lee <b>rg(A) = 2</b>, columnas pivote la <b>1</b> y la <b>3</b>, y que el sistema es <b>compatible</b> (la columna de b no es pivote). <b>(a) Los cuatro.</b> ▸ <b>col(A)</b>: las columnas 1 y 3 <b>de A</b>, no de la reducida — escalonar cambia el espacio columna. Base {(1,−2,1)ᵀ, (1,0,2)ᵀ}, dim 2, dentro de ℝ³. ▸ <b>fil(A)</b>: las filas no nulas <b>de la reducida</b> — escalonar no cambia el espacio fila. Base {(1,2,0,−2,1)ᵀ, (0,0,1,3,4)ᵀ}, dim 2, dentro de ℝ⁵. ▸ <b>nul(A)</b>: dim 5 − 2 = 3, una dirección por cada variable libre (x₂, x₄, x₅). ▸ <b>nul(Aᵀ)</b>: dim 3 − 2 = 1, y sale de escalonar Aᵀ: gen{(−4,−1,2)ᵀ}. Control: es ortogonal a las dos columnas básicas ✔. <b>(b)</b> Con las libres en 0, x<sub>p</sub> = (−1,0,2,0,0)ᵀ, y todas las soluciones son <b>x<sub>p</sub> + nul(A)</b>: un subespacio afín de dimensión 3. <b>(c) Hay exactamente una</b>, y ése es el punto del ítem: ℝ⁵ = fil(A) ⊕ nul(A), así que cada solución se parte en componente de fil(A) más componente de nul(A), y la de fil(A) es la misma para todas. ▸ Se calcula escribiendo x = c₁(1,2,0,−2,1) + c₂(0,0,1,3,4) e imponiendo Ax = b: c₁ = −11/128, c₂ = 9/128. ▸ <b>x = (1/128)(−11,−22,9,49,25)ᵀ</b>, y se verifica Ax = b ✔. Es la <b>solución de norma mínima</b>, el mismo objeto que reaparece en cuadrados mínimos.'},
+
+{st: '<b>Taller 6 · clase del 9/9.</b> Sean S₁ = {x ∈ ℝ⁴ : x₁+x₂+x₃+x₄ = x₁+2x₂+4x₃+8x₄ = 0} y S₂ = gen{(0,6,−5,1)ᵀ, (6,−5,1,0)ᵀ}. Dar una base de ℝ⁴ que contenga <b>simultáneamente</b> una base de S₁ ∩ S₂ y una base de S₁ + S₂.',
+ ans: 'B = {(6,−11,6,−1)ᵀ, (2,−3,1,0)ᵀ, (0,6,−5,1)ᵀ, (1,0,0,0)ᵀ}: el primer vector es base de S₁ ∩ S₂ (dim 1) y los tres primeros son base de S₁ + S₂ (dim 3).',
+ sol: '<b>Paso 1: las piezas.</b> S₁ tiene dos ecuaciones independientes ⟹ dim 2, base {(2,−3,1,0)ᵀ, (6,−7,0,1)ᵀ}. S₂ tiene dos generadores LI ⟹ dim 2. <b>Paso 2: la intersección.</b> Se impone que α(0,6,−5,1) + β(6,−5,1,0) cumpla las dos ecuaciones de S₁; sale α = −β, y <b>S₁ ∩ S₂ = gen{(6,−11,6,−1)ᵀ}</b>, dim 1. ▸ Verificación: 6−11+6−1 = 0 ✔ y 6−22+24−8 = 0 ✔. <b>Paso 3: Grassmann.</b> dim(S₁+S₂) = 2 + 2 − 1 = <b>3</b>. <b>Paso 4: construir de adentro hacia afuera</b>, que es lo único que hace que las dos bases convivan. ▸ Arrancás con la base de la intersección, w = (6,−11,6,−1). ▸ La extendés a base de S₁+S₂ agregando generadores mientras el rango suba: {w, (2,−3,1,0), (0,6,−5,1)} tiene rango 3 ✔. ▸ La extendés a base de ℝ⁴ agregando un canónico: con e₁ el determinante da 2 ≠ 0 ✔. <b>Por qué no sale de otra forma</b>: si calculás las dos bases por separado y las juntás, el conjunto queda LD o con más de 4 vectores. Que una base sea <b>prefijo</b> de la otra es la única manera de que las dos entren en una sola base de ℝ⁴.'}
+
 ]);
 
 // ---------- QUIZ · errores típicos de la unidad 1 ----------
@@ -4520,6 +4834,23 @@ registerExercises('fiuba-algebra-lineal', '3', [
    opts: ['3, 3, 1', '4, 3, 1', '4, 4, 2', '3, 4, 1'],
    c: 1,
    ex: '<b>dim ℝ₃[x] = 4</b>: el grado va de 0 a 3, son <b>cuatro</b> coeficientes. Es el error de cuenta más caro de la unidad, porque arrastra a la fórmula de la dimensión y da mal una intersección entera. ▸ <b>Simétricas 2×2: 3</b> (a, b = c, d), y en general n(n+1)/2. ▸ <b>Antisimétricas 2×2: 1</b> (la diagonal es forzosamente nula y c = −b), y en general n(n−1)/2. ▸ Control: 3 + 1 = 4 = dim ℝ²ˣ², como corresponde, porque simétricas ⊕ antisimétricas = ℝⁿˣⁿ vía A = ½(A + Aᵀ) + ½(A − Aᵀ).'}
+,
+
+  {st: 'En el Taller 2 la cátedra pide hallar todos los a ∈ ℝ tales que gen{ [[a,1],[2,4]], [[1,−a],[1,2]], [[3,2],[3,6]] } = gen{ [[a,1],[2,4]], [[3,2],[3,6]] }. ¿Cuál es la traducción correcta de esa igualdad, antes de calcular nada?',
+   opts: ['Que las tres matrices sean linealmente independientes', 'Que la segunda matriz pertenezca al generado por la primera y la tercera', 'Que la primera y la tercera sean linealmente dependientes entre sí', 'Que las tres matrices tengan el mismo rango'],
+   c: 1,
+   ex: 'La correcta es la b). Agregar un vector a un generado nunca lo achica, así que la inclusión ⊇ vale para todo a: la única condición es que el vector de más ya estuviera adentro, o sea M₂ ∈ gen{M₁, M₃}. ▸ La a) es lo contrario: si las tres fueran LI, el generado de la izquierda tendría dimensión 3 y el de la derecha 2, y nunca serían iguales. ▸ La c) haría caer la dimensión del generado de la derecha a 1; no es la condición pedida. ▸ La d) mezcla el rango de cada matriz —que acá no juega ningún papel— con el rango del conjunto. ▸ Resolviendo M₂ = αM₁ + βM₃ queda α(a − 2) = 0, y los valores son a = 2 y a = −2/3.'},
+
+  {st: 'Del Taller 3: S = {p ∈ ℝ₃[x] : p(−1) = p(0) = 0}, y hay que hallar los k para los cuales B = {kx³ − x² − (k+1)x + k² − 4 ; −x³ + 2kx² + (2k+1)x} es <b>base de S</b>. ¿Por dónde conviene empezar?',
+   opts: ['Por la independencia lineal, que es la condición más restrictiva', 'Por la pertenencia a S: recorta k a unos pocos valores, y un conjunto LI que no está dentro de S no es base de S', 'Por verificar que generan S, que es lo que define una base', 'Por calcular dim S, que ya determina k'],
+   c: 1,
+   ex: 'La correcta es la b). Imponer p(0) = 0 al primer polinomio da k² − 4 = 0, o sea k = ±2, y p(−1) = 0 da la misma ecuación; el segundo polinomio está en S para todo k. Con el parámetro ya reducido a dos valores, verificar la independencia es inmediato. ▸ La a) es el orden que hace perder tiempo: los dos polinomios son LI para casi todo k, y eso no sirve de nada si no están en S. ▸ La c) es innecesaria: como dim S = 2, dos vectores LI dentro de S ya son base, y no hace falta probar que generan. ▸ La d) es falsa: dim S = 2 no depende de k. ▸ Respuesta del ejercicio: k = 2 y k = −2, los dos sirven.'},
+
+  {st: 'Del Taller 7: S = gen{(1,0,0,1)ᵀ, (0,1,1,2)ᵀ} y H = {x ∈ ℝ⁴ : x₁ + a x₂ + x₃ + b x₄ = 0}. Se piden a y b para que exista T con S ⊕ T = H. ¿De dónde salen los parámetros?',
+   opts: ['De pedir que dim H = dim S, porque la suma directa iguala dimensiones', 'De pedir S ⊆ H, es decir que los dos generadores de S cumplan la ecuación de H', 'De pedir S ∩ H = {0}, que es la condición de suma directa', 'De pedir que T sea el complemento ortogonal de S'],
+   c: 1,
+   ex: 'La correcta es la b). Si S ⊕ T = H, en particular S ⊆ H, y para eso alcanza con que los generadores cumplan la ecuación: (1,0,0,1) da 1 + b = 0 ⟹ b = −1, y (0,1,1,2) da a + 1 + 2b = 0 ⟹ a = 1. ▸ La a) es falsa: la suma directa no iguala dimensiones, las suma (dim S + dim T = dim H, y acá 2 + 1 = 3). ▸ La c) confunde los papeles: la condición de suma directa es S ∩ T = {0}, no S ∩ H; S está <b>contenido</b> en H, no cortado en cero. ▸ La d) inventa una restricción: T no tiene por qué ser ortogonal a S, sólo un complemento dentro de H, y hay infinitos. Un T que sirve es gen{(1,−1,0,0)ᵀ}.'}
+
 ]);
 
 // ============================================================

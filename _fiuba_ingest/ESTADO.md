@@ -3,9 +3,9 @@
 Spec: `PLAN-2026-08-19.md` · Auditoría del campus: `AUDITORIA-CAMPUS.md` · Fuentes: `INSUMOS.md`
 Estilo obligatorio para los redactores: `BRIEF-ESTILO.md`
 
-**Cinco materias, 12 guías publicadas.** Última verificación: **2026-09-04**, build en verde,
-auditorías estructurales y de rutas sin hallazgos, y las páginas revisadas en el navegador en
-escritorio y teléfono.
+**Cinco materias, 12 guías publicadas.** Última verificación: **2026-09-08**, build en verde,
+auditorías estructurales y de rutas sin hallazgos, y las páginas medidas en el navegador en
+escritorio y teléfono (sin desbordes horizontales).
 
 **2026-09-04 · las dos guías de Bioingeniería llevan figuras.** 16 diagramas de circuito en la madre
 y 2 en el integrador, en **SVG inline** con `currentColor` y `var(--accent)`, así que siguen el tema
@@ -13,18 +13,86 @@ claro/oscuro y escalan solos. Se generan con `_figuras_bio.py` + `_figuras_bio_b
 con `_insertar_figuras.py` (idempotente: detecta la figura por su `aria-label`). Para mirarlas sin
 navegador, `_render_figuras.py` las pasa a PNG con PyMuPDF.
 
-## Línea de base del campus · 2026-09-04
+## Línea de base del campus · 2026-09-08
 
 Módulos por curso, para comparar en el próximo chequeo. El inventario sale de
-`core_courseformat_get_state` y quedó volcado en `_campus_20260904.json`.
+`core_courseformat_get_state` y quedó volcado en `_campus_20260908.json` (el del 4/9 sigue en
+`_campus_20260904.json`, que es contra el que se hizo el diff).
 
 | Curso | Materia | Módulos | Antes | Últ. chequeo |
 |---|---|---|---|---|
-| **1256** | **CB002 Álgebra Lineal (Palacios)** | **26** | 20 (25/8) | **4/9** |
-| 1405 | CB110 Anatomía e Histología (Iurman) | 41 | 41 (25/8) | 4/9 |
-| 198 | TB021/TA130 Algoritmos (Azcurra) | 146 | 146 (26/8) | 4/9 |
-| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **104** | 72 (30/8) | **4/9** |
-| 1259 | CB040 Química Básica (Boeykens) | 22 | 22 (25/8) | 25/8 |
+| **1256** | **CB002 Álgebra Lineal (Palacios)** | **28** | 26 (4/9) · 20 (25/8) | **8/9** |
+| 1405 | CB110 Anatomía e Histología (Iurman) | 41 | 41 (4/9) | 8/9 |
+| 198 | TB021/TA130 Algoritmos (Azcurra) | 146 | 146 (4/9) | 8/9 |
+| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **112** | 104 (4/9) · 72 (30/8) | **8/9** |
+| 1259 | CB040 Química Básica (Boeykens) | 22 | 22 (25/8) | 8/9 |
+
+El diff se hace con un script de 20 líneas que aplana los dos JSON a `{cmid: (sección, nombre,
+tipo, visible)}` y compara: detecta altas, bajas, renombres y cambios de sección. **Lo que ese
+diff NO ve** es el texto de una etiqueta que cambia sin cambiar de cmid — que es justo lo que pasó
+el 8/9 con el calendario de entregas del TP. Las etiquetas con fechas hay que leerlas a mano.
+
+### Chequeo del 2026-09-08 · qué apareció, y qué se ingirió
+
+**Anatomía (1405), Algoritmos (198) y Química (1259): sin cambios.** En Anatomía el último aviso
+del foro sigue siendo el del 28/7. En Algoritmos el foro sumó un hilo del 2/9 («CLASE DEL
+02/09/2026 PASA AL 09/09/2026»), que es una reprogramación, no contenido. En Química el cronograma
+de la sección EVALUACIONES INTEGRADORAS **sigue siendo el de julio-agosto de 2026**: las fechas del
+período de fin de año, que son las que Ariel necesita para el libre, **todavía no están publicadas**.
+
+**Álgebra Lineal (1256) — 2 archivos nuevos, y los 7 talleres ingeridos.**
+
+- **Taller 6** (clase 9-9, cmid 181362) y **Taller 7** (clase 11-9, cmid 181363), los dos en la
+  sección «Talleres». El 7 se publicó por adelantado.
+- Se ingirieron **los siete talleres**, no sólo los dos nuevos: los 1 a 5 estaban inventariados
+  desde el 4/9 pero sin resolver. Van al final de la **sección 3** de `fiuba-algebra-lineal`
+  (Guía 1 · Espacios vectoriales), que ya tenía el Taller 1, ahora bajo un encabezado común
+  «Los talleres del 2C2026, resueltos» con un `<h4>` por taller.
+- **22 ejercicios** transcriptos verbatim y resueltos, **todas las cuentas verificadas con sympy**.
+- Hallazgo: el **«taller virtual 2-9-26»** de Unidad 1 (cmid 181103) **es el Taller 4**, con un
+  ejercicio por página. Mismo documento, publicado dos veces porque la clase del 2/9 fue virtual.
+- La **«clase teórica virtual 2-9-26»** (cmid 181099, 9 páginas) son las notas de los cuatro
+  subespacios fundamentales y de coordenadas: cubre lo que la sección 3 ya tenía, así que se usó
+  para contrastar y como fuente de los Talleres 4 a 6, no se agregó teoría nueva.
+- Banco: **+3 preguntas de quiz y +2 de respuesta abierta** en la sección 3. La materia pasó de
+  234 a **239 items**.
+
+**Bioingeniería (1269) — 8 actividades nuevas, todo lo de BIO ingerido.**
+
+Ariel pidió expresamente ingerir **sólo lo de Bioingeniería**: el TPG de Electrónica (IIE) queda
+afuera. Los dos archivos de IIE («Presentación TPG IIE» cmid 179522 y «TPG IIE - Parte 1» cmid
+179523, que además es un PDF sin capa de texto) están bajados pero **no ingeridos, a propósito**.
+
+| Novedad | Dónde quedó |
+|---|---|
+| **«Amplificadores operacionales»** (etiqueta 179441) + **«Presentación - Amplificadores Operacionales»** (179442, 8 diapositivas) en Módulo 2 | §12, ampliando el bloque del operacional: pinout DIP-8, modelo ideal y las tres configuraciones **con la notación de la cátedra** — el no inversor lo escribe (R1+R2)/R1 |
+| **«TP 1: "Resistores"»** (assign 179518) | §12: **abre 3/9, cierra 17/9/2026 20:46, un intento**. La tabla del campus ya dice 17/09/2026 |
+| **«Presentación TPG BIO»** (179530), **«TPG IBI - Introducción»** (179531, Parte I) y **«TPG IBI - Etapa de entrada»** (179532, Parte II) | §12, bloque nuevo completo: **el monitor de actividad cardíaca** |
+| Foro «Armado de Grupos» con **7 grupos** publicados (3 al 6/9) | §1 y §12: grupos de **tres**, y anotarse es la acción más urgente |
+
+**Lo que trae el bloque nuevo del TPG BIO** (≈ 31 KB en §12): los 7 objetivos verbatim; la biofísica
+del ECG (potencial de acción, sistema de conducción, dipolo equivalente, derivaciones, ondas P-QRS-T
+e intervalos QT y RR); una **figura SVG** con el diagrama en bloques redibujado de la Fig. 5; la
+tabla de componentes con los valores del esquemático de la Fig. 1 de la Parte II; **las 13 preguntas
+del enunciado transcriptas verbatim y contestadas** (8 del amplificador de instrumentación, 5 del
+amplificador de referencia); y los 4 entregables del PCB.
+
+**Tres cálculos que el enunciado no trae y esta guía sí**, hechos y verificados acá:
+
+1. **Pasa-altos de entrada: 0,159 Hz**, de R = 1 MΩ y C = 1 µF.
+2. **La referencia:** el divisor R5 = 2,2 kΩ / RV1 = 5 kΩ / R6 = 220 Ω ajusta entre **0,45 V y
+   3,52 V**, y los 2,5 V caen con **RV1 ≈ 1,98 kΩ**. Con un preset de 1 kΩ el máximo sería 1,78 V y
+   **nunca llegaría** a 2,5 V: ése es el argumento de por qué el preset es de 5 kΩ.
+3. **La ganancia:** con ±1,6 V de excursión útil y un QRS de 1,5 mV, G ≤ ≈1070; tomando G = 1000,
+   **R3 ≈ 200 Ω**, que cae dentro del rango 100 Ω – 1 kΩ de la lista de materiales de la cátedra.
+
+Banco: **+3 preguntas de quiz y +2 de respuesta abierta** en la sección 12. La materia pasó de 257
+a **267 items**.
+
+**Una afirmación de la guía que quedó vieja y se corrigió:** el bloque del operacional decía «no hay
+apunte de operacionales en el campus». Desde el 8/9 lo hay. Cuando la cátedra publica material sobre
+un tema que la guía escribió desde bibliografía, hay que ir a buscar esas frases: son las que
+envejecen mal.
 
 > El 142 que figuraba antes para Algoritmos era un conteo viejo: contra el manifiesto del 26/8
 > (146 actividades) el curso está **idéntico**, actividad por actividad. Lo único que cambió es
@@ -83,8 +151,8 @@ Lo pidió Ariel después del chequeo. Las dos cosas entraron a `fiuba-electronic
 **Lo que sigue pendiente** de la tanda del 4/9: Superposición y Fuentes de tensión y corriente son
 material de cátedra sobre secciones que la guía **ya cubre** (6 y 3), así que ahí corresponde
 contrastar, no agregar; y osciloscopio, señales en el dominio del tiempo, señales bioeléctricas y los
-simuladores (LTspice, KiCad, Falstad) son tema nuevo que la guía toca sólo de refilón. En Álgebra, los
-5 talleres siguen sin ingerir.
+simuladores (LTspice, KiCad, Falstad) son tema nuevo que la guía toca sólo de refilón. ~~En Álgebra,
+los 5 talleres siguen sin ingerir.~~ **Los talleres de Álgebra se ingirieron el 8/9**, los siete.
 
 ### Bioingeniería (1269): novedades del 30/8, ingeridas
 
@@ -113,12 +181,12 @@ El detalle actividad por actividad, con dónde quedó cada cosa en las guías, e
 | 02 | Anatomía e Histología Funcional | `fiuba-anatomia` | 18 | 199 | `cc2d5c1` |
 | 02 | · Primer parcial · 29/9 | `fiuba-anatomia-parcial` | 8 | 120 | `0b6576b` |
 | 02 | · Segundo parcial · 17/11 | `fiuba-anatomia-segundo-parcial` | 8 | 106 | `0b6576b` |
-| 01 | Álgebra Lineal | `fiuba-algebra-lineal` | 8 | 234 | `66b3139` |
+| 01 | Álgebra Lineal | `fiuba-algebra-lineal` | 8 | **239** | `66b3139` + talleres 2C2026 (8/9) |
 | 01 | · Primer parcial · 21/10 | `fiuba-algebra-lineal-parcial` | 10 | 177 | `5d21174` |
 | 01 | · Segundo parcial · 2/12 | `fiuba-algebra-lineal-segundo-parcial` | 10 | 81 | `5d21174` |
 | 03 | Algoritmos y Programación I | `fiuba-algoritmos` | 12 | 255 | `71941fe` |
 | 03 | · Parcial e integrador | `fiuba-algoritmos-parcial` | 7 | 60 | `c40b053` |
-| 04 | Introducción a la Bioingeniería | `fiuba-electronica` | 12 | **257** | `6af8cc0` + Módulo 1 (30/8) |
+| 04 | Introducción a la Bioingeniería | `fiuba-electronica` | 12 | **267** | `6af8cc0` + Módulo 1 (30/8) + TPG BIO (8/9) |
 | 04 | · Examen integrador | `fiuba-electronica-integrador` | 7 | 88 | `c049de8` |
 | 05 | Química Básica | `fiuba-quimica` | 12 | 252 | `dc570ed` |
 | 05 | · Examen libre | `fiuba-quimica-libre` | 7 | 124 | `dc570ed` |
@@ -253,7 +321,11 @@ reutilizado y no está a escala** — la misma figura acompaña enunciados de 20
 ## Pendientes, ninguno bloqueante
 
 1. **Anatomía**: contrastar los 8 temas escritos desde bibliografía cuando la cátedra publique esas
-   clases.
+   clases. Al 8/9/2026 el curso 1405 sigue **idéntico** desde el 25/8: no hay nada que contrastar.
+0. **Bioingeniería**: falta la **Parte III del TPG** (digitalización y procesamiento), que la cátedra
+   anuncia en la Parte I pero al 8/9 no publicó. Cuando salga, cierra el bloque del monitor.
+0. **Química**: las fechas del período de integradoras de fin de año siguen sin publicarse. Es el dato
+   que Ariel necesita para el libre, y sale en la sección EVALUACIONES INTEGRADORAS del curso 1259.
 2. **Álgebra**: quedan 12 segundos parciales de 2016-2018 sin transcribir.
 3. **Algoritmos**: si alguna vez aparece un parcial real, esa guía mejora mucho.
 4. **Ajeno a este trabajo**: `analisis-segundo-parcial` usa las clases `dl-btn`, `yes` y `no`, que
