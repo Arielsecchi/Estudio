@@ -148,6 +148,41 @@ Lo pidió Ariel después del chequeo. Las dos cosas entraron a `fiuba-electronic
 - Copia del PDF en `bio1269/nuevo/`. Los scripts: `_ingesta_tp1.py`, `_ingesta_tp1_ajustes.py`
   (coherencia del inventario del Módulo 1 y las notas de fecha) y `_ingesta_tp1_quiz.py`.
 
+## Revisión adversarial de los talleres de Álgebra · 2026-09-09
+
+Ariel pidió verificar que los 22 ejercicios estuvieran bien resueltos. Se hizo en dos vías paralelas:
+**126 chequeos con sympy** hechos por el orquestador, y un **workflow de 66 agentes** —dos
+solucionadores ciegos por taller que resolvieron desde el PDF sin ver la guía, un contrastador por
+taller, tres refutadores por discrepancia, siete lentes de fidelidad verbatim y dos de consistencia—.
+
+**Ninguna de las 22 respuestas estaba mal.** Las tres vías (guía, solucionador ciego a, solucionador
+ciego b) coinciden en todos los valores. Lo que apareció fueron **errores de argumento y de
+transcripción**, que es exactamente lo que este método está hecho para encontrar:
+
+| Dónde | Qué estaba mal |
+|---|---|
+| **T3 · Ej 1b** | La justificación estaba dada vuelta: decía que la base del núcleo tiene ceros en las coordenadas **pivote**, y es al revés (identidad en las **libres**). La regla y la respuesta, correctas. |
+| **T2 · Ej 3a** | Llamaba «trampa» a evaluar en tres puntos y decía que «demuestra menos». Falso: el determinante da −(a−b)(a−c)(b−c)·e^(a+b+c), que nunca se anula con puntos distintos. Y se contradecía con el 3b, que usa ese mismo método. |
+| **T5 · los 3 bloques «verbatim»** | La cátedra escribe **[v]^B**, con el índice **arriba**. Verificado midiendo la posición de cada glifo con PyMuPDF: −4,34 pt, la altura del exponente de x², contra +1,79 del subíndice de ℝ₃[x]. |
+| **T3 · recuadro del orden** | «los dos polinomios son LI pero no están en S»: el segundo está en S para todo k. |
+| **T5 · recuadro de notación** | Decía «el 2/12 vas a leer…». Coordenadas es unidad 1: cae en el **primer** parcial, 21/10. |
+| **Procedencia** | Decía que la clase teórica del 2/9 apoya los talleres 5 y 6. Son el **4 y el 5**: el PDF tiene dos capítulos, subespacios fundamentales y coordenadas. |
+| **T6 · recuadro** | «en el parcial aparece con esas mismas palabras» era falso: en los 21 parciales «mayor/menor subespacio» aparece **cero veces**, siempre van ∩ y +. Lo que sí se repite es la consigna: **7 de 21** piden la base que contiene a las dos, y **7** piden el T de suma directa. |
+| **Banco (3 de las 5 preguntas nuevas)** | «casi todo k» sugería que hay k con p₁, p₂ LD y no existe ninguno; un distractor describía un caso imposible (M₁ y M₃ nunca son proporcionales) sin decirlo; y «LD o con más de 4 vectores» donde siempre son exactamente 4. |
+
+Más tres huecos de rigor cerrados (el chequeo de rango que faltaba en T6 Ej 1a, el «dim S₂ = 2» que se
+usaba sin enunciar en T6 Ej 1b, y un «siempre» sobregeneralizado en el cierre del Taller 1).
+
+**La lección que deja:** los solucionadores ciegos no encontraron ni un error de cuenta —sympy ya los
+había descartado—, pero **el contraste guía-vs-ciego encontró todos los errores de argumento**, que
+son los que ninguna verificación numérica ve. Y las dos lentes transversales (fidelidad verbatim y
+consistencia de afirmaciones) encontraron lo que ni el cálculo ni el contraste podían: fechas
+cruzadas, alcances mal atribuidos y una afirmación sobre el corpus de parciales que era falsa.
+**Un dato que vale para toda la materia:** la cátedra Palacios escribe las coordenadas con el índice
+**arriba** —en los talleres, en su guía de TP y en la clase teórica del 2/9— mientras que los dos
+apuntes que ella misma publica (Mancilla Aguilar y Pustilnik–Muszkats) lo escriben abajo. Las guías
+usan la segunda; ahora está documentado en el Taller 5.
+
 **Lo que sigue pendiente** de la tanda del 4/9: Superposición y Fuentes de tensión y corriente son
 material de cátedra sobre secciones que la guía **ya cubre** (6 y 3), así que ahí corresponde
 contrastar, no agregar; y osciloscopio, señales en el dominio del tiempo, señales bioeléctricas y los
