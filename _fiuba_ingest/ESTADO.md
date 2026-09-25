@@ -3,9 +3,9 @@
 Spec: `PLAN-2026-08-19.md` · Auditoría del campus: `AUDITORIA-CAMPUS.md` · Fuentes: `INSUMOS.md`
 Estilo obligatorio para los redactores: `BRIEF-ESTILO.md`
 
-**Cinco materias, 12 guías publicadas.** Última verificación: **2026-09-08**, build en verde,
-auditorías estructurales y de rutas sin hallazgos, y las páginas medidas en el navegador en
-escritorio y teléfono (sin desbordes horizontales).
+**Cinco materias, 13 guías publicadas.** Última verificación: **2026-09-25**, build en verde, rutas
+sin hallazgos, auditoría estructural en verde salvo `fiuba-anatomia-parcial-preguntas` (sus ids
+arrancan en 0 desde que se publicó, el 22/9; no es de esta tanda), y las 9 guías tocadas medidas a 375 px sin desbordes.
 
 **2026-09-04 · las dos guías de Bioingeniería llevan figuras.** 16 diagramas de circuito en la madre
 y 2 en el integrador, en **SVG inline** con `currentColor` y `var(--accent)`, así que siguen el tema
@@ -13,24 +13,103 @@ claro/oscuro y escalan solos. Se generan con `_figuras_bio.py` + `_figuras_bio_b
 con `_insertar_figuras.py` (idempotente: detecta la figura por su `aria-label`). Para mirarlas sin
 navegador, `_render_figuras.py` las pasa a PNG con PyMuPDF.
 
-## Línea de base del campus · 2026-09-08
+## Línea de base del campus · 2026-09-25
 
-Módulos por curso, para comparar en el próximo chequeo. El inventario sale de
-`core_courseformat_get_state` y quedó volcado en `_campus_20260908.json` (el del 4/9 sigue en
-`_campus_20260904.json`, que es contra el que se hizo el diff).
+Módulos **visibles** por curso, para comparar en el próximo chequeo. El inventario sale de
+`core_courseformat_get_state` y quedó volcado en `_campus_20260925.json` (los anteriores siguen en
+`_campus_20260908.json` y `_campus_20260904.json`).
 
 | Curso | Materia | Módulos | Antes | Últ. chequeo |
 |---|---|---|---|---|
-| **1256** | **CB002 Álgebra Lineal (Palacios)** | **28** | 26 (4/9) · 20 (25/8) | **8/9** |
-| 1405 | CB110 Anatomía e Histología (Iurman) | 41 | 41 (4/9) | 8/9 |
-| 198 | TB021/TA130 Algoritmos (Azcurra) | 146 | 146 (4/9) | 8/9 |
-| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **112** | 104 (4/9) · 72 (30/8) | **8/9** |
-| 1259 | CB040 Química Básica (Boeykens) | 22 | 22 (25/8) | 8/9 |
+| **1256** | **CB002 Álgebra Lineal (Palacios)** | **34** | 28 (8/9) · 26 (4/9) · 20 (25/8) | **25/9** |
+| **1405** | **CB110 Anatomía e Histología (Iurman)** | 41 | 41 (8/9) · cambió el texto del cronograma | **25/9** |
+| **198** | **TB021/TA130 Algoritmos (Azcurra)** | **63** | 146 (8/9): ocultó secciones viejas | **25/9** |
+| **1269** | **TB063/TB157 Bioingeniería (Veiga)** | **143** | 112 (8/9) · 104 (4/9) · 72 (30/8) | **25/9** |
+| 1259 | CB040 Química Básica (Boeykens) | 22 | 22 (25/8) | 25/9 |
 
-El diff se hace con un script de 20 líneas que aplana los dos JSON a `{cmid: (sección, nombre,
-tipo, visible)}` y compara: detecta altas, bajas, renombres y cambios de sección. **Lo que ese
-diff NO ve** es el texto de una etiqueta que cambia sin cambiar de cmid — que es justo lo que pasó
-el 8/9 con el calendario de entregas del TP. Las etiquetas con fechas hay que leerlas a mano.
+**Cómo se chequea ahora, en tres capas** (todo desde el Chrome de Ariel, con `javascript_tool` y
+descargando cada volcado como blob para leerlo con Bash):
+
+1. **Altas, bajas y renombres**: se aplana `core_courseformat_get_state` a `{cmid: (sección,
+   nombre, tipo, visible)}` y se diffea contra el volcado anterior.
+2. **Texto de etiquetas y resúmenes de sección**: `fetch('/course/view.php?id=N&section=S')` de
+   cada sección (formato onetopic) y se guarda el `innerText` de cada módulo y del resumen. Volcado
+   del 25/9 en `nuevo_20260925/sectext.json`. Así apareció el cambio del cronograma de Anatomía, que
+   el diff por cmid no ve. Química (Mosaico) se lee navegando a `/course/section.php?id=…`.
+3. **Archivos reemplazados sin cambiar de cmid**: un `fetch(…/mod/resource/view.php?id=X&redirect=1,
+   {method:'HEAD'})` devuelve el `Last-Modified` del archivo. Todo lo modificado después del chequeo
+   anterior es nuevo o fue reemplazado. Volcado del 25/9 (138 recursos) en `nuevo_20260925/lastmod.json`.
+   **Esto cierra el punto ciego** que tenía el método: el 25/9 se comprobó así que ningún archivo
+   viejo había sido reemplazado.
+
+Más los foros de avisos de cada curso (`/mod/forum/view.php?id=…`, hilos posteriores a la fecha).
+
+### Chequeo del 2026-09-25 · qué apareció, y qué se ingirió
+
+Inventario completo, archivo por archivo, en `nuevo_20260925/INVENTARIO.md` (archivos en `files/`,
+texto en `txt/`, páginas en `png/`). Copia de lo bajado en `Campus FIUBA\Contenido nuevo\…`.
+
+**Química (1259): sin cambios.** El cronograma de integradoras sigue siendo el de julio-agosto de
+2026; las fechas de fin de año (las que Ariel necesita para el libre) **todavía no están**.
+
+**Anatomía (1405): cambió el cronograma**, sin cambiar ningún cmid. Clase 14 nueva, **Sistema
+Nervioso II (17/11)**, y el **2º parcial pasa al 24/11** (clase 15). La fila 16 «Recuperatorios»
+quedó también con 24/11, que tiene que ser un resto de la versión vieja: las guías lo dicen así y
+recomiendan confirmarlo en clase. Actualizado en las tres guías (madre, 1er parcial y 2º parcial,
+incluido el meta.json del 2º y su plan de repaso rehecho hacia atrás desde el 24/11). Foro 19/9:
+Andrada compartió una carpeta de Drive con bibliografía (Tortora por capítulos, Pró, Netter,
+Yokochi y *Generalidades de Biomecánica Articular*, que es **el mismo texto** ya ingerido: 99,3 %
+de coincidencia palabra a palabra). Se nombra en la sección 1 de la madre, sin enlace.
+
+**Álgebra Lineal (1256): Talleres 8 a 11, la clase virtual del 25/9 y 43 parciales reales.**
+
+- **Talleres 8 a 11** (16/9, 18/9, 23/9, 25/9) y la **clase teórica virtual del 25/9** (composición e
+  inversa, 4 ejercicios) → madre: el Taller 8 cierra la unidad 1 en la sección 3; los 9 a 11 y la
+  clase, en un bloque nuevo de la sección 4. 18 ejercicios verbatim y resueltos, 158 chequeos de
+  sympy, revisión a ciegas (todos los resultados coinciden, también con la resolución manuscrita
+  de la cátedra) y 10 ajustes de redacción. El «taller virtual 25-9-26» **es el Taller 11** con la
+  resolución a mano. Tres erratas de la cátedra documentadas (T8 Ej 1, T10 Ej 1, T11 Ej 4).
+- **«Ejercicios Primer Parcial»** (sección renombrada «Ejercicios de parciales», 14/9): un PDF
+  escaneado de **43 primeros parciales reales**. 21 ya estaban; **22 son nuevos** (6/XI/24 a
+  5/VIII/26). Los **110 ejercicios** nuevos se transcribieron verbatim y se resolvieron en 4 lotes
+  (`nuevo_20260925/algebra_parciales/lote1-4.json`, chequeos `check_lote*.py`), con **revisión a
+  ciegas por lote: 110 de 110 respuestas coincidieron**; 12 ajustes de argumento y de lectura.
+  Entraron al banco de la guía del 1er parcial (`ensamblar_banco.py`): **213 ejercicios de 43
+  parciales**. Las estadísticas de toda la guía se rehicieron sobre 43/41 (`stats.py`, `stats_43.txt`).
+- **El hallazgo que más importa para el 21/10**: los 6 parciales del **1C2026 tienen otro esqueleto,
+  FABEC** (coordenadas primero, subespacios segundo, TL tercero, proyecciones cuarto, producto
+  interno quinto), sin fibra ni cuadrados mínimos; y **cuadrados mínimos no aparece desde el 12/II/25**.
+- Lecturas difíciles resueltas midiendo el escaneo: la fecha de la pág. 3 es **8/VII/26** (no 1/VII);
+  el 30/X/23 Ej 3, que el banco tenía ilegible, se lee en esta versión y confirma la reconstrucción;
+  en el 6/8/25 Ej 2 se borró un «−» (con él la simetría no existiría).
+- Foro: videos de Vibrentis sobre suma, intersección y complemento (Drive), citados en la sección 3.
+
+**Bioingeniería (1269): Módulos 2 y 3, Presentaciones y Exámenes.** Todo lo de BIO ingerido en
+`fiuba-electronica`: sección **13 nueva** (ADC, DAC R-2R, Arduino, UART, Fourier, Nyquist y el cálculo
+de muestreo y antialiasing para el TPG), §7 ampliada con la presentación de Thévenin y el ejercicio
+de la **Parte 4** (R_TH = 2R, V_TH = V1/4 + V2/2, verificado a ciegas), y en §1/§12 el **Parcialito**
+(17/9, se entregó escaneado), los dos cuestionarios (14/9 y 17/9) y la **presentación intermedia**
+(entrega 4/10 al 15/10 20:46). La «Lectura - Mediciones e incertidumbres» del Módulo 1 es el mismo
+archivo ya ingerido (md5 idéntico). **`DAC_6bit_02.ino` es material de IIE**: está dentro del bloque
+del TPG de Electrónica, así que por la regla de Ariel se nombra en una línea y no se desarrolla.
+
+**Algoritmos (198): Actividad 01 nueva y el seguimiento de funciones.** El curso ocultó las secciones
+viejas (Arreglos a Memoria dinámica) y las va liberando: 146 → 63 módulos visibles, nada perdido
+(todo estaba en el backup del 26/8). La **Actividad 01** (9/9) es el **ejercicio 20 de la Guía 1**
+palabra por palabra con $10.000 en vez de $1000: segunda prueba de que las evaluaciones salen de las
+guías. Resuelta, compilada y comparada carácter por carácter con los ejemplos. La revisión encontró
+que **nuestra propia solución del ejercicio 20** sumaba en float y aplicaba el descuento con un total
+de $1000,00 justos: se reescribió sumando en centavos. El **seguimiento de funciones** (19
+diapositivas) va en la sección 4 de la madre con la traza completa.
+
+**Verificación de esta tanda.** Cada guía tuvo al menos una revisión adversarial independiente, y los
+hallazgos se aplicaron después de rehacer la cuenta: Álgebra 1er parcial 29 (conteos del corpus y
+quizzes; la correcta de los 73 quizzes quedó repartida 8/41/14/10), Álgebra madre 10 + 9, Bio 22 + 2
+(más el recorte del `.ino` de IIE y un hueco viejo en el array de quizzes de §12 que impedía llegar al
+100 %), Algoritmos 22, Anatomía 11. Compilación de Algoritmos: 175 programas, los mismos 4 fragmentos
+que no compilan de siempre. Layout medido a 375 px en las 9 guías tocadas con páginas de prueba
+(`nuevo_20260925/layout/armar.py`, que arma base.css + theme + seccion sin la pantalla de ingreso),
+y las tres figuras nuevas de Bio miradas renderizadas contra el original.
 
 ### Chequeo del 2026-09-08 · qué apareció, y qué se ingirió
 
@@ -213,15 +292,15 @@ El detalle actividad por actividad, con dónde quedó cada cosa en las guías, e
 
 | # | Materia | Slug | Secciones | Items | Commit |
 |---|---|---|---|---|---|
-| 02 | Anatomía e Histología Funcional | `fiuba-anatomia` | 18 | 199 | `cc2d5c1` |
+| 02 | Anatomía e Histología Funcional | `fiuba-anatomia` | 18 | 239 | `cc2d5c1` + clases nuevas (22/9) + cronograma (25/9) |
 | 02 | · Primer parcial · 29/9 | `fiuba-anatomia-parcial` | 8 | 120 | `0b6576b` |
-| 02 | · Segundo parcial · 17/11 | `fiuba-anatomia-segundo-parcial` | 8 | 106 | `0b6576b` |
-| 01 | Álgebra Lineal | `fiuba-algebra-lineal` | 8 | **239** | `66b3139` + talleres 2C2026 (8/9) |
-| 01 | · Primer parcial · 21/10 | `fiuba-algebra-lineal-parcial` | 10 | 177 | `5d21174` |
+| 02 | · Segundo parcial · **24/11** | `fiuba-anatomia-segundo-parcial` | 8 | 106 | `0b6576b` + fecha nueva (25/9) |
+| 01 | Álgebra Lineal | `fiuba-algebra-lineal` | 8 | **244** | `66b3139` + talleres 1 a 7 (8/9) + talleres 8 a 11 y clase 25/9 (25/9) |
+| 01 | · Primer parcial · 21/10 | `fiuba-algebra-lineal-parcial` | 10 | **291** | `5d21174` + 43 parciales, banco de 213 (25/9) |
 | 01 | · Segundo parcial · 2/12 | `fiuba-algebra-lineal-segundo-parcial` | 10 | 81 | `5d21174` |
-| 03 | Algoritmos y Programación I | `fiuba-algoritmos` | 12 | 255 | `71941fe` |
-| 03 | · Parcial e integrador | `fiuba-algoritmos-parcial` | 7 | 60 | `c40b053` |
-| 04 | Introducción a la Bioingeniería | `fiuba-electronica` | 12 | **267** | `6af8cc0` + Módulo 1 (30/8) + TPG BIO (8/9) |
+| 03 | Algoritmos y Programación I | `fiuba-algoritmos` | 12 | 285 | `71941fe` + seguimiento y Actividad 01 (25/9) |
+| 03 | · Parcial e integrador | `fiuba-algoritmos-parcial` | 7 | 63 | `c40b053` + Actividad 01 (25/9) |
+| 04 | Introducción a la Bioingeniería | `fiuba-electronica` | **13** | **287** | `6af8cc0` + Módulo 1 (30/8) + TPG BIO (8/9) + Módulos 2 y 3, §13 (25/9) |
 | 04 | · Examen integrador | `fiuba-electronica-integrador` | 7 | 88 | `c049de8` |
 | 05 | Química Básica | `fiuba-quimica` | 12 | 252 | `dc570ed` |
 | 05 | · Examen libre | `fiuba-quimica-libre` | 7 | 124 | `dc570ed` |
@@ -355,13 +434,20 @@ reutilizado y no está a escala** — la misma figura acompaña enunciados de 20
 
 ## Pendientes, ninguno bloqueante
 
-1. **Anatomía**: contrastar los 8 temas escritos desde bibliografía cuando la cátedra publique esas
-   clases. Al 8/9/2026 el curso 1405 sigue **idéntico** desde el 25/8: no hay nada que contrastar.
-0. **Bioingeniería**: falta la **Parte III del TPG** (digitalización y procesamiento), que la cátedra
-   anuncia en la Parte I pero al 8/9 no publicó. Cuando salga, cierra el bloque del monitor.
+1. **Anatomía**: contrastar los temas escritos desde bibliografía cuando la cátedra publique esas
+   clases (respiratorio, cardiovascular, digestivo, urinario, nervioso II). Al 25/9 no hay material nuevo
+   de clase en el campus: sólo cambió el cronograma. Confirmar en clase la fecha de los recuperatorios
+   (el campus les pone 24/11, igual que al 2º parcial).
+0. **Bioingeniería**: falta la **Parte III del TPG** (digitalización y procesamiento); al 25/9 sigue sin
+   publicarse, aunque la §13 ya adelanta lo que hace falta (ADC, muestreo, antialiasing). **Sin ingerir
+   desde el 4/9** (no es nuevo, quedó pendiente a propósito): «Señales fisiológicas bioeléctricas» (cmid
+   179420, puede traer la banda del ECG que hoy la guía marca como propia), «Señales en el dominio del
+   tiempo», osciloscopio, los tutoriales de LTspice, KiCad y Falstad, y los «Ejercicios Incrementales
+   Parte 3» (cmid 179436). Superposición y Fuentes son para contrastar contra §6 y §3.
 0. **Química**: las fechas del período de integradoras de fin de año siguen sin publicarse. Es el dato
    que Ariel necesita para el libre, y sale en la sección EVALUACIONES INTEGRADORAS del curso 1259.
-2. **Álgebra**: quedan 12 segundos parciales de 2016-2018 sin transcribir.
+2. **Álgebra**: quedan 12 segundos parciales de 2016-2018 sin transcribir. El primer parcial está completo
+   con los 43 de la compilación de la cátedra.
 3. **Algoritmos**: si alguna vez aparece un parcial real, esa guía mejora mucho.
 4. **Ajeno a este trabajo**: `analisis-segundo-parcial` usa las clases `dl-btn`, `yes` y `no`, que
    no existen en `base.css`. El botón de descarga del PDF se ve como texto plano. El enlace

@@ -5,7 +5,9 @@
 //
 // La cátedra NO publica enunciados de parcial (verificado en el campus el
 // 19/8/2026: los archivos de "Notas" son planillas de calificaciones).
-// Lo que hay son 12 tareas del campus, 9 con enunciado completo y 3 sin.
+// Lo que hay son 13 consignas de tarea del campus (12 del 1C2026 y la
+// Actividad 01 del 2C2026), 10 con enunciado completo y 3 sin. La Actividad 02
+// del 2C2026 repite el enunciado del factorial.
 // Secciones 3 y 4 = esas consignas, verbatim.
 // Secciones 6 y 7 = simulacros propios, marcados como tales.
 // Todos los programas fueron compilados con MSVC 2022 y ejecutados: las
@@ -20,20 +22,20 @@ registerExercises('fiuba-algoritmos-parcial', '1', [
    c: 1,
    ex: 'Lo abrimos el 19/8/2026: es una <b>planilla de notas</b>, no un examen. Y lo mismo los otros seis archivos de esa sección (los dos recuperatorios y los cuatro integradores). ▸ La consecuencia es incómoda pero hay que decirla: <b>no existe un corpus de parciales de esta cátedra</b>, así que ninguna guía puede decirte qué tema cae en qué posición. ▸ Y la consecuencia práctica: si alguien te pasa un "parcial de Azcurra", <b>no salió del campus</b>. Usalo como práctica si querés, pero no como palabra de la cátedra.'},
 
-  {st: 'De las 12 tareas entregables del campus, ¿cuántas traen el enunciado escrito?',
-   opts: ['Las 12', '9 de 12: faltan Struct Alumno, Ejercicio Recursividad y TDA Número Complejo', '6 de 12', 'Sólo las dos "Tipo Parcial"'],
+  {st: 'De las 13 consignas de tarea que publicó la cátedra (12 del 1C2026 y la Actividad 01 del 2C2026), ¿cuántas traen el enunciado escrito?',
+   opts: ['Las 13', '10 de 13: faltan Struct Alumno, Ejercicio Recursividad y TDA Número Complejo', '7 de 13', 'Sólo las dos "Tipo Parcial"'],
    c: 1,
-   ex: 'Las contamos una por una. <b>Nueve</b> traen consigna completa. <b>Tres no</b>: "Struct Alumno" sólo indica el nombre del archivo a entregar, "Ejercicio Recursividad" trae únicamente el texto administrativo, y el cuerpo del enunciado de "TDA Número Complejo" es <b>la letra E</b> y nada más. ▸ En esta guía las tres están resueltas igual, pero con el enunciado marcado como propio. Si te toca entregarlas, <b>pedí la consigna en clase</b>: el alcance lo define la cátedra, no nosotros.'},
+   ex: 'Las contamos una por una. <b>Diez</b> traen consigna completa: nueve del 1C2026 y la Actividad 01 del 2C2026, que además trae dos corridas de ejemplo. <span class="muted">(La Actividad 02 del 23/9/2026 no suma: repite el enunciado del factorial.)</span> <b>Tres no</b>: "Struct Alumno" sólo indica el nombre del archivo a entregar, "Ejercicio Recursividad" trae únicamente el texto administrativo, y el cuerpo del enunciado de "TDA Número Complejo" es <b>la letra E</b> y nada más. ▸ En esta guía las tres están resueltas igual, pero con el enunciado marcado como propio. Si te toca entregarlas, <b>pedí la consigna en clase</b>: el alcance lo define la cátedra, no nosotros.'},
 
   {st: 'Las dos tareas "Tipo Parcial" se abrieron el 4/5/2026; las de struct, el 27/5. ¿Qué se puede inferir de eso?',
    opts: ['Nada, las fechas de apertura son arbitrarias', 'Que el parcial se juega en funciones, arreglos y cadenas, y que struct, archivos, recursividad y memoria dinámica caen del lado del integrador', 'Que el parcial incluye structs porque se dictan antes', 'Que las tareas de struct son las que se toman en el parcial'],
    c: 1,
    ex: 'Los dos ejercicios que la cátedra bautizó "Tipo Parcial" son de <b>vectores</b> y de <b>funciones con parámetros de salida</b>, y se abrieron <b>tres semanas antes</b> de que se dictaran structs y archivos. Ninguno de los dos usa struct, archivo, recursión ni memoria dinámica. ▸ Es una <b>inferencia sobre las fechas</b>, no una afirmación de la cátedra, y así está dicha en la guía. Pero es la inferencia que ordena el estudio, y por eso esta guía tiene dos simulacros distintos: uno de parcial y uno de integrador.'},
 
-  {st: 'Ocho tareas del campus tienen apertura y cierre el mismo día, con ventanas que van de 25 minutos a 5 horas 45. ¿Qué se puede concluir de eso sobre el parcial?',
+  {st: 'Nueve tareas del campus tienen apertura y cierre el mismo día, con ventanas que van de 25 minutos a 5 horas 45. ¿Qué se puede concluir de eso sobre el parcial?',
    opts: ['Que el parcial dura 25 minutos por ejercicio', 'Nada sobre el parcial: la ventana mide el tamaño del ejercicio, no el ritmo del examen. Sí sirve como referencia de cuánto vale una función chica con su main: 25 minutos', 'Que el parcial dura 5 horas 45', 'Que las ventanas son arbitrarias y no dicen nada'],
    c: 1,
-   ex: 'Las ocho ventanas: factorial 25 min, nombre y apellido 25, palabras en orden 25, archivos 27, timestamp 45, cociente <b>2 h 20</b>, TDA <b>2 h</b>, recursividad <b>5 h 45</b>. ▸ Las tres de 25 minutos son todas del mismo tipo —<b>una función chica más el main que la invoca</b>— y ahí el número es una referencia útil de cuánto lleva leer, escribir, compilar, probar y entregar un ejercicio de ese tamaño. ▸ Pero quedarse con esas tres y llamarlas "el reloj de la cátedra" es <b>recortar la tabla para que diga lo que uno quiere</b>: la misma clase del 15/4 dio 2 h 20 para el cociente. ▸ De la duración del <b>parcial</b> no hay ningún dato publicado. Los simulacros de esta guía usan 25 minutos por analogía de tamaño, y así está dicho.'},
+   ex: 'Las nueve ventanas: factorial 25 min (y otra vez 25 cuando volvió como Actividad 02 en el 2C2026), nombre y apellido 25, palabras en orden 25, archivos 27, timestamp 45, cociente <b>2 h 20</b>, TDA <b>2 h</b>, recursividad <b>5 h 45</b>. ▸ Las de 25 minutos son todas del mismo tipo (<b>una función chica más el main que la invoca</b>), y ahí el número es una referencia útil de cuánto lleva leer, escribir, compilar, probar y entregar un ejercicio de ese tamaño. ▸ Pero quedarse con esas tres y llamarlas "el reloj de la cátedra" es <b>recortar la tabla para que diga lo que uno quiere</b>: la misma clase del 15/4 dio 2 h 20 para el cociente. ▸ De la duración del <b>parcial</b> no hay ningún dato publicado. Los simulacros de esta guía usan 25 minutos por analogía de tamaño, y así está dicho.'},
 
   {st: 'Hay cuatro planillas de "Integrador" con fechas 01-07, 29-07, 05-08 y 14-08 de 2026. ¿Qué se deduce y qué no?',
    opts: ['Que hay cuatro integradores obligatorios y hay que rendir los cuatro', 'Que existen integradores con fechas propias repartidas en seis semanas; cuántas veces podés presentarte NO está publicado', 'Que el integrador reemplaza al parcial', 'Que los integradores son opcionales'],
@@ -84,7 +86,7 @@ registerExercises('fiuba-algoritmos-parcial', '2', [
   {st: 'El ejercicio "Cargar Alumnos" pide subir el código. ¿Alcanza con eso?',
    opts: ['Sí, el código es la entrega', 'No: la consigna pide además subir el archivo alumnos.dat generado, con al menos 5 alumnos', 'No: hay que subir también un informe', 'Sí, pero en formato .cpp'],
    c: 1,
-   ex: 'Textual de la consigna: <i>"Deberá subir el archivo generado, con al menos 5 datos de alumnos"</i>, y más abajo lo repite: <i>"Además, subí el archivo generado alumnos.dat, con al menos 5 alumnos"</i>. ▸ Es la única de las 12 tareas que pide <b>dos</b> archivos, y la razón es buena: el <span class="code">.dat</span> demuestra que el programa <b>corrió</b>, no sólo que compila. ▸ Detalle práctico: el archivo aparece en el directorio desde donde ejecutás el programa, que con un IDE no siempre es la carpeta del <span class="code">.c</span>.'},
+   ex: 'Textual de la consigna: <i>"Deberá subir el archivo generado, con al menos 5 datos de alumnos"</i>, y más abajo lo repite: <i>"Además, subí el archivo generado alumnos.dat, con al menos 5 alumnos"</i>. ▸ Es la única tarea que pide subir, además del código, <b>un archivo generado por el programa</b>, y la razón es buena: el <span class="code">.dat</span> demuestra que el programa <b>corrió</b>, no sólo que compila. (La Actividad 01 del 2C2026 persigue lo mismo por otro camino: pide el <span class="code">.c</span>, una captura de la ejecución y la salida pegada en el cuadro de texto.) ▸ Detalle práctico: el archivo aparece en el directorio desde donde ejecutás el programa, que con un IDE no siempre es la carpeta del <span class="code">.c</span>.'},
 
   {st: 'Estás por subir una entrega y no compilaste. Pensás "subo y si está mal lo arreglo". ¿Qué tiene de malo?',
    opts: ['Nada, se puede subir infinitas veces', 'El campus permite 2 intentos: si el primero no compila, te queda uno solo para todo el resto', 'Hay que avisar al docente antes de subir', 'El campus no acepta archivos que no compilen'],
@@ -142,7 +144,7 @@ registerExercises('fiuba-algoritmos-parcial', '3', [
    ex: 'Los dígitos de 105 son 1, 0 y 5. El único par es el <b>0</b> (y <span class="code">0 % 2 == 0</span> lo confirma: el cero es par). El producto de ese único factor es 0 y la cantidad es 1. ▸ No es un bug, es aritmética. Lo que sí corresponde es <b>dejarlo escrito en un comentario</b> arriba de la función, para que el corrector vea que la decisión está tomada y no olvidada. ▸ Distinto es el caso de <b>ningún</b> dígito par (1357): ahí el producto de cero factores sería 1, pero informar "producto 1" cuando no hubo dígitos engaña al invocante. La guía devuelve producto 0 con cantidad 0, y el que decide qué mostrar es el main mirando la cantidad.'},
 ]);
 
-/* ============ SECCIÓN 4 · Las otras 10 consignas ============ */
+/* ============ SECCIÓN 4 · Las otras 11 consignas ============ */
 
 registerReveals('fiuba-algoritmos-parcial', '4', [
 
@@ -161,6 +163,21 @@ registerReveals('fiuba-algoritmos-parcial', '4', [
 ]);
 
 registerExercises('fiuba-algoritmos-parcial', '4', [
+  {st: 'En la Actividad 01 la consigna escrita dice <i>"indicando al usuario monto invalido"</i>, y el ejemplo de ejecución muestra <span class="code">Monto no válido.</span> ¿Qué texto va en el <span class="code">printf</span>?',
+   opts: ['<span class="code">"monto invalido\\n"</span>, porque es lo que dice la consigna escrita', '<span class="code">"Monto invalido.\\n"</span>, sin tilde, para que no salga roto en la consola de Windows', '<span class="code">"Monto no válido.\\n"</span>: el ejemplo fija la salida carácter por carácter, y la frase de la consigna sólo describe qué hay que avisar', 'Cualquiera de los tres: el corrector mira la lógica, no el texto'],
+   c: 2,
+   ex: 'La consigna escrita dice <b>qué</b> hay que hacer (avisar que el monto no sirve); el ejemplo dice <b>cómo tiene que verse</b>, y en esta actividad la salida está especificada entera, hasta los espacios de <span class="code">( $ 10024.40 )</span>. Por eso va el texto del ejemplo: mayúscula, "no", tilde y punto final. ▸ <b>"monto invalido"</b> cumple la frase de la consigna pero no el ejemplo, y el ejemplo es la única especificación de la salida que da la actividad. ▸ <b>Sacarle la tilde</b> es cambiar la salida pedida para esquivar un problema de la terminal, no del programa: lo compilamos con la tilde y los bytes que salen son exactamente los del enunciado. ▸ <b>"Cualquiera"</b> es justamente lo que una consigna con ejemplo de ejecución textual descarta.'},
+
+  {st: 'Actividad 01: el usuario ingresa <span class="code">10000</span> y después <span class="code">0</span>. ¿Qué imprime una solución correcta después del último pedido?',
+   opts: ['Sólo <span class="code">Total a pagar: $ 10000.00</span>: "supera" es estrictamente mayor, y con $10.000 justos no hay descuento', 'La línea <span class="code">El total a pagar ( $ 10000.00 ) supera los $10.000, se aplica descuento del 10%</span> y después <span class="code">Total a pagar: $ 9000.00</span>', '<span class="code">Total a pagar: $ 10000</span>, sin decimales porque el monto es entero', 'Sólo <span class="code">Total a pagar: $ 9000.00</span>, sin el aviso'],
+   c: 0,
+   ex: '"Si éste <b>supera</b> los $10.000" se escribe <span class="code">&gt;</span>, no <span class="code">&gt;=</span>. Lo corrimos: con 10000 y 0 la salida es <span class="code">Total a pagar: $ 10000.00</span> y nada más. ▸ La segunda opción es lo que sale con <span class="code">&gt;=</span>, y además imprime la frase contradictoria de que $ 10000.00 supera los $10.000. ▸ La tercera olvida que el formato es <span class="code">%.2f</span> siempre: el ejemplo muestra <span class="code">$ 127.80</span>, dos decimales aunque el segundo sea cero. ▸ La cuarta inventa un descuento sin el renglón que lo anuncia; en el ejemplo, el aviso va siempre antes del total descontado.'},
+
+  {st: 'Tu Actividad 01 acumula los montos directamente en un <span class="code">double</span>, compara con <span class="code">&gt;</span>, reproduce los dos ejemplos del enunciado y con <span class="code">10000</span> tipeado de una vez no aplica descuento. Con <span class="code">3253.42</span>, <span class="code">6119.89</span>, <span class="code">626.69</span> y <span class="code">0</span>, que suman exactamente $ 10.000,00, imprime <span class="code">El total a pagar ( $ 10000.00 ) supera los $10.000, se aplica descuento del 10%</span>. ¿Qué pasó?',
+   opts: ['Usaste <span class="code">&gt;=</span> en vez de <span class="code">&gt;</span>', '<span class="code">%.2f</span> redondea mal los números grandes', '<span class="code">scanf</span> leyó mal uno de los tres montos', 'Ninguno de los tres montos se guarda exacto en binario: la suma queda apenas por encima de 10000, el <span class="code">&gt;</span> da verdadero y <span class="code">%.2f</span> la muestra redondeada como 10000.00. Sumando centavos enteros el borde es exacto'],
+   c: 3,
+   ex: 'Es una corrida real, y con <span class="code">float</span> pasa lo mismo. 3253.42, 6119.89 y 626.69 no tienen representación binaria exacta: cada uno se guarda con un error ínfimo, y los errores de la suma pueden quedar para arriba. En <span class="code">double</span> el total queda en <b>10000.000000000002</b>: <span class="code">total &gt; 10000</span> es verdadero, y <span class="code">%.2f</span> lo imprime como <span class="code">10000.00</span>. ▸ No es <span class="code">&gt;=</span>: el programa ya usaba <span class="code">&gt;</span>, y con <span class="code">10000</span> tipeado solo no aplica descuento. ▸ <span class="code">%.2f</span> redondea bien; justamente por redondear bien esconde el error. ▸ <span class="code">scanf</span> lee cada monto al valor binario más cercano, que es todo lo que se puede. ▸ La salida es pasar cada monto a centavos, <span class="code">(long long) (monto * 100 + 0.5)</span>, y comparar el total entero contra 1.000.000: con eso la corrida da <span class="code">Total a pagar: $ 10000.00</span>, sin descuento.'},
+
   {st: 'El ejercicio del factorial dice "si no se puede calcular el factorial del valor recibido, la función deberá devolver 0". ¿Cuáles son los casos en que no se puede?',
    opts: ['Sólo el negativo', 'El negativo y el desborde: 21! ya no entra en un long long de 64 bits y el resultado sale silenciosamente falso', 'Sólo el cero', 'Ninguno, el factorial siempre se puede calcular'],
    c: 1,
