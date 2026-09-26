@@ -229,7 +229,7 @@ function pickQ(subject, unit, idx, picked){
     if (i === q.c) b.classList.add('ok');
     else if (i === picked) b.classList.add('ko');
   });
-  const title = correct ? '¡Correcto!' : 'Incorrecto — la correcta está en verde';
+  const title = correct ? '¡Correcto!' : 'Incorrecto. La correcta está en verde';
   const fbWrap = container.querySelector('.qex-fb-wrap');
   fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
   updateAllScores();
