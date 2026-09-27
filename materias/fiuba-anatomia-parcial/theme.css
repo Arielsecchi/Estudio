@@ -19,3 +19,111 @@
     --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
     --summary-bg: #3b1622; --summary-hover: #4d1d2d; --num-text: #1d0910;
   }
+
+  /* ===== Sección 8 · generador de simulacros ===== */
+  [data-subject="fiuba-anatomia-parcial"] .sim [hidden], [data-subject="fiuba-anatomia-parcial"] .sim-crono[hidden] { display: none !important; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-panel {
+    background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 10px;
+    padding: 14px 16px; margin: 14px 0 18px;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim .sim-btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+    padding: 10px 20px; border: 1px solid var(--accent); border-radius: 8px;
+    background: var(--accent); color: var(--num-text); font-family: inherit; font-size: 15px;
+    font-weight: 700; line-height: 1.3; text-align: center; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: background .15s, border-color .15s;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim .sim-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  [data-subject="fiuba-anatomia-parcial"] .sim .sim-btn:focus-visible,
+  [data-subject="fiuba-anatomia-parcial"] .sim .sim-opt:focus-visible,
+  [data-subject="fiuba-anatomia-parcial"] .sim .sim-ver:focus-visible,
+  [data-subject="fiuba-anatomia-parcial"] .sim-crono:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim .sim-btn.sim-confirmar { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-chk {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+    font-size: 14px; color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-chk input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-hist { margin-top: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-info { margin-top: 4px; font-size: 12.5px; line-height: 1.6; color: var(--text-muted); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-cab {
+    margin: 4px 0 6px; padding: 10px 14px; border-radius: 8px; background: var(--surface);
+    border: 1px solid var(--border-2); font-size: 13.5px; line-height: 1.6; outline: none;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-cab .sim-seguir { display: flex; margin-top: 8px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-h { align-items: center; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; line-height: 1.5; padding: 1px 9px;
+    border-radius: 999px; border: 1px solid var(--border-2); background: var(--surface-2);
+    color: var(--text-muted); white-space: nowrap;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-tag-real { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-tag-modelo { background: var(--ex-bg); color: var(--ex-title); border-color: var(--ex-border); }
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-opt.sim-opt {
+    display: flex; align-items: flex-start; gap: 10px; width: 100%; min-height: 44px; line-height: 1.5;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-letra {
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 22px; height: 22px; margin-top: -1px; border-radius: 50%; border: 1px solid var(--border-2);
+    font-size: 11px; font-weight: 700; color: var(--gold); background: var(--surface);
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-otxt { flex: 1; min-width: 0; }
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-opt.sim-sel,
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-opt.sim-sel:hover {
+    background: var(--surface-3); border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 600;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-opt.sim-sel .sim-letra { background: var(--accent); border-color: var(--accent); color: var(--num-text); }
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-opt.ok .sim-letra,
+  [data-subject="fiuba-anatomia-parcial"] .sim .qex-opt.ko .sim-letra { background: transparent; border-color: currentColor; color: inherit; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-donde { margin-top: 6px; font-weight: 600; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-nota { font-size: 13.5px; color: var(--text-muted); margin-bottom: 4px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-lbl { display: block; margin-top: 12px; font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-txt {
+    display: block; width: 100%; min-height: 10em; margin-top: 4px; padding: 10px 12px;
+    border: 1px solid var(--border-2); border-radius: 6px; background: var(--surface); color: var(--text);
+    font-family: inherit; font-size: 14px; line-height: 1.6; resize: vertical;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-txt:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-txt[readonly] { background: var(--surface-2); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-cuenta { margin-top: 4px; font-size: 12px; color: var(--text-muted); }
+  [data-subject="fiuba-anatomia-parcial"] .sim .rev-btn.sim-ver { min-height: 44px; padding: 10px 16px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-fuente { margin-top: 8px; font-size: 12.5px; line-height: 1.6; color: var(--text-muted); }
+  [data-subject="fiuba-anatomia-parcial"] .sim-pie {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;
+    margin-top: 18px; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border-2);
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-progreso { font-size: 13.5px; font-weight: 600; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-caja { margin-top: 16px; outline: none; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-caja p { margin: 6px 0; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-caja .ky-t,
+  [data-subject="fiuba-anatomia-parcial"] .sim-caja .ex-t,
+  [data-subject="fiuba-anatomia-parcial"] .sim-caja .tr-t { font-size: 16px; text-transform: none; letter-spacing: 0; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-clases { margin: 6px 0 8px 20px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-clases li { margin: 3px 0; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-caja .sim-btn { margin-top: 6px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-reglas { margin: 8px 0 12px 22px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-reglas li { margin: 6px 0; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-crono {
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 150;
+    display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 18px;
+    border: none; border-radius: 999px; background: var(--accent); color: var(--num-text);
+    font-family: inherit; font-size: 15px; font-variant-numeric: tabular-nums; cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .22); -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-anatomia-parcial"] .sim-crono b { font-size: 17px; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-crono-l { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; opacity: .9; }
+  [data-subject="fiuba-anatomia-parcial"] .sim-crono.sim-poco { background: #b91c1c; color: #ffffff; }
+  @media (max-width: 500px) {
+    [data-subject="fiuba-anatomia-parcial"] .sim-panel { padding: 12px; }
+    [data-subject="fiuba-anatomia-parcial"] .sim .sim-btn { width: 100%; }
+    [data-subject="fiuba-anatomia-parcial"] .sim-pie .sim-btn { width: 100%; }
+    [data-subject="fiuba-anatomia-parcial"] .sim-crono { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 6px 14px; }
+    [data-subject="fiuba-anatomia-parcial"] .sim-txt { font-size: 16px; }
+  }
+  [data-theme="dark"][data-subject="fiuba-anatomia-parcial"] .sim-txt { background: var(--bg); }
+  [data-theme="dark"][data-subject="fiuba-anatomia-parcial"] .sim-txt[readonly] { background: var(--surface-2); }
+  [data-theme="dark"][data-subject="fiuba-anatomia-parcial"] .sim-cab { background: var(--surface-2); }
+  [data-theme="dark"][data-subject="fiuba-anatomia-parcial"] .sim-letra { background: var(--surface-2); }
+  [data-theme="dark"][data-subject="fiuba-anatomia-parcial"] .sim-crono { box-shadow: 0 3px 14px rgba(0, 0, 0, .65); }
+  [data-theme="dark"][data-subject="fiuba-anatomia-parcial"] .sim-crono.sim-poco { background: #b91c1c; color: #ffffff; }
