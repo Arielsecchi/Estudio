@@ -14,7 +14,7 @@
     <li><a href="#falp-s7">Ej 4 · Producto interno: distancia, mejor aproximación, áreas</a></li>
     <li><a href="#falp-s8">Ej 5 · Cuadrados mínimos y fibra de la proyección</a></li>
     <li><a href="#falp-s9">Banco real · los 213 ejercicios de los 43 parciales</a></li>
-    <li><a href="#falp-s10">Simulacro · un parcial completo con su resolución</a></li>
+    <li><a href="#falp-s10">Simulacro · generá un parcial (nuevo o real)</a></li>
   </ol>
   <div class="score" id="global-score-fiuba-algebra-lineal-parcial">Puntaje: 0 / 0 correctas</div>
 </nav>
@@ -122,7 +122,7 @@ Con los datos hasta agosto de 2024 parecía que cuadrados mínimos se estaba yen
 <b>"Hallar <i>todos</i> los x tales que…"</b>: la respuesta es un conjunto. Si entregás un vector suelto donde hay dos o infinitos, respondiste otra pregunta.
 </div>
 
-<h3>Y si te toca la ecuación diferencial</h3>
+<h3 id="falp-s1-ed">Y si te toca la ecuación diferencial</h3>
 <p>Aparece 4 veces en los 213 ejercicios (ninguna en los 35 parciales desde 2023) y siempre es <b>lineal de segundo orden a coeficientes constantes</b>. En las dos fechas con encabezado (16/XI/21 y 14/XII/22) cae como <b>Ej 3</b>, en el lugar de proyecciones y simetrías; los dos exámenes sin encabezado no siguen el esqueleto y ahí aparece como Ej 4 y como Ej 2. La receta completa entra en diez renglones: pasás todo a la forma y'' + p·y' + q·y = f(x) ▸ resolvés r² + p·r + q = 0 ▸ armás y<sub>h</sub> según las raíces (reales distintas: C₁e<sup>r₁x</sup> + C₂e<sup>r₂x</sup>; doble: (C₁ + C₂x)e<sup>rx</sup>; complejas α ± βi: e<sup>αx</sup>(C₁cos βx + C₂sen βx)) ▸ si f ≠ 0 proponés y<sub>p</sub> de la misma familia que f, multiplicada por x<sup>s</sup> con s = multiplicidad del <b>exponente crítico de f</b> como raíz característica ▸ derivás, igualás coeficientes ▸ y recién sobre y<sub>h</sub> + y<sub>p</sub> imponés y(0) e y'(0).</p>
 
 <div class="trap"><div class="tr-t">En las dos ecuaciones no homogéneas del corpus hay resonancia. En las dos.</div>
@@ -696,7 +696,7 @@ Calculá el residuo r = b − Ax̂ y verificá <b>Aᵀr = 0</b>, es decir que r 
 <summary><span class="num">9</span> Banco real · los 213 ejercicios de los 43 parciales <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-9"></span></summary>
 <div class="content">
 
-<p>Los <b>213 ejercicios</b> de los <b>43 parciales</b> relevados, transcriptos <b>verbatim</b> y resueltos. Salen de dos fuentes: 103 son de los 21 parciales que esta guía reunió primero (de 2021 a 2024, más dos sin fecha) y 110 son de los 22 parciales de la compilación «Ejercicios Primer Parcial» que la cátedra publicó en el campus el 14/9/2026, que va del 6/XI/24 al 5/VIII/26 y cubre cuatro cuatrimestres (2C2024, 1C2025, 2C2025 y 1C2026). Los 110 nuevos se resolvieron, se verificaron con sympy y se revisaron resolviéndolos de nuevo a ciegas. Cada ejercicio lleva su referencia, fecha del examen y número de ejercicio, para que puedas reconstruir cualquier fecha completa. Están agrupados por tipo, no por examen: el objetivo es que hagas seis seguidos del mismo tipo y le agarres el mecanismo, no que simules una fecha (para eso está la sección 10).</p>
+<p>Los <b>213 ejercicios</b> de los <b>43 parciales</b> relevados, transcriptos <b>verbatim</b> y resueltos. Salen de dos fuentes: 103 son de los 21 parciales que esta guía reunió primero (de 2021 a 2024, más dos sin fecha) y 110 son de los 22 parciales de la compilación «Ejercicios Primer Parcial» que la cátedra publicó en el campus el 14/9/2026, que va del 6/XI/24 al 5/VIII/26 y cubre cuatro cuatrimestres (2C2024, 1C2025, 2C2025 y 1C2026). Los 110 nuevos se resolvieron, se verificaron con sympy y se revisaron resolviéndolos de nuevo a ciegas. Cada ejercicio lleva su referencia, fecha del examen y número de ejercicio. Están agrupados por tipo, no por examen: el objetivo es que hagas seis seguidos del mismo tipo y le agarres el mecanismo. Para hacer una fecha completa, o un parcial nuevo armado con estos mismos ejercicios, está el generador de la <b>sección 10</b>.</p>
 
 <table class="tbl">
 <tr><th>Bloque</th><th>Tipo</th><th>Ejercicios</th><th>De los 22 nuevos</th><th>Posición en el banco</th></tr>
@@ -726,10 +726,56 @@ Los seis son buenos ejercicios de justificación, que es exactamente lo que las 
 </div>
 </details>
 
-<!-- ============ 10 · SIMULACRO ============ -->
+<!-- ============ 10 · SIMULACRO: GENERADOR Y SIMULACRO DE LA GUÍA ============ -->
 <details id="falp-s10">
-<summary><span class="num">10</span> Simulacro · un parcial completo con su resolución <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-10"></span></summary>
+<summary><span class="num">10</span> Simulacro · generá un parcial (nuevo o real) <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-10"></span><span class="sim-estado" id="falp-sim-estado"></span></summary>
 <div class="content">
+
+<div class="key"><div class="ky-t">Un parcial distinto cada vez que tocás el botón</div>
+Arma un primer parcial de <b>5 problemas</b> con los <b>ejercicios reales</b> del banco de la sección 9, de dos formas. <b>Parcial nuevo</b>: cada posición sale de un examen distinto, respetando el orden de temas que elijas. Por defecto sortea entre los dos órdenes probables para el 21/10 según la sección 1: <b>ABECD</b>, el del último segundo cuatrimestre, y <b>FABEC</b>, el del 1C2026. <b>Parcial real</b>: una de las fechas completas, tal cual se tomó. Los enunciados aparecen sin el tipo ni la fecha, así practicás también el primer paso del examen, que es leer los cinco y clasificarlos. Al terminar se revela la resolución de cada uno, te corregís con la regla del curso y te dice qué repasar.
+</div>
+
+<div class="sim" id="falp-sim">
+<div class="sim-panel">
+  <div class="sim-modos" role="radiogroup" aria-label="Qué parcial armar">
+    <label class="sim-modo"><input type="radio" name="falp-sim-modo" value="nuevo" checked> Parcial nuevo</label>
+    <label class="sim-modo"><input type="radio" name="falp-sim-modo" value="real"> Parcial real</label>
+  </div>
+  <div class="sim-campo" id="falp-sim-campo-nuevo">
+    <label for="falp-sim-esq">Orden de los temas</label>
+    <select id="falp-sim-esq">
+      <option value="dos">Al azar entre ABECD y FABEC</option>
+      <option value="ABECD">ABECD, como el 2C2025</option>
+      <option value="FABEC">FABEC, como el 1C2026</option>
+      <option value="real">Cualquier orden real desde 2023</option>
+    </select>
+  </div>
+  <div class="sim-campo" id="falp-sim-campo-real" hidden>
+    <label for="falp-sim-fecha">Fecha</label>
+    <select id="falp-sim-fecha"><option value="">Una al azar, sin repetir</option></select>
+  </div>
+  <div class="sim-acciones">
+    <button type="button" class="sim-btn" id="falp-sim-generar">Generar parcial</button>
+    <label class="sim-chk"><input type="checkbox" id="falp-sim-crono-chk"> Con cronómetro de 3 horas</label>
+  </div>
+  <div class="sim-hist" id="falp-sim-hist"></div>
+  <div class="sim-info" id="falp-sim-info"></div>
+</div>
+<div id="falp-sim-out"></div>
+<div class="sim-aviso" id="falp-sim-aviso" aria-live="polite"></div>
+</div>
+
+<h3>Cómo sacarle provecho</h3>
+<ol class="sim-reglas">
+  <li><b>En papel y a libro cerrado</b>, con tus 4 carillas y la calculadora, como el día del parcial. Si podés, de un tirón y con el cronómetro.</li>
+  <li><b>Diez minutos leyendo los cinco</b> y anotando al lado de cada uno de qué tipo es y si es <span class="code">seguro</span>, <span class="code">creo</span> o <span class="code">ni idea</span>, como en la sección 1. Al corregir se muestra el tipo de cada uno: fijate si lo clasificaste bien.</li>
+  <li><b>Tres cerrados antes de tocar el cuarto.</b> Se aprueba con 3 de 5, y cinco a medias reprueba.</li>
+  <li><b>Corregite como corrige la cátedra.</b> No hay crédito por planteo: si quedó a medias, con una cuenta mal o sin la respuesta escrita, marcalo como <b>No me salió</b>.</li>
+  <li><b>Mirá qué tipo fallaste, no sólo cuántos.</b> Cada error te dice qué sección repasar y en qué bloque del banco hacer seis seguidos.</li>
+</ol>
+<p class="muted">Los ejercicios y sus resoluciones salen del banco de la sección 9. En el parcial nuevo nunca salen dos del mismo examen y se evitan los de tus tres parciales anteriores. En el parcial real, "al azar" elige una fecha que todavía no corregiste, y cuando ya hiciste todas empieza otra vuelta. El resultado lo marcás vos, y tus últimos resultados quedan guardados sólo en este navegador.</p>
+
+<h3>El simulacro de la guía, resuelto</h3>
 
 <p>Cinco problemas nuevos, que no están en ninguna fecha real, armados con el esqueleto <b>ABECD</b>: subespacios en el 1, transformación lineal en el 2, proyección en el 3, producto interno en el 4 y fibra de la proyección en el 5. Es el esqueleto del último segundo cuatrimestre (3 de los 4 parciales del 2C2025). Si tu parcial viene con el orden del 1C2026 (FABEC), el Ej 1 de este simulacro pasa a ser tu Ej 2, la fibra no está y te falta un ejercicio de coordenadas: sumale uno de los 13 del bloque F del banco (sección 9) y dejá la fibra como extra. Los números están elegidos como los elige la cátedra: enteros chicos, matrices de rango deficiente, resultados que cierran. <b>Todas las cuentas fueron verificadas con sympy.</b></p>
 

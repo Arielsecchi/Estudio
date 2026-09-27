@@ -83,6 +83,139 @@
     --summary-bg: #103a49; --summary-hover: #154a5c; --num-text: #06222c;
   }
 
+  /* ===== Sección 10 · generador de parciales ===== */
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim [hidden], [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono[hidden] { display: none !important; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-estado { margin-left: 8px; font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-estado:empty { display: none; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-panel {
+    background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 10px;
+    padding: 14px 16px; margin: 14px 0 18px;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-modos {
+    display: inline-flex; border: 1px solid var(--accent); border-radius: 8px; overflow: hidden; max-width: 100%;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-modo {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+    padding: 8px 18px; background: var(--surface); color: var(--accent); font-size: 14.5px; font-weight: 700;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-modo + .sim-modo { border-left: 1px solid var(--accent); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-modo input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-modo.sim-modo-on { background: var(--accent); color: var(--num-text); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-modos:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-campo { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 12px 0 4px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-campo label { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-campo select {
+    min-height: 44px; max-width: 100%; padding: 8px 12px; border: 1px solid var(--border-2); border-radius: 8px;
+    background: var(--surface); color: var(--text); font-family: inherit; font-size: 15px; cursor: pointer;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-campo select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 10px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+    padding: 10px 20px; border: 1px solid var(--accent); border-radius: 8px;
+    background: var(--accent); color: var(--num-text); font-family: inherit; font-size: 15px;
+    font-weight: 700; line-height: 1.3; text-align: center; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: background .15s, border-color .15s;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-btn:focus-visible,
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-ver:focus-visible,
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-marca:focus-visible,
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-btn.sim-confirmar { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-chk {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+    font-size: 14px; color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-chk input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-hist { margin-top: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-info { margin-top: 4px; font-size: 12.5px; line-height: 1.6; color: var(--text); opacity: .8; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim a, [data-subject="fiuba-algebra-lineal-parcial"] .sim a:visited { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-aviso { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  [data-subject="fiuba-algebra-lineal-parcial"] body.falp-fijo-on { padding-bottom: 76px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-volver[hidden] { display: none !important; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-volver {
+    position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 150;
+    display: flex; align-items: center; min-height: 44px; padding: 8px 18px; border: 1px solid var(--accent);
+    border-radius: 999px; background: var(--surface); color: var(--accent); font-family: inherit; font-size: 15px;
+    font-weight: 700; cursor: pointer; box-shadow: 0 3px 12px rgba(0, 0, 0, .18); -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-volver:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-cab {
+    margin: 4px 0 10px; padding: 10px 14px; border-radius: 8px; background: var(--surface);
+    border: 1px solid var(--border-2); font-size: 13.5px; line-height: 1.6; outline: none;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-hoja {
+    padding: 10px 14px; border: 1px solid var(--border-2); border-left: 4px solid var(--accent); border-radius: 8px;
+    background: var(--surface);
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-hoja-t { font-size: 14px; font-weight: 700; color: var(--text); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-hoja-s { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .qex-h { align-items: center; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-e .qex-st { overflow-wrap: break-word; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-tag {
+    display: inline-block; font-size: 11.5px; font-weight: 600; line-height: 1.5; padding: 1px 10px;
+    border-radius: 999px; border: 1px solid var(--ex-border); background: var(--ex-bg); color: var(--ex-title);
+    text-align: right;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .rev-btn.sim-ver { min-height: 44px; padding: 10px 16px; font-size: 14px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-fuente { margin-top: 8px; font-size: 12.5px; line-height: 1.6; color: var(--text-muted); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-marcas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-marca {
+    flex: 1 1 140px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--border-2); border-radius: 8px;
+    background: var(--surface); color: var(--text); font-family: inherit; font-size: 14px; font-weight: 600;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-marca:disabled { opacity: .5; cursor: default; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-marca-si[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); box-shadow: inset 0 0 0 1px var(--ok-border); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-marca-no[aria-pressed="true"] { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); box-shadow: inset 0 0 0 1px var(--ko-border); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-marca-nota { margin-top: 6px; font-size: 12px; color: var(--text-muted); }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-e.revealed .sim-marca-nota { display: none; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-pie {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;
+    margin-top: 18px; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border-2);
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-progreso { font-size: 13.5px; font-weight: 600; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-caja { margin-top: 16px; outline: none; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-caja p { margin: 6px 0; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-caja .ky-t,
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-caja .ex-t,
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-caja .tr-t { font-size: 16px; text-transform: none; letter-spacing: 0; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-clases { margin: 6px 0 8px 20px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-clases li { margin: 3px 0; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-caja .sim-btn { margin-top: 6px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-reglas { margin: 8px 0 12px 22px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-reglas li { margin: 6px 0; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono {
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 150;
+    display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 18px;
+    border: none; border-radius: 999px; background: var(--accent); color: var(--num-text);
+    font-family: inherit; font-size: 15px; font-variant-numeric: tabular-nums; cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .22); -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono b { font-size: 17px; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono-l { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; opacity: .9; }
+  [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono.sim-poco { background: #b91c1c; color: #ffffff; }
+  /* El enunciado del simulacro de la guía corta renglón en vez de salirse de la pantalla. */
+  [data-subject="fiuba-algebra-lineal-parcial"] #falp-s10 pre.code-block { white-space: pre-wrap; overflow-wrap: break-word; }
+  @media (max-width: 500px) {
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim-panel { padding: 12px; }
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim-modos { display: flex; }
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim-modo { flex: 1 1 0; padding: 8px 10px; }
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim-campo select { width: 100%; }
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim .sim-btn { width: 100%; }
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim-crono { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 6px 14px; }
+    [data-subject="fiuba-algebra-lineal-parcial"] .sim-volver { left: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 6px 14px; font-size: 14px; }
+  }
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-campo select,
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-cab,
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-hoja { background: var(--bg); }
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-crono,
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-volver { box-shadow: 0 3px 14px rgba(0, 0, 0, .65); }
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-volver { background: var(--surface-2); }
+  [data-theme="dark"][data-subject="fiuba-algebra-lineal-parcial"] .sim-crono.sim-poco { background: #b91c1c; color: #ffffff; }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -1542,7 +1675,7 @@
     <li><a href="#falp-s7">Ej 4 · Producto interno: distancia, mejor aproximación, áreas</a></li>
     <li><a href="#falp-s8">Ej 5 · Cuadrados mínimos y fibra de la proyección</a></li>
     <li><a href="#falp-s9">Banco real · los 213 ejercicios de los 43 parciales</a></li>
-    <li><a href="#falp-s10">Simulacro · un parcial completo con su resolución</a></li>
+    <li><a href="#falp-s10">Simulacro · generá un parcial (nuevo o real)</a></li>
   </ol>
   <div class="score" id="global-score-fiuba-algebra-lineal-parcial">Puntaje: 0 / 0 correctas</div>
 </nav>
@@ -1650,7 +1783,7 @@ Con los datos hasta agosto de 2024 parecía que cuadrados mínimos se estaba yen
 <b>"Hallar <i>todos</i> los x tales que…"</b>: la respuesta es un conjunto. Si entregás un vector suelto donde hay dos o infinitos, respondiste otra pregunta.
 </div>
 
-<h3>Y si te toca la ecuación diferencial</h3>
+<h3 id="falp-s1-ed">Y si te toca la ecuación diferencial</h3>
 <p>Aparece 4 veces en los 213 ejercicios (ninguna en los 35 parciales desde 2023) y siempre es <b>lineal de segundo orden a coeficientes constantes</b>. En las dos fechas con encabezado (16/XI/21 y 14/XII/22) cae como <b>Ej 3</b>, en el lugar de proyecciones y simetrías; los dos exámenes sin encabezado no siguen el esqueleto y ahí aparece como Ej 4 y como Ej 2. La receta completa entra en diez renglones: pasás todo a la forma y'' + p·y' + q·y = f(x) ▸ resolvés r² + p·r + q = 0 ▸ armás y<sub>h</sub> según las raíces (reales distintas: C₁e<sup>r₁x</sup> + C₂e<sup>r₂x</sup>; doble: (C₁ + C₂x)e<sup>rx</sup>; complejas α ± βi: e<sup>αx</sup>(C₁cos βx + C₂sen βx)) ▸ si f ≠ 0 proponés y<sub>p</sub> de la misma familia que f, multiplicada por x<sup>s</sup> con s = multiplicidad del <b>exponente crítico de f</b> como raíz característica ▸ derivás, igualás coeficientes ▸ y recién sobre y<sub>h</sub> + y<sub>p</sub> imponés y(0) e y'(0).</p>
 
 <div class="trap"><div class="tr-t">En las dos ecuaciones no homogéneas del corpus hay resonancia. En las dos.</div>
@@ -2224,7 +2357,7 @@ Calculá el residuo r = b − Ax̂ y verificá <b>Aᵀr = 0</b>, es decir que r 
 <summary><span class="num">9</span> Banco real · los 213 ejercicios de los 43 parciales <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-9"></span></summary>
 <div class="content">
 
-<p>Los <b>213 ejercicios</b> de los <b>43 parciales</b> relevados, transcriptos <b>verbatim</b> y resueltos. Salen de dos fuentes: 103 son de los 21 parciales que esta guía reunió primero (de 2021 a 2024, más dos sin fecha) y 110 son de los 22 parciales de la compilación «Ejercicios Primer Parcial» que la cátedra publicó en el campus el 14/9/2026, que va del 6/XI/24 al 5/VIII/26 y cubre cuatro cuatrimestres (2C2024, 1C2025, 2C2025 y 1C2026). Los 110 nuevos se resolvieron, se verificaron con sympy y se revisaron resolviéndolos de nuevo a ciegas. Cada ejercicio lleva su referencia, fecha del examen y número de ejercicio, para que puedas reconstruir cualquier fecha completa. Están agrupados por tipo, no por examen: el objetivo es que hagas seis seguidos del mismo tipo y le agarres el mecanismo, no que simules una fecha (para eso está la sección 10).</p>
+<p>Los <b>213 ejercicios</b> de los <b>43 parciales</b> relevados, transcriptos <b>verbatim</b> y resueltos. Salen de dos fuentes: 103 son de los 21 parciales que esta guía reunió primero (de 2021 a 2024, más dos sin fecha) y 110 son de los 22 parciales de la compilación «Ejercicios Primer Parcial» que la cátedra publicó en el campus el 14/9/2026, que va del 6/XI/24 al 5/VIII/26 y cubre cuatro cuatrimestres (2C2024, 1C2025, 2C2025 y 1C2026). Los 110 nuevos se resolvieron, se verificaron con sympy y se revisaron resolviéndolos de nuevo a ciegas. Cada ejercicio lleva su referencia, fecha del examen y número de ejercicio. Están agrupados por tipo, no por examen: el objetivo es que hagas seis seguidos del mismo tipo y le agarres el mecanismo. Para hacer una fecha completa, o un parcial nuevo armado con estos mismos ejercicios, está el generador de la <b>sección 10</b>.</p>
 
 <table class="tbl">
 <tr><th>Bloque</th><th>Tipo</th><th>Ejercicios</th><th>De los 22 nuevos</th><th>Posición en el banco</th></tr>
@@ -2254,10 +2387,56 @@ Los seis son buenos ejercicios de justificación, que es exactamente lo que las 
 </div>
 </details>
 
-<!-- ============ 10 · SIMULACRO ============ -->
+<!-- ============ 10 · SIMULACRO: GENERADOR Y SIMULACRO DE LA GUÍA ============ -->
 <details id="falp-s10">
-<summary><span class="num">10</span> Simulacro · un parcial completo con su resolución <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-10"></span></summary>
+<summary><span class="num">10</span> Simulacro · generá un parcial (nuevo o real) <span class="sec-score" id="ss-fiuba-algebra-lineal-parcial-10"></span><span class="sim-estado" id="falp-sim-estado"></span></summary>
 <div class="content">
+
+<div class="key"><div class="ky-t">Un parcial distinto cada vez que tocás el botón</div>
+Arma un primer parcial de <b>5 problemas</b> con los <b>ejercicios reales</b> del banco de la sección 9, de dos formas. <b>Parcial nuevo</b>: cada posición sale de un examen distinto, respetando el orden de temas que elijas. Por defecto sortea entre los dos órdenes probables para el 21/10 según la sección 1: <b>ABECD</b>, el del último segundo cuatrimestre, y <b>FABEC</b>, el del 1C2026. <b>Parcial real</b>: una de las fechas completas, tal cual se tomó. Los enunciados aparecen sin el tipo ni la fecha, así practicás también el primer paso del examen, que es leer los cinco y clasificarlos. Al terminar se revela la resolución de cada uno, te corregís con la regla del curso y te dice qué repasar.
+</div>
+
+<div class="sim" id="falp-sim">
+<div class="sim-panel">
+  <div class="sim-modos" role="radiogroup" aria-label="Qué parcial armar">
+    <label class="sim-modo"><input type="radio" name="falp-sim-modo" value="nuevo" checked> Parcial nuevo</label>
+    <label class="sim-modo"><input type="radio" name="falp-sim-modo" value="real"> Parcial real</label>
+  </div>
+  <div class="sim-campo" id="falp-sim-campo-nuevo">
+    <label for="falp-sim-esq">Orden de los temas</label>
+    <select id="falp-sim-esq">
+      <option value="dos">Al azar entre ABECD y FABEC</option>
+      <option value="ABECD">ABECD, como el 2C2025</option>
+      <option value="FABEC">FABEC, como el 1C2026</option>
+      <option value="real">Cualquier orden real desde 2023</option>
+    </select>
+  </div>
+  <div class="sim-campo" id="falp-sim-campo-real" hidden>
+    <label for="falp-sim-fecha">Fecha</label>
+    <select id="falp-sim-fecha"><option value="">Una al azar, sin repetir</option></select>
+  </div>
+  <div class="sim-acciones">
+    <button type="button" class="sim-btn" id="falp-sim-generar">Generar parcial</button>
+    <label class="sim-chk"><input type="checkbox" id="falp-sim-crono-chk"> Con cronómetro de 3 horas</label>
+  </div>
+  <div class="sim-hist" id="falp-sim-hist"></div>
+  <div class="sim-info" id="falp-sim-info"></div>
+</div>
+<div id="falp-sim-out"></div>
+<div class="sim-aviso" id="falp-sim-aviso" aria-live="polite"></div>
+</div>
+
+<h3>Cómo sacarle provecho</h3>
+<ol class="sim-reglas">
+  <li><b>En papel y a libro cerrado</b>, con tus 4 carillas y la calculadora, como el día del parcial. Si podés, de un tirón y con el cronómetro.</li>
+  <li><b>Diez minutos leyendo los cinco</b> y anotando al lado de cada uno de qué tipo es y si es <span class="code">seguro</span>, <span class="code">creo</span> o <span class="code">ni idea</span>, como en la sección 1. Al corregir se muestra el tipo de cada uno: fijate si lo clasificaste bien.</li>
+  <li><b>Tres cerrados antes de tocar el cuarto.</b> Se aprueba con 3 de 5, y cinco a medias reprueba.</li>
+  <li><b>Corregite como corrige la cátedra.</b> No hay crédito por planteo: si quedó a medias, con una cuenta mal o sin la respuesta escrita, marcalo como <b>No me salió</b>.</li>
+  <li><b>Mirá qué tipo fallaste, no sólo cuántos.</b> Cada error te dice qué sección repasar y en qué bloque del banco hacer seis seguidos.</li>
+</ol>
+<p class="muted">Los ejercicios y sus resoluciones salen del banco de la sección 9. En el parcial nuevo nunca salen dos del mismo examen y se evitan los de tus tres parciales anteriores. En el parcial real, "al azar" elige una fecha que todavía no corregiste, y cuando ya hiciste todas empieza otra vuelta. El resultado lo marcás vos, y tus últimos resultados quedan guardados sólo en este navegador.</p>
+
+<h3>El simulacro de la guía, resuelto</h3>
 
 <p>Cinco problemas nuevos, que no están en ninguna fecha real, armados con el esqueleto <b>ABECD</b>: subespacios en el 1, transformación lineal en el 2, proyección en el 3, producto interno en el 4 y fibra de la proyección en el 5. Es el esqueleto del último segundo cuatrimestre (3 de los 4 parciales del 2C2025). Si tu parcial viene con el orden del 1C2026 (FABEC), el Ej 1 de este simulacro pasa a ser tu Ej 2, la fibra no está y te falta un ejercicio de coordenadas: sumale uno de los 13 del bloque F del banco (sección 9) y dejá la fibra como extra. Los números están elegidos como los elige la cátedra: enteros chicos, matrices de rango deficiente, resultados que cierran. <b>Todas las cuentas fueron verificadas con sympy.</b></p>
 
@@ -2629,7 +2808,8 @@ function revealAns(subject, unit, idx){
 // Sección 9 = los 213 ejercicios REALES de 43 parciales (nov 2021 a ago 2026), verbatim:
 //   103 de los 21 parciales reunidos primero y 110 de los 22 de la compilación
 //   «Ejercicios Primer Parcial» que publicó la cátedra en el campus el 14/9/2026.
-// Sección 10 = simulacro propio, con el esqueleto ABECD (el del 2C2025).
+// Sección 10 = generador de parciales con el banco de la sección 9 (al final de este archivo)
+//   y un simulacro propio, con el esqueleto ABECD (el del 2C2025).
 // Todas las cuentas verificadas con sympy 1.14.0.
 // Notación: Unicode. Derivadas con prima tipográfica (′) para no escapar.
 // ==========================================================================
@@ -3132,7 +3312,7 @@ registerReveals('fiuba-algebra-lineal-parcial', '9', [
  ans: '[p]<sub>B₂</sub> = [10 13 13]ᵀ.',
  sol: '<b>Declaro el orden:</b> uso E = {1, x, x²}, y no lo muevo. Con ese orden B₁ = {(1,1,1), (0,1,1), (0,0,1)} y p = (1, 3, 6). ▸ <b>Coordenadas en B₁:</b> a(1,1,1) + b(0,1,1) + c(0,0,1) = (1,3,6). Primera componente: a = 1. Segunda: a + b = 3 ⟹ b = 2. Tercera: a + b + c = 6 ⟹ c = 3. Verificación: (x²+x+1) + 2(x²+x) + 3x² = 6x² + 3x + 1 ✓. [p]<sub>B₁</sub> = (1,2,3)ᵀ. ▸ <b>Multiplico:</b> M·(1,2,3)ᵀ = <b>(10, 13, 13)ᵀ</b>. ▸ <b>Nota:</b> da lo mismo que el 18/XI/23 porque es literalmente el mismo ejercicio traducido a polinomios, pero <b>no</b> da lo mismo que el 5/VII/23, que también usa esta M. Copiar el resultado de otra fecha es la trampa del tipo. Y la respuesta es el vector de coordenadas: escribir "10 + 13x + 13x²" es leerlas en la canónica, que es otra base.'},
 
-{st: '<b>TIPO F · 5/VII/23 (2.º recuperatorio) · Ej 1.</b> Sea B₁ la base de ℝ₂[x] definida por B₁ = {x², x² + x [en el original hay un tramo tapado por una mancha], x² + x + 1}, y sea B₂ la base de ℝ₂[x] tal que la matriz de cambio de coordenadas de la base B₁ en la base B₂ es M<sup>B₂</sup><sub>B₁</sub> = [[3,2,1],[1,3,2],[2,1,3]]. Hallar el vector de coordenadas de p = x² + 3x + 6 en base B₂.',
+{st: '<b>TIPO F · 5/VII/23 (2.º recuperatorio) · Ej 1.</b> Sea B₁ la base de ℝ₂[x] definida por B₁ = {x², x² + x [en el original hay un tramo tapado con corrector; vale x² + x, que es lo que usa la resolución], x² + x + 1}, y sea B₂ la base de ℝ₂[x] tal que la matriz de cambio de coordenadas de la base B₁ en la base B₂ es M<sup>B₂</sup><sub>B₁</sub> = [[3,2,1],[1,3,2],[2,1,3]]. Hallar el vector de coordenadas de p = x² + 3x + 6 en base B₂.',
  ans: '[p]<sub>B₂</sub> = [−6 1 11]ᵀ. El tramo tapado se reconstruye: el segundo polinomio tiene que ser x² + x, porque si fuera x² + x + 1 repetiría al tercero y B₁ no sería base.',
  sol: '<b>Reconstrucción del ilegible:</b> B₁ tiene que ser <i>base</i>, así que sus tres polinomios son LI; con x² y x²+x+1 ya fijos, el del medio no puede ser ninguno de los dos. La lectura razonable (la única que respeta el patrón escalonado que la cátedra usa en el 18/XI/23 y el 20/V/23) es <b>x² + x</b>; el argumento de independencia descarta x² + x + 1, pero no otros x² + x + c, así que esto es una reconstrucción, no una certeza. Esto hay que escribirlo: es exactamente el tipo de justificación que la cátedra puede pedir en el oral. ▸ <b>Orden:</b> E = {1, x, x²}. B₁ = {(0,0,1), (0,1,1), (1,1,1)} y p = (6, 3, 1). ▸ <b>Coordenadas en B₁:</b> a(0,0,1) + b(0,1,1) + c(1,1,1) = (6,3,1). Primera: c = 6. Segunda: b + c = 3 ⟹ b = −3. Tercera: a + b + c = 1 ⟹ a = −2. Verificación: −2x² − 3(x²+x) + 6(x²+x+1) = x² + 3x + 6 ✓. [p]<sub>B₁</sub> = (−2, −3, 6)ᵀ. ▸ <b>Multiplico:</b> M·(−2,−3,6)ᵀ = (−6−6+6, −2−9+12, −4−3+18)ᵀ = <b>(−6, 1, 11)ᵀ</b>. ▸ <b>Mezclar los órdenes</b> (B₁ en uno y p en el otro) da [p]<sub>B₁</sub> = (3,2,1)ᵀ y termina en (14,11,11)ᵀ; saltearse las coordenadas y multiplicar M por los coeficientes crudos da (15,22,23)ᵀ o (25,17,18)ᵀ, según el orden. Por eso se declara E en el margen y no se toca más.'},
 
@@ -3199,7 +3379,7 @@ registerReveals('fiuba-algebra-lineal-parcial', '9', [
  ans: 'T(S) = gen{[6 5 4]ᵀ}, de dimensión 1.',
  sol: '<b>Lectura:</b> [T(p)]<sup>B₂</sup> = A·[p]<sup>B₁</sup>, con A de 3×4 (4 columnas = dim ℝ₃[x], 3 filas = dim ℝ³ ✓). Hay que pasar a coordenadas en B₁ a la entrada y reconstruir con B₂ a la salida. ▸ <b>Coordenadas en B₁ = {x³ + 1, x² + x, x, x + 1}:</b> x³ + x + 1 = 1·(x³ + 1) + 1·x, así que [x³ + x + 1]<sup>B₁</sup> = (1,0,1,0). Y x² = (x² + x) − x, así que [x²]<sup>B₁</sup> = (0,1,−1,0). ▸ <b>Multiplico:</b> A·(1,0,1,0)ᵀ = (1 + 1, 0 + 2, 1 + 3)ᵀ = (2,2,4)ᵀ; A·(0,1,−1,0)ᵀ = (0 − 1, 1 − 2, 1 − 3)ᵀ = (−1,−1,−2)ᵀ. ▸ <b>Reconstruyo con B₂:</b> T(x³ + x + 1) = 2(1,1,1) + 2(1,2,1) + 4(2,1,1) = <b>(12, 10, 8)</b>; T(x²) = −(1,1,1) − (1,2,1) − 2(2,1,1) = <b>(−6, −5, −4)</b>. ▸ <b>Son proporcionales</b> (la segunda es −1/2 de la primera), así que <b>T(S) = gen{[6 5 4]ᵀ}</b>, dim 1. S tenía dimensión 2 y colapsa porque x³ + 2x² + x + 1 = (x³ + x + 1) + 2x² está en Nu(T): sus coordenadas (1,2,−1,0) dan A·(1,2,−1,0)ᵀ = 0. ▸ <b>Ojo:</b> A tiene rango 3 (T es sobreyectiva), así que el colapso no se anticipa mirando el rango; hay que hacer las cuentas. ▸ <b>Error clásico:</b> contestar gen{(2,2,4)ᵀ}: esas son las coordenadas en B₂, no la imagen. <span class="muted">Verificado con sympy.</span>'},
 
-{st: '<b>TIPO B · 22/5/25, 9 hs · Ej 2.</b> Sea T : ℝ₃[x] → ℝ³ la transformación lineal definida por [T]<sub>B₁</sub><sup>B₂</sup> = [[1,0,1,−1],[0,1,2,1],[1,1,3,0]], donde B₁ y B₂ son las bases definidas por B₁ = {x³ − x, x² + x [ilegible: el exponente de este término está borroso; se lee 2, ver nota], −x² + x, 1}, B₂ = {[1 1 1]ᵀ, [1 2 1]ᵀ, [2 1 1]ᵀ}. Si S = gen{x³ − x² + 1, 2x + 1}, hallar T(S).',
+{st: '<b>TIPO B · 22/5/25, 9 hs · Ej 2.</b> Sea T : ℝ₃[x] → ℝ³ la transformación lineal definida por [T]<sub>B₁</sub><sup>B₂</sup> = [[1,0,1,−1],[0,1,2,1],[1,1,3,0]], donde B₁ y B₂ son las bases definidas por B₁ = {x³ − x, x² + x [en el original el exponente está borroso: se lee x² + x; con la otra lectura posible, x³ + x, T(S) da lo mismo], −x² + x, 1}, B₂ = {[1 1 1]ᵀ, [1 2 1]ᵀ, [2 1 1]ᵀ}. Si S = gen{x³ − x² + 1, 2x + 1}, hallar T(S).',
  ans: 'T(S) = gen{[12 11 8]ᵀ, [3 3 2]ᵀ} = {x ∈ ℝ³ : 2x₁ − 3x₃ = 0}, que es toda Im(T).',
  sol: '<span class="muted"><b>Lectura del escaneo.</b> En B₁ el segundo polinomio aparece como «x^? + x» con el exponente muy desvaído (el escaneo es de ~140 dpi efectivos y no se recupera más detalle con zoom). La forma del glifo se parece más a un 2 que a un 3: la mitad inferior termina en un trazo horizontal como el 2 de −x² de la misma línea, no en el cuenco inferior del 3 de x³. En la misma posición usan x² + x el 22/5/25 (14 hs) y, sobre todo, el 21/5/25 (9 hs), cuyo B₁ = {x³ − x + 1, x² + x, −x² + x, 1} es casi idéntico a este; se transcribió x² + x. Con x³ + x la base también sería válida, pero T(S) da exactamente el mismo resultado (verificado con sympy), así que la respuesta final no depende de la lectura.</span> ▸ <b>Lectura y rango:</b> [T(p)]<sup>B₂</sup> = A·[p]<sup>B₁</sup>. La tercera fila es la suma de las dos primeras ((1,0,1,−1) + (0,1,2,1) = (1,1,3,0)), así que rg A = 2 y dim Im(T) = 2. ▸ <b>Coordenadas en B₁ = {x³ − x, x² + x, −x² + x, 1}:</b> planteo a(x³ − x) + b(x² + x) + c(−x² + x) + d. Para x³ − x² + 1: x³ da a = 1; x² da b − c = −1; x da −a + b + c = 0, o sea b + c = 1; el término independiente da d = 1. Sale (1,0,1,1). Para 2x + 1: a = 0, b − c = 0, b + c = 2, d = 1, o sea (0,1,1,1). ▸ <b>Multiplico:</b> A·(1,0,1,1)ᵀ = (1 + 1 − 1, 0 + 2 + 1, 1 + 3 + 0)ᵀ = (1,3,4)ᵀ y A·(0,1,1,1)ᵀ = (0 + 1 − 1, 1 + 2 + 1, 1 + 3 + 0)ᵀ = (0,4,4)ᵀ. ▸ <b>Reconstruyo con B₂:</b> T(x³ − x² + 1) = (1,1,1) + 3(1,2,1) + 4(2,1,1) = <b>(12, 11, 8)</b>; T(2x + 1) = 4(1,2,1) + 4(2,1,1) = (12, 12, 8) = 4·<b>(3, 3, 2)</b>. ▸ <b>Son LI</b>, así que dim T(S) = 2. La normal es (12,11,8) × (3,3,2) = (−2, 0, 3): <b>T(S) = {x : 2x₁ − 3x₃ = 0}</b>. ▸ <b>Lectura final:</b> T(S) ⊆ Im(T) y las dos tienen dimensión 2, así que <b>T(S) = Im(T)</b>. Control: la primera columna de A da T(x³ − x) = (1,1,1) + (2,1,1) = (3,2,2), y 2·3 − 3·2 = 0 ✓. ▸ <b>Sobre la lectura dudosa de B₁:</b> si el segundo vector fuera x³ + x, cambia [2x + 1]<sup>B₁</sup> = (−1,1,0,1) y T(2x + 1) = (0,2,0), pero T(S) sigue siendo el plano 2x₁ − 3x₃ = 0 = Im(T). La respuesta no depende de esa lectura. <span class="muted">Verificado con sympy.</span>'},
 
@@ -3892,6 +4072,658 @@ registerExercises('fiuba-algebra-lineal-parcial', '10', [
    c: 3,
    ex: 'Con el criterio del curso 5 (se aprueba con 3 de 5) alcanza: cuatro cerrados ya te ponen del lado seguro, y lo que más riesgo tiene ahora es que uno de esos cuatro tenga una cuenta mal, porque un ejercicio con un error es un ejercicio perdido <b>entero</b>, no medio. ▸ Los cuatro chequeos cuestan dos minutos cada uno: recorrer el diagrama de la TL desde cero; reemplazar las imágenes en la ecuación del plano; verificar que el residuo sea ortogonal con el producto interno del enunciado; y recalcular <b>la magnitud que pidió el enunciado</b> (no la otra). ▸ Dejar la verificación para el final es apostar a que el quinto salga rápido. ▸ Y reescribir en limpio no suma: lo que se corrige es el contenido, no la caligrafía.'},
 ]);
+
+// ============================================================
+// SECCIÓN 10 · GENERADOR DE PARCIALES: 5 problemas a desarrollar, como el parcial.
+// Toma los ejercicios del banco real de la sección 9 (window.RV['fiuba-algebra-lineal-parcial-9']).
+// La cabecera de cada uno ("TIPO B · 21/5/25, 9 hs · Ej 2.") dice su tipo, el examen y la
+// posición: de ahí salen las fechas completas y los órdenes reales, así que un parcial nuevo
+// que se sume al banco entra solo. Tiene su propio estado: no pasa por registerExercises, así
+// que no toca el puntaje de la página. En localStorage guarda el parcial en curso, los
+// ejercicios de los últimos 3 (para no repetirlos), las fechas reales ya hechas y los últimos
+// 5 resultados. Si la guía está abierta en dos pestañas, cada una toma lo que guardó la otra
+// antes de hacer nada, así una pestaña vieja no pisa el parcial de la nueva.
+// ============================================================
+
+(function () {
+  'use strict';
+  if (typeof document === 'undefined') return;
+  const SUBJ = 'fiuba-algebra-lineal-parcial';
+  const MINUTOS = 180;
+  const K_ACTUAL = 'falp-sim-actual', K_HIST = 'falp-sim-historial', K_REALES = 'falp-sim-reales', K_PUNT = 'falp-sim-puntajes', K_CRONO = 'falp-sim-crono';
+  // Bloque del banco: nombre y destino del procedimiento en esta guía.
+  const TIPOS = {
+    A: ['Subespacios', 'falp-s3', 'sección 3'], F: ['Coordenadas y cambio de base', 'falp-s4', 'sección 4'],
+    B: ['Transformaciones lineales', 'falp-s5', 'sección 5'], E: ['Proyecciones y simetrías', 'falp-s6', 'sección 6'],
+    C: ['Producto interno', 'falp-s7', 'sección 7'], D: ['Fibra de la proyección ortogonal', 'falp-s8', 'sección 8'],
+    G: ['Cuadrados mínimos', 'falp-s8', 'sección 8'], H: ['Ecuaciones diferenciales', 'falp-s1-ed', 'sección 1 (al final)'],
+  };
+  // Ejercicios que la cátedra repitió en dos fechas (mismo enunciado, o el mismo con el vector
+  // cambiado de signo): cuentan como uno solo para no repetir. Los idénticos se detectan solos.
+  const GEMELOS = [['7/VIII/24 (recuperatorio)|4', '16/V/24, 9 hs|5']];
+  const DESDE_ANIO = 2023; // "cualquier orden real": desde 2023 (sin ecuación diferencial desde entonces)
+  const RE_CAB = /^<b>TIPO ([A-H]) · (.+?) · Ej (\d)\.<\/b>\s*/;
+  const ROM = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10, XI: 11, XII: 12 };
+
+  const leer = (k, def) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch (e) { return def; } };
+  const leerLista = (k) => { const v = leer(k, []); return Array.isArray(v) ? v.filter((x) => x !== null && x !== undefined) : []; };
+  const guardar = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+  const mezclar = (arr) => {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  };
+  const dos = (n) => (n < 10 ? '0' : '') + n;
+  const conId = (id) => document.getElementById(id);
+
+  // ---------- el banco, leído de la sección 9 ----------
+  const BANCO = [];      // {id, n, tipo, examen, ej, grupo, enun, ans, resol} (resol y no sol: build.py cuenta las claves sol)
+  const porId = new Map();
+  const EXAMENES = [];   // fechas completas, de la más nueva a la más vieja: {clave, f, cuatri, ids, esq}
+  const RANGO = {};      // tipo -> [primer n, último n]
+
+  function fechaDe(clave) {
+    const m = clave.match(/^(\d{1,2})\/([IVX]+|\d{1,2})\/(\d{2})\b/);
+    if (!m) return null;
+    const mes = /^\d+$/.test(m[2]) ? +m[2] : ROM[m[2]];
+    if (!mes) return null;
+    const hs = clave.match(/(\d{1,2}) hs/);
+    return { d: +m[1], m: mes, y: 2000 + +m[3], h: hs ? +hs[1] : 0 };
+  }
+  // Febrero es recuperatorio del segundo cuatrimestre anterior; de marzo a agosto, primero.
+  const cuatri = (f) => (f.m <= 2 ? '2C' + (f.y - 1) : f.m <= 8 ? '1C' + f.y : '2C' + f.y);
+  const valorFecha = (f) => ((f.y * 100 + f.m) * 100 + f.d) * 100 + f.h;
+  const textoPlano = (h) => h.replace(/<[^>]+>/g, '').replace(/[·\s]/g, '').toLowerCase();
+
+  function cargarBanco() {
+    if (BANCO.length) return true;
+    const lista = (window.RV || {})[SUBJ + '-9'];
+    if (!Array.isArray(lista)) return false;
+    const grupos = new Map(), porTexto = new Map();
+    lista.forEach((q, i) => {
+      const m = RE_CAB.exec(q.st || '');
+      if (!m) { console.warn('Generador: el 9.' + (i + 1) + ' no tiene la cabecera TIPO · examen · Ej'); return; }
+      const e = { id: m[2] + '|' + m[3], n: i + 1, tipo: m[1], examen: m[2], ej: +m[3], enun: q.st.replace(RE_CAB, ''), ans: q.ans || '', resol: q.sol || '' };
+      if (porId.has(e.id)) { console.warn('Generador: repetido ' + e.id); return; }
+      const t = textoPlano(e.enun);
+      e.grupo = porTexto.has(t) ? porTexto.get(t) : e.id;
+      if (!porTexto.has(t)) porTexto.set(t, e.id);
+      BANCO.push(e);
+      porId.set(e.id, e);
+      const r = RANGO[e.tipo] = RANGO[e.tipo] || [e.n, e.n];
+      r[0] = Math.min(r[0], e.n); r[1] = Math.max(r[1], e.n);
+      if (!grupos.has(e.examen)) grupos.set(e.examen, []);
+      grupos.get(e.examen).push(e);
+    });
+    GEMELOS.forEach((par) => { const a = porId.get(par[0]), b = porId.get(par[1]); if (a && b) b.grupo = a.grupo; });
+    grupos.forEach((es, clave) => {
+      const f = fechaDe(clave);
+      // Sólo las fechas con encabezado y con los cinco ejercicios, del 1 al 5.
+      if (!f || es.map((e) => e.ej).sort().join('') !== '12345') return;
+      es.sort((a, b) => a.ej - b.ej);
+      EXAMENES.push({ clave: clave, f: f, cuatri: cuatri(f), ids: es.map((e) => e.id), esq: es.map((e) => e.tipo).join('') });
+    });
+    EXAMENES.sort((a, b) => valorFecha(b.f) - valorFecha(a.f));
+    return BANCO.length > 0;
+  }
+
+  // ---------- armado ----------
+  // Los dos órdenes probables para el 21/10 (sección 1): ABECD, el del último segundo
+  // cuatrimestre, y FABEC, el del 1C2026.
+  function esqueletoPara(opcion) {
+    if (opcion === 'ABECD' || opcion === 'FABEC') return opcion;
+    if (opcion === 'real') {
+      const l = EXAMENES.filter((x) => x.f.y >= DESDE_ANIO);
+      if (l.length) return mezclar(l)[0].esq;
+    }
+    return Math.random() < 0.5 ? 'ABECD' : 'FABEC';
+  }
+
+  // Un ejercicio por posición, del tipo que pide el orden. Nunca dos del mismo examen ni dos
+  // gemelos, y se evitan los de los simulacros recientes mientras haya otros.
+  function armarNuevo(esq, recientes) {
+    const rec = new Set((recientes || []).map((id) => (porId.get(id) || { grupo: id }).grupo));
+    const ids = [], examenes = new Set(), usados = new Set();
+    for (let k = 0; k < esq.length; k++) {
+      const cand = BANCO.filter((e) => e.tipo === esq[k] && !usados.has(e.grupo));
+      const otroExamen = cand.filter((e) => !examenes.has(e.examen));
+      const nuevos = otroExamen.filter((e) => !rec.has(e.grupo));
+      const lista = nuevos.length ? nuevos : otroExamen.length ? otroExamen : cand;
+      if (!lista.length) { console.warn('Generador: no hay ejercicios del tipo ' + esq[k]); return null; }
+      const e = mezclar(lista)[0];
+      ids.push(e.id);
+      examenes.add(e.examen);
+      usados.add(e.grupo);
+    }
+    return ids;
+  }
+
+  // Una fecha real: la elegida, o una al azar entre las que todavía no se hicieron. Cuando ya
+  // se hicieron todas, empieza otra vuelta (sin repetir la última).
+  function elegirReal(clave, ultima) {
+    if (clave) return EXAMENES.filter((x) => x.clave === clave)[0] || null;
+    const hechas = new Set(leerLista(K_REALES));
+    let lista = EXAMENES.filter((x) => !hechas.has(x.clave) && x.clave !== ultima);
+    if (!lista.length) {
+      guardar(K_REALES, []);
+      lista = EXAMENES.filter((x) => x.clave !== ultima);
+    }
+    return lista.length ? mezclar(lista)[0] : EXAMENES[0] || null;
+  }
+
+  // ---------- estado ----------
+  let sim = null;        // el parcial en pantalla
+  let tic = null;        // intervalo del cronómetro
+  let pastilla = null;   // el cronómetro fijo abajo a la derecha
+  let volver = null;     // botón "Volver al parcial", abajo a la izquierda
+  let volverA = null;    // ejercicio o resultado desde el que se fue a otra sección
+  const confirma = {};   // primer toque pendiente, por botón
+
+  const persistir = () => { if (sim) guardar(K_ACTUAL, sim); };
+  const marcadas = () => sim.ids.filter((id) => sim.marcas[id] !== undefined).length;
+  const bien = () => sim.ids.filter((id) => sim.marcas[id] === true).length;
+  const valido = (s) => !!s && s.v === 1 && Array.isArray(s.ids) && s.ids.length === 5 && s.ids.every((id) => porId.has(id)) && !!s.vistos && typeof s.vistos === 'object' && !!s.marcas && typeof s.marcas === 'object' && (s.fase === 'resolviendo' || s.fase === 'corrigiendo');
+
+  // Si otra pestaña (u otra copia de esta, restaurada con Atrás) guardó algo distinto, se toma
+  // eso y se repinta. Devuelve true si cambió, y entonces el toque que se estaba procesando no
+  // se aplica: era sobre un parcial que ya no es el vigente.
+  function adoptarGuardado() {
+    const g = leer(K_ACTUAL, null);
+    if (!valido(g) || (sim && JSON.stringify(g) === JSON.stringify(sim))) return false;
+    sim = g;
+    pararTic();
+    pintarSimulacro();
+    if (sim.fase === 'resolviendo' && sim.fin) arrancarCrono(); else pararCrono();
+    return true;
+  }
+
+  // Un botón que pide un segundo toque antes de hacer algo que no se deshace. El segundo toque
+  // cuenta recién después de 0,6 s, así un doble toque sin querer no confirma solo.
+  function pedirConfirmacion(btn, clave, texto) {
+    const dt = confirma[clave] ? Date.now() - confirma[clave] : Infinity;
+    if (dt >= 600 && dt < 5000) { confirma[clave] = 0; avisar(''); return true; }
+    if (dt < 600) return false;
+    confirma[clave] = Date.now();
+    btn.dataset.original = btn.dataset.original || btn.textContent;
+    btn.textContent = texto;
+    btn.classList.add('sim-confirmar');
+    avisar(texto);
+    setTimeout(() => { if (confirma[clave] && Date.now() - confirma[clave] >= 4900) { confirma[clave] = 0; restaurarBoton(btn); } }, 5000);
+    return false;
+  }
+  function restaurarBoton(btn) {
+    if (!btn) return;
+    if (btn.dataset.original) { btn.textContent = btn.dataset.original; delete btn.dataset.original; }
+    btn.classList.remove('sim-confirmar');
+    avisar('');
+  }
+  function avisar(t) { const a = conId('falp-sim-aviso'); if (a) a.textContent = t; }
+
+  // ---------- pintar ----------
+  function pintarPanel() {
+    const btn = conId('falp-sim-generar');
+    confirma.gen = 0;
+    if (btn) { delete btn.dataset.original; btn.classList.remove('sim-confirmar'); btn.textContent = sim ? 'Generar otro' : 'Generar parcial'; }
+    const h = conId('falp-sim-hist');
+    if (h) {
+      const p = leerLista(K_PUNT).filter((x) => typeof x.p === 'number');
+      const hechas = leerLista(K_REALES).filter((c) => EXAMENES.some((x) => x.clave === c)).length;
+      let t = p.length
+        ? 'Tus últimos parciales: ' + p.map((x) => x.p + '/5').join(', ') + (p.length > 1 ? ' (el más reciente, al final).' : '.')
+        : 'Todavía no corregiste ningún parcial en este navegador.';
+      if (hechas) t += ' Fechas reales que ya hiciste: ' + hechas + ' de ' + EXAMENES.length + '.';
+      h.textContent = t;
+    }
+    pintarEstado();
+  }
+
+  // Al lado del título de la sección 10: el parcial en curso manda sobre el último resultado.
+  function pintarEstado() {
+    const s = conId('falp-sim-estado');
+    if (!s) return;
+    const ult = leerLista(K_PUNT).filter((x) => typeof x.p === 'number').slice(-1)[0];
+    if (sim && sim.fase === 'resolviendo') s.textContent = 'parcial en curso';
+    else if (sim && marcadas() < 5) s.textContent = 'corrigiendo: ' + marcadas() + ' de 5';
+    else if (ult) s.textContent = 'último parcial: ' + ult.p + '/5';
+    else s.textContent = '';
+  }
+
+  function pintarModo() {
+    const r = document.querySelector('input[name="falp-sim-modo"]:checked');
+    const real = !!r && r.value === 'real';
+    const cn = conId('falp-sim-campo-nuevo'), cr = conId('falp-sim-campo-real');
+    if (cn) cn.hidden = real;
+    if (cr) cr.hidden = !real;
+    document.querySelectorAll('input[name="falp-sim-modo"]').forEach((x) => x.closest('.sim-modo').classList.toggle('sim-modo-on', x.checked));
+  }
+
+  function titulo() {
+    const corr = sim.fase === 'corrigiendo';
+    if (sim.modo === 'real') return sim.azar && !corr ? 'Parcial real (la fecha se muestra al corregir)' : 'Parcial real del ' + sim.fecha;
+    return 'Parcial nuevo' + (corr || sim.esqElegido ? ', con el orden ' + sim.esq : '');
+  }
+
+  const enlace = (t) => '<a href="#' + TIPOS[t][1] + '">' + TIPOS[t][2] + '</a>';
+
+  function origen(e) {
+    const ex = /^parcial sin encabezado/.test(e.examen) ? 'de un ' + e.examen : 'del parcial del ' + e.examen;
+    return 'Es el Ej ' + e.ej + ' ' + ex + '; en el banco de la sección 9, el <b>9.' + e.n + '</b>. El procedimiento de este tipo está en la ' + enlace(e.tipo) + '.';
+  }
+
+  function pintarSimulacro() {
+    const out = conId('falp-sim-out');
+    if (!out) return;
+    Object.keys(confirma).forEach((k) => { confirma[k] = 0; });
+    avisar('');
+    const f = new Date(sim.creado);
+    const corr = sim.fase === 'corrigiendo';
+    let h = '<div class="sim-cab" id="falp-sim-cab" tabindex="-1"><b>' + titulo() + '</b>, armado el ' + f.getDate() + '/' + (f.getMonth() + 1) + ' a las ' + dos(f.getHours()) + ':' + dos(f.getMinutes()) + '. ';
+    if (corr) {
+      if (sim.porTiempo) h += '<b>Se terminaron las 3 horas.</b> ';
+      h += 'Abrí la resolución de cada uno, comparala con lo tuyo y marcá si te salió. Contá como bien sólo lo que quedó <b>cerrado y con la respuesta escrita</b>: el curso 5 no da crédito por planteo.';
+    } else {
+      h += 'Resolvelo en papel, con tus 4 carillas y la calculadora. El tipo de cada ejercicio y las resoluciones aparecen cuando toques <b>Terminé</b>.';
+    }
+    h += '</div>';
+    h += '<div class="sim-hoja"><div class="sim-hoja-t">Álgebra II · Álgebra Lineal (CB002) · Primer parcial</div>';
+    h += '<div class="sim-hoja-s">5 problemas · 3 horas · se aprueba con 3 resueltos correctamente</div></div>';
+    sim.ids.forEach((id, k) => {
+      const e = porId.get(id);
+      h += '<div class="rev-ex sim-e" data-k="' + k + '"><div class="qex-h"><span class="qex-n">Ej ' + (k + 1) + '</span>';
+      if (corr) h += '<span class="sim-tag">Tipo ' + e.tipo + ' · ' + TIPOS[e.tipo][0] + '</span>';
+      h += '</div><div class="qex-st">' + e.enun + '</div>';
+      if (corr) {
+        h += '<button type="button" class="rev-btn sim-ver">Ver la resolución</button>';
+        h += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + e.ans + '</div>';
+        if (e.resol) h += '<div class="rev-sol">' + e.resol + '</div>';
+        h += '<div class="sim-fuente">' + origen(e) + '</div></div>';
+        h += '<div class="sim-marcas" role="group" aria-label="¿Te salió el Ej ' + (k + 1) + '?">';
+        h += '<button type="button" class="sim-marca sim-marca-si" data-v="1" aria-pressed="false" disabled>Me salió bien</button>';
+        h += '<button type="button" class="sim-marca sim-marca-no" data-v="0" aria-pressed="false" disabled>No me salió</button></div>';
+        h += '<div class="sim-marca-nota">Se habilita al abrir la resolución.</div>';
+      }
+      h += '</div>';
+    });
+    h += '<div class="sim-pie"><div class="sim-progreso" id="falp-sim-prog"></div>';
+    if (!corr) h += '<button type="button" class="sim-btn" id="falp-sim-terminar">Terminé: ver las resoluciones</button>';
+    h += '</div><div class="sim-res" id="falp-sim-res" aria-live="polite"></div>';
+    out.innerHTML = h;
+    if (corr) {
+      out.querySelectorAll('.sim-e').forEach((box) => {
+        const id = sim.ids[+box.dataset.k];
+        if (sim.vistos[id]) abrir(box);
+        if (sim.marcas[id] !== undefined) marcar(box, sim.marcas[id]);
+      });
+    }
+    pintarProgreso();
+    pintarPanel();
+    if (corr) pintarResultado(false);
+  }
+
+  function abrir(box) {
+    box.classList.add('revealed');
+    const b = box.querySelector('.sim-ver');
+    if (b) { b.textContent = 'Resolución abierta'; b.disabled = true; }
+    box.querySelectorAll('.sim-marca').forEach((m) => { m.disabled = false; });
+  }
+
+  function marcar(box, v) {
+    box.querySelectorAll('.sim-marca').forEach((m) => { m.setAttribute('aria-pressed', (m.dataset.v === '1') === v ? 'true' : 'false'); });
+  }
+
+  function pintarProgreso() {
+    pintarEstado();
+    const el = conId('falp-sim-prog');
+    if (!el) return;
+    if (sim.fase === 'resolviendo') {
+      el.textContent = sim.fin ? 'Con cronómetro de 3 horas.' : sim.resto ? 'Cronómetro en pausa.' : 'Cuando termines, tocá el botón.';
+      return;
+    }
+    const m = marcadas();
+    el.textContent = m < 5 ? 'Corregiste ' + m + ' de 5.' : 'Corregido: ' + bien() + ' de 5 bien.';
+  }
+
+  function pintarResultado(desplazar) {
+    const res = conId('falp-sim-res');
+    if (!res) return;
+    if (marcadas() < 5) { res.innerHTML = ''; return; }
+    const b = bien();
+    let caja = 'key', t = 'ky-t', lectura;
+    if (b === 5) lectura = '<b>Estás, con margen.</b> Probá con el otro orden o con una fecha real que no hayas hecho.';
+    else if (b === 4) lectura = '<b>Estás.</b> Repasá sólo el que falló y hacé tres más de ese tipo en el banco.';
+    else if (b === 3) { caja = 'example'; t = 'ex-t'; lectura = '<b>Aprobás, pero sin margen</b>: cualquier variante que no hayas visto te deja en 2. Hacé seis seguidos del banco de cada tipo que fallaste.'; }
+    else { caja = 'trap'; t = 'tr-t'; lectura = '<b>Con esto no aprobás.</b> Antes de volver al banco, releé paso por paso el procedimiento de cada tipo que fallaste: con 2 o menos, lo que falla es el método y no la práctica.'; }
+    let r = '<div class="' + caja + ' sim-caja" id="falp-sim-resultado" tabindex="-1"><div class="' + t + '">Resultado: ' + b + ' de 5 bien resueltos</div>';
+    r += '<p>' + lectura + '</p>';
+    const mal = [];
+    sim.ids.forEach((id, k) => { if (sim.marcas[id] === false) mal.push([porId.get(id), k]); });
+    if (mal.length) {
+      r += '<ul class="sim-clases">';
+      mal.forEach((x) => {
+        const e = x[0], rg = RANGO[e.tipo], cuantos = rg[1] - rg[0] + 1;
+        const n = b >= 4 ? 3 : 6;
+        const hacer = cuantos > n ? (n === 3 ? 'tres más' : 'seis seguidos') : 'los ' + cuantos;
+        r += '<li><b>Ej ' + (x[1] + 1) + '</b>, ' + TIPOS[e.tipo][0].toLowerCase() + ': releé la ' + enlace(e.tipo) + ' y hacé ' + hacer + ' del bloque ' + e.tipo + ' del banco (9.' + rg[0] + ' a 9.' + rg[1] + ').</li>';
+      });
+      r += '</ul>';
+    }
+    r += '<p>El orden de este parcial fue <b>' + sim.esq + '</b>.';
+    if (b < 5) r += ' Y mirá en qué paso fallaste, no sólo cuántos: si los errores son del último paso (traducir coordenadas a vectores, poner los dos signos, declarar la degeneración), lo que falta es el chequeo final de cada tipo, que son dos minutos por ejercicio.';
+    r += '</p><button type="button" class="sim-btn sim-otro">Generar otro</button></div>';
+    res.innerHTML = r;
+    if (desplazar) irA(conId('falp-sim-resultado'));
+  }
+
+  function irA(el) {
+    if (!el) return;
+    const d = conId('falp-s10');
+    if (d && !d.open) d.open = true;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    try { el.focus({ preventScroll: true }); } catch (e) {}
+  }
+
+  // ---------- ir a una sección y volver ----------
+  // Los enlaces "sección N" abren esa sección (y el apartado de adentro, si el destino está en
+  // una sección cerrada), y queda un botón para volver al ejercicio o al resultado. Atrás
+  // también vuelve ahí.
+  function irASeccion(destinoId, desde) {
+    const dest = conId(destinoId);
+    if (!dest) return;
+    const det = dest.tagName === 'DETAILS' ? dest : dest.closest('details');
+    if (det) det.open = true;
+    volverA = desde;
+    try { history.pushState({ falpVolver: 1 }, '', '#' + destinoId); } catch (e) {}
+    llevarA(dest);
+    mostrarVolver();
+  }
+  // Salto sin animación, y una corrección un instante después por si algo cambió de alto
+  // (la sección que se abrió, o el navegador restaurando la posición al volver con Atrás).
+  function llevarA(el) {
+    const y = () => Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 70);
+    window.scrollTo(0, y());
+    setTimeout(() => { if (Math.abs(el.getBoundingClientRect().top - 70) > 8) window.scrollTo(0, y()); }, 200);
+  }
+  function mostrarVolver() {
+    if (!volver) {
+      volver = document.createElement('button');
+      volver.type = 'button';
+      volver.className = 'sim-volver';
+      volver.textContent = 'Volver al parcial';
+      volver.addEventListener('click', () => {
+        if (history.state && history.state.falpVolver) history.back();
+        else regresar();
+      });
+      document.body.appendChild(volver);
+    }
+    volver.hidden = false;
+    document.body.classList.add('falp-fijo-on');
+  }
+  function ocultarVolver() {
+    if (volver) volver.hidden = true;
+    volverA = null;
+    if (!pastilla || pastilla.hidden) document.body.classList.remove('falp-fijo-on');
+  }
+  function regresar() {
+    const a = volverA;
+    ocultarVolver();
+    const el = a && document.body.contains(a) ? a : a ? conId('falp-sim-cab') : null;
+    if (!el) return;
+    const d = conId('falp-s10');
+    if (d) d.open = true;
+    setTimeout(() => { llevarA(el); try { el.focus({ preventScroll: true }); } catch (e) {} }, 30);
+  }
+
+  // El resultado entra a "tus últimos" cuando están las cinco marcas; si después se cambia una,
+  // se corrige esa misma entrada.
+  function guardarPuntaje() {
+    if (marcadas() < 5) return;
+    const p = leerLista(K_PUNT).filter((x) => typeof x.p === 'number');
+    const i = p.map((x) => x.f).indexOf(sim.creado);
+    if (i !== -1) p[i].p = bien();
+    else p.push({ p: bien(), f: sim.creado, modo: sim.modo });
+    guardar(K_PUNT, p.slice(-5));
+  }
+
+  // ---------- acciones ----------
+  function generar() {
+    pararCrono();
+    ocultarVolver();
+    const r = document.querySelector('input[name="falp-sim-modo"]:checked');
+    const modo = r && r.value === 'real' ? 'real' : 'nuevo';
+    const hist = leerLista(K_HIST).filter(Array.isArray);
+    let ids, esq, fecha = null, azar = false, esqElegido = false;
+    if (modo === 'real') {
+      const sel = conId('falp-sim-fecha');
+      // "Generar otro" después de hacer una fecha elegida no repite la misma: pasa a una al azar.
+      if (sel && sim && sim.modo === 'real' && sim.fase === 'corrigiendo' && sel.value === sim.fecha) sel.value = '';
+      const clave = sel ? sel.value : '';
+      azar = !clave;
+      const x = elegirReal(clave, sim && sim.modo === 'real' ? sim.fecha : null);
+      if (!x) return;
+      ids = x.ids.slice();
+      esq = x.esq;
+      fecha = x.clave;
+    } else {
+      const sel = conId('falp-sim-esq');
+      const op = sel ? sel.value : 'dos';
+      esqElegido = op === 'ABECD' || op === 'FABEC';
+      esq = esqueletoPara(op);
+      ids = armarNuevo(esq, [].concat.apply([], hist.slice(-3)));
+      if (!ids) return;
+    }
+    hist.push(ids);
+    guardar(K_HIST, hist.slice(-3));
+    sim = { v: 1, modo: modo, ids: ids, esq: esq, fecha: fecha, azar: azar, esqElegido: esqElegido, fase: 'resolviendo', vistos: {}, marcas: {}, creado: Date.now(), fin: null, resto: null };
+    const chk = conId('falp-sim-crono-chk');
+    if (chk && chk.checked) sim.fin = Date.now() + MINUTOS * 60000;
+    persistir();
+    pintarSimulacro();
+    if (sim.fin) arrancarCrono();
+    irA(conId('falp-sim-cab'));
+  }
+
+  function alGenerar(btn) {
+    if (adoptarGuardado()) return;
+    // Un toque de más justo después de generar no arma el descarte del parcial recién hecho.
+    if (sim && Date.now() - sim.creado < 800) return;
+    if (sim && (sim.fase === 'resolviendo' || marcadas() < 5) && !pedirConfirmacion(btn, 'gen', '¿Descartás el que estás haciendo? Tocá otra vez')) return;
+    generar();
+  }
+
+  function terminar(porTiempo, desplazar) {
+    if (!sim || sim.fase !== 'resolviendo') return;
+    pararCrono();
+    sim.fase = 'corrigiendo';
+    sim.porTiempo = !!porTiempo;
+    if (sim.modo === 'real') {
+      const hechas = leerLista(K_REALES);
+      if (hechas.indexOf(sim.fecha) === -1) { hechas.push(sim.fecha); guardar(K_REALES, hechas); }
+    }
+    persistir();
+    pintarSimulacro();
+    if (desplazar) irA(conId('falp-sim-cab'));
+  }
+
+  function alTerminar(btn) {
+    if (!pedirConfirmacion(btn, 'fin', '¿Ya terminaste? Tocá otra vez para ver las resoluciones')) return;
+    terminar(false, true);
+  }
+
+  // ---------- cronómetro ----------
+  function asegurarPastilla() {
+    if (pastilla) return pastilla;
+    pastilla = document.createElement('button');
+    pastilla.type = 'button';
+    pastilla.className = 'sim-crono';
+    pastilla.id = 'falp-sim-crono';
+    pastilla.title = 'Ir al parcial';
+    pastilla.hidden = true;
+    pastilla.addEventListener('click', () => irA(conId('falp-sim-cab')));
+    document.body.appendChild(pastilla);
+    return pastilla;
+  }
+  function pararTic() { if (tic) { clearInterval(tic); tic = null; } }
+  function pararCrono() {
+    pararTic();
+    if (pastilla) { pastilla.hidden = true; pastilla.classList.remove('sim-poco'); }
+    if (!volver || volver.hidden) document.body.classList.remove('falp-fijo-on');
+  }
+  function arrancarCrono() {
+    asegurarPastilla();
+    pararTic();
+    pastilla.hidden = false;
+    document.body.classList.add('falp-fijo-on');
+    latido();
+    tic = setInterval(latido, 1000);
+  }
+  function latido() {
+    if (adoptarGuardado()) return;
+    if (!sim || !sim.fin || sim.fase !== 'resolviendo') { pararCrono(); return; }
+    const r = sim.fin - Date.now();
+    if (r <= 0) { terminarTiempo(true); return; }
+    const hh = Math.floor(r / 3600000), mm = Math.floor((r % 3600000) / 60000), ss = Math.floor((r % 60000) / 1000);
+    pastilla.innerHTML = '<span class="sim-crono-l">Quedan</span> <b>' + hh + ':' + dos(mm) + ':' + dos(ss) + '</b>';
+    pastilla.setAttribute('aria-label', 'Quedan ' + (hh ? hh + (hh === 1 ? ' hora y ' : ' horas y ') : '') + mm + ' minutos. Ir al parcial');
+    pastilla.classList.toggle('sim-poco', r < 10 * 60000);
+  }
+  function terminarTiempo(desplazar) {
+    pararTic();
+    if (!sim || sim.fase !== 'resolviendo') return;
+    terminar(true, desplazar);
+    asegurarPastilla();
+    pastilla.innerHTML = '<b>Tiempo cumplido</b>';
+    pastilla.setAttribute('aria-label', 'Tiempo cumplido: ya podés ver las resoluciones');
+    pastilla.classList.add('sim-poco');
+    pastilla.hidden = false;
+    document.body.classList.add('falp-fijo-on');
+    setTimeout(() => { if (pastilla && !tic) pararCrono(); }, 8000);
+  }
+  // Apagar el cronómetro con el parcial en curso lo pausa; al prenderlo sigue desde ahí.
+  function alCambiarCrono(chk) {
+    guardar(K_CRONO, chk.checked);
+    adoptarGuardado();
+    if (!sim || sim.fase !== 'resolviendo') return;
+    if (chk.checked && !sim.fin) {
+      sim.fin = Date.now() + (sim.resto > 0 ? sim.resto : MINUTOS * 60000);
+      sim.resto = null;
+      persistir();
+      arrancarCrono();
+    } else if (!chk.checked && sim.fin) {
+      sim.resto = Math.max(0, sim.fin - Date.now());
+      sim.fin = null;
+      persistir();
+      pararCrono();
+    }
+    pintarProgreso();
+  }
+
+  // ---------- arranque ----------
+  function iniciar() {
+    const raiz = conId('falp-sim');
+    if (!raiz) return;
+    const info = conId('falp-sim-info');
+    if (!cargarBanco() || !EXAMENES.length) {
+      if (info) info.textContent = 'No se pudo cargar el banco de ejercicios.';
+      return;
+    }
+    const sel = conId('falp-sim-fecha');
+    if (sel && sel.options.length < 2) {
+      let grupo = null, g = null;
+      EXAMENES.forEach((x) => {
+        if (x.cuatri !== grupo) { grupo = x.cuatri; g = document.createElement('optgroup'); g.label = grupo; sel.appendChild(g); }
+        const o = document.createElement('option');
+        o.value = x.clave;
+        o.textContent = x.clave;
+        g.appendChild(o);
+      });
+    }
+    if (info) {
+      info.textContent = 'El banco tiene ' + BANCO.length + ' ejercicios reales y ' + EXAMENES.length + ' fechas completas. Las letras de los órdenes son los bloques del banco: A subespacios, F coordenadas y cambio de base, B transformaciones lineales, E proyecciones y simetrías, C producto interno, D fibra de la proyección, G cuadrados mínimos y H ecuaciones diferenciales.';
+    }
+    document.querySelectorAll('input[name="falp-sim-modo"]').forEach((x) => x.addEventListener('change', pintarModo));
+    const chk = conId('falp-sim-crono-chk');
+    if (chk) {
+      chk.checked = !!leer(K_CRONO, false);
+      chk.addEventListener('change', () => alCambiarCrono(chk));
+    }
+    const gen = conId('falp-sim-generar');
+    if (gen) gen.addEventListener('click', () => alGenerar(gen));
+    const out = conId('falp-sim-out');
+    out.addEventListener('click', (ev) => {
+      const t = ev.target;
+      const a = t.closest('a[href^="#falp-s"]');
+      if (a) {
+        ev.preventDefault();
+        irASeccion(a.getAttribute('href').slice(1), a.closest('.sim-e') || a.closest('.sim-caja'));
+        return;
+      }
+      if (!sim) return;
+      if (t.closest('button') && adoptarGuardado()) return;
+      const ver = t.closest('.sim-ver');
+      if (ver) {
+        if (sim.fase !== 'corrigiendo') return;
+        const box = ver.closest('.sim-e');
+        sim.vistos[sim.ids[+box.dataset.k]] = true;
+        abrir(box);
+        persistir();
+        const si = box.querySelector('.sim-marca-si');
+        if (si) try { si.focus({ preventScroll: true }); } catch (err) {}
+        return;
+      }
+      const m = t.closest('.sim-marca');
+      if (m) {
+        if (m.disabled || sim.fase !== 'corrigiendo') return;
+        const box = m.closest('.sim-e');
+        const antes = marcadas();
+        sim.marcas[sim.ids[+box.dataset.k]] = m.dataset.v === '1';
+        marcar(box, m.dataset.v === '1');
+        persistir();
+        guardarPuntaje();
+        pintarProgreso();
+        pintarPanel();
+        pintarResultado(antes < 5 && marcadas() === 5);
+        return;
+      }
+      const fin = t.closest('#falp-sim-terminar');
+      if (fin) { alTerminar(fin); return; }
+      if (t.closest('.sim-otro')) generar();
+    });
+    window.addEventListener('popstate', () => { if (volverA) regresar(); });
+    window.addEventListener('storage', (e) => {
+      if (e.key === K_ACTUAL || e.key === null) adoptarGuardado();
+      if (e.key === K_PUNT || e.key === K_REALES || e.key === null) pintarPanel();
+    });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') adoptarGuardado(); });
+    window.addEventListener('pageshow', (e) => { if (e.persisted) adoptarGuardado(); });
+
+    const guardado = leer(K_ACTUAL, null);
+    if (valido(guardado)) {
+      sim = guardado;
+      // El panel queda como se armó el parcial en pantalla.
+      const radio = document.querySelector('input[name="falp-sim-modo"][value="' + (sim.modo === 'real' ? 'real' : 'nuevo') + '"]');
+      if (radio) radio.checked = true;
+      if (sim.modo === 'real' && !sim.azar && sel) sel.value = sim.fecha;
+      const esqSel = conId('falp-sim-esq');
+      if (sim.modo === 'nuevo' && sim.esqElegido && esqSel) esqSel.value = sim.esq;
+      pintarModo();
+      pintarSimulacro();
+      // Un parcial a medio hacer se retoma a la vista, con la sección 10 abierta.
+      if (sim.fase === 'resolviendo') { const d = conId('falp-s10'); if (d) d.open = true; }
+      if (sim.fase === 'resolviendo' && sim.fin) {
+        if (chk) chk.checked = true;
+        if (Date.now() >= sim.fin) terminarTiempo(false); else arrancarCrono();
+      }
+    } else {
+      pintarModo();
+      pintarPanel();
+    }
+  }
+
+  globalThis.SIM_ALG_P1 = { cargar: cargarBanco, armarNuevo: armarNuevo, esqueletoPara: esqueletoPara, elegirReal: elegirReal, BANCO: BANCO, EXAMENES: EXAMENES, RANGO: RANGO };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
 
 
 // ============ INIT ============
