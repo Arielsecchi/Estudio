@@ -154,3 +154,112 @@ registerExercises('fiuba-anatomia-segundo-parcial', '8', [
   {st: '<b>19 · NERVIOSO.</b> Se desarrolla un organoide neural a partir de precursores ectodérmicos para modelar neuroinflamación. ¿Qué le falta y por qué?', opts: ['Le faltan astrocitos, porque son mesodérmicos', 'Le falta microglía: es la única glía de origen mesodérmico (médula ósea), así que hay que agregarla desde linaje hematopoyético para tener componente fagocítico e inmunidad innata', 'Le faltan oligodendrocitos, porque derivan de la cresta neural', 'No le falta nada: el ectodermo da todo el tejido nervioso'], c: 1, ex: 'Todo el tejido nervioso es <b>ectodérmico</b> salvo la <b>microglía</b>, y esa excepción tiene una consecuencia experimental exacta: un organoide derivado sólo de precursores ectodérmicos <b>no tiene microglía</b>, y sin microglía no hay fagocitosis ni respuesta inmune innata, o sea que no se puede modelar neuroinflamación. Hay que coemergerla o agregarla desde linaje hematopoyético. ▸ <b>Las otras:</b> (A) El astrocito es <b>ectodérmico</b>. ▸ (C) Los oligodendrocitos son del <b>tubo neural</b> (SNC); de la <b>cresta</b> derivan Schwann y satélite, que son del SNP — y la cresta también es ectodérmica. ▸ (D) Es la trampa espejo: la excepción existe y es una sola.'},
   {st: '<b>20 · NERVIOSO.</b> Verdadero o falso: "una fibra amielínica no tiene células de Schwann". Elegí la justificación.', opts: ['Verdadero: por eso no tiene vaina', 'Falso: la célula de Schwann está igual, pero envuelve MUCHOS axones sin formar vaina; por eso los axones no se distinguen al microscopio óptico y no hay neuroqueratina ni incisuras de Schmidt-Lanterman', 'Falso: las fibras amielínicas están cubiertas por oligodendrocitos', 'Verdadero: las amielínicas están desnudas en el endoneuro'], c: 1, ex: 'La diferencia no es la <b>presencia</b> de la célula de Schwann sino su <b>relación con los axones</b>: en la fibra <b>mielínica</b> una célula cubre <b>un segmento de un solo axón</b> y forma la vaina; en la <b>amielínica</b> una célula agrupa <b>varios axones</b> sin enrollarse sobre ellos. De ahí los cuatro negativos que se preguntan: sin vaina, sin neuroqueratina, sin incisuras y sin axones distinguibles al microscopio óptico. El <b>endoneuro</b>, en cambio, está en las dos. ▸ Consecuencia de diseño: un andamio que alinee axones pero no favorezca la <b>mielinización por Schwann</b> no recupera velocidad de conducción, porque sin nodos de Ranvier no hay <b>conducción saltatoria</b>. A mayor mielinización y mayor calibre, mayor velocidad. ▸ (C) Los oligodendrocitos son del <b>SNC</b>: error de compartimento.'},
 ]);
+
+// ============================================================
+// OPCIONES AL AZAR (las cuatro guías de Anatomía llevan este mismo bloque).
+// Cada vez que se abre la página, las opciones de cada pregunta cambian de lugar, así la
+// posición de la correcta no se aprende de memoria. Cada opción muestra su letra y las letras
+// que cita la explicación ("(B)", "la b", "opción C") se cambian con ella, igual que los
+// ordinales ("la primera opción") en las preguntas que se revisaron una por una. No se mueven
+// "Ninguna...", "Todas..." ni "Ambas...", y quedan como están las preguntas cuya explicación
+// nombra las opciones de una forma que no se puede reescribir sola. El generador de simulacros
+// del 1er parcial usa las mismas funciones (globalThis.MEZCLA_OPC) para mezclar en cada simulacro.
+// Claves: M madre, P 1er parcial, Q preguntas explicadas, S 2do parcial + unidad + # + índice.
+// ============================================================
+(function () {
+  'use strict';
+  const SUBJ = 'fiuba-anatomia-segundo-parcial', CLAVE = 'S';
+  if (!globalThis.MEZCLA_OPC) {
+    const LETRAS = 'ABCDEFGH';
+    const ORDINAL = ['primera', 'segunda', 'tercera', 'cuarta'];
+    // Explicaciones que nombran opciones por su orden y que se reescriben ("La tercera confunde...").
+    const ORDINALES = new Set(['M2#5', 'M2#12', 'M3#1', 'M3#8', 'M4#9', 'M4#10', 'M4#11', 'M4#12', 'M5#5', 'M5#6', 'M5#7', 'M5#8', 'M5#12',
+      'M6#6', 'M6#8', 'M6#9', 'M6#10', 'M6#11', 'M6#12', 'M10#1', 'M10#4', 'M10#6', 'M11#4', 'M11#6']);
+    // Posiciones que no se mueven: 'todas' deja la pregunta como está.
+    const QUIETAS = {
+      'P6#8': 'todas',   // "los tres primeros son obvios y el cuarto parece del mismo grupo"
+      'M3#5': [0, 1],    // "Las dos primeras opciones son la misma inversión"
+      'P9#3': 'todas', 'Q6#0': 'todas', // "En la diapositiva la opción b dice...": la letra es la de la diapositiva
+      'S7#4': 'todas',   // "De las cuatro opciones, C es la única parenteral"
+      // Nombran opciones por su orden con giros que no están en la lista de arriba.
+      'M4#5': 'todas', 'M5#0': 'todas', 'M6#0': 'todas', 'M6#2': 'todas', 'M11#2': 'todas', 'M12#3': 'todas',
+      'M12#8': 'todas', 'M12#9': 'todas', 'M12#13': 'todas', 'M13#2': 'todas', 'M13#4': 'todas', 'M14#10': 'todas',
+      'M14#12': 'todas', 'M15#0': 'todas', 'M15#2': 'todas', 'M15#8': 'todas', 'M13#8': 'todas',
+      'M12#11': [0, 1],  // "Las dos primeras opciones son incoherentes"
+    };
+    const plano = (s) => String(s).replace(/<[^>]+>/g, '');
+    const mezclar = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    };
+    // p[lugar original] = lugar nuevo.
+    function permutacion(q, id) {
+      const n = q.opts.length, ident = [];
+      for (let i = 0; i < n; i++) ident.push(i);
+      if (QUIETAS[id] === 'todas') return ident;
+      // Si una opción nombra a otras ("A y B son correctas", "todas las anteriores"), no se mezcla.
+      if (q.opts.some((o) => /\banteriores\b|\b[A-D] y [A-D] son\b/i.test(plano(o)))) return ident;
+      const quietas = new Set(QUIETAS[id] || []);
+      q.opts.forEach((o, i) => { if (/^\s*(A ninguna|Ninguna|Todas|Ambas)\b/i.test(plano(o))) quietas.add(i); });
+      const libres = ident.filter((i) => !quietas.has(i));
+      const destinos = mezclar(libres);
+      const p = ident.slice();
+      libres.forEach((i, k) => { p[i] = destinos[k]; });
+      return p;
+    }
+    function reescribirEx(ex, id, p, n) {
+      if (!ex) return ex;
+      const cambio = (x) => {
+        const i = LETRAS.indexOf(x.toUpperCase());
+        if (i < 0 || i >= n || p[i] === undefined) return x;
+        const y = LETRAS[p[i]];
+        return x === x.toUpperCase() ? y : y.toLowerCase();
+      };
+      // "(B)"
+      ex = ex.replace(/\(([A-Ha-h])\)/g, (m, x) => '(' + cambio(x) + ')');
+      // "la b", "La B", "las c", "opción B" (no "las opciones b) y c)" de una nota de transcripción)
+      ex = ex.replace(/(^|[^A-Za-zÀ-ÿ0-9])([Ll]as?|[Oo]pci[oó]n(?:es)?) ([A-Ha-h])(?![A-Za-zÀ-ÿ0-9)\-])/g, (m, pre, a, x) => pre + a + ' ' + cambio(x));
+      if (ORDINALES.has(id)) {
+        // "la primera opción", "La tercera confunde", "La última opción", "opción 3"
+        ex = ex.replace(/(^|[^A-Za-zÀ-ÿ])([Ll]a) (primera|segunda|tercera|cuarta|última)(?= (?:opción|es|se|usa|inventa|confunde|invierte|describe|cambia|atribuye|atribuyen|contradice|contradicen|trae|traen|pide|salta|mezcla|elige|le|fusiona|y la)(?![A-Za-zÀ-ÿ]))/g,
+          (m, pre, a, o) => {
+            const i = o === 'última' ? n - 1 : ORDINAL.indexOf(o);
+            const j = p[i];
+            return pre + a + ' ' + (o === 'última' && j === n - 1 ? 'última' : ORDINAL[j]);
+          });
+        ex = ex.replace(/(^|[^A-Za-zÀ-ÿ])([Oo]pci[oó]n) ([1-9])(?![0-9])/g, (m, pre, a, d) => {
+          const i = +d - 1;
+          return pre + a + ' ' + ((p[i] === undefined ? i : p[i]) + 1);
+        });
+      }
+      return ex;
+    }
+    globalThis.MEZCLA_OPC = { permutacion: permutacion, reescribirEx: reescribirEx, LETRAS: LETRAS };
+  }
+
+  // Las preguntas fijas de esta guía: se mezclan antes de que app.js las dibuje (lo hace 0,1 s
+  // después de DOMContentLoaded), y cada opción lleva su letra adelante.
+  function mezclarPreguntas() {
+    const Z = globalThis.MEZCLA_OPC, EX = window.EX || {};
+    Object.keys(EX).forEach((k) => {
+      if (k.indexOf(SUBJ + '-') !== 0) return;
+      const unidad = k.slice(SUBJ.length + 1);
+      if (!/^\d+[a-z]?$/.test(unidad)) return;
+      EX[k].forEach((q, i) => {
+        if (!q || !Array.isArray(q.opts) || typeof q.c !== 'number' || q._mezclada) return;
+        const id = CLAVE + unidad + '#' + i;
+        const p = Z.permutacion(q, id);
+        const opts = [];
+        q.opts.forEach((o, j) => { opts[p[j]] = o; });
+        q.ex = Z.reescribirEx(q.ex, id, p, q.opts.length);
+        q.c = p[q.c];
+        q.opts = opts.map((o, j) => '<span class="op-letra" aria-hidden="true">' + Z.LETRAS[j] + '</span><span class="op-txt">' + o + '</span>');
+        q._mezclada = true;
+      });
+    });
+  }
+  if (typeof document !== 'undefined' && typeof window !== 'undefined' && document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mezclarPreguntas);
+  }
+})();

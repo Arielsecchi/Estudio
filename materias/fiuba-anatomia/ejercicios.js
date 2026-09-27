@@ -1005,3 +1005,112 @@ registerExercises('fiuba-anatomia', '18', [
 
   {st: '¿Cuál de estas conclusiones sobre andamios biológicos es correcta, a la luz de los dos experimentos de la cátedra?', opts: ['Un andamio que conserva la arquitectura del órgano ya reproduce su función, porque la función está en la matriz', 'Los andamios sintéticos son siempre preferibles a los derivados de matriz nativa', 'La biocompatibilidad de un hidrogel se puede dar por probada si las células sobreviven la primera semana', 'La matriz aporta la geometría, pero la función la aportan las células cuando recuperan su polaridad en el compartimento correcto; y la estabilidad del material en el tiempo es un modo de falla independiente del estado de las células'], c: 3, ex: 'Es la síntesis de los dos papers. El <b>riñón</b> muestra la primera mitad: el andamio acelular conserva glomérulos y membranas basales pero filtra sin selectividad, y recién con epitelio polarizado vuelven la retención de albúmina (46,9%) y la reabsorción de glucosa (47,4%). El <b>constructo ovárico</b> muestra la segunda: las células estaban vivas y funcionales, y lo que falló a los 40 días fue la <b>cápsula que se mineralizó</b>. ▸ (A) es exactamente lo que el riñón descelularizado refuta. ▸ (B) contradice el resultado: la ventaja del andamio nativo es justamente que trae la geometría de la membrana basal, imposible de fabricar. ▸ (C) es lo que el ovario refuta: el problema apareció recién a los <b>40 días</b>, y el seguimiento útil fue de <b>90</b>.'},
 ]);
+
+// ============================================================
+// OPCIONES AL AZAR (las cuatro guías de Anatomía llevan este mismo bloque).
+// Cada vez que se abre la página, las opciones de cada pregunta cambian de lugar, así la
+// posición de la correcta no se aprende de memoria. Cada opción muestra su letra y las letras
+// que cita la explicación ("(B)", "la b", "opción C") se cambian con ella, igual que los
+// ordinales ("la primera opción") en las preguntas que se revisaron una por una. No se mueven
+// "Ninguna...", "Todas..." ni "Ambas...", y quedan como están las preguntas cuya explicación
+// nombra las opciones de una forma que no se puede reescribir sola. El generador de simulacros
+// del 1er parcial usa las mismas funciones (globalThis.MEZCLA_OPC) para mezclar en cada simulacro.
+// Claves: M madre, P 1er parcial, Q preguntas explicadas, S 2do parcial + unidad + # + índice.
+// ============================================================
+(function () {
+  'use strict';
+  const SUBJ = 'fiuba-anatomia', CLAVE = 'M';
+  if (!globalThis.MEZCLA_OPC) {
+    const LETRAS = 'ABCDEFGH';
+    const ORDINAL = ['primera', 'segunda', 'tercera', 'cuarta'];
+    // Explicaciones que nombran opciones por su orden y que se reescriben ("La tercera confunde...").
+    const ORDINALES = new Set(['M2#5', 'M2#12', 'M3#1', 'M3#8', 'M4#9', 'M4#10', 'M4#11', 'M4#12', 'M5#5', 'M5#6', 'M5#7', 'M5#8', 'M5#12',
+      'M6#6', 'M6#8', 'M6#9', 'M6#10', 'M6#11', 'M6#12', 'M10#1', 'M10#4', 'M10#6', 'M11#4', 'M11#6']);
+    // Posiciones que no se mueven: 'todas' deja la pregunta como está.
+    const QUIETAS = {
+      'P6#8': 'todas',   // "los tres primeros son obvios y el cuarto parece del mismo grupo"
+      'M3#5': [0, 1],    // "Las dos primeras opciones son la misma inversión"
+      'P9#3': 'todas', 'Q6#0': 'todas', // "En la diapositiva la opción b dice...": la letra es la de la diapositiva
+      'S7#4': 'todas',   // "De las cuatro opciones, C es la única parenteral"
+      // Nombran opciones por su orden con giros que no están en la lista de arriba.
+      'M4#5': 'todas', 'M5#0': 'todas', 'M6#0': 'todas', 'M6#2': 'todas', 'M11#2': 'todas', 'M12#3': 'todas',
+      'M12#8': 'todas', 'M12#9': 'todas', 'M12#13': 'todas', 'M13#2': 'todas', 'M13#4': 'todas', 'M14#10': 'todas',
+      'M14#12': 'todas', 'M15#0': 'todas', 'M15#2': 'todas', 'M15#8': 'todas', 'M13#8': 'todas',
+      'M12#11': [0, 1],  // "Las dos primeras opciones son incoherentes"
+    };
+    const plano = (s) => String(s).replace(/<[^>]+>/g, '');
+    const mezclar = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    };
+    // p[lugar original] = lugar nuevo.
+    function permutacion(q, id) {
+      const n = q.opts.length, ident = [];
+      for (let i = 0; i < n; i++) ident.push(i);
+      if (QUIETAS[id] === 'todas') return ident;
+      // Si una opción nombra a otras ("A y B son correctas", "todas las anteriores"), no se mezcla.
+      if (q.opts.some((o) => /\banteriores\b|\b[A-D] y [A-D] son\b/i.test(plano(o)))) return ident;
+      const quietas = new Set(QUIETAS[id] || []);
+      q.opts.forEach((o, i) => { if (/^\s*(A ninguna|Ninguna|Todas|Ambas)\b/i.test(plano(o))) quietas.add(i); });
+      const libres = ident.filter((i) => !quietas.has(i));
+      const destinos = mezclar(libres);
+      const p = ident.slice();
+      libres.forEach((i, k) => { p[i] = destinos[k]; });
+      return p;
+    }
+    function reescribirEx(ex, id, p, n) {
+      if (!ex) return ex;
+      const cambio = (x) => {
+        const i = LETRAS.indexOf(x.toUpperCase());
+        if (i < 0 || i >= n || p[i] === undefined) return x;
+        const y = LETRAS[p[i]];
+        return x === x.toUpperCase() ? y : y.toLowerCase();
+      };
+      // "(B)"
+      ex = ex.replace(/\(([A-Ha-h])\)/g, (m, x) => '(' + cambio(x) + ')');
+      // "la b", "La B", "las c", "opción B" (no "las opciones b) y c)" de una nota de transcripción)
+      ex = ex.replace(/(^|[^A-Za-zÀ-ÿ0-9])([Ll]as?|[Oo]pci[oó]n(?:es)?) ([A-Ha-h])(?![A-Za-zÀ-ÿ0-9)\-])/g, (m, pre, a, x) => pre + a + ' ' + cambio(x));
+      if (ORDINALES.has(id)) {
+        // "la primera opción", "La tercera confunde", "La última opción", "opción 3"
+        ex = ex.replace(/(^|[^A-Za-zÀ-ÿ])([Ll]a) (primera|segunda|tercera|cuarta|última)(?= (?:opción|es|se|usa|inventa|confunde|invierte|describe|cambia|atribuye|atribuyen|contradice|contradicen|trae|traen|pide|salta|mezcla|elige|le|fusiona|y la)(?![A-Za-zÀ-ÿ]))/g,
+          (m, pre, a, o) => {
+            const i = o === 'última' ? n - 1 : ORDINAL.indexOf(o);
+            const j = p[i];
+            return pre + a + ' ' + (o === 'última' && j === n - 1 ? 'última' : ORDINAL[j]);
+          });
+        ex = ex.replace(/(^|[^A-Za-zÀ-ÿ])([Oo]pci[oó]n) ([1-9])(?![0-9])/g, (m, pre, a, d) => {
+          const i = +d - 1;
+          return pre + a + ' ' + ((p[i] === undefined ? i : p[i]) + 1);
+        });
+      }
+      return ex;
+    }
+    globalThis.MEZCLA_OPC = { permutacion: permutacion, reescribirEx: reescribirEx, LETRAS: LETRAS };
+  }
+
+  // Las preguntas fijas de esta guía: se mezclan antes de que app.js las dibuje (lo hace 0,1 s
+  // después de DOMContentLoaded), y cada opción lleva su letra adelante.
+  function mezclarPreguntas() {
+    const Z = globalThis.MEZCLA_OPC, EX = window.EX || {};
+    Object.keys(EX).forEach((k) => {
+      if (k.indexOf(SUBJ + '-') !== 0) return;
+      const unidad = k.slice(SUBJ.length + 1);
+      if (!/^\d+[a-z]?$/.test(unidad)) return;
+      EX[k].forEach((q, i) => {
+        if (!q || !Array.isArray(q.opts) || typeof q.c !== 'number' || q._mezclada) return;
+        const id = CLAVE + unidad + '#' + i;
+        const p = Z.permutacion(q, id);
+        const opts = [];
+        q.opts.forEach((o, j) => { opts[p[j]] = o; });
+        q.ex = Z.reescribirEx(q.ex, id, p, q.opts.length);
+        q.c = p[q.c];
+        q.opts = opts.map((o, j) => '<span class="op-letra" aria-hidden="true">' + Z.LETRAS[j] + '</span><span class="op-txt">' + o + '</span>');
+        q._mezclada = true;
+      });
+    });
+  }
+  if (typeof document !== 'undefined' && typeof window !== 'undefined' && document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mezclarPreguntas);
+  }
+})();

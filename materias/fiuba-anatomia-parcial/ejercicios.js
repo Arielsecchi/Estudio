@@ -636,8 +636,15 @@ globalThis.BANCO_SIM_ANAT_P1 = {
   const persistir = () => { if (sim) guardar(K_ACTUAL, sim); };
   const respondidas = () => sim.mc.filter((id) => sim.picks[id] !== undefined).length;
   const hayAvance = () => respondidas() > 0 || Object.keys(sim.textos).some((k) => String(sim.textos[k] || '').trim());
-  const valido = (s) => s && Array.isArray(s.mc) && s.mc.length && s.mc.every((id) => porIdMc.has(id)) && Array.isArray(s.dev) && s.dev.every((id) => porIdDev.has(id)) && s.picks && s.textos;
+  const valido = (s) => s && Array.isArray(s.mc) && s.mc.length && s.mc.every((id) => porIdMc.has(id)) && Array.isArray(s.dev) && s.dev.every((id) => porIdDev.has(id)) && s.picks && s.textos
+    && (!s.perm || Object.keys(s.perm).every((id) => porIdMc.has(id) && Array.isArray(s.perm[id]) && s.perm[id].length === porIdMc.get(id).opts.length));
   const etiqueta = (origen) => { const t = TAG[origen] || TAG['guía']; return '<span class="sim-tag sim-tag-' + t[1] + '">' + t[0] + '</span>'; };
+  // Orden de las opciones: cada simulacro las mezcla de nuevo (ver OPCIONES AL AZAR, al final del archivo).
+  const MZ = () => globalThis.MEZCLA_OPC;
+  const permutar = (ids) => { const o = {}; if (MZ()) ids.forEach((id) => { o[id] = MZ().permutacion(porIdMc.get(id), id); }); return o; };
+  const permDe = (id, q) => (sim && sim.perm && sim.perm[id]) || q.opts.map((x, i) => i);
+  const ordenDe = (id, q) => { const inv = []; permDe(id, q).forEach((nuevo, viejo) => { inv[nuevo] = viejo; }); return inv; };
+  const exDe = (q) => (MZ() ? MZ().reescribirEx(q.ex, q.id, permDe(q.id, q), q.opts.length) : q.ex);
 
   // Un botón que pide un segundo toque antes de hacer algo que no se deshace.
   function pedirConfirmacion(btn, clave, texto) {
@@ -704,8 +711,8 @@ globalThis.BANCO_SIM_ANAT_P1 = {
       const q = porIdMc.get(id);
       h += '<div class="qex sim-q" data-k="' + k + '"><div class="qex-h"><span class="qex-n">' + (k + 1) + '</span>' + etiqueta(q.origen) + '</div>';
       h += '<div class="qex-st">' + q.st + '</div><div class="qex-opts">';
-      q.opts.forEach((o, i) => {
-        h += '<button type="button" class="qex-opt sim-opt" data-i="' + i + '" aria-pressed="false"><span class="sim-letra" aria-hidden="true">' + LETRAS[i] + '</span><span class="sim-otxt">' + o + '</span></button>';
+      ordenDe(id, q).forEach((i, j) => {
+        h += '<button type="button" class="qex-opt sim-opt" data-i="' + i + '" aria-pressed="false"><span class="sim-letra" aria-hidden="true">' + LETRAS[j] + '</span><span class="sim-otxt">' + q.opts[i] + '</span></button>';
       });
       h += '</div><div class="qex-fb-wrap"></div></div>';
     });
@@ -785,7 +792,7 @@ globalThis.BANCO_SIM_ANAT_P1 = {
         else if (i === p) b.classList.add('ko');
       });
       const titulo = ok ? '¡Correcto!' : (p === undefined ? 'Sin responder. La correcta está en verde' : 'Incorrecto. La correcta está en verde');
-      let fb = '<div class="qex-fb ' + (ok ? 'ok' : 'ko') + '"><div class="qex-fb-t">' + titulo + '</div><div>' + q.ex + '</div>';
+      let fb = '<div class="qex-fb ' + (ok ? 'ok' : 'ko') + '"><div class="qex-fb-t">' + titulo + '</div><div>' + exDe(q) + '</div>';
       if (!ok) fb += '<div class="sim-donde">Clase ' + q.clase + ', ' + NOMBRE_CLASE[q.clase] + ': se repasa en ' + REPASO[q.clase] + '.</div>';
       box.querySelector('.qex-fb-wrap').innerHTML = fb + '</div>';
     });
@@ -835,7 +842,7 @@ globalThis.BANCO_SIM_ANAT_P1 = {
     const hist = leer(K_HIST, []);
     const recientes = [].concat.apply([], hist.slice(-2));
     const r = armar(recientes);
-    sim = { v: 1, mc: r.mc, dev: r.dev, picks: {}, textos: {}, corregido: false, creado: Date.now(), fin: null };
+    sim = { v: 1, mc: r.mc, dev: r.dev, perm: permutar(r.mc), picks: {}, textos: {}, corregido: false, creado: Date.now(), fin: null };
     hist.push(r.mc.concat(r.dev));
     guardar(K_HIST, hist.slice(-2));
     const chk = conId('fap-sim-crono-chk');
@@ -1009,4 +1016,113 @@ globalThis.BANCO_SIM_ANAT_P1 = {
   globalThis.SIM_ANAT_P1 = { armar: armar };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
   else iniciar();
+})();
+
+// ============================================================
+// OPCIONES AL AZAR (las cuatro guías de Anatomía llevan este mismo bloque).
+// Cada vez que se abre la página, las opciones de cada pregunta cambian de lugar, así la
+// posición de la correcta no se aprende de memoria. Cada opción muestra su letra y las letras
+// que cita la explicación ("(B)", "la b", "opción C") se cambian con ella, igual que los
+// ordinales ("la primera opción") en las preguntas que se revisaron una por una. No se mueven
+// "Ninguna...", "Todas..." ni "Ambas...", y quedan como están las preguntas cuya explicación
+// nombra las opciones de una forma que no se puede reescribir sola. El generador de simulacros
+// del 1er parcial usa las mismas funciones (globalThis.MEZCLA_OPC) para mezclar en cada simulacro.
+// Claves: M madre, P 1er parcial, Q preguntas explicadas, S 2do parcial + unidad + # + índice.
+// ============================================================
+(function () {
+  'use strict';
+  const SUBJ = 'fiuba-anatomia-parcial', CLAVE = 'P';
+  if (!globalThis.MEZCLA_OPC) {
+    const LETRAS = 'ABCDEFGH';
+    const ORDINAL = ['primera', 'segunda', 'tercera', 'cuarta'];
+    // Explicaciones que nombran opciones por su orden y que se reescriben ("La tercera confunde...").
+    const ORDINALES = new Set(['M2#5', 'M2#12', 'M3#1', 'M3#8', 'M4#9', 'M4#10', 'M4#11', 'M4#12', 'M5#5', 'M5#6', 'M5#7', 'M5#8', 'M5#12',
+      'M6#6', 'M6#8', 'M6#9', 'M6#10', 'M6#11', 'M6#12', 'M10#1', 'M10#4', 'M10#6', 'M11#4', 'M11#6']);
+    // Posiciones que no se mueven: 'todas' deja la pregunta como está.
+    const QUIETAS = {
+      'P6#8': 'todas',   // "los tres primeros son obvios y el cuarto parece del mismo grupo"
+      'M3#5': [0, 1],    // "Las dos primeras opciones son la misma inversión"
+      'P9#3': 'todas', 'Q6#0': 'todas', // "En la diapositiva la opción b dice...": la letra es la de la diapositiva
+      'S7#4': 'todas',   // "De las cuatro opciones, C es la única parenteral"
+      // Nombran opciones por su orden con giros que no están en la lista de arriba.
+      'M4#5': 'todas', 'M5#0': 'todas', 'M6#0': 'todas', 'M6#2': 'todas', 'M11#2': 'todas', 'M12#3': 'todas',
+      'M12#8': 'todas', 'M12#9': 'todas', 'M12#13': 'todas', 'M13#2': 'todas', 'M13#4': 'todas', 'M14#10': 'todas',
+      'M14#12': 'todas', 'M15#0': 'todas', 'M15#2': 'todas', 'M15#8': 'todas', 'M13#8': 'todas',
+      'M12#11': [0, 1],  // "Las dos primeras opciones son incoherentes"
+    };
+    const plano = (s) => String(s).replace(/<[^>]+>/g, '');
+    const mezclar = (arr) => {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    };
+    // p[lugar original] = lugar nuevo.
+    function permutacion(q, id) {
+      const n = q.opts.length, ident = [];
+      for (let i = 0; i < n; i++) ident.push(i);
+      if (QUIETAS[id] === 'todas') return ident;
+      // Si una opción nombra a otras ("A y B son correctas", "todas las anteriores"), no se mezcla.
+      if (q.opts.some((o) => /\banteriores\b|\b[A-D] y [A-D] son\b/i.test(plano(o)))) return ident;
+      const quietas = new Set(QUIETAS[id] || []);
+      q.opts.forEach((o, i) => { if (/^\s*(A ninguna|Ninguna|Todas|Ambas)\b/i.test(plano(o))) quietas.add(i); });
+      const libres = ident.filter((i) => !quietas.has(i));
+      const destinos = mezclar(libres);
+      const p = ident.slice();
+      libres.forEach((i, k) => { p[i] = destinos[k]; });
+      return p;
+    }
+    function reescribirEx(ex, id, p, n) {
+      if (!ex) return ex;
+      const cambio = (x) => {
+        const i = LETRAS.indexOf(x.toUpperCase());
+        if (i < 0 || i >= n || p[i] === undefined) return x;
+        const y = LETRAS[p[i]];
+        return x === x.toUpperCase() ? y : y.toLowerCase();
+      };
+      // "(B)"
+      ex = ex.replace(/\(([A-Ha-h])\)/g, (m, x) => '(' + cambio(x) + ')');
+      // "la b", "La B", "las c", "opción B" (no "las opciones b) y c)" de una nota de transcripción)
+      ex = ex.replace(/(^|[^A-Za-zÀ-ÿ0-9])([Ll]as?|[Oo]pci[oó]n(?:es)?) ([A-Ha-h])(?![A-Za-zÀ-ÿ0-9)\-])/g, (m, pre, a, x) => pre + a + ' ' + cambio(x));
+      if (ORDINALES.has(id)) {
+        // "la primera opción", "La tercera confunde", "La última opción", "opción 3"
+        ex = ex.replace(/(^|[^A-Za-zÀ-ÿ])([Ll]a) (primera|segunda|tercera|cuarta|última)(?= (?:opción|es|se|usa|inventa|confunde|invierte|describe|cambia|atribuye|atribuyen|contradice|contradicen|trae|traen|pide|salta|mezcla|elige|le|fusiona|y la)(?![A-Za-zÀ-ÿ]))/g,
+          (m, pre, a, o) => {
+            const i = o === 'última' ? n - 1 : ORDINAL.indexOf(o);
+            const j = p[i];
+            return pre + a + ' ' + (o === 'última' && j === n - 1 ? 'última' : ORDINAL[j]);
+          });
+        ex = ex.replace(/(^|[^A-Za-zÀ-ÿ])([Oo]pci[oó]n) ([1-9])(?![0-9])/g, (m, pre, a, d) => {
+          const i = +d - 1;
+          return pre + a + ' ' + ((p[i] === undefined ? i : p[i]) + 1);
+        });
+      }
+      return ex;
+    }
+    globalThis.MEZCLA_OPC = { permutacion: permutacion, reescribirEx: reescribirEx, LETRAS: LETRAS };
+  }
+
+  // Las preguntas fijas de esta guía: se mezclan antes de que app.js las dibuje (lo hace 0,1 s
+  // después de DOMContentLoaded), y cada opción lleva su letra adelante.
+  function mezclarPreguntas() {
+    const Z = globalThis.MEZCLA_OPC, EX = window.EX || {};
+    Object.keys(EX).forEach((k) => {
+      if (k.indexOf(SUBJ + '-') !== 0) return;
+      const unidad = k.slice(SUBJ.length + 1);
+      if (!/^\d+[a-z]?$/.test(unidad)) return;
+      EX[k].forEach((q, i) => {
+        if (!q || !Array.isArray(q.opts) || typeof q.c !== 'number' || q._mezclada) return;
+        const id = CLAVE + unidad + '#' + i;
+        const p = Z.permutacion(q, id);
+        const opts = [];
+        q.opts.forEach((o, j) => { opts[p[j]] = o; });
+        q.ex = Z.reescribirEx(q.ex, id, p, q.opts.length);
+        q.c = p[q.c];
+        q.opts = opts.map((o, j) => '<span class="op-letra" aria-hidden="true">' + Z.LETRAS[j] + '</span><span class="op-txt">' + o + '</span>');
+        q._mezclada = true;
+      });
+    });
+  }
+  if (typeof document !== 'undefined' && typeof window !== 'undefined' && document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mezclarPreguntas);
+  }
 })();
