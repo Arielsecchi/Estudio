@@ -160,14 +160,10 @@ function restoreSubState(){
 }
 
 // ============ TEMA ============
+// El botón es un sol que se vuelve luna: el dibujo cambia solo por CSS con [data-theme="dark"].
 function applyTheme(theme){
-  if (theme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('theme-btn').textContent = '☀️';
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-    document.getElementById('theme-btn').textContent = '🌙';
-  }
+  if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.removeAttribute('data-theme');
 }
 function toggleTheme(){
   const current = document.documentElement.getAttribute('data-theme');

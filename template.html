@@ -42,7 +42,27 @@
 </div>
 
 <button class="menu-btn" id="menu-btn" onclick="toggleDrawer()" aria-label="Menú">☰</button>
-<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Tema">🌙</button>
+<button class="theme-btn" id="theme-btn" type="button" onclick="toggleTheme()" aria-label="Cambiar entre tema claro y oscuro">
+  <svg class="theme-toggle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <defs>
+      <mask id="theme-toggle-mask">
+        <rect x="0" y="0" width="24" height="24" fill="white"/>
+        <circle class="theme-toggle-mask-circle" cx="12" cy="12" r="9" fill="black"/>
+      </mask>
+    </defs>
+    <circle class="theme-toggle-body" cx="12" cy="12" r="9" fill="currentColor" stroke="none" mask="url(#theme-toggle-mask)"/>
+    <g class="theme-toggle-rays">
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="5.64" y1="5.64" x2="4.22" y2="4.22"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      <line x1="5.64" y1="18.36" x2="4.22" y2="19.78"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    </g>
+  </svg>
+</button>
 
 <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 
@@ -68,7 +88,7 @@
 
 <footer>
   Guías unificadas · abril 2026<br>
-  Tocá ☰ arriba a la izquierda para cambiar de materia · 🌙 arriba a la derecha para tema oscuro
+  Tocá ☰ arriba a la izquierda para cambiar de materia, y el sol o la luna de arriba a la derecha para cambiar el tema
 </footer>
 
 </div>
