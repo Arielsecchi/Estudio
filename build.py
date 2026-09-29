@@ -337,6 +337,19 @@ def construir_js(materias: list[dict], prelude: str = '') -> str:
     return prelude + antes_init + cuerpo + desde_init
 
 
+def construir_analytics() -> str:
+    """Beacon de Cloudflare Web Analytics. El token (publico, viene del panel de
+    Cloudflare) vive en analytics_token.txt; si esta vacio no se emite nada."""
+    ruta = ROOT / 'analytics_token.txt'
+    token = ruta.read_text(encoding='utf-8').strip() if ruta.exists() else ''
+    if not token:
+        return ''
+    return (
+        '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+        f'data-cf-beacon=\'{{"token": "{token}"}}\'></script>'
+    )
+
+
 def construir_html(todas: list[dict], activa: dict | None = None) -> str:
     """Ensambla una pagina.
 
@@ -366,6 +379,7 @@ def construir_html(todas: list[dict], activa: dict | None = None) -> str:
         '<!-- BUILD: DRAWER -->': construir_drawer(todas),
         '<!-- BUILD: SECCIONES DE MATERIAS -->': secciones,
         '// BUILD: JS': js,
+        '<!-- BUILD: ANALYTICS -->': construir_analytics(),
     }
 
     resultado = template
