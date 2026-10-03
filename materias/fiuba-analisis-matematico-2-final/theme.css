@@ -1,0 +1,160 @@
+  [data-subject="fiuba-analisis-matematico-2-final"] {
+    --bg: #f3f4fd; --text: #13153a; --text-muted: #555a8c;
+    --surface: #ffffff; --surface-2: #e3e6fb; --surface-3: #cbd0f6;
+    --border: #d9ddf8; --border-2: #b3baf0;
+    --accent: #4338ca; --accent-hover: #5448dd; --gold: #a16207;
+    --ex-bg: #fef3c7; --ex-border: #fcd34d; --ex-title: #92400e;
+    --ok-bg: #dcfce7; --ok-text: #166534; --ok-border: #4ade80;
+    --ko-bg: #fee2e2; --ko-text: #991b1b; --ko-border: #f87171;
+    --summary-bg: #e3e6fb; --summary-hover: #cbd0f6; --num-text: #ffffff;
+    --shadow: rgba(67, 56, 202, 0.08);
+  }
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] {
+    --bg: #10112a; --text: #e4e6fb; --text-muted: #9ea3d6;
+    --surface: #171938; --surface-2: #1f2248; --surface-3: #282c5a;
+    --border: #282c5a; --border-2: #33386e;
+    --accent: #a5b4fc; --accent-hover: #c7d2fe; --gold: #fbbf24;
+    --ex-bg: #2a2412; --ex-border: #4d4020; --ex-title: #fbbf24;
+    --ok-bg: #14301e; --ok-text: #86efac; --ok-border: #22c55e;
+    --ko-bg: #2d1515; --ko-text: #fca5a5; --ko-border: #b05848;
+    --summary-bg: #1f2248; --summary-hover: #282c5a; --num-text: #10112a;
+  }
+
+  /* ===== Sección 4 · generador de parciales ===== */
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim [hidden], [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono[hidden] { display: none !important; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-estado { margin-left: 8px; font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-estado:empty { display: none; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-panel {
+    background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 10px;
+    padding: 14px 16px; margin: 14px 0 18px;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-modos {
+    display: inline-flex; border: 1px solid var(--accent); border-radius: 8px; overflow: hidden; max-width: 100%;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-modo {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+    padding: 8px 18px; background: var(--surface); color: var(--accent); font-size: 14.5px; font-weight: 700;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-modo + .sim-modo { border-left: 1px solid var(--accent); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-modo input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-modo.sim-modo-on { background: var(--accent); color: var(--num-text); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-modos:focus-within { outline: 2px solid var(--gold); outline-offset: 3px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-campo { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 12px 0 4px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-campo label { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-campo select {
+    min-height: 44px; max-width: 100%; padding: 8px 12px; border: 1px solid var(--border-2); border-radius: 8px;
+    background: var(--surface); color: var(--text); font-family: inherit; font-size: 15px; cursor: pointer;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-campo select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 10px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+    padding: 10px 20px; border: 1px solid var(--accent); border-radius: 8px;
+    background: var(--accent); color: var(--num-text); font-family: inherit; font-size: 15px;
+    font-weight: 700; line-height: 1.3; text-align: center; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: background .15s, border-color .15s;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-btn:focus-visible,
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-ver:focus-visible,
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-marca:focus-visible,
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-btn.sim-confirmar { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-chk {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+    font-size: 14px; color: var(--text); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-chk input { width: 20px; height: 20px; margin: 0; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-hist { margin-top: 8px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-info { margin-top: 4px; font-size: 12.5px; line-height: 1.6; color: var(--text); opacity: .8; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim a, [data-subject="fiuba-analisis-matematico-2-final"] .sim a:visited { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-aviso { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  [data-subject="fiuba-analisis-matematico-2-final"] body.fam2f-fijo-on { padding-bottom: 76px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-volver[hidden] { display: none !important; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-volver {
+    position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 150;
+    display: flex; align-items: center; min-height: 44px; padding: 8px 18px; border: 1px solid var(--accent);
+    border-radius: 999px; background: var(--surface); color: var(--accent); font-family: inherit; font-size: 15px;
+    font-weight: 700; cursor: pointer; box-shadow: 0 3px 12px rgba(0, 0, 0, .18); -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-volver:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-cab {
+    margin: 4px 0 10px; padding: 10px 14px; border-radius: 8px; background: var(--surface);
+    border: 1px solid var(--border-2); font-size: 13.5px; line-height: 1.6; outline: none;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-hoja {
+    padding: 10px 14px; border: 1px solid var(--border-2); border-left: 4px solid var(--accent); border-radius: 8px;
+    background: var(--surface);
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-hoja-t { font-size: 14px; font-weight: 700; color: var(--text); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-hoja-s { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .qex-h { align-items: center; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-e .qex-st { overflow-wrap: break-word; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-tag {
+    display: inline-block; font-size: 11.5px; font-weight: 600; line-height: 1.5; padding: 1px 10px;
+    border-radius: 999px; border: 1px solid var(--ex-border); background: var(--ex-bg); color: var(--ex-title);
+    text-align: right;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .rev-btn.sim-ver { min-height: 44px; padding: 10px 16px; font-size: 14px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-fuente { margin-top: 8px; font-size: 12.5px; line-height: 1.6; color: var(--text-muted); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-marcas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-marca {
+    flex: 1 1 140px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--border-2); border-radius: 8px;
+    background: var(--surface); color: var(--text); font-family: inherit; font-size: 14px; font-weight: 600;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-marca:disabled { opacity: .5; cursor: default; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-marca-si[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-border); box-shadow: inset 0 0 0 1px var(--ok-border); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-marca-no[aria-pressed="true"] { background: var(--ko-bg); color: var(--ko-text); border-color: var(--ko-border); box-shadow: inset 0 0 0 1px var(--ko-border); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-marca-nota { margin-top: 6px; font-size: 12px; color: var(--text-muted); }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-e.revealed .sim-marca-nota { display: none; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-pie {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;
+    margin-top: 18px; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border-2);
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-progreso { font-size: 13.5px; font-weight: 600; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-caja { margin-top: 16px; outline: none; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-caja p { margin: 6px 0; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-caja .ky-t,
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-caja .ex-t,
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-caja .tr-t { font-size: 16px; text-transform: none; letter-spacing: 0; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-clases { margin: 6px 0 8px 20px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-clases li { margin: 3px 0; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-caja .sim-btn { margin-top: 6px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-reglas { margin: 8px 0 12px 22px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-reglas li { margin: 6px 0; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono {
+    position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 150;
+    display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 18px;
+    border: none; border-radius: 999px; background: var(--accent); color: var(--num-text);
+    font-family: inherit; font-size: 15px; font-variant-numeric: tabular-nums; cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .22); -webkit-tap-highlight-color: transparent;
+  }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono b { font-size: 17px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono-l { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; opacity: .9; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono.sim-poco { background: #b91c1c; color: #ffffff; }
+  /* El enunciado del simulacro de la guía corta renglón en vez de salirse de la pantalla. */
+  [data-subject="fiuba-analisis-matematico-2-final"] #fam2f-s4 pre.code-block { white-space: pre-wrap; overflow-wrap: break-word; }
+  @media (max-width: 500px) {
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim-panel { padding: 12px; }
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim-modos { display: flex; }
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim-modo { flex: 1 1 0; padding: 8px 10px; }
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim-campo select { width: 100%; }
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim .sim-btn { width: 100%; }
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim-crono { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 6px 14px; }
+    [data-subject="fiuba-analisis-matematico-2-final"] .sim-volver { left: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 6px 14px; font-size: 14px; }
+  }
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-campo select,
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-cab,
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-hoja { background: var(--bg); }
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-crono,
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-volver { box-shadow: 0 3px 14px rgba(0, 0, 0, .65); }
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-volver { background: var(--surface-2); }
+  [data-theme="dark"][data-subject="fiuba-analisis-matematico-2-final"] .sim-crono.sim-poco { background: #b91c1c; color: #ffffff; }
+
+  /* Vectores: la flecha se dibuja con CSS (la combinante U+20D7 no tiene glifo en Segoe UI) */
+  [data-subject="fiuba-analisis-matematico-2-final"] .vec { position: relative; display: inline-block; font-family: inherit; font-weight: inherit; font-style: inherit; }
+  /* Los títulos de ejemplo llevan fórmulas: sin mayúsculas forzadas (f(x, y) no puede volverse F(X, Y)) */
+  [data-subject="fiuba-analisis-matematico-2-final"] .example .ex-t { text-transform: none; letter-spacing: 0.2px; font-size: 13px; }
+  [data-subject="fiuba-analisis-matematico-2-final"] .vec::after { content: "\2192"; position: absolute; left: 50%; transform: translateX(-50%); top: -0.62em; font-size: 0.62em; line-height: 1; font-style: normal; }
