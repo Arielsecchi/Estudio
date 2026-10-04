@@ -17,5 +17,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: esbuild (para sacar los comentarios de las paginas)
+        run: npm install --no-save --no-package-lock esbuild@0.27.3
+
       - name: Verificar que el sitio generado esta actualizado
         run: python build.py --check

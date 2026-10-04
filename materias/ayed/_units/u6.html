@@ -3,7 +3,7 @@
 <summary><span class="num">6</span> Unidad 6: Patrones algorítmicos clásicos (contar, sumar, promediar, máximos/mínimos) <span class="sec-score" id="ss-ayed-6"></span></summary>
 <div class="content">
 
-<p>En las unidades anteriores aprendiste las <b>piezas sueltas</b>: variables y operadores (U2–U3), tomar decisiones con <code>if</code> (U4) y repetir con ciclos (U5). Esta unidad no trae piezas nuevas: trae <b>recetas</b>. Vas a ver que cuando combinás un ciclo con una variable que se va actualizando adentro, aparecen una y otra vez los mismos cinco o seis <b>patrones</b>: <i>contar</i>, <i>sumar</i>, <i>promediar</i>, <i>buscar el máximo/mínimo</i> y <i>descomponer un número</i>. Si los reconocés, la mitad de los ejercicios de la cátedra se resuelven casi en automático.</p>
+<p>En las unidades anteriores aprendiste las <b>piezas sueltas</b>: variables y operadores (U2-U3), tomar decisiones con <code>if</code> (U4) y repetir con ciclos (U5). Esta unidad no trae piezas nuevas: trae <b>recetas</b>. Vas a ver que cuando combinás un ciclo con una variable que se va actualizando adentro, aparecen una y otra vez los mismos cinco o seis <b>patrones</b>: <i>contar</i>, <i>sumar</i>, <i>promediar</i>, <i>buscar el máximo/mínimo</i> y <i>descomponer un número</i>. Si los reconocés, la mitad de los ejercicios de la cátedra se resuelven casi en automático.</p>
 
 <div class="key">
   <div class="ky-t">La idea central de toda esta unidad</div>
@@ -41,7 +41,7 @@ int main() {
 </div>
 
 <!-- ─── 1. CONTAR ──────────────────────────────────────────────────────── -->
-<h3>Patrón 1 — Contar (contador condicional)</h3>
+<h3>Patrón 1: Contar (contador condicional)</h3>
 <p><b>Contar</b> significa responder a la pregunta "<i>¿cuántos</i> elementos cumplen tal condición?". Por ejemplo: cuántos valores fueron cero, cuántos negativos, cuántos alumnos aprobaron. La herramienta es una variable entera, el <b>contador</b>, que arranca en <code>0</code> y le sumamos <code>1</code> cada vez que el dato cumple la condición.</p>
 
 <div class="key">
@@ -97,7 +97,7 @@ int main() {
 </div>
 
 <!-- ─── 2. ACUMULAR / SUMAR ────────────────────────────────────────────── -->
-<h3>Patrón 2 — Acumular / Sumar (sumatoria)</h3>
+<h3>Patrón 2: Acumular / Sumar (sumatoria)</h3>
 <p><b>Sumar</b> (o "acumular") responde a "<i>¿cuánto suma</i> el conjunto?" o "¿cuál es la suma de los que cumplen tal condición?". La diferencia con contar es sutil pero fundamental:</p>
 <table class="tbl">
   <tr><th>Contar</th><th>Sumar</th></tr>
@@ -150,7 +150,7 @@ int main() {
 </div>
 
 <!-- ─── 3. PROMEDIAR ───────────────────────────────────────────────────── -->
-<h3>Patrón 3 — Promediar (y sus dos trampas)</h3>
+<h3>Patrón 3: Promediar (y sus dos trampas)</h3>
 <p>El <b>promedio</b> es "suma dividida por cantidad". Es decir: <b>combina los dos patrones anteriores</b>. Necesitás llevar al mismo tiempo un <i>acumulador</i> (la suma) y un <i>contador</i> (cuántos elementos sumaste), y al final dividir uno por el otro.</p>
 
 <p>Hagamos el <b>ejercicio 1.b</b>: <i>el promedio de los valores positivos</i>. Por cada positivo, lo sumo <b>y además</b> cuento uno:</p>
@@ -201,11 +201,11 @@ int main() {
 
 <div class="key">
   <div class="ky-t">¿Qué es "castear"?</div>
-  <b>Castear</b> es <i>convertir</i> un dato de un tipo a otro momentáneamente. <code>(float) sumaPositivos</code> le dice a C++: "tratá este entero como si fuera un número real <i>para esta operación</i>". Con que <b>uno</b> de los dos lados de la división sea real, C++ hace toda la división en real. Cuidado con esta trampa sutil: <code>(float)(suma / cant)</code> NO sirve — los paréntesis hacen que primero se divida entero (truncando) y recién después convierta. El casteo tiene que estar <b>antes</b> de la división: <code>(float) suma / cant</code>.
+  <b>Castear</b> es <i>convertir</i> un dato de un tipo a otro momentáneamente. <code>(float) sumaPositivos</code> le dice a C++: "tratá este entero como si fuera un número real <i>para esta operación</i>". Con que <b>uno</b> de los dos lados de la división sea real, C++ hace toda la división en real. Cuidado con esta trampa sutil: <code>(float)(suma / cant)</code> NO sirve: los paréntesis hacen que primero se divida entero (truncando) y recién después convierta. El casteo tiene que estar <b>antes</b> de la división: <code>(float) suma / cant</code>.
 </div>
 
 <!-- ─── 4. MÁXIMOS Y MÍNIMOS ───────────────────────────────────────────── -->
-<h3>Patrón 4 — Máximos y mínimos</h3>
+<h3>Patrón 4: Máximos y mínimos</h3>
 <p>El problema es: tenés un conjunto de valores que se van leyendo de a uno (no los tenés todos juntos a la vista), y querés saber <b>cuál es el mayor</b> (o el menor). Como solo ves un valor por vez, la estrategia es llevar una variable <code>max</code> que guarde "el mayor que vi <i>hasta ahora</i>", e ir comparando cada nuevo dato contra ella.</p>
 
 <div class="key">
@@ -218,7 +218,7 @@ int main() {
 
 <p>Toda la dificultad real está en <b>una sola pregunta</b>: ¿con qué valor arranca <code>max</code>? Porque la primera comparación necesita que <code>max</code> ya tenga <i>algo</i> adentro. Hay tres técnicas para resolver esto (las tres de las notas de clase). Vamos una por una.</p>
 
-<h4>Técnica A — Inicializar con un valor FUERA DEL DOMINIO</h4>
+<h4>Técnica A: Inicializar con un valor FUERA DEL DOMINIO</h4>
 <p>Si el enunciado te dice en qué rango están los datos (el "dominio"), podés arrancar <code>max</code> en un valor <b>imposible de alcanzar por debajo</b>, de modo que el primer dato real <i>seguro</i> lo supere y se convierta en el nuevo máximo.</p>
 <p>Por ejemplo, si el enunciado dice que los valores son del dominio <b>[0, +∞)</b> (cero o positivos), arrancás el máximo en algo más chico que cualquier dato posible, como <code>-1</code>:</p>
 
@@ -252,7 +252,7 @@ int main() {
   Esta técnica <b>solo sirve si el enunciado define el dominio</b> y te permite elegir un valor por fuera. Si los datos pueden ser <i>cualquier</i> entero (positivos y negativos sin límite), no existe un "más chico que todos" y esta técnica falla. Ese es justo el peligro de la próxima caja: arrancar un máximo en <code>0</code> "porque sí". Cuando no conocés el dominio, usá la técnica B o C.
 </div>
 
-<h4>Técnica B — Tomar el PRIMER elemento usando un contador de posición</h4>
+<h4>Técnica B: Tomar el PRIMER elemento usando un contador de posición</h4>
 <p>La idea acá es: <b>el primer dato que llega es, por definición, el máximo provisorio</b> (es el único que viste, así que es el mayor hasta ahora). Para detectar "¿estoy en el primer dato?" usamos un contador de posición <code>i</code> que arranca en 1, y aprovechamos el operador <b>OR</b> (<code>||</code>):</p>
 
 <pre class="code-block">#include &lt;iostream&gt;
@@ -285,7 +285,7 @@ int main() {
   El <code>||</code> (OR) da verdadero si <b>al menos una</b> de las dos condiciones se cumple. En la <b>primera</b> vuelta, <code>i == 1</code> es verdadero, así que entra al <code>if</code> y hace <code>max = valor</code> sin siquiera mirar <code>valor &gt; max</code> (gracias a esto no usamos <code>max</code> antes de inicializarla). En las vueltas siguientes <code>i</code> ya no es 1, entonces lo único que decide es <code>valor &gt; max</code>: la comparación normal. Esta técnica funciona <b>con cualquier dominio</b>, incluso negativos, porque no inventás ningún valor de arranque.
 </div>
 
-<h4>Técnica C — Tomar el primer elemento usando una BANDERA booleana</h4>
+<h4>Técnica C: Tomar el primer elemento usando una BANDERA booleana</h4>
 <p>Es exactamente la misma idea que la B, pero en lugar de contar posiciones usamos una <b>bandera</b> (una variable <code>bool</code>) que dice "¿es la primera vez?". Arranca en <code>true</code> y la apagamos apenas procesamos el primer dato.</p>
 
 <pre class="code-block">#include &lt;iostream&gt;
@@ -330,7 +330,7 @@ int main() {
 </div>
 
 <!-- ─── 5. VARIANTE: MAX + REPETICIONES ────────────────────────────────── -->
-<h3>Variante — Máximo y cuántas veces se repite</h3>
+<h3>Variante: Máximo y cuántas veces se repite</h3>
 <p>Esta es una vuelta de tuerca muy pedida (el <b>ejercicio 12 modificado</b> de las notas): además del máximo, querés saber <b>cuántas veces aparece</b> ese máximo en el conjunto. La clave está en distinguir <b>tres situaciones</b> al comparar cada valor con el máximo actual:</p>
 
 <table class="tbl">
@@ -401,7 +401,7 @@ int main() {
 </div>
 
 <!-- ─── 6. VARIANTE: POSICIÓN DEL MÁXIMO ───────────────────────────────── -->
-<h3>Variante — Posición relativa del máximo</h3>
+<h3>Variante: Posición relativa del máximo</h3>
 <p>Otra pregunta muy común (el <b>ejercicio 10</b>: <i>imprimir el valor máximo y su posición relativa dentro del conjunto</i>). "Posición relativa" significa el <b>lugar</b> que ocupa: si fue el 1º dato ingresado, el 5º, etc. La idea es llevar un contador de posición <code>i</code>, y cada vez que actualizás el máximo, <b>guardar también en qué posición estabas</b>.</p>
 
 <p>El ejercicio 10 trabaja con <i>valores positivos terminados con un negativo</i>, así que el centinela es "valor negativo" (corta cuando <code>valor &lt; 0</code>):</p>
@@ -449,7 +449,7 @@ int main() {
 </div>
 
 <!-- ─── 7. DESCOMPOSICIÓN / BILLETES ───────────────────────────────────── -->
-<h3>Patrón 5 — Descomposición numérica (cambio de billetes)</h3>
+<h3>Patrón 5: Descomposición numérica (cambio de billetes)</h3>
 <p>Este patrón aparece en el <b>ejercicio 14</b>: <i>dado un monto, calcular cuántos billetes de $100, $50, $20, $10, $5, $2 y $1 se necesitan, usando la mínima cantidad de billetes</i>. La estrategia se llama "<b>algoritmo voraz</b>" (greedy): siempre usás <b>la mayor cantidad posible del billete más grande</b>, y con lo que sobra repetís bajando de denominación.</p>
 
 <p>Las dos herramientas son operadores que ya viste en U3, pero acá lucen su verdadera utilidad:</p>
@@ -507,11 +507,11 @@ int main() {
 
 <div class="key">
   <div class="ky-t">Detalle clave: por qué reutilizamos <code>monto</code></div>
-  Fijate que después de cada paso hacemos <code>monto = monto % denominacion;</code>. Así <code>monto</code> deja de ser el total original y pasa a ser "lo que falta por cambiar". El paso siguiente trabaja sobre ese resto, no sobre el monto entero. Si te olvidás de actualizar el resto y siempre dividís el monto original, te dan cantidades disparatadas. (El ejercicio 14 completo pide hacer esto para <i>un conjunto</i> de sueldos terminado en cero — o sea: este bloque de billetes va <b>adentro</b> de un ciclo con centinela, acumulando los billetes de todos los sueldos.)
+  Fijate que después de cada paso hacemos <code>monto = monto % denominacion;</code>. Así <code>monto</code> deja de ser el total original y pasa a ser "lo que falta por cambiar". El paso siguiente trabaja sobre ese resto, no sobre el monto entero. Si te olvidás de actualizar el resto y siempre dividís el monto original, te dan cantidades disparatadas. (El ejercicio 14 completo pide hacer esto para <i>un conjunto</i> de sueldos terminado en cero, o sea que este bloque de billetes va <b>adentro</b> de un ciclo con centinela, acumulando los billetes de todos los sueldos.)
 </div>
 
 <!-- ─── 8. VALIDACIÓN DE ENTRADA ───────────────────────────────────────── -->
-<h3>Patrón extra — Validación de entrada con <code>do-while</code></h3>
+<h3>Patrón extra: Validación de entrada con <code>do-while</code></h3>
 <p>Muchos enunciados exigen que un dato esté dentro de cierto rango (por ejemplo "ingresar N menor que 25", como en varios ejercicios de la guía). Si el usuario mete algo inválido, no querés seguir: querés <b>volver a pedírselo hasta que esté bien</b>. El ciclo ideal para esto es el <code>do-while</code>, porque pide el dato <b>al menos una vez</b> y repite mientras siga siendo inválido.</p>
 
 <pre class="code-block">#include &lt;iostream&gt;

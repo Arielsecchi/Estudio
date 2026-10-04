@@ -3,7 +3,7 @@
 <summary><span class="num">5</span> Unidad 5: Estructuras de repetición (for, while, do-while) y centinela <span class="sec-score" id="ss-ayed-5"></span></summary>
 <div class="content">
 
-<p>En la Unidad 4 tu programa aprendió a <b>decidir</b>: ejecutar ciertas líneas o saltearlas según una condición. En esta unidad aprende a <b>repetir</b>: ejecutar un mismo bloque de código muchas veces, sin que vos tengas que copiarlo y pegarlo. A esas estructuras se las llama <b>ciclos</b> o <b>bucles</b>. Vas a ver las tres que usa la cátedra —<code>for</code>, <code>while</code> y <code>do-while</code>— paso a paso, con trazas, y el <b>patrón centinela</b> para leer datos hasta un valor de corte. Arrancamos de cero, como siempre.</p>
+<p>En la Unidad 4 tu programa aprendió a <b>decidir</b>: ejecutar ciertas líneas o saltearlas según una condición. En esta unidad aprende a <b>repetir</b>: ejecutar un mismo bloque de código muchas veces, sin que vos tengas que copiarlo y pegarlo. A esas estructuras se las llama <b>ciclos</b> o <b>bucles</b>. Vas a ver las tres que usa la cátedra (<code>for</code>, <code>while</code> y <code>do-while</code>) paso a paso, con trazas, y el <b>patrón centinela</b> para leer datos hasta un valor de corte. Arrancamos de cero, como siempre.</p>
 
 <!-- ─── 1. MOTIVACIÓN: POR QUÉ REPETIR ──────────────────────────────────── -->
 <h3>¿Por qué necesitamos repetir? La motivación</h3>
@@ -20,9 +20,9 @@ cout &lt;&lt; "Hola" &lt;&lt; endl;
 
 <div class="example">
   <div class="ex-t">Los ciclos en la vida real</div>
-  <b>Hacer flexiones</b> — "Repetí: bajá y subí, <i>hasta llegar a 20</i>." Sabés exactamente cuántas: son 20. Eso es una repetición <b>exacta</b>.<br><br>
-  <b>Llenar un balde con un vaso</b> — "Repetí: cargá el vaso y volcalo en el balde, <i>mientras el balde no esté lleno</i>." No sabés cuántos vasos van a ser: depende del tamaño del balde y del vaso. Eso es una repetición <b>indefinida</b>.<br><br>
-  Esta diferencia —¿sé cuántas veces, o repito mientras pase algo?— es justo la que separa al <code>for</code> de los otros dos ciclos.
+  <b>Hacer flexiones</b>: "Repetí: bajá y subí, <i>hasta llegar a 20</i>." Sabés exactamente cuántas: son 20. Eso es una repetición <b>exacta</b>.<br><br>
+  <b>Llenar un balde con un vaso</b>: "Repetí: cargá el vaso y volcalo en el balde, <i>mientras el balde no esté lleno</i>." No sabés cuántos vasos van a ser: depende del tamaño del balde y del vaso. Eso es una repetición <b>indefinida</b>.<br><br>
+  Esta diferencia (¿sé cuántas veces, o repito mientras pase algo?) es justo la que separa al <code>for</code> de los otros dos ciclos.
 </div>
 
 <!-- ─── 2. DEFINIDA VS INDEFINIDA ──────────────────────────────────────── -->
@@ -31,8 +31,8 @@ cout &lt;&lt; "Hola" &lt;&lt; endl;
 
 <table class="tbl">
   <tr><th>Tipo</th><th>¿Sé cuántas veces?</th><th>Estructura</th><th>Ejemplo típico</th></tr>
-  <tr><td><b>Repetición DEFINIDA</b> (o exacta)</td><td>SÍ — la cantidad es conocida (un número fijo, o calculable)</td><td class="c"><code>for</code></td><td>Mostrar "Hola" 10 veces; sumar los números del 1 al 100</td></tr>
-  <tr><td><b>Repetición INDEFINIDA</b> (o inexacta)</td><td>NO — repito mientras se cumpla una condición; la cantidad depende de algo (ej. lo que ingresa el usuario)</td><td class="c"><code>while</code> / <code>do-while</code></td><td>Pedir una contraseña hasta que sea correcta; leer números hasta que ingresen un 0</td></tr>
+  <tr><td><b>Repetición DEFINIDA</b> (o exacta)</td><td>SÍ, la cantidad es conocida (un número fijo, o calculable)</td><td class="c"><code>for</code></td><td>Mostrar "Hola" 10 veces; sumar los números del 1 al 100</td></tr>
+  <tr><td><b>Repetición INDEFINIDA</b> (o inexacta)</td><td>NO, repito mientras se cumpla una condición; la cantidad depende de algo (ej. lo que ingresa el usuario)</td><td class="c"><code>while</code> / <code>do-while</code></td><td>Pedir una contraseña hasta que sea correcta; leer números hasta que ingresen un 0</td></tr>
 </table>
 
 <div class="key">
@@ -107,7 +107,7 @@ for (int i = 1; i &lt;= 10; i = i + 1) {
   <tr><td class="c">3ª</td><td class="c">3</td><td class="c"><code>3 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">4</td></tr>
   <tr><td class="c">4ª</td><td class="c">4</td><td class="c"><code>4 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">5</td></tr>
   <tr><td class="c">5ª</td><td class="c">5</td><td class="c"><code>5 &lt;= 5</code> → <b>true</b></td><td>muestra <code>Hola</code></td><td class="c">6</td></tr>
-  <tr><td class="c">—</td><td class="c">6</td><td class="c"><code>6 &lt;= 5</code> → <b>false</b></td><td>sale del ciclo</td><td class="c">—</td></tr>
+  <tr><td class="c">ninguna</td><td class="c">6</td><td class="c"><code>6 &lt;= 5</code> → <b>false</b></td><td>sale del ciclo</td><td class="c"></td></tr>
 </table>
 
 <p>Resultado: <code>Hola</code> aparece <b>5 veces</b>. Mirá la última fila: cuando <code>i</code> llega a 6, la condición <code>6 &lt;= 5</code> da <code>false</code>, así que el cuerpo <b>ya no se ejecuta</b> y el ciclo termina. Ese chequeo "de más" que da falso es normal y necesario: es la forma en que el ciclo sabe que tiene que parar.</p>
@@ -274,7 +274,7 @@ while (x != 999) {    // 2) la condición evalúa el x que YA tenemos
 <h3>Dos atajos: <code>break</code> y <code>continue</code></h3>
 <p>Dentro de cualquier ciclo podés usar dos sentencias especiales para alterar su flujo. Ya viste <code>break</code> en el <code>switch</code> de la Unidad 4; en los ciclos cumple un rol parecido.</p>
 
-<p><b><code>break</code></b> — <b>corta</b> el ciclo por completo: lo abandona inmediatamente y el programa salta a lo que venga después de la llave de cierre, sin importar la condición. Sirve para salir antes de tiempo cuando ya encontraste lo que buscabas:</p>
+<p><b><code>break</code></b> <b>corta</b> el ciclo por completo: lo abandona inmediatamente y el programa salta a lo que venga después de la llave de cierre, sin importar la condición. Sirve para salir antes de tiempo cuando ya encontraste lo que buscabas:</p>
 
 <pre class="code-block">for (int i = 1; i &lt;= 10; i = i + 1) {
     if (i == 5) {
@@ -283,7 +283,7 @@ while (x != 999) {    // 2) la condición evalúa el x que YA tenemos
     cout &lt;&lt; i &lt;&lt; endl;    // muestra 1, 2, 3, 4 y corta
 }</pre>
 
-<p><b><code>continue</code></b> — <b>saltea el resto del cuerpo</b> de la vuelta actual y va directo a la siguiente iteración (en el <code>for</code>, pasa al incremento y vuelve a chequear la condición). No corta el ciclo: solo se saltea lo que queda de <i>esa</i> vuelta:</p>
+<p><b><code>continue</code></b> <b>saltea el resto del cuerpo</b> de la vuelta actual y va directo a la siguiente iteración (en el <code>for</code>, pasa al incremento y vuelve a chequear la condición). No corta el ciclo: solo se saltea lo que queda de <i>esa</i> vuelta:</p>
 
 <pre class="code-block">for (int i = 1; i &lt;= 5; i = i + 1) {
     if (i == 3) {

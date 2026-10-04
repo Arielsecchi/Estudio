@@ -19,7 +19,7 @@
   <div class="score" id="global-score-pc">Puntaje: 0 / 0 correctas</div>
 </nav>
 
-<div class="partial-header">Primer parcial <span class="date">Unidades 1–4 (parte 1)</span></div>
+<div class="partial-header">Primer parcial <span class="date">Unidades 1-4 (parte 1)</span></div>
 
 <!-- ============ UNIDAD 1 · INTRODUCCIÓN ============ -->
 <details id="pc-s1">
@@ -33,7 +33,7 @@
 
 <h3>¿Qué es un algoritmo?</h3>
 <p>Un <b>algoritmo</b> es una secuencia <b>finita y ordenada</b> de pasos para resolver un problema. La palabra clave es "preciso": cada paso debe ser entendible y ejecutable sin ambigüedad.</p>
-<p>Un algoritmo puede existir <b>sin computadoras</b>: una receta de cocina, las instrucciones para armar un mueble, los pasos para resolver una cuenta a mano — todos son algoritmos.</p>
+<p>Un algoritmo puede existir <b>sin computadoras</b>: una receta de cocina, las instrucciones para armar un mueble, los pasos para resolver una cuenta a mano. Todos son algoritmos.</p>
 
 <div class="example">
   <div class="ex-t">Algoritmo cotidiano</div>
@@ -66,7 +66,7 @@
 <p>Python es uno de los lenguajes más populares del mundo. Tiene tres ventajas que lo hacen ideal para empezar:</p>
 <ul>
   <li><b>Sintaxis legible:</b> el código se parece bastante al inglés y es fácil de leer.</li>
-  <li><b>Interpretado:</b> no hace falta "compilar" — la máquina ejecuta el código línea por línea al instante.</li>
+  <li><b>Interpretado:</b> no hace falta "compilar". La máquina ejecuta el código línea por línea al instante.</li>
   <li><b>Universal:</b> se usa para ciencia de datos, IA, web, ingeniería, finanzas y mucho más.</li>
 </ul>
 
@@ -98,7 +98,7 @@ print(pi)</pre>
 <p>Después de esas líneas, "edad" vale 25, "nombre" vale el texto "Ariel", y "pi" vale 3.14159.</p>
 
 <h3>El signo <code>=</code> es asignación, NO igualdad</h3>
-<p>En matemática, "x = 5" significa "x es igual a 5". En programación, <code>x = 5</code> significa <b>"asigna el valor 5 a la variable x"</b> — es una <b>orden</b>, no una afirmación.</p>
+<p>En matemática, "x = 5" significa "x es igual a 5". En programación, <code>x = 5</code> significa <b>"asigna el valor 5 a la variable x"</b>. Es una <b>orden</b>, no una afirmación.</p>
 
 <p>Por eso esto, que en matemática sería raro, es perfectamente válido en Python:</p>
 <pre class="code-block">x = 10
@@ -199,7 +199,7 @@ NO comentes lo obvio: <code>x = 5  # asignamos 5 a x</code> es ruido.
 
 <div class="key"><div class="ky-t">Detalles importantes</div>
 • <b>Decimales con punto, no coma:</b> en Python se escribe <code>3.14</code>, no <code>3,14</code>.<br>
-• <b>Strings con comillas:</b> simples (<code>'hola'</code>) o dobles (<code>"hola"</code>) — son equivalentes. Tenés que abrir y cerrar con el mismo tipo.<br>
+• <b>Strings con comillas:</b> simples (<code>'hola'</code>) o dobles (<code>"hola"</code>). Son equivalentes. Tenés que abrir y cerrar con el mismo tipo.<br>
 • <b>Booleanos en mayúscula:</b> <code>True</code> y <code>False</code> con T y F mayúsculas. <code>true</code> ❌ no funciona.
 </div>
 
@@ -225,7 +225,7 @@ print(type(x))  # &lt;class 'float'&gt;</pre>
 </table>
 
 <div class="trap"><div class="tr-t">Ojo con <code>int()</code></div>
-<code>int(3.7)</code> da <code>3</code>, NO <code>4</code> — <b>trunca</b> (corta los decimales), no redondea. Si querés redondear usá <code>round(3.7)</code> que da <code>4</code>.<br>
+<code>int(3.7)</code> da <code>3</code>, NO <code>4</code>: <b>trunca</b> (corta los decimales), no redondea. Si querés redondear usá <code>round(3.7)</code> que da <code>4</code>.<br>
 También cuidado: <code>int("3.14")</code> ❌ tira error. Para texto con decimales primero hay que pasar a float: <code>int(float("3.14"))</code> → <code>3</code>.
 </div>
 
@@ -264,8 +264,8 @@ Devuelve el <b>resto</b> de la división entera. Casos típicos:<br>
 <ol>
   <li><b>Paréntesis</b>: lo de adentro primero.</li>
   <li><b>Potencia</b> <code>**</code>.</li>
-  <li><b>Multiplicación, división</b> (<code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>) — todas al mismo nivel.</li>
-  <li><b>Suma, resta</b> (<code>+</code>, <code>-</code>) — al mismo nivel.</li>
+  <li><b>Multiplicación, división</b> (<code>*</code>, <code>/</code>, <code>//</code>, <code>%</code>), todas al mismo nivel.</li>
+  <li><b>Suma, resta</b> (<code>+</code>, <code>-</code>), al mismo nivel.</li>
 </ol>
 <p>En cada nivel, se evalúa <b>de izquierda a derecha</b>. Si dudás del orden, <b>usá paréntesis</b>: hace el código más legible y evita errores.</p>
 
@@ -360,8 +360,8 @@ print("Hola,", nombre)</pre>
 <div class="trap"><div class="tr-t">¡La trampa más típica del parcial!</div>
 <code>input()</code> <b>siempre devuelve un string</b>, incluso si el usuario escribe un número.<br><br>
 Si pedís <code>edad = input("Edad: ")</code> y el usuario escribe <code>25</code>, la variable vale el <b>string <code>"25"</code></b>, no el número 25. Si querés operar con él (sumarle, compararlo numéricamente), tenés que <b>convertir</b>:<br>
-<code>edad = int(input("Edad: "))</code> — para enteros<br>
-<code>peso = float(input("Peso: "))</code> — para decimales
+<code>edad = int(input("Edad: "))</code> (para enteros)<br>
+<code>peso = float(input("Peso: "))</code> (para decimales)
 </div>
 
 <h3>Funciones</h3>
@@ -449,7 +449,7 @@ print(resultado)    # 20
 A diferencia de otros lenguajes (C, JavaScript, etc.) que usan <code>{ }</code>, <b>Python usa la indentación</b> (los espacios al principio de la línea) para marcar qué código está "dentro" de una función, un <code>if</code>, un ciclo, etc.<br><br>
 <b>Reglas:</b><br>
 • Siempre usá la misma cantidad de espacios para el mismo nivel (4 es el estándar).<br>
-• <b>NO mezcles tabs y espacios</b> — Python tira error.<br>
+• <b>NO mezcles tabs y espacios</b>: Python tira error.<br>
 • En Colab, podés usar Tab y se convierten automáticamente a 4 espacios.<br>
 • Una función o bloque indentado debe tener al menos una línea adentro.
 </div>
@@ -1006,7 +1006,7 @@ print(cuadrados)    # {0: 0, 1: 1, 2: 4, 3: 9}</pre>
 </div>
 </details>
 
-<div class="partial-header">Segundo parcial <span class="date">Unidades 4 (diccionarios) – 6</span></div>
+<div class="partial-header">Segundo parcial <span class="date">Unidades 4 (diccionarios) a 6</span></div>
 
 <!-- ============ UNIDAD 4b · DICCIONARIOS ============ -->
 <details id="pc-s4b">
@@ -1014,7 +1014,7 @@ print(cuadrados)    # {0: 0, 1: 1, 2: 4, 3: 9}</pre>
 <div class="content">
 
 <h3>¿Qué es un diccionario?</h3>
-<p>Un <b>diccionario</b> es una colección de pares <b>clave:valor</b>. A diferencia de una lista (donde accedés por posición numérica), en un diccionario accedés por una <b>clave</b> que vos elegís — puede ser un texto, un número o cualquier valor inmutable.</p>
+<p>Un <b>diccionario</b> es una colección de pares <b>clave:valor</b>. A diferencia de una lista (donde accedés por posición numérica), en un diccionario accedés por una <b>clave</b> que vos elegís: puede ser un texto, un número o cualquier valor inmutable.</p>
 
 <pre class="code-block">persona = {"nombre": "Ariel", "edad": 30, "ciudad": "Buenos Aires"}
 
@@ -1047,7 +1047,7 @@ persona = {}
 persona["nombre"] = "Ariel"
 persona["edad"] = 30
 
-# Modificar (clave existente — misma sintaxis que agregar)
+# Modificar (clave existente - misma sintaxis que agregar)
 persona["edad"] = 31
 
 # Borrar
@@ -1410,7 +1410,7 @@ import matplotlib.pyplot as plt</pre>
   <li><b><code>as</code></b>: le da un nombre más corto (alias) para usarla.</li>
 </ul>
 
-<p><code>pd</code> es el alias estándar de Pandas. <code>plt</code> es el de Matplotlib. Esos alias son convención universal — usalos así.</p>
+<p><code>pd</code> es el alias estándar de Pandas. <code>plt</code> es el de Matplotlib. Esos alias son convención universal: usalos así.</p>
 
 <h3>¿Qué es Pandas?</h3>
 <p><b>Pandas</b> es la biblioteca estándar para trabajar con datos en forma <b>tabular</b> (filas y columnas, como una planilla Excel) en Python. Se usa muchísimo en ingeniería, ciencia de datos, finanzas y análisis en general.</p>
@@ -1598,7 +1598,7 @@ plt.show()</pre>
 
 <ul>
   <li><code>plt.plot(x, y)</code>: arma el gráfico (puntos x,y unidos con línea).</li>
-  <li><code>plt.show()</code>: lo muestra. En Colab no siempre hace falta — suele aparecer solo.</li>
+  <li><code>plt.show()</code>: lo muestra. En Colab no siempre hace falta: suele aparecer solo.</li>
 </ul>
 
 <h3>Agregar títulos y etiquetas</h3>
@@ -1708,7 +1708,7 @@ plt.show()</pre>
 • Olvidar <code>plt.show()</code> al final (a veces no aparece nada).<br>
 • Mezclar gráficos sin <code>plt.figure()</code> nuevo: te superponen.<br>
 • Pasar lista de strings a <code>plt.plot</code> (espera números). Para etiquetas usá <code>plt.bar</code>.<br>
-• Olvidar etiquetas y título — el gráfico queda incompleto.
+• Olvidar etiquetas y título: el gráfico queda incompleto.
 </div>
 
 <div class="quiz-wrap" data-qz="6b" data-subject="pc"></div>

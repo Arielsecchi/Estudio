@@ -1,9 +1,9 @@
 <!-- ============ UNIDAD 7 · MODULARIZACIÓN: FUNCIONES Y PROCEDIMIENTOS ============ -->
 <details id="ay-s7">
-<summary><span class="num">7</span> Unidad 7: Modularización — procedimientos, funciones, parámetros y recursividad <span class="sec-score" id="ss-ayed-7"></span></summary>
+<summary><span class="num">7</span> Unidad 7: Modularización (procedimientos, funciones, parámetros y recursividad) <span class="sec-score" id="ss-ayed-7"></span></summary>
 <div class="content">
 
-<p>Hasta ahora escribiste todos tus programas <b>amontonados dentro de <code>main</code></b>: una sentencia abajo de la otra, todo junto. Eso funciona para programas chiquitos, pero apenas crecen se vuelven un bollo imposible de leer y de mantener. En esta unidad vas a aprender a <b>partir un programa en piezas</b> —llamadas <b>módulos</b>— para que cada una haga <i>una</i> cosa bien. Vas a ver los dos tipos de módulos de C++: los <b>procedimientos</b> (que hacen algo pero no devuelven nada) y las <b>funciones</b> (que devuelven un valor). Después: cómo pasarles <b>datos</b> (parámetros), la diferencia clave entre pasarlos <b>por valor</b> y <b>por referencia</b>, qué es la <b>firma</b> de una función y la <b>sobrecarga</b>, el <b>alcance</b> (scope) de las variables, y por último el tema más alucinante: la <b>recursividad</b>, funciones que se llaman a sí mismas. Todo desde cero y con el código tal cual lo da la cátedra.</p>
+<p>Hasta ahora escribiste todos tus programas <b>amontonados dentro de <code>main</code></b>: una sentencia abajo de la otra, todo junto. Eso funciona para programas chiquitos, pero apenas crecen se vuelven un bollo imposible de leer y de mantener. En esta unidad vas a aprender a <b>partir un programa en piezas</b> (llamadas <b>módulos</b>) para que cada una haga <i>una</i> cosa bien. Vas a ver los dos tipos de módulos de C++: los <b>procedimientos</b> (que hacen algo pero no devuelven nada) y las <b>funciones</b> (que devuelven un valor). Después: cómo pasarles <b>datos</b> (parámetros), la diferencia clave entre pasarlos <b>por valor</b> y <b>por referencia</b>, qué es la <b>firma</b> de una función y la <b>sobrecarga</b>, el <b>alcance</b> (scope) de las variables, y por último el tema más alucinante: la <b>recursividad</b>, funciones que se llaman a sí mismas. Todo desde cero y con el código tal cual lo da la cátedra.</p>
 
 <!-- ─── 1. QUÉ ES MODULARIZAR ─────────────────────────────────────────────── -->
 <h3>¿Qué es modularizar y por qué conviene?</h3>
@@ -11,7 +11,7 @@
 
 <div class="example">
   <div class="ex-t">Modularizar en la vida real</div>
-  Pensá en un restaurante. No hay <i>una</i> persona que compre, cocine, sirva, cobre y limpie todo a la vez en un solo bloque caótico. Hay <b>roles</b>: el que cocina, el mozo, el cajero. Cada uno hace <b>su</b> tarea, y vos —cliente— pedís "una pizza" sin saber <i>cómo</i> se amasa por dentro. El restaurante es el programa; cada rol es un <b>módulo</b>. Si mañana cambian la receta de la masa, solo se toca al cocinero: el mozo y el cajero ni se enteran.
+  Pensá en un restaurante. No hay <i>una</i> persona que compre, cocine, sirva, cobre y limpie todo a la vez en un solo bloque caótico. Hay <b>roles</b>: el que cocina, el mozo, el cajero. Cada uno hace <b>su</b> tarea, y vos, el cliente, pedís "una pizza" sin saber <i>cómo</i> se amasa por dentro. El restaurante es el programa; cada rol es un <b>módulo</b>. Si mañana cambian la receta de la masa, solo se toca al cocinero: el mozo y el cajero ni se enteran.
 </div>
 
 <div class="key">
@@ -233,7 +233,7 @@ cout &lt;&lt; x &lt;&lt; endl;                   // muestra: 9</pre>
 
 <!-- ─── 5. POR VALOR VS POR REFERENCIA ────────────────────────────────────── -->
 <h3>Paso por valor vs. paso por referencia <span style="font-weight:normal">(sección clave)</span></h3>
-<p>Esta es una de las ideas más importantes —y más confundidas— de toda la unidad. La pregunta es: cuando le paso una variable a un módulo y el módulo la modifica… ¿se modifica también <b>la variable original</b> de afuera, o no? La respuesta depende de <i>cómo</i> pasaste el parámetro: <b>por valor</b> o <b>por referencia</b>.</p>
+<p>Esta es una de las ideas más importantes (y más confundidas) de toda la unidad. La pregunta es: cuando le paso una variable a un módulo y el módulo la modifica… ¿se modifica también <b>la variable original</b> de afuera, o no? La respuesta depende de <i>cómo</i> pasaste el parámetro: <b>por valor</b> o <b>por referencia</b>.</p>
 
 <h4>Por VALOR (lo que pasa por defecto): se trabaja sobre una COPIA</h4>
 <p>Por defecto, cuando pasás un argumento, la función recibe una <b>copia</b> de ese valor. Es como si fotocopiaras el dato y le dieras la fotocopia a la función. La función puede rayar, romper o cambiar su fotocopia todo lo que quiera: <b>el original de afuera queda intacto</b>. Mirá:</p>
@@ -491,7 +491,7 @@ mostrarPersona("Pedro", "Gonzalez", 25);     // usa mostrarPersona(string, strin
 
 <div class="trap">
   <div class="tr-t">Trampa MORTAL: recursión sin caso base (recursión infinita)</div>
-  Si te olvidás del caso base —o la condición de corte nunca se cumple— la función se llama a sí misma <b>para siempre</b>. Por ejemplo, si en el factorial te olvidás el <code>else</code> y siempre hacés <code>res = nro * factorial(nro - 1)</code>, con un número negativo (o sin freno) <code>nro</code> nunca llega a 0 y las llamadas se apilan sin fin. Como cada llamada ocupa memoria en la pila, esta se <b>llena y revienta</b>: el programa explota con un error llamado <b>desbordamiento de pila</b> (<i>stack overflow</i>). <b>Toda recursión DEBE tener un caso base alcanzable.</b>
+  Si te olvidás del caso base (o la condición de corte nunca se cumple), la función se llama a sí misma <b>para siempre</b>. Por ejemplo, si en el factorial te olvidás el <code>else</code> y siempre hacés <code>res = nro * factorial(nro - 1)</code>, con un número negativo (o sin freno) <code>nro</code> nunca llega a 0 y las llamadas se apilan sin fin. Como cada llamada ocupa memoria en la pila, esta se <b>llena y revienta</b>: el programa explota con un error llamado <b>desbordamiento de pila</b> (<i>stack overflow</i>). <b>Toda recursión DEBE tener un caso base alcanzable.</b>
 </div>
 
 <h4>Lo mismo, sin recursión: la versión iterativa</h4>

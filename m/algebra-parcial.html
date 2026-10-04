@@ -4,9 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Álgebra · Primer Parcial · Guías</title>
-<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="icon" href="../assets/favicon.png?v=2" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/favicon-192.png?v=2" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=2">
 <style>
-  /* ===== VARIABLES BASE ===== */
+  
   :root {
     --bg: #f7f3ec;
     --text: #2a2420;
@@ -60,7 +62,6 @@
     --shadow: rgba(0, 0, 0, 0.3);
   }
 
-  /* ===== TEMAS POR MATERIA (se aplican con [data-subject="..."]) ===== */
   [data-subject="algebra-parcial"] {
     --bg: #eef2f7; --text: #1f2937; --text-muted: #64748b;
     --surface: #ffffff; --surface-2: #dbe5f0; --surface-3: #c5d3e3;
@@ -95,7 +96,6 @@
   }
   .wrap { max-width: 780px; margin: 0 auto; }
 
-  /* ===== BOTONES FLOTANTES ===== */
   .menu-btn, .theme-btn {
     position: fixed;
     top: 16px;
@@ -117,7 +117,7 @@
   }
   .menu-btn { left: 16px; }
   .theme-btn { right: 16px; }
-  /* ===== BOTÓN DE TEMA: sol que se vuelve luna (el mismo de guiasdeingenieria.com.ar) ===== */
+  
   .theme-btn { color: #a0560a; }
   [data-theme="dark"] .theme-btn { color: #f2cc5e; }
   .theme-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
@@ -152,7 +152,6 @@
   .menu-btn:hover, .theme-btn:hover { background: var(--surface-2); transform: scale(1.05); }
   .menu-btn:active, .theme-btn:active { transform: scale(0.95); }
 
-  /* ===== DRAWER (MENÚ LATERAL) ===== */
   .drawer-overlay {
     position: fixed;
     inset: 0;
@@ -211,7 +210,7 @@
     border-radius: 6px;
   }
   .drawer-close:hover { background: var(--surface-2); color: var(--accent); }
-  /* ===== AUTH OVERLAY ===== */
+  
   .auth-overlay {
     display: none;
     position: fixed;
@@ -495,12 +494,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  /* Materia con submodulos: wrapper + flechita expandible + lista de hijas */
+  
   .drawer-item-wrap {
     list-style: none;
   }
   .drawer-item-wrap .drawer-item {
-    /* deja espacio para la flechita a la derecha */
+    
     padding-right: 8px;
   }
   .subitem-arrow {
@@ -732,11 +731,7 @@
   .content {
     padding: 18px 20px 22px;
     font-size: 14.5px;
-    /* details lleva overflow:hidden por el border-radius, y eso recorta las
-       tablas anchas en pantallas chicas: las columnas de la derecha quedaban
-       invisibles y sin forma de llegar a ellas. Con esto el contenido scrollea
-       en horizontal cuando hace falta. En pantalla ancha no cambia nada,
-       porque auto no muestra barra si no hay desborde. */
+    
     overflow-x: auto;
   }
   .content h3 {
@@ -844,7 +839,7 @@
     color: var(--ok-text);
   }
   .key .ky-t { font-weight: 700; color: var(--ok-text); margin-bottom: 4px; }
-  /* Figuras SVG (diagramas de fisiología): se adaptan al tema por var(--...) y currentColor */
+  
   .fig { margin: 14px auto; text-align: center; }
   .fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto;
     background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px; color: var(--text); }
@@ -926,7 +921,6 @@
   .qex-fb.ko { background: var(--ko-bg); color: var(--ko-text); border-left: 3px solid var(--ko-border); }
   .qex-fb-t { font-weight: 700; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-  /* Reveal answer (ejercicios a resolver, sin opciones) */
   .reveal-wrap { margin-top: 18px; }
   .rev-title::before { content: "🔎"; }
   .rev-ex { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 12px; box-shadow: 0 1px 2px var(--shadow); }
@@ -962,7 +956,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* Oculta materias no seleccionadas */
   .subject { display: none; }
   .subject.active { display: block; }
 
@@ -1555,9 +1548,9 @@
 
 <div class="wrap">
 
-<!-- ============================================================ -->
-<!-- =============== ÁLGEBRA · PRIMER PARCIAL =================== -->
-<!-- ============================================================ -->
+
+
+
 <section class="subject" id="subject-algebra-parcial">
   <header>
     <h1>Álgebra · Guía Primer Parcial</h1>
@@ -1576,7 +1569,7 @@
   <div class="score" id="global-score-algebra-parcial">Puntaje: 0 / 0 correctas</div>
 </nav>
 
-<!-- ============ UNIDAD 1 · ESTRATEGIA GENERAL ============ -->
+
 <details id="alp-s1">
 <summary><span class="num">1</span> Estrategia general y fórmulas clave <span class="sec-score" id="ss-algebra-parcial-1"></span></summary>
 <div class="content">
@@ -1587,29 +1580,29 @@
 
 <h3>Las 4 preguntas que te tenés que hacer al leer cada ejercicio</h3>
 
-<h4>Pregunta 1 — ¿Qué tema es?</h4>
+<h4>Pregunta 1: ¿Qué tema es?</h4>
 <table class="tbl">
   <tr><th>Si ves...</th><th>Es...</th></tr>
-  <tr><td>Norma, ángulo, producto escalar, paralelo, módulo</td><td><b>TIPO 1</b> — Vectores</td></tr>
-  <tr><td>Recta + plano, distancia, simétrico, posición relativa</td><td><b>TIPO 2</b> — Rectas y planos</td></tr>
-  <tr><td>Subespacio S, base, generadores, L.I./L.D., determinante</td><td><b>TIPO 3</b> — Subespacios</td></tr>
-  <tr><td>Elipse, hipérbola, parábola, circunferencia, completar cuadrados</td><td><b>TIPO 4</b> — Cónicas</td></tr>
+  <tr><td>Norma, ángulo, producto escalar, paralelo, módulo</td><td><b>TIPO 1</b>: Vectores</td></tr>
+  <tr><td>Recta + plano, distancia, simétrico, posición relativa</td><td><b>TIPO 2</b>: Rectas y planos</td></tr>
+  <tr><td>Subespacio S, base, generadores, L.I./L.D., determinante</td><td><b>TIPO 3</b>: Subespacios</td></tr>
+  <tr><td>Elipse, hipérbola, parábola, circunferencia, completar cuadrados</td><td><b>TIPO 4</b>: Cónicas</td></tr>
 </table>
 
-<h4>Pregunta 2 — ¿Qué fórmula dispara?</h4>
+<h4>Pregunta 2: ¿Qué fórmula dispara?</h4>
 <ul>
   <li><b>Producto escalar</b>: <span class="m">v · w = ‖v‖·‖w‖·cos(α)</span></li>
   <li><b>Norma</b>: <span class="m">‖v‖ = √(v₁² + v₂² + v₃²)</span></li>
   <li><b>Paralelo</b>: <span class="m">w = k·v</span> para algún <span class="m">k ≠ 0</span></li>
-  <li><b>Distancia punto–plano</b>: recta normal al plano, buscar intersección, medir</li>
+  <li><b>Distancia punto-plano</b>: recta normal al plano, buscar intersección, medir</li>
   <li><b>Base</b>: determinante ≠ 0 ↔ L.I. ↔ genera R³</li>
   <li><b>Cónicas</b>: completar cuadrados para llevar a forma canónica</li>
 </ul>
 
-<h4>Pregunta 3 — ¿Tengo todos los datos?</h4>
+<h4>Pregunta 3: ¿Tengo todos los datos?</h4>
 <p>En vectores: fijate si te dan norma, ángulo o coordenadas. En cónicas: identificá los coeficientes antes de completar cuadrados. En subespacios: verificá qué vectores hay que reemplazar en qué ecuación.</p>
 
-<h4>Pregunta 4 — ¿Puedo descartar opciones rápido?</h4>
+<h4>Pregunta 4: ¿Puedo descartar opciones rápido?</h4>
 <p>El parcial tiene 4 opciones. En muchos ejercicios, 2 de las 4 tienen una característica obvia incorrecta. Por ejemplo, en "posición relativa de rectas": si los vectores directores son múltiplos → no son paralelas en ningún otro sentido. Eso elimina 2 opciones en 10 segundos.</p>
 
 <h3>Fórmulas imprescindibles</h3>
@@ -1653,12 +1646,12 @@ Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre l
 </div>
 </details>
 
-<!-- ============ UNIDAD 2 · VECTORES ============ -->
+
 <details id="alp-s2">
 <summary><span class="num">2</span> TIPO 1 · Vectores en R³ <span class="sec-score" id="ss-algebra-parcial-2"></span></summary>
 <div class="content">
 
-<h3>Aparece en el 100% de los parciales (2–3 ejercicios)</h3>
+<h3>Aparece en el 100% de los parciales (2-3 ejercicios)</h3>
 <p>Los ejercicios de vectores son los más directos. La clave es saber qué fórmula aplicar y no confundir módulo con coordenadas.</p>
 
 <h3>Subtipo A: Producto escalar y ángulo</h3>
@@ -1669,7 +1662,7 @@ Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre l
 <p>Si te dan coordenadas → calculás el producto por componentes. Si te dan normas y ángulo → usás la forma geométrica.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Producto escalar con parámetro</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 9): Producto escalar con parámetro</div>
   <p>Dados <span class="vec">a</span> = (k, −k, k) y <span class="vec">b</span> = (0, 0, −k) con k ∈ R, hallá cos(α).</p>
   <p><b>Paso 1 (producto escalar por componentes):</b></p>
   <div class="formula">a · b = k·0 + (−k)·0 + k·(−k) = −k²</div>
@@ -1684,7 +1677,7 @@ Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre l
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Producto escalar con normas y ángulo</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 4): Producto escalar con normas y ángulo</div>
   <p><span class="vec">v</span> tiene norma √5, <span class="vec">w</span> tiene norma 8, ángulo = 2π/3. Calculá v · w.</p>
   <div class="formula">v · w = √5 · 8 · cos(2π/3) = 8√5 · (−1/2) = <b>−4√5</b></div>
 </div>
@@ -1699,7 +1692,7 @@ Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre l
 </ol>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Vector paralelo de norma dada</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 4): Vector paralelo de norma dada</div>
   <p>Hallá <span class="vec">w</span> de norma 6√5 paralelo a <span class="vec">v</span> = (−2/9, 4/9, −5/9).</p>
   <p><b>Paso 1:</b> <span class="m">w = k·(−2/9, 4/9, −5/9)</span>.</p>
   <p><b>Paso 2:</b> <span class="m">‖v‖ = √((2/9)² + (4/9)² + (5/9)²) = √(4+16+25)/9 = √45/9 = 3√5/9 = √5/3</span>.</p>
@@ -1707,7 +1700,7 @@ Si el ejercicio tiene un parámetro (k, n, m, β...), la estrategia es siempre l
   <p>Para k = −18: <span class="m">w = −18·(−2/9, 4/9, −5/9) = (4, −8, 10)</span>. Respuesta: D).</p>
 </div>
 
-<div class="trap"><div class="tr-t">Trampa frecuente — El versor</div>
+<div class="trap"><div class="tr-t">Trampa frecuente: El versor</div>
 Si te dicen que <span class="vec">v</span> es "paralelo al versor î" significa que solo tiene componente en x. Si es paralelo a î y tiene norma 7 → <span class="m">v = (7, 0, 0)</span> o <span class="m">v = (−7, 0, 0)</span>. El enunciado te dice cuál.
 </div>
 
@@ -1717,7 +1710,7 @@ Si te dicen que <span class="vec">v</span> es "paralelo al versor î" significa 
 <p>Entonces: <span class="m">u = 2M − v</span> (coordenada a coordenada).</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Punto medio</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 9): Punto medio</div>
   <p><span class="vec">v</span> = (−7, 0, 0) y M = (15/2, 17/4, −1/10). Hallá <span class="vec">u</span>.</p>
   <div class="formula">
     ux = 2·(15/2) − (−7) = 15 + 7 = 22<br>
@@ -1731,7 +1724,7 @@ Si te dicen que <span class="vec">v</span> es "paralelo al versor î" significa 
 <p>Te dan <span class="m">β·u + t = w</span> con β desconocido, u y t y w conocidos. Despejás β resolviendo coordinada a coordenada.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Dilatación con parámetro</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Dilatación con parámetro</div>
   <p>β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). Hallá β.</p>
   <p>Coordenada x: <span class="m">3β/11 − 10 = −7 → 3β/11 = 3 → β = 11</span>. Verificás con y y z. Respuesta: C) 11.</p>
 </div>
@@ -1748,7 +1741,7 @@ La ecuación cuadrática que sale tiene la forma <span class="m">m² = cte</span
 </div>
 </details>
 
-<!-- ============ UNIDAD 3 · RECTAS Y PLANOS ============ -->
+
 <details id="alp-s3">
 <summary><span class="num">3</span> TIPO 2 · Rectas y planos <span class="sec-score" id="ss-algebra-parcial-3"></span></summary>
 <div class="content">
@@ -1776,7 +1769,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 <p>El parcial siempre evalúa el método via recta normal (más explícito).</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Distancia A al plano</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Distancia A al plano</div>
   <p>A = (−1, 2, 3), Π: 2x + y − z + 1 = 0. Hallá la distancia.</p>
   <p><b>Recta normal al plano por A:</b> <span class="m">X = t·(2, 1, −1) + (−1, 2, 3)</span>.</p>
   <p>Punto genérico de la recta: <span class="m">(2t−1, t+2, −t+3)</span>.</p>
@@ -1793,7 +1786,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 <p>Método: escribís el plano que contiene al punto A y es normal a la recta, encontrás la intersección B entre la recta y ese plano, calculás ‖AB‖.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio resuelto — Distancia punto a recta</div>
+  <div class="ex-t">Ejercicio resuelto: Distancia punto a recta</div>
   <p>A = (4, 0, 3). Recta r: X = t(1, 2, 2) + (1, 0, 0). Hallá la distancia de A a r.</p>
   <p><b>Plano normal a r por A:</b> vector normal = director de r = (1, 2, 2), pasa por A = (4, 0, 3):</p>
   <div class="formula">1(x−4) + 2(y−0) + 2(z−3) = 0 → x + 2y + 2z = 10</div>
@@ -1825,7 +1818,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 </table>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Posición relativa de rectas</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Posición relativa de rectas</div>
   <p>r₁: X = k(−4/3, 0, −3) + (−1, 2, 3). r₂: X = t(1/2, 2/7, −2/9) + (−2, −5, 6).</p>
   <p><b>1) ¿Paralelas?</b> ¿Es (−4/3, 0, −3) = λ·(1/2, 2/7, −2/9)? Por la 2° coord: 0 = λ·2/7 → λ = 0. No. → NO paralelas.</p>
   <p><b>2) ¿Producto escalar = 0?</b> <span class="m">(−4/3)(1/2) + 0·(2/7) + (−3)(−2/9) = −2/3 + 0 + 2/3 = 0</span>. Sí.</p>
@@ -1837,7 +1830,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 <p>Reemplazás el punto genérico de la recta en la ecuación del plano. Si sale una ecuación con solución única en t → cortan en un punto. Si sale 0=0 → la recta está contenida. Si sale 0 = c ≠ 0 → paralelos.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Recta y plano</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Recta y plano</div>
   <p>Recta: X = α(3, 6, 9) + (4, 2, −1). Plano: −x + y − z = 1.</p>
   <p>Punto genérico: (3α+4, 6α+2, 9α−1). En el plano:</p>
   <div class="formula">−(3α+4) + (6α+2) − (9α−1) = 1 → −6α − 1 = 1 → α = −1/3</div>
@@ -1853,7 +1846,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 </ol>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Simétrico respecto de plano</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Simétrico respecto de plano</div>
   <p>A = (7, −10, −1). Plano: 2x − 3y + z = 1.</p>
   <p><b>Recta normal por A:</b> X = t(2, −3, 1) + (7, −10, −1). Punto: (2t+7, −3t−10, t−1).</p>
   <p><b>En el plano:</b> 2(2t+7) − 3(−3t−10) + (t−1) = 1 → 14t + 43 = 1 → t = −3.</p>
@@ -1865,7 +1858,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 <p>Si los normales son paralelos → paralelos o coincidentes. Si no → intersecan en una recta. Verificar perpendicularidad con producto escalar de normales.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Posición relativa de planos</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 9): Posición relativa de planos</div>
   <p>π₁ paramétrico: X = s(1,1,0) + t(2,0,2) + (1,1,1). π₂: x + z = 1 + y.</p>
   <p>Normal a π₂: n₂ = (1, −1, 1). Para π₁: n₁ = (1,1,0) × (2,0,2) = (2, −2, −2) = 2(1,−1,−1).</p>
   <p>n₁ · n₂ = 1·1 + (−1)(−1) + (−1)·1 = 1 + 1 − 1 = 1 ≠ 0 → No perpendiculares.</p>
@@ -1878,7 +1871,7 @@ Si el plano se da en forma paramétrica con vectores u y v, el vector normal n =
 </div>
 </details>
 
-<!-- ============ UNIDAD 4 · SUBESPACIOS ============ -->
+
 <details id="alp-s4">
 <summary><span class="num">4</span> TIPO 3 · Subespacios vectoriales y bases <span class="sec-score" id="ss-algebra-parcial-4"></span></summary>
 <div class="content">
@@ -1910,7 +1903,7 @@ Si S = {x ∈ Rⁿ : ec₁(x) = 0, ec₂(x) = 0}, los vectores de un conjunto ge
 </ol>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales Tema 3 y 1) — Cuándo no es base</div>
+  <div class="ex-t">Ejercicio real (Parciales Tema 3 y 1): Cuándo no es base</div>
   <p>Conjunto {(1, 0, −1), (−1, k, 0), (0, −2, k+1)}. Hallá k ∈ Z&gt;0 para que NO sea base.</p>
   <div class="formula">
     det = 1·(k(k+1) − 0·(−2)) − 0·(−(k+1)−0) + (−1)·(2−0)<br>
@@ -1921,7 +1914,7 @@ Si S = {x ∈ Rⁿ : ec₁(x) = 0, ec₂(x) = 0}, los vectores de un conjunto ge
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Cuándo no es generador de R³</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 9): Cuándo no es generador de R³</div>
   <p>A = {(0,−2,−1), (k,1,0), (−8,0,k+3)}. Hallá k para que NO sea generador de R³.</p>
   <p>det = 0·(k+3) − (−2)·(k(k+3)−0) + (−1)·(0−(−8))<br>
   = 0 + 2k(k+3) − 8 = 2k² + 6k − 8 = 0 → k² + 3k − 4 = 0 → (k+4)(k−1) = 0</p>
@@ -1941,7 +1934,7 @@ No mezcles: v₁ va en la ecuación que le "corresponde" (la que tiene el parám
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Parámetros del subespacio</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Parámetros del subespacio</div>
   <p>S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : nx₁ + 2x₂ = 0 ∧ x₂ + mx₃ − x₄ = 0}.<br>
   Base de S: {(−2,1,0,1), (0,0,1,3)}. Hallá n y m.</p>
   <p>Reemplazando (−2,1,0,1) en nx₁ + 2x₂ = 0: <span class="m">−2n + 2 = 0 → n = 1</span>.</p>
@@ -1954,7 +1947,7 @@ No mezcles: v₁ va en la ecuación que le "corresponde" (la que tiene el parám
 <p>Estrategia: para cada opción, verificás que todos sus vectores satisfacen la condición de S, y que el conjunto tiene suficiente dimensión.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Generadores de S</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Generadores de S</div>
   <p>S = {(x₁,x₂,x₃,x₄) ∈ R⁴ : x₁ + x₄ = 0}.</p>
   <p>Opción C: {(1,0,0,−1), (0,1,0,0), (0,0,1,0)}.</p>
   <p>Verificación: 1+(−1)=0 ✓, 0+0=0 ✓, 0+0=0 ✓. Los 3 son L.I. (det ≠ 0) y generan S (dim S = 3).</p>
@@ -1965,7 +1958,7 @@ No mezcles: v₁ va en la ecuación que le "corresponde" (la que tiene el parám
 <p>Te dan vectores v₁, v₂ y te preguntan cuál de las opciones es combinación lineal de ellos. Tenés que verificar si existe α, β tal que α·v₁ + β·v₂ = w (sistema de 3 ecuaciones con 2 incógnitas).</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Combinación lineal</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Combinación lineal</div>
   <p>¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?</p>
   <p>Probamos la opción A) (−1,0,3): <span class="m">α(1,2,−1) + β(−1,−1,2) = (−1,0,3)</span>.</p>
   <div class="formula">
@@ -1981,7 +1974,7 @@ No mezcles: v₁ va en la ecuación que le "corresponde" (la que tiene el parám
 </div>
 </details>
 
-<!-- ============ UNIDAD 5 · CÓNICAS ============ -->
+
 <details id="alp-s5">
 <summary><span class="num">5</span> TIPO 4 · Cónicas <span class="sec-score" id="ss-algebra-parcial-5"></span></summary>
 <div class="content">
@@ -2011,7 +2004,7 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 <p>Completás cuadrados en función del parámetro y leés el centro de la forma canónica.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 4) — Elipse con centro dado</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 4): Elipse con centro dado</div>
   <p>144x² − 24kx + 16y² = 63. Centro = (−0,75; 0). Hallá k.</p>
   <p><b>Completar cuadrados en x:</b></p>
   <div class="formula">
@@ -2023,7 +2016,7 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Elipse con centro dado</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Elipse con centro dado</div>
   <p>36y² + 4x² − 2ky = 27. Centro = (0; 0,5). Hallá k.</p>
   <p>Completar cuadrados en y: 36(y² − ky/18) + 4x² = 27 → 36(y − k/36)² + 4x² = 27 + k²/36.</p>
   <p>Centro y: k/36 = 0,5 → k = 18. Respuesta: A).</p>
@@ -2037,7 +2030,7 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 </div>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Hipérbola con excentricidad</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Hipérbola con excentricidad</div>
   <p>Hipérbola H con excentricidad 2,25, focos F₁ = (0,−8) y F₂ = (0,10).</p>
   <p><b>Centro:</b> punto medio = (0, 1). <b>c:</b> distancia centro-foco = 9.</p>
   <p><b>a:</b> e = c/a → 2,25 = 9/a → a = 4. <b>Vértices:</b> (0, 1±4) = (0, 5) y (0, −3).</p>
@@ -2050,7 +2043,7 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 <p>Te dan una ecuación general ax² + bxy + cy² + ... = d y tenés que clasificarla y hallar sus elementos (centro, excentricidad, etc.).</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parcial Tema 9) — Completar cuadrados hipérbola</div>
+  <div class="ex-t">Ejercicio real (Parcial Tema 9): Completar cuadrados hipérbola</div>
   <p>C = {3x² − y² − 6x − 30y − 546 = 0}. Hallá centro y excentricidad.</p>
   <p><b>En x:</b> 3(x² − 2x) = 3(x−1)² − 3.</p>
   <p><b>En y:</b> −(y² + 30y) = −(y+15)² + 225.</p>
@@ -2063,10 +2056,10 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
   <p>Respuesta: C) e = 2; (1, −15).</p>
 </div>
 
-<h3>Subtipo D: Parábola — foco y directriz</h3>
+<h3>Subtipo D: Parábola (foco y directriz)</h3>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Parábola</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Parábola</div>
   <p>y² − 8x + 3 = 6y. Hallá foco y directriz.</p>
   <p>Reordenamos: y² − 6y = 8x − 3.</p>
   <p>Completar cuadrados en y: (y−3)² − 9 = 8x − 3 → (y−3)² = 8x + 6 = 8(x + 3/4).</p>
@@ -2079,7 +2072,7 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 <p>Identificás cada cónica (circunferencia, elipse...), las graficás esquemáticamente y verificás si se intersecan.</p>
 
 <div class="example">
-  <div class="ex-t">Ejercicio real (Parciales múltiples) — Intersección</div>
+  <div class="ex-t">Ejercicio real (Parciales múltiples): Intersección</div>
   <p>M = {(x+4)² + (y+3)² = 9} → circunferencia, centro (−4, −3), radio 3.</p>
   <p>N = {3x² + y² + 6y = −6} → 3x² + (y+3)² = 3 → x²/1 + (y+3)²/3 = 1 → elipse, centro (0, −3).</p>
   <p>La circunferencia tiene centro (−4, −3) y radio 3. El punto más cercano al centro de la elipse a través del radio es (−4+3, −3) = (−1, −3). ¿Pertenece a la elipse? 1/1 + 0/3 = 1 ✓.</p>
@@ -2091,7 +2084,7 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 </div>
 </details>
 
-<!-- ============ UNIDAD 6 · MIX INTEGRADOR ============ -->
+
 <details id="alp-s6">
 <summary><span class="num">6</span> Mix integrador · Ejercicios de repaso <span class="sec-score" id="ss-algebra-parcial-6"></span></summary>
 <div class="content">
@@ -2113,37 +2106,37 @@ Si te dan e y los focos → podés encontrar a, b y escribir la ecuación canón
 
 <h3>Los 4 errores más caros del parcial</h3>
 
-<div class="trap"><div class="tr-t">Error 1 — Confundir la fórmula del simétrico</div>
+<div class="trap"><div class="tr-t">Error 1: Confundir la fórmula del simétrico</div>
 El pie B es el punto medio entre A y A'. Por tanto A' = 2B − A (NO A' = B − A). Este error cuesta 1,25 puntos directos.
 </div>
 
-<div class="trap"><div class="tr-t">Error 2 — Mezclar fórmulas de elipse e hipérbola</div>
+<div class="trap"><div class="tr-t">Error 2: Mezclar fórmulas de elipse e hipérbola</div>
 Elipse: c² = a²−b² (c &lt; a). Hipérbola: c² = a²+b² (c &gt; a). En la hipérbola b puede ser mayor o menor que a. En la elipse, a es siempre el semieje mayor.
 </div>
 
-<div class="trap"><div class="tr-t">Error 3 — No verificar la restricción en el parámetro</div>
+<div class="trap"><div class="tr-t">Error 3: No verificar la restricción en el parámetro</div>
 Cuando te piden "k ∈ Z&gt;0" o "k ∈ Z&lt;0", primero calculás ambas raíces del polinomio y después filtrás según la restricción. Si no leés la restricción, elegís la opción incorrecta aunque el polinomio esté bien.
 </div>
 
-<div class="trap"><div class="tr-t">Error 4 — Plantear el sistema al revés en subespacios</div>
+<div class="trap"><div class="tr-t">Error 4: Plantear el sistema al revés en subespacios</div>
 En "parámetros del subespacio": v₁ va en la ecuación donde sus coordenadas dan información directa (el vector que anula el término con parámetro). El parcial diseña los vectores para que cada uno resuelva una ecuación distinta.
 </div>
 
-<h3>Práctica integradora — 5 ejercicios variados</h3>
+<h3>Práctica integradora: 5 ejercicios variados</h3>
 
 <div class="example">
-  <div class="ex-t">Integrador 1 — Vectores: ángulo</div>
+  <div class="ex-t">Integrador 1. Vectores: ángulo</div>
   <p>v = (k, −k, k), w = (0, 0, −k), k > 0. ¿Cuánto vale cos del ángulo entre v y w?</p>
   <p>v·w = −k². ‖v‖ = k√3, ‖w‖ = k. cos(α) = −k²/(k√3·k) = −1/√3.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Integrador 2 — Planos: posición relativa</div>
+  <div class="ex-t">Integrador 2. Planos: posición relativa</div>
   <p>Plano π₁ paramétrico y plano π₂ implícito. Primero calculás el normal de π₁ (producto vectorial), luego verificás si son paralelos o perpendiculares comparando con el normal de π₂.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Integrador 3 — Subespacios: no base</div>
+  <div class="ex-t">Integrador 3. Subespacios: no base</div>
   <p>{(1,0,2), (0,−2,−k), (1/2, −k−1, 0)}. k ∈ Z&lt;0 para que NO sea base.</p>
   <div class="formula">
     det = 1·(−2·0 − (−k)·(−k−1)) − 0·... + 2·(0·(−k−1)−(−2)·(1/2))<br>
@@ -2154,12 +2147,12 @@ En "parámetros del subespacio": v₁ va en la ecuación donde sus coordenadas d
 </div>
 
 <div class="example">
-  <div class="ex-t">Integrador 4 — Cónicas: hipérbola desde ecuación general</div>
+  <div class="ex-t">Integrador 4. Cónicas: hipérbola desde ecuación general</div>
   <p>3x² − y² − 6x − 30y − 546 = 0. Completar cuadrados: (x−1)²/108 − (y+15)²/324 = 1. Centro (1, −15), e = 2.</p>
 </div>
 
 <div class="example">
-  <div class="ex-t">Integrador 5 — Recta y plano: posición relativa</div>
+  <div class="ex-t">Integrador 5. Recta y plano: posición relativa</div>
   <p>Recta X = α(3,6,9) + (4,2,−1), plano −x+y−z = 1. Reemplazás el punto genérico: −6α − 1 = 1 → α = −1/3. Único α → se cortan en un punto (3, 0, −4).</p>
 </div>
 
@@ -2187,410 +2180,7 @@ En "parámetros del subespacio": v₁ va en la ecuación donde sus coordenadas d
 
 </div>
 
-<script>
-window.M_BASE = '';
-window.M_SUBJECT = 'algebra-parcial';
-
-// ============ ACCESO AL SITIO (cliente) ============
-// IMPORTANTE: ESTO NO ES SEGURIDAD REAL. Las credenciales viajan en el codigo
-// fuente del sitio: cualquiera con un poco de curiosidad puede verlas haciendo
-// "Ver fuente" o desactivando JS. Sirve solo como puerta para visitas casuales.
-//
-// Para AGREGAR / CAMBIAR usuarios, edita la lista ACCESS_USERS y volve a hacer
-// build + push. Cada item es { name: 'usuario', password: 'contrasena' }.
-const ACCESS_USERS = [
-  { name: 'Ariel', password: 'Contraseña123' },
-  { name: 'Flor', password: 'Contraseña123' },
-];
-
-function findUser(name){
-  const n = (name || '').trim().toLowerCase();
-  return ACCESS_USERS.find(u => u.name.toLowerCase() === n) || null;
-}
-
-function tryAccess(e){
-  e.preventDefault();
-  const nameInput = document.getElementById('auth-name').value;
-  const pass = document.getElementById('auth-pass').value;
-  const user = findUser(nameInput);
-  const err = document.getElementById('auth-error');
-  if (user && user.password === pass) {
-    try { localStorage.setItem('uba-auth', user.name); } catch(e) {}
-    document.body.classList.remove('locked');
-    err.textContent = '';
-    return false;
-  }
-  err.textContent = 'Nombre o contraseña incorrectos';
-  // Re-disparar la animacion de shake
-  err.style.animation = 'none';
-  err.offsetHeight; // reflow
-  err.style.animation = '';
-  return false;
-}
-
-function checkAccess(){
-  let saved = null;
-  try { saved = localStorage.getItem('uba-auth'); } catch(e) {}
-  if (saved && findUser(saved)) {
-    document.body.classList.remove('locked');
-    return true;
-  }
-  document.body.classList.add('locked');
-  setTimeout(() => {
-    const inp = document.getElementById('auth-name');
-    if (inp) inp.focus();
-  }, 50);
-  return false;
-}
-
-function logout(){
-  try { localStorage.removeItem('uba-auth'); } catch(e) {}
-  location.reload();
-}
-
-// ============ DRAWER / MENÚ ============
-function toggleDrawer(){
-  document.getElementById('drawer').classList.toggle('open');
-  document.getElementById('drawer-overlay').classList.toggle('open');
-}
-function closeDrawer(){
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('drawer-overlay').classList.remove('open');
-}
-
-function switchSubject(subject){
-  const seccion = document.getElementById('subject-' + subject);
-  // El sitio esta partido en una pagina por materia. Si la materia pedida no
-  // vive en esta pagina, navegamos a la suya. M_BASE lo define cada pagina:
-  // '' dentro de m/, 'm/' en el index.
-  if (!seccion) {
-    try { localStorage.setItem('uba-subject', subject); } catch(e) {}
-    location.href = (window.M_BASE || '') + subject + '.html';
-    return;
-  }
-  document.querySelectorAll('.subject').forEach(s => s.classList.remove('active'));
-  seccion.classList.add('active');
-  document.documentElement.setAttribute('data-subject', subject);
-  document.querySelectorAll('.drawer-item, .drawer-subitem').forEach(it => {
-    it.classList.toggle('active', it.getAttribute('data-target') === subject);
-  });
-  // Asegura que el grupo al que pertenece la materia activa este expandido
-  const activeItem = document.querySelector('.drawer-item[data-target="' + subject + '"], .drawer-subitem[data-target="' + subject + '"]');
-  if (activeItem) {
-    const group = activeItem.closest('.drawer-group');
-    if (group && group.classList.contains('collapsed')) {
-      group.classList.remove('collapsed');
-      saveCatState();
-    }
-    // Si es una hija, expandir tambien el wrapper de la madre
-    const wrap = activeItem.closest('.drawer-item-wrap');
-    if (wrap && wrap.classList.contains('collapsed')) {
-      wrap.classList.remove('collapsed');
-      saveSubState();
-    }
-  }
-  try { localStorage.setItem('uba-subject', subject); } catch(e) {}
-  closeDrawer();
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-function toggleCat(btn){
-  const group = btn.closest('.drawer-group');
-  group.classList.toggle('collapsed');
-  saveCatState();
-}
-
-function toggleSub(btn){
-  const wrap = btn.closest('.drawer-item-wrap');
-  wrap.classList.toggle('collapsed');
-  saveSubState();
-}
-
-function saveCatState(){
-  try {
-    const stored = {};
-    document.querySelectorAll('.drawer-group').forEach(g => {
-      stored[g.getAttribute('data-cat')] = g.classList.contains('collapsed');
-    });
-    localStorage.setItem('uba-cats-collapsed', JSON.stringify(stored));
-  } catch(e) {}
-}
-
-function restoreCatState(){
-  try {
-    const raw = localStorage.getItem('uba-cats-collapsed');
-    if (!raw) return;
-    const stored = JSON.parse(raw);
-    document.querySelectorAll('.drawer-group').forEach(g => {
-      const cat = g.getAttribute('data-cat');
-      if (stored[cat]) g.classList.add('collapsed');
-    });
-  } catch(e) {}
-}
-
-function saveSubState(){
-  try {
-    const stored = {};
-    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
-      stored[w.getAttribute('data-parent')] = w.classList.contains('collapsed');
-    });
-    localStorage.setItem('uba-subs-collapsed', JSON.stringify(stored));
-  } catch(e) {}
-}
-
-function restoreSubState(){
-  try {
-    const raw = localStorage.getItem('uba-subs-collapsed');
-    if (!raw) return;
-    const stored = JSON.parse(raw);
-    document.querySelectorAll('.drawer-item-wrap').forEach(w => {
-      const slug = w.getAttribute('data-parent');
-      // Por defecto colapsado (mas limpio); solo expandido si el usuario lo abrio
-      if (stored[slug] === false) w.classList.remove('collapsed');
-      else w.classList.add('collapsed');
-    });
-  } catch(e) {}
-}
-
-// ============ TEMA ============
-// El botón es un sol que se vuelve luna: el dibujo cambia solo por CSS con [data-theme="dark"].
-function applyTheme(theme){
-  if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-  else document.documentElement.removeAttribute('data-theme');
-}
-function toggleTheme(){
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  try { localStorage.setItem('uba-theme', next); } catch(e) {}
-  applyTheme(next);
-}
-
-// ============ SISTEMA DE QUIZ ============
-window.EX = {}; // ejercicios por subject:unit
-const state = {};
-
-function registerExercises(subject, unit, list){
-  window.EX[subject + '-' + unit] = list;
-}
-
-function renderQuizzes(){
-  let totalBySubject = {};
-  let unitsBySubject = {};
-  document.querySelectorAll('.quiz-wrap').forEach(wrap => {
-    const subject = wrap.getAttribute('data-subject');
-    const unit = wrap.getAttribute('data-qz');
-    const key = subject + '-' + unit;
-    const list = window.EX[key];
-    if (!list) return;
-    totalBySubject[subject] = (totalBySubject[subject] || 0) + list.length;
-    (unitsBySubject[subject] = unitsBySubject[subject] || []).push(unit);
-    let html = '<div class="quiz-title">Ejercicios · Unidad ' + unit + '</div>';
-    list.forEach((q, idx) => {
-      const id = subject + '-' + unit + '-' + idx;
-      html += '<div class="qex" id="qex-' + id + '">';
-      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
-      html += '<div class="qex-st">' + q.st + '</div>';
-      html += '<div class="qex-opts">';
-      q.opts.forEach((o, i) => {
-        html += '<button class="qex-opt" onclick="pickQ(\'' + subject + '\',\'' + unit + '\',' + idx + ',' + i + ')">' + o + '</button>';
-      });
-      html += '</div><div class="qex-fb-wrap"></div></div>';
-    });
-    wrap.innerHTML = html;
-  });
-  window.totalBySubject = totalBySubject;
-  window.unitsBySubject = unitsBySubject;
-  updateAllScores();
-}
-
-function pickQ(subject, unit, idx, picked){
-  const key = subject + '-' + unit;
-  const q = window.EX[key][idx];
-  const correct = (picked === q.c);
-  const stateKey = subject + '-' + unit + '-' + idx;
-  if (state[stateKey] !== undefined) return;
-  state[stateKey] = correct;
-
-  const container = document.getElementById('qex-' + stateKey);
-  const btns = container.querySelectorAll('.qex-opt');
-  btns.forEach((b, i) => {
-    b.disabled = true;
-    if (i === q.c) b.classList.add('ok');
-    else if (i === picked) b.classList.add('ko');
-  });
-  const title = correct ? '¡Correcto!' : 'Incorrecto. La correcta está en verde';
-  const fbWrap = container.querySelector('.qex-fb-wrap');
-  fbWrap.innerHTML = '<div class="qex-fb ' + (correct?'ok':'ko') + '"><div class="qex-fb-t">' + title + '</div><div>' + q.ex + '</div></div>';
-  updateAllScores();
-}
-
-function updateAllScores(){
-  // Recorre TODAS las materias que tengan ejercicios renderizados (no una lista fija).
-  // Usa claves exactas subject+'-'+unit para no confundir, p.ej., "analisis" con
-  // "analisis-parcial" (que comparten prefijo).
-  const unitsBySubject = window.unitsBySubject || {};
-  Object.keys(unitsBySubject).forEach(subject => {
-    let total = 0, correct = 0, done = 0;
-    unitsBySubject[subject].forEach(unit => {
-      const list = window.EX[subject + '-' + unit];
-      if (!list) return;
-      total += list.length;
-      let c = 0, d = 0;
-      list.forEach((_, idx) => {
-        const sk = subject + '-' + unit + '-' + idx;
-        if (state[sk] !== undefined) { d++; if (state[sk]) c++; }
-      });
-      done += d; correct += c;
-      const ssEl = document.getElementById('ss-' + subject + '-' + unit);
-      if (ssEl) ssEl.textContent = d === 0 ? '' : c + '/' + list.length;
-    });
-    const el = document.getElementById('global-score-' + subject);
-    if (el) {
-      el.textContent = 'Puntaje: ' + correct + ' / ' + total + ' correctas (' + done + ' respondidas)';
-    }
-  });
-}
-
-
-// ============ HELPERS PARA EJERCICIOS ============
-const F = (n,d) => '<span class="frac"><span>'+n+'</span><span>'+d+'</span></span>';
-const M = s => '<span class="m">'+s+'</span>';
-
-// ============ SISTEMA DE "REVELAR RESPUESTA" (ejercicios a resolver, sin opciones) ============
-window.RV = {}; // reveals por subject:unit
-function registerReveals(subject, unit, list){ window.RV[subject + '-' + unit] = list; }
-
-function renderReveals(){
-  document.querySelectorAll('.reveal-wrap').forEach(wrap => {
-    const subject = wrap.getAttribute('data-subject');
-    const unit = wrap.getAttribute('data-rv');
-    const list = window.RV[subject + '-' + unit];
-    if (!list) return;
-    let html = '<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';
-    list.forEach((q, idx) => {
-      const id = subject + '-' + unit + '-' + idx;
-      html += '<div class="rev-ex" id="rev-' + id + '">';
-      html += '<div class="qex-h"><span class="qex-n">' + unit + '.' + (idx+1) + '</span></div>';
-      html += '<div class="qex-st">' + q.st + '</div>';
-      html += '<button class="rev-btn" onclick="revealAns(\'' + subject + '\',\'' + unit + '\',' + idx + ')">Revelar respuesta</button>';
-      html += '<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> ' + q.ans + '</div>';
-      if (q.sol) html += '<div class="rev-sol">' + q.sol + '</div>';
-      html += '</div></div>';
-    });
-    wrap.innerHTML = html;
-  });
-}
-
-function revealAns(subject, unit, idx){
-  const el = document.getElementById('rev-' + subject + '-' + unit + '-' + idx);
-  if (!el) return;
-  el.classList.add('revealed');
-  const btn = el.querySelector('.rev-btn');
-  if (btn) btn.textContent = 'Respuesta revelada';
-  if (btn) btn.disabled = true;
-}
-
-// ============ EJERCICIOS ÁLGEBRA 1° PARCIAL ============
-registerExercises('algebra-parcial', '1', [
-  {st: 'El parcial Escayola tiene 8 ejercicios de opción múltiple. ¿Cuánto vale cada uno?', opts: ['1 punto', '1,25 puntos', '1,5 puntos', '2 puntos'], c: 1, ex: 'Total = 10 puntos repartidos en 8 ejercicios → 10/8 = 1,25 puntos cada uno. NO hay ejercicios que valgan más que otros (todos por igual). ▸ Por qué las otras están mal: "1 punto" (×8 = 8) no llega a 10; "1,5" (×8 = 12) excede; "2 puntos" (×8 = 16) duplica el total.'},
-  {st: 'Si en el enunciado ves "norma", "ángulo entre vectores" y "producto escalar", el tema es:', opts: ['Subespacios', 'Cónicas', 'Vectores', 'Rectas y planos'], c: 2, ex: 'Norma, ángulo y producto escalar son conceptos básicos de la sesión 1 (Vectores). La fórmula clave es v·w = ‖v‖·‖w‖·cos(α). ▸ Por qué las otras están mal: Subespacios (sesión 4) habla de bases, L.I., dim; Cónicas (sesión 5) usa "foco, directriz, excentricidad"; Rectas y planos (sesión 3) usa "intersección, ecuación, posición relativa".'},
-  {st: 'Si el enunciado pide "la ecuación de la recta directriz y las coordenadas del foco", el tema es:', opts: ['Vectores', 'Rectas y planos', 'Subespacios', 'Cónicas (parábola)'], c: 3, ex: 'Foco y directriz son elementos exclusivos de la PARÁBOLA (cónicas, sesión 5). Forma canónica: (y−k)² = 4p(x−h). ▸ Por qué las otras están mal: Vectores no tiene "directriz"; Rectas y planos habla de planos por puntos, no de focos; Subespacios trabaja con álgebra abstracta sin geometría focal.'},
-  {st: 'La estrategia cuando un ejercicio tiene un parámetro k desconocido es:', opts: ['Probar las 4 opciones', 'Adivinar por descarte', 'Reemplazar k en la condición del enunciado y despejar', 'No se puede resolver sin más datos'], c: 2, ex: 'Receta universal del parcial Escayola: identificá la CONDICIÓN del enunciado (centro dado, det=0, ortogonalidad, etc.), reemplazá la expresión con k, y despejá k. ▸ Por qué las otras están mal: "probar opciones" pierde tiempo y no enseña nada; "adivinar por descarte" ya implica resolver implícitamente; "no se puede resolver" es falso, siempre hay condición.'},
-  {st: 'La fórmula de distancia de un punto A = (x₀, y₀, z₀) al plano ax+by+cz = d es:', opts: ['‖A‖ / √(a²+b²+c²)', '|ax₀+by₀+cz₀−d| / √(a²+b²+c²)', '|ax₀+by₀+cz₀| / √(a²+b²+c²)', '|ax₀+by₀+cz₀+d| / ‖A‖'], c: 1, ex: 'Fórmula directa: numerador = valor absoluto de "evaluar A en la ecuación llevada a 0" (es decir, ax₀+by₀+cz₀−d); denominador = norma del vector normal (raíz de a²+b²+c²). ▸ Por qué las otras están mal: (A) usa ‖A‖ (norma del punto) — incorrecto; (C) le falta el −d; (D) divide por ‖A‖ en lugar del normal. Truco: si el plano es ax+by+cz+d=0, en numerador queda |ax₀+by₀+cz₀+d|.'},
-  {st: 'Para reconocer si un conjunto de 3 vectores en R³ es base, el test definitivo es:', opts: ['Verificar que ningún vector es nulo', 'Calcular el determinante de la matriz formada por los vectores', 'Ver si los vectores suman cero', 'Verificar que tienen distintas normas'], c: 1, ex: 'Tres vectores en R³ son base ⟺ son L.I. ⟺ det(matriz) ≠ 0. La matriz se arma poniendo los 3 vectores como filas (o columnas, da igual). ▸ Por qué las otras están mal: (A) "ninguno nulo" es necesario pero no suficiente (3 vectores no nulos pueden ser L.D.); (C) "suman cero" es trivialmente ningún criterio (no implica L.D.); (D) "distintas normas" no tiene relación con L.I.'}
-]);
-
-registerExercises('algebra-parcial', '2', [
-  {st: 'v tiene norma √5, w tiene norma 8 y el ángulo entre ellos es 2π/3. ¿Cuánto vale v·w?', opts: ['−4√5', '4√5', '−4√3', '8√5'], c: 0, ex: 'Fórmula: v·w = ‖v‖·‖w‖·cos(α). ▸ cos(2π/3) = cos(120°) = −1/2 (segundo cuadrante, coseno negativo). ▸ v·w = √5·8·(−1/2) = −4√5. ▸ Por qué las otras están mal: (B) signo positivo (olvidan el cuadrante); (C) usa √3 en lugar de √5; (D) sin el cos.'},
-  {st: 'v = (k, −k, k), w = (0, 0, −k) con k > 0. cos(ángulo entre v y w) vale:', opts: ['−1/3', '1/3', '−1/√3', '1/√3'], c: 2, ex: '▸ v·w = k·0 + (−k)·0 + k·(−k) = −k². ▸ ‖v‖ = √(k²+k²+k²) = k√3 (porque k>0). ▸ ‖w‖ = √(k²) = k. ▸ cos(α) = (v·w)/(‖v‖·‖w‖) = −k² / (k√3·k) = −1/√3. ▸ Por qué las otras están mal: (A) (B) ±1/3 = (1/√3)² mal aplicado; (D) signo positivo (cosc no puede ser positivo si v·w<0).'},
-  {st: 'w es paralelo a v = (5/7, −1/7, −2/7) y tiene norma 3√30. ¿Cuántas soluciones posibles tiene w?', opts: ['Solo una (k > 0)', 'Dos (k positivo y k negativo)', 'Infinitas', 'Ninguna'], c: 1, ex: 'w = k·v por paralelismo. ‖v‖² = 25/49+1/49+4/49 = 30/49 → ‖v‖ = √30/7. ▸ ‖w‖ = |k|·‖v‖ = |k|·√30/7 = 3√30 → |k| = 21 → k = ±21. ▸ Hay 2 vectores: w₁ = 21v y w₂ = −21v. ▸ Por qué las otras están mal: "solo una" supone k>0 sin justificación; "infinitas" requeriría norma sin restringir; "ninguna" es absurdo, sí existe.'},
-  {st: 'β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). ¿Cuánto vale β?', opts: ['−11', '1/11', '11', '−1/11'], c: 2, ex: 'Igualo coordenada por coordenada y resuelvo cualquiera (todas deben dar lo mismo). ▸ X: 3β/11 − 10 = −7 → 3β/11 = 3 → β = 11. ▸ Verifico Y: −β/11 + 9 = 8 → −β/11 = −1 → β = 11 ✓. ▸ Verifico Z: 2β/11 + 1 = 3 → 2β/11 = 2 → β = 11 ✓. Las tres dan β = 11. ▸ Por qué las otras están mal: (A) (D) signos invertidos; (B) confunde β/11 con β.'},
-  {st: 'A = (−1/3, 2/3, 1/3), B = (0, 4/3, −7/3), C = (1, m, −m), D = (1, 0, −m). Si ‖AB‖ = ‖CD‖, ¿qué valor toma m?', opts: ['m = 23/3', 'Cualquier m ∈ ℝ', '|m| = √(23/3) (es decir m = ±√(23/3))', 'No hay solución'], c: 2, ex: '▸ AB = B − A = (1/3, 2/3, −8/3). ‖AB‖² = 1/9 + 4/9 + 64/9 = 69/9 = 23/3. ▸ CD = D − C = (1−1, 0−m, −m−(−m)) = (0, −m, 0). ‖CD‖² = m². ▸ Iguales: m² = 23/3 → m = ±√(23/3). Hay DOS soluciones (positiva y negativa). ▸ Por qué las otras están mal: (A) m=23/3 sería m² (sin la raíz); (B) "cualquier m" es falso, hay restricción; (D) sí hay solución.'},
-  {st: 'v es paralelo al versor î (= (1,0,0)), tiene norma 7 y una coordenada negativa. ¿Cuáles son sus coordenadas?', opts: ['(7, 0, 0)', '(0, −7, 0)', '(−7, 0, 0)', '(0, 0, −7)'], c: 2, ex: 'v paralelo a î = (1,0,0) significa v = (a, 0, 0) (las otras coordenadas deben ser 0). ▸ ‖v‖ = |a| = 7 → a = ±7. ▸ Coordenada negativa → a = −7. ▸ v = (−7, 0, 0). ▸ Por qué las otras están mal: (A) (7,0,0) tiene coord positiva; (B) (0,−7,0) es paralelo a ĵ, no a î; (D) (0,0,−7) es paralelo a k̂.'},
-  {st: 'Si v = (−7, 0, 0) y M = (15/2, 17/4, −1/10) es el punto medio entre los extremos de los vectores v y u (interpretados como puntos), ¿cuánto vale u?', opts: ['(−22, −17/2, 1/5)', '(22, 17/2, −1/5)', '(4, 17/2, −1/5)', '(22, −17/2, 1/5)'], c: 1, ex: 'Si M = (v+u)/2 → u = 2M − v. ▸ X: 2·(15/2) − (−7) = 15 + 7 = 22. ▸ Y: 2·(17/4) − 0 = 17/2. ▸ Z: 2·(−1/10) − 0 = −1/5. ▸ u = (22, 17/2, −1/5). ▸ Por qué las otras están mal: (A) signos invertidos en todo; (C) en X usa 11−7=4 (mal); (D) signo de Y mal.'}
-]);
-
-registerExercises('algebra-parcial', '3', [
-  {st: 'Para hallar la distancia del punto A al plano Π, el método del parcial es:', opts: ['Evaluar A en la ecuación del plano directamente', 'Escribir la recta normal al plano por A, hallar intersección B con Π, medir ‖AB‖', 'Calcular el producto escalar de A con el normal del plano', 'Sumar las coordenadas de A'], c: 1, ex: 'Algoritmo: (1) recta normal a Π por A → dirección = vector normal del plano = (a,b,c); (2) parametrizo X = t(a,b,c)+A; (3) reemplazo en la ecuación del plano y despejo t; (4) hallo B (pie de la perpendicular); (5) d = ‖A−B‖. ▸ Por qué las otras están mal: (A) "evaluar directamente" da un número, pero NO la distancia (falta dividir por norma del normal); (C) producto escalar A·n no tiene sentido geométrico; (D) "sumar coordenadas" es absurdo.'},
-  {st: 'A = (−1, 2, 3), Π: 2x+y−z+1 = 0. La distancia de A a Π es:', opts: ['√6', '√6/3', '6/√3', '0'], c: 1, ex: 'Fórmula directa: |2(−1)+1·2−1·3+1|/√(4+1+1) = |−2+2−3+1|/√6 = |−2|/√6 = 2/√6 = 2√6/6 = √6/3. ▸ Verificación con recta normal: X = t(2,1,−1)+(−1,2,3) → en Π: 2(2t−1)+(t+2)−(−t+3)+1 = 6t−2 = 0 → t=1/3. Distancia: |t|·‖n‖ = (1/3)·√6 = √6/3 ✓ (coincide con la fórmula directa). ▸ Por qué las otras están mal: (A) √6 sin dividir; (C) 6/√3 = 2√3 (no aplica); (D) 0 implicaría que A está en Π (no se cumple).'},
-  {st: 'Dos rectas tienen vectores directores d₁ = (−4/3, 0, −3) y d₂ = (1/2, 2/7, −2/9). d₁·d₂ vale:', opts: ['0 (= −2/3 + 0 + 2/3)', '1', '−1', '2/3'], c: 0, ex: '▸ (−4/3)·(1/2) = −4/6 = −2/3. ▸ 0·(2/7) = 0. ▸ (−3)·(−2/9) = 6/9 = 2/3. ▸ Suma: −2/3 + 0 + 2/3 = 0. ▸ Como el producto escalar = 0, las direcciones son perpendiculares. Si las rectas además se intersecan, son ortogonales-secantes; si no se cruzan, son alabeadas-perpendiculares. ▸ Por qué las otras están mal: (B) (C) (D) son cálculos parciales mal sumados.'},
-  {st: 'Si dos rectas en R³ tienen vectores directores que NO son múltiplos y su intersección es vacía, son:', opts: ['Paralelas', 'Coincidentes', 'Alabeadas (no se cortan ni son paralelas)', 'Concurrentes (se cortan en un punto)'], c: 2, ex: 'En R³ existen 4 posiciones relativas: paralelas (mismas direcciones, sin punto común), coincidentes (mismas direcciones, infinitos puntos), concurrentes/se cortan (direcciones distintas, un punto), alabeadas (direcciones distintas, ningún punto). ▸ Direcciones no múltiplos = no paralelas/coincidentes. ▸ Intersección vacía = no concurrentes. ▸ Solo queda: ALABEADAS. ▸ Por qué las otras están mal: paralelas/coincidentes requerirían direcciones múltiplos; concurrentes requeriría intersección no vacía. Nota: las alabeadas pueden ser ortogonales si además d₁·d₂=0, pero no es obligatorio.'},
-  {st: 'Recta X = α(3,6,9) + (4,2,−1), plano −x+y−z = 1. La posición relativa es:', opts: ['La recta está contenida en el plano', 'La recta y el plano son paralelos', 'La recta y el plano son ortogonales', 'La recta y el plano se cortan en un único punto'], c: 3, ex: 'Reemplazo el punto genérico (3α+4, 6α+2, 9α−1) en la ecuación del plano: −(3α+4) + (6α+2) − (9α−1) = 1 → −3α−4 + 6α+2 − 9α+1 = 1 → −6α − 1 = 1 → α = −1/3. ▸ Como hay UN solo valor de α, hay UN punto de intersección. ▸ Por qué las otras están mal: (A) "contenida" requeriría que el sistema sea identidad para todo α (no es); (B) "paralelos" requeriría sistema sin solución; (C) "ortogonales" requeriría dirección recta paralela al normal del plano: (3,6,9) vs (−1,1,−1) — no son múltiplos.'},
-  {st: 'A = (7,−10,−1). Plano: 2x−3y+z=1. El simétrico de A respecto del plano es:', opts: ['(2,−3,1)', '(5,−8,7)', '(1,−1,−4)', '(−5,8,−7)'], c: 3, ex: 'Receta: B = proyección de A sobre el plano (pie de la normal); A\' = 2B − A. ▸ Recta normal: X = t(2,−3,1) + (7,−10,−1) → punto genérico (2t+7, −3t−10, t−1). ▸ En plano: 2(2t+7) − 3(−3t−10) + (t−1) = 1 → 4t+14+9t+30+t−1 = 1 → 14t+43 = 1 → t = −3. ▸ B = (1, −1, −4). ▸ A\' = 2B − A = (2·1−7, 2·(−1)−(−10), 2·(−4)−(−1)) = (−5, 8, −7). ▸ Por qué las otras están mal: (A) (2,−3,1) es el vector normal; (B) (5,−8,7) puede ser un cálculo intermedio mal; (C) (1,−1,−4) es B (pie de la normal), NO el simétrico.'},
-  {st: 'Para el plano paramétrico π₁: X = s(1,1,0)+t(2,0,2)+(1,1,1) y el plano π₂: x+z=1+y, la posición relativa es:', opts: ['Son perpendiculares', 'La intersección es una recta y NO son perpendiculares', 'Son paralelos', 'Son coincidentes'], c: 1, ex: 'Hallar normales: n₁ = (1,1,0)×(2,0,2) = (1·2−0·0, 0·2−1·2, 1·0−1·2) = (2,−2,−2). n₂: π₂ es x−y+z=1 → n₂=(1,−1,1). ▸ ¿n₁ y n₂ paralelos? n₁=2(1,−1,−1). Compará (1,−1,−1) con (1,−1,1): la 3ª da −1 vs 1, NO múltiplos → planos NO paralelos. ▸ Como no son paralelos, su intersección es una RECTA. ¿Son perpendiculares? Eso requiere n₁·n₂ = 0. n₁·n₂ = 2·1+(−2)·(−1)+(−2)·1 = 2+2−2 = 2 ≠ 0 → NO perpendiculares. ▸ Por qué las otras están mal: (A) "perpendiculares" requiere n₁·n₂=0; (C) "paralelos" requiere n₁ y n₂ múltiplos; (D) "coincidentes" requiere paralelos + un punto en común.'},
-  {st: 'A = (6,4,2). Recta r: X = t(2,1,2)+(1,0,0). La distancia de A a r es:', opts: ['√5', '3', '5', '9'], c: 1, ex: 'Método del plano normal: (1) plano que pasa por A con normal = director de r (2,1,2): 2(x−6)+1(y−4)+2(z−2)=0 → 2x+y+2z=20. (2) Punto genérico de r: (2t+1, t, 2t). En el plano: 2(2t+1)+t+2(2t)=20 → 9t+2=20 → t=2. (3) Pie B=(5,2,4). (4) AB = B−A = (−1,−2,2), ‖AB‖=√(1+4+4)=√9=3. ▸ Atajo: d=‖AP×d‖/‖d‖ con P=(1,0,0): AP=(−5,−4,−2), AP×(2,1,2)=(−6,6,3), ‖·‖=9, ‖d‖=3 → 9/3=3 ✓. ▸ Por qué las otras están mal: (A) √5 sale de olvidar una coordenada; (C) 5 ignora dividir por ‖d‖ en el atajo; (D) 9 es ‖AB‖² (sin la raíz) o el numerador del atajo sin dividir.'}
-]);
-
-registerExercises('algebra-parcial', '4', [
-  {st: '{(1,0,−1),(−1,k,0),(0,−2,k+1)} no es base de R³ para k ∈ ℤ>0. ¿Cuál es ese k?', opts: ['−2', '1', '2', '−1'], c: 1, ex: 'NO es base ⟺ det = 0. Determinante de la matriz [[1,0,−1],[−1,k,0],[0,−2,k+1]]: ▸ Expansión por 1ª fila: 1·(k(k+1)−0·(−2)) − 0 + (−1)·((−1)(−2)−k·0) = (k²+k) − 2 = k²+k−2. ▸ Iguálo a 0: k²+k−2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1. ▸ Restricción: k entero positivo → k = 1. ▸ Por qué las otras están mal: (A) k=−2 también anula el det pero NO es positivo; (C) k=2 → 4+2−2=4≠0 (sí es base); (D) k=−1 → 1−1−2=−2≠0.'},
-  {st: 'S = {(x₁,x₂,x₃,x₄) ∈ ℝ⁴: 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Una base de S es {(1,2,−4,0),(0,0,−3,1)}. ¿Cuáles son n y m?', opts: ['n=−3, m=−3', 'n=3, m=−3', 'n=−3, m=3', 'n=3, m=3'], c: 2, ex: 'Cada vector de la base debe satisfacer AMBAS ecuaciones de S. ▸ (1,2,−4,0) en eq1: 6·1+n·2 = 6+2n = 0 → n = −3. ▸ (1,2,−4,0) en eq2: 2·2+(−4)+m·0 = 0 → 0=0 ✓ (no aporta info de m). ▸ (0,0,−3,1) en eq1: 0+0=0 ✓. ▸ (0,0,−3,1) en eq2: 0+(−3)+m·1 = 0 → m = 3. ▸ n = −3, m = 3. ▸ Por qué las otras están mal: (A) (B) tienen n=3 (no satisface eq1 con primer vector); (D) m=3 con n=3 inconsistente.'},
-  {st: 'A = {(0,−2,−1),(k,1,0),(−8,0,k+3)}. Para que A sea generador de ℝ³, k debe ser:', opts: ['k ∈ {1,−4}', 'k ∈ ℝ \\ {−1,4}', 'k ∈ ℝ \\ {1,−4}', 'k ∈ ∅'], c: 2, ex: 'Generador de ℝ³ ⟺ los 3 vectores son L.I. ⟺ det ≠ 0. ▸ det de [[0,−2,−1],[k,1,0],[−8,0,k+3]]: expansión por 1ª fila → 0 − (−2)·(k(k+3) − 0·(−8)) + (−1)·(k·0 − 1·(−8)) = 2(k²+3k) − 8 = 2k²+6k−8 = 2(k²+3k−4) = 2(k+4)(k−1). ▸ det = 0 ⟺ k = −4 o k = 1. ▸ Para SER generador: k ∉ {−4, 1} → k ∈ ℝ \\ {1,−4}. ▸ Por qué las otras están mal: (A) {1,−4} son los valores que NO sirven (lo opuesto); (B) {−1,4} son signos cambiados; (D) ∅ implicaría que nunca es generador.'},
-  {st: 'S = {(x₁,x₂,x₃,x₄) ∈ ℝ⁴: x₁+x₄=0}. dim(S)=3. ¿Cuál conjunto es generador (base) de S?', opts: ['{(1,0,0,−1),(0,1,0,0),(1,0,0,1)}', '{(1,1,0,−1),(0,1,0,0),(1,0,0,−1)}', '{(1,0,0,−1),(0,1,0,0),(0,0,1,0)}', '{(0,1,0,0),(1,0,−1,0),(1,0,0,−1)}'], c: 2, ex: 'Necesito 3 vectores L.I. todos en S. Verifico opción C: ▸ (1,0,0,−1): 1+(−1)=0 ✓. ▸ (0,1,0,0): 0+0=0 ✓. ▸ (0,0,1,0): 0+0=0 ✓. Todos en S. Son L.I. (la matriz tiene 3 filas L.I. obviamente) → BASE de S. ▸ Por qué las otras están mal: (A) (1,0,0,1) tiene 1+1=2≠0 → NO está en S; (B) (1,0,0,−1) = (1,1,0,−1) − (0,1,0,0) → L.D., no genera; (D) (1,0,−1,0) tiene 1+0=1≠0 → NO está en S.'},
-  {st: '¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?', opts: ['(−1,0,3)', '(0,1,−1)', '(2,3,3)', '(0,−1,1)'], c: 0, ex: 'Verifico (−1,0,3): α(1,2,−1) + β(−1,−1,2) = (α−β, 2α−β, −α+2β) = (−1, 0, 3). ▸ De α−β=−1 y 2α−β=0: restando → α=1, sub en 1ª → β=2. ▸ Verifico 3ª: −1+4=3 ✓. Sí es combinación lineal con coef (1,2). ▸ Por qué las otras están mal: (B) sistema queda inconsistente (α=1,β=1 dan 3ª: 1≠−1); (C) (α=1,β=−1 dan 3ª: −3≠3); (D) sistema inconsistente.'},
-  {st: '{(1,0,2),(0,−2,−k),(1/2,−k−1,0)}. Para que NO sea base con k ∈ ℤ negativo, ¿cuál k?', opts: ['2', '1', '−2', '−1'], c: 2, ex: 'NO es base ⟺ det=0. ▸ det = 1·((−2)·0 − (−k)·(−k−1)) − 0 + 2·(0·(−k−1) − (−2)·(1/2)) = 1·(0 − k(k+1)) + 2·(0 + 1) = −k²−k+2. ▸ −k²−k+2 = 0 → k²+k−2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1. ▸ Restricción: k entero negativo → k = −2. ▸ Por qué las otras están mal: (A) 2 da k²+k−2=4 (sí es base); (B) 1 anula el det pero es positivo; (D) −1 da 1−1−2=−2 (sí es base).'},
-  {st: 'S = {x ∈ ℝ⁴: 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Base: {(1,2,−4,0),(0,0,−3,1)}. (Pregunta de chequeo) Si n=−3 y m=3, ¿el sistema queda consistente?', opts: ['No, hay contradicción en alguna ecuación', 'Sí: ambos vectores satisfacen eq1 y eq2 con esos valores', 'Solo el primer vector satisface', 'Solo el segundo vector satisface'], c: 1, ex: 'Verifico ambas ecuaciones para los 2 vectores. ▸ (1,2,−4,0): eq1=6+(−3)·2=0 ✓; eq2=2·2+(−4)+3·0=0 ✓. ▸ (0,0,−3,1): eq1=0+0=0 ✓; eq2=0+(−3)+3·1=0 ✓. CONSISTENTE: la base es válida con n=−3, m=3. ▸ Por qué las otras están mal: requiere verificar las 4 condiciones; cualquier "no" o "solo uno" es falso porque las 4 se cumplen.'}
-]);
-
-registerExercises('algebra-parcial', '5', [
-  {st: 'En la hipérbola (x−h)²/a² − (y−k)²/b² = 1, ¿cuál es la relación entre a, b y c (semidistancia focal)?', opts: ['c² = a² − b²', 'c² = a² + b²', 'a² = b² + c²', 'b² = a² + c²'], c: 1, ex: 'En la HIPÉRBOLA siempre c² = a² + b² (con c > a). Es la relación pitagórica entre los semiejes y la semidistancia focal. ▸ ALERTA: en la ELIPSE es al revés: c² = a² − b² (con c < a, ya que a es semieje mayor). ▸ Por qué las otras están mal: (A) c² = a² − b² es de la elipse; (C) (D) son re-arreglos incorrectos. Truco mnemotécnico: en elipse el "−" es porque a es más grande que c; en hipérbola el "+" es porque c es más grande que a (los focos están más allá de los vértices).'},
-  {st: '144x² − 24kx + 16y² = 63 es una elipse con centro (−0,75; 0). ¿Cuánto vale k?', opts: ['9', '−18', '−9', '0,5'], c: 2, ex: 'Completar cuadrados en x. ▸ 144x²−24kx = 144(x² − k/6 · x) = 144·((x − k/12)² − k²/144) = 144(x−k/12)² − k². ▸ Ecuación: 144(x−k/12)² + 16y² = 63 + k². ▸ Centro = (k/12, 0). Igualar k/12 = −0,75 → k = −9. ▸ Por qué las otras están mal: (A) k=9 daría centro (0,75; 0) (signo opuesto); (B) k=−18 daría centro (−1,5; 0); (D) k=0,5 muy alejado.'},
-  {st: 'Hipérbola H con excentricidad e=1,8 y focos F₁=(0,−8), F₂=(0,10). El centro de H es:', opts: ['(0,0)', '(0,1)', '(0,2)', '(0,−1)'], c: 1, ex: 'El centro de una hipérbola es el PUNTO MEDIO entre sus dos focos. ▸ Centro = ((0+0)/2, (−8+10)/2) = (0, 1). ▸ Por qué las otras están mal: (A) (0,0) no es punto medio; (C) (0,2) está más cerca de F₂; (D) (0,−1) está más cerca de F₁. Truco: como ambas X son 0, el centro tiene X=0; el Y es el promedio.'},
-  {st: 'Misma hipérbola H (e=1,8, focos en eje y, centro (0,1)). Sabiendo que c=9, los vértices de H son:', opts: ['(0,±5)', '(0,1±5) = (0,6) y (0,−4)', '(0,±9)', '(0,1±9) = (0,10) y (0,−8)'], c: 1, ex: '▸ e = c/a → 1,8 = 9/a → a = 5. ▸ Centro (0,1), eje vertical (focos en y), así que vértices están a distancia a del centro a lo largo del eje y: V = (0, 1±5) = (0, 6) y (0, −4). ▸ Por qué las otras están mal: (A) (0,±5) ignora el desplazamiento del centro (asume (0,0)); (C) (0,±9) usa c en lugar de a (los vértices se ubican con a, no c); (D) (0,10) y (0,−8) son los focos.'},
-  {st: '3x² − y² − 6x − 30y − 546 = 0. Completando cuadrados, la forma canónica es:', opts: ['(x−1)²/108 − (y+15)²/324 = 1', '(x+1)²/108 − (y−15)²/324 = 1', '(y+15)²/324 − (x−1)²/108 = 1', '(x−1)²/324 − (y+15)²/108 = 1'], c: 0, ex: '▸ Agrupo y completo. 3(x²−2x) − (y²+30y) = 546. 3((x−1)²−1) − ((y+15)²−225) = 546. 3(x−1)² − (y+15)² = 546 + 3 − 225 = 324. ▸ Divido por 324: (x−1)²/108 − (y+15)²/324 = 1. ▸ Es hipérbola horizontal (positivo el x). ▸ Por qué las otras están mal: (B) signos invertidos en el centro; (C) intercambia x e y → es hipérbola vertical (positivo el y); (D) intercambia 108 y 324.'},
-  {st: 'y² − 8x + 3 = 6y. La directriz de la parábola es:', opts: ['x = −2,75', 'y = −2,75', 'x = 1,25', 'y = 1,25'], c: 0, ex: '▸ Reordeno: y² − 6y = 8x − 3. ▸ Completar cuadrados: (y−3)² − 9 = 8x − 3 → (y−3)² = 8x + 6 = 8(x + 3/4). ▸ Forma canónica: (y−k)² = 4p(x−h) → vértice (−3/4, 3), 4p=8, p=2. Abre hacia la derecha (p>0). ▸ Directriz: x = h − p = −0,75 − 2 = −2,75 (vertical, a la izquierda del vértice). ▸ Por qué las otras están mal: (B) (D) "y=" es directriz horizontal (parábola horizontal tiene directriz vertical); (C) x=1,25 estaría a la derecha del foco.'},
-  {st: 'M = {(x+4)²+(y+3)²=9}, N = {3x²+y²+6y=−6}. ¿Cuántos puntos tienen en común?', opts: ['Ninguno', 'Exactamente dos', 'Exactamente uno', 'Más de dos'], c: 2, ex: '▸ M: circunferencia centro (−4,−3), radio 3. ▸ N: 3x² + (y+3)² − 9 = −6 → 3x² + (y+3)² = 3 → x² + (y+3)²/3 = 1. ELIPSE centro (0,−3), semiejes √1=1 (en x) y √3 (en y). ▸ Ambas centradas en y=−3 (misma altura). Distancia entre centros = 4. ▸ Punto más cercano de M a N: (−1,−3) (frontera derecha de M). ¿Está en N? 1 + 0 = 1 ✓. ¿Otro punto en común? Las dos curvas son tangentes en (−1,−3). ▸ Por qué las otras están mal: (A) "ninguno" implicaría que no hay tangencia; (B) "dos" requeriría que se crucen en dos puntos; (D) "más de dos" implicaría coincidencia.'}
-]);
-
-registerExercises('algebra-parcial', '6', [
-  {st: 'El simétrico A\' de A respecto del plano se calcula como:', opts: ['A\' = B − A (B = pie de la normal)', 'A\' = 2B − A (B = pie de la normal)', 'A\' = B/2', 'A\' = A − 2B'], c: 1, ex: 'B es el punto medio entre A y su simétrico A\' (porque B es el pie de la perpendicular y A\' es la reflexión). ▸ Como B = (A + A\')/2, despejando: A\' = 2B − A. ▸ Por qué las otras están mal: (A) B−A es un vector dirección, no un punto; (C) B/2 carece de sentido geométrico; (D) A−2B daría algo distinto. ESTE es el error más caro del parcial: confundir A\'=2B−A con A\'=B−A.'},
-  {st: 'En una elipse, la relación entre a (semieje mayor), b (semieje menor) y c (semidistancia focal) es:', opts: ['c² = a² + b²', 'c² = a² − b²', 'a² = b² − c²', 'b² = a² + c²'], c: 1, ex: 'Elipse: c² = a² − b² con a > b > 0 y c < a. Los focos están dentro de la elipse, más cerca del centro que los vértices del eje mayor. ▸ Por qué las otras están mal: (A) c² = a² + b² es de la HIPÉRBOLA, no la elipse; (C) (D) son re-arreglos invertidos. ▸ Truco: en elipse, c < a (focos dentro); en hipérbola, c > a (focos fuera).'},
-  {st: 'Para verificar si un conjunto {v₁, v₂} es base de un subespacio S de ℝ⁴ con dim 2, hay que:', opts: ['Solo verificar que v₁ y v₂ pertenecen a S', 'Verificar que v₁, v₂ ∈ S Y que son L.I.', 'Verificar que v₁ + v₂ ∈ S', 'Calcular el determinante de la matriz 2×4'], c: 1, ex: 'Una base debe (1) generar el subespacio, (2) ser L.I. ▸ Para 2 vectores en S de dim 2: si son L.I. → automáticamente generan S (cantidad correcta de L.I.). Por eso bastan dos chequeos: pertenencia + L.I. ▸ Por qué las otras están mal: (A) "solo pertenecen" no garantiza que sean L.I. (podrían ser uno múltiplo del otro); (C) v₁+v₂ ∈ S es trivialmente cierto si ambos están en S; (D) det 2×4 no existe (no es matriz cuadrada).'},
-  {st: 'Recta r₁ con director (4/7, 0, 4) y r₂ con director (1/2, 1/8, −1/14). Calculás el producto escalar de los directores:', opts: ['(4/7)(1/2) + 0·(1/8) + 4·(−1/14) = 2/7 + 0 − 2/7 = 0', '(4/7)(1/2) + 4·(−1/14) = 1', '0 + 1/8 + 4/14 = 1', 'No se puede calcular'], c: 0, ex: '▸ (4/7)·(1/2) = 4/14 = 2/7. ▸ 0·(1/8) = 0. ▸ 4·(−1/14) = −4/14 = −2/7. ▸ Suma: 2/7 + 0 − 2/7 = 0. ▸ Producto escalar nulo → direcciones perpendiculares. Si las rectas no se cortan → alabeadas perpendiculares; si se cortan → ortogonales-secantes. ▸ Por qué las otras están mal: (B) saltea el término 0; (C) confunde 1/8 con 0; (D) sí se puede calcular.'},
-  {st: 'Para la parábola (y−k)² = 4p(x−h) con p > 0, el foco está en:', opts: ['(h−p, k)', '(h+p, k)', '(h, k+p)', '(h, k−p)'], c: 1, ex: 'La parábola (y−k)² = 4p(x−h) abre HORIZONTALMENTE. Si p > 0 → abre hacia la derecha. ▸ El foco está p unidades hacia el lado de apertura desde el vértice (h, k): foco = (h+p, k). La directriz (al lado opuesto): x = h − p. ▸ Por qué las otras están mal: (A) (h−p, k) es la directriz, no el foco; (C) (D) (h, k±p) son focos de parábolas verticales, no horizontales.'},
-  {st: '¿Cuál de estos pasos del cálculo del simétrico está en el orden correcto?', opts: ['Calcular A\', luego buscar B, luego la recta normal', 'Recta normal por A → pie B → A\' = 2B − A', 'Proyectar A sobre el plano → calcular ‖A‖', 'Calcular el normal, luego igualar a A, luego A\'=2A−normal'], c: 1, ex: 'Algoritmo correcto: (1) escribís la recta normal a Π por A, (2) hallás B = intersección recta-plano (pie de la normal), (3) A\' = 2B − A. ▸ Por qué las otras están mal: (A) invertido (no podés calcular A\' antes de saber B); (C) ‖A‖ no sirve; (D) "2A−normal" no tiene sentido (normal es vector dirección, A es punto).'}
-]);
-
-
-// ============ INIT ============
-(function(){
-  // Tema guardado (PRIMERO, asi el overlay de auth respeta dark/light)
-  let saved = null;
-  try { saved = localStorage.getItem('uba-theme'); } catch(e) {}
-  if (saved) applyTheme(saved);
-  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
-
-  // Acceso al sitio (gate cliente). Si no hay sesion guardada valida, deja
-  // el body con .locked y el overlay; el resto del init igual corre.
-  checkAccess();
-
-  // Estado colapsado de categorias del drawer
-  restoreCatState();
-  restoreSubState();
-
-  // Cada pagina de materia declara su slug en M_SUBJECT. El index no declara
-  // ninguno: ahi solo marcamos el estado del drawer y mostramos el listado.
-  if (window.M_SUBJECT) {
-    switchSubject(window.M_SUBJECT);
-  } else {
-    document.documentElement.removeAttribute('data-subject');
-  }
-})();
-
-// Navegación del índice: abre details al hacer click
-document.addEventListener('click', (e) => {
-  if (e.target.tagName === 'A' && e.target.getAttribute('href') && e.target.getAttribute('href').startsWith('#')) {
-    const id = e.target.getAttribute('href').substring(1);
-    const target = document.getElementById(id);
-    if (target && target.tagName === 'DETAILS') {
-      target.open = true;
-    }
-  }
-});
-
-// Render quizzes después de cargar todo
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => { renderQuizzes(); renderReveals(); }, 100);
-});
+<script>window.M_BASE="";window.M_SUBJECT="algebra-parcial";const ACCESS_USERS=[{name:"Ariel",password:"Contraseña123"},{name:"Flor",password:"Contraseña123"}];function findUser(name){const n=(name||"").trim().toLowerCase();return ACCESS_USERS.find(u=>u.name.toLowerCase()===n)||null}function tryAccess(e){e.preventDefault();const nameInput=document.getElementById("auth-name").value;const pass=document.getElementById("auth-pass").value;const user=findUser(nameInput);const err=document.getElementById("auth-error");if(user&&user.password===pass){try{localStorage.setItem("uba-auth",user.name)}catch(e2){}document.body.classList.remove("locked");err.textContent="";return false}err.textContent="Nombre o contraseña incorrectos";err.style.animation="none";err.offsetHeight;err.style.animation="";return false}function checkAccess(){let saved=null;try{saved=localStorage.getItem("uba-auth")}catch(e){}if(saved&&findUser(saved)){document.body.classList.remove("locked");return true}document.body.classList.add("locked");setTimeout(()=>{const inp=document.getElementById("auth-name");if(inp)inp.focus()},50);return false}function logout(){try{localStorage.removeItem("uba-auth")}catch(e){}location.reload()}function toggleDrawer(){document.getElementById("drawer").classList.toggle("open");document.getElementById("drawer-overlay").classList.toggle("open")}function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("drawer-overlay").classList.remove("open")}function switchSubject(subject){const seccion=document.getElementById("subject-"+subject);if(!seccion){try{localStorage.setItem("uba-subject",subject)}catch(e){}location.href=(window.M_BASE||"")+subject+".html";return}document.querySelectorAll(".subject").forEach(s=>s.classList.remove("active"));seccion.classList.add("active");document.documentElement.setAttribute("data-subject",subject);document.querySelectorAll(".drawer-item, .drawer-subitem").forEach(it=>{it.classList.toggle("active",it.getAttribute("data-target")===subject)});const activeItem=document.querySelector('.drawer-item[data-target="'+subject+'"], .drawer-subitem[data-target="'+subject+'"]');if(activeItem){const group=activeItem.closest(".drawer-group");if(group&&group.classList.contains("collapsed")){group.classList.remove("collapsed");saveCatState()}const wrap=activeItem.closest(".drawer-item-wrap");if(wrap&&wrap.classList.contains("collapsed")){wrap.classList.remove("collapsed");saveSubState()}}try{localStorage.setItem("uba-subject",subject)}catch(e){}closeDrawer();window.scrollTo({top:0,behavior:"smooth"})}function toggleCat(btn){const group=btn.closest(".drawer-group");group.classList.toggle("collapsed");saveCatState()}function toggleSub(btn){const wrap=btn.closest(".drawer-item-wrap");wrap.classList.toggle("collapsed");saveSubState()}function saveCatState(){try{const stored={};document.querySelectorAll(".drawer-group").forEach(g=>{stored[g.getAttribute("data-cat")]=g.classList.contains("collapsed")});localStorage.setItem("uba-cats-collapsed",JSON.stringify(stored))}catch(e){}}function restoreCatState(){try{const raw=localStorage.getItem("uba-cats-collapsed");if(!raw)return;const stored=JSON.parse(raw);document.querySelectorAll(".drawer-group").forEach(g=>{const cat=g.getAttribute("data-cat");if(stored[cat])g.classList.add("collapsed")})}catch(e){}}function saveSubState(){try{const stored={};document.querySelectorAll(".drawer-item-wrap").forEach(w=>{stored[w.getAttribute("data-parent")]=w.classList.contains("collapsed")});localStorage.setItem("uba-subs-collapsed",JSON.stringify(stored))}catch(e){}}function restoreSubState(){try{const raw=localStorage.getItem("uba-subs-collapsed");if(!raw)return;const stored=JSON.parse(raw);document.querySelectorAll(".drawer-item-wrap").forEach(w=>{const slug=w.getAttribute("data-parent");if(stored[slug]===false)w.classList.remove("collapsed");else w.classList.add("collapsed")})}catch(e){}}function applyTheme(theme){if(theme==="dark")document.documentElement.setAttribute("data-theme","dark");else document.documentElement.removeAttribute("data-theme")}function toggleTheme(){const current=document.documentElement.getAttribute("data-theme");const next=current==="dark"?"light":"dark";try{localStorage.setItem("uba-theme",next)}catch(e){}applyTheme(next)}window.EX={};const state={};function registerExercises(subject,unit,list){window.EX[subject+"-"+unit]=list}function renderQuizzes(){let totalBySubject={};let unitsBySubject={};document.querySelectorAll(".quiz-wrap").forEach(wrap=>{const subject=wrap.getAttribute("data-subject");const unit=wrap.getAttribute("data-qz");const key=subject+"-"+unit;const list=window.EX[key];if(!list)return;totalBySubject[subject]=(totalBySubject[subject]||0)+list.length;(unitsBySubject[subject]=unitsBySubject[subject]||[]).push(unit);let html='<div class="quiz-title">Ejercicios · Unidad '+unit+"</div>";list.forEach((q,idx)=>{const id=subject+"-"+unit+"-"+idx;html+='<div class="qex" id="qex-'+id+'">';html+='<div class="qex-h"><span class="qex-n">'+unit+"."+(idx+1)+"</span></div>";html+='<div class="qex-st">'+q.st+"</div>";html+='<div class="qex-opts">';q.opts.forEach((o,i)=>{html+=`<button class="qex-opt" onclick="pickQ('`+subject+"','"+unit+"',"+idx+","+i+')">'+o+"</button>"});html+='</div><div class="qex-fb-wrap"></div></div>'});wrap.innerHTML=html});window.totalBySubject=totalBySubject;window.unitsBySubject=unitsBySubject;updateAllScores()}function pickQ(subject,unit,idx,picked){const key=subject+"-"+unit;const q=window.EX[key][idx];const correct=picked===q.c;const stateKey=subject+"-"+unit+"-"+idx;if(state[stateKey]!==void 0)return;state[stateKey]=correct;const container=document.getElementById("qex-"+stateKey);const btns=container.querySelectorAll(".qex-opt");btns.forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("ok");else if(i===picked)b.classList.add("ko")});const title=correct?"¡Correcto!":"Incorrecto. La correcta está en verde";const fbWrap=container.querySelector(".qex-fb-wrap");fbWrap.innerHTML='<div class="qex-fb '+(correct?"ok":"ko")+'"><div class="qex-fb-t">'+title+"</div><div>"+q.ex+"</div></div>";updateAllScores()}function updateAllScores(){const unitsBySubject=window.unitsBySubject||{};Object.keys(unitsBySubject).forEach(subject=>{let total=0,correct=0,done=0;unitsBySubject[subject].forEach(unit=>{const list=window.EX[subject+"-"+unit];if(!list)return;total+=list.length;let c=0,d=0;list.forEach((_,idx)=>{const sk=subject+"-"+unit+"-"+idx;if(state[sk]!==void 0){d++;if(state[sk])c++}});done+=d;correct+=c;const ssEl=document.getElementById("ss-"+subject+"-"+unit);if(ssEl)ssEl.textContent=d===0?"":c+"/"+list.length});const el=document.getElementById("global-score-"+subject);if(el){el.textContent="Puntaje: "+correct+" / "+total+" correctas ("+done+" respondidas)"}})}const F=(n,d)=>'<span class="frac"><span>'+n+"</span><span>"+d+"</span></span>";const M=s=>'<span class="m">'+s+"</span>";window.RV={};function registerReveals(subject,unit,list){window.RV[subject+"-"+unit]=list}function renderReveals(){document.querySelectorAll(".reveal-wrap").forEach(wrap=>{const subject=wrap.getAttribute("data-subject");const unit=wrap.getAttribute("data-rv");const list=window.RV[subject+"-"+unit];if(!list)return;let html='<div class="quiz-title rev-title">A resolver · revelá la respuesta</div>';list.forEach((q,idx)=>{const id=subject+"-"+unit+"-"+idx;html+='<div class="rev-ex" id="rev-'+id+'">';html+='<div class="qex-h"><span class="qex-n">'+unit+"."+(idx+1)+"</span></div>";html+='<div class="qex-st">'+q.st+"</div>";html+=`<button class="rev-btn" onclick="revealAns('`+subject+"','"+unit+"',"+idx+')">Revelar respuesta</button>';html+='<div class="rev-body"><div class="rev-ans"><b>Respuesta:</b> '+q.ans+"</div>";if(q.sol)html+='<div class="rev-sol">'+q.sol+"</div>";html+="</div></div>"});wrap.innerHTML=html})}function revealAns(subject,unit,idx){const el=document.getElementById("rev-"+subject+"-"+unit+"-"+idx);if(!el)return;el.classList.add("revealed");const btn=el.querySelector(".rev-btn");if(btn)btn.textContent="Respuesta revelada";if(btn)btn.disabled=true}registerExercises("algebra-parcial","1",[{st:"El parcial Escayola tiene 8 ejercicios de opción múltiple. ¿Cuánto vale cada uno?",opts:["1 punto","1,25 puntos","1,5 puntos","2 puntos"],c:1,ex:'Total = 10 puntos repartidos en 8 ejercicios → 10/8 = 1,25 puntos cada uno. NO hay ejercicios que valgan más que otros (todos por igual). → Por qué las otras están mal: "1 punto" (×8 = 8) no llega a 10; "1,5" (×8 = 12) excede; "2 puntos" (×8 = 16) duplica el total.'},{st:'Si en el enunciado ves "norma", "ángulo entre vectores" y "producto escalar", el tema es:',opts:["Subespacios","Cónicas","Vectores","Rectas y planos"],c:2,ex:'Norma, ángulo y producto escalar son conceptos básicos de la sesión 1 (Vectores). La fórmula clave es v·w = ‖v‖·‖w‖·cos(α). → Por qué las otras están mal: Subespacios (sesión 4) habla de bases, L.I., dim; Cónicas (sesión 5) usa "foco, directriz, excentricidad"; Rectas y planos (sesión 3) usa "intersección, ecuación, posición relativa".'},{st:'Si el enunciado pide "la ecuación de la recta directriz y las coordenadas del foco", el tema es:',opts:["Vectores","Rectas y planos","Subespacios","Cónicas (parábola)"],c:3,ex:'Foco y directriz son elementos exclusivos de la PARÁBOLA (cónicas, sesión 5). Forma canónica: (y−k)² = 4p(x−h). → Por qué las otras están mal: Vectores no tiene "directriz"; Rectas y planos habla de planos por puntos, no de focos; Subespacios trabaja con álgebra abstracta sin geometría focal.'},{st:"La estrategia cuando un ejercicio tiene un parámetro k desconocido es:",opts:["Probar las 4 opciones","Adivinar por descarte","Reemplazar k en la condición del enunciado y despejar","No se puede resolver sin más datos"],c:2,ex:'Receta universal del parcial Escayola: identificá la CONDICIÓN del enunciado (centro dado, det=0, ortogonalidad, etc.), reemplazá la expresión con k, y despejá k. → Por qué las otras están mal: "probar opciones" pierde tiempo y no enseña nada; "adivinar por descarte" ya implica resolver implícitamente; "no se puede resolver" es falso, siempre hay condición.'},{st:"La fórmula de distancia de un punto A = (x₀, y₀, z₀) al plano ax+by+cz = d es:",opts:["‖A‖ / √(a²+b²+c²)","|ax₀+by₀+cz₀−d| / √(a²+b²+c²)","|ax₀+by₀+cz₀| / √(a²+b²+c²)","|ax₀+by₀+cz₀+d| / ‖A‖"],c:1,ex:'Fórmula directa: numerador = valor absoluto de "evaluar A en la ecuación llevada a 0" (es decir, ax₀+by₀+cz₀−d); denominador = norma del vector normal (raíz de a²+b²+c²). → Por qué las otras están mal: (A) usa ‖A‖ (norma del punto), incorrecto; (C) le falta el −d; (D) divide por ‖A‖ en lugar del normal. Truco: si el plano es ax+by+cz+d=0, en numerador queda |ax₀+by₀+cz₀+d|.'},{st:"Para reconocer si un conjunto de 3 vectores en R³ es base, el test definitivo es:",opts:["Verificar que ningún vector es nulo","Calcular el determinante de la matriz formada por los vectores","Ver si los vectores suman cero","Verificar que tienen distintas normas"],c:1,ex:'Tres vectores en R³ son base ⟺ son L.I. ⟺ det(matriz) ≠ 0. La matriz se arma poniendo los 3 vectores como filas (o columnas, da igual). → Por qué las otras están mal: (A) "ninguno nulo" es necesario pero no suficiente (3 vectores no nulos pueden ser L.D.); (C) "suman cero" es trivialmente ningún criterio (no implica L.D.); (D) "distintas normas" no tiene relación con L.I.'}]);registerExercises("algebra-parcial","2",[{st:"v tiene norma √5, w tiene norma 8 y el ángulo entre ellos es 2π/3. ¿Cuánto vale v·w?",opts:["−4√5","4√5","−4√3","8√5"],c:0,ex:"Fórmula: v·w = ‖v‖·‖w‖·cos(α). → cos(2π/3) = cos(120°) = −1/2 (segundo cuadrante, coseno negativo). → v·w = √5·8·(−1/2) = −4√5. → Por qué las otras están mal: (B) signo positivo (olvidan el cuadrante); (C) usa √3 en lugar de √5; (D) sin el cos."},{st:"v = (k, −k, k), w = (0, 0, −k) con k > 0. cos(ángulo entre v y w) vale:",opts:["−1/3","1/3","−1/√3","1/√3"],c:2,ex:"→ v·w = k·0 + (−k)·0 + k·(−k) = −k². → ‖v‖ = √(k²+k²+k²) = k√3 (porque k>0). → ‖w‖ = √(k²) = k. → cos(α) = (v·w)/(‖v‖·‖w‖) = −k² / (k√3·k) = −1/√3. → Por qué las otras están mal: (A) (B) ±1/3 = (1/√3)² mal aplicado; (D) signo positivo (cosc no puede ser positivo si v·w<0)."},{st:"w es paralelo a v = (5/7, −1/7, −2/7) y tiene norma 3√30. ¿Cuántas soluciones posibles tiene w?",opts:["Solo una (k > 0)","Dos (k positivo y k negativo)","Infinitas","Ninguna"],c:1,ex:'w = k·v por paralelismo. ‖v‖² = 25/49+1/49+4/49 = 30/49 → ‖v‖ = √30/7. → ‖w‖ = |k|·‖v‖ = |k|·√30/7 = 3√30 → |k| = 21 → k = ±21. → Hay 2 vectores: w₁ = 21v y w₂ = −21v. → Por qué las otras están mal: "solo una" supone k>0 sin justificación; "infinitas" requeriría norma sin restringir; "ninguna" es absurdo, sí existe.'},{st:"β·(3/11, −1/11, 2/11) + (−10, 9, 1) = (−7, 8, 3). ¿Cuánto vale β?",opts:["−11","1/11","11","−1/11"],c:2,ex:"Igualo coordenada por coordenada y resuelvo cualquiera (todas deben dar lo mismo). → X: 3β/11 − 10 = −7 → 3β/11 = 3 → β = 11. → Verifico Y: −β/11 + 9 = 8 → −β/11 = −1 → β = 11 ✓. → Verifico Z: 2β/11 + 1 = 3 → 2β/11 = 2 → β = 11 ✓. Las tres dan β = 11. → Por qué las otras están mal: (A) (D) signos invertidos; (B) confunde β/11 con β."},{st:"A = (−1/3, 2/3, 1/3), B = (0, 4/3, −7/3), C = (1, m, −m), D = (1, 0, −m). Si ‖AB‖ = ‖CD‖, ¿qué valor toma m?",opts:["m = 23/3","Cualquier m ∈ ℝ","|m| = √(23/3) (es decir m = ±√(23/3))","No hay solución"],c:2,ex:'→ AB = B − A = (1/3, 2/3, −8/3). ‖AB‖² = 1/9 + 4/9 + 64/9 = 69/9 = 23/3. → CD = D − C = (1−1, 0−m, −m−(−m)) = (0, −m, 0). ‖CD‖² = m². → Iguales: m² = 23/3 → m = ±√(23/3). Hay DOS soluciones (positiva y negativa). → Por qué las otras están mal: (A) m=23/3 sería m² (sin la raíz); (B) "cualquier m" es falso, hay restricción; (D) sí hay solución.'},{st:"v es paralelo al versor î (= (1,0,0)), tiene norma 7 y una coordenada negativa. ¿Cuáles son sus coordenadas?",opts:["(7, 0, 0)","(0, −7, 0)","(−7, 0, 0)","(0, 0, −7)"],c:2,ex:"v paralelo a î = (1,0,0) significa v = (a, 0, 0) (las otras coordenadas deben ser 0). → ‖v‖ = |a| = 7 → a = ±7. → Coordenada negativa → a = −7. → v = (−7, 0, 0). → Por qué las otras están mal: (A) (7,0,0) tiene coord positiva; (B) (0,−7,0) es paralelo a ĵ, no a î; (D) (0,0,−7) es paralelo a k̂."},{st:"Si v = (−7, 0, 0) y M = (15/2, 17/4, −1/10) es el punto medio entre los extremos de los vectores v y u (interpretados como puntos), ¿cuánto vale u?",opts:["(−22, −17/2, 1/5)","(22, 17/2, −1/5)","(4, 17/2, −1/5)","(22, −17/2, 1/5)"],c:1,ex:"Si M = (v+u)/2 → u = 2M − v. → X: 2·(15/2) − (−7) = 15 + 7 = 22. → Y: 2·(17/4) − 0 = 17/2. → Z: 2·(−1/10) − 0 = −1/5. → u = (22, 17/2, −1/5). → Por qué las otras están mal: (A) signos invertidos en todo; (C) en X usa 11−7=4 (mal); (D) signo de Y mal."}]);registerExercises("algebra-parcial","3",[{st:"Para hallar la distancia del punto A al plano Π, el método del parcial es:",opts:["Evaluar A en la ecuación del plano directamente","Escribir la recta normal al plano por A, hallar intersección B con Π, medir ‖AB‖","Calcular el producto escalar de A con el normal del plano","Sumar las coordenadas de A"],c:1,ex:'Algoritmo: (1) recta normal a Π por A → dirección = vector normal del plano = (a,b,c); (2) parametrizo X = t(a,b,c)+A; (3) reemplazo en la ecuación del plano y despejo t; (4) hallo B (pie de la perpendicular); (5) d = ‖A−B‖. → Por qué las otras están mal: (A) "evaluar directamente" da un número, pero NO la distancia (falta dividir por norma del normal); (C) producto escalar A·n no tiene sentido geométrico; (D) "sumar coordenadas" es absurdo.'},{st:"A = (−1, 2, 3), Π: 2x+y−z+1 = 0. La distancia de A a Π es:",opts:["√6","√6/3","6/√3","0"],c:1,ex:"Fórmula directa: |2(−1)+1·2−1·3+1|/√(4+1+1) = |−2+2−3+1|/√6 = |−2|/√6 = 2/√6 = 2√6/6 = √6/3. → Verificación con recta normal: X = t(2,1,−1)+(−1,2,3) → en Π: 2(2t−1)+(t+2)−(−t+3)+1 = 6t−2 = 0 → t=1/3. Distancia: |t|·‖n‖ = (1/3)·√6 = √6/3 ✓ (coincide con la fórmula directa). → Por qué las otras están mal: (A) √6 sin dividir; (C) 6/√3 = 2√3 (no aplica); (D) 0 implicaría que A está en Π (no se cumple)."},{st:"Dos rectas tienen vectores directores d₁ = (−4/3, 0, −3) y d₂ = (1/2, 2/7, −2/9). d₁·d₂ vale:",opts:["0 (= −2/3 + 0 + 2/3)","1","−1","2/3"],c:0,ex:"→ (−4/3)·(1/2) = −4/6 = −2/3. → 0·(2/7) = 0. → (−3)·(−2/9) = 6/9 = 2/3. → Suma: −2/3 + 0 + 2/3 = 0. → Como el producto escalar = 0, las direcciones son perpendiculares. Si las rectas además se intersecan, son ortogonales-secantes; si no se cruzan, son alabeadas-perpendiculares. → Por qué las otras están mal: (B) (C) (D) son cálculos parciales mal sumados."},{st:"Si dos rectas en R³ tienen vectores directores que NO son múltiplos y su intersección es vacía, son:",opts:["Paralelas","Coincidentes","Alabeadas (no se cortan ni son paralelas)","Concurrentes (se cortan en un punto)"],c:2,ex:"En R³ existen 4 posiciones relativas: paralelas (mismas direcciones, sin punto común), coincidentes (mismas direcciones, infinitos puntos), concurrentes/se cortan (direcciones distintas, un punto), alabeadas (direcciones distintas, ningún punto). → Direcciones no múltiplos = no paralelas/coincidentes. → Intersección vacía = no concurrentes. → Solo queda: ALABEADAS. → Por qué las otras están mal: paralelas/coincidentes requerirían direcciones múltiplos; concurrentes requeriría intersección no vacía. Nota: las alabeadas pueden ser ortogonales si además d₁·d₂=0, pero no es obligatorio."},{st:"Recta X = α(3,6,9) + (4,2,−1), plano −x+y−z = 1. La posición relativa es:",opts:["La recta está contenida en el plano","La recta y el plano son paralelos","La recta y el plano son ortogonales","La recta y el plano se cortan en un único punto"],c:3,ex:'Reemplazo el punto genérico (3α+4, 6α+2, 9α−1) en la ecuación del plano: −(3α+4) + (6α+2) − (9α−1) = 1 → −3α−4 + 6α+2 − 9α+1 = 1 → −6α − 1 = 1 → α = −1/3. → Como hay UN solo valor de α, hay UN punto de intersección. → Por qué las otras están mal: (A) "contenida" requeriría que el sistema sea identidad para todo α (no es); (B) "paralelos" requeriría sistema sin solución; (C) "ortogonales" requeriría dirección recta paralela al normal del plano: (3,6,9) vs (−1,1,−1). No son múltiplos.'},{st:"A = (7,−10,−1). Plano: 2x−3y+z=1. El simétrico de A respecto del plano es:",opts:["(2,−3,1)","(5,−8,7)","(1,−1,−4)","(−5,8,−7)"],c:3,ex:"Receta: B = proyección de A sobre el plano (pie de la normal); A' = 2B − A. → Recta normal: X = t(2,−3,1) + (7,−10,−1) → punto genérico (2t+7, −3t−10, t−1). → En plano: 2(2t+7) − 3(−3t−10) + (t−1) = 1 → 4t+14+9t+30+t−1 = 1 → 14t+43 = 1 → t = −3. → B = (1, −1, −4). → A' = 2B − A = (2·1−7, 2·(−1)−(−10), 2·(−4)−(−1)) = (−5, 8, −7). → Por qué las otras están mal: (A) (2,−3,1) es el vector normal; (B) (5,−8,7) puede ser un cálculo intermedio mal; (C) (1,−1,−4) es B (pie de la normal), NO el simétrico."},{st:"Para el plano paramétrico π₁: X = s(1,1,0)+t(2,0,2)+(1,1,1) y el plano π₂: x+z=1+y, la posición relativa es:",opts:["Son perpendiculares","La intersección es una recta y NO son perpendiculares","Son paralelos","Son coincidentes"],c:1,ex:'Hallar normales: n₁ = (1,1,0)×(2,0,2) = (1·2−0·0, 0·2−1·2, 1·0−1·2) = (2,−2,−2). n₂: π₂ es x−y+z=1 → n₂=(1,−1,1). → ¿n₁ y n₂ paralelos? n₁=2(1,−1,−1). Compará (1,−1,−1) con (1,−1,1): la 3ª da −1 vs 1, NO múltiplos → planos NO paralelos. → Como no son paralelos, su intersección es una RECTA. ¿Son perpendiculares? Eso requiere n₁·n₂ = 0. n₁·n₂ = 2·1+(−2)·(−1)+(−2)·1 = 2+2−2 = 2 ≠ 0 → NO perpendiculares. → Por qué las otras están mal: (A) "perpendiculares" requiere n₁·n₂=0; (C) "paralelos" requiere n₁ y n₂ múltiplos; (D) "coincidentes" requiere paralelos + un punto en común.'},{st:"A = (6,4,2). Recta r: X = t(2,1,2)+(1,0,0). La distancia de A a r es:",opts:["√5","3","5","9"],c:1,ex:"Método del plano normal: (1) plano que pasa por A con normal = director de r (2,1,2): 2(x−6)+1(y−4)+2(z−2)=0 → 2x+y+2z=20. (2) Punto genérico de r: (2t+1, t, 2t). En el plano: 2(2t+1)+t+2(2t)=20 → 9t+2=20 → t=2. (3) Pie B=(5,2,4). (4) AB = B−A = (−1,−2,2), ‖AB‖=√(1+4+4)=√9=3. → Atajo: d=‖AP×d‖/‖d‖ con P=(1,0,0): AP=(−5,−4,−2), AP×(2,1,2)=(−6,6,3), ‖·‖=9, ‖d‖=3 → 9/3=3 ✓. → Por qué las otras están mal: (A) √5 sale de olvidar una coordenada; (C) 5 ignora dividir por ‖d‖ en el atajo; (D) 9 es ‖AB‖² (sin la raíz) o el numerador del atajo sin dividir."}]);registerExercises("algebra-parcial","4",[{st:"{(1,0,−1),(−1,k,0),(0,−2,k+1)} no es base de R³ para k ∈ ℤ>0. ¿Cuál es ese k?",opts:["−2","1","2","−1"],c:1,ex:"NO es base ⟺ det = 0. Determinante de la matriz [[1,0,−1],[−1,k,0],[0,−2,k+1]]: → Expansión por 1ª fila: 1·(k(k+1)−0·(−2)) − 0 + (−1)·((−1)(−2)−k·0) = (k²+k) − 2 = k²+k−2. → Iguálo a 0: k²+k−2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1. → Restricción: k entero positivo → k = 1. → Por qué las otras están mal: (A) k=−2 también anula el det pero NO es positivo; (C) k=2 → 4+2−2=4≠0 (sí es base); (D) k=−1 → 1−1−2=−2≠0."},{st:"S = {(x₁,x₂,x₃,x₄) ∈ ℝ⁴: 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Una base de S es {(1,2,−4,0),(0,0,−3,1)}. ¿Cuáles son n y m?",opts:["n=−3, m=−3","n=3, m=−3","n=−3, m=3","n=3, m=3"],c:2,ex:"Cada vector de la base debe satisfacer AMBAS ecuaciones de S. → (1,2,−4,0) en eq1: 6·1+n·2 = 6+2n = 0 → n = −3. → (1,2,−4,0) en eq2: 2·2+(−4)+m·0 = 0 → 0=0 ✓ (no aporta info de m). → (0,0,−3,1) en eq1: 0+0=0 ✓. → (0,0,−3,1) en eq2: 0+(−3)+m·1 = 0 → m = 3. → n = −3, m = 3. → Por qué las otras están mal: (A) (B) tienen n=3 (no satisface eq1 con primer vector); (D) m=3 con n=3 inconsistente."},{st:"A = {(0,−2,−1),(k,1,0),(−8,0,k+3)}. Para que A sea generador de ℝ³, k debe ser:",opts:["k ∈ {1,−4}","k ∈ ℝ \\ {−1,4}","k ∈ ℝ \\ {1,−4}","k ∈ ∅"],c:2,ex:"Generador de ℝ³ ⟺ los 3 vectores son L.I. ⟺ det ≠ 0. → det de [[0,−2,−1],[k,1,0],[−8,0,k+3]]: expansión por 1ª fila → 0 − (−2)·(k(k+3) − 0·(−8)) + (−1)·(k·0 − 1·(−8)) = 2(k²+3k) − 8 = 2k²+6k−8 = 2(k²+3k−4) = 2(k+4)(k−1). → det = 0 ⟺ k = −4 o k = 1. → Para SER generador: k ∉ {−4, 1} → k ∈ ℝ \\ {1,−4}. → Por qué las otras están mal: (A) {1,−4} son los valores que NO sirven (lo opuesto); (B) {−1,4} son signos cambiados; (D) ∅ implicaría que nunca es generador."},{st:"S = {(x₁,x₂,x₃,x₄) ∈ ℝ⁴: x₁+x₄=0}. dim(S)=3. ¿Cuál conjunto es generador (base) de S?",opts:["{(1,0,0,−1),(0,1,0,0),(1,0,0,1)}","{(1,1,0,−1),(0,1,0,0),(1,0,0,−1)}","{(1,0,0,−1),(0,1,0,0),(0,0,1,0)}","{(0,1,0,0),(1,0,−1,0),(1,0,0,−1)}"],c:2,ex:"Necesito 3 vectores L.I. todos en S. Verifico opción C: → (1,0,0,−1): 1+(−1)=0 ✓. → (0,1,0,0): 0+0=0 ✓. → (0,0,1,0): 0+0=0 ✓. Todos en S. Son L.I. (la matriz tiene 3 filas L.I. obviamente) → BASE de S. → Por qué las otras están mal: (A) (1,0,0,1) tiene 1+1=2≠0 → NO está en S; (B) (1,0,0,−1) = (1,1,0,−1) − (0,1,0,0) → L.D., no genera; (D) (1,0,−1,0) tiene 1+0=1≠0 → NO está en S."},{st:"¿Cuál vector es combinación lineal de (1,2,−1) y (−1,−1,2)?",opts:["(−1,0,3)","(0,1,−1)","(2,3,3)","(0,−1,1)"],c:0,ex:"Verifico (−1,0,3): α(1,2,−1) + β(−1,−1,2) = (α−β, 2α−β, −α+2β) = (−1, 0, 3). → De α−β=−1 y 2α−β=0: restando → α=1, sub en 1ª → β=2. → Verifico 3ª: −1+4=3 ✓. Sí es combinación lineal con coef (1,2). → Por qué las otras están mal: (B) sistema queda inconsistente (α=1,β=1 dan 3ª: 1≠−1); (C) (α=1,β=−1 dan 3ª: −3≠3); (D) sistema inconsistente."},{st:"{(1,0,2),(0,−2,−k),(1/2,−k−1,0)}. Para que NO sea base con k ∈ ℤ negativo, ¿cuál k?",opts:["2","1","−2","−1"],c:2,ex:"NO es base ⟺ det=0. → det = 1·((−2)·0 − (−k)·(−k−1)) − 0 + 2·(0·(−k−1) − (−2)·(1/2)) = 1·(0 − k(k+1)) + 2·(0 + 1) = −k²−k+2. → −k²−k+2 = 0 → k²+k−2 = 0 → (k+2)(k−1) = 0 → k = −2 o k = 1. → Restricción: k entero negativo → k = −2. → Por qué las otras están mal: (A) 2 da k²+k−2=4 (sí es base); (B) 1 anula el det pero es positivo; (D) −1 da 1−1−2=−2 (sí es base)."},{st:"S = {x ∈ ℝ⁴: 6x₁+nx₂=0 ∧ 2x₂+x₃+mx₄=0}. Base: {(1,2,−4,0),(0,0,−3,1)}. (Pregunta de chequeo) Si n=−3 y m=3, ¿el sistema queda consistente?",opts:["No, hay contradicción en alguna ecuación","Sí: ambos vectores satisfacen eq1 y eq2 con esos valores","Solo el primer vector satisface","Solo el segundo vector satisface"],c:1,ex:'Verifico ambas ecuaciones para los 2 vectores. → (1,2,−4,0): eq1=6+(−3)·2=0 ✓; eq2=2·2+(−4)+3·0=0 ✓. → (0,0,−3,1): eq1=0+0=0 ✓; eq2=0+(−3)+3·1=0 ✓. CONSISTENTE: la base es válida con n=−3, m=3. → Por qué las otras están mal: requiere verificar las 4 condiciones; cualquier "no" o "solo uno" es falso porque las 4 se cumplen.'}]);registerExercises("algebra-parcial","5",[{st:"En la hipérbola (x−h)²/a² − (y−k)²/b² = 1, ¿cuál es la relación entre a, b y c (semidistancia focal)?",opts:["c² = a² − b²","c² = a² + b²","a² = b² + c²","b² = a² + c²"],c:1,ex:'En la HIPÉRBOLA siempre c² = a² + b² (con c > a). Es la relación pitagórica entre los semiejes y la semidistancia focal. → ALERTA: en la ELIPSE es al revés: c² = a² − b² (con c < a, ya que a es semieje mayor). → Por qué las otras están mal: (A) c² = a² − b² es de la elipse; (C) (D) son re-arreglos incorrectos. Truco mnemotécnico: en elipse el "−" es porque a es más grande que c; en hipérbola el "+" es porque c es más grande que a (los focos están más allá de los vértices).'},{st:"144x² − 24kx + 16y² = 63 es una elipse con centro (−0,75; 0). ¿Cuánto vale k?",opts:["9","−18","−9","0,5"],c:2,ex:"Completar cuadrados en x. → 144x²−24kx = 144(x² − k/6 · x) = 144·((x − k/12)² − k²/144) = 144(x−k/12)² − k². → Ecuación: 144(x−k/12)² + 16y² = 63 + k². → Centro = (k/12, 0). Igualar k/12 = −0,75 → k = −9. → Por qué las otras están mal: (A) k=9 daría centro (0,75; 0) (signo opuesto); (B) k=−18 daría centro (−1,5; 0); (D) k=0,5 muy alejado."},{st:"Hipérbola H con excentricidad e=1,8 y focos F₁=(0,−8), F₂=(0,10). El centro de H es:",opts:["(0,0)","(0,1)","(0,2)","(0,−1)"],c:1,ex:"El centro de una hipérbola es el PUNTO MEDIO entre sus dos focos. → Centro = ((0+0)/2, (−8+10)/2) = (0, 1). → Por qué las otras están mal: (A) (0,0) no es punto medio; (C) (0,2) está más cerca de F₂; (D) (0,−1) está más cerca de F₁. Truco: como ambas X son 0, el centro tiene X=0; el Y es el promedio."},{st:"Misma hipérbola H (e=1,8, focos en eje y, centro (0,1)). Sabiendo que c=9, los vértices de H son:",opts:["(0,±5)","(0,1±5) = (0,6) y (0,−4)","(0,±9)","(0,1±9) = (0,10) y (0,−8)"],c:1,ex:"→ e = c/a → 1,8 = 9/a → a = 5. → Centro (0,1), eje vertical (focos en y), así que vértices están a distancia a del centro a lo largo del eje y: V = (0, 1±5) = (0, 6) y (0, −4). → Por qué las otras están mal: (A) (0,±5) ignora el desplazamiento del centro (asume (0,0)); (C) (0,±9) usa c en lugar de a (los vértices se ubican con a, no c); (D) (0,10) y (0,−8) son los focos."},{st:"3x² − y² − 6x − 30y − 546 = 0. Completando cuadrados, la forma canónica es:",opts:["(x−1)²/108 − (y+15)²/324 = 1","(x+1)²/108 − (y−15)²/324 = 1","(y+15)²/324 − (x−1)²/108 = 1","(x−1)²/324 − (y+15)²/108 = 1"],c:0,ex:"→ Agrupo y completo. 3(x²−2x) − (y²+30y) = 546. 3((x−1)²−1) − ((y+15)²−225) = 546. 3(x−1)² − (y+15)² = 546 + 3 − 225 = 324. → Divido por 324: (x−1)²/108 − (y+15)²/324 = 1. → Es hipérbola horizontal (positivo el x). → Por qué las otras están mal: (B) signos invertidos en el centro; (C) intercambia x e y → es hipérbola vertical (positivo el y); (D) intercambia 108 y 324."},{st:"y² − 8x + 3 = 6y. La directriz de la parábola es:",opts:["x = −2,75","y = −2,75","x = 1,25","y = 1,25"],c:0,ex:'→ Reordeno: y² − 6y = 8x − 3. → Completar cuadrados: (y−3)² − 9 = 8x − 3 → (y−3)² = 8x + 6 = 8(x + 3/4). → Forma canónica: (y−k)² = 4p(x−h) → vértice (−3/4, 3), 4p=8, p=2. Abre hacia la derecha (p>0). → Directriz: x = h − p = −0,75 − 2 = −2,75 (vertical, a la izquierda del vértice). → Por qué las otras están mal: (B) (D) "y=" es directriz horizontal (parábola horizontal tiene directriz vertical); (C) x=1,25 estaría a la derecha del foco.'},{st:"M = {(x+4)²+(y+3)²=9}, N = {3x²+y²+6y=−6}. ¿Cuántos puntos tienen en común?",opts:["Ninguno","Exactamente dos","Exactamente uno","Más de dos"],c:2,ex:'→ M: circunferencia centro (−4,−3), radio 3. → N: 3x² + (y+3)² − 9 = −6 → 3x² + (y+3)² = 3 → x² + (y+3)²/3 = 1. ELIPSE centro (0,−3), semiejes √1=1 (en x) y √3 (en y). → Ambas centradas en y=−3 (misma altura). Distancia entre centros = 4. → Punto más cercano de M a N: (−1,−3) (frontera derecha de M). ¿Está en N? 1 + 0 = 1 ✓. ¿Otro punto en común? Las dos curvas son tangentes en (−1,−3). → Por qué las otras están mal: (A) "ninguno" implicaría que no hay tangencia; (B) "dos" requeriría que se crucen en dos puntos; (D) "más de dos" implicaría coincidencia.'}]);registerExercises("algebra-parcial","6",[{st:"El simétrico A' de A respecto del plano se calcula como:",opts:["A' = B − A (B = pie de la normal)","A' = 2B − A (B = pie de la normal)","A' = B/2","A' = A − 2B"],c:1,ex:"B es el punto medio entre A y su simétrico A' (porque B es el pie de la perpendicular y A' es la reflexión). → Como B = (A + A')/2, despejando: A' = 2B − A. → Por qué las otras están mal: (A) B−A es un vector dirección, no un punto; (C) B/2 carece de sentido geométrico; (D) A−2B daría algo distinto. ESTE es el error más caro del parcial: confundir A'=2B−A con A'=B−A."},{st:"En una elipse, la relación entre a (semieje mayor), b (semieje menor) y c (semidistancia focal) es:",opts:["c² = a² + b²","c² = a² − b²","a² = b² − c²","b² = a² + c²"],c:1,ex:"Elipse: c² = a² − b² con a > b > 0 y c < a. Los focos están dentro de la elipse, más cerca del centro que los vértices del eje mayor. → Por qué las otras están mal: (A) c² = a² + b² es de la HIPÉRBOLA, no la elipse; (C) (D) son re-arreglos invertidos. → Truco: en elipse, c < a (focos dentro); en hipérbola, c > a (focos fuera)."},{st:"Para verificar si un conjunto {v₁, v₂} es base de un subespacio S de ℝ⁴ con dim 2, hay que:",opts:["Solo verificar que v₁ y v₂ pertenecen a S","Verificar que v₁, v₂ ∈ S Y que son L.I.","Verificar que v₁ + v₂ ∈ S","Calcular el determinante de la matriz 2×4"],c:1,ex:'Una base debe (1) generar el subespacio, (2) ser L.I. → Para 2 vectores en S de dim 2: si son L.I. → automáticamente generan S (cantidad correcta de L.I.). Por eso bastan dos chequeos: pertenencia + L.I. → Por qué las otras están mal: (A) "solo pertenecen" no garantiza que sean L.I. (podrían ser uno múltiplo del otro); (C) v₁+v₂ ∈ S es trivialmente cierto si ambos están en S; (D) det 2×4 no existe (no es matriz cuadrada).'},{st:"Recta r₁ con director (4/7, 0, 4) y r₂ con director (1/2, 1/8, −1/14). Calculás el producto escalar de los directores:",opts:["(4/7)(1/2) + 0·(1/8) + 4·(−1/14) = 2/7 + 0 − 2/7 = 0","(4/7)(1/2) + 4·(−1/14) = 1","0 + 1/8 + 4/14 = 1","No se puede calcular"],c:0,ex:"→ (4/7)·(1/2) = 4/14 = 2/7. → 0·(1/8) = 0. → 4·(−1/14) = −4/14 = −2/7. → Suma: 2/7 + 0 − 2/7 = 0. → Producto escalar nulo → direcciones perpendiculares. Si las rectas no se cortan → alabeadas perpendiculares; si se cortan → ortogonales-secantes. → Por qué las otras están mal: (B) saltea el término 0; (C) confunde 1/8 con 0; (D) sí se puede calcular."},{st:"Para la parábola (y−k)² = 4p(x−h) con p > 0, el foco está en:",opts:["(h−p, k)","(h+p, k)","(h, k+p)","(h, k−p)"],c:1,ex:"La parábola (y−k)² = 4p(x−h) abre HORIZONTALMENTE. Si p > 0 → abre hacia la derecha. → El foco está p unidades hacia el lado de apertura desde el vértice (h, k): foco = (h+p, k). La directriz (al lado opuesto): x = h − p. → Por qué las otras están mal: (A) (h−p, k) es la directriz, no el foco; (C) (D) (h, k±p) son focos de parábolas verticales, no horizontales."},{st:"¿Cuál de estos pasos del cálculo del simétrico está en el orden correcto?",opts:["Calcular A', luego buscar B, luego la recta normal","Recta normal por A → pie B → A' = 2B − A","Proyectar A sobre el plano → calcular ‖A‖","Calcular el normal, luego igualar a A, luego A'=2A−normal"],c:1,ex:`Algoritmo correcto: (1) escribís la recta normal a Π por A, (2) hallás B = intersección recta-plano (pie de la normal), (3) A' = 2B − A. → Por qué las otras están mal: (A) invertido (no podés calcular A' antes de saber B); (C) ‖A‖ no sirve; (D) "2A−normal" no tiene sentido (normal es vector dirección, A es punto).`}]);(function(){let saved=null;try{saved=localStorage.getItem("uba-theme")}catch(e){}if(saved)applyTheme(saved);else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)applyTheme("dark");checkAccess();restoreCatState();restoreSubState();if(window.M_SUBJECT){switchSubject(window.M_SUBJECT)}else{document.documentElement.removeAttribute("data-subject")}})();document.addEventListener("click",e=>{if(e.target.tagName==="A"&&e.target.getAttribute("href")&&e.target.getAttribute("href").startsWith("#")){const id=e.target.getAttribute("href").substring(1);const target=document.getElementById(id);if(target&&target.tagName==="DETAILS"){target.open=true}}});window.addEventListener("DOMContentLoaded",()=>{setTimeout(()=>{renderQuizzes();renderReveals()},100)});
 </script>
 
 </body>

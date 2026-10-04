@@ -5,7 +5,7 @@
 
 <div class="key">
   <div class="ky-t">¿De qué se trata esta unidad? (empezá por acá)</div>
-  Tiene dos grandes temas. <b>Conjuntos:</b> la forma en que la matemática agrupa objetos. Vas a aprender la diferencia entre <b>pertenencia</b> (∈) e <b>inclusión</b> (⊆) —que se confunden todo el tiempo—, las operaciones (unión, intersección, diferencia, complemento), cómo contar elementos con <b>inclusión-exclusión</b>, y el conjunto de partes P(A). <b>Inducción completa:</b> la técnica estrella para demostrar que algo vale para TODOS los naturales (sumas, divisibilidad, desigualdades). Lo único que necesitás de antes es la lógica de la Unidad 1 (en especial implicación y cuantificadores). La inducción es de lo que MÁS se toma: seguí los 5 ejemplos resueltos paso a paso, fijándote bien qué se asume (HI) y qué se demuestra (TI).
+  Tiene dos grandes temas. <b>Conjuntos:</b> la forma en que la matemática agrupa objetos. Vas a aprender la diferencia entre <b>pertenencia</b> (∈) e <b>inclusión</b> (⊆), que se confunden todo el tiempo, las operaciones (unión, intersección, diferencia, complemento), cómo contar elementos con <b>inclusión-exclusión</b>, y el conjunto de partes P(A). <b>Inducción completa:</b> la técnica estrella para demostrar que algo vale para TODOS los naturales (sumas, divisibilidad, desigualdades). Lo único que necesitás de antes es la lógica de la Unidad 1 (en especial implicación y cuantificadores). La inducción es de lo que MÁS se toma: seguí los 5 ejemplos resueltos paso a paso, fijándote bien qué se asume (HI) y qué se demuestra (TI).
 </div>
 
 <!-- ==================== CONJUNTOS ==================== -->
@@ -97,10 +97,10 @@
   <div class="tr-t">Pertenencia vs. inclusión: error muy frecuente</div>
   <p>La pertenencia <span class="m">∈</span> relaciona un <b>elemento</b> con un conjunto. La inclusión <span class="m">⊆</span> relaciona dos <b>conjuntos</b>. Son relaciones distintas y no son intercambiables.</p>
   <ul>
-    <li><span class="m">3 ∈ {1, 2, 3}</span> — correcto (3 es un elemento)</li>
-    <li><span class="m">{3} ⊆ {1, 2, 3}</span> — correcto ({3} es un subconjunto)</li>
-    <li><span class="m">{3} ∈ {1, 2, 3}</span> — FALSO ({3} no es un elemento de ese conjunto)</li>
-    <li><span class="m">3 ⊆ {1, 2, 3}</span> — no tiene sentido (3 es un número, no un conjunto)</li>
+    <li><span class="m">3 ∈ {1, 2, 3}</span>: correcto (3 es un elemento)</li>
+    <li><span class="m">{3} ⊆ {1, 2, 3}</span>: correcto ({3} es un subconjunto)</li>
+    <li><span class="m">{3} ∈ {1, 2, 3}</span>: FALSO ({3} no es un elemento de ese conjunto)</li>
+    <li><span class="m">3 ⊆ {1, 2, 3}</span>: no tiene sentido (3 es un número, no un conjunto)</li>
   </ul>
 </div>
 
@@ -231,11 +231,11 @@
   <p>Para demostrar la igualdad demostramos dos inclusiones. Como todos los pasos son bicondicionales, los hacemos juntos:</p>
   <p><i>∀x:</i></p>
   <p><span class="m">x ∈ A ∩ (B ∪ C)</span></p>
-  <p>⟺ <span class="m">x ∈ A ∧ x ∈ (B ∪ C)</span> — por definición de intersección</p>
-  <p>⟺ <span class="m">x ∈ A ∧ (x ∈ B ∨ x ∈ C)</span> — por definición de unión</p>
-  <p>⟺ <span class="m">(x ∈ A ∧ x ∈ B) ∨ (x ∈ A ∧ x ∈ C)</span> — por distributiva de ∧ sobre ∨ (lógica)</p>
-  <p>⟺ <span class="m">x ∈ (A ∩ B) ∨ x ∈ (A ∩ C)</span> — por definición de intersección</p>
-  <p>⟺ <span class="m">x ∈ (A ∩ B) ∪ (A ∩ C)</span> — por definición de unión</p>
+  <p>⟺ <span class="m">x ∈ A ∧ x ∈ (B ∪ C)</span>, por definición de intersección</p>
+  <p>⟺ <span class="m">x ∈ A ∧ (x ∈ B ∨ x ∈ C)</span>, por definición de unión</p>
+  <p>⟺ <span class="m">(x ∈ A ∧ x ∈ B) ∨ (x ∈ A ∧ x ∈ C)</span>, por distributiva de ∧ sobre ∨ (lógica)</p>
+  <p>⟺ <span class="m">x ∈ (A ∩ B) ∨ x ∈ (A ∩ C)</span>, por definición de intersección</p>
+  <p>⟺ <span class="m">x ∈ (A ∩ B) ∪ (A ∩ C)</span>, por definición de unión</p>
   <p>Como todos los pasos son ⟺, queda demostrada la igualdad en ambas inclusiones. ∎</p>
 </div>
 
@@ -243,12 +243,12 @@
   <div class="ex-t">Demostración: A − (B ∩ C) = (A − B) ∪ (A − C)</div>
   <p><i>∀x:</i></p>
   <p><span class="m">x ∈ A − (B ∩ C)</span></p>
-  <p>⟺ <span class="m">x ∈ A ∧ x ∉ (B ∩ C)</span> — definición de diferencia</p>
-  <p>⟺ <span class="m">x ∈ A ∧ ¬(x ∈ B ∧ x ∈ C)</span> — definición de intersección</p>
-  <p>⟺ <span class="m">x ∈ A ∧ (x ∉ B ∨ x ∉ C)</span> — De Morgan lógico</p>
-  <p>⟺ <span class="m">(x ∈ A ∧ x ∉ B) ∨ (x ∈ A ∧ x ∉ C)</span> — distributiva</p>
-  <p>⟺ <span class="m">x ∈ (A − B) ∨ x ∈ (A − C)</span> — definición de diferencia</p>
-  <p>⟺ <span class="m">x ∈ (A − B) ∪ (A − C)</span> — definición de unión ∎</p>
+  <p>⟺ <span class="m">x ∈ A ∧ x ∉ (B ∩ C)</span>, definición de diferencia</p>
+  <p>⟺ <span class="m">x ∈ A ∧ ¬(x ∈ B ∧ x ∈ C)</span>, definición de intersección</p>
+  <p>⟺ <span class="m">x ∈ A ∧ (x ∉ B ∨ x ∉ C)</span>, De Morgan lógico</p>
+  <p>⟺ <span class="m">(x ∈ A ∧ x ∉ B) ∨ (x ∈ A ∧ x ∉ C)</span>, distributiva</p>
+  <p>⟺ <span class="m">x ∈ (A − B) ∨ x ∈ (A − C)</span>, definición de diferencia</p>
+  <p>⟺ <span class="m">x ∈ (A − B) ∪ (A − C)</span>, definición de unión ∎</p>
 </div>
 
 <div class="trap">
@@ -285,10 +285,10 @@
   <div class="tr-t">P(A) vs. partición vs. elemento de A</div>
   <p>Los elementos de P(A) son <b>conjuntos</b> (los subconjuntos de A), no elementos de A. Si <span class="m">A = {1, 2}</span>:</p>
   <ul>
-    <li><span class="m">{1} ∈ P(A)</span> — verdadero ({1} es un subconjunto de A)</li>
-    <li><span class="m">1 ∈ P(A)</span> — FALSO (1 no es un subconjunto de A, es un elemento)</li>
-    <li><span class="m">{1} ⊆ A</span> — verdadero</li>
-    <li><span class="m">1 ⊆ A</span> — no tiene sentido (1 no es un conjunto)</li>
+    <li><span class="m">{1} ∈ P(A)</span>: verdadero ({1} es un subconjunto de A)</li>
+    <li><span class="m">1 ∈ P(A)</span>: FALSO (1 no es un subconjunto de A, es un elemento)</li>
+    <li><span class="m">{1} ⊆ A</span>: verdadero</li>
+    <li><span class="m">1 ⊆ A</span>: no tiene sentido (1 no es un conjunto)</li>
   </ul>
 </div>
 
@@ -307,20 +307,20 @@
 <h3>Particiones de un conjunto</h3>
 <p>Sea <span class="m">A ≠ ∅</span>. Un conjunto <span class="m">P = {A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>}</span> es una <b>partición</b> de A si cumple las tres condiciones siguientes simultáneamente:</p>
 <ol>
-  <li><span class="m">A<sub>i</sub> ≠ ∅</span> para todo i — ninguna celda está vacía</li>
-  <li><span class="m">A<sub>i</sub> ∩ A<sub>j</sub> = ∅</span> para todo <span class="m">i ≠ j</span> — las celdas son disjuntas entre sí</li>
-  <li><span class="m">A<sub>1</sub> ∪ A<sub>2</sub> ∪ … ∪ A<sub>n</sub> = A</span> — la unión de todas las celdas es el conjunto original</li>
+  <li><span class="m">A<sub>i</sub> ≠ ∅</span> para todo i: ninguna celda está vacía</li>
+  <li><span class="m">A<sub>i</sub> ∩ A<sub>j</sub> = ∅</span> para todo <span class="m">i ≠ j</span>: las celdas son disjuntas entre sí</li>
+  <li><span class="m">A<sub>1</sub> ∪ A<sub>2</sub> ∪ … ∪ A<sub>n</sub> = A</span>: la unión de todas las celdas es el conjunto original</li>
 </ol>
 <p>Los subconjuntos <span class="m">A<sub>i</sub></span> se llaman <b>celdas de la partición</b>. En palabras: partir A es dividirlo en partes no vacías, sin traslapes, que juntas cubren todo A.</p>
 
 <div class="example">
   <div class="ex-t">¿Cuál es partición de A = {a, b, c, d, e}?</div>
   <ul>
-    <li><span class="m">P<sub>1</sub> = {{a,b,c}, {d,e}}</span> — SÍ es partición (celdas no vacías, disjuntas, cubren A)</li>
-    <li><span class="m">P<sub>2</sub> = {{a,b}, {c,d}, {b,e}}</span> — NO: b aparece en dos celdas (falla condición 2)</li>
-    <li><span class="m">P<sub>3</sub> = {{a,b}, {c}, {e}}</span> — NO: d no aparece en ninguna celda (falla condición 3)</li>
-    <li><span class="m">P<sub>4</sub> = {{a}, {b}, {c}, {d,e}}</span> — SÍ es partición</li>
-    <li><span class="m">P<sub>5</sub> = {{a}, {b,c,d}, {∅}, {e}}</span> — NO: ∅ es una celda vacía (falla condición 1)</li>
+    <li><span class="m">P<sub>1</sub> = {{a,b,c}, {d,e}}</span>: SÍ es partición (celdas no vacías, disjuntas, cubren A)</li>
+    <li><span class="m">P<sub>2</sub> = {{a,b}, {c,d}, {b,e}}</span>: NO, b aparece en dos celdas (falla condición 2)</li>
+    <li><span class="m">P<sub>3</sub> = {{a,b}, {c}, {e}}</span>: NO, d no aparece en ninguna celda (falla condición 3)</li>
+    <li><span class="m">P<sub>4</sub> = {{a}, {b}, {c}, {d,e}}</span>: SÍ es partición</li>
+    <li><span class="m">P<sub>5</sub> = {{a}, {b,c,d}, {∅}, {e}}</span>: NO, ∅ es una celda vacía (falla condición 1)</li>
   </ul>
 </div>
 
@@ -360,8 +360,8 @@
   <div class="ex-t">Propiedades del producto cartesiano</div>
   <p>El producto cartesiano distribuye sobre la unión e intersección:</p>
   <ul>
-    <li><span class="m">A × (B ∪ C) = (A × B) ∪ (A × C)</span> — distribución sobre ∪</li>
-    <li><span class="m">A × (B ∩ C) = (A × B) ∩ (A × C)</span> — distribución sobre ∩</li>
+    <li><span class="m">A × (B ∪ C) = (A × B) ∪ (A × C)</span>: distribución sobre ∪</li>
+    <li><span class="m">A × (B ∩ C) = (A × B) ∩ (A × C)</span>: distribución sobre ∩</li>
     <li><span class="m">A × B = ∅ ⟺ A = ∅ ∨ B = ∅</span></li>
   </ul>
   <p><b>Ejemplo de distribución:</b> Si <span class="m">A = {0,1}</span>, <span class="m">B = {1,2}</span>, <span class="m">C = {2,3}</span>:<br>
@@ -485,7 +485,7 @@
 
 <!-- ==================== DEMOSTRACIONES POR INDUCCIÓN ==================== -->
 
-<h3>Demostraciones por inducción — Ejemplos completos</h3>
+<h3>Demostraciones por inducción: Ejemplos completos</h3>
 
 <h4>Ejemplo 1: Suma de los primeros n naturales</h4>
 
@@ -499,10 +499,10 @@
   <p><b>TI:</b> <span class="m">1 + 2 + … + h + (h+1) = (h+1)(h+2)/2</span> (esto es lo que hay que demostrar)</p>
   <p><b>Dem.:</b> Partimos del primer miembro de la TI:</p>
   <p><span class="m">1 + 2 + … + h + (h+1)</span></p>
-  <p>= <span class="m">(1 + 2 + … + h) + (h+1)</span> — asociativa</p>
-  <p>= <span class="m">h(h+1)/2 + (h+1)</span> — aplicamos la HI</p>
-  <p>= <span class="m">(h+1) · [h/2 + 1]</span> — sacamos factor común (h+1)</p>
-  <p>= <span class="m">(h+1) · (h+2)/2</span> — simplificamos</p>
+  <p>= <span class="m">(1 + 2 + … + h) + (h+1)</span>, asociativa</p>
+  <p>= <span class="m">h(h+1)/2 + (h+1)</span>, aplicamos la HI</p>
+  <p>= <span class="m">(h+1) · [h/2 + 1]</span>, sacamos factor común (h+1)</p>
+  <p>= <span class="m">(h+1) · (h+2)/2</span>, simplificamos</p>
   <p>Llegamos al segundo miembro de TI. ✓</p>
   <p><b>Conclusión:</b> Por el Principio de Inducción Completa, la propiedad p(n) es verdadera para todo n ∈ ℕ, n ≥ 1. ∎</p>
 </div>
@@ -519,10 +519,10 @@
   <p><b>TI:</b> <span class="m">1 + 3 + … + (2h−1) + (2(h+1)−1) = (h+1)²</span>, o sea <span class="m">1 + 3 + … + (2h+1) = (h+1)²</span></p>
   <p><b>Dem.:</b></p>
   <p><span class="m">1 + 3 + … + (2h−1) + (2h+1)</span></p>
-  <p>= <span class="m">[1 + 3 + … + (2h−1)] + (2h+1)</span> — asociativa</p>
-  <p>= <span class="m">h² + (2h+1)</span> — aplicamos HI</p>
+  <p>= <span class="m">[1 + 3 + … + (2h−1)] + (2h+1)</span>, asociativa</p>
+  <p>= <span class="m">h² + (2h+1)</span>, aplicamos HI</p>
   <p>= <span class="m">h² + 2h + 1</span></p>
-  <p>= <span class="m">(h+1)²</span> — cuadrado de binomio</p>
+  <p>= <span class="m">(h+1)²</span>, cuadrado de binomio</p>
   <p>Llegamos al segundo miembro de TI. ✓</p>
   <p><b>Conclusión:</b> Por PIC, p(n) es verdadera para todo n ∈ ℕ. ∎</p>
 </div>
@@ -540,10 +540,10 @@
   <p><b>TI:</b> <span class="m">2⁰ + 2¹ + … + 2ʰ + 2ʰ⁺¹ = 2ʰ⁺² − 1</span></p>
   <p><b>Dem.:</b></p>
   <p><span class="m">2⁰ + 2¹ + … + 2ʰ + 2ʰ⁺¹</span></p>
-  <p>= <span class="m">(2⁰ + 2¹ + … + 2ʰ) + 2ʰ⁺¹</span> — asociativa</p>
-  <p>= <span class="m">(2ʰ⁺¹ − 1) + 2ʰ⁺¹</span> — aplicamos HI</p>
-  <p>= <span class="m">2 · 2ʰ⁺¹ − 1</span> — juntamos los dos términos iguales</p>
-  <p>= <span class="m">2ʰ⁺² − 1</span> — propiedad de potencias (a · aⁿ = aⁿ⁺¹)</p>
+  <p>= <span class="m">(2⁰ + 2¹ + … + 2ʰ) + 2ʰ⁺¹</span>, asociativa</p>
+  <p>= <span class="m">(2ʰ⁺¹ − 1) + 2ʰ⁺¹</span>, aplicamos HI</p>
+  <p>= <span class="m">2 · 2ʰ⁺¹ − 1</span>, juntamos los dos términos iguales</p>
+  <p>= <span class="m">2ʰ⁺² − 1</span>, propiedad de potencias (a · aⁿ = aⁿ⁺¹)</p>
   <p>Llegamos al segundo miembro de TI. ✓ ∎</p>
 </div>
 
@@ -559,12 +559,12 @@
   <p><b>TI:</b> <span class="m">23(h+1) − 18(h+1) = 5t</span> para algún t ∈ ℤ (notar: t no tiene por qué ser el mismo k)</p>
   <p><b>Dem.:</b></p>
   <p><span class="m">23(h+1) − 18(h+1)</span></p>
-  <p>= <span class="m">23h · 23 − 18h · 18</span> — propiedades de potencias</p>
-  <p>= <span class="m">23h · (5 + 18) − 18h · 18</span> — escribimos 23 = 5 + 18 (truco clave)</p>
-  <p>= <span class="m">5 · 23h + 18 · 23h − 18h · 18</span> — distributiva</p>
-  <p>= <span class="m">5 · 23h + 18 · (23h − 18h)</span> — sacamos factor 18</p>
-  <p>= <span class="m">5 · 23h + 18 · 5k</span> — aplicamos HI</p>
-  <p>= <span class="m">5 · (23h + 18k)</span> — sacamos factor 5</p>
+  <p>= <span class="m">23h · 23 − 18h · 18</span>: propiedades de potencias</p>
+  <p>= <span class="m">23h · (5 + 18) − 18h · 18</span>: escribimos 23 = 5 + 18 (truco clave)</p>
+  <p>= <span class="m">5 · 23h + 18 · 23h − 18h · 18</span>: distributiva</p>
+  <p>= <span class="m">5 · 23h + 18 · (23h − 18h)</span>: sacamos factor 18</p>
+  <p>= <span class="m">5 · 23h + 18 · 5k</span>: aplicamos HI</p>
+  <p>= <span class="m">5 · (23h + 18k)</span>: sacamos factor 5</p>
   <p>= <span class="m">5t</span>, donde <span class="m">t = 23h + 18k ∈ ℤ</span> (suma y producto de enteros es entero). ✓</p>
   <p><b>Conclusión:</b> Por PIC, 23n − 18n es divisible por 5 para todo n ∈ ℕ. ∎</p>
 </div>
@@ -580,10 +580,10 @@
   <p><b>HI:</b> <span class="m">2h &lt; h!</span> (para algún h ≥ 4)</p>
   <p><b>TI:</b> <span class="m">2h+1 &lt; (h+1)!</span></p>
   <p><b>Dem.:</b></p>
-  <p><span class="m">2h+1 = 2 · 2h</span> — propiedad de potencias</p>
-  <p><span class="m">&lt; 2 · h!</span> — por HI (2h &lt; h!), y como 2 &gt; 0 la desigualdad se mantiene</p>
-  <p><span class="m">≤ (h+1) · h!</span> — porque h+1 ≥ 2 cuando h ≥ 4 ≥ 1 (se cumple h+1 ≥ 2)</p>
-  <p><span class="m">= (h+1)!</span> — definición de factorial</p>
+  <p><span class="m">2h+1 = 2 · 2h</span>: propiedad de potencias</p>
+  <p><span class="m">&lt; 2 · h!</span>: por HI (2h &lt; h!), y como 2 &gt; 0 la desigualdad se mantiene</p>
+  <p><span class="m">≤ (h+1) · h!</span>: porque h+1 ≥ 2 cuando h ≥ 4 ≥ 1 (se cumple h+1 ≥ 2)</p>
+  <p><span class="m">= (h+1)!</span>: definición de factorial</p>
   <p>Entonces <span class="m">2h+1 &lt; (h+1)!</span>. ✓</p>
   <p><b>Conclusión:</b> Por PIC (con base en n = 4), p(n) es verdadera para todo n ∈ ℕ, n ≥ 4. ∎</p>
 </div>
@@ -654,16 +654,16 @@
   <p><b>Enunciado formal:</b> <span class="m">∀n ∈ ℕ: (A₁ ∩ A₂ ∩ … ∩ Aₙ) ∩ B = (A₁∩B) ∩ (A₂∩B) ∩ … ∩ (Aₙ∩B)</span></p>
   <p><b>p(n):</b> <span class="m">(∩<sub>i=1</sub><sup>n</sup> Aᵢ) ∩ B = ∩<sub>i=1</sub><sup>n</sup> (Aᵢ ∩ B)</span></p>
   <p><b>Paso base (n=1):</b></p>
-  <p><span class="m">A₁ ∩ B = A₁ ∩ B</span> — ambos miembros son iguales trivialmente. → <span class="m">v[p(1)] = V</span>. ✓</p>
+  <p><span class="m">A₁ ∩ B = A₁ ∩ B</span>: ambos miembros son iguales trivialmente. → <span class="m">v[p(1)] = V</span>. ✓</p>
   <p><b>Paso inductivo:</b></p>
   <p><b>HI:</b> <span class="m">(A₁ ∩ … ∩ Aₕ) ∩ B = (A₁∩B) ∩ … ∩ (Aₕ∩B)</span></p>
   <p><b>TI:</b> <span class="m">(A₁ ∩ … ∩ Aₕ ∩ Aₕ₊₁) ∩ B = (A₁∩B) ∩ … ∩ (Aₕ∩B) ∩ (Aₕ₊₁∩B)</span></p>
   <p><b>Dem.:</b> Partimos del primer miembro de la TI:</p>
   <p><span class="m">(A₁ ∩ … ∩ Aₕ ∩ Aₕ₊₁) ∩ B</span></p>
-  <p>= <span class="m">[(A₁ ∩ … ∩ Aₕ) ∩ Aₕ₊₁] ∩ B</span> — asociativa de ∩</p>
-  <p>= <span class="m">[(A₁ ∩ … ∩ Aₕ) ∩ B] ∩ (Aₕ₊₁ ∩ B)</span> — distributiva de ∩ respecto de ∩ (y conmutativa)</p>
-  <p>= <span class="m">[(A₁∩B) ∩ … ∩ (Aₕ∩B)] ∩ (Aₕ₊₁ ∩ B)</span> — aplicamos HI</p>
-  <p>= <span class="m">(A₁∩B) ∩ … ∩ (Aₕ∩B) ∩ (Aₕ₊₁∩B)</span> — asociativa</p>
+  <p>= <span class="m">[(A₁ ∩ … ∩ Aₕ) ∩ Aₕ₊₁] ∩ B</span>, asociativa de ∩</p>
+  <p>= <span class="m">[(A₁ ∩ … ∩ Aₕ) ∩ B] ∩ (Aₕ₊₁ ∩ B)</span>, distributiva de ∩ respecto de ∩ (y conmutativa)</p>
+  <p>= <span class="m">[(A₁∩B) ∩ … ∩ (Aₕ∩B)] ∩ (Aₕ₊₁ ∩ B)</span>, aplicamos HI</p>
+  <p>= <span class="m">(A₁∩B) ∩ … ∩ (Aₕ∩B) ∩ (Aₕ₊₁∩B)</span>, asociativa</p>
   <p>Llegamos al segundo miembro de TI. ✓</p>
   <p><b>Conclusión:</b> Por PIC, la propiedad vale para todo n ∈ ℕ. ∎</p>
   <p><i>Nota:</i> la demostración del Ej.15 (∪ₙ Aᵢ) ∩ B = ∪ₙ (Aᵢ ∩ B) es análoga, usando distributividad de ∩ respecto de ∪.</p>
@@ -681,8 +681,8 @@
   <p><b>TI:</b> Si |A| = h+1, entonces |P(A)| = 2ʰ⁺¹.</p>
   <p><b>Dem.:</b> Sea A un conjunto con h+1 elementos. Tomo un elemento fijo a₀ ∈ A y llamo A' = A \ {a₀}, que tiene h elementos.<br>
   Cada subconjunto X de A o bien contiene a₀ o bien no lo contiene:<br>
-  — Si X no contiene a₀: X ⊆ A', y hay |P(A')| = 2ʰ de estos (por HI).<br>
-  — Si X contiene a₀: X = X' ∪ {a₀} con X' ⊆ A', y hay también 2ʰ de estos.<br>
+  • Si X no contiene a₀: X ⊆ A', y hay |P(A')| = 2ʰ de estos (por HI).<br>
+  • Si X contiene a₀: X = X' ∪ {a₀} con X' ⊆ A', y hay también 2ʰ de estos.<br>
   Total: |P(A)| = 2ʰ + 2ʰ = 2 · 2ʰ = 2ʰ⁺¹. ✓ ∎</p>
 </div>
 

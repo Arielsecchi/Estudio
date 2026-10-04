@@ -3,7 +3,7 @@
 <summary><span class="num">9</span> Unidad 9: Registros (structs) y arreglos de structs <span class="sec-score" id="ss-ayed-9"></span></summary>
 <div class="content">
 
-<p>Hasta ahora, cuando necesitabas guardar muchos datos juntos, usabas un <b>arreglo</b> (un vector): una fila de cajitas que sirve para almacenar muchos valores… pero todos <b>del mismo tipo</b>. Un arreglo de <code>int</code> guarda enteros, uno de <code>string</code> guarda textos. ¿Y si lo que querés describir es <i>una cosa</i> formada por <b>datos de distinto tipo</b>? Por ejemplo una persona: tiene un DNI (un número), un nombre (un texto) y un apellido (otro texto). Para eso existe el <b>registro</b> —en C++, el <b>struct</b>—: un <b>tipo de dato nuevo, inventado por vos</b>, que agrupa varios datos relacionados bajo un solo nombre. En esta unidad vas a aprender a definir tus propios tipos, a meterlos unos adentro de otros, a pasarlos a funciones (por valor y por referencia) y a combinarlos con arreglos. Todo desde cero y con el código tal cual lo da la cátedra.</p>
+<p>Hasta ahora, cuando necesitabas guardar muchos datos juntos, usabas un <b>arreglo</b> (un vector): una fila de cajitas que sirve para almacenar muchos valores… pero todos <b>del mismo tipo</b>. Un arreglo de <code>int</code> guarda enteros, uno de <code>string</code> guarda textos. ¿Y si lo que querés describir es <i>una cosa</i> formada por <b>datos de distinto tipo</b>? Por ejemplo una persona: tiene un DNI (un número), un nombre (un texto) y un apellido (otro texto). Para eso existe el <b>registro</b> (en C++, el <b>struct</b>): un <b>tipo de dato nuevo, inventado por vos</b>, que agrupa varios datos relacionados bajo un solo nombre. En esta unidad vas a aprender a definir tus propios tipos, a meterlos unos adentro de otros, a pasarlos a funciones (por valor y por referencia) y a combinarlos con arreglos. Todo desde cero y con el código tal cual lo da la cátedra.</p>
 
 <!-- ─── 1. EL PROBLEMA QUE RESUELVE ───────────────────────────────────────── -->
 <h3>¿Qué problema resuelve un registro?</h3>
@@ -71,7 +71,7 @@ cout &lt;&lt; x2 &lt;&lt; ", " &lt;&lt; y2 &lt;&lt; endl;  // muestra: 1, 4</pre
 
 <pre class="code-block">Punto punto1;</pre>
 
-<p>Esto crea una variable <code>punto1</code> que <b>adentro</b> tiene los tres campos (<code>x</code>, <code>y</code>, <code>descripcion</code>), todavía sin valores útiles. Para <b>entrar a un campo</b> —tanto para escribirlo como para leerlo— se usa el <b>operador punto</b> <code>.</code>: se escribe la variable, un punto, y el nombre del campo. Se lee "el <code>x</code> <i>de</i> <code>punto1</code>":</p>
+<p>Esto crea una variable <code>punto1</code> que <b>adentro</b> tiene los tres campos (<code>x</code>, <code>y</code>, <code>descripcion</code>), todavía sin valores útiles. Para <b>entrar a un campo</b> (tanto para escribirlo como para leerlo) se usa el <b>operador punto</b> <code>.</code>: se escribe la variable, un punto, y el nombre del campo. Se lee "el <code>x</code> <i>de</i> <code>punto1</code>":</p>
 
 <pre class="code-block">Punto punto1;
 punto1.x = 3;                  // guardo 3 en el campo x de punto1
@@ -128,7 +128,7 @@ cout &lt;&lt; r3.p1.x &lt;&lt; endl;   // muestra: 2   (solo cambió la copia)</
 <p>Sigamos la traza como si fuéramos la computadora:</p>
 <table class="tbl">
   <tr><th>Línea</th><th><code>r.p1.x</code></th><th><code>r3.p1.x</code></th><th>Qué pasó</th></tr>
-  <tr><td class="c"><code>r.p1.x = 9;</code></td><td class="c">9</td><td class="c">—</td><td><code>r3</code> todavía no existe.</td></tr>
+  <tr><td class="c"><code>r.p1.x = 9;</code></td><td class="c">9</td><td class="c"></td><td><code>r3</code> todavía no existe.</td></tr>
   <tr><td class="c"><code>Recta r3 = r;</code></td><td class="c">9</td><td class="c">9</td><td><code>r3</code> nace como copia de <code>r</code>: copia <i>todos</i> los campos, así que su <code>p1.x</code> arranca en 9.</td></tr>
   <tr><td class="c"><code>r3.p1.x = 2;</code></td><td class="c"><b>9</b></td><td class="c"><b>2</b></td><td>Toco solo a <code>r3</code>. Como es independiente, <code>r</code> queda intacta.</td></tr>
 </table>
@@ -333,7 +333,7 @@ cout &lt;&lt; arr[3].real &lt;&lt; " " &lt;&lt; arr[3].imaginaria &lt;&lt; "i" &
     c.imaginaria = c.imaginaria * valor;
 }</pre>
 
-<p>Y el <code>main</code> que lo usa todo —crear, sumar, multiplicar por referencia y guardar en un arreglo—:</p>
+<p>Y el <code>main</code> que lo usa todo (crear, sumar, multiplicar por referencia y guardar en un arreglo):</p>
 
 <pre class="code-block">int main() {
 

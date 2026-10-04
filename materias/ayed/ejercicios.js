@@ -1,4 +1,4 @@
-// Quizzes por unidad — Algoritmos y Estructuras de Datos (AyED) · UTN FRBA · DISI · C++
+// Quizzes por unidad: Algoritmos y Estructuras de Datos (AyED) · UTN FRBA · DISI · C++
 
 registerExercises('ayed', '1', [
   {st: '¿Cuál de estas NO es una propiedad de un algoritmo?', opts: ['Finito (termina en algún momento)', 'Ordenado (los pasos tienen un orden definido)', 'Preciso (cada paso no deja lugar a dudas)', 'Infinito (puede no terminar nunca)'], c: 3, ex: 'Un algoritmo debe ser FINITO: terminar después de una cantidad limitada de pasos. "Infinito" es lo contrario de una propiedad deseada. Las otras tres (finito, ordenado, preciso) sí son propiedades que todo buen algoritmo cumple.'},

@@ -22,7 +22,7 @@ int nota100;</pre>
   Un <b>arreglo</b> (array / vector) guarda un <b>conjunto de elementos del MISMO tipo</b> bajo un <b>solo nombre</b>, y a cada elemento lo identificás por su <b>número de posición</b> (un índice). En vez de 100 nombres distintos, tenés <i>un</i> nombre (<code>notas</code>) y pedís el elemento que quieras con un número: <code>notas[0]</code>, <code>notas[1]</code>, … <code>notas[99]</code>. Y como ese número puede ser una variable, ahora <b>sí</b> podés recorrer todo con un ciclo.
 </div>
 
-<p>Las tres palabras —<b>arreglo</b>, <b>array</b> y <b>vector</b>— son sinónimos en esta materia: nombran la misma cosa. Vas a escucharlas indistintamente, así que acostumbrate a las tres.</p>
+<p>Las tres palabras (<b>arreglo</b>, <b>array</b> y <b>vector</b>) son sinónimos en esta materia: nombran la misma cosa. Vas a escucharlas indistintamente, así que acostumbrate a las tres.</p>
 
 <!-- ─── 2. DEFINICIÓN / DECLARACIÓN ────────────────────────────────────── -->
 <h3>Cómo se declara un arreglo</h3>
@@ -161,7 +161,7 @@ arr2[2] = 56;</pre>
 
 <div class="key">
   <div class="ky-t">Llevá una variable N con los elementos REALMENTE cargados</div>
-  Como el tamaño físico no te dice cuántos datos válidos hay, se acostumbra llevar una variable entera —que la cátedra llama <b>N</b> (o también <i>cantElemUtiles</i>, <i>size</i>, <i>length</i>, <i>len</i>)— que guarda <b>cuántas posiciones están realmente en uso</b>. Y entonces:<br><br>
+  Como el tamaño físico no te dice cuántos datos válidos hay, se acostumbra llevar una variable entera, que la cátedra llama <b>N</b> (o también <i>cantElemUtiles</i>, <i>size</i>, <i>length</i>, <i>len</i>), que guarda <b>cuántas posiciones están realmente en uso</b>. Y entonces:<br><br>
   • El recorrido válido va de <b>0 hasta N − 1</b> (NO hasta el tamaño físico − 1).<br>
   • Las posiciones de <b>N en adelante</b> contienen basura y <b>no</b> se tocan.
 </div>
@@ -178,7 +178,7 @@ arr2[2] = 56;</pre>
 </div>
 
 <!-- ─── 8. OPERACIONES: CARGAR ─────────────────────────────────────────── -->
-<h3>Operación 1 — Cargar el arreglo (con <code>cin</code> en un <code>for</code>)</h3>
+<h3>Operación 1: Cargar el arreglo (con <code>cin</code> en un <code>for</code>)</h3>
 <p>"Cargar" es <b>llenar</b> el arreglo con datos que el usuario ingresa. Como cada posición es un <code>arr[i]</code>, alcanza con un <code>for</code> que en cada vuelta lea un valor con <code>cin</code> y lo guarde en la posición <code>i</code>. Acá usamos un <code>N</code> ya conocido (por ejemplo 5):</p>
 
 <pre class="code-block">#include &lt;iostream&gt;
@@ -199,7 +199,7 @@ int main() {
 <p>En la primera vuelta (<code>i = 0</code>) lo que el usuario escriba se guarda en <code>notas[0]</code>; en la segunda (<code>i = 1</code>) en <code>notas[1]</code>; y así hasta <code>notas[4]</code>. El mismo <code>cin &gt;&gt; notas[i]</code> sirve para todas las posiciones, porque <code>i</code> va cambiando.</p>
 
 <!-- ─── 9. OPERACIONES: BÚSQUEDA SECUENCIAL ───────────────────────────── -->
-<h3>Operación 2 — Búsqueda secuencial</h3>
+<h3>Operación 2: Búsqueda secuencial</h3>
 <p><b>Buscar</b> en un arreglo es responder "¿está tal valor? ¿en qué posición?". La <b>búsqueda secuencial</b> (o lineal) es la más simple: recorrés el arreglo <b>desde el principio comparando</b> cada elemento con el valor buscado, hasta encontrarlo (o llegar al final sin éxito). Usamos una <b>bandera</b> y guardamos la posición:</p>
 
 <pre class="code-block">#include &lt;iostream&gt;
@@ -244,7 +244,7 @@ int main() {
 </div>
 
 <!-- ─── 10. OPERACIONES: COPIAR ───────────────────────────────────────── -->
-<h3>Operación 3 — Copiar un arreglo en otro</h3>
+<h3>Operación 3: Copiar un arreglo en otro</h3>
 <p>Un arreglo <b>no</b> se copia con un simple <code>=</code> (eso no funciona con arreglos como con las variables comunes). Para copiar el contenido hay que recorrer y copiar <b>posición por posición</b>, justo como en el código de la cátedra:</p>
 
 <pre class="code-block">int arr[5] = {21, 48, 28, 7, 70};
@@ -257,7 +257,7 @@ for(int i = 0; i &lt;= 4; i++) {
 <p>En cada vuelta tomás <code>arr[i]</code> (el valor original de esa posición) y lo guardás en <code>copia[i]</code> (la misma posición del nuevo arreglo). Al terminar el ciclo, <code>copia</code> tiene exactamente los mismos valores que <code>arr</code>, pero es un arreglo <b>independiente</b>: cambiar uno no afecta al otro (cada uno tiene su propio bloque de memoria).</p>
 
 <!-- ─── 11. OPERACIONES: MÁXIMO/MÍNIMO ────────────────────────────────── -->
-<h3>Operación 4 — Buscar el máximo (o el mínimo) del arreglo</h3>
+<h3>Operación 4: Buscar el máximo (o el mínimo) del arreglo</h3>
 <p>Acá <b>reusás un patrón que ya conocés</b>: el de máximo/mínimo de la Unidad 6. La diferencia es que antes los valores llegaban de a uno por <code>cin</code> con un centinela; ahora ya están <b>todos guardados en el arreglo</b>, así que en vez de leer con <code>cin</code> simplemente recorrés con el <code>for</code> y comparás <code>arr[i]</code>.</p>
 
 <p>Y hay una ventaja muy linda: como el arreglo te deja acceder a cualquier posición, podés <b>arrancar el máximo con el primer elemento</b> (<code>arr[0]</code>) y comparar desde la posición 1 en adelante. Así te evitás todo el lío de "¿con qué valor inicializo el máximo?" que tenías en la U6:</p>
@@ -328,7 +328,7 @@ int main() {
 }</pre>
 
 <div class="example">
-  <div class="ex-t">¿Qué imprime? — y por qué cambió afuera</div>
+  <div class="ex-t">¿Qué imprime? Y por qué cambió afuera</div>
   Antes de llamar a la función, <code>arrayPrueba</code> tiene basura en sus 2 posiciones. Al llamar <code>cargarArray(arrayPrueba)</code>, la función recibe la <b>dirección</b> de <code>arrayPrueba</code> (su comienzo), así que dentro de la función <code>a</code> es <i>el mismo</i> arreglo que <code>arrayPrueba</code> afuera. La función hace <code>a[0] = 7</code> y <code>a[1] = 30</code>, que escriben directamente en los casilleros reales. Cuando la función termina, esos cambios <b>quedan</b>. El <code>for</code> entonces muestra:<br><br>
   <code>7</code><br><code>30</code> ✓<br><br>
   Si los arreglos se pasaran por copia (como un <code>int</code> común), afuera <code>arrayPrueba</code> habría seguido con basura. Pero no: con arreglos, lo que toca la función queda tocado afuera.

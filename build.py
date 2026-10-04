@@ -42,7 +42,9 @@ Placeholders en el template:
 import argparse
 import json
 import re
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -257,12 +259,12 @@ def construir_landing(materias: list[dict]) -> str:
         for m in grupos[cat]:
             partes.append(
                 f'    <li><a href="m/{m["slug"]}.html">{m["nombre"]}</a> '
-                f'<span class="muted">— {m["subtitulo_drawer"]}</span></li>'
+                f'<span class="muted">· {m["subtitulo_drawer"]}</span></li>'
             )
             for h in hijas_por_madre.get(m['slug'], []):
                 partes.append(
                     f'    <li style="margin-left:18px"><a href="m/{h["slug"]}.html">{h["nombre"]}</a> '
-                    f'<span class="muted">— {h["subtitulo_drawer"]}</span></li>'
+                    f'<span class="muted">· {h["subtitulo_drawer"]}</span></li>'
                 )
         partes.append('  </ul>')
     partes.append('</nav>')
@@ -390,6 +392,22 @@ def paginas(materias: list[dict]) -> list[tuple[Path, str]]:
     return salida
 
 
+def sin_comentarios(paginas: list[tuple[Path, str]]) -> list[tuple[Path, str]]:
+    """Las mismas paginas sin comentarios de HTML, CSS ni JS (sin_comentarios.mjs, con esbuild).
+    En el repo los comentarios quedan; al navegador no llegan."""
+    with tempfile.TemporaryDirectory() as tmp:
+        for i, (_, html) in enumerate(paginas):
+            (Path(tmp) / f'{i}.html').write_text(html, encoding='utf-8', newline='\n')
+        r = subprocess.run(['node', str(ROOT / 'sin_comentarios.mjs'), tmp],
+                           capture_output=True, text=True, encoding='utf-8')
+        if r.returncode != 0:
+            sys.exit(f'ERROR: sin_comentarios.mjs fallo:\n{r.stderr}')
+        if r.stderr.strip():
+            print(r.stderr.strip())
+        return [(ruta, (Path(tmp) / f'{i}.html').read_text(encoding='utf-8'))
+                for i, (ruta, _) in enumerate(paginas)]
+
+
 def main():
     ap = argparse.ArgumentParser(description='Build del sitio de Guías UBA XXI')
     ap.add_argument('--check', action='store_true', help='compara con lo generado sin escribir')
@@ -398,7 +416,7 @@ def main():
     materias = cargar_materias()
     print(f'→ {len(materias)} materias: {", ".join(m["slug"] for m in materias)}')
 
-    todas = paginas(materias)
+    todas = sin_comentarios(paginas(materias))
 
     if args.check:
         difieren = []
