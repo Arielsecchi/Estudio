@@ -2398,3 +2398,1605 @@ registerReveals('fiuba-quimica', '16', [
  sol: "<b>Paso 1 · calibración (a).</b> El calor que libera el ácido benzoico es 1,000 g · 26,43 kJ/g = 26,43 kJ, y lo absorbe todo el conjunto (agua, bomba y accesorios): C = 26,43 kJ / 2,40 °C = 11,0125 ≈ <b>11,01 kJ/°C</b> (seguí con 11,0125). → <b>Paso 2 · calor del ciclohexano (b).</b> Q = C · ΔT = 11,0125 · 2,96 = 32,60 kJ. Moles: 0,700 g / 84,16 g/mol = 8,317·10<sup>−3</sup> mol. La bomba es rígida, así que el calor liberado es ΔU y, por la convención, negativo: ΔU = −32,60 kJ / 8,317·10<sup>−3</sup> mol = <b>−3.919 kJ/mol</b>. → <b>Paso 3 · de ΔU a ΔH (c).</b> Ecuación: C<sub>6</sub>H<sub>12</sub>(l) + 9 O<sub>2</sub>(g) → 6 CO<sub>2</sub>(g) + 6 H<sub>2</sub>O(l). Sólo cuentan los gases: Δn = 6 − 9 = <b>−3</b>. ΔH = ΔU + Δn · R · T = −3.919,1 + (−3) · 8,31·10<sup>−3</sup> · 298 = −3.919,1 − 7,4 = <b>−3.926,5 kJ/mol</b>. La ecuación termoquímica con el ΔH por mol de ciclohexano: C<sub>6</sub>H<sub>12</sub>(l) + 9 O<sub>2</sub>(g) → 6 CO<sub>2</sub>(g) + 6 H<sub>2</sub>O(l), ΔH = −3.926,5 kJ. → <b>Paso 4 · error.</b> (3.926,5 − 3.920)/3.920 = 0,17 %, por exceso (más negativo). → <b>Control.</b> ΔH es algo más negativo que ΔU porque Δn &lt; 0: el entorno comprime al sistema a presión constante y entrega energía. → <b>Error típico:</b> escribir −3.919 kJ/mol como el ΔH de la ecuación: es el ΔU que midió la bomba, y la ecuación termoquímica pide ΔH."}
 
 ]);
+
+// ==== INTERACTIVO: NOMENCLATURA (inicio) ====
+// ============================================================
+// NOMENCLATURA INORGÁNICA · generador de ejercicios con corrector (motor)
+// Arma los compuestos con sus fórmulas y sus nombres, sortea ejercicios, lee lo que escribe el
+// estudiante y dice qué está bien y qué no. No toca la página: se expone en NOMEN_MOTOR para
+// poder probarlo fuera del navegador. Las convenciones son las de la sección 6 de la guía.
+// ============================================================
+(function () {
+  'use strict';
+
+  const ROM = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+  const PRE = ['', 'mono', 'di', 'tri', 'tetra', 'penta', 'hexa', 'hepta'];
+  const mcd = (a, b) => (b ? mcd(b, a % b) : a);
+  const sig = (q) => (q > 0 ? '+' + q : q < 0 ? '−' + (-q) : '0');
+  const b = (t) => '<b>' + t + '</b>';
+  const lista = (xs) => (xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]);
+
+  // ---------------------------------------------------------- elementos
+  // Los que usa el generador y los que aparecen por confusión de símbolos.
+  const ELEM = {
+    H: 'hidrógeno', O: 'oxígeno', Li: 'litio', Na: 'sodio', K: 'potasio', Ag: 'plata', Mg: 'magnesio', Ca: 'calcio',
+    Ba: 'bario', Zn: 'cinc', Al: 'aluminio', Fe: 'hierro', Cu: 'cobre', Cr: 'cromo', Co: 'cobalto', Mn: 'manganeso',
+    Pb: 'plomo', Sn: 'estaño', Ni: 'níquel', Au: 'oro', F: 'flúor', Cl: 'cloro', Br: 'bromo', I: 'iodo', S: 'azufre',
+    N: 'nitrógeno', P: 'fósforo', C: 'carbono', Si: 'silicio',
+    Hg: 'mercurio', B: 'boro', Be: 'berilio', Sr: 'estroncio', Cs: 'cesio', Rb: 'rubidio', Pt: 'platino', As: 'arsénico',
+    Se: 'selenio', Sb: 'antimonio', Cd: 'cadmio', Ti: 'titanio', He: 'helio', Ne: 'neón', Ar: 'argón', U: 'uranio',
+    V: 'vanadio', W: 'wolframio', Y: 'itrio', Bi: 'bismuto', Mo: 'molibdeno', In: 'indio', Te: 'telurio', Os: 'osmio',
+    Ir: 'iridio', Ga: 'galio', Ge: 'germanio', Kr: 'criptón', Xe: 'xenón', Sc: 'escandio', Po: 'polonio', Ra: 'radio',
+    No: 'nobelio', Hf: 'hafnio', Ta: 'tantalio', Nb: 'niobio', Tc: 'tecnecio', Ru: 'rutenio', Rh: 'rodio', Pd: 'paladio',
+    La: 'lantano', Ce: 'cerio', Pu: 'plutonio', Am: 'americio', Es: 'einstenio', Pa: 'protactinio', Np: 'neptunio',
+    Ac: 'actinio', At: 'astato', Fr: 'francio', Rn: 'radón', Tl: 'talio', Re: 'renio', Zr: 'circonio',
+  };
+  // sólo estos entran cuando se lee una fórmula escrita toda en minúsculas o toda en mayúsculas
+  const PROPIOS = ['H', 'O', 'Li', 'Na', 'K', 'Ag', 'Mg', 'Ca', 'Ba', 'Zn', 'Al', 'Fe', 'Cu', 'Cr', 'Co', 'Mn', 'Pb', 'Sn',
+    'Ni', 'Au', 'F', 'Cl', 'Br', 'I', 'S', 'N', 'P', 'C', 'Si'];
+
+  // ---------------------------------------------------------- cationes
+  // ox: números de oxidación como catión · tr: adjetivo de la tradicional para cada uno
+  // ptr: nivel desde el que la tradicional se pide (0 Química Básica, 1 Química General, 9 nunca: sólo se acepta)
+  // nv: nivel del elemento · w: cuánto sale en el sorteo · nums: cómo se le dice al estudiante qué números tiene
+  const METALES = [
+    { s: 'Li', n: 'litio', ox: [1], tr: ['lítico'], w: 1 },
+    { s: 'Na', n: 'sodio', ox: [1], tr: ['sódico'], w: 3 },
+    { s: 'K', n: 'potasio', ox: [1], tr: ['potásico'], w: 3 },
+    { s: 'Ag', n: 'plata', ox: [1], tr: ['argéntico'], w: 1.5 },
+    { s: 'Mg', n: 'magnesio', ox: [2], tr: ['magnésico'], w: 2 },
+    { s: 'Ca', n: 'calcio', ox: [2], tr: ['cálcico'], w: 3 },
+    { s: 'Ba', n: 'bario', ox: [2], tr: ['bárico'], w: 1.5 },
+    { s: 'Zn', n: 'cinc', ox: [2], tr: [null], w: 1.5 },
+    { s: 'Al', n: 'aluminio', ox: [3], tr: ['alumínico'], w: 2 },
+    { s: 'Fe', n: 'hierro', ox: [2, 3], tr: ['ferroso', 'férrico'], ptr: 0, w: 3, nums: '+2 y +3' },
+    { s: 'Cu', n: 'cobre', ox: [1, 2], tr: ['cuproso', 'cúprico'], ptr: 0, w: 3, nums: '+1 y +2' },
+    { s: 'Cr', n: 'cromo', ox: [2, 3], tr: ['cromoso', 'crómico'], ptr: 0, w: 0.8, nums: '+2 y +3 cuando forma cationes, y +6 en cromatos y dicromatos',
+      deCat: 'de los dos números que usa el cromo como catión (+2 y +3; el +6 es el de cromatos y dicromatos)' },
+    { s: 'Co', n: 'cobalto', ox: [2, 3], tr: ['cobaltoso', 'cobáltico'], ptr: 9, w: 0.5, nums: '+2 y +3' },
+    { s: 'Mn', n: 'manganeso', ox: [2, 4], tr: ['manganoso', null], ptr: 9, w: 0.5, nums: '+2, +4 y +7' },
+    { s: 'Pb', n: 'plomo', ox: [2, 4], tr: ['plumboso', 'plúmbico'], ptr: 1, w: 0.9, nums: '+2 y +4' },
+    { s: 'Sn', n: 'estaño', ox: [2, 4], tr: ['estannoso', 'estánnico'], ptr: 1, w: 0.7, nums: '+2 y +4' },
+    { s: 'Ni', n: 'níquel', ox: [2, 3], tr: ['niqueloso', 'niquélico'], ptr: 9, nv: 1, w: 1, nums: '+2 y +3' },
+    { s: 'Au', n: 'oro', ox: [1, 3], tr: ['auroso', 'áurico'], ptr: 1, nv: 1, w: 1, nums: '+1 y +3' },
+  ];
+  const AMONIO = { s: 'NH4', n: 'amonio', ox: [1], tr: ['amónico'], w: 1.5, poli: [{ s: 'N', n: 1 }, { s: 'H', n: 4 }] };
+
+  // un catión concreto: el metal con uno de sus números
+  function cationes(filtro) {
+    const out = [];
+    METALES.concat([AMONIO]).forEach((m) => m.ox.forEach((q, i) => {
+      const c = { m: m, q: q, multi: m.ox.length > 1, adj: m.tr[i] || null, nv: m.nv || 0, w: m.w * (m.s === 'Cr' && q === 2 ? 0.35 : 1) };
+      c.st = 'de ' + m.n + (c.multi ? ' (' + ROM[q] + ')' : '');
+      c.ptr = c.multi && c.adj ? m.ptr : 9;
+      c.orden = c.multi ? (i === 0 ? 'menor' : 'mayor') : null;
+      if (!filtro || filtro(c)) out.push(c);
+    }));
+    return out;
+  }
+  const sinMn4 = (c) => !(c.m.s === 'Mn' && c.q === 4);
+  const deUnNumero = (c) => !c.multi;
+
+  // ---------------------------------------------------------- aniones sin oxígeno
+  const URO = [
+    { s: 'F', q: 1, uro: 'fluoruro', hid: 'fluorhídrico', w: 1 },
+    { s: 'Cl', q: 1, uro: 'cloruro', hid: 'clorhídrico', w: 3 },
+    { s: 'Br', q: 1, uro: 'bromuro', hid: 'bromhídrico', w: 1.5 },
+    { s: 'I', q: 1, uro: 'ioduro', hid: 'iodhídrico', w: 1.2 },
+    { s: 'S', q: 2, uro: 'sulfuro', hid: 'sulfhídrico', w: 2 },
+  ];
+
+  // ---------------------------------------------------------- no metales con oxígeno
+  // ad: adjetivos del óxido y del ácido, en el orden de ox · romOpc: el romano se puede omitir
+  const NOMETALES = [
+    { s: 'Cl', n: 'cloro', ox: [1, 3, 5, 7], ad: ['hipocloroso', 'cloroso', 'clórico', 'perclórico'], w: 2, nums: '+1, +3, +5 y +7' },
+    { s: 'Br', n: 'bromo', ox: [1, 3, 5, 7], ad: ['hipobromoso', 'bromoso', 'brómico', 'perbrómico'], w: 0.8, nums: '+1, +3, +5 y +7' },
+    { s: 'I', n: 'iodo', ox: [1, 3, 5, 7], ad: ['hipoiodoso', 'iodoso', 'iódico', 'periódico'], w: 0.7, nums: '+1, +3, +5 y +7' },
+    { s: 'S', n: 'azufre', ox: [4, 6], ad: ['sulfuroso', 'sulfúrico'], w: 2.5, nums: '+4 y +6' },
+    { s: 'N', n: 'nitrógeno', ox: [3, 5], ad: ['nitroso', 'nítrico'], w: 2.5, nums: '+3 y +5', ambiguo: true },
+    { s: 'P', n: 'fósforo', ox: [3, 5], ad: ['fosforoso', 'fosfórico'], w: 1.2, nums: '+3 y +5', nvOx: [1, 0] },
+    { s: 'C', n: 'carbono', ox: [4], ad: ['carbónico'], w: 2, nums: '+4 (y +2 en el CO)', conRom: true },
+    { s: 'Si', n: 'silicio', ox: [4], ad: ['silícico'], w: 0.7, nums: '+4', conRom: true, romOpc: true },
+  ];
+
+  // ---------------------------------------------------------- oxoaniones y sus ácidos
+  // x: átomo central · nx, no: cuántos átomos · q: carga · nh: hidrógenos del ácido (los que perdió)
+  // an: nombre del anión · ac: adjetivo del ácido · iu: nombre con el romano, como en la teórica
+  // raro: sólo con cationes de un número · sinAcido: no se pide el ácido · agua: moléculas de agua por óxido
+  const OXO = [];
+  (function () {
+    const halo = [['Cl', 'clor', 'clór'], ['Br', 'brom', 'bróm'], ['I', 'iod', 'iód']];
+    halo.forEach((h, k) => {
+      const [s, r, ra] = h;
+      [['hipo' + r + 'ito', 'hipo' + r + 'oso', 1, 1], [r + 'ito', r + 'oso', 2, 3], [r + 'ato', ra + 'ico', 3, 5],
+        ['per' + r + 'ato', 'per' + ra + 'ico', 4, 7]].forEach((d) => {
+        OXO.push({ id: s + 'O' + d[2], x: s, nx: 1, no: d[2], q: 1, an: d[0], ac: d[1], ox: d[3], iu: r + 'ato(' + ROM[d[3]] + ')',
+          raro: k > 0, w: k === 0 ? 2 : 0.45 });
+      });
+    });
+    OXO.push({ id: 'NO2', x: 'N', nx: 1, no: 2, q: 1, an: 'nitrito', ac: 'nitroso', ox: 3, iu: 'nitrato(III)', w: 2 });
+    OXO.push({ id: 'NO3', x: 'N', nx: 1, no: 3, q: 1, an: 'nitrato', ac: 'nítrico', ox: 5, iu: 'nitrato(V)', w: 3 });
+    OXO.push({ id: 'SO3', x: 'S', nx: 1, no: 3, q: 2, an: 'sulfito', ac: 'sulfuroso', ox: 4, iu: 'sulfato(IV)', w: 2 });
+    OXO.push({ id: 'SO4', x: 'S', nx: 1, no: 4, q: 2, an: 'sulfato', ac: 'sulfúrico', ox: 6, iu: 'sulfato(VI)', w: 3 });
+    OXO.push({ id: 'CO3', x: 'C', nx: 1, no: 3, q: 2, an: 'carbonato', ac: 'carbónico', ox: 4, iu: 'carbonato(IV)', w: 3 });
+    OXO.push({ id: 'PO4', x: 'P', nx: 1, no: 4, q: 3, an: 'fosfato', anAlt: ['ortofosfato'], ac: 'fosfórico', acAlt: ['ortofosfórico'],
+      ox: 5, iu: 'fosfato(V)', w: 2.5, agua: 3 });
+    OXO.push({ id: 'SiO3', x: 'Si', nx: 1, no: 3, q: 2, an: 'silicato', anAlt: ['metasilicato'], ac: 'silícico', acAlt: ['metasilícico'],
+      ox: 4, iu: 'silicato(IV)', raro: true, w: 0.7 });
+    OXO.push({ id: 'CrO4', x: 'Cr', nx: 1, no: 4, q: 2, an: 'cromato', ac: 'crómico', ox: 6, raro: true, sinAcido: true, w: 0.8 });
+    OXO.push({ id: 'Cr2O7', x: 'Cr', nx: 2, no: 7, q: 2, an: 'dicromato', anAlt: ['bicromato'], ac: 'dicrómico', ox: 6, raro: true, sinAcido: true, w: 1 });
+    OXO.push({ id: 'MnO4', x: 'Mn', nx: 1, no: 4, q: 1, an: 'permanganato', ac: 'permangánico', ox: 7, raro: true, sinAcido: true, w: 1 });
+    // sólo en Química General
+    OXO.push({ id: 'PO3m', x: 'P', nx: 1, no: 3, q: 1, an: 'metafosfato', ac: 'metafosfórico', ox: 5, raro: true, nv: 1, w: 0.6, agua: 1 });
+    OXO.push({ id: 'P2O7', x: 'P', nx: 2, no: 7, q: 4, an: 'pirofosfato', ac: 'pirofosfórico', ox: 5, raro: true, nv: 1, w: 0.6, agua: 2 });
+    OXO.push({ id: 'PO3f', x: 'P', nx: 1, no: 3, q: 3, an: 'fosfito', ac: 'fosforoso', ox: 3, raro: true, nv: 1, w: 0.6, agua: 3 });
+    OXO.push({ id: 'SiO4', x: 'Si', nx: 1, no: 4, q: 4, an: 'ortosilicato', ac: 'ortosilícico', ox: 4, raro: true, nv: 1, w: 0.5, agua: 2 });
+  })();
+  const oxo = (id) => OXO.filter((a) => a.id === id)[0];
+
+  // aniones que conservan hidrógeno (sales ácidas). de: el anión del que salen · h: los H que le quedan
+  const ACIDOS = [
+    { id: 'HCO3', de: 'CO3', h: 1, q: 1, bi: 'bicarbonato', w: 3 },
+    { id: 'HSO4', de: 'SO4', h: 1, q: 1, bi: 'bisulfato', w: 2 },
+    { id: 'HSO3', de: 'SO3', h: 1, q: 1, bi: 'bisulfito', w: 1.5 },
+    { id: 'HS', de: null, h: 1, q: 1, bi: 'bisulfuro', w: 1 },
+    { id: 'HPO4', de: 'PO4', h: 1, q: 2, bi: null, w: 1.5 },
+    { id: 'H2PO4', de: 'PO4', h: 2, q: 1, bi: null, w: 1.5 },
+    { id: 'HP2O7', de: 'P2O7', h: 1, q: 3, bi: null, w: 0.4, nv: 1 },
+  ];
+
+  // ---------------------------------------------------------- fórmulas
+  // Una fórmula es una lista de partes: {s, n} (un símbolo) o {g: [...], n} (un grupo entre paréntesis).
+  const el = (s, n) => ({ s: s, n: n });
+  const gr = (g, n) => ({ g: g, n: n });
+  const partesCat = (c, n) => (c.m.poli ? [gr(c.m.poli, n)] : [el(c.m.s, n)]);
+  const partesOxo = (a) => [el(a.x, a.nx), el('O', a.no)];
+
+  function plana(f) {                       // sin grupos de subíndice 1
+    const out = [];
+    f.forEach((p) => { if (p.g && p.n === 1) p.g.forEach((x) => out.push(x)); else out.push(p); });
+    return out;
+  }
+  const txtParte = (p) => (p.g ? '(' + p.g.map(txtParte).join('') + ')' + (p.n > 1 ? p.n : '') : p.s + (p.n > 1 ? p.n : ''));
+  const clave = (f) => plana(f).map(txtParte).join('');
+  const htmlParte = (p) => (p.g ? '(' + p.g.map(htmlParte).join('') + ')' + (p.n > 1 ? '<sub>' + p.n + '</sub>' : '')
+    : p.s + (p.n > 1 ? '<sub>' + p.n + '</sub>' : ''));
+  const fHTML = (f, est) => plana(f).map(htmlParte).join('') + (est ? '(' + est + ')' : '');
+  function atomos(f, mult, acc) {
+    acc = acc || {};
+    f.forEach((p) => {
+      if (p.g) atomos(p.g, (mult || 1) * p.n, acc);
+      else acc[p.s] = (acc[p.s] || 0) + (mult || 1) * p.n;
+    });
+    return acc;
+  }
+  const claveAtomos = (f) => { const a = atomos(f); return Object.keys(a).sort().map((s) => s + a[s]).join(' '); };
+  // iones escritos para una explicación: Fe3+, SO4 2-
+  const carga = (q, signo) => '<sup>' + (q > 1 ? q : '') + signo + '</sup>';
+  const ionCat = (c) => (c.m.poli ? 'NH<sub>4</sub>' : c.m.s) + carga(c.q, '+');
+  const ionDe = (partes, q) => partes.map(htmlParte).join('') + carga(q, '-');
+
+  // ---------------------------------------------------------- el universo de compuestos
+  const U = [];
+  const FAMILIAS = {
+    oxb: { g: 'ox', n: 'óxido básico', art: 'un' }, oxa: { g: 'ox', n: 'óxido ácido', art: 'un' },
+    per: { g: 'ox', n: 'peróxido', art: 'un' }, hid: { g: 'hid', n: 'hidróxido', art: 'un' },
+    hme: { g: 'hh', n: 'hidruro metálico', art: 'un' }, hnm: { g: 'hh', n: 'hidruro no metálico', art: 'un' },
+    hac: { g: 'hh', n: 'hidrácido', art: 'un' }, oxo: { g: 'oxo', n: 'oxoácido', art: 'un' },
+    sbi: { g: 'sbi', n: 'sal binaria', art: 'una' }, bnm: { g: 'sbi', n: 'compuesto binario de dos no metales', art: 'un' },
+    oxs: { g: 'oxs', n: 'oxosal', art: 'una' }, sac: { g: 'sac', n: 'sal ácida', art: 'una' },
+    ext: { g: null, n: 'compuesto', art: 'un' },
+  };
+  const GRUPOS = [
+    { id: 'ox', n: 'Óxidos', sub: [['oxb', 45], ['oxa', 40], ['per', 15]] },
+    { id: 'hid', n: 'Hidróxidos', sub: [['hid', 100]] },
+    { id: 'hh', n: 'Hidruros e hidrácidos', sub: [['hme', 30], ['hnm', 35], ['hac', 35]] },
+    { id: 'oxo', n: 'Oxoácidos', sub: [['oxo', 100]] },
+    { id: 'sbi', n: 'Sales binarias', sub: [['sbi', 92], ['bnm', 8]] },
+    { id: 'oxs', n: 'Oxosales', sub: [['oxs', 100]] },
+    { id: 'sac', n: 'Sales ácidas', sub: [['sac', 100]] },
+  ];
+
+  function agregar(c) {
+    c.nom = c.nom || {};
+    ['st', 'tr', 'si', 'iu'].forEach((k) => { c.nom[k] = (c.nom[k] || []).filter(Boolean); });
+    c.pide = Object.assign({ st: 9, tr: 9, si: 9 }, c.pide || {});
+    c.nv = c.nv || 0;
+    c.w = c.w === undefined ? 1 : c.w;
+    c.clave = clave(c.f);
+    c.id = c.fam + ':' + c.clave + (c.est ? '.' + c.est : '');
+    U.push(c);
+    return c;
+  }
+
+  const OXIDO = { 1: 'monóxido', 2: 'dióxido', 3: 'trióxido', 4: 'tetróxido', 5: 'pentóxido', 7: 'heptóxido' };
+  const OXIDO_ALT = { 1: ['monoóxido'], 4: ['tetraóxido'], 5: ['pentaóxido'], 7: ['heptaóxido'] };
+  const conPre = (n, palabra) => (n > 1 ? PRE[n] : '') + palabra;
+
+  // óxidos de metales y de no metales
+  function oxido(s, nombre, q) {
+    const d = mcd(q, 2), nx = 2 / d, no = q / d;
+    const de = ' de ' + conPre(nx, nombre);
+    return { f: [el(s, nx), el('O', no)], si: [OXIDO[no] + de].concat((OXIDO_ALT[no] || []).map((x) => x + de)), nx: nx, no: no };
+  }
+  cationes((c) => !c.m.poli).forEach((c) => {
+    const o = oxido(c.m.s, c.m.n, c.q);
+    agregar({ fam: 'oxb', f: o.f, cat: c, q: c.q, nv: c.nv, w: c.w, nx: o.nx, no: o.no,
+      nom: { st: ['óxido ' + c.st], tr: [c.adj && 'óxido ' + c.adj], si: o.si },
+      pide: { st: 0, tr: c.ptr, si: 0 } });
+  });
+  NOMETALES.forEach((x) => x.ox.forEach((q, i) => {
+    const o = oxido(x.s, x.n, q);
+    const st = ['óxido de ' + x.n + ' (' + ROM[q] + ')'];
+    if (x.romOpc) st.push('óxido de ' + x.n);
+    agregar({ fam: 'oxa', f: o.f, nm: x, q: q, i: i, nx: o.nx, no: o.no, nv: x.nvOx ? x.nvOx[i] : 0, w: x.w,
+      nom: { st: st, tr: ['óxido ' + x.ad[i], 'anhídrido ' + x.ad[i]], si: o.si },
+      pide: { st: 0, tr: 0, si: 0 }, noMostrar: x.ambiguo ? { tr: 1 } : null });
+  }));
+
+  // peróxidos: el grupo O2 con carga 2-, que no se simplifica
+  [['H', 'hidrógeno', 1, 2.5], ['Na', 'sodio', 1, 2], ['K', 'potasio', 1, 1], ['Ca', 'calcio', 2, 1], ['Ba', 'bario', 2, 1.5]].forEach((d) => {
+    agregar({ fam: 'per', f: [el(d[0], d[2] === 1 ? 2 : 1), el('O', 2)], per: { s: d[0], n: d[1], q: d[2] }, w: d[3],
+      nom: { st: ['peróxido de ' + d[1]].concat(d[0] === 'H' ? ['agua oxigenada'] : []), si: ['dióxido de ' + (d[2] === 1 ? 'di' : '') + d[1]] }, pide: { st: 0 } });
+  });
+
+  // hidróxidos
+  cationes((c) => sinMn4(c) && !c.m.poli).forEach((c) => {
+    // con un metal de varios números, "hidróxido de cobre" sería el Stock sin romano: ahí el mono- se escribe
+    const si = c.q === 1 && c.multi ? ['monohidróxido de ' + c.m.n]
+      : [conPre(c.q, 'hidróxido') + ' de ' + c.m.n].concat(c.q === 1 ? ['monohidróxido de ' + c.m.n] : []);
+    const st = 'hidróxido ' + c.st;
+    agregar({ fam: 'hid', f: [el(c.m.s, 1), gr([el('O', 1), el('H', 1)], c.q)], cat: c, q: c.q, nv: c.nv, w: c.w,
+      nom: { st: [st], tr: [c.adj && 'hidróxido ' + c.adj], si: si },
+      pide: { st: 0, tr: c.ptr, si: si[0] === st ? 9 : 1 } });
+  });
+
+  // hidruros metálicos (H con -1)
+  cationes((c) => ['Li', 'Na', 'K', 'Mg', 'Ca', 'Ba', 'Al', 'Fe'].indexOf(c.m.s) >= 0).forEach((c) => {
+    const si = [conPre(c.q, 'hidruro') + ' de ' + c.m.n].concat(c.q === 1 ? ['monohidruro de ' + c.m.n] : []);
+    const st = 'hidruro ' + c.st;
+    agregar({ fam: 'hme', f: [el(c.m.s, 1), el('H', c.q)], cat: c, q: c.q, nv: c.nv, w: c.w,
+      nom: { st: [st], tr: [c.adj && 'hidruro ' + c.adj], si: si },
+      pide: { st: 0, tr: c.ptr, si: si[0] === st ? 9 : 1 } });
+  });
+
+  // hidruros no metálicos (el gas) e hidrácidos (el mismo compuesto, disuelto)
+  URO.forEach((a) => {
+    const f = [el('H', a.q), el(a.s, 1)];
+    agregar({ fam: 'hnm', f: f, est: 'g', an: a, w: a.w,
+      nom: { st: [a.uro + ' de hidrógeno'], si: a.q > 1 ? [a.uro + ' de dihidrógeno'] : [] }, pide: { st: 0 } });
+    agregar({ fam: 'hac', f: f, est: 'ac', an: a, w: a.w, nom: { tr: ['ácido ' + a.hid] }, pide: { tr: 0 } });
+  });
+  agregar({ fam: 'hnm', f: [el('N', 1), el('H', 3)], est: 'g', amoniaco: true, w: 2.5,
+    nom: { tr: ['amoníaco'], si: ['trihidruro de nitrógeno'] }, pide: { tr: 0, si: 1 } });
+
+  // sales binarias
+  cationes(sinMn4).forEach((c) => URO.forEach((a) => {
+    const d = mcd(c.q, a.q), nc = a.q / d, na = c.q / d;
+    const st = a.uro + ' ' + c.st;
+    const cola = ' de ' + conPre(nc, c.m.n);
+    // "sulfuro de hierro" sería el Stock sin romano: con un metal de varios números y uno de cada uno, el mono- se escribe
+    const ambiguo = c.multi && nc === 1 && na === 1;
+    const si = c.m.poli ? [] : ambiguo ? ['mono' + a.uro + cola] : [conPre(na, a.uro) + cola].concat(na === 1 ? ['mono' + a.uro + cola] : []);
+    // pesos del sorteo: los ioduros y fluoruros de metales de varios números salen poco, y los ioduros que no existen, nunca
+    const noExiste = a.s === 'I' && ['Fe3', 'Cu2', 'Pb4', 'Co3', 'Ni3', 'Au3'].indexOf(c.m.s + c.q) >= 0;
+    const raro = noExiste ? 0 : c.q >= 3 && ['Co', 'Ni', 'Pb'].indexOf(c.m.s) >= 0 ? 0.3 : c.multi && (a.s === 'I' || a.s === 'F') ? 0.4 : 1;
+    agregar({ fam: 'sbi', f: partesCat(c, nc).concat([el(a.s, na)]), cat: c, an: a, nc: nc, na: na, nv: c.nv, w: raro * c.w * a.w / 2,
+      nom: { st: [st], tr: [c.adj && a.uro + ' ' + c.adj], si: si },
+      pide: { st: 0, tr: c.ptr, si: si.length && si[0] !== st ? 1 : 9 } });
+  }));
+
+  // binarios de dos no metales (Química General)
+  [[[el('C', 1), el('S', 2)], 'disulfuro de carbono', 'sulfuro de carbono (IV)', 'C', 'S', 4, 2],
+    [[el('C', 1), el('Cl', 4)], 'tetracloruro de carbono', 'cloruro de carbono (IV)', 'C', 'Cl', 4, 1],
+    [[el('P', 1), el('Cl', 3)], 'tricloruro de fósforo', 'cloruro de fósforo (III)', 'P', 'Cl', 3, 1],
+    [[el('P', 1), el('Cl', 5)], 'pentacloruro de fósforo', 'cloruro de fósforo (V)', 'P', 'Cl', 5, 1],
+    [[el('S', 1), el('F', 6)], 'hexafluoruro de azufre', 'fluoruro de azufre (VI)', 'S', 'F', 6, 1]].forEach((d) => {
+    agregar({ fam: 'bnm', f: d[0], nv: 1, w: 1, bn: { a: d[3], b: d[4], qa: d[5], qb: d[6] },
+      nom: { si: [d[1]], st: [d[2]] }, pide: { si: 1, st: 1 } });
+  });
+
+  // oxoácidos
+  OXO.filter((a) => !a.sinAcido).forEach((a) => {
+    agregar({ fam: 'oxo', f: [el('H', a.q), el(a.x, a.nx), el('O', a.no)], oxo: a, nv: a.nv || 0, w: a.w,
+      nom: { tr: ['ácido ' + a.ac].concat((a.acAlt || []).map((x) => 'ácido ' + x)), iu: [a.iu && a.iu + ' de hidrógeno'] },
+      pide: { tr: 0 } });
+  });
+
+  // oxosales
+  OXO.forEach((a) => {
+    cationes((c) => sinMn4(c) && (!a.raro || deUnNumero(c)) && !(a.nv && (c.m.poli || c.m.s === 'Ag'))).forEach((c) => {
+      const d = mcd(c.q, a.q), nc = a.q / d, na = c.q / d;
+      const anes = [a.an].concat(a.anAlt || []);
+      // las combinaciones que casi no se ven (clorito cuproso, carbonato férrico) salen poco
+      const raro = (c.multi && /^(ClO1|ClO2|ClO4|SO3|NO2)$/.test(a.id)) || (c.q >= 3 && a.id === 'CO3' && c.m.s !== 'Al') || (c.q === 4 && a.id === 'PO4') || (c.m.s === 'Ag' && ['NO3', 'SO4', 'CO3', 'PO4', 'CrO4'].indexOf(a.id) < 0) ? 0.3 : 1;
+      agregar({ fam: 'oxs', f: partesCat(c, nc).concat([gr(partesOxo(a), na)]), cat: c, oxo: a, nc: nc, na: na,
+        nv: Math.max(c.nv, a.nv || 0), w: raro * c.w * a.w / 3,
+        nom: { st: anes.map((n) => n + ' ' + c.st), tr: c.adj ? anes.map((n) => n + ' ' + c.adj) : [], iu: [a.iu && a.iu + ' ' + c.st] },
+        pide: { st: 0, tr: c.ptr } });
+    });
+  });
+
+  // sales ácidas
+  const hidrogeno = (h) => (h === 2 ? 'dihidrogeno' : 'hidrogeno');
+  ACIDOS.forEach((a) => {
+    const base = a.de ? oxo(a.de) : null;
+    const neutro = base ? base.an : 'sulfuro';
+    const formas = [hidrogeno(a.h) + neutro, neutro + (a.h === 2 ? ' diácido' : ' ácido')];
+    if (a.bi) formas.push(a.bi);
+    if (a.id === 'HPO4') formas.push('fosfato monoácido', 'monohidrogenofosfato');
+    const iu = base && base.iu ? hidrogeno(a.h) + base.iu : null;
+    const atomosAn = [el('H', a.h)].concat(base ? partesOxo(base) : [el('S', 1)]);
+    const sirve = (c) => (a.nv ? ['Na', 'K'].indexOf(c.m.s) >= 0
+      : ['Li', 'Na', 'K', 'Mg', 'Ca', 'Ba', 'NH4', 'Al'].indexOf(c.m.s) >= 0 || (c.m.s === 'Fe') || (c.m.s === 'Cu' && c.q === 2));
+    cationes(sirve).forEach((c) => {
+      const d = mcd(c.q, a.q), nc = a.q / d, na = c.q / d;
+      // "carbonato ácido de sodio": el catión va después de la palabra ácido
+      const con = (cola) => formas.map((x) => x + ' ' + cola);
+      agregar({ fam: 'sac', f: partesCat(c, nc).concat([gr(atomosAn, na)]), cat: c, acido: a, oxo: base, nc: nc, na: na,
+        nv: Math.max(c.nv, a.nv || 0), w: (c.multi ? 0.5 : 1) * c.w * a.w / 3,
+        nom: { st: con(c.st), tr: c.adj ? con(c.adj) : [], iu: [iu && iu + ' ' + c.st] },
+        pide: { st: 0, tr: c.ptr } });
+    });
+  });
+
+  // compuestos que no se sortean pero conviene reconocer cuando alguien los escribe
+  [[[el('H', 2), el('O', 1)], ['agua']], [[el('C', 1), el('O', 1)], ['monóxido de carbono', 'óxido de carbono (II)']],
+    [[el('N', 1), el('O', 1)], ['monóxido de nitrógeno', 'óxido de nitrógeno (II)']],
+    [[el('N', 1), el('O', 2)], ['dióxido de nitrógeno', 'óxido de nitrógeno (IV)']],
+    [[el('N', 2), el('O', 1)], ['monóxido de dinitrógeno', 'óxido de nitrógeno (I)']],
+    [[el('C', 1), el('H', 4)], ['metano']]].forEach((d) => {
+    agregar({ fam: 'ext', f: d[0], w: 0, nom: { st: d[1] } });
+  });
+
+  // el nombre con el que se menciona un compuesto en una explicación, y su rótulo principal
+  U.forEach((c) => {
+    c.comun = c.nom.st.length && c.fam !== 'bnm' ? 'st' : c.nom.tr.length ? 'tr' : c.nom.si.length ? 'si' : 'st';
+    c.nombre = c.nom[c.comun][0];
+  });
+
+  // ---------------------------------------------------------- cómo se lee un nombre escrito
+  const ARAB = { 1: 'i', 2: 'ii', 3: 'iii', 4: 'iv', 5: 'v', 6: 'vi', 7: 'vii' };
+  function normNombre(texto) {
+    const marcas = {};
+    let s = String(texto || '').slice(0, 200).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    s = s.replace(/[‐-―−]/g, '-').replace(/["“”«».,;:!?¿¡]/g, ' ');
+    s = s.replace(/\[/g, '(').replace(/\]/g, ')').trim();
+    const est = /\(\s*(g|ac|aq|l|s)\s*\)$/.exec(s);
+    if (est) { marcas.estado = est[1] === 'aq' ? 'ac' : est[1]; s = s.slice(0, est.index); }
+    s = s.replace(/^(?:el|la|los|las|un|una)\s+/, '');
+    // el número de oxidación entre paréntesis: romano, o un número común que se pasa a romano y se avisa
+    s = s.replace(/\s*\(\s*\+?\s*([1-7])\s*\+?\s*\)/g, (t, n) => { marcas.arabigo = true; return '(' + ARAB[n] + ')'; });
+    s = s.replace(/\s*\(\s*([ivx]+)\s*\)/g, '($1)');
+    // un paréntesis que no cierra, y un romano o un número sueltos después de una palabra
+    s = s.replace(/\s*\(\s*(iii|ii|iv|vii|vi|v|i)(?=\s|$)/g, (t, r) => { marcas.sinParentesis = true; return '(' + r + ')'; });
+    s = s.replace(/([a-z])\s+(iii|ii|iv|vii|vi|v|i)(?=\s|$)/g, (t, a, r) => { marcas.sinParentesis = true; return a + '(' + r + ')'; });
+    s = s.replace(/([a-z])\s+\+?([1-7])\+?(?=\s|$)/g, (t, a, n) => { marcas.arabigo = true; return a + '(' + ARAB[n] + ')'; });
+    s = s.replace(/-/g, '').replace(/\s+/g, ' ').trim();
+    s = s.replace(/yod/g, 'iod').replace(/\bzinc\b/g, 'cinc').replace(/\b((?:di|mono)?hidrogeno) (?=[a-z])(?!de\b)/g, '$1');
+    return { k: s, marcas: marcas };
+  }
+
+  // índice de todos los nombres aceptados: nombre normalizado -> [{c, lab, i}]
+  const INDICE = new Map();
+  const POR_FORMULA = new Map();
+  U.forEach((c) => {
+    ['st', 'tr', 'si', 'iu'].forEach((lab) => c.nom[lab].forEach((n, i) => {
+      const k = normNombre(n).k;
+      if (!INDICE.has(k)) INDICE.set(k, []);
+      INDICE.get(k).push({ c: c, lab: lab, i: i });
+    }));
+    if (!POR_FORMULA.has(c.clave)) POR_FORMULA.set(c.clave, []);
+    POR_FORMULA.get(c.clave).push(c);
+  });
+
+  // distancia de edición con trasposiciones, cortada en `tope`
+  function distancia(a, b2, tope) {
+    if (Math.abs(a.length - b2.length) > tope) return tope + 1;
+    let ant2 = null, ant = [];
+    for (let j = 0; j <= b2.length; j++) ant.push(j);
+    for (let i = 1; i <= a.length; i++) {
+      const fila = [i];
+      let min = i;
+      for (let j = 1; j <= b2.length; j++) {
+        const costo = a[i - 1] === b2[j - 1] ? 0 : 1;
+        let v = Math.min(ant[j] + 1, fila[j - 1] + 1, ant[j - 1] + costo);
+        if (ant2 && i > 1 && j > 1 && a[i - 1] === b2[j - 2] && a[i - 2] === b2[j - 1]) v = Math.min(v, ant2[j - 2] + 1);
+        fila.push(v);
+        if (v < min) min = v;
+      }
+      if (min > tope) return tope + 1;
+      ant2 = ant; ant = fila;
+    }
+    return ant[b2.length];
+  }
+
+  // ¿`a` puede ser `b2` mal tipeado? Devuelve la distancia (1 o 2), o 9 si no. El error tiene que estar en una sola
+  // palabra y ser chico para su largo. No es tipeo si falta o sobra un prefijo entero (di-, hipo-, per-), si sólo
+  // cambia la terminación (-ito por -ato, -oso por -ico) ni si sólo cambia el romano: eso es otro compuesto.
+  const TERMINACION = /(ato|ito|oso|ico|uro)$/;
+  const PREFIJO = /^(?:bi|di|tri|mono|hipo|per|meta|piro|orto)/;
+  const ROMS = /\((?:i|ii|iii|iv|v|vi|vii)\)/g;
+  function tipeo(a, b2) {
+    const pa = a.split(' '), pb = b2.split(' ');
+    if (pa.length !== pb.length) return a.replace(/ /g, '') === b2.replace(/ /g, '') ? 1 : 9;
+    let total = 0;
+    for (let i = 0; i < pa.length; i++) {
+      if (pa[i] === pb[i]) continue;
+      if (total) return 9;
+      const x = pa[i], y = pb[i], corta = x.length < y.length ? x : y, larga = corta === x ? y : x;
+      if (larga !== corta && larga.slice(larga.length - corta.length) === corta) return 9;
+      if (x.replace(ROMS, '') === y.replace(ROMS, '')) return 9;
+      if (x.replace(PREFIJO, '') === y.replace(PREFIJO, '')) return 9;         // dicarbonato por bicarbonato
+      const tx = TERMINACION.exec(x.replace(ROMS, '')), ty = TERMINACION.exec(y.replace(ROMS, ''));
+      if (tx && ty && tx[1] !== ty[1] && x.slice(0, tx.index) === y.slice(0, ty.index)) return 9;
+      const d = distancia(x, y, 2);
+      if (d > (Math.min(x.length, y.length) >= 9 ? 2 : 1)) return 9;
+      total = d;
+    }
+    return total || 9;
+  }
+
+  // ---------------------------------------------------------- cómo se lee una fórmula escrita
+  const SUB = '₀₁₂₃₄₅₆₇₈₉';
+  function limpiarFormula(texto) {
+    let s = String(texto || '').trim().slice(0, 200);
+    s = s.replace(/[₀-₉]/g, (d) => String(SUB.indexOf(d))).replace(/<\/?sub>/gi, '');
+    s = s.replace(/_\{(\d+)\}/g, '$1').replace(/[\s_·.]/g, '').replace(/[[{]/g, '(').replace(/[\]}]/g, ')');
+    let est = null;
+    const m = /\((g|ac|aq|l|s)\)$/i.exec(s);
+    if (m && m.index > 0) { est = m[1].toLowerCase() === 'aq' ? 'ac' : m[1].toLowerCase(); s = s.slice(0, m.index); }
+    return { s: s, est: est };
+  }
+
+  // Devuelve todas las lecturas posibles de un tramo de letras como símbolos.
+  function lecturas(letras, estricto) {
+    const out = [];
+    const ir = (i, acc) => {
+      if (out.length > 40) return;
+      if (i === letras.length) { out.push(acc); return; }
+      for (let largo = 2; largo >= 1; largo--) {
+        if (i + largo > letras.length) continue;
+        const tramo = letras.substr(i, largo);
+        let sim;
+        if (estricto) {
+          if (!/^[A-Z][a-z]?$/.test(tramo)) continue;
+          sim = tramo;
+        } else {
+          sim = tramo.charAt(0).toUpperCase() + tramo.slice(1).toLowerCase();
+          if (PROPIOS.indexOf(sim) < 0) continue;
+        }
+        ir(i + largo, acc.concat([sim]));
+      }
+    };
+    ir(0, []);
+    return out;
+  }
+
+  // texto -> {lecturas: [fórmula], error}. Cada lectura es una lista de partes como las del universo.
+  function leerFormula(s) {
+    if (!s) return { error: 'vacio' };
+    const ajeno = Array.from(s).filter((ch) => /[^A-Za-z0-9()]/.test(ch))[0];
+    if (ajeno) return { error: 'caracter', dato: ajeno };
+    if (/^[0-9]/.test(s)) return { error: 'numero_inicial' };
+    const mezcla = /[a-z]/.test(s) && /[A-Z]/.test(s);
+    const fichas = s.match(/[A-Za-z]+|[0-9]+|[()]/g);
+    const armar = (estricto) => {
+      // cada tramo de letras tiene varias lecturas: se combinan todas
+      let combos = [[]];
+      for (let i = 0; i < fichas.length; i++) {
+        const t = fichas[i];
+        if (/^[A-Za-z]/.test(t)) {
+          const ls = lecturas(t, estricto);
+          if (!ls.length) return { error: 'simbolo', dato: t };
+          const nuevo = [];
+          combos.forEach((c) => ls.forEach((l) => { if (nuevo.length < 60) nuevo.push(c.concat(l.map((x) => ({ sim: x })))); }));
+          combos = nuevo;
+        } else combos = combos.map((c) => c.concat([t]));
+      }
+      const fs = [];
+      for (let k = 0; k < combos.length; k++) {
+        const r = arbol(combos[k]);
+        if (r.error) return r;
+        fs.push(r.f);
+      }
+      return { lecturas: fs };
+    };
+    if (mezcla) {
+      const r = armar(true);
+      const flojo = armar(false);
+      const conocidos = !r.error && r.lecturas.every((f) => Object.keys(atomos(f)).every((x) => ELEM[x]));
+      if (conocidos) return { lecturas: r.lecturas, otras: flojo.error ? [] : flojo.lecturas };
+      if (!flojo.error) return { lecturas: flojo.lecturas, mayusculas: true };
+      return r;
+    }
+    // todo en minúsculas o todo en mayúsculas: primero la lectura literal, después las demás
+    const lit = /[A-Z]/.test(s) ? armar(true) : { error: 'simbolo' };
+    const flojo = armar(false);
+    if (flojo.error && lit.error) return flojo.error === 'simbolo' && lit.dato ? lit : flojo;
+    const fs = (lit.error ? [] : lit.lecturas).slice();
+    const vistas = {};
+    fs.forEach((f) => { vistas[clave(f)] = 1; });
+    (flojo.error ? [] : flojo.lecturas).forEach((f) => { if (!vistas[clave(f)]) { vistas[clave(f)] = 1; fs.push(f); } });
+    return { lecturas: fs, literal: lit.error ? null : clave(lit.lecturas[0]), sinCaja: true };
+  }
+
+  // fichas ({sim} | número | paréntesis) -> partes
+  function arbol(fichas) {
+    const f = [];
+    let grupo = null;
+    for (let i = 0; i < fichas.length; i++) {
+      const t = fichas[i];
+      const destino = grupo || f;
+      if (t === '(') {
+        if (grupo) return { error: 'anidado' };
+        grupo = [];
+      } else if (t === ')') {
+        if (!grupo) return { error: 'parentesis' };
+        if (!grupo.length) return { error: 'grupo_vacio' };
+        f.push(gr(grupo, 1));
+        grupo = null;
+      } else if (typeof t === 'string') {
+        const n = parseInt(t, 10);
+        const ultimo = destino[destino.length - 1];
+        const previo = fichas[i - 1];
+        if (n === 0 || t.length > 2) return { error: 'numero' };
+        if (previo === '(' || !ultimo && !(previo === ')')) return { error: 'numero_suelto' };
+        if (previo === ')') f[f.length - 1].n = n;
+        else if (typeof previo === 'string') return { error: 'numero_suelto' };
+        else ultimo.n = n;
+      } else destino.push(el(t.sim, 1));
+    }
+    if (grupo) return { error: 'parentesis' };
+    if (!f.length) return { error: 'vacio' };
+    return { f: f };
+  }
+
+  // ---------------------------------------------------------- sorteo de ejercicios
+  const ROTULO = { st: 'de Stock', tr: 'tradicional', si: 'sistemática' };
+  const pideEn = (c, lab, cfg) => cfg.nomen[lab] && c.nom[lab].length > 0 && c.pide[lab] <= cfg.nivel;
+  // las nomenclaturas que se le pueden pedir a un compuesto en este nivel, y si todas le dan el mismo nombre
+  const posibles = (c, cfg) => ['st', 'tr', 'si'].filter((l) => c.nom[l].length > 0 && c.pide[l] <= cfg.nivel);
+  function unNombre(c, cfg) {
+    const d = {};
+    posibles(c, cfg).forEach((l) => { d[normNombre(c.nom[l][0]).k] = 1; });
+    return Object.keys(d).length <= 1;
+  }
+
+  function elegir(items, peso, azar) {
+    let total = 0;
+    items.forEach((x) => { total += peso(x); });
+    let r = azar() * total;
+    for (let i = 0; i < items.length; i++) { r -= peso(items[i]); if (r <= 0) return items[i]; }
+    return items[items.length - 1];
+  }
+
+  // cfg: {dir: 'fn' | 'nf' | 'mix', grupos: [ids], nomen: {st, tr, si}, nivel: 0 | 1}
+  function generar(cfg, azar, recientes) {
+    azar = azar || Math.random;
+    recientes = recientes || [];
+    // Si no están elegidas las tres nomenclaturas, entran los compuestos que tienen nombre en alguna de las elegidas
+    // y los que se llaman igual en todas (cloruro de sodio, ácido sulfúrico).
+    const todas = cfg.nomen.st && cfg.nomen.tr && cfg.nomen.si;
+    const sirve = (c) => todas || unNombre(c, cfg) || posibles(c, cfg).some((l) => cfg.nomen[l]);
+    const base = (fam, filtro) => U.filter((c) => c.fam === fam && c.nv <= cfg.nivel && c.w > 0 && (!filtro || sirve(c)));
+    let grupos = GRUPOS.filter((g) => cfg.grupos.indexOf(g.id) >= 0);
+    const conNombre = grupos.filter((g) => g.sub.some((x) => base(x[0], true).length));
+    const filtrar = conNombre.length > 0;
+    if (filtrar) grupos = conNombre;
+    const g = grupos[Math.floor(azar() * grupos.length)] || GRUPOS[0];
+    const disponibles = (fam) => base(fam, filtrar);
+    const subs = g.sub.filter((x) => disponibles(x[0]).length);
+    const fam = elegir(subs, (x) => x[1], azar)[0];
+    let pozo = disponibles(fam);
+    const frescos = pozo.filter((c) => recientes.indexOf(c.id) < 0);
+    if (frescos.length) pozo = frescos;
+    const c = elegir(pozo, (x) => x.w, azar);
+    const dir = cfg.dir === 'mix' ? (azar() < 0.5 ? 'fn' : 'nf') : cfg.dir;
+    return dir === 'fn' ? ejercicioFN(c, cfg, azar) : ejercicioNF(c, cfg, azar);
+  }
+
+  // de la fórmula al nombre: se pide una nomenclatura sólo si el compuesto tiene nombres distintos en más de una
+  function ejercicioFN(c, cfg, azar) {
+    const labs = posibles(c, cfg).filter((l) => cfg.nomen[l]);
+    let lab = null;
+    if (!unNombre(c, cfg) && labs.length && !c.amoniaco) lab = elegir(labs, (l) => ({ st: 3, tr: 2, si: 1.2 }[l]), azar);
+    return { dir: 'fn', c: c, lab: lab, guia: lab || (c.amoniaco ? 'tr' : labs[0] || posibles(c, cfg)[0]) || c.comun };
+  }
+
+  // del nombre a la fórmula: se muestra un nombre en alguna de las nomenclaturas elegidas
+  function ejercicioNF(c, cfg, azar) {
+    let labs = ['st', 'tr', 'si'].filter((l) => pideEn(c, l, cfg) && !(c.noMostrar && c.noMostrar[l]));
+    if (!labs.length) labs = [c.comun];
+    let lab = elegir(labs, (l) => ({ st: 3, tr: 2.4, si: 1.2 }[l]), azar);
+    let i = 0;
+    if (c.fam === 'sac' && (lab === 'st' || lab === 'tr')) {
+      // hidrogeno-, "ácido de" o bi-: las tres aparecen en los enunciados
+      const r = azar();
+      const formas = c.acido.bi ? 3 : 2;
+      i = r < 0.5 ? 0 : r < 0.75 || formas === 2 ? 1 : 2;
+    } else if ((lab === 'st' || c.fam === 'oxo') && c.nom.iu.length && cfg.nomen.st && azar() < 0.12) {
+      lab = 'iu';                                       // el estilo con el romano en el anión, de vez en cuando
+    }
+    return { dir: 'nf', c: c, lab: lab, guia: lab, i: i, mostrado: c.nom[lab][i] };
+  }
+
+  // ---------------------------------------------------------- la cuenta de los números de oxidación
+  const veces = (n, q) => (n > 1 ? n : '') + '(' + sig(q) + ')';
+  function chequeoIones(c) {                         // 2(+3) + 3(−2) = 0
+    const qa = c.fam === 'oxb' || c.fam === 'oxa' ? 2 : c.fam === 'hid' || c.fam === 'hme' ? 1 : c.an ? c.an.q : c.acido ? c.acido.q : c.oxo.q;
+    const nc = c.nx || c.nc || 1, na = c.no || c.na || c.q;
+    return veces(nc, c.q || c.cat.q) + ' + ' + veces(na, -qa) + ' = 0';
+  }
+
+  // ---------------------------------------------------------- la resolución, paso a paso
+  const fam = (c) => FAMILIAS[c.fam];
+  const F = (c) => b(fHTML(c.f, c.est));
+  const numsDe = (m) => (m.ox.length > 1 ? 'tiene más de un número de oxidación (' + m.nums + ')' : 'tiene un solo número de oxidación (' + sig(m.ox[0]) + ')');
+
+  // de dónde sale la carga del catión cuando el dato es un nombre
+  function cargaPorNombre(c, lab) {
+    const cat = c.cat, m = cat.m;
+    if (m.poli) return 'El amonio es el catión ' + ionCat(cat) + '.';
+    if (!cat.multi) return 'El ' + m.n + ' ' + numsDe(m) + ': ' + ionCat(cat) + '.';
+    if (lab === 'tr' && cat.adj) return '“' + may(cat.adj) + '” termina en ' + (cat.orden === 'menor' ? '-oso, el menor ' : '-ico, el mayor ') +
+      (m.deCat || 'de los números del ' + m.n + ' (' + m.nums + ')') + ': ' + ionCat(cat) + '.';
+    return 'El (' + ROM[cat.q] + ') es el número de oxidación del ' + m.n + ': ' + ionCat(cat) + '.';
+  }
+  // cómo se arma la fórmula a partir de dos iones
+  function cruceTxt(qc, qa, crudo, final, numeros) {
+    if (qc === qa) return (qc === 1 ? 'Un ' + sig(1) + ' y un ' + sig(-1) : 'Son iguales y de signo contrario (' + sig(qc) + ' y ' + sig(-qa) + ')') +
+      ': alcanza con uno de cada uno → ' + final + '.';
+    if (mcd(qc, qa) > 1) return 'Cruce: ' + crudo + ', y se simplifica dividiendo por ' + mcd(qc, qa) + ' → ' + final + '.';
+    return 'Cruce: ' + (numeros ? 'el número de cada elemento' : 'la carga de cada ion') + ', sin el signo, pasa a ser el subíndice del otro → ' + final + '.';
+  }
+  const conSub = (txt, n, grupo) => (grupo && n > 1 ? '(' + txt + ')' : txt) + (n > 1 ? '<sub>' + n + '</sub>' : '');
+  const crudoHTML = (c, an, qa, grupoAn) => conSub(c.m.poli ? 'NH<sub>4</sub>' : c.m.s, qa, c.m.poli) + conSub(an, c.q, grupoAn);
+  // de dónde sale el número de oxidación cuando el dato es la fórmula
+  function sumaTxt(n, x, resto, total, q) {
+    return (n > 1 ? n : '') + x + ' + ' + resto + ' = ' + total + ' → ' + x + ' = ' + b(sig(q));
+  }
+  // prefijo y sufijo de un no metal. AFIJO: cómo se escribe; LUGAR: qué lugar ocupa ese número entre los suyos
+  const AFIJO4 = ['hipo-…-oso', '-oso', '-ico', 'per-…-ico'];
+  const LUGAR4 = ['el más bajo', 'el segundo', 'el tercero', 'el más alto'];
+  // del número al nombre: "+6 es el mayor de los dos números del azufre (+4 y +6), y lleva -ico"
+  function ponerSufijo(x, i) {
+    const n = x.ox.length, q = sig(x.ox[i]);
+    if (n === 1) return 'el ' + x.n + ' usa ' + q + ', y lleva -ico';
+    if (n === 2) return q + ' es el ' + (i ? 'mayor' : 'menor') + ' de los dos números del ' + x.n + ' (' + x.nums + '), y lleva ' + (i ? '-ico' : '-oso');
+    return q + ' es ' + LUGAR4[i] + ' de los cuatro números del ' + x.n + ' (' + x.nums + '), y lleva ' + AFIJO4[i];
+  }
+  // del nombre al número: "-ico es el mayor de los dos números del azufre (+4 y +6): +6"
+  function leerSufijo(x, i) {
+    const n = x.ox.length, q = b(sig(x.ox[i]));
+    if (n === 1) return 'el ' + x.n + ' usa ' + q;
+    if (n === 2) return (i ? '-ico' : '-oso') + ' es el ' + (i ? 'mayor' : 'menor') + ' de los dos números del ' + x.n + ' (' + x.nums + '): ' + q;
+    return AFIJO4[i] + ' es ' + LUGAR4[i] + ' de los cuatro números del ' + x.n + ' (' + x.nums + '): ' + q;
+  }
+  const may = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+  const noMetalDe = (a) => NOMETALES.filter((x) => x.s === a.x)[0];
+  const indiceOx = (x, q) => x.ox.indexOf(q);
+
+  // cómo se llega del óxido al ácido (el camino formal de la guía)
+  function formacionAcido(a) {
+    const x = noMetalDe(a);
+    const acido = fHTML([el('H', a.q), el(a.x, a.nx), el('O', a.no)]);
+    if (!x) return '';
+    const o = oxido(a.x, x.n, a.ox), ox = fHTML(o.f), agua = a.agua || 1;
+    if (o.nx === 2) {                                  // X2On: el número de oxidación es impar
+      if (agua === 1) {
+        const bruto = fHTML([el('H', 2), el(a.x, 2), el('O', o.no + 1)]);
+        return ox + ' + H<sub>2</sub>O → ' + bruto + ', y como todo es par se divide por 2: ' + b(acido) + '.';
+      }
+      const moles = (2 * agua) / a.q;                  // moléculas de ácido que salen
+      return ox + ' + ' + agua + ' H<sub>2</sub>O → ' + (moles > 1 ? moles + ' ' : '') + b(acido) + '.';
+    }
+    return ox + ' + ' + (agua > 1 ? agua + ' ' : '') + 'H<sub>2</sub>O → ' + b(acido) + '.';
+  }
+  function chequeoAcido(a, h) {                       // 2(+1) + (+6) + 4(−2) = 0, o = la carga si le faltan H
+    const nh = h === undefined ? a.q : h;
+    const partes = [];
+    if (nh) partes.push(veces(nh, 1));
+    partes.push(veces(a.nx, a.ox), veces(a.no, -2));
+    return partes.join(' + ') + ' = ' + sig(nh - a.q).replace('+', '');
+  }
+  // de dónde viene un oxoanión
+  function origenAnion(a) {
+    const x = noMetalDe(a);
+    const ion = ionDe(partesOxo(a), a.q);
+    if (!x) return 'El ' + a.an + ' es el anión ' + b(ion) + ' (' + ELEM[a.x] + ' con ' + sig(a.ox) + ').';
+    const suf = /ito$/.test(a.an) ? '-ito viene de -oso' : '-ato viene de -ico';
+    return '“' + may(a.an) + '”: ' + suf + '. Es el ácido ' + a.ac + ', ' +
+      fHTML([el('H', a.q), el(a.x, a.nx), el('O', a.no)]) + ' (' + x.n + ' con ' + sig(a.ox) + '), sin ' + (a.q > 1 ? 'sus' : 'su') + ' H<sup>+</sup>: ' + b(ion) + '.';
+  }
+
+  // todos los nombres que se le muestran al final: [[rótulo, [nombres]]]
+  function todosLosNombres(c, nivel) {
+    nivel = nivel === undefined ? 1 : nivel;
+    const cuantos = c.fam === 'sac' ? (c.acido.bi ? 3 : 2) : 1;
+    const hay = { st: c.nom.st.length > 0, tr: c.nom.tr.length > 0 && c.pide.tr <= nivel,
+      si: c.nom.si.length > 0 && c.pide.si <= nivel, iu: c.nom.iu.length > 0 };
+    const solo = Object.keys(hay).filter((l) => hay[l]).length === 1;
+    const filas = [];
+    if (hay.st) filas.push([solo ? 'Nombre' : 'Stock', c.nom.st.slice(0, c.fam === 'per' ? 2 : cuantos)]);
+    if (hay.tr) filas.push([c.amoniaco ? 'Nombre propio' : solo ? 'Nombre' : 'Tradicional', c.nom.tr.slice(0, cuantos)]);
+    if (hay.si) filas.push(['Sistemática', c.nom.si.slice(0, 1)]);
+    if (hay.iu) filas.push(['Con el romano en el anión', c.nom.iu.slice(0, 1)]);
+    return filas;
+  }
+
+  // pasos de la resolución, en el sentido del ejercicio. `lab` es la nomenclatura con la que se explica.
+  function resolver(ej) {
+    const c = ej.c, pasos = [];
+    const p = (t) => { if (t) pasos.push(t); };
+    const NF = ej.dir === 'nf';
+    const lab = ej.guia || ej.lab || c.comun;
+
+    if (c.fam === 'oxb' || c.fam === 'oxa') {
+      const metal = c.fam === 'oxb', x = metal ? c.cat.m : c.nm, s = x.s, q = c.q;
+      if (NF) {
+        if (lab === 'si') {
+          p('En la sistemática los prefijos cuentan los átomos: ' + OXIDO[c.no] + (c.no > 1 ? ' son ' : ' es ') + c.no + ' O y ' +
+            (c.nx > 1 ? 'di' + x.n + ' son 2 ' + s : x.n + ', sin prefijo, es 1 ' + s) + '. Se escribe directo: ' + F(c) + '.');
+        } else {
+          p('“Óxido”: un elemento con oxígeno, y el O vale −2.');
+          if (metal) p(cargaPorNombre(c, lab));
+          else if (lab === 'tr') p('“' + may(x.ad[c.i]) + '”: ' + leerSufijo(x, c.i) + '.');
+          else p('El (' + ROM[q] + ') es el número de oxidación del ' + x.n + ': ' + b(sig(q)) + '.');
+          p(cruceTxt(q, 2, conSub(s, 2) + conSub('O', q), F(c), true));
+        }
+        p('Chequeo: ' + chequeoIones(c) + '.');
+      } else {
+        p((metal ? 'Metal' : 'No metal') + ' con oxígeno: es ' + fam(c).art + ' ' + b(fam(c).n) + '. El O vale −2.');
+        p('Número de oxidación del ' + x.n + ': ' + sumaTxt(c.nx, 'x', veces(c.no, -2), '0', q) + '.');
+        if (lab === 'si') {
+          p('Sistemática: los prefijos cuentan los átomos tal como están escritos (' + c.no + ' O y ' + (c.nx > 1 ? '2 ' + s : '1 ' + s + ', que no lleva prefijo') + '): ' + b(c.nom.si[0]) + '.');
+        } else if (metal) nombrarConCation(c, lab, p);
+        else if (lab === 'tr') p('Tradicional: ' + ponerSufijo(x, c.i) + ': ' + b(c.nom.tr[0]) + '. También se le dice anhídrido ' + x.ad[c.i] + '.');
+        else p('Stock: el romano es ese número: ' + b(c.nom.st[0]) + '.' + (x.romOpc ? ' Como el silicio usa siempre +4, también vale sin el romano.' : ''));
+      }
+    } else if (c.fam === 'per') {
+      const d = c.per, cuantos = d.q === 1 ? 2 : 1;
+      if (NF) {
+        p('“Peróxido”: el oxígeno vale −1 y va de a dos, como el grupo O<sub>2</sub><sup>2-</sup>.');
+        p(d.q === 1 ? 'El ' + d.n + ' vale +1: hacen falta dos para compensar el −2 del grupo → ' + F(c) + '.'
+          : 'El ' + d.n + ' vale +2 y compensa justo el −2 del grupo → ' + F(c) + '.');
+        p('No se simplifica: el 2 del oxígeno es del grupo. Chequeo: ' + veces(cuantos, d.q) + ' + 2(−1) = 0.');
+      } else {
+        p('Parece un óxido, pero hay que hacer la suma. ' + (d.s === 'H' ? 'El H vale +1' : 'El ' + d.n + ' sólo tiene ' + sig(d.q)) + ': ' +
+          veces(cuantos, d.q) + ' + 2x = 0 → x = ' + b('−1') + '.');
+        p('Oxígeno con −1: es un ' + b('peróxido') + ', no un óxido → ' + b(c.nom.st[0]) + '. No lleva romano.');
+      }
+    } else if (c.fam === 'hid' || c.fam === 'hme') {
+      const cat = c.cat, m = cat.m, esH = c.fam === 'hme';
+      const an = esH ? 'H<sup>-</sup>' : 'OH<sup>-</sup>';
+      if (NF) {
+        if (lab === 'si') {
+          p('En la sistemática el prefijo cuenta los ' + (esH ? 'hidrógenos' : 'grupos OH') + ': ' + (c.q > 1 ? PRE[c.q] + ' son ' + c.q : 'sin prefijo es uno') + ' → ' + F(c) + '.');
+        } else {
+          p(esH ? '“Hidruro” de un metal: el hidrógeno vale −1 (' + an + ').' : '“Hidróxido”: un metal con el grupo ' + an + ', que vale −1.');
+          p(cargaPorNombre(c, lab));
+          p((c.q > 1 ? 'Hacen falta ' + c.q + ' ' + an + ' para compensar el ' + sig(c.q) : 'Alcanza con uno de cada uno') + ' → ' + F(c) +
+            (!esH && c.q > 1 ? ', con paréntesis porque el grupo OH se repite.' : '.'));
+        }
+        p('Chequeo: ' + chequeoIones(c) + '.');
+      } else {
+        p(esH ? 'Metal con hidrógeno: es un ' + b('hidruro metálico') + ', y acá el H vale −1.'
+          : 'Metal con el grupo OH: es un ' + b('hidróxido') + '. Cada OH<sup>-</sup> vale −1.');
+        p('Número de oxidación del ' + m.n + ': ' + sumaTxt(1, 'x', veces(c.q, -1), '0', c.q) + '.');
+        nombrarConCation(c, lab, p);
+      }
+    } else if (c.amoniaco) {
+      if (NF) {
+        p(lab === 'si' ? 'Trihidruro: tri son 3 H. El nitrógeno se escribe primero → ' + F(c) + '.'
+          : 'Amoníaco es el nombre propio del ' + b(fHTML(c.f)) + ' (N con −3 y H con +1). Hay que saberlo de memoria.');
+        p('Chequeo: (−3) + 3(+1) = 0.');
+      } else {
+        p('No metal con hidrógeno: es un ' + b('hidruro no metálico') + '. x + 3(+1) = 0 → el N vale −3.');
+        p('Tiene nombre propio: ' + b('amoníaco') + '. No forma un hidrácido: en agua da una solución básica.');
+        if (lab === 'si') p('En la sistemática, tri son 3 H: ' + b(c.nom.si[0]) + '.');
+      }
+    } else if (c.fam === 'hnm' || c.fam === 'hac') {
+      const a = c.an, gas = c.fam === 'hnm';
+      if (NF) {
+        p(gas ? '“' + may(a.uro) + ' de hidrógeno”: el ' + ELEM[a.s] + ' con ' + sig(-a.q) + ' y el H con +1.'
+          : '“Ácido ' + a.hid + '”: la terminación -hídrico avisa que no tiene oxígeno. Es el ' + a.uro + ' de hidrógeno disuelto en agua.');
+        p((a.q > 1 ? 'Hacen falta ' + a.q + ' H' : 'Alcanza con un H') + ' → ' + b(fHTML(c.f)) + '. ' +
+          (gas ? 'Como sustancia pura es un gas: ' + F(c) + '.' : 'Como ácido va con (ac): ' + F(c) + '.'));
+      } else {
+        p('Hidrógeno con un no metal, sin oxígeno. Lo que decide el nombre es el estado.');
+        p(gas ? '(g): es la sustancia pura, un ' + b('hidruro no metálico') + ' → ' + b(c.nom.st[0]) + '.'
+          : '(ac): está disuelto en agua, es un ' + b('hidrácido') + ' → ' + b(c.nom.tr[0]) + '.');
+        p(gas ? 'Disuelto en agua, el mismo compuesto se llama ácido ' + a.hid + '.' : 'Puro y gaseoso, el mismo compuesto se llama ' + a.uro + ' de hidrógeno.');
+      }
+    } else if (c.fam === 'sbi') {
+      const cat = c.cat, a = c.an, ian = a.s + carga(a.q, '-');
+      if (NF) {
+        if (lab === 'si') {
+          p('En la sistemática los prefijos cuentan los átomos: ' + (c.na > 1 ? PRE[c.na] + a.uro + ' son ' + c.na : a.uro + ', sin prefijo, es 1') + ' ' + a.s +
+            (c.nc > 1 ? ' y di' + cat.m.n + ' son 2 ' + cat.m.s : '') + ' → ' + F(c) + '.');
+        } else {
+          p('“' + may(a.uro) + '”: termina en -uro, así que no tiene oxígeno. Es el anión ' + b(ian) + '.');
+          p(cargaPorNombre(c, lab));
+          p(cruceTxt(cat.q, a.q, crudoHTML(cat, a.s, a.q), F(c)));
+        }
+        p('Chequeo: ' + chequeoIones(c) + '.');
+      } else {
+        p((cat.m.poli ? 'El amonio (que ocupa el lugar del metal)' : 'Metal') + ' con un no metal, sin oxígeno: es una ' + b('sal binaria') + '. El anión es ' + ian + ', ' + b(a.uro) + '.');
+        if (cat.m.poli) p('El catión es el amonio, ' + ionCat(cat) + ' → ' + b(c.nom.st[0]) + '.');
+        else {
+          p('Número de oxidación del ' + cat.m.n + ': ' + sumaTxt(c.nc, 'x', veces(c.na, -a.q), '0', cat.q) + '.');
+          nombrarConCation(c, lab, p);
+        }
+      }
+    } else if (c.fam === 'bnm') {
+      const d = c.bn, n2 = c.f[1].n;
+      if (NF) {
+        p(lab === 'si' ? 'Dos no metales, en sistemática: el prefijo cuenta los átomos del que termina en -uro (' + PRE[n2] + ' son ' + n2 + ') → ' + F(c) + '.'
+          : 'El (' + ROM[d.qa] + ') es el número de oxidación del ' + ELEM[d.a] + ', y el ' + ELEM[d.b] + ' usa ' + sig(-d.qb) + ' → ' + F(c) + '.');
+        p('Chequeo: (' + sig(d.qa) + ') + ' + veces(n2, -d.qb) + ' = 0.');
+      } else {
+        p('Dos no metales: se escribe primero el menos electronegativo (' + d.a + ') y el otro termina en -uro.');
+        p(lab === 'st' ? 'Stock: x + ' + veces(n2, -d.qb) + ' = 0 → x = ' + sig(d.qa) + ' → ' + b(c.nom.st[0]) + '.'
+          : 'Sistemática: el prefijo cuenta los átomos → ' + b(c.nom.si[0]) + '. No tiene nombre tradicional.');
+      }
+    } else if (c.fam === 'oxo') {
+      const a = c.oxo, x = noMetalDe(a), i = indiceOx(x, a.ox);
+      if (NF) {
+        if (lab === 'iu') p('En este estilo todos los nombres terminan en -ato y el romano es el número de oxidación del ' + x.n + ': ' + b(sig(a.ox)) + '. Es el ácido ' + a.ac + '.');
+        else p('“' + may(c.nom.tr[0]) + '”: ' + leerSufijo(x, i) + '.' + (prefijoAgua(a) ? ' ' + prefijoAgua(a) : ''));
+        p('Sale de su óxido con agua: ' + formacionAcido(a));
+        p('Chequeo: ' + chequeoAcido(a) + '.');
+      } else {
+        p('Hidrógeno, un no metal y oxígeno: es un ' + b('oxoácido') + '.');
+        p('Número de oxidación del ' + x.n + ': ' + veces(a.q, 1) + ' + ' + (a.nx > 1 ? a.nx : '') + 'x + ' + veces(a.no, -2) + ' = 0 → x = ' + b(sig(a.ox)) + '.');
+        p(may(ponerSufijo(x, i)) + ': ' + b(c.nom.tr[0]) + '.' + (prefijoAgua(a) ? ' ' + prefijoAgua(a) : ''));
+      }
+    } else if (c.fam === 'oxs') {
+      const cat = c.cat, a = c.oxo, ion = ionDe(partesOxo(a), a.q), anTxt = fHTML(partesOxo(a));
+      if (NF) {
+        if (lab === 'iu') p('En este estilo todos los aniones terminan en -ato y el romano es el número de oxidación del ' + ELEM[a.x] + ': ' + sig(a.ox) + '. Es el ' + b(a.an) + ', ' + ion + '.');
+        else p(origenAnion(a));
+        p(cargaPorNombre(c, lab === 'iu' ? 'st' : lab));
+        p(cruceTxt(cat.q, a.q, crudoHTML(cat, anTxt, a.q, true), F(c)) + (c.na > 1 ? ' El paréntesis va porque el anión se repite.' : ''));
+        p('Chequeo: ' + chequeoIones(c) + '.');
+      } else {
+        p('Un catión y un anión con oxígeno: es una ' + b('oxosal') + '. El anión es ' + ion + ', ' + b(a.an) +
+          (noMetalDe(a) ? ' (del ácido ' + a.ac + ': ' + ELEM[a.x] + ' con ' + sig(a.ox) + ').' : ' (' + ELEM[a.x] + ' con ' + sig(a.ox) + ').'));
+        if (cat.m.poli) p('El catión es el amonio, ' + ionCat(cat) + ' → ' + b(c.nom.st[0]) + '.');
+        else {
+          p('Número de oxidación del ' + cat.m.n + ': ' + sumaTxt(c.nc, 'x', veces(c.na, -a.q), '0', cat.q) + '.');
+          nombrarConCation(c, lab, p);
+        }
+      }
+    } else if (c.fam === 'sac') {
+      const cat = c.cat, a = c.acido, base = c.oxo;
+      const partesAn = [el('H', a.h)].concat(base ? partesOxo(base) : [el('S', 1)]);
+      const ion = ionDe(partesAn, a.q), anTxt = fHTML(partesAn);
+      const neutro = base ? base.an : 'sulfuro';
+      const ionNeutro = base ? ionDe(partesOxo(base), base.q) : 'S' + carga(2, '-');
+      const queda = a.h === 2 ? 'conserva dos H' : 'conserva un H';
+      const anion = c.nom.st[0].split(' ')[0];
+      if (NF) {
+        const m = normNombre(ej.mostrado || '').k;
+        p((/^bi/.test(m) ? '“Bi-” es la forma vieja de decir que el anión conserva un H. '
+          : / (di|mono)?acido /.test(m) ? '“' + (a.h === 2 ? 'Diácido' : 'Ácido') + '” acá quiere decir que el anión ' + queda + '. '
+            : '“' + may(hidrogeno(a.h)) + '-” dice cuántos H conserva el anión. ') +
+          'Es el ' + neutro + ', ' + ionNeutro + ', que ' + queda + ' → ' + b(ion) + '. Cada H que conserva le saca una carga negativa.');
+        p(cargaPorNombre(c, lab === 'iu' ? 'st' : lab));
+        p(cruceTxt(cat.q, a.q, crudoHTML(cat, anTxt, a.q, true), F(c)) + (c.na > 1 ? ' El paréntesis va porque el anión se repite.' : ''));
+        p('Chequeo: ' + chequeoIones(c) + '.');
+      } else {
+        p('Un catión y un anión que conserva hidrógeno: es una ' + b('sal ácida') + '. El anión es ' + ion + ': un ' + neutro + ' (' + ionNeutro + ') que ' + queda + '.');
+        p('Ese anión se llama ' + b(anion) + ': el prefijo cuenta los H que le quedan.');
+        if (cat.m.poli) p('El catión es el amonio, ' + ionCat(cat) + ' → ' + b(c.nom.st[0]) + '.');
+        else {
+          p('Número de oxidación del ' + cat.m.n + ': ' + sumaTxt(c.nc, 'x', veces(c.na, -a.q), '0', cat.q) + '.');
+          nombrarConCation(c, lab, p);
+        }
+      }
+    }
+    return pasos.map(genero);
+  }
+  function prefijoAgua(a) {
+    if (a.id === 'PO4') return '“Fosfórico” a secas es el orto: el óxido con 3 moléculas de agua.';
+    if (a.id === 'PO3m') return 'Meta- es el óxido con 1 molécula de agua.';
+    if (a.id === 'P2O7') return 'Piro- es el óxido con 2 moléculas de agua.';
+    if (a.id === 'PO3f') return 'Como el fosfórico, se arma con 3 moléculas de agua.';
+    if (a.id === 'SiO4') return 'Orto- es el óxido con 2 moléculas de agua (con 1 sale el metasilícico).';
+    return '';
+  }
+  // último paso de fórmula a nombre: lo que va antes del catión ya está; falta el catión, con romano o sin él
+  function nombrarConCation(c, lab, p) {
+    const cat = c.cat, m = cat.m;
+    if (lab === 'tr' && cat.adj) {
+      p('Tradicional: ' + sig(cat.q) + ' es el ' + cat.orden + ' ' + (m.deCat || 'de los números del ' + m.n + ' (' + m.nums + ')') + ', y lleva ' + (cat.orden === 'menor' ? '-oso' : '-ico') + ': ' + b(c.nom.tr[0]) + '.');
+    } else if (lab === 'si' && c.nom.si.length) {
+      p('Sistemática: los prefijos cuentan los átomos tal como están escritos, y no lleva romano: ' + b(c.nom.si[0]) + '.');
+    } else {
+      p('El ' + m.n + ' ' + numsDe(m) + ', así que ' + (cat.multi ? 'lleva romano' : 'no lleva romano') + ': ' + b(c.nom.st[0]) + '.');
+    }
+  }
+
+  // ---------------------------------------------------------- pistas (sin dar la respuesta)
+  function pista(ej) {
+    const c = ej.c, NF = ej.dir === 'nf', lab = ej.lab;
+    if (NF) {
+      if (lab === 'si') return 'En la sistemática cada prefijo dice cuántos átomos hay de ese elemento: mono 1, di 2, tri 3, tetra 4, penta 5, hexa 6, hepta 7.';
+      switch (c.fam) {
+        case 'oxb': case 'oxa': return 'Es un óxido: el oxígeno vale −2. Sacá del nombre el número de oxidación del otro elemento y cruzá las cargas.';
+        case 'per': return 'En un peróxido el oxígeno vale −1 y va de a dos (O<sub>2</sub><sup>2-</sup>). No se simplifica.';
+        case 'hid': return 'El hidróxido es el grupo OH<sup>-</sup>. Hacen falta tantos como la carga del metal.';
+        case 'hme': return 'En un hidruro metálico el H vale −1. Hacen falta tantos como la carga del metal.';
+        case 'hnm': return c.amoniaco ? 'Es un nombre propio: nitrógeno con −3 e hidrógeno con +1.' : 'El H vale +1 y el no metal usa su número negativo.';
+        case 'hac': return 'Los ácidos terminados en -hídrico no tienen oxígeno: H más el no metal, en solución acuosa.';
+        case 'sbi': return 'La terminación -uro es de un anión sin oxígeno. Escribí el catión y el anión con sus cargas y cruzalas.';
+        case 'bnm': return 'El romano es el número de oxidación del primer elemento; el que termina en -uro usa su número negativo.';
+        case 'oxo': return 'Buscá el número de oxidación del no metal por el sufijo (-oso el menor, -ico el mayor), armá su óxido y sumale agua.';
+        case 'oxs': return '-ito viene de -oso y -ato viene de -ico. Escribí el anión con su carga, el catión con la suya, y cruzalas.';
+        case 'sac': return 'El anión conserva hidrógeno, y cada H que conserva le saca una carga negativa. Después cruzá con el catión.';
+      }
+    }
+    switch (c.fam) {
+      case 'oxb': case 'oxa': return lab === 'si' ? 'Contá los átomos como están escritos y ponele a cada uno su prefijo.' : 'El O vale −2. Con la suma igual a cero sacás el número de oxidación del otro elemento.';
+      case 'per': return 'Hacé la suma con el número del metal (o del H): fijate cuánto le queda al oxígeno.';
+      case 'hid': case 'hme': return 'Cada ' + (c.fam === 'hid' ? 'OH' : 'H') + ' vale −1. Mirá si el metal tiene un solo número de oxidación o más de uno.';
+      case 'hnm': case 'hac': return c.amoniaco ? 'Este compuesto tiene nombre propio, y hay que saberlo de memoria.' : 'Mirá el estado: (g) y (ac) llevan nombres distintos.';
+      case 'sbi': return 'Sin oxígeno, el anión termina en -uro. El número del metal sale de la suma.';
+      case 'bnm': return 'Son dos no metales: el segundo termina en -uro.';
+      case 'oxo': return 'Calculá el número de oxidación del no metal: 1 por cada H, −2 por cada O, y la suma da cero.';
+      case 'oxs': return 'Separá el catión del anión. El anión termina en -ito o -ato, y el número del metal sale de la suma.';
+      case 'sac': return 'El anión conserva hidrógeno: nombralo con hidrogeno- adelante, y después el catión.';
+    }
+    return '';
+  }
+
+  // ---------------------------------------------------------- corrector de nombres
+  // Devuelve {v: 'ok' | 'casi' | 'mal' | 'vacio', msg, nota}. 'casi' no cuenta como error: se vuelve a escribir.
+  const ES = (c) => F(c) + (c.fam === 'ext' ? '' : ', ' + fam(c).art + ' ' + fam(c).n);
+  const conH = (c) => c.fam === 'hnm' || c.fam === 'hac';
+  const mismoCation = (a, o) => !!(a.cat && o.cat && a.cat.m === o.cat.m);
+  const mismoAnion = (a, o) => a.an === o.an && a.oxo === o.oxo && a.acido === o.acido;
+  // dos aniones (o dos ácidos) del mismo elemento con el mismo número de oxidación: lo que cambia es otra cosa
+  function mismoNumero(a) {
+    return 'En los dos el ' + ELEM[a.x] + ' tiene ' + sig(a.ox) + ': lo que cambia es ' +
+      (a.x === 'Cr' ? 'cuántos átomos de cromo tiene el anión (di- son dos).' : 'el prefijo (meta, piro u orto), que dice con cuánta agua se armó el ácido.');
+  }
+
+  // qué mirar cuando se escribió el nombre de otro compuesto
+  function compararNombres(obj, otro) {
+    if (otro.clave === obj.clave && otro.est !== obj.est) return 'La fórmula es la misma, pero el estado cambia el nombre: fijate si dice (g) o (ac).';
+    if (obj.fam === 'per' && (otro.fam === 'oxb' || otro.clave === 'H2O')) return 'Hacé la suma: con el número de oxidación del ' + obj.per.n + ', ¿cuánto le queda a cada oxígeno?';
+    if (otro.fam === 'ext') return '';
+    if (otro.fam === 'per' && (obj.fam === 'oxb' || obj.fam === 'oxa')) return 'En un peróxido el oxígeno vale −1. Acá, hacé la suma y fijate cuánto vale.';
+    if (conH(obj) && conH(otro)) return obj.an && otro.an ? 'Es el mismo tipo de compuesto, pero con otro no metal: mirá bien el símbolo.' : '';
+    const mc = mismoCation(obj, otro), ma = mismoAnion(obj, otro);
+    if (mc && obj.cat.q !== otro.cat.q && otro.fam === obj.fam && ma) {
+      return 'Ahí el ' + obj.cat.m.n + ' tiene ' + sig(otro.cat.q) + '. Calculá su número de oxidación en esta fórmula con la suma igual a cero.';
+    }
+    if (obj.fam === 'oxa' && otro.fam === 'oxa' && obj.nm === otro.nm) return 'Ahí el ' + obj.nm.n + ' tiene ' + sig(otro.q) + '. Calculá cuánto vale acá con la suma igual a cero.';
+    if (obj.oxo && otro.oxo && obj.oxo !== otro.oxo && obj.oxo.x === otro.oxo.x && otro.fam === obj.fam) {
+      if (obj.oxo.ox === otro.oxo.ox) return mismoNumero(obj.oxo);
+      return 'El ' + ELEM[obj.oxo.x] + ' no tiene el mismo número de oxidación en los dos: contá los oxígenos y hacé la suma.';
+    }
+    if (obj.fam === 'sac' && otro.fam === 'oxs' && obj.oxo === otro.oxo) return 'Es la sal neutra. Acá el anión conserva hidrógeno.';
+    if (obj.fam === 'oxs' && otro.fam === 'sac' && obj.oxo === otro.oxo) return 'Es una sal ácida, con hidrógeno en el anión. Acá el anión no tiene H.';
+    if (obj.fam === 'sac' && otro.fam === 'sac' && mc && obj.cat.q === otro.cat.q) return 'Fijate cuántos H conserva el anión y de qué ácido viene.';
+    if (otro.fam !== obj.fam) return 'Lo que tenés que nombrar es ' + fam(obj).art + ' ' + fam(obj).n + '.';
+    if (obj.cat && otro.cat && !mc && ma) return 'El anión es ese, pero el catión no: mirá bien el símbolo del metal.';
+    if (mc && obj.cat.q === otro.cat.q && !ma) return 'El catión es ese, pero el anión no: miralo átomo por átomo.';
+    return '';
+  }
+
+  function corregirNombre(ej, texto) {
+    const obj = ej.c, lab = ej.lab;
+    const crudo = String(texto || '').trim();
+    if (crudo.length > 120) return { v: 'casi', msg: 'Eso es demasiado largo para ser el nombre de un compuesto.' };
+    const n = normNombre(crudo), k = n.k;
+    if (!k) return { v: 'vacio' };
+    const hits = INDICE.get(k) || [];
+    const propios = hits.filter((h) => h.c === obj);
+    if (propios.length) {
+      if (n.marcas.estado && obj.est && n.marcas.estado !== obj.est && !obj.amoniaco) {
+        return { v: 'mal', msg: 'El nombre va con otro estado: fijate que acá la fórmula dice (' + obj.est + '), y el estado cambia el nombre.' };
+      }
+      if (n.marcas.arabigo) return { v: 'casi', msg: 'El número de oxidación se escribe en romanos y entre paréntesis, por ejemplo (III).' };
+      if (n.marcas.sinParentesis) return { v: 'casi', msg: 'Vas bien, pero el romano va entre paréntesis, por ejemplo (III).' };
+      const labs = propios.map((h) => h.lab);
+      if (!lab || labs.indexOf(lab) >= 0 || (lab === 'st' && labs.indexOf('iu') >= 0)) {
+        return { v: 'ok', lab: labs.indexOf(lab) >= 0 ? lab : labs[0] };
+      }
+      const cual = { st: 'la de Stock', tr: 'la tradicional', si: 'la sistemática', iu: 'la que lleva el romano en el anión' }[labs[0]];
+      return { v: 'casi', msg: 'Ese nombre está bien, pero es ' + cual + '. Acá se pide la ' + ROTULO[lab] + '.' };
+    }
+    const otros = hits.filter((h) => h.c !== obj);
+    if (otros.length) {
+      const o = otros[0].c, extra = compararNombres(obj, o);
+      return { v: 'mal', msg: 'Ese es el nombre de ' + ES(o) + '.' + (extra ? ' ' + extra : '') };
+    }
+    // ¿escribió una fórmula donde va el nombre?
+    if (!/\s/.test(crudo) && /[A-Z]/.test(crudo) && (/[0-9()]/.test(crudo) || crudo.length <= 5)) {
+      const lf = leerFormula(limpiarFormula(crudo).s);
+      if (!lf.error && !lf.mayusculas && (!lf.sinCaja || lf.literal)) return { v: 'casi', msg: 'Eso parece una fórmula. Acá se pide el nombre.' };
+    }
+    const cerca = casiNombre(obj, lab, k, n.marcas);
+    if (cerca) return cerca;
+    // errores de tipeo: lo más parecido entre todos los nombres que existen
+    let mejor = 3, deObj = false, deOtro = null;
+    INDICE.forEach((hs, clv) => {
+      const d = tipeo(k, clv);
+      if (d > 2 || d > mejor) return;
+      if (d < mejor) { mejor = d; deObj = false; deOtro = null; }
+      hs.forEach((h) => { if (h.c === obj) deObj = true; else if (!deOtro) deOtro = { c: h.c, n: h.c.nom[h.lab][h.i] }; });
+    });
+    if (mejor <= 2) {
+      if (deObj && !deOtro) return { v: 'casi', msg: 'Casi: revisá cómo está escrito, hay alguna letra de más, de menos o cambiada.' };
+      if (deObj && deOtro) return { v: 'casi', msg: 'Revisá cómo está escrito: por una letra puede ser el nombre de otro compuesto (por ejemplo -ito y -ato, u -oso e -ico).' };
+      const extra = compararNombres(obj, deOtro.c);
+      return { v: 'mal', msg: 'No reconozco ese nombre. Se parece a “' + deOtro.n + '”, que es ' + ES(deOtro.c) + '.' + (extra ? ' ' + extra : '') };
+    }
+    return { v: 'mal', msg: 'No reconozco ese nombre. ' + pista(ej) };
+  }
+
+  // errores frecuentes que no llegan a ser el nombre de otro compuesto
+  function casiNombre(obj, lab, k, marcas) {
+    const sinRom = (x) => x.replace(ROMS, '');
+    const romDe = (x) => (x.match(ROMS) || [''])[0];
+    const tieneRom = sinRom(k) !== k;
+    const cat = obj.cat;
+    const claves = (l) => obj.nom[l].map((x) => normNombre(x).k);
+    const st = claves('st'), iu = claves('iu'), si = claves('si');
+    const todas = st.concat(claves('tr'), si, iu);
+    // sistemática con romano
+    if (tieneRom && si.indexOf(sinRom(k)) >= 0 && st.indexOf(sinRom(k)) < 0) {
+      return { v: 'mal', msg: 'En la sistemática los prefijos ya dicen cuántos átomos hay: no se le agrega el romano.' };
+    }
+    // el mismo nombre con los romanos distintos: falta, sobra o está mal alguno
+    const mSt = st.filter((x) => sinRom(x) === sinRom(k))[0], mIu = iu.filter((x) => sinRom(x) === sinRom(k))[0];
+    if (mSt || mIu) {
+      const pk = k.split(' '), ps = (mSt || mIu).split(' '), pi = mIu ? mIu.split(' ') : null;
+      const ultimo = pk.length - 1;
+      for (let i = 0; i < ultimo; i++) {                    // el anión: el romano es optativo, pero si está tiene que ser el suyo
+        const rk = romDe(pk[i]);
+        if (rk && (!pi || rk !== romDe(pi[i]))) {
+          return { v: 'mal', msg: obj.oxo && pi ? 'Revisá el romano del anión: es el número de oxidación del ' + ELEM[obj.oxo.x] + ', y sale de la suma igual a cero.'
+            : 'Ahí no va un romano: el romano acompaña al elemento que puede tener más de un número de oxidación.' };
+        }
+      }
+      const rk = romDe(pk[ultimo]), rs = romDe(ps[ultimo]);
+      if (!rk && rs) {
+        if (cat && cat.multi) return { v: 'mal', msg: 'Falta el número romano: el ' + cat.m.n + ' ' + numsDe(cat.m) + ' y sin el romano no se sabe cuál es.' };
+        return { v: 'mal', msg: 'Falta el número romano: ese no metal forma más de un compuesto de este tipo y hay que decir cuál es.' };
+      }
+      if (rk && !rs) {
+        if (obj.fam === 'per') return { v: 'mal', msg: 'Los peróxidos no llevan romano.' };
+        if (cat && !cat.multi) return { v: 'mal', msg: 'El ' + cat.m.n + ' ' + numsDe(cat.m) + ': no lleva romano. El romano se pone sólo cuando hay que distinguir entre dos compuestos.' };
+        return { v: 'mal', msg: 'Ese nombre no lleva romano.' };
+      }
+      if (rk && rs && rk !== rs) {
+        const quien = cat ? 'del ' + cat.m.n : obj.nm ? 'del ' + obj.nm.n : 'del primer elemento';
+        return { v: 'mal', msg: 'Revisá el romano: es el número de oxidación ' + quien + ', no un subíndice ni la carga del anión. Sale de la suma igual a cero.' };
+      }
+    }
+    // el ácido sin la palabra "ácido"
+    if ((obj.fam === 'oxo' || obj.fam === 'hac') && todas.indexOf('acido ' + k) >= 0) {
+      return { v: 'casi', msg: 'Falta la palabra “ácido” adelante.' };
+    }
+    // sistemática con algún prefijo de menos, de más o cambiado
+    const sinPref = (x) => x.replace(/\b(?:mono|mon|di|tri|tetra|tetr|penta|pent|hexa|hepta|hept)(?=oxido|hidroxido|hidruro|cloruro|bromuro|ioduro|fluoruro|sulfuro)/g, '')
+      .replace(/\bde (?:mono|di|tri|tetra)(?=[a-z]{3})/g, 'de ');
+    if (!tieneRom && si.length && k.indexOf('oxido de') !== 0 && sinPref(k) !== k && sinPref(k) === sinPref(si[0])) {
+      return { v: 'mal', msg: 'Revisá los prefijos: cada uno tiene que decir cuántos átomos hay de ese elemento, tal como están escritos en la fórmula.' };
+    }
+    // el óxido sin su prefijo, en la sistemática
+    if (lab === 'si' && (obj.fam === 'oxb' || obj.fam === 'oxa') && si.some((x) => x.replace(/^[a-z]+oxido/, 'oxido') === k)) {
+      return { v: 'casi', msg: 'En la sistemática el óxido también lleva su prefijo: mon-, di-, tri-, pent-, hept-.' };
+    }
+    // "de" + adjetivo
+    if (cat && cat.adj && k.indexOf('de ' + normNombre(cat.adj).k) >= 0) {
+      return { v: 'casi', msg: 'Con el adjetivo en -oso o -ico no va “de”: se dice, por ejemplo, “óxido férrico”.' };
+    }
+    // el mismo nombre con otra terminación u otro prefijo (fosfito por fosfato, hipoclorato por hipoclorito)
+    const pal = k.split(' ');
+    for (let i = 0; i < pal.length; i++) {
+      const base = sinRom(pal[i]), rom = pal[i].slice(base.length), fin = base.slice(-3);
+      if (['ato', 'ito', 'oso', 'ico'].indexOf(fin) < 0) continue;
+      const otra = { ato: 'ito', ito: 'ato', oso: 'ico', ico: 'oso' }[fin];
+      const cambios = [[base.slice(0, -3) + otra, 'fin']];
+      ['hipo', 'per'].forEach((pf) => cambios.push([base.indexOf(pf) === 0 ? base.slice(pf.length) : pf + base, 'pre']));
+      for (let j = 0; j < cambios.length; j++) {
+        const cand = pal.slice(0, i).concat([cambios[j][0] + rom], pal.slice(i + 1)).join(' ');
+        if (todas.indexOf(cand) < 0) continue;
+        return { v: 'mal', msg: cambios[j][1] === 'fin'
+          ? 'Revisá la terminación: -oso e -ito corresponden al número de oxidación menor; -ico y -ato, al mayor.'
+          : 'Revisá el prefijo: hipo- va con el número de oxidación más bajo y per- con el más alto.' };
+      }
+    }
+    if (marcas.arabigo) return { v: 'mal', msg: 'El número de oxidación se escribe en romanos, y además revisá el resto del nombre.' };
+    return null;
+  }
+
+  // ---------------------------------------------------------- corrector de fórmulas
+  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const ERRORES_LECTURA = {
+    caracter: (d) => 'No entiendo el carácter “' + esc(d) + '”. Una fórmula lleva sólo símbolos, números y paréntesis.',
+    numero_inicial: () => 'Una fórmula no empieza con un número: los subíndices van después de cada símbolo.',
+    simbolo: (d) => 'No reconozco “' + esc(d) + '” como símbolos de elementos. Cada símbolo empieza con mayúscula y, si tiene segunda letra, va en minúscula.',
+    anidado: () => 'No hacen falta paréntesis dentro de paréntesis.',
+    parentesis: () => 'Hay un paréntesis que no abre o no cierra.',
+    grupo_vacio: () => 'Hay un paréntesis vacío.',
+    numero: () => 'Revisá los subíndices: hay un número que no puede ser.',
+    numero_suelto: () => 'Hay un número que no está detrás de un símbolo ni de un paréntesis.',
+  };
+  // familias donde no hay iones: se habla de elementos y de números de oxidación, no de cargas
+  const covalente = (c) => ['oxa', 'bnm', 'hnm', 'hac', 'oxo'].indexOf(c.fam) >= 0;
+
+  // ¿la fórmula escrita son los mismos dos iones del objetivo, con otras cantidades? -> {nc, na}
+  function comoIones(f, obj) {
+    const O = obj.f;
+    if (O.length !== 2) return null;
+    const igual = (a, b2) => JSON.stringify(a) === JSON.stringify(b2);
+    const cuerpo = (p) => (p.g ? p.g : [el(p.s, 1)]);                // el ion, una sola vez
+    const cat = cuerpo(O[0]), an = cuerpo(O[1]);
+    // quita del frente de `resto` una copia del ion (como grupo con subíndice, o suelto)
+    const tomar = (resto, ion) => {
+      if (!resto.length) return null;
+      const p = resto[0];
+      if (p.g && igual(p.g, ion)) return { n: p.n, resto: resto.slice(1) };
+      if (ion.length === 1 && !p.g && p.s === ion[0].s) return { n: p.n, resto: resto.slice(1) };
+      if (ion.length > 1 && resto.length >= ion.length && igual(resto.slice(0, ion.length), ion)) return { n: 1, resto: resto.slice(ion.length) };
+      return null;
+    };
+    const a = tomar(f, cat);
+    if (!a) return null;
+    const c2 = tomar(a.resto, an);
+    if (!c2 || c2.resto.length) return null;
+    return { nc: a.n, na: c2.n };
+  }
+  function cargasDe(obj) {
+    if (obj.fam === 'oxb' || obj.fam === 'oxa') return [obj.q, 2];
+    if (obj.fam === 'hid' || obj.fam === 'hme') return [obj.q, 1];
+    if (obj.fam === 'per') return [obj.per.q, 1];
+    if (obj.fam === 'hnm' || obj.fam === 'hac') return obj.an ? [1, obj.an.q] : null;
+    if (obj.fam === 'oxo') return [1, obj.oxo.q];
+    if (obj.fam === 'bnm') return [obj.bn.qa, obj.bn.qb];
+    if (obj.cat) return [obj.cat.q, obj.an ? obj.an.q : obj.acido ? obj.acido.q : obj.oxo.q];
+    return null;
+  }
+
+  // qué mirar cuando se escribió la fórmula de otro compuesto conocido
+  function compararFormulas(ej, otro) {
+    const obj = ej.c, lab = ej.lab;
+    if (obj.fam === 'per' && (otro.fam === 'oxb' || otro.clave === 'H2O')) return 'En el peróxido el oxígeno vale −1 y va de a dos, como grupo O<sub>2</sub><sup>2-</sup>, que no se simplifica.';
+    if (otro.fam === 'ext') return '';
+    if (otro.fam === 'per' && (obj.fam === 'oxb' || obj.fam === 'oxa')) return 'Acá el nombre dice óxido, no peróxido: el oxígeno vale −2.';
+    if (conH(obj) && conH(otro)) return obj.an && otro.an && obj.an !== otro.an ? 'Es el mismo tipo de compuesto, pero con otro no metal: revisá cuál nombra.' : '';
+    const mc = mismoCation(obj, otro), ma = mismoAnion(obj, otro);
+    if (mc && obj.cat.q !== otro.cat.q && otro.fam === obj.fam && ma) {
+      if (lab === 'tr') return 'Mirá el sufijo del metal: -oso es el menor de sus números de oxidación e -ico, el mayor.';
+      if (lab === 'si') return 'Los prefijos del nombre dicen cuántos átomos hay de cada uno.';
+      return 'Mirá el romano del nombre: es el número de oxidación del ' + obj.cat.m.n + '.';
+    }
+    if (obj.fam === 'oxa' && otro.fam === 'oxa' && obj.nm === otro.nm) {
+      return lab === 'si' ? 'Los prefijos del nombre dicen cuántos átomos hay de cada uno.'
+        : lab === 'tr' ? 'Mirá el prefijo y el sufijo: cada uno corresponde a un número de oxidación del ' + obj.nm.n + '.'
+          : 'Mirá el romano del nombre: es el número de oxidación del ' + obj.nm.n + '.';
+    }
+    if (obj.oxo && otro.oxo && obj.oxo !== otro.oxo && obj.oxo.x === otro.oxo.x && otro.fam === obj.fam) {
+      if (obj.oxo.ox === otro.oxo.ox) return mismoNumero(obj.oxo);
+      if (lab === 'iu') return 'Mirá el romano del anión: es el número de oxidación del ' + ELEM[obj.oxo.x] + '.';
+      const prefijo = /^(hipo|per)/.test(obj.oxo.an) || /^(hipo|per)/.test(otro.oxo.an) ? ' y el prefijo' : '';
+      if (obj.fam === 'oxo') return 'Mirá la terminación' + prefijo + ': -oso es el número de oxidación menor del no metal e -ico, el mayor.';
+      return 'Mirá la terminación' + prefijo + ': -ito viene de -oso (el número menor) y -ato de -ico (el mayor).';
+    }
+    if (obj.fam === 'sac' && otro.fam === 'oxs') return 'Es la sal neutra. En una sal ácida el anión conserva hidrógeno.';
+    if (obj.fam === 'oxs' && otro.fam === 'sac') return 'Es una sal ácida. El nombre no dice hidrogeno-, bi- ni ácido: el anión no lleva H.';
+    if (obj.fam === 'sac' && otro.fam === 'sac' && mc && obj.cat.q === otro.cat.q) return 'Revisá cuántos H conserva el anión y cuál es su carga.';
+    if (obj.fam === 'oxs' && otro.fam === 'sbi') return 'La terminación -uro es de un anión sin oxígeno; -ito y -ato llevan oxígeno.';
+    if (obj.fam === 'sbi' && otro.fam === 'oxs') return 'La terminación -uro avisa que el anión no tiene oxígeno.';
+    if (obj.fam === 'hid' && otro.fam === 'oxb') return 'El hidróxido lleva el grupo OH.';
+    if (obj.fam === 'oxb' && otro.fam === 'hid') return 'El óxido es sólo el metal con oxígeno, sin H.';
+    if (obj.fam === 'oxo' && otro.fam === 'oxa') return 'Al ácido se llega sumándole agua a ese óxido.';
+    if (obj.fam === 'oxo' && conH(otro)) return 'Ese compuesto no tiene oxígeno. Los ácidos terminados en -oso y en -ico sí tienen.';
+    if (obj.fam === 'hac' && otro.fam === 'oxo') return 'Los ácidos terminados en -hídrico no tienen oxígeno.';
+    if (otro.fam !== obj.fam) return 'El nombre es de ' + fam(obj).art + ' ' + fam(obj).n + '.';
+    if (obj.cat && otro.cat && !mc && ma) return 'El anión está bien, pero el metal no es ese: revisá su símbolo.';
+    if (mc && obj.cat.q === otro.cat.q && !ma) return 'El catión está bien, pero el anión no es ese.';
+    return '';
+  }
+
+  function corregirFormula(ej, texto) {
+    const obj = ej.c;
+    const crudo = String(texto || '').trim();
+    if (crudo.length > 60) return { v: 'casi', msg: 'Eso es demasiado largo para ser una fórmula.' };
+    const L = limpiarFormula(crudo);
+    if (!L.s) return { v: 'vacio' };
+    // ¿escribió un nombre donde va la fórmula?
+    if (/[a-záéíóúñ]{4,}\s+[a-záéíóúñ]{2,}/i.test(crudo) || INDICE.has(normNombre(crudo).k)) return { v: 'casi', msg: 'Eso parece un nombre. Acá se pide la fórmula.' };
+    const r = leerFormula(L.s);
+    if (r.error) return { v: 'casi', msg: (ERRORES_LECTURA[r.error] || ERRORES_LECTURA.numero)(r.dato) };
+    const cov = covalente(obj);
+    const exacta = r.lecturas.filter((f) => clave(f) === obj.clave)[0];
+    if (exacta) {
+      if (r.mayusculas) return { v: 'casi', msg: 'Los átomos están bien, pero revisá las mayúsculas: cada símbolo empieza con mayúscula y, si tiene segunda letra, va en minúscula.' };
+      if (L.est && obj.est && L.est !== obj.est && !obj.amoniaco) {
+        return { v: 'mal', msg: obj.est === 'ac' ? 'La fórmula está bien, pero el estado no: un ácido terminado en -hídrico es ese compuesto disuelto en agua, y va con (ac).'
+          : 'La fórmula está bien, pero el estado no: ese nombre es el de la sustancia pura, que es un gas, y va con (g).' };
+      }
+      const notas = [];
+      if (r.sinCaja && r.literal !== obj.clave) notas.push('Ojo con las mayúsculas: se escribe ' + fHTML(obj.f) + '. Cada símbolo empieza con mayúscula y, si tiene segunda letra, va en minúscula.');
+      if (exacta.some((p) => p.g && p.n === 1)) notas.push('El paréntesis no hace falta cuando el grupo aparece una sola vez.');
+      if (obj.est && !L.est && !obj.amoniaco) notas.push(obj.est === 'ac' ? 'Como es un ácido en solución, completo se escribe ' + fHTML(obj.f, 'ac') + '.' : 'Como es la sustancia gaseosa, completo se escribe ' + fHTML(obj.f, 'g') + '.');
+      return { v: 'ok', nota: notas.join(' ') };
+    }
+    // la fórmula de otro compuesto conocido
+    for (let i = 0; i < r.lecturas.length; i++) {
+      const otros = POR_FORMULA.get(clave(r.lecturas[i]));
+      if (!otros) continue;
+      const o = otros.filter((x) => x.est === (L.est || obj.est))[0] || otros[0];
+      const doble = otros.length > 1 && !L.est && !conH(obj);
+      const quien = doble ? b(fHTML(o.f)) + ' (' + otros.map((x) => x.nombre).join(' o ') + ')'
+        : b(fHTML(o.f, L.est ? o.est : null)) + ', ' + (o.fam === 'ext' ? '' : 'el ') + o.nombre;
+      const extra = compararFormulas(ej, o);
+      return { v: 'mal', msg: 'Eso es ' + quien + '.' + (extra ? ' ' + extra : '') };
+    }
+    const f = r.lecturas[0];
+    if (r.otras && r.otras.some((x) => clave(x) === obj.clave)) {
+      const mios = Object.keys(atomos(f)).filter((x) => !atomos(obj.f)[x]);
+      return { v: 'casi', msg: 'Revisá mayúsculas y minúsculas' + (mios.length ? ': escrito así, ' + b(mios[0]) + ' es el símbolo del ' + ELEM[mios[0]] + '.' : '.') };
+    }
+    const escrita = clave(f), ob = obj.clave;
+    const top = plana(f), topObj = plana(obj.f);
+    const cargas = cargasDe(obj);
+    // mismos átomos, mal agrupados o en otro orden
+    if (claveAtomos(f) === claveAtomos(obj.f)) {
+      if (escrita.replace(/[()]/g, '') === ob.replace(/[()]/g, '') && /\(/.test(ob)) return { v: 'casi', msg: 'Los átomos están, pero revisá dónde van los paréntesis.' };
+      if (obj.amoniaco) return { v: 'casi', msg: 'Los átomos están bien, pero en el amoníaco se escribe primero el nitrógeno.' };
+      if (top.length === 2 && topObj.length === 2 && clave([top[1], top[0]]) === ob) {
+        return { v: 'casi', msg: 'Los átomos están bien, pero el orden no: primero se escribe ' + (obj.cat ? 'el catión (el metal)' : conH(obj) ? 'el hidrógeno' : 'el elemento menos electronegativo') + ' y después el resto.' };
+      }
+      return { v: 'casi', msg: 'Tiene los átomos justos, pero no están escritos como corresponde. ' + (cov ? 'Revisá el orden de los elementos.' : 'Agrupá cada ion (el poliatómico entre paréntesis si se repite) y poné primero el catión.') };
+    }
+    // el paréntesis: falta, o está pero con el subíndice adentro
+    if (/\(/.test(ob) && escrita === ob.replace(/[()]/g, '')) {
+      const g = obj.f.filter((p) => p.g && p.n > 1)[0];
+      if (/\(/.test(L.s)) return { v: 'mal', msg: 'El paréntesis está, pero el subíndice quedó adentro: tiene que ir afuera, para que afecte a todo el grupo ' + fHTML(g.g) + '.' };
+      return { v: 'mal', msg: 'Falta el paréntesis. Así como está, el subíndice ' + g.n + ' afecta sólo al último átomo y no a todo el grupo ' + fHTML(g.g) + '.' };
+    }
+    // peróxidos: simplificado, o con átomos de más
+    if (obj.fam === 'per' && top.every((p) => !p.g)) {
+      if (clave(top.map((p) => el(p.s, p.n * 2))) === ob) return { v: 'mal', msg: 'En los peróxidos no se simplifica: el oxígeno va de a dos, como grupo O<sub>2</sub><sup>2-</sup>.' };
+      for (let d = 2; d <= 4; d++) {
+        if (top.every((p) => p.n % d === 0) && clave(top.map((p) => el(p.s, p.n / d))) === ob) {
+          return { v: 'mal', msg: 'Sobran átomos: alcanza con un solo grupo O<sub>2</sub><sup>2-</sup>. Dividí los subíndices por ' + d + '.' };
+        }
+      }
+    }
+    // sin simplificar
+    if (obj.fam !== 'per') {
+      const d = f.reduce((a, p) => mcd(a, p.n), 0);
+      if (d > 1 && clave(f.map((p) => (p.g ? gr(p.g, p.n / d) : el(p.s, p.n / d)))) === ob) {
+        return { v: 'mal', msg: (cov ? 'Los elementos' : 'Los iones') + ' están bien, pero los subíndices se simplifican: dividilos por ' + d + '.' };
+      }
+    }
+    // los mismos iones con otras cantidades
+    const io = cargas && comoIones(f, obj);
+    if (io) {
+      const suma = io.nc * cargas[0] - io.na * cargas[1];
+      const cuenta = veces(io.nc, cargas[0]) + ' + ' + veces(io.na, -cargas[1]) + ' = ' + sig(suma);
+      const nc0 = topObj[0].n, na0 = topObj.length === 2 ? topObj[1].n : 1;
+      if (suma !== 0 && io.nc === na0 && io.na === nc0 && nc0 !== na0) {
+        return { v: 'mal', msg: 'El cruce quedó al revés: ' + (cov ? 'el número de cada elemento' : 'la carga de cada ion') + ' pasa a ser el subíndice del otro. Así como está, la suma da ' + cuenta + '.' };
+      }
+      if (suma !== 0) {
+        return { v: 'mal', msg: (cov ? 'Los elementos son esos, pero los números de oxidación no se compensan: ' : 'Los iones son esos, pero las cargas no se compensan: ') + cuenta + '. Tiene que dar cero.' };
+      }
+    }
+    // un solo símbolo cambiado
+    if (top.length === topObj.length) {
+      const dif = [];
+      const aplana = (ps) => { const o = []; ps.forEach((p) => { if (p.g) { o.push('(' + p.n); p.g.forEach((x) => o.push(x)); o.push(')'); } else o.push(p); }); return o; };
+      const A = aplana(top), B = aplana(topObj);
+      if (A.length === B.length) {
+        let igual = true;
+        for (let i = 0; i < A.length; i++) {
+          if (typeof A[i] === 'string' || typeof B[i] === 'string') { if (A[i] !== B[i]) igual = false; continue; }
+          if (A[i].n !== B[i].n) igual = false;
+          if (A[i].s !== B[i].s) dif.push([A[i].s, B[i].s]);
+        }
+        if (igual && dif.length === 1) {
+          const mio = dif[0][0], bueno = dif[0][1];
+          return { v: 'mal', msg: 'Revisá un símbolo: ' + b(mio) + (ELEM[mio] ? ' es ' + ELEM[mio] : ' no es el símbolo de ningún elemento') + '. ¿Cuál es el símbolo del ' + ELEM[bueno] + '?' };
+        }
+      }
+    }
+    const raros = Object.keys(atomos(f)).filter((s) => !ELEM[s]);
+    if (raros.length) return { v: 'mal', msg: 'No conozco el símbolo ' + b(raros[0]) + '. Revisá los símbolos de los elementos.' };
+    if (r.mayusculas) return { v: 'casi', msg: ERRORES_LECTURA.simbolo(L.s) };
+    return { v: 'mal', msg: 'No es esa fórmula. ' + pista(ej) };
+  }
+
+  // "la plata" es el único elemento femenino de la lista
+  const genero = (t) => String(t).replace(/\bdel plata\b/g, 'de la plata').replace(/\bEl plata\b/g, 'La plata').replace(/\bel plata\b/g, 'la plata');
+  function corregir(ej, texto) {
+    let r;
+    try { r = ej.dir === 'fn' ? corregirNombre(ej, texto) : corregirFormula(ej, texto); }
+    catch (e) { r = { v: 'casi', msg: 'No pude leer eso. Revisá cómo está escrito.' }; }
+    if (r.msg) r.msg = genero(r.msg);
+    return r;
+  }
+
+  // lo que se muestra mientras se escribe una fórmula: sólo si se lee de una única manera
+  function vistaFormula(texto) {
+    const L = limpiarFormula(texto);
+    if (!L.s || L.s.length > 60) return '';
+    const r = leerFormula(L.s);
+    if (r.error || r.mayusculas) return '';
+    if (r.sinCaja && (r.literal === null || r.lecturas.length > 1)) return '';
+    return fHTML(r.lecturas[0], L.est);
+  }
+
+  // el enunciado de un ejercicio, para la página
+  function enunciado(ej) {
+    const c = ej.c;
+    if (ej.dir === 'nf') return { pide: 'Escribí la fórmula de', dato: ej.mostrado, esFormula: false };
+    return { pide: ej.lab ? 'Nombrá en la nomenclatura ' + ROTULO[ej.lab] : 'Escribí el nombre de', dato: fHTML(c.f, c.est), esFormula: true };
+  }
+  const respuesta = (ej) => (ej.dir === 'nf' ? fHTML(ej.c.f, ej.c.est) : ej.c.nom[ej.guia || ej.lab || ej.c.comun][0]);
+
+  globalThis.NOMEN_MOTOR = {
+    U: U, GRUPOS: GRUPOS, FAMILIAS: FAMILIAS, INDICE: INDICE, POR_FORMULA: POR_FORMULA, ELEM: ELEM,
+    generar: generar, corregir: corregir, corregirNombre: corregirNombre, corregirFormula: corregirFormula,
+    resolver: resolver, pista: pista, enunciado: enunciado, respuesta: respuesta, todosLosNombres: todosLosNombres,
+    vistaFormula: vistaFormula, normNombre: normNombre, leerFormula: leerFormula, limpiarFormula: limpiarFormula,
+    clave: clave, claveAtomos: claveAtomos, atomos: atomos, fHTML: fHTML, ejercicioFN: ejercicioFN, ejercicioNF: ejercicioNF,
+  };
+})();
+
+// ============================================================
+// NOMENCLATURA INORGÁNICA · generador de ejercicios con corrector (la parte que se ve)
+// Dibuja el generador dentro de cada <div class="nmc" data-nomen>. Las cuentas y los textos de la
+// corrección salen del motor (NOMEN_MOTOR); acá sólo están la pantalla y lo que elige el estudiante.
+// ============================================================
+(function () {
+  'use strict';
+  if (typeof document === 'undefined' || !globalThis.NOMEN_MOTOR) return;
+  const N = globalThis.NOMEN_MOTOR;
+
+  const GUARDADO = 'nomen-opciones';
+  const SENTIDOS = [['fn', 'De la fórmula al nombre'], ['nf', 'Del nombre a la fórmula'], ['mix', 'Los dos']];
+  const NOMEN = [['st', 'Stock'], ['tr', 'Tradicional'], ['si', 'Sistemática']];
+  const TECLAS = { nf: ['(', ')', '2', '3', '4', '5', '6', '7'], fn: ['(I)', '(II)', '(III)', '(IV)', '(V)', '(VI)', '(VII)'] };
+  const lista = (xs) => (xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]);
+  let cuenta = 0;
+
+  function opcionesGuardadas() {
+    const base = { dir: 'mix', grupos: N.GRUPOS.map((g) => g.id), nomen: { st: 1, tr: 1, si: 1 }, nivel: 0 };
+    try {
+      const o = JSON.parse(localStorage.getItem(GUARDADO) || 'null');
+      if (!o) return base;
+      if (SENTIDOS.some((s) => s[0] === o.dir)) base.dir = o.dir;
+      const gs = (o.grupos || []).filter((id) => N.GRUPOS.some((g) => g.id === id));
+      if (gs.length) base.grupos = gs;
+      const nm = {};
+      NOMEN.forEach((x) => { nm[x[0]] = o.nomen && o.nomen[x[0]] ? 1 : 0; });
+      if (nm.st || nm.tr || nm.si) base.nomen = nm;
+      base.nivel = o.nivel === 1 ? 1 : 0;
+    } catch (e) { /* sin lugar donde guardar, se usan las de siempre */ }
+    return base;
+  }
+
+  function armar(raiz) {
+    const id = 'nmc' + (++cuenta);
+    const cfg = opcionesGuardadas();
+    const estado = { ej: null, abierto: false, errores: 0, pista: false, recientes: [] };
+    const puntos = { hechos: 0, primera: 0, grupos: {} };
+
+    const chip = (clase, valor, texto, activo) => '<button type="button" class="nmc-chip ' + clase + '" data-v="' + valor + '" aria-pressed="' + (activo ? 'true' : 'false') + '">' + texto + '</button>';
+    raiz.innerHTML =
+      '<div class="nmc-cab"><div class="nmc-t">Generador de ejercicios</div>' +
+      '<p class="nmc-sub">Sale un compuesto al azar entre más de 600, escribís la respuesta y se corrige sola, con el porqué.</p></div>' +
+      '<div class="nmc-ops"><button type="button" class="nmc-ops-b" aria-expanded="false" aria-controls="' + id + '-ops">' +
+        '<span class="nmc-ops-t">Qué practicar</span><span class="nmc-ops-r"></span></button><div class="nmc-ops-c" id="' + id + '-ops" hidden>' +
+        '<div class="nmc-grupo" role="group" aria-label="Sentido del ejercicio"><div class="nmc-rot">Sentido</div><div class="nmc-chips">' +
+          SENTIDOS.map((s) => chip('nmc-dir', s[0], s[1], cfg.dir === s[0])).join('') + '</div></div>' +
+        '<div class="nmc-grupo" role="group" aria-label="Familias de compuestos"><div class="nmc-rot">Familias</div><div class="nmc-chips">' +
+          N.GRUPOS.map((g) => chip('nmc-fam', g.id, g.n, cfg.grupos.indexOf(g.id) >= 0)).join('') + '</div></div>' +
+        '<div class="nmc-grupo" role="group" aria-label="Nomenclaturas"><div class="nmc-rot">Nomenclaturas</div><div class="nmc-chips">' +
+          NOMEN.map((x) => chip('nmc-nom', x[0], x[1], !!cfg.nomen[x[0]])).join('') + '</div>' +
+          '<p class="nmc-nota-op">La sistemática se pide sólo en los óxidos, salvo que sumes Química General.</p></div>' +
+        '<label class="nmc-nivel"><input type="checkbox" class="nmc-cb"' + (cfg.nivel ? ' checked' : '') + '> <span>Sumar lo que es sólo de Química General <span class="cod">CB103</span></span></label>' +
+      '</div></div>' +
+      '<div class="nmc-ej">' +
+        '<p class="nmc-pide" id="' + id + '-pide"></p><p class="nmc-dato" id="' + id + '-dato"></p>' +
+        '<form class="nmc-form" novalidate>' +
+          '<label class="nmc-lab" for="' + id + '-in">Tu respuesta</label>' +
+          '<input class="nmc-in" id="' + id + '-in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" maxlength="80" aria-describedby="' + id + '-pide ' + id + '-dato">' +
+          '<div class="nmc-vista" aria-hidden="true"></div>' +
+          '<div class="nmc-teclas" role="group" aria-label="Teclas rápidas"></div>' +
+          '<div class="nmc-bot"><button type="submit" class="nmc-b nmc-b1">Corregir</button>' +
+          '<button type="button" class="nmc-b nmc-pista">Pista</button><button type="button" class="nmc-b nmc-ver">Ver la respuesta</button></div>' +
+        '</form>' +
+        '<div class="nmc-fb" role="status" aria-live="polite"></div>' +
+        '<div class="nmc-res" hidden></div>' +
+        '<div class="nmc-voz" role="status" aria-live="polite"></div>' +
+      '</div>' +
+      '<div class="nmc-pie" hidden><span class="nmc-puntos"></span><button type="button" class="nmc-cero">Empezar de cero</button></div>';
+
+    const q = (s) => raiz.querySelector(s);
+    const entrada = q('.nmc-in'), fb = q('.nmc-fb'), res = q('.nmc-res'), vista = q('.nmc-vista'), teclas = q('.nmc-teclas');
+    const botones = [q('.nmc-b1'), q('.nmc-pista'), q('.nmc-ver')];
+
+    // ---------- lo que se elige
+    function resumen() {
+      const fams = cfg.grupos.length === N.GRUPOS.length ? 'todas las familias'
+        : cfg.grupos.length === 1 ? N.GRUPOS.filter((g) => g.id === cfg.grupos[0])[0].n.toLowerCase() : cfg.grupos.length + ' familias';
+      const sentido = { fn: 'de la fórmula al nombre', nf: 'del nombre a la fórmula', mix: 'en los dos sentidos' }[cfg.dir];
+      const noms = NOMEN.filter((x) => cfg.nomen[x[0]]).map((x) => (x[0] === 'st' ? x[1] : x[1].toLowerCase()));
+      q('.nmc-ops-r').textContent = fams + ', ' + sentido + ', ' + lista(noms) + (cfg.nivel ? ', con Química General' : '');
+    }
+    function guardar() {
+      try { localStorage.setItem(GUARDADO, JSON.stringify(cfg)); } catch (e) { /* no pasa nada si no se puede */ }
+    }
+    function pintarChips() {
+      raiz.querySelectorAll('.nmc-dir').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.v === cfg.dir)));
+      raiz.querySelectorAll('.nmc-fam').forEach((c) => c.setAttribute('aria-pressed', String(cfg.grupos.indexOf(c.dataset.v) >= 0)));
+      raiz.querySelectorAll('.nmc-nom').forEach((c) => c.setAttribute('aria-pressed', String(!!cfg.nomen[c.dataset.v])));
+    }
+    q('.nmc-ops-b').addEventListener('click', () => {
+      const cerrado = q('.nmc-ops-c').hidden;
+      q('.nmc-ops-c').hidden = !cerrado;
+      q('.nmc-ops-b').setAttribute('aria-expanded', String(cerrado));
+    });
+    q('.nmc-ops-c').addEventListener('click', (ev) => {
+      const c = ev.target.closest('.nmc-chip');
+      if (!c) return;
+      const v = c.dataset.v, antes = JSON.stringify(cfg);
+      if (c.classList.contains('nmc-dir')) cfg.dir = v;
+      else if (c.classList.contains('nmc-fam')) {
+        const i = cfg.grupos.indexOf(v);
+        if (i < 0) cfg.grupos = N.GRUPOS.map((g) => g.id).filter((g) => g === v || cfg.grupos.indexOf(g) >= 0);
+        else if (cfg.grupos.length > 1) cfg.grupos.splice(i, 1);          // siempre queda una
+      } else {
+        const queda = NOMEN.filter((x) => cfg.nomen[x[0]] && x[0] !== v).length;
+        if (!cfg.nomen[v]) cfg.nomen[v] = 1;
+        else if (queda) cfg.nomen[v] = 0;                                   // siempre queda una
+      }
+      pintarChips();
+      if (JSON.stringify(cfg) === antes) return;
+      resumen(); guardar(); nuevo(false);
+    });
+    q('.nmc-cb').addEventListener('change', (ev) => { cfg.nivel = ev.target.checked ? 1 : 0; resumen(); guardar(); nuevo(false); });
+
+    // ---------- un ejercicio
+    function nuevo(conFoco) {
+      const ej = N.generar(cfg, Math.random, estado.recientes);
+      estado.ej = ej; estado.abierto = true; estado.errores = 0; estado.pista = false;
+      estado.recientes.push(ej.c.id);
+      if (estado.recientes.length > 14) estado.recientes.shift();
+      const e = N.enunciado(ej);
+      q('.nmc-pide').textContent = e.pide + ':';
+      q('.nmc-dato').innerHTML = e.dato;
+      q('.nmc-dato').classList.toggle('nmc-formula', e.esFormula);
+      entrada.value = ''; entrada.disabled = false;
+      entrada.placeholder = ej.dir === 'nf' ? 'La fórmula, por ejemplo Ca(OH)2' : 'El nombre, por ejemplo óxido de sodio';
+      entrada.classList.toggle('nmc-in-f', ej.dir === 'nf');
+      vista.textContent = '';
+      vista.hidden = ej.dir !== 'nf';                    // la lectura de lo escrito sólo sirve para las fórmulas
+      teclas.innerHTML = TECLAS[ej.dir].map((t) => '<button type="button" class="nmc-tecla" tabindex="-1" data-t="' + t + '">' + t + '</button>').join('');
+      botones.forEach((x) => { x.disabled = false; });
+      fb.className = 'nmc-fb'; fb.innerHTML = '';
+      res.hidden = true; res.innerHTML = '';
+      q('.nmc-voz').textContent = '';
+      if (conFoco) entrada.focus();
+    }
+
+    function aviso(clase, titulo, texto) {
+      fb.className = 'nmc-fb nmc-fb-' + clase;
+      fb.innerHTML = (titulo ? '<div class="nmc-fb-t">' + titulo + '</div>' : '') + '<div>' + texto + '</div>';
+    }
+
+    function cerrar(acerto, nota) {
+      const ej = estado.ej, c = ej.c;
+      estado.abierto = false;
+      entrada.disabled = true;
+      botones.forEach((x) => { x.disabled = true; });
+      const primera = acerto && !estado.errores && !estado.pista;
+      const g = N.FAMILIAS[c.fam].g;
+      puntos.hechos++; if (primera) puntos.primera++;
+      puntos.grupos[g] = puntos.grupos[g] || { n: 0, ok: 0 };
+      puntos.grupos[g].n++; if (primera) puntos.grupos[g].ok++;
+      fb.className = 'nmc-fb'; fb.innerHTML = '';
+      const nombres = N.todosLosNombres(c, cfg.nivel);
+      res.className = 'nmc-res ' + (acerto ? 'nmc-res-ok' : 'nmc-res-ver');
+      res.innerHTML =
+        '<div class="nmc-res-t">' + (acerto ? '¡Correcto!' : 'La respuesta') + '</div>' +
+        '<p class="nmc-resp"><b>' + N.fHTML(c.f, c.est) + '</b> es ' + N.FAMILIAS[c.fam].art + ' ' + N.FAMILIAS[c.fam].n + ': <b>' + (ej.dir === 'nf' ? ej.mostrado : N.respuesta(ej)) + '</b>.</p>' +
+        (nota ? '<p class="nmc-nota">' + nota + '</p>' : '') +
+        '<div class="nmc-sec">Cómo se llega</div><div class="nmc-pasos" role="list">' +
+          N.resolver(ej).map((p, i) => '<div class="nmc-paso" role="listitem"><span class="nmc-n">' + (i + 1) + '</span><div>' + p + '</div></div>').join('') + '</div>' +
+        (nombres.length > 1 || nombres[0][1].length > 1 ? '<div class="nmc-sec">Sus nombres</div><div class="nmc-nombres" role="list">' +
+          nombres.map((x) => '<div class="nmc-nombre" role="listitem"><span>' + x[0] + '</span><div>' + x[1].join('<br>') + '</div></div>').join('') + '</div>' : '') +
+        '<button type="button" class="nmc-b nmc-b1 nmc-sig">Otro ejercicio</button>';
+      res.hidden = false;
+      // para quien usa lector de pantalla: el resultado, corto
+      q('.nmc-voz').textContent = (acerto ? 'Correcto. ' : 'La respuesta: ') + N.fHTML(c.f, c.est).replace(/<[^>]+>/g, '') + ', ' + (ej.dir === 'nf' ? ej.mostrado : N.respuesta(ej)) + '.';
+      pintarPuntos();
+      const sig = q('.nmc-sig');
+      sig.focus({ preventScroll: true });
+      const quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (res.scrollIntoView) res.scrollIntoView({ block: 'nearest', behavior: quieto ? 'auto' : 'smooth' });
+    }
+
+    function pintarPuntos() {
+      let t = '';
+      if (puntos.hechos) {
+        t = 'A la primera: ' + puntos.primera + ' de ' + puntos.hechos + '.';
+        const flojos = N.GRUPOS.filter((g) => puntos.grupos[g.id] && puntos.grupos[g.id].n >= 3 && puntos.grupos[g.id].ok * 2 < puntos.grupos[g.id].n)
+          .map((g) => g.n.toLowerCase());
+        if (flojos.length) t += ' Para repasar: ' + lista(flojos) + '.';
+      }
+      q('.nmc-puntos').textContent = t;
+      q('.nmc-pie').hidden = !puntos.hechos;
+    }
+
+    q('.nmc-form').addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      if (!estado.abierto) return;
+      const r = N.corregir(estado.ej, entrada.value);
+      if (r.v === 'ok') { cerrar(true, r.nota); return; }
+      if (r.v === 'vacio') aviso('pista', '', 'Escribí tu respuesta y después tocá Corregir.');
+      else if (r.v === 'casi') aviso('casi', 'Casi', r.msg);
+      else { estado.errores++; aviso('mal', 'Todavía no', r.msg + ' Podés corregirla y probar de nuevo.'); }
+      entrada.focus();
+    });
+    q('.nmc-pista').addEventListener('click', () => {
+      if (!estado.abierto) return;
+      estado.pista = true;
+      aviso('pista', 'Pista', N.pista(estado.ej));
+      entrada.focus();
+    });
+    q('.nmc-ver').addEventListener('click', () => { if (estado.abierto) { estado.errores++; cerrar(false, ''); } });
+    res.addEventListener('click', (ev) => { if (ev.target.closest('.nmc-sig')) nuevo(true); });
+    q('.nmc-cero').addEventListener('click', () => {
+      puntos.hechos = 0; puntos.primera = 0; puntos.grupos = {};
+      pintarPuntos();
+      (estado.abierto ? entrada : q('.nmc-sig') || entrada).focus();      // el botón se esconde: el foco no queda en el aire
+    });
+
+    // ---------- escribir
+    entrada.addEventListener('input', () => {
+      const h = estado.ej && estado.ej.dir === 'nf' ? N.vistaFormula(entrada.value) : '';
+      vista.innerHTML = h ? 'Se lee: <b>' + h + '</b>' : '';
+    });
+    // las teclas rápidas escriben donde está el cursor, sin sacar el teclado del celular
+    teclas.addEventListener('pointerdown', (ev) => { if (ev.target.closest('.nmc-tecla')) ev.preventDefault(); });
+    teclas.addEventListener('click', (ev) => {
+      const t = ev.target.closest('.nmc-tecla');
+      if (!t || entrada.disabled) return;
+      let txt = t.dataset.t;
+      const a = entrada.selectionStart === null ? entrada.value.length : entrada.selectionStart;
+      const z = entrada.selectionEnd === null ? a : entrada.selectionEnd;
+      if (txt.length > 1 && /[a-záéíóúñ]$/i.test(entrada.value.slice(0, a))) txt = ' ' + txt;      // "hierro" + " (III)"
+      entrada.value = entrada.value.slice(0, a) + txt + entrada.value.slice(z);
+      entrada.focus();
+      entrada.setSelectionRange(a + txt.length, a + txt.length);
+      entrada.dispatchEvent(new Event('input'));
+    });
+
+    resumen();
+    pintarPuntos();
+    nuevo(false);
+  }
+
+  function iniciar() {
+    document.querySelectorAll('.nmc[data-nomen]').forEach((r) => {
+      if (r.dataset.listo) return;
+      r.dataset.listo = '1';
+      armar(r);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
+// ==== INTERACTIVO: NOMENCLATURA (fin) ====
