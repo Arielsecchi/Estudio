@@ -4000,3 +4000,577 @@ registerReveals('fiuba-quimica', '16', [
   else iniciar();
 })();
 // ==== INTERACTIVO: NOMENCLATURA (fin) ====
+
+// ==== INTERACTIVO: TABLA PERIODICA (inicio) ====
+// Datos de los 118 elementos. Lo arma armar_datos.py: no se edita a mano.
+// [Z, símbolo, nombre, masa atómica, tipo, estado a 25 °C, electronegatividad, radio en pm, clase de radio,
+//  energía de ionización en kJ/mol, números de oxidación, configuración real según PubChem]
+globalThis.TABLA_DATOS = [
+  [1, "H", "hidrógeno", "1,008", "nm", "g", 2.1, 32, "c", 1312, "+1, −1", "1s1"],
+  [2, "He", "helio", "4,0026", "gn", "g", null, 46, "c", 2372, "", "1s2"],
+  [3, "Li", "litio", "6,94", "al", "s", 1.0, 152, "m", 520, "+1", "[He]2s1"],
+  [4, "Be", "berilio", "9,0122", "at", "s", 1.5, 112, "m", 900, "+2", "[He]2s2"],
+  [5, "B", "boro", "10,81", "md", "s", 2.0, 85, "c", 801, "+3", "[He]2s2 2p1"],
+  [6, "C", "carbono", "12,011", "nm", "s", 2.5, 75, "c", 1086, "−4, +4 (+2 en el CO)", "[He]2s2 2p2"],
+  [7, "N", "nitrógeno", "14,007", "nm", "g", 3.0, 71, "c", 1402, "−3, +3, +5", "[He] 2s2 2p3"],
+  [8, "O", "oxígeno", "15,999", "nm", "g", 3.5, 63, "c", 1314, "−2 (−1 en los peróxidos)", "[He]2s2 2p4"],
+  [9, "F", "flúor", "18,998", "ha", "g", 4.0, 64, "c", 1681, "−1", "[He]2s2 2p5"],
+  [10, "Ne", "neón", "20,180", "gn", "g", null, 67, "c", 2081, "", "[He]2s2 2p6"],
+  [11, "Na", "sodio", "22,990", "al", "s", 0.9, 186, "m", 496, "+1", "[Ne]3s1"],
+  [12, "Mg", "magnesio", "24,305", "at", "s", 1.2, 160, "m", 738, "+2", "[Ne]3s2"],
+  [13, "Al", "aluminio", "26,982", "mp", "s", 1.5, 143, "m", 578, "+3", "[Ne]3s2 3p1"],
+  [14, "Si", "silicio", "28,085", "md", "s", 1.8, 116, "c", 787, "+4", "[Ne]3s2 3p2"],
+  [15, "P", "fósforo", "30,974", "nm", "s", 2.1, 111, "c", 1012, "−3, +3, +5", "[Ne]3s2 3p3"],
+  [16, "S", "azufre", "32,06", "nm", "s", 2.5, 103, "c", 1000, "−2, +4, +6", "[Ne]3s2 3p4"],
+  [17, "Cl", "cloro", "35,45", "ha", "g", 3.0, 99, "c", 1251, "−1, +1, +3, +5, +7", "[Ne]3s2 3p5"],
+  [18, "Ar", "argón", "39,95", "gn", "g", null, 96, "c", 1521, "", "[Ne]3s2 3p6"],
+  [19, "K", "potasio", "39,098", "al", "s", 0.8, 227, "m", 419, "+1", "[Ar]4s1"],
+  [20, "Ca", "calcio", "40,078", "at", "s", 1.0, 197, "m", 590, "+2", "[Ar]4s2"],
+  [21, "Sc", "escandio", "44,956", "tr", "s", 1.3, 162, "m", 633, "+3", "[Ar]4s2 3d1"],
+  [22, "Ti", "titanio", "47,867", "tr", "s", 1.5, 147, "m", 659, "+2, +3, +4", "[Ar]4s2 3d2"],
+  [23, "V", "vanadio", "50,942", "tr", "s", 1.6, 134, "m", 651, "+2, +3, +4, +5", "[Ar]4s2 3d3"],
+  [24, "Cr", "cromo", "51,996", "tr", "s", 1.6, 128, "m", 653, "+2, +3, +6", "[Ar]3d5 4s1"],
+  [25, "Mn", "manganeso", "54,938", "tr", "s", 1.5, 127, "m", 717, "+2, +4, +7", "[Ar]4s2 3d5"],
+  [26, "Fe", "hierro", "55,845", "tr", "s", 1.8, 126, "m", 762, "+2, +3", "[Ar]4s2 3d6"],
+  [27, "Co", "cobalto", "58,933", "tr", "s", 1.9, 125, "m", 760, "+2, +3", "[Ar]4s2 3d7"],
+  [28, "Ni", "níquel", "58,693", "tr", "s", 1.9, 124, "m", 737, "+2, +3", "[Ar]4s2 3d8"],
+  [29, "Cu", "cobre", "63,546", "tr", "s", 1.9, 128, "m", 745, "+1, +2", "[Ar]4s1 3d10"],
+  [30, "Zn", "cinc", "65,38", "tr", "s", 1.6, 134, "m", 906, "+2", "[Ar]4s2 3d10"],
+  [31, "Ga", "galio", "69,723", "mp", "s", 1.6, 135, "m", 579, "+3", "[Ar]4s2 3d10 4p1"],
+  [32, "Ge", "germanio", "72,630", "md", "s", 1.8, 121, "c", 762, "+2, +4", "[Ar]4s2 3d10 4p2"],
+  [33, "As", "arsénico", "74,922", "md", "s", 2.0, 121, "c", 947, "−3, +3, +5", "[Ar]4s2 3d10 4p3"],
+  [34, "Se", "selenio", "78,971", "nm", "s", 2.4, 116, "c", 941, "−2, +4, +6", "[Ar]4s2 3d10 4p4"],
+  [35, "Br", "bromo", "79,904", "ha", "l", 2.8, 114, "c", 1140, "−1, +1, +3, +5, +7", "[Ar]4s2 3d10 4p5"],
+  [36, "Kr", "kriptón", "83,798", "gn", "g", null, 117, "c", 1351, "", "[Ar]4s2 3d10 4p6"],
+  [37, "Rb", "rubidio", "85,468", "al", "s", 0.8, 248, "m", 403, "+1", "[Kr]5s1"],
+  [38, "Sr", "estroncio", "87,62", "at", "s", 1.0, 215, "m", 549, "+2", "[Kr]5s2"],
+  [39, "Y", "itrio", "88,906", "tr", "s", 1.2, 180, "m", 600, "+3", "[Kr]5s2 4d1"],
+  [40, "Zr", "circonio", "91,224", "tr", "s", 1.4, 160, "m", 640, "+4", "[Kr]5s2 4d2"],
+  [41, "Nb", "niobio", "92,906", "tr", "s", 1.6, 146, "m", 652, "+3, +5", "[Kr]5s1 4d4"],
+  [42, "Mo", "molibdeno", "95,95", "tr", "s", 1.8, 139, "m", 684, "+6", "[Kr]5s1 4d5"],
+  [43, "Tc", "tecnecio", "[97]", "tr", "s", 1.9, 136, "m", 687, "+4, +6, +7", "[Kr]5s2 4d5"],
+  [44, "Ru", "rutenio", "101,07", "tr", "s", 2.2, 134, "m", 710, "+3", "[Kr]5s1 4d7"],
+  [45, "Rh", "rodio", "102,91", "tr", "s", 2.2, 134, "m", 720, "+3", "[Kr]5s1 4d8"],
+  [46, "Pd", "paladio", "106,42", "tr", "s", 2.2, 137, "m", 804, "+2, +3", "[Kr]4d10"],
+  [47, "Ag", "plata", "107,87", "tr", "s", 1.9, 144, "m", 731, "+1", "[Kr]5s1 4d10"],
+  [48, "Cd", "cadmio", "112,41", "tr", "s", 1.7, 151, "m", 868, "+2", "[Kr]5s2 4d10"],
+  [49, "In", "indio", "114,82", "mp", "s", 1.7, 167, "m", 558, "+3", "[Kr]5s2 4d10 5p1"],
+  [50, "Sn", "estaño", "118,71", "mp", "s", 1.8, 140, "c", 709, "+2, +4", "[Kr]5s2 4d10 5p2"],
+  [51, "Sb", "antimonio", "121,76", "md", "s", 1.9, 140, "c", 834, "−3, +3, +5", "[Kr]5s2 4d10 5p3"],
+  [52, "Te", "telurio", "127,60", "md", "s", 2.1, 136, "c", 869, "−2, +4, +6", "[Kr]5s2 4d10 5p4"],
+  [53, "I", "iodo", "126,90", "ha", "s", 2.5, 133, "c", 1008, "−1, +1, +3, +5, +7", "[Kr]5s2 4d10 5p5"],
+  [54, "Xe", "xenón", "131,29", "gn", "g", null, 131, "c", 1170, "", "[Kr]5s2 4d10 5p6"],
+  [55, "Cs", "cesio", "132,91", "al", "s", 0.7, 265, "m", 376, "+1", "[Xe]6s1"],
+  [56, "Ba", "bario", "137,33", "at", "s", 0.9, 222, "m", 503, "+2", "[Xe]6s2"],
+  [57, "La", "lantano", "138,91", "la", "s", 1.1, 187, "m", 538, "+3", "[Xe]6s2 5d1"],
+  [58, "Ce", "cerio", "140,12", "la", "s", 1.1, 181, "m", 534, "+3, +4", "[Xe]6s2 4f1 5d1"],
+  [59, "Pr", "praseodimio", "140,91", "la", "s", 1.1, 182, "m", 527, "+3", "[Xe]6s2 4f3"],
+  [60, "Nd", "neodimio", "144,24", "la", "s", 1.1, 181, "m", 533, "+3", "[Xe]6s2 4f4"],
+  [61, "Pm", "prometio", "[145]", "la", "s", null, 183, "m", 535, "+3", "[Xe]6s2 4f5"],
+  [62, "Sm", "samario", "150,36", "la", "s", 1.2, 180, "m", 545, "+2, +3", "[Xe]6s2 4f6"],
+  [63, "Eu", "europio", "151,96", "la", "s", null, 180, "m", 547, "+2, +3", "[Xe]6s2 4f7"],
+  [64, "Gd", "gadolinio", "157,25", "la", "s", 1.2, 180, "m", 593, "+3", "[Xe]6s2 4f7 5d1"],
+  [65, "Tb", "terbio", "158,93", "la", "s", null, 177, "m", 566, "+3", "[Xe]6s2 4f9"],
+  [66, "Dy", "disprosio", "162,50", "la", "s", 1.2, 178, "m", 573, "+3", "[Xe]6s2 4f10"],
+  [67, "Ho", "holmio", "164,93", "la", "s", 1.2, 176, "m", 581, "+3", "[Xe]6s2 4f11"],
+  [68, "Er", "erbio", "167,26", "la", "s", 1.2, 176, "m", 589, "+3", "[Xe]6s2 4f12"],
+  [69, "Tm", "tulio", "168,93", "la", "s", 1.3, 175, "m", 597, "+3", "[Xe]6s2 4f13"],
+  [70, "Yb", "iterbio", "173,05", "la", "s", null, 176, "m", 603, "+2, +3", "[Xe]6s2 4f14"],
+  [71, "Lu", "lutecio", "174,97", "la", "s", 1.3, 173, "m", 524, "+3", "[Xe]6s2 4f14 5d1"],
+  [72, "Hf", "hafnio", "178,49", "tr", "s", 1.3, 159, "m", 659, "+4", "[Xe]6s2 4f14 5d2"],
+  [73, "Ta", "tantalio", "180,95", "tr", "s", 1.5, 146, "m", 728, "+5", "[Xe]6s2 4f14 5d3"],
+  [74, "W", "wolframio", "183,84", "tr", "s", 1.7, 139, "m", 759, "+6", "[Xe]6s2 4f14 5d4"],
+  [75, "Re", "renio", "186,21", "tr", "s", 1.9, 137, "m", 760, "+4, +6, +7", "[Xe]6s2 4f14 5d5"],
+  [76, "Os", "osmio", "190,23", "tr", "s", 2.2, 135, "m", 814, "+3, +4", "[Xe]6s2 4f14 5d6"],
+  [77, "Ir", "iridio", "192,22", "tr", "s", 2.2, 135, "m", 865, "+3, +4", "[Xe]6s2 4f14 5d7"],
+  [78, "Pt", "platino", "195,08", "tr", "s", 2.2, 138, "m", 864, "+2, +4", "[Xe]6s1 4f14 5d9"],
+  [79, "Au", "oro", "196,97", "tr", "s", 2.4, 144, "m", 890, "+1, +3", "[Xe]6s1 4f14 5d10"],
+  [80, "Hg", "mercurio", "200,59", "tr", "l", 1.9, 151, "m", 1007, "+1, +2", "[Xe]6s2 4f14 5d10"],
+  [81, "Tl", "talio", "204,38", "mp", "s", 1.8, 170, "m", 589, "+1, +3", "[Xe]6s2 4f14 5d10 6p1"],
+  [82, "Pb", "plomo", "207,2", "mp", "s", 1.9, 144, "c", 716, "+2, +4", "[Xe]6s2 4f14 5d10 6p2"],
+  [83, "Bi", "bismuto", "208,98", "mp", "s", 1.9, 151, "c", 703, "+3, +5", "[Xe]6s2 4f14 5d10 6p3"],
+  [84, "Po", "polonio", "[209]", "mp", "s", 2.0, 145, "c", 812, "+2, +4", "[Xe]6s2 4f14 5d10 6p4"],
+  [85, "At", "astato", "[210]", "ha", "s", 2.2, 147, "c", 899, "−1, +1, +3, +5, +7", "[Xe]6s2 4f14 5d10 6p5"],
+  [86, "Rn", "radón", "[222]", "gn", "g", null, 142, "c", 1037, "", "[Xe]6s2 4f14 5d10 6p6"],
+  [87, "Fr", "francio", "[223]", "al", "s", 0.7, null, "", 393, "+1", "[Rn]7s1"],
+  [88, "Ra", "radio", "[226]", "at", "s", 0.9, 201, "c", 509, "+2", "[Rn]7s2"],
+  [89, "Ac", "actinio", "[227]", "ac", "s", 1.1, 186, "c", 519, "+3", "[Rn]7s2 6d1"],
+  [90, "Th", "torio", "232,04", "ac", "s", 1.3, 179, "m", 609, "+4", "[Rn]7s2 6d2"],
+  [91, "Pa", "protactinio", "231,04", "ac", "s", 1.5, 163, "m", 568, "+4, +5", "[Rn]7s2 5f2 6d1"],
+  [92, "U", "uranio", "238,03", "ac", "s", 1.4, 156, "m", 598, "+3, +4, +5, +6", "[Rn]7s2 5f3 6d1"],
+  [93, "Np", "neptunio", "[237]", "ac", "s", 1.4, 155, "m", 605, "+3, +4, +5, +6", "[Rn]7s2 5f4 6d1"],
+  [94, "Pu", "plutonio", "[244]", "ac", "s", 1.3, 159, "m", 585, "+3, +4, +5, +6", "[Rn]7s2 5f6"],
+  [95, "Am", "americio", "[243]", "ac", "s", 1.3, 173, "m", 578, "+3, +4, +5, +6", "[Rn]7s2 5f7"],
+  [96, "Cm", "curio", "[247]", "ac", "s", 1.3, 174, "m", 581, "+3", "[Rn]7s2 5f7 6d1"],
+  [97, "Bk", "berkelio", "[247]", "ac", "s", 1.3, 170, "m", 601, "+3, +4", "[Rn]7s2 5f9"],
+  [98, "Cf", "californio", "[251]", "ac", "s", 1.3, 186, "m", 608, "+3", "[Rn]7s2 5f10"],
+  [99, "Es", "einstenio", "[252]", "ac", "s", 1.3, 186, "m", 619, "+3", "[Rn]7s2 5f11"],
+  [100, "Fm", "fermio", "[257]", "ac", "s", 1.3, null, "", 627, "+3", "[Rn] 5f12 7s2"],
+  [101, "Md", "mendelevio", "[258]", "ac", "s", 1.3, null, "", 635, "+2, +3", "[Rn]7s2 5f13"],
+  [102, "No", "nobelio", "[259]", "ac", "s", 1.3, null, "", 642, "+2, +3", "[Rn]7s2 5f14"],
+  [103, "Lr", "lawrencio", "[266]", "ac", "s", 1.3, null, "", null, "+3", "[Rn]7s2 5f14 6d1"],
+  [104, "Rf", "rutherfordio", "[267]", "tr", "", null, null, "", null, "", ""],
+  [105, "Db", "dubnio", "[268]", "tr", "", null, null, "", null, "", ""],
+  [106, "Sg", "seaborgio", "[269]", "tr", "", null, null, "", null, "", ""],
+  [107, "Bh", "bohrio", "[270]", "tr", "", null, null, "", null, "", ""],
+  [108, "Hs", "hasio", "[269]", "tr", "", null, null, "", null, "", ""],
+  [109, "Mt", "meitnerio", "[278]", "tr", "", null, null, "", null, "", ""],
+  [110, "Ds", "darmstatio", "[281]", "tr", "", null, null, "", null, "", ""],
+  [111, "Rg", "roentgenio", "[282]", "tr", "", null, null, "", null, "", ""],
+  [112, "Cn", "copernicio", "[285]", "tr", "", null, null, "", null, "", ""],
+  [113, "Nh", "nihonio", "[286]", "mp", "", null, null, "", null, "", ""],
+  [114, "Fl", "flerovio", "[289]", "mp", "", null, null, "", null, "", ""],
+  [115, "Mc", "moscovio", "[290]", "mp", "", null, null, "", null, "", ""],
+  [116, "Lv", "livermorio", "[293]", "mp", "", null, null, "", null, "", ""],
+  [117, "Ts", "teneso", "[294]", "ha", "", null, null, "", null, "", ""],
+  [118, "Og", "oganesón", "[294]", "gn", "", null, null, "", null, "", ""],
+];
+
+// ============================================================
+// TABLA PERIÓDICA INTERACTIVA (motor)
+// Con los datos de TABLA_DATOS arma, para cada elemento, la configuración electrónica por el orden de
+// llenado, la CEE, el grupo, el período y el bloque con las reglas de la sección 3 de la guía, y las
+// preguntas de comparación de propiedades. No toca la página: se expone en TABLA_MOTOR para probarlo aparte.
+// ============================================================
+(function () {
+  'use strict';
+  const D = globalThis.TABLA_DATOS;
+  if (!D) return;
+  const b = (t) => '<b>' + t + '</b>';
+  const num = (v) => String(v).replace('.', ',');
+  const may = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+
+  // orden de llenado: [n, l]. Cada subnivel lleva 2(2l + 1) electrones.
+  const ORDEN = [[1, 0], [2, 0], [2, 1], [3, 0], [3, 1], [4, 0], [3, 2], [4, 1], [5, 0], [4, 2], [5, 1], [6, 0], [4, 3], [5, 2], [6, 1], [7, 0], [5, 3], [6, 2], [7, 1]];
+  const L = 'spdf';
+  const cabe = (l) => 2 * (2 * l + 1);
+  const nombreSub = (x) => x.n + L[x.l];
+
+  // configuración por el orden de llenado: [{n, l, e}]
+  function configuracion(z) {
+    const out = [];
+    let quedan = z;
+    for (let i = 0; i < ORDEN.length && quedan > 0; i++) {
+      const e = Math.min(quedan, cabe(ORDEN[i][1]));
+      out.push({ n: ORDEN[i][0], l: ORDEN[i][1], e: e });
+      quedan -= e;
+    }
+    return out;
+  }
+  // la configuración real que da la fuente ("[Ar]3d5 4s1"), puesta en el orden de llenado
+  const NUCLEOS = { He: 2, Ne: 10, Ar: 18, Kr: 36, Xe: 54, Rn: 86 };
+  function configReal(texto) {
+    if (!texto) return null;
+    const mapa = {};
+    const nuc = /^\[(\w+)\]/.exec(texto);
+    if (nuc) configuracion(NUCLEOS[nuc[1]]).forEach((x) => { mapa[nombreSub(x)] = x.e; });
+    (texto.match(/\d[spdf]\d+/g) || []).forEach((t) => { mapa[t.slice(0, 2)] = parseInt(t.slice(2), 10); });
+    return ORDEN.map((o) => ({ n: o[0], l: o[1], e: mapa[o[0] + L[o[1]]] || 0 })).filter((x) => x.e > 0);
+  }
+  const igual = (a, c) => a.length === c.length && a.every((x, i) => x.n === c[i].n && x.l === c[i].l && x.e === c[i].e);
+  // como la escribe la cátedra: (1s)2(2s)2(2p)6
+  const ceHTML = (cfg) => cfg.map((x) => '<span class="tp-nb">(' + nombreSub(x) + ')<sup>' + x.e + '</sup></span>').join('<wbr>');
+  const ceTexto = (cfg) => cfg.map((x) => '(' + nombreSub(x) + ')' + x.e).join('');
+
+  // CEE: los subniveles del último nivel en adelante, sin los d y f completos si después hay algún electrón
+  function cee(cfg) {
+    const periodo = Math.max.apply(null, cfg.map((x) => x.n));
+    const desde = cfg.findIndex((x) => x.n === periodo && x.l === 0);
+    const externos = cfg.slice(desde);
+    return externos.filter((x, i) => !(x.l >= 2 && x.e === cabe(x.l) && externos.slice(i + 1).some((y) => y.e > 0)));
+  }
+
+  // grupo, período y bloque con las reglas de la guía
+  function ubicar(z, cfg) {
+    const ult = cfg[cfg.length - 1], v = cee(cfg);
+    const periodo = Math.max.apply(null, cfg.map((x) => x.n));
+    const bloque = L[ult.l];
+    const total = v.reduce((a, x) => a + x.e, 0);
+    let grupo = null, como;
+    if (z === 2) { grupo = 18; como = 'El helio va en el grupo 18 aunque su electrón diferenciador está en un s: su único nivel está completo y es inerte como los gases nobles.'; }
+    else if (bloque === 's') { grupo = total; como = 'Electrón diferenciador en un s: el grupo es el número de electrones de la CEE, ' + b(total) + '.'; }
+    else if (bloque === 'p') { grupo = total + 10; como = 'Electrón diferenciador en un p: el grupo es el número de electrones de la CEE más 10, ' + total + ' + 10 = ' + b(grupo) + '.'; }
+    else if (bloque === 'd') {
+      const s = v.filter((x) => x.l === 0)[0].e;
+      grupo = s + ult.e;
+      como = 'Electrón diferenciador en un d: el grupo es la suma de los electrones s y d, ' + s + ' + ' + ult.e + ' = ' + b(grupo) + '.';
+    } else como = 'Electrón diferenciador en un f: no lleva número de grupo. Se ubica por el período, en las dos filas de abajo.';
+    return { grupo: grupo, periodo: periodo, bloque: bloque, como: como, comoPeriodo: 'El nivel más alto de la CEE es el ' + periodo + ': período ' + b(periodo) + '.' };
+  }
+
+  const TIPOS = {
+    al: { n: 'metal alcalino', c: 'metal' }, at: { n: 'metal alcalinotérreo', c: 'metal' }, tr: { n: 'metal de transición', c: 'metal' },
+    mp: { n: 'metal del bloque p', c: 'metal' }, md: { n: 'metaloide', c: 'metaloide' }, nm: { n: 'no metal', c: 'no metal' },
+    ha: { n: 'halógeno', c: 'no metal' }, gn: { n: 'gas noble', c: 'no metal' }, la: { n: 'lantánido', c: 'metal' }, ac: { n: 'actínido', c: 'metal' },
+  };
+  const ESTADOS = { s: 'sólido', l: 'líquido', g: 'gas' };
+  const GRUPOS = { 1: 'alcalinos', 2: 'alcalinotérreos', 13: 'grupo del boro', 14: 'grupo del carbono', 15: 'grupo del nitrógeno', 16: 'calcógenos', 17: 'halógenos', 18: 'gases nobles' };
+
+  const E = D.map((f) => {
+    const cfg = configuracion(f[0]);
+    const real = configReal(f[11]);
+    // Cr y Cu se escriben con su configuración real (así lo pide la guía): su CEE y su ubicación salen de esa
+    const base = (f[1] === 'Cr' || f[1] === 'Cu') && real ? real : cfg;
+    const u = ubicar(f[0], base);
+    return { z: f[0], s: f[1], n: f[2], masa: f[3], tipo: f[4], est: f[5], en: f[6], radio: f[7], claseRadio: f[8], ei: f[9], ox: f[10],
+      cfg: cfg, cee: cee(base), real: real && !igual(real, cfg) ? real : null,
+      grupo: u.grupo, periodo: u.periodo, bloque: u.bloque, como: u.como, comoPeriodo: u.comoPeriodo };
+  });
+  const porSimbolo = {};
+  E.forEach((e) => { porSimbolo[e.s] = e; });
+
+  // dónde va cada elemento en la grilla: fila y columna en la tabla entera y en la de representativos
+  E.forEach((e) => {
+    if (e.bloque === 'f') { e.fila = e.periodo + 3; e.col = 3 + e.z - (e.periodo === 6 ? 57 : 89); }
+    else { e.fila = e.periodo; e.col = e.grupo; }
+    e.rep = e.bloque === 's' || e.bloque === 'p';
+    e.colRep = e.rep ? (e.grupo <= 2 ? e.grupo : e.grupo - 10) : null;
+  });
+
+  // ---------------------------------------------------------- propiedades periódicas
+  const PROPS = {
+    radio: { n: 'Radio atómico', u: 'pm', mayor: 'mayor radio atómico', per: 'disminuye', gru: 'aumenta',
+      leyenda: 'El radio atómico disminuye a lo largo de un período, porque aumenta la carga nuclear efectiva, y aumenta al bajar en un grupo, porque hay una capa más. Cuanto más color, más grande.' },
+    ei: { n: 'Energía de ionización', u: 'kJ/mol', mayor: 'mayor energía de ionización', per: 'aumenta', gru: 'disminuye',
+      leyenda: 'La energía de ionización aumenta a lo largo de un período y disminuye al bajar en un grupo, con dos quiebres típicos: el B está por debajo del Be y el O por debajo del N. Cuanto más color, más energía.' },
+    en: { n: 'Electronegatividad', u: '', mayor: 'mayor electronegatividad', per: 'aumenta', gru: 'disminuye',
+      leyenda: 'La electronegatividad aumenta a lo largo de un período y disminuye al bajar en un grupo. El máximo es el flúor (4,0) y los gases nobles no tienen valor. Cuanto más color, más electronegativo.' },
+  };
+  const valor = (e, p) => (p === 'radio' ? e.radio : p === 'ei' ? e.ei : e.en);
+  const RANGOS = {};
+  Object.keys(PROPS).forEach((p) => {
+    const vs = E.map((e) => valor(e, p)).filter((v) => v !== null && v !== undefined);
+    RANGOS[p] = [Math.min.apply(null, vs), Math.max.apply(null, vs)];
+  });
+  // de 0 a 5 para pintar el mapa; null si no hay dato
+  function nivel(e, p) {
+    const v = valor(e, p);
+    if (v === null || v === undefined) return null;
+    const r = RANGOS[p];
+    return Math.min(5, Math.floor(6 * (v - r[0]) / (r[1] - r[0])));
+  }
+  const valorTexto = (e, p) => {
+    const v = valor(e, p);
+    return v === null || v === undefined ? 'sin dato' : num(p === 'en' ? v.toFixed(1) : v) + (PROPS[p].u ? ' ' + PROPS[p].u : '');
+  };
+
+  // ---------------------------------------------------------- el juego: ¿cuál es mayor?
+  // Sólo elementos representativos de los períodos 2 a 6, y sólo pares del mismo período o del mismo grupo en los que
+  // el dato va en el sentido de la tendencia con margen. Los dos quiebres de la energía de ionización que enseña la
+  // guía (Be y B, N y O) entran aparte, con su explicación.
+  const QUIEBRES = { 'Be-B': 'El electrón externo del B está en un 2p, de más energía que el 2s del Be, y por eso cuesta menos sacarlo.',
+    'N-O': 'En el O hay dos electrones en un mismo orbital 2p, y esa repulsión facilita sacar uno. El N tiene sus tres 2p con un electrón cada uno.' };
+  const PARES = {};
+  Object.keys(PROPS).forEach((p) => {
+    const cand = E.filter((e) => e.rep && e.periodo >= 2 && e.periodo <= 6 && valor(e, p) !== null && valor(e, p) !== undefined && (p === 'ei' || e.tipo !== 'gn') &&
+      !(p !== 'ei' && e.periodo === 6 && e.bloque === 'p'));      // del Tl al At los datos cambian mucho de una tabla a otra
+    const out = [];
+    cand.forEach((a) => cand.forEach((c) => {
+      const mismoPer = a.periodo === c.periodo && a.grupo < c.grupo, mismoGru = a.grupo === c.grupo && a.periodo < c.periodo;
+      if (!mismoPer && !mismoGru) return;
+      const va = valor(a, p), vc = valor(c, p);
+      // quién debería ser mayor según la tendencia: a es el de la izquierda (o el de arriba)
+      const creceDerecha = PROPS[p].per === 'aumenta';
+      const esperado = mismoPer ? (creceDerecha ? c : a) : (PROPS[p].gru === 'aumenta' ? c : a);
+      const real = va > vc ? a : c;
+      const margen = Math.abs(va - vc) / Math.max(va, vc);
+      if (p === 'ei' && QUIEBRES[a.s + '-' + c.s]) out.push({ p: p, a: a, c: c, gana: real, tipo: 'quiebre' });
+      else if (real === esperado && va !== vc && margen >= 0.08) out.push({ p: p, a: a, c: c, gana: real, tipo: mismoPer ? 'periodo' : 'grupo' });
+    }));
+    PARES[p] = out;
+  });
+
+  function pregunta(azar, cuales) {
+    azar = azar || Math.random;
+    const ps = (cuales && cuales.length ? cuales : Object.keys(PROPS));
+    const p = ps[Math.floor(azar() * ps.length)];
+    const par = PARES[p][Math.floor(azar() * PARES[p].length)];
+    const alReves = azar() < 0.5;
+    return { p: p, uno: alReves ? par.c : par.a, otro: alReves ? par.a : par.c, gana: par.gana, tipo: par.tipo, a: par.a, c: par.c };
+  }
+  function explicar(q) {
+    const P = PROPS[q.p], a = q.a, c = q.c;
+    const datos = ' ' + a.s + ': ' + valorTexto(a, q.p) + '. ' + c.s + ': ' + valorTexto(c, q.p) + '.';
+    if (q.tipo === 'quiebre') {
+      return 'Es uno de los dos quiebres de la tendencia. Por estar más a la derecha, el ' + c.n + ' debería tener más energía de ionización, pero tiene menos. ' + QUIEBRES[a.s + '-' + c.s] + datos;
+    }
+    if (q.tipo === 'periodo') {
+      const base = 'Están en el mismo período (' + a.periodo + '): tienen la misma cantidad de niveles, pero el ' + c.n + ' tiene más protones y más carga nuclear efectiva. ';
+      if (q.p === 'radio') return base + 'Atrae más a sus electrones y es más chico: el radio disminuye hacia la derecha.' + datos;
+      if (q.p === 'ei') return base + 'Retiene más a su electrón externo y cuesta más sacárselo: la energía de ionización aumenta hacia la derecha.' + datos;
+      return base + 'Atrae más a los electrones de una unión: la electronegatividad aumenta hacia la derecha.' + datos;
+    }
+    const base = 'Están en el mismo grupo (' + a.grupo + '): el ' + c.n + ' tiene más niveles, así que sus electrones externos están más lejos del núcleo y más apantallados. ';
+    if (q.p === 'radio') return base + 'Por eso es más grande: el radio aumenta al bajar en un grupo.' + datos;
+    if (q.p === 'ei') return base + 'Por eso cuesta menos sacarle un electrón: la energía de ionización disminuye al bajar en un grupo.' + datos;
+    return base + 'Por eso atrae menos a los electrones de una unión: la electronegatividad disminuye al bajar en un grupo.' + datos;
+  }
+
+  // ---------------------------------------------------------- la ficha de un elemento, en renglones [rótulo, texto]
+  function ficha(e) {
+    const filas = [];
+    const t = TIPOS[e.tipo];
+    // el At y el Ts son halógenos, pero la guía no los cuenta entre los no metales
+    const clase = t.c !== t.n && e.tipo !== 'md' && e.s !== 'At' && e.s !== 'Ts' ? ' (' + t.c + ')' : '';
+    filas.push(['Tipo', may(t.n) + clase + (e.est ? ', ' + ESTADOS[e.est] + ' a 25 °C' : '')]);
+    filas.push(['Ubicación', (e.grupo ? 'Grupo ' + e.grupo + (e.z === 1 ? ' (aunque no es un alcalino)' : GRUPOS[e.grupo] ? ' (' + GRUPOS[e.grupo] + ')' : '') : 'Sin número de grupo') + ', período ' + e.periodo + ', bloque ' + e.bloque]);
+    filas.push(['CE por el orden de llenado', ceHTML(e.cfg)]);
+    if (e.real) {
+      filas.push(['CE real', ceHTML(e.real) + '. ' + (e.s === 'Cr' || e.s === 'Cu'
+        ? 'Es una de las dos excepciones que conviene saber: el d ' + (e.s === 'Cr' ? 'semilleno' : 'completo') + ' baja la energía. Si el enunciado no dice nada, se escribe esta.'
+        : 'Es una excepción que no hace falta saber: alcanza con el orden de llenado.')]);
+    }
+    filas.push(['CEE', ceHTML(e.cee)]);
+    filas.push(['Cómo se ubica', e.comoPeriodo + ' ' + e.como]);
+    filas.push(['Radio atómico', e.radio ? num(e.radio) + ' pm (' + (e.claseRadio === 'm' ? 'metálico' : 'covalente') + ')' : 'sin dato']);
+    filas.push(['Energía de ionización', e.ei ? num(e.ei) + ' kJ/mol' : 'sin dato']);
+    filas.push(['Electronegatividad', e.en !== null && e.en !== undefined ? num(e.en.toFixed(1)) : e.tipo === 'gn' ? 'no tiene (gas noble)' : 'sin dato']);
+    if (e.ox) filas.push(['Números de oxidación', e.ox]);
+    return filas;
+  }
+
+  globalThis.TABLA_MOTOR = { E: E, porSimbolo: porSimbolo, TIPOS: TIPOS, PROPS: PROPS, PARES: PARES, ORDEN: ORDEN,
+    configuracion: configuracion, cee: cee, ubicar: ubicar, ceHTML: ceHTML, ceTexto: ceTexto, nivel: nivel, valor: valor,
+    valorTexto: valorTexto, pregunta: pregunta, explicar: explicar, ficha: ficha };
+})();
+
+// ============================================================
+// TABLA PERIÓDICA INTERACTIVA (la parte que se ve)
+// Dibuja la tabla dentro de cada <div class="tp" data-tabla>: la grilla de elementos, lo que muestran los
+// colores, la ficha del elemento elegido y las preguntas de "¿cuál es mayor?". Los datos y las reglas
+// salen del motor (TABLA_MOTOR).
+// ============================================================
+(function () {
+  'use strict';
+  if (typeof document === 'undefined' || !globalThis.TABLA_MOTOR) return;
+  const T = globalThis.TABLA_MOTOR;
+  const MODOS = [['tipo', 'Familias'], ['bloque', 'Bloques'], ['radio', 'Radio'], ['ei', 'Energía de ionización'], ['en', 'Electronegatividad']];
+  const ORDEN_TIPOS = ['al', 'at', 'tr', 'mp', 'md', 'nm', 'ha', 'gn', 'la', 'ac'];
+  const may = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+  let cuenta = 0;
+
+  function armar(raiz) {
+    const id = 'tp' + (++cuenta);
+    const est = { modo: 'tipo', toda: raiz.clientWidth - 36 >= 720, sel: null, q: null, respondida: false, hechas: 0, bien: 0 };
+
+    raiz.innerHTML =
+      '<div class="tp-cab"><div class="tp-t">Tabla periódica</div>' +
+      '<div class="tp-sub">Tocá un elemento para ver sus datos y cómo se ubica a partir de su configuración. Con los botones elegís qué muestran los colores.</div></div>' +
+      '<div class="tp-modos" role="group" aria-label="Qué muestran los colores">' +
+        MODOS.map((m) => '<button type="button" class="tp-chip" data-m="' + m[0] + '" aria-pressed="' + (m[0] === est.modo) + '">' + m[1] + '</button>').join('') + '</div>' +
+      '<div class="tp-leyenda" aria-live="polite"></div>' +
+      '<div class="tp-marco" tabindex="-1"><div class="tp-grilla" role="group" aria-label="Tabla periódica de los elementos"></div></div>' +
+      '<div class="tp-barra"><button type="button" class="tp-b tp-ver"></button><span class="tp-aviso"></span></div>' +
+      '<div class="tp-lu" hidden>Con el orden de llenado, el Lu y el Lr quedan en el grupo 3. Muchas tablas los dibujan abajo, junto a los lantánidos y los actínidos.</div>' +
+      '<div class="tp-ficha"></div>' +
+      '<div class="tp-juego"><div class="tp-j-t">¿Cuál es mayor?</div><div class="tp-j-p"></div>' +
+        '<div class="tp-j-ops"></div><div class="tp-j-fb" role="status" aria-live="polite"></div>' +
+        '<div class="tp-j-pie"><button type="button" class="tp-b tp-b1 tp-j-sig" hidden>Otra pregunta</button><span class="tp-j-puntos"></span></div></div>' +
+      '<div class="tp-nota">Masas atómicas de la IUPAC. Energías de ionización de PubChem (NIH) y del NIST. Electronegatividad de Pauling, con los valores de la tabla clásica. El radio es el metálico en los metales y el covalente en los demás.</div>';
+
+    const q = (s) => raiz.querySelector(s);
+    const grilla = q('.tp-grilla'), fichaEl = q('.tp-ficha'), leyenda = q('.tp-leyenda');
+    const celdas = {};
+
+    // ---------- la grilla
+    grilla.innerHTML =
+      T.E.map((e) => '<button type="button" class="tp-e" data-z="' + e.z + '" tabindex="-1" aria-pressed="false" aria-label="' + may(e.n) + ', ' + e.s + ', número atómico ' + e.z + '">' +
+        '<span class="tp-z" aria-hidden="true">' + e.z + '</span><span class="tp-s" aria-hidden="true">' + e.s + '</span></button>').join('');
+    grilla.querySelectorAll('.tp-e').forEach((c) => { celdas[c.dataset.z] = c; });
+    const cabeceras = [];
+    for (let g = 1; g <= 18; g++) {
+      const s = document.createElement('span');
+      s.className = 'tp-g'; s.setAttribute('aria-hidden', 'true'); s.textContent = g;
+      grilla.insertBefore(s, grilla.firstChild);
+      cabeceras.push([g, s]);
+    }
+    const rotulosF = [['6', '57 a 70'], ['7', '89 a 102']].map((x, i) => {
+      const s = document.createElement('span');
+      s.className = 'tp-rf'; s.setAttribute('aria-hidden', 'true'); s.textContent = x[1];
+      s.style.gridRow = String(10 + i); s.style.gridColumn = '1 / span 2';
+      grilla.appendChild(s);
+      return s;
+    });
+
+    const sep = document.createElement('span');
+    sep.className = 'tp-sep'; sep.style.gridRow = '9'; sep.style.gridColumn = '1 / -1';
+    grilla.appendChild(sep);
+    const visible = (e) => est.toda || e.rep;
+    // fila 1: los números de grupo; filas 2 a 8: los períodos; fila 9: separación; filas 10 y 11: el bloque f
+    const lugar = (e) => (est.toda ? [e.bloque === 'f' ? e.periodo + 4 : e.periodo + 1, e.col] : [e.periodo + 1, e.colRep]);
+    function pintarGrilla() {
+      grilla.className = 'tp-grilla ' + (est.toda ? 'tp-toda' : 'tp-rep');
+      cabeceras.forEach((x) => {
+        const g = x[0], col = est.toda ? g : (g <= 2 ? g : g >= 13 ? g - 10 : 0);
+        x[1].hidden = !col;
+        x[1].style.gridRow = '1'; x[1].style.gridColumn = String(col || 1);
+      });
+      rotulosF.forEach((s) => { s.hidden = !est.toda; });
+      sep.hidden = !est.toda;
+      T.E.forEach((e) => {
+        const c = celdas[e.z], v = visible(e);
+        c.hidden = !v;
+        if (!v) return;
+        const l = lugar(e);
+        c.style.gridRow = String(l[0]); c.style.gridColumn = String(l[1]);
+        let clase = 'tp-e ';
+        if (est.modo === 'tipo') clase += 'tp-c-' + e.tipo;
+        else if (est.modo === 'bloque') clase += 'tp-k-' + e.bloque;
+        else { const n = T.nivel(e, est.modo); clase += n === null ? 'tp-nd' : 'tp-n' + n; }
+        if (est.sel === e) clase += ' tp-sel';
+        if (est.q && (est.q.uno === e || est.q.otro === e)) clase += ' tp-duelo';
+        c.className = clase;
+        c.setAttribute('aria-pressed', String(est.sel === e));
+      });
+      const foco = est.sel && visible(est.sel) ? est.sel : T.E[0];
+      T.E.forEach((e) => { celdas[e.z].tabIndex = e === foco ? 0 : -1; });
+      q('.tp-ver').textContent = est.toda ? 'Ver sólo los representativos' : 'Ver toda la tabla';
+      const marco = q('.tp-marco');
+      q('.tp-aviso').textContent = est.toda && marco.scrollWidth > marco.clientWidth + 2 ? 'Deslizá la tabla de costado para ver el resto.' : '';
+      q('.tp-lu').hidden = !est.toda;
+    }
+
+    function pintarLeyenda() {
+      let h;
+      if (est.modo === 'tipo') {
+        const hay = {};
+        T.E.filter(visible).forEach((e) => { hay[e.tipo] = 1; });
+        h = '<div class="tp-chapas">' + ORDEN_TIPOS.filter((t) => hay[t]).map((t) => '<span class="tp-chapa"><i class="tp-c-' + t + '"></i>' + may(T.TIPOS[t].n) + '</span>').join('') + '</div>';
+      } else if (est.modo === 'bloque') {
+        const hayB = {};
+        T.E.filter(visible).forEach((e) => { hayB[e.bloque] = 1; });
+        h = '<div class="tp-chapas">' + ['s', 'p', 'd', 'f'].filter((k) => hayB[k]).map((k) => '<span class="tp-chapa"><i class="tp-k-' + k + '"></i>Bloque ' + k + '</span>').join('') + '</div>' +
+          '<div class="tp-ley-t">El bloque lo da el subnivel donde entra el último electrón (el electrón diferenciador).</div>';
+      } else {
+        const P = T.PROPS[est.modo];
+        const conDato = T.E.filter((e) => T.valor(e, est.modo) !== null && T.valor(e, est.modo) !== undefined);
+        const orden = conDato.slice().sort((a, c) => T.valor(a, est.modo) - T.valor(c, est.modo));
+        const min = orden[0], max = orden[orden.length - 1];
+        h = '<div class="tp-escala"><span>' + min.s + ' ' + T.valorTexto(min, est.modo) + '</span>' +
+          [0, 1, 2, 3, 4, 5].map((n) => '<i class="tp-n' + n + '"></i>').join('') + '<span>' + max.s + ' ' + T.valorTexto(max, est.modo) + '</span>' +
+          '<span class="tp-chapa"><i class="tp-nd"></i>sin dato</span></div><div class="tp-ley-t">' + P.leyenda + '</div>';
+      }
+      leyenda.innerHTML = h;
+    }
+
+    // ---------- la ficha
+    function pintarFicha() {
+      const e = est.sel;
+      if (!e) { fichaEl.innerHTML = '<div class="tp-f-vacia">Todavía no elegiste ningún elemento.</div>'; return; }
+      const sinMasa = e.masa.charAt(0) === '[';
+      fichaEl.innerHTML =
+        '<div class="tp-f-cab"><div class="tp-f-sim tp-c-' + e.tipo + '"><span class="tp-f-z">' + e.z + '</span><span class="tp-f-s">' + e.s + '</span></div>' +
+        '<div><div class="tp-f-n">' + may(e.n) + '</div><div class="tp-f-sub">Z = ' + e.z + ' · ' +
+        (sinMasa ? 'no tiene masa atómica fija; número de masa de su isótopo de vida más larga: ' + e.masa.slice(1, -1) : 'masa atómica ' + e.masa) + '</div></div></div>' +
+        '<div class="tp-f-filas">' + T.ficha(e).map((f) => '<div class="tp-f-fila"><span>' + f[0] + '</span><div>' + f[1] + '</div></div>').join('') + '</div>';
+    }
+    function elegir(e, conFoco) {
+      est.sel = e;
+      pintarGrilla(); pintarFicha();
+      if (conFoco) celdas[e.z].focus({ preventScroll: true });
+    }
+
+    grilla.addEventListener('click', (ev) => {
+      const c = ev.target.closest('.tp-e');
+      if (!c) return;
+      elegir(T.E[+c.dataset.z - 1], false);
+      const r = fichaEl.getBoundingClientRect();
+      if (r.top > window.innerHeight - 120 && fichaEl.scrollIntoView) {
+        const quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        fichaEl.scrollIntoView({ block: 'nearest', behavior: quieto ? 'auto' : 'smooth' });
+      }
+    });
+    // con el teclado: las flechas llevan al elemento vecino en esa dirección
+    grilla.addEventListener('keydown', (ev) => {
+      const paso = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], ArrowDown: [1, 0] }[ev.key];
+      const c = ev.target.closest('.tp-e');
+      if (!paso || !c) return;
+      ev.preventDefault();
+      const yo = T.E[+c.dataset.z - 1], l = lugar(yo);
+      let mejor = null, dist = 1e9;
+      T.E.filter(visible).forEach((e) => {
+        if (e === yo) return;
+        const m = lugar(e), df = m[0] - l[0], dc = m[1] - l[1];
+        let d;
+        if (paso[1]) {                                   // izquierda o derecha: el más cercano de la misma fila
+          if (df !== 0 || dc * paso[1] <= 0) return;
+          d = Math.abs(dc);
+        } else {                                         // arriba o abajo: la fila más cercana y, en ella, la columna más cercana
+          if (df * paso[0] <= 0) return;
+          d = Math.abs(dc) * 100 + Math.abs(df);
+        }
+        if (d < dist) { dist = d; mejor = e; }
+      });
+      if (mejor) elegir(mejor, true);
+    });
+
+    raiz.querySelector('.tp-modos').addEventListener('click', (ev) => {
+      const c = ev.target.closest('.tp-chip');
+      if (!c || c.dataset.m === est.modo) return;
+      est.modo = c.dataset.m;
+      raiz.querySelectorAll('.tp-chip').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.m === est.modo)));
+      pintarGrilla(); pintarLeyenda();
+    });
+    q('.tp-ver').addEventListener('click', () => {
+      est.toda = !est.toda;
+      if (est.sel && !visible(est.sel)) { est.sel = null; pintarFicha(); }      // el elegido ya no está en la tabla
+      pintarGrilla(); pintarLeyenda();
+    });
+
+    // ---------- ¿cuál es mayor?
+    const ops = q('.tp-j-ops'), fb = q('.tp-j-fb'), sig = q('.tp-j-sig');
+    function nuevaPregunta(conFoco) {
+      est.q = T.pregunta(Math.random);
+      est.respondida = false;
+      q('.tp-j-p').innerHTML = '¿Cuál tiene <b>' + T.PROPS[est.q.p].mayor + '</b>?';
+      ops.innerHTML = [est.q.uno, est.q.otro].map((e) => '<button type="button" class="tp-j-op" data-s="' + e.s + '"><b>' + e.s + '</b><span>' + e.n + '</span></button>').join('');
+      fb.className = 'tp-j-fb'; fb.innerHTML = '';
+      sig.hidden = true;
+      pintarGrilla();
+      if (conFoco) ops.querySelector('.tp-j-op').focus();
+    }
+    ops.addEventListener('click', (ev) => {
+      const o = ev.target.closest('.tp-j-op');
+      if (!o || est.respondida) return;
+      est.respondida = true;
+      const acerto = o.dataset.s === est.q.gana.s;
+      est.hechas++; if (acerto) est.bien++;
+      ops.querySelectorAll('.tp-j-op').forEach((x) => {
+        x.disabled = true;
+        if (x.dataset.s === est.q.gana.s) x.classList.add('tp-ok');
+        else if (x === o) x.classList.add('tp-ko');
+      });
+      fb.className = 'tp-j-fb ' + (acerto ? 'tp-fb-ok' : 'tp-fb-ko');
+      fb.innerHTML = '<div class="tp-fb-t">' + (acerto ? '¡Correcto!' : 'No: es el ' + est.q.gana.n) + '</div><div>' + T.explicar(est.q) + '</div>';
+      q('.tp-j-puntos').textContent = 'Bien: ' + est.bien + ' de ' + est.hechas + '.';
+      sig.hidden = false;
+      sig.focus({ preventScroll: true });
+      const quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (fb.scrollIntoView) fb.scrollIntoView({ block: 'nearest', behavior: quieto ? 'auto' : 'smooth' });
+    });
+    sig.addEventListener('click', () => nuevaPregunta(true));
+
+    pintarLeyenda();
+    pintarFicha();
+    nuevaPregunta(false);
+  }
+
+  function iniciar() {
+    document.querySelectorAll('.tp[data-tabla]').forEach((r) => {
+      if (r.dataset.listo) return;
+      // dentro de una sección plegada el ancho todavía es cero: se arma cuando se abre
+      const plegado = r.closest('details:not([open])');
+      if (plegado && !r.clientWidth) {
+        plegado.addEventListener('toggle', function alAbrir() {
+          if (plegado.open && !r.dataset.listo) { r.dataset.listo = '1'; armar(r); plegado.removeEventListener('toggle', alAbrir); }
+        });
+        return;
+      }
+      r.dataset.listo = '1';
+      armar(r);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
+// ==== INTERACTIVO: TABLA PERIODICA (fin) ====
