@@ -4574,3 +4574,1029 @@ globalThis.TABLA_DATOS = [
   else iniciar();
 })();
 // ==== INTERACTIVO: TABLA PERIODICA (fin) ====
+
+// ==== INTERACTIVO: PRESION DE VAPOR (inicio) ====
+// ============================================================
+// PRESIÓN DE VAPOR (datos). Lo arma armar_datos.py: no se edita a mano.
+// Presión de vapor en mmHg cada 5 °C. Agua: la tabla de la sección 15 de la guía. Las demás: ecuación de
+// Antoine con los parámetros del NIST Chemistry WebBook, y el dato de la guía donde la guía usa uno.
+// ============================================================
+globalThis.VAPOR_DATOS = {
+  sust: [
+    {"id": "agua", "n": "agua", "art": "el", "f": "H<sub>2</sub>O", "M": 18.02, "tmin": 0, "tmax": 110, "teb": 100.0, "pts": [[0.0, 4.58], [10.0, 9.21], [20.0, 17.54], [25.0, 23.76], [30.0, 31.82], [40.0, 55.32], [50.0, 92.51], [60.0, 149.4], [70.0, 233.7], [80.0, 355.1], [90.0, 525.8], [100.0, 760.0], [110.0, 1074.6]]},
+    {"id": "etanol", "n": "etanol", "art": "el", "f": "C<sub>2</sub>H<sub>5</sub>OH", "M": 46.07, "tmin": 0, "tmax": 90, "teb": 78.3, "pts": [[0.0, 11.94], [5.0, 16.89], [10.0, 23.56], [15.0, 32.42], [20.0, 43.89], [25.0, 59.0], [30.0, 78.47], [35.0, 103.2], [40.0, 134.0], [45.0, 173.2], [50.0, 221.2], [55.0, 280.1], [60.0, 350.0], [65.0, 438.3], [70.0, 542.2], [75.0, 665.9], [80.0, 812.5], [85.0, 984.9], [90.0, 1187.0]]},
+    {"id": "metanol", "n": "metanol", "art": "el", "f": "CH<sub>3</sub>OH", "M": 32.04, "tmin": 15, "tmax": 80, "teb": 64.5, "pts": [[15.0, 74.02], [20.0, 97.48], [25.0, 127.0], [30.0, 164.0], [35.0, 209.7], [40.0, 265.7], [45.0, 334.0], [50.0, 416.6], [55.0, 515.6], [60.0, 633.7], [65.0, 773.6], [70.0, 938.3], [75.0, 1131.0], [80.0, 1355.0]]},
+    {"id": "acetona", "n": "acetona", "art": "la", "f": "C<sub>3</sub>H<sub>6</sub>O", "M": 58.08, "tmin": 0, "tmax": 70, "teb": 56.3, "pts": [[0.0, 70.45], [5.0, 90.95], [10.0, 116.2], [15.0, 147.1], [20.0, 184.5], [25.0, 230.0], [30.0, 283.2], [35.0, 346.7], [40.0, 421.4], [45.0, 508.8], [50.0, 610.3], [55.0, 727.6], [60.0, 862.3], [65.0, 1016.0], [70.0, 1192.0]]},
+    {"id": "eter", "n": "éter dietílico", "art": "el", "f": "C<sub>4</sub>H<sub>10</sub>O", "M": 74.12, "tmin": 0, "tmax": 40, "teb": 34.6, "pts": [[0.0, 185.9], [5.0, 233.8], [10.0, 291.4], [15.0, 359.9], [20.0, 440.9], [25.0, 534.8], [30.0, 644.6], [34.55, 760.0], [35.0, 772.3], [40.0, 919.9]]},
+    {"id": "cloroformo", "n": "cloroformo", "art": "el", "f": "CHCl<sub>3</sub>", "M": 119.37, "tmin": 0, "tmax": 70, "teb": 61.3, "pts": [[0.0, 59.17], [5.0, 76.57], [10.0, 98.04], [15.0, 124.3], [20.0, 156.1], [25.0, 194.2], [30.0, 239.7], [35.0, 293.6], [40.0, 356.9], [45.0, 430.8], [50.0, 516.5], [55.0, 615.4], [60.0, 728.8], [65.0, 859.6], [70.0, 1004.0]]},
+    {"id": "ccl4", "n": "tetracloruro de carbono", "art": "el", "f": "CCl<sub>4</sub>", "M": 153.81, "tmin": 20, "tmax": 80, "teb": 76.7, "pts": [[20.0, 91.15], [25.0, 114.2], [30.0, 141.8], [35.0, 174.6], [40.0, 213.3], [45.0, 258.8], [50.0, 311.7], [55.0, 373.0], [60.0, 443.6], [65.0, 524.5], [70.0, 616.5], [75.0, 720.9], [80.0, 838.7]]},
+    {"id": "benceno", "n": "benceno", "art": "el", "f": "C<sub>6</sub>H<sub>6</sub>", "M": 78.11, "tmin": 15, "tmax": 90, "teb": 80.1, "pts": [[15.0, 58.73], [20.0, 74.7], [25.0, 95.1], [30.0, 119.2], [35.0, 148.2], [40.0, 182.7], [45.0, 223.4], [50.0, 271.2], [55.0, 326.9], [60.0, 391.4], [65.0, 465.7], [70.0, 550.8], [75.0, 647.7], [80.0, 757.6], [85.0, 881.4], [90.0, 1022.0]]},
+    {"id": "cs2", "n": "disulfuro de carbono", "art": "el", "f": "CS<sub>2</sub>", "M": 76.13, "tmin": 5, "tmax": 60, "teb": 46.2, "pts": [[5.0, 159.1], [10.0, 197.7], [15.0, 243.5], [20.0, 298.0], [25.0, 360.9], [30.0, 434.7], [35.0, 520.0], [40.0, 618.1], [45.0, 730.2], [50.0, 857.8], [55.0, 1002.0], [60.0, 1165.0]]},
+    {"id": "hexano", "n": "hexano", "art": "el", "f": "C<sub>6</sub>H<sub>14</sub>", "M": 86.18, "tmin": 15, "tmax": 75, "teb": 68.7, "pts": [[15.0, 96.26], [20.0, 121.0], [25.0, 151.0], [30.0, 187.1], [35.0, 229.5], [40.0, 279.4], [45.0, 337.7], [50.0, 405.3], [55.0, 483.3], [60.0, 572.7], [65.0, 674.8], [70.0, 790.5], [75.0, 921.3]]}
+  ]
+};
+
+// ============================================================
+// LÍQUIDO Y VAPOR EN UN CILINDRO (motor)
+// Con las tablas de VAPOR_DATOS calcula la presión de vapor a cualquier temperatura, el estado de un cilindro
+// cerrado con un líquido volátil (si queda líquido, la presión y cuánto hay en cada fase, como en la sección 7.11
+// de la guía) y arma, corrige y resuelve problemas como los del examen. No toca la página: se expone en
+// VAPOR_MOTOR para probarlo aparte.
+// ============================================================
+(function () {
+  'use strict';
+  const D = globalThis.VAPOR_DATOS;
+  if (!D) return;
+
+  const R = 0.0821;          // L·atm/(mol·K), el de la cabecera de los exámenes
+  const R_J = 8.31;          // J/(mol·K), para Clausius-Clapeyron (sección 15)
+  const K = 273;             // T = t + 273 en los problemas del cilindro, como en la sección 7
+  const K15 = 273.15;        // en Clausius-Clapeyron, como en la sección 15
+  const TOL = 0.02;          // se acepta hasta un 2 % de diferencia (redondeos, 273 o 273,15, R con más o menos cifras)
+  const b = (t) => '<b>' + t + '</b>';
+  const PV = 'P<sub>v</sub>', VLIM = 'V<sub>lím</sub>';
+  const SUBS = '₀₁₂₃₄₅₆₇₈₉';
+  const FEMENINAS = { agua: 1, acetona: 1 };
+
+  // ---------- números
+  const red = (x, n) => Number(Number(x).toPrecision(n));
+  // n cifras significativas, con coma decimal
+  function sig(x, n) {
+    if (!x) return '0';
+    let s = Number(x).toPrecision(n);
+    if (s.indexOf('e') >= 0) s = String(Number(s));
+    return s.replace('.', ',').replace('-', '−');
+  }
+  const fijo = (x, d) => Number(x).toFixed(d).replace('.', ',').replace('-', '−');
+  // notación científica: 1,917·10⁻⁴ (con el exponente en superíndice)
+  function cient(x, n) {
+    let e = Math.floor(Math.log10(Math.abs(x)));
+    let m = Number((x / Math.pow(10, e)).toPrecision(n));
+    if (Math.abs(m) >= 10) { m /= 10; e++; }
+    return m.toFixed(n - 1).replace('.', ',').replace('-', '−') + '·10<sup>' + String(e).replace('-', '−') + '</sup>';
+  }
+  const decimales = (txt) => { const i = txt.indexOf(','); return i < 0 ? 0 : txt.length - i - 1; };      // sobre el número como se muestra
+
+  // ---------- las sustancias
+  const SUST = D.sust.map((s) => {
+    const fem = !!FEMENINAS[s.id];
+    return Object.assign({}, s, {
+      fem: fem,
+      del: (s.art === 'la' ? 'de la ' : 'del ') + s.n,                 // del benceno, del agua, de la acetona
+      liq: fem ? 'líquida' : 'líquido',
+      fplana: s.f.replace(/<sub>(\d+)<\/sub>/g, (x, d) => d.split('').map((c) => SUBS[+c]).join('')),
+    });
+  });
+  const porId = {};
+  SUST.forEach((s) => { porId[s.id] = s; });
+
+  // presión de vapor en mmHg: entre dos nudos de la tabla, ln P es lineal en 1/T
+  function pv(s, t) {
+    const p = s.pts;
+    if (t <= p[0][0]) return p[0][1];
+    if (t >= p[p.length - 1][0]) return p[p.length - 1][1];
+    let i = 1;
+    while (p[i][0] < t) i++;
+    const a = p[i - 1], c = p[i];
+    if (c[0] === t) return c[1];
+    const f = (1 / (a[0] + K15) - 1 / (t + K15)) / (1 / (a[0] + K15) - 1 / (c[0] + K15));
+    return Math.exp(Math.log(a[1]) + f * (Math.log(c[1]) - Math.log(a[1])));
+  }
+
+  // ---------- el cilindro: m gramos de s a t °C en V litros (vapor ideal, volumen del líquido despreciable)
+  // pvDato: la presión de vapor del enunciado, si se quiere usar esa en vez de la de la tabla
+  function estado(s, m, t, V, pvDato) {
+    const n = m / s.M, T = t + K, p = pvDato || pv(s, t), pAtm = p / 760;
+    const vlim = n * R * T / pAtm;                     // la última gota
+    const dos = V <= vlim * (1 + 1e-9);                // en V = Vlím todavía hay dos fases (sección 7.11)
+    const P = dos ? pAtm : n * R * T / V;
+    const nVap = dos ? pAtm * V / (R * T) : n;
+    return { n: n, T: T, pv: p, pvAtm: pAtm, vlim: vlim, fases: dos ? 2 : 1, P: P, Pmm: P * 760,
+      nVap: nVap, nLiq: n - nVap, mVap: nVap * s.M, mLiq: (n - nVap) * s.M };
+  }
+
+  // a volumen fijo, la temperatura a la que se evapora la última gota (P_v/T crece con T: hay un solo cruce)
+  function ultimaGota(s, m, V) {
+    const n = m / s.M;
+    const f = (t) => pv(s, t) / 760 * V - n * R * (t + K);
+    if (f(s.tmin) >= 0) return { caso: 'vapor' };            // ni a la temperatura más baja queda líquido
+    if (f(s.tmax) < 0) return { caso: 'liquido' };           // queda líquido en todo el rango
+    let a = s.tmin, c = s.tmax;
+    for (let i = 0; i < 44; i++) { const h = (a + c) / 2; if (f(h) < 0) a = h; else c = h; }
+    return { caso: 'cruza', t: (a + c) / 2 };
+  }
+
+  // tamaño del cilindro que se dibuja: el primero de la lista que deja el volumen límite cerca de la mitad
+  const ESCALAS = [0.05, 0.1, 0.2, 0.3, 0.5, 0.8, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 25, 30, 40, 50, 60, 80, 100, 120, 150, 200, 250, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 5000];
+  function escala(v) {
+    for (let i = 0; i < ESCALAS.length; i++) if (ESCALAS[i] >= v) return ESCALAS[i];
+    return ESCALAS[ESCALAS.length - 1];
+  }
+  // marcas redondas para un eje que va de 0 a max
+  function marcas(max, cuantas) {
+    const bruto = max / (cuantas || 6), e = Math.pow(10, Math.floor(Math.log10(bruto))), f = bruto / e;
+    const paso = (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * e;
+    const out = [];
+    for (let v = 0; v <= max + paso * 1e-6; v += paso) out.push(Number(v.toPrecision(10)));
+    return out;
+  }
+
+  // ============================================================
+  // Problemas
+  // ============================================================
+  const GRUPOS = [{ id: 'cil', n: 'Recipiente con líquido y vapor' }, { id: 'cc', n: 'Clausius-Clapeyron', cod: 'CB103' }];
+  const elegir = (rnd, xs) => xs[Math.min(xs.length - 1, Math.floor(rnd() * xs.length))];
+
+  // temperaturas redondas para los enunciados: lejos de la ebullición, para que la presión de vapor no pase de 1 atm
+  function temperaturas(s, tope) {
+    const out = [], hasta = Math.min(s.tmax, s.teb - 8, tope);
+    for (let t = Math.max(s.tmin, 10); t <= hasta; t += 5) out.push(t);
+    // del agua, sólo las temperaturas que están en la tabla de la sección 15.1
+    return s.id === 'agua' ? out.filter((x) => s.pts.some((q) => q[0] === x)) : out;
+  }
+  function pares(s, tope) {
+    const ts = temperaturas(s, tope), out = [];
+    ts.forEach((a) => ts.forEach((c) => { if (c - a >= 15 && c - a <= 30) out.push([a, c]); }));
+    return out;
+  }
+  // una masa que da un volumen límite cómodo (entre 2 y 80 L), con dos cifras
+  function masaPara(s, t, pvD, rnd) {
+    // el volumen límite sale entre 2 y 50 L (log-uniforme), con la masa entre 0,2 y 50 g
+    const porLitro = (pvD / 760) / (R * (t + K)) * s.M;        // gramos de vapor saturado por litro
+    const vMin = Math.max(2, 0.2 / porLitro), vMax = Math.max(vMin, Math.min(50, 50 / porLitro));
+    return red(porLitro * vMin * Math.pow(vMax / vMin, rnd()), 2);
+  }
+  // el volumen límite con la misma cadena de redondeos que muestra la resolución
+  function vlimCadena(s, m, t, pvD) { return red(m / s.M, 4) * R * (t + K) / red(pvD / 760, 4); }
+  const lejos = (V, vl) => V <= 0.85 * vl || V >= 1.18 * vl;   // sin casos en el borde, donde un redondeo cambia la respuesta
+
+  function genVar(s, rnd) {
+    const t = elegir(rnd, temperaturas(s, 70)), pvD = red(pv(s, t), 3), m = masaPara(s, t, pvD, rnd);
+    const vl = vlimCadena(s, m, t, pvD);
+    const bajo = red(vl * (0.30 + 0.45 * rnd()), 2), alto = red(vl * (1.3 + 0.8 * rnd()), 2);
+    if (!(bajo >= 0.2 * vl && bajo <= 0.85 * vl && alto >= 1.18 * vl)) return null;
+    const u = rnd() < 0.5 ? 'atm' : 'mmHg', patron = rnd(), x = rnd();
+    let items;
+    if (patron < 0.45) {
+      const va = x < 0.35 || x >= 0.9 ? alto : bajo, vb = x < 0.7 ? bajo : alto;
+      items = [{ k: 'vlim' }, { k: 'p', V: va, u: u }, { k: rnd() < 0.5 ? 'mvap' : 'mliq', V: vb }];
+    } else if (patron < 0.75) {
+      items = [{ k: 'vequi' }, { k: 'vlim' }, { k: 'p', V: x < 0.6 ? alto : bajo, u: u }];
+    } else {
+      items = [{ k: 'vlim' }, { k: 'p', V: bajo, u: u }, { k: 'p', V: alto, u: u }];
+    }
+    items.forEach((it) => { it.t = t; });
+    return { modelo: 'var', s: s, m: m, datos: [{ t: t, pv: pvD }], items: items };
+  }
+
+  function genRig(s, rnd) {
+    const t = elegir(rnd, temperaturas(s, 70)), pvD = red(pv(s, t), 3), m = masaPara(s, t, pvD, rnd);
+    const vl = vlimCadena(s, m, t, pvD);
+    const V = rnd() < 0.55 ? red(vl * (0.30 + 0.45 * rnd()), 2) : red(vl * (1.3 + 0.8 * rnd()), 2);
+    if (!(V >= 0.2 * vl && lejos(V, vl))) return null;
+    const u = rnd() < 0.5 ? 'atm' : 'mmHg';
+    const items = [{ k: 'evapora', V: V, t: t }, { k: 'p', V: V, t: t, u: u }, { k: rnd() < 0.5 ? 'mliq' : 'mvap', V: V, t: t }];
+    return { modelo: 'rig', s: s, m: m, V: V, datos: [{ t: t, pv: pvD }], items: items };
+  }
+
+  function genCal(s, rnd) {
+    const ps = pares(s, 75);
+    if (!ps.length) return null;
+    const par = elegir(rnd, ps), t1 = par[0], t2 = par[1];
+    const pv1 = red(pv(s, t1), 3), pv2 = red(pv(s, t2), 3), m = masaPara(s, t1, pv1, rnd);
+    const vl1 = vlimCadena(s, m, t1, pv1), vl2 = vlimCadena(s, m, t2, pv2);
+    let V;
+    if (rnd() < 0.5 && vl1 * 0.8 > vl2 * 1.3) V = red(vl2 * 1.3 + (vl1 * 0.8 - vl2 * 1.3) * rnd(), 2);   // al calentar se evapora todo
+    else V = red(vl2 * (0.35 + 0.45 * rnd()), 2);                                                      // queda líquido a las dos
+    if (!(V <= 0.85 * vl1 && V >= 0.2 * vl2 && lejos(V, vl2))) return null;
+    const u = rnd() < 0.5 ? 'atm' : 'mmHg';
+    const items = [{ k: 'p', V: V, t: t1, u: u }, { k: 'p', V: V, t: t2, u: u }, { k: rnd() < 0.6 ? 'mliq' : 'mvap', V: V, t: t2 }];
+    return { modelo: 'cal', s: s, m: m, V: V, datos: [{ t: t1, pv: pv1 }, { t: t2, pv: pv2 }], items: items };
+  }
+
+  function genCC(s, rnd) {
+    const ps = pares(s, 80).filter((x) => s.teb - x[1] <= 35);      // no extrapolar lejos: ΔHvap no es constante
+    if (!ps.length) return null;
+    const par = elegir(rnd, ps), t1 = par[0], t2 = par[1];
+    const otras = [];
+    for (let t = Math.ceil(s.tmin / 5) * 5; t <= Math.min(s.tmax, t2 + 15); t += 5) if (t > t1 && t !== t2) otras.push(t);
+    if (!otras.length) return null;
+    const t3 = elegir(rnd, otras);
+    return { modelo: 'cc', s: s, datos: [{ t: t1, pv: red(pv(s, t1), 3) }, { t: t2, pv: red(pv(s, t2), 3) }],
+      items: [{ k: 'dhvap' }, { k: 'pvT', t: t3 }, { k: 'teb' }] };
+  }
+
+  const GEN = { 'var': genVar, rig: genRig, cal: genCal, cc: genCC };
+  // cfg.grupos: qué se practica. recientes: ids de las últimas sustancias, para no repetir
+  function generar(cfg, rnd, recientes) {
+    const grupos = cfg && cfg.grupos && cfg.grupos.length ? cfg.grupos : ['cil'];
+    const modelos = [];
+    if (grupos.indexOf('cil') >= 0) modelos.push('var', 'var', 'rig', 'cal');       // el de volumen variable es el que más cae
+    if (grupos.indexOf('cc') >= 0) modelos.push('cc', 'cc');
+    const ultimas = (recientes || []).slice(-3);
+    for (let i = 0; i < 200; i++) {
+      const modelo = elegir(rnd, modelos);
+      const libres = SUST.filter((s) => ultimas.indexOf(s.id) < 0 || i > 100);
+      const p = GEN[modelo](elegir(rnd, libres), rnd);
+      if (p) return p;
+    }
+    // por si nada sirvió (no debería pasar): el de la integradora del 18/07/24
+    return { modelo: 'var', s: porId.benceno, m: 7.8, datos: [{ t: 20, pv: 74.7 }],
+      items: [{ k: 'vequi', t: 20 }, { k: 'vlim', t: 20 }, { k: 'p', V: 30, t: 20, u: 'atm' }] };
+  }
+
+  // ---------- el enunciado
+  function enunciado(p) {
+    const s = p.s, que = s.n + ' (' + s.f + ')';
+    const R1 = 'R = 0,0821 L·atm/(mol·K)', M = 'M = ' + fijo(s.M, 2) + ' g/mol', d = p.datos;
+    if (p.modelo === 'cc') {
+      return { texto: (s.art === 'la' ? 'La ' : 'El ') + que + ' tiene una presión de vapor de ' + b(sig(d[0].pv, 3) + ' mmHg a ' + d[0].t + ' °C') +
+        ' y de ' + b(sig(d[1].pv, 3) + ' mmHg a ' + d[1].t + ' °C') + '.', datos: ['R = 8,31 J/(mol·K)'] };
+    }
+    const masa = b(sig(p.m, 3) + ' g') + ' de ' + que + ' ' + s.liq;
+    const pv1 = PV + ' ' + s.del + ' a ' + d[0].t + ' °C = ' + sig(d[0].pv, 3) + ' mmHg';
+    if (p.modelo === 'var') {
+      return { texto: 'En un cilindro con pistón, de volumen variable y sin aire, se colocan ' + masa + ' y se lo mantiene a ' + b(d[0].t + ' °C') + '.',
+        datos: [pv1, M, R1, '760 mmHg = 1 atm'] };
+    }
+    const rigido = 'En un recipiente rígido de ' + b(sig(p.V, 3) + ' L') + ', al que antes se le hizo vacío, se colocan ' + masa;
+    if (p.modelo === 'rig') {
+      return { texto: rigido + '. Se lo mantiene a ' + b(d[0].t + ' °C') + ' hasta que llega al equilibrio.', datos: [pv1, M, R1, '760 mmHg = 1 atm'] };
+    }
+    return { texto: rigido + ' a ' + b(d[0].t + ' °C') + '. Cuando llega al equilibrio se lo calienta hasta ' + b(d[1].t + ' °C') + '.',
+      datos: [PV + ' ' + s.del + ': ' + sig(d[0].pv, 3) + ' mmHg a ' + d[0].t + ' °C y ' + sig(d[1].pv, 3) + ' mmHg a ' + d[1].t + ' °C', M, R1, '760 mmHg = 1 atm'] };
+  }
+
+  // lo que pregunta cada ítem: { q: la pregunta, u: la unidad, tipo: 'num' o 'sino' }
+  function preguntas(p) {
+    const s = p.s;
+    return p.items.map((it) => {
+      const donde = p.modelo === 'var' ? ' si el volumen es ' + sig(it.V, 3) + ' L' : p.modelo === 'cal' ? ' a ' + it.t + ' °C' : '';
+      switch (it.k) {
+        case 'vlim': return { q: '¿A partir de qué volumen hay sólo vapor?', u: 'L', tipo: 'num' };
+        case 'vequi': return { q: '¿Qué volumen tiene que tener el cilindro para que el equilibrio líquido-vapor sea equimolar?', u: 'L', tipo: 'num' };
+        case 'p': return { q: '¿Qué presión hay' + (p.modelo === 'rig' ? ' en el recipiente' : donde) + '?', u: it.u, tipo: 'num' };
+        case 'mvap': return { q: '¿Qué masa de ' + s.n + ' está como vapor' + donde + '?', u: 'g', tipo: 'num' };
+        case 'mliq': return { q: '¿Qué masa de ' + s.n + ' queda como líquido' + donde + '?', u: 'g', tipo: 'num' };
+        case 'evapora': return { q: '¿Se evapora ' + (s.fem ? 'toda' : 'todo') + ' ' + (s.art === 'la' ? 'la' : 'el') + ' ' + s.n + '?', u: '', tipo: 'sino' };
+        case 'dhvap': return { q: '¿Cuánto vale su entalpía de vaporización?', u: 'kJ/mol', tipo: 'num' };
+        case 'pvT': return { q: '¿Qué presión de vapor tiene a ' + it.t + ' °C?', u: 'mmHg', tipo: 'num' };
+        default: return { q: '¿Cuál es su temperatura de ebullición normal?', u: '°C', tipo: 'num' };
+      }
+    });
+  }
+
+  // ---------- las cuentas, con los mismos redondeos que se muestran (cada renglón se puede rehacer con la calculadora)
+  function cuenta(p) {
+    return p.modelo === 'cc' ? cuentaCC(p) : cuentaCil(p);
+  }
+
+  function cuentaCil(p) {
+    const s = p.s, c = { n4: red(p.m / s.M, 4), porT: {}, items: [] };
+    p.datos.forEach((d) => {
+      const pvAtm4 = red(d.pv / 760, 4), T = d.t + K;
+      c.porT[d.t] = { t: d.t, T: T, pv: d.pv, pvAtm4: pvAtm4, vlim: c.n4 * R * T / pvAtm4 };
+    });
+    c.items = p.items.map((it) => {
+      const e = c.porT[it.t], n = c.n4, T = e.T, o = { k: it.k, cand: [] };
+      const errar = (v, msg, casi) => { if (isFinite(v)) o.cand.push({ v: v, msg: msg, casi: !!casi }); };
+      const limpiar = () => { const tol = o.abs !== undefined ? o.abs : TOL * Math.abs(o.ans); o.cand = o.cand.filter((k) => Math.abs(k.v - o.ans) > tol); };
+      const EN_ATM = 'Te quedó 760 veces más ' + (it.k === 'mvap' ? 'grande' : 'chico') + ': para usar R = 0,0821 la presión de vapor va en atm (los mmHg divididos por 760).';
+      const EN_K = 'La temperatura va en kelvin: a los °C sumales 273.';
+      const EN_MOL = 'Usaste los gramos donde van los moles: primero n = m/M.';
+      if (it.k === 'vlim' || it.k === 'vequi') {
+        const medio = it.k === 'vequi';
+        o.nh4 = red(n / 2, 4);
+        const base = (medio ? o.nh4 : n) * R * T / e.pvAtm4;
+        o.ans = red(base, 3); o.u = 'L';
+        if (medio) errar(e.vlim, 'Ese es el volumen límite, con todos los moles en el vapor. En el equilibrio equimolar sólo la mitad de los moles está en el vapor.');
+        else errar(e.vlim / 2, 'Ese es el volumen del equilibrio equimolar, con la mitad de los moles en el vapor. Para que no quede líquido tienen que estar todos en el vapor.');
+        errar(base / 760, EN_ATM); errar(base * it.t / T, EN_K); errar(base * s.M, EN_MOL);
+      } else if (it.k === 'evapora') {
+        o.fase = it.V <= e.vlim ? 2 : 1;
+        o.ans = o.fase === 1; o.u = '';
+        o.pTodo4 = red(n * R * T / it.V, 4);            // la presión que habría si todo fuera vapor
+      } else {
+        o.fase = it.V <= e.vlim ? 2 : 1;
+        const mmHg = it.u === 'mmHg', nRTV = n * R * T / it.V, mSat = e.pvAtm4 * it.V / (R * T) * s.M;
+        const COMPARA = 'Compará ese volumen con el volumen límite: ¿queda líquido?';
+        if (it.k === 'p') {
+          o.u = it.u;
+          const otra = 'El número corresponde a la otra unidad: acá se pide en ' + it.u + (mmHg ? ' (los atm por 760).' : ' (los mmHg divididos por 760).');
+          if (o.fase === 2) {
+            o.ans = mmHg ? e.pv : red(e.pvAtm4, 3);
+            errar(mmHg ? nRTV * 760 : nRTV, 'Eso sale de PV = nRT con todos los moles, pero a ese volumen no se evapora todo. Mientras quede líquido, ¿qué presión hay?');
+            errar(mmHg ? e.pvAtm4 : e.pv, otra, true);
+          } else {
+            o.pAtm4 = red(nRTV, 4);
+            o.ans = mmHg ? red(o.pAtm4 * 760, 3) : red(o.pAtm4, 3);
+            errar(mmHg ? e.pv : e.pvAtm4, 'Esa es la presión de vapor, que vale sólo mientras queda líquido. ' + COMPARA);
+            errar(mmHg ? o.pAtm4 : o.pAtm4 * 760, otra, true);
+            errar((mmHg ? 760 : 1) * n * R * it.t / it.V, EN_K);
+            errar((mmHg ? 760 : 1) * p.m * R * T / it.V, EN_MOL);
+          }
+        } else {
+          o.u = 'g';
+          if (o.fase === 2) {
+            o.nv4 = red(e.pvAtm4 * it.V / (R * T), 4);
+            o.mvap = red(o.nv4 * s.M, 3);
+            const dec = Math.min(decimales(sig(o.mvap, 3)), decimales(sig(p.m, 3)));      // en una resta mandan los decimales del menos preciso
+            o.mliq = Number((p.m - o.mvap).toFixed(dec)); o.dec = dec;
+            if (it.k === 'mvap') {
+              o.ans = o.mvap;
+              errar(p.m, 'Esa es toda la masa, y a ese volumen no se evapora todo. ' + COMPARA);
+              errar(o.mliq, 'Esa es la masa que queda líquida. Se pide la del vapor.');
+              errar(o.nv4, 'Esos son los moles de vapor. Falta pasarlos a gramos con la masa molar.');
+              errar(mSat * 760, EN_ATM); errar(e.pvAtm4 * it.V / (R * it.t) * s.M, EN_K);
+            } else {
+              o.ans = o.mliq; o.abs = TOL * Math.max(o.mvap, o.mliq);
+              errar(o.mvap, 'Esa es la masa de vapor. Se pide la que queda líquida: restásela a la masa total.');
+              errar(0, 'A ese volumen no se evapora todo. ' + COMPARA);
+              errar(p.m, 'Esa es toda la masa, pero una parte se evaporó: el vapor llena el recipiente a la presión de vapor.');
+              errar(red(p.m / s.M, 4) - o.nv4, 'Esos son los moles de líquido. Falta pasarlos a gramos con la masa molar.');
+            }
+          } else if (it.k === 'mvap') {
+            o.ans = p.m;
+            errar(mSat, 'Esa cuenta supone que el vapor está a la presión de vapor, y da más masa que la que hay. A ese volumen ya no queda líquido: ¿cuánto vapor puede haber?');
+          } else {
+            o.ans = 0; o.abs = 0.005 * p.m;
+            errar(p.m - mSat, 'Una masa no puede dar negativa. Esa cuenta supone que el vapor está a la presión de vapor, y no hay tanta sustancia: ¿qué pasó con el líquido?');
+          }
+        }
+      }
+      if (o.k !== 'evapora') limpiar();
+      return o;
+    });
+    return c;
+  }
+
+  function cuentaCC(p) {
+    const d1 = p.datos[0], d2 = p.datos[1], c = { items: [] };
+    c.T1 = d1.t + K15; c.T2 = d2.t + K15;
+    c.L = Number(Math.log(d2.pv / d1.pv).toFixed(4));
+    c.i1 = red(1 / c.T1, 5); c.i2 = red(1 / c.T2, 5);
+    c.dif = red(c.i2 - c.i1, 4);
+    c.dH = red(-R_J * c.L / c.dif, 4);                 // J/mol
+    c.items = p.items.map((it) => {
+      const o = { k: it.k, cand: [] };
+      const errar = (v, msg, casi) => { if (isFinite(v)) o.cand.push({ v: v, msg: msg, casi: !!casi }); };
+      if (it.k === 'dhvap') {
+        o.ans = red(c.dH / 1000, 3); o.u = 'kJ/mol';
+        errar(c.dH, 'Eso está en J/mol: se pide en kJ/mol.', true);
+        errar(-c.dH / 1000, 'La entalpía de vaporización siempre es positiva: revisá el orden de la resta 1/T<sub>2</sub> − 1/T<sub>1</sub> o el signo de adelante.');
+        if (d1.t && d2.t) errar(-R_J * c.L / (1 / d2.t - 1 / d1.t) / 1000, 'Las temperaturas van en kelvin, no en °C.');
+        errar(c.dH / 1000 / Math.LN10, 'Parece que usaste el logaritmo decimal. La ecuación lleva el logaritmo natural (ln).');
+        errar(c.dH / 1000 / R_J * 0.0821, 'Para que dé en joules, R va como 8,31 J/(mol·K), no como 0,0821.');
+      } else if (it.k === 'pvT') {
+        // desde el dato más cercano en temperatura
+        const ref = Math.abs(it.t - d1.t) <= Math.abs(it.t - d2.t) ? d1 : d2, otro = ref === d1 ? d2 : d1;
+        o.ref = ref; o.T3 = it.t + K15; o.Tref = ref.t + K15;
+        o.coc = red(c.dH / R_J, 4);
+        o.dif = red(1 / o.T3 - 1 / o.Tref, 4);
+        o.E = Number((-o.coc * o.dif).toFixed(4));
+        o.ans = red(ref.pv * Math.exp(o.E), 3); o.u = 'mmHg';
+        errar(ref.pv * Math.exp(-o.E), 'Revisá el signo del exponente: ' + (it.t > ref.t ? 'a más temperatura, más presión de vapor.' : 'a menos temperatura, menos presión de vapor.'));
+        errar(ref.pv + (otro.pv - ref.pv) * (it.t - ref.t) / (otro.t - ref.t),
+          'Eso es interpolar en línea recta entre los dos datos. La presión de vapor no crece en línea recta con la temperatura: lo que da una recta es ln P contra 1/T.');
+        errar(ref.pv * Math.exp(-(c.dH / 1000 / R_J) * (1 / o.T3 - 1 / o.Tref)), 'La entalpía va en J/mol (los kJ por 1000) para usarla con R = 8,31 J/(mol·K).');
+        if (it.t && ref.t) errar(ref.pv * Math.exp(-(c.dH / R_J) * (1 / it.t - 1 / ref.t)), 'Las temperaturas van en kelvin, no en °C.');
+      } else {
+        // desde el dato de presión más cercana a 760 mmHg
+        const ref = Math.abs(Math.log(760 / d2.pv)) <= Math.abs(Math.log(760 / d1.pv)) ? d2 : d1;
+        o.ref = ref; o.Tref = ref.t + K15;
+        o.L = Number(Math.log(760 / ref.pv).toFixed(4));
+        o.iref = red(1 / o.Tref, 5);
+        o.term = red(R_J * o.L / c.dH, 4);
+        o.inv = red(o.iref - o.term, 5);
+        o.TK = 1 / o.inv;
+        o.ans = Number((o.TK - K15).toFixed(1)); o.u = '°C'; o.abs = 1;      // se acepta hasta 1 °C de diferencia
+        errar(o.TK, 'Eso está en kelvin: se pide en °C.', true);
+        errar(1 / (o.iref + o.term) - K15, 'Revisá el signo: para llegar a 760 mmHg, que es ' + (ref.pv < 760 ? 'más' : 'menos') + ' presión que la del dato, la temperatura tiene que ser ' + (ref.pv < 760 ? 'mayor.' : 'menor.'));
+      }
+      return o;
+    });
+    return c;
+  }
+
+  // ---------- leer lo que se escribió
+  // Devuelve null si está vacío, NaN si no es un número, y si no el número. Acepta coma o punto y la unidad pegada.
+  function leerNumero(txt) {
+    let s = String(txt === null || txt === undefined ? '' : txt).trim().toLowerCase();
+    if (!s) return null;
+    s = s.replace(/\s+/g, '').replace(/[−–]/g, '-');
+    s = s.replace(/[x×·*]10\^?\(?(-?\d+)\)?/, 'e$1');                       // 1,2x10^-3 y parecidos
+    s = s.replace(/(mmhg|torr|atm|kj\/mol|j\/mol|kj|mol|litros?|gramos?|°c|ºc|l|g|c|k)$/, '');
+    if (s.indexOf(',') >= 0 && s.indexOf('.') >= 0) {                        // los dos: el último es el decimal
+      if (s.lastIndexOf(',') > s.lastIndexOf('.')) s = s.replace(/\./g, '').replace(',', '.');
+      else s = s.replace(/,/g, '');
+    } else s = s.replace(',', '.');
+    if (!/^-?(\d+\.?\d*|\.\d+)(e-?\d+)?$/.test(s)) return NaN;
+    return Number(s);
+  }
+
+  const GENERICO = {
+    vlim: 'No da. Planteá PV = nRT con todos los moles en el vapor y la presión de vapor en atm.',
+    vequi: 'No da. En el equilibrio equimolar la mitad de los moles está en el vapor, a la presión de vapor.',
+    p: 'No da. Antes de hacer la cuenta, compará ese volumen con el volumen límite para saber si queda líquido.',
+    mvap: 'No da. Compará el volumen con el volumen límite: si queda líquido, el vapor está a la presión de vapor.',
+    mliq: 'No da. Calculá primero la masa de vapor y restásela a la masa total.',
+    dhvap: 'No da. Revisá que las temperaturas estén en kelvin, que el logaritmo sea el natural y que R sea 8,31 J/(mol·K).',
+    pvT: 'No da. Usá la entalpía en J/mol y las temperaturas en kelvin, y despejá la presión con la exponencial.',
+    teb: 'No da. Planteá la ecuación con P = 760 mmHg, despejá 1/T y al final pasá de kelvin a °C.',
+  };
+
+  // Corrige el ítem i. `entrada` es lo que se escribió, o 'si' / 'no' en los de sí o no.
+  // Devuelve { v: 'ok' | 'casi' | 'mal' | 'vacio' | 'nonum', msg }
+  function corregir(p, i, entrada, hecha) {
+    const o = (hecha || cuenta(p)).items[i];
+    if (o.k === 'evapora') {
+      if (entrada !== 'si' && entrada !== 'no') return { v: 'vacio', msg: '' };
+      if ((entrada === 'si') === o.ans) return { v: 'ok', msg: '' };
+      return { v: 'mal', msg: entrada === 'si'
+        ? 'Fijate: si todo fuera vapor, ¿qué presión habría en el recipiente? Comparala con la presión de vapor.'
+        : 'Calculá el volumen límite, o la presión que habría con todo evaporado, y comparalo con el dato.' };
+    }
+    const x = leerNumero(entrada);
+    if (x === null) return { v: 'vacio', msg: '' };
+    if (isNaN(x)) return { v: 'nonum', msg: 'Escribí sólo el número, con coma o con punto. La unidad ya está al lado.' };
+    const tol = o.abs !== undefined ? o.abs : TOL * Math.abs(o.ans);
+    if (Math.abs(x - o.ans) <= tol + 1e-12) return { v: 'ok', msg: '' };
+    if (o.ans >= 1000 && Math.abs(x * 1000 - o.ans) <= tol) return { v: 'casi', msg: 'Escribilo sin el punto de los miles.' };
+    for (let j = 0; j < o.cand.length; j++) {
+      const k = o.cand[j], margen = Math.max(TOL * Math.abs(k.v), 1e-9);
+      if (Math.abs(x - k.v) <= margen) return { v: k.casi ? 'casi' : 'mal', msg: k.msg };
+    }
+    if (x < 0 && o.k !== 'teb') return { v: 'mal', msg: 'No puede dar negativo. Revisá los signos y las unidades.' };
+    return { v: 'mal', msg: GENERICO[o.k] };
+  }
+
+  // la respuesta de cada ítem, como texto
+  function respuestas(p, hecha) {
+    const c = hecha || cuenta(p);
+    return c.items.map((o) => {
+      if (o.k === 'evapora') return o.ans ? 'Sí, se evapora todo' : 'No, queda líquido';
+      if (o.k === 'teb') return fijo(o.ans, 1) + ' °C';
+      if (o.k === 'mliq') return (o.fase === 2 ? fijo(o.ans, o.dec) : '0') + ' g';
+      return sig(o.ans, 3) + ' ' + o.u;
+    });
+  }
+
+  const PISTAS = {
+    vlim: 'Es el volumen en el que se evapora la última gota: todos los moles están en el vapor y la presión todavía es la de vapor. Usá PV = nRT con esos datos, con la presión en atm.',
+    vequi: 'Equimolar quiere decir la mitad de los moles en el vapor y la otra mitad en el líquido. Como queda líquido, la presión es la de vapor.',
+    p: 'Primero compará ese volumen con el volumen límite. Si es menor, queda líquido; si es mayor, es todo vapor. La presión se calcula distinto en cada caso.',
+    mvap: 'Compará el volumen con el volumen límite. Si queda líquido, el vapor llena el recipiente a la presión de vapor: sus moles salen de PV = nRT.',
+    mliq: 'Calculá primero cuánto hay en el vapor. Lo que falta para llegar a la masa total es lo que queda líquido.',
+    evapora: 'Suponé que se evaporó todo y calculá la presión con PV = nRT. Si te da más que la presión de vapor, no puede ser: queda líquido.',
+    dhvap: 'Usá ln(P<sub>2</sub>/P<sub>1</sub>) = −(ΔH<sub>vap</sub>/R) · (1/T<sub>2</sub> − 1/T<sub>1</sub>), con las temperaturas en kelvin y R = 8,31 J/(mol·K).',
+    pvT: 'Con la entalpía del ítem anterior y uno de los dos datos, la misma ecuación te da la presión a la nueva temperatura.',
+    teb: 'La ebullición normal es a 760 mmHg. Usá la misma ecuación con esa presión y despejá la temperatura.',
+  };
+  const pista = (p, i) => PISTAS[p.items[i].k];
+
+  // ---------- la resolución, paso a paso
+  const LETRAS = ['a', 'b', 'c', 'd'];
+  function resolver(p, hecha) {
+    const c = hecha || cuenta(p);
+    return p.modelo === 'cc' ? resolverCC(p, c) : resolverCil(p, c);
+  }
+
+  function resolverCil(p, c) {
+    const s = p.s, pasos = [], ts = p.datos.map((d) => c.porT[d.t]), n = sig(c.n4, 4), varias = ts.length > 1;
+    pasos.push(b('Los datos.') + ' n = m/M = ' + sig(p.m, 3) + '/' + fijo(s.M, 2) + ' = ' + b(n + ' mol') + '. ' +
+      ts.map((e) => (varias ? 'A ' + e.t + ' °C: ' : '') + PV + ' = ' + sig(e.pv, 3) + '/760 = ' + b(sig(e.pvAtm4, 4) + ' atm') + ' y T = ' + e.t + ' + 273 = ' + b(e.T + ' K')).join('. ') + '.');
+    pasos.push(b('El volumen límite.') + ' Es el volumen en el que se evapora la última gota: todos los moles están en el vapor y la presión todavía es ' + PV + '. ' +
+      ts.map((e) => (varias ? 'A ' + e.t + ' °C: ' : '') + VLIM + ' = n·R·T/' + PV + ' = ' + n + ' · 0,0821 · ' + e.T + ' / ' + sig(e.pvAtm4, 4) + ' = ' + b(sig(e.vlim, 3) + ' L')).join('. ') + '.' +
+      (varias ? ' Al calentar, la presión de vapor sube mucho más rápido que T, y por eso el volumen límite se achica.' : ''));
+    p.items.forEach((it, i) => {
+      const o = c.items[i], e = c.porT[it.t], L = b(LETRAS[i] + ')') + ' ';
+      const V = it.V === undefined ? '' : sig(it.V, 3), vl = sig(e.vlim, 3), aT = varias ? 'A ' + it.t + ' °C, ' : '';
+      const menos = aT + (aT ? 'los ' : '') + V + ' L son menos que el volumen límite (' + vl + ' L): queda líquido';
+      const mas = aT + (aT ? 'los ' : '') + V + ' L son más que el volumen límite (' + vl + ' L): se evaporó todo';
+      const pvEn = (u) => (u === 'mmHg' ? sig(e.pv, 3) + ' mmHg' : sig(e.pvAtm4, 3) + ' atm');
+      let t;
+      if (it.k === 'vlim') {
+        t = 'Hay sólo vapor a partir de ' + b(sig(o.ans, 3) + ' L') + ', que es el volumen límite. Con más volumen ya no queda líquido para evaporar y la presión empieza a bajar.';
+      } else if (it.k === 'vequi') {
+        t = 'Equimolar quiere decir la mitad de los moles en cada fase: n<sub>vapor</sub> = ' + n + '/2 = ' + sig(o.nh4, 4) + ' mol. Como queda líquido, la presión es ' + PV +
+          ': V = n<sub>vapor</sub>·R·T/' + PV + ' = ' + sig(o.nh4, 4) + ' · 0,0821 · ' + e.T + ' / ' + sig(e.pvAtm4, 4) + ' = ' + b(sig(o.ans, 3) + ' L') + ', la mitad del volumen límite.';
+      } else if (it.k === 'evapora') {
+        const pTodo = sig(o.pTodo4, 3) + ' atm (' + sig(o.pTodo4 * 760, 3) + ' mmHg)';
+        t = o.fase === 2
+          ? 'El recipiente tiene ' + V + ' L, menos que el volumen límite (' + vl + ' L): ' + b('no se evapora todo') + ', queda líquido. Otra forma de verlo: si todo fuera vapor, la presión sería n·R·T/V = ' +
+            n + ' · 0,0821 · ' + e.T + ' / ' + V + ' = ' + pTodo + ', más que la presión de vapor (' + sig(e.pv, 3) + ' mmHg), y eso no puede ser.'
+          : 'El recipiente tiene ' + V + ' L, más que el volumen límite (' + vl + ' L): ' + b('se evapora todo') + '. Otra forma de verlo: con todo evaporado la presión es n·R·T/V = ' +
+            n + ' · 0,0821 · ' + e.T + ' / ' + V + ' = ' + pTodo + ', menos que la presión de vapor (' + sig(e.pv, 3) + ' mmHg), así que el vapor no llega a saturar.';
+      } else if (it.k === 'p') {
+        if (o.fase === 2) {
+          t = menos + ' y hay dos fases. La presión es la de vapor: ' + b(pvEn(it.u)) + '. No se calcula con PV = nRT usando todos los moles: mientras haya líquido, la presión es la de vapor y no depende del volumen.';
+        } else {
+          t = mas + ' y hay una sola fase. Ahora sí va PV = nRT con todos los moles: P = n·R·T/V = ' + n + ' · 0,0821 · ' + e.T + ' / ' + V + ' = ' +
+            (it.u === 'mmHg' ? sig(o.pAtm4, 4) + ' atm = ' + sig(o.pAtm4, 4) + ' · 760 = ' + b(sig(o.ans, 3) + ' mmHg') : b(sig(o.ans, 3) + ' atm')) +
+            '. Control: da menos que la presión de vapor (' + pvEn(it.u) + '), como tiene que ser.';
+        }
+      } else if (o.fase === 2) {
+        t = menos + '. El vapor llena el recipiente a la presión de vapor: n<sub>vapor</sub> = ' + PV + '·V/(R·T) = ' + sig(e.pvAtm4, 4) + ' · ' + V + ' / (0,0821 · ' + e.T + ') = ' +
+          sig(o.nv4, 4) + ' mol, que son ' + sig(o.nv4, 4) + ' · ' + fijo(s.M, 2) + ' = ' + (it.k === 'mvap' ? b(sig(o.mvap, 3) + ' g') + ' de vapor.'
+            : sig(o.mvap, 3) + ' g de vapor. El resto sigue como líquido: ' + sig(p.m, 3) + ' − ' + sig(o.mvap, 3) + ' = ' + b(fijo(o.mliq, o.dec) + ' g') + '.');
+      } else if (it.k === 'mvap') {
+        t = mas + '. Toda la masa, ' + b(sig(p.m, 3) + ' g') + ', está como vapor.';
+      } else {
+        t = mas + ' y no queda líquido: ' + b('0 g') + '. Si hacés la cuenta del vapor con la presión de vapor te da más masa que la que hay: es la señal de que se evaporó todo.';
+      }
+      pasos.push(L + t.charAt(0).toUpperCase() + t.slice(1));
+    });
+    return pasos;
+  }
+
+  function resolverCC(p, c) {
+    const d1 = p.datos[0], d2 = p.datos[1], pasos = [];
+    const T = (x) => fijo(x, 2), dHtxt = String(c.dH).replace(/(\d)(\d{3})$/, '$1 $2');      // 41 620
+    pasos.push(b('Todo a kelvin.') + ' T<sub>1</sub> = ' + d1.t + ' + 273,15 = ' + T(c.T1) + ' K y T<sub>2</sub> = ' + d2.t + ' + 273,15 = ' + T(c.T2) + ' K.');
+    p.items.forEach((it, i) => {
+      const o = c.items[i], L = b(LETRAS[i] + ')') + ' ';
+      if (it.k === 'dhvap') {
+        pasos.push(L + 'ln(P<sub>2</sub>/P<sub>1</sub>) = ln(' + sig(d2.pv, 3) + '/' + sig(d1.pv, 3) + ') = ' + fijo(c.L, 4) + '. 1/T<sub>2</sub> − 1/T<sub>1</sub> = ' + cient(c.i2, 5) + ' − ' + cient(c.i1, 5) +
+          ' = ' + cient(c.dif, 4) + ' K<sup>−1</sup>. Entonces ΔH<sub>vap</sub> = −R · ln(P<sub>2</sub>/P<sub>1</sub>) / (1/T<sub>2</sub> − 1/T<sub>1</sub>) = −8,31 · ' + fijo(c.L, 4) + ' / (' + cient(c.dif, 4) +
+          ') = ' + cient(c.dH, 4) + ' J/mol = ' + b(sig(o.ans, 3) + ' kJ/mol') + '.');
+      } else if (it.k === 'pvT') {
+        pasos.push(L + 'Con T<sub>3</sub> = ' + T(o.T3) + ' K y el dato de ' + o.ref.t + ' °C, que es el más cercano: ln(P<sub>3</sub>/' + sig(o.ref.pv, 3) + ') = −(' + dHtxt + '/8,31) · (1/' + T(o.T3) + ' − 1/' + T(o.Tref) +
+          ') = −' + sig(o.coc, 4) + ' · (' + cient(o.dif, 4) + ') = ' + fijo(o.E, 4) + ', así que P<sub>3</sub> = ' + sig(o.ref.pv, 3) + ' · e<sup>' + fijo(o.E, 4) + '</sup> = ' + b(sig(o.ans, 3) + ' mmHg') + '.');
+      } else {
+        pasos.push(L + 'La ebullición normal es a 760 mmHg. Desde el dato de ' + o.ref.t + ' °C, el de presión más cercana a 760 mmHg (con el otro da casi lo mismo): ln(760/' + sig(o.ref.pv, 3) + ') = ' + fijo(o.L, 4) + ' y 1/T = 1/' + T(o.Tref) + ' − 8,31 · ' + fijo(o.L, 4) + ' / ' + dHtxt +
+          ' = ' + cient(o.iref, 5) + ' − ' + cient(o.term, 4) + ' = ' + cient(o.inv, 5) + ' K<sup>−1</sup>, o sea T = ' + sig(o.TK, 4) + ' K = ' + b(fijo(o.ans, 1) + ' °C') + '.');
+      }
+    });
+    const eb = c.items.filter((o) => o.k === 'teb')[0];
+    pasos.push(b('Control.') + ' La entalpía de vaporización tiene que dar positiva, y la presión de vapor tiene que crecer con la temperatura.' +
+      (eb && Math.abs(eb.ans - p.s.teb) >= 0.3 ? ' ' + (p.s.art === 'la' ? 'La ' : 'El ') + p.s.n + ' hierve a ' + fijo(p.s.teb, 1) +
+        ' °C según su curva de presión de vapor: la diferencia sale de suponer ΔH<sub>vap</sub> constante, y por eso la ecuación conviene usarla en intervalos chicos.' : ''));
+    return pasos;
+  }
+
+  // dónde mirar el problema en el cilindro de arriba: sustancia, masa, temperatura y volumen
+  function enElCilindro(p) {
+    if (p.modelo === 'cc') return null;
+    const con = p.items.filter((it) => it.V !== undefined);
+    const ultimo = p.items[p.items.length - 1];
+    return { id: p.s.id, m: p.m, t: p.modelo === 'cal' ? ultimo.t : p.datos[0].t, V: p.V !== undefined ? p.V : con.length ? con[0].V : null };
+  }
+
+  globalThis.VAPOR_MOTOR = { R: R, SUST: SUST, porId: porId, GRUPOS: GRUPOS, ESCALAS: ESCALAS, pv: pv, estado: estado, ultimaGota: ultimaGota,
+    escala: escala, marcas: marcas, sig: sig, fijo: fijo, red: red, generar: generar, enunciado: enunciado, preguntas: preguntas,
+    cuenta: cuenta, leerNumero: leerNumero, corregir: corregir, respuestas: respuestas, pista: pista, resolver: resolver, enElCilindro: enElCilindro };
+})();
+
+// ============================================================
+// LÍQUIDO Y VAPOR EN UN CILINDRO (la parte que se ve)
+// Dibuja dentro de cada <div class="vp" data-vapor> el cilindro con pistón, los gráficos de presión contra volumen
+// y de presión de vapor contra temperatura, y los problemas que se corrigen solos. Las cuentas y los textos de la
+// corrección salen del motor (VAPOR_MOTOR).
+// ============================================================
+(function () {
+  'use strict';
+  if (typeof document === 'undefined' || !globalThis.VAPOR_MOTOR) return;
+  const V = globalThis.VAPOR_MOTOR;
+  const GUARDADO = 'vapor-opciones';
+  const LOGM = [-1, Math.log10(60)];                 // la masa va de 0,1 a 60 g, en escala logarítmica
+  const PASOS_V = 1000;                              // posiciones del control de volumen
+  const LETRAS = 'abcd';
+  const sig = V.sig;
+  const may = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+  const quieto = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cuenta = 0;
+
+  // ejes: el tope redondo y las marcas
+  function eje(max, cuantas) {
+    const m = V.marcas(max, cuantas), paso = m[1] - m[0], tope = Math.ceil(max / paso - 1e-9) * paso, out = [];
+    for (let v = 0; v <= tope + paso * 1e-6; v += paso) out.push(Number(v.toPrecision(10)));
+    return { tope: tope, marcas: out };
+  }
+  const num = (v) => (Math.abs(v) >= 10000 ? String(v).replace(/(\d)(\d{3})$/, '$1 $2') : String(v).replace('.', ','));
+  // posiciones fijas de las moléculas de vapor (sorteadas una vez, para que no salten)
+  const PUNTOS = (function () {
+    let x = 12345;
+    const r = () => { x = (x * 1103515245 + 12345) % 2147483648; return x / 2147483648; };
+    const out = [];
+    for (let i = 0; i < 80; i++) out.push([r(), r()]);
+    return out;
+  })();
+
+  function opcionesGuardadas() {
+    try { const o = JSON.parse(localStorage.getItem(GUARDADO) || 'null'); return { cc: !!(o && o.cc) }; } catch (e) { return { cc: false }; }
+  }
+
+  function armar(raiz) {
+    const id = 'vp' + (++cuenta);
+    const est = { s: V.porId.benceno, m: 7.8, t: 20, v: 10, vmax: 60, pmax: 120, nmax: 30, graf: 'pv' };
+    const prob = { p: null, c: null, bien: [], err: [], sn: [], abierto: false, pista: false, recientes: [], hechos: 0, primera: 0 };
+    const cfg = opcionesGuardadas();
+
+    raiz.innerHTML =
+      '<div class="vp-cab"><div class="vp-t">Líquido y vapor en un cilindro</div>' +
+      '<div class="vp-sub">Mové el pistón y cambiá la temperatura. Mientras quede líquido, la presión es la de vapor; cuando se evapora la última gota (en el volumen límite de 7.11), empieza a bajar.</div></div>' +
+      '<div class="vp-ctl">' +
+        '<div class="vp-campo"><label class="vp-rot" for="' + id + '-s">Líquido</label><select class="vp-sel" id="' + id + '-s">' +
+          V.SUST.map((s) => '<option value="' + s.id + '">' + may(s.n) + ' (' + s.fplana + ')</option>').join('') + '</select></div>' +
+        '<div class="vp-campo"><div class="vp-rot"><label for="' + id + '-m">Masa</label><output class="vp-val" for="' + id + '-m"></output></div>' +
+          '<input type="range" class="vp-rango vp-rm" id="' + id + '-m" min="' + LOGM[0] + '" max="' + LOGM[1] + '" step="0.005"></div>' +
+        '<div class="vp-campo"><div class="vp-rot"><label for="' + id + '-t">Temperatura</label><output class="vp-val" for="' + id + '-t"></output></div>' +
+          '<input type="range" class="vp-rango vp-rt" id="' + id + '-t" step="1"></div>' +
+        '<div class="vp-campo"><div class="vp-rot"><label for="' + id + '-v">Volumen</label><output class="vp-val" for="' + id + '-v"></output></div>' +
+          '<input type="range" class="vp-rango vp-rv" id="' + id + '-v" min="10" max="' + PASOS_V + '" step="5">' +
+          '<button type="button" class="vp-lim">Pistón al volumen límite</button></div>' +
+      '</div>' +
+      '<div class="vp-banco">' +
+        '<div class="vp-izq"><div class="vp-fase"></div><div class="vp-cil"></div><div class="vp-lect"></div></div>' +
+        '<div class="vp-graf">' +
+          '<div class="vp-tabs" role="group" aria-label="Qué gráfico se ve">' +
+            '<button type="button" class="vp-chip" data-g="pv" aria-pressed="true">P contra V</button>' +
+            '<button type="button" class="vp-chip" data-g="pt" aria-pressed="false">P<sub>v</sub> contra T</button></div>' +
+          '<div class="vp-lienzo"></div><div class="vp-ley"></div></div>' +
+      '</div>' +
+      '<p class="vp-que"></p>' +
+      '<div class="vp-prob">' +
+        '<div class="vp-p-t">Problemas como los del examen</div>' +
+        '<div class="vp-p-sub">Se sortean con datos reales de diez líquidos. Escribí el número y tocá Corregir; podés contestar de a un ítem.</div>' +
+        '<label class="vp-cc"><input type="checkbox" class="vp-cb"' + (cfg.cc ? ' checked' : '') + '> <span>Sumar Clausius-Clapeyron, que es sólo de Química General <span class="cod">CB103</span></span></label>' +
+        '<div class="vp-p-enun"></div>' +
+        '<form class="vp-p-form" novalidate><div class="vp-items"></div>' +
+          '<div class="vp-p-bot"><button type="submit" class="vp-b vp-b1 vp-p-cor">Corregir</button>' +
+          '<button type="button" class="vp-b vp-p-pista">Pista</button><button type="button" class="vp-b vp-p-ver">Ver la resolución</button></div></form>' +
+        '<div class="vp-p-fb" role="status" aria-live="polite"></div>' +
+        '<div class="vp-p-res" hidden></div>' +
+        '<div class="vp-p-pie" hidden></div>' +
+      '</div>' +
+      '<div class="vp-nota">Presión de vapor del agua: la tabla de la sección 15 (entre dos temperaturas de la tabla, un valor intermedio). De los otros líquidos: ecuación de Antoine con los datos del NIST. Como en la guía, el vapor se trata como gas ideal y el volumen del líquido se desprecia (en el dibujo, el líquido está muy agrandado).</div>';
+
+    const q = (s) => raiz.querySelector(s);
+    const selS = q('.vp-sel'), rM = q('.vp-rm'), rT = q('.vp-rt'), rV = q('.vp-rv');
+    const outs = raiz.querySelectorAll('.vp-val');
+
+    // ---------- escalas: cambian al elegir el líquido o la masa, y casi nunca con la temperatura (para que el dibujo no salte)
+    // la presión de vapor del enunciado manda mientras se mire el problema a la misma temperatura
+    const estado = () => V.estado(est.s, est.m, est.t, est.v, est.pvDato && est.pvDato.t === est.t && est.pvDato.id === est.s.id ? est.pvDato.pv : undefined);
+    // vlimAntes: el volumen límite antes del cambio, para conservar el dibujo si el volumen ya no entra en la escala nueva
+    function escalar(vlimAntes) {
+      let e = estado();
+      const vmax = V.escala(1.8 * e.vlim);
+      if (vlimAntes && (est.v > 0.98 * vmax || est.v < 0.01 * vmax)) est.v = V.red(e.vlim * est.v / vlimAntes, 3);   // misma proporción V/Vlím
+      est.vmax = V.escala(Math.max(1.8 * e.vlim, 1.05 * est.v));
+      e = estado();
+      est.nmax = Math.max(8, Math.min(60, Math.round(70 * Math.min(e.vlim, est.vmax) / est.vmax)));
+      est.pmax = eje(1.3 * e.pv).tope;
+      est.ptope = topePT(e);
+    }
+    // el gráfico P-T muestra la zona de la temperatura elegida: arriba llega a unas tres veces la presión de vapor
+    function topePT(e) { return eje(Math.min(Math.max(V.pv(est.s, est.s.tmax), 760), Math.max(3 * e.pv, 150))).tope; }
+    function pintarControles() {
+      selS.value = est.s.id;
+      rM.value = String(Math.log10(est.m));
+      rT.min = String(est.s.tmin); rT.max = String(est.s.tmax); rT.value = String(est.t);
+      rV.value = String(Math.max(10, Math.round(est.v / est.vmax * PASOS_V)));
+    }
+
+    // ---------- el cilindro
+    function dibujoCilindro(e) {
+      const X0 = 16, W = 330, Y0 = 30, H = 88, FIN = X0 + W + 14;          // FIN: la tapa de la derecha, por donde sale el vástago
+      const x = (v) => X0 + W * Math.min(v, est.vmax) / est.vmax, xp = Math.max(x(est.v), X0 + 16);
+      const prof = e.fases === 2 ? 6 + 20 * e.nLiq / e.n : 0, yLiq = Y0 + H - prof;
+      const N = Math.round(est.nmax * e.nVap / e.n);
+      let h = '<svg viewBox="0 0 420 164" role="img" aria-label="' + etiquetaCilindro(e) + '">';
+      // la cámara (lo que está a la izquierda del pistón)
+      h += '<rect x="' + X0 + '" y="' + Y0 + '" width="' + (xp - X0).toFixed(1) + '" height="' + H + '" fill="var(--vp-gas)"/>';
+      if (prof) {
+        // el líquido, con el menisco que sube contra las paredes
+        const a = X0 + 1, z = xp - 1, m = Math.min(5, (z - a) / 6);
+        h += '<path d="M' + a + ' ' + (yLiq - 3) + ' Q' + (a + m) + ' ' + yLiq + ' ' + (a + 2 * m) + ' ' + yLiq + ' H' + (z - 2 * m).toFixed(1) + ' Q' + (z - m).toFixed(1) + ' ' + yLiq + ' ' + z.toFixed(1) + ' ' + (yLiq - 3) +
+          ' V' + (Y0 + H) + ' H' + a + ' Z" fill="var(--vp-liq)"/>';
+      }
+      const arriba = Y0 + 7, alto = Math.max(4, (prof ? yLiq - 4 : Y0 + H) - 7 - arriba), ancho = Math.max(2, xp - X0 - 14);
+      for (let i = 0; i < N && i < PUNTOS.length; i++) {
+        h += '<circle cx="' + (X0 + 7 + PUNTOS[i][0] * ancho).toFixed(1) + '" cy="' + (arriba + PUNTOS[i][1] * alto).toFixed(1) + '" r="3" fill="var(--vp-mol)"/>';
+      }
+      // las paredes: el fondo a la izquierda y la tapa a la derecha, con el agujero del vástago
+      const yc = Y0 + H / 2;
+      h += '<path d="M' + FIN + ' ' + (yc - 6) + ' V' + Y0 + ' H' + (X0 + 4) + ' Q' + X0 + ' ' + Y0 + ' ' + X0 + ' ' + (Y0 + 4) + ' V' + (Y0 + H - 4) + ' Q' + X0 + ' ' + (Y0 + H) + ' ' + (X0 + 4) + ' ' + (Y0 + H) +
+        ' H' + FIN + ' V' + (yc + 6) + '" fill="none" stroke="var(--vp-pared)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>';
+      // el pistón, el vástago y la manija
+      h += '<path d="M' + (xp + 8).toFixed(1) + ' ' + yc + ' H' + (FIN + 26) + '" stroke="var(--vp-pared)" stroke-width="4" stroke-linecap="round"/>' +
+        '<rect x="' + (FIN + 26) + '" y="' + (yc - 11) + '" width="8" height="22" rx="3" fill="var(--vp-pared)"/>';
+      h += '<rect x="' + xp.toFixed(1) + '" y="' + (Y0 + 1.5) + '" width="9" height="' + (H - 3) + '" rx="2" fill="var(--vp-piston)" stroke="var(--vp-pared)" stroke-width="1.2"/>';
+      // el volumen límite
+      const r = e.vlim / est.vmax;
+      if (e.vlim <= est.vmax) {
+        const xl = x(e.vlim).toFixed(1);
+        h += '<path d="M' + xl + ' ' + (Y0 - 6) + ' V' + (Y0 + H + 4) + '" stroke="var(--vp-marca)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+        h += '<text x="' + xl + '" y="' + (Y0 - 11) + '" text-anchor="' + (r > 0.72 ? 'end' : r < 0.22 ? 'start' : 'middle') + '" class="vp-tx vp-tm">V<tspan class="vp-sb" dy="3">lím</tspan><tspan dy="-3"> = ' + sig(e.vlim, 3) + ' L</tspan></text>';
+      } else {
+        h += '<text x="' + (X0 + W) + '" y="' + (Y0 - 11) + '" text-anchor="end" class="vp-tx vp-tm">V<tspan class="vp-sb" dy="3">lím</tspan><tspan dy="-3"> = ' + sig(e.vlim, 3) + ' L, más allá del dibujo →</tspan></text>';
+      }
+      // la escala de volumen, con la marca del pistón
+      const ej = eje(est.vmax, 5), yE = Y0 + H + 12;
+      h += '<path d="M' + X0 + ' ' + yE + ' H' + (X0 + W) + '" stroke="var(--vp-eje)" stroke-width="1"/>';
+      ej.marcas.forEach((v) => {
+        if (v > est.vmax + 1e-9) return;
+        h += '<path d="M' + x(v).toFixed(1) + ' ' + yE + ' V' + (yE + 5) + '" stroke="var(--vp-eje)" stroke-width="1"/>' +
+          '<text x="' + x(v).toFixed(1) + '" y="' + (yE + 20) + '" text-anchor="middle" class="vp-tx vp-tc">' + num(v) + '</text>';
+      });
+      h += '<path d="M' + x(est.v).toFixed(1) + ' ' + (yE - 1) + ' l-5 -7 h10 z" fill="var(--n-tinta)"/>';
+      h += '<text x="418" y="' + (yE + 20) + '" text-anchor="end" class="vp-tx vp-tc">V (L)</text>';
+      return h + '</svg>';
+    }
+    function etiquetaCilindro(e) {
+      return 'Cilindro de ' + sig(est.v, 3) + ' litros con ' + sig(est.m, 2) + ' gramos de ' + est.s.n + ' a ' + est.t + ' grados: ' +
+        (e.fases === 2 ? 'queda líquido y hay vapor encima.' : 'todo es vapor.') + ' El volumen límite es ' + sig(e.vlim, 3) + ' litros.';
+    }
+
+    // ---------- lo que se lee
+    function pintarLecturas(e) {
+      const mm = (x) => sig(x, 3) + ' mmHg <span>' + sig(x / 760, 3) + ' atm</span>';
+      const pct = Math.round(100 * e.nVap / e.n);
+      q('.vp-fase').className = 'vp-fase ' + (e.fases === 2 ? 'vp-f2' : 'vp-f1');
+      q('.vp-fase').innerHTML = e.fases === 2 ? '<i></i>Dos fases: líquido y vapor' : '<i></i>Una fase: sólo vapor';
+      const filas = [
+        ['Presión de vapor a ' + est.t + ' °C', mm(e.pv)],
+        ['Volumen límite', sig(e.vlim, 3) + ' L'],
+        ['Presión en el cilindro', mm(e.Pmm) + (e.fases === 2 ? '' : '<em>menor que la de vapor</em>')],
+        ['Vapor y líquido', sig(e.mVap, 3) + ' g y ' + (e.fases === 2 ? sig(e.mLiq, 3) + ' g' : '0 g') + '<em>' + (e.fases === 2 && pct >= 100 ? 'más del 99' : pct) + ' % evaporado</em>'],
+      ];
+      q('.vp-lect').innerHTML = filas.map((f) => '<div class="vp-l"><span>' + f[0] + '</span><b>' + f[1] + '</b></div>').join('');
+      const g = V.ultimaGota(est.s, est.m, est.v), r = est.v / e.vlim;
+      const borde = e.fases === 2 && r > 0.99, pasado = e.fases === 1 && r < 1.01;
+      const todo = e.n * V.R * e.T / est.v * 760;
+      let t;
+      if (borde) t = 'Estás justo en el volumen límite: se está evaporando la última gota y la presión todavía es la de vapor. Un poco más de volumen y ya no queda líquido.';
+      else if (pasado) t = 'Acabás de pasar el volumen límite: la última gota ya se evaporó. Desde acá, si agrandás el cilindro, la presión baja.';
+      else if (e.fases === 2) {
+        t = 'Queda líquido: ' + sig(est.v, 3) + ' L es menos que el volumen límite (con todo evaporado, la presión sería nRT/V = ' + sig(todo, 3) +
+          ' mmHg, más que la de vapor, y eso no puede ser). Si agrandás el cilindro se evapora más líquido y la presión sigue igual.';
+      } else {
+        t = 'Ya no queda líquido: ' + sig(est.v, 3) + ' L es más que el volumen límite. El vapor se comporta como un gas cualquiera (P = nRT/V): si agrandás el cilindro, la presión baja.';
+      }
+      if (g.caso === 'cruza' && !borde && !pasado && !est.pvDato) {
+        const tg = V.fijo(g.t, 1);
+        t += Math.abs(g.t - est.t) < 1 ? (e.fases === 2 ? ' Con calentar menos de 1 °C sin mover el pistón (hasta ' + tg + ' °C) se evapora la última gota.' : ' Con enfriar menos de 1 °C sin mover el pistón (hasta ' + tg + ' °C) aparece la primera gota.')
+          : e.fases === 2 ? ' Calentando sin mover el pistón, la última gota se evapora a ' + tg + ' °C.' : ' Enfriando sin mover el pistón, a ' + tg + ' °C aparece la primera gota.';
+      }
+      q('.vp-que').textContent = t;
+    }
+
+    // ---------- los gráficos
+    const GX0 = 56, GX1 = 404, GY0 = 16, GY1 = 206;
+    function marco(xs, ys, xt, yt, fx, fy) {
+      let h = '<path d="M' + GX0 + ' ' + GY0 + ' V' + GY1 + ' H' + GX1 + '" fill="none" stroke="var(--vp-eje)" stroke-width="1.2"/>';
+      ys.forEach((v) => { const y = fy(v).toFixed(1); h += '<path d="M' + (GX0 - 5) + ' ' + y + ' H' + GX0 + '" stroke="var(--vp-eje)"/><path d="M' + GX0 + ' ' + y + ' H' + GX1 + '" stroke="var(--vp-rejilla)"/><text x="' + (GX0 - 8) + '" y="' + (+y + 5) + '" text-anchor="end" class="vp-tx vp-tc">' + num(v) + '</text>'; });
+      xs.forEach((v) => { const x = fx(v).toFixed(1); h += '<path d="M' + x + ' ' + GY1 + ' V' + (GY1 + 5) + '" stroke="var(--vp-eje)"/><text x="' + x + '" y="' + (GY1 + 22) + '" text-anchor="middle" class="vp-tx vp-tc">' + num(v) + '</text>'; });
+      h += '<text x="' + GX1 + '" y="' + (GY1 + 42) + '" text-anchor="end" class="vp-tx vp-tc">' + xt + '</text>';
+      h += '<text x="' + (GX0 - 8) + '" y="' + (GY0 - 6) + '" class="vp-tx vp-tc">' + yt + '</text>';
+      return h;
+    }
+    function grafPV(e) {
+      const vmax = V.escala(Math.max(1.8 * e.vlim, Math.min(1.05 * est.v, 6 * e.vlim)));       // el eje de volumen sigue al volumen límite
+      const tope = est.pmax, fx = (v) => GX0 + (GX1 - GX0) * Math.min(v, vmax) / vmax, fy = (p) => GY1 - (GY1 - GY0) * Math.min(p, tope * 1.02) / tope;
+      const ex = eje(vmax, 5), ey = eje(tope, 4);
+      let h = '<svg viewBox="0 0 420 256" role="img" aria-label="Presión contra volumen a ' + est.t + ' grados: una meseta horizontal en la presión de vapor hasta el volumen límite y después una curva que baja.">';
+      h += marco(ex.marcas.filter((v) => v <= vmax + 1e-9), ey.marcas.filter((v) => v <= tope + 1e-9), 'V (L)', 'P (mmHg)', fx, fy);
+      const lim = Math.min(e.vlim, vmax);
+      h += '<rect x="' + GX0 + '" y="' + GY0 + '" width="' + (fx(lim) - GX0).toFixed(1) + '" height="' + (GY1 - GY0) + '" fill="var(--vp-zona)"/>';
+      let d = '';
+      for (let i = 0; i <= 240; i++) {
+        const v = vmax * Math.max(i, 0.5) / 240, p = v <= e.vlim ? e.pv : e.n * V.R * e.T / v * 760;
+        d += (i ? ' L' : 'M') + fx(v).toFixed(1) + ' ' + fy(p).toFixed(1);
+      }
+      h += '<path d="' + d + '" fill="none" stroke="var(--vp-curva)" stroke-width="2.6" stroke-linejoin="round"/>';
+      if (e.vlim <= vmax) h += '<path d="M' + fx(e.vlim).toFixed(1) + ' ' + fy(e.pv).toFixed(1) + ' V' + GY1 + '" stroke="var(--vp-marca)" stroke-width="1.4" stroke-dasharray="5 4"/>' +
+        '<text x="' + (fx(e.vlim) + 6).toFixed(1) + '" y="' + (GY1 - 8) + '" class="vp-tx">V<tspan class="vp-sb" dy="3">lím</tspan></text>';
+      h += '<text x="' + (GX0 + 8) + '" y="' + (fy(e.pv) - 8).toFixed(1) + '" class="vp-tx">P<tspan class="vp-sb" dy="3">v</tspan><tspan dy="-3"> = ' + sig(e.pv, 3) + '</tspan></text>';
+      if (fx(lim) - GX0 > 120) h += '<text x="' + ((GX0 + fx(lim)) / 2).toFixed(1) + '" y="' + ((fy(e.pv) + GY1) / 2 + 5).toFixed(1) + '" text-anchor="middle" class="vp-tx vp-tc">líquido y vapor</text>';
+      if (GX1 - fx(lim) > 110) h += '<text x="' + ((GX1 + fx(lim)) / 2).toFixed(1) + '" y="' + (GY1 - 12) + '" text-anchor="middle" class="vp-tx vp-tc">sólo vapor</text>';
+      h += '<circle cx="' + fx(est.v).toFixed(1) + '" cy="' + fy(e.Pmm).toFixed(1) + '" r="6.5" fill="var(--vp-punto)" stroke="var(--vp-fondo)" stroke-width="2"/>';
+      if (est.v > vmax) h += '<text x="' + (GX1 - 10) + '" y="' + (fy(e.Pmm) - 12).toFixed(1) + '" text-anchor="end" class="vp-tx">tu cilindro: ' + sig(est.v, 3) + ' L →</text>';
+      return h + '</svg>';
+    }
+    function grafPT(e) {
+      const s = est.s, ex = eje(s.tmax - s.tmin, 5), ey = eje(est.ptope, 5), tope = ey.tope;
+      const fx = (t) => GX0 + (GX1 - GX0) * (t - s.tmin) / (s.tmax - s.tmin), fy = (p) => GY1 - (GY1 - GY0) * p / tope;
+      const ticksT = [];
+      const paso = ex.marcas[1] - ex.marcas[0];
+      for (let t = Math.ceil(s.tmin / paso) * paso; t <= s.tmax + 1e-9; t += paso) ticksT.push(Number(t.toPrecision(10)));
+      let h = '<svg viewBox="0 0 420 256" role="img" aria-label="Presión de vapor ' + est.s.del + ' contra la temperatura, con la recta de la presión que habría si todo fuera vapor a este volumen.">';
+      h += '<defs><clipPath id="' + id + '-clip"><rect x="' + GX0 + '" y="' + GY0 + '" width="' + (GX1 - GX0) + '" height="' + (GY1 - GY0) + '"/></clipPath></defs>';
+      h += marco(ticksT, ey.marcas, 'T (°C)', 'P (mmHg)', fx, fy);
+      // 1 atm y la ebullición normal
+      const entra760 = 760 <= tope;
+      if (entra760) h += '<path d="M' + GX0 + ' ' + fy(760).toFixed(1) + ' H' + GX1 + '" stroke="var(--vp-eje)" stroke-width="1.2" stroke-dasharray="4 4"/>' +
+        '<text x="' + (GX0 + 6) + '" y="' + (fy(760) - 7).toFixed(1) + '" class="vp-tx vp-tc">1 atm</text>';
+      if (entra760 && s.teb >= s.tmin && s.teb <= s.tmax) {
+        h += '<circle cx="' + fx(s.teb).toFixed(1) + '" cy="' + fy(760).toFixed(1) + '" r="4" fill="var(--vp-fondo)" stroke="currentColor" stroke-width="1.5"/>' +
+          '<text x="' + (fx(s.teb) - 8).toFixed(1) + '" y="' + (fy(760) - 9).toFixed(1) + '" text-anchor="end" class="vp-tx">T<tspan class="vp-sb" dy="3">eb</tspan><tspan dy="-3"> = ' + V.fijo(s.teb, 1) + ' °C</tspan></text>';
+      }
+      // la presión de vapor
+      let d = '';
+      for (let i = 0; i <= 200; i++) { const t = s.tmin + (s.tmax - s.tmin) * i / 200; d += (i ? ' L' : 'M') + fx(t).toFixed(1) + ' ' + fy(V.pv(s, t)).toFixed(1); }
+      h += '<path clip-path="url(#' + id + '-clip)" d="' + d + '" fill="none" stroke="var(--vp-curva)" stroke-width="2.6"/>';
+      // la presión si todo fuera vapor, con este volumen: una recta
+      const todo = (t) => e.n * V.R * (t + 273) / est.v * 760;
+      h += '<path clip-path="url(#' + id + '-clip)" d="M' + fx(s.tmin).toFixed(1) + ' ' + fy(todo(s.tmin)).toFixed(1) + ' L' + fx(s.tmax).toFixed(1) + ' ' + fy(todo(s.tmax)).toFixed(1) +
+        '" stroke="var(--vp-marca)" stroke-width="1.8" stroke-dasharray="6 4"/>';
+      const g = V.ultimaGota(s, est.m, est.v);
+      if (g.caso === 'cruza' && V.pv(s, g.t) <= tope) {
+        const pg = V.pv(s, g.t);
+        h += '<circle cx="' + fx(g.t).toFixed(1) + '" cy="' + fy(pg).toFixed(1) + '" r="4.5" fill="var(--vp-fondo)" stroke="var(--vp-marca)" stroke-width="2"/>';
+        const cercaEb = entra760 && Math.abs(fy(pg) - fy(760)) < 26 && Math.abs(fx(g.t) - fx(s.teb)) < 170;
+        const yTxt = cercaEb || fy(pg) < GY0 + 30 ? fy(pg) + 22 : fy(pg) - 10, der = g.t - s.tmin > (s.tmax - s.tmin) * 0.6;
+        h += '<text x="' + (fx(g.t) + (der ? -9 : 9)).toFixed(1) + '" y="' + yTxt.toFixed(1) + '" text-anchor="' + (der ? 'end' : 'start') + '" class="vp-tx">última gota: ' + Math.round(g.t) + ' °C</text>';
+      }
+      h += '<circle cx="' + fx(est.t).toFixed(1) + '" cy="' + fy(e.Pmm).toFixed(1) + '" r="6.5" fill="var(--vp-punto)" stroke="var(--vp-fondo)" stroke-width="2"/>';
+      return h + '</svg>';
+    }
+    function pintarGrafico(e) {
+      q('.vp-lienzo').innerHTML = est.graf === 'pv' ? grafPV(e) : grafPT(e);
+      q('.vp-ley').innerHTML = est.graf === 'pv'
+        ? 'A ' + est.t + ' °C. Hasta el volumen límite la presión no cambia (la meseta del diagrama P-V de 7.19); después baja como nRT/V. El punto es tu cilindro; el tramo del líquido no aparece porque su volumen se desprecia.'
+        : 'Curva: la presión de vapor ' + est.s.del + '. Recta punteada: la presión con todo evaporado, a este volumen. El cilindro siempre está en la más baja de las dos, y donde se cruzan se evapora la última gota.' +
+          (est.ptope < 760 ? ' Subí la temperatura y la escala se amplía hasta 1 atm (' + (est.s.art === 'la' ? 'la ' : 'el ') + est.s.n + ' hierve a ' + V.fijo(est.s.teb, 1) + ' °C).' : '');
+    }
+
+    function pintar() {
+      const e = estado();
+      outs[0].textContent = sig(est.m, 2) + ' g';
+      outs[1].textContent = est.t + ' °C';
+      outs[2].textContent = sig(est.v, 3) + ' L';
+      rM.setAttribute('aria-valuetext', sig(est.m, 2) + ' gramos');
+      rT.setAttribute('aria-valuetext', est.t + ' °C, presión de vapor ' + sig(e.pv, 3) + ' mmHg');
+      rV.setAttribute('aria-valuetext', sig(est.v, 3) + ' litros: ' + (e.fases === 2 ? 'queda líquido' : 'todo vapor'));
+      [rM, rT, rV].forEach((r) => { const a = +r.min, z = +r.max; r.style.setProperty('--vp-pct', (100 * (+r.value - a) / (z - a)).toFixed(1) + '%'); });
+      q('.vp-cil').innerHTML = dibujoCilindro(e);
+      pintarLecturas(e);
+      pintarGrafico(e);
+    }
+
+    // ---------- los controles
+    selS.addEventListener('change', () => {
+      const antes = estado().vlim;
+      est.s = V.porId[selS.value]; est.pvDato = null;
+      est.t = Math.min(est.s.tmax, Math.max(est.s.tmin, est.t));
+      escalar(antes); pintarControles(); pintar();
+    });
+    rM.addEventListener('input', () => {
+      const antes = estado().vlim;
+      est.m = V.red(Math.pow(10, +rM.value), 2);
+      escalar(antes); rV.value = String(Math.max(10, Math.round(est.v / est.vmax * PASOS_V))); pintar();
+    });
+    rT.addEventListener('input', () => {
+      est.t = +rT.value; est.pvDato = null;
+      const e = estado();
+      // la escala del cilindro cambia sólo si el volumen límite se va del dibujo o queda muy apretado
+      if (e.vlim > 0.95 * est.vmax || (e.vlim < 0.1 * est.vmax && est.v < 0.5 * est.vmax)) {
+        est.vmax = V.escala(Math.max(1.8 * e.vlim, 1.05 * est.v));
+        rV.value = String(Math.max(10, Math.round(est.v / est.vmax * PASOS_V)));
+      }
+      if (e.pv > 0.92 * est.pmax || e.pv < 0.3 * est.pmax) est.pmax = eje(1.3 * e.pv).tope;      // el eje de presión se rehace pocas veces
+      if (e.pv > 0.7 * est.ptope || e.pv < 0.12 * est.ptope) est.ptope = topePT(e);
+      pintar();
+    });
+    rV.addEventListener('input', () => { est.v = V.red(est.vmax * +rV.value / PASOS_V, 3); pintar(); });
+    q('.vp-lim').addEventListener('click', () => {
+      const vl = estado().vlim, k = Math.pow(10, Math.floor(Math.log10(vl)) - 2);
+      est.v = Number((Math.floor(vl / k * (1 + 1e-12)) * k).toPrecision(3));      // 3 cifras, sin pasarse del volumen límite
+      if (est.v > est.vmax) est.vmax = V.escala(1.05 * est.v);
+      rV.value = String(Math.max(10, Math.round(est.v / est.vmax * PASOS_V)));
+      pintar();
+    });
+    q('.vp-tabs').addEventListener('click', (ev) => {
+      const c = ev.target.closest('.vp-chip');
+      if (!c || c.dataset.g === est.graf) return;
+      est.graf = c.dataset.g;
+      raiz.querySelectorAll('.vp-chip').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.g === est.graf)));
+      pintar();
+    });
+
+    // ============================================================ problemas
+    const items = q('.vp-items'), pfb = q('.vp-p-fb'), res = q('.vp-p-res'), botones = [q('.vp-p-cor'), q('.vp-p-pista'), q('.vp-p-ver')];
+    function nuevoProblema(conFoco) {
+      const p = V.generar({ grupos: cfg.cc ? ['cil', 'cc'] : ['cil'] }, Math.random, prob.recientes);
+      prob.p = p; prob.c = V.cuenta(p); prob.abierto = true; prob.pista = false;
+      prob.bien = p.items.map(() => false); prob.err = p.items.map(() => 0); prob.sn = p.items.map(() => '');
+      prob.recientes.push(p.s.id);
+      if (prob.recientes.length > 6) prob.recientes.shift();
+      const en = V.enunciado(p);
+      q('.vp-p-enun').innerHTML = '<p class="vp-p-texto">' + en.texto + '</p><div class="vp-p-datos"><span>Datos:</span> ' + en.datos.join(' · ') + '</div>';
+      items.innerHTML = V.preguntas(p).map((x, i) => {
+        const fid = id + '-q' + i;
+        const resp = x.tipo === 'sino'
+          ? '<div class="vp-sn" role="group" aria-labelledby="' + fid + '-l"><button type="button" class="vp-chip vp-sn-b" data-v="si" aria-pressed="false">Sí</button><button type="button" class="vp-chip vp-sn-b" data-v="no" aria-pressed="false">No</button></div>'
+          : '<div class="vp-it-r"><input class="vp-in" id="' + fid + '" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" maxlength="24" aria-describedby="' + fid + '-fb"><span class="vp-u">' + x.u + '</span></div>';
+        return '<div class="vp-it" data-i="' + i + '"><' + (x.tipo === 'sino' ? 'div' : 'label for="' + fid + '"') + ' class="vp-it-q" id="' + fid + '-l"><b>' + LETRAS[i] + ')</b> ' + x.q + '</' + (x.tipo === 'sino' ? 'div' : 'label') + '>' +
+          resp + '<div class="vp-it-fb" id="' + fid + '-fb"></div></div>';
+      }).join('');
+      botones.forEach((x) => { x.disabled = false; });
+      pfb.className = 'vp-p-fb'; pfb.innerHTML = '';
+      res.hidden = true; res.innerHTML = '';
+      if (conFoco) { const f = items.querySelector('input, button'); if (f) f.focus(); }
+    }
+    function itemFb(i, clase, texto) {
+      const it = items.querySelector('.vp-it[data-i="' + i + '"]'), fb = it.querySelector('.vp-it-fb');
+      it.className = 'vp-it' + (clase ? ' vp-it-' + clase : '');
+      fb.innerHTML = texto || '';
+    }
+    function bloquear(i, conRespuesta) {
+      const it = items.querySelector('.vp-it[data-i="' + i + '"]');
+      it.querySelectorAll('input, button').forEach((x) => { x.disabled = true; });
+      if (conRespuesta && !prob.bien[i]) itemFb(i, 'ver', 'La respuesta: <b>' + V.respuestas(prob.p, prob.c)[i] + '</b>');
+    }
+    function cerrar(acerto) {
+      prob.abierto = false;
+      prob.p.items.forEach((x, i) => bloquear(i, true));
+      botones.forEach((x) => { x.disabled = true; });
+      const primera = acerto && prob.err.every((n) => !n) && !prob.pista;
+      prob.hechos++; if (primera) prob.primera++;
+      pfb.className = 'vp-p-fb'; pfb.innerHTML = '';
+      const mirar = V.enElCilindro(prob.p);
+      res.className = 'vp-p-res ' + (acerto ? 'vp-res-ok' : 'vp-res-ver');
+      res.innerHTML = '<div class="vp-res-t">' + (acerto ? '¡Todo bien!' : 'La resolución') + '</div>' +
+        '<div class="vp-pasos" role="list">' + V.resolver(prob.p, prob.c).map((x) => '<div class="vp-paso" role="listitem">' + x + '</div>').join('') + '</div>' +
+        '<div class="vp-res-bot"><button type="button" class="vp-b vp-b1 vp-sig">Otro problema</button>' +
+        (mirar ? '<button type="button" class="vp-b vp-mirar">Verlo en el cilindro</button>' : '') + '</div>';
+      res.hidden = false;
+      const pie = q('.vp-p-pie');
+      pie.hidden = false;
+      pie.textContent = 'Problemas terminados: ' + prob.hechos + '. Bien a la primera: ' + prob.primera + '.';
+      q('.vp-sig').focus({ preventScroll: true });
+      if (res.scrollIntoView) res.scrollIntoView({ block: 'nearest', behavior: quieto() ? 'auto' : 'smooth' });
+    }
+    q('.vp-p-form').addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      if (!prob.abierto) return;
+      let alguna = false, primeraMal = null;
+      prob.p.items.forEach((x, i) => {
+        if (prob.bien[i]) return;
+        const entrada = x.k === 'evapora' ? prob.sn[i] : items.querySelector('.vp-it[data-i="' + i + '"] .vp-in').value;
+        const r = V.corregir(prob.p, i, entrada, prob.c);
+        if (r.v === 'vacio') { itemFb(i, '', ''); return; }
+        alguna = true;
+        if (r.v === 'ok') { prob.bien[i] = true; itemFb(i, 'ok', '¡Bien!'); bloquear(i, false); return; }
+        if (r.v === 'mal') prob.err[i]++;
+        itemFb(i, r.v === 'mal' ? 'mal' : 'casi', r.msg);
+        if (primeraMal === null) primeraMal = i;
+      });
+      pfb.className = 'vp-p-fb'; pfb.innerHTML = '';
+      if (!alguna) { pfb.className = 'vp-p-fb vp-fb-pista'; pfb.textContent = 'Escribí al menos una respuesta y después tocá Corregir.'; return; }
+      if (prob.bien.every(Boolean)) { cerrar(true); return; }
+      const como = (i) => { const c = items.querySelector('.vp-it[data-i="' + i + '"]').classList; return prob.bien[i] ? 'bien' : c.contains('vp-it-mal') ? 'revisalo' : c.contains('vp-it-casi') ? 'casi' : 'sin contestar'; };
+      pfb.className = 'vp-p-fb vp-fb-resumen';
+      pfb.textContent = prob.p.items.map((x, i) => LETRAS[i] + ') ' + como(i)).join(' · ') + '.';
+      if (primeraMal !== null) { const f = items.querySelector('.vp-it[data-i="' + primeraMal + '"] input, .vp-it[data-i="' + primeraMal + '"] .vp-sn-b'); if (f) f.focus(); }
+    });
+    items.addEventListener('click', (ev) => {
+      const b = ev.target.closest('.vp-sn-b');
+      if (!b || !prob.abierto) return;
+      const i = +b.closest('.vp-it').dataset.i;
+      prob.sn[i] = b.dataset.v;
+      b.parentNode.querySelectorAll('.vp-sn-b').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    });
+    q('.vp-p-pista').addEventListener('click', () => {
+      if (!prob.abierto) return;
+      const i = prob.bien.indexOf(false);
+      if (i < 0) return;
+      prob.pista = true;
+      pfb.className = 'vp-p-fb vp-fb-pista';
+      pfb.innerHTML = '<b>Pista para el ' + LETRAS[i] + ').</b> ' + V.pista(prob.p, i);
+    });
+    q('.vp-p-ver').addEventListener('click', () => { if (prob.abierto) { prob.err = prob.err.map((n) => n + 1); cerrar(false); } });
+    res.addEventListener('click', (ev) => {
+      if (ev.target.closest('.vp-sig')) { nuevoProblema(true); return; }
+      if (ev.target.closest('.vp-mirar')) {
+        const m = V.enElCilindro(prob.p);
+        est.s = V.porId[m.id]; est.m = m.m; est.t = m.t; est.v = m.V || est.v;
+        const d = prob.p.datos.filter((x) => x.t === m.t)[0];
+        est.pvDato = d ? { id: m.id, t: m.t, pv: d.pv } : null;
+        escalar(null); pintarControles(); pintar();
+        const cil = q('.vp-ctl');
+        if (cil.scrollIntoView) cil.scrollIntoView({ block: 'start', behavior: quieto() ? 'auto' : 'smooth' });
+        rV.focus({ preventScroll: true });
+      }
+    });
+    q('.vp-cb').addEventListener('change', (ev) => {
+      cfg.cc = ev.target.checked;
+      try { localStorage.setItem(GUARDADO, JSON.stringify(cfg)); } catch (e) { /* no pasa nada si no se puede guardar */ }
+      nuevoProblema(false);
+    });
+
+    escalar(null); pintarControles(); pintar();
+    nuevoProblema(false);
+    raiz._vp = { est: est, prob: prob };            // para las pruebas automáticas
+  }
+
+  function iniciar() {
+    document.querySelectorAll('.vp[data-vapor]').forEach((r) => {
+      if (r.dataset.listo) return;
+      r.dataset.listo = '1';
+      armar(r);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
+})();
+// ==== INTERACTIVO: PRESION DE VAPOR (fin) ====
