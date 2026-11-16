@@ -594,7 +594,7 @@ print(textoMens)</pre>
   <tr><td><span class="m">upper()</span></td><td>Convierte a mayúsculas</td><td><span class="m">'hola'.upper() → 'HOLA'</span></td></tr>
   <tr><td><span class="m">lower()</span></td><td>Convierte a minúsculas</td><td><span class="m">'HOLA'.lower() → 'hola'</span></td></tr>
   <tr><td><span class="m">replace(a,b)</span></td><td>Reemplaza todas las ocurrencias de a por b</td><td><span class="m">'hola'.replace('o','0') → 'h0la'</span></td></tr>
-  <tr><td><span class="m">split()</span></td><td>Parte la string por espacios en blancos → lista</td><td><span class="m">'a b c'.split() → ['a','b','c']</span></td></tr>
+  <tr><td><span class="m">split()</span></td><td>Parte la string por espacios en blanco → lista</td><td><span class="m">'a b c'.split() → ['a','b','c']</span></td></tr>
   <tr><td><span class="m">join(lista)</span></td><td>Une una lista con el separador dado → string</td><td><span class="m">' '.join(['a','b']) → 'a b'</span></td></tr>
   <tr><td><span class="m">count(s)</span></td><td>Cuenta cuántas veces aparece s</td><td><span class="m">'banana'.count('a') → 3</span></td></tr>
   <tr><td><span class="m">len(s)</span></td><td>Longitud de la string</td><td><span class="m">len('hola') → 4</span></td></tr>
@@ -620,7 +620,7 @@ frase=frase.replace(animal2,'OVEJA')
 for voc in 'eiou':
     frase=frase.replace(voc,'A')
 print(frase.upper())</pre>
-  Paso 1: <span class="m">replace('abeja','ABEJA')</span> → "Las ABEJA<b>s</b> vuelan y las ovejas balan" (la 's' final queda minúscula porque <span class="m">replace</span> solo coincide con 'abeja', no con 'abejas').<br>
+  Paso 1: <span class="m">replace('abeja','ABEJA')</span> → "Las ABEJA<b>s</b> vuelan y las ovejas balan" (la 's' final queda minúscula porque el patrón buscado es 'abeja' y <span class="m">replace</span> cambia solo esos 5 caracteres; la 's' que sigue no forma parte del patrón).<br>
   Paso 2: <span class="m">replace('oveja','OVEJA')</span> → "Las ABEJAs vuelan y las OVEJAs balan".<br>
   Paso 3: el for recorre <span class="m">'eiou'</span>. Solo afecta minúsculas (las MAYÚSCULAS de ABEJAS/OVEJAS no se tocan):<br>
   &nbsp;&nbsp;• <span class="m">'e'→'A'</span>: 'vuelan' → 'vuAlan'.<br>

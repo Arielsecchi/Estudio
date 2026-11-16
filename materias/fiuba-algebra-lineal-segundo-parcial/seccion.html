@@ -141,7 +141,7 @@ Entonces el criterio es uno solo: <b>¿esto lo voy a <i>citar</i> o lo voy a <i>
   <tr><td>1 ≤ μ(λ) ≤ m(λ) &nbsp;·&nbsp; <b>μ(λ) = n − rango(A − λI)</b> &nbsp;·&nbsp; n autovalores distintos ⟹ diagonaliza</td><td>Las tres líneas que convierten el criterio en una cuenta de rangos.</td></tr>
   <tr><td>tr(A) = Σλ<sub>i</sub> &nbsp;·&nbsp; det(A) = Πλ<sub>i</sub> &nbsp;·&nbsp; A inversible ⟺ 0 ∉ σ(A)</td><td>Motor de <b>todos</b> los "hallar A tal que…".</td></tr>
   <tr><td>Si Av = λv entonces <b>p(A)v = p(λ)v</b>; y si A diagonaliza, σ(p(A)) = p(σ(A)) exactamente</td><td>Resuelve los σ(p(A)) y las ecuaciones matriciales enteras.</td></tr>
-  <tr><td>Qué conserva la semejanza: χ, σ, m, μ, tr, det, rango. Qué <b>no</b>: autovectores, simetría, ortogonalidad</td><td>Seis palabras. Aparece en las preguntas de justificar.</td></tr>
+  <tr><td>Qué conserva la semejanza: χ, σ, m, μ, tr, det, rango. Qué <b>no</b>: autovectores, simetría, ortogonalidad</td><td>Aparece en las preguntas de justificar.</td></tr>
 </table>
 
 <h3>2.2 · Carilla 2 · Simétricas, ortogonales y el teorema espectral</h3>
@@ -288,7 +288,7 @@ La fórmula de la cátedra es <b>A = PΛP<sup>−1</sup></b> con P la matriz cuy
 
 <div class="key"><div class="ky-t">El hecho, y por qué convierte un problema matricial en uno escalar</div>
 Si p es un polinomio y Av = λv, entonces <b>p(A)v = p(λ)v</b>: <i>mismo autovector, autovalor transformado</i>. → Y si A es diagonalizable, σ(p(A)) = {p(λ) : λ ∈ σ(A)} <b>exactamente</b>, porque la base de autovectores de A diagonaliza también a p(A).<br><br>
-Al revés, que es como lo toman: si p(A) = B, entonces <b>B y A comparten autovectores</b>, y cada autovalor de B da una <b>ecuación escalar</b> p(λ) = (autovalor de B) cuyas raíces son los candidatos para el autovalor de A en ese mismo autovector. La condición extra del enunciado (traza, determinante, inversibilidad) es la que elige entre los candidatos.
+Al revés, que es como lo toman: si p(A) = B y B tiene autovalores distintos (en los ejercicios reales siempre los tiene), entonces <b>B y A comparten autovectores</b>, y cada autovalor de B da una <b>ecuación escalar</b> p(λ) = (autovalor de B) cuyas raíces son los candidatos para el autovalor de A en ese mismo autovector. La condición extra del enunciado (traza, determinante, inversibilidad) es la que elige entre los candidatos.
 </div>
 
 <h3>4.1 · El algoritmo para "hallar A tal que p(A) = B"</h3>
@@ -403,7 +403,7 @@ Y el atajo que sigue: el <b>tercer</b> autoespacio es la recta generada por el <
 <div class="key"><div class="ky-t">La forma cerrada que conviene tener memorizada</div>
 <b>Si el autoespacio doble es el plano de normal n y el simple es gen{n}:</b>
 <div class="formula">A = αI + (β − α)·nn<sup>T</sup>/‖n‖<sup>2</sup></div>
-Con ‖n‖<sup>2</sup> entero (los enunciados eligen [2,−1,2] con ‖n‖<sup>2</sup> = 9, y [1,−1,1] o [1,−1,−1] con ‖n‖<sup>2</sup> = 3; ojo que ‖n‖ en sí no es entera, la que entra en la fórmula es ‖n‖<sup>2</sup>), esto es una matriz por un escalar más una matriz de rango 1. → Chequeo instantáneo: <b>traza(A) = 2α + β</b> y <b>det(A) = α<sup>2</sup>β</b>, sin hacer ninguna cuenta.
+Con ‖n‖<sup>2</sup> entero (los enunciados eligen [2,−1,2] con ‖n‖<sup>2</sup> = 9, y [1,−1,1] o [1,−1,−1] con ‖n‖<sup>2</sup> = 3; ojo que ‖n‖ no siempre es entera (para [1,−1,1] vale √3); la que entra en la fórmula es ‖n‖<sup>2</sup>), esto es una matriz por un escalar más una matriz de rango 1. → Chequeo instantáneo: <b>traza(A) = 2α + β</b> y <b>det(A) = α<sup>2</sup>β</b>, sin hacer ninguna cuenta.
 </div>
 
 <div class="example"><div class="ex-t">Hecho completo · 27/VI/24 9hs, ejercicio 4</div>
@@ -699,7 +699,7 @@ y los extremos se alcanzan en los autovectores unitarios correspondientes. → <
 <div class="trap"><div class="tr-t">Rayleigh exige A simétrica, y la cota es sobre x<sup>T</sup>Ax, no sobre ‖Ax‖</div>
 Dos confusiones distintas y las dos se cobran:<br>
 → <b>Si A no es simétrica</b>, sus autovalores pueden ser complejos y la desigualdad no tiene sentido. Simetrizá primero: x<sup>T</sup>Mx = x<sup>T</sup>((M+M<sup>T</sup>)/2)x.<br>
-→ <b>x<sup>T</sup>Ax y ‖Ax‖ son cosas distintas.</b> El primero se acota con los <b>autovalores</b> de A; el segundo con los <b>valores singulares</b>. Coinciden en valor absoluto sólo si A es simétrica. Para A = [[3,−8],[4,6]] los autovalores son complejos y los valores singulares son 10 y 5, bien reales.
+→ <b>x<sup>T</sup>Ax y ‖Ax‖ son cosas distintas.</b> El primero se acota con los <b>autovalores</b> de A; el segundo con los <b>valores singulares</b>. Coinciden en valor absoluto (σ<sub>i</sub> = |λ<sub>i</sub>|) cuando A es simétrica (o, más en general, normal); en general no. Para A = [[3,−8],[4,6]] los autovalores son complejos y los valores singulares son 10 y 5, bien reales.
 </div>
 
 <div class="reveal-wrap" data-rv="7" data-subject="fiuba-algebra-lineal-segundo-parcial"></div>
@@ -808,7 +808,7 @@ y entonces <b>M<sup>T</sup>M = [[34,0,10],[0,10,0],[10,0,5]]</b> <i>siempre</i>,
 
 <div class="key"><div class="ky-t">Reconocer una DVS ya hecha · el patrón que aparece en cinco exámenes</div>
 Te dan A escrita como <b>suma de productos exteriores</b> c<sub>1</sub>a<sub>1</sub>b<sub>1</sub><sup>T</sup> + c<sub>2</sub>a<sub>2</sub>b<sub>2</sub><sup>T</sup> + ⋯, o como producto de tres matrices. El procedimiento:<br>
-<b>1.</b> Calculá las normas de todos los a<sub>i</sub> y b<sub>i</sub>. <b>No siempre salen enteras:</b> en los dos turnos del 4/XII/24 (14 y 17 hs) sí (‖a<sub>i</sub>‖ = 3 y ‖b<sub>i</sub>‖ = 7), pero en el 27/VI/24 9hs salen √6, √3 y √2, en el 26/VI/24 los a<sub>i</sub> tienen norma √5 y en el 4/XII/24 3.<sup>er</sup> turno salen √2 y 6√3. Cuando quedan raíces, no te asustes: se cancelan al armar σ<sub>i</sub>.<br>
+<b>1.</b> Calculá las normas de todos los a<sub>i</sub> y b<sub>i</sub>. <b>No siempre salen enteras:</b> en los dos turnos del 4/XII/24 (14 y 17 hs) sí (‖a<sub>i</sub>‖ = 3 y ‖b<sub>i</sub>‖ = 7), pero en el 27/VI/24 9hs salen √6, √3 y √2, en el 26/VI/24 los a<sub>i</sub> tienen norma √5 y en el 4/XII/24 3.<sup>er</sup> turno salen √2 y 6√3. Cuando quedan raíces, no te asustes: se combinan al armar σ<sub>i</sub> = c<sub>i</sub>‖a<sub>i</sub>‖‖b<sub>i</sub>‖ y el resultado puede quedar con raíz (por ejemplo 6√6 o 3√6).<br>
 <b>2.</b> Normalizá: u<sub>i</sub> = a<sub>i</sub>/‖a<sub>i</sub>‖, v<sub>i</sub> = b<sub>i</sub>/‖b<sub>i</sub>‖, y el escalar que sobra es <b>σ<sub>i</sub> = c<sub>i</sub>‖a<sub>i</sub>‖‖b<sub>i</sub>‖</b>.<br>
 <b>3. Verificá que {u<sub>i</sub>} sea ortonormal y que {v<sub>i</sub>} sea ortonormal.</b> Si no lo son, <b>no es una DVS</b> y no podés leer nada de ahí.<br>
 <b>4.</b> Reordená de mayor a menor σ. Y si algún σ sale negativo, cambiale el signo al u<sub>i</sub> correspondiente.<br><br>
@@ -888,7 +888,7 @@ Es el error más frecuente de este molde. Si el núcleo no es trivial, distintos
 </div>
 
 <div class="trap"><div class="tr-t">Los σ<sub>i</sub> NO son los autovalores de A</div>
-Los valores singulares son las <b>raíces de los autovalores de A<sup>T</sup>A</b>. Coinciden con |λ<sub>i</sub>| sólo si A es simétrica. Para A = [[3,−8],[4,6]] (el 4.16 de la Guía) los autovalores son complejos y los valores singulares son 10 y 5. <b>Nunca</b> uses los autovalores de A para describir la elipse imagen.
+Los valores singulares son las <b>raíces de los autovalores de A<sup>T</sup>A</b>. Coinciden con |λ<sub>i</sub>| si A es simétrica (más en general, si es normal); en una matriz cualquiera no tienen por qué coincidir. Para A = [[3,−8],[4,6]] (el 4.16 de la Guía) los autovalores son complejos y los valores singulares son 10 y 5. <b>Nunca</b> uses los autovalores de A para describir la elipse imagen.
 </div>
 
 <h3>8.6 · El molde inverso: hallar A a partir de datos de su DVS</h3>
