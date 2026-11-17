@@ -162,7 +162,7 @@ Entonces el criterio es uno solo: <b>¿esto lo voy a <i>citar</i> o lo voy a <i>
   <tr><td>Los <b>7 pasos de la construcción</b>, en orden: (1) autovalores de A<sup>T</sup>A de mayor a menor · (2) b.o.n. {v<sub>i</sub>} de autovectores · (3) σ<sub>i</sub> = √λ<sub>i</sub> · (4) u<sub>i</sub> = Av<sub>i</sub>/σ<sub>i</sub> para i ≤ r · (5) completar a b.o.n. de ℝ<sup>m</sup> con nul(A<sup>T</sup>) · (6) armar U, Σ, V · (7) A = UΣV<sup>T</sup></td><td>Algoritmo de orden fijo. Saltearse "de mayor a menor" invalida la DVS.</td></tr>
   <tr><td>Tamaños: A ∈ ℝ<sup>m×n</sup> ⟹ U ∈ ℝ<sup>m×m</sup>, Σ ∈ ℝ<sup>m×n</sup>, V ∈ ℝ<sup>n×n</sup>. Y "diagonalizá la más chica entre A<sup>T</sup>A y AA<sup>T</sup>"</td><td>Ahorra la mitad de la cuenta, y el error de tamaño es el más común.</td></tr>
   <tr><td>Tabla de los <b>cuatro subespacios</b>: fil(A) = v<sub>1..r</sub>, nul(A) = v<sub>r+1..n</sub>, col(A) = u<sub>1..r</sub>, nul(A<sup>T</sup>) = u<sub>r+1..m</sub>, con sus proyecciones V<sub>r</sub>V<sub>r</sub><sup>T</sup> y U<sub>r</sub>U<sub>r</sub><sup>T</sup></td><td>Es media resolución de cualquier ejercicio de cuadrados mínimos.</td></tr>
-  <tr><td>A<sup>†</sup> = V<sub>r</sub>D<sup>−1</sup>U<sub>r</sub><sup>T</sup> = Σ(1/σ<sub>i</sub>)v<sub>i</sub>u<sub>i</sub><sup>T</sup> &nbsp;·&nbsp; A<sup>†</sup>A = P<sub>fil</sub> &nbsp;·&nbsp; AA<sup>†</sup> = P<sub>col</sub> &nbsp;·&nbsp; <b>x* = A<sup>†</sup>b es la solución por c.m. de norma mínima</b> &nbsp;·&nbsp; todas: x* + nul(A)</td><td>Cinco renglones que resuelven el ejercicio 5 de 10 de cada 10 exámenes.</td></tr>
+  <tr><td>A<sup>†</sup> = V<sub>r</sub>D<sup>−1</sup>U<sub>r</sub><sup>T</sup> = Σ(1/σ<sub>i</sub>)v<sub>i</sub>u<sub>i</sub><sup>T</sup> &nbsp;·&nbsp; A<sup>†</sup>A = P<sub>fil</sub> &nbsp;·&nbsp; AA<sup>†</sup> = P<sub>col</sub> &nbsp;·&nbsp; <b>x* = A<sup>†</sup>b es la solución por c.m. de norma mínima</b> &nbsp;·&nbsp; todas: x* + nul(A)</td><td>Cinco renglones que resuelven el ejercicio 5 de los exámenes.</td></tr>
   <tr><td>Reconocer una DVS ya hecha: A = Σ c<sub>i</sub>a<sub>i</sub>b<sub>i</sub><sup>T</sup> ⟹ σ<sub>i</sub> = c<sub>i</sub>‖a<sub>i</sub>‖‖b<sub>i</sub>‖, <b>previa verificación de que {a<sub>i</sub>} y {b<sub>i</sub>} sean ortogonales</b></td><td>Aparece en cinco parciales reales (los ejercicios 5 del 27/VI/24 9hs, del 26/06/24 y de los tres turnos del 4/XII/24). Y en uno de ellos los vectores <b>no</b> son ortogonales: hay que darse cuenta y decirlo.</td></tr>
   <tr><td>Tabla de la imagen de la esfera por rango: r = n = m = 2 → elipse (el borde) · r = n = m = 3 → elipsoide · r &lt; n → elipse o elipsoide <b>lleno</b> · r = 1 → segmento de extremos ±σ<sub>1</sub>u<sub>1</sub></td><td>Es la respuesta literal de tres parciales reales y es puro recuerdo.</td></tr>
 </table>
@@ -338,7 +338,7 @@ En el <b>4/XII/24 14hs ej 3</b> ("hallar A <b>no inversible</b> tal que A<sup>2<
 <i>Sea A ∈ ℝ<sup>2×2</sup> diagonalizable tal que σ(A<sup>2</sup> − 6A) = {0, −8}.</i> → p(λ) = λ<sup>2</sup> − 6λ. → p(λ) = 0 ⟹ λ ∈ {0, 6}. → p(λ) = −8 ⟹ λ<sup>2</sup> − 6λ + 8 = 0 ⟹ λ ∈ {2, 4}. → Como σ(A<sup>2</sup>−6A) tiene <b>dos elementos distintos</b> y A es 2×2, A tiene <b>dos autovalores distintos</b>: uno del primer par y uno del segundo.<br><br>
 <b>Con traza(A) = 2</b> (27/VI): las sumas posibles son 0+2 = 2 ✓, 0+4 = 4, 6+2 = 8, 6+4 = 10. → σ(A) = {0, 2} ⟹ <b>σ(A<sup>3</sup>) = {0, 8}</b>.<br>
 <b>Con traza(A) = 8</b> (7/VIII): la única suma que da 8 es 6+2. → σ(A) = {2, 6} ⟹ <b>σ(A<sup>2</sup>) = {4, 36}</b>.<br><br>
-<span class="muted">La hipótesis "diagonalizable" está para que puedas afirmar σ(p(A)) = p(σ(A)) sin agujeros, y para descartar el caso de un único autovalor doble. Citala.</span>
+<span class="muted">La igualdad σ(p(A)) = p(σ(A)) vale para cualquier matriz cuadrada; la hipótesis "diagonalizable" facilita la prueba con la base de autovectores y es la que da el enunciado, así que se la cita.</span>
 </div>
 
 <div class="trap"><div class="tr-t">No confundas "σ(p(A)) tiene dos elementos" con "p es inyectiva"</div>
@@ -392,7 +392,7 @@ Y el atajo que sigue: el <b>tercer</b> autoespacio es la recta generada por el <
 <h3>5.2 · El procedimiento, en cuatro pasos</h3>
 
 <ol>
-  <li><b>Armá la geometría.</b> Identificá los autoespacios: o bien un plano y su recta normal, o bien tres rectas ortogonales. Verificá la ortogonalidad; si no da, revisá el paso anterior.</li>
+  <li><b>Armá la geometría.</b> Identificá los autoespacios: o bien un plano y su recta normal, o bien tres rectas ortogonales. Verificá la ortogonalidad; si no da, revisá cuáles son los autoespacios (si los dos autovectores dados no son ortogonales, son del mismo autovalor y generan el plano).</li>
   <li><b>Poné incógnitas a los autovalores</b>: α para el plano (que cuenta <b>dos veces</b> en traza y determinante) y β para la recta.</li>
   <li><b>Traducí las condiciones numéricas a ecuaciones en α y β</b> con el diccionario de arriba, y resolvelas. Descartá las soluciones que violen las condiciones de signo o de rango.</li>
   <li><b>Ensamblá con la descomposición espectral</b>: A = α(I − nn<sup>T</sup>/‖n‖<sup>2</sup>) + β·nn<sup>T</sup>/‖n‖<sup>2</sup>, que se simplifica a
@@ -533,7 +533,7 @@ Si x = Σ c<sub>j</sub>v<sub>j</sub>, entonces A<sup>k</sup>x = Σ c<sub>j</sub>
   <tr><td>λ = −1</td><td>oscila 1, −1, 1, …</td><td><b>c<sub>j</sub> = 0</b></td></tr>
   <tr><td>|λ| &gt; 1</td><td>diverge</td><td><b>c<sub>j</sub> = 0</b></td></tr>
 </table>
-Es decir: <b>S = {x : existe lím A<sup>k</sup>x} = ⊕ de los autoespacios con |λ| &lt; 1 y λ = 1</b>, y <b>lím A<sup>k</sup>x = la componente de x en S<sub>1</sub></b>.
+Es decir, para A diagonalizable (como en estos ejercicios): <b>S = {x : existe lím A<sup>k</sup>x} = ⊕ de los autoespacios con |λ| &lt; 1 y λ = 1</b>, y <b>lím A<sup>k</sup>x = la componente de x en S<sub>1</sub></b>.
 </div>
 
 <div class="example"><div class="ex-t">27/VI/24 9hs ej 2 · hallar el subespacio</div>

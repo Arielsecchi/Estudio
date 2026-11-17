@@ -772,7 +772,7 @@ registerReveals('fiuba-analisis-matematico-2', '6', [
   "sol": "<b>Punto intermedio:</b> en (u, v) = (1, 2): x = 1, y = 1 + 1·ln 1 = 1, z = 2. Todo es C¹ cerca (v − 1 &gt; 0). → <b>Gradiente de la de afuera:</b> ∇W = (e<sup>x−y</sup> + 1, −e<sup>x−y</sup> − z², −2zy), en (1, 1, 2): (2, −5, −4). → <b>Jacobiana de la de adentro</b> (3 × 2): x: (−1, 1); y: (1 + 3u² ln(v − 1), u³/(v − 1)) = (1, 1); z: (v, u) = (2, 1). → <b>Producto:</b> w′<sub>u</sub> = 2(−1) + (−5)(1) + (−4)(2) = −15; w′<sub>v</sub> = 2(1) + (−5)(1) + (−4)(1) = −7. → <b>Resultado:</b> w es diferenciable, así que la derivada direccional máxima es ‖∇w‖ = √(225 + 49) = √274, en la dirección v̌ = (−15, −7)/√274."
  },
  {
-  "st": "Demuestre que z = f(x/y) satisface la ecuación x z<sub>x</sub> + y z<sub>y</sub> = 0, ¿qué hipótesis supuso?. <i>(TP IV, ej. 10)</i>",
+  "st": "Demuestre que z = f(x/y) satisface la ecuación x z<sub>x</sub> + y z<sub>y</sub> = 0, ¿qué hipótesis supuso? <i>(TP IV, ej. 10)</i>",
   "ans": "z<sub>x</sub> = f′(x/y)/y, z<sub>y</sub> = −x f′(x/y)/y², y la suma da 0. Hipótesis: f derivable y y ≠ 0.",
   "sol": "<b>Composición:</b> z = f(u) con u(x, y) = x/y (definida para y ≠ 0, diferenciable ahí). Si f es derivable en u, por la cadena ∇z = f′(u)∇u. → <b>Derivadas:</b> u′<sub>x</sub> = 1/y, u′<sub>y</sub> = −x/y², así que z<sub>x</sub> = f′(x/y)/y y z<sub>y</sub> = −x f′(x/y)/y². → <b>Suma:</b> x z<sub>x</sub> + y z<sub>y</sub> = x f′/y − x f′/y = 0. → <b>Hipótesis usadas:</b> f derivable (en los valores x/y que aparecen) y y ≠ 0."
  },
