@@ -14,9 +14,9 @@ registerExercises('fiuba-quimica-integradora', '1', [
    ex: 'La regla del campus pide el <b>60 % de cada Parte</b>: 24 de 40 y <b>36 de 60</b>. Con 30 en la Parte B el examen está <b>desaprobado</b> aunque el total sea 70. → “70 supera 60” mira el total, que no es la condición. → Las Partes no se compensan: cada una tiene su piso. → No hay ninguna condición del 70 % del total.'},
 
   {st: 'Mismo formato. Sacás 22 de 22 en el Ejercicio 1, 8 de 18 en el Ejercicio 2 y 50 de 60 en la Parte B. Son 80 puntos. ¿Aprobaste?',
-   opts: ['No: el Ejercicio 2 no llega a 9, la mitad de 18', 'Sí: las dos Partes superan su 60 %', 'Sí: 80 es mucho más que 60', 'No: la Parte A no llega a su 60 %'],
+   opts: ["No: el Ejercicio 2 queda por debajo de 9, el 50 % de sus 18 puntos", "Sí: la Parte A suma 30 de 40 y la B suma 50 de 60, y ambas superan el 60 %", "Sí: el total es 80 de 100 y supera con holgura el 60 % exigido", "No: el Ejercicio 1 queda por debajo de 11, el 50 % de sus 22 puntos"],
    c: 0,
-   ex: 'Además del 60 % de cada Parte hace falta <b>el 50 % de cada ejercicio</b>. El Ejercicio 2 vale 18 y su mitad es 9: con 8 está <b>desaprobado</b>. → Es cierto que las dos Partes superan su piso (30 ≥ 24 y 50 ≥ 36), pero falta la tercera condición. → El total no decide nada por sí solo. → La Parte A suma 30, que sí supera los 24.'},
+   ex: "Además del 60 % de cada Parte hace falta <b>el 50 % de cada ejercicio</b>. El Ejercicio 2 vale 18 y su mitad es 9: con 8 está <b>desaprobado</b>. → <b>Las otras:</b> (B) es cierto que las dos Partes superan su piso (30 ≥ 24 y 50 ≥ 36), pero falta la tercera condición. → (C) el total no decide nada por sí solo. → (D) el Ejercicio 1 vale 22 y se sacó 22, el máximo; el que no llega al 50 % es el Ejercicio 2."},
 
   {st: 'La 1ª fecha es el jueves 10/12/26 a las 15 h. Según el campus, la inscripción en el SIU abre 7 días antes y cierra 48 horas antes. ¿Cuál es el último día para anotarse?',
    opts: ['El miércoles 09/12, el día anterior', 'El jueves 03/12, una semana antes', 'El lunes 07/12', 'El martes 08/12'],
@@ -34,9 +34,9 @@ registerExercises('fiuba-quimica-integradora', '1', [
    ex: 'El reglamento 2026: “<i>La nota de aprobación de la asignatura que se subirá al SIU será la que resulte del promedio entre la nota de la cursada y la de la EI</i>”: (8 + 6)/2 = <b>7</b>. La hoja del examen trae los dos casilleros, “Nota Cursada” y “Nota SIU”. → La integradora no reemplaza ni se elige la mejor. → Sumarlas no da una nota de 1 a 10.'},
 
   {st: 'Aprobás la cursada en diciembre de 2026 y desaprobás la integradora el 10/12/26 y el 17/12/26. ¿Qué te queda?',
-   opts: ['Una oportunidad más, dentro del año desde que aprobaste la cursada; si la desaprobás, 2 y a recursar', 'Tres oportunidades más, porque se reinician en cada período', 'Ninguna: dos desaprobadas vencen la cursada', 'Oportunidades ilimitadas mientras no pase el año'],
+   opts: ["Una oportunidad más, dentro del año de aprobada la cursada; si la desaprobás, un 2 y a recursar", "Tres oportunidades más, porque el conteo de las tres se reinicia en cada período de mesas de examen", "Ninguna: con dos integradoras desaprobadas la cursada ya venció y hay que volver a recursarla", "Oportunidades ilimitadas hasta que se cumpla un año desde que aprobaste la cursada, sin otro tope"],
    c: 0,
-   ex: 'Son <b>3 oportunidades</b> en total, y la cursada vence pasadas las tres <b>o</b> pasado un año de aprobada. Te queda <b>una</b>; si la desaprobás, se asienta un <b>2</b> y hay que recursar. → No se reinician por período. → Con dos desaprobadas todavía no venció. → El límite son las dos cosas a la vez: tres intentos y un año.'},
+   ex: "Son <b>3 oportunidades</b> en total, y la cursada vence pasadas las tres <b>o</b> pasado un año de aprobada. Te queda <b>una</b>; si la desaprobás, se asienta un <b>2</b> y hay que recursar. → <b>Las otras:</b> (B) las oportunidades no se reinician por período. → (C) con dos desaprobadas todavía no venció la cursada. → (D) el límite son las dos cosas a la vez: tres intentos y un año."},
 
   {st: '¿Qué regla de aprobación publica el campus para la integradora?',
    opts: ['60/100 en total y el 50 % de cada ejercicio, como imprimía la del 11/07/24', 'El 50 % de cada Parte y el 60 % de cada ejercicio', '60/100 en total, sin otra condición', 'El 60 % de cada Parte y, además, el 50 % de cada ejercicio'],
@@ -55,44 +55,44 @@ registerExercises('fiuba-quimica-integradora', '1', [
 registerExercises('fiuba-quimica-integradora', '2', [
 
   {st: '¿En cuántas de las cinco integradoras conocidas hay electroquímica en algún lugar del examen?',
-   opts: ['En 2: las dos del campus', 'En las 5: es la Parte A de 4 y un V/F en la otra', 'En 4: siempre en la Parte A', 'En 3, todas de 2025'],
+   opts: ["En 2: las dos del campus, que son las únicas con ejercicio de pila", "En las 5: ejercicio en la Parte A de 4 y un V/F en la otra", "En 4: la Parte A de cada una, salvo la del 18/07/24, que no la trae", "En 3: las tres que traen la grilla de puntos por ítem en la Parte A"],
    c: 1,
-   ex: 'Ejercicio de la Parte A en la del 11/07/24 (pila), el 06/02/25 (galvanizado), la “A” (cobreado) y la “B” (pila Zn | Ag); en la del 18/07/24 aparece como V/F (el cobreado electrolítico). <b>Está en las cinco.</b> → Las del campus son la del 11/07/24 y la del 18/07/24: sólo una tiene electroquímica en la Parte A. → En la Parte A está en 4, pero en la quinta aparece igual. → Las de 2025 son una sola fechada (06/02/25).'},
+   ex: "Ejercicio de la Parte A en la del 11/07/24 (pila), el 06/02/25 (galvanizado), la “A” (cobreado) y la “B” (pila Zn | Ag); en la del 18/07/24 aparece como V/F (el cobreado electrolítico). <b>Está en las cinco.</b> → <b>Las otras:</b> (A) las del campus son la del 11/07/24 y la del 18/07/24, pero la pila también aparece en la “B” (Zn | Ag), y la del 18/07/24 no tiene ejercicio de pila en la Parte A. → (C) en la Parte A está en 4, pero la del 18/07/24 la trae igual como V/F. → (D) las tres con grilla por ítem son la del 11/07/24, la del 18/07/24 y la del 06/02/25, pero las dos de Studocu también la tienen."},
 
   {st: '¿Cuál es el esqueleto de la Parte A en cuatro de las cinco?',
-   opts: ['Estequiometría y ácido-base, como el parcial', 'Dos ejercicios de electroquímica', 'Un ejercicio de líquidos y uno de equilibrio químico', 'Un ejercicio de electroquímica y uno que tiene termodinámica'],
+   opts: ["Estequiometría y ácido-base, los mismos dos temas del parcial", "Dos ejercicios de electroquímica, uno de pila y otro de electrólisis", "Un ejercicio de líquidos y otro de equilibrio químico, con cuentas de K", "Un ejercicio de electroquímica y otro que incluye termodinámica"],
    c: 3,
-   ex: '11/07/24: pila + termita (Hess y temperatura de cruce). 06/02/25: galvanizado + calorimetría. “A”: cobreado + bomba calorimétrica. “B”: Haber con espontaneidad + pila. <b>Electroquímica + termodinámica.</b> → Estequiometría y ácido-base es el parcial; en la integradora aparecen como ítems. → Nunca hubo dos de electroquímica. → Líquido-vapor salió una vez (18/07/24) y equilibrio químico nunca fue ejercicio de la Parte A.'},
+   ex: "11/07/24: pila + termita (Hess y temperatura de cruce). 06/02/25: galvanizado + calorimetría. “A”: cobreado + bomba calorimétrica. “B”: Haber con espontaneidad + pila. <b>Electroquímica + termodinámica.</b> → <b>Las otras:</b> (A) estequiometría y ácido-base es el parcial; en la integradora aparecen como ítems. → (B) nunca hubo dos de electroquímica. → (C) líquido-vapor salió una vez (18/07/24) y equilibrio químico nunca fue ejercicio de la Parte A."},
 
   {st: '¿Qué temas aparecen en la Parte B de las cinco integradoras?',
-   opts: ['Ácido-base, y líquidos o diagrama de fases', 'Electroquímica y segundo principio', 'Sólidos y estructura atómica', 'Equilibrio químico y soluciones'],
+   opts: ["Ácido-base y líquidos o diagrama de fases, con al menos un V/F de cada uno en las cinco", "Electroquímica y segundo principio de la termodinámica, con un V/F de cada uno en las cinco", "Estructura atómica y sólidos, con al menos un V/F de cada uno en las cinco", "Equilibrio químico y soluciones, con al menos un V/F de cada uno en las cinco"],
    c: 0,
-   ex: 'Cada una de las cinco Partes B tiene al menos un V/F de <b>ácido-base</b> y al menos uno de <b>líquidos, fuerzas intermoleculares o diagrama de fases</b>. → Electroquímica y segundo principio están en tres Partes B cada uno (los dos están en las cinco integradoras, pero contando también la Parte A). → Estructura atómica está en tres y sólidos en dos. → Equilibrio químico en dos y soluciones en una.'},
+   ex: "Cada una de las cinco Partes B tiene al menos un V/F de <b>ácido-base</b> y al menos uno de <b>líquidos, fuerzas intermoleculares o diagrama de fases</b>. → <b>Las otras:</b> (B) electroquímica y segundo principio están en tres Partes B cada uno (los dos están en las cinco integradoras, pero contando también la Parte A). → (C) estructura atómica está en tres Partes B y sólidos en dos. → (D) equilibrio químico está en dos y soluciones en una."},
 
   {st: 'Los 30 V/F reales dan 32 juicios (el 3 de la “B” son tres). ¿Cuántos son falsos?',
-   opts: ['16, la mitad', '9', '23: casi tres de cada cuatro', '30: casi todos'],
+   opts: ["16: justo la mitad de los 32 juicios", "9: poco más de uno de cada cuatro", "23: casi tres de cada cuatro de los juicios", "30: casi todos, con apenas dos verdaderos"],
    c: 2,
-   ex: '<b>23 falsos y 9 verdaderos</b>, contando como verdadero el f del 18/07/24, el único cuya respuesta se discute. La del 11/07/24 tuvo los seis falsos; la del 18/07/24, tres verdaderos; las otras tres, dos cada una. → 9 son los verdaderos. → La mitad sería un reparto parejo, que no es el caso. → 30 exagera. No lo uses para adivinar: avisa que los enunciados están escritos para atrapar una creencia común.'},
+   ex: "<b>23 falsos y 9 verdaderos</b>, contando como verdadero el f del 18/07/24, el único cuya respuesta se discute. La del 11/07/24 tuvo los seis falsos; la del 18/07/24, tres verdaderos; las otras tres, dos cada una. → <b>Las otras:</b> (A) la mitad sería un reparto parejo, que no es el caso. → (B) 9 son los verdaderos, no los falsos. → (D) 30 exagera. No lo uses para adivinar: avisa que los enunciados están escritos para atrapar una creencia común."},
 
   {st: 'Estructura atómica, sólidos, hibridación y equilibrio químico, ¿cómo aparecieron en las cinco integradoras?',
-   opts: ['Como ejercicios numéricos de la Parte A', 'Sólo como V/F de la Parte B: 10 de los 30', 'No aparecieron nunca', 'Sólo en las dos del campus'],
+   opts: ["Como ejercicios numéricos de la Parte A, con cuentas de pH, de K y de entropía", "Sólo como V/F de la Parte B: 10 de los 30, nunca como ejercicio numérico", "Como V/F de la Parte B y como ejercicio de la Parte A en tres de ellas", "Sólo en las dos del campus, y casi siempre como V/F de la Parte B"],
    c: 1,
-   ex: 'Ninguno de los cuatro fue un ítem de la Parte A, y entre los cuatro suman <b>10 de los 30 V/F</b> (3 + 3 + 2 + 2). Se estudian para justificar, no para calcular. → No hubo ejercicio numérico de ninguno. → Aparecieron, y mucho. → Están también en las tres que circulan fuera del campus.'},
+   ex: "Ninguno de los cuatro fue un ítem de la Parte A, y entre los cuatro suman <b>10 de los 30 V/F</b> (3 + 3 + 2 + 2). Se estudian para justificar, no para calcular. → <b>Las otras:</b> (A) no hubo ejercicio numérico de ninguno. → (C) tampoco en tres de las cinco: en la Parte A no apareció ninguno de los cuatro. → (D) están también en las tres que circulan fuera del campus."},
 
   {st: '¿Por qué la integradora del 18/07/24 se sale del molde?',
-   opts: ['Porque no tuvo Parte B', 'Porque su Parte A valió 52', 'Porque tuvo tres ejercicios en la Parte A', 'Porque su Parte A fue líquido-vapor y neutralización, sin electroquímica ni termodinámica'],
+   opts: ["Porque tuvo tres ejercicios en la Parte A, en lugar de los dos que traen todas las demás", "Porque su Parte A valió 52 puntos, en vez de los 40 que valió en todas las demás", "Porque no tuvo Parte B de V/F y todo el examen fueron ejercicios numéricos de cuentas", "Porque su Parte A fue líquido-vapor y neutralización, sin electroquímica ni termodinámica"],
    c: 3,
-   ex: 'Su Parte A fueron dos temas del parcial: el <b>benceno en equilibrio líquido-vapor</b> y una <b>neutralización</b>. Lo de la segunda mitad de la materia vino en la Parte B (el cobreado y el ΔS°). → Tuvo Parte B, de 60. → La de 52 fue la del 11/07/24. → Tuvo dos ejercicios, como todas.'},
+   ex: "Su Parte A fueron dos temas del parcial: el <b>benceno en equilibrio líquido-vapor</b> y una <b>neutralización</b>. Lo de la segunda mitad de la materia vino en la Parte B (el cobreado y el ΔS°). → <b>Las otras:</b> (A) tuvo dos ejercicios, como todas. → (B) la de 52 fue la del 11/07/24. → (C) tuvo Parte B, de 60."},
 
   {st: '¿Por qué los puntos de la Parte A por tema se cuentan sobre 132 y no sobre 200?',
-   opts: ['Porque sólo tres de las cinco tienen grilla por ítem: 52 + 40 + 40', 'Porque la Parte A vale siempre 44 puntos', 'Porque se descartan los ítems conceptuales', 'Porque las de Studocu están incompletas y no se cuentan nunca'],
+   opts: ["Porque sólo tres de las cinco muestran la grilla por ítem: 52 + 40 + 40", "Porque la Parte A vale siempre 44 puntos y se cuentan tres: 3 × 44", "Porque se descartan los ítems conceptuales y quedan los numéricos", "Porque las de Studocu están incompletas y no se cuentan nunca"],
    c: 0,
-   ex: 'Las de Studocu (“A” y “B”) no muestran la grilla por ítem: se sabe que la Parte A vale 40, no cuánto cada ejercicio. Por eso los <b>puntos</b> se cuentan sobre las tres con grilla (52 + 40 + 40 = 132) y la <b>presencia</b>, sobre las cinco. → La Parte A vale 52 o 40, nunca 44. → Los ítems conceptuales de la Parte A sí se cuentan (diagrama, justificaciones). → Las de Studocu se cuentan en la presencia.'},
+   ex: "Las de Studocu (“A” y “B”) no muestran la grilla por ítem: se sabe que la Parte A vale 40, no cuánto cada ejercicio. Por eso los <b>puntos</b> se cuentan sobre las tres con grilla (52 + 40 + 40 = 132) y la <b>presencia</b>, sobre las cinco. → <b>Las otras:</b> (B) la Parte A vale 52 o 40, nunca 44. → (C) los ítems conceptuales de la Parte A sí se cuentan (diagrama, justificaciones). → (D) las de Studocu se cuentan en la presencia."},
 
   {st: '¿De dónde salen los V/F de la Parte B?',
-   opts: ['De los ejercicios de las guías de problemas', 'De libros de texto, sin relación con el material de la cátedra', 'Cada uno se apoya en al menos una de las 185 preguntas conceptuales de la cátedra', 'De los parciales del mismo cuatrimestre'],
+   opts: ["Cada uno sale de un ejercicio de las guías de problemas, con el texto cambiado", "Cada uno copia una afirmación de libros de texto, sin relación con la cátedra", "Cada uno se apoya en al menos una de las 185 preguntas conceptuales de la cátedra", "Cada uno repite una afirmación de los parciales del mismo cuatrimestre, ajustada"],
    c: 2,
-   ex: 'Los 30 se pueden mapear contra la <b>guía de 185 preguntas conceptuales</b> que publica la cátedra, y en varios casos la pregunta es el V/F con otras palabras (Uniones 18 y los “infinitos puntos de fusión”, Estructura atómica 11 y las isoelectrónicas). → Las guías de problemas son de cuentas. → Hay relación directa con el material de la cátedra. → Los parciales no traen V/F.'},
+   ex: "Los 30 se pueden mapear contra la <b>guía de 185 preguntas conceptuales</b> que publica la cátedra, y en varios casos la pregunta es el V/F con otras palabras (Uniones 18 y los “infinitos puntos de fusión”, Estructura atómica 11 y las isoelectrónicas). → <b>Las otras:</b> (A) las guías de problemas son de cuentas. → (B) hay relación directa con el material de la cátedra. → (D) los parciales no traen V/F."},
 
 ]);
 
@@ -126,9 +126,9 @@ registerExercises('fiuba-quimica-integradora', '3', [
    ex: 'Con rendimiento del 85 % sólo el 85 % de la carga deposita zinc: para depositar lo pedido hace falta <b>más</b> carga, 3,54·10<sup>6</sup> / 0,85 = <b>4,17·10<sup>6</sup> C</b> (06/02/25, ítem b). → Multiplicar da menos carga que la teórica: depositarías menos de lo pedido. → El rendimiento justamente dice que no toda la carga sirve. → Sumar un porcentaje a una carga no tiene sentido.'},
 
   {st: 'Se niquela una pieza (cátodo) en una solución de NiSO<sub>4</sub> con un ánodo de níquel. ¿Qué pasa con la [Ni<sup>2+</sup>] de la solución?',
-   opts: ['Baja, porque el Ni<sup>2+</sup> se deposita', 'Sube, porque el ánodo se disuelve', 'Se mantiene: el ánodo repone lo que se deposita', 'Baja a la mitad por cada faraday'],
+   opts: ["Baja, porque el Ni<sup>2+</sup> se deposita en la pieza y nada lo repone", "Sube, porque el ánodo se disuelve y nada retira ese Ni<sup>2+</sup>", "Se mantiene constante, porque el ánodo repone el Ni<sup>2+</sup> que se deposita", "Baja hasta estabilizarse, porque la pieza consume parte del Ni<sup>2+</sup>"],
    c: 2,
-   ex: 'Con <b>ánodo activo</b> del mismo metal, en el ánodo Ni → Ni<sup>2+</sup> + 2 e<sup>−</sup> y en el cátodo Ni<sup>2+</sup> + 2 e<sup>−</sup> → Ni: por cada ion que se deposita entra otro, y la concentración <b>no cambia</b>. Es la electrodeposición de cobre de la “A”. → Baja sólo con ánodo inerte, donde se oxida el agua. → Sube sólo si el ánodo aportara más iones de los que se depositan. → La cantidad que cambia depende del volumen y la concentración, no es una regla fija.'},
+   ex: "Con <b>ánodo activo</b> del mismo metal, en el ánodo Ni → Ni<sup>2+</sup> + 2 e<sup>−</sup> y en el cátodo Ni<sup>2+</sup> + 2 e<sup>−</sup> → Ni: por cada ion que se deposita entra otro, y la concentración <b>no cambia</b>. Es la electrodeposición de cobre de la “A”. → <b>Las otras:</b> (A) baja sólo con ánodo inerte, donde se oxida el agua y nada repone el ion. → (B) sube sólo si el ánodo aportara más iones de los que se depositan, y aportan los mismos. → (D) no hay consumo neto: la reposición es mol por mol, y no existe un valor menor al que se estabilice."},
 
   {st: 'Pila Cu | Ag con E° = 0,46 V y n = 2. ¿Cuánto vale la constante de equilibrio a 25 °C?',
    opts: ['6·10<sup>7</sup>', '3,5·10<sup>15</sup>', '0,46', '2,9·10<sup>−16</sup>'],
@@ -136,9 +136,9 @@ registerExercises('fiuba-quimica-integradora', '3', [
    ex: 'log K = n·E°/0,0592 = 2 × 0,46 / 0,0592 = 15,54 → <b>K = 3,5·10<sup>15</sup></b>. E° &gt; 0 tiene que dar K &gt; 1. → 6·10<sup>7</sup> sale con n = 1 (log K = 7,77). → 0,46 es el E°, no K. → 2,9·10<sup>−16</sup> es 1/K: el signo del exponente invertido.'},
 
   {st: 'En la pila Mg | Mg<sup>2+</sup> ‖ H<sup>+</sup> | H<sub>2</sub> | Pt del 11/07/24, se quiere aumentar el potencial cambiando el pH del cátodo. ¿Qué hay que hacer?',
-   opts: ['Subir el pH, porque los OH<sup>−</sup> favorecen la reducción', 'Nada: el H<sup>+</sup> no aparece en Q', 'Subir el pH, porque baja Q', 'Bajar el pH: sube [H<sup>+</sup>], baja Q y sube E, unos 59 mV por unidad'],
+   opts: ["Subir el pH: sube [OH<sup>−</sup>], baja Q y sube E, unos 59 mV por unidad", "Bajar el pH: sube [H<sup>+</sup>], sube Q y baja E, unos 59 mV por unidad", "Nada: el H<sup>+</sup> no aparece en Q, porque el cátodo sólo intercambia electrones", "Bajar el pH: sube [H<sup>+</sup>], baja Q y sube E, unos 59 mV por unidad"],
    c: 3,
-   ex: 'Q = [Mg<sup>2+</sup>]·p(H<sub>2</sub>)/[H<sup>+</sup>]<sup>2</sup>: el H<sup>+</sup> está <b>abajo y al cuadrado</b>. Bajar el pH sube [H<sup>+</sup>], baja Q y sube E. Con n = 2 y el cuadrado, cada unidad de pH mueve 2 × 0,0296 = <b>59,2 mV</b>. → Subir el pH baja [H<sup>+</sup>] y sube Q: E baja. → El H<sup>+</sup> sí está en Q, es el reactivo del cátodo.'},
+   ex: "Q = [Mg<sup>2+</sup>]·p(H<sub>2</sub>)/[H<sup>+</sup>]<sup>2</sup>: el H<sup>+</sup> está <b>abajo y al cuadrado</b>. Bajar el pH sube [H<sup>+</sup>], baja Q y sube E. Con n = 2 y el cuadrado, cada unidad de pH mueve 2 × 0,0296 = <b>59,2 mV</b>. → <b>Las otras:</b> (A) subir el pH baja [H<sup>+</sup>] y sube Q: E baja. → (B) sube [H<sup>+</sup>], pero eso baja Q, no la sube, y E sube. → (C) el H<sup>+</sup> sí está en Q, es el reactivo del cátodo."},
 
   {st: 'Hay que depositar 2,673 g de níquel con 2,5 A y una eficiencia del 92 %. ¿Cuánto tarda?',
    opts: ['63,7 min', '53,9 min', '58,6 min', '127,4 min'],
@@ -182,19 +182,19 @@ registerExercises('fiuba-quimica-integradora', '4', [
    ex: 'A volumen constante no hay trabajo de expansión (W = −P·ΔV = 0), así que ΔU = Q + 0: el calor medido es <b>ΔU</b>. Es lo que pide la “A” con el ácido benzoico. → ΔH es el calor a <b>presión</b> constante: hay que corregir con Δn·R·T. → ΔG no se mide como calor. → En la bomba el trabajo es cero.'},
 
   {st: 'Ácido benzoico: C<sub>7</sub>H<sub>6</sub>O<sub>2</sub>(s) + 15/2 O<sub>2</sub>(g) → 7 CO<sub>2</sub>(g) + 3 H<sub>2</sub>O(l). Si la combustión ocurre a P y T constantes (25 °C), ¿cuánto vale el trabajo por mol, con la convención de la cátedra?',
-   opts: ['−1,24 kJ: el sistema se expande', '0: los sólidos no hacen trabajo', '−6,19 kJ, contando el agua como gas', '+1,24 kJ: los moles de gas bajan y el entorno comprime al sistema'],
+   opts: ["−1,24 kJ: los moles de gas bajan y el sistema entrega trabajo al entorno", "0: el reactivo es sólido y los sólidos no aportan trabajo de volumen", "−6,19 kJ: se cuenta el agua como gas y los moles de gas aumentan en 2,5", "+1,24 kJ: los moles de gas bajan y el entorno comprime al sistema"],
    c: 3,
-   ex: 'Δn<sub>gas</sub> = 7 − 7,5 = −0,5 → W = −Δn·R·T = −(−0,5)(8,31)(298,15) = <b>+1239 J ≈ +1,24 kJ</b>. Positivo: el sistema <b>recibe</b> trabajo. → −1,24 kJ tiene el signo cambiado: el gas no se expande, se contrae. → Hay cambio de volumen por los gases, aunque el reactivo sea sólido. → Con el agua como gas, Δn = +2,5 y W = −6,19 kJ: el agua sale líquida.'},
+   ex: "Δn<sub>gas</sub> = 7 − 7,5 = −0,5 → W = −Δn·R·T = −(−0,5)(8,31)(298,15) = <b>+1239 J ≈ +1,24 kJ</b>. Positivo: el sistema <b>recibe</b> trabajo. → <b>Las otras:</b> (A) tiene el signo cambiado: el gas no se expande, se contrae, así que el sistema no entrega trabajo. → (B) hay cambio de volumen por los gases, aunque el reactivo sea sólido. → (C) con el agua como gas, Δn = +2,5 y W = −6,19 kJ: el agua sale líquida."},
 
   {st: 'Termita (11/07/24): ΔH = −847 kJ/mol y ΔS = −38,52 J/mol·K. ¿Existe alguna temperatura a la que no sea espontánea?',
-   opts: ['Sí, por encima de 21 989 K, que es inalcanzable: en la práctica es espontánea a toda temperatura', 'Sí, por encima de 21,99 K: a temperatura ambiente no es espontánea', 'No: con ΔH &lt; 0 es espontánea siempre', 'Sí, por encima de 847 K'],
+   opts: ["Sí, por encima de 21 989 K, la temperatura desde la cual ΔG pasa a ser positiva", "Sí, por encima de 21,99 K, así que a temperatura ambiente ya no es espontánea", "No: con ΔH &lt; 0 la reacción es espontánea a cualquier temperatura, sea cual sea el signo de ΔS", "Sí, por encima de 847 K, que es el valor de ΔH tomado como si fuera una temperatura"],
    c: 0,
-   ex: 'Con ΔH &lt; 0 y ΔS &lt; 0, ΔG = 0 en T = 847 000 / 38,52 = <b>21 989 K</b>. Existe en la cuenta y no en la práctica: la respuesta completa dice las dos cosas. → 21,99 K sale de dividir kJ por J: el error de mil. → ΔH &lt; 0 no alcanza: con ΔS &lt; 0, a T suficientemente alta ΔG se vuelve positivo. → 847 K es el valor de ΔH puesto como temperatura.'},
+   ex: "Con ΔH &lt; 0 y ΔS &lt; 0, ΔG = 0 en T = 847 000 / 38,52 = <b>21 989 K</b>. Existe en la cuenta y no en la práctica: 21 989 K no se alcanza nunca, así que en la práctica la reacción es espontánea siempre. La respuesta completa dice las dos cosas. → <b>Las otras:</b> (B) 21,99 K sale de dividir kJ por J: el error de mil. → (C) el signo de ΔS sí importa: con ΔH &lt; 0 y ΔS &lt; 0, a T suficientemente alta ΔG se vuelve positivo. → (D) 847 K es el valor de ΔH puesto como temperatura."},
 
   {st: 'Síntesis del metanol, CO(g) + 2 H<sub>2</sub>(g) → CH<sub>3</sub>OH(g): ΔH° = −90,5 kJ y ΔS° = −219,3 J/K. ¿Cuándo es espontánea en condiciones estándar?',
-   opts: ['A cualquier temperatura', 'Sólo por encima de 412,7 K', 'Sólo por debajo de 412,7 K (139,5 °C)', 'Nunca'],
+   opts: ["A cualquier temperatura, porque el ΔH es negativo y favorece la formación", "Sólo por encima de 412,7 K (139,5 °C), donde pesa más el término de entropía (−TΔS)", "Sólo por debajo de 412,7 K (139,5 °C), donde manda el ΔH negativo y no el ΔS", "Nunca, porque el ΔS negativo se opone a la espontaneidad a toda temperatura"],
    c: 2,
-   ex: 'Los dos negativos: espontánea a <b>baja</b> temperatura, hasta T = 90 500 / 219,3 = <b>412,7 K</b>. A 25 °C, ΔG° = −25,1 kJ; a 250 °C, +24,2 kJ. → “A cualquier temperatura” sería con ΔS &gt; 0. → “Por encima” es el caso de ΔH y ΔS positivos. → “Nunca” sería con ΔH &gt; 0 y ΔS &lt; 0.'},
+   ex: "Los dos negativos: espontánea a <b>baja</b> temperatura, hasta T = 90 500 / 219,3 = <b>412,7 K</b>. A 25 °C, ΔG° = −25,1 kJ; a 250 °C, +24,2 kJ. → <b>Las otras:</b> (A) “a cualquier temperatura” sería con ΔS &gt; 0. → (B) “por encima” es el caso de ΔH y ΔS positivos. → (D) “nunca” sería con ΔH &gt; 0 y ΔS &lt; 0."},
 
   {st: '2 C<sub>2</sub>H<sub>6</sub>(g) + 7 O<sub>2</sub>(g) → 4 CO<sub>2</sub>(g) + 6 H<sub>2</sub>O(l). ¿Cuánto vale Δn<sub>gas</sub>?',
    opts: ['+1', '−5', '−9', '+3'],
@@ -207,14 +207,14 @@ registerExercises('fiuba-quimica-integradora', '4', [
    ex: 'A la temperatura del cambio de fase el proceso es reversible y ΔS = ΔH/T = 40 700 / 373,15 = <b>109 J/K·mol</b>, positivo porque el gas está más desordenado. → 0,109 deja ΔH en kJ y le pone unidad de J. → 407 divide por 100 °C en vez de 373,15 K. → El signo negativo sería el de la condensación.'},
 
   {st: 'Una reacción tiene ΔG° = +10 kJ a 25 °C. ¿Qué se puede decir de su constante de equilibrio?',
-   opts: ['K = 0,018: menor que 1, el equilibrio favorece a los reactivos', 'K = 56: mayor que 1', 'K = 1: ΔG° no afecta K', 'K es negativa, como ΔG°'],
+   opts: ["K = 0,018: menor que 1, el equilibrio favorece a los reactivos", "K = 56: mayor que 1, así que el equilibrio favorece a los productos", "K = 0,996: casi 1, porque ΔG° apenas afecta el equilibrio", "K = −4,03: negativa, ya que es el valor de −ΔG°/RT y eso es K"],
    c: 0,
-   ex: 'ΔG° = −R·T·ln K → K = e<sup>−10 000 / (8,314 × 298,15)</sup> = <b>0,018</b>. ΔG° &gt; 0 ⇔ K &lt; 1. → 56 es 1/K: el signo invertido. → K = 1 corresponde a ΔG° = 0. → K es un cociente de concentraciones o presiones: no puede ser negativa.'},
+   ex: "ΔG° = −R·T·ln K → K = e<sup>−10 000 / (8,314 × 298,15)</sup> = <b>0,018</b>. ΔG° &gt; 0 ⇔ K &lt; 1. → <b>Las otras:</b> (B) 56 es 1/K: el signo invertido. → (C) 0,996 sale de usar 10 en lugar de 10 000 J en el exponente: el error de unidades. → (D) −4,03 es ln K, falta aplicar la exponencial; K es un cociente de concentraciones o presiones y no puede ser negativa."},
 
   {st: 'Síntesis de Haber, ΔH° = −92,4 kJ y ΔS° = −199,0 J/K (integradora “B”). ¿Cuál es la respuesta completa a “en qué condiciones debería llevarse a cabo para que sea espontánea”?',
-   opts: ['A alta temperatura, porque acelera la reacción', 'A cualquier temperatura, porque ΔH &lt; 0', 'A baja temperatura (por debajo de 464 K) y a alta presión, que corre el equilibrio hacia el NH<sub>3</sub>', 'Nunca, porque ΔS &lt; 0'],
+   opts: ["A alta temperatura (por encima de 464 K) y a baja presión, porque −TΔS favorece la síntesis", "A cualquier temperatura y a cualquier presión, porque ΔH &lt; 0 favorece la formación de NH<sub>3</sub>", "A baja temperatura (por debajo de 464 K) y a alta presión, que corre el equilibrio hacia el NH<sub>3</sub>", "Nunca, porque ΔS &lt; 0 hace no espontánea la síntesis a cualquier temperatura o presión"],
    c: 2,
-   ex: 'Con los dos negativos, ΔG° &lt; 0 si T &lt; 92 400 / 199,0 = <b>464 K</b>. Y como Δn<sub>gas</sub> = −2, la presión alta baja Q y hace ΔG = ΔG° + RT·ln Q más negativo. → La temperatura alta se usa por la velocidad, no por la espontaneidad: a 573 K, ΔG° = +21,7 kJ. → ΔH &lt; 0 no alcanza con ΔS &lt; 0. → ΔS &lt; 0 no impide la espontaneidad a baja T.'},
+   ex: "Con los dos negativos, ΔG° &lt; 0 si T &lt; 92 400 / 199,0 = <b>464 K</b>. Y como Δn<sub>gas</sub> = −2, la presión alta baja Q y hace ΔG = ΔG° + RT·ln Q más negativo. → <b>Las otras:</b> (A) la temperatura alta se usa por la velocidad, no por la espontaneidad: por encima de 464 K, ΔG° &gt; 0 (a 573 K, +21,7 kJ); y la presión baja sube Q (Δn<sub>gas</sub> = −2), o sea que va en contra. → (B) ΔH &lt; 0 no alcanza con ΔS &lt; 0. → (D) ΔS &lt; 0 no impide la espontaneidad a baja T."},
 
   {st: 'Termita: Fe<sub>2</sub>O<sub>3</sub>(s) + 2 Al(s) → Al<sub>2</sub>O<sub>3</sub>(s) + 2 Fe(s), con ΔH°<sub>f</sub> Al<sub>2</sub>O<sub>3</sub> = −1668 y Fe<sub>2</sub>O<sub>3</sub> = −821 kJ/mol. ¿ΔH° de la reacción?',
    opts: ['−2489 kJ', '−847 kJ', '+847 kJ', '−1668 kJ'],
@@ -249,9 +249,9 @@ registerReveals('fiuba-quimica-integradora', '4', [
 registerExercises('fiuba-quimica-integradora', '5', [
 
   {st: 'Se introducen 2,00 g de agua en un recipiente de 20,0 L previamente evacuado, a 30 °C (P<sub>v</sub> = 31,8 mmHg). ¿Qué presión hay en el recipiente en el equilibrio?',
-   opts: ['105 mmHg: toda el agua se evapora', '15,9 mmHg: se evapora la mitad', '31,8 mmHg: queda líquido y manda la presión de vapor', '760 mmHg'],
+   opts: ["105 mmHg: toda el agua se evapora y se comporta como gas ideal", "15,9 mmHg: se evapora la mitad del agua y la presión baja a la mitad", "31,8 mmHg: queda agua líquida en equilibrio y la presión es la de vapor a 30 °C", "760 mmHg: el recipiente se equilibra con la presión atmosférica de afuera"],
    c: 2,
-   ex: 'Si se evaporara toda, P = nRT/V = 0,1110 × 0,0821 × 303,15 / 20,0 = 0,138 atm = 105 mmHg, <b>más</b> que P<sub>v</sub>: imposible, el vapor condensaría. Así que queda líquido y la presión es <b>la de vapor, 31,8 mmHg</b>. Se evaporan 0,606 g y quedan 1,394 g líquidos. → 105 mmHg es la cuenta de control, que justamente descarta “todo vapor”. → La mitad no tiene nada de especial. → 760 mmHg es la presión atmosférica, que no actúa en un recipiente cerrado y evacuado.'},
+   ex: "Si se evaporara toda, P = nRT/V = 0,1110 × 0,0821 × 303,15 / 20,0 = 0,138 atm = 105 mmHg, <b>más</b> que P<sub>v</sub>: imposible, el vapor condensaría. Así que queda líquido y la presión es <b>la de vapor, 31,8 mmHg</b>. Se evaporan 0,606 g y quedan 1,394 g líquidos. → <b>Las otras:</b> (A) 105 mmHg es la cuenta de control, que justamente descarta “todo vapor”. → (B) la mitad no tiene nada de especial. → (D) 760 mmHg es la presión atmosférica, que no actúa en un recipiente cerrado y evacuado."},
 
   {st: '¿Cuántas partículas hay en una celda cúbica centrada en las caras (FCC)?',
    opts: ['4', '2', '1', '14'],
@@ -269,29 +269,29 @@ registerExercises('fiuba-quimica-integradora', '5', [
    ex: 'n(H<sup>+</sup>) = 0,00500 mol; n(OH<sup>−</sup>) = 2 × 0,0300 × 0,100 = 0,00600 mol: sobran <b>0,00100 mol de OH<sup>−</sup></b> en 80,0 mL → 0,0125 M → pOH 1,90 → <b>pH 12,10</b>. → pH 7 sólo si las cantidades fueran equivalentes. → 1,60 se olvida del 2 del Ba(OH)<sub>2</sub> y concluye que sobra ácido. → 12,52 divide por los 30 mL de la base en vez del volumen total.'},
 
   {st: '¿Por qué el etanol (78 °C) hierve a mucho más temperatura que el dimetil éter (−24 °C), si tienen la misma masa molar?',
-   opts: ['Porque el éter es más volátil, sin otra razón', 'Porque el etanol es más pesado', 'Porque el etanol tiene un O-H y forma puentes de hidrógeno; el éter sólo dipolo-dipolo y London', 'Porque el éter tiene dos grupos metilo que lo hacen más polar'],
+   opts: ["Porque el éter es más volátil por ser más liviano, y por eso hierve a menos temperatura", "Porque el etanol tiene más electrones, así que sus fuerzas de London son mucho mayores", "Porque el etanol tiene un O-H y forma puentes de hidrógeno; el éter sólo dipolo-dipolo y London", "Porque el éter tiene dos metilos que lo hacen más simétrico y sólo permiten fuerzas de London"],
    c: 2,
-   ex: 'A igual masa molar decide el <b>tipo</b> de fuerza: el etanol tiene H unido a O y forma <b>puentes de hidrógeno</b>; el éter no tiene H unido a O. Es el V/F 6 de la integradora “A”. → “Es más volátil” es la consecuencia, no la causa. → Son isómeros: igual masa. → Los metilos no agregan puente de hidrógeno.'},
+   ex: "A igual masa molar decide el <b>tipo</b> de fuerza: el etanol tiene H unido a O y forma <b>puentes de hidrógeno</b>; el éter no tiene H unido a O. Es el V/F 6 de la integradora “A”. → <b>Las otras:</b> (A) “es más liviano” es falso, tienen la misma masa molar; y ser más volátil es la consecuencia, no la causa. → (B) son isómeros: igual masa y mismo número de electrones. → (D) el éter es polar y tiene dipolo-dipolo; los metilos no agregan ni quitan puente de hidrógeno."},
 
   {st: 'El punto triple del CO<sub>2</sub> está en 5,11 atm y su punto crítico en 72,9 atm. ¿Por debajo de qué presión el CO<sub>2</sub> sólido sublima al calentarlo, sin fundir?',
-   opts: ['Por debajo de 5,11 atm, la presión del punto triple', 'Por debajo de 72,9 atm, la presión crítica', 'Sólo en el vacío', 'Por debajo de 1 atm'],
+   opts: ["Sólo por debajo de 5,11 atm, la presión del punto triple del CO<sub>2</sub>", "Sólo por debajo de 72,9 atm, la presión del punto crítico", "Sólo por debajo de 0,006 atm, la presión del punto triple del agua", "Sólo por debajo de 1 atm, la presión atmosférica normal"],
    c: 0,
-   ex: 'Por debajo de la presión del <b>punto triple</b> no existe el líquido: al calentar, el sólido cruza la curva de sublimación. Por eso el hielo seco sublima a 1 atm. Es el V/F 5 del 11/07/24. → La presión crítica es el final de la curva líquido-vapor y no decide si funde o sublima. → No hace falta vacío. → 1 atm está debajo de 5,11, pero el límite es 5,11.'},
+   ex: "Por debajo de la presión del <b>punto triple</b> no existe el líquido: al calentar, el sólido cruza la curva de sublimación. Por eso el hielo seco sublima a 1 atm. Es el V/F 5 del 11/07/24. → <b>Las otras:</b> (B) la presión crítica es el final de la curva líquido-vapor y no decide si funde o sublima. → (C) 0,006 atm es el punto triple del agua; el del CO<sub>2</sub> está en 5,11 atm. → (D) a 1 atm sublima, pero también a 2 o a 5 atm: no es el límite, el límite es 5,11."},
 
   {st: 'Se hacen reaccionar 14,0 g de N<sub>2</sub> con 4,00 g de H<sub>2</sub>: N<sub>2</sub> + 3 H<sub>2</sub> → 2 NH<sub>3</sub>. ¿Cuál es el limitante?',
-   opts: ['El H<sub>2</sub>, porque hay menos masa', 'El H<sub>2</sub>, porque se necesitan 3 moles por cada N<sub>2</sub>', 'Ninguno: están en proporción estequiométrica', 'El N<sub>2</sub>: su cociente n/coeficiente (0,500) es menor que el del H<sub>2</sub> (0,661)'],
+   opts: ["El H<sub>2</sub>, porque son 3 mol por cada mol de N<sub>2</sub> y 4,00 g de H<sub>2</sub> no alcanzan", "El H<sub>2</sub>: su cociente 1,984/3 = 0,661 es mayor que el del N<sub>2</sub> y por eso se consume antes", "Ninguno, porque 0,500 mol de N<sub>2</sub> y 1,984 mol de H<sub>2</sub> están en proporción 1 : 3", "El N<sub>2</sub>: su cociente n/coeficiente (0,500) es menor que el del H<sub>2</sub> (0,661)"],
    c: 3,
-   ex: 'n(N<sub>2</sub>) = 0,500 mol; n(H<sub>2</sub>) = 1,984 mol. Cocientes: 0,500/1 = 0,500 y 1,984/3 = 0,661 → limita el <b>N<sub>2</sub></b>. → Se compara en moles, no en masa. → El 3 ya está en el cociente: con 1,984 mol alcanza para 0,661 mol de N<sub>2</sub> y hay 0,500. → La proporción sería 1,500 mol de H<sub>2</sub> para 0,500 de N<sub>2</sub>, y hay más.'},
+   ex: "n(N<sub>2</sub>) = 0,500 mol; n(H<sub>2</sub>) = 1,984 mol. Cocientes: 0,500/1 = 0,500 y 1,984/3 = 0,661 → limita el <b>N<sub>2</sub></b>, el de menor cociente. → <b>Las otras:</b> (A) el 3 ya está en el cociente: con 1,984 mol de H<sub>2</sub> alcanza para 0,661 mol de N<sub>2</sub> y hay sólo 0,500. → (B) limita el de <b>menor</b> cociente, no el de mayor. → (C) la proporción pedida sería 1,500 mol de H<sub>2</sub> para 0,500 mol de N<sub>2</sub>, y hay más: sobra H<sub>2</sub>."},
 
   {st: 'A un sistema en equilibrio se le agrega un catalizador. ¿Qué pasa?',
-   opts: ['El equilibrio se corre hacia los productos', 'No se corre ni cambia K: sólo se llega antes al mismo equilibrio', 'Aumenta K', 'El equilibrio se corre hacia los reactivos'],
+   opts: ["Se corre hacia los productos, porque acelera más la reacción directa que la inversa", "No se corre ni cambia K: sólo se llega antes al mismo equilibrio", "K aumenta, porque baja la energía de activación y las colisiones son más eficaces", "Se corre hacia los reactivos, porque la inversa tiene menor energía de activación"],
    c: 1,
-   ex: 'Un catalizador acelera la reacción directa y la inversa por igual: el sistema llega <b>antes</b> al <b>mismo</b> equilibrio. K sólo cambia con la temperatura. → No hay desplazamiento en ningún sentido. → K no depende del camino de la reacción.'},
+   ex: "Un catalizador acelera la reacción directa y la inversa por igual: el sistema llega <b>antes</b> al <b>mismo</b> equilibrio. K sólo cambia con la temperatura. → <b>Las otras:</b> (A) no hay desplazamiento en ningún sentido: acelera los dos sentidos por igual. → (C) K no depende del camino de la reacción: baja la energía de activación pero K queda igual. → (D) tampoco se corre hacia los reactivos: el catalizador baja la energía de activación en los dos sentidos."},
 
   {st: 'N<sub>2</sub>(g) + 3 H<sub>2</sub>(g) ⇌ 2 NH<sub>3</sub>(g) tiene K<sub>c</sub> = 0,50 a 400 °C. ¿Cuánto vale K<sub>p</sub>?',
-   opts: ['0,50', '1,5·10<sup>3</sup>', '1,64·10<sup>−4</sup>', '9,0·10<sup>−3</sup>'],
+   opts: ["1,5·10<sup>3</sup>", "9,0·10<sup>−3</sup>", "1,64·10<sup>−4</sup>", "4,6·10<sup>−4</sup>"],
    c: 2,
-   ex: 'K<sub>p</sub> = K<sub>c</sub>·(RT)<sup>Δn</sup> con Δn = 2 − 4 = <b>−2</b> y RT = 0,0821 × 673,15 = 55,27: K<sub>p</sub> = 0,50 / 55,27<sup>2</sup> = <b>1,64·10<sup>−4</sup></b>. → 0,50 sería con Δn = 0. → 1,5·10<sup>3</sup> usa Δn = +2. → 9,0·10<sup>−3</sup> usa Δn = −1.'},
+   ex: "K<sub>p</sub> = K<sub>c</sub>·(RT)<sup>Δn</sup> con Δn = 2 − 4 = <b>−2</b> y RT = 0,0821 × 673,15 = 55,27: K<sub>p</sub> = 0,50 / 55,27<sup>2</sup> = <b>1,64·10<sup>−4</sup></b>. → <b>Las otras:</b> (A) usa Δn = +2 y multiplica en vez de dividir. → (B) usa Δn = −1. → (D) deja la temperatura en 400 en vez de pasarla a 673,15 K."},
 
 ]);
 
@@ -320,29 +320,29 @@ registerReveals('fiuba-quimica-integradora', '5', [
 registerExercises('fiuba-quimica-integradora', '6', [
 
   {st: 'V/F real (06/02/25): “Todos los alcoholes tienen menor presión de vapor que los alcanos a la misma temperatura.” ¿Qué argumento lo resuelve mejor?',
-   opts: ['Un contraejemplo: a 25 °C el metanol tiene unos 127 mmHg y el decano unos 1,4 mmHg', 'Recordar que los alcoholes forman puentes de hidrógeno', 'Decir que la presión de vapor depende de la temperatura', 'Comparar el etanol con el propano'],
+   opts: ["Un contraejemplo: a 25 °C el metanol tiene unos 127 mmHg y el decano unos 1,4 mmHg", "Recordar que los alcoholes forman puentes de hidrógeno, que bajan la presión de vapor", "Señalar que la presión de vapor sube con la temperatura y que todo depende del valor elegido", "Comparar el etanol con el propano, donde el alcohol tiene menor presión de vapor"],
    c: 0,
-   ex: 'Es falso por el cuantificador “todos”, y a un “todos” lo tumba <b>un contraejemplo</b>: un alcohol chico más volátil que un alcano grande. → Los puentes de hidrógeno son el argumento a favor del enunciado, no en contra. → La temperatura es la misma en los dos lados de la comparación. → Etanol contra propano confirma la regla para tamaños parecidos: no la tumba.'},
+   ex: "Es falso por el cuantificador “todos”, y a un “todos” lo tumba <b>un contraejemplo</b>: un alcohol chico más volátil que un alcano grande. → <b>Las otras:</b> (B) los puentes de hidrógeno son el argumento a favor del enunciado, no en contra, y no valen para todos los pares. → (C) la temperatura es la misma en los dos lados de la comparación, así que no cambia cuál es más volátil. → (D) etanol contra propano confirma la regla para tamaños parecidos: no la tumba."},
 
   {st: 'V/F real (“A”): “Para el siguiente proceso: Br<sub>2</sub>(l) → Br<sub>2</sub>(g) la variación de entalpía es negativa y la variación de entropía es positiva.”',
-   opts: ['Verdadero: las dos afirmaciones son correctas', 'Falso, porque ΔS es negativa', 'Verdadero, porque la vaporización es espontánea', 'Falso: ΔS &gt; 0 está bien, pero vaporizar es endotérmico (ΔH &gt; 0)'],
+   opts: ["Verdadero: la vaporización libera calor y aumenta el desorden molecular", "Falso: ΔH &lt; 0 es correcto, pero el gas es más ordenado (ΔS &lt; 0)", "Verdadero: el gas es más estable, así que ΔH &lt; 0 y ΔS &gt; 0", "Falso: ΔS &gt; 0 está bien, pero vaporizar es endotérmico (ΔH &gt; 0)"],
    c: 3,
-   ex: 'Son dos afirmaciones juntas: la de la entropía es correcta (líquido a gas, más desorden) y la de la entalpía no, porque vaporizar exige romper las fuerzas intermoleculares (unos 31 kJ/mol para el bromo). Con una falsa, el enunciado es <b>falso</b>. → ΔS es positiva. → Que sea espontánea o no depende de la temperatura y no dice nada del signo de ΔH.'},
+   ex: "Son dos afirmaciones juntas: la de la entropía es correcta (líquido a gas, más desorden) y la de la entalpía no, porque vaporizar exige romper las fuerzas intermoleculares (unos 31 kJ/mol para el bromo). Con una falsa, el enunciado es <b>falso</b>. → <b>Las otras:</b> (A) la vaporización absorbe calor, no lo libera: ΔH &gt; 0. → (B) ΔS es positiva: el gas está mucho más desordenado, y ΔH también es positiva. → (C) que el gas sea más estable o que el proceso sea espontáneo depende de la temperatura y no dice nada del signo de ΔH."},
 
   {st: '¿Por qué mecanismo es falso el V/F real “Los sólidos iónicos son más duros que los sólidos covalentes” (11/07/24)?',
-   opts: ['Por un cuantificador explícito, como “todos” o “siempre”', 'Al revés: los covalentes en red, como el diamante, son los más duros', 'Por un término cambiado: “duro” en lugar de “frágil”', 'Porque una de dos afirmaciones es falsa'],
+   opts: ["Por un cuantificador: “todos” o “siempre” vuelven falso un enunciado general", "Por una comparación invertida: el diamante, covalente en red, es más duro que el NaCl", "Por un término cambiado: dice “duros” cuando los iónicos son sobre todo frágiles", "Por una afirmación doble donde una de las partes es falsa y la otra es verdadera"],
    c: 1,
-   ex: 'La comparación está <b>invertida</b>: el diamante, covalente en red, es el patrón de dureza máxima (10 en la escala de Mohs) y el NaCl ronda 2,5. → No hay “todos” ni “siempre”. → Los iónicos son duros y además frágiles: no es un término cambiado. → Es una sola afirmación.'},
+   ex: "La comparación está <b>invertida</b>: el diamante, covalente en red, es el patrón de dureza máxima (10 en la escala de Mohs) y el NaCl ronda 2,5. → <b>Las otras:</b> (A) no hay “todos” ni “siempre” en el enunciado. → (C) los iónicos son duros y además frágiles: no es un término cambiado. → (D) es una sola afirmación, no dos."},
 
   {st: 'V/F b del 18/07/24: “es necesario que el número de moles de ambos sea igual” para neutralizar. ¿Dónde estaba el contraejemplo más rápido?',
-   opts: ['En la tabla periódica que da la cátedra', 'En la guía de 185 preguntas', 'En el ítem c) del Ejercicio 2 del mismo examen: 0,004 mol de HCl se neutralizan con 0,002 mol de Ca(OH)<sub>2</sub>', 'En el Ejercicio 1, el del benceno'],
+   opts: ["En el Ejercicio 2 b) del mismo examen: 0,0125 mol de NaOH frente a 0,004 mol de HCl, con base de sobra", "En el Ejercicio 1 del mismo examen, el del benceno, donde se mezclan dos líquidos sin ácido ni base", "En el Ejercicio 2 c) del mismo examen: 0,004 mol de HCl se neutralizan con 0,002 mol de Ca(OH)<sub>2</sub>", "En la guía de 185 preguntas, que explica que el ácido y la base siempre reaccionan mol a mol y sin excepción"],
    c: 2,
-   ex: 'El Ejercicio 2 c) pedía el volumen de Ca(OH)<sub>2</sub> para llevar el HCl a pH 7: <b>la mitad de moles de base</b>, porque cada Ca(OH)<sub>2</sub> aporta dos OH<sup>−</sup>. Quien lo resolvió ya tenía el contraejemplo escrito. → La tabla periódica no tiene contraejemplos. → La guía de 185 tiene la pregunta, no la cuenta. → El benceno es de líquido-vapor.'},
+   ex: "El Ejercicio 2 c) pedía el volumen de Ca(OH)<sub>2</sub> para llevar el HCl a pH 7: <b>la mitad de moles de base</b>, porque cada Ca(OH)<sub>2</sub> aporta dos OH<sup>−</sup>. Quien lo resolvió ya tenía el contraejemplo escrito. → <b>Las otras:</b> (A) el ítem b) mezcla con base en exceso y termina en pH 12,33: no es una neutralización con moles distintos. → (B) el benceno es del tema líquido-vapor y no tiene ácido ni base. → (D) la guía de 185 tiene la pregunta, no la cuenta, y la idea mol a mol es justamente la que el contraejemplo desmiente."},
 
   {st: 'V/F del banco: “Si el ΔG° de una reacción es positivo, su constante de equilibrio es mayor que 1.”',
-   opts: ['Falso: ΔG° = −RT·ln K, así que ΔG° &gt; 0 da ln K &lt; 0 y K &lt; 1', 'Verdadero: K crece con ΔG°', 'Falso: K no depende de ΔG°', 'Verdadero sólo a 25 °C'],
+   opts: ["Falso: ΔG° = −RT·ln K, así que ΔG° &gt; 0 da ln K &lt; 0, o sea K &lt; 1", "Verdadero: ΔG° = RT·ln K, así que ΔG° &gt; 0 da ln K &gt; 0 y K &gt; 1", "Falso: en el equilibrio ΔG = 0, así que K vale siempre 1 sea cual sea ΔG°", "Verdadero: una ΔG° positiva indica que los productos son más estables y K &gt; 1"],
    c: 0,
-   ex: 'De ΔG° = −R·T·ln K: si ΔG° &gt; 0, ln K &lt; 0 y <b>K &lt; 1</b>. Con ΔG° = +10 kJ a 25 °C, K = 0,018. → Es al revés: cuanto más positivo ΔG°, más chica K. → K depende directamente de ΔG°. → La relación vale a cualquier temperatura, con la T que corresponda.'},
+   ex: "De ΔG° = −R·T·ln K: si ΔG° &gt; 0, ln K &lt; 0 y <b>K &lt; 1</b>. Con ΔG° = +10 kJ a 25 °C, K = 0,018. → <b>Las otras:</b> (B) pierde el signo menos de la fórmula: es al revés, cuanto más positivo ΔG°, más chica K. → (C) ΔG = 0 es la condición de equilibrio, pero K depende directamente de ΔG° y no vale siempre 1. → (D) con ΔG° &gt; 0 son los reactivos los favorecidos, no los productos."},
 
   {st: 'V/F del banco: “En la pila Zn | Zn<sup>2+</sup> ‖ Cu<sup>2+</sup> | Cu, aumentar la concentración de Zn<sup>2+</sup> aumenta el potencial de la pila.”',
    opts: ['Verdadero: más iones, más corriente', 'Verdadero: el Zn<sup>2+</sup> es reactivo de la pila', 'Falso: el potencial no depende de las concentraciones', 'Falso: el Zn<sup>2+</sup> es producto, así que sube Q y baja E'],
@@ -350,19 +350,19 @@ registerExercises('fiuba-quimica-integradora', '6', [
    ex: 'Global: Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu. El Zn<sup>2+</sup> está en el <b>numerador</b> de Q: si aumenta, sube Q y por Nernst <b>baja</b> E. Con [Zn<sup>2+</sup>] = 10 M y [Cu<sup>2+</sup>] = 1 M, E = 1,07 V. Es la pregunta 10 del bloque de Pilas. → El potencial no es la corriente. → El Zn<sup>2+</sup> se forma en el ánodo: es producto. → Nernst dice justamente que E depende de las concentraciones.'},
 
   {st: 'V/F real verdadero (18/07/24): “Según el Principio de Le Chatelier, un aumento de temperatura desplaza a un sistema en equilibrio en el sentido endotérmico.” ¿Cuál es la mejor justificación?',
-   opts: ['“Es verdadero porque lo dice el principio de Le Chatelier”', 'Enunciar el principio, aplicar que subir T es agregar calor y que el sentido que lo consume es el endotérmico, y dar un ejemplo con K', 'Dar sólo un ejemplo: el Haber', 'Decir que K aumenta siempre con la temperatura'],
+   opts: ["Enunciar el principio, aplicar que subir T agrega calor sin decir qué sentido lo consume, y afirmar que el enunciado es verdadero", "Enunciar el principio, aplicar que subir T es agregar calor y que lo consume el sentido endotérmico, y ejemplificar con la variación de K", "Aplicar el principio al Haber y a otro equilibrio exotérmico, y concluir que el enunciado vale para todos los equilibrios", "Afirmar que subir T aumenta K en todo equilibrio, y que por eso el sistema se corre hacia los productos siempre"],
    c: 1,
-   ex: 'Un verdadero se justifica con <b>el principio aplicado</b>: el sistema contrarresta la perturbación; subir T es agregar calor; el sentido que lo consume es el endotérmico. Y un ejemplo: en una exotérmica como el Haber, subir T corre hacia los reactivos y baja K. → Repetir el enunciado no es justificar. → Un ejemplo solo no demuestra un enunciado general. → K baja con T si la directa es exotérmica: “siempre aumenta” es falso.'},
+   ex: "Un verdadero se justifica con <b>el principio aplicado</b>: el sistema contrarresta la perturbación; subir T es agregar calor; el sentido que lo consume es el endotérmico. Y un ejemplo: en una exotérmica como el Haber, subir T corre hacia los reactivos y baja K. → <b>Las otras:</b> (A) falta el paso clave: subir T agrega calor, pero hay que decir que lo consume el sentido endotérmico; sin eso no se justifica nada. → (C) dos ejemplos del mismo tipo, exotérmicos, no demuestran un enunciado general. → (D) K baja con T si la directa es exotérmica: “siempre aumenta” es falso."},
 
   {st: 'V/F del banco: “Al diluir una solución de un ácido débil, su grado de disociación disminuye.”',
-   opts: ['Verdadero: hay menos ácido para disociarse', 'Verdadero: el pH sube', 'Falso: el grado de disociación aumenta (ácido acético: 1,33 % a 0,10 M y 4,15 % a 0,010 M)', 'Falso: el grado de disociación no depende de la concentración'],
+   opts: ["Verdadero: con menos ácido en la solución se disocia una fracción menor", "Verdadero: el pH sube al diluir, así que se disocian menos moléculas", "Falso: α aumenta (acético: 1,33 % a 0,10 M y 4,15 % a 0,010 M)", "Falso: α no cambia, porque depende sólo de K<sub>a</sub> y ésta es constante"],
    c: 2,
-   ex: 'Al diluir, el equilibrio HA ⇌ H<sup>+</sup> + A<sup>−</sup> se corre hacia donde hay más partículas: α ≈ √(K<sub>a</sub>/C) <b>aumenta</b>. Con el acético, de 1,33 % a 4,15 %. Es la pregunta 11 del bloque de Ácido-base. → Hay menos ácido en total, pero se disocia una fracción mayor. → El pH sí sube, pero eso no dice nada de α. → α depende de la concentración; lo que no depende es K<sub>a</sub>.'},
+   ex: "Al diluir, el equilibrio HA ⇌ H<sup>+</sup> + A<sup>−</sup> se corre hacia donde hay más partículas: α ≈ √(K<sub>a</sub>/C) <b>aumenta</b>. Con el acético, de 1,33 % a 4,15 %. Es la pregunta 11 del bloque de Ácido-base. → <b>Las otras:</b> (A) hay menos ácido en total, pero se disocia una fracción mayor. → (B) el pH sí sube, pero eso no dice que se disocie menos: α crece. → (D) K<sub>a</sub> es constante, pero α depende de la concentración."},
 
   {st: 'El 3 de la “B” (dos ácidos débiles HA y HB, con [A<sup>−</sup>] &gt; [B<sup>−</sup>] a igual concentración) trae tres juicios. ¿Cuál es la respuesta?',
-   opts: ['a V, b F, c F, cada uno justificado por separado', 'Todo verdadero, porque HA es más fuerte', 'a V, b V, c F', 'a F, b F, c V'],
+   opts: ["a V, b F, c F: HA se disocia más, así que su K<sub>a</sub> es mayor y su pH menor que HB", "a V, b V, c V: HA se disocia más y por eso su K<sub>a</sub> es menor y su pH es mayor", "a V, b V, c F: HA se disocia más, su K<sub>a</sub> es menor porque A<sup>−</sup> va abajo y su pH es menor", "a F, b V, c V: HA se disocia menos, así que su K<sub>a</sub> es menor y su pH es mayor"],
    c: 0,
-   ex: 'Más A<sup>−</sup> a igual concentración es más disociación: <b>a) V</b>, HA es más fuerte; <b>b) F</b>, su K<sub>a</sub> es mayor, no menor; <b>c) F</b>, tiene más H<sup>+</sup> y pH menor. Son tres juicios y se corrigen por separado. → b y c están escritos al revés a propósito. → Las otras dos combinaciones fallan en b o en a.'},
+   ex: "Más A<sup>−</sup> a igual concentración es más disociación: <b>a) V</b>, HA es más fuerte; <b>b) F</b>, su K<sub>a</sub> es mayor, no menor; <b>c) F</b>, tiene más H<sup>+</sup> y pH menor. Son tres juicios y se corrigen por separado. → <b>Las otras:</b> (B) b y c están escritos al revés a propósito: más disociación significa K<sub>a</sub> mayor y pH menor, no al revés. → (C) acierta a y c pero falla en b: A<sup>−</sup> va en el numerador de K<sub>a</sub>, y una mayor disociación implica mayor K<sub>a</sub>, no menor. → (D) falla ya en a: más A<sup>−</sup> a igual concentración significa más disociación, o sea más fuerte; con eso b y c quedan mal también."},
 
   {st: '¿Cuál de estos enunciados es verdadero?',
    opts: ['Las CNPT y las condiciones estándar son lo mismo: 0 °C y 1 atm', 'Un sólido iónico conduce la corriente en estado sólido', 'Un catalizador aumenta el rendimiento de equilibrio', 'En un proceso reversible la entropía del universo no cambia'],
@@ -567,9 +567,9 @@ registerExercises('fiuba-quimica-integradora', '7', [
    ex: 'Global: Mg + 2 H<sup>+</sup> → Mg<sup>2+</sup> + H<sub>2</sub>. Q = [Mg<sup>2+</sup>]·p(H<sub>2</sub>)/[H<sup>+</sup>]<sup>2</sup> = 10<sup>−2</sup> × 0,8 / (10<sup>−3</sup>)<sup>2</sup> = <b>8000</b>, y E = 2,22 V. → 8 se olvida del cuadrado de [H<sup>+</sup>]. → 1,25·10<sup>−4</sup> es 1/Q: reactivos arriba. → 0,8 es sólo la presión del H<sub>2</sub>.'},
 
   {st: 'Integradora del 18/07/24, Ejercicio 2 b): 0,5 g de NaOH (0,0125 mol) en 400 mL de HCl de pH 2 (0,004 mol). ¿pH final?',
-   opts: ['2,00', '7,00', '1,67', '12,33'],
+   opts: ["2,00", "7,00", "1,67", "12,33"],
    c: 3,
-   ex: 'Dos fuertes: una resta. Sobran 0,0125 − 0,004 = 0,0085 mol de OH<sup>−</sup> en 0,400 L → 0,02125 M → pOH 1,67 → <b>pH 12,33</b>. → 2,00 es el pH antes de agregar la base. → 7,00 sólo si las cantidades fueran iguales. → 1,67 es el pOH.'},
+   ex: "Dos fuertes: una resta. Sobran 0,0125 − 0,004 = 0,0085 mol de OH<sup>−</sup> en 0,400 L → 0,02125 M → pOH 1,67 → <b>pH 12,33</b>. → <b>Las otras:</b> (A) 2,00 es el pH antes de agregar la base. → (B) 7,00 sólo si las cantidades fueran iguales. → (C) 1,67 es el pOH, no el pH."},
 
   {st: 'Integradora del 06/02/25, Ejercicio 1 b): carga real 4,17·10<sup>6</sup> C en 18 horas. ¿Qué intensidad se usó?',
    opts: ['64,3 A', '54,7 A', '46,5 A', '32,2 A'],
@@ -577,9 +577,9 @@ registerExercises('fiuba-quimica-integradora', '7', [
    ex: 't = 18 × 3600 = 64 800 s → I = 4,17·10<sup>6</sup> / 64 800 = <b>64,3 A</b>. → 54,7 A es la intensidad teórica, sin el rendimiento del 85 %. → 46,5 A multiplica por 0,85 en vez de dividir. → 32,2 A cuenta un electrón por Zn en vez de dos.'},
 
   {st: 'Integradora “A”, Ejercicio 1 d): la cuchara tiene un espesor e de cobre y tiene que llegar a “por lo menos, 3 veces el espesor obtenido”, ahora con eficiencia del 89 % y la misma corriente de 0,1 A. ¿Cuánto tiempo más?',
-   opts: ['6,7 h: tres espesores más', '2 h: lo mismo que antes', '4,5 h: faltan dos espesores, con el 89 %', '4,0 h: dos espesores, sin la eficiencia'],
+   opts: ["6,7 h: faltan tres espesores y se corrige por la eficiencia del 89 %", "2,0 h: el mismo tiempo de antes, porque la corriente es la misma", "4,5 h: faltan dos espesores y se corrige por la eficiencia del 89 %", "4,0 h: faltan dos espesores, pero no se tiene en cuenta la eficiencia nueva"],
    c: 2,
-   ex: 'Suponiendo, como en el ítem c), que las primeras 2 h fueron al 100 %, faltan <b>2e</b>: carga teórica 2 × 720 = 1440 C; real 1440 / 0,89 = 1618 C; t = 1618 / 0,1 = 16 180 s ≈ <b>4,5 h</b>. → 6,7 h agrega 3e, que daría 4 veces el espesor. → 2 h es el tiempo de un solo espesor al 100 %. → 4,0 h se olvida de la eficiencia nueva.'},
+   ex: "Suponiendo, como en el ítem c), que las primeras 2 h fueron al 100 %, faltan <b>2e</b>: carga teórica 2 × 720 = 1440 C; real 1440 / 0,89 = 1618 C; t = 1618 / 0,1 = 16 180 s ≈ <b>4,5 h</b>. → <b>Las otras:</b> (A) agrega 3e, que daría 4 veces el espesor. → (B) 2 h es el tiempo de un solo espesor al 100 %. → (D) se olvida de la eficiencia nueva: es el tiempo al 100 %."},
 
   {st: 'Integradora “A”, Ejercicio 2 a): en la bomba, 1,22 g de ácido benzoico (9,99·10<sup>−3</sup> mol) desprenden 31,2 kJ. ¿Cuál es la entalpía de combustión a 25 °C?',
    opts: ['−3123 kJ/mol', '−3124 kJ/mol', '−3227 kJ/mol', '−31,2 kJ/mol'],
@@ -662,24 +662,24 @@ registerExercises('fiuba-quimica-integradora', '8', [
    ex: 'Por la global, Ni + 2 Ag<sup>+</sup> → Ni<sup>2+</sup> + 2 Ag: por cada mol de Ni se depositan <b>dos</b> de Ag. 0,02000 mol × 107,87 = <b>2,16 g</b>, con 1930 C de carga. → 1,08 g toma un Ag por Ni. → 0,587 g supone que la masa pasa tal cual de un electrodo al otro. → 4,32 g cuenta cuatro Ag por Ni.'},
 
   {st: 'Simulacro, Ejercicio 2 a): 2 NaHCO<sub>3</sub>(s) → Na<sub>2</sub>CO<sub>3</sub>(s) + CO<sub>2</sub>(g) + H<sub>2</sub>O(g), ΔH° = +135,6 kJ. ¿Qué calor intercambia la descomposición de 10,0 g (0,1190 mol) de NaHCO<sub>3</sub>?',
-   opts: ['16,14 kJ', '135,6 kJ', '8,07 kJ liberados', '8,07 kJ absorbidos'],
+   opts: ["16,14 kJ absorbidos, porque cada mol de NaHCO<sub>3</sub> absorbe 135,6 kJ", "135,6 kJ absorbidos, porque es el calor de la reacción", "8,07 kJ liberados: la cuenta es la mitad, pero el calor sale del sistema", "8,07 kJ absorbidos, porque el ΔH es por 2 mol de NaHCO<sub>3</sub> y ΔH &gt; 0"],
    c: 3,
-   ex: 'El ΔH es por <b>2 mol</b> de NaHCO<sub>3</sub>: q = 0,1190/2 × 135,6 = <b>8,07 kJ</b>, y como ΔH &gt; 0, el sistema los <b>absorbe</b>. → 16,14 kJ usa el ΔH por mol de NaHCO<sub>3</sub>, el doble. → 135,6 kJ es por mol de reacción, no por 10 g. → “Liberados” invierte el signo.'},
+   ex: "El ΔH es por <b>2 mol</b> de NaHCO<sub>3</sub>: q = 0,1190/2 × 135,6 = <b>8,07 kJ</b>, y como ΔH &gt; 0, el sistema los <b>absorbe</b>. → <b>Las otras:</b> (A) usa el ΔH por mol de NaHCO<sub>3</sub>, el doble del real. → (B) 135,6 kJ es por mol de reacción, no por 10 g. → (C) “liberados” invierte el signo: ΔH &gt; 0 es calor absorbido."},
 
   {st: 'Simulacro, Ejercicio 2 c): ΔH° = +135,6 kJ y ΔS° = +334,1 J/K. ¿A partir de qué temperatura es espontánea la descomposición?',
-   opts: ['0,406 K', '405,9 K (unos 133 °C)', '298 K', 'Nunca, porque ΔH &gt; 0'],
+   opts: ["0,406 K, porque T = ΔH/ΔS con kJ y J sin unificar", "405,9 K (unos 133 °C), porque T = 135 600 J / 334,1 J/K", "298 K, porque a temperatura ambiente ΔG° ya es negativa", "Nunca, porque ΔH &gt; 0 impide que ΔG sea negativa"],
    c: 1,
-   ex: 'Con los dos positivos es espontánea a <b>alta</b> temperatura: T &gt; 135 600 / 334,1 = <b>405,9 K</b>. Por eso en la alacena no se descompone y en el horno a 180 °C (ΔG = −15,8 kJ) sí. → 0,406 K divide kJ por J. → 298 K es 25 °C, donde ΔG° = +36,0 kJ: no espontánea. → ΔH &gt; 0 no lo impide si ΔS &gt; 0.'},
+   ex: "Con los dos positivos es espontánea a <b>alta</b> temperatura: T &gt; 135 600 / 334,1 = <b>405,9 K</b>. Por eso en la alacena no se descompone y en el horno a 180 °C (ΔG = −15,8 kJ) sí. → <b>Las otras:</b> (A) divide kJ por J: faltan los 1000. → (C) 298 K es 25 °C, donde ΔG° = +36,0 kJ: no espontánea. → (D) ΔH &gt; 0 no lo impide si ΔS &gt; 0: a T alta, TΔS gana."},
 
   {st: 'Simulacro, Ejercicio 2 b): la descomposición ocurre en un horno a 180 °C y 1 atm, con Δn<sub>gas</sub> = +2. ¿Cuánto vale el trabajo por mol de reacción, con la convención de la cátedra?',
-   opts: ['−7,53 kJ: el sistema se expande y realiza trabajo sobre el entorno', '+7,53 kJ: el entorno comprime al sistema', '−2,99 kJ', '0: los sólidos no cambian de volumen'],
+   opts: ["−7,53 kJ: se forman 2 mol de gas y el sistema trabaja sobre el entorno", "+7,53 kJ: se forman 2 mol de gas y el entorno trabaja sobre el sistema", "−2,99 kJ: se forman 2 mol de gas, con T = 180 en la cuenta", "0: los sólidos no cambian de volumen y por eso no hay trabajo"],
    c: 0,
-   ex: 'W = −Δn·R·T = −2 × 8,31 × 453,15 = <b>−7531 J</b>: negativo, el sistema entrega trabajo porque se forman 2 mol de gas. ΔU = 135,6 − 7,53 = 128,1 kJ. → El signo positivo sería para una contracción. → −2,99 kJ usa T = 180 en vez de 453,15 K. → Los gases que se forman sí ocupan volumen.'},
+   ex: "W = −Δn·R·T = −2 × 8,31 × 453,15 = <b>−7531 J</b>: negativo, el sistema entrega trabajo porque se forman 2 mol de gas. ΔU = 135,6 − 7,53 = 128,1 kJ. → <b>Las otras:</b> (B) el signo positivo sería para una contracción. → (C) usa T = 180 en vez de 453,15 K. → (D) los gases que se forman sí ocupan volumen: hay trabajo."},
 
   {st: 'Simulacro, Parte B 4: “Al diluir diez veces una solución de ácido acético, su pH aumenta una unidad.” ¿Qué pasa en realidad?',
-   opts: ['Sube una unidad, como dice el enunciado', 'No cambia, porque el K<sub>a</sub> es el mismo', 'Sube unas 0,5 unidades: [H<sup>+</sup>] ≈ √(K<sub>a</sub>·C) se divide por √10', 'Baja 0,5 unidades'],
+   opts: ["Sube una unidad, porque [H<sup>+</sup>] se divide por 10 al diluir diez veces", "No cambia, porque el K<sub>a</sub> es el mismo y el pH sólo depende de la constante", "Sube unas 0,5 unidades: [H<sup>+</sup>] ≈ √(K<sub>a</sub>·C) se divide por √10", "Baja unas 0,5 unidades al diluir: [H<sup>+</sup>] ≈ √(K<sub>a</sub>·C) se multiplica por √10"],
    c: 2,
-   ex: 'Para un débil, [H<sup>+</sup>] ≈ √(K<sub>a</sub>·C): diluir diez veces divide [H<sup>+</sup>] por √10 ≈ 3,16, y el pH sube unas <b>0,5</b> unidades (de 2,88 a 3,38 con 0,10 y 0,010 M). El enunciado es falso. → Una unidad sería la de un ácido fuerte. → El K<sub>a</sub> no cambia, pero la concentración sí. → Diluir un ácido nunca baja el pH.'},
+   ex: "Para un débil, [H<sup>+</sup>] ≈ √(K<sub>a</sub>·C): diluir diez veces divide [H<sup>+</sup>] por √10 ≈ 3,16, y el pH sube unas <b>0,5</b> unidades (de 2,88 a 3,38 con 0,10 y 0,010 M). El enunciado es falso. → <b>Las otras:</b> (A) una unidad sería la de un ácido fuerte. → (B) el K<sub>a</sub> no cambia, pero la concentración sí, y el pH depende de las dos. → (D) diluir un ácido nunca baja el pH: [H<sup>+</sup>] se divide, no se multiplica."},
 
 ]);
 

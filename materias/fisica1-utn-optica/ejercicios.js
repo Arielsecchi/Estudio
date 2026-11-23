@@ -8,12 +8,9 @@
 /* ============ UNIDAD 1 · CONVENCIÓN DE SIGNOS (solo quiz) ============ */
 registerExercises('fisica1-utn-optica', '1', [
   {st: 'Con la convención de la cátedra (luz que llega desde la izquierda, origen en el espejo o en el centro óptico, x positivo hacia la izquierda), ¿qué signo tiene siempre la posición de un objeto real?',
-   opts: ['x &lt; 0, porque el objeto está antes del origen.',
-          'x &gt; 0, porque el objeto está del lado hacia el que apunta el eje x positivo.',
-          'x = 0, porque el objeto se mide desde el foco.',
-          'Depende: x &gt; 0 en espejos y x &lt; 0 en lentes.'],
+   opts: ["x &lt; 0, porque el objeto está antes del origen siguiendo el camino de la luz.", "x &gt; 0, porque el objeto está del lado hacia el que apunta el eje x positivo.", "x = 0, porque el objeto se mide desde el foco y no desde el vértice.", "Depende: x &gt; 0 en espejos y x &lt; 0 en lentes, porque la luz las atraviesa."],
    c: 1,
-   ex: 'Es la única constante de todos los problemas de la unidad: el eje x apunta hacia la izquierda, que es justo el lado donde está el objeto real, así que <b>x &gt; 0 siempre</b> (salvo que el enunciado hable explícitamente de un objeto virtual, cosa que no pasa en ninguno de los ejercicios relevados). Por eso, si terminás un problema con x negativo, no es que descubriste algo raro: te equivocaste en el signo del aumento. → Por qué las otras: la primera confunde "antes" en el camino de la luz con el signo del eje; la tercera mide desde el foco cuando el origen está en el vértice o en el centro óptico; la cuarta inventa una diferencia que no existe: lo que cambia entre espejo y lente es el signo de x′ de la imagen real, no el del objeto.'},
+   ex: "Es la única constante de todos los problemas de la unidad: el eje x apunta hacia la izquierda, que es justo el lado donde está el objeto real, así que <b>x &gt; 0 siempre</b> (salvo que el enunciado hable explícitamente de un objeto virtual, cosa que no pasa en ninguno de los ejercicios relevados). Por eso, si terminás un problema con x negativo, no es que descubriste algo raro: te equivocaste en el signo del aumento. → <b>Las otras:</b> (A) confunde \"antes\" en el camino de la luz con el signo del eje; (C) mide desde el foco cuando el origen está en el vértice o en el centro óptico; (D) inventa una diferencia que no existe: lo que cambia entre espejo y lente es el signo de x′ de la imagen real, no el del objeto."},
 
   {st: 'Un ESPEJO esférico forma una imagen que "cae sobre una pantalla plana". ¿Qué signos quedan fijados con esa sola frase?',
    opts: ['x′ &lt; 0 y A &gt; 0 (imagen virtual y derecha).',
@@ -99,12 +96,9 @@ registerExercises('fisica1-utn-optica', '2', [
    ex: 'Imagen real en un espejo ⟹ x′ = +15 cm. "La mitad de tamaño" + real + objeto real ⟹ <b>A = −0,5</b>. De A = −x′/x: −0,5 = −15/x ⟹ <b>x = 30 cm</b>. Después 1/30 + 1/15 = 1/10 ⟹ f = 10 cm y R = 20 cm. → Por qué las otras: 7,5 cm sale de multiplicar 15 por 0,5 en vez de dividir; −30 cm es exactamente lo que obtenés si tomás A = +0,5, y un objeto virtual acá es imposible (es la señal de que el signo está mal); 15 cm supondría A = −1, o sea el objeto en C y la imagen del mismo tamaño, que no es lo que dice el enunciado.'},
 
   {st: 'Espejo CONVEXO y objeto real, en cualquier posición. ¿Cómo es siempre la imagen?',
-   opts: ['Real, invertida y menor.',
-          'Virtual, invertida y mayor.',
-          'Depende de si el objeto está dentro o fuera del foco.',
-          'Virtual, derecha y menor, entre el vértice y el foco, detrás del espejo.'],
+   opts: ["Real, invertida y menor, entre el foco y el centro de curvatura, delante del espejo.", "Virtual, invertida y mayor, detrás del espejo, cuando el objeto está dentro del foco.", "Depende de si el objeto está dentro o fuera del foco, como en el cóncavo.", "Virtual, derecha y menor, ubicada entre el vértice y el foco, detrás del espejo."],
    c: 3,
-   ex: 'Un convexo tiene f &lt; 0 y con objeto real da <b>siempre</b> imagen virtual, derecha y reducida, apretada entre V y F por detrás. Por eso el problema del parcial 2023 ("derecha y cinco veces menor") tiene que dar convexo, y por eso un convexo <b>nunca</b> puede proyectar nada sobre una pantalla. → Por qué las otras: "real e invertida" es lo que hace un cóncavo con el objeto fuera del foco; "invertida y mayor" no la produce ningún espejo convexo; y no depende de la posición del objeto: esa dependencia es propia del cóncavo, que sí cambia de comportamiento según las zonas ①②③.'},
+   ex: "Un convexo tiene f &lt; 0 y con objeto real da <b>siempre</b> imagen virtual, derecha y reducida, apretada entre V y F por detrás. Por eso el problema del parcial 2023 (\"derecha y cinco veces menor\") tiene que dar convexo, y por eso un convexo <b>nunca</b> puede proyectar nada sobre una pantalla. → <b>Las otras:</b> (A) \"real e invertida\" y menor es lo que hace un cóncavo con el objeto más allá del centro de curvatura; (B) una imagen virtual de un espejo con objeto real nunca es invertida, y ningún convexo la agranda; (C) en el convexo no depende de la posición del objeto: esa dependencia es propia del cóncavo, que sí cambia de comportamiento según las zonas ①②③."},
 
   {st: 'Un espejo colocado a 45 cm de un objeto da una imagen derecha y cinco veces menor (1er parcial 2023, Prof. Dibarbora). ¿Qué radio tiene?',
    opts: ['R = +22,5 cm, espejo cóncavo.',
@@ -145,12 +139,9 @@ registerExercises('fisica1-utn-optica', '3', [
    ex: '"Directa" es sinónimo de <b>derecha</b>, o sea no invertida: <b>A = +1,5</b>. Con eso sale x′ = +30 cm (imagen virtual, del mismo lado) y f = +60 cm, lente convergente en modo lupa. → Por qué las otras: A = −1,5 es el error que la propia resolución señala: te da x′ = −30 cm y f = 12 cm, o sea una imagen real e invertida que contradice la palabra "directa" del enunciado; y los 0,67 invierten la razón (sería la imagen la más chica), cuando el enunciado dice claramente "ampliada".'},
 
   {st: 'Mismo problema: x = 20 cm y A = +1,5. ¿Dónde queda la imagen y qué lente es?',
-   opts: ['x′ = +30 cm, f = +60 cm, convergente, imagen virtual.',
-          'x′ = −30 cm, f = +12 cm, convergente, imagen real.',
-          'x′ = +30 cm, f = −60 cm, divergente, imagen virtual.',
-          'x′ = −30 cm, f = −12 cm, divergente, imagen real.'],
+   opts: ["x′ = +30 cm, f = +60 cm, convergente, imagen virtual.", "x′ = −30 cm, f = +12 cm, convergente, imagen real.", "x′ = +30 cm, f = −60 cm, divergente, imagen virtual.", "x′ = −30 cm, f = −12 cm, divergente, imagen real."],
    c: 0,
-   ex: 'En lentes A = <b>+</b>x′/x ⟹ x′ = 1,5 · 20 = <b>+30 cm</b>, positivo, o sea del <b>mismo lado que el objeto</b>: imagen <b>virtual</b>. Después 1/20 − 1/30 = 1/60 ⟹ <b>f = +60 cm</b> ⟹ <b>convergente</b>. Y el objeto (20 cm) está dentro del foco (60 cm): caso lupa. → Por qué las otras: la segunda es exactamente lo que obtenés con A = −1,5; la tercera mezcla el x′ correcto con una f de signo imposible (con esos datos la ecuación da +60); y la cuarta acumula los dos errores. Recordá que una <b>divergente nunca</b> da imagen real con objeto real.'},
+   ex: "En lentes A = <b>+</b>x′/x ⟹ x′ = 1,5 · 20 = <b>+30 cm</b>, positivo, o sea del <b>mismo lado que el objeto</b>: imagen <b>virtual</b>. Después 1/20 − 1/30 = 1/60 ⟹ <b>f = +60 cm</b> ⟹ <b>convergente</b>. Y el objeto (20 cm) está dentro del foco (60 cm): caso lupa. → <b>Las otras:</b> (B) es exactamente lo que obtenés con A = −1,5: x′ = −30 cm y f = +12 cm; (C) mezcla el x′ correcto con una f de signo imposible (con esos datos la ecuación da +60); (D) acumula los dos errores, el signo de x′ y el de f. Recordá que una <b>divergente nunca</b> da imagen real con objeto real."},
 
   {st: '"Un objeto se encuentra delante de una lente divergente cuya distancia focal, en módulo, vale 30cm. La imagen tiene la mitad de tamaño" (1er parcial 2011). ¿Qué f y qué A entran?',
    opts: ['f = +30 cm y A = +0,5', 'f = +30 cm y A = −0,5', 'f = −30 cm y A = −0,5', 'f = −30 cm y A = +0,5'],
@@ -193,28 +184,19 @@ registerExercises('fisica1-utn-optica', '4', [
    ex: 'Es el rayo más fácil de todos y nunca falla: por el centro óptico <b>sigue derecho</b>. En una lente delgada las dos caras son ahí paralelas entre sí, así que el rayo se comporta como en una lámina de espesor despreciable: sale sin desviarse. Usalo siempre como uno de los dos rayos del dibujo. → Por qué las otras: "pasa por F′" es lo que hace el rayo <b>paralelo al eje</b> (rayo ①); "emerge paralelo" es lo que hace el rayo que <b>entra por el foco objeto F</b> (rayo ②); y "vuelve sobre sí mismo" es el rayo que va al centro de curvatura C, que existe en <b>espejos</b>, no en lentes.'},
 
   {st: 'El inciso b) dice "realice a escala el trazado de rayos" y entregás un esquema prolijo pero sin proporciones entre las distancias. ¿Qué pasa?',
-   opts: ['Basta con aclarar al costado "esquema, no está a escala".',
-          'Puntúa igual: lo que se corrige es el inciso a).',
-          'No resuelve el inciso b): el enunciado pide literalmente "a escala" y el inciso puntúa aparte.',
-          'Puntúa la mitad de forma automática.'],
+   opts: ["Basta con aclarar al costado que es un esquema y no está a escala, porque se entiende igual.", "Puntúa igual, porque lo que se corrige es el inciso a) y el dibujo es sólo un apoyo.", "No resuelve el inciso b), porque el enunciado pide el trazado a escala y puntúa aparte.", "Puntúa la mitad de forma automática, porque el esquema prolijo ya muestra la idea."],
    c: 2,
-   ex: 'Cinco de los siete ejercicios de parcial relevados (2009, 2010, 2011, 2012 y 2017) tienen el mismo inciso b) pidiendo el dibujo <b>a escala</b>, y en las grillas de corrección el b) puntúa aparte del a). Elegí una escala cómoda (por ejemplo 1 cm de hoja = 5 cm reales), <b>escribila</b> y respetala: si f = 10, x = 30 y x′ = 15, el objeto tiene que quedar al doble de distancia que la imagen y al triple que el foco. → Por qué las otras: aclarar que no está a escala no cambia lo que pide la consigna; el a) y el b) se corrigen por separado, así que uno no cubre al otro; y no existe ninguna regla de "medio punto automático".'},
+   ex: "Cinco de los siete ejercicios de parcial relevados (2009, 2010, 2011, 2012 y 2017) tienen el mismo inciso b) pidiendo el dibujo <b>a escala</b>, y en las grillas de corrección el b) puntúa aparte del a). Elegí una escala cómoda (por ejemplo 1 cm de hoja = 5 cm reales), <b>escribila</b> y respetala: si f = 10, x = 30 y x′ = 15, el objeto tiene que quedar al doble de distancia que la imagen y al triple que el foco. → <b>Las otras:</b> (A) aclarar que no está a escala no cambia lo que pide la consigna: el enunciado dice literalmente \"a escala\"; (B) el a) y el b) se corrigen por separado, así que uno no cubre al otro; (D) no existe ninguna regla de \"medio punto automático\"."},
 
   {st: 'La imagen del problema resultó VIRTUAL. ¿Cómo se dibuja?',
-   opts: ['Se trazan las prolongaciones de los rayos hacia atrás en línea de trazos, y la imagen se marca donde se cortan esas prolongaciones.',
-          'Los rayos reflejados se cortan detrás del espejo y se dibujan en línea llena hasta ahí.',
-          'No se dibuja nada, porque una imagen virtual no existe.',
-          'Se dibuja igual que una imagen real, solo que más chica.'],
+   opts: ["Se trazan las prolongaciones de los rayos hacia atrás, en trazos, y la imagen se marca donde se cortan.", "Los rayos reflejados se cortan detrás del espejo y se dibujan en línea llena hasta el punto donde se marca la imagen.", "No se dibuja la imagen, porque una imagen virtual no existe y sólo se marca el objeto con sus rayos.", "Se dibuja igual que una imagen real, con los rayos en línea llena que pasan por ella, sólo que más chica."],
    c: 0,
-   ex: 'Cuando la imagen es virtual los rayos reales <b>divergen y nunca se cortan</b>: lo que se corta son sus prolongaciones. Esas prolongaciones van en <b>línea de trazos</b> (y solo ahí) y la flecha de la imagen se marca como virtual. Es lo que pasa en el espejo convexo, en la lupa del 2010 y en la divergente del 2011. → Por qué las otras: dibujar en línea llena detrás del espejo dice que la luz pasa por ahí, y no pasa (por eso no se puede proyectar sobre una pantalla); "no existe" es falso, la imagen se ve perfectamente, lo que no se puede es recogerla; y dibujarla como real borra justamente la información que se está evaluando.'},
+   ex: "Cuando la imagen es virtual los rayos reales <b>divergen y nunca se cortan</b>: lo que se corta son sus prolongaciones. Esas prolongaciones van en <b>línea de trazos</b> (y solo ahí) y la flecha de la imagen se marca como virtual. Es lo que pasa en el espejo convexo, en la lupa del 2010 y en la divergente del 2011. → <b>Las otras:</b> (B) dibujar en línea llena detrás del espejo dice que la luz pasa por ahí, y no pasa (por eso no se puede proyectar sobre una pantalla); (C) \"no existe\" es falso, la imagen se ve perfectamente, lo que no se puede es recogerla; (D) dibujarla como real, con rayos llenos que pasan por ella, borra justamente la información que se está evaluando."},
 
   {st: 'Calculaste A = −4 en el inciso a), pero en el dibujo del b) pusiste la imagen derecha y del mismo tamaño que el objeto. ¿Qué consecuencia tiene?',
-   opts: ['Ninguna: el inciso a) ya está resuelto y puntúa aparte.',
-          'El dibujo manda, así que hay que rehacer el a).',
-          'Se compensa si aclarás la escala usada.',
-          'El dibujo contradice la cuenta (con A = −4 la imagen va invertida y 4 veces más alta) y esa incoherencia hace perder los dos incisos.'],
+   opts: ["Ninguna: el inciso a) ya está resuelto y el b) puntúa aparte, así que el dibujo no afecta la nota del a).", "El dibujo manda sobre la cuenta, así que hay que rehacer el inciso a) con A = +1 para que coincidan.", "Se compensa si aclarás la escala usada, porque con la escala el tamaño relativo queda justificado.", "El dibujo contradice la cuenta (con A = −4 va invertida y 4 veces más alta) y hace perder puntos."],
    c: 3,
-   ex: 'El punto 6 de lo que se puntúa del dibujo es justamente que <b>coincida con la cuenta</b>: signo del aumento (invertida o derecha), tamaño relativo y lado en el que queda la imagen. Un dibujo que contradice el a) le dice al corrector que no entendiste tu propio resultado. Usalo al revés: el dibujo es tu control de calidad del a). → Por qué las otras: el b) puntúa aparte pero no de forma independiente del contenido; el dibujo no "manda" sobre la cuenta, los dos tienen que decir lo mismo; y la escala es otro requisito distinto, no compensa una imagen dibujada al revés.'}
+   ex: "El punto 6 de lo que se puntúa del dibujo es justamente que <b>coincida con la cuenta</b>: signo del aumento (invertida o derecha), tamaño relativo y lado en el que queda la imagen. Un dibujo que contradice el a) le dice al corrector que no entendiste tu propio resultado, y esa incoherencia hace perder los dos incisos. Usalo al revés: el dibujo es tu control de calidad del a). → <b>Las otras:</b> (A) el b) puntúa aparte pero no de forma independiente del contenido; (B) el dibujo no \"manda\" sobre la cuenta, los dos tienen que decir lo mismo, y A = −4 es el resultado correcto; (C) la escala es otro requisito distinto, no compensa una imagen dibujada al revés."}
 ]);
 
 /* ============ UNIDAD 5 · PRISMA, LÁMINA Y EJERCICIOS DE DISEÑO ============ */
@@ -234,12 +216,9 @@ registerReveals('fisica1-utn-optica', '5', [
 
 registerExercises('fisica1-utn-optica', '5', [
   {st: 'Un rayo entra en una lámina de caras paralelas con α = 45° respecto de la normal. ¿Cómo sale por la otra cara?',
-   opts: ['Desviado un ángulo α − β respecto de la dirección incidente.',
-          'Paralelo al rayo incidente, pero corrido lateralmente una distancia d.',
-          'Perpendicular a la cara de salida.',
-          'No sale: se refleja totalmente adentro.'],
+   opts: ["Desviado un ángulo α − β respecto de la dirección incidente, por la refracción en las dos caras.", "Paralelo al rayo incidente, con el mismo ángulo α, pero corrido una distancia d.", "Perpendicular a la cara de salida, porque el rayo se endereza al volver al aire libre.", "No sale: se refleja totalmente adentro porque el ángulo interno supera el ángulo límite."],
    c: 1,
-   ex: 'Las dos caras son <b>paralelas</b>, así que la normal de salida tiene la misma dirección que la de entrada: Snell aplicado dos veces devuelve el rayo con el mismo ángulo α con el que entró. <b>No hay desviación angular neta</b>; lo único que cambia es la <b>posición</b>, y ese corrimiento perpendicular es la d que te piden. → Por qué las otras: α − β es el ángulo que usa la fórmula del corrimiento, no la desviación de salida; "perpendicular a la cara" sería el caso de incidencia normal (α = 0), otro problema; y no hay reflexión total porque adentro el rayo viaja a β = 28,1°, muy por debajo del ángulo límite de 41,8°.'},
+   ex: "Las dos caras son <b>paralelas</b>, así que la normal de salida tiene la misma dirección que la de entrada: Snell aplicado dos veces devuelve el rayo con el mismo ángulo α con el que entró. <b>No hay desviación angular neta</b>; lo único que cambia es la <b>posición</b>, y ese corrimiento perpendicular es la d que te piden. → <b>Las otras:</b> (A) α − β es el ángulo que usa la fórmula del corrimiento, no la desviación de salida; (C) \"perpendicular a la cara\" sería el caso de incidencia normal (α = 0), otro problema; (D) no hay reflexión total porque adentro el rayo viaja a β = 28,1°, muy por debajo del ángulo límite de 41,8°."},
 
   {st: 'Ley de Snell con aire (n₁ = 1), α = 45° y una lámina de n = 1,5. ¿Cuánto vale el ángulo β dentro del vidrio?',
    opts: ['30°', '28,1°', '41,8°', '45°, igual que el de entrada.'],
@@ -252,12 +231,9 @@ registerExercises('fisica1-utn-optica', '5', [
    ex: 'El espesor <b>e se mide perpendicular a las caras</b>; el rayo entra oblicuo, así que recorre la hipotenusa de un triángulo cuyo cateto adyacente al ángulo β es e: <b>L = e / cos β</b>, siempre <b>mayor</b> que el espesor. De ahí sale d = L·sen(α − β) = e·sen(α − β)/cos β. → Por qué las otras: L = e solo valdría con incidencia normal; e·cos β es <b>menor</b> que e, imposible para un camino oblicuo; y e·sen β no es ningún segmento del dibujo: el corrimiento del rayo paralelo a las caras es L·sen β = <b>e·tan β</b>, y e·sen β queda incluso <b>menor</b> que e, imposible para la hipotenusa.'},
 
   {st: 'Un dentista quiere una imagen derecha y 4 veces mayor con el espejo a 1,5 cm del diente (final del 12/12/23). Antes de calcular nada, ¿qué espejo puede ser?',
-   opts: ['Convexo, porque los convexos dan imágenes derechas.',
-          'Cóncavo, con el diente dentro del foco: imagen virtual, derecha y ampliada.',
-          'Plano, porque solo un plano da imágenes derechas del mismo lado.',
-          'Divergente de f = −2 cm.'],
+   opts: ["Convexo, con el diente cerca: imagen virtual, derecha y ampliada.", "Cóncavo, con el diente dentro del foco: imagen virtual, derecha y ampliada.", "Cóncavo, con el diente fuera del foco: imagen real, derecha y ampliada.", "Plano, con el diente a 1,5 cm: imagen virtual, derecha y ampliada 4 veces."],
    c: 1,
-   ex: 'Derecha + ampliada + objeto real solo lo consigue un <b>cóncavo con el objeto dentro del foco</b> (zona ③), que da imagen virtual. Y las cuentas lo confirman: x′ = −6 cm, f = +2 cm, R = 4 cm, con el diente a 1,5 cm &lt; f = 2 cm ✓. → Por qué las otras: el convexo da derechas, sí, pero <b>siempre menores</b>, nunca 4 veces mayores; el plano da imágenes derechas pero <b>del mismo tamaño</b> (A = +1); y "divergente de f = −2 cm" es la descripción de un convexo, con el signo de f al revés del que sale de la cuenta.'},
+   ex: "Derecha + ampliada + objeto real solo lo consigue un <b>cóncavo con el objeto dentro del foco</b> (zona ③), que da imagen virtual. Y las cuentas lo confirman: x′ = −6 cm, f = +2 cm, R = 4 cm, con el diente a 1,5 cm &lt; f = 2 cm ✓. → <b>Las otras:</b> (A) el convexo da imágenes derechas, sí, pero <b>siempre menores</b>, nunca 4 veces mayores; (C) un cóncavo con el objeto fuera del foco da imagen real, pero <b>invertida</b>, nunca derecha; (D) el plano da imágenes derechas pero <b>del mismo tamaño</b> (A = +1)."},
 
   {st: 'Espejo que debe proyectar sobre una pantalla una imagen del triple de tamaño, con la pantalla a 2 m del objeto. ¿Cuáles son las dos ecuaciones correctas?',
    opts: ['A = +3 y x + x′ = 2 m',
@@ -268,10 +244,7 @@ registerExercises('fisica1-utn-optica', '5', [
    ex: 'Pantalla ⟹ imagen real ⟹ <b>invertida</b> ⟹ A = <b>−3</b>; y la separación objeto-imagen en esta convención es siempre <b>|x − x′|</b>. Con x′ = 3x queda 2x = 2 m ⟹ x = 1 m, x′ = 3 m y f = +0,75 m: espejo cóncavo. → Por qué las otras: A = +3 supone imagen derecha, imposible en una imagen proyectada; y x + x′ = 2 m es la trampa nº 3: te daría 4x = 2 m ⟹ x = 0,5 m, x′ = 1,5 m y una f distinta, con todo el problema mal aunque las cuentas siguientes estén prolijas.'},
 
   {st: '¿Podría un espejo CONVEXO proyectar sobre una pantalla una imagen ampliada de un objeto real?',
-   opts: ['Sí, si el objeto está muy cerca del vértice.',
-          'Sí, si el radio es lo bastante grande.',
-          'Solo si la pantalla se pone detrás del espejo.',
-          'No: con objeto real un convexo da siempre imagen virtual, derecha y menor, así que ni proyecta ni agranda.'],
+   opts: ["Sí, si el objeto está muy cerca del vértice, porque ahí la imagen sale real y mucho mayor.", "Sí, si el radio de curvatura es lo bastante grande, porque entonces se comporta como un cóncavo.", "Sólo si la pantalla se pone detrás del espejo, que es donde se forma la imagen.", "No: con objeto real da siempre imagen virtual, derecha y menor, sin proyectar nada."],
    c: 3,
-   ex: 'Es el razonamiento que te ahorra la mitad del problema del final: como <b>f &lt; 0</b> y x &gt; 0, la ecuación del espejo obliga a x′ &lt; 0 para cualquier posición del objeto, o sea imagen <b>siempre virtual</b> (detrás), derecha y reducida. Ninguna pantalla puede recoger eso. Por eso, si el enunciado habla de proyectar y ampliar, el espejo tiene que ser cóncavo, y lo confirmás con el signo de f al final. → Por qué las otras: acercar el objeto o agrandar el radio cambia <b>cuánto</b> mide la imagen, pero nunca su carácter virtual; y poner la pantalla detrás del espejo no sirve, porque ahí no llega luz: la imagen virtual se ve, no se recoge.'}
+   ex: "Es el razonamiento que te ahorra la mitad del problema del final: como <b>f &lt; 0</b> y x &gt; 0, la ecuación del espejo obliga a x′ &lt; 0 para cualquier posición del objeto, o sea imagen <b>siempre virtual</b> (detrás), derecha y reducida. Ninguna pantalla puede recoger eso. Por eso, si el enunciado habla de proyectar y ampliar, el espejo tiene que ser cóncavo, y lo confirmás con el signo de f al final. → <b>Las otras:</b> (A) y (B) acercar el objeto o agrandar el radio cambia <b>cuánto</b> mide la imagen, pero nunca su carácter virtual, y el signo de f no cambia con el radio; (C) poner la pantalla detrás del espejo no sirve, porque ahí no llega luz: la imagen virtual se ve, no se recoge."}
 ]);
