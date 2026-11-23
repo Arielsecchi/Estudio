@@ -48,40 +48,20 @@ registerExercises('fisica1-utn-simulacros', '1', [
    ex: 'La grilla se llena <b>problema por problema</b> con una letra (M, R, B), no con puntos parciales que se suman. Tres “B” y tres casilleros vacíos aprueban. → Por qué las otras: la <b>a</b> es exactamente lo que hizo el alumno del 2/3/2023, con grilla <b>R · R · B · M · vacío · vacío</b> y <b>NOTA 3</b>: cuatro problemas empezados, uno solo bien; el del 27/2/2025 puso <b>B · B · B · B · B</b> y aprobó; la <b>c</b> es el criterio de los <i>parciales</i> de la cátedra (que en 2013 llegó a exigir “50% de cada problema”), no el del final; la <b>d</b> inventa una obligatoriedad: los seis problemas son sueltos y numerados sin jerarquía, elegís vos.'},
 
   {st: 'De estas cuatro fórmulas, ¿cuál <b>no</b> aparece nunca impresa en las hojas de final que tenemos, y por lo tanto tenés que llevarla de memoria?',
-   opts: [
-     'I<sub>CM</sub> = mR²/2 del disco o el cilindro',
-     'I<sub>CM</sub> = mL²/12 de la barra',
-     '<b>I = I<sub>CM</sub> + Md²</b>, el teorema de Steiner',
-     'I<sub>CM</sub> = 2/5·mr² de la esfera maciza'
-   ], c: 2,
-   ex: 'Los tres momentos de inercia aparecen impresos: el del disco en seis finales distintos, el de la barra en el encabezado del 2/3/23 y el de la esfera en el problema 1 del final “s/f (esfera)”. <b>Steiner no está en ninguna hoja</b>, y sin él el péndulo físico del 2/3/2023 (barra de 2 m con un disco a 1,67 m del eje) es irresoluble. Escribilo en el margen apenas te den la hoja. → Por qué las otras: las tres son datos que la cátedra regala justamente porque no le interesa que memorices integrales; lo que le interesa es que sepas <b>trasladar</b> un momento de inercia a otro eje.'},
+   opts: ["I<sub>CM</sub> = mR²/2, del disco o del cilindro macizo que gira por su eje", "I<sub>CM</sub> = mL²/12, de la barra delgada que gira por su centro", "I = I<sub>CM</sub> + Md², el teorema de Steiner de los ejes paralelos", "I<sub>CM</sub> = 2/5·mr², de la esfera maciza que gira por su diámetro"], c: 2,
+   ex: "Los tres momentos de inercia aparecen impresos: el del disco en seis finales distintos, el de la barra en el encabezado del 2/3/23 y el de la esfera en el problema 1 del final “s/f (esfera)”. <b>Steiner no está en ninguna hoja</b>, y sin él el péndulo físico del 2/3/2023 (barra de 2 m con un disco a 1,67 m del eje) es irresoluble. Escribilo en el margen apenas te den la hoja. → <b>Las otras:</b> (A), (B) y (D) son datos que la cátedra regala justamente porque no le interesa que memorices integrales: el disco o cilindro, la barra y la esfera aparecen impresos; lo que le interesa es que sepas <b>trasladar</b> un momento de inercia a otro eje."},
 
   {st: 'Mirás la hoja de un vistazo: un problema habla de un témpano que flota, otro de un disco con una cupla que sube un plano inclinado, otro de un gráfico v-t y otro de una polea con masa. ¿Por cuál arrancás?',
-   opts: [
-     'Por el 1, siempre, para no perder el hilo del examen',
-     'Por el del disco con la cupla, porque el cuerpo rígido es lo que más peso tiene',
-     '<b>Por el del témpano y después por el del gráfico</b>: son los dos más cortos y valen lo mismo que los otros',
-     'Por el de la polea con masa, para sacarte de encima el más difícil mientras estás fresca'
-   ], c: 2,
-   ex: 'Los cuatro problemas valen <b>lo mismo</b>: un casillero cada uno. Los de fluidos reales se cierran con dos ecuaciones (“¿qué volumen tiene el témpano?”, “¿cuántos troncos necesitan?”) y el gráfico v-t se resuelve <b>contando áreas</b>. Sacás dos casilleros en quince minutos y te quedás con todo el tiempo para los caros. → Por qué las otras: la <b>a</b> es la estrategia que produjo el NOTA 3 del 2/3/23; la <b>b</b> confunde “tema importante” con “vale más puntos”: el rígido aparece en los doce finales, pero cada problema sigue siendo un casillero; la <b>d</b> gasta la mejor media hora en un problema de tres cuerpos con vínculo cinemático que podés perder igual.'},
+   opts: ["Por el 1, porque respetar el orden impreso te ayuda a no perder el hilo del examen", "Por el del disco con la cupla, porque el cuerpo rígido es lo que más puntos concentra", "Por el del témpano y después por el del gráfico, porque son los dos más cortos y valen lo mismo", "Por el de la polea con masa, porque conviene sacarte de encima el más difícil mientras estás fresca"], c: 2,
+   ex: "Los cuatro problemas valen <b>lo mismo</b>: un casillero cada uno. Los de fluidos reales se cierran con dos ecuaciones (“¿qué volumen tiene el témpano?”, “¿cuántos troncos necesitan?”) y el gráfico v-t se resuelve <b>contando áreas</b>. Sacás dos casilleros en quince minutos y te quedás con todo el tiempo para los caros. → <b>Las otras:</b> (A) es la estrategia que produjo el NOTA 3 del 2/3/23; (B) confunde “tema importante” con “vale más puntos”: el rígido aparece en los doce finales, pero cada problema sigue siendo un casillero; (D) gasta la mejor media hora en un problema de tres cuerpos con vínculo cinemático que podés perder igual."},
 
   {st: 'En el problema 1 del 14/02/24 te dan μ<sub>c</sub> = 0,1 y μ<sub>e</sub> = 0,6, resolvés todo con el 0,6 y el 0,1 no entra en ninguna cuenta. ¿Qué significa?',
-   opts: [
-     'Que te equivocaste de planteo: si te dan un dato es porque hay que usarlo',
-     'Que hay que promediar los dos coeficientes y usar 0,35',
-     'Que el problema tiene dos partes y te falta hacer la segunda',
-     '<b>Que es un distractor deliberado</b>: el bloque nunca desliza, así que sólo interviene el estático'
-   ], c: 3,
-   ex: 'La cátedra avisa que <b>puede haber datos que no interesen</b>, y los pone. Los casos que ya vimos: μ<sub>c</sub> cuando el cuerpo no desliza (14/2/24 P1), el radio R que se cancela (14/2/24 P3), el radio de la polea en todo problema de energía, la masa del cilindro en rodadura por energía. → Por qué las otras: la <b>a</b> es la regla que te hace perder veinte minutos buscando dónde meter un número que no va; la <b>b</b> es física inventada: μ<sub>e</sub> y μ<sub>c</sub> describen situaciones distintas y no se promedian nunca; la <b>c</b> te hace inventar incisos que el enunciado no pide. Regla operativa: <b>que sobre un dato no es señal de error; que falte, sí</b>.'},
+   opts: ["Que te equivocaste de planteo, porque si te dan un dato es porque hay que usarlo", "Que hay que promediar los dos coeficientes y usar 0,35, porque los dos describen el rozamiento", "Que el problema tiene dos partes y te falta la segunda, porque en ella el bloque ya desliza", "Que es un dato de más puesto a propósito, porque el bloque no desliza y sólo entra el estático"], c: 3,
+   ex: "La cátedra avisa que <b>puede haber datos que no interesen</b>, y los pone. Los casos que ya vimos: μ<sub>c</sub> cuando el cuerpo no desliza (14/2/24 P1), el radio R que se cancela (14/2/24 P3), el radio de la polea en todo problema de energía, la masa del cilindro en rodadura por energía. → <b>Las otras:</b> (A) es la regla que te hace perder veinte minutos buscando dónde meter un número que no va; (B) es física inventada: μ<sub>e</sub> y μ<sub>c</sub> describen situaciones distintas y no se promedian nunca; (C) te hace inventar incisos que el enunciado no pide. Regla operativa: <b>que sobre un dato no es señal de error; que falte, sí</b>."},
 
   {st: 'Faltan dos minutos y tenés el problema de rígido planteado pero sin terminar la cuenta. ¿Qué te conviene escribir?',
-   opts: [
-     '<b>El sistema de referencia, el DCL completo y las hipótesis</b> (“cuerda ideal ⟹ misma tensión”, “rueda sin deslizar ⟹ v<sub>CM</sub> = ωR”)',
-     'El número que te parece más probable, aunque no lo hayas calculado',
-     'Una nota al corrector explicando que te faltó tiempo',
-     'Nada: si no llegaste al resultado el problema no suma'
-   ], c: 0,
-   ex: 'El enunciado de la cátedra <b>exige y puntúa aparte</b> declarar el sistema de referencia, hacer el DCL y decir las hipótesis. Un planteo bien fundamentado con la aritmética a medias se corrige mucho mejor que un número solo, y a veces es la diferencia entre una M y una R. → Por qué las otras: la <b>b</b> es lo peor que podés hacer: un número sin planteo no se puede corregir y delata que adivinaste; la <b>c</b> no cambia nada, el corrector ya ve que quedó incompleto; la <b>d</b> es falso: la corrección es por criterio, no por resultado final, y por eso existe la letra “R” (regular) en la grilla.'}
+   opts: ["El sistema de referencia, el DCL completo y las hipótesis que usaste en el planteo", "El número que te parece más probable, para que al menos haya un resultado en el casillero", "Una nota al corrector que explique que te faltó tiempo y qué pensabas hacer en el último paso", "Nada, para no dejar escrito un planteo incompleto que después te reste puntos en la corrección"], c: 0,
+   ex: "El enunciado de la cátedra <b>exige y puntúa aparte</b> declarar el sistema de referencia, hacer el DCL y decir las hipótesis (“cuerda ideal ⟹ misma tensión”, “rueda sin deslizar ⟹ v<sub>CM</sub> = ωR”). Un planteo bien fundamentado con la aritmética a medias se corrige mucho mejor que un número solo, y a veces es la diferencia entre una M y una R. → <b>Las otras:</b> (B) es lo peor que podés hacer: un número sin planteo no se puede corregir y delata que adivinaste; (C) no cambia nada, el corrector ya ve que quedó incompleto; (D) es falso: la corrección es por criterio, no por resultado final, y por eso existe la letra “R” (regular) en la grilla."}
 
 ]);
 
@@ -118,13 +98,8 @@ registerReveals('fisica1-utn-simulacros', '2', [
 registerExercises('fisica1-utn-simulacros', '2', [
 
   {st: 'Tenés el simulacro 1 delante y quince minutos para el primer casillero. ¿Cuál atacás primero?',
-   opts: [
-     'El 4 (cilindro + polea con masa), que es el que más practicaste',
-     'El 1 (tiro horizontal), porque está numerado primero',
-     '<b>El 6 (tanque presurizado)</b>: Bernoulli más tiro horizontal, dos ecuaciones cortas y cerrás un problema entero',
-     'El 5 (choque + resorte), porque el choque es lo más fácil que hay'
-   ], c: 2,
-   ex: 'El 6 se resuelve con <b>una</b> ecuación de Bernoulli (que además se simplifica sola porque v en la superficie es cero) y <b>una</b> caída libre. Diez minutos, casillero cerrado. → Por qué las otras: la <b>a</b> es el problema más caro de la hoja: tres cuerpos, dos tensiones distintas y dos vínculos cinemáticos; la <b>b</b> es la estrategia del NOTA 3; la <b>d</b> no está mal como segunda opción, pero el 5 tiene dos etapas y dos leyes distintas, mientras que el 6 tiene menos donde equivocarse.'},
+   opts: ["El 4 (cilindro + polea con masa), porque es el que más practicaste en las guías de la materia", "El 1 (tiro horizontal), porque está numerado primero y conviene seguir el orden de la hoja", "El 6 (tanque presurizado), porque son dos ecuaciones cortas y cerrás un problema", "El 5 (choque + resorte), porque el choque es lo más fácil de toda la hoja"], c: 2,
+   ex: "El 6 es Bernoulli más tiro horizontal y se resuelve con <b>una</b> ecuación de Bernoulli (que además se simplifica sola porque v en la superficie es cero) y <b>una</b> caída libre. Diez minutos, casillero cerrado. → <b>Las otras:</b> (A) es el problema más caro de la hoja: tres cuerpos, dos tensiones distintas y dos vínculos cinemáticos; (B) es la estrategia del NOTA 3; (D) el choque no es lo más fácil de la hoja: el 5 tiene dos etapas y dos leyes distintas (p y después energía), mientras que el 6 se cierra con Bernoulli y una caída."},
 
   {st: 'En el problema 2 (bloque sobre el plano con F horizontal) te dan μ<sub>e</sub> = 0,5 y μ<sub>c</sub> = 0,3. ¿Cómo entran en el planteo?',
    opts: [
@@ -136,22 +111,12 @@ registerExercises('fisica1-utn-simulacros', '2', [
    ex: 'El problema pide la fuerza <b>máxima antes</b> de que deslice: el bloque nunca llega a moverse, así que el rozamiento es estático todo el tiempo y en el límite vale f = μ<sub>e</sub>N. Y ojo con la normal: como F es horizontal y aprieta contra el plano, <b>N = mg·cosα + F·senα</b>, no mg·cosα. → Por qué las otras: la <b>a</b> confunde “a punto de deslizar” (donde el rozamiento estático llega a su máximo) con “deslizando”; la <b>c</b> inventa una repartición de coeficientes que no existe: hay un único coeficiente actuando por vez; la <b>d</b> promedia coeficientes que describen situaciones físicas distintas.'},
 
   {st: 'En el problema 4, la cuerda sale por el <b>punto más alto</b> del cilindro que rueda. ¿Cuál es el vínculo cinemático correcto?',
-   opts: [
-     'a<sub>M</sub> = a<sub>CM</sub>, porque la cuerda es inextensible',
-     'a<sub>M</sub> = a<sub>CM</sub>/2, porque el punto de contacto está quieto',
-     'a<sub>M</sub> = a<sub>CM</sub>·R, para pasar de lineal a angular',
-     '<b>a<sub>M</sub> = 2·a<sub>CM</sub></b>, porque el punto más alto de un cuerpo que rueda tiene el doble de velocidad que el centro'
-   ], c: 3,
-   ex: 'En rodadura sin deslizamiento el punto de contacto tiene velocidad cero, el centro tiene v<sub>CM</sub> y el punto más alto tiene <b>2v<sub>CM</sub></b>: es una rotación pura alrededor del contacto, y el punto alto está al doble de distancia del eje instantáneo. La cuerda se desenrolla desde ahí, así que el cuerpo colgante baja al doble de rápido. → Por qué las otras: la <b>a</b> es exactamente el error que hace fallar el problema y también el problema 3 del 14/02/24; la <b>b</b> invierte el factor; la <b>c</b> mezcla unidades: a<sub>CM</sub>·R no tiene unidades de aceleración. <b>Regla:</b> si la cuerda saliera del <b>eje</b> del cilindro, ahí sí a<sub>M</sub> = a<sub>CM</sub>.'},
+   opts: ["a<sub>M</sub> = a<sub>CM</sub>, porque la cuerda es inextensible y las dos velocidades coinciden", "a<sub>M</sub> = a<sub>CM</sub>/2, porque el punto de contacto está quieto y el cilindro gira", "a<sub>M</sub> = a<sub>CM</sub>·R, porque hay que pasar de aceleración lineal a angular", "a<sub>M</sub> = 2·a<sub>CM</sub>, porque el punto más alto tiene el doble de velocidad que el centro"], c: 3,
+   ex: "En rodadura sin deslizamiento el punto de contacto tiene velocidad cero, el centro tiene v<sub>CM</sub> y el punto más alto tiene <b>2v<sub>CM</sub></b>: es una rotación pura alrededor del contacto, y el punto alto está al doble de distancia del eje instantáneo. La cuerda se desenrolla desde ahí, así que el cuerpo colgante baja al doble de rápido. → <b>Las otras:</b> (A) es exactamente el error que hace fallar el problema y también el problema 3 del 14/02/24; (B) invierte el factor; (C) mezcla unidades: a<sub>CM</sub>·R no tiene unidades de aceleración. <b>Regla:</b> si la cuerda saliera del <b>eje</b> del cilindro, ahí sí a<sub>M</sub> = a<sub>CM</sub>."},
 
   {st: 'En el problema 5 (choque y después resorte), ¿qué método usás en cada etapa?',
-   opts: [
-     'Energía en las dos etapas, porque no hay rozamiento en ninguna',
-     '<b>Cantidad de movimiento en el choque y energía después</b>: en el choque se pierden 12 J',
-     'Cantidad de movimiento en las dos, porque el resorte es una fuerza interna',
-     'Energía en el choque y cantidad de movimiento en la oscilación'
-   ], c: 1,
-   ex: 'El choque es inelástico: la p se conserva pero la energía cinética <b>no</b> (se perdieron 12 J). Después del choque, m<sub>2</sub> sola con el resorte sin rozamiento sí conserva la energía mecánica, y de ahí sale la amplitud. → Por qué las otras: la <b>a</b> es el error clásico: “no hay rozamiento” no significa que el choque sea elástico, y si aplicás energía al choque te da otra velocidad y toda la segunda parte queda mal; la <b>c</b> no se puede: durante la oscilación el resorte es una fuerza <b>externa</b> sobre m<sub>2</sub> y la p de m<sub>2</sub> cambia todo el tiempo; la <b>d</b> invierte las dos leyes.'},
+   opts: ["Energía en las dos etapas, porque no hay rozamiento en ninguna de las dos", "Cantidad de movimiento en el choque y energía después, porque el choque es inelástico", "Cantidad de movimiento en las dos etapas, porque el resorte es una fuerza interna", "Energía en el choque y cantidad de movimiento después, porque conserva la energía"], c: 1,
+   ex: "El choque es inelástico: la p se conserva pero la energía cinética <b>no</b> (se perdieron 12 J). Después del choque, m<sub>2</sub> sola con el resorte sin rozamiento sí conserva la energía mecánica, y de ahí sale la amplitud. → <b>Las otras:</b> (A) es el error clásico: “no hay rozamiento” no significa que el choque sea elástico, y si aplicás energía al choque te da otra velocidad y toda la segunda parte queda mal; (C) no se puede: durante la oscilación el resorte es una fuerza <b>externa</b> sobre m<sub>2</sub> y la p de m<sub>2</sub> cambia todo el tiempo; (D) invierte las dos leyes."},
 
   {st: 'En el problema 3, después de calcular v<sub>A</sub> desde la dinámica circular, ¿cómo seguís para hallar W<sub>nc</sub>?',
    opts: [
@@ -197,49 +162,24 @@ registerReveals('fisica1-utn-simulacros', '3', [
 registerExercises('fisica1-utn-simulacros', '3', [
 
   {st: 'En el problema 1 del simulacro 2, la soga se acorta y la masa gira más rápido. ¿Qué magnitud se conserva y por qué?',
-   opts: [
-     'La energía cinética, porque la mesa no tiene rozamiento',
-     'La cantidad de movimiento, porque no hay fuerzas externas horizontales',
-     '<b>El momento angular respecto del agujero</b>, porque la tensión es una fuerza central y su torque es nulo',
-     'La velocidad angular, porque nada la frena'
-   ], c: 2,
-   ex: 'La tensión siempre apunta al agujero, así que r y F son paralelos y τ = r × F = 0 respecto de ese punto: <b>L = m·v·r se conserva</b>, y de ahí sale v<sub>f</sub> = v<sub>i</sub>·r<sub>i</sub>/r<sub>f</sub>. → Por qué las otras: la <b>a</b> es falsa aunque no haya rozamiento: la tensión <b>hace trabajo</b> mientras la soga se acorta y la energía cinética pasa de 2,25 J a 9 J; la <b>b</b> es falsa porque la tensión es una fuerza externa sobre m<sub>1</sub> y su p cambia de dirección todo el tiempo; la <b>d</b> es lo opuesto a lo que pasa: ω pasa de 5 a 20 rad/s.'},
+   opts: ["La energía cinética, porque la mesa no tiene rozamiento y nada la disipa mientras la soga se acorta", "La cantidad de movimiento, porque no hay fuerzas externas horizontales que actúen sobre la masa", "El momento angular respecto del agujero, porque la tensión es una fuerza central y su torque es nulo", "La velocidad angular, porque nada la frena mientras la masa gira sobre la mesa sin rozamiento"], c: 2,
+   ex: "La tensión siempre apunta al agujero, así que r y F son paralelos y τ = r × F = 0 respecto de ese punto: <b>L = m·v·r se conserva</b>, y de ahí sale v<sub>f</sub> = v<sub>i</sub>·r<sub>i</sub>/r<sub>f</sub>. → <b>Las otras:</b> (A) es falsa aunque no haya rozamiento: la tensión <b>hace trabajo</b> mientras la soga se acorta y la energía cinética pasa de 2,25 J a 9 J; (B) es falsa porque la tensión es una fuerza externa sobre m<sub>1</sub> y su p cambia de dirección todo el tiempo; (D) es lo opuesto a lo que pasa: ω pasa de 5 a 20 rad/s."},
 
   {st: 'El problema 2 dice “se le aplica un par de fuerzas de módulo F = 24 N”. ¿Cómo entra ese par en las ecuaciones?',
-   opts: [
-     'Como una fuerza de 48 N hacia arriba del plano en la ecuación de traslación',
-     'Como una fuerza de 24 N y además un momento de 24·R',
-     'Como un momento de F·R = 7,2 N·m, tomado en el centro del disco',
-     '<b>Resultante nula en la traslación y momento M = F·2R = 14,4 N·m</b> en la ecuación de rotación'
-   ], c: 3,
-   ex: 'Un <b>par</b> son dos fuerzas iguales y opuestas aplicadas en los extremos de un diámetro: se cancelan como fuerza, pero su momento vale F por la distancia entre las rectas de acción (2R) y es <b>el mismo respecto de cualquier punto</b>. Por eso la traslación queda gobernada sólo por el rozamiento y el peso, y el par empuja la rotación. → Por qué las otras: la <b>a</b> y la <b>b</b> le inventan resultante a un par, que por definición no la tiene; la <b>c</b> usa R en lugar de 2R y te deja el momento a la mitad.'},
+   opts: ["Como una fuerza de 48 N hacia arriba del plano, que se suma en la ecuación de traslación", "Como una fuerza de 24 N en la traslación y además un momento de 24·R en la rotación", "Como un momento de F·R = 7,2 N·m, tomado respecto del centro del disco en la rotación", "Resultante nula en la traslación y momento M = F·2R = 14,4 N·m en la rotación"], c: 3,
+   ex: "Un <b>par</b> son dos fuerzas iguales y opuestas aplicadas en los extremos de un diámetro: se cancelan como fuerza, pero su momento vale F por la distancia entre las rectas de acción (2R) y es <b>el mismo respecto de cualquier punto</b>. Por eso la traslación queda gobernada sólo por el rozamiento y el peso, y el par empuja la rotación. → <b>Las otras:</b> (A) y (B) le inventan resultante a un par, que por definición no la tiene; (C) usa R en lugar de 2R y te deja el momento a la mitad."},
 
   {st: 'El problema 3 pregunta cuántas pasadas hacen falta para que la altura baje a 0,8 m. ¿Cuál es la forma corta de resolverlo?',
-   opts: [
-     'Plantear la energía en cada pasada por separado y repetir la cuenta hasta llegar',
-     '<b>Ver que cada pasada cuesta siempre lo mismo</b>, Δh = μ<sub>c</sub>·D = 1,2 m, y despejar n de h<sub>i</sub> − n·Δh = h<sub>f</sub>',
-     'Usar la fórmula de una progresión geométrica de razón μ<sub>c</sub>',
-     'Calcular el tiempo total y dividirlo por el período del recorrido'
-   ], c: 1,
-   ex: 'El rozamiento disipa μ<sub>c</sub>·m·g·D en cada cruce, y esa energía dividida por mg da una <b>pérdida de altura constante</b> de 1,2 m por pasada, independiente de la velocidad con que llegue. Entonces 3,2 − 1,2n ≤ 0,8 ⟹ n = 2, en un renglón. → Por qué las otras: la <b>a</b> llega al mismo resultado pero te cuesta diez minutos y tres oportunidades de equivocarte; la <b>c</b> es falsa: la pérdida es <b>aditiva</b> (siempre 1,2 m), no proporcional a la altura; la <b>d</b> mezcla un problema de energía con uno de cinemática que nadie pidió.'},
+   opts: ["Plantear la energía en cada pasada por separado y repetir la cuenta hasta llegar a 0,8 m", "Ver que cada pasada cuesta la misma altura, Δh = μ<sub>c</sub>·D = 1,2 m, y despejar n sin iterar", "Usar la fórmula de una progresión geométrica, porque en cada pasada la altura se multiplica por μ<sub>c</sub>", "Calcular el tiempo total del recorrido y dividirlo por el período de cada pasada"], c: 1,
+   ex: "El rozamiento disipa μ<sub>c</sub>·m·g·D en cada cruce, y esa energía dividida por mg da una <b>pérdida de altura constante</b> de 1,2 m por pasada, independiente de la velocidad con que llegue. Entonces h<sub>i</sub> − n·Δh = h<sub>f</sub>, o sea 3,2 − 1,2n ≤ 0,8 ⟹ n = 2, en un renglón. → <b>Las otras:</b> (A) llega al mismo resultado pero te cuesta diez minutos y tres oportunidades de equivocarte; (C) es falsa: la pérdida es <b>aditiva</b> (siempre 1,2 m), no proporcional a la altura; (D) mezcla un problema de energía con uno de cinemática que nadie pidió."},
 
   {st: 'Para el péndulo físico del problema 5, ¿qué hace falta antes de poder usar T = 2π√(I/(Mgd))?',
-   opts: [
-     'Sumar los dos momentos de inercia tal como vienen en la hoja de datos',
-     'Calcular sólo el centro de masa, porque los I<sub>CM</sub> ya te los dan',
-     'Convertir el conjunto a un péndulo simple equivalente de longitud L = 1,5 m',
-     '<b>Llevar los dos I<sub>CM</sub> al eje de suspensión con Steiner</b> y calcular el centro de masa del conjunto'
-   ], c: 3,
-   ex: 'Los datos impresos son <b>I respecto del centro de masa de cada pieza</b>, y la fórmula del período necesita I respecto del <b>eje de suspensión</b>. Hay que aplicar I = I<sub>CM</sub> + Md² a la barra (0,75 kg·m²) y al disco (2,92 kg·m²) y recién ahí sumarlos; además hace falta d<sub>CM</sub> = 1,05 m del conjunto. → Por qué las otras: la <b>a</b> suma momentos referidos a ejes distintos, que es como sumar peras con manzanas: daría I = 0,2275 kg·m² y un período absurdo (T ≈ 0,53 s en lugar de 2,14 s); la <b>b</b> se olvida de la mitad del trabajo; la <b>c</b> no existe como atajo: la longitud equivalente es L<sub>eq</sub> = I<sub>O</sub>/(M·d<sub>CM</sub>) = 1,17 m, que hay que calcular igual.'},
+   opts: ["Sumar los dos I<sub>CM</sub> tal como vienen en la hoja de datos, porque ya están referidos al conjunto", "Calcular sólo el centro de masa del conjunto, porque los I<sub>CM</sub> ya te los dan en la hoja", "Convertir el conjunto en un péndulo simple equivalente de longitud L = 1,5 m y usar T = 2π√(L/g)", "Llevar los dos I<sub>CM</sub> al eje de suspensión con Steiner y calcular el centro de masa del conjunto"], c: 3,
+   ex: "Los datos impresos son <b>I respecto del centro de masa de cada pieza</b>, y la fórmula del período necesita I respecto del <b>eje de suspensión</b>. Hay que aplicar I = I<sub>CM</sub> + Md² a la barra (0,75 kg·m²) y al disco (2,92 kg·m²) y recién ahí sumarlos; además hace falta d<sub>CM</sub> = 1,05 m del conjunto. → <b>Las otras:</b> (A) suma momentos referidos a ejes distintos, que es como sumar peras con manzanas: daría I = 0,2275 kg·m² y un período absurdo (T ≈ 0,53 s en lugar de 2,14 s); (B) se olvida de la mitad del trabajo; (C) no existe como atajo: la longitud equivalente es L<sub>eq</sub> = I<sub>O</sub>/(M·d<sub>CM</sub>) = 1,17 m, que hay que calcular igual."},
 
   {st: 'Con el simulacro 2 sobre la mesa, ¿en qué orden lo hacés?',
-   opts: [
-     '<b>6 (balsa) → 3 (patinador) → 1 (momento angular) → 4 (choque 2D) → 2 (cupla) → 5 (péndulo físico)</b>',
-     '1 → 2 → 3 → 4 → 5 → 6, respetando la numeración impresa',
-     '5 y 2 primero, que son los de rígido y valen más',
-     '4 primero porque el choque plástico es siempre de dos renglones'
-   ], c: 0,
-   ex: 'Arrancás por los dos más cortos (la balsa se cierra con una ecuación; el patinador, con una resta repetida), seguís con los dos de dificultad media (momento angular es una igualdad; el choque 2D son dos ecuaciones de p más una caída) y dejás para el final los dos caros: la cupla con la ecuación de torques y el péndulo físico con doble Steiner. Con los tres primeros ya tenés el 50%. → Por qué las otras: la <b>b</b> es la estrategia del NOTA 3 del 2/3/23; la <b>c</b> gasta la mejor hora en los dos problemas más largos; la <b>d</b> subestima el 4: es un choque en <b>dos dimensiones</b> con una etapa de caída libre antes y un tiro oblicuo después, no es de dos renglones.'}
+   opts: ["6 → 3 → 1 → 4 → 2 → 5, empezando por los más cortos y dejando para el final los dos de rígido", "1 → 2 → 3 → 4 → 5 → 6, respetando la numeración impresa de la hoja para no perder el hilo", "5 → 2 → 4 → 1 → 3 → 6, arrancando por los de rígido porque son los que más valen", "4 → 1 → 6 → 3 → 2 → 5, arrancando por el choque plástico porque es siempre de dos renglones"], c: 0,
+   ex: "Arrancás por los dos más cortos (la balsa se cierra con una ecuación; el patinador, con una resta repetida), seguís con los dos de dificultad media (momento angular es una igualdad; el choque 2D son dos ecuaciones de p más una caída) y dejás para el final los dos caros: la cupla con la ecuación de torques y el péndulo físico con doble Steiner. Con los tres primeros ya tenés el 50%. → <b>Las otras:</b> (B) es la estrategia del NOTA 3 del 2/3/23; (C) gasta la mejor hora en los dos problemas más largos; (D) subestima el 4: es un choque en <b>dos dimensiones</b> con una etapa de caída libre antes y un tiro oblicuo después, no es de dos renglones."}
 
 ]);
 
@@ -351,13 +291,8 @@ registerReveals('fisica1-utn-simulacros', '4', [
 registerExercises('fisica1-utn-simulacros', '4', [
 
   {st: 'Te preguntan qué pasa con el empuje al hundir más un cuerpo que ya está totalmente sumergido. ¿Cuál de estas respuestas está <b>completa</b>?',
-   opts: [
-     '“El empuje no cambia”',
-     '“El empuje no cambia porque el agua es incompresible”',
-     '<b>“No cambia porque E = ρ·g·V<sub>desplazado</sub> y, ya totalmente sumergido, V<sub>desplazado</sub> es el volumen del cuerpo; por presiones, E sale de la <i>diferencia</i> entre la cara de abajo y la de arriba, y esa diferencia no depende de la profundidad”</b>',
-     '“No cambia porque la presión aumenta igual arriba y abajo”'
-   ], c: 2,
-   ex: 'La consigna de esta unidad no es acertar el sí o el no: es <b>nombrar la ley y decir la hipótesis</b>. La <b>c</b> nombra Arquímedes, escribe la fórmula, dice qué término es el que deja de crecer y da el argumento por presiones. → Por qué las otras: la <b>a</b> es la mitad de la respuesta: acierta y no justifica nada; la <b>b</b> menciona una hipótesis correcta pero secundaria, y no explica por qué el volumen desplazado deja de crecer; la <b>d</b> es el principio del argumento por presiones pero se queda sin decir que lo que produce el empuje es la <b>diferencia</b>, no la presión absoluta.'},
+   opts: ["“El empuje no cambia, porque el cuerpo ya está dentro del agua y lo que haga después no influye en nada”", "“No cambia porque E = ρ·g·V y el agua es incompresible, de modo que su densidad no varía con la profundidad”", "“No cambia porque E = ρ·g·V<sub>desplazado</sub> y, ya totalmente sumergido, V<sub>desplazado</sub> es el volumen del cuerpo y no crece”", "“No cambia porque la presión aumenta igual en la cara de arriba y en la de abajo, y por eso se compensa”"], c: 2,
+   ex: "La consigna de esta unidad no es acertar el sí o el no: es <b>nombrar la ley y decir la hipótesis</b>. La (C) nombra Arquímedes, escribe la fórmula y dice qué término es el que deja de crecer; el argumento completo por presiones agrega que E sale de la <i>diferencia</i> entre la cara de abajo y la de arriba, y esa diferencia no depende de la profundidad. → <b>Las otras:</b> (A) es la mitad de la respuesta: acierta y no justifica nada; (B) menciona una hipótesis correcta pero secundaria, y no explica por qué el volumen desplazado deja de crecer; (D) es el principio del argumento por presiones pero se queda sin decir que lo que produce el empuje es la <b>diferencia</b>, no la presión absoluta."},
 
   {st: 'Una caja cuelga de una cuerda y sube con <b>rapidez constante</b>. Comparada con la caja en reposo, la tensión es…',
    opts: [
@@ -369,22 +304,12 @@ registerExercises('fisica1-utn-simulacros', '4', [
    ex: 'De T − mg = m·a<sub>y</sub> sale T = m(g + a<sub>y</sub>), y con a<sub>y</sub> = 0 queda T = mg tanto en reposo como subiendo parejo. Lo que cambia las fuerzas es la <b>aceleración</b>, nunca la velocidad. → Por qué las otras: la <b>a</b> y la <b>b</b> son la intuición equivocada de que “moverse cuesta fuerza”: es la primera ley la que dice que no; la <b>c</b> confunde la fuerza necesaria para <b>arrancar</b> (donde sí hay aceleración) con la de mantener el movimiento. La misma frase resuelve la pregunta del ascensor (P10). La del auto a potencia constante (P11) es la <b>contracara</b> y conviene no mezclarlas: ahí la rapidez cambia y la fuerza impulsora depende de ella, F = P/v ⟹ a = P/(m·v).'},
 
   {st: '¿Se puede calcular el momento de inercia de un cuerpo tratando toda su masa como concentrada en el centro de masa?',
-   opts: [
-     'Sí, igual que para la traslación y para la energía potencial gravitatoria',
-     '<b>No: daría I = 0 para un eje que pasa por el CM. Hay que usar I = I<sub>CM</sub> + M·d²</b>',
-     'Sí, siempre que el eje no pase por el centro de masa',
-     'Sólo si el cuerpo es homogéneo'
-   ], c: 1,
-   ex: 'I = Σm<sub>i</sub>r<sub>i</sub>² depende de cómo está <b>distribuida</b> la masa respecto del eje. El término M·d² de Steiner sí representa “toda la masa en el CM”, pero hay que sumarle I<sub>CM</sub>, que es exactamente la contribución que la aproximación puntual borra. → Por qué las otras: la <b>a</b> confunde traslación con rotación: para ΣF = M·a<sub>CM</sub> y para U = Mgh<sub>CM</sub> sí vale, para I no; la <b>c</b> es el error más peligroso, porque el M·d² es sólo <b>una parte</b> de I (en el péndulo físico del simulacro 2, olvidarse de I<sub>CM</sub> te cambia el período); la <b>d</b> mezcla homogeneidad con distribución: una barra homogénea tampoco cumple.'},
+   opts: ["Sí: igual que para la traslación y para la energía potencial gravitatoria, que usan la masa en el CM", "No: daría I = 0 para un eje que pasa por el CM, y hay que usar I = I<sub>CM</sub> + M·d² (Steiner, ejes paralelos)", "Sí, siempre que el eje no pase por el centro de masa, porque entonces I = M·d² es todo el momento de inercia", "No, salvo en cuerpos homogéneos, donde la masa concentrada en el CM reproduce la distribución real"], c: 1,
+   ex: "I = Σm<sub>i</sub>r<sub>i</sub>² depende de cómo está <b>distribuida</b> la masa respecto del eje. El término M·d² de Steiner sí representa “toda la masa en el CM”, pero hay que sumarle I<sub>CM</sub>, que es exactamente la contribución que la aproximación puntual borra. → <b>Las otras:</b> (A) confunde traslación con rotación: para ΣF = M·a<sub>CM</sub> y para U = Mgh<sub>CM</sub> sí vale, para I no; (C) es el error más peligroso, porque el M·d² es sólo <b>una parte</b> de I (en el péndulo físico del simulacro 2, olvidarse de I<sub>CM</sub> te cambia el período); (D) mezcla homogeneidad con distribución: una barra homogénea tampoco cumple."},
 
   {st: 'Una respuesta de este banco cita “g = 9,8 m/s²”. En tu final, ¿qué hacés?',
-   opts: [
-     'Usás 9,8 porque es el valor real de la gravedad',
-     'Usás 9,81 para tener más precisión',
-     'Aclarás que tomás 9,8 y seguís',
-     '<b>Usás 10 m/s²: la hoja de FRBA lo imprime en el encabezado</b>, y el 9,8 es de San Rafael'
-   ], c: 3,
-   ex: 'Las dos hojas de tu cátedra que conservan encabezado dicen “Utilice cuando sea necesario |g| = 10 m/s²” y “Para todos los ejercicios use g = 10 m/s²”. Con 10 las cuentas cierran redondas y el corrector espera esos números. → Por qué las otras: la <b>a</b> y la <b>b</b> te dan resultados que no coinciden con la clave de corrección; la <b>c</b> además pierde tiempo aclarando algo que la propia hoja ya resolvió. Lo mismo con sen37° = 0,6 · cos37° = 0,8 · cos30° = 0,866 · ρ<sub>agua</sub> = 1000 kg/m³.'},
+   opts: ["Usás 9,8 m/s², porque es el valor real de la gravedad y resulta más exacto que redondear a 10", "Usás 9,81 m/s², porque la hoja de la cátedra pide la mayor precisión posible en las cuentas", "Aclarás que tomás 9,8 m/s² porque así lo exige el reglamento de exámenes, y seguís", "Usás 10 m/s², porque la hoja de FRBA lo imprime en su encabezado y el 9,8 es de San Rafael"], c: 3,
+   ex: "Las dos hojas de tu cátedra que conservan encabezado dicen “Utilice cuando sea necesario |g| = 10 m/s²” y “Para todos los ejercicios use g = 10 m/s²”. Con 10 las cuentas cierran redondas y el corrector espera esos números. → <b>Las otras:</b> (A) y (B) te dan resultados que no coinciden con la clave de corrección; (C) se apoya en un reglamento que no existe y, además, aclarar 9,8 igual te da resultados que no coinciden con la clave: la propia hoja ya resolvió el valor. Lo mismo con sen37° = 0,6 · cos37° = 0,8 · cos30° = 0,866 · ρ<sub>agua</sub> = 1000 kg/m³."},
 
   {st: 'Tu final de UTN.BA no tiene preguntas conceptuales escritas. Entonces, ¿para qué sirve esta unidad?',
    opts: [
